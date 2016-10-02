@@ -42,34 +42,29 @@
  */
 package com.itextpdf.html2pdf.attach;
 
-import java.util.Stack;
+import com.itextpdf.html2pdf.attach.impl.HtmlTagProcessor;
+import com.itextpdf.html2pdf.attach.impl.ParagraphTagProcessor;
+import com.itextpdf.html2pdf.attach.impl.TableCellProcessor;
+import com.itextpdf.html2pdf.attach.impl.TableRowProcessor;
+import com.itextpdf.html2pdf.attach.impl.TableTagProcessor;
+import com.itextpdf.html2pdf.html.TagConstants;
 
-public class State {
+public class TagProcessorFactory {
 
-    public State() {
-        stack = new Stack<>();
-    }
-
-    private Stack<TagProcessingResult> stack;
-
-    public Stack<TagProcessingResult> getStack() {
-        return stack;
-    }
-
-    public void push(TagProcessingResult element) {
-        stack.push(element);
-    }
-
-    public TagProcessingResult pop() {
-        return stack.pop();
-    }
-
-    public TagProcessingResult top() {
-        return stack.peek();
-    }
-
-    public boolean empty() {
-        return stack.empty();
+    public static ITagProcessor getTagProcessor(String tag) {
+        switch (tag) {
+            case TagConstants.P:
+                return new ParagraphTagProcessor();
+            case TagConstants.HTML:
+                return new HtmlTagProcessor();
+            case TagConstants.TABLE:
+                return new TableTagProcessor();
+            case TagConstants.TD:
+                return new TableCellProcessor();
+            case TagConstants.TR:
+                return new TableRowProcessor();
+        }
+        return null;
     }
 
 }

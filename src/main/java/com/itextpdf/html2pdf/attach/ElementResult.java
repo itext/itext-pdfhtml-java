@@ -42,34 +42,17 @@
  */
 package com.itextpdf.html2pdf.attach;
 
-import java.util.Stack;
+import com.itextpdf.layout.IPropertyContainer;
 
-public class State {
+public class ElementResult extends TagProcessingResult {
 
-    public State() {
-        stack = new Stack<>();
+    private IPropertyContainer element;
+
+    public ElementResult(IPropertyContainer element) {
+        this.element = element;
     }
 
-    private Stack<TagProcessingResult> stack;
-
-    public Stack<TagProcessingResult> getStack() {
-        return stack;
+    public IPropertyContainer getElement() {
+        return element;
     }
-
-    public void push(TagProcessingResult element) {
-        stack.push(element);
-    }
-
-    public TagProcessingResult pop() {
-        return stack.pop();
-    }
-
-    public TagProcessingResult top() {
-        return stack.peek();
-    }
-
-    public boolean empty() {
-        return stack.empty();
-    }
-
 }

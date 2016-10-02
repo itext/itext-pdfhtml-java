@@ -42,34 +42,17 @@
  */
 package com.itextpdf.html2pdf.attach;
 
-import java.util.Stack;
+import com.itextpdf.html2pdf.attach.wraplements.IWrapElement;
 
-public class State {
+public class WrapperResult extends TagProcessingResult {
 
-    public State() {
-        stack = new Stack<>();
+    private IWrapElement wrapElement;
+
+    public WrapperResult(IWrapElement wrapElement) {
+        this.wrapElement = wrapElement;
     }
 
-    private Stack<TagProcessingResult> stack;
-
-    public Stack<TagProcessingResult> getStack() {
-        return stack;
+    public IWrapElement getWrapElement() {
+        return wrapElement;
     }
-
-    public void push(TagProcessingResult element) {
-        stack.push(element);
-    }
-
-    public TagProcessingResult pop() {
-        return stack.pop();
-    }
-
-    public TagProcessingResult top() {
-        return stack.peek();
-    }
-
-    public boolean empty() {
-        return stack.empty();
-    }
-
 }

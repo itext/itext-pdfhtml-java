@@ -40,10 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.attach.wraplements;
 
-public interface IContentProcessor {
-
-    void processContent(String content, ProcessorContext context);
-
+public interface IWrapElement {
 }

@@ -40,36 +40,43 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.attach.impl;
 
-import java.util.Stack;
+import com.itextpdf.html2pdf.attach.ITagProcessor;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.TagProcessingResult;
+import com.itextpdf.html2pdf.attach.WrapperResult;
+import com.itextpdf.html2pdf.attach.wraplements.TableRowWrapper;
+import com.itextpdf.html2pdf.attach.wraplements.TableWrapper;
+import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.layout.element.Cell;
 
-public class State {
-
-    public State() {
-        stack = new Stack<>();
+public class TableRowProcessor implements ITagProcessor {
+    @Override
+    public TagProcessingResult processStart(IElement element, ProcessorContext context) {
+        TagProcessingResult result = new WrapperResult(new TableRowWrapper());
+        context.getState().push(result);
+        return result;
     }
 
-    private Stack<TagProcessingResult> stack;
-
-    public Stack<TagProcessingResult> getStack() {
-        return stack;
+    @Override
+    public TagProcessingResult processEnd(IElement element, ProcessorContext context, TagProcessingResult processStartResult) {
+        context.getState().pop();
+        if (processStartResult instanceof WrapperResult && ((WrapperResult) processStartResult).getWrapElement() instanceof TableRowWrapper) {
+            TableRowWrapper wrapper = (TableRowWrapper) ((WrapperResult) processStartResult).getWrapElement();
+            if (context.getState().top() instanceof WrapperResult && ((WrapperResult) context.getState().top()).getWrapElement() instanceof TableWrapper) {
+                TableWrapper table = (TableWrapper) ((WrapperResult) context.getState().top()).getWrapElement();
+                for (Cell cell : wrapper.getCells()) {
+                    table.addCell(cell);
+                }
+                table.newRow();
+            }
+        }
+        return null;
     }
 
-    public void push(TagProcessingResult element) {
-        stack.push(element);
+    @Override
+    public void processContent(String content, ProcessorContext context) {
+        // TODO log error
     }
-
-    public TagProcessingResult pop() {
-        return stack.pop();
-    }
-
-    public TagProcessingResult top() {
-        return stack.peek();
-    }
-
-    public boolean empty() {
-        return stack.empty();
-    }
-
 }

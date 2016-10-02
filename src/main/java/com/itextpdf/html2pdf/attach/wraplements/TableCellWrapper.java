@@ -40,36 +40,8 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.attach.wraplements;
 
-import java.util.Stack;
-
-public class State {
-
-    public State() {
-        stack = new Stack<>();
-    }
-
-    private Stack<TagProcessingResult> stack;
-
-    public Stack<TagProcessingResult> getStack() {
-        return stack;
-    }
-
-    public void push(TagProcessingResult element) {
-        stack.push(element);
-    }
-
-    public TagProcessingResult pop() {
-        return stack.pop();
-    }
-
-    public TagProcessingResult top() {
-        return stack.peek();
-    }
-
-    public boolean empty() {
-        return stack.empty();
-    }
+public class TableCellWrapper implements IWrapElement {
 
 }

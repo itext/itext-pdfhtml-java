@@ -40,33 +40,47 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl;
+package com.itextpdf.html2pdf.attach.wraplements;
 
-import com.itextpdf.html2pdf.attach.IContentProcessor;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Paragraph;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Table;
+import java.util.ArrayList;
+import java.util.List;
 
-class DefaultContentProcessor implements IContentProcessor {
+public class TableWrapper implements IWrapElement {
 
-    Logger logger = LoggerFactory.getLogger(DefaultContentProcessor.class);
+    private List<List<Cell> > rows;
 
-    DefaultContentProcessor() {
+    public void newRow() {
+        rows.add(new ArrayList<Cell>());
     }
 
-    public void processContent(String content, ProcessorContext context) {
-        if (context.getState().empty()) {
-            logger.error("No consumer found for content");
-        } else {
-            IPropertyContainer top = context.getState().top();
-            if (top instanceof Paragraph) {
-                ((Paragraph) top).add(content);
-            } else {
-                logger.error("No consumer found for content");
+    public void addCell(Cell cell) {
+        if (rows == null) {
+            rows = new ArrayList<>();
+        }
+        if (rows.size() == 0) {
+            newRow();
+        }
+        rows.get(rows.size() - 1).add(cell);
+    }
+
+    public Table toTable() {
+        int maxRowSize = 1;
+        if (rows != null) {
+            for (int i = 0; i < rows.size(); i++) {
+                maxRowSize = Math.max(maxRowSize, rows.get(i).size());
             }
         }
+        Table table = new Table(maxRowSize);
+        if (rows != null) {
+            for (int i = 0; i < rows.size(); i++) {
+                for (int j = 0; j < rows.get(i).size(); j++) {
+                    table.addCell((Cell) (rows.get(i).get(j)));
+                }
+                table.startNewRow();
+            }
+        }
+        return table;
     }
-
 }

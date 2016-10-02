@@ -46,11 +46,14 @@ import com.itextpdf.html2pdf.html.node.INode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JsoupNode implements INode {
 
     private org.jsoup.nodes.Node node;
     private List<INode> childNodes = new ArrayList<>();
+    INode parentNode;
 
     public JsoupNode(org.jsoup.nodes.Node node) {
         this.node = node;
@@ -64,5 +67,16 @@ public class JsoupNode implements INode {
     @Override
     public void addChild(INode node) {
         childNodes.add(node);
+        if (node instanceof JsoupNode) {
+            ((JsoupNode) node).parentNode = this;
+        } else {
+            Logger logger = LoggerFactory.getLogger(JsoupNode.class);
+            logger.error("Error adding child node");
+        }
+    }
+
+    @Override
+    public INode parentNode() {
+        return parentNode;
     }
 }
