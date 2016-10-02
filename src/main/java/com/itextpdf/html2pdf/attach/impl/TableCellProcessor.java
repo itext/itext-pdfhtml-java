@@ -40,36 +40,43 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.attach.impl;
 
-import java.util.Stack;
+import com.itextpdf.html2pdf.attach.ElementResult;
+import com.itextpdf.html2pdf.attach.ITagProcessor;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.TagProcessingResult;
+import com.itextpdf.html2pdf.attach.WrapperResult;
+import com.itextpdf.html2pdf.attach.wraplements.TableRowWrapper;
+import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.layout.element.Cell;
 
-public class State {
-
-    public State() {
-        stack = new Stack<>();
+public class TableCellProcessor implements ITagProcessor {
+    @Override
+    public TagProcessingResult processStart(IElement element, ProcessorContext context) {
+        TagProcessingResult result = new ElementResult(new Cell());
+        context.getState().push(result);
+        return result;
     }
 
-    private Stack<TagProcessingResult> stack;
-
-    public Stack<TagProcessingResult> getStack() {
-        return stack;
+    @Override
+    public TagProcessingResult processEnd(IElement element, ProcessorContext context, TagProcessingResult processStartResult) {
+         context.getState().pop();
+        if (processStartResult instanceof ElementResult && ((ElementResult) processStartResult).getElement() instanceof Cell) {
+            Cell cell = (Cell) ((ElementResult) processStartResult).getElement();
+            if (context.getState().top() instanceof WrapperResult && ((WrapperResult) context.getState().top()).getWrapElement() instanceof TableRowWrapper) {
+                ((TableRowWrapper) ((WrapperResult) context.getState().top()).getWrapElement()).addCell(cell);
+            }
+        }
+        return processStartResult;
     }
 
-    public void push(TagProcessingResult element) {
-        stack.push(element);
+    @Override
+    public void processContent(String content, ProcessorContext context) {
+        TagProcessingResult processStartResult = context.getState().top();
+        if (processStartResult instanceof ElementResult && ((ElementResult) processStartResult).getElement() instanceof Cell) {
+            Cell cell = (Cell) ((ElementResult) processStartResult).getElement();
+            cell.add(content);
+        }
     }
-
-    public TagProcessingResult pop() {
-        return stack.pop();
-    }
-
-    public TagProcessingResult top() {
-        return stack.peek();
-    }
-
-    public boolean empty() {
-        return stack.empty();
-    }
-
 }

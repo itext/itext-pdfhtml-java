@@ -42,44 +42,37 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
-import com.itextpdf.html2pdf.attach.IElementProcessor;
+import com.itextpdf.html2pdf.attach.ElementResult;
+import com.itextpdf.html2pdf.attach.ITagProcessor;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.State;
-import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.attach.TagProcessingResult;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Paragraph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-class DefaultElementProcessor implements IElementProcessor {
+public class ParagraphTagProcessor implements ITagProcessor {
+    private static Logger logger = LoggerFactory.getLogger(ParagraphTagProcessor.class);
 
     @Override
-    public IPropertyContainer processElementStart(IElement element, ProcessorContext context) {
-        String elementName = element.name();
-        IPropertyContainer container = null;
-        switch (elementName) {
-            case TagConstants.P:
-                container = new Paragraph();
-                break;
-            case TagConstants.HTML:
-                container = new Document(context.getPdfDocument());
-                break;
-        }
-        if (container != null) {
-            context.getState().push(container);
-        }
-        return container;
+    public TagProcessingResult processStart(IElement element, ProcessorContext context) {
+        TagProcessingResult result = new ElementResult(new Paragraph());
+        context.getState().push(result);
+        return result;
     }
 
     @Override
-    public void processElementEnd(IElement element, ProcessorContext context, IPropertyContainer processStartResult) {
+    public TagProcessingResult processEnd(IElement element, ProcessorContext context, TagProcessingResult processStartResult) {
         State state = context.getState();
+        TagProcessingResult result = null;
         if (processStartResult != null) {
-            state.pop();
-            if (!state.empty() && state.top() instanceof Document) {
-                if (processStartResult instanceof BlockElement) {
-                    ((Document) state.top()).add((BlockElement<com.itextpdf.layout.element.IElement>) processStartResult);
+            result = state.pop();
+            if (!state.empty() && state.top() instanceof ElementResult && ((ElementResult) state.top()).getElement() instanceof Document) {
+                if (processStartResult instanceof ElementResult && ((ElementResult) processStartResult).getElement() instanceof Paragraph) {
+                    ((Document) ((ElementResult) state.top()).getElement()).add((BlockElement<com.itextpdf.layout.element.IElement>) ((ElementResult) processStartResult).getElement());
                 } else {
                     throw new IllegalStateException();
                 }
@@ -87,6 +80,20 @@ class DefaultElementProcessor implements IElementProcessor {
                 throw new IllegalStateException();
             }
         }
+        return result;
     }
 
+    @Override
+    public void processContent(String content, ProcessorContext context) {
+        if (context.getState().empty()) {
+            logger.error("No consumer found for content");
+        } else {
+            TagProcessingResult top = context.getState().top();
+            if (top instanceof ElementResult && ((ElementResult) top).getElement() instanceof Paragraph) {
+                ((Paragraph) ((ElementResult) top).getElement()).add(content);
+            } else {
+                logger.error("No consumer found for content");
+            }
+        }
+    }
 }

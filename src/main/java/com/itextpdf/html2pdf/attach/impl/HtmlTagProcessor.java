@@ -40,36 +40,30 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.attach.impl;
 
-import java.util.Stack;
+import com.itextpdf.html2pdf.attach.ElementResult;
+import com.itextpdf.html2pdf.attach.ITagProcessor;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.TagProcessingResult;
+import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.layout.Document;
 
-public class State {
-
-    public State() {
-        stack = new Stack<>();
+public class HtmlTagProcessor implements ITagProcessor {
+    @Override
+    public TagProcessingResult processStart(IElement element, ProcessorContext context) {
+        TagProcessingResult result = new ElementResult(new Document(context.getPdfDocument()));
+        context.getState().push(result);
+        return result;
     }
 
-    private Stack<TagProcessingResult> stack;
-
-    public Stack<TagProcessingResult> getStack() {
-        return stack;
+    @Override
+    public TagProcessingResult processEnd(IElement element, ProcessorContext context, TagProcessingResult processStartResult) {
+        return context.getState().pop();
     }
 
-    public void push(TagProcessingResult element) {
-        stack.push(element);
-    }
+    @Override
+    public void processContent(String content, ProcessorContext context) {
 
-    public TagProcessingResult pop() {
-        return stack.pop();
     }
-
-    public TagProcessingResult top() {
-        return stack.peek();
-    }
-
-    public boolean empty() {
-        return stack.empty();
-    }
-
 }

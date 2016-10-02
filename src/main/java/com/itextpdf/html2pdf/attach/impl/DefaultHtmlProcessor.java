@@ -42,10 +42,12 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
-import com.itextpdf.html2pdf.attach.IContentProcessor;
-import com.itextpdf.html2pdf.attach.IElementProcessor;
+import com.itextpdf.html2pdf.attach.ElementResult;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
+import com.itextpdf.html2pdf.attach.ITagProcessor;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.TagProcessingResult;
+import com.itextpdf.html2pdf.attach.TagProcessorFactory;
 import com.itextpdf.html2pdf.css.ICSSResolver;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
@@ -58,14 +60,16 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DefaultHtmlProcessor implements IHtmlProcessor {
+
+    private static Logger logger = LoggerFactory.getLogger(DefaultHtmlProcessor.class);
 
     private ProcessorContext context;
     private ICSSResolver resolver;
     private INode root;
-    private IElementProcessor elementProcessor;
-    private IContentProcessor contentProcessor;
     private List<IPropertyContainer> roots;
 
     public DefaultHtmlProcessor(INode node, ICSSResolver cssResolver) {
@@ -75,14 +79,10 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
     @Override
     public List<com.itextpdf.layout.element.IElement> processElements() {
-        elementProcessor = new DefaultElementProcessor();
-        contentProcessor = new DefaultContentProcessor();
         context = new ProcessorContext();
         roots = new ArrayList<>();
         root = findBodyNode(root);
         visit(root);
-        elementProcessor = null;
-        contentProcessor = null;
         context = null;
         List<com.itextpdf.layout.element.IElement> elements = new ArrayList<>();
         for (IPropertyContainer propertyContainer : roots) {
@@ -96,13 +96,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
     @Override
     public Document processDocument(PdfDocument pdfDocument) {
-        elementProcessor = new DefaultElementProcessor();
-        contentProcessor = new DefaultContentProcessor();
         context = new ProcessorContext(pdfDocument);
         roots = new ArrayList<>();
         visit(root);
-        elementProcessor = null;
-        contentProcessor = null;
         context = null;
         Document doc = (Document) roots.get(0);
         roots = null;
@@ -111,19 +107,38 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
     private void visit(INode node) {
         if (node instanceof IElement) {
-            IPropertyContainer element = elementProcessor.processElementStart((IElement) node, context);
+            ITagProcessor processor = TagProcessorFactory.getTagProcessor(((IElement) node).name());
+            if (processor == null) {
+                logger.error("No processor found for tag " + ((IElement) node).name());
+            }
+            TagProcessingResult result = null;
+            if (processor != null) {
+                result = processor.processStart((IElement) node, context);
+            }
 
             for (INode childNode : node.childNodes()) {
                 visit(childNode);
             }
 
-            elementProcessor.processElementEnd((IElement) node, context, element);
+            if (processor != null) {
+                processor.processEnd((IElement) node, context, result);
+            }
 
-            if (element != null && context.getState().empty()) {
-                roots.add(element);
+            if (result instanceof ElementResult && context.getState().empty()) {
+                roots.add(((ElementResult) result).getElement());
             }
         } else if (node instanceof ITextNode) {
-            contentProcessor.processContent(((ITextNode) node).wholeText(), context);
+            INode parent = node.parentNode();
+            if (parent instanceof IElement) {
+                ITagProcessor processor = TagProcessorFactory.getTagProcessor(((IElement) parent).name());
+                if (processor == null) {
+                    logger.error("No processor found for tag " + (((IElement) parent).name()));
+                } else {
+                    processor.processContent(((ITextNode) node).wholeText(), context);
+                }
+            } else {
+                logger.error("Error adding content");
+            }
         }
     }
 

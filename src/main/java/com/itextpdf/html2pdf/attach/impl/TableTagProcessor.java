@@ -40,16 +40,48 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.attach.impl;
 
+import com.itextpdf.html2pdf.attach.ElementResult;
+import com.itextpdf.html2pdf.attach.ITagProcessor;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.TagProcessingResult;
+import com.itextpdf.html2pdf.attach.WrapperResult;
+import com.itextpdf.html2pdf.attach.wraplements.TableWrapper;
 import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Table;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public interface IElementProcessor {
+public class TableTagProcessor implements ITagProcessor {
 
-    // TODO return processresult?
-    IPropertyContainer processElementStart(IElement element, ProcessorContext context);
+    private static Logger logger = LoggerFactory.getLogger(TableTagProcessor.class);
 
-    void processElementEnd(IElement element, ProcessorContext context, IPropertyContainer processStartResult);
+    @Override
+    public TagProcessingResult processStart(IElement element, ProcessorContext context) {
+        TagProcessingResult result = new WrapperResult(new TableWrapper());
+        context.getState().push(result);
+        return result;
+    }
 
+    @Override
+    public TagProcessingResult processEnd(IElement element, ProcessorContext context, TagProcessingResult processStartResult) {
+        context.getState().pop();
+        if (processStartResult instanceof WrapperResult && ((WrapperResult) processStartResult).getWrapElement() instanceof TableWrapper) {
+            TableWrapper wrapper = (TableWrapper) ((WrapperResult) processStartResult).getWrapElement();
+            Table tbl = wrapper.toTable();
+            ElementResult result = new ElementResult(tbl);
+            if (context.getState().top() instanceof ElementResult && ((ElementResult) context.getState().top()).getElement() instanceof Document) {
+                ((Document) ((ElementResult) context.getState().top()).getElement()).add(wrapper.toTable());
+            }
+            return result;
+        }
+        return null;
+    }
+
+    @Override
+    public void processContent(String content, ProcessorContext context) {
+        logger.error("content will not be processed");
+    }
 }

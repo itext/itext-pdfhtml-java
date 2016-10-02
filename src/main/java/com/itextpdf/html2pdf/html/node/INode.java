@@ -50,4 +50,6 @@ public interface INode {
 
     void addChild(INode node);
 
+    INode parentNode();
+
 }
