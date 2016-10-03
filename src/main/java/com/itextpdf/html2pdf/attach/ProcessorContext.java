@@ -42,27 +42,46 @@
  */
 package com.itextpdf.html2pdf.attach;
 
+import com.itextpdf.html2pdf.css.parse.ICSSResolver;
+import com.itextpdf.html2pdf.font.DefaultFontResolver;
+import com.itextpdf.html2pdf.font.IFontResolver;
 import com.itextpdf.kernel.pdf.PdfDocument;
 
 public class ProcessorContext {
 
     private State state;
     private PdfDocument pdfDocument;
+    private ICSSResolver cssResolver;
+    private IFontResolver fontResolver;
 
-    public ProcessorContext() {
+    public ProcessorContext(ICSSResolver cssResolver) {
+        this.cssResolver = cssResolver;
+        this.fontResolver = new DefaultFontResolver();
         this.state = new State();
     }
 
-    public ProcessorContext(PdfDocument pdfDocument) {
-        this();
+    public ProcessorContext(ICSSResolver cssResolver, PdfDocument pdfDocument) {
+        this(cssResolver);
         this.pdfDocument = pdfDocument;
+    }
+
+    public void setFontResolver(IFontResolver fontResolver) {
+        this.fontResolver = fontResolver;
     }
 
     public State getState() {
         return state;
     }
 
+    public ICSSResolver getCssResolver() {
+        return cssResolver;
+    }
+
     public PdfDocument getPdfDocument() {
         return pdfDocument;
+    }
+
+    public IFontResolver getFontResolver() {
+        return fontResolver;
     }
 }

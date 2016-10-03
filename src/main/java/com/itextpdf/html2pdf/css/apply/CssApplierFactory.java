@@ -40,18 +40,20 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.css.apply;
 
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.css.apply.impl.PTagCssApplier;
+import com.itextpdf.html2pdf.html.TagConstants;
 
-public interface ITagProcessor {
+public class CssApplierFactory {
 
-    TagProcessingResult processStart(IElement element, ProcessorContext context);
-
-    // TODO can we get rid of processStartResult and get it from stack?
-    // Maybe there might be a situation when we are not sure whether we have pushed anything to the stack
-    TagProcessingResult processEnd(IElement element, ProcessorContext context, TagProcessingResult processStartResult);
-
-    void processContent(String content, ProcessorContext context);
+    public static ICssApplier getCssApplier(String tag) {
+        switch (tag) {
+            case TagConstants.P:
+                return new PTagCssApplier();
+            default:
+                return null;
+        }
+    }
 
 }

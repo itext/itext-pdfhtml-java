@@ -40,15 +40,21 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css;
+package com.itextpdf.html2pdf.font;
 
-import com.itextpdf.html2pdf.html.node.INode;
-import java.util.Map;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import java.io.IOException;
 
-public interface ICSSResolver {
+public class DefaultFontResolver implements IFontResolver {
 
-    Map<String, String> resolveStyles(INode node);
+    public DefaultFontResolver() {
+        //PdfFontFactory.registerSystemDirectories();
+    }
 
-    Map<String, String> resolveOwnStyles(INode node);
-
+    @Override
+    public PdfFont getFont(String name) throws IOException {
+        //return PdfFontFactory.createRegisteredFont(name);
+        return PdfFontFactory.createFont(name);
+    }
 }

@@ -42,27 +42,29 @@
  */
 package com.itextpdf.html2pdf.attach;
 
-import com.itextpdf.html2pdf.attach.impl.HtmlTagProcessor;
-import com.itextpdf.html2pdf.attach.impl.ParagraphTagProcessor;
-import com.itextpdf.html2pdf.attach.impl.TableCellProcessor;
-import com.itextpdf.html2pdf.attach.impl.TableRowProcessor;
-import com.itextpdf.html2pdf.attach.impl.TableTagProcessor;
+import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagProcessor;
+import com.itextpdf.html2pdf.attach.impl.tags.PTagProcessor;
+import com.itextpdf.html2pdf.attach.impl.tags.TdTagProcessor;
+import com.itextpdf.html2pdf.attach.impl.tags.TrTagProcessor;
+import com.itextpdf.html2pdf.attach.impl.tags.TableTagProcessor;
 import com.itextpdf.html2pdf.html.TagConstants;
 
+// TODO add possibility to register operators
 public class TagProcessorFactory {
 
+    // TODO add context?
     public static ITagProcessor getTagProcessor(String tag) {
         switch (tag) {
             case TagConstants.P:
-                return new ParagraphTagProcessor();
+                return new PTagProcessor();
             case TagConstants.HTML:
                 return new HtmlTagProcessor();
             case TagConstants.TABLE:
                 return new TableTagProcessor();
             case TagConstants.TD:
-                return new TableCellProcessor();
+                return new TdTagProcessor();
             case TagConstants.TR:
-                return new TableRowProcessor();
+                return new TrTagProcessor();
         }
         return null;
     }
