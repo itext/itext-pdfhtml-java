@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.attach;
 
 import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
-import com.itextpdf.html2pdf.css.ICSSResolver;
+import com.itextpdf.html2pdf.css.parse.ICSSResolver;
 import com.itextpdf.html2pdf.html.node.IDocument;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;

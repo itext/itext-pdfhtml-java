@@ -40,40 +40,48 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.impl;
+package com.itextpdf.html2pdf.attach.impl.tags;
 
-public class JSoupCSSResolver {
+import com.itextpdf.html2pdf.attach.ElementResult;
+import com.itextpdf.html2pdf.attach.ITagProcessor;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.TagProcessingResult;
+import com.itextpdf.html2pdf.attach.WrapperResult;
+import com.itextpdf.html2pdf.attach.wraplements.TableWrapper;
+import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Table;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-//    public static String inlineCss(String html) {
-//        final String style = "style";
-//        Document doc = Jsoup.parse(html);
-//        Elements els = doc.select(style);// to get all the style elements
-//        for (Element e : els) {
-//            String styleRules = e.getAllElements().get(0).data().replaceAll("\n", "").trim();
-//            String delims = "{}";
-//            StringTokenizer st = new StringTokenizer(styleRules, delims);
-//            while (st.countTokens() > 1) {
-//                String selector = st.nextToken(), properties = st.nextToken();
-//                if (!selector.contains(":")) { // skip a:hover rules, etc.
-//                    Elements selectedElements = doc.select(selector);
-//                    for (Element selElem : selectedElements) {
-//                        String oldProperties = selElem.attr(style);
-//                        selElem.attr(style,
-//                                oldProperties.length() > 0 ? concatenateProperties(
-//                                        oldProperties, properties) : properties);
-//                    }
-//                }
-//            }
-//            e.remove();
-//        }
-//        return doc.toString();
-//    }
-//
-//    private static String concatenateProperties(String oldProp, @NotNull String newProp) {
-//        oldProp = oldProp.trim();
-//        if (!oldProp.endsWith(";"))
-//            oldProp += ";";
-//        return oldProp + newProp.replaceAll("\\s{2,}", " ");
-//    }
+public class TableTagProcessor implements ITagProcessor {
 
+    private static Logger logger = LoggerFactory.getLogger(TableTagProcessor.class);
+
+    @Override
+    public TagProcessingResult processStart(IElement element, ProcessorContext context) {
+        TagProcessingResult result = new WrapperResult(new TableWrapper());
+        context.getState().push(result);
+        return result;
+    }
+
+    @Override
+    public TagProcessingResult processEnd(IElement element, ProcessorContext context, TagProcessingResult processStartResult) {
+        context.getState().pop();
+        if (processStartResult instanceof WrapperResult && ((WrapperResult) processStartResult).getWrapElement() instanceof TableWrapper) {
+            TableWrapper wrapper = (TableWrapper) ((WrapperResult) processStartResult).getWrapElement();
+            Table tbl = wrapper.toTable();
+            ElementResult result = new ElementResult(tbl);
+            if (!context.getState().empty() && context.getState().top() instanceof ElementResult && ((ElementResult) context.getState().top()).getElement() instanceof Document) {
+                ((Document) ((ElementResult) context.getState().top()).getElement()).add(wrapper.toTable());
+            }
+            return result;
+        }
+        return null;
+    }
+
+    @Override
+    public void processContent(String content, ProcessorContext context) {
+        logger.error("content will not be processed");
+    }
 }

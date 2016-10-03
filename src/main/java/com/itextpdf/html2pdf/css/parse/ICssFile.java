@@ -40,32 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.impl;
+package com.itextpdf.html2pdf.css.parse;
 
-import com.itextpdf.html2pdf.css.ICSSResolver;
-import com.itextpdf.html2pdf.html.node.INode;
-import java.util.Map;
-
-public class SimpleCSSResolver implements ICSSResolver {
-
-    private INode treeRoot;
-
-    public SimpleCSSResolver(INode treeRoot) {
-        this.treeRoot = treeRoot;
-        collectCSSDeclarations();
-    }
-
-    private void collectCSSDeclarations() {
-        // TODO collect global declarations from the whole tree
-    }
-
-    @Override
-    public Map<String, String> resolveStyles(INode node) {
-        throw new IllegalStateException();
-    }
-
-    @Override
-    public Map<String, String> resolveOwnStyles(INode node) {
-        throw new IllegalStateException();
-    }
+public interface ICssFile {
 }

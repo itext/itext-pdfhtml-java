@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf;
 
+import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import java.io.File;
@@ -62,18 +63,21 @@ public class Html2PdfTest extends ExtendedITextTest {
     }
 
     @Test
-    public void helloWorldParagraphTest() throws IOException {
+    public void helloWorldParagraphTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph.html"), new File(destinationFolder + "hello_paragraph.pdf"));
+        new CompareTool().compareByContent(destinationFolder + "hello_paragraph.pdf", sourceFolder + "cmp_hello_paragraph.pdf", destinationFolder, "diff01_");
     }
 
     @Test
-    public void helloParagraphTableTest() throws IOException {
+    public void helloParagraphTableTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph_table.html"), new File(destinationFolder + "hello_paragraph_table.pdf"));
+        new CompareTool().compareByContent(destinationFolder + "hello_paragraph_table.pdf", sourceFolder + "cmp_hello_paragraph_table.pdf", destinationFolder, "diff02_");
     }
 
     @Test
-    public void helloMalformedDocumentTest() throws IOException {
+    public void helloMalformedDocumentTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hello_malformed.html"), new File(destinationFolder + "hello_malformed.pdf"));
+        new CompareTool().compareByContent(destinationFolder + "hello_malformed.pdf", sourceFolder + "cmp_hello_malformed.pdf", destinationFolder, "diff03_");
     }
 
 }

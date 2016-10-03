@@ -42,5 +42,9 @@
  */
 package com.itextpdf.html2pdf.css;
 
-public interface ICssRule {
+public class CssConstants {
+
+    public static final String FONT_FAMILY = "font-family";
+    public static final String FONT_SIZE = "font-size";
+
 }

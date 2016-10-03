@@ -40,59 +40,38 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl;
+package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ElementResult;
-import com.itextpdf.html2pdf.attach.ITagProcessor;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.State;
 import com.itextpdf.html2pdf.attach.TagProcessingResult;
-import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.BlockElement;
-import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.parse.ICSSResolver;
+import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.property.Property;
+import java.io.IOException;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ParagraphTagProcessor implements ITagProcessor {
-    private static Logger logger = LoggerFactory.getLogger(ParagraphTagProcessor.class);
-
+public class PTagCssApplier implements ICssApplier {
     @Override
-    public TagProcessingResult processStart(IElement element, ProcessorContext context) {
-        TagProcessingResult result = new ElementResult(new Paragraph());
-        context.getState().push(result);
-        return result;
-    }
-
-    @Override
-    public TagProcessingResult processEnd(IElement element, ProcessorContext context, TagProcessingResult processStartResult) {
-        State state = context.getState();
-        TagProcessingResult result = null;
-        if (processStartResult != null) {
-            result = state.pop();
-            if (!state.empty() && state.top() instanceof ElementResult && ((ElementResult) state.top()).getElement() instanceof Document) {
-                if (processStartResult instanceof ElementResult && ((ElementResult) processStartResult).getElement() instanceof Paragraph) {
-                    ((Document) ((ElementResult) state.top()).getElement()).add((BlockElement<com.itextpdf.layout.element.IElement>) ((ElementResult) processStartResult).getElement());
-                } else {
-                    throw new IllegalStateException();
+    public void apply(ProcessorContext context, INode node, TagProcessingResult result) {
+        ICSSResolver cssResolver = context.getCssResolver();
+        Map<String, String> cssProps = cssResolver.resolveStyles(node);
+        if (result instanceof ElementResult && ((ElementResult) result).getElement() instanceof IPropertyContainer) {
+            if (cssProps.get(CssConstants.FONT_FAMILY) != null) {
+                try {
+                    ((ElementResult) result).getElement().setProperty(Property.FONT, context.getFontResolver().getFont(cssProps.get(CssConstants.FONT_FAMILY)));
+                } catch (IOException exc) {
+                    Logger logger = LoggerFactory.getLogger(PTagCssApplier.class);
+                    logger.error("Could not load font", exc);
                 }
-            } else if (!state.empty()) {
-                throw new IllegalStateException();
             }
-        }
-        return result;
-    }
-
-    @Override
-    public void processContent(String content, ProcessorContext context) {
-        if (context.getState().empty()) {
-            logger.error("No consumer found for content");
-        } else {
-            TagProcessingResult top = context.getState().top();
-            if (top instanceof ElementResult && ((ElementResult) top).getElement() instanceof Paragraph) {
-                ((Paragraph) ((ElementResult) top).getElement()).add(content);
-            } else {
-                logger.error("No consumer found for content");
+            if (cssProps.get(CssConstants.FONT_SIZE) != null) {
+                ((ElementResult) result).getElement().setProperty(Property.FONT_SIZE, Integer.valueOf(cssProps.get(CssConstants.FONT_SIZE)));
             }
         }
     }

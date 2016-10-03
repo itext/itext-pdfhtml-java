@@ -40,48 +40,38 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl;
+package com.itextpdf.html2pdf.css.parse.impl;
 
-import com.itextpdf.html2pdf.attach.ElementResult;
-import com.itextpdf.html2pdf.attach.ITagProcessor;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.TagProcessingResult;
-import com.itextpdf.html2pdf.attach.WrapperResult;
-import com.itextpdf.html2pdf.attach.wraplements.TableWrapper;
-import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Table;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.parse.ICSSResolver;
+import com.itextpdf.html2pdf.html.node.INode;
+import java.util.HashMap;
+import java.util.Map;
 
-public class TableTagProcessor implements ITagProcessor {
+public class SimpleCSSResolver implements ICSSResolver {
 
-    private static Logger logger = LoggerFactory.getLogger(TableTagProcessor.class);
+    private INode treeRoot;
 
-    @Override
-    public TagProcessingResult processStart(IElement element, ProcessorContext context) {
-        TagProcessingResult result = new WrapperResult(new TableWrapper());
-        context.getState().push(result);
-        return result;
+    public SimpleCSSResolver(INode treeRoot) {
+        this.treeRoot = treeRoot;
+        collectCSSDeclarations();
+    }
+
+    private void collectCSSDeclarations() {
+        // TODO collect global declarations from the whole tree
+        // TODO probably compute merged declarations
     }
 
     @Override
-    public TagProcessingResult processEnd(IElement element, ProcessorContext context, TagProcessingResult processStartResult) {
-        context.getState().pop();
-        if (processStartResult instanceof WrapperResult && ((WrapperResult) processStartResult).getWrapElement() instanceof TableWrapper) {
-            TableWrapper wrapper = (TableWrapper) ((WrapperResult) processStartResult).getWrapElement();
-            Table tbl = wrapper.toTable();
-            ElementResult result = new ElementResult(tbl);
-            if (context.getState().top() instanceof ElementResult && ((ElementResult) context.getState().top()).getElement() instanceof Document) {
-                ((Document) ((ElementResult) context.getState().top()).getElement()).add(wrapper.toTable());
-            }
-            return result;
-        }
-        return null;
+    public Map<String, String> resolveStyles(INode node) {
+        return new HashMap<String, String>() {{
+            put(CssConstants.FONT_FAMILY, "Times-Roman");
+            put(CssConstants.FONT_SIZE, "20");
+        }};
     }
 
     @Override
-    public void processContent(String content, ProcessorContext context) {
-        logger.error("content will not be processed");
+    public Map<String, String> resolveOwnStyles(INode node) {
+        throw new IllegalStateException();
     }
 }

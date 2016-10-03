@@ -43,8 +43,8 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.Attacher;
-import com.itextpdf.html2pdf.css.ICSSResolver;
-import com.itextpdf.html2pdf.css.impl.SimpleCSSResolver;
+import com.itextpdf.html2pdf.css.parse.ICSSResolver;
+import com.itextpdf.html2pdf.css.parse.impl.SimpleCSSResolver;
 import com.itextpdf.html2pdf.html.IHtmlParser;
 import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
 import com.itextpdf.html2pdf.html.node.IDocument;

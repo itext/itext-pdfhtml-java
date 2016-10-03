@@ -40,8 +40,31 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.wraplements;
+package com.itextpdf.html2pdf.attach.impl.tags;
 
-public class TableCellWrapper implements IWrapElement {
+import com.itextpdf.html2pdf.attach.ElementResult;
+import com.itextpdf.html2pdf.attach.ITagProcessor;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.TagProcessingResult;
+import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.layout.Document;
 
+public class HtmlTagProcessor implements ITagProcessor {
+    @Override
+    public TagProcessingResult processStart(IElement element, ProcessorContext context) {
+        TagProcessingResult result = new ElementResult(new Document(context.getPdfDocument(), PageSize.A4, false));
+        context.getState().push(result);
+        return result;
+    }
+
+    @Override
+    public TagProcessingResult processEnd(IElement element, ProcessorContext context, TagProcessingResult processStartResult) {
+        return context.getState().pop();
+    }
+
+    @Override
+    public void processContent(String content, ProcessorContext context) {
+
+    }
 }

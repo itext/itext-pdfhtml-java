@@ -48,7 +48,9 @@ import com.itextpdf.html2pdf.attach.ITagProcessor;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.TagProcessingResult;
 import com.itextpdf.html2pdf.attach.TagProcessorFactory;
-import com.itextpdf.html2pdf.css.ICSSResolver;
+import com.itextpdf.html2pdf.css.apply.CssApplierFactory;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.parse.ICSSResolver;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.html2pdf.html.node.INode;
@@ -79,7 +81,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
     @Override
     public List<com.itextpdf.layout.element.IElement> processElements() {
-        context = new ProcessorContext();
+        context = new ProcessorContext(resolver);
         roots = new ArrayList<>();
         root = findBodyNode(root);
         visit(root);
@@ -96,7 +98,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
     @Override
     public Document processDocument(PdfDocument pdfDocument) {
-        context = new ProcessorContext(pdfDocument);
+        context = new ProcessorContext(resolver, pdfDocument);
         roots = new ArrayList<>();
         visit(root);
         context = null;
@@ -121,7 +123,16 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             }
 
             if (processor != null) {
-                processor.processEnd((IElement) node, context, result);
+                result = processor.processEnd((IElement) node, context, result);
+            }
+
+            ICssApplier cssApplier = CssApplierFactory.getCssApplier(((IElement) node).name());
+            if (cssApplier == null) {
+                logger.error("No css applier found for tag " + ((IElement) node).name());
+            }
+
+            if (cssApplier != null) {
+                cssApplier.apply(context, node, result);
             }
 
             if (result instanceof ElementResult && context.getState().empty()) {
