@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import java.util.List;
 import org.junit.Assert;
@@ -54,7 +54,8 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class Html2ElementsTest extends ExtendedITextTest {
+// TODO extend from ExtendedITextTest and therefore check logging
+public class Html2ElementsTest extends ITextTest {
 
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/Html2ElementsTest/";
 

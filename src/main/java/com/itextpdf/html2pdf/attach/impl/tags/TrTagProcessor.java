@@ -66,10 +66,10 @@ public class TrTagProcessor implements ITagProcessor {
             TableRowWrapper wrapper = (TableRowWrapper) ((WrapperResult) processStartResult).getWrapElement();
             if (context.getState().top() instanceof WrapperResult && ((WrapperResult) context.getState().top()).getWrapElement() instanceof TableWrapper) {
                 TableWrapper table = (TableWrapper) ((WrapperResult) context.getState().top()).getWrapElement();
+                table.newRow();
                 for (Cell cell : wrapper.getCells()) {
                     table.addCell(cell);
                 }
-                table.newRow();
             }
         }
         return null;
