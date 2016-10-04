@@ -51,7 +51,14 @@ public class TableWrapper implements IWrapElement {
 
     private List<List<Cell> > rows;
 
+    public int getRowsSize() {
+        return rows.size();
+    }
+
     public void newRow() {
+        if (rows == null) {
+            rows = new ArrayList<>();
+        }
         rows.add(new ArrayList<Cell>());
     }
 
@@ -78,7 +85,9 @@ public class TableWrapper implements IWrapElement {
                 for (int j = 0; j < rows.get(i).size(); j++) {
                     table.addCell((Cell) (rows.get(i).get(j)));
                 }
-                table.startNewRow();
+                if (i != rows.size() - 1) {
+                    table.startNewRow();
+                }
             }
         }
         return table;
