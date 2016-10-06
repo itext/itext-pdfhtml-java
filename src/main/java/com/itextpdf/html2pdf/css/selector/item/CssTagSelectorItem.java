@@ -57,4 +57,8 @@ public class CssTagSelectorItem implements ICssSelectorItem {
         return isUniversal ? 0 : CssSpecificityConstants.ELEMENT_SPECIFICITY;
     }
 
+    @Override
+    public String toString() {
+        return tagName;
+    }
 }

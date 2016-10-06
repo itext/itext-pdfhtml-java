@@ -40,23 +40,47 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css;
 
-public class CssClassSelectorItem implements ICssSelectorItem {
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
-    private String className;
+public class CssNestedAtRule extends CssAtRule {
 
-    public CssClassSelectorItem(String className) {
-        this.className = className;
+    private String ruleParameters;
+    private List<CssStatement> body;
+
+    // without body
+    public CssNestedAtRule(String ruleDeclaration) {
+        super(extractRuleNameFromDeclaration(ruleDeclaration));
+        ruleDeclaration = ruleDeclaration.trim();
+        this.ruleParameters = ruleDeclaration.substring(ruleName.length()).trim();
+        this.body = new ArrayList<>();
     }
 
-    @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.CLASS_SPECIFICITY;
+    public CssNestedAtRule(String ruleDeclaration, List<CssStatement> body) {
+        this(ruleDeclaration);
+        this.body = body;
+    }
+
+    public void addStatementToBody(CssStatement statement) {
+        this.body.add(statement);
     }
 
     @Override
     public String toString() {
-        return "." + className;
+        StringBuilder sb = new StringBuilder();
+        sb.append(MessageFormat.format("@{0} {1} '{'", ruleName, ruleParameters));
+        sb.append("\n");
+        for (int i = 0; i < body.size(); i++) {
+            sb.append("    ");
+            sb.append(body.get(i).toString().replace("\n", "\n    "));
+            if (i != body.size() - 1) {
+                sb.append("\n");
+            }
+        }
+        sb.append("\n}");
+        return sb.toString();
     }
 }

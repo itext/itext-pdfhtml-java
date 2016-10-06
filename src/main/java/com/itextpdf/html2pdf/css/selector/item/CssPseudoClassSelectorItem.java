@@ -56,4 +56,9 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
     public int getSpecificity() {
         return CssSpecificityConstants.CLASS_SPECIFICITY;
     }
+
+    @Override
+    public String toString() {
+        return ":" + pseudoClass;
+    }
 }

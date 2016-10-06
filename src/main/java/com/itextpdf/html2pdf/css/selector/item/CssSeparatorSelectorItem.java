@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
+import java.text.MessageFormat;
+
 public class CssSeparatorSelectorItem implements ICssSelectorItem {
 
     private char separator;
@@ -59,4 +61,8 @@ public class CssSeparatorSelectorItem implements ICssSelectorItem {
         return separator;
     }
 
+    @Override
+    public String toString() {
+        return MessageFormat.format(" {0} ", separator);
+    }
 }

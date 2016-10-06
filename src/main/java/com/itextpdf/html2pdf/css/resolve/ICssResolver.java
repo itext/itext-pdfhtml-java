@@ -40,12 +40,12 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.parse;
+package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.html.node.INode;
 import java.util.Map;
 
-public interface ICSSResolver {
+public interface ICssResolver {
 
     Map<String, String> resolveStyles(INode node);
 

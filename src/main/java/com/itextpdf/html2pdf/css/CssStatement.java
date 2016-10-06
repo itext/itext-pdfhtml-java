@@ -40,23 +40,8 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css;
 
-public class CssClassSelectorItem implements ICssSelectorItem {
+public abstract class CssStatement {
 
-    private String className;
-
-    public CssClassSelectorItem(String className) {
-        this.className = className;
-    }
-
-    @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.CLASS_SPECIFICITY;
-    }
-
-    @Override
-    public String toString() {
-        return "." + className;
-    }
 }

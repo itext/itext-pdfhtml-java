@@ -40,23 +40,25 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css.util;
 
-public class CssClassSelectorItem implements ICssSelectorItem {
+public class CssUtils {
 
-    private String className;
-
-    public CssClassSelectorItem(String className) {
-        this.className = className;
+    private CssUtils() {
     }
 
-    @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.CLASS_SPECIFICITY;
+    public static String removeDoubleSpacesAndTrim(String str) {
+        String[] parts = str.split("\\s");
+        StringBuilder sb = new StringBuilder();
+        for (String part : parts) {
+            if (part.length() > 0) {
+                if (sb.length() != 0) {
+                    sb.append(" ");
+                }
+                sb.append(part);
+            }
+        }
+        return sb.toString();
     }
 
-    @Override
-    public String toString() {
-        return "." + className;
-    }
 }

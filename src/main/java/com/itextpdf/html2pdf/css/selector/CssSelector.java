@@ -66,4 +66,12 @@ public class CssSelector {
         return specificity;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (ICssSelectorItem item : selectorItems) {
+            sb.append(item.toString());
+        }
+        return sb.toString();
+    }
 }

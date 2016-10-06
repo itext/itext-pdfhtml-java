@@ -63,7 +63,7 @@ public final class CssSelectorParser {
     private static final Set<String> legacyPseudoElements = new HashSet<>();
 
     private static final String SELECTOR_PATTERN_STR =
-            "(\\*)|([_a-zA-Z][\\w-]*)|(\\.[_a-zA-Z][\\w-]*)|(#[_a-z][\\w-]*)|(\\[[_a-zA-Z][\\w-]*(([~^$*|])?=((\"[\\w-]+\")|([\\w-]+)))?\\])|(::?[\\w()-]*)|( )|(\\+)|(>)|(~)";
+            "(\\*)|([_a-zA-Z][\\w-]*)|(\\.[_a-zA-Z][\\w-]*)|(#[_a-z][\\w-]*)|(\\[[_a-zA-Z][\\w-]*(([~^$*|])?=((\"[^\"]+\")|([^\"]+)|('[^\"]+')))?\\])|(::?[\\w()-]*)|( )|(\\+)|(>)|(~)";
 
     private static final Pattern selectorPattern = Pattern.compile(SELECTOR_PATTERN_STR);
 
@@ -102,7 +102,7 @@ public final class CssSelectorParser {
                 case '>':
                 case '~':
                     if (selectorItems.size() == 0) {
-                        throw new IllegalArgumentException(MessageFormat.format("Invalid token detected in the start of the string: {0}", firstChar));
+                        throw new IllegalArgumentException(MessageFormat.format("Invalid token detected in the start of the selector string: {0}", firstChar));
                     }
                     ICssSelectorItem lastItem = selectorItems.get(selectorItems.size() - 1);
                     CssSeparatorSelectorItem curItem = new CssSeparatorSelectorItem(firstChar);

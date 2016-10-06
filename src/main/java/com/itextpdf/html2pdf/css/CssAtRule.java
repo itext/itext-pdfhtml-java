@@ -40,23 +40,24 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css;
 
-public class CssClassSelectorItem implements ICssSelectorItem {
+public abstract class CssAtRule extends CssStatement {
 
-    private String className;
+    protected String ruleName;
 
-    public CssClassSelectorItem(String className) {
-        this.className = className;
+    protected CssAtRule(String ruleName) {
+        this.ruleName = ruleName;
     }
 
-    @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.CLASS_SPECIFICITY;
+    public String getRuleName() {
+        return ruleName;
     }
 
-    @Override
-    public String toString() {
-        return "." + className;
+    protected static String extractRuleNameFromDeclaration(String ruleDeclaration) {
+        ruleDeclaration = ruleDeclaration.trim();
+        int spaceIndex = ruleDeclaration.indexOf(' ');
+        return spaceIndex == -1 ? ruleDeclaration : ruleDeclaration.substring(0, spaceIndex);
     }
+
 }

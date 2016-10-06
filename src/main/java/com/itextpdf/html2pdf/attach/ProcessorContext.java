@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach;
 
-import com.itextpdf.html2pdf.css.parse.ICSSResolver;
+import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.font.DefaultFontResolver;
 import com.itextpdf.html2pdf.font.IFontResolver;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -51,16 +51,16 @@ public class ProcessorContext {
 
     private State state;
     private PdfDocument pdfDocument;
-    private ICSSResolver cssResolver;
+    private ICssResolver cssResolver;
     private IFontResolver fontResolver;
 
-    public ProcessorContext(ICSSResolver cssResolver) {
+    public ProcessorContext(ICssResolver cssResolver) {
         this.cssResolver = cssResolver;
         this.fontResolver = new DefaultFontResolver();
         this.state = new State();
     }
 
-    public ProcessorContext(ICSSResolver cssResolver, PdfDocument pdfDocument) {
+    public ProcessorContext(ICssResolver cssResolver, PdfDocument pdfDocument) {
         this(cssResolver);
         this.pdfDocument = pdfDocument;
     }
@@ -73,7 +73,7 @@ public class ProcessorContext {
         return state;
     }
 
-    public ICSSResolver getCssResolver() {
+    public ICssResolver getCssResolver() {
         return cssResolver;
     }
 
