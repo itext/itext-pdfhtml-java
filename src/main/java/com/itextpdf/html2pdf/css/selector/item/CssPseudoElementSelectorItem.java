@@ -56,4 +56,8 @@ public class CssPseudoElementSelectorItem implements ICssSelectorItem {
         return CssSpecificityConstants.ELEMENT_SPECIFICITY;
     }
 
+    @Override
+    public String toString() {
+        return "::" + pseudoElement;
+    }
 }

@@ -43,8 +43,8 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.Attacher;
-import com.itextpdf.html2pdf.css.parse.ICSSResolver;
-import com.itextpdf.html2pdf.css.parse.impl.SimpleCSSResolver;
+import com.itextpdf.html2pdf.css.resolve.ICssResolver;
+import com.itextpdf.html2pdf.css.resolve.SimpleCssResolver;
 import com.itextpdf.html2pdf.html.IHtmlParser;
 import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
 import com.itextpdf.html2pdf.html.node.IDocument;
@@ -95,7 +95,7 @@ public class HtmlConverter {
         IHtmlParser parser = new JsoupHtmlParser();
         String detectedCharset = detectEncoding(htmlStream);
         IDocument doc = parser.parse(htmlStream, detectedCharset);
-        ICSSResolver resolver = new SimpleCSSResolver(doc);
+        ICssResolver resolver = new SimpleCssResolver(doc);
         Document document = Attacher.attach(doc, resolver, new PdfDocument(pdfWriter));
         return document;
     }
@@ -103,7 +103,7 @@ public class HtmlConverter {
     public static List<IElement> convertToElements(String html) {
         IHtmlParser parser = new JsoupHtmlParser();
         IDocument doc = parser.parse(html);
-        ICSSResolver resolver = new SimpleCSSResolver(doc);
+        ICssResolver resolver = new SimpleCssResolver(doc);
         return Attacher.attach(doc, resolver);
     }
 

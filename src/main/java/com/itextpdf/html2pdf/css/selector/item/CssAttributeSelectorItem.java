@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
+import java.text.MessageFormat;
+
 public class CssAttributeSelectorItem implements ICssSelectorItem {
 
     private String property;
@@ -53,10 +55,11 @@ public class CssAttributeSelectorItem implements ICssSelectorItem {
         if (indexOfEqual == -1) {
             property = attrSelector.substring(1, attrSelector.length() - 1);
         } else {
-            if (attrSelector.charAt(indexOfEqual + 1) == '"')
+            if (attrSelector.charAt(indexOfEqual + 1) == '"' || attrSelector.charAt(indexOfEqual + 1) == '\'') {
                 value = attrSelector.substring(indexOfEqual + 2, attrSelector.length() - 2);
-            else
+            } else {
                 value = attrSelector.substring(indexOfEqual + 1, attrSelector.length() - 1);
+            }
             matchSymbol = attrSelector.charAt(indexOfEqual - 1);
             if ("~^$*|".indexOf(matchSymbol) == -1) {
                 matchSymbol = 0;
@@ -72,4 +75,12 @@ public class CssAttributeSelectorItem implements ICssSelectorItem {
         return CssSpecificityConstants.CLASS_SPECIFICITY;
     }
 
+    @Override
+    public String toString() {
+        if (value == null) {
+            return MessageFormat.format("[{0}]", property);
+        } else {
+            return MessageFormat.format("[{0}{1}=\"{2}\"]", property, matchSymbol == 0 ? "" : String.valueOf(matchSymbol), value);
+        }
+    }
 }

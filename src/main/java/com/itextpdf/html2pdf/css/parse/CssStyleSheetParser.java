@@ -40,23 +40,31 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css.parse;
 
-public class CssClassSelectorItem implements ICssSelectorItem {
+import com.itextpdf.html2pdf.css.CssStyleSheet;
+import com.itextpdf.html2pdf.css.parse.syntax.CssParserStateController;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
-    private String className;
+public final class CssStyleSheetParser {
 
-    public CssClassSelectorItem(String className) {
-        this.className = className;
+    private CssStyleSheetParser() {
     }
 
-    @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.CLASS_SPECIFICITY;
+    public static CssStyleSheet parse(InputStream stream) throws IOException {
+        CssParserStateController controller = new CssParserStateController();
+        BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+        char[] buffer = new char[8192];
+        int length;
+        while ((length = br.read(buffer)) > 0) {
+            for(int i = 0 ; i < length; i++) {
+                controller.process(buffer[i]);
+            }
+        }
+        return controller.getParsingResult();
     }
 
-    @Override
-    public String toString() {
-        return "." + className;
-    }
 }

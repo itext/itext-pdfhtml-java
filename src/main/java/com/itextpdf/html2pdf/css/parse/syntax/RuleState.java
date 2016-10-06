@@ -40,7 +40,27 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.parse;
+package com.itextpdf.html2pdf.css.parse.syntax;
 
-public interface ICssRule {
+class RuleState implements IParserState {
+
+    private CssParserStateController controller;
+
+    public RuleState(CssParserStateController controller) {
+        this.controller = controller;
+    }
+
+    @Override
+    public void process(char ch) {
+        if (ch == '{') {
+            controller.pushBlockPrecedingAtRule();
+            controller.enterAtRuleBlockState();
+        } else if (ch == ';') {
+            controller.storeSemicolonAtRule();
+            controller.enterUnknownState();
+        } else {
+            controller.appendToBuffer(ch);
+        }
+    }
+
 }

@@ -40,23 +40,21 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css;
 
-public class CssClassSelectorItem implements ICssSelectorItem {
+import java.text.MessageFormat;
 
-    private String className;
+public class CssSemicolonAtRule extends CssAtRule {
 
-    public CssClassSelectorItem(String className) {
-        this.className = className;
-    }
+    private String ruleParams;
 
-    @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.CLASS_SPECIFICITY;
+    public CssSemicolonAtRule(String ruleDeclaration) {
+        super(extractRuleNameFromDeclaration(ruleDeclaration));
+        this.ruleParams = ruleDeclaration.trim().substring(ruleName.length()).trim();
     }
 
     @Override
     public String toString() {
-        return "." + className;
+        return MessageFormat.format("@{0} {1};", ruleName, ruleParams);
     }
 }

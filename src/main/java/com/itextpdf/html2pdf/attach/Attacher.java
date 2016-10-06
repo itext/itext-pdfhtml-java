@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.attach;
 
 import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
-import com.itextpdf.html2pdf.css.parse.ICSSResolver;
+import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.html.node.IDocument;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
@@ -54,12 +54,12 @@ public class Attacher {
     private Attacher() {
     }
 
-    public static Document attach(IDocument documentNode, ICSSResolver cssResolver, PdfDocument pdfDocument) {
+    public static Document attach(IDocument documentNode, ICssResolver cssResolver, PdfDocument pdfDocument) {
         IHtmlProcessor processor = new DefaultHtmlProcessor(documentNode, cssResolver);
         return processor.processDocument(pdfDocument);
     }
 
-    public static List<com.itextpdf.layout.element.IElement> attach(IDocument documentNode, ICSSResolver cssResolver) {
+    public static List<com.itextpdf.layout.element.IElement> attach(IDocument documentNode, ICssResolver cssResolver) {
         IHtmlProcessor processor = new DefaultHtmlProcessor(documentNode, cssResolver);
         return processor.processElements();
     }

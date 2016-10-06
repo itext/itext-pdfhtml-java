@@ -54,4 +54,9 @@ public class CssIdSelectorItem implements ICssSelectorItem {
     public int getSpecificity() {
         return CssSpecificityConstants.ID_SPECIFICITY;
     }
+
+    @Override
+    public String toString() {
+        return "#" + id;
+    }
 }

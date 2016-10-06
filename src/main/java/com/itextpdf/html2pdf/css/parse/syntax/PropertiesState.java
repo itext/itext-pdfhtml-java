@@ -40,23 +40,26 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css.parse.syntax;
 
-public class CssClassSelectorItem implements ICssSelectorItem {
+// TODO rename to BLOCK
+class PropertiesState implements IParserState {
 
-    private String className;
+    private CssParserStateController controller;
 
-    public CssClassSelectorItem(String className) {
-        this.className = className;
+    public PropertiesState(CssParserStateController controller) {
+        this.controller = controller;
     }
 
     @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.CLASS_SPECIFICITY;
-    }
-
-    @Override
-    public String toString() {
-        return "." + className;
+    public void process(char ch) {
+        if (ch == '}') {
+            controller.storeCurrentProperties();
+            controller.enterUnknownStateIfNestedBlocksFinished();
+        } else if (ch == '/') {
+            controller.enterCommentStartState();
+        } else {
+            controller.appendToBuffer(ch);
+        }
     }
 }

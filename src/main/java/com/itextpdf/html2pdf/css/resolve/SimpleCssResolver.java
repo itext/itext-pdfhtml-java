@@ -40,23 +40,37 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css.resolve;
 
-public class CssClassSelectorItem implements ICssSelectorItem {
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.html.node.INode;
+import java.util.HashMap;
+import java.util.Map;
 
-    private String className;
+public class SimpleCssResolver implements ICssResolver {
 
-    public CssClassSelectorItem(String className) {
-        this.className = className;
+    private INode treeRoot;
+
+    public SimpleCssResolver(INode treeRoot) {
+        this.treeRoot = treeRoot;
+        collectCSSDeclarations();
+    }
+
+    private void collectCSSDeclarations() {
+        // TODO collect global declarations from the whole tree
+        // TODO probably compute merged declarations
     }
 
     @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.CLASS_SPECIFICITY;
+    public Map<String, String> resolveStyles(INode node) {
+        return new HashMap<String, String>() {{
+            put(CssConstants.FONT_FAMILY, "Times-Roman");
+            put(CssConstants.FONT_SIZE, "20");
+        }};
     }
 
     @Override
-    public String toString() {
-        return "." + className;
+    public Map<String, String> resolveOwnStyles(INode node) {
+        throw new IllegalStateException();
     }
 }

@@ -40,39 +40,60 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply.impl;
+package com.itextpdf.html2pdf.css.parse;
 
-import com.itextpdf.html2pdf.attach.ElementResult;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.TagProcessingResult;
-import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.resolve.ICssResolver;
-import com.itextpdf.html2pdf.html.node.INode;
-import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.property.Property;
-import java.io.IOException;
-import java.util.Map;
+import com.itextpdf.html2pdf.css.CssDeclaration;
+import com.itextpdf.html2pdf.css.CssRuleSet;
+import com.itextpdf.html2pdf.css.selector.CssSelector;
+import com.itextpdf.html2pdf.css.util.CssUtils;
+import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PTagCssApplier implements ICssApplier {
-    @Override
-    public void apply(ProcessorContext context, INode node, TagProcessingResult result) {
-        ICssResolver cssResolver = context.getCssResolver();
-        Map<String, String> cssProps = cssResolver.resolveStyles(node);
-        if (result instanceof ElementResult && ((ElementResult) result).getElement() instanceof IPropertyContainer) {
-            if (cssProps.get(CssConstants.FONT_FAMILY) != null) {
-                try {
-                    ((ElementResult) result).getElement().setProperty(Property.FONT, context.getFontResolver().getFont(cssProps.get(CssConstants.FONT_FAMILY)));
-                } catch (IOException exc) {
-                    Logger logger = LoggerFactory.getLogger(PTagCssApplier.class);
-                    logger.error("Could not load font", exc);
-                }
-            }
-            if (cssProps.get(CssConstants.FONT_SIZE) != null) {
-                ((ElementResult) result).getElement().setProperty(Property.FONT_SIZE, Integer.valueOf(cssProps.get(CssConstants.FONT_SIZE)));
+public final class CssRuleSetParser {
+
+    private static final Logger logger = LoggerFactory.getLogger(CssRuleSetParser.class);
+
+    private CssRuleSetParser() {
+    }
+
+    // Returns List because selector can be compound, like "p, div, #navbar".
+    public static List<CssRuleSet> parseRuleSet(String selectorStr, String propertiesStr) {
+        String[] propertyDeclarationStrs = propertiesStr.split(";");
+        List<CssDeclaration> declarations = new ArrayList<>();
+        for (String propertyDeclarationStr : propertyDeclarationStrs) {
+            String[] propertySplit = propertyDeclarationStr.split(":");
+            if (propertySplit.length == 2) {
+                declarations.add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+            } else if (propertyDeclarationStr.trim().length() != 0) {
+                logger.error("Invalid property declaration: " + propertyDeclarationStr);
             }
         }
+
+        List<CssRuleSet> ruleSets = new ArrayList<>();
+
+        //check for rules like p, {…}
+        String[] selectors = selectorStr.split(",");
+        for (int i = 0; i < selectors.length; i++) {
+            selectors[i] = CssUtils.removeDoubleSpacesAndTrim(selectors[i]);
+            if (selectors[i].length() == 0)
+                return ruleSets;
+        }
+        for (String currentSelectorStr : selectors) {
+            try {
+                CssSelector selector = new CssSelector(currentSelectorStr);
+                ruleSets.add(new CssRuleSet(selector, declarations));
+            } catch (Exception exc) {
+                logger.error("Error parsing selector", exc);
+                //if any separated selector has errors, all others become invalid.
+                //in this case we just clear map, it is the easies way to support this.
+                declarations.clear();
+                return ruleSets;
+            }
+        }
+
+        return ruleSets;
     }
+
 }

@@ -50,7 +50,7 @@ import com.itextpdf.html2pdf.attach.TagProcessingResult;
 import com.itextpdf.html2pdf.attach.TagProcessorFactory;
 import com.itextpdf.html2pdf.css.apply.CssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.parse.ICSSResolver;
+import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.html2pdf.html.node.INode;
@@ -70,11 +70,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     private static Logger logger = LoggerFactory.getLogger(DefaultHtmlProcessor.class);
 
     private ProcessorContext context;
-    private ICSSResolver resolver;
+    private ICssResolver resolver;
     private INode root;
     private List<IPropertyContainer> roots;
 
-    public DefaultHtmlProcessor(INode node, ICSSResolver cssResolver) {
+    public DefaultHtmlProcessor(INode node, ICssResolver cssResolver) {
         this.resolver = cssResolver;
         this.root = node;
     }
