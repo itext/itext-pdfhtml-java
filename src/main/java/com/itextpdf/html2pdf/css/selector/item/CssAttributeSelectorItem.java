@@ -42,7 +42,9 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
+import com.itextpdf.html2pdf.html.node.IElement;
 import java.text.MessageFormat;
+import java.util.regex.Pattern;
 
 public class CssAttributeSelectorItem implements ICssSelectorItem {
 
@@ -73,6 +75,38 @@ public class CssAttributeSelectorItem implements ICssSelectorItem {
     @Override
     public int getSpecificity() {
         return CssSpecificityConstants.CLASS_SPECIFICITY;
+    }
+
+    @Override
+    public boolean matches(IElement element) {
+        if (element == null) {
+            return false;
+        }
+        String attributeValue = element.getAttribute(property);
+        if (attributeValue == null || attributeValue.length() == 0) {
+            return false;
+        }
+        if (value == null) {
+            return true;
+        } else {
+            switch (matchSymbol) {
+                case 0:
+                    return value.equals(attributeValue);
+                case '|':
+                    return attributeValue.startsWith(value) && (attributeValue.length() == value.length() || attributeValue.charAt(value.length()) == '-');
+                case '^':
+                    return attributeValue.startsWith(value);
+                case '$':
+                    return attributeValue.endsWith(value);
+                case '~':
+                    String pattern = String.format("(^%s\\s+)|(\\s+%s\\s+)|(\\s+%s$)", value, value, value);
+                    return Pattern.compile(pattern).matcher(attributeValue).find();
+                case '*':
+                    return attributeValue.contains(value);
+                default:
+                    return false;
+            }
+        }
     }
 
     @Override

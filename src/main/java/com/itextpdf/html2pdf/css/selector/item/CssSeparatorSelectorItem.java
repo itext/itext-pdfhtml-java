@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
+import com.itextpdf.html2pdf.html.node.IElement;
 import java.text.MessageFormat;
 
 public class CssSeparatorSelectorItem implements ICssSelectorItem {
@@ -55,6 +56,11 @@ public class CssSeparatorSelectorItem implements ICssSelectorItem {
     @Override
     public int getSpecificity() {
         return 0;
+    }
+
+    @Override
+    public boolean matches(IElement element) {
+        throw new IllegalStateException("Separator item is not supposed to be matched against an element");
     }
 
     public char getSeparator() {

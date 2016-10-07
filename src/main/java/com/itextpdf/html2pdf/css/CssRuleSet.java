@@ -42,7 +42,9 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.selector.CssSelector;
+import com.itextpdf.html2pdf.html.node.IElement;
 import java.util.List;
 
 public class CssRuleSet extends CssStatement {
@@ -53,6 +55,15 @@ public class CssRuleSet extends CssStatement {
     public CssRuleSet(CssSelector selector, List<CssDeclaration> declarations) {
         this.selector = selector;
         this.declarations = declarations;
+    }
+
+    @Override
+    public List<CssDeclaration> getCssDeclarations(IElement element, MediaDeviceDescription deviceDescription) {
+        if (selector.matches(element)) {
+            return declarations;
+        } else {
+            return super.getCssDeclarations(element, deviceDescription);
+        }
     }
 
     @Override

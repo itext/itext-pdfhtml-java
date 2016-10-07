@@ -42,6 +42,9 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.html.node.IElement;
+
 public class CssClassSelectorItem implements ICssSelectorItem {
 
     private String className;
@@ -58,5 +61,17 @@ public class CssClassSelectorItem implements ICssSelectorItem {
     @Override
     public String toString() {
         return "." + className;
+    }
+
+    @Override
+    public boolean matches(IElement element) {
+        String classAttr = element.getAttribute(AttributeConstants.CLASS);
+        if (classAttr != null && classAttr.length() > 0) {
+            String[] classNames = classAttr.split(" ");
+            for (String currClassName: classNames)
+                if (this.className.equals(currClassName.trim()))
+                    return true;
+        }
+        return false;
     }
 }

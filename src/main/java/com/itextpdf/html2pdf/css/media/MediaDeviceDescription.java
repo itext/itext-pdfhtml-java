@@ -40,31 +40,17 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css.media;
 
-import com.itextpdf.html2pdf.html.node.IElement;
+public class MediaDeviceDescription {
 
-// TODO now this is just a stub implementation
-public class CssPseudoElementSelectorItem implements ICssSelectorItem {
+    private String type;
 
-    private String pseudoElement;
-
-    public CssPseudoElementSelectorItem(String pseudoElement) {
-        this.pseudoElement = pseudoElement;
+    public MediaDeviceDescription(String type) {
+        this.type = type;
     }
 
-    @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.ELEMENT_SPECIFICITY;
-    }
-
-    @Override
-    public boolean matches(IElement element) {
-        return false; // TODO
-    }
-
-    @Override
-    public String toString() {
-        return "::" + pseudoElement;
+    public String getType() {
+        return type;
     }
 }

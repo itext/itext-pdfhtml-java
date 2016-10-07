@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
+import com.itextpdf.html2pdf.html.node.IElement;
+
 public class CssTagSelectorItem implements ICssSelectorItem {
 
     private String tagName;
@@ -55,6 +57,11 @@ public class CssTagSelectorItem implements ICssSelectorItem {
     @Override
     public int getSpecificity() {
         return isUniversal ? 0 : CssSpecificityConstants.ELEMENT_SPECIFICITY;
+    }
+
+    @Override
+    public boolean matches(IElement element) {
+        return isUniversal || tagName.equals(element.name());
     }
 
     @Override

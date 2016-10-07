@@ -43,6 +43,8 @@
 package com.itextpdf.html2pdf.css.selector.item;
 
 
+import com.itextpdf.html2pdf.html.node.IElement;
+
 // TODO now this is just a stub implementation
 public class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
@@ -55,6 +57,11 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
     @Override
     public int getSpecificity() {
         return CssSpecificityConstants.CLASS_SPECIFICITY;
+    }
+
+    @Override
+    public boolean matches(IElement element) {
+        return false; // TODO
     }
 
     @Override
