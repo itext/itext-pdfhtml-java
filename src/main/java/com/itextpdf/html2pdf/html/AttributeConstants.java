@@ -42,16 +42,11 @@
  */
 package com.itextpdf.html2pdf.html;
 
-public final class TagConstants {
+public final class AttributeConstants {
 
-    private TagConstants() {
+    private AttributeConstants() {
     }
 
-    public static final String BODY = "body";
-    public static final String HTML = "html";
-    public static final String P = "p";
-    public static final String TABLE = "table";
-    public static final String TD = "td";
-    public static final String TR = "tr";
+    public static final String STYLE = "style";
 
 }

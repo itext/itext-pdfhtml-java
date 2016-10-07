@@ -58,8 +58,7 @@ public final class CssRuleSetParser {
     private CssRuleSetParser() {
     }
 
-    // Returns List because selector can be compound, like "p, div, #navbar".
-    public static List<CssRuleSet> parseRuleSet(String selectorStr, String propertiesStr) {
+    public static List<CssDeclaration> parsePropertyDeclarations(String propertiesStr) {
         String[] propertyDeclarationStrs = propertiesStr.split(";");
         List<CssDeclaration> declarations = new ArrayList<>();
         for (String propertyDeclarationStr : propertyDeclarationStrs) {
@@ -70,7 +69,12 @@ public final class CssRuleSetParser {
                 logger.error("Invalid property declaration: " + propertyDeclarationStr);
             }
         }
+        return declarations;
+    }
 
+    // Returns List because selector can be compound, like "p, div, #navbar".
+    public static List<CssRuleSet> parseRuleSet(String selectorStr, String propertiesStr) {
+        List<CssDeclaration> declarations = parsePropertyDeclarations(propertiesStr);
         List<CssRuleSet> ruleSets = new ArrayList<>();
 
         //check for rules like p, {…}

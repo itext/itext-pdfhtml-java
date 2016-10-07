@@ -43,13 +43,14 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.css.selector.CssSelector;
+import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(UnitTest.class)
-public class SpecificityCalculationTest {
+public class SpecificityCalculationTest extends ExtendedITextTest {
 
     // https://www.smashingmagazine.com/2007/07/css-specificity-things-you-should-know/
     // https://specificity.keegan.st/

@@ -46,4 +46,6 @@ public interface IElement extends INode {
 
     String name();
 
+    IAttributes getAttributes();
+
 }

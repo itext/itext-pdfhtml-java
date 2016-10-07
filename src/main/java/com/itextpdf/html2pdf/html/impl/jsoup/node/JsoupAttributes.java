@@ -40,18 +40,26 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html;
+package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
-public final class TagConstants {
+import com.itextpdf.html2pdf.html.node.IAttributes;
+import org.jsoup.nodes.Attributes;
 
-    private TagConstants() {
+public class JsoupAttributes implements IAttributes {
+
+    private Attributes attributes;
+
+    public JsoupAttributes(Attributes attributes) {
+        this.attributes = attributes;
     }
 
-    public static final String BODY = "body";
-    public static final String HTML = "html";
-    public static final String P = "p";
-    public static final String TABLE = "table";
-    public static final String TD = "td";
-    public static final String TR = "tr";
+    @Override
+    public String getAttribute(String key) {
+        return attributes.get(key);
+    }
 
+    @Override
+    public int size() {
+        return attributes.size();
+    }
 }

@@ -40,18 +40,12 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html;
+package com.itextpdf.html2pdf.html.node;
 
-public final class TagConstants {
+public interface IAttributes {
 
-    private TagConstants() {
-    }
+    String getAttribute(String key);
 
-    public static final String BODY = "body";
-    public static final String HTML = "html";
-    public static final String P = "p";
-    public static final String TABLE = "table";
-    public static final String TD = "td";
-    public static final String TR = "tr";
+    int size();
 
 }

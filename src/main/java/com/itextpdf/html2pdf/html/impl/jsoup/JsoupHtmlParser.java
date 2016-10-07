@@ -42,20 +42,25 @@
  */
 package com.itextpdf.html2pdf.html.impl.jsoup;
 
-import com.itextpdf.html2pdf.html.node.IDocument;
 import com.itextpdf.html2pdf.html.IHtmlParser;
-import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupDocument;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElement;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupTextNode;
+import com.itextpdf.html2pdf.html.node.IDocument;
+import com.itextpdf.html2pdf.html.node.INode;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.MessageFormat;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JsoupHtmlParser implements IHtmlParser {
+
+    private static Logger logger = LoggerFactory.getLogger(JsoupHtmlParser.class);
 
     @Override
     public IDocument parse(InputStream htmlStream, String charset) throws IOException {
@@ -88,6 +93,8 @@ public class JsoupHtmlParser implements IHtmlParser {
             resultNode = new JsoupTextNode((TextNode) jsoupNode);
         } else if (jsoupNode instanceof org.jsoup.nodes.Element) {
             resultNode = new JsoupElement((Element) jsoupNode);
+        } else {
+            logger.error(MessageFormat.format("Could not map node type: {0}", jsoupNode.getClass()));
         }
 
         for (org.jsoup.nodes.Node node : jsoupNode.childNodes()) {

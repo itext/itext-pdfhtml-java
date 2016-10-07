@@ -42,20 +42,28 @@
  */
 package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
+import com.itextpdf.html2pdf.html.node.IAttributes;
 import com.itextpdf.html2pdf.html.node.IElement;
 
 public class JsoupElement extends JsoupNode implements IElement {
 
     private org.jsoup.nodes.Element element;
+    private IAttributes attributes;
 
     public JsoupElement(org.jsoup.nodes.Element element) {
         super(element);
         this.element = element;
+        this.attributes = new JsoupAttributes(element.attributes());
     }
 
     @Override
     public String name() {
         return element.nodeName();
     }
+
+    public IAttributes getAttributes() {
+        return attributes;
+    }
+
 }
 

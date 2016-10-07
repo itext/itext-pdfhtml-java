@@ -66,8 +66,8 @@ public class JsoupNode implements INode {
 
     @Override
     public void addChild(INode node) {
-        childNodes.add(node);
         if (node instanceof JsoupNode) {
+            childNodes.add(node);
             ((JsoupNode) node).parentNode = this;
         } else {
             Logger logger = LoggerFactory.getLogger(JsoupNode.class);

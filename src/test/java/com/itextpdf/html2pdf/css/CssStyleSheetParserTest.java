@@ -53,7 +53,7 @@ import org.junit.Test;
 
 public class CssStyleSheetParserTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssStyleSheetParserTest/";
+    private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssStyleSheetParserTest/";
 
     @Test
     public void testDefaultCss() throws IOException {
