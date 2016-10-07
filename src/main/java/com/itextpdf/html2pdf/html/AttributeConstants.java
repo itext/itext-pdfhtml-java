@@ -47,6 +47,8 @@ public final class AttributeConstants {
     private AttributeConstants() {
     }
 
+    public static final String CLASS = "class";
+    public static final String ID = "id";
     public static final String STYLE = "style";
 
 }

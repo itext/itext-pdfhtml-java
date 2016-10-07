@@ -53,4 +53,8 @@ public class JsoupDocument extends JsoupElement implements IDocument {
         this.document = document;
     }
 
+    public org.jsoup.nodes.Document getDocument() {
+        return document;
+    }
+
 }

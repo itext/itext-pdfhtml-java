@@ -65,5 +65,9 @@ public class JsoupElement extends JsoupNode implements IElement {
         return attributes;
     }
 
+    @Override
+    public String getAttribute(String key) {
+        return attributes.getAttribute(key);
+    }
 }
 

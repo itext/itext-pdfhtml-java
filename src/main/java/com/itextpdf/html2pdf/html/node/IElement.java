@@ -48,4 +48,6 @@ public interface IElement extends INode {
 
     IAttributes getAttributes();
 
+    String getAttribute(String key);
+
 }

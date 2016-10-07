@@ -43,7 +43,10 @@
 package com.itextpdf.html2pdf.css.selector;
 
 import com.itextpdf.html2pdf.css.parse.CssSelectorParser;
+import com.itextpdf.html2pdf.css.selector.item.CssSeparatorSelectorItem;
 import com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem;
+import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.INode;
 import java.util.List;
 
 public class CssSelector {
@@ -66,6 +69,10 @@ public class CssSelector {
         return specificity;
     }
 
+    public boolean matches(IElement element) {
+        return matches(element, selectorItems.size() - 1);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -74,4 +81,64 @@ public class CssSelector {
         }
         return sb.toString();
     }
+
+    private boolean matches(INode element, int lastSelectorItemInd) {
+        if (!(element instanceof IElement)) {
+            return false;
+        }
+        if (lastSelectorItemInd < 0) {
+            return true;
+        }
+        for (int i = lastSelectorItemInd; i >= 0; i--) {
+            ICssSelectorItem currentItem = selectorItems.get(i);
+            if (currentItem instanceof CssSeparatorSelectorItem) {
+                char separator = ((CssSeparatorSelectorItem) currentItem).getSeparator();
+                switch (separator) {
+                    case '>':
+                        return matches(element.parentNode(), i - 1);
+                    case ' ': {
+                        INode parent = element.parentNode();
+                        while (parent != null) {
+                            boolean parentMatches = matches(parent, i - 1);
+                            if (parentMatches) {
+                                return true;
+                            } else {
+                                parent = parent.parentNode();
+                            }
+                        }
+                        return false;
+                    }
+                    case '~': {
+                        INode parent = element.parentNode();
+                        if (parent != null) {
+                            int indexOfElement = parent.childNodes().indexOf(element);
+                            for (int j = indexOfElement - 1; j >= 0; j--) {
+                                if (matches(parent.childNodes().get(j), i - 1)) {
+                                    return true;
+                                }
+                            }
+                        }
+                        return false;
+                    }
+                    case '+': {
+                        INode parent = element.parentNode();
+                        if (parent != null) {
+                            int indexOfElement = parent.childNodes().indexOf(element);
+                            return indexOfElement > 0 && matches(parent.childNodes().get(indexOfElement - 1), i - 1);
+                        }
+                        return false;
+                    }
+                    default:
+                        return false;
+                }
+            } else {
+                if (!currentItem.matches((IElement) element)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
 }
