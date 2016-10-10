@@ -42,46 +42,47 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.attach.ElementResult;
-import com.itextpdf.html2pdf.attach.ITagProcessor;
+import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.TagProcessingResult;
-import com.itextpdf.html2pdf.attach.WrapperResult;
-import com.itextpdf.html2pdf.attach.wraplements.TableWrapper;
 import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Table;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.BlockElement;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Image;
 
-public class TableTagProcessor implements ITagProcessor {
+public class TdTagWorker implements ITagWorker {
 
-    private static Logger logger = LoggerFactory.getLogger(TableTagProcessor.class);
+    private Cell cell;
 
-    @Override
-    public TagProcessingResult processStart(IElement element, ProcessorContext context) {
-        TagProcessingResult result = new WrapperResult(new TableWrapper());
-        context.getState().push(result);
-        return result;
+    public TdTagWorker(IElement element, ProcessorContext context) {
+        cell = new Cell();
     }
 
     @Override
-    public TagProcessingResult processEnd(IElement element, ProcessorContext context, TagProcessingResult processStartResult) {
-        context.getState().pop();
-        if (processStartResult instanceof WrapperResult && ((WrapperResult) processStartResult).getWrapElement() instanceof TableWrapper) {
-            TableWrapper wrapper = (TableWrapper) ((WrapperResult) processStartResult).getWrapElement();
-            Table tbl = wrapper.toTable();
-            ElementResult result = new ElementResult(tbl);
-            if (!context.getState().empty() && context.getState().top() instanceof ElementResult && ((ElementResult) context.getState().top()).getElement() instanceof Document) {
-                ((Document) ((ElementResult) context.getState().top()).getElement()).add(wrapper.toTable());
-            }
-            return result;
+    public void processEnd(IElement element, ProcessorContext context) {
+    }
+
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        cell.add(content);
+        return true;
+    }
+
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        boolean processed = false;
+        if (childTagWorker.getElementResult() instanceof BlockElement) {
+            cell.add((BlockElement) childTagWorker.getElementResult());
+            processed = true;
+        } else if (childTagWorker.getElementResult() instanceof Image) {
+            cell.add((Image) childTagWorker.getElementResult());
+            processed = true;
         }
-        return null;
+        return processed;
     }
 
     @Override
-    public void processContent(String content, ProcessorContext context) {
-        logger.error("content will not be processed");
+    public IPropertyContainer getElementResult() {
+        return cell;
     }
 }

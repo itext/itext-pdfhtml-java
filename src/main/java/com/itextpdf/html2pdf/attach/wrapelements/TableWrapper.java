@@ -40,18 +40,56 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.attach.wrapelements;
 
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Table;
+import java.util.ArrayList;
+import java.util.List;
 
-public interface ITagProcessor {
+public class TableWrapper implements IWrapElement {
 
-    TagProcessingResult processStart(IElement element, ProcessorContext context);
+    private List<List<Cell> > rows;
 
-    // TODO can we get rid of processStartResult and get it from stack?
-    // Maybe there might be a situation when we are not sure whether we have pushed anything to the stack
-    TagProcessingResult processEnd(IElement element, ProcessorContext context, TagProcessingResult processStartResult);
+    public int getRowsSize() {
+        return rows.size();
+    }
 
-    void processContent(String content, ProcessorContext context);
+    public void newRow() {
+        if (rows == null) {
+            rows = new ArrayList<>();
+        }
+        rows.add(new ArrayList<Cell>());
+    }
 
+    public void addCell(Cell cell) {
+        if (rows == null) {
+            rows = new ArrayList<>();
+        }
+        if (rows.size() == 0) {
+            newRow();
+        }
+        rows.get(rows.size() - 1).add(cell);
+    }
+
+    public Table toTable() {
+        int maxRowSize = 1;
+        if (rows != null) {
+            for (int i = 0; i < rows.size(); i++) {
+                maxRowSize = Math.max(maxRowSize, rows.get(i).size());
+            }
+        }
+        Table table = new Table(maxRowSize);
+        if (rows != null) {
+            for (int i = 0; i < rows.size(); i++) {
+                for (int j = 0; j < rows.get(i).size(); j++) {
+                    table.addCell((Cell) (rows.get(i).get(j)));
+                }
+                if (i != rows.size() - 1) {
+                    table.startNewRow();
+                }
+            }
+        }
+        return table;
+    }
 }

@@ -42,12 +42,12 @@
  */
 package com.itextpdf.html2pdf.css.apply;
 
+import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.TagProcessingResult;
 import com.itextpdf.html2pdf.html.node.INode;
 
 public interface ICssApplier {
 
-    void apply(ProcessorContext context, INode node, TagProcessingResult result);
+    void apply(ProcessorContext context, INode node, ITagWorker tagWorker);
 
 }

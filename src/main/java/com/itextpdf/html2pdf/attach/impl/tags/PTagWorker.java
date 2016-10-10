@@ -40,19 +40,46 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.Paragraph;
 
-public class ElementResult extends TagProcessingResult {
+public class PTagWorker implements ITagWorker {
+    private Paragraph paragraph;
 
-    private IPropertyContainer element;
-
-    public ElementResult(IPropertyContainer element) {
-        this.element = element;
+    public PTagWorker(IElement element, ProcessorContext context) {
+        paragraph = new Paragraph();
     }
 
-    public IPropertyContainer getElement() {
-        return element;
+    @Override
+    public void processEnd(IElement element, ProcessorContext context) {
+
+    }
+
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        paragraph.add(content);
+        return true;
+    }
+
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        IPropertyContainer element = childTagWorker.getElementResult();
+        if (element instanceof ILeafElement) {
+            paragraph.add((ILeafElement) element);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public IPropertyContainer getElementResult() {
+        return paragraph;
     }
 }
