@@ -83,7 +83,7 @@ public class CssAttributeSelectorItem implements ICssSelectorItem {
             return false;
         }
         String attributeValue = element.getAttribute(property);
-        if (attributeValue == null || attributeValue.length() == 0) {
+        if (attributeValue == null) {
             return false;
         }
         if (value == null) {
