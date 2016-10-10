@@ -45,26 +45,25 @@ package com.itextpdf.html2pdf.attach;
 import java.util.Stack;
 
 public class State {
+    private Stack<ITagWorker> stack;
 
     public State() {
         stack = new Stack<>();
     }
 
-    private Stack<TagProcessingResult> stack;
-
-    public Stack<TagProcessingResult> getStack() {
+    public Stack<ITagWorker> getStack() {
         return stack;
     }
 
-    public void push(TagProcessingResult element) {
-        stack.push(element);
+    public void push(ITagWorker tagWorker) {
+        stack.push(tagWorker);
     }
 
-    public TagProcessingResult pop() {
+    public ITagWorker pop() {
         return stack.pop();
     }
 
-    public TagProcessingResult top() {
+    public ITagWorker top() {
         return stack.peek();
     }
 

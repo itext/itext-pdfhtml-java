@@ -42,12 +42,10 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
-import com.itextpdf.html2pdf.attach.ElementResult;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
-import com.itextpdf.html2pdf.attach.ITagProcessor;
+import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.TagProcessingResult;
-import com.itextpdf.html2pdf.attach.TagProcessorFactory;
+import com.itextpdf.html2pdf.attach.TagWorkerFactory;
 import com.itextpdf.html2pdf.css.apply.CssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
@@ -109,46 +107,47 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
     private void visit(INode node) {
         if (node instanceof IElement) {
-            ITagProcessor processor = TagProcessorFactory.getTagProcessor(((IElement) node).name());
-            if (processor == null) {
-                logger.error("No processor found for tag " + ((IElement) node).name());
-            }
-            TagProcessingResult result = null;
-            if (processor != null) {
-                result = processor.processStart((IElement) node, context);
+            ITagWorker tagWorker = TagWorkerFactory.getTagWorker(((IElement) node), context);
+            if (tagWorker == null) {
+                logger.error("No worker found for tag " + ((IElement) node).name());
+            } else {
+                context.getState().push(tagWorker);
             }
 
             for (INode childNode : node.childNodes()) {
                 visit(childNode);
             }
 
-            if (processor != null) {
-                result = processor.processEnd((IElement) node, context, result);
-            }
+            if (tagWorker != null) {
+                tagWorker.processEnd((IElement) node, context);
+                context.getState().pop();
 
-            ICssApplier cssApplier = CssApplierFactory.getCssApplier(((IElement) node).name());
-            if (cssApplier == null) {
-                logger.error("No css applier found for tag " + ((IElement) node).name());
-            }
+                ICssApplier cssApplier = CssApplierFactory.getCssApplier(((IElement) node).name());
+                if (cssApplier == null) {
+                    logger.error("No css applier found for tag " + ((IElement) node).name());
+                } else {
+                    cssApplier.apply(context, node, tagWorker);
+                }
 
-            if (cssApplier != null) {
-                cssApplier.apply(context, node, result);
-            }
-
-            if (result instanceof ElementResult && context.getState().empty()) {
-                roots.add(((ElementResult) result).getElement());
+                if (!context.getState().empty()) {
+                    boolean childProcessed = context.getState().top().processTagChild(tagWorker, context);
+                    if (!childProcessed) {
+                        logger.error(String.format( "Worker of type %s wasn't able to process %s",
+                                context.getState().top().getClass().getName(), tagWorker.getClass().getName()));
+                    }
+                } else if (tagWorker.getElementResult() != null) {
+                    roots.add(tagWorker.getElementResult());
+                }
             }
         } else if (node instanceof ITextNode) {
-            INode parent = node.parentNode();
-            if (parent instanceof IElement) {
-                ITagProcessor processor = TagProcessorFactory.getTagProcessor(((IElement) parent).name());
-                if (processor == null) {
-                    logger.error("No processor found for tag " + (((IElement) parent).name()));
-                } else {
-                    processor.processContent(((ITextNode) node).wholeText(), context);
+            if (!context.getState().empty()) {
+                boolean contentProcessed = context.getState().top().processContent(((ITextNode) node).wholeText(), context);
+                if (!contentProcessed) {
+                    logger.error(String.format("Worker of type %s wasn't able to process it's text content",
+                            context.getState().top().getClass().getName()));
                 }
             } else {
-                logger.error("Error adding content");
+                logger.error("No consumer found for content");
             }
         }
     }

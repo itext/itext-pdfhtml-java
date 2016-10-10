@@ -40,21 +40,34 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.wraplements;
+package com.itextpdf.html2pdf.attach;
 
-import com.itextpdf.layout.element.Cell;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.layout.IPropertyContainer;
 
-public class TableRowWrapper implements IWrapElement {
-    private List<Cell> cells = new ArrayList<>();
+public interface ITagWorker {
 
-    public void addCell(Cell cell) {
-        cells.add(cell);
-    }
+    void processEnd(IElement element, ProcessorContext context);
 
-    public List<Cell> getCells() {
-        return Collections.unmodifiableList(cells);
-    }
+    /**
+     *
+     * @param content
+     * @param context
+     * @return true, if content was successfully processed, otherwise false.
+     */
+    boolean processContent(String content, ProcessorContext context);
+
+    /**
+     *
+     * @param childTagWorker
+     * @return true, if child was successfully processed, otherwise false.
+     */
+    boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context);
+
+    /**
+     * Shall return the same object on every call. Might return null either if result is not yet produced or if
+     * this particular tag worker doesn't produce result in a form of {@link IPropertyContainer}.
+     * @return
+     */
+    IPropertyContainer getElementResult();
 }

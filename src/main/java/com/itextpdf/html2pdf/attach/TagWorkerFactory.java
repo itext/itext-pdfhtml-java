@@ -40,43 +40,34 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.tags;
+package com.itextpdf.html2pdf.attach;
 
-import com.itextpdf.html2pdf.attach.ElementResult;
-import com.itextpdf.html2pdf.attach.ITagProcessor;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.TagProcessingResult;
-import com.itextpdf.html2pdf.attach.WrapperResult;
-import com.itextpdf.html2pdf.attach.wraplements.TableRowWrapper;
+import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.PTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.TdTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.TrTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.TableTagWorker;
+import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.layout.element.Cell;
 
-public class TdTagProcessor implements ITagProcessor {
-    @Override
-    public TagProcessingResult processStart(IElement element, ProcessorContext context) {
-        TagProcessingResult result = new ElementResult(new Cell());
-        context.getState().push(result);
-        return result;
-    }
+// TODO add possibility to register operators
+public class TagWorkerFactory {
 
-    @Override
-    public TagProcessingResult processEnd(IElement element, ProcessorContext context, TagProcessingResult processStartResult) {
-         context.getState().pop();
-        if (processStartResult instanceof ElementResult && ((ElementResult) processStartResult).getElement() instanceof Cell) {
-            Cell cell = (Cell) ((ElementResult) processStartResult).getElement();
-            if (context.getState().top() instanceof WrapperResult && ((WrapperResult) context.getState().top()).getWrapElement() instanceof TableRowWrapper) {
-                ((TableRowWrapper) ((WrapperResult) context.getState().top()).getWrapElement()).addCell(cell);
-            }
+    // TODO add context?
+    public static ITagWorker getTagWorker(IElement tag, ProcessorContext context) {
+        switch (tag.name()) {
+            case TagConstants.P:
+                return new PTagWorker(tag, context);
+            case TagConstants.HTML:
+                return new HtmlTagWorker(tag, context);
+            case TagConstants.TABLE:
+                return new TableTagWorker(tag, context);
+            case TagConstants.TD:
+                return new TdTagWorker(tag, context);
+            case TagConstants.TR:
+                return new TrTagWorker(tag, context);
         }
-        return processStartResult;
+        return null;
     }
 
-    @Override
-    public void processContent(String content, ProcessorContext context) {
-        TagProcessingResult processStartResult = context.getState().top();
-        if (processStartResult instanceof ElementResult && ((ElementResult) processStartResult).getElement() instanceof Cell) {
-            Cell cell = (Cell) ((ElementResult) processStartResult).getElement();
-            cell.add(content);
-        }
-    }
 }

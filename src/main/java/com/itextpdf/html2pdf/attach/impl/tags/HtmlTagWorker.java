@@ -40,33 +40,50 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagProcessor;
-import com.itextpdf.html2pdf.attach.impl.tags.PTagProcessor;
-import com.itextpdf.html2pdf.attach.impl.tags.TdTagProcessor;
-import com.itextpdf.html2pdf.attach.impl.tags.TrTagProcessor;
-import com.itextpdf.html2pdf.attach.impl.tags.TableTagProcessor;
-import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.BlockElement;
+import com.itextpdf.layout.element.Image;
 
-// TODO add possibility to register operators
-public class TagProcessorFactory {
+public class HtmlTagWorker implements ITagWorker {
+    private Document document;
 
-    // TODO add context?
-    public static ITagProcessor getTagProcessor(String tag) {
-        switch (tag) {
-            case TagConstants.P:
-                return new PTagProcessor();
-            case TagConstants.HTML:
-                return new HtmlTagProcessor();
-            case TagConstants.TABLE:
-                return new TableTagProcessor();
-            case TagConstants.TD:
-                return new TdTagProcessor();
-            case TagConstants.TR:
-                return new TrTagProcessor();
-        }
-        return null;
+    public HtmlTagWorker(IElement element, ProcessorContext context) {
+        document = new Document(context.getPdfDocument(), PageSize.A4);
     }
 
+    @Override
+    public void processEnd(IElement element, ProcessorContext context) {
+
+    }
+
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        return false; // TODO should be processed
+    }
+
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        boolean processed = false;
+        IPropertyContainer element = childTagWorker.getElementResult();
+        if (element instanceof BlockElement) { // TODO porting to .net issue with generics
+            document.add(((BlockElement) element));
+            processed = true;
+        } else if (element instanceof Image) {
+            document.add((Image) element);
+            processed = true;
+        }
+        return processed;
+    }
+
+    @Override
+    public IPropertyContainer getElementResult() {
+        return document;
+    }
 }

@@ -40,56 +40,51 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.wraplements;
+package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.wrapelements.TableRowWrapper;
+import com.itextpdf.html2pdf.attach.wrapelements.TableWrapper;
+import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
-import java.util.ArrayList;
-import java.util.List;
 
-public class TableWrapper implements IWrapElement {
+public class TableTagWorker implements ITagWorker {
 
-    private List<List<Cell> > rows;
+    private TableWrapper tableWrapper;
+    private Table table;
 
-    public int getRowsSize() {
-        return rows.size();
+    public TableTagWorker(IElement element, ProcessorContext context) {
+        tableWrapper = new TableWrapper();
     }
 
-    public void newRow() {
-        if (rows == null) {
-            rows = new ArrayList<>();
-        }
-        rows.add(new ArrayList<Cell>());
+    @Override
+    public void processEnd(IElement element, ProcessorContext context) {
+        table = tableWrapper.toTable();
     }
 
-    public void addCell(Cell cell) {
-        if (rows == null) {
-            rows = new ArrayList<>();
-        }
-        if (rows.size() == 0) {
-            newRow();
-        }
-        rows.get(rows.size() - 1).add(cell);
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        return false;
     }
 
-    public Table toTable() {
-        int maxRowSize = 1;
-        if (rows != null) {
-            for (int i = 0; i < rows.size(); i++) {
-                maxRowSize = Math.max(maxRowSize, rows.get(i).size());
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        if (childTagWorker instanceof TrTagWorker) {
+            TableRowWrapper wrapper = ((TrTagWorker)childTagWorker).getTableRowWrapper();
+            tableWrapper.newRow();
+            for (Cell cell : wrapper.getCells()) {
+                tableWrapper.addCell(cell);
             }
+            return true;
         }
-        Table table = new Table(maxRowSize);
-        if (rows != null) {
-            for (int i = 0; i < rows.size(); i++) {
-                for (int j = 0; j < rows.get(i).size(); j++) {
-                    table.addCell((Cell) (rows.get(i).get(j)));
-                }
-                if (i != rows.size() - 1) {
-                    table.startNewRow();
-                }
-            }
-        }
+        return false;
+    }
+
+    @Override
+    public IPropertyContainer getElementResult() {
         return table;
     }
 }
