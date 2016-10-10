@@ -55,7 +55,7 @@ public class JsoupAttributes implements IAttributes {
 
     @Override
     public String getAttribute(String key) {
-        return attributes.get(key);
+        return attributes.hasKey(key) ? attributes.get(key) : null;
     }
 
     @Override

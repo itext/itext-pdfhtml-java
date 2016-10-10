@@ -45,24 +45,32 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.selector.CssSelector;
 import com.itextpdf.html2pdf.html.node.IElement;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class CssRuleSet extends CssStatement {
 
+    private static final Pattern importantMatcher = Pattern.compile(".*!\\s*important$");
+
     private CssSelector selector;
-    private List<CssDeclaration> declarations;
+    private List<CssDeclaration> normalDeclarations;
+    private List<CssDeclaration> importantDeclarations;
 
     public CssRuleSet(CssSelector selector, List<CssDeclaration> declarations) {
         this.selector = selector;
-        this.declarations = declarations;
+        this.normalDeclarations = new ArrayList<>();
+        this.importantDeclarations = new ArrayList<>();
+        splitDeclarationsIntoNormalAndImportant(declarations);
     }
 
     @Override
-    public List<CssDeclaration> getCssDeclarations(IElement element, MediaDeviceDescription deviceDescription) {
+    List<CssRuleSet> getCssRuleSets(IElement element, MediaDeviceDescription deviceDescription) {
         if (selector.matches(element)) {
-            return declarations;
+            return Collections.singletonList(this);
         } else {
-            return super.getCssDeclarations(element, deviceDescription);
+            return super.getCssRuleSets(element, deviceDescription);
         }
     }
 
@@ -71,14 +79,45 @@ public class CssRuleSet extends CssStatement {
         StringBuilder sb = new StringBuilder();
         sb.append(selector.toString());
         sb.append(" {\n");
-        for (int i = 0; i < declarations.size(); i++) {
-            CssDeclaration declaration = declarations.get(i);
-            sb.append("    ").append(declaration.toString());
-            if (i != declarations.size() - 1) {
+        for (int i = 0; i < normalDeclarations.size(); i++) {
+            if (i > 0) {
                 sb.append(";").append("\n");
             }
+            CssDeclaration declaration = normalDeclarations.get(i);
+            sb.append("    ").append(declaration.toString());
+        }
+        for (int i = 0; i < importantDeclarations.size(); i++) {
+            if (i > 0 || normalDeclarations.size() > 0) {
+                sb.append(";").append("\n");
+            }
+            CssDeclaration declaration = importantDeclarations.get(i);
+            sb.append("    ").append(declaration.toString()).append(" !important");
         }
         sb.append("\n}");
         return sb.toString();
     }
+
+    public CssSelector getSelector() {
+        return selector;
+    }
+
+    public List<CssDeclaration> getNormalDeclarations() {
+        return normalDeclarations;
+    }
+
+    public List<CssDeclaration> getImportantDeclarations() {
+        return importantDeclarations;
+    }
+
+    private void splitDeclarationsIntoNormalAndImportant(List<CssDeclaration> declarations) {
+        for (CssDeclaration declaration : declarations) {
+            int exclIndex = declaration.getExpression().indexOf('!');
+            if (exclIndex > 0 && importantMatcher.matcher(declaration.getExpression()).matches()) {
+                importantDeclarations.add(new CssDeclaration(declaration.getProperty(), declaration.getExpression().substring(0, exclIndex).trim()));
+            } else {
+                normalDeclarations.add(declaration);
+            }
+        }
+    }
+
 }

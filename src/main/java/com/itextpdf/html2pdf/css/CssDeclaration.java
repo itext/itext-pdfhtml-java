@@ -59,4 +59,12 @@ public class CssDeclaration {
     public String toString() {
         return MessageFormat.format("{0}: {1}", property, expression);
     }
+
+    public String getProperty() {
+        return property;
+    }
+
+    public String getExpression() {
+        return expression;
+    }
 }

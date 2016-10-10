@@ -42,64 +42,15 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
-import com.itextpdf.html2pdf.html.node.IElement;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.itextpdf.html2pdf.css.selector.CssSelectorComparator;
+import java.util.Comparator;
 
-public class CssStyleSheet {
+public class CssRuleSetComparator implements Comparator<CssRuleSet> {
 
-    private List<CssStatement> statements;
-
-    public CssStyleSheet() {
-        statements = new ArrayList<>();
-    }
-
-    public void addStatement(CssStatement statement) {
-        statements.add(statement);
-    }
+    private CssSelectorComparator selectorComparator = new CssSelectorComparator();
 
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (CssStatement statement : statements) {
-            if (sb.length() > 0) {
-                sb.append("\n");
-            }
-            sb.append(statement.toString());
-        }
-        return sb.toString();
+    public int compare(CssRuleSet o1, CssRuleSet o2) {
+        return selectorComparator.compare(o1.getSelector(), o2.getSelector());
     }
-
-    public List<CssDeclaration> getCssDeclarations(IElement element, MediaDeviceDescription deviceDescription) {
-        List<CssRuleSet> ruleSets = getCssRuleSets(element, deviceDescription);
-        Map<String, CssDeclaration> declarations = new HashMap<>();
-        Collections.sort(ruleSets, new CssRuleSetComparator());
-        for (CssRuleSet ruleSet : ruleSets) {
-            populateDeclarationsMap(ruleSet.getNormalDeclarations(), declarations);
-        }
-        for (CssRuleSet ruleSet : ruleSets) {
-            populateDeclarationsMap(ruleSet.getImportantDeclarations(), declarations);
-        }
-        return new ArrayList<>(declarations.values());
-    }
-
-    private static void populateDeclarationsMap(List<CssDeclaration> declarations, Map<String, CssDeclaration> map) {
-        for (CssDeclaration declaration : declarations) {
-            map.put(declaration.getProperty(), declaration);
-        }
-    }
-
-    private List<CssRuleSet> getCssRuleSets(IElement element, MediaDeviceDescription deviceDescription) {
-        List<CssRuleSet> ruleSets = new ArrayList<>();
-        for (CssStatement statement : statements) {
-            ruleSets.addAll(statement.getCssRuleSets(element, deviceDescription));
-        }
-        return ruleSets;
-    }
-
-
 }
