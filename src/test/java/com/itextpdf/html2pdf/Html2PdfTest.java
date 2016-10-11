@@ -82,4 +82,29 @@ public class Html2PdfTest extends ITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_malformed.pdf", sourceFolder + "cmp_hello_malformed.pdf", destinationFolder, "diff03_"));
     }
 
+    @Test
+    public void helloParagraphJunkSpacesDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph_junk_spaces.html"), new File(destinationFolder + "hello_paragraph_junk_spaces.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_paragraph_junk_spaces.pdf", sourceFolder + "cmp_hello_paragraph_junk_spaces.pdf", destinationFolder, "diff03_"));
+    }
+
+    @Test
+    public void helloParagraphNestedInTableDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph_nested_in_table.html"), new File(destinationFolder + "hello_paragraph_nested_in_table.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_paragraph_nested_in_table.pdf", sourceFolder + "cmp_hello_paragraph_nested_in_table.pdf", destinationFolder, "diff03_"));
+    }
+
+    @Test
+    public void helloParagraphWithSpansDocumentTest() throws IOException, InterruptedException {
+        // TODO result differs from how the browser shows this html
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph_with_span.html"), new File(destinationFolder + "hello_paragraph_with_span.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_paragraph_with_span.pdf", sourceFolder + "cmp_hello_paragraph_with_span.pdf", destinationFolder, "diff03_"));
+    }
+
+    @Test
+    public void helloDivDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_div.html"), new File(destinationFolder + "hello_div.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_div.pdf", sourceFolder + "cmp_hello_div.pdf", destinationFolder, "diff03_"));
+    }
+
 }
