@@ -42,11 +42,12 @@
  */
 package com.itextpdf.html2pdf.attach;
 
+import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.TableTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TdTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TrTagWorker;
-import com.itextpdf.html2pdf.attach.impl.tags.TableTagWorker;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 
@@ -56,10 +57,12 @@ public class TagWorkerFactory {
     // TODO add context?
     public static ITagWorker getTagWorker(IElement tag, ProcessorContext context) {
         switch (tag.name()) {
-            case TagConstants.P:
-                return new PTagWorker(tag, context);
+            case TagConstants.DIV:
+                return new DivTagWorker(tag, context);
             case TagConstants.HTML:
                 return new HtmlTagWorker(tag, context);
+            case TagConstants.P:
+                return new PTagWorker(tag, context);
             case TagConstants.TABLE:
                 return new TableTagWorker(tag, context);
             case TagConstants.TD:

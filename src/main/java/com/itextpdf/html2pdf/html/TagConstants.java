@@ -48,8 +48,10 @@ public final class TagConstants {
     }
 
     public static final String BODY = "body";
+    public static final String DIV = "div";
     public static final String HTML = "html";
     public static final String P = "p";
+    public static final String SPAN = "span";
     public static final String TABLE = "table";
     public static final String TD = "td";
     public static final String TR = "tr";

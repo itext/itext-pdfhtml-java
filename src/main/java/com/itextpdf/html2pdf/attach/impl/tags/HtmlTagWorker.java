@@ -50,6 +50,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
 
 public class HtmlTagWorker implements ITagWorker {
     private Document document;
@@ -65,7 +66,7 @@ public class HtmlTagWorker implements ITagWorker {
 
     @Override
     public boolean processContent(String content, ProcessorContext context) {
-        return false; // TODO should be processed
+        return false;
     }
 
     @Override

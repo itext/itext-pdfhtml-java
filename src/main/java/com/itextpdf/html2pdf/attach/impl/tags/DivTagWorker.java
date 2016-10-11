@@ -40,33 +40,49 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.BlockElement;
+import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.Image;
 
-public interface ITagWorker {
+public class DivTagWorker implements ITagWorker {
+    private Div div;
 
-    void processEnd(IElement element, ProcessorContext context);
+    public DivTagWorker(IElement element, ProcessorContext context) {
+        div = new Div();
+    }
 
-    /**
-     * @param content
-     * @param context
-     * @return true, if content was successfully processed, otherwise false.
-     */
-    boolean processContent(String content, ProcessorContext context);
+    @Override
+    public void processEnd(IElement element, ProcessorContext context) {
 
-    /**
-     *
-     * @param childTagWorker
-     * @return true, if child was successfully processed, otherwise false.
-     */
-    boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context);
+    }
 
-    /**
-     * Shall return the same object on every call. Might return null either if result is not yet produced or if
-     * this particular tag worker doesn't produce result in a form of {@link IPropertyContainer}.
-     * @return
-     */
-    IPropertyContainer getElementResult();
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        return false;
+    }
+
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        boolean processed = false;
+        IPropertyContainer element = childTagWorker.getElementResult();
+        if (element instanceof BlockElement) {
+            div.add(((BlockElement) element));
+            processed = true;
+        } else if (element instanceof Image) {
+            div.add((Image) element);
+            processed = true;
+        }
+        return processed;
+    }
+
+    @Override
+    public IPropertyContainer getElementResult() {
+        return div;
+    }
 }
