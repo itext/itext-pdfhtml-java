@@ -47,9 +47,10 @@ final class CssSpecificityConstants {
     private CssSpecificityConstants() {
     }
 
+    // TODO remove?
     public static final int STYLE_ATTRIBUTE_SPECIFICITY = 10000;
-    public static final int ID_SPECIFICITY = 100;
-    public static final int CLASS_SPECIFICITY = 10;
+    public static final int ID_SPECIFICITY = 1 << 20;
+    public static final int CLASS_SPECIFICITY = 1 << 10;
     public static final int ELEMENT_SPECIFICITY = 1;
 
 }
