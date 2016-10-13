@@ -40,7 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css;
+package com.itextpdf.html2pdf.css.selector.item;
 
 import com.itextpdf.html2pdf.css.selector.CssSelector;
 import com.itextpdf.test.ExtendedITextTest;
@@ -82,47 +82,47 @@ public class SpecificityCalculationTest extends ExtendedITextTest {
 
     @Test
     public void test06() {
-        Assert.assertEquals(11, getSpecificity("h1 + *[rel=up]"));
+        Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY + CssSpecificityConstants.ELEMENT_SPECIFICITY, getSpecificity("h1 + *[rel=up]"));
     }
 
     @Test
     public void test07() {
-        Assert.assertEquals(13, getSpecificity("ul ol li.red"));
+        Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY + CssSpecificityConstants.ELEMENT_SPECIFICITY * 3, getSpecificity("ul ol li.red"));
     }
 
     @Test
     public void test08() {
-        Assert.assertEquals(21, getSpecificity("li.red.level"));
+        Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY * 2 + CssSpecificityConstants.ELEMENT_SPECIFICITY, getSpecificity("li.red.level"));
     }
 
     @Test
     public void test09() {
-        Assert.assertEquals(10, getSpecificity(".sith"));
+        Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY, getSpecificity(".sith"));
     }
 
     @Test
     public void test10() {
-        Assert.assertEquals(12, getSpecificity("div p.sith"));
+        Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY + CssSpecificityConstants.ELEMENT_SPECIFICITY * 2, getSpecificity("div p.sith"));
     }
 
     @Test
     public void test11() {
-        Assert.assertEquals(100, getSpecificity("#sith"));
+        Assert.assertEquals(CssSpecificityConstants.ID_SPECIFICITY, getSpecificity("#sith"));
     }
 
     @Test
     public void test12() {
-        Assert.assertEquals(112, getSpecificity("body #darkside .sith p"));
+        Assert.assertEquals(CssSpecificityConstants.ID_SPECIFICITY + CssSpecificityConstants.CLASS_SPECIFICITY + CssSpecificityConstants.ELEMENT_SPECIFICITY * 2, getSpecificity("body #darkside .sith p"));
     }
 
     @Test
     public void test13() {
-        Assert.assertEquals(22, getSpecificity("li:first-child h2 .title"));
+        Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY * 2 + CssSpecificityConstants.ELEMENT_SPECIFICITY * 2, getSpecificity("li:first-child h2 .title"));
     }
 
     @Test
     public void test14() {
-        Assert.assertEquals(121, getSpecificity("#nav .selected > a:hover"));
+        Assert.assertEquals(CssSpecificityConstants.ID_SPECIFICITY + CssSpecificityConstants.CLASS_SPECIFICITY * 2 + CssSpecificityConstants.ELEMENT_SPECIFICITY, getSpecificity("#nav .selected > a:hover"));
     }
 
     @Test
