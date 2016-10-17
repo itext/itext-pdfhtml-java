@@ -48,9 +48,6 @@ import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElement;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupTextNode;
 import com.itextpdf.html2pdf.html.node.IDocument;
 import com.itextpdf.html2pdf.html.node.INode;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.MessageFormat;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -58,14 +55,18 @@ import org.jsoup.nodes.TextNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.MessageFormat;
+
 public class JsoupHtmlParser implements IHtmlParser {
 
     private static Logger logger = LoggerFactory.getLogger(JsoupHtmlParser.class);
 
     @Override
-    public IDocument parse(InputStream htmlStream, String charset) throws IOException {
+    public IDocument parse(InputStream htmlStream, String charset, String baseUri) throws IOException {
         // TODO base URI
-        org.jsoup.nodes.Document doc = Jsoup.parse(htmlStream, charset, "");
+        org.jsoup.nodes.Document doc = Jsoup.parse(htmlStream, charset, baseUri);
         INode result = wrapJsoupHierarchy(doc);
         if (result instanceof IDocument) {
             return (IDocument) result;

@@ -45,12 +45,13 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.io.File;
-import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 // TODO extend from ExtendedITextTest and therefore check logging
@@ -80,6 +81,18 @@ public class Html2PdfTest extends ITextTest {
     public void helloMalformedDocumentTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hello_malformed.html"), new File(destinationFolder + "hello_malformed.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_malformed.pdf", sourceFolder + "cmp_hello_malformed.pdf", destinationFolder, "diff03_"));
+    }
+
+    @Test
+    public void imageFileDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_image_file.html"), new File(destinationFolder + "hello_image_file.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_image_file.pdf", sourceFolder + "cmp_hello_image_file.pdf", destinationFolder, "diff04_"));
+    }
+
+    @Test
+    public void imageUrlDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_image_url.html"), new File(destinationFolder + "hello_image_url.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_image_url.pdf", sourceFolder + "cmp_hello_image_url.pdf", destinationFolder, "diff05_"));
     }
 
     @Test

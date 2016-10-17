@@ -40,21 +40,68 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html;
+package com.itextpdf.html2pdf.attach.impl.tags;
 
-public final class TagConstants {
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.Image;
 
-    private TagConstants() {
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class ImageTagWorker implements ITagWorker {
+
+    private Div imageContainer;
+    private Image image;
+
+    public ImageTagWorker(IElement element, ProcessorContext context) {
+        imageContainer = new Div();
+        imageContainer.setMargin(0);
+        imageContainer.setPadding(0);
+        URL url;
+        try {
+            url = new URL(element.getAttribute("src"));
+        } catch (MalformedURLException e) {
+            try{
+                url = new File(element.ownerDocument().location() + element.getAttribute("src")).toURI().toURL();
+            } catch (MalformedURLException ex) {
+                url = null;
+            }
+        }
+
+        if (url != null) {
+            image = new Image(ImageDataFactory.create(url));
+            image.setAutoScale(true);
+            imageContainer.add(image);
+        }
     }
 
-    public static final String BODY = "body";
-    public static final String DIV = "div";
-    public static final String HTML = "html";
-    public static final String P = "p";
-    public static final String SPAN = "span";
-    public static final String TABLE = "table";
-    public static final String TD = "td";
-    public static final String TR = "tr";
-    public static final String IMG = "img";
+    @Override
+    public void processEnd(IElement element, ProcessorContext context) {
 
+    }
+
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        return false;
+    }
+
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        return true;
+    }
+
+    @Override
+    public IPropertyContainer getElementResult() {
+        return imageContainer;
+    }
+
+    public Image getImage() {
+        return image;
+    }
 }
