@@ -531,7 +531,7 @@ public class ElementTest {
         Document doc = Jsoup.parse("<div><p>One<p><span>Two</div>");
 
         Element p = doc.select("p").get(1);
-        Element clone = p.clone();
+        Element clone = (Element) p.clone();
 
         assertNull(clone.parent()); // should be orphaned
         assertEquals(0, clone.siblingIndex);
@@ -555,7 +555,7 @@ public class ElementTest {
         assertTrue(classes.contains("one"));
         assertTrue(classes.contains("two"));
 
-        Element copy = div.clone();
+        Element copy = (Element) div.clone();
         Set<String> copyClasses = copy.classNames();
         assertEquals(2, copyClasses.size());
         assertTrue(copyClasses.contains("one"));
@@ -735,7 +735,7 @@ public class ElementTest {
         Document doc = Jsoup.parse("<div id=1>Text <p>One</p> Text <p>Two</p></div><div id=2></div>");
         Element div1 = doc.select("div").get(0);
         Element div2 = doc.select("div").get(1);
-        Elements ps = doc.select("p").clone();
+        Elements ps = (Elements) doc.select("p").clone();
         ps.first().text("One cloned");
         div2.insertChildren(-1, ps);
 

@@ -40,7 +40,7 @@ public class TokenQueue {
      * @return First character, or 0 if empty.
      */
     public char peek() {
-        return isEmpty() ? 0 : queue.charAt(pos);
+        return isEmpty() ? '\u0000' : queue.charAt(pos);
     }
 
     /**
@@ -261,7 +261,7 @@ public class TokenQueue {
         int start = -1;
         int end = -1;
         int depth = 0;
-        char last = 0;
+        char last = '\u0000';
         boolean inQuote = false;
 
         do {
@@ -295,7 +295,7 @@ public class TokenQueue {
      */
     public static String unescape(String in) {
         StringBuilder out = new StringBuilder();
-        char last = 0;
+        char last = '\u0000';
         for (char c : in.toCharArray()) {
             if (c == ESC) {
                 if (last != 0 && last == ESC)

@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.net.Proxy;
 import java.net.URL;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -27,14 +28,44 @@ public interface Connection {
     /**
      * GET and POST http methods.
      */
-    enum Method {
-        GET(false), POST(true), PUT(true), DELETE(false), PATCH(true), HEAD(false), OPTIONS(false), TRACE(false);
+    class Method {
+        public static Method GET = new Method(false, "GET");
+        public static Method POST = new Method(true, "POST");
+        public static Method PUT = new Method(true, "PUT");
+        public static Method DELETE = new Method(false, "DELETE");
+        public static Method PATCH = new Method(true, "PATCH");
+        public static Method HEAD = new Method(false, "HEAD");
+        public static Method OPTIONS = new Method(false, "OPTIONS");
+        public static Method TRACE = new Method(false, "TRACE");
+
+        private static Map<String, Method> cash;
+
+        static {
+            cash = new HashMap<String, Method>();
+
+            cash.put(GET.name, GET);
+            cash.put(POST.name, POST);
+            cash.put(PUT.name, PUT);
+            cash.put(DELETE.name, DELETE);
+            cash.put(PATCH.name, PATCH);
+            cash.put(HEAD.name, HEAD);
+            cash.put(OPTIONS.name, OPTIONS);
+            cash.put(TRACE.name, TRACE);
+        }
 
         private final boolean hasBody;
+        private final String name;
 
-        Method(boolean hasBody) {
+        Method(boolean hasBody, String name) {
             this.hasBody = hasBody;
+            this.name = name;
         }
+
+        public static Method valueOf(String name) {
+            return cash.get(name);
+        }
+
+
 
         /**
          * Check if this HTTP method has/needs a request body
@@ -42,6 +73,10 @@ public interface Connection {
          */
         public final boolean hasBody() {
             return hasBody;
+        }
+
+        public final String name() {
+            return name;
         }
     }
 

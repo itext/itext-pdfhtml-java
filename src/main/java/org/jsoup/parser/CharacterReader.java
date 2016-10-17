@@ -9,7 +9,7 @@ import java.util.Locale;
  CharacterReader consumes tokens off a string. To replace the old TokenQueue.
  */
 final class CharacterReader {
-    static final char EOF = (char) -1;
+    static final char EOF = '\uffff';
     private static final int maxCacheLen = 12;
 
     private final char[] input;

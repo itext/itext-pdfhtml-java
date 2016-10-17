@@ -39,11 +39,11 @@ public class Elements extends ArrayList<Element> {
      * @return a deep copy
      */
     @Override
-	public Elements clone() {
+	public Object clone() {
         Elements clone = new Elements(size());
 
         for(Element e : this)
-    		clone.add(e.clone());
+    		clone.add((Element) e.clone());
     	
     	return clone;
 	}
@@ -449,7 +449,7 @@ public class Elements extends ArrayList<Element> {
      * @return all of the parents and ancestor elements of the matched elements
      */
     public Elements parents() {
-        HashSet<Element> combo = new LinkedHashSet<Element>();
+        Set<Element> combo = new LinkedHashSet<Element>();
         for (Element e: this) {
             combo.addAll(e.parents());
         }
@@ -462,7 +462,7 @@ public class Elements extends ArrayList<Element> {
      @return The first matched element, or <code>null</code> if contents is empty.
      */
     public Element first() {
-        return isEmpty() ? null : get(0);
+        return this.isEmpty() ? null : get(0);
     }
 
     /**
@@ -470,7 +470,7 @@ public class Elements extends ArrayList<Element> {
      @return The last matched element, or <code>null</code> if contents is empty.
      */
     public Element last() {
-        return isEmpty() ? null : get(size() - 1);
+        return this.isEmpty() ? null : get(size() - 1);
     }
 
     /**

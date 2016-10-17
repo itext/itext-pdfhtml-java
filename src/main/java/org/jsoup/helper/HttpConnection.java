@@ -252,7 +252,7 @@ public class HttpConnection implements Connection {
     }
 
     @SuppressWarnings({"unchecked"})
-    private static abstract class Base<T extends Connection.Base> implements Connection.Base<T> {
+    static abstract class Base<T extends Connection.Base> implements Connection.Base<T> {
         URL url;
         Method method;
         Map<String, String> headers;
@@ -965,16 +965,16 @@ public class HttpConnection implements Connection {
         private InputStream stream;
 
         public static KeyVal create(String key, String value) {
-            return new KeyVal().key(key).value(value);
+            return (KeyVal) new KeyVal().key(key).value(value);
         }
 
         public static KeyVal create(String key, String filename, InputStream stream) {
-            return new KeyVal().key(key).value(filename).inputStream(stream);
+            return (KeyVal) new KeyVal().key(key).value(filename).inputStream(stream);
         }
 
         private KeyVal() {}
 
-        public KeyVal key(String key) {
+        public Connection.KeyVal key(String key) {
             Validate.notEmpty(key, "Data key must not be empty");
             this.key = key;
             return this;
@@ -984,7 +984,7 @@ public class HttpConnection implements Connection {
             return key;
         }
 
-        public KeyVal value(String value) {
+        public Connection.KeyVal value(String value) {
             Validate.notNull(value, "Data value must not be null");
             this.value = value;
             return this;
@@ -994,7 +994,7 @@ public class HttpConnection implements Connection {
             return value;
         }
 
-        public KeyVal inputStream(InputStream inputStream) {
+        public Connection.KeyVal inputStream(InputStream inputStream) {
             Validate.notNull(value, "Data input stream must not be null");
             this.stream = inputStream;
             return this;

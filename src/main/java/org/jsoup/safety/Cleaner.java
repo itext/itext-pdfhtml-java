@@ -73,11 +73,11 @@ public class Cleaner {
      Iterates the input and copies trusted nodes (tags, attributes, text) into the destination.
      */
     private final class CleaningVisitor implements NodeVisitor {
-        private int numDiscarded = 0;
-        private final Element root;
-        private Element destination; // current element to append nodes to
+        int numDiscarded = 0;
+        final Element root;
+        Element destination; // current element to append nodes to
 
-        private CleaningVisitor(Element root, Element destination) {
+        CleaningVisitor(Element root, Element destination) {
             this.root = root;
             this.destination = destination;
         }

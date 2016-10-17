@@ -18,7 +18,7 @@ import java.util.List;
 
  @author Jonathan Hedley, jonathan@hedley.net */
 public abstract class Node implements Cloneable {
-    private static final List<Node> EMPTY_NODES = Collections.emptyList();
+    private static final List<Node> EMPTY_NODES = Collections.<Node>emptyList();
     Node parentNode;
     List<Node> childNodes;
     Attributes attributes;
@@ -212,7 +212,7 @@ public abstract class Node implements Cloneable {
     public List<Node> childNodesCopy() {
         List<Node> children = new ArrayList<Node>(childNodes.size());
         for (Node node : childNodes) {
-            children.add(node.clone());
+            children.add((Node)node.clone());
         }
         return children;
     }
@@ -471,7 +471,7 @@ public abstract class Node implements Cloneable {
      */
     public List<Node> siblingNodes() {
         if (parentNode == null)
-            return Collections.emptyList();
+            return Collections.<Node>emptyList();
 
         List<Node> nodes = parentNode.childNodes;
         List<Node> siblings = new ArrayList<Node>(nodes.size() - 1);
@@ -619,7 +619,7 @@ public abstract class Node implements Cloneable {
      * @return stand-alone cloned node
      */
     @Override
-    public Node clone() {
+    public Object clone() {
         Node thisClone = doClone(null); // splits for orphan
 
         // Queue up nodes that need their children cloned (BFS).
@@ -654,7 +654,7 @@ public abstract class Node implements Cloneable {
 
         clone.parentNode = parent; // can be null, to create an orphan split
         clone.siblingIndex = parent == null ? 0 : siblingIndex;
-        clone.attributes = attributes != null ? attributes.clone() : null;
+        clone.attributes = attributes != null ? (Attributes) attributes.clone() : null;
         clone.baseUri = baseUri;
         clone.childNodes = new ArrayList<Node>(childNodes.size());
 

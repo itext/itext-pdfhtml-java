@@ -545,8 +545,9 @@ public class Element extends Node {
     public Element nextElementSibling() {
         if (parentNode == null) return null;
         List<Element> siblings = parent().children();
-        Integer index = indexInList(this, siblings);
-        Validate.notNull(index);
+        int index = indexInList(this, siblings);
+        Validate.isTrue(index >= 0);
+        //Validate.notNull(index);
         if (siblings.size() > index+1)
             return siblings.get(index+1);
         else
@@ -561,8 +562,8 @@ public class Element extends Node {
     public Element previousElementSibling() {
         if (parentNode == null) return null;
         List<Element> siblings = parent().children();
-        Integer index = indexInList(this, siblings);
-        Validate.notNull(index);
+        int index = indexInList(this, siblings);
+        Validate.isTrue(index >= 0);
         if (index > 0)
             return siblings.get(index-1);
         else
@@ -584,7 +585,7 @@ public class Element extends Node {
      * sibling, returns 0.
      * @return position in element sibling list
      */
-    public Integer elementSiblingIndex() {
+    public int elementSiblingIndex() {
        if (parent() == null) return 0;
        return indexInList(this, parent().children()); 
     }
@@ -598,7 +599,7 @@ public class Element extends Node {
         return siblings.size() > 1 ? siblings.get(siblings.size() - 1) : null;
     }
     
-    private static <E extends Element> Integer indexInList(Element search, List<E> elements) {
+    private static <E extends Element> int indexInList(Element search, List<E> elements) {
         Validate.notNull(search);
         Validate.notNull(elements);
 
@@ -607,7 +608,7 @@ public class Element extends Node {
             if (element == search)
                 return i;
         }
-        return null;
+        return -1;
     }
 
     // DOM type methods
@@ -1231,7 +1232,7 @@ public class Element extends Node {
     }
 
     @Override
-    public Element clone() {
-        return (Element) super.clone();
+    public Object clone() {
+        return super.clone();
     }
 }
