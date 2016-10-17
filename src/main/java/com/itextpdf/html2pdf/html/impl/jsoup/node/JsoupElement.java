@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
 import com.itextpdf.html2pdf.html.node.IAttributes;
 import com.itextpdf.html2pdf.html.node.IElement;
+import org.jsoup.nodes.Document;
 
 public class JsoupElement extends JsoupNode implements IElement {
 
@@ -53,6 +54,7 @@ public class JsoupElement extends JsoupNode implements IElement {
     public JsoupElement(org.jsoup.nodes.Element element) {
         super(element);
         this.element = element;
+        element.ownerDocument();
         this.attributes = new JsoupAttributes(element.attributes());
     }
 
@@ -68,6 +70,11 @@ public class JsoupElement extends JsoupNode implements IElement {
     @Override
     public String getAttribute(String key) {
         return attributes.getAttribute(key);
+    }
+
+    @Override
+    public Document ownerDocument() {
+        return element.ownerDocument();
     }
 }
 

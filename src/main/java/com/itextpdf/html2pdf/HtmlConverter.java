@@ -70,31 +70,51 @@ public class HtmlConverter {
     // TODO add overloads without automatic elements flushing
 
     public static void convertToPdf(String html, OutputStream pdfStream) throws IOException {
-        convertToPdf(html, new PdfWriter(pdfStream));
+        convertToPdf(html, pdfStream, "");
+    }
+
+    public static void convertToPdf(String html, OutputStream pdfStream, String baseUri) throws IOException {
+        convertToPdf(html, new PdfWriter(pdfStream), baseUri);
     }
 
     public static void convertToPdf(String html, PdfWriter pdfWriter) throws IOException {
+        convertToPdf(html, pdfWriter, "");
+    }
+
+    public static void convertToPdf(String html, PdfWriter pdfWriter, String baseUri) throws IOException {
         InputStream stream = new ByteArrayInputStream(html.getBytes());
-        convertToPdf(stream, pdfWriter);
+        convertToPdf(stream, pdfWriter, baseUri);
     }
 
     public static void convertToPdf(File htmlFile, File pdfFile) throws IOException {
-        convertToPdf(new FileInputStream(htmlFile), new FileOutputStream(pdfFile));
+        convertToPdf(new FileInputStream(htmlFile), new FileOutputStream(pdfFile), htmlFile.getParent() + File.separator);
     }
 
     public static void convertToPdf(InputStream htmlStream, OutputStream pdfStream) throws IOException {
-        convertToPdf(htmlStream, new PdfWriter(pdfStream));
+        convertToPdf(htmlStream, pdfStream, "");
+    }
+
+    public static void convertToPdf(InputStream htmlStream, OutputStream pdfStream, String baseUri) throws IOException {
+        convertToPdf(htmlStream, new PdfWriter(pdfStream), baseUri);
     }
 
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
-        Document document = convertToDocument(htmlStream, pdfWriter);
+        convertToPdf(htmlStream, pdfWriter, "");
+    }
+
+    public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter, String baseUri) throws IOException {
+        Document document = convertToDocument(htmlStream, pdfWriter, baseUri);
         document.close();
     }
 
     public static Document convertToDocument(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
+        return convertToDocument(htmlStream, pdfWriter, "");
+    }
+
+    public static Document convertToDocument(InputStream htmlStream, PdfWriter pdfWriter, String baseUri) throws IOException {
         IHtmlParser parser = new JsoupHtmlParser();
         String detectedCharset = detectEncoding(htmlStream);
-        IDocument doc = parser.parse(htmlStream, detectedCharset);
+        IDocument doc = parser.parse(htmlStream, detectedCharset, baseUri);
         ICssResolver resolver = new SimpleCssResolver(doc);
         Document document = Attacher.attach(doc, resolver, new PdfDocument(pdfWriter));
         return document;

@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.html.node;
 
+import org.jsoup.nodes.Document;
+
 public interface IElement extends INode {
 
     String name();
@@ -50,4 +52,5 @@ public interface IElement extends INode {
 
     String getAttribute(String key);
 
+    Document ownerDocument();
 }

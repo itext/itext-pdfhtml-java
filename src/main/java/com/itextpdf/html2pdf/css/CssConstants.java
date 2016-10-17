@@ -44,7 +44,16 @@ package com.itextpdf.html2pdf.css;
 
 public class CssConstants {
 
+    public static final String ALIGN = "align";
+    public static final String BORDER = "border";
+    public static final String BORDER_COLOR = "border-color";
+    public static final String BORDER_STYLE = "border-style";
+    public static final String BORDER_WIDTH = "border-width";
     public static final String FONT_FAMILY = "font-family";
     public static final String FONT_SIZE = "font-size";
+    public static final String HEIGHT = "height";
+    public static final String HSPACE = "hspace";
+    public static final String VSPACE = "vspace";
+    public static final String WIDTH = "width";
 
 }

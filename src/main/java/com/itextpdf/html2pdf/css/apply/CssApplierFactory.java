@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply;
 
+import com.itextpdf.html2pdf.css.apply.impl.ImgTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.PTagCssApplier;
 import com.itextpdf.html2pdf.html.TagConstants;
 
@@ -51,6 +52,8 @@ public class CssApplierFactory {
         switch (tag) {
             case TagConstants.P:
                 return new PTagCssApplier();
+            case TagConstants.IMG:
+                return new ImgTagCssApplier();
             default:
                 return null;
         }
