@@ -31,7 +31,7 @@ public final class SerializationException extends RuntimeException {
 	 *            the cause of the new serialization exception (may be <code>null</code>).
 	 */
 	public SerializationException(Throwable cause) {
-		super(cause);
+		super(cause == null ? "Exception with null cause" : cause.getMessage(), cause);
 	}
 
 	/**

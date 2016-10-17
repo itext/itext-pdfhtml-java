@@ -201,7 +201,7 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
     }
 
     @Override
-    public Attributes clone() {
+    public Object clone() {
         if (attributes == null)
             return new Attributes();
 
@@ -213,7 +213,7 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
         }
         clone.attributes = new LinkedHashMap<String, Attribute>(attributes.size());
         for (Attribute attribute: this)
-            clone.attributes.put(attribute.getKey(), attribute.clone());
+            clone.attributes.put(attribute.getKey(), (Attribute)attribute.clone());
         return clone;
     }
 
@@ -224,12 +224,10 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
                 attributes = new LinkedHashMap<String, Attribute>(2);
         }
 
-        @Override
         public Set<Entry<String, String>> entrySet() {
             return new EntrySet();
         }
 
-        @Override
         public String put(String key, String value) {
             String dataKey = dataKey(key);
             String oldValue = hasKey(dataKey) ? attributes.get(dataKey).getValue() : null;
@@ -245,7 +243,7 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
                 return new DatasetIterator();
             }
 
-           @Override
+            @Override
             public int size() {
                 int count = 0;
                 Iterator iter = new DatasetIterator();
@@ -258,6 +256,7 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
         private class DatasetIterator implements Iterator<Map.Entry<String, String>> {
             private Iterator<Attribute> attrIter = attributes.values().iterator();
             private Attribute attr;
+
             public boolean hasNext() {
                 while (attrIter.hasNext()) {
                     attr = attrIter.next();

@@ -1,5 +1,6 @@
 package org.jsoup.select;
 
+import org.jsoup.PortUtil;
 import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Comment;
 import org.jsoup.nodes.Document;
@@ -258,7 +259,7 @@ public abstract class Evaluator {
 
         @Override
         public boolean matches(Element root, Element element) {
-            return element.hasAttr(key) && pattern.matcher(element.attr(key)).find();
+            return element.hasAttr(key) && PortUtil.hasMatch(pattern, element.attr(key));
         }
 
         @Override
@@ -672,8 +673,7 @@ public abstract class Evaluator {
 
         @Override
         public boolean matches(Element root, Element element) {
-            Matcher m = pattern.matcher(element.text());
-            return m.find();
+            return PortUtil.hasMatch(pattern, element.text());
         }
 
         @Override
@@ -694,8 +694,7 @@ public abstract class Evaluator {
 
         @Override
         public boolean matches(Element root, Element element) {
-            Matcher m = pattern.matcher(element.ownText());
-            return m.find();
+            return PortUtil.hasMatch(pattern, element.ownText());
         }
 
         @Override

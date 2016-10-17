@@ -154,9 +154,9 @@ public class Attribute implements Map.Entry<String, String>, Cloneable  {
     }
 
     @Override
-    public Attribute clone() {
+    public Object clone() {
         try {
-            return (Attribute) super.clone(); // only fields are immutable strings key and value, so no more deep copy required
+            return super.clone(); // only fields are immutable strings key and value, so no more deep copy required
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }

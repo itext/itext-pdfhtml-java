@@ -10,19 +10,19 @@ import java.util.ArrayList;
 /**
  * @author Jonathan Hedley
  */
-abstract class TreeBuilder {
+public abstract class TreeBuilder {
     CharacterReader reader;
     Tokeniser tokeniser;
     protected Document doc; // current doc we are building into
     protected ArrayList<Element> stack; // the stack of open elements
     protected String baseUri; // current base uri, for creating new elements
-    protected Token currentToken; // currentToken is used only for error tracking.
-    protected ParseErrorList errors; // null when not tracking errors
+    Token currentToken; // currentToken is used only for error tracking.
+    ParseErrorList errors; // null when not tracking errors
 
     private Token.StartTag start = new Token.StartTag(); // start tag to process
     private Token.EndTag end  = new Token.EndTag();
 
-    protected void initialiseParse(String input, String baseUri, ParseErrorList errors) {
+    void initialiseParse(String input, String baseUri, ParseErrorList errors) {
         Validate.notNull(input, "String input must not be null");
         Validate.notNull(baseUri, "BaseURI must not be null");
 
@@ -55,7 +55,7 @@ abstract class TreeBuilder {
         }
     }
 
-    protected abstract boolean process(Token token);
+    abstract boolean process(Token token);
 
     protected boolean processStartTag(String name) {
         if (currentToken == start) { // don't recycle an in-use token

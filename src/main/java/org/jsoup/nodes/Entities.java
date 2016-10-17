@@ -15,22 +15,39 @@ import java.util.*;
  * named character references</a>.
  */
 public class Entities {
-    public enum EscapeMode {
+    public static class EscapeMode {
         /** Restricted entities suitable for XHTML output: lt, gt, amp, and quot only. */
-        xhtml(xhtmlByVal),
+        public static EscapeMode xhtml = new EscapeMode(xhtmlByVal, "xhtml");
         /** Default HTML output entities. */
-        base(baseByVal),
+        public static EscapeMode base = new EscapeMode(baseByVal, "base");
         /** Complete HTML entities. */
-        extended(fullByVal);
+        public static EscapeMode extended = new EscapeMode(fullByVal, "extended");
+
+        private static Map<String, EscapeMode> nameValueMap = new HashMap<String, EscapeMode>();
+
+        public static EscapeMode valueOf(String name) {
+            return nameValueMap.get(name);
+        }
+
+        static {
+            nameValueMap.put(xhtml.name, xhtml);
+            nameValueMap.put(base.name, base);
+            nameValueMap.put(extended.name, extended);
+        }
 
         private Map<Character, String> map;
+        private String name;
 
-        EscapeMode(Map<Character, String> map) {
+        private EscapeMode(Map<Character, String> map, String name) {
             this.map = map;
+            this.name = name;
         }
 
         public Map<Character, String> getMap() {
             return map;
+        }
+        public String name() {
+            return name;
         }
     }
 
@@ -81,20 +98,20 @@ public class Entities {
     }
 
     // this method is ugly, and does a lot. but other breakups cause rescanning and stringbuilder generations
-    static void escape(Appendable accum, String string, Document.OutputSettings out,
+    static void escape(Appendable accum, String str, Document.OutputSettings outputSettings,
                        boolean inAttribute, boolean normaliseWhite, boolean stripLeadingWhite) throws IOException {
 
         boolean lastWasWhite = false;
         boolean reachedNonWhite = false;
-        final EscapeMode escapeMode = out.escapeMode();
-        final CharsetEncoder encoder = out.encoder();
-        final CoreCharset coreCharset = CoreCharset.byName(encoder.charset().name());
+        final EscapeMode escapeMode = outputSettings.escapeMode();
+        final CharsetEncoder encoder = outputSettings.encoder();
+        final CoreCharset coreCharset = getCoreCharsetByName(outputSettings.charset().name());
         final Map<Character, String> map = escapeMode.getMap();
-        final int length = string.length();
+        final int length = str.length();
 
         int codePoint;
         for (int offset = 0; offset < length; offset += Character.charCount(codePoint)) {
-            codePoint = string.codePointAt(offset);
+            codePoint = str.codePointAt(offset);
 
             if (normaliseWhite) {
                 if (StringUtil.isWhitespace(codePoint)) {
@@ -116,7 +133,7 @@ public class Entities {
                     case '&':
                         accum.append("&amp;");
                         break;
-                    case 0xA0:
+                    case (char) 0xA0:
                         if (escapeMode != EscapeMode.xhtml)
                             accum.append("&nbsp;");
                         else
@@ -193,7 +210,8 @@ public class Entities {
             case ascii:
                 return c < 0x80;
             case utf:
-                return true; // real is:!(Character.isLowSurrogate(c) || Character.isHighSurrogate(c)); - but already check above
+                // real is:!(Character.isLowSurrogate(c) || Character.isHighSurrogate(c)); - but already check above
+                return true;
             default:
                 return fallback.canEncode(c);
         }
@@ -201,16 +219,15 @@ public class Entities {
 
     private enum CoreCharset {
         ascii, utf, fallback;
-
-        private static CoreCharset byName(String name) {
-            if (name.equals("US-ASCII"))
-                return ascii;
-            if (name.startsWith("UTF-")) // covers UTF-8, UTF-16, et al
-                return utf;
-            return fallback;
-        }
     }
 
+    private static CoreCharset getCoreCharsetByName(String name) {
+        if (name.equals("US-ASCII"))
+            return CoreCharset.ascii;
+        if (name.startsWith("UTF-")) // covers UTF-8, UTF-16, et al
+            return CoreCharset.utf;
+        return CoreCharset.fallback;
+    }
 
     // xhtml has restricted entities
     private static final Object[][] xhtmlArray = {
@@ -228,7 +245,7 @@ public class Entities {
         fullByVal = toCharacterKey(full);
 
         for (Object[] entity : xhtmlArray) {
-            Character c = Character.valueOf((char) ((Integer) entity[1]).intValue());
+            Character c = (char) ((Integer) entity[1]).intValue();
             xhtmlByVal.put(c, ((String) entity[0]));
         }
     }
@@ -244,10 +261,9 @@ public class Entities {
             throw new MissingResourceException("Error loading entities resource: " + e.getMessage(), "Entities", filename);
         }
 
-        for (Map.Entry entry: properties.entrySet()) {
-            Character val = Character.valueOf((char) Integer.parseInt((String) entry.getValue(), 16));
-            String name = (String) entry.getKey();
-            entities.put(name, val);
+        for (Object name: properties.keySet()) {
+            Character val = (char) Integer.parseInt(properties.getProperty((String)name), 16);
+            entities.put((String) name, val);
         }
         return entities;
     }
@@ -255,7 +271,7 @@ public class Entities {
     private static Map<Character, String> toCharacterKey(Map<String, Character> inMap) {
         Map<Character, String> outMap = new HashMap<Character, String>();
         for (Map.Entry<String, Character> entry: inMap.entrySet()) {
-            Character character = entry.getValue();
+            char character = (char) entry.getValue();
             String name = entry.getKey();
 
             if (outMap.containsKey(character)) {

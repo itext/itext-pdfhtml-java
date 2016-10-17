@@ -284,7 +284,7 @@ public class Document extends Element {
     @Override
     public Document clone() {
         Document clone = (Document) super.clone();
-        clone.outputSettings = this.outputSettings.clone();
+        clone.outputSettings = (OutputSettings) this.outputSettings.clone();
         return clone;
     }
     
@@ -370,13 +370,15 @@ public class Document extends Element {
 
         private Entities.EscapeMode escapeMode = Entities.EscapeMode.base;
         private Charset charset = Charset.forName("UTF-8");
-        private CharsetEncoder charsetEncoder = charset.newEncoder();
+        private CharsetEncoder charsetEncoder;
         private boolean prettyPrint = true;
         private boolean outline = false;
         private int indentAmount = 1;
         private Syntax syntax = Syntax.html;
 
-        public OutputSettings() {}
+        public OutputSettings() {
+            charsetEncoder = charset.newEncoder();
+        }
         
         /**
          * Get the document's current HTML escape mode: <code>base</code>, which provides a limited set of named HTML
@@ -515,7 +517,7 @@ public class Document extends Element {
         }
 
         @Override
-        public OutputSettings clone() {
+        public Object clone() {
             OutputSettings clone;
             try {
                 clone = (OutputSettings) super.clone();

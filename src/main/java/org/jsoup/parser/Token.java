@@ -140,7 +140,7 @@ abstract class Token {
 
         // these appenders are rarely hit in not null state-- caused by null chars.
         final void appendTagName(String append) {
-            tagName = tagName == null ? append : tagName.concat(append);
+            tagName = tagName == null ? append : tagName + append;
         }
 
         final void appendTagName(char append) {
@@ -148,7 +148,7 @@ abstract class Token {
         }
 
         final void appendAttributeName(String append) {
-            pendingAttributeName = pendingAttributeName == null ? append : pendingAttributeName.concat(append);
+            pendingAttributeName = pendingAttributeName == null ? append : pendingAttributeName + append;
         }
 
         final void appendAttributeName(char append) {
