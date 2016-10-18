@@ -1,10 +1,13 @@
 package org.jsoup.nodes;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.jsoup.Jsoup;
 import org.jsoup.TextUtil;
 import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.util.*;
 
@@ -15,6 +18,7 @@ import static org.junit.Assert.*;
  *
  * @author Jonathan Hedley
  */
+@Category(UnitTest.class)
 public class ElementTest {
     private String reference = "<div id=div1><p>Hello</p><p>Another <b>element</b></p><div id=div2><img src=foo.png></div></div>";
 

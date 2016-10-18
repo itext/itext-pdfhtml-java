@@ -1,10 +1,13 @@
 package org.jsoup.nodes;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.jsoup.Jsoup;
 import org.jsoup.TextUtil;
 import org.jsoup.parser.Tag;
 import org.jsoup.select.NodeVisitor;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.util.List;
 
@@ -13,6 +16,7 @@ import static org.junit.Assert.*;
  Tests Nodes
 
  @author Jonathan Hedley, jonathan@hedley.net */
+@Category(UnitTest.class)
 public class NodeTest {
     @Test public void handlesBaseUri() {
         Tag tag = Tag.valueOf("a");

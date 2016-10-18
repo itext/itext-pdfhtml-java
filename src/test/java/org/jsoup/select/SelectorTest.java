@@ -1,9 +1,12 @@
 package org.jsoup.select;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import static org.junit.Assert.*;
 
@@ -12,6 +15,7 @@ import static org.junit.Assert.*;
  *
  * @author Jonathan Hedley, jonathan@hedley.net
  */
+@Category(UnitTest.class)
 public class SelectorTest {
     @Test public void testByTag() {
         Elements els = Jsoup.parse("<div id=1><div id=2><p>Hello</p></div></div><div id=3>").select("div");

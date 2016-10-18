@@ -1,7 +1,10 @@
 package org.jsoup.helper;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.jsoup.Jsoup;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.util.Arrays;
 
@@ -10,6 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@Category(UnitTest.class)
 public class StringUtilTest {
 
     @Test public void join() {

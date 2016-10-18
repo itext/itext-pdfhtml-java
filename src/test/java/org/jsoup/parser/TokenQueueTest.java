@@ -1,11 +1,16 @@
 package org.jsoup.parser;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
 import static org.junit.Assert.*;
 
 /**
  * Token queue tests.
  */
+@Category(UnitTest.class)
 public class TokenQueueTest {
     @Test public void chompBalanced() {
         TokenQueue tq = new TokenQueue(":contains(one (two) three) four");

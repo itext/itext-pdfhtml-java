@@ -1,14 +1,18 @@
 package org.jsoup.parser;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.jsoup.Jsoup;
 import org.jsoup.TextUtil;
 import org.jsoup.helper.StringUtil;
+import org.jsoup.integration.ParseTest;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.nodes.XmlDeclaration;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,6 +31,7 @@ import static org.junit.Assert.assertFalse;
  *
  * @author Jonathan Hedley
  */
+@Category(UnitTest.class)
 public class XmlTreeBuilderTest {
     @Test
     public void testSimpleXmlParse() {
@@ -86,7 +91,7 @@ public class XmlTreeBuilderTest {
 
     @Test
     public void testSupplyParserToDataStream() throws IOException, URISyntaxException {
-        File xmlFile = new File(XmlTreeBuilder.class.getResource("/htmltests/xml-test.xml").toURI());
+        File xmlFile = ParseTest.getFile("/htmltests/xml-test.xml");
         InputStream inStream = new FileInputStream(xmlFile);
         Document doc = Jsoup.parse(inStream, null, "http://foo.com", Parser.xmlParser());
         assertEquals("<doc><val>One<val>Two</val>Three</val></doc>",
@@ -136,7 +141,7 @@ public class XmlTreeBuilderTest {
 
     @Test
     public void testDetectCharsetEncodingDeclaration() throws IOException, URISyntaxException {
-        File xmlFile = new File(XmlTreeBuilder.class.getResource("/htmltests/xml-charset.xml").toURI());
+        File xmlFile = ParseTest.getFile("/htmltests/xml-charset.xml");
         InputStream inStream = new FileInputStream(xmlFile);
         Document doc = Jsoup.parse(inStream, null, "http://example.com/", Parser.xmlParser());
         assertEquals("ISO-8859-1", doc.charset().name());

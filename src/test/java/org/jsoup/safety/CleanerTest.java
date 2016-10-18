@@ -1,16 +1,21 @@
 package org.jsoup.safety;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.jsoup.Jsoup;
 import org.jsoup.TextUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Entities;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
 import static org.junit.Assert.*;
 
 /**
  Tests for the cleaner.
 
  @author Jonathan Hedley, jonathan@hedley.net */
+@Category(UnitTest.class)
 public class CleanerTest {
     @Test public void simpleBehaviourTest() {
         String h = "<div><p class=foo><a href='http://evil.com'>Hello <b id=bar>there</b>!</a></div>";

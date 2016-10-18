@@ -1,5 +1,7 @@
 package org.jsoup.select;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import static org.junit.Assert.*;
 
 import org.jsoup.Jsoup;
@@ -8,7 +10,9 @@ import org.jsoup.parser.Tag;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(UnitTest.class)
 public class CssTest {
 
 	private Document html = null;

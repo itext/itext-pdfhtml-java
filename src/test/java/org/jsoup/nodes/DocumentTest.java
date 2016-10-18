@@ -1,5 +1,7 @@
 package org.jsoup.nodes;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.jsoup.Jsoup;
 import org.jsoup.TextUtil;
 import org.jsoup.integration.ParseTest;
@@ -7,6 +9,7 @@ import org.jsoup.nodes.Document.OutputSettings;
 import org.jsoup.nodes.Document.OutputSettings.Syntax;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -25,6 +28,7 @@ import static org.junit.Assert.assertTrue;
  Tests for Document.
 
  @author Jonathan Hedley, jonathan@hedley.net */
+@Category(UnitTest.class)
 public class DocumentTest {
     private static final String charsetUtf8 = "UTF-8";
     private static final String charsetIso8859 = "ISO-8859-1";

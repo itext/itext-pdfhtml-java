@@ -1,10 +1,13 @@
 package org.jsoup.integration;
 
+import com.itextpdf.test.annotations.type.IntegrationTest;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -16,6 +19,7 @@ import static org.junit.Assert.*;
  *
  * @author Jonathan Hedley, jonathan@hedley.net
  */
+@Category(IntegrationTest.class)
 public class ParseTest {
 
     @Test
@@ -170,7 +174,7 @@ public class ParseTest {
 
     public static File getFile(String resourceName) {
         try {
-            File file = new File(ParseTest.class.getResource(resourceName).toURI());
+            File file = new File(ParseTest.class.getResource("/org/jsoup" + resourceName).toURI());
             return file;
         } catch (URISyntaxException e) {
             throw new IllegalStateException(e);

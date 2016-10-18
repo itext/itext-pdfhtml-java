@@ -1,6 +1,10 @@
 package org.jsoup.select;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
 import static org.junit.Assert.*;
 
 /**
@@ -8,6 +12,7 @@ import static org.junit.Assert.*;
  *
  * @author Jonathan Hedley
  */
+@Category(UnitTest.class)
 public class QueryParserTest {
     @Test public void testOrGetsCorrectPrecedence() {
         // tests that a selector "a b, c d, e f" evals to (a AND b) OR (c AND d) OR (e AND f)"
