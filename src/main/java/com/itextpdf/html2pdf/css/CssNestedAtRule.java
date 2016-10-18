@@ -49,19 +49,13 @@ import java.util.List;
 public class CssNestedAtRule extends CssAtRule {
 
     private String ruleParameters;
-    private List<CssStatement> body;
+    protected List<CssStatement> body;
 
     // without body
-    public CssNestedAtRule(String ruleDeclaration) {
-        super(extractRuleNameFromDeclaration(ruleDeclaration));
-        ruleDeclaration = ruleDeclaration.trim();
-        this.ruleParameters = ruleDeclaration.substring(ruleName.length()).trim();
+    public CssNestedAtRule(String ruleName, String ruleParameters) {
+        super(ruleName);
+        this.ruleParameters = ruleParameters;
         this.body = new ArrayList<>();
-    }
-
-    public CssNestedAtRule(String ruleDeclaration, List<CssStatement> body) {
-        this(ruleDeclaration);
-        this.body = body;
     }
 
     public void addStatementToBody(CssStatement statement) {

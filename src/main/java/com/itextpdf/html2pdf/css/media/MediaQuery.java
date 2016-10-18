@@ -40,44 +40,42 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.util;
+package com.itextpdf.html2pdf.css.media;
 
-public class CssUtils {
+import java.util.List;
+import java.util.Objects;
 
-    private CssUtils() {
+public class MediaQuery {
+
+    private boolean only;
+    private boolean not;
+    private String type;
+    private List<MediaExpression> expressions;
+
+    public MediaQuery(String type, List<MediaExpression> expressions, boolean only, boolean not) {
+        this.type = type;
+        this.expressions = expressions;
+        this.only = only;
+        this.not = not;
     }
 
-    public static String removeDoubleSpacesAndTrim(String str) {
-        String[] parts = str.split("\\s");
-        StringBuilder sb = new StringBuilder();
-        for (String part : parts) {
-            if (part.length() > 0) {
-                if (sb.length() != 0) {
-                    sb.append(" ");
-                }
-                sb.append(part);
+    public boolean matches(MediaDeviceDescription deviceDescription) {
+        boolean typeMatches = type == null || MediaType.ALL.equals(type) || Objects.equals(type, deviceDescription.getType());
+
+        boolean matchesExpressions = true;
+        for (MediaExpression expression : expressions) {
+            if (!expression.matches(deviceDescription)) {
+                matchesExpressions = false;
+                break;
             }
         }
-        return sb.toString();
-    }
 
-    public static Integer parseInteger(String str) {
-        try {
-            return Integer.valueOf(str);
-        } catch (NumberFormatException exc) {
-            return null;
+        boolean expressionResult = typeMatches && matchesExpressions;
+        if (not) {
+            expressionResult = !expressionResult;
         }
-    }
 
-    public static int[] parseAspectRatio(String str) {
-        int indexOfSlash = str.indexOf('/');
-        try {
-            int first = Integer.valueOf(str.substring(0, indexOfSlash));
-            int second = Integer.valueOf(str.substring(indexOfSlash + 1));
-            return new int[] {first, second};
-        } catch (NumberFormatException | NullPointerException exc) {
-            return null;
-        }
+        return expressionResult;
     }
 
 }
