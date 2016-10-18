@@ -1,5 +1,7 @@
 package org.jsoup.helper;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -8,6 +10,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -15,6 +18,7 @@ import java.nio.charset.Charset;
 import static org.jsoup.integration.ParseTest.getFile;
 import static org.junit.Assert.*;
 
+@Category(UnitTest.class)
 public class DataUtilTest {
     @Test
     public void testCharset() {

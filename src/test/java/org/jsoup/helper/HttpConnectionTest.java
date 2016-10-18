@@ -1,16 +1,20 @@
 package org.jsoup.helper;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import static org.junit.Assert.*;
 
 import org.jsoup.integration.ParseTest;
 import org.junit.Test;
 import org.jsoup.Connection;
+import org.junit.experimental.categories.Category;
 
 import java.io.IOException;
 import java.util.*;
 import java.net.URL;
 import java.net.MalformedURLException;
 
+@Category(UnitTest.class)
 public class HttpConnectionTest {
     /* most actual network http connection tests are in integration */
 

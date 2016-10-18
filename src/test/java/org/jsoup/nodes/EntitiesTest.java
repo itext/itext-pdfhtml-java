@@ -1,12 +1,16 @@
 package org.jsoup.nodes;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.jsoup.Jsoup;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import static org.jsoup.nodes.Document.OutputSettings;
 import static org.jsoup.nodes.Entities.EscapeMode.*;
 import static org.junit.Assert.*;
 
+@Category(UnitTest.class)
 public class EntitiesTest {
     @Test public void escape() {
         String text = "Hello &<> Å å π 新 there ¾ © »";

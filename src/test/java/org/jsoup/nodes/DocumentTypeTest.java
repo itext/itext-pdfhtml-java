@@ -1,6 +1,9 @@
 package org.jsoup.nodes;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +12,7 @@ import static org.junit.Assert.*;
  *
  * @author Jonathan Hedley, http://jonathanhedley.com/
  */
+@Category(UnitTest.class)
 public class DocumentTypeTest {
     @Test
     public void constructorValidationOkWithBlankName() {

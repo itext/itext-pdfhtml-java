@@ -1,11 +1,14 @@
 package org.jsoup.select;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.jsoup.Jsoup;
 import org.jsoup.TextUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.FormElement;
 import org.jsoup.nodes.Node;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.util.List;
 
@@ -15,6 +18,7 @@ import static org.junit.Assert.*;
  Tests for ElementList.
 
  @author Jonathan Hedley, jonathan@hedley.net */
+@Category(UnitTest.class)
 public class ElementsTest {
     @Test public void filter() {
         String h = "<p>Excl</p><div class=headline><p>Hello</p><p>There</p></div><div class=headline><h1>Headline</h1></div>";

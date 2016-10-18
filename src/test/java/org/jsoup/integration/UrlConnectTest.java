@@ -1,5 +1,7 @@
 package org.jsoup.integration;
 
+import com.itextpdf.test.annotations.type.IntegrationTest;
+
 import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -13,6 +15,7 @@ import org.jsoup.parser.Parser;
 import org.jsoup.parser.XmlTreeBuilder;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,6 +34,7 @@ import static org.junit.Assert.assertTrue;
  Tests the URL connection. Not enabled by default, so tests don't require network connection.
 
  @author Jonathan Hedley, jonathan@hedley.net */
+@Category(IntegrationTest.class)
 @Ignore // ignored by default so tests don't require network access. comment out to enable.
 public class UrlConnectTest {
     private static final String WEBSITE_WITH_INVALID_CERTIFICATE = "https://certs.cac.washington.edu/CAtest/";

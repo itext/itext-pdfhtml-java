@@ -1,5 +1,7 @@
 package org.jsoup.parser;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -9,6 +11,7 @@ import org.jsoup.nodes.BooleanAttribute;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import static org.junit.Assert.*;
 
@@ -16,6 +19,7 @@ import static org.junit.Assert.*;
  Test suite for attribute parser.
 
  @author Jonathan Hedley, jonathan@hedley.net */
+@Category(UnitTest.class)
 public class AttributeParseTest {
 
     @Test public void parsesRoughAttributeString() {

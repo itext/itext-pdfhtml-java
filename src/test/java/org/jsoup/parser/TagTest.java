@@ -1,11 +1,16 @@
 package org.jsoup.parser;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
 import static org.junit.Assert.*;
 
 /**
  Tag tests.
  @author Jonathan Hedley, jonathan@hedley.net */
+@Category(UnitTest.class)
 public class TagTest {
 
     @Test public void isCaseInsensitive() {

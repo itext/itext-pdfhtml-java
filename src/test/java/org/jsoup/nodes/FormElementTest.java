@@ -1,8 +1,11 @@
 package org.jsoup.nodes;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.util.List;
 
@@ -13,6 +16,7 @@ import static org.junit.Assert.*;
  *
  * @author Jonathan Hedley
  */
+@Category(UnitTest.class)
 public class FormElementTest {
     @Test public void hasAssociatedControls() {
         //"button", "fieldset", "input", "keygen", "object", "output", "select", "textarea"

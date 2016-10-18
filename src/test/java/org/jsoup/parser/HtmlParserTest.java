@@ -1,5 +1,7 @@
 package org.jsoup.parser;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.jsoup.Jsoup;
 import org.jsoup.TextUtil;
 import org.jsoup.helper.StringUtil;
@@ -7,6 +9,7 @@ import org.jsoup.integration.ParseTest;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +22,7 @@ import static org.junit.Assert.assertTrue;
  Tests for the Parser
 
  @author Jonathan Hedley, jonathan@hedley.net */
+@Category(UnitTest.class)
 public class HtmlParserTest {
 
     @Test public void parsesSimpleDocument() {

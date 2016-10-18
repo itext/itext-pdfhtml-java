@@ -1,9 +1,13 @@
 package org.jsoup.nodes;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import static org.junit.Assert.assertEquals;
 
+@Category(UnitTest.class)
 public class AttributeTest {
     @Test public void html() {
         Attribute attr = new Attribute("key", "value &");

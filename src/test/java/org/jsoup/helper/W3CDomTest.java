@@ -1,8 +1,11 @@
 package org.jsoup.helper;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.jsoup.Jsoup;
 import org.jsoup.integration.ParseTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -13,6 +16,7 @@ import static org.jsoup.TextUtil.LE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@Category(UnitTest.class)
 public class W3CDomTest {
     @Test
     public void simpleConversion() {

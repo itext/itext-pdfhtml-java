@@ -1,8 +1,11 @@
 package org.jsoup.nodes;
 
+import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.jsoup.Jsoup;
 import org.jsoup.TextUtil;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +13,7 @@ import static org.junit.Assert.*;
  Test TextNodes
 
  @author Jonathan Hedley, jonathan@hedley.net */
+@Category(UnitTest.class)
 public class TextNodeTest {
     @Test public void testBlank() {
         TextNode one = new TextNode("", "");
