@@ -40,44 +40,13 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.util;
+package com.itextpdf.html2pdf.css;
 
-public class CssUtils {
+public final class CssRuleName {
 
-    private CssUtils() {
+    private CssRuleName() {
     }
 
-    public static String removeDoubleSpacesAndTrim(String str) {
-        String[] parts = str.split("\\s");
-        StringBuilder sb = new StringBuilder();
-        for (String part : parts) {
-            if (part.length() > 0) {
-                if (sb.length() != 0) {
-                    sb.append(" ");
-                }
-                sb.append(part);
-            }
-        }
-        return sb.toString();
-    }
-
-    public static Integer parseInteger(String str) {
-        try {
-            return Integer.valueOf(str);
-        } catch (NumberFormatException exc) {
-            return null;
-        }
-    }
-
-    public static int[] parseAspectRatio(String str) {
-        int indexOfSlash = str.indexOf('/');
-        try {
-            int first = Integer.valueOf(str.substring(0, indexOfSlash));
-            int second = Integer.valueOf(str.substring(indexOfSlash + 1));
-            return new int[] {first, second};
-        } catch (NumberFormatException | NullPointerException exc) {
-            return null;
-        }
-    }
+    public static final String MEDIA = "media";
 
 }

@@ -40,44 +40,37 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.util;
+package com.itextpdf.html2pdf.css.media;
 
-public class CssUtils {
+import java.util.HashSet;
+import java.util.Set;
 
-    private CssUtils() {
+public final class MediaType {
+
+    private static final Set<String> registeredMediaTypes = new HashSet<>();
+
+    public static final String ALL = registerMediaType("all");
+    public static final String AURAL = registerMediaType("aural");
+    public static final String BRAILLE = registerMediaType("braille");
+    public static final String EMBOSSED = registerMediaType("embossed");
+    public static final String HANDHELD = registerMediaType("handheld");
+    public static final String PRINT = registerMediaType("print");
+    public static final String PROJECTION = registerMediaType("projection");
+    public static final String SCREEN = registerMediaType("screen");
+    public static final String SPEECH = registerMediaType("speech");
+    public static final String TTY = registerMediaType("tty");
+    public static final String TV = registerMediaType("tv");
+
+    private MediaType() {
     }
 
-    public static String removeDoubleSpacesAndTrim(String str) {
-        String[] parts = str.split("\\s");
-        StringBuilder sb = new StringBuilder();
-        for (String part : parts) {
-            if (part.length() > 0) {
-                if (sb.length() != 0) {
-                    sb.append(" ");
-                }
-                sb.append(part);
-            }
-        }
-        return sb.toString();
+    public static boolean isValidMediaType(String mediaType) {
+        return registeredMediaTypes.contains(mediaType);
     }
 
-    public static Integer parseInteger(String str) {
-        try {
-            return Integer.valueOf(str);
-        } catch (NumberFormatException exc) {
-            return null;
-        }
-    }
-
-    public static int[] parseAspectRatio(String str) {
-        int indexOfSlash = str.indexOf('/');
-        try {
-            int first = Integer.valueOf(str.substring(0, indexOfSlash));
-            int second = Integer.valueOf(str.substring(indexOfSlash + 1));
-            return new int[] {first, second};
-        } catch (NumberFormatException | NullPointerException exc) {
-            return null;
-        }
+    private static String registerMediaType(String mediaType) {
+        registeredMediaTypes.add(mediaType);
+        return mediaType;
     }
 
 }

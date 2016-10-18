@@ -54,10 +54,4 @@ public abstract class CssAtRule extends CssStatement {
         return ruleName;
     }
 
-    protected static String extractRuleNameFromDeclaration(String ruleDeclaration) {
-        ruleDeclaration = ruleDeclaration.trim();
-        int spaceIndex = ruleDeclaration.indexOf(' ');
-        return spaceIndex == -1 ? ruleDeclaration : ruleDeclaration.substring(0, spaceIndex);
-    }
-
 }

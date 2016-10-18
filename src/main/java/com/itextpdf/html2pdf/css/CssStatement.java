@@ -49,7 +49,7 @@ import java.util.List;
 
 public abstract class CssStatement {
 
-    List<CssRuleSet> getCssRuleSets(IElement element, MediaDeviceDescription deviceDescription) {
+    public List<CssRuleSet> getCssRuleSets(IElement element, MediaDeviceDescription deviceDescription) {
         return Collections.emptyList(); //TODO
     }
 

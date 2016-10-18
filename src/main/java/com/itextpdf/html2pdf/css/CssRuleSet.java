@@ -66,7 +66,7 @@ public class CssRuleSet extends CssStatement {
     }
 
     @Override
-    List<CssRuleSet> getCssRuleSets(IElement element, MediaDeviceDescription deviceDescription) {
+    public List<CssRuleSet> getCssRuleSets(IElement element, MediaDeviceDescription deviceDescription) {
         if (selector.matches(element)) {
             return Collections.singletonList(this);
         } else {

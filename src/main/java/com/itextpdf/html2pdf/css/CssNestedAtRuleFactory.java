@@ -40,44 +40,31 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.util;
+package com.itextpdf.html2pdf.css;
 
-public class CssUtils {
+import com.itextpdf.html2pdf.css.media.CssMediaRule;
 
-    private CssUtils() {
+public final class CssNestedAtRuleFactory {
+
+    private CssNestedAtRuleFactory() {
     }
 
-    public static String removeDoubleSpacesAndTrim(String str) {
-        String[] parts = str.split("\\s");
-        StringBuilder sb = new StringBuilder();
-        for (String part : parts) {
-            if (part.length() > 0) {
-                if (sb.length() != 0) {
-                    sb.append(" ");
-                }
-                sb.append(part);
-            }
-        }
-        return sb.toString();
-    }
+    public static CssNestedAtRule createNestedRule(String ruleDeclaration) {
+        ruleDeclaration = ruleDeclaration.trim();
+        String ruleName = extractRuleNameFromDeclaration(ruleDeclaration);
+        String ruleParameters = ruleDeclaration.substring(ruleName.length()).trim();
 
-    public static Integer parseInteger(String str) {
-        try {
-            return Integer.valueOf(str);
-        } catch (NumberFormatException exc) {
-            return null;
+        switch (ruleName) {
+            case CssRuleName.MEDIA:
+                return new CssMediaRule(ruleName, ruleParameters);
+            default:
+                return new CssNestedAtRule(ruleName, ruleParameters);
         }
     }
 
-    public static int[] parseAspectRatio(String str) {
-        int indexOfSlash = str.indexOf('/');
-        try {
-            int first = Integer.valueOf(str.substring(0, indexOfSlash));
-            int second = Integer.valueOf(str.substring(indexOfSlash + 1));
-            return new int[] {first, second};
-        } catch (NumberFormatException | NullPointerException exc) {
-            return null;
-        }
+    static String extractRuleNameFromDeclaration(String ruleDeclaration) {
+        int spaceIndex = ruleDeclaration.indexOf(' ');
+        return spaceIndex == -1 ? ruleDeclaration : ruleDeclaration.substring(0, spaceIndex);
     }
 
 }

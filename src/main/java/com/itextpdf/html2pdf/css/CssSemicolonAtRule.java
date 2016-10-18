@@ -49,7 +49,7 @@ public class CssSemicolonAtRule extends CssAtRule {
     private String ruleParams;
 
     public CssSemicolonAtRule(String ruleDeclaration) {
-        super(extractRuleNameFromDeclaration(ruleDeclaration));
+        super(CssNestedAtRuleFactory.extractRuleNameFromDeclaration(ruleDeclaration.trim()));
         this.ruleParams = ruleDeclaration.trim().substring(ruleName.length()).trim();
     }
 

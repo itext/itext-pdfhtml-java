@@ -45,6 +45,14 @@ package com.itextpdf.html2pdf.css.media;
 public class MediaDeviceDescription {
 
     private String type;
+    private int bitsPerComponent = 0;
+    private int colorIndex = 0;
+    private int width;
+    private int height;
+    private boolean isGrid;
+    private String scan;
+    private String orientation;
+    private int monochrome;
 
     public MediaDeviceDescription(String type) {
         this.type = type;
@@ -52,5 +60,69 @@ public class MediaDeviceDescription {
 
     public String getType() {
         return type;
+    }
+
+    public int getBitsPerComponent() {
+        return bitsPerComponent;
+    }
+
+    public void setBitsPerComponent(int bitsPerComponent) {
+        this.bitsPerComponent = bitsPerComponent;
+    }
+
+    public int getColorIndex() {
+        return colorIndex;
+    }
+
+    public void setColorIndex(int colorIndex) {
+        this.colorIndex = colorIndex;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public boolean isGrid() {
+        return isGrid;
+    }
+
+    public void setGrid(boolean grid) {
+        isGrid = grid;
+    }
+
+    public String getScan() {
+        return scan;
+    }
+
+    public void setScan(String scan) {
+        this.scan = scan;
+    }
+
+    public String getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(String orientation) {
+        this.orientation = orientation;
+    }
+
+    public int getMonochrome() {
+        return monochrome;
+    }
+
+    public void setMonochrome(int monochrome) {
+        this.monochrome = monochrome;
     }
 }

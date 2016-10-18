@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css.parse.syntax;
 
 import com.itextpdf.html2pdf.css.CssNestedAtRule;
+import com.itextpdf.html2pdf.css.CssNestedAtRuleFactory;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.CssSemicolonAtRule;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
@@ -161,7 +162,7 @@ public final class CssParserStateController {
     }
 
     void pushBlockPrecedingAtRule() {
-        nestedAtRules.add(new CssNestedAtRule(buffer.toString()));
+        nestedAtRules.add(CssNestedAtRuleFactory.createNestedRule(buffer.toString()));
         buffer.setLength(0);
     }
 
