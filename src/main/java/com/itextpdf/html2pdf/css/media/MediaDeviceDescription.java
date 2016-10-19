@@ -47,15 +47,25 @@ public class MediaDeviceDescription {
     private String type;
     private int bitsPerComponent = 0;
     private int colorIndex = 0;
-    private int width;
-    private int height;
+    // in points
+    private float width;
+    // in points
+    private float height;
     private boolean isGrid;
     private String scan;
     private String orientation;
     private int monochrome;
+    // in dpi // TODO change default units? If so, change CssUtils#parseResolution as well
+    private float resolution;
 
     public MediaDeviceDescription(String type) {
         this.type = type;
+    }
+
+    public MediaDeviceDescription(String type, float width, float height) {
+        this(type);
+        this.width = width;
+        this.height = height;
     }
 
     public String getType() {
@@ -66,63 +76,80 @@ public class MediaDeviceDescription {
         return bitsPerComponent;
     }
 
-    public void setBitsPerComponent(int bitsPerComponent) {
+    public MediaDeviceDescription setBitsPerComponent(int bitsPerComponent) {
         this.bitsPerComponent = bitsPerComponent;
+        return this;
     }
 
     public int getColorIndex() {
         return colorIndex;
     }
 
-    public void setColorIndex(int colorIndex) {
+    public MediaDeviceDescription setColorIndex(int colorIndex) {
         this.colorIndex = colorIndex;
+        return this;
     }
 
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
+    public MediaDeviceDescription setWidth(int width) {
         this.width = width;
+        return this;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public MediaDeviceDescription setHeight(int height) {
         this.height = height;
+        return this;
     }
 
     public boolean isGrid() {
         return isGrid;
     }
 
-    public void setGrid(boolean grid) {
+    public MediaDeviceDescription setGrid(boolean grid) {
         isGrid = grid;
+        return this;
     }
 
     public String getScan() {
         return scan;
     }
 
-    public void setScan(String scan) {
+    public MediaDeviceDescription setScan(String scan) {
         this.scan = scan;
+        return this;
     }
 
     public String getOrientation() {
         return orientation;
     }
 
-    public void setOrientation(String orientation) {
+    public MediaDeviceDescription setOrientation(String orientation) {
         this.orientation = orientation;
+        return this;
     }
 
     public int getMonochrome() {
         return monochrome;
     }
 
-    public void setMonochrome(int monochrome) {
+    public MediaDeviceDescription setMonochrome(int monochrome) {
         this.monochrome = monochrome;
+        return this;
+    }
+
+    public float getResolution() {
+        return resolution;
+    }
+
+    public MediaDeviceDescription setResolution(float resolution) {
+        this.resolution = resolution;
+        return this;
     }
 }

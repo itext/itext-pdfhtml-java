@@ -115,6 +115,10 @@ public final class MediaQueryParser {
 
     private static MediaExpression parseMediaExpression(String mediaExpressionStr) {
         mediaExpressionStr = mediaExpressionStr.trim();
+        if (!mediaExpressionStr.startsWith("(") || !mediaExpressionStr.endsWith(")")) {
+            return null;
+        }
+        mediaExpressionStr = mediaExpressionStr.substring(1, mediaExpressionStr.length() - 1);
         if (mediaExpressionStr.length() == 0) {
             return null;
         }
@@ -125,7 +129,7 @@ public final class MediaQueryParser {
             mediaFeature = mediaExpressionStr;
         } else {
             mediaFeature = mediaExpressionStr.substring(0, colonPos).trim();
-            value = mediaExpressionStr.substring(colonPos).trim();
+            value = mediaExpressionStr.substring(colonPos + 1).trim();
         }
         return new MediaExpression(mediaFeature, value);
     }

@@ -62,11 +62,11 @@ public class MediaExpression {
         String maxPref = MediaRuleConstants.MAX + "-";
         minPrefix = feature.startsWith(minPref);
         if (minPrefix) {
-            feature = feature.substring(minPref.length());
+            this.feature = feature.substring(minPref.length());
         }
         maxPrefix = feature.startsWith(maxPref);
         if (maxPrefix) {
-            feature = feature.substring(maxPref.length());
+            this.feature = feature.substring(maxPref.length());
         }
     }
 
@@ -119,7 +119,37 @@ public class MediaExpression {
                 } else if (maxPrefix) {
                     return val != null && deviceDescription.getMonochrome() <= val;
                 } else {
-                    return val == null && deviceDescription.getMonochrome() > 0 || val == deviceDescription.getMonochrome();
+                    return val == null ? deviceDescription.getMonochrome() > 0 : val == deviceDescription.getMonochrome();
+                }
+            }
+            case MediaFeature.HEIGHT: {
+                float val = CssUtils.parseAbsoluteLength(value);
+                if (minPrefix) {
+                    return deviceDescription.getHeight() >= val;
+                } else if (maxPrefix) {
+                    return deviceDescription.getHeight() <= val;
+                } else {
+                    return deviceDescription.getHeight() > 0;
+                }
+            }
+            case MediaFeature.WIDTH: {
+                float val = CssUtils.parseAbsoluteLength(value);
+                if (minPrefix) {
+                    return deviceDescription.getWidth() >= val;
+                } else if (maxPrefix) {
+                    return deviceDescription.getWidth() <= val;
+                } else {
+                    return deviceDescription.getWidth() > 0;
+                }
+            }
+            case MediaFeature.RESOLUTION: {
+                float val = CssUtils.parseResolution(value);
+                if (minPrefix) {
+                    return deviceDescription.getResolution() >= val;
+                } else if (maxPrefix) {
+                    return deviceDescription.getResolution() <= val;
+                } else {
+                    return deviceDescription.getResolution() > 0;
                 }
             }
             default:

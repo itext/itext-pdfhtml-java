@@ -46,7 +46,7 @@ import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.html.node.IElement;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -76,7 +76,7 @@ public class CssStyleSheet {
 
     public List<CssDeclaration> getCssDeclarations(IElement element, MediaDeviceDescription deviceDescription) {
         List<CssRuleSet> ruleSets = getCssRuleSets(element, deviceDescription);
-        Map<String, CssDeclaration> declarations = new HashMap<>();
+        Map<String, CssDeclaration> declarations = new LinkedHashMap<>();
         Collections.sort(ruleSets, new CssRuleSetComparator());
         for (CssRuleSet ruleSet : ruleSets) {
             populateDeclarationsMap(ruleSet.getNormalDeclarations(), declarations);

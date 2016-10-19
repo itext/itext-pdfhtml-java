@@ -56,4 +56,16 @@ public class CssConstants {
     public static final String VSPACE = "vspace";
     public static final String WIDTH = "width";
 
+    public static final String PX = "px";
+    public static final String MM = "mm";
+    public static final String Q = "q";
+    public static final String CM = "cm";
+    public static final String IN = "in";
+    public static final String PT = "pt";
+    public static final String PC = "pc";
+
+    public static final String DPI = "dpi";
+    public static final String DPCM = "dpcm";
+    public static final String DPPX = "dppx";
+
 }

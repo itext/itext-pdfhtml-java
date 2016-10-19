@@ -50,7 +50,7 @@ public class CssTagSelectorItem implements ICssSelectorItem {
     private boolean isUniversal;
 
     public CssTagSelectorItem(String tagName) {
-        this.tagName = tagName;
+        this.tagName = tagName.toLowerCase();
         this.isUniversal = "*".equals(tagName);
     }
 

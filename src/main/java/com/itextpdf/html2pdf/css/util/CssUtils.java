@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.css.util;
 
+import com.itextpdf.html2pdf.css.CssConstants;
+
 public class CssUtils {
 
     private CssUtils() {
@@ -74,10 +76,103 @@ public class CssUtils {
         try {
             int first = Integer.valueOf(str.substring(0, indexOfSlash));
             int second = Integer.valueOf(str.substring(indexOfSlash + 1));
-            return new int[] {first, second};
+            return new int[]{first, second};
         } catch (NumberFormatException | NullPointerException exc) {
             return null;
         }
+    }
+
+    /**
+     * Parses a length with an allowed metric unit (px, pt, in, cm, mm, pc, q) or numeric value (e.g. 123, 1.23,
+     * .123) to pt.<br />
+     * A numeric value (without px, pt, etc in the given length string) is considered to be in the default metric that
+     * was given.
+     *
+     * @param length        the string containing the length.
+     * @param defaultMetric the string containing the metric if it is possible that the length string does not contain
+     *                      one. If null the length is considered to be in px as is default in HTML/CSS.
+     * @return parsed value
+     */
+    public static float parseAbsoluteLength(String length, String defaultMetric) {
+        int pos = determinePositionBetweenValueAndUnit(length);
+        if (pos == 0)
+            return 0f;
+        float f = Float.parseFloat(length.substring(0, pos) + "f");
+        String unit = length.substring(pos);
+        // inches
+        if (unit.startsWith(CssConstants.IN) || (unit.equals("") && defaultMetric.equals(CssConstants.IN))) {
+            f *= 72f;
+        }
+        // centimeters
+        else if (unit.startsWith(CssConstants.CM) || (unit.equals("") && defaultMetric.equals(CssConstants.CM))) {
+            f = (f / 2.54f) * 72f;
+        }
+        // quarter of a millimeter (1/40th of a centimeter).
+        else if (unit.startsWith(CssConstants.Q) || (unit.equals("") && defaultMetric.equals(CssConstants.Q))) {
+            f = (f / 2.54f) * 72f / 40;
+        }
+        // millimeters
+        else if (unit.startsWith(CssConstants.MM) || (unit.equals("") && defaultMetric.equals(CssConstants.MM))) {
+            f = (f / 25.4f) * 72f;
+        }
+        // picas
+        else if (unit.startsWith(CssConstants.PC) || (unit.equals("") && defaultMetric.equals(CssConstants.PC))) {
+            f *= 12f;
+        }
+        // pixels (1px = 0.75pt).
+        else if (unit.startsWith(CssConstants.PX) || (unit.equals("") && defaultMetric.equals(CssConstants.PX))) {
+            f *= 0.75f;
+        }
+        return f;
+    }
+
+    public static float parseAbsoluteLength(String length) {
+        return parseAbsoluteLength(length, CssConstants.PT);
+    }
+
+    /**
+     * Returns value in dpi (currently)
+     * @param resolutionStr
+     * @return
+     */
+    // TODO change default units? If so, change MediaDeviceDescription#resolutoin as well
+    public static float parseResolution(String resolutionStr) {
+        int pos = determinePositionBetweenValueAndUnit(resolutionStr);
+        if (pos == 0)
+            return 0f;
+        float f = Float.parseFloat(resolutionStr.substring(0, pos) + "f");
+        String unit = resolutionStr.substring(pos);
+        if (unit.startsWith(CssConstants.DPCM)) {
+            f *= 2.54f;
+        } else if (unit.startsWith(CssConstants.DPPX)) {
+            f *= 96;
+        }
+        return f;
+    }
+
+    /**
+     * Method used in preparation of splitting a string containing a numeric value with a metric unit (e.g. 18px, 9pt, 6cm, etc).<br /><br />
+     * Determines the position between digits and affiliated characters ('+','-','0-9' and '.') and all other characters.<br />
+     * e.g. string "16px" will return 2, string "0.5em" will return 3 and string '-8.5mm' will return 4.
+     *
+     * @param string containing a numeric value with a metric unit
+     * @return int position between the numeric value and unit or 0 if string is null or string started with a non-numeric value.
+     */
+    private static int determinePositionBetweenValueAndUnit(String string) {
+        if (string == null)
+            return 0;
+        int pos = 0;
+        while (pos < string.length()) {
+            if (string.charAt(pos) == '+' ||
+                    string.charAt(pos) == '-' ||
+                    string.charAt(pos) == '.' ||
+                    string.charAt(pos) >= '0' && string.charAt(pos) <= '9') {
+                pos++;
+            } else {
+                break;
+            }
+        }
+        return pos;
     }
 
 }
