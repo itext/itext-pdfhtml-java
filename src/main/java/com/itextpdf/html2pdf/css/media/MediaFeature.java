@@ -109,4 +109,32 @@ public final class MediaFeature {
      */
     public static final String MONOCHROME = "monochrome";
 
+    /**
+     * Value: <length>
+     * Media: visual, tactile
+     * Accepts min/max prefixes: yes
+     * The height media feature describes the height of the output device's rendering surface
+     * (such as the height of the viewport or of the page box on a printer).
+     */
+    public static final String HEIGHT = "height";
+
+    /**
+     * Value: <resolution>
+     * Media: bitmap
+     * Accepts min/max prefixes: yes
+     * Indicates the resolution (pixel density) of the output device. The resolution may be specified in
+     * either dots per inch (dpi) or dots per centimeter (dpcm).
+     */
+    public static final String RESOLUTION = "resolution";
+
+    /**
+     * Value: <length>
+     * Media: visual, tactile
+     * Accepts min/max prefixes: yes
+     * The width media feature describes the width of the rendering surface of the output device
+     * (such as the width of the document window, or the width of the page box on a printer).
+     */
+    public static final String WIDTH = "width";
+
+
 }

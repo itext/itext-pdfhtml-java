@@ -52,13 +52,12 @@ import com.itextpdf.html2pdf.html.node.IDocument;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Category(UnitTest.class)
 // TODO check logging by extending from ExtendedITextTest
@@ -106,8 +105,8 @@ public class CssMatchingTest extends ITextTest {
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
         List<CssDeclaration> declarations = css.getCssDeclarations(element, deviceDescription);
         Assert.assertEquals(2, declarations.size());
-        Assert.assertEquals("color: black", declarations.get(0).toString());
-        Assert.assertEquals("font-weight: bold", declarations.get(1).toString());
+        Assert.assertEquals("font-weight: bold", declarations.get(0).toString());
+        Assert.assertEquals("color: black", declarations.get(1).toString());
     }
 
     @Test

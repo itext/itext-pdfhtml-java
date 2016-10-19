@@ -1,7 +1,5 @@
-#id777 {
-    color: red;
-}
-
-.cls {
-    color: blue !important;
+@media not screen and (color), print and (color) {
+    p {
+        color: red;
+    }
 }

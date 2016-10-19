@@ -58,7 +58,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -78,12 +77,12 @@ public class MediaRuleTest extends ExtendedITextTest {
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
         List<CssDeclaration> declarations = css.getCssDeclarations(element, deviceDescription);
         Assert.assertEquals(3, declarations.size());
-        Assert.assertEquals("color: red", declarations.get(0).toString());
-        Assert.assertEquals("font-weight: bold", declarations.get(1).toString());
+        Assert.assertEquals("font-weight: bold", declarations.get(0).toString());
+        Assert.assertEquals("color: red", declarations.get(1).toString());
         Assert.assertEquals("font-size: 20pt", declarations.get(2).toString());
     }
 
-    @Test @Ignore
+    @Test
     public void test02() throws IOException {
         String htmlFileName = sourceFolder + "html02.html";
         String cssFileName = sourceFolder + "css02.css";
@@ -93,8 +92,10 @@ public class MediaRuleTest extends ExtendedITextTest {
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
 
         MediaDeviceDescription deviceDescription1 = new MediaDeviceDescription(MediaType.PRINT);
+        deviceDescription1.setWidth(525);
 
-        MediaDeviceDescription deviceDescription2 = new MediaDeviceDescription(MediaType.PRINT);
+        MediaDeviceDescription deviceDescription2 = new MediaDeviceDescription(MediaType.HANDHELD);
+        deviceDescription2.setOrientation("landscape");
 
         List<CssDeclaration> declarations1 = css.getCssDeclarations(element, deviceDescription1);
         List<CssDeclaration> declarations2 = css.getCssDeclarations(element, deviceDescription2);
@@ -104,5 +105,91 @@ public class MediaRuleTest extends ExtendedITextTest {
         Assert.assertEquals(1, declarations1.size());
         Assert.assertEquals("font-weight: bold", declarations1.get(0).toString());
     }
+
+    @Test
+    public void test03() throws IOException {
+        String htmlFileName = sourceFolder + "html03.html";
+        String cssFileName = sourceFolder + "css03.css";
+        IHtmlParser htmlParser = new JsoupHtmlParser();
+        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8", "");
+        CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
+        MediaDeviceDescription deviceDescription = new MediaDeviceDescription(MediaType.PRINT);
+        deviceDescription.setResolution(300);
+        IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
+        List<CssDeclaration> declarations = css.getCssDeclarations(element, deviceDescription);
+        Assert.assertEquals(1, declarations.size());
+        Assert.assertEquals("color: black", declarations.get(0).toString());
+    }
+
+    @Test
+    public void test04() throws IOException {
+        String htmlFileName = sourceFolder + "html04.html";
+        String cssFileName = sourceFolder + "css04.css";
+        IHtmlParser htmlParser = new JsoupHtmlParser();
+        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8", "");
+        CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
+
+        MediaDeviceDescription deviceDescription = new MediaDeviceDescription(MediaType.PRINT).setColorIndex(256);
+
+        IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
+        List<CssDeclaration> declarations = css.getCssDeclarations(element, deviceDescription);
+        Assert.assertEquals(2, declarations.size());
+        Assert.assertEquals("color: red", declarations.get(0).toString());
+        Assert.assertEquals("font-size: 20em", declarations.get(1).toString());
+    }
+
+    @Test
+    public void test05() throws IOException {
+        String htmlFileName = sourceFolder + "html05.html";
+        String cssFileName = sourceFolder + "css05.css";
+        IHtmlParser htmlParser = new JsoupHtmlParser();
+        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8", "");
+        CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
+        IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
+
+        MediaDeviceDescription deviceDescription1 = new MediaDeviceDescription(MediaType.PRINT).
+                setWidth(300).setHeight(301);
+
+        MediaDeviceDescription deviceDescription2 = new MediaDeviceDescription(MediaType.SCREEN).
+                setWidth(400).setHeight(400);
+
+        List<CssDeclaration> declarations1 = css.getCssDeclarations(element, deviceDescription1);
+        List<CssDeclaration> declarations2 = css.getCssDeclarations(element, deviceDescription2);
+
+        Assert.assertEquals(0, declarations1.size());
+
+        Assert.assertEquals(1, declarations2.size());
+        Assert.assertEquals("color: red", declarations2.get(0).toString());
+    }
+
+    @Test
+    public void test06() throws IOException {
+        String htmlFileName = sourceFolder + "html06.html";
+        String cssFileName = sourceFolder + "css06.css";
+        IHtmlParser htmlParser = new JsoupHtmlParser();
+        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8", "");
+        CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
+        IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
+
+        MediaDeviceDescription deviceDescription1 = new MediaDeviceDescription(MediaType.PRINT).
+                setBitsPerComponent(2);
+
+        MediaDeviceDescription deviceDescription2 = new MediaDeviceDescription(MediaType.HANDHELD).
+                setBitsPerComponent(2);
+
+        MediaDeviceDescription deviceDescription3 = new MediaDeviceDescription(MediaType.SCREEN).
+                setBitsPerComponent(1);
+
+        List<CssDeclaration> declarations1 = css.getCssDeclarations(element, deviceDescription1);
+        List<CssDeclaration> declarations2 = css.getCssDeclarations(element, deviceDescription2);
+        List<CssDeclaration> declarations3 = css.getCssDeclarations(element, deviceDescription3);
+
+        Assert.assertTrue(Objects.equals(declarations1, declarations2));
+        Assert.assertEquals(0, declarations3.size());
+
+        Assert.assertEquals(1, declarations1.size());
+        Assert.assertEquals("color: red", declarations1.get(0).toString());
+    }
+
 
 }
