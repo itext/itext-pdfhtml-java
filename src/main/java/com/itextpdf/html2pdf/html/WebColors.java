@@ -197,25 +197,8 @@ public class WebColors extends HashMap<String, float[]> {
         NAMES.put("yellowgreen", new float[] { 0x9a, 0xcd, 0x32, 0xff });
     }
 
-    /**
-     * A web color string without the leading # will be 3 or 6 characters long
-     * and all those characters will be hex digits. NOTE: colStr must be all
-     * lower case or the current hex letter test will fail.
-     *
-     * @param colStr
-     *            A non-null, lower case string that might describe an RGB color
-     *            in hex.
-     * @return Is this a web color hex string without the leading #?
-     * @since 5.0.6
-     */
-    private static boolean missingHashColorFormat(String colStr) {
-        int len = colStr.length();
-        if (len == 3 || len == 6) {
-            // and it just contains hex chars 0-9, a-f, A-F
-            String match = "[0-9a-f]{" + len + "}";
-            return colStr.matches(match);
-        }
-        return false;
+    public static boolean isColorProperty(String value) {
+        return value.contains("rgb(") || value.contains("rgba(") || value.contains("#") || WebColors.NAMES.containsKey(value.toLowerCase());
     }
 
     /**
@@ -311,5 +294,26 @@ public class WebColors extends HashMap<String, float[]> {
             return Integer.parseInt(rgbChannel);
         }
 
+    }
+
+    /**
+     * A web color string without the leading # will be 3 or 6 characters long
+     * and all those characters will be hex digits. NOTE: colStr must be all
+     * lower case or the current hex letter test will fail.
+     *
+     * @param colStr
+     *            A non-null, lower case string that might describe an RGB color
+     *            in hex.
+     * @return Is this a web color hex string without the leading #?
+     * @since 5.0.6
+     */
+    private static boolean missingHashColorFormat(String colStr) {
+        int len = colStr.length();
+        if (len == 3 || len == 6) {
+            // and it just contains hex chars 0-9, a-f, A-F
+            String match = "[0-9a-f]{" + len + "}";
+            return colStr.matches(match);
+        }
+        return false;
     }
 }
