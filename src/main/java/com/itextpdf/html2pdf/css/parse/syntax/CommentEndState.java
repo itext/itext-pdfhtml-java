@@ -54,6 +54,8 @@ class CommentEndState implements IParserState {
     public void process(char ch) {
         if (ch == '/') {
             controller.enterPreviousActiveState();
+        } else if (ch == '*') {
+            // stay in comment end state
         } else {
             controller.enterCommentInnerState();
         }

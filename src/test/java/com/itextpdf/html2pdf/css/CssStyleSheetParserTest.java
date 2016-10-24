@@ -130,6 +130,14 @@ public class CssStyleSheetParserTest {
         Assert.assertEquals(getCssFileContents(cssFile), styleSheet.toString());
     }
 
+    @Test
+    public void test10() throws IOException {
+        String cssFile = sourceFolder + "css10.css";
+        String cmpFile = sourceFolder + "cmp_css10.css";
+        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
+        Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
+    }
+
     private String getCssFileContents(String filePath) throws IOException {
         String content = new Scanner(new File(filePath)).useDelimiter("\\Z").next();
         content = content.trim();
