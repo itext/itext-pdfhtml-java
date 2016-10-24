@@ -48,7 +48,10 @@ public final class AttributeConstants {
     }
 
     public static final String CLASS = "class";
+    public static final String HREF = "href";
     public static final String ID = "id";
+    public static final String REL = "rel";
     public static final String STYLE = "style";
+    public static final String TYPE = "type";
 
 }
