@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
+// TODO remove?
 public class JSoupCssResolver {
 
 //    public static String inlineCss(String html) {

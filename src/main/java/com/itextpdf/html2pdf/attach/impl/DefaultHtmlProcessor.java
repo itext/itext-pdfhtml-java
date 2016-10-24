@@ -107,26 +107,29 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
     private void visit(INode node) {
         if (node instanceof IElement) {
-            ITagWorker tagWorker = TagWorkerFactory.getTagWorker(((IElement) node), context);
+            IElement element = (IElement) node;
+            ITagWorker tagWorker = TagWorkerFactory.getTagWorker(element, context);
             if (tagWorker == null) {
-                logger.error("No worker found for tag " + ((IElement) node).name());
+                logger.error("No worker found for tag " + (element).name());
             } else {
                 context.getState().push(tagWorker);
             }
 
-            for (INode childNode : node.childNodes()) {
+            element.setStyles(context.getCssResolver().resolveStyles(element));
+
+            for (INode childNode : element.childNodes()) {
                 visit(childNode);
             }
 
             if (tagWorker != null) {
-                tagWorker.processEnd((IElement) node, context);
+                tagWorker.processEnd(element, context);
                 context.getState().pop();
 
-                ICssApplier cssApplier = CssApplierFactory.getCssApplier(((IElement) node).name());
+                ICssApplier cssApplier = CssApplierFactory.getCssApplier(element.name());
                 if (cssApplier == null) {
-                    logger.error("No css applier found for tag " + ((IElement) node).name());
+                    logger.error("No css applier found for tag " + element.name());
                 } else {
-                    cssApplier.apply(context, node, tagWorker);
+                    cssApplier.apply(context, element, tagWorker);
                 }
 
                 if (!context.getState().empty()) {
@@ -139,6 +142,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                     roots.add(tagWorker.getElementResult());
                 }
             }
+
+            element.setStyles(null);
+
         } else if (node instanceof ITextNode) {
             // TODO not exactly correct to trim like that; e.g. "<p>text<span>text</span>text</p>" and "<p>text\n<span>text</span>text</p>" produce different output in browser
             String content = trimContentAndNormalizeSpaces(((ITextNode) node).wholeText());

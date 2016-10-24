@@ -42,13 +42,12 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
+import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.html2pdf.html.node.INode;
 import java.util.Map;
 
 public interface ICssResolver {
 
-    Map<String, String> resolveStyles(INode node);
-
-    Map<String, String> resolveOwnStyles(INode node);
+    Map<String, String> resolveStyles(IElement node);
 
 }

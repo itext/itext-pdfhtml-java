@@ -42,8 +42,6 @@
  */
 package com.itextpdf.html2pdf.html.node;
 
-public interface IDataNode {
-
-
-
+public interface IDataNode extends INode{
+    String getWholeData();
 }

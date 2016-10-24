@@ -62,6 +62,11 @@ public class CssStyleSheet {
         statements.add(statement);
     }
 
+    // TODO move this functionality to the parser (parse into)
+    public void appendCssStyleSheet(CssStyleSheet anotherCssStyleSheet) {
+        statements.addAll(anotherCssStyleSheet.statements);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

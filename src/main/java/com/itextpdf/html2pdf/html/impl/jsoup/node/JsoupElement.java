@@ -45,11 +45,13 @@ package com.itextpdf.html2pdf.html.impl.jsoup.node;
 import com.itextpdf.html2pdf.html.node.IAttributes;
 import com.itextpdf.html2pdf.html.node.IElement;
 import org.jsoup.nodes.Document;
+import java.util.Map;
 
 public class JsoupElement extends JsoupNode implements IElement {
 
     private org.jsoup.nodes.Element element;
     private IAttributes attributes;
+    private Map<String, String> elementResolvedStyles;
 
     public JsoupElement(org.jsoup.nodes.Element element) {
         super(element);
@@ -75,6 +77,16 @@ public class JsoupElement extends JsoupNode implements IElement {
     @Override
     public Document ownerDocument() {
         return element.ownerDocument();
+	}
+
+	@Override
+    public void setStyles(Map<String, String> elementResolvedStyles) {
+        this.elementResolvedStyles = elementResolvedStyles;
+    }
+
+    @Override
+    public Map<String, String> getStyles() {
+        return this.elementResolvedStyles;
     }
 }
 

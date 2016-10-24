@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
+import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.layout.property.Property;
 import java.io.IOException;
@@ -55,10 +56,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PTagCssApplier implements ICssApplier {
+
     @Override
-    public void apply(ProcessorContext context, INode node, ITagWorker worker) {
-        ICssResolver cssResolver = context.getCssResolver();
-        Map<String, String> cssProps = cssResolver.resolveStyles(node);
+    public void apply(ProcessorContext context, IElement element, ITagWorker worker) {
+        Map<String, String> cssProps = element.getStyles();
         if (cssProps.get(CssConstants.FONT_FAMILY) != null) {
             try {
                 worker.getElementResult().setProperty(Property.FONT, context.getFontResolver().getFont(cssProps.get(CssConstants.FONT_FAMILY)));
