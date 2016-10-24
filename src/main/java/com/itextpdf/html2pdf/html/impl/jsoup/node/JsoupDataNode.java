@@ -53,4 +53,8 @@ public class JsoupDataNode extends JsoupNode implements IDataNode {
         this.dataNode = dataNode;
     }
 
+    @Override
+    public String getWholeData() {
+        return dataNode.getWholeData();
+    }
 }

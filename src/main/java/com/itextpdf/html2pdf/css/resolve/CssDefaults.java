@@ -43,34 +43,38 @@
 package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.html.node.INode;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SimpleCssResolver implements ICssResolver {
+public class CssDefaults {
+    private static final Map<String, String> defaultValues = new HashMap<>();
 
-    private INode treeRoot;
+    static {
+        defaultValues.put(CssConstants.COLOR, "black"); // TODO not specified, varies from browser to browser
+        defaultValues.put(CssConstants.OPACITY, "1");
 
-    public SimpleCssResolver(INode treeRoot) {
-        this.treeRoot = treeRoot;
-        collectCSSDeclarations();
+        defaultValues.put(CssConstants.BACKGROUND_ATTACHMENT, CssConstants.SCROLL);
+        defaultValues.put(CssConstants.BACKGROUND_BLEND_MODE, CssConstants.NORMAL);
+        defaultValues.put(CssConstants.BACKGROUND_COLOR, CssConstants.TRANSPARENT);
+        defaultValues.put(CssConstants.BACKGROUND_IMAGE, CssConstants.NONE);
+        defaultValues.put(CssConstants.BACKGROUND_POSITION, "0% 0%");
+        defaultValues.put(CssConstants.BACKGROUND_REPEAT, CssConstants.REPEAT);
+        defaultValues.put(CssConstants.BACKGROUND_CLIP, CssConstants.BORDER_BOX);
+        defaultValues.put(CssConstants.BACKGROUND_ORIGIN, CssConstants.PADDING_BOX);
+        defaultValues.put(CssConstants.BACKGROUND_SIZE, CssConstants.AUTO);
+
+        defaultValues.put(CssConstants.BORDER_COLOR, "black"); // TODO specified as " The current color of the element ", might be better to put null here?
+        defaultValues.put(CssConstants.BORDER_STYLE, CssConstants.NONE);
+        defaultValues.put(CssConstants.BORDER_WIDTH, CssConstants.MEDIUM);
+
+        // TODO not complete
     }
 
-    private void collectCSSDeclarations() {
-        // TODO collect global declarations from the whole tree
-        // TODO probably compute merged declarations
-    }
-
-    @Override
-    public Map<String, String> resolveStyles(INode node) {
-        return new HashMap<String, String>() {{
-            put(CssConstants.FONT_FAMILY, "Times-Roman");
-            put(CssConstants.FONT_SIZE, "20");
-        }};
-    }
-
-    @Override
-    public Map<String, String> resolveOwnStyles(INode node) {
-        throw new IllegalStateException();
+    public static String getDefaultValue(String property) {
+        String defaultVal = defaultValues.get(property);
+        if (defaultVal == null) {
+            // TODO log error
+        }
+        return defaultVal;
     }
 }

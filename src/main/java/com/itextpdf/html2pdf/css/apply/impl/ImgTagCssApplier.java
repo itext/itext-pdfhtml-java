@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.ImageTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.html.WebColors;
+import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.layout.border.*;
 import com.itextpdf.layout.property.Property;
@@ -57,8 +58,8 @@ import java.util.Map;
 
 public class ImgTagCssApplier implements ICssApplier {
     @Override
-    public void apply(ProcessorContext context, INode node, ITagWorker worker) {
-        Map<String, String> cssProps = context.getCssResolver().resolveStyles(node);
+    public void apply(ProcessorContext context, IElement element, ITagWorker worker) {
+        Map<String, String> cssProps = context.getCssResolver().resolveStyles(element);
 
         if (cssProps.get(CssConstants.ALIGN) != null) {
             String align = cssProps.get(CssConstants.ALIGN);
@@ -82,6 +83,7 @@ public class ImgTagCssApplier implements ICssApplier {
 
         }
         if (cssProps.get(CssConstants.BORDER) != null) {
+            // TODO border property should not appear in css appliers as it will be resolved into separate props
             worker.getElementResult().setProperty(Property.BORDER, new SolidBorder(Float.valueOf(cssProps.get(CssConstants.BORDER))));
         }
         if (cssProps.get(CssConstants.BORDER_WIDTH) != null) {
@@ -92,28 +94,28 @@ public class ImgTagCssApplier implements ICssApplier {
             if (borderWidth != null && borderStyle != null) {
                 Border border;
                 switch (borderStyle.toLowerCase()) {
-                    case "solid":
+                    case CssConstants.SOLID:
                         border = new SolidBorder(borderWidth);
                         break;
-                    case "dashed":
+                    case CssConstants.DASHED:
                         border = new DashedBorder(borderWidth);
                         break;
-                    case "dotted":
+                    case CssConstants.DOTTED:
                         border = new DottedBorder(borderWidth);
                         break;
-                    case "double":
+                    case CssConstants.DOUBLE:
                         border = new DoubleBorder(borderWidth);
                         break;
-                    case "groove":
+                    case CssConstants.GROOVE:
                         border = new GrooveBorder(borderWidth);
                         break;
-                    case "ridge":
+                    case CssConstants.RIDGE:
                         border = new RidgeBorder(borderWidth);
                         break;
-                    case "inset":
+                    case CssConstants.INSET:
                         border = new InsetBorder(borderWidth);
                         break;
-                    case "outset":
+                    case CssConstants.OUTSET:
                         border = new OutsetBorder(borderWidth);
                         break;
                     default:

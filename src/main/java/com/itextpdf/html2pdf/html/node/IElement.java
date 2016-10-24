@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.html.node;
 
 import org.jsoup.nodes.Document;
+import java.util.Map;
 
 public interface IElement extends INode {
 
@@ -53,4 +54,8 @@ public interface IElement extends INode {
     String getAttribute(String key);
 
     Document ownerDocument();
+
+    void setStyles(Map<String, String> stringStringMap);
+
+    Map<String, String> getStyles();
 }

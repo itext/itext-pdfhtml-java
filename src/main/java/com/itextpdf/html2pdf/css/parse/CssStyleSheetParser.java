@@ -45,9 +45,11 @@ package com.itextpdf.html2pdf.css.parse;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.parse.syntax.CssParserStateController;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 // TODO refactor into interface
 public final class CssStyleSheetParser {
@@ -57,7 +59,7 @@ public final class CssStyleSheetParser {
 
     public static CssStyleSheet parse(InputStream stream) throws IOException {
         CssParserStateController controller = new CssParserStateController();
-        BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+        BufferedReader br = new BufferedReader(new InputStreamReader(stream)); // TODO define charset
         char[] buffer = new char[8192];
         int length;
         while ((length = br.read(buffer)) > 0) {
@@ -68,4 +70,9 @@ public final class CssStyleSheetParser {
         return controller.getParsingResult();
     }
 
+    public static CssStyleSheet parse(String data) throws IOException {
+        // TODO charset? better to create parse logic based on string completely
+        ByteArrayInputStream stream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
+        return parse(stream);
+    }
 }
