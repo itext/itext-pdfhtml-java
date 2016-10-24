@@ -175,4 +175,35 @@ public class CssUtils {
         return pos;
     }
 
+
+
+    /**
+     * Checks whether a string contains an allowed metric unit in HTML/CSS; px, in, cm, mm, pc or pt.
+     * @param value the string that needs to be checked.
+     * @return boolean true if value contains an allowed metric value.
+     */
+    public static boolean isMetricValue(final String value) {
+        return value.contains(CssConstants.PX) || value.contains(CssConstants.IN) || value.contains(CssConstants.CM)
+                || value.contains(CssConstants.MM) || value.contains(CssConstants.PC) || value.contains(CssConstants.PT);
+
+    }
+    /**
+     * Checks whether a string contains an allowed value relative to previously set value.
+     * @param value the string that needs to be checked.
+     * @return boolean true if value contains an allowed metric value.
+     */
+    public static boolean isRelativeValue(final String value) {
+        return value.contains(CssConstants.PERCENTAGE) || value.contains(CssConstants.EM) || value.contains(CssConstants.EX);
+
+    }
+    /**
+     * Checks whether a string matches a numeric value (e.g. 123, 1.23, .123). All these metric values are allowed in HTML/CSS.
+     * @param value the string that needs to be checked.
+     * @return boolean true if value contains an allowed metric value.
+     */
+    public static boolean isNumericValue(final String value) {
+        return value.matches("^-?\\d\\d*\\.\\d*$") || value.matches("^-?\\d\\d*$") || value.matches("^-?\\.\\d\\d*$");
+
+    }
+
 }

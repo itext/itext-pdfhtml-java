@@ -47,6 +47,8 @@ import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.parse.CssRuleSetParser;
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
+import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
+import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IDataNode;
@@ -111,7 +113,15 @@ public class DefaultCssResolver implements ICssResolver {
     private Map<String, String> cssDeclarationsToMap(List<CssDeclaration> nodeCssDeclarations) {
         Map<String, String> stylesMap = new HashMap<>();
         for (CssDeclaration cssDeclaration : nodeCssDeclarations) {
-            stylesMap.put(cssDeclaration.getProperty(), cssDeclaration.getExpression());
+            IShorthandResolver shorthandResolver = ShorthandResolverFactory.getShorthandResolver(cssDeclaration.getProperty());
+            if (shorthandResolver == null) {
+                stylesMap.put(cssDeclaration.getProperty(), cssDeclaration.getExpression());
+            } else {
+                List<CssDeclaration> resolvedShorthandProps = shorthandResolver.resolveShorthand(cssDeclaration.getExpression());
+                for (CssDeclaration resolvedProp : resolvedShorthandProps) {
+                    stylesMap.put(resolvedProp.getProperty(), resolvedProp.getExpression());
+                }
+            }
         }
         return stylesMap;
     }
