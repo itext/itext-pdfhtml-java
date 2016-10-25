@@ -53,6 +53,7 @@ import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
@@ -126,6 +127,74 @@ public class CssStylesResolvingTest extends ITextTest {
                 "border-top-color: red");
     }
 
+    @Test
+    public void htmlStylesConvertingTest01() throws IOException {
+        test("htmlStylesConvertingTest01.html", "html body b p",
+                "font-weight: bold");
+    }
+
+    @Test
+    public void htmlStylesConvertingTest02() throws IOException {
+        test("htmlStylesConvertingTest01.html", "html body b i p",
+                "font-weight: bold", "font-style: italic");
+    }
+
+    @Test
+    public void htmlStylesConvertingTest03() throws IOException {
+        test("htmlStylesConvertingTest01.html", "html body i p",
+                "font-style: italic");
+    }
+
+    @Test
+    public void htmlStylesConvertingTest04() throws IOException {
+        test("htmlStylesConvertingTest01.html", "html body i center p",
+                "font-style: italic", "text-align: center");
+    }
+
+    @Test
+    public void htmlStylesConvertingTest05() throws IOException {
+        test("htmlStylesConvertingTest05.html", "html body table",
+                "border-bottom-style: solid", "border-left-style: solid", "border-right-style: solid", "border-top-style: solid",
+                "border-bottom-width: 2px", "border-left-width: 2px", "border-right-width: 2px", "border-top-width: 2px",
+                "border-bottom-color: black", "border-left-color: black", "border-right-color: black", "border-top-color: black" );
+    }
+
+    @Test
+    public void htmlStylesConvertingTest06() throws IOException {
+        test("htmlStylesConvertingTest05.html", "html body table tbody tr",
+                "background-color: yellow");
+    }
+
+    @Test
+    public void htmlStylesConvertingTest07() throws IOException {
+        test("htmlStylesConvertingTest07.html", "html body p font span",
+                "font-size: large", "font-family: verdana", "color: blue");
+    }
+
+    @Test
+    public void htmlStylesConvertingTest08() throws IOException {
+        test("htmlStylesConvertingTest08.html", "html body p font span",
+                "font-size: large", "font-family: verdana", "color: blue");
+    }
+
+    @Test
+    public void htmlStylesConvertingTest09() throws IOException {
+        test("htmlStylesConvertingTest08.html", "html body div center",
+                "text-align: center");
+    }
+
+    @Test
+    public void htmlStylesConvertingTest10() throws IOException {
+        test("htmlStylesConvertingTest10.html", "html body p font span",
+                "font-size: 10px", "font-family: verdana", "color: blue");
+    }
+
+    @Test
+    public void htmlStylesConvertingTest11() throws IOException {
+        test("htmlStylesConvertingTest10.html", "html body",
+                "background-color: yellow");
+    }
+
     private void resolveStylesForTree(INode node, ICssResolver cssResolver) {
         if (node instanceof IElement) {
             ((IElement)node).setStyles(cssResolver.resolveStyles((IElement)node));
@@ -143,10 +212,13 @@ public class CssStylesResolvingTest extends ITextTest {
         ICssResolver cssResolver = new DefaultCssResolver(document);
         resolveStylesForTree(document, cssResolver);
 
-        IElement spanElement = findElement(document, elementPath);
-        Map<String, String> pElementStyles = spanElement.getStyles();
+        IElement element = findElement(document, elementPath);
+        if (element == null) {
+            Assert.fail(MessageFormat.format("Element at path \"{0}\" was not found.", elementPath));
+        }
+        Map<String, String> elementStyles = element.getStyles();
         Set<String> expectedStylesSet = new HashSet<>(Arrays.asList(expectedStyles));
-        Set<String> actualStylesSet = stylesMapToHashSet(pElementStyles);
+        Set<String> actualStylesSet = stylesMapToHashSet(elementStyles);
         Assert.assertTrue(getDifferencesMessage(expectedStylesSet, actualStylesSet), setsAreEqual(expectedStylesSet, actualStylesSet));
     }
 

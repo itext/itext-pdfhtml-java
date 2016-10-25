@@ -60,9 +60,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DefaultCssResolver implements ICssResolver {
-
 
     private CssStyleSheet cssStyleSheet;
 
@@ -72,8 +73,10 @@ public class DefaultCssResolver implements ICssResolver {
 
     @Override
     public Map<String, String> resolveStyles(IElement element) {
+        List<CssDeclaration> nodeCssDeclarations = HtmlStylesToCssConverter.convert(element);
+
         // TODO MediaDeviceDescription handling
-        List<CssDeclaration> nodeCssDeclarations = cssStyleSheet.getCssDeclarations(element, null);
+        nodeCssDeclarations.addAll(cssStyleSheet.getCssDeclarations(element, null));
         String styleAttribute = element.getAttribute(AttributeConstants.STYLE);
         if (styleAttribute != null) {
             nodeCssDeclarations.addAll(CssRuleSetParser.parsePropertyDeclarations(styleAttribute));
@@ -85,8 +88,8 @@ public class DefaultCssResolver implements ICssResolver {
             Map<String, String> parentStyles = ((IElement) element.parentNode()).getStyles();
 
             if (parentStyles == null) {
-                // TODO resolve parent styles just in case?
-                resolveStyles((IElement) element.parentNode());
+                Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
+                logger.error("Element parent styles are not resolved. Styles for current element might be incorrect.");
             }
 
             if (parentStyles != null) {

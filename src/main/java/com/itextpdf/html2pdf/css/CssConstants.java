@@ -105,10 +105,12 @@ public class CssConstants {
     public static final String OUTLINE = "outline";
     public static final String PADDING = "padding";
     public static final String QUOTES = "quotes";
+    public static final String ROWSPAN = "rowspan";
     public static final String TAB_SIZE = "tab-size";
     public static final String TEXT_ALIGN = "text-align";
     public static final String TEXT_ALIGN_LAST = "text-align-last";
     public static final String TEXT_COMBINE_UPRIGHT = "text-combine-upright";
+    public static final String TEXT_DECORATION = "text-decoration";
     public static final String TEXT_INDENT = "text-indent";
     public static final String TEXT_JUSTIFY = "text-justify";
     public static final String TEXT_ORIENTATION = "text-orientation";
@@ -116,9 +118,9 @@ public class CssConstants {
     public static final String TEXT_SHADOW = "text-shadow";
     public static final String TEXT_UNDERLINE_POSITION = "text-underline-position";
     public static final String UNICODE_BIDI = "unicode-bidi";
-    public static final String VISIBILITY = "visibility";
-    public static final String ROWSPAN = "rowspan";
     public static final String VALIGN = "valign";
+    public static final String VERTICAL_ALIGN = "vertical-align";
+    public static final String VISIBILITY = "visibility";
     public static final String VSPACE = "vspace";
     public static final String WHITE_SPACE = "white-space";
     public static final String WIDTH = "width";
@@ -129,6 +131,8 @@ public class CssConstants {
 
     // property values
     public static final String AUTO = "auto";
+    public static final String BOLD = "bold";
+    public static final String BOLDER = "bolder";
     public static final String BORDER_BOX = "border-box";
     public static final String CENTER = "center";
     public static final String DASHED = "dashed";
@@ -139,7 +143,11 @@ public class CssConstants {
     public static final String INHERIT = "inherit";
     public static final String INITIAL = "initial";
     public static final String INSET = "inset";
+    public static final String ITALIC = "italic";
+    public static final String LARGE = "large";
+    public static final String LARGER = "larger";
     public static final String LEFT = "left";
+    public static final String LINE_THROUGH = "line-through";
     public static final String MEDIUM = "medium";
     public static final String NONE = "none";
     public static final String NORMAL = "normal";
@@ -149,10 +157,19 @@ public class CssConstants {
     public static final String RIDGE = "ridge";
     public static final String RIGHT = "right";
     public static final String SCROLL = "scroll";
+    public static final String SMALL = "small";
+    public static final String SMALLER = "smaller";
     public static final String SOLID = "solid";
+    public static final String SUB = "sub";
+    public static final String SUPER = "super";
     public static final String THICK = "thick";
     public static final String THIN = "thin";
     public static final String TRANSPARENT = "transparent";
+    public static final String UNDERLINE = "underline";
+    public static final String X_LARGE = "x-large";
+    public static final String X_SMALL = "x-small";
+    public static final String XX_LARGE = "xx-large";
+    public static final String XX_SMALL = "xx-small";
 
     // units of measurement
     public static final String CM = "cm";

@@ -164,9 +164,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-right-color: rgb(12, 220, 100)"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_RIGHT);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_RIGHT);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -180,9 +180,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-top-color: rgb(12, 225, 100, 0.7)"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_TOP);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_TOP);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -204,9 +204,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-left-color: black"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -229,9 +229,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-left-color: initial"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -245,9 +245,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-left-width: 10px"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_WIDTH);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_WIDTH);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -261,9 +261,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-left-width: 20%"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_WIDTH);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_WIDTH);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -277,9 +277,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-left-style: dashed"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_STYLE);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_STYLE);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -293,9 +293,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-left-style: solid"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_STYLE);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_STYLE);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -310,9 +310,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-left-color: #0000ff"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_COLOR);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_COLOR);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -326,9 +326,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-left-color: red"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_COLOR);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_COLOR);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -345,9 +345,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "font-family: Georgia, serif"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -364,9 +364,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "font-family: Georgia, serif"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -380,9 +380,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "list-style-image: url('sqpurple.gif')"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.LIST_STYLE);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.LIST_STYLE);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -396,9 +396,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "list-style-image: url('sqpurple.gif')"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.LIST_STYLE);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.LIST_STYLE);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -412,9 +412,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "margin-left: 4cm"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.MARGIN);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.MARGIN);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -428,9 +428,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "margin-left: auto"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.MARGIN);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.MARGIN);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -443,9 +443,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "outline-width: medium"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.OUTLINE);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.OUTLINE);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -459,9 +459,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "padding-left: 20px"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.PADDING);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.PADDING);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -475,9 +475,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "padding-left: 5px"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.PADDING);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.PADDING);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -491,9 +491,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-color: initial"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -507,9 +507,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-color: inherit"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 

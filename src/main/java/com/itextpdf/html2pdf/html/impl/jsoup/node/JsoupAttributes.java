@@ -42,7 +42,10 @@
  */
 package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
+import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IAttributes;
+import java.util.Iterator;
+import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Attributes;
 
 public class JsoupAttributes implements IAttributes {
@@ -61,5 +64,29 @@ public class JsoupAttributes implements IAttributes {
     @Override
     public int size() {
         return attributes.size();
+    }
+
+    @Override
+    public Iterator<IAttribute> iterator() {
+        return new AttributeIterator(attributes.iterator());
+    }
+
+    private static class AttributeIterator implements Iterator<IAttribute> {
+        private Iterator<Attribute> iterator;
+
+        public AttributeIterator(Iterator<Attribute> iterator) {
+
+            this.iterator = iterator;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return iterator.hasNext();
+        }
+
+        @Override
+        public IAttribute next() {
+            return new JsoupAttribute(iterator.next());
+        }
     }
 }

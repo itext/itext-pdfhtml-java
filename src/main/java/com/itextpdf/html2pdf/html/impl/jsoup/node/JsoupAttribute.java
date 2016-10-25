@@ -40,23 +40,25 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html;
+package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
-public final class AttributeConstants {
+import com.itextpdf.html2pdf.html.node.IAttribute;
+import org.jsoup.nodes.Attribute;
 
-    private AttributeConstants() {
+public class JsoupAttribute implements IAttribute {
+    private Attribute attribute;
+
+    public JsoupAttribute(Attribute attribute) {
+        this.attribute = attribute;
     }
 
-    public static final String BGCOLOR = "bgcolor";
-    public static final String BORDER = "border";
-    public static final String CLASS = "class";
-    public static final String COLOR = "color";
-    public static final String FACE = "face";
-    public static final String HREF = "href";
-    public static final String ID = "id";
-    public static final String REL = "rel";
-    public static final String SIZE = "size";
-    public static final String STYLE = "style";
-    public static final String TYPE = "type";
+    @Override
+    public String getKey() {
+        return attribute.getKey();
+    }
 
+    @Override
+    public String getValue() {
+        return attribute.getValue();
+    }
 }
