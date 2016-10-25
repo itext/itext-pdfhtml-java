@@ -116,7 +116,7 @@ public class HtmlConverter {
         String detectedCharset = detectEncoding(htmlStream);
         IDocument doc = parser.parse(htmlStream, detectedCharset, baseUri);
         ICssResolver resolver = new DefaultCssResolver(doc);
-        Document document = Attacher.attach(doc, resolver, new PdfDocument(pdfWriter));
+        Document document = Attacher.attach(doc, resolver, new PdfDocument(pdfWriter), baseUri);
         return document;
     }
 

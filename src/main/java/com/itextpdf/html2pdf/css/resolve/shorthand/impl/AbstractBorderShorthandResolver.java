@@ -46,13 +46,10 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.html2pdf.html.WebColors;
+import com.itextpdf.kernel.color.WebColors;
+
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public abstract class AbstractBorderShorthandResolver implements IShorthandResolver {
 

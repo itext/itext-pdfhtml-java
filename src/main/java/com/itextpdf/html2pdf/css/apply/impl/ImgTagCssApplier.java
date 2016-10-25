@@ -47,8 +47,9 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.tags.ImageTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.html.WebColors;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.layout.border.*;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
@@ -60,33 +61,8 @@ public class ImgTagCssApplier implements ICssApplier {
     public void apply(ProcessorContext context, IElement element, ITagWorker worker) {
         Map<String, String> cssProps = context.getCssResolver().resolveStyles(element);
 
-        if (cssProps.get(CssConstants.ALIGN) != null) {
-            String align = cssProps.get(CssConstants.ALIGN);
-            switch (align) {
-                case "left":
-                    worker.getElementResult().setProperty(Property.HORIZONTAL_ALIGNMENT, Property.LEFT);
-                    break;
-                case "right":
-                    worker.getElementResult().setProperty(Property.HORIZONTAL_ALIGNMENT, Property.RIGHT);
-                    break;
-                case "middle":
-                    break;
-                case "bottom":
-                    worker.getElementResult().setProperty(Property.VERTICAL_ALIGNMENT, Property.BOTTOM);
-                    break;
-                case "top":
-                    worker.getElementResult().setProperty(Property.VERTICAL_ALIGNMENT, Property.TOP);
-                    break;
-                default: break;
-            }
-
-        }
-        if (cssProps.get(CssConstants.BORDER) != null) {
-            // TODO border property should not appear in css appliers as it will be resolved into separate props
-            worker.getElementResult().setProperty(Property.BORDER, new SolidBorder(Float.valueOf(cssProps.get(CssConstants.BORDER))));
-        }
         if (cssProps.get(CssConstants.BORDER_WIDTH) != null) {
-            Float borderWidth = Float.valueOf(cssProps.get(CssConstants.BORDER_WIDTH));
+            Float borderWidth = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.BORDER_WIDTH));
             String borderStyle = cssProps.get(CssConstants.BORDER_STYLE);
             String borderColor = cssProps.get(CssConstants.BORDER_COLOR);
 
@@ -130,21 +106,11 @@ public class ImgTagCssApplier implements ICssApplier {
         }
         if (cssProps.get(CssConstants.HEIGHT) != null) {
             ((ImageTagWorker)worker).getImage().setAutoScale(false);
-            ((ImageTagWorker)worker).getImage().setProperty(Property.HEIGHT, Float.valueOf(cssProps.get(CssConstants.HEIGHT)));
-        }
-        if (cssProps.get(CssConstants.HSPACE) != null) {
-            float horizontalSpace = Float.valueOf(cssProps.get(CssConstants.HSPACE));
-            worker.getElementResult().setProperty(Property.MARGIN_LEFT, horizontalSpace);
-            worker.getElementResult().setProperty(Property.MARGIN_RIGHT, horizontalSpace);
-        }
-        if (cssProps.get(CssConstants.VSPACE) != null) {
-            float verticalSpace = Float.valueOf(cssProps.get(CssConstants.VSPACE));
-            worker.getElementResult().setProperty(Property.MARGIN_TOP, verticalSpace);
-            worker.getElementResult().setProperty(Property.MARGIN_BOTTOM, verticalSpace);
+            ((ImageTagWorker)worker).getImage().setProperty(Property.HEIGHT, CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.HEIGHT)));
         }
         if (cssProps.get(CssConstants.WIDTH) != null) {
             ((ImageTagWorker)worker).getImage().setAutoScale(false);
-            ((ImageTagWorker)worker).getImage().setProperty(Property.WIDTH, UnitValue.createPointValue(Float.valueOf(cssProps.get(CssConstants.WIDTH))));
+            ((ImageTagWorker)worker).getImage().setProperty(Property.WIDTH, UnitValue.createPointValue(CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.WIDTH))));
         }
     }
 }

@@ -49,7 +49,7 @@ import java.util.List;
 
 public interface IHtmlProcessor {
 
-    Document processDocument(PdfDocument pdfDocument);
+    Document processDocument(PdfDocument pdfDocument, String baseUri);
 
     List<IElement> processElements();
 
