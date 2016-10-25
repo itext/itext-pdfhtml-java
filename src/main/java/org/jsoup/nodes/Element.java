@@ -12,6 +12,7 @@ import org.jsoup.select.NodeVisitor;
 import org.jsoup.select.Selector;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -510,8 +511,8 @@ public class Element extends Node {
 
         selector.insert(0, " > ");
         if (parent().select(selector.toString()).size() > 1)
-            selector.append(String.format(
-                ":nth-child(%d)", elementSiblingIndex() + 1));
+            selector.append(MessageFormat.format(
+                ":nth-child({0})", elementSiblingIndex() + 1));
 
         return parent().cssSelector() + selector.toString();
     }

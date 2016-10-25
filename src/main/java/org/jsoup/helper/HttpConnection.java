@@ -14,6 +14,7 @@ import java.nio.charset.IllegalCharsetNameException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.text.MessageFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -532,7 +533,7 @@ public class HttpConnection implements Connection {
             if (previousResponse != null) {
                 numRedirects = previousResponse.numRedirects + 1;
                 if (numRedirects >= MAX_REDIRECTS)
-                    throw new IOException(String.format("Too many redirects occurred trying to load URL %s", previousResponse.url()));
+                    throw new IOException(MessageFormat.format("Too many redirects occurred trying to load URL {0}", previousResponse.url()));
             }
         }
 
