@@ -88,5 +88,9 @@ public class JsoupAttributes implements IAttributes {
         public IAttribute next() {
             return new JsoupAttribute(iterator.next());
         }
+
+        public void remove() {
+            throw new UnsupportedOperationException("remove");
+        }
     }
 }
