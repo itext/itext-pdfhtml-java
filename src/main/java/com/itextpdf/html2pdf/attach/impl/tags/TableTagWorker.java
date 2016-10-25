@@ -46,18 +46,27 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.wrapelements.TableRowWrapper;
 import com.itextpdf.html2pdf.attach.wrapelements.TableWrapper;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.TextAlignment;
+
+import java.util.Map;
 
 public class TableTagWorker implements ITagWorker {
 
     private TableWrapper tableWrapper;
     private Table table;
+    private boolean footer;
+    private boolean header;
+    private Map<String, String> cssProps;
 
     public TableTagWorker(IElement element, ProcessorContext context) {
         tableWrapper = new TableWrapper();
+        cssProps = context.getCssResolver().resolveStyles(element);
     }
 
     @Override
@@ -76,9 +85,29 @@ public class TableTagWorker implements ITagWorker {
             TableRowWrapper wrapper = ((TrTagWorker)childTagWorker).getTableRowWrapper();
             tableWrapper.newRow();
             for (Cell cell : wrapper.getCells()) {
+                applyHeaderFooterProperties(cell);
                 tableWrapper.addCell(cell);
             }
             return true;
+        }
+        else if (childTagWorker instanceof TableTagWorker) {
+            if (((TableTagWorker) childTagWorker).header){
+                Table header = ((TableTagWorker) childTagWorker).tableWrapper.toTable();
+                for (int i = 0; i < header.getNumberOfRows(); i++) {
+                    tableWrapper.newHeaderRow();
+                    for (int j = 0; j < header.getNumberOfColumns(); j++) {
+                        tableWrapper.addHeaderCell(header.getCell(i, j));
+                    }
+                }
+            } else if (((TableTagWorker) childTagWorker).footer) {
+                Table footer = ((TableTagWorker) childTagWorker).tableWrapper.toTable();
+                for (int i = 0; i < footer.getNumberOfRows(); i++) {
+                    tableWrapper.newFooterRow();
+                    for (int j = 0; j < footer.getNumberOfColumns(); j++) {
+                        tableWrapper.addFooterCell(footer.getCell(i, j));
+                    }
+                }
+            }
         }
         return false;
     }
@@ -86,5 +115,34 @@ public class TableTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return table;
+    }
+
+    public void setFooter() {
+        footer = true;
+    }
+
+    public void setHeader() {
+        header = true;
+    }
+
+    private void applyHeaderFooterProperties(Cell cell) {
+        if (!cell.hasProperty(Property.TEXT_ALIGNMENT) && (header || footer)) {
+            String align = cssProps.get(CssConstants.ALIGN);
+            if (align != null) {
+                switch (align) {
+                    case "left":
+                        cell.setTextAlignment(TextAlignment.LEFT);
+                        break;
+                    case "right":
+                        cell.setTextAlignment(TextAlignment.RIGHT);
+                        break;
+                    case "middle":
+                        cell.setTextAlignment(TextAlignment.CENTER);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 }

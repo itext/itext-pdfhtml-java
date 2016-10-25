@@ -70,6 +70,7 @@ public class CssConstants {
     public static final String COLOR = "color";
     public static final String EMPTY_CELLS = "empty-cells";
     public static final String FONT = "font";
+    public static final String COLSPAN = "colspan";
     public static final String FONT_FAMILY = "font-family";
     public static final String FONT_FEATURE_SETTINGS = "font-feature-settings";
     public static final String FONT_KERNING = "font-kerning";
@@ -116,6 +117,8 @@ public class CssConstants {
     public static final String TEXT_UNDERLINE_POSITION = "text-underline-position";
     public static final String UNICODE_BIDI = "unicode-bidi";
     public static final String VISIBILITY = "visibility";
+    public static final String ROWSPAN = "rowspan";
+    public static final String VALIGN = "valign";
     public static final String VSPACE = "vspace";
     public static final String WHITE_SPACE = "white-space";
     public static final String WIDTH = "width";
@@ -127,6 +130,7 @@ public class CssConstants {
     // property values
     public static final String AUTO = "auto";
     public static final String BORDER_BOX = "border-box";
+    public static final String CENTER = "center";
     public static final String DASHED = "dashed";
     public static final String DOTTED = "dotted";
     public static final String DOUBLE = "double";
@@ -135,6 +139,7 @@ public class CssConstants {
     public static final String INHERIT = "inherit";
     public static final String INITIAL = "initial";
     public static final String INSET = "inset";
+    public static final String LEFT = "left";
     public static final String MEDIUM = "medium";
     public static final String NONE = "none";
     public static final String NORMAL = "normal";
@@ -142,6 +147,7 @@ public class CssConstants {
     public static final String PADDING_BOX = "padding-box";
     public static final String REPEAT = "repeat";
     public static final String RIDGE = "ridge";
+    public static final String RIGHT = "right";
     public static final String SCROLL = "scroll";
     public static final String SOLID = "solid";
     public static final String THICK = "thick";

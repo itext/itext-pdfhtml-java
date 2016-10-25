@@ -44,12 +44,17 @@ package com.itextpdf.html2pdf.attach.wrapelements;
 
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.UnitValue;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class TableWrapper implements IWrapElement {
 
     private List<List<Cell> > rows;
+    private List<List<Cell> > headerRows;
+    private List<List<Cell> > footerRows;
 
     public int getRowsSize() {
         return rows.size();
@@ -60,6 +65,40 @@ public class TableWrapper implements IWrapElement {
             rows = new ArrayList<>();
         }
         rows.add(new ArrayList<Cell>());
+    }
+
+    public void newHeaderRow() {
+        if (headerRows == null) {
+            headerRows = new ArrayList<>();
+        }
+        headerRows.add(new ArrayList<Cell>());
+    }
+
+    public void newFooterRow() {
+        if (footerRows == null) {
+            footerRows = new ArrayList<>();
+        }
+        footerRows.add(new ArrayList<Cell>());
+    }
+
+    public void addHeaderCell(Cell cell) {
+        if (headerRows == null) {
+            headerRows = new ArrayList<>();
+        }
+        if (headerRows.size() == 0) {
+            newHeaderRow();
+        }
+        headerRows.get(headerRows.size() - 1).add(cell);
+    }
+
+    public void addFooterCell(Cell cell) {
+        if (footerRows == null) {
+            footerRows = new ArrayList<>();
+        }
+        if (footerRows.size() == 0) {
+            newFooterRow();
+        }
+        footerRows.get(footerRows.size() - 1).add(cell);
     }
 
     public void addCell(Cell cell) {
@@ -73,13 +112,39 @@ public class TableWrapper implements IWrapElement {
     }
 
     public Table toTable() {
-        int maxRowSize = 1;
+
+        //@TODO Refactor this part when the DEVSIX-905 is done
+        List<Float> maxWidths = new LinkedList<>();
         if (rows != null) {
-            for (int i = 0; i < rows.size(); i++) {
-                maxRowSize = Math.max(maxRowSize, rows.get(i).size());
+            calculateMaxWidths(rows, maxWidths);
+        }
+        if (headerRows != null) {
+            calculateMaxWidths(headerRows, maxWidths);
+        }
+        if (footerRows != null) {
+            calculateMaxWidths(footerRows, maxWidths);
+        }
+
+        float[] arr = new float[maxWidths.size()];
+        for (int i = 0; i < maxWidths.size(); i++) {
+            arr[i] = maxWidths.get(i);
+        }
+        Table table = new Table(arr);
+        //@End TODO
+        if (headerRows != null) {
+            for (List<Cell> headerRow : headerRows) {
+                for (Cell headerCell : headerRow) {
+                    table.addHeaderCell((Cell) headerCell);
+                }
             }
         }
-        Table table = new Table(maxRowSize);
+        if (footerRows != null) {
+            for (List<Cell> footerRow : footerRows) {
+                for (Cell footerCell : footerRow) {
+                    table.addFooterCell((Cell) footerCell);
+                }
+            }
+        }
         if (rows != null) {
             for (int i = 0; i < rows.size(); i++) {
                 for (int j = 0; j < rows.get(i).size(); j++) {
@@ -90,6 +155,35 @@ public class TableWrapper implements IWrapElement {
                 }
             }
         }
+
         return table;
+    }
+
+    private void calculateMaxWidths(List<List<Cell>> rows, List<Float> maxWidths) {
+        int maxRowSize = 1;
+        for (int i = 0; i < rows.size(); i++) {
+            List<Cell> row = rows.get(i);
+            maxRowSize = Math.max(maxRowSize, row.size());
+            for (int j = 0; j < row.size(); j++) {
+
+                if (maxWidths.size() <= j) {
+                    UnitValue width = row.get(j).getWidth();
+                    if (width == null) {
+                        maxWidths.add((Float) 50f);
+                    } else {
+                        maxWidths.add(row.get(j).getWidth().getValue());
+                    }
+                } else {
+                    Float maxWidth = maxWidths.get(j);
+                    UnitValue width = row.get(j).getWidth();
+                    if (width == null) {
+                        width = UnitValue.createPointValue(50f);
+                    }
+                    if (maxWidth < width.getValue()) {
+                        maxWidths.set(j, row.get(j).getWidth().getValue());
+                    }
+                }
+            }
+        }
     }
 }

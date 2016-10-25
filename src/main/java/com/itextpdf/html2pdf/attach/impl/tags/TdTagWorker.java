@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
@@ -55,7 +56,17 @@ public class TdTagWorker implements ITagWorker {
     private Cell cell;
 
     public TdTagWorker(IElement element, ProcessorContext context) {
-        cell = new Cell();
+        int colspan = 1;
+        int rowspan = 1;
+        try {
+            colspan = Integer.parseInt(element.getAttribute(CssConstants.COLSPAN));
+        } catch (NumberFormatException e) {
+        }
+        try {
+            rowspan = Integer.parseInt(element.getAttribute(CssConstants.ROWSPAN));
+        } catch (NumberFormatException e) {
+        }
+        cell = new Cell(rowspan, colspan);
     }
 
     @Override

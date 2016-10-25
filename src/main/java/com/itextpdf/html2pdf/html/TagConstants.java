@@ -51,13 +51,15 @@ public final class TagConstants {
     public static final String DIV = "div";
     public static final String HEAD = "head";
     public static final String HTML = "html";
+    public static final String IMG = "img";
     public static final String LINK = "link";
     public static final String P = "p";
     public static final String SPAN = "span";
     public static final String STYLE = "style";
     public static final String TABLE = "table";
     public static final String TD = "td";
+    public static final String TFOOT = "tfoot";
+    public static final String THEAD = "thead";
     public static final String TR = "tr";
-    public static final String IMG = "img";
 
 }
