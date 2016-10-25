@@ -68,7 +68,7 @@ public class ImageTagWorker implements ITagWorker {
             url = new URL(element.getAttribute("src"));
         } catch (MalformedURLException e) {
             try{
-                url = new File(element.ownerDocument().location() + element.getAttribute("src")).toURI().toURL();
+                url = new File(context.getBaseUri() + element.getAttribute("src")).toURI().toURL();
             } catch (MalformedURLException ex) {
                 url = null;
             }

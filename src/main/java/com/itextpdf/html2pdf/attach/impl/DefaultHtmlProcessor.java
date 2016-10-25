@@ -56,12 +56,13 @@ import com.itextpdf.html2pdf.html.node.ITextNode;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DefaultHtmlProcessor implements IHtmlProcessor {
 
@@ -95,8 +96,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     }
 
     @Override
-    public Document processDocument(PdfDocument pdfDocument) {
-        context = new ProcessorContext(resolver, pdfDocument);
+    public Document processDocument(PdfDocument pdfDocument, String baseUri) {
+        context = new ProcessorContext(resolver, pdfDocument, baseUri);
         roots = new ArrayList<>();
         visit(root);
         context = null;

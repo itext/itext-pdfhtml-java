@@ -40,19 +40,41 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html.node;
+package com.itextpdf.html2pdf;
 
-import java.util.Map;
+import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.test.ITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-public interface IElement extends INode {
+import java.io.File;
+import java.io.IOException;
 
-    String name();
+@Category(IntegrationTest.class)
+// TODO extend from ExtendedITextTest and therefore check logging
+public class Html2PdfImageTest extends ITextTest {
 
-    IAttributes getAttributes();
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/Html2PdfImageTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/Html2PdfImageTest/";
 
-    String getAttribute(String key);
+    @BeforeClass
+    public static void beforeClass() {
+        createDestinationFolder(destinationFolder);
+    }
 
-    void setStyles(Map<String, String> stringStringMap);
 
-    Map<String, String> getStyles();
+    @Test
+    public void imageFileDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_image_file.html"), new File(destinationFolder + "hello_image_file.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_image_file.pdf", sourceFolder + "cmp_hello_image_file.pdf", destinationFolder, "diff04_"));
+    }
+
+    @Test
+    public void imageUrlDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_image_url.html"), new File(destinationFolder + "hello_image_url.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_image_url.pdf", sourceFolder + "cmp_hello_image_url.pdf", destinationFolder, "diff05_"));
+    }
 }

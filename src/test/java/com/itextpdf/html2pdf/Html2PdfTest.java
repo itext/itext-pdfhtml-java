@@ -85,18 +85,6 @@ public class Html2PdfTest extends ITextTest {
     }
 
     @Test
-    public void imageFileDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_image_file.html"), new File(destinationFolder + "hello_image_file.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_image_file.pdf", sourceFolder + "cmp_hello_image_file.pdf", destinationFolder, "diff04_"));
-    }
-
-    @Test
-    public void imageUrlDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_image_url.html"), new File(destinationFolder + "hello_image_url.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_image_url.pdf", sourceFolder + "cmp_hello_image_url.pdf", destinationFolder, "diff05_"));
-    }
-
-    @Test
     public void helloParagraphJunkSpacesDocumentTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph_junk_spaces.html"), new File(destinationFolder + "hello_paragraph_junk_spaces.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_paragraph_junk_spaces.pdf", sourceFolder + "cmp_hello_paragraph_junk_spaces.pdf", destinationFolder, "diff03_"));

@@ -54,9 +54,9 @@ public class Attacher {
     private Attacher() {
     }
 
-    public static Document attach(IDocument documentNode, ICssResolver cssResolver, PdfDocument pdfDocument) {
+    public static Document attach(IDocument documentNode, ICssResolver cssResolver, PdfDocument pdfDocument, String baseUri) {
         IHtmlProcessor processor = new DefaultHtmlProcessor(documentNode, cssResolver);
-        return processor.processDocument(pdfDocument);
+        return processor.processDocument(pdfDocument, baseUri);
     }
 
     public static List<com.itextpdf.layout.element.IElement> attach(IDocument documentNode, ICssResolver cssResolver) {

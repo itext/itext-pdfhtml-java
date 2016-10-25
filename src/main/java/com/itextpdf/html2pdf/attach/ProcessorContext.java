@@ -53,6 +53,7 @@ public class ProcessorContext {
     private PdfDocument pdfDocument;
     private ICssResolver cssResolver;
     private IFontResolver fontResolver;
+    private String baseUri;
 
     public ProcessorContext(ICssResolver cssResolver) {
         this.cssResolver = cssResolver;
@@ -60,9 +61,10 @@ public class ProcessorContext {
         this.state = new State();
     }
 
-    public ProcessorContext(ICssResolver cssResolver, PdfDocument pdfDocument) {
+    public ProcessorContext(ICssResolver cssResolver, PdfDocument pdfDocument, String baseUri) {
         this(cssResolver);
         this.pdfDocument = pdfDocument;
+        this.baseUri = baseUri;
     }
 
     public void setFontResolver(IFontResolver fontResolver) {
@@ -83,5 +85,9 @@ public class ProcessorContext {
 
     public IFontResolver getFontResolver() {
         return fontResolver;
+    }
+
+    public String getBaseUri() {
+        return baseUri;
     }
 }
