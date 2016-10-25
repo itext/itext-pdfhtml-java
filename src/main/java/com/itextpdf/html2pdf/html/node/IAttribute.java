@@ -40,23 +40,9 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html;
+package com.itextpdf.html2pdf.html.node;
 
-public final class AttributeConstants {
-
-    private AttributeConstants() {
-    }
-
-    public static final String BGCOLOR = "bgcolor";
-    public static final String BORDER = "border";
-    public static final String CLASS = "class";
-    public static final String COLOR = "color";
-    public static final String FACE = "face";
-    public static final String HREF = "href";
-    public static final String ID = "id";
-    public static final String REL = "rel";
-    public static final String SIZE = "size";
-    public static final String STYLE = "style";
-    public static final String TYPE = "type";
-
+public interface IAttribute {
+    String getKey();
+    String getValue();
 }

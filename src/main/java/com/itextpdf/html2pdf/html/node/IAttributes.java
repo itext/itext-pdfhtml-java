@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.html.node;
 
-public interface IAttributes {
+public interface IAttributes extends Iterable<IAttribute> {
 
     String getAttribute(String key);
 
