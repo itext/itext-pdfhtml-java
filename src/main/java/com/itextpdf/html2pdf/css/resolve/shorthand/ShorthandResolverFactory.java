@@ -45,10 +45,13 @@ package com.itextpdf.html2pdf.css.resolve.shorthand;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BackgroundShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderBottomShorthandResolver;
+import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderColorShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderLeftShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderRightShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderShorthandResolver;
+import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderStyleShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderTopShorthandResolver;
+import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderWidthShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.FontShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.ListStyleShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.MarginShorthandResolver;
@@ -65,12 +68,18 @@ public class ShorthandResolverFactory {
                 return new BorderShorthandResolver();
             case CssConstants.BORDER_BOTTOM:
                 return new BorderBottomShorthandResolver();
+            case CssConstants.BORDER_COLOR:
+                return new BorderColorShorthandResolver();
             case CssConstants.BORDER_LEFT:
                 return new BorderLeftShorthandResolver();
             case CssConstants.BORDER_RIGHT:
                 return new BorderRightShorthandResolver();
+            case CssConstants.BORDER_STYLE:
+                return new BorderStyleShorthandResolver();
             case CssConstants.BORDER_TOP:
                 return new BorderTopShorthandResolver();
+            case CssConstants.BORDER_WIDTH:
+                return new BorderWidthShorthandResolver();
             case CssConstants.FONT:
                 return new FontShorthandResolver();
             case CssConstants.LIST_STYLE:

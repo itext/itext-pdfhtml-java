@@ -109,6 +109,23 @@ public class CssStylesResolvingTest extends ITextTest {
                 "color: black");
     }
 
+    @Test
+    public void stylesShorthandsTest01() throws IOException {
+        test("stylesShorthandsTest01.html", "html body p",
+                "border-bottom-style: dashed",
+                "border-bottom-width: 5px",
+                "border-left-style: dashed",
+                "border-left-width: 5px",
+                "border-right-style: dashed",
+                "border-right-width: 5px",
+                "border-top-style: dashed",
+                "border-top-width: 5px",
+                "border-bottom-color: red",
+                "border-left-color: red",
+                "border-right-color: red",
+                "border-top-color: red");
+    }
+
     private void resolveStylesForTree(INode node, ICssResolver cssResolver) {
         if (node instanceof IElement) {
             ((IElement)node).setStyles(cssResolver.resolveStyles((IElement)node));
