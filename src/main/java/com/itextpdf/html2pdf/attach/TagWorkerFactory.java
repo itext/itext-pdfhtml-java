@@ -60,6 +60,14 @@ public class TagWorkerFactory {
                 return new PTagWorker(tag, context);
             case TagConstants.TABLE:
                 return new TableTagWorker(tag, context);
+            case TagConstants.TFOOT:
+                TableTagWorker footerTagWorker = new TableTagWorker(tag, context);
+                footerTagWorker.setFooter();
+                return footerTagWorker;
+            case TagConstants.THEAD:
+                TableTagWorker headerTagWorker = new TableTagWorker(tag, context);
+                headerTagWorker.setHeader();
+                return headerTagWorker;
             case TagConstants.TD:
                 return new TdTagWorker(tag, context);
             case TagConstants.TR:

@@ -44,6 +44,8 @@ package com.itextpdf.html2pdf.css.apply;
 
 import com.itextpdf.html2pdf.css.apply.impl.ImgTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.PTagCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.TableTagCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.TdTagCssApplier;
 import com.itextpdf.html2pdf.html.TagConstants;
 
 public class CssApplierFactory {
@@ -54,6 +56,14 @@ public class CssApplierFactory {
                 return new PTagCssApplier();
             case TagConstants.IMG:
                 return new ImgTagCssApplier();
+            case TagConstants.TD:
+                return new TdTagCssApplier();
+            case TagConstants.TABLE:
+                return new TableTagCssApplier();
+            case TagConstants.TFOOT:
+                return new TableTagCssApplier();
+            case TagConstants.THEAD:
+                return new TableTagCssApplier();
             default:
                 return null;
         }
