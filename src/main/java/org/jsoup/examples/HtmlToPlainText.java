@@ -12,6 +12,7 @@ import org.jsoup.select.NodeTraversor;
 import org.jsoup.select.NodeVisitor;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 
 /**
  * HTML to plain-text. This example program demonstrates the use of jsoup to convert HTML input to lightly-formatted
@@ -91,7 +92,7 @@ public class HtmlToPlainText {
             if (StringUtil.in(name, "br", "dd", "dt", "p", "h1", "h2", "h3", "h4", "h5"))
                 append("\n");
             else if (name.equals("a"))
-                append(String.format(" <%s>", node.absUrl("href")));
+                append(MessageFormat.format(" <{0}>", node.absUrl("href")));
         }
 
         // appends text to the string builder with a simple word wrap method

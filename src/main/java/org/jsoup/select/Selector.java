@@ -3,6 +3,7 @@ package org.jsoup.select;
 import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Element;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.IdentityHashMap;
@@ -167,7 +168,7 @@ public class Selector {
 
     public static class SelectorParseException extends IllegalStateException {
         public SelectorParseException(String msg, Object... params) {
-            super(String.format(msg, params));
+            super(MessageFormat.format(msg, params));
         }
     }
 }

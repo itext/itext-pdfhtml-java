@@ -1,5 +1,7 @@
 package org.jsoup.select;
 
+import java.text.MessageFormat;
+
 import org.jsoup.nodes.Element;
 
 /**
@@ -29,7 +31,7 @@ abstract class StructuralEvaluator extends Evaluator {
 
         @Override
         public String toString() {
-            return String.format(":has(%s)", evaluator);
+            return MessageFormat.format(":has({0})", evaluator);
         }
     }
 
@@ -44,7 +46,7 @@ abstract class StructuralEvaluator extends Evaluator {
 
         @Override
         public String toString() {
-            return String.format(":not%s", evaluator);
+            return MessageFormat.format(":not{0}", evaluator);
         }
     }
 
@@ -70,7 +72,7 @@ abstract class StructuralEvaluator extends Evaluator {
 
         @Override
         public String toString() {
-            return String.format(":parent%s", evaluator);
+            return MessageFormat.format(":parent{0}", evaluator);
         }
     }
 
@@ -89,7 +91,7 @@ abstract class StructuralEvaluator extends Evaluator {
 
         @Override
         public String toString() {
-            return String.format(":ImmediateParent%s", evaluator);
+            return MessageFormat.format(":ImmediateParent{0}", evaluator);
         }
     }
 
@@ -115,7 +117,7 @@ abstract class StructuralEvaluator extends Evaluator {
 
         @Override
         public String toString() {
-            return String.format(":prev*%s", evaluator);
+            return MessageFormat.format(":prev*{0}", evaluator);
         }
     }
 
@@ -134,7 +136,7 @@ abstract class StructuralEvaluator extends Evaluator {
 
         @Override
         public String toString() {
-            return String.format(":prev%s", evaluator);
+            return MessageFormat.format(":prev{0}", evaluator);
         }
     }
 }

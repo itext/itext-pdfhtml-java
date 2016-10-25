@@ -3,6 +3,7 @@ package org.jsoup.select;
 import org.jsoup.helper.StringUtil;
 import org.jsoup.nodes.Element;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -98,7 +99,7 @@ abstract class CombiningEvaluator extends Evaluator {
 
         @Override
         public String toString() {
-            return String.format(":or%s", evaluators);
+            return MessageFormat.format(":or{0}", evaluators);
         }
     }
 }

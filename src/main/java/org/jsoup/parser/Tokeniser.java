@@ -1,8 +1,10 @@
 package org.jsoup.parser;
 
+import org.jsoup.PortUtil;
 import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Entities;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
 
 /**
@@ -172,7 +174,7 @@ final class Tokeniser {
             if (!found) {
                 reader.rewindToMark();
                 if (looksLegit) // named with semicolon
-                    characterReferenceError(String.format("invalid named referenece '%s'", nameRef));
+                    characterReferenceError(MessageFormat.format("invalid named referenece " + PortUtil.escapedSingleBracket + "{0}" + PortUtil.escapedSingleBracket, nameRef));
                 return null;
             }
             if (inAttribute && (reader.matchesLetter() || reader.matchesDigit() || reader.matchesAny('=', '-', '_'))) {
@@ -229,17 +231,17 @@ final class Tokeniser {
 
     void error(TokeniserState state) {
         if (errors.canAddError())
-            errors.add(new ParseError(reader.pos(), "Unexpected character '%s' in input state [%s]", reader.current(), state));
+            errors.add(new ParseError(reader.pos(), "Unexpected character " + PortUtil.escapedSingleBracket + "{0}" + PortUtil.escapedSingleBracket + " in input state [{}]", reader.current(), state));
     }
 
     void eofError(TokeniserState state) {
         if (errors.canAddError())
-            errors.add(new ParseError(reader.pos(), "Unexpectedly reached end of file (EOF) in input state [%s]", state));
+            errors.add(new ParseError(reader.pos(), "Unexpectedly reached end of file (EOF) in input state [{0}]", state));
     }
 
     private void characterReferenceError(String message) {
         if (errors.canAddError())
-            errors.add(new ParseError(reader.pos(), "Invalid character reference: %s", message));
+            errors.add(new ParseError(reader.pos(), "Invalid character reference: {0}", message));
     }
 
     private void error(String errorMsg) {

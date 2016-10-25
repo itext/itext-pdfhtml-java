@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jsoup.PortUtil;
 import org.jsoup.helper.StringUtil;
 import org.jsoup.helper.Validate;
 import org.jsoup.parser.TokenQueue;
@@ -193,7 +194,7 @@ class QueryParser {
         else if (tq.matchChomp(":root"))
         	evals.add(new Evaluator.IsRoot());
 		else // unhandled
-            throw new Selector.SelectorParseException("Could not parse query '%s': unexpected token at '%s'", query, tq.remainder());
+            throw new Selector.SelectorParseException("Could not parse query " + PortUtil.escapedSingleBracket + "{0}" + PortUtil.escapedSingleBracket + ": unexpected token at " + PortUtil.escapedSingleBracket + "{1}" + PortUtil.escapedSingleBracket, query, tq.remainder());
 
     }
 
@@ -250,7 +251,7 @@ class QueryParser {
             else if (cq.matchChomp("~="))
                 evals.add(new Evaluator.AttributeWithValueMatching(key, Pattern.compile(cq.remainder())));
             else
-                throw new Selector.SelectorParseException("Could not parse attribute query '%s': unexpected token at '%s'", query, cq.remainder());
+                throw new Selector.SelectorParseException("Could not parse attribute query " + PortUtil.escapedSingleBracket + "{0}" + PortUtil.escapedSingleBracket + ": unexpected token at " + PortUtil.escapedSingleBracket + "{1}" + PortUtil.escapedSingleBracket, query, cq.remainder());
         }
     }
 
@@ -293,7 +294,7 @@ class QueryParser {
 			a = 0;
 			b = Integer.parseInt(mB.group().replaceFirst("^\\+", ""));
 		} else {
-			throw new Selector.SelectorParseException("Could not parse nth-index '%s': unexpected format", argS);
+			throw new Selector.SelectorParseException("Could not parse nth-index " + PortUtil.escapedSingleBracket + "{0}" + PortUtil.escapedSingleBracket + ": unexpected format", argS);
 		}
 		if (ofType)
 			if (backwards)

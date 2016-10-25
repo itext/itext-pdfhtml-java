@@ -9,6 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.nodes.XmlDeclaration;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,7 +49,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format("%s", tagName);
+            return MessageFormat.format("{0}", tagName);
         }
     }
 
@@ -69,7 +70,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format("#%s", id);
+            return MessageFormat.format("#{0}", id);
         }
 
     }
@@ -91,7 +92,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format(".%s", className);
+            return MessageFormat.format(".{0}", className);
         }
 
     }
@@ -113,7 +114,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format("[%s]", key);
+            return MessageFormat.format("[{0}]", key);
         }
 
     }
@@ -140,7 +141,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format("[^%s]", keyPrefix);
+            return MessageFormat.format("[^{0}]", keyPrefix);
         }
 
     }
@@ -160,7 +161,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format("[%s=%s]", key, value);
+            return MessageFormat.format("[{0}={1}]", key, value);
         }
 
     }
@@ -180,7 +181,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format("[%s!=%s]", key, value);
+            return MessageFormat.format("[{0}!={1}]", key, value);
         }
 
     }
@@ -200,7 +201,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format("[%s^=%s]", key, value);
+            return MessageFormat.format("[{0}^={1}]", key, value);
         }
 
     }
@@ -220,7 +221,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format("[%s$=%s]", key, value);
+            return MessageFormat.format("[{0}$={1}]", key, value);
         }
 
     }
@@ -240,7 +241,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format("[%s*=%s]", key, value);
+            return MessageFormat.format("[{0}*={1}]", key, value);
         }
 
     }
@@ -264,7 +265,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format("[%s~=%s]", key, pattern.toString());
+            return MessageFormat.format("[{0}~={1}]", key, pattern.toString());
         }
 
     }
@@ -320,7 +321,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format(":lt(%d)", index);
+            return MessageFormat.format(":lt({0})", index);
         }
 
     }
@@ -340,7 +341,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format(":gt(%d)", index);
+            return MessageFormat.format(":gt({0})", index);
         }
 
     }
@@ -360,7 +361,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format(":eq(%d)", index);
+            return MessageFormat.format(":eq({0})", index);
         }
 
     }
@@ -427,10 +428,10 @@ public abstract class Evaluator {
 		@Override
 		public String toString() {
 			if (a == 0)
-				return String.format(":%s(%d)",getPseudoClass(), b);
+				return MessageFormat.format(":{0}({1})",getPseudoClass(), b);
 			if (b == 0)
-				return String.format(":%s(%dn)",getPseudoClass(), a);
-			return String.format(":%s(%dn%+d)", getPseudoClass(),a, b);
+				return MessageFormat.format(":{0}({1}n)",getPseudoClass(), a);
+			return MessageFormat.format(":{0}({1}n{2" + PortUtil.signedNumberFormat +"})", getPseudoClass(),a, b);
 		}
     	
 		protected abstract String getPseudoClass();
@@ -636,7 +637,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format(":contains(%s", searchText);
+            return MessageFormat.format(":contains({0}", searchText);
         }
     }
 
@@ -657,7 +658,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format(":containsOwn(%s", searchText);
+            return MessageFormat.format(":containsOwn({0}", searchText);
         }
     }
 
@@ -678,7 +679,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format(":matches(%s", pattern);
+            return MessageFormat.format(":matches({0}", pattern);
         }
     }
 
@@ -699,7 +700,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return String.format(":matchesOwn(%s", pattern);
+            return MessageFormat.format(":matchesOwn({0}", pattern);
         }
     }
 }
