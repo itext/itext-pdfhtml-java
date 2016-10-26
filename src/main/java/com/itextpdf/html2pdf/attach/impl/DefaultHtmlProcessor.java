@@ -56,13 +56,12 @@ import com.itextpdf.html2pdf.html.node.ITextNode;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DefaultHtmlProcessor implements IHtmlProcessor {
 
@@ -147,7 +146,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             element.setStyles(null);
 
         } else if (node instanceof ITextNode) {
-            String content = trimContentAndNormalizeSpaces(((ITextNode) node).wholeText());
+            String content = normalizeSpaces(((ITextNode) node).wholeText());
             if (content != null) {
                 if (!context.getState().empty()) {
                     boolean contentProcessed = context.getState().top().processContent(content, context);
@@ -180,16 +179,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         return null;
     }
 
-    private String trimContentAndNormalizeSpaces(String content) {
-        // TODO review
-        // replace multiple space chars (and also single line breaks) with single space;
-        String normalizedSpaceChars = content.replaceAll("\\s+", " ");
-
-        return normalizedSpaceChars;
-    }
-
-    private boolean isSpace(char ch) {
-        return Character.isWhitespace(ch) || Character.isSpaceChar(ch);
+    /**
+     * See also {@link com.itextpdf.html2pdf.attach.util.TrimUtil#trimLeafElementsFirstAndSanitize(List)}
+     */
+    private String normalizeSpaces(String content) {
+        return content.replaceAll("\\s+", " ");
     }
 
 }
