@@ -183,8 +183,8 @@ public class CssUtils {
      * @return boolean true if value contains an allowed metric value.
      */
     public static boolean isMetricValue(final String value) {
-        return value.contains(CssConstants.PX) || value.contains(CssConstants.IN) || value.contains(CssConstants.CM)
-                || value.contains(CssConstants.MM) || value.contains(CssConstants.PC) || value.contains(CssConstants.PT);
+        return value.endsWith(CssConstants.PX) || value.endsWith(CssConstants.IN) || value.endsWith(CssConstants.CM)
+                || value.endsWith(CssConstants.MM) || value.endsWith(CssConstants.PC) || value.endsWith(CssConstants.PT);
 
     }
     /**
@@ -193,7 +193,7 @@ public class CssUtils {
      * @return boolean true if value contains an allowed metric value.
      */
     public static boolean isRelativeValue(final String value) {
-        return value.contains(CssConstants.PERCENTAGE) || value.contains(CssConstants.EM) || value.contains(CssConstants.EX);
+        return value.endsWith(CssConstants.PERCENTAGE) || value.endsWith(CssConstants.EM) || value.endsWith(CssConstants.EX);
 
     }
     /**

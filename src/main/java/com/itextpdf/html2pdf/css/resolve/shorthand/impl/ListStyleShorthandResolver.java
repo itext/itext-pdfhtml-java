@@ -42,14 +42,51 @@
  */
 package com.itextpdf.html2pdf.css.resolve.shorthand.impl;
 
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
+import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.kernel.color.WebColors;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ListStyleShorthandResolver implements IShorthandResolver {
+    private static final Set<String> LIST_STYLE_TYPE_VALUES = new HashSet<>(Arrays.asList(
+            CssConstants.DISC, CssConstants.ARMENIAN, CssConstants.CIRCLE, CssConstants.CJK_IDEOGRAPHIC,
+            CssConstants.DECIMAL, CssConstants.DECIMAL_LEADING_ZERO, CssConstants.GEORGIAN, CssConstants.HEBREW,
+            CssConstants.HIRAGANA, CssConstants.HIRAGANA_IROHA, CssConstants.LOWER_ALPHA, CssConstants.LOWER_GREEK,
+            CssConstants.LOWER_LATIN, CssConstants.LOWER_ROMAN, CssConstants.NONE, CssConstants.SQUARE,
+            CssConstants.UPPER_ALPHA, CssConstants.UPPER_LATIN, CssConstants.UPPER_ROMAN
+    ));
+    private static final Set<String> LIST_STYLE_POSITION_VALUES = new HashSet<>(Arrays.asList(
+            CssConstants.INSIDE, CssConstants.OUTSIDE
+    ));
+
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
-        // TODO implement
-        return null;
+        String[] props = shorthandExpression.split(" ");
+
+        String listStyleTypeValue = null;
+        String listStylePositionValue = null;
+        String listStyleImageValue = null;
+
+        for (String value : props) {
+            if (value.contains("url(") || CssConstants.NONE.equals(value) && listStyleTypeValue != null) {
+                listStyleImageValue = value;
+            } else if (LIST_STYLE_TYPE_VALUES.contains(value)) {
+                listStyleTypeValue = value;
+            } else if (LIST_STYLE_POSITION_VALUES.contains(value)) {
+                listStylePositionValue = value;
+            }
+        }
+
+        List<CssDeclaration> resolvedDecl = new ArrayList<>();
+        resolvedDecl.add(new CssDeclaration(CssConstants.LIST_STYLE_TYPE, listStyleTypeValue == null ? CssConstants.INITIAL : listStyleTypeValue));
+        resolvedDecl.add(new CssDeclaration(CssConstants.LIST_STYLE_POSITION, listStylePositionValue == null ? CssConstants.INITIAL : listStylePositionValue));
+        resolvedDecl.add(new CssDeclaration(CssConstants.LIST_STYLE_IMAGE, listStyleImageValue == null ? CssConstants.INITIAL : listStyleImageValue));
+        return resolvedDecl;
     }
 }
