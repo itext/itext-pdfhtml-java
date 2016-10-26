@@ -40,48 +40,62 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.tags;
+package com.itextpdf.html2pdf.attach.util;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
-import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.Text;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TrTagWorker implements ITagWorker {
-    private TableRowWrapper rowWrapper;
+public final class TrimUtil {
 
-    public TrTagWorker(IElement element, ProcessorContext context) {
-        rowWrapper = new TableRowWrapper();
+    private TrimUtil() {
     }
 
-    @Override
-    public void processEnd(IElement element, ProcessorContext context) {
-
-    }
-
-    @Override
-    public boolean processContent(String content, ProcessorContext context) {
-        return false;
-    }
-
-    @Override
-    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        if (childTagWorker.getElementResult() instanceof Cell) {
-            Cell cell = (Cell) childTagWorker.getElementResult();
-            rowWrapper.addCell(cell);
-            return true;
+    public static List<ILeafElement> trimLeafElementsFirstAndSanitize(List<ILeafElement> leafElements) {
+        List<ILeafElement> waitingLeafs = new ArrayList<>(leafElements);
+        while (waitingLeafs.size() > 0 && waitingLeafs.get(0) instanceof Text) {
+            Text text = (Text) waitingLeafs.get(0);
+            trimLeafElementFirst(text);
+            if (text.getText().length() == 0) {
+                waitingLeafs.remove(0);
+            } else {
+                break;
+            }
         }
-        return false;
+
+        int pos = 0;
+        while (pos < waitingLeafs.size() - 1) {
+            if (waitingLeafs.get(pos) instanceof Text) {
+                Text first = (Text) waitingLeafs.get(pos);
+                if (first.getText().matches(".*\\s+$")) {
+                    while (pos + 1 < waitingLeafs.size() && waitingLeafs.get(pos + 1) instanceof Text) {
+                        Text second = (Text) waitingLeafs.get(pos + 1);
+                        if (second.getText().matches("^\\s+.*")) {
+                            second.setText(second.getText().replaceFirst("^\\s+", ""));
+                        }
+                        if (second.getText().length() == 0) {
+                            waitingLeafs.remove(pos + 1);
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+            pos++;
+        }
+
+        return waitingLeafs;
     }
 
-    @Override
-    public IPropertyContainer getElementResult() {
-        return null;
+    public static ILeafElement trimLeafElementFirst(ILeafElement leafElement) {
+        if (leafElement instanceof Text) {
+            Text text = (Text) leafElement;
+            if (text.getText().matches("^\\s+.*")) {
+                text.setText(text.getText().replaceFirst("^\\s+", ""));
+            }
+        }
+        return leafElement;
     }
 
-    public TableRowWrapper getTableRowWrapper() {
-        return rowWrapper;
-    }
 }

@@ -183,6 +183,7 @@ public class CssConstants {
     public static final String PX = "px";
     public static final String Q = "q";
 
+    // units of resolution
     public static final String DPI = "dpi";
     public static final String DPCM = "dpcm";
     public static final String DPPX = "dppx";

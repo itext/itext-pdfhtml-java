@@ -44,36 +44,58 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
+import com.itextpdf.html2pdf.attach.wrapelement.SpanWrapper;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.Text;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TrTagWorker implements ITagWorker {
-    private TableRowWrapper rowWrapper;
+public class SpanTagWorker implements ITagWorker {
 
-    public TrTagWorker(IElement element, ProcessorContext context) {
-        rowWrapper = new TableRowWrapper();
+    private SpanWrapper spanWrapper;
+    private List<ILeafElement> leafElements;
+    private List<ILeafElement> ownLeafElements = new ArrayList<>();
+
+    public SpanTagWorker(IElement element, ProcessorContext context) {
+        spanWrapper = new SpanWrapper();
     }
 
     @Override
     public void processEnd(IElement element, ProcessorContext context) {
-
+        leafElements = spanWrapper.getLeafElements();
     }
 
     @Override
     public boolean processContent(String content, ProcessorContext context) {
-        return false;
+        Text text = new Text(content);
+        spanWrapper.add(text);
+        ownLeafElements.add(text);
+        return true;
     }
 
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        if (childTagWorker.getElementResult() instanceof Cell) {
-            Cell cell = (Cell) childTagWorker.getElementResult();
-            rowWrapper.addCell(cell);
+        IPropertyContainer element = childTagWorker.getElementResult();
+        if (element instanceof ILeafElement) {
+            spanWrapper.add((ILeafElement) element);
+            ownLeafElements.add((ILeafElement) element);
+            return true;
+        } else if (childTagWorker instanceof SpanTagWorker) {
+            spanWrapper.add(((SpanTagWorker) childTagWorker).spanWrapper);
             return true;
         }
+
         return false;
+    }
+
+    public List<ILeafElement> getAllLeafElements() {
+        return leafElements;
+    }
+
+    public List<ILeafElement> getOwnLeafElements() {
+        return ownLeafElements;
     }
 
     @Override
@@ -81,7 +103,4 @@ public class TrTagWorker implements ITagWorker {
         return null;
     }
 
-    public TableRowWrapper getTableRowWrapper() {
-        return rowWrapper;
-    }
 }

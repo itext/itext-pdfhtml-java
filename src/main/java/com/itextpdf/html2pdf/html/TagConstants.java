@@ -50,6 +50,7 @@ public final class TagConstants {
     public static final String B = "b";
     public static final String BIG = "big";
     public static final String BODY = "body";
+	public static final String BR = "br";
     public static final String CENTER = "center";
     public static final String COL = "col";
     public static final String COLGROUP = "colgroup";

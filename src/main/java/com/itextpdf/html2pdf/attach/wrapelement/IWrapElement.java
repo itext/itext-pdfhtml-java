@@ -40,48 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.tags;
+package com.itextpdf.html2pdf.attach.wrapelement;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
-import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Cell;
-
-public class TrTagWorker implements ITagWorker {
-    private TableRowWrapper rowWrapper;
-
-    public TrTagWorker(IElement element, ProcessorContext context) {
-        rowWrapper = new TableRowWrapper();
-    }
-
-    @Override
-    public void processEnd(IElement element, ProcessorContext context) {
-
-    }
-
-    @Override
-    public boolean processContent(String content, ProcessorContext context) {
-        return false;
-    }
-
-    @Override
-    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        if (childTagWorker.getElementResult() instanceof Cell) {
-            Cell cell = (Cell) childTagWorker.getElementResult();
-            rowWrapper.addCell(cell);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public IPropertyContainer getElementResult() {
-        return null;
-    }
-
-    public TableRowWrapper getTableRowWrapper() {
-        return rowWrapper;
-    }
+public interface IWrapElement {
 }

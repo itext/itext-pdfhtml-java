@@ -40,7 +40,34 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.wrapelements;
+package com.itextpdf.html2pdf;
 
-public interface IWrapElement {
+import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.test.ITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
+import java.io.File;
+import java.io.IOException;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+@Category(IntegrationTest.class)
+// TODO extend from ExtendedITextTest and therefore check logging
+public class DivTest extends ITextTest {
+
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/DivTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/DivTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+        createDestinationFolder(destinationFolder);
+    }
+
+    @Test
+    public void divTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "divTest01.html"), new File(destinationFolder + "divTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "divTest01.pdf", sourceFolder + "cmp_divTest01.pdf", destinationFolder, "diff01_"));
+    }
+
 }

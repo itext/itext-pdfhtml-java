@@ -40,48 +40,48 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.tags;
+package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.impl.PTagCssApplier;
+import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.property.Property;
+import java.io.IOException;
+import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class TrTagWorker implements ITagWorker {
-    private TableRowWrapper rowWrapper;
+public final class FontStyleApplierUtil {
 
-    public TrTagWorker(IElement element, ProcessorContext context) {
-        rowWrapper = new TableRowWrapper();
+    private FontStyleApplierUtil() {
     }
 
-    @Override
-    public void processEnd(IElement element, ProcessorContext context) {
-
-    }
-
-    @Override
-    public boolean processContent(String content, ProcessorContext context) {
-        return false;
-    }
-
-    @Override
-    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        if (childTagWorker.getElementResult() instanceof Cell) {
-            Cell cell = (Cell) childTagWorker.getElementResult();
-            rowWrapper.addCell(cell);
-            return true;
+    public static void applyFontStyles(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+        if (cssProps.get(CssConstants.FONT_FAMILY) != null) {
+            try {
+                element.setProperty(Property.FONT, context.getFontResolver().getFont(cssProps.get(CssConstants.FONT_FAMILY)));
+            } catch (IOException exc) {
+                Logger logger = LoggerFactory.getLogger(PTagCssApplier.class);
+                logger.error("Could not load font", exc);
+            }
         }
-        return false;
+        if (cssProps.get(CssConstants.FONT_SIZE) != null) {
+            element.setProperty(Property.FONT_SIZE, Integer.valueOf(cssProps.get(CssConstants.FONT_SIZE)));
+        }
+        if (cssProps.get(CssConstants.FONT_WEIGHT) != null) {
+            // TODO move to font selection mechanism
+            String fontWeight = cssProps.get(CssConstants.FONT_WEIGHT);
+            if (CssConstants.BOLD.equalsIgnoreCase(fontWeight)) {
+                element.setProperty(Property.BOLD_SIMULATION, true);
+            } else if (CssConstants.NORMAL.equalsIgnoreCase(fontWeight)) {
+                element.setProperty(Property.BOLD_SIMULATION, false);
+            }
+        }
+        if (cssProps.get(CssConstants.COLOR) != null) {
+            element.setProperty(Property.FONT_COLOR, WebColors.getRGBColor(cssProps.get(CssConstants.COLOR)));
+        }
     }
 
-    @Override
-    public IPropertyContainer getElementResult() {
-        return null;
-    }
-
-    public TableRowWrapper getTableRowWrapper() {
-        return rowWrapper;
-    }
 }

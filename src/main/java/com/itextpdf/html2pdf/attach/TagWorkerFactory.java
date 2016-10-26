@@ -49,15 +49,20 @@ import com.itextpdf.html2pdf.html.node.IElement;
 // TODO add possibility to register operators
 public class TagWorkerFactory {
 
-    // TODO add context?
     public static ITagWorker getTagWorker(IElement tag, ProcessorContext context) {
         switch (tag.name()) {
+            case TagConstants.BR:
+                return new BrTagWorker(tag, context);
             case TagConstants.DIV:
                 return new DivTagWorker(tag, context);
             case TagConstants.HTML:
                 return new HtmlTagWorker(tag, context);
+            case TagConstants.IMG:
+                return new ImageTagWorker(tag, context);
             case TagConstants.P:
                 return new PTagWorker(tag, context);
+            case TagConstants.SPAN:
+                return new SpanTagWorker(tag, context);
             case TagConstants.TABLE:
                 return new TableTagWorker(tag, context);
             case TagConstants.TFOOT:
@@ -72,8 +77,6 @@ public class TagWorkerFactory {
                 return new TdTagWorker(tag, context);
             case TagConstants.TR:
                 return new TrTagWorker(tag, context);
-            case TagConstants.IMG:
-                return new ImageTagWorker(tag, context);
         }
         return null;
     }

@@ -44,8 +44,8 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.wrapelements.TableRowWrapper;
-import com.itextpdf.html2pdf.attach.wrapelements.TableWrapper;
+import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
+import com.itextpdf.html2pdf.attach.wrapelement.TableWrapper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;

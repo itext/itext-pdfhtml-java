@@ -44,16 +44,19 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Text;
 
 public class TdTagWorker implements ITagWorker {
 
     private Cell cell;
+    private WaitingInlineElementsHelper inlineHelper;
 
     public TdTagWorker(IElement element, ProcessorContext context) {
         int colspan = 1;
@@ -67,27 +70,35 @@ public class TdTagWorker implements ITagWorker {
         } catch (NumberFormatException e) {
         }
         cell = new Cell(rowspan, colspan);
+        inlineHelper = new WaitingInlineElementsHelper();
     }
 
     @Override
     public void processEnd(IElement element, ProcessorContext context) {
+        inlineHelper.flushHangingLeafs(cell);
     }
 
     @Override
     public boolean processContent(String content, ProcessorContext context) {
-        cell.add(content);
-        return true;
+        inlineHelper.add(new Text(content));
+        return false;
     }
 
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         boolean processed = false;
-        if (childTagWorker.getElementResult() instanceof BlockElement) {
-            cell.add((BlockElement) childTagWorker.getElementResult());
+        if (childTagWorker instanceof SpanTagWorker) {
+            inlineHelper.addAll(((SpanTagWorker) childTagWorker).getAllLeafElements());
             processed = true;
-        } else if (childTagWorker.getElementResult() instanceof Image) {
-            cell.add((Image) childTagWorker.getElementResult());
-            processed = true;
+        } else {
+            inlineHelper.flushHangingLeafs(cell);
+            if (childTagWorker.getElementResult() instanceof BlockElement) {
+                cell.add((BlockElement) childTagWorker.getElementResult());
+                processed = true;
+            } else if (childTagWorker.getElementResult() instanceof Image) {
+                cell.add((Image) childTagWorker.getElementResult());
+                processed = true;
+            }
         }
         return processed;
     }
