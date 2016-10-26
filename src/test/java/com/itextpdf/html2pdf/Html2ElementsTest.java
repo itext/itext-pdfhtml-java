@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.Text;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import java.io.IOException;
@@ -72,7 +73,7 @@ public class Html2ElementsTest extends ITextTest {
         Assert.assertTrue(lst.size() == 1);
         Assert.assertTrue(lst.get(0) instanceof Paragraph);
         Paragraph p = (Paragraph) lst.get(0);
-        // TODO check text
+        Assert.assertEquals("Hello world!", ((Text)p.getChildren().get(0)).getText());
     }
 
     @Test
@@ -83,7 +84,7 @@ public class Html2ElementsTest extends ITextTest {
         Assert.assertTrue(lst.get(0) instanceof Table);
         Table t = (Table) lst.get(0);
         Assert.assertTrue(t.getNumberOfRows() == 2);
-        // TODO check contents (text)
+        Assert.assertEquals("123", ((Text)(((Paragraph)t.getCell(0, 0).getChildren().get(0)).getChildren().get(0))).getText());
     }
 
     @Test
@@ -94,7 +95,8 @@ public class Html2ElementsTest extends ITextTest {
         Assert.assertTrue(lst.get(0) instanceof Paragraph);
         Assert.assertTrue(lst.get(1) instanceof Table);
         Assert.assertTrue(lst.get(2) instanceof Paragraph);
-        // TODO check contents (text)
+        Assert.assertEquals("Hello world!", ((Text)((Paragraph)lst.get(0)).getChildren().get(0)).getText());
+        Assert.assertEquals("123", ((Text)(((Paragraph)((Table)lst.get(1)).getCell(0, 0).getChildren().get(0)).getChildren().get(0))).getText());
     }
 
     @Test
@@ -105,7 +107,8 @@ public class Html2ElementsTest extends ITextTest {
         Assert.assertTrue(lst.size() == 2);
         Assert.assertTrue(lst.get(0) instanceof Paragraph);
         Assert.assertTrue(lst.get(1) instanceof Table);
-        // TODO check contents (text)
+        Assert.assertEquals("Hello world!", ((Text)((Paragraph)lst.get(0)).getChildren().get(0)).getText());
+        Assert.assertEquals("123", ((Text)(((Paragraph)((Table)lst.get(1)).getCell(0, 0).getChildren().get(0)).getChildren().get(0))).getText());
     }
 
 }

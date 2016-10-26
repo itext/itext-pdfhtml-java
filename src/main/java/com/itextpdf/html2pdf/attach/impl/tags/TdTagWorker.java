@@ -81,7 +81,7 @@ public class TdTagWorker implements ITagWorker {
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         inlineHelper.add(new Text(content));
-        return false;
+        return true;
     }
 
     @Override
