@@ -44,32 +44,14 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.resolve.ICssResolver;
+import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.html2pdf.html.node.INode;
-import com.itextpdf.layout.property.Property;
-import java.io.IOException;
-import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class PTagCssApplier implements ICssApplier {
 
     @Override
     public void apply(ProcessorContext context, IElement element, ITagWorker worker) {
-        Map<String, String> cssProps = element.getStyles();
-        if (cssProps.get(CssConstants.FONT_FAMILY) != null) {
-            try {
-                worker.getElementResult().setProperty(Property.FONT, context.getFontResolver().getFont(cssProps.get(CssConstants.FONT_FAMILY)));
-            } catch (IOException exc) {
-                Logger logger = LoggerFactory.getLogger(PTagCssApplier.class);
-                logger.error("Could not load font", exc);
-            }
-        }
-        if (cssProps.get(CssConstants.FONT_SIZE) != null) {
-            worker.getElementResult().setProperty(Property.FONT_SIZE, Integer.valueOf(cssProps.get(CssConstants.FONT_SIZE)));
-        }
+        FontStyleApplierUtil.applyFontStyles(element.getStyles(), context, worker.getElementResult());
     }
 }

@@ -40,21 +40,34 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.wrapelements;
+package com.itextpdf.html2pdf.attach.wrapelement;
 
-import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.ILeafElement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class TableRowWrapper implements IWrapElement {
-    private List<Cell> cells = new ArrayList<>();
+public class SpanWrapper implements IWrapElement {
 
-    public void addCell(Cell cell) {
-        cells.add(cell);
+    private List<Object> children = new ArrayList<>();
+
+    public void add(SpanWrapper span) {
+        children.add(span);
     }
 
-    public List<Cell> getCells() {
-        return Collections.unmodifiableList(cells);
+    public void add(ILeafElement img) {
+        children.add(img);
     }
+
+    public List<ILeafElement> getLeafElements() {
+        List<ILeafElement> leafs = new ArrayList<>();
+        for (Object child : children) {
+            if (child instanceof ILeafElement) {
+                leafs.add((ILeafElement) child);
+            } else if (child instanceof SpanWrapper) {
+                leafs.addAll(((SpanWrapper) child).getLeafElements());
+            }
+        }
+        return leafs;
+    }
+
 }

@@ -147,10 +147,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             element.setStyles(null);
 
         } else if (node instanceof ITextNode) {
-            // TODO not exactly correct to trim like that; e.g. "<p>text<span>text</span>text</p>" and "<p>text\n<span>text</span>text</p>" produce different output in browser
             String content = trimContentAndNormalizeSpaces(((ITextNode) node).wholeText());
             if (content != null) {
-
                 if (!context.getState().empty()) {
                     boolean contentProcessed = context.getState().top().processContent(content, context);
                     if (!contentProcessed) {
@@ -183,32 +181,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     }
 
     private String trimContentAndNormalizeSpaces(String content) {
-        int start = 0;
-        int end = content.length();
-        while (start < end
-                && isSpace(content.charAt(start))) {
-            start++;
-        }
-
-        int firstNonSpaceCharIndex = end - 1;
-        while (firstNonSpaceCharIndex >= start) {
-            if (!isSpace(content.charAt(firstNonSpaceCharIndex))) {
-                break;
-            }
-
-            firstNonSpaceCharIndex--;
-        }
-        end = firstNonSpaceCharIndex + 1;
-
-        if (start == end) {
-            return null;
-        }
-
-        String trimmed = content.substring(start, end);
-
         // TODO review
         // replace multiple space chars (and also single line breaks) with single space;
-        String normalizedSpaceChars = trimmed.replaceAll("\\s+", " ");
+        String normalizedSpaceChars = content.replaceAll("\\s+", " ");
 
         return normalizedSpaceChars;
     }

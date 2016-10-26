@@ -40,48 +40,28 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.tags;
+package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
+import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.ILeafElement;
+import java.util.Map;
 
-public class TrTagWorker implements ITagWorker {
-    private TableRowWrapper rowWrapper;
-
-    public TrTagWorker(IElement element, ProcessorContext context) {
-        rowWrapper = new TableRowWrapper();
-    }
+public class SpanTagCssApplier implements ICssApplier {
 
     @Override
-    public void processEnd(IElement element, ProcessorContext context) {
-
-    }
-
-    @Override
-    public boolean processContent(String content, ProcessorContext context) {
-        return false;
-    }
-
-    @Override
-    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        if (childTagWorker.getElementResult() instanceof Cell) {
-            Cell cell = (Cell) childTagWorker.getElementResult();
-            rowWrapper.addCell(cell);
-            return true;
+    public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
+        for (ILeafElement child : ((SpanTagWorker) tagWorker).getOwnLeafElements()) {
+            applyLeafElementStyles(child, element.getStyles(), context);
         }
-        return false;
     }
 
-    @Override
-    public IPropertyContainer getElementResult() {
-        return null;
+    private void applyLeafElementStyles(ILeafElement element, Map<String, String> css, ProcessorContext context) {
+        FontStyleApplierUtil.applyFontStyles(css, context, element);
     }
 
-    public TableRowWrapper getTableRowWrapper() {
-        return rowWrapper;
-    }
 }

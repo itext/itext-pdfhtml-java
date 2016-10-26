@@ -40,7 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.wrapelements;
+package com.itextpdf.html2pdf.attach.wrapelement;
 
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;

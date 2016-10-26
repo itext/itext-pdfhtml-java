@@ -40,41 +40,37 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.resolve;
+package com.itextpdf.html2pdf.attach.impl.tags;
 
-// TODO remove?
-public class JSoupCssResolver {
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Text;
 
-//    public static String inlineCss(String html) {
-//        final String style = "style";
-//        Document doc = Jsoup.parse(html);
-//        Elements els = doc.select(style);// to get all the style elements
-//        for (Element e : els) {
-//            String styleRules = e.getAllElements().get(0).data().replaceAll("\n", "").trim();
-//            String delims = "{}";
-//            StringTokenizer st = new StringTokenizer(styleRules, delims);
-//            while (st.countTokens() > 1) {
-//                String selector = st.nextToken(), properties = st.nextToken();
-//                if (!selector.contains(":")) { // skip a:hover rules, etc.
-//                    Elements selectedElements = doc.select(selector);
-//                    for (Element selElem : selectedElements) {
-//                        String oldProperties = selElem.attr(style);
-//                        selElem.attr(style,
-//                                oldProperties.length() > 0 ? concatenateProperties(
-//                                        oldProperties, properties) : properties);
-//                    }
-//                }
-//            }
-//            e.remove();
-//        }
-//        return doc.toString();
-//    }
-//
-//    private static String concatenateProperties(String oldProp, @NotNull String newProp) {
-//        oldProp = oldProp.trim();
-//        if (!oldProp.endsWith(";"))
-//            oldProp += ";";
-//        return oldProp + newProp.replaceAll("\\s{2,}", " ");
-//    }
+public class BrTagWorker implements ITagWorker {
 
+    private Text newLine = new Text("\n");
+
+    public BrTagWorker(IElement element, ProcessorContext context) {
+    }
+
+    @Override
+    public void processEnd(IElement element, ProcessorContext context) {
+    }
+
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        return false;
+    }
+
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        return false;
+    }
+
+    @Override
+    public IPropertyContainer getElementResult() {
+        return newLine;
+    }
 }

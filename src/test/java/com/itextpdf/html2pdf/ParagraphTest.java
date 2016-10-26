@@ -40,48 +40,34 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.tags;
+package com.itextpdf.html2pdf;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
-import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Cell;
+import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.test.ITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
+import java.io.File;
+import java.io.IOException;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-public class TrTagWorker implements ITagWorker {
-    private TableRowWrapper rowWrapper;
+@Category(IntegrationTest.class)
+// TODO extend from ExtendedITextTest and therefore check logging
+public class ParagraphTest extends ITextTest {
 
-    public TrTagWorker(IElement element, ProcessorContext context) {
-        rowWrapper = new TableRowWrapper();
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/ParagraphTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/ParagraphTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+        createDestinationFolder(destinationFolder);
     }
 
-    @Override
-    public void processEnd(IElement element, ProcessorContext context) {
-
+    @Test
+    public void parapraphTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphTest01.html"), new File(destinationFolder + "paragraphTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphTest01.pdf", sourceFolder + "cmp_paragraphTest01.pdf", destinationFolder, "diff01_"));
     }
 
-    @Override
-    public boolean processContent(String content, ProcessorContext context) {
-        return false;
-    }
-
-    @Override
-    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        if (childTagWorker.getElementResult() instanceof Cell) {
-            Cell cell = (Cell) childTagWorker.getElementResult();
-            rowWrapper.addCell(cell);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public IPropertyContainer getElementResult() {
-        return null;
-    }
-
-    public TableRowWrapper getTableRowWrapper() {
-        return rowWrapper;
-    }
 }

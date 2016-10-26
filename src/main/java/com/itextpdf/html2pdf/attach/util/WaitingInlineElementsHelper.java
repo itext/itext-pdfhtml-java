@@ -40,48 +40,52 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.tags;
+package com.itextpdf.html2pdf.attach.util;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.Paragraph;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-public class TrTagWorker implements ITagWorker {
-    private TableRowWrapper rowWrapper;
+public class WaitingInlineElementsHelper {
 
-    public TrTagWorker(IElement element, ProcessorContext context) {
-        rowWrapper = new TableRowWrapper();
+    private List<ILeafElement> waitingLeafs = new ArrayList<>();
+
+    public void add(ILeafElement element) {
+        waitingLeafs.add(element);
     }
 
-    @Override
-    public void processEnd(IElement element, ProcessorContext context) {
-
+    public void addAll(Collection<ILeafElement> collection) {
+        waitingLeafs.addAll(collection);
     }
 
-    @Override
-    public boolean processContent(String content, ProcessorContext context) {
-        return false;
-    }
-
-    @Override
-    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        if (childTagWorker.getElementResult() instanceof Cell) {
-            Cell cell = (Cell) childTagWorker.getElementResult();
-            rowWrapper.addCell(cell);
-            return true;
+    public void flushHangingLeafs(IPropertyContainer container) {
+        waitingLeafs = TrimUtil.trimLeafElementsFirstAndSanitize(waitingLeafs);
+        if (waitingLeafs.size() > 0) {
+            Paragraph p = new Paragraph();
+            for (ILeafElement leaf : waitingLeafs) {
+                p.add(leaf);
+            }
+            if (container instanceof Document) {
+                ((Document) container).add(p);
+            } else if (container instanceof Paragraph) {
+                for (ILeafElement leafElement : waitingLeafs) {
+                    ((Paragraph) container).add(leafElement);
+                }
+            } else if (container instanceof Div) {
+                ((Div) container).add(p);
+            } else if (container instanceof Cell) {
+                ((Cell) container).add(p);
+            } else {
+                throw new IllegalStateException("Unable to process hanging inline content");
+            }
+            waitingLeafs.clear();
         }
-        return false;
     }
 
-    @Override
-    public IPropertyContainer getElementResult() {
-        return null;
-    }
-
-    public TableRowWrapper getTableRowWrapper() {
-        return rowWrapper;
-    }
 }

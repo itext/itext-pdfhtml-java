@@ -44,26 +44,31 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Text;
 
 public class PTagWorker implements ITagWorker {
+
     private Paragraph paragraph;
+    private WaitingInlineElementsHelper inlineHelper;
 
     public PTagWorker(IElement element, ProcessorContext context) {
         paragraph = new Paragraph();
+        inlineHelper = new WaitingInlineElementsHelper();
     }
 
     @Override
     public void processEnd(IElement element, ProcessorContext context) {
-
+        inlineHelper.flushHangingLeafs(paragraph);
     }
 
     @Override
     public boolean processContent(String content, ProcessorContext context) {
-        paragraph.add(content);
+        inlineHelper.add(new Text(content));
         return true;
     }
 
@@ -71,10 +76,12 @@ public class PTagWorker implements ITagWorker {
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         IPropertyContainer element = childTagWorker.getElementResult();
         if (element instanceof ILeafElement) {
-            paragraph.add((ILeafElement) element);
+            inlineHelper.add((ILeafElement) element);
+            return true;
+        } else if (childTagWorker instanceof SpanTagWorker) {
+            inlineHelper.addAll(((SpanTagWorker) childTagWorker).getAllLeafElements());
             return true;
         }
-
         return false;
     }
 

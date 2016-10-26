@@ -44,42 +44,54 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Text;
 
 public class HtmlTagWorker implements ITagWorker {
+
     private Document document;
+    private WaitingInlineElementsHelper inlineHelper;
 
     public HtmlTagWorker(IElement element, ProcessorContext context) {
         document = new Document(context.getPdfDocument(), PageSize.A4);
+        inlineHelper = new WaitingInlineElementsHelper();
     }
 
     @Override
     public void processEnd(IElement element, ProcessorContext context) {
-
+        inlineHelper.flushHangingLeafs(document);
     }
 
     @Override
     public boolean processContent(String content, ProcessorContext context) {
-        return false;
+        inlineHelper.add(new Text(content));
+        return true;
     }
 
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         boolean processed = false;
-        IPropertyContainer element = childTagWorker.getElementResult();
-        if (element instanceof BlockElement) { // TODO porting to .net issue with generics
-            document.add(((BlockElement) element));
+        if (childTagWorker instanceof SpanTagWorker) {
+            inlineHelper.addAll(((SpanTagWorker) childTagWorker).getAllLeafElements());
             processed = true;
-        } else if (element instanceof Image) {
-            document.add((Image) element);
-            processed = true;
+        } else {
+            inlineHelper.flushHangingLeafs(document);
+            IPropertyContainer element = childTagWorker.getElementResult();
+            if (element instanceof BlockElement) { // TODO porting to .net issue with generics
+                document.add(((BlockElement) element));
+                processed = true;
+            } else if (element instanceof Image) {
+                document.add((Image) element);
+                processed = true;
+            }
         }
+
         return processed;
     }
 
