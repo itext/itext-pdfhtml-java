@@ -45,6 +45,8 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.UnitTest;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -122,6 +124,70 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    public void backgroundTest04() {
+        String shorthandExpression = "inherit";
+         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "background-color: inherit",
+                "background-image: inherit",
+                "background-position: inherit",
+                "background-size: inherit",
+                "background-repeat: inherit",
+                "background-origin: inherit",
+                "background-clip: inherit",
+                "background-attachment: inherit"
+        ));
+
+        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BACKGROUND);
+        assertNotNull(backgroundResolver);
+        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = "Was not able to define one of the background CSS shorthand properties: rgdbq(150,90,60)"),
+            @LogMessage(messageTemplate = "Was not able to define one of the background CSS shorthand properties: url'smiley.gif')")
+    })
+    public void backgroundTest05() {
+        String shorthandExpression = "rgdbq(150,90,60) url'smiley.gif') repeat-x scroll 20 60%";
+         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "background-color: initial",
+                "background-image: initial",
+                "background-position: 20 60%",
+                "background-size: initial",
+                "background-repeat: repeat-x",
+                "background-origin: initial",
+                "background-clip: initial",
+                "background-attachment: scroll"
+        ));
+
+        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BACKGROUND);
+        assertNotNull(backgroundResolver);
+        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
+    public void backgroundTest06() {
+        String shorthandExpression = "DarkOliveGreen fixed center";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "background-color: DarkOliveGreen",
+                "background-image: initial",
+                "background-position: center",
+                "background-size: initial",
+                "background-repeat: initial",
+                "background-origin: initial",
+                "background-clip: initial",
+                "background-attachment: fixed"
+        ));
+
+        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BACKGROUND);
+        assertNotNull(backgroundResolver);
+        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
     public void borderBottomTest01() {
         String shorthandExpression = "15px dotted blue";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
@@ -130,9 +196,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-bottom-color: blue"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_BOTTOM);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_BOTTOM);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
@@ -145,20 +211,19 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-left-color: #ff0000"
         ));
 
-        IShorthandResolver backgroundResolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_LEFT);
-        assertNotNull(backgroundResolver);
-        List<CssDeclaration> resolvedShorthandProps = backgroundResolver.resolveShorthand(shorthandExpression);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_LEFT);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
     }
 
     @Test
-    @Ignore("Issues with splitting into separate expressions when expression themselves have inner spaces")
     public void borderRightTest01() {
-        String shorthandExpression = "10px double rgb(12, 220, 100)";
+        String shorthandExpression = "10px double rgb(12,220,100)";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
                 "border-right-width: 10px",
                 "border-right-style: double",
-                "border-right-color: rgb(12, 220, 100)"
+                "border-right-color: rgb(12,220,100)"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_RIGHT);
@@ -168,13 +233,12 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Issues with splitting into separate expressions when expression themselves have inner spaces")
     public void borderTopTest01() {
-        String shorthandExpression = "10px hidden rgba(12, 225, 100, 0.7)";
+        String shorthandExpression = "10px hidden rgba(12,225,100,0.7)";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
                 "border-top-width: 10px",
                 "border-top-style: hidden",
-                "border-top-color: rgb(12, 225, 100, 0.7)"
+                "border-top-color: rgba(12,225,100,0.7)"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_TOP);
@@ -232,6 +296,126 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    public void borderTest03() {
+        String shorthandExpression = "inherit";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "border-top-width: inherit",
+                "border-right-width: inherit",
+                "border-bottom-width: inherit",
+                "border-left-width: inherit",
+                "border-top-style: inherit",
+                "border-right-style: inherit",
+                "border-bottom-style: inherit",
+                "border-left-style: inherit",
+                "border-top-color: inherit",
+                "border-right-color: inherit",
+                "border-bottom-color: inherit",
+                "border-left-color: inherit"
+        ));
+
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
+    public void borderTest04() {
+        String shorthandExpression = "dashed";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "border-top-width: initial",
+                "border-right-width: initial",
+                "border-bottom-width: initial",
+                "border-left-width: initial",
+                "border-top-style: dashed",
+                "border-right-style: dashed",
+                "border-bottom-style: dashed",
+                "border-left-style: dashed",
+                "border-top-color: initial",
+                "border-right-color: initial",
+                "border-bottom-color: initial",
+                "border-left-color: initial"
+        ));
+
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
+    public void borderTest05() {
+        String shorthandExpression = "dashed green";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "border-top-width: initial",
+                "border-right-width: initial",
+                "border-bottom-width: initial",
+                "border-left-width: initial",
+                "border-top-style: dashed",
+                "border-right-style: dashed",
+                "border-bottom-style: dashed",
+                "border-left-style: dashed",
+                "border-top-color: green",
+                "border-right-color: green",
+                "border-bottom-color: green",
+                "border-left-color: green"
+        ));
+
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
+    public void borderTest06() {
+        String shorthandExpression = "1px dashed";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "border-top-width: 1px",
+                "border-right-width: 1px",
+                "border-bottom-width: 1px",
+                "border-left-width: 1px",
+                "border-top-style: dashed",
+                "border-right-style: dashed",
+                "border-bottom-style: dashed",
+                "border-left-style: dashed",
+                "border-top-color: initial",
+                "border-right-color: initial",
+                "border-bottom-color: initial",
+                "border-left-color: initial"
+        ));
+
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
+    public void borderTest07() {
+        String shorthandExpression = "1px dashed green";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "border-top-width: 1px",
+                "border-right-width: 1px",
+                "border-bottom-width: 1px",
+                "border-left-width: 1px",
+                "border-top-style: dashed",
+                "border-right-style: dashed",
+                "border-bottom-style: dashed",
+                "border-left-style: dashed",
+                "border-top-color: green",
+                "border-right-color: green",
+                "border-bottom-color: green",
+                "border-left-color: green"
+        ));
+
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
     public void borderWidthTest01() {
         String shorthandExpression = "thin medium thick 10px";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
@@ -255,6 +439,22 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-right-width: 20%",
                 "border-bottom-width: thick",
                 "border-left-width: 20%"
+        ));
+
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_WIDTH);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
+    public void borderWidthTest03() {
+        String shorthandExpression = "inherit";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "border-top-width: inherit",
+                "border-right-width: inherit",
+                "border-bottom-width: inherit",
+                "border-left-width: inherit"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER_WIDTH);
@@ -296,13 +496,12 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Issues with splitting into separate expressions when expression themselves have inner spaces")
     public void borderColorTest01() {
-        String shorthandExpression = "red rgba(125, 0, 50, 0.4) rgb(12, 255, 0) #0000ff";
+        String shorthandExpression = "red rgba(125,0,50,0.4) rgb(12,255,0) #0000ff";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
                 "border-top-color: red",
-                "border-right-color: rgba(125, 0, 50, 0.4)",
-                "border-bottom-color: rgb(12, 255, 0)",
+                "border-right-color: rgba(125,0,50,0.4)",
+                "border-bottom-color: rgb(12,255,0)",
                 "border-left-color: #0000ff"
         ));
 
@@ -365,6 +564,24 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    public void fontTest03() {
+        String shorthandExpression = "inherit";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "font-style: inherit",
+                "font-variant: inherit",
+                "font-weight: inherit",
+                "font-size: inherit",
+                "line-height: inherit",
+                "font-family: inherit"
+        ));
+
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
     public void listStyleTest01() {
         String shorthandExpression = "square inside url('sqpurple.gif')";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
@@ -386,6 +603,21 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "list-style-type: initial",
                 "list-style-position: inside",
                 "list-style-image: url('sqpurple.gif')"
+        ));
+
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.LIST_STYLE);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
+    public void listStyleTest03() {
+        String shorthandExpression = "inherit";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "list-style-type: inherit",
+                "list-style-position: inherit",
+                "list-style-image: inherit"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.LIST_STYLE);
@@ -474,32 +706,16 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Not supported yet")
-    public void initialTest01() {
-        String shorthandExpression = "initial";
-        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
-                "border-width: initial",
-                "border-style: initial",
-                "border-color: initial"
-        ));
-
-        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
-        assertNotNull(resolver);
-        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
-        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
-    }
-
-    @Test
-    @Ignore("Not yet supported")
-    public void inheritTest01() {
+    public void paddingTest03() {
         String shorthandExpression = "inherit";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
-                "border-width: inherit",
-                "border-style: inherit",
-                "border-color: inherit"
+                "padding-top: inherit",
+                "padding-right: inherit",
+                "padding-bottom: inherit",
+                "padding-left: inherit"
         ));
 
-        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.PADDING);
         assertNotNull(resolver);
         List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
         compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);

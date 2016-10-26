@@ -46,7 +46,6 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.kernel.color.WebColors;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,6 +90,19 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
 
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
+        if (CssConstants.INITIAL.equals(shorthandExpression) || CssConstants.INHERIT.equals(shorthandExpression)) {
+            return Arrays.asList(
+                    new CssDeclaration(CssConstants.BACKGROUND_COLOR, shorthandExpression),
+                    new CssDeclaration(CssConstants.BACKGROUND_IMAGE, shorthandExpression),
+                    new CssDeclaration(CssConstants.BACKGROUND_POSITION, shorthandExpression),
+                    new CssDeclaration(CssConstants.BACKGROUND_SIZE, shorthandExpression),
+                    new CssDeclaration(CssConstants.BACKGROUND_REPEAT, shorthandExpression),
+                    new CssDeclaration(CssConstants.BACKGROUND_ORIGIN, shorthandExpression),
+                    new CssDeclaration(CssConstants.BACKGROUND_CLIP, shorthandExpression),
+                    new CssDeclaration(CssConstants.BACKGROUND_ATTACHMENT, shorthandExpression)
+            );
+        }
+
         List<String> commaSeparatedExpressions = splitMultipleBackgrounds(shorthandExpression);
 
         // TODO ignore multiple backgrounds at the moment
@@ -133,7 +145,7 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
     }
 
     private int resolvePropertyType(String value) {
-        if (value.contains("url(")) {
+        if (value.contains("url(") || CssConstants.NONE.equals(value)) {
             return BACKGROUND_IMAGE_TYPE;
         } else if (BACKGROUND_REPEAT_VALUES.contains(value)) {
             return BACKGROUND_REPEAT_TYPE;
@@ -145,7 +157,7 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
             return BACKGROUND_POSITION_OR_SIZE_TYPE;
         } else if (BACKGROUND_SIZE_VALUES.contains(value)) {
             return BACKGROUND_POSITION_OR_SIZE_TYPE;
-        } else if(WebColors.isColorProperty(value)) {
+        } else if(CssUtils.isColorProperty(value)) {
             return BACKGROUND_COLOR_TYPE;
         } else if (BACKGROUND_ORIGIN_OR_CLIP_VALUES.contains(value)) {
             return BACKGROUND_ORIGIN_OR_CLIP_TYPE;
@@ -156,7 +168,7 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
     private void putPropertyBasedOnType(int type, String value, String[] resolvedProps, boolean slashEncountered) {
         if (type == UNDEFINED_TYPE) {
             Logger logger = LoggerFactory.getLogger(BackgroundShorthandResolver.class);
-            logger.error(MessageFormat.format("Wasn't able to define one of the background CSS shorthand properties: {0}", value));
+            logger.error(MessageFormat.format("Was not able to define one of the background CSS shorthand properties: {0}", value));
             return;
         }
         if (type == BACKGROUND_POSITION_OR_SIZE_TYPE && !slashEncountered) {

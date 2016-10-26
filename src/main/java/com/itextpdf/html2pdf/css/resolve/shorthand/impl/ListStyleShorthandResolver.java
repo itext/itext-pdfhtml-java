@@ -67,6 +67,13 @@ public class ListStyleShorthandResolver implements IShorthandResolver {
 
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
+        if (CssConstants.INITIAL.equals(shorthandExpression) || CssConstants.INHERIT.equals(shorthandExpression)) {
+            return Arrays.asList(
+                    new CssDeclaration(CssConstants.LIST_STYLE_TYPE, shorthandExpression),
+                    new CssDeclaration(CssConstants.LIST_STYLE_POSITION, shorthandExpression),
+                    new CssDeclaration(CssConstants.LIST_STYLE_IMAGE, shorthandExpression));
+        }
+
         String[] props = shorthandExpression.split(" ");
 
         String listStyleTypeValue = null;

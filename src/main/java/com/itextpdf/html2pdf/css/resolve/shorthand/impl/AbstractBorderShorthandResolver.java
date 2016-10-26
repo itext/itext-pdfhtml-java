@@ -69,11 +69,18 @@ public abstract class AbstractBorderShorthandResolver implements IShorthandResol
 
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
-        String[] props = shorthandExpression.split(" ");
-        List<CssDeclaration> resolvedDecl = new ArrayList<>();
         String widthPropName = MessageFormat.format(_0_WIDTH, getPrefix());
         String stylePropName = MessageFormat.format(_0_STYLE, getPrefix());
         String colorPropName = MessageFormat.format(_0_COLOR, getPrefix());
+
+        if (CssConstants.INITIAL.equals(shorthandExpression) || CssConstants.INHERIT.equals(shorthandExpression)) {
+            return Arrays.asList(
+                    new CssDeclaration(widthPropName, shorthandExpression),
+                    new CssDeclaration(stylePropName, shorthandExpression),
+                    new CssDeclaration(colorPropName, shorthandExpression));
+        }
+
+        String[] props = shorthandExpression.split(" ");
 
         String borderColorValue = null;
         String borderStyleValue = null;
@@ -84,11 +91,12 @@ public abstract class AbstractBorderShorthandResolver implements IShorthandResol
                 borderWidthValue = value;
             } else if (BORDER_STYLE_VALUES.contains(value)) {
                 borderStyleValue = value;
-            } else if (WebColors.isColorProperty(value)) {
+            } else if (CssUtils.isColorProperty(value)) {
                 borderColorValue = value;
             }
         }
 
+        List<CssDeclaration> resolvedDecl = new ArrayList<>();
         resolvedDecl.add(new CssDeclaration(widthPropName, borderWidthValue == null ? CssConstants.INITIAL : borderWidthValue));
         resolvedDecl.add(new CssDeclaration(stylePropName, borderStyleValue == null ? CssConstants.INITIAL : borderStyleValue));
         resolvedDecl.add(new CssDeclaration(colorPropName, borderColorValue == null ? CssConstants.INITIAL : borderColorValue));

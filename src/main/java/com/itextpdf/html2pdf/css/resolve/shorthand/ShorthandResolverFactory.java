@@ -60,8 +60,7 @@ import com.itextpdf.html2pdf.css.resolve.shorthand.impl.PaddingShorthandResolver
 
 public class ShorthandResolverFactory {
     public static IShorthandResolver getShorthandResolver(String shorthandProperty) {
-        // TODO text-decoration
-
+        // TODO text-decoration is a shorthand in CSS3, however it is not yet supported in any major browsers
         // TODO use static map
         switch (shorthandProperty) {
             case CssConstants.BACKGROUND:
