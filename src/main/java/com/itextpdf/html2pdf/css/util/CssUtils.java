@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css.util;
 
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.kernel.color.WebColors;
 
 public class CssUtils {
 
@@ -126,6 +127,7 @@ public class CssUtils {
         return f;
     }
 
+    // TODO default metric?
     public static float parseAbsoluteLength(String length) {
         return parseAbsoluteLength(length, CssConstants.PT);
     }
@@ -176,6 +178,10 @@ public class CssUtils {
     }
 
 
+    public static boolean isColorProperty(String value) {
+        return value.contains("rgb(") || value.contains("rgba(") || value.contains("#")
+                || WebColors.NAMES.containsKey(value.toLowerCase()) || CssConstants.TRANSPARENT.equals(value);
+    }
 
     /**
      * Checks whether a string contains an allowed metric unit in HTML/CSS; px, in, cm, mm, pc or pt.

@@ -68,7 +68,7 @@ public class DefaultCssResolver implements ICssResolver {
     private CssStyleSheet cssStyleSheet;
 
     public DefaultCssResolver(INode treeRoot) throws IOException {
-        collectCSSDeclarations(treeRoot);
+        collectCssDeclarations(treeRoot);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class DefaultCssResolver implements ICssResolver {
         return stylesMap;
     }
 
-    private void collectCSSDeclarations(INode treeRoot) throws IOException {
+    private void collectCssDeclarations(INode treeRoot) throws IOException {
         cssStyleSheet = new CssStyleSheet();
 
         INode headNode = findHeadNode(treeRoot);

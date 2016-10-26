@@ -75,6 +75,16 @@ public class FontShorthandResolver implements IShorthandResolver {
             Logger logger = LoggerFactory.getLogger(FontShorthandResolver.class);
             logger.error(MessageFormat.format("The \"{0}\" value of CSS shorthand property \"font\" is not supported", shorthandExpression));
         }
+        if (CssConstants.INITIAL.equals(shorthandExpression) || CssConstants.INHERIT.equals(shorthandExpression)) {
+            return Arrays.asList(
+                    new CssDeclaration(CssConstants.FONT_STYLE, shorthandExpression),
+                    new CssDeclaration(CssConstants.FONT_VARIANT, shorthandExpression),
+                    new CssDeclaration(CssConstants.FONT_WEIGHT, shorthandExpression),
+                    new CssDeclaration(CssConstants.FONT_SIZE, shorthandExpression),
+                    new CssDeclaration(CssConstants.LINE_HEIGHT, shorthandExpression),
+                    new CssDeclaration(CssConstants.FONT_FAMILY, shorthandExpression)
+            );
+        }
 
         String fontStyleValue = null;
         String fontVariantValue = null;
