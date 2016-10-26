@@ -42,14 +42,75 @@
  */
 package com.itextpdf.html2pdf.css.resolve.shorthand.impl;
 
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FontShorthandResolver implements IShorthandResolver {
+    private static final Set<String> UNSUPPORTED_VALUES_OF_FONT_SHORTHAND = new HashSet<>(Arrays.asList(
+            CssConstants.CAPTION, CssConstants.ICON, CssConstants.MENU, CssConstants.MESSAGE_BOX,
+            CssConstants.SMALL_CAPTION, CssConstants.STATUS_BAR
+    ));
+
+    private static final Set<String> FONT_WEIGHT_NOT_DEFAULT_VALUES = new HashSet<>(Arrays.asList(
+            CssConstants.BOLD, CssConstants.BOLDER, CssConstants.LIGHTER,
+            "100", "200", "300", "400", "500", "600", "700", "800", "900"
+    ));
+    private static final Set<String> FONT_SIZE_VALUES = new HashSet<>(Arrays.asList(
+            CssConstants.MEDIUM, CssConstants.XX_SMALL, CssConstants.X_SMALL, CssConstants.SMALL, CssConstants.LARGE,
+            CssConstants.X_LARGE, CssConstants.XX_LARGE, CssConstants.SMALLER, CssConstants.LARGER
+    ));
+
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
-        // TODO implement
-        return null;
+        if (UNSUPPORTED_VALUES_OF_FONT_SHORTHAND.contains(shorthandExpression)) {
+            Logger logger = LoggerFactory.getLogger(FontShorthandResolver.class);
+            logger.error(MessageFormat.format("The \"{0}\" value of CSS shorthand property \"font\" is not supported", shorthandExpression));
+        }
+
+        String fontStyleValue = null;
+        String fontVariantValue = null;
+        String fontWeightValue = null;
+        String fontSizeValue = null;
+        String lineHeightValue = null;
+        String fontFamilyValue = null;
+
+        String[] props = shorthandExpression.replaceAll(",\\s*", ",").split(" ");
+        for (String value : props) {
+            int slashSymbolIndex = value.indexOf('/');
+            if (CssConstants.ITALIC.equals(value) || CssConstants.OBLIQUE.equals(value)) {
+                fontStyleValue = value;
+            } else if (CssConstants.SMALL_CAPS.equals(value)) {
+                fontVariantValue = value;
+            } else if (FONT_WEIGHT_NOT_DEFAULT_VALUES.contains(value)) {
+                fontWeightValue = value;
+            } else if (slashSymbolIndex > 0) {
+                fontSizeValue = value.substring(0, slashSymbolIndex);
+                lineHeightValue = value.substring(slashSymbolIndex + 1, value.length());
+            } else if (FONT_SIZE_VALUES.contains(value)) {
+                fontSizeValue = value;
+            } else {
+                fontFamilyValue = value;
+            }
+        }
+
+        List<CssDeclaration> cssDeclarations = Arrays.asList(
+                new CssDeclaration(CssConstants.FONT_STYLE, fontStyleValue == null ? CssConstants.INITIAL : fontStyleValue),
+                new CssDeclaration(CssConstants.FONT_VARIANT, fontVariantValue == null ? CssConstants.INITIAL : fontVariantValue),
+                new CssDeclaration(CssConstants.FONT_WEIGHT, fontWeightValue == null ? CssConstants.INITIAL : fontWeightValue),
+                new CssDeclaration(CssConstants.FONT_SIZE, fontSizeValue == null ? CssConstants.INITIAL : fontSizeValue),
+                new CssDeclaration(CssConstants.LINE_HEIGHT, lineHeightValue == null ? CssConstants.INITIAL : lineHeightValue),
+                new CssDeclaration(CssConstants.FONT_FAMILY, fontFamilyValue == null ? CssConstants.INITIAL : fontFamilyValue)
+        );
+
+        return cssDeclarations;
     }
 }

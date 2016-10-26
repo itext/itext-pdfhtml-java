@@ -60,6 +60,8 @@ import com.itextpdf.html2pdf.css.resolve.shorthand.impl.PaddingShorthandResolver
 
 public class ShorthandResolverFactory {
     public static IShorthandResolver getShorthandResolver(String shorthandProperty) {
+        // TODO text-decoration
+
         // TODO use static map
         switch (shorthandProperty) {
             case CssConstants.BACKGROUND:

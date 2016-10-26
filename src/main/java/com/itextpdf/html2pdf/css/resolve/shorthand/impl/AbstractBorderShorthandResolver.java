@@ -57,11 +57,10 @@ public abstract class AbstractBorderShorthandResolver implements IShorthandResol
     private static final String _0_STYLE = "{0}-style";
     private static final String _0_COLOR = "{0}-color";
 
-    // TODO consider moving to the more appropriate place
-    private static final Set<String> BORDER_WIDTH_CONST = new HashSet<String>(
+    // TODO consider moving those collection consts to the more appropriate place
+    private static final Set<String> BORDER_WIDTH_VALUES = new HashSet<String>(
             Arrays.asList(new String[] { CssConstants.THIN, CssConstants.MEDIUM, CssConstants.THICK }));
-    // TODO consider moving to the more appropriate place
-    private static final Set<String> BORDER_STYLE_CONST = new HashSet<String>(
+    private static final Set<String> BORDER_STYLE_VALUES = new HashSet<String>(
             Arrays.asList(new String[] { CssConstants.NONE, CssConstants.HIDDEN, CssConstants.DOTTED, CssConstants.DASHED,
                     CssConstants.SOLID, CssConstants.DOUBLE, CssConstants.GROOVE, CssConstants.RIDGE, CssConstants.INSET,
                     CssConstants.OUTSET}));
@@ -72,18 +71,27 @@ public abstract class AbstractBorderShorthandResolver implements IShorthandResol
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
         String[] props = shorthandExpression.split(" ");
         List<CssDeclaration> resolvedDecl = new ArrayList<>();
-        String widthProp = MessageFormat.format(_0_WIDTH, getPrefix());
-        String styleProp = MessageFormat.format(_0_STYLE, getPrefix());
-        String colorProp = MessageFormat.format(_0_COLOR, getPrefix());
+        String widthPropName = MessageFormat.format(_0_WIDTH, getPrefix());
+        String stylePropName = MessageFormat.format(_0_STYLE, getPrefix());
+        String colorPropName = MessageFormat.format(_0_COLOR, getPrefix());
+
+        String borderColorValue = null;
+        String borderStyleValue = null;
+        String borderWidthValue = null;
+
         for (String value : props) {
-            if (BORDER_WIDTH_CONST.contains(value) || CssUtils.isNumericValue(value) || CssUtils.isMetricValue(value)) {
-                resolvedDecl.add(new CssDeclaration(widthProp, value));
-            } else if (BORDER_STYLE_CONST.contains(value)) {
-                resolvedDecl.add(new CssDeclaration(styleProp, value));
+            if (BORDER_WIDTH_VALUES.contains(value) || CssUtils.isNumericValue(value) || CssUtils.isMetricValue(value)) {
+                borderWidthValue = value;
+            } else if (BORDER_STYLE_VALUES.contains(value)) {
+                borderStyleValue = value;
             } else if (WebColors.isColorProperty(value)) {
-                resolvedDecl.add(new CssDeclaration(colorProp, value));
+                borderColorValue = value;
             }
         }
+
+        resolvedDecl.add(new CssDeclaration(widthPropName, borderWidthValue == null ? CssConstants.INITIAL : borderWidthValue));
+        resolvedDecl.add(new CssDeclaration(stylePropName, borderStyleValue == null ? CssConstants.INITIAL : borderStyleValue));
+        resolvedDecl.add(new CssDeclaration(colorPropName, borderColorValue == null ? CssConstants.INITIAL : borderColorValue));
         return resolvedDecl;
     }
 }

@@ -62,7 +62,6 @@ import static org.junit.Assert.fail;
 public class CssShorthandResolverTest extends ExtendedITextTest {
 
     @Test
-    @Ignore("Not supported yet")
     public void backgroundTest01() {
         String shorthandExpression = "red url('img.gif') 25%/50px 150px repeat-y border-box content-box fixed";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
@@ -83,7 +82,6 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Not supported yet")
     public void backgroundTest02() {
         String shorthandExpression = "url('img.gif') red 25%/50px 150px repeat-y fixed border-box content-box";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
@@ -104,10 +102,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Not supported yet")
     public void backgroundTest03() {
         String shorthandExpression = "url('img.gif') 25%/50px 150px fixed border-box";
-        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
                 "background-color: initial",
                 "background-image: url('img.gif')",
                 "background-position: 25%",
@@ -211,7 +208,6 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Not supported yet")
     public void borderTest02() {
         String shorthandExpression = "groove";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
@@ -333,16 +329,15 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Not supported yet")
     public void fontTest01() {
         String shorthandExpression = "italic normal bold 12px/30px Georgia, serif";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
                 "font-style: italic",
-                "font-variant: normal",
+                "font-variant: initial",
                 "font-weight: bold",
-                "line-height: 12px",
+                "font-size: 12px",
                 "line-height: 30px",
-                "font-family: Georgia, serif"
+                "font-family: Georgia,serif"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
@@ -352,16 +347,15 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Not supported yet")
     public void fontTest02() {
         String shorthandExpression = "bold Georgia, serif";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
                 "font-style: initial",
                 "font-variant: initial",
                 "font-weight: bold",
+                "font-size: initial",
                 "line-height: initial",
-                "line-height: initial",
-                "font-family: Georgia, serif"
+                "font-family: Georgia,serif"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
@@ -371,7 +365,6 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Not supported yet")
     public void listStyleTest01() {
         String shorthandExpression = "square inside url('sqpurple.gif')";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
@@ -387,7 +380,6 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Not supported yet")
     public void listStyleTest02() {
         String shorthandExpression = "inside url('sqpurple.gif')";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
