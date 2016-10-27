@@ -40,54 +40,49 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html;
+package com.itextpdf.html2pdf.css.apply.impl;
 
-public final class TagConstants {
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.layout.element.List;
+import com.itextpdf.layout.property.ListNumberingType;
+import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-    private TagConstants() {
+public class OlTagCssApplier implements ICssApplier {
+
+    @Override
+    public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
+        if (!(tagWorker.getElementResult() instanceof List)) {
+            return;
+        }
+        Map<String, String> css = element.getStyles();
+
+        List list = (List) tagWorker.getElementResult();
+        // Default style
+        list.setListSymbol(ListNumberingType.DECIMAL);
+
+        String style = css.get(CssConstants.LIST_STYLE_TYPE);
+        if (CssConstants.DECIMAL.equals(style)) {
+            list.setListSymbol(ListNumberingType.DECIMAL);
+        } else if (CssConstants.UPPER_ALPHA.equals(style) || CssConstants.UPPER_LATIN.equals(style)) {
+            list.setListSymbol(ListNumberingType.ENGLISH_UPPER);
+        } else if (CssConstants.LOWER_ALPHA.equals(style) || CssConstants.LOWER_LATIN.equals(style)) {
+            list.setListSymbol(ListNumberingType.ENGLISH_LOWER);
+        } else if (CssConstants.UPPER_ROMAN.equals(style)) {
+            list.setListSymbol(ListNumberingType.ROMAN_UPPER);
+        } else if (CssConstants.LOWER_ROMAN.equals(style)) {
+            list.setListSymbol(ListNumberingType.ROMAN_LOWER);
+        } else if (CssConstants.LOWER_GREEK.equals(style)) {
+            list.setListSymbol(ListNumberingType.GREEK_LOWER);
+        } else {
+            Logger logger = LoggerFactory.getLogger(OlTagCssApplier.class);
+            logger.error("Not supported list style type: " + style);
+        }
     }
-
-    public static final String B = "b";
-    public static final String BIG = "big";
-    public static final String BODY = "body";
-	public static final String BR = "br";
-    public static final String CENTER = "center";
-    public static final String COL = "col";
-    public static final String COLGROUP = "colgroup";
-    public static final String DD = "dd";
-    public static final String DL = "dl";
-    public static final String DT = "dt";
-    public static final String DIV = "div";
-    public static final String FONT = "font";
-    public static final String H1 = "h1";
-    public static final String H2 = "h2";
-    public static final String H3 = "h3";
-    public static final String H4 = "h4";
-    public static final String H5 = "h5";
-    public static final String H6 = "h6";
-    public static final String HEAD = "head";
-    public static final String HTML = "html";
-    public static final String I = "i";
-    public static final String IMG = "img";
-    public static final String LI = "li";
-    public static final String LINK = "link";
-    public static final String MARQUEE = "marquee";
-    public static final String OL = "ol";
-    public static final String P = "p";
-    public static final String SMALL = "small";
-    public static final String SPAN = "span";
-    public static final String STRIKE = "strike";
-    public static final String STYLE = "style";
-    public static final String SUB = "sub";
-    public static final String SUP = "sup";
-    public static final String TABLE = "table";
-    public static final String TBODY = "tbody";
-    public static final String TD = "td";
-    public static final String TFOOT = "tfoot";
-    public static final String TH = "th";
-    public static final String THEAD = "thead";
-    public static final String TR = "tr";
-    public static final String U = "u";
-    public static final String UL = "ul";
 
 }

@@ -106,6 +106,7 @@ public class CssConstants {
     public static final String PADDING = "padding";
     public static final String QUOTES = "quotes";
     public static final String ROWSPAN = "rowspan";
+    public static final String STYLE = "style";
     public static final String TAB_SIZE = "tab-size";
     public static final String TEXT_ALIGN = "text-align";
     public static final String TEXT_ALIGN_LAST = "text-align-last";
@@ -203,6 +204,7 @@ public class CssConstants {
     public static final String TRANSPARENT = "transparent";
     public static final String UNDERLINE = "underline";
     public static final String UPPER_ALPHA = "upper-alpha";
+
     public static final String UPPER_LATIN = "upper-latin";
     public static final String UPPER_ROMAN = "upper-roman";
     public static final String X_LARGE = "x-large";
