@@ -115,6 +115,7 @@ class HtmlStylesToCssConverter {
         htmlAttributeConverters.put(AttributeConstants.COLOR, new FontColorAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.SIZE, new FontSizeAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.FACE, new FontFaceAttributeConverter());
+        htmlAttributeConverters.put(AttributeConstants.TYPE, new TypeAttributeConverter());
         // TODO
 //        htmlAttributeConverters.put("height", );
 //        htmlAttributeConverters.put("width", );
@@ -216,4 +217,36 @@ class HtmlStylesToCssConverter {
             return new CssDeclaration(CssConstants.FONT_FAMILY, value);
         }
     }
+
+    private static class TypeAttributeConverter implements IAttributeConverter {
+
+        @Override
+        public boolean isSupportedForElement(String elementName) {
+            return TagConstants.OL.equals(elementName);
+        }
+
+        @Override
+        public CssDeclaration convert(String value) {
+            String cssEquivalent = null;
+            switch (value) {
+                case "1":
+                    cssEquivalent = CssConstants.DECIMAL;
+                    break;
+                case "A":
+                    cssEquivalent = CssConstants.UPPER_ALPHA;
+                    break;
+                case "a":
+                    cssEquivalent = CssConstants.LOWER_ALPHA;
+                    break;
+                case "I":
+                    cssEquivalent = CssConstants.UPPER_ROMAN;
+                    break;
+                case "i":
+                    cssEquivalent = CssConstants.LOWER_ROMAN;
+                    break;
+            }
+            return new CssDeclaration(CssConstants.LIST_STYLE_TYPE, cssEquivalent);
+        }
+    }
+
 }

@@ -47,6 +47,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -81,6 +82,10 @@ public class WaitingInlineElementsHelper {
                 ((Div) container).add(p);
             } else if (container instanceof Cell) {
                 ((Cell) container).add(p);
+            } else if (container instanceof com.itextpdf.layout.element.List) {
+                ListItem li = new ListItem();
+                li.add(p);
+                ((com.itextpdf.layout.element.List) container).add(li);
             } else {
                 throw new IllegalStateException("Unable to process hanging inline content");
             }

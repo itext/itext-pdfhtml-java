@@ -55,10 +55,20 @@ public class TagWorkerFactory {
                 return new BrTagWorker(tag, context);
             case TagConstants.DIV:
                 return new DivTagWorker(tag, context);
+            case TagConstants.DD:
+                return new DdTagWorker(tag, context);
+            case TagConstants.DL:
+                return new DlTagWorker(tag, context);
+            case TagConstants.DT:
+                return new DtTagWorker(tag, context);
             case TagConstants.HTML:
                 return new HtmlTagWorker(tag, context);
             case TagConstants.IMG:
                 return new ImageTagWorker(tag, context);
+            case TagConstants.LI:
+                return new LiTagWorker(tag, context);
+            case TagConstants.OL:
+                return new UlOlTagWorker(tag, context);
             case TagConstants.P:
                 return new PTagWorker(tag, context);
             case TagConstants.SPAN:
@@ -77,6 +87,8 @@ public class TagWorkerFactory {
                 return new TdTagWorker(tag, context);
             case TagConstants.TR:
                 return new TrTagWorker(tag, context);
+            case TagConstants.UL:
+                return new UlOlTagWorker(tag, context);
         }
         return null;
     }
