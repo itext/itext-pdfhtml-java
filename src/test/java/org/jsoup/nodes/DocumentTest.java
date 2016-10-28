@@ -160,8 +160,7 @@ public class DocumentTest {
     	assertEquals(htmlContent, document.html(new StringWriter()).toString());
     }
 
-    // Ignored since this test can take awhile to run.
-    @Ignore
+    // This test can take awhile to run.
     @Test public void testOverflowClone() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < 100000; i++) {
