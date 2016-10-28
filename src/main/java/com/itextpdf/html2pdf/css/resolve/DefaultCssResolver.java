@@ -141,17 +141,15 @@ public class DefaultCssResolver implements ICssResolver {
             if (headChild instanceof IElement) {
                 IElement headChildElement = (IElement) headChild;
                 if (headChildElement.name().equals(TagConstants.STYLE)) {
-                    // && headChildElement.getAttribute(AttributeConstants.TYPE).equals("text/css")) { TODO most likely unnecessary and even is bad to use
                     if (headChild.childNodes().size() > 0 && headChild.childNodes().get(0) instanceof IDataNode) {
                         String styleData = ((IDataNode) headChild.childNodes().get(0)).getWholeData();
                         cssStyleSheet.appendCssStyleSheet(CssStyleSheetParser.parse(styleData));
                     }
                 } else if (headChildElement.name().equals(TagConstants.LINK)
-                        // TODO ensure this is right and must-have here; introduce constant? also: check " type="text/css" "
-                        && "stylesheet".equals(headChildElement.getAttribute(AttributeConstants.REL))) {
+                        && AttributeConstants.STYLESHEET.equals(headChildElement.getAttribute(AttributeConstants.REL))) {
                     String styleSheetUrl = headChildElement.getAttribute(AttributeConstants.HREF);
 
-                    // TODO resolve url into stream properly
+                    // TODO DEVSIX-898: resolve url into stream properly
 //                    InputStream fis = new FileInputStream(styleSheetUrl);
 //                    cssStyleSheet.appendCssStyleSheet(CssStyleSheetParser.parse(fis));
                 }
