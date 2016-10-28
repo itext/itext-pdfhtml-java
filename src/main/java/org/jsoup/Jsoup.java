@@ -5,7 +5,6 @@ import org.jsoup.parser.Parser;
 import org.jsoup.safety.Cleaner;
 import org.jsoup.safety.Whitelist;
 import org.jsoup.helper.DataUtil;
-import org.jsoup.helper.HttpConnection;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,21 +55,6 @@ public class Jsoup {
      */
     public static Document parse(String html) {
         return Parser.parse(html, "");
-    }
-
-    /**
-     * Creates a new {@link Connection} to a URL. Use to fetch and parse a HTML page.
-     * <p>
-     * Use examples:
-     * <ul>
-     *  <li><code>Document doc = Jsoup.connect("http://example.com").userAgent("Mozilla").data("name", "jsoup").get();</code></li>
-     *  <li><code>Document doc = Jsoup.connect("http://example.com").cookie("auth", "token").post();</code></li>
-     * </ul>
-     * @param url URL to connect to. The protocol must be {@code http} or {@code https}.
-     * @return the connection. You can add data, cookies, and headers; set the user-agent, referrer, method; and then execute.
-     */
-    public static Connection connect(String url) {
-        return HttpConnection.connect(url);
     }
 
     /**
@@ -158,29 +142,6 @@ public class Jsoup {
      */
     public static Document parseBodyFragment(String bodyHtml) {
         return Parser.parseBodyFragment(bodyHtml, "");
-    }
-
-    /**
-     Fetch a URL, and parse it as HTML. Provided for compatibility; in most cases use {@link #connect(String)} instead.
-     <p>
-     The encoding character set is determined by the content-type header or http-equiv meta tag, or falls back to {@code UTF-8}.
-
-     @param url           URL to fetch (with a GET). The protocol must be {@code http} or {@code https}.
-     @param timeoutMillis Connection and read timeout, in milliseconds. If exceeded, IOException is thrown.
-     @return The parsed HTML.
-
-     @throws java.net.MalformedURLException if the request URL is not a HTTP or HTTPS URL, or is otherwise malformed
-     @throws HttpStatusException if the response is not OK and HTTP response errors are not ignored
-     @throws UnsupportedMimeTypeException if the response mime type is not supported and those errors are not ignored
-     @throws java.net.SocketTimeoutException if the connection times out
-     @throws IOException if a connection or read error occurs
-
-     @see #connect(String)
-     */
-    public static Document parse(URL url, int timeoutMillis) throws IOException {
-        Connection con = HttpConnection.connect(url);
-        con.timeout(timeoutMillis);
-        return con.get();
     }
 
     /**
