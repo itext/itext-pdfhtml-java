@@ -40,29 +40,25 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply.impl;
+package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.property.Background;
+import com.itextpdf.layout.property.Property;
 import java.util.Map;
 
-public class LiTagCssApplier implements ICssApplier {
+public final class BackgroundApplierUtil {
 
-    @Override
-    public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
-        IPropertyContainer propertyContainer = tagWorker.getElementResult();
-        Map<String, String> css = element.getStyles();
+    private BackgroundApplierUtil() {
+    }
 
-        if (propertyContainer != null) {
-            BackgroundApplierUtil.applyBackground(css, context, propertyContainer);
-            MarginApplierUtil.applyMargins(css, context, propertyContainer);
-            PaddingApplierUtil.applyPaddings(css, context, propertyContainer);
+    public static void applyBackground(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+        if (cssProps.get(CssConstants.BACKGROUND_COLOR) != null) {
+            Background background = new Background(WebColors.getRGBColor(cssProps.get(CssConstants.BACKGROUND_COLOR)));
+            element.setProperty(Property.BACKGROUND, background);
         }
     }
 

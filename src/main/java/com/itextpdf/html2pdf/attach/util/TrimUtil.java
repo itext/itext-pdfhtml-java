@@ -52,6 +52,7 @@ public final class TrimUtil {
     private TrimUtil() {
     }
 
+    // Note that the end is not trimmed. Maybe we should trim the content here, but the end trim is performed during layout anyway
     public static List<ILeafElement> trimLeafElementsFirstAndSanitize(List<ILeafElement> leafElements) {
         List<ILeafElement> waitingLeafs = new ArrayList<>(leafElements);
         while (waitingLeafs.size() > 0 && waitingLeafs.get(0) instanceof Text) {

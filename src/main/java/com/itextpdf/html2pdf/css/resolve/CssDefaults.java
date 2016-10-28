@@ -84,6 +84,11 @@ public class CssDefaults {
         defaultValues.put(CssConstants.MARGIN_RIGHT, "0");
         defaultValues.put(CssConstants.MARGIN_TOP, "0");
 
+        defaultValues.put(CssConstants.PADDING_BOTTOM, "0");
+        defaultValues.put(CssConstants.PADDING_LEFT, "0");
+        defaultValues.put(CssConstants.PADDING_RIGHT, "0");
+        defaultValues.put(CssConstants.PADDING_TOP, "0");
+
         // TODO not complete
     }
 

@@ -46,15 +46,22 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.kernel.color.WebColors;
-import com.itextpdf.layout.border.*;
-import com.itextpdf.layout.property.Background;
+import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.border.DashedBorder;
+import com.itextpdf.layout.border.DottedBorder;
+import com.itextpdf.layout.border.DoubleBorder;
+import com.itextpdf.layout.border.GrooveBorder;
+import com.itextpdf.layout.border.InsetBorder;
+import com.itextpdf.layout.border.OutsetBorder;
+import com.itextpdf.layout.border.RidgeBorder;
+import com.itextpdf.layout.border.SolidBorder;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
-
 import java.util.Map;
 
 public class TableTagCssApplier implements ICssApplier {
@@ -62,10 +69,7 @@ public class TableTagCssApplier implements ICssApplier {
     public void apply(ProcessorContext context, IElement element, ITagWorker worker) {
         Map<String, String> cssProps = element.getStyles();
 
-        if (cssProps.get(CssConstants.BACKGROUND_COLOR) != null) {
-            Background background = new Background(WebColors.getRGBColor(cssProps.get(CssConstants.BACKGROUND_COLOR)));
-            worker.getElementResult().setProperty(Property.BACKGROUND, background);
-        }
+        BackgroundApplierUtil.applyBackground(cssProps, context, worker.getElementResult());
         if (cssProps.get(CssConstants.BORDER_WIDTH) != null) {
             Float borderWidth = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.BORDER_WIDTH));
             String borderStyle = cssProps.get(CssConstants.BORDER_STYLE);

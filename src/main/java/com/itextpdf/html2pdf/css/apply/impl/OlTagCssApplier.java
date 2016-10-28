@@ -46,7 +46,10 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.property.ListNumberingType;
@@ -86,6 +89,9 @@ public class OlTagCssApplier implements ICssApplier {
         }
 
         ListStyleApplierUtil.applyListStyleImageProperty(css, context, list);
+        BackgroundApplierUtil.applyBackground(css, context, list);
+        MarginApplierUtil.applyMargins(css, context, list);
+        PaddingApplierUtil.applyPaddings(css, context, list);
     }
 
 }
