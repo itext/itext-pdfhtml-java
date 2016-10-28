@@ -58,13 +58,25 @@ public class CssConstants {
     public static final String BACKGROUND_SIZE = "background-size";
     public static final String BORDER = "border";
     public static final String BORDER_BOTTOM = "border-bottom";
+    public static final String BORDER_BOTTOM_COLOR = "border-bottom-color";
+    public static final String BORDER_BOTTOM_STYLE = "border-bottom-style";
+    public static final String BORDER_BOTTOM_WIDTH = "border-bottom-width";
     public static final String BORDER_COLLAPSE = "border-collapse";
     public static final String BORDER_COLOR = "border-color";
     public static final String BORDER_LEFT = "border-left";
+    public static final String BORDER_LEFT_COLOR = "border-left-color";
+    public static final String BORDER_LEFT_STYLE = "border-left-style";
+    public static final String BORDER_LEFT_WIDTH = "border-left-width";
     public static final String BORDER_RIGHT = "border-right";
+    public static final String BORDER_RIGHT_COLOR = "border-right-color";
+    public static final String BORDER_RIGHT_STYLE = "border-right-style";
+    public static final String BORDER_RIGHT_WIDTH = "border-right-width";
     public static final String BORDER_SPACING = "border-spacing";
     public static final String BORDER_STYLE = "border-style";
     public static final String BORDER_TOP = "border-top";
+    public static final String BORDER_TOP_COLOR = "border-top-color";
+    public static final String BORDER_TOP_STYLE = "border-top-style";
+    public static final String BORDER_TOP_WIDTH = "border-top-width";
     public static final String BORDER_WIDTH = "border-width";
     public static final String CAPTION_SIDE = "caption-side";
     public static final String COLOR = "color";
@@ -228,4 +240,8 @@ public class CssConstants {
     public static final String DPI = "dpi";
     public static final String DPCM = "dpcm";
     public static final String DPPX = "dppx";
+    public static final String MARGIN_BOTTOM = "margin-bottom";
+    public static final String MARGIN_LEFT = "margin-left";
+    public static final String MARGIN_RIGHT = "margin-right";
+    public static final String MARGIN_TOP = "margin-top";
 }

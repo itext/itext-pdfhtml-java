@@ -81,6 +81,12 @@ public class CssStylesResolvingTest extends ITextTest {
     }
 
     @Test
+    public void collectStylesDeclarationsTest03() throws IOException {
+        test("collectStylesDeclarationsTest03.html", "html body p",
+                "color: red", "text-align: right", "font-size: 10px");
+    }
+
+    @Test
     public void stylesInheritanceTest01() throws IOException {
         test("stylesInheritanceTest01.html", "html body p span",
                 "color: blue", "text-align: center", "font-style: italic", "font-size: 15px");
@@ -108,6 +114,22 @@ public class CssStylesResolvingTest extends ITextTest {
     public void stylesInheritanceTest05() throws IOException {
         test("stylesInheritanceTest05.html", "html body p span",
                 "color: black");
+    }
+
+    @Test
+    public void stylesInheritanceTest06() throws IOException {
+        test("stylesInheritanceTest06.html", "html body p span",
+                "margin-left: 20px",
+                "margin-right: 0",
+                "background-color: yellow");
+    }
+
+    @Test
+    public void stylesInheritanceTest07() throws IOException {
+        test("stylesInheritanceTest07.html", "html body div p span",
+                "margin-left: 0",
+                "padding-top: 10px",
+                "background-color: yellow");
     }
 
     @Test
