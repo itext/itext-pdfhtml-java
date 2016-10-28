@@ -112,10 +112,18 @@ public class CssConstants {
     public static final String LIST_STYLE_POSITION = "list-style-position";
     public static final String LIST_STYLE_TYPE = "list-style-type";
     public static final String MARGIN = "margin";
+    public static final String MARGIN_BOTTOM = "margin-bottom";
+    public static final String MARGIN_LEFT = "margin-left";
+    public static final String MARGIN_RIGHT = "margin-right";
+    public static final String MARGIN_TOP = "margin-top";
     public static final String OVERFLOW_WRAP = "overflow-wrap";
     public static final String OPACITY = "opacity";
     public static final String OUTLINE = "outline";
     public static final String PADDING = "padding";
+    public static final String PADDING_BOTTOM = "padding-bottom";
+    public static final String PADDING_LEFT = "padding-left";
+    public static final String PADDING_RIGHT = "padding-right";
+    public static final String PADDING_TOP = "padding-top";
     public static final String QUOTES = "quotes";
     public static final String ROWSPAN = "rowspan";
     public static final String STYLE = "style";
@@ -240,8 +248,4 @@ public class CssConstants {
     public static final String DPI = "dpi";
     public static final String DPCM = "dpcm";
     public static final String DPPX = "dppx";
-    public static final String MARGIN_BOTTOM = "margin-bottom";
-    public static final String MARGIN_LEFT = "margin-left";
-    public static final String MARGIN_RIGHT = "margin-right";
-    public static final String MARGIN_TOP = "margin-top";
 }

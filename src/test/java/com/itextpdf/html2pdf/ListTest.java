@@ -105,4 +105,10 @@ public class ListTest extends ITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest06.pdf", sourceFolder + "cmp_listTest06.pdf", destinationFolder, "diff06_"));
     }
 
+    @Test
+    public void listTest07() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest07.html"), new File(destinationFolder + "listTest07.pdf"), new MediaDeviceDescription(MediaType.PRINT));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest07.pdf", sourceFolder + "cmp_listTest07.pdf", destinationFolder, "diff07_"));
+    }
+
 }

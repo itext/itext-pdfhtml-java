@@ -40,30 +40,36 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply.impl;
+package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.property.Property;
 import java.util.Map;
 
-public class LiTagCssApplier implements ICssApplier {
+public final class MarginApplierUtil {
 
-    @Override
-    public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
-        IPropertyContainer propertyContainer = tagWorker.getElementResult();
-        Map<String, String> css = element.getStyles();
+    private MarginApplierUtil() {
+    }
 
-        if (propertyContainer != null) {
-            BackgroundApplierUtil.applyBackground(css, context, propertyContainer);
-            MarginApplierUtil.applyMargins(css, context, propertyContainer);
-            PaddingApplierUtil.applyPaddings(css, context, propertyContainer);
-        }
+    public static void applyMargins(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+        String marginTop = cssProps.get(CssConstants.MARGIN_TOP);
+        String marginBottom = cssProps.get(CssConstants.MARGIN_BOTTOM);
+        String marginLeft = cssProps.get(CssConstants.MARGIN_LEFT);
+        String marginRight = cssProps.get(CssConstants.MARGIN_RIGHT);
+
+        // TODO what about relative values?
+        float marginTopVal = CssUtils.parseAbsoluteLength(marginTop);
+        float marginBottomVal = CssUtils.parseAbsoluteLength(marginBottom);
+        float marginLeftVal = CssUtils.parseAbsoluteLength(marginLeft);
+        float marginRightVal = CssUtils.parseAbsoluteLength(marginRight);
+
+        element.setProperty(Property.MARGIN_TOP, marginTopVal);
+        element.setProperty(Property.MARGIN_BOTTOM, marginBottomVal);
+        element.setProperty(Property.MARGIN_LEFT, marginLeftVal);
+        element.setProperty(Property.MARGIN_RIGHT, marginRightVal);
     }
 
 }

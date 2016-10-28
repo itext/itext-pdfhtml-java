@@ -40,30 +40,36 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply.impl;
+package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.property.Property;
 import java.util.Map;
 
-public class LiTagCssApplier implements ICssApplier {
+public final class PaddingApplierUtil {
 
-    @Override
-    public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
-        IPropertyContainer propertyContainer = tagWorker.getElementResult();
-        Map<String, String> css = element.getStyles();
+    private PaddingApplierUtil() {
+    }
 
-        if (propertyContainer != null) {
-            BackgroundApplierUtil.applyBackground(css, context, propertyContainer);
-            MarginApplierUtil.applyMargins(css, context, propertyContainer);
-            PaddingApplierUtil.applyPaddings(css, context, propertyContainer);
-        }
+    public static void applyPaddings(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+        String paddingTop = cssProps.get(CssConstants.PADDING_TOP);
+        String paddingBottom = cssProps.get(CssConstants.PADDING_BOTTOM);
+        String paddingLeft = cssProps.get(CssConstants.PADDING_LEFT);
+        String paddingRight = cssProps.get(CssConstants.PADDING_RIGHT);
+
+        // TODO what about relative values?
+        float marginTopVal = CssUtils.parseAbsoluteLength(paddingTop);
+        float marginBottomVal = CssUtils.parseAbsoluteLength(paddingBottom);
+        float marginLeftVal = CssUtils.parseAbsoluteLength(paddingLeft);
+        float marginRightVal = CssUtils.parseAbsoluteLength(paddingRight);
+
+        element.setProperty(Property.PADDING_TOP, marginTopVal);
+        element.setProperty(Property.PADDING_BOTTOM, marginBottomVal);
+        element.setProperty(Property.PADDING_LEFT, marginLeftVal);
+        element.setProperty(Property.PADDING_RIGHT, marginRightVal);
     }
 
 }
