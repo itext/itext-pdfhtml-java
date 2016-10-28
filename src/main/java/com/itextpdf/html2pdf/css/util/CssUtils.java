@@ -129,7 +129,7 @@ public class CssUtils {
 
     // TODO default metric?
     public static float parseAbsoluteLength(String length) {
-        return parseAbsoluteLength(length, CssConstants.PT);
+        return parseAbsoluteLength(length, CssConstants.PX);
     }
 
     /**
