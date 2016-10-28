@@ -137,11 +137,11 @@ public class HtmlConverter {
         return document;
     }
 
-    public static List<IElement> convertToElements(String html) throws IOException {
+    public static List<IElement> convertToElements(String html) {
         return convertToElements(html, MediaDeviceDescription.createDefault());
     }
 
-    public static List<IElement> convertToElements(String html, MediaDeviceDescription deviceDescription) throws IOException {
+    public static List<IElement> convertToElements(String html, MediaDeviceDescription deviceDescription) {
         IHtmlParser parser = new JsoupHtmlParser();
         IDocument doc = parser.parse(html);
         ICssResolver resolver = new DefaultCssResolver(doc, deviceDescription, new ResourceResolver(""));

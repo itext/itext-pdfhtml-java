@@ -72,7 +72,7 @@ public class DefaultCssResolver implements ICssResolver {
     private MediaDeviceDescription deviceDescription;
     private ResourceResolver resourceResolver;
 
-    public DefaultCssResolver(INode treeRoot, MediaDeviceDescription mediaDeviceDescription, ResourceResolver resourceResolver) throws IOException {
+    public DefaultCssResolver(INode treeRoot, MediaDeviceDescription mediaDeviceDescription, ResourceResolver resourceResolver) {
         this.deviceDescription = mediaDeviceDescription;
         this.resourceResolver = resourceResolver;
         collectCssDeclarations(treeRoot);
@@ -135,7 +135,7 @@ public class DefaultCssResolver implements ICssResolver {
         return stylesMap;
     }
 
-    private void collectCssDeclarations(INode treeRoot) throws IOException {
+    private void collectCssDeclarations(INode treeRoot) {
         cssStyleSheet = new CssStyleSheet();
 
         INode headNode = findHeadNode(treeRoot);
@@ -157,7 +157,12 @@ public class DefaultCssResolver implements ICssResolver {
 
                     FileInputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUrl);
                     if (stream != null) {
-                        cssStyleSheet.appendCssStyleSheet(CssStyleSheetParser.parse(stream));
+                        try {
+                            cssStyleSheet.appendCssStyleSheet(CssStyleSheetParser.parse(stream));
+                        } catch (IOException exc) {
+                            Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
+                            logger.error("Unable to process external css file", exc);
+                        }
                     }
                 }
             }
