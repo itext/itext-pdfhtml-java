@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply;
 
+import com.itextpdf.html2pdf.css.apply.impl.DlTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.ImgTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.LiTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.OlTagCssApplier;
@@ -56,6 +57,8 @@ public class CssApplierFactory {
 
     public static ICssApplier getCssApplier(String tag) {
         switch (tag) {
+            case TagConstants.DL:
+                return new DlTagCssApplier();
             case TagConstants.LI:
                 return new LiTagCssApplier();
             case TagConstants.OL:

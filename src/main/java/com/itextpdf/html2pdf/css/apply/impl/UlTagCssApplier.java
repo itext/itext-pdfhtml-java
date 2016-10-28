@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.io.font.FontConstants;
 import com.itextpdf.kernel.font.PdfFont;
@@ -82,10 +83,7 @@ public class UlTagCssApplier implements ICssApplier {
             list.setListSymbol(new Text(""));
         }
 
-        String listStyleImage = css.get(CssConstants.LIST_STYLE_IMAGE);
-        if (listStyleImage != null && !CssConstants.NONE.equals(listStyleImage)) {
-
-        }
+        ListStyleApplierUtil.applyListStyleImageProperty(css, context, list);
     }
 
     private void setDiscStyle(List list) {

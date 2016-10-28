@@ -98,7 +98,6 @@ public class ListTest extends ITextTest {
     }
 
     @Test
-    @Ignore
     public void listTest06() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "listTest06.html"), new File(destinationFolder + "listTest06.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest06.pdf", sourceFolder + "cmp_listTest06.pdf", destinationFolder, "diff06_"));

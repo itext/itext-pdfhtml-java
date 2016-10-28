@@ -134,6 +134,7 @@ public class CssUtils {
 
     /**
      * Returns value in dpi (currently)
+     *
      * @param resolutionStr
      * @return
      */
@@ -177,7 +178,6 @@ public class CssUtils {
         return pos;
     }
 
-
     public static boolean isColorProperty(String value) {
         return value.contains("rgb(") || value.contains("rgba(") || value.contains("#")
                 || WebColors.NAMES.containsKey(value.toLowerCase()) || CssConstants.TRANSPARENT.equals(value);
@@ -185,6 +185,7 @@ public class CssUtils {
 
     /**
      * Checks whether a string contains an allowed metric unit in HTML/CSS; px, in, cm, mm, pc or pt.
+     *
      * @param value the string that needs to be checked.
      * @return boolean true if value contains an allowed metric value.
      */
@@ -193,8 +194,10 @@ public class CssUtils {
                 || value.endsWith(CssConstants.MM) || value.endsWith(CssConstants.PC) || value.endsWith(CssConstants.PT);
 
     }
+
     /**
      * Checks whether a string contains an allowed value relative to previously set value.
+     *
      * @param value the string that needs to be checked.
      * @return boolean true if value contains an allowed metric value.
      */
@@ -202,14 +205,39 @@ public class CssUtils {
         return value.endsWith(CssConstants.PERCENTAGE) || value.endsWith(CssConstants.EM) || value.endsWith(CssConstants.EX);
 
     }
+
     /**
      * Checks whether a string matches a numeric value (e.g. 123, 1.23, .123). All these metric values are allowed in HTML/CSS.
+     *
      * @param value the string that needs to be checked.
      * @return boolean true if value contains an allowed metric value.
      */
     public static boolean isNumericValue(final String value) {
         return value.matches("^-?\\d\\d*\\.\\d*$") || value.matches("^-?\\d\\d*$") || value.matches("^-?\\.\\d\\d*$");
+    }
 
+    /**
+     * Parses <code>url("file.jpg")</code> to <code>file.jpg</code>.
+     *
+     * @param url the url attribute to parse
+     * @return the parsed url. Or original url if not wrappend in url()
+     */
+    public static String extractUrl(final String url) {
+        String str = null;
+        if (url.startsWith("url")) {
+            String urlString = url.substring(3).trim().replace("(", "").replace(")", "").trim();
+            if (urlString.startsWith("'") && urlString.endsWith("'")) {
+                str = urlString.substring(urlString.indexOf("'") + 1, urlString.lastIndexOf("'"));
+            } else if (urlString.startsWith("\"") && urlString.endsWith("\"")) {
+                str = urlString.substring(urlString.indexOf('"') + 1, urlString.lastIndexOf('"'));
+            } else {
+                str = urlString;
+            }
+        } else {
+            // assume it's an url without wrapping in "url()"
+            str = url;
+        }
+        return str;
     }
 
 }

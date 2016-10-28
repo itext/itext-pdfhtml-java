@@ -56,6 +56,7 @@ public final class AttributeConstants {
     public static final String ID = "id";
     public static final String REL = "rel";
     public static final String SIZE = "size";
+    public static final String SRC = "src";
     public static final String STYLE = "style";
     public static final String TYPE = "type";
 
