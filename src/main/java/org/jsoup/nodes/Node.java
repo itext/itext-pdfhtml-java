@@ -571,7 +571,7 @@ public abstract class Node implements Cloneable {
      * @param appendable the {@link Appendable} to write to.
      * @return the supplied {@link Appendable}, for chaining.
      */
-    public <T extends Appendable> T html(T appendable) {
+    public Appendable html(Appendable appendable) {
         outerHtml(appendable);
         return appendable;
     }

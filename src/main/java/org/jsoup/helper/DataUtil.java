@@ -176,7 +176,7 @@ public final class DataUtil {
     static ByteBuffer readFileToByteBuffer(File file) throws IOException {
         RandomAccessFile randomAccessFile = null;
         try {
-            randomAccessFile = new RandomAccessFile(file, "r");
+            randomAccessFile = PortUtil.getReadOnlyRandomAccesFile(file);
             byte[] bytes = new byte[(int) randomAccessFile.length()];
             randomAccessFile.readFully(bytes);
             return ByteBuffer.wrap(bytes);

@@ -1,5 +1,8 @@
 package org.jsoup;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.RandomAccessFile;
 import java.nio.charset.Charset;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -20,6 +23,10 @@ public class PortUtil {
         } catch (IllegalArgumentException e) {
             return false;
         }
+    }
+
+    public static RandomAccessFile getReadOnlyRandomAccesFile(File file)throws FileNotFoundException {
+        return new RandomAccessFile(file, "r");
     }
 
     public static boolean isSuccessful(Matcher m) {
