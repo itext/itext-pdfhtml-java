@@ -63,9 +63,23 @@ public class CssDefaults {
         defaultValues.put(CssConstants.BACKGROUND_ORIGIN, CssConstants.PADDING_BOX);
         defaultValues.put(CssConstants.BACKGROUND_SIZE, CssConstants.AUTO);
 
-        defaultValues.put(CssConstants.BORDER_COLOR, "black"); // TODO specified as " The current color of the element ", might be better to put null here?
-        defaultValues.put(CssConstants.BORDER_STYLE, CssConstants.NONE);
-        defaultValues.put(CssConstants.BORDER_WIDTH, CssConstants.MEDIUM);
+        defaultValues.put(CssConstants.BORDER_BOTTOM_COLOR, "black"); // TODO specified as " The current color of the element ", might be better to put null here?
+        defaultValues.put(CssConstants.BORDER_LEFT_COLOR, "black");
+        defaultValues.put(CssConstants.BORDER_RIGHT_COLOR, "black");
+        defaultValues.put(CssConstants.BORDER_TOP_COLOR, "black");
+        defaultValues.put(CssConstants.BORDER_BOTTOM_STYLE, CssConstants.NONE);
+        defaultValues.put(CssConstants.BORDER_LEFT_STYLE, CssConstants.NONE);
+        defaultValues.put(CssConstants.BORDER_RIGHT_STYLE, CssConstants.NONE);
+        defaultValues.put(CssConstants.BORDER_TOP_STYLE, CssConstants.NONE);
+        defaultValues.put(CssConstants.BORDER_BOTTOM_WIDTH, CssConstants.MEDIUM);
+        defaultValues.put(CssConstants.BORDER_LEFT_WIDTH, CssConstants.MEDIUM);
+        defaultValues.put(CssConstants.BORDER_RIGHT_WIDTH, CssConstants.MEDIUM);
+        defaultValues.put(CssConstants.BORDER_TOP_WIDTH, CssConstants.MEDIUM);
+
+        defaultValues.put(CssConstants.MARGIN_BOTTOM, "0");
+        defaultValues.put(CssConstants.MARGIN_LEFT, "0");
+        defaultValues.put(CssConstants.MARGIN_RIGHT, "0");
+        defaultValues.put(CssConstants.MARGIN_TOP, "0");
 
         // TODO not complete
     }
