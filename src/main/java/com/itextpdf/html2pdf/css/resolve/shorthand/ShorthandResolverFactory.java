@@ -57,41 +57,31 @@ import com.itextpdf.html2pdf.css.resolve.shorthand.impl.ListStyleShorthandResolv
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.MarginShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.OutlineShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.PaddingShorthandResolver;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ShorthandResolverFactory {
-    public static IShorthandResolver getShorthandResolver(String shorthandProperty) {
+    private static final Map<String, IShorthandResolver> shorthandResolvers;
+    static {
+        shorthandResolvers = new HashMap<>();
+        shorthandResolvers.put(CssConstants.BACKGROUND, new BackgroundShorthandResolver());
+        shorthandResolvers.put(CssConstants.BORDER, new BorderShorthandResolver());
+        shorthandResolvers.put(CssConstants.BORDER_BOTTOM, new BorderBottomShorthandResolver());
+        shorthandResolvers.put(CssConstants.BORDER_COLOR, new BorderColorShorthandResolver());
+        shorthandResolvers.put(CssConstants.BORDER_LEFT, new BorderLeftShorthandResolver());
+        shorthandResolvers.put(CssConstants.BORDER_RIGHT, new BorderRightShorthandResolver());
+        shorthandResolvers.put(CssConstants.BORDER_STYLE, new BorderStyleShorthandResolver());
+        shorthandResolvers.put(CssConstants.BORDER_TOP, new BorderTopShorthandResolver());
+        shorthandResolvers.put(CssConstants.BORDER_WIDTH, new BorderWidthShorthandResolver());
+        shorthandResolvers.put(CssConstants.FONT, new FontShorthandResolver());
+        shorthandResolvers.put(CssConstants.LIST_STYLE, new ListStyleShorthandResolver());
+        shorthandResolvers.put(CssConstants.MARGIN, new MarginShorthandResolver());
+        shorthandResolvers.put(CssConstants.OUTLINE, new OutlineShorthandResolver());
+        shorthandResolvers.put(CssConstants.PADDING, new PaddingShorthandResolver());
         // TODO text-decoration is a shorthand in CSS3, however it is not yet supported in any major browsers
-        // TODO use static map
-        switch (shorthandProperty) {
-            case CssConstants.BACKGROUND:
-                return new BackgroundShorthandResolver();
-            case CssConstants.BORDER:
-                return new BorderShorthandResolver();
-            case CssConstants.BORDER_BOTTOM:
-                return new BorderBottomShorthandResolver();
-            case CssConstants.BORDER_COLOR:
-                return new BorderColorShorthandResolver();
-            case CssConstants.BORDER_LEFT:
-                return new BorderLeftShorthandResolver();
-            case CssConstants.BORDER_RIGHT:
-                return new BorderRightShorthandResolver();
-            case CssConstants.BORDER_STYLE:
-                return new BorderStyleShorthandResolver();
-            case CssConstants.BORDER_TOP:
-                return new BorderTopShorthandResolver();
-            case CssConstants.BORDER_WIDTH:
-                return new BorderWidthShorthandResolver();
-            case CssConstants.FONT:
-                return new FontShorthandResolver();
-            case CssConstants.LIST_STYLE:
-                return new ListStyleShorthandResolver();
-            case CssConstants.MARGIN:
-                return new MarginShorthandResolver();
-            case CssConstants.OUTLINE:
-                return new OutlineShorthandResolver();
-            case CssConstants.PADDING:
-                return new PaddingShorthandResolver();
-        }
-        return null;
+    }
+
+    public static IShorthandResolver getShorthandResolver(String shorthandProperty) {
+        return shorthandResolvers.get(shorthandProperty);
     }
 }

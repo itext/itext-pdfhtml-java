@@ -59,4 +59,6 @@ public final class AttributeConstants {
     public static final String STYLE = "style";
     public static final String TYPE = "type";
 
+    // attribute values
+    public static final String STYLESHEET = "stylesheet";
 }

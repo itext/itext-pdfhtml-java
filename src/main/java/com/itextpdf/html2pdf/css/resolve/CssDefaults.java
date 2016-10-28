@@ -45,7 +45,10 @@ package com.itextpdf.html2pdf.css.resolve;
 import com.itextpdf.html2pdf.css.CssConstants;
 import java.util.HashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+// TODO make internal?
 public class CssDefaults {
     private static final Map<String, String> defaultValues = new HashMap<>();
 
@@ -87,7 +90,8 @@ public class CssDefaults {
     public static String getDefaultValue(String property) {
         String defaultVal = defaultValues.get(property);
         if (defaultVal == null) {
-            // TODO log error
+            Logger logger = LoggerFactory.getLogger(CssDefaults.class);
+            logger.error("Default value of the css property \"{0}\" is unknown.");
         }
         return defaultVal;
     }

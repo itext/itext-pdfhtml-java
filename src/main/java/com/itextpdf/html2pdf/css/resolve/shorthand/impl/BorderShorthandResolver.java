@@ -46,8 +46,11 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BorderShorthandResolver extends AbstractBorderShorthandResolver {
     @Override
@@ -64,7 +67,9 @@ public class BorderShorthandResolver extends AbstractBorderShorthandResolver {
             if (shorthandResolver != null) {
                 resolvedProps.addAll(shorthandResolver.resolveShorthand(prop.getExpression()));
             } else {
-                // TODO log invalid result of processing of BorderShorthandResolver
+                Logger logger = LoggerFactory.getLogger(BorderShorthandResolver.class);
+                logger.error(MessageFormat.format("Cannot find a shorthand resolver for the \"{0}\" property. " +
+                        "Expected border-width, border-style or border-color properties.", prop.getProperty()));
             }
         }
         return resolvedProps;
