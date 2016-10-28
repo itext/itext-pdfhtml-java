@@ -80,7 +80,7 @@ public class CssUtilTest extends ExtendedITextTest {
 
     @Test
     public void parseLength() {
-        assertEquals(12, CssUtils.parseAbsoluteLength("12"), 0);
+        assertEquals(9, CssUtils.parseAbsoluteLength("12"), 0);
         assertEquals(576, CssUtils.parseAbsoluteLength("8inch"), 0);
         assertEquals(576, CssUtils.parseAbsoluteLength("8", CssConstants.IN), 0);
     }
