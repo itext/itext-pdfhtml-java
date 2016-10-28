@@ -68,6 +68,10 @@ public class MediaDeviceDescription {
         this.height = height;
     }
 
+    public static MediaDeviceDescription createDefault() {
+        return new MediaDeviceDescription(MediaType.ALL);
+    }
+
     public String getType() {
         return type;
     }

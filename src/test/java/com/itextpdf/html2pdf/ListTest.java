@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf;
 
+import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
+import com.itextpdf.html2pdf.css.media.MediaType;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -99,7 +101,7 @@ public class ListTest extends ITextTest {
 
     @Test
     public void listTest06() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest06.html"), new File(destinationFolder + "listTest06.pdf"));
+        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest06.html"), new File(destinationFolder + "listTest06.pdf"), new MediaDeviceDescription(MediaType.PRINT));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest06.pdf", sourceFolder + "cmp_listTest06.pdf", destinationFolder, "diff06_"));
     }
 
