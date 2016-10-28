@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.html2pdf.ResourceResolver;
+import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.html.IHtmlParser;
@@ -231,7 +233,7 @@ public class CssStylesResolvingTest extends ITextTest {
         String filePath = sourceFolder + fileName;
         IHtmlParser parser = new JsoupHtmlParser();
         IDocument document = parser.parse(new FileInputStream(filePath), "UTF-8", "");
-        ICssResolver cssResolver = new DefaultCssResolver(document);
+        ICssResolver cssResolver = new DefaultCssResolver(document, MediaDeviceDescription.createDefault(), new ResourceResolver(""));
         resolveStylesForTree(document, cssResolver);
 
         IElement element = findElement(document, elementPath);

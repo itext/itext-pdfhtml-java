@@ -42,9 +42,11 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
+import com.itextpdf.html2pdf.ResourceResolver;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
+import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.parse.CssRuleSetParser;
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
@@ -54,6 +56,7 @@ import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IDataNode;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.html2pdf.html.node.INode;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -66,8 +69,12 @@ import org.slf4j.LoggerFactory;
 public class DefaultCssResolver implements ICssResolver {
 
     private CssStyleSheet cssStyleSheet;
+    private MediaDeviceDescription deviceDescription;
+    private ResourceResolver resourceResolver;
 
-    public DefaultCssResolver(INode treeRoot) throws IOException {
+    public DefaultCssResolver(INode treeRoot, MediaDeviceDescription mediaDeviceDescription, ResourceResolver resourceResolver) throws IOException {
+        this.deviceDescription = mediaDeviceDescription;
+        this.resourceResolver = resourceResolver;
         collectCssDeclarations(treeRoot);
     }
 
@@ -75,8 +82,7 @@ public class DefaultCssResolver implements ICssResolver {
     public Map<String, String> resolveStyles(IElement element) {
         List<CssDeclaration> nodeCssDeclarations = HtmlStylesToCssConverter.convert(element);
 
-        // TODO MediaDeviceDescription handling
-        nodeCssDeclarations.addAll(cssStyleSheet.getCssDeclarations(element, null));
+        nodeCssDeclarations.addAll(cssStyleSheet.getCssDeclarations(element, deviceDescription));
         String styleAttribute = element.getAttribute(AttributeConstants.STYLE);
         if (styleAttribute != null) {
             nodeCssDeclarations.addAll(CssRuleSetParser.parsePropertyDeclarations(styleAttribute));
@@ -149,9 +155,10 @@ public class DefaultCssResolver implements ICssResolver {
                         && AttributeConstants.STYLESHEET.equals(headChildElement.getAttribute(AttributeConstants.REL))) {
                     String styleSheetUrl = headChildElement.getAttribute(AttributeConstants.HREF);
 
-                    // TODO DEVSIX-898: resolve url into stream properly
-//                    InputStream fis = new FileInputStream(styleSheetUrl);
-//                    cssStyleSheet.appendCssStyleSheet(CssStyleSheetParser.parse(fis));
+                    FileInputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUrl);
+                    if (stream != null) {
+                        cssStyleSheet.appendCssStyleSheet(CssStyleSheetParser.parse(stream));
+                    }
                 }
             }
         }

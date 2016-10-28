@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.Attacher;
+import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.html.IHtmlParser;
@@ -87,7 +88,11 @@ public class HtmlConverter {
     }
 
     public static void convertToPdf(File htmlFile, File pdfFile) throws IOException {
-        convertToPdf(new FileInputStream(htmlFile), new FileOutputStream(pdfFile), htmlFile.getParent() + File.separator);
+        convertToPdf(htmlFile, pdfFile, MediaDeviceDescription.createDefault());
+    }
+
+    public static void convertToPdf(File htmlFile, File pdfFile, MediaDeviceDescription deviceDescription) throws IOException {
+        convertToPdf(new FileInputStream(htmlFile), new FileOutputStream(pdfFile), htmlFile.getParent() + File.separator, deviceDescription);
     }
 
     public static void convertToPdf(InputStream htmlStream, OutputStream pdfStream) throws IOException {
@@ -95,7 +100,11 @@ public class HtmlConverter {
     }
 
     public static void convertToPdf(InputStream htmlStream, OutputStream pdfStream, String baseUri) throws IOException {
-        convertToPdf(htmlStream, new PdfWriter(pdfStream), baseUri);
+        convertToPdf(htmlStream, pdfStream, baseUri, MediaDeviceDescription.createDefault());
+    }
+
+    public static void convertToPdf(InputStream htmlStream, OutputStream pdfStream, String baseUri, MediaDeviceDescription deviceDescription) throws IOException {
+        convertToPdf(htmlStream, new PdfWriter(pdfStream), baseUri, deviceDescription);
     }
 
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
@@ -103,7 +112,11 @@ public class HtmlConverter {
     }
 
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter, String baseUri) throws IOException {
-        Document document = convertToDocument(htmlStream, pdfWriter, baseUri);
+        convertToPdf(htmlStream, pdfWriter, baseUri, MediaDeviceDescription.createDefault());
+    }
+
+    public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter, String baseUri, MediaDeviceDescription deviceDescription) throws IOException {
+        Document document = convertToDocument(htmlStream, pdfWriter, baseUri, deviceDescription);
         document.close();
     }
 
@@ -112,18 +125,26 @@ public class HtmlConverter {
     }
 
     public static Document convertToDocument(InputStream htmlStream, PdfWriter pdfWriter, String baseUri) throws IOException {
+        return convertToDocument(htmlStream, pdfWriter, baseUri, MediaDeviceDescription.createDefault());
+    }
+
+    public static Document convertToDocument(InputStream htmlStream, PdfWriter pdfWriter, String baseUri, MediaDeviceDescription deviceDescription) throws IOException {
         IHtmlParser parser = new JsoupHtmlParser();
         String detectedCharset = detectEncoding(htmlStream);
         IDocument doc = parser.parse(htmlStream, detectedCharset, baseUri);
-        ICssResolver resolver = new DefaultCssResolver(doc);
+        ICssResolver resolver = new DefaultCssResolver(doc, deviceDescription, new ResourceResolver(baseUri));
         Document document = Attacher.attach(doc, resolver, new PdfDocument(pdfWriter), baseUri);
         return document;
     }
 
     public static List<IElement> convertToElements(String html) throws IOException {
+        return convertToElements(html, MediaDeviceDescription.createDefault());
+    }
+
+    public static List<IElement> convertToElements(String html, MediaDeviceDescription deviceDescription) throws IOException {
         IHtmlParser parser = new JsoupHtmlParser();
         IDocument doc = parser.parse(html);
-        ICssResolver resolver = new DefaultCssResolver(doc);
+        ICssResolver resolver = new DefaultCssResolver(doc, deviceDescription, new ResourceResolver(""));
         return Attacher.attach(doc, resolver);
     }
 

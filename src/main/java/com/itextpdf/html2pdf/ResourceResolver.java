@@ -42,19 +42,20 @@
  */
 package com.itextpdf.html2pdf;
 
-import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 public class ResourceResolver {
 
-    private ProcessorContext context;
+    private String baseUri;
 
-    public ResourceResolver(ProcessorContext context) {
-        this.context = context;
+    public ResourceResolver(String baseUri) {
+        this.baseUri = baseUri;
     }
 
     //TODO store/cache
@@ -63,8 +64,8 @@ public class ResourceResolver {
         try {
             url = new URL(src);
         } catch (MalformedURLException e) {
-            try{
-                url = new File(context.getBaseUri() +src).toURI().toURL();
+            try {
+                url = new File(baseUri + src).toURI().toURL();
             } catch (MalformedURLException ex) {
                 url = null;
             }
@@ -74,6 +75,15 @@ public class ResourceResolver {
             return null;
         } else {
             return ImageDataFactory.create(url);
+        }
+    }
+
+    // TODO port FileRetrieveImpl from iText5 DEVSIX-898
+    public FileInputStream retrieveStyleSheet(String url) {
+        try {
+            return new FileInputStream(baseUri + url);
+        } catch (FileNotFoundException exc) {
+            return null;
         }
     }
 
