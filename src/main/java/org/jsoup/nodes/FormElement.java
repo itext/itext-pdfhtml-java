@@ -1,9 +1,6 @@
 package org.jsoup.nodes;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.helper.HttpConnection;
-import org.jsoup.helper.Validate;
+import org.jsoup.helper.KeyVal;
 import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
 
@@ -11,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A HTML Form Element provides ready access to the form fields/controls that are associated with it. It also allows a
- * form to easily be submitted.
+ * A HTML Form Element provides ready access to the form fields/controls that are associated with it.
  */
 public class FormElement extends Element {
     private final Elements elements = new Elements();
@@ -46,31 +42,31 @@ public class FormElement extends Element {
         return this;
     }
 
-    /**
-     * Prepare to submit this form. A Connection object is created with the request set up from the form values. You
-     * can then set up other options (like user-agent, timeout, cookies), then execute it.
-     * @return a connection prepared from the values of this form.
-     * @throws IllegalArgumentException if the form's absolute action URL cannot be determined. Make sure you pass the
-     * document's base URI when parsing.
-     */
-    public Connection submit() {
-        String action = hasAttr("action") ? absUrl("action") : baseUri();
-        Validate.notEmpty(action, "Could not determine a form action URL for submit. Ensure you set a base URI when parsing.");
-        Connection.Method method = attr("method").toUpperCase().equals("POST") ?
-                Connection.Method.POST : Connection.Method.GET;
-
-        return Jsoup.connect(action)
-                .data(formData())
-                .method(method);
-    }
+//    /**
+//     * Prepare to submit this form. A Connection object is created with the request set up from the form values. You
+//     * can then set up other options (like user-agent, timeout, cookies), then execute it.
+//     * @return a connection prepared from the values of this form.
+//     * @throws IllegalArgumentException if the form's absolute action URL cannot be determined. Make sure you pass the
+//     * document's base URI when parsing.
+//     */
+//    public Connection submit() {
+//        String action = hasAttr("action") ? absUrl("action") : baseUri();
+//        Validate.notEmpty(action, "Could not determine a form action URL for submit. Ensure you set a base URI when parsing.");
+//        Connection.Method method = attr("method").toUpperCase().equals("POST") ?
+//                Connection.Method.POST : Connection.Method.GET;
+//
+//        return Jsoup.connect(action)
+//                .data(formData())
+//                .method(method);
+//    }
 
     /**
      * Get the data that this form submits. The returned list is a copy of the data, and changes to the contents of the
      * list will not be reflected in the DOM.
      * @return a list of key vals
      */
-    public List<Connection.KeyVal> formData() {
-        ArrayList<Connection.KeyVal> data = new ArrayList<Connection.KeyVal>();
+    public List<KeyVal> formData() {
+        ArrayList<KeyVal> data = new ArrayList<KeyVal>();
 
         // iterate the form control elements and accumulate their values
         for (Element el: elements) {
@@ -84,22 +80,22 @@ public class FormElement extends Element {
                 Elements options = el.select("option[selected]");
                 boolean set = false;
                 for (Element option: options) {
-                    data.add(HttpConnection.KeyVal.create(name, option.val()));
+                    data.add(KeyVal.create(name, option.val()));
                     set = true;
                 }
                 if (!set) {
                     Element option = el.select("option").first();
                     if (option != null)
-                        data.add(HttpConnection.KeyVal.create(name, option.val()));
+                        data.add(KeyVal.create(name, option.val()));
                 }
             } else if ("checkbox".equalsIgnoreCase(type) || "radio".equalsIgnoreCase(type)) {
                 // only add checkbox or radio if they have the checked attribute
                 if (el.hasAttr("checked")) {
                     final String val = el.val().length() >  0 ? el.val() : "on";
-                    data.add(HttpConnection.KeyVal.create(name, val));
+                    data.add(KeyVal.create(name, val));
                 }
             } else {
-                data.add(HttpConnection.KeyVal.create(name, el.val()));
+                data.add(KeyVal.create(name, el.val()));
             }
         }
         return data;

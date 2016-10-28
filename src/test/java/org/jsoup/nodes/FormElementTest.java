@@ -2,8 +2,8 @@ package org.jsoup.nodes;
 
 import com.itextpdf.test.annotations.type.UnitTest;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
+import org.jsoup.helper.KeyVal;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -37,7 +37,7 @@ public class FormElementTest {
                 "</form>";
         Document doc = Jsoup.parse(html);
         FormElement form = (FormElement) doc.select("form").first();
-        List<Connection.KeyVal> data = form.formData();
+        List<KeyVal> data = form.formData();
 
         assertEquals(6, data.size());
         assertEquals("one=two", data.get(0).toString());
@@ -50,49 +50,49 @@ public class FormElementTest {
         // ten should not appear, disabled
     }
 
-    @Test public void createsSubmitableConnection() {
-        String html = "<form action='/search'><input name='q'></form>";
-        Document doc = Jsoup.parse(html, "http://example.com/");
-        doc.select("[name=q]").attr("value", "jsoup");
-
-        FormElement form = ((FormElement) doc.select("form").first());
-        Connection con = form.submit();
-
-        assertEquals(Connection.Method.GET, con.request().method());
-        assertEquals("http://example.com/search", con.request().url().toExternalForm());
-        List<Connection.KeyVal> dataList = (List<Connection.KeyVal>) con.request().data();
-        assertEquals("q=jsoup", dataList.get(0).toString());
-
-        doc.select("form").attr("method", "post");
-        Connection con2 = form.submit();
-        assertEquals(Connection.Method.POST, con2.request().method());
-    }
-
-    @Test public void actionWithNoValue() {
-        String html = "<form><input name='q'></form>";
-        Document doc = Jsoup.parse(html, "http://example.com/");
-        FormElement form = ((FormElement) doc.select("form").first());
-        Connection con = form.submit();
-
-        assertEquals("http://example.com/", con.request().url().toExternalForm());
-    }
-
-    @Test public void actionWithNoBaseUri() {
-        String html = "<form><input name='q'></form>";
-        Document doc = Jsoup.parse(html);
-        FormElement form = ((FormElement) doc.select("form").first());
-
-
-        boolean threw = false;
-        try {
-            Connection con = form.submit();
-        } catch (IllegalArgumentException e) {
-            threw = true;
-            assertEquals("Could not determine a form action URL for submit. Ensure you set a base URI when parsing.",
-                    e.getMessage());
-        }
-        assertTrue(threw);
-    }
+//    @Test public void createsSubmitableConnection() {
+//        String html = "<form action='/search'><input name='q'></form>";
+//        Document doc = Jsoup.parse(html, "http://example.com/");
+//        doc.select("[name=q]").attr("value", "jsoup");
+//
+//        FormElement form = ((FormElement) doc.select("form").first());
+//        Connection con = form.submit();
+//
+//        assertEquals(Connection.Method.GET, con.request().method());
+//        assertEquals("http://example.com/search", con.request().url().toExternalForm());
+//        List<Connection.KeyVal> dataList = (List<Connection.KeyVal>) con.request().data();
+//        assertEquals("q=jsoup", dataList.get(0).toString());
+//
+//        doc.select("form").attr("method", "post");
+//        Connection con2 = form.submit();
+//        assertEquals(Connection.Method.POST, con2.request().method());
+//    }
+//
+//    @Test public void actionWithNoValue() {
+//        String html = "<form><input name='q'></form>";
+//        Document doc = Jsoup.parse(html, "http://example.com/");
+//        FormElement form = ((FormElement) doc.select("form").first());
+//        Connection con = form.submit();
+//
+//        assertEquals("http://example.com/", con.request().url().toExternalForm());
+//    }
+//
+//    @Test public void actionWithNoBaseUri() {
+//        String html = "<form><input name='q'></form>";
+//        Document doc = Jsoup.parse(html);
+//        FormElement form = ((FormElement) doc.select("form").first());
+//
+//
+//        boolean threw = false;
+//        try {
+//            Connection con = form.submit();
+//        } catch (IllegalArgumentException e) {
+//            threw = true;
+//            assertEquals("Could not determine a form action URL for submit. Ensure you set a base URI when parsing.",
+//                    e.getMessage());
+//        }
+//        assertTrue(threw);
+//    }
 
     @Test public void formsAddedAfterParseAreFormElements() {
         Document doc = Jsoup.parse("<body />");
@@ -115,14 +115,14 @@ public class FormElementTest {
         FormElement form = (FormElement) formEl;
         assertEquals(1, form.elements().size());
 
-        List<Connection.KeyVal> data = form.formData();
+        List<KeyVal> data = form.formData();
         assertEquals("foo=bar", data.get(0).toString());
     }
 
     @Test public void usesOnForCheckboxValueIfNoValueSet() {
         Document doc = Jsoup.parse("<form><input type=checkbox checked name=foo></form>");
         FormElement form = (FormElement) doc.select("form").first();
-        List<Connection.KeyVal> data = form.formData();
+        List<KeyVal> data = form.formData();
         assertEquals("on", data.get(0).value());
         assertEquals("foo", data.get(0).key());
     }
@@ -142,7 +142,7 @@ public class FormElementTest {
                 "</html>";
         Document doc = Jsoup.parse(html);
         FormElement form = (FormElement) doc.select("form").first();
-        List<Connection.KeyVal> data = form.formData();
+        List<KeyVal> data = form.formData();
         assertEquals(3, data.size());
         assertEquals("user", data.get(0).key());
         assertEquals("pass", data.get(1).key());
