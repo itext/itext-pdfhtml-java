@@ -70,9 +70,13 @@ public final class CssStyleSheetParser {
         return controller.getParsingResult();
     }
 
-    public static CssStyleSheet parse(String data) throws IOException {
+    public static CssStyleSheet parse(String data) {
         // TODO charset? better to create parse logic based on string completely
         ByteArrayInputStream stream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
-        return parse(stream);
+        try {
+            return parse(stream);
+        } catch (IOException exc) {
+            return null;
+        }
     }
 }

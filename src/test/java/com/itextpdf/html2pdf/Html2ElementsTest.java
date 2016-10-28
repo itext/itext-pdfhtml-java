@@ -48,7 +48,6 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.io.IOException;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -67,7 +66,7 @@ public class Html2ElementsTest extends ITextTest {
     }
 
     @Test
-    public void htmlToElementsTest01() throws IOException {
+    public void htmlToElementsTest01() {
         String html = "<p>Hello world!</p>";
         List<IElement> lst = HtmlConverter.convertToElements(html);
         Assert.assertTrue(lst.size() == 1);
@@ -77,7 +76,7 @@ public class Html2ElementsTest extends ITextTest {
     }
 
     @Test
-    public void htmlToElementsTest02() throws IOException {
+    public void htmlToElementsTest02() {
         String html = "<table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table>";
         List<IElement> lst = HtmlConverter.convertToElements(html);
         Assert.assertTrue(lst.size() == 1);
@@ -88,7 +87,7 @@ public class Html2ElementsTest extends ITextTest {
     }
 
     @Test
-    public void htmlToElementsTest03() throws IOException {
+    public void htmlToElementsTest03() {
         String html = "<p>Hello world!</p><table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table><p>Hello world!</p>";
         List<IElement> lst = HtmlConverter.convertToElements(html);
         Assert.assertTrue(lst.size() == 3);
@@ -101,7 +100,7 @@ public class Html2ElementsTest extends ITextTest {
 
     @Test
     // Handles malformed html
-    public void htmlToElementsTest04() throws IOException {
+    public void htmlToElementsTest04() {
         String html = "<p>Hello world!<table><td>123";
         List<IElement> lst = HtmlConverter.convertToElements(html);
         Assert.assertTrue(lst.size() == 2);
