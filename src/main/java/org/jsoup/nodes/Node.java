@@ -645,13 +645,7 @@ public abstract class Node implements Cloneable {
      */
     protected Node doClone(Node parent) {
         Node clone;
-
-        try {
-            clone = (Node) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
-
+        clone = (Node) partialClone();
         clone.parentNode = parent; // can be null, to create an orphan split
         clone.siblingIndex = parent == null ? 0 : siblingIndex;
         clone.attributes = attributes != null ? (Attributes) attributes.clone() : null;
@@ -662,6 +656,14 @@ public abstract class Node implements Cloneable {
             clone.childNodes.add(child);
 
         return clone;
+    }
+
+    private Object partialClone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static class OuterHtmlVisitor implements NodeVisitor {

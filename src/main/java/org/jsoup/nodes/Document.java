@@ -519,15 +519,19 @@ public class Document extends Element {
         @Override
         public Object clone() {
             OutputSettings clone;
-            try {
-                clone = (OutputSettings) super.clone();
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
+            clone = (OutputSettings) partialClone();
             clone.charset(charset.name()); // new charset and charset encoder
             clone.escapeMode = Entities.EscapeMode.valueOf(escapeMode.name());
             // indentAmount, prettyPrint are primitives so object.clone() will handle
             return clone;
+        }
+
+        private Object partialClone() {
+            try {
+                return super.clone();
+            } catch (CloneNotSupportedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

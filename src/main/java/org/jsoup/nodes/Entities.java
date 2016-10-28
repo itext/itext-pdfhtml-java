@@ -245,7 +245,7 @@ public class Entities {
         fullByVal = toCharacterKey(full);
 
         for (Object[] entity : xhtmlArray) {
-            Character c = (char) ((Integer) entity[1]).intValue();
+            char c = (char) ((Integer) entity[1]).intValue();
             xhtmlByVal.put(c, ((String) entity[0]));
         }
     }
