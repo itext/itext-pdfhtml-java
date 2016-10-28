@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.tags.ImageTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.ImgTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.util.CssUtils;
@@ -105,12 +105,12 @@ public class ImgTagCssApplier implements ICssApplier {
             }
         }
         if (cssProps.get(CssConstants.HEIGHT) != null) {
-            ((ImageTagWorker)worker).getImage().setAutoScale(false);
-            ((ImageTagWorker)worker).getImage().setProperty(Property.HEIGHT, CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.HEIGHT)));
+            ((ImgTagWorker)worker).getImage().setAutoScale(false);
+            ((ImgTagWorker)worker).getImage().setProperty(Property.HEIGHT, CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.HEIGHT)));
         }
         if (cssProps.get(CssConstants.WIDTH) != null) {
-            ((ImageTagWorker)worker).getImage().setAutoScale(false);
-            ((ImageTagWorker)worker).getImage().setProperty(Property.WIDTH, UnitValue.createPointValue(CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.WIDTH))));
+            ((ImgTagWorker)worker).getImage().setAutoScale(false);
+            ((ImgTagWorker)worker).getImage().setProperty(Property.WIDTH, UnitValue.createPointValue(CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.WIDTH))));
         }
     }
 }

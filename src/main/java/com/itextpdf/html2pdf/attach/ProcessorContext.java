@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach;
 
+import com.itextpdf.html2pdf.ResourceResolver;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.font.DefaultFontResolver;
 import com.itextpdf.html2pdf.font.IFontResolver;
@@ -53,11 +54,13 @@ public class ProcessorContext {
     private PdfDocument pdfDocument;
     private ICssResolver cssResolver;
     private IFontResolver fontResolver;
+    private ResourceResolver resourceResolver;
     private String baseUri;
 
     public ProcessorContext(ICssResolver cssResolver) {
         this.cssResolver = cssResolver;
         this.fontResolver = new DefaultFontResolver();
+        this.resourceResolver = new ResourceResolver(this);
         this.state = new State();
     }
 
@@ -89,5 +92,9 @@ public class ProcessorContext {
 
     public String getBaseUri() {
         return baseUri;
+    }
+
+    public ResourceResolver getResourceResolver() {
+        return resourceResolver;
     }
 }

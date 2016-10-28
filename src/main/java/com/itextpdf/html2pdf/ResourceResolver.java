@@ -40,57 +40,41 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf;
 
-import com.itextpdf.html2pdf.attach.impl.tags.*;
-import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-// TODO add possibility to register operators
-public class TagWorkerFactory {
+public class ResourceResolver {
 
-    public static ITagWorker getTagWorker(IElement tag, ProcessorContext context) {
-        switch (tag.name()) {
-            case TagConstants.BR:
-                return new BrTagWorker(tag, context);
-            case TagConstants.DIV:
-                return new DivTagWorker(tag, context);
-            case TagConstants.DD:
-                return new DdTagWorker(tag, context);
-            case TagConstants.DL:
-                return new DlTagWorker(tag, context);
-            case TagConstants.DT:
-                return new DtTagWorker(tag, context);
-            case TagConstants.HTML:
-                return new HtmlTagWorker(tag, context);
-            case TagConstants.IMG:
-                return new ImgTagWorker(tag, context);
-            case TagConstants.LI:
-                return new LiTagWorker(tag, context);
-            case TagConstants.OL:
-                return new UlOlTagWorker(tag, context);
-            case TagConstants.P:
-                return new PTagWorker(tag, context);
-            case TagConstants.SPAN:
-                return new SpanTagWorker(tag, context);
-            case TagConstants.TABLE:
-                return new TableTagWorker(tag, context);
-            case TagConstants.TFOOT:
-                TableTagWorker footerTagWorker = new TableTagWorker(tag, context);
-                footerTagWorker.setFooter();
-                return footerTagWorker;
-            case TagConstants.THEAD:
-                TableTagWorker headerTagWorker = new TableTagWorker(tag, context);
-                headerTagWorker.setHeader();
-                return headerTagWorker;
-            case TagConstants.TD:
-                return new TdTagWorker(tag, context);
-            case TagConstants.TR:
-                return new TrTagWorker(tag, context);
-            case TagConstants.UL:
-                return new UlOlTagWorker(tag, context);
+    private ProcessorContext context;
+
+    public ResourceResolver(ProcessorContext context) {
+        this.context = context;
+    }
+
+    //TODO store/cache
+    public ImageData retrieveImage(String src) {
+        URL url;
+        try {
+            url = new URL(src);
+        } catch (MalformedURLException e) {
+            try{
+                url = new File(context.getBaseUri() +src).toURI().toURL();
+            } catch (MalformedURLException ex) {
+                url = null;
+            }
         }
-        return null;
+
+        if (url == null) {
+            return null;
+        } else {
+            return ImageDataFactory.create(url);
+        }
     }
 
 }

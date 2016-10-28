@@ -40,68 +40,21 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.tags;
+package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.Image;
+import java.util.Map;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-public class ImageTagWorker implements ITagWorker {
-
-    private Div imageContainer;
-    private Image image;
-
-    public ImageTagWorker(IElement element, ProcessorContext context) {
-        imageContainer = new Div();
-        imageContainer.setMargin(0);
-        imageContainer.setPadding(0);
-        URL url;
-        try {
-            url = new URL(element.getAttribute("src"));
-        } catch (MalformedURLException e) {
-            try{
-                url = new File(context.getBaseUri() + element.getAttribute("src")).toURI().toURL();
-            } catch (MalformedURLException ex) {
-                url = null;
-            }
-        }
-
-        if (url != null) {
-            image = new Image(ImageDataFactory.create(url));
-            image.setAutoScale(true);
-            imageContainer.add(image);
-        }
-    }
+public class DlTagCssApplier implements ICssApplier {
 
     @Override
-    public void processEnd(IElement element, ProcessorContext context) {
-
+    public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
+        Map<String, String> css = element.getStyles();
+        ListStyleApplierUtil.applyListStyleImageProperty(css, context, tagWorker.getElementResult());
     }
 
-    @Override
-    public boolean processContent(String content, ProcessorContext context) {
-        return false;
-    }
-
-    @Override
-    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        return true;
-    }
-
-    @Override
-    public IPropertyContainer getElementResult() {
-        return imageContainer;
-    }
-
-    public Image getImage() {
-        return image;
-    }
 }

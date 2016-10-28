@@ -40,57 +40,35 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.attach.impl.tags.*;
-import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.List;
+import java.util.Map;
 
-// TODO add possibility to register operators
-public class TagWorkerFactory {
+public final class ListStyleApplierUtil {
 
-    public static ITagWorker getTagWorker(IElement tag, ProcessorContext context) {
-        switch (tag.name()) {
-            case TagConstants.BR:
-                return new BrTagWorker(tag, context);
-            case TagConstants.DIV:
-                return new DivTagWorker(tag, context);
-            case TagConstants.DD:
-                return new DdTagWorker(tag, context);
-            case TagConstants.DL:
-                return new DlTagWorker(tag, context);
-            case TagConstants.DT:
-                return new DtTagWorker(tag, context);
-            case TagConstants.HTML:
-                return new HtmlTagWorker(tag, context);
-            case TagConstants.IMG:
-                return new ImgTagWorker(tag, context);
-            case TagConstants.LI:
-                return new LiTagWorker(tag, context);
-            case TagConstants.OL:
-                return new UlOlTagWorker(tag, context);
-            case TagConstants.P:
-                return new PTagWorker(tag, context);
-            case TagConstants.SPAN:
-                return new SpanTagWorker(tag, context);
-            case TagConstants.TABLE:
-                return new TableTagWorker(tag, context);
-            case TagConstants.TFOOT:
-                TableTagWorker footerTagWorker = new TableTagWorker(tag, context);
-                footerTagWorker.setFooter();
-                return footerTagWorker;
-            case TagConstants.THEAD:
-                TableTagWorker headerTagWorker = new TableTagWorker(tag, context);
-                headerTagWorker.setHeader();
-                return headerTagWorker;
-            case TagConstants.TD:
-                return new TdTagWorker(tag, context);
-            case TagConstants.TR:
-                return new TrTagWorker(tag, context);
-            case TagConstants.UL:
-                return new UlOlTagWorker(tag, context);
+    private ListStyleApplierUtil() {
+    }
+
+    public static void applyListStyleImageProperty(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+        if (element instanceof List) {
+            List list = (List) element;
+            String listStyleImage = cssProps.get(CssConstants.LIST_STYLE_IMAGE);
+            if (listStyleImage != null && !CssConstants.NONE.equals(listStyleImage)) {
+                String url = CssUtils.extractUrl(listStyleImage);
+                ImageData imageData = context.getResourceResolver().retrieveImage(url);
+                if (imageData != null) {
+                    list.setListSymbol(new Image(imageData));
+                    list.setSymbolIndent(5);
+                }
+            }
         }
-        return null;
     }
 
 }
