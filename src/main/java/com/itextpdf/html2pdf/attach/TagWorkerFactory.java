@@ -69,6 +69,12 @@ public class TagWorkerFactory {
                 return new LiTagWorker(tag, context);
             case TagConstants.OL:
                 return new UlOlTagWorker(tag, context);
+            case TagConstants.H1:
+            case TagConstants.H2:
+            case TagConstants.H3:
+            case TagConstants.H4:
+            case TagConstants.H5:
+            case TagConstants.H6:
             case TagConstants.P:
                 return new PTagWorker(tag, context);
             case TagConstants.SPAN:

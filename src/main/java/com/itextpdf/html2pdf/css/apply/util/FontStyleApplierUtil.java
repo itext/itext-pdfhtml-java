@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.css.apply.util;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.impl.PTagCssApplier;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
@@ -68,7 +69,8 @@ public final class FontStyleApplierUtil {
             }
         }
         if (cssProps.get(CssConstants.FONT_SIZE) != null) {
-            element.setProperty(Property.FONT_SIZE, Integer.valueOf(cssProps.get(CssConstants.FONT_SIZE)));
+            float baseValue = 12; // TODO get base value correctly
+            element.setProperty(Property.FONT_SIZE, CssUtils.parseLengthValueToPt(cssProps.get(CssConstants.FONT_SIZE), baseValue));
         }
         if (cssProps.get(CssConstants.FONT_WEIGHT) != null) {
             // TODO move to font selection mechanism

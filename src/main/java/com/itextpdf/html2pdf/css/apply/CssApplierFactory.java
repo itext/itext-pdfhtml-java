@@ -63,6 +63,12 @@ public class CssApplierFactory {
                 return new LiTagCssApplier();
             case TagConstants.OL:
                 return new OlTagCssApplier();
+            case TagConstants.H1:
+            case TagConstants.H2:
+            case TagConstants.H3:
+            case TagConstants.H4:
+            case TagConstants.H5:
+            case TagConstants.H6:
             case TagConstants.P:
                 return new PTagCssApplier();
             case TagConstants.IMG:
