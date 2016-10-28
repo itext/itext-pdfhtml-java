@@ -78,6 +78,11 @@ public interface Connection {
         public final String name() {
             return name;
         }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
     /**

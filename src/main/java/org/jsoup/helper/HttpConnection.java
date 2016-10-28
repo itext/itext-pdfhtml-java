@@ -27,10 +27,10 @@ import static org.jsoup.Connection.Method.HEAD;
  */
 public class HttpConnection implements Connection {
     public static final String  CONTENT_ENCODING = "Content-Encoding";
-    private static final String CONTENT_TYPE = "Content-Type";
-    private static final String MULTIPART_FORM_DATA = "multipart/form-data";
-    private static final String FORM_URL_ENCODED = "application/x-www-form-urlencoded";
-    private static final int HTTP_TEMP_REDIR = 307; // http/1.1 temporary redirect, not in Java's set.
+    static final String CONTENT_TYPE = "Content-Type";
+    static final String MULTIPART_FORM_DATA = "multipart/form-data";
+    static final String FORM_URL_ENCODED = "application/x-www-form-urlencoded";
+    static final int HTTP_TEMP_REDIR = 307; // http/1.1 temporary redirect, not in Java's set.
 
     public static Connection connect(String url) {
         Connection con = new HttpConnection();
@@ -44,13 +44,13 @@ public class HttpConnection implements Connection {
         return con;
     }
 
-	private static String encodeUrl(String url) {
+	static String encodeUrl(String url) {
 		if(url == null)
 			return null;
     	return url.replaceAll(" ", "%20");
 	}
 
-    private static String encodeMimeName(String val) {
+    static String encodeMimeName(String val) {
         if (val == null)
             return null;
         return val.replaceAll("\"", "%22");
@@ -253,13 +253,13 @@ public class HttpConnection implements Connection {
     }
 
     @SuppressWarnings({"unchecked"})
-    static abstract class Base<T extends Connection.Base> implements Connection.Base<T> {
+    public static abstract class Base<T extends Connection.Base> implements Connection.Base<T> {
         URL url;
         Method method;
         Map<String, String> headers;
         Map<String, String> cookies;
 
-        private Base() {
+        Base() {
             headers = new LinkedHashMap<String, String>();
             cookies = new LinkedHashMap<String, String>();
         }
@@ -382,11 +382,11 @@ public class HttpConnection implements Connection {
         private boolean ignoreHttpErrors = false;
         private boolean ignoreContentType = false;
         private Parser parser;
-        private boolean parserDefined = false; // called parser(...) vs initialized in ctor
+        boolean parserDefined = false; // called parser(...) vs initialized in ctor
         private boolean validateTSLCertificates = true;
         private String postDataCharset = DataUtil.defaultCharset;
 
-        private Request() {
+        Request() {
             timeoutMilliseconds = 3000;
             maxBodySizeBytes = 1024 * 1024; // 1MB
             followRedirects = true;
@@ -496,7 +496,7 @@ public class HttpConnection implements Connection {
 
         public Connection.Request postDataCharset(String charset) {
             Validate.notNull(charset, "Charset must not be null");
-            if (!Charset.isSupported(charset)) throw new IllegalCharsetNameException(charset);
+            if (!PortUtil.charsetIsSupported(charset)) throw new IllegalArgumentException(charset);
             this.postDataCharset = charset;
             return this;
         }
@@ -572,7 +572,7 @@ public class HttpConnection implements Connection {
 
                 // redirect if there's a location header (from 3xx, or 201 etc)
                 if (res.hasHeader(LOCATION) && req.followRedirects()) {
-                    if (status != HTTP_TEMP_REDIR) {
+                    if (status != HttpConnection.HTTP_TEMP_REDIR) {
                         req.method(Method.GET); // always redirect with a get. any data param from original req are dropped.
                         req.data().clear();
                     }
@@ -613,7 +613,7 @@ public class HttpConnection implements Connection {
                     InputStream bodyStream = null;
                     try {
                         bodyStream = conn.getErrorStream() != null ? conn.getErrorStream() : conn.getInputStream();
-                        if (res.hasHeaderWithValue(CONTENT_ENCODING, "gzip"))
+                        if (res.hasHeaderWithValue(HttpConnection.CONTENT_ENCODING, "gzip"))
                             bodyStream = new GZIPInputStream(bodyStream);
 
                         res.byteData = DataUtil.readToByteBuffer(bodyStream, req.maxBodySize());
@@ -845,9 +845,9 @@ public class HttpConnection implements Connection {
             String bound = null;
             if (needsMultipart(req)) {
                 bound = DataUtil.mimeBoundary();
-                req.header(CONTENT_TYPE, MULTIPART_FORM_DATA + "; boundary=" + bound);
+                req.header(HttpConnection.CONTENT_TYPE, HttpConnection.MULTIPART_FORM_DATA + "; boundary=" + bound);
             } else {
-                req.header(CONTENT_TYPE, FORM_URL_ENCODED + "; charset=" + req.postDataCharset());
+                req.header(HttpConnection.CONTENT_TYPE, HttpConnection.FORM_URL_ENCODED + "; charset=" + req.postDataCharset());
             }
             return bound;
         }
@@ -948,7 +948,7 @@ public class HttpConnection implements Connection {
         }
     }
 
-    private static boolean needsMultipart(Connection.Request req) {
+    static boolean needsMultipart(Connection.Request req) {
         // multipart mode, for files. add the header if we see something with an inputstream, and return a non-null boundary
         boolean needsMulti = false;
         for (Connection.KeyVal keyVal : req.data()) {

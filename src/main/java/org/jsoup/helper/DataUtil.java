@@ -1,5 +1,6 @@
 package org.jsoup.helper;
 
+import org.jsoup.PortUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.XmlDeclaration;
@@ -13,7 +14,6 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
-import java.nio.charset.IllegalCharsetNameException;
 import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -199,7 +199,7 @@ public final class DataUtil {
     static String getCharsetFromContentType(String contentType) {
         if (contentType == null) return null;
         Matcher m = charsetPattern.matcher(contentType);
-        if (m.find()) {
+        if (PortUtil.isSuccessful(m)) {
             String charset = m.group(1).trim();
             charset = charset.replace("charset=", "");
             return validateCharset(charset);
@@ -210,13 +210,10 @@ public final class DataUtil {
     private static String validateCharset(String cs) {
         if (cs == null || cs.length() == 0) return null;
         cs = cs.trim().replaceAll("[\"']", "");
-        try {
-            if (Charset.isSupported(cs)) return cs;
-            cs = cs.toUpperCase(Locale.ENGLISH);
-            if (Charset.isSupported(cs)) return cs;
-        } catch (IllegalCharsetNameException e) {
-            // if our this charset matching fails.... we just take the default
-        }
+        if (PortUtil.charsetIsSupported(cs)) return cs;
+        cs = cs.toUpperCase(Locale.ENGLISH);
+        if (PortUtil.charsetIsSupported(cs)) return cs;
+        // if our this charset matching fails.... we just take the default
         return null;
     }
 
