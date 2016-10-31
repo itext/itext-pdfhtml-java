@@ -40,8 +40,9 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf;
+package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.media.MediaType;
 import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
@@ -65,8 +66,8 @@ import org.junit.experimental.categories.Category;
 // TODO extend from ExtendedITextTest and therefore check logging
 public class ListTest extends ITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/ListTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/ListTest/";
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/ListTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/ListTest/";
 
     @BeforeClass
     public static void beforeClass() {

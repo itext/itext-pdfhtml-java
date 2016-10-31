@@ -40,41 +40,59 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf;
+package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+import java.io.File;
+import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import java.io.File;
-import java.io.IOException;
-
 @Category(IntegrationTest.class)
 // TODO extend from ExtendedITextTest and therefore check logging
-public class Html2PdfImageTest extends ITextTest {
+public class TableTest extends ITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/Html2PdfImageTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/Html2PdfImageTest/";
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/TableTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/TableTest/";
 
     @BeforeClass
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
 
-
     @Test
-    public void imageFileDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_image_file.html"), new File(destinationFolder + "hello_image_file.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_image_file.pdf", sourceFolder + "cmp_hello_image_file.pdf", destinationFolder, "diff04_"));
+    public void helloTableDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_table.html"), new File(destinationFolder + "hello_table.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_table.pdf", sourceFolder + "cmp_hello_table.pdf", destinationFolder, "diff01_"));
     }
 
     @Test
-    public void imageUrlDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_image_url.html"), new File(destinationFolder + "hello_image_url.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_image_url.pdf", sourceFolder + "cmp_hello_image_url.pdf", destinationFolder, "diff05_"));
+    public void helloTableHeaderFooterDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_table_header_footer.html"), new File(destinationFolder + "hello_table_header_footer.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_table_header_footer.pdf", sourceFolder + "cmp_hello_table_header_footer.pdf", destinationFolder, "diff02_"));
     }
+
+    @Test
+    public void helloTableColspanDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_table_colspan.html"), new File(destinationFolder + "hello_table_colspan.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_table_colspan.pdf", sourceFolder + "cmp_hello_table_colspan.pdf", destinationFolder, "diff03_"));
+    }
+
+    @Test
+    public void helloTableRowspanDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_table_rowspan.html"), new File(destinationFolder + "hello_table_rowspan.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_table_rowspan.pdf", sourceFolder + "cmp_hello_table_rowspan.pdf", destinationFolder, "diff04_"));
+    }
+
+    @Test
+    public void helloTableColspanRowspanDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_table_colspan_rowspan.html"), new File(destinationFolder + "hello_table_colspan_rowspan.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_table_colspan_rowspan.pdf", sourceFolder + "cmp_hello_table_colspan_rowspan.pdf", destinationFolder, "diff05_"));
+    }
+
 }

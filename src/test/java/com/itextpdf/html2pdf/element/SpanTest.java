@@ -40,8 +40,9 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf;
+package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -54,10 +55,10 @@ import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 // TODO extend from ExtendedITextTest and therefore check logging
-public class DivTest extends ITextTest {
+public class SpanTest extends ITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/DivTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/DivTest/";
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/SpanTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/SpanTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -65,9 +66,27 @@ public class DivTest extends ITextTest {
     }
 
     @Test
-    public void divTest01() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "divTest01.html"), new File(destinationFolder + "divTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "divTest01.pdf", sourceFolder + "cmp_divTest01.pdf", destinationFolder, "diff01_"));
+    public void spanTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest01.html"), new File(destinationFolder + "spanTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest01.pdf", sourceFolder + "cmp_spanTest01.pdf", destinationFolder, "diff01_"));
+    }
+
+    @Test
+    public void spanTest02() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest02.html"), new File(destinationFolder + "spanTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest02.pdf", sourceFolder + "cmp_spanTest02.pdf", destinationFolder, "diff02_"));
+    }
+
+    @Test
+    public void spanTest03() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest03.html"), new File(destinationFolder + "spanTest03.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest03.pdf", sourceFolder + "cmp_spanTest03.pdf", destinationFolder, "diff03_"));
+    }
+
+    @Test
+    public void spanTest04() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest04.html"), new File(destinationFolder + "spanTest04.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest04.pdf", sourceFolder + "cmp_spanTest04.pdf", destinationFolder, "diff04_"));
     }
 
 }
