@@ -52,15 +52,16 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.pdfa.PdfADocument;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Category(IntegrationTest.class)
 // TODO extend from ExtendedITextTest and therefore check logging
@@ -93,7 +94,6 @@ public class ListTest extends ITextTest {
     }
 
     @Test
-    @Ignore("Different list numbering style for inner lists")
     public void listTest04() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "listTest04.html"), new File(destinationFolder + "listTest04.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest04.pdf", sourceFolder + "cmp_listTest04.pdf", destinationFolder, "diff04_"));
@@ -119,7 +119,7 @@ public class ListTest extends ITextTest {
     }
 
     @Test
-    @Ignore("Conversion to Pdf/A for lists not supported")
+    @Ignore("Conversion to Pdf/A for lists not supported. DEVSIX-917")
     public void listToPdfaTest() throws IOException, InterruptedException {
         InputStream is = new FileInputStream(sourceFolder + "sRGB Color Space Profile.icm");
         PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "listToPdfa.pdf"), PdfAConformanceLevel.PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", is));
