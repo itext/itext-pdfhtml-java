@@ -44,70 +44,42 @@ package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
+import com.itextpdf.html2pdf.css.CssStyleSheet;
+import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
+import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IElement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.itextpdf.io.util.ResourceUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.*;
 
 class HtmlStylesToCssConverter {
-    private static final Map<String, List<CssDeclaration>> htmlStyleTagsToCss;
+
+    private static final String DEFAULT_CSS_PATH = "com/itextpdf/html2pdf/default.css";
+    private static final CssStyleSheet defaultCss;
     private static final Map<String, IAttributeConverter> htmlAttributeConverters;
+
     static {
-        htmlStyleTagsToCss = new HashMap<>();
-        htmlStyleTagsToCss.put(TagConstants.CENTER, Arrays.asList(
-                new CssDeclaration(CssConstants.TEXT_ALIGN, CssConstants.CENTER)));
-        htmlStyleTagsToCss.put(TagConstants.H1, Arrays.asList(
-                new CssDeclaration(CssConstants.FONT_SIZE, "2em"),
-                new CssDeclaration(CssConstants.FONT_WEIGHT, CssConstants.BOLD),
-                new CssDeclaration(CssConstants.MARGIN, "0.67em 0")));
-        htmlStyleTagsToCss.put(TagConstants.H2, Arrays.asList(
-                new CssDeclaration(CssConstants.FONT_SIZE, "1.5em"),
-                new CssDeclaration(CssConstants.FONT_WEIGHT, CssConstants.BOLD),
-                new CssDeclaration(CssConstants.MARGIN, "0.83em 0")));
-        htmlStyleTagsToCss.put(TagConstants.H3, Arrays.asList(
-                new CssDeclaration(CssConstants.FONT_SIZE, "1.17em"),
-                new CssDeclaration(CssConstants.FONT_WEIGHT, CssConstants.BOLD),
-                new CssDeclaration(CssConstants.MARGIN, "1em 0")));
-        htmlStyleTagsToCss.put(TagConstants.H4, Arrays.asList(
-                new CssDeclaration(CssConstants.FONT_SIZE, "1em"),
-                new CssDeclaration(CssConstants.FONT_WEIGHT, CssConstants.BOLD),
-                new CssDeclaration(CssConstants.MARGIN, "1.33em 0")));
-        htmlStyleTagsToCss.put(TagConstants.H5, Arrays.asList(
-                new CssDeclaration(CssConstants.FONT_SIZE, "0.83em"),
-                new CssDeclaration(CssConstants.FONT_WEIGHT, CssConstants.BOLD),
-                new CssDeclaration(CssConstants.MARGIN, "1.67em 0")));
-        htmlStyleTagsToCss.put(TagConstants.H6, Arrays.asList(
-                new CssDeclaration(CssConstants.FONT_SIZE, "0.67em"),
-                new CssDeclaration(CssConstants.FONT_WEIGHT, CssConstants.BOLD),
-                new CssDeclaration(CssConstants.MARGIN, "2.33em 0")));
-        htmlStyleTagsToCss.put(TagConstants.SUB, Arrays.asList(
-                new CssDeclaration(CssConstants.FONT_SIZE, CssConstants.SMALLER),
-                new CssDeclaration(CssConstants.VERTICAL_ALIGN, CssConstants.SUB)));
-        htmlStyleTagsToCss.put(TagConstants.SUP, Arrays.asList(
-                new CssDeclaration(CssConstants.FONT_SIZE, CssConstants.SMALLER),
-                new CssDeclaration(CssConstants.VERTICAL_ALIGN, CssConstants.SUPER)));
-        htmlStyleTagsToCss.put(TagConstants.B, Arrays.asList(
-                new CssDeclaration(CssConstants.FONT_WEIGHT, CssConstants.BOLD)));
-        htmlStyleTagsToCss.put(TagConstants.I, Arrays.asList(
-                new CssDeclaration(CssConstants.FONT_STYLE, CssConstants.ITALIC)));
+        CssStyleSheet parsedStylesheet = new CssStyleSheet();;
+        try {
+            parsedStylesheet = CssStyleSheetParser.parse(ResourceUtil.getResourceStream(DEFAULT_CSS_PATH));
+        } catch (IOException exc) {
+            Logger logger = LoggerFactory.getLogger(HtmlStylesToCssConverter.class);
+            logger.error("Error parsing default.css", exc);
+        } finally {
+            defaultCss = parsedStylesheet;
+        }
 
         // TODO text-decoration is not an inheritable property, also both couldn't be applied via css at the same time
 //        htmlStyleTagsToCss.put(TagConstants.U, Arrays.asList(
 //                new CssDeclaration(CssConstants.TEXT_DECORATION, CssConstants.UNDERLINE)));
 //        htmlStyleTagsToCss.put(TagConstants.STRIKE, Arrays.asList(
 //                new CssDeclaration(CssConstants.TEXT_DECORATION, CssConstants.LINE_THROUGH)));
-
-        htmlStyleTagsToCss.put(TagConstants.BIG, Arrays.asList(
-                new CssDeclaration(CssConstants.FONT_SIZE, CssConstants.LARGER)));
-        htmlStyleTagsToCss.put(TagConstants.SMALL, Arrays.asList(
-                new CssDeclaration(CssConstants.FONT_SIZE, CssConstants.SMALLER)));
 
         htmlAttributeConverters = new HashMap<>();
         htmlAttributeConverters.put(AttributeConstants.BORDER, new BorderAttributeConverter());
@@ -124,7 +96,7 @@ class HtmlStylesToCssConverter {
 
     public static List<CssDeclaration> convert(IElement element) {
         List<CssDeclaration> convertedHtmlStyles = new ArrayList<>();
-        List<CssDeclaration> tagCssStyles = htmlStyleTagsToCss.get(element.name());
+        List<CssDeclaration> tagCssStyles = defaultCss.getCssDeclarations(element, MediaDeviceDescription.createDefault());
         if (tagCssStyles != null) {
             convertedHtmlStyles.addAll(tagCssStyles);
         }

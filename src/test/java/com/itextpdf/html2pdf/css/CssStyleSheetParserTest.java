@@ -54,11 +54,12 @@ import org.junit.Test;
 public class CssStyleSheetParserTest {
 
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssStyleSheetParserTest/";
+    private static final String DEFAULT_CSS_PATH = "com/itextpdf/html2pdf/default.css";
 
     @Test
     public void testDefaultCss() throws IOException {
         String cmpFile = sourceFolder + "cmp_default.css";
-        CssStyleSheet styleSheet = CssStyleSheetParser.parse(ResourceUtil.getResourceStream("default.css"));
+        CssStyleSheet styleSheet = CssStyleSheetParser.parse(ResourceUtil.getResourceStream(DEFAULT_CSS_PATH));
         Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
     }
 

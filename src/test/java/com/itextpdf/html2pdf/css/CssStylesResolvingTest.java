@@ -53,17 +53,14 @@ import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.*;
 
 @Category(UnitTest.class)
 // TODO extend ExtendedITextTest
@@ -73,19 +70,31 @@ public class CssStylesResolvingTest extends ITextTest {
     @Test
     public void collectStylesDeclarationsTest01() throws IOException {
         test("collectStylesDeclarationsTest01.html", "html body p",
-                "color: red", "text-align: center", "font-size: 15px");
+                "color: red", "text-align: center", "font-size: 15px",
+                "margin-bottom: 1em",
+                "margin-left: 0",
+                "margin-right: 0",
+                "margin-top: 1em");
     }
 
     @Test
     public void collectStylesDeclarationsTest02() throws IOException {
         test("collectStylesDeclarationsTest02.html", "html body p",
-                "color: blue", "text-align: center", "font-style: italic", "font-size: 15px");
+                "color: blue", "text-align: center", "font-style: italic", "font-size: 15px",
+                "margin-bottom: 1em",
+                "margin-left: 0",
+                "margin-right: 0",
+                "margin-top: 1em");
     }
 
     @Test
     public void collectStylesDeclarationsTest03() throws IOException {
         test("collectStylesDeclarationsTest03.html", "html body p",
-                "color: red", "text-align: right", "font-size: 10px");
+                "color: red", "text-align: right", "font-size: 10px",
+                "margin-bottom: 1em",
+                "margin-left: 0",
+                "margin-right: 0",
+                "margin-top: 1em");
     }
 
     @Test
@@ -103,19 +112,19 @@ public class CssStylesResolvingTest extends ITextTest {
     @Test
     public void stylesInheritanceTest03() throws IOException {
         test("stylesInheritanceTest03.html", "html body p span",
-                "color: green");
+                "color: green", "font-size: 12pt");
     }
 
     @Test
     public void stylesInheritanceTest04() throws IOException {
         test("stylesInheritanceTest04.html", "html body p span",
-                "color: blue");
+                "color: blue", "font-size: 12pt");
     }
 
     @Test
     public void stylesInheritanceTest05() throws IOException {
         test("stylesInheritanceTest05.html", "html body p span",
-                "color: black");
+                "color: black", "font-size: 12pt");
     }
 
     @Test
@@ -123,7 +132,8 @@ public class CssStylesResolvingTest extends ITextTest {
         test("stylesInheritanceTest06.html", "html body p span",
                 "margin-left: 20px",
                 "margin-right: 0",
-                "background-color: yellow");
+                "background-color: yellow",
+                "font-size: 12pt");
     }
 
     @Test
@@ -131,7 +141,8 @@ public class CssStylesResolvingTest extends ITextTest {
         test("stylesInheritanceTest07.html", "html body div p span",
                 "margin-left: 0",
                 "padding-top: 10px",
-                "background-color: yellow");
+                "background-color: yellow",
+                "font-size: 12pt");
     }
 
     @Test
@@ -148,31 +159,56 @@ public class CssStylesResolvingTest extends ITextTest {
                 "border-bottom-color: red",
                 "border-left-color: red",
                 "border-right-color: red",
-                "border-top-color: red");
+                "border-top-color: red",
+                "font-size: 12pt",
+                "margin-bottom: 1em",
+                "margin-left: 0",
+                "margin-right: 0",
+                "margin-top: 1em");
     }
 
     @Test
     public void htmlStylesConvertingTest01() throws IOException {
         test("htmlStylesConvertingTest01.html", "html body b p",
-                "font-weight: bold");
+                "font-weight: bold",
+                "font-size: 12pt",
+                "margin-bottom: 1em",
+                "margin-left: 0",
+                "margin-right: 0",
+                "margin-top: 1em");
     }
 
     @Test
     public void htmlStylesConvertingTest02() throws IOException {
         test("htmlStylesConvertingTest01.html", "html body b i p",
-                "font-weight: bold", "font-style: italic");
+                "font-weight: bold", "font-style: italic",
+                "font-size: 12pt",
+                "margin-bottom: 1em",
+                "margin-left: 0",
+                "margin-right: 0",
+                "margin-top: 1em");
     }
 
     @Test
     public void htmlStylesConvertingTest03() throws IOException {
         test("htmlStylesConvertingTest01.html", "html body i p",
-                "font-style: italic");
+                "font-style: italic",
+                "font-size: 12pt",
+                "margin-bottom: 1em",
+                "margin-left: 0",
+                "margin-right: 0",
+                "margin-top: 1em");
     }
 
     @Test
     public void htmlStylesConvertingTest04() throws IOException {
         test("htmlStylesConvertingTest01.html", "html body i center p",
-                "font-style: italic", "text-align: center");
+                "font-style: italic", "text-align: center",
+                "font-size: 12pt",
+                "margin-bottom: 1em",
+                "margin-left: 0",
+                "margin-right: 0",
+                "margin-top: 1em");
     }
 
     @Test
@@ -180,13 +216,22 @@ public class CssStylesResolvingTest extends ITextTest {
         test("htmlStylesConvertingTest05.html", "html body table",
                 "border-bottom-style: solid", "border-left-style: solid", "border-right-style: solid", "border-top-style: solid",
                 "border-bottom-width: 2px", "border-left-width: 2px", "border-right-width: 2px", "border-top-width: 2px",
-                "border-bottom-color: black", "border-left-color: black", "border-right-color: black", "border-top-color: black" );
+                "border-bottom-color: black", "border-left-color: black", "border-right-color: black", "border-top-color: black",
+                "font-size: 12pt",
+                "margin-bottom: 0",
+                "margin-left: 0",
+                "margin-right: 0",
+                "margin-top: 0",
+                "text-indent: 0");
     }
 
     @Test
     public void htmlStylesConvertingTest06() throws IOException {
         test("htmlStylesConvertingTest05.html", "html body table tbody tr",
-                "background-color: yellow");
+                "background-color: yellow",
+                "font-size: 12pt",
+                "text-indent: 0",
+                "vertical-align: middle");
     }
 
     @Test
@@ -204,7 +249,9 @@ public class CssStylesResolvingTest extends ITextTest {
     @Test
     public void htmlStylesConvertingTest09() throws IOException {
         test("htmlStylesConvertingTest08.html", "html body div center",
-                "text-align: center");
+                "text-align: center",
+                "display: block",
+                "font-size: 12pt");
     }
 
     @Test
@@ -216,7 +263,12 @@ public class CssStylesResolvingTest extends ITextTest {
     @Test
     public void htmlStylesConvertingTest11() throws IOException {
         test("htmlStylesConvertingTest10.html", "html body",
-                "background-color: yellow");
+                "background-color: yellow",
+                "font-size: 12pt",
+                "margin-bottom: 10%",
+                "margin-left: 10%",
+                "margin-right: 10%",
+                "margin-top: 10%");
     }
 
     private void resolveStylesForTree(INode node, ICssResolver cssResolver) {

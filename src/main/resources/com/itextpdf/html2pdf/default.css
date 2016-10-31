@@ -6,6 +6,23 @@ pre, tt, code, kbd, samp {
 dt {
     margin: 0;
 }
+
+big {
+    font-size: larger;
+}
+
+small {
+    font-size: smaller;
+}
+
+b {
+    font-weight: bold;
+}
+
+i {
+    font-style: italic;
+}
+
 /* styles below are taken from Mozilla Defaults */
 body {
     margin: 10%;
