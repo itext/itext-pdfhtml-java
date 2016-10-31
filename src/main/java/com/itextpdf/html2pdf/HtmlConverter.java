@@ -108,15 +108,27 @@ public class HtmlConverter {
     }
 
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
-        convertToPdf(htmlStream, pdfWriter, "");
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter));
+    }
+
+    public static void convertToPdf(InputStream htmlStream, PdfDocument pdfDocument) throws IOException {
+        convertToPdf(htmlStream, pdfDocument, "");
     }
 
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter, String baseUri) throws IOException {
-        convertToPdf(htmlStream, pdfWriter, baseUri, MediaDeviceDescription.createDefault());
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter), baseUri);
+    }
+
+    public static void convertToPdf(InputStream htmlStream, PdfDocument pdfDocument, String baseUri) throws IOException {
+        convertToPdf(htmlStream, pdfDocument, baseUri, MediaDeviceDescription.createDefault());
     }
 
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter, String baseUri, MediaDeviceDescription deviceDescription) throws IOException {
-        Document document = convertToDocument(htmlStream, pdfWriter, baseUri, deviceDescription);
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter), baseUri, deviceDescription);
+    }
+
+    public static void convertToPdf(InputStream htmlStream, PdfDocument pdfDocument, String baseUri, MediaDeviceDescription deviceDescription) throws IOException {
+        Document document = convertToDocument(htmlStream, pdfDocument, baseUri, deviceDescription);
         document.close();
     }
 
@@ -129,11 +141,18 @@ public class HtmlConverter {
     }
 
     public static Document convertToDocument(InputStream htmlStream, PdfWriter pdfWriter, String baseUri, MediaDeviceDescription deviceDescription) throws IOException {
+        return convertToDocument(htmlStream, new PdfDocument(pdfWriter), baseUri, deviceDescription);
+    }
+
+    public static Document convertToDocument(InputStream htmlStream, PdfDocument pdfDocument, String baseUri, MediaDeviceDescription deviceDescription) throws IOException {
+        if (pdfDocument.getReader() != null) {
+            throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
+        }
         IHtmlParser parser = new JsoupHtmlParser();
         String detectedCharset = detectEncoding(htmlStream);
         IDocument doc = parser.parse(htmlStream, detectedCharset, baseUri);
         ICssResolver resolver = new DefaultCssResolver(doc, deviceDescription, new ResourceResolver(baseUri));
-        Document document = Attacher.attach(doc, resolver, new PdfDocument(pdfWriter), baseUri);
+        Document document = Attacher.attach(doc, resolver, pdfDocument, baseUri);
         return document;
     }
 

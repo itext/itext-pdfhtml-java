@@ -44,11 +44,17 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.media.MediaType;
+import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
+import com.itextpdf.kernel.pdf.PdfOutputIntent;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.pdfa.PdfADocument;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -109,6 +115,15 @@ public class ListTest extends ITextTest {
     public void listTest07() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "listTest07.html"), new File(destinationFolder + "listTest07.pdf"), new MediaDeviceDescription(MediaType.PRINT));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest07.pdf", sourceFolder + "cmp_listTest07.pdf", destinationFolder, "diff07_"));
+    }
+
+    @Test
+    @Ignore("Conversion to Pdf/A for lists not supported")
+    public void listToPdfaTest() throws IOException, InterruptedException {
+        InputStream is = new FileInputStream(sourceFolder + "sRGB Color Space Profile.icm");
+        PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "listToPdfa.pdf"), PdfAConformanceLevel.PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", is));
+        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "listToPdfa.html"), pdfADocument, "", new MediaDeviceDescription(MediaType.PRINT));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listToPdfa.pdf", sourceFolder + "cmp_listToPdfa.pdf", destinationFolder, "diff99_"));
     }
 
 }
