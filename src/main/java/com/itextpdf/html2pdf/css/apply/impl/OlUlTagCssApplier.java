@@ -50,14 +50,21 @@ import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
+import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.io.font.FontConstants;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.element.List;
+import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.ListNumberingType;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OlTagCssApplier implements ICssApplier {
+import java.io.IOException;
+import java.util.Map;
+
+public class OlUlTagCssApplier implements ICssApplier {
 
     @Override
     public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
@@ -67,12 +74,26 @@ public class OlTagCssApplier implements ICssApplier {
         Map<String, String> css = element.getStyles();
 
         List list = (List) tagWorker.getElementResult();
+        String elementName = element.name();
         // Default style
-        list.setListSymbol(ListNumberingType.DECIMAL);
-
-        String style = css.get(CssConstants.LIST_STYLE_TYPE);
-        if (CssConstants.DECIMAL.equals(style)) {
+        if (TagConstants.UL.equals(elementName)) {
+            setDiscStyle(list);
+        } else if (TagConstants.OL.equals(elementName)) {
             list.setListSymbol(ListNumberingType.DECIMAL);
+        }
+
+        //TODO problems with Pdf/A conversion. Avoid ZapfDingBats, Symbol font
+        String style = css.get(CssConstants.LIST_STYLE_TYPE);
+        if (CssConstants.DISC.equals(style)) {
+            setDiscStyle(list);
+        } else if (CssConstants.CIRCLE.equals(style)) {
+            setCircleStyle(list);
+        } else if (CssConstants.SQUARE.equals(style)) {
+            setSquareStyle(list);
+        } else if (CssConstants.DECIMAL.equals(style)) {
+            list.setListSymbol(ListNumberingType.DECIMAL);
+        } else if (CssConstants.DECIMAL_LEADING_ZERO.equals(style)) {
+            list.setListSymbol(ListNumberingType.DECIMAL_LEADING_ZERO);
         } else if (CssConstants.UPPER_ALPHA.equals(style) || CssConstants.UPPER_LATIN.equals(style)) {
             list.setListSymbol(ListNumberingType.ENGLISH_UPPER);
         } else if (CssConstants.LOWER_ALPHA.equals(style) || CssConstants.LOWER_LATIN.equals(style)) {
@@ -83,8 +104,10 @@ public class OlTagCssApplier implements ICssApplier {
             list.setListSymbol(ListNumberingType.ROMAN_LOWER);
         } else if (CssConstants.LOWER_GREEK.equals(style)) {
             list.setListSymbol(ListNumberingType.GREEK_LOWER);
+        } else if (CssConstants.NONE.equals(style)) {
+            list.setListSymbol(new Text(""));
         } else {
-            Logger logger = LoggerFactory.getLogger(OlTagCssApplier.class);
+            Logger logger = LoggerFactory.getLogger(OlUlTagCssApplier.class);
             logger.error("Not supported list style type: " + style);
         }
 
@@ -92,6 +115,40 @@ public class OlTagCssApplier implements ICssApplier {
         BackgroundApplierUtil.applyBackground(css, context, list);
         MarginApplierUtil.applyMargins(css, context, list);
         PaddingApplierUtil.applyPaddings(css, context, list);
+    }
+
+    private void setDiscStyle(List list) {
+        Text symbol = new Text(String.valueOf((char)108)).setFont(createZapfDingBatsSafe());
+        symbol.setTextRise(1.5f);
+        symbol.setFontSize(4.5f);
+        list.setListSymbol(symbol);
+        list.setSymbolIndent(7.75f);
+    }
+
+    private void setSquareStyle(List list) {
+        Text symbol = new Text(String.valueOf((char)110)).setFont(createZapfDingBatsSafe());
+        symbol.setTextRise(1.5f);
+        symbol.setFontSize(4.5f);
+        list.setListSymbol(symbol);
+        list.setSymbolIndent(7.75f);
+    }
+
+    private void setCircleStyle(List list) {
+        Text symbol = new Text(String.valueOf((char)109)).setFont(createZapfDingBatsSafe());
+        symbol.setTextRise(1.5f);
+        symbol.setFontSize(4.5f);
+        list.setListSymbol(symbol);
+        list.setSymbolIndent(7.75f);
+    }
+
+    private PdfFont createZapfDingBatsSafe() {
+        try {
+            return PdfFontFactory.createFont(FontConstants.ZAPFDINGBATS);
+        } catch (IOException exc) {
+            Logger logger = LoggerFactory.getLogger(OlUlTagCssApplier.class);
+            logger.error("Unable to create ZapfDingBats font", exc);
+            return null;
+        }
     }
 
 }

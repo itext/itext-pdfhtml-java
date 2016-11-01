@@ -100,7 +100,6 @@ public class ListTest extends ITextTest {
     }
 
     @Test
-    @Ignore("Many types not supported")
     public void listTest05() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "listTest05.html"), new File(destinationFolder + "listTest05.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest05.pdf", sourceFolder + "cmp_listTest05.pdf", destinationFolder, "diff05_"));

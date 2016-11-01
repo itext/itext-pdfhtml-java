@@ -43,10 +43,11 @@
 package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.css.CssConstants;
-import java.util.HashMap;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.Map;
 
 // TODO make internal?
 public class CssDefaults {
@@ -88,6 +89,8 @@ public class CssDefaults {
         defaultValues.put(CssConstants.PADDING_LEFT, "0");
         defaultValues.put(CssConstants.PADDING_RIGHT, "0");
         defaultValues.put(CssConstants.PADDING_TOP, "0");
+
+        defaultValues.put(CssConstants.LIST_STYLE_TYPE, CssConstants.DISC);
 
         // TODO not complete
     }
