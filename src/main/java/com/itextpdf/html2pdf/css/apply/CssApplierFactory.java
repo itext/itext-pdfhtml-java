@@ -42,15 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply;
 
-import com.itextpdf.html2pdf.css.apply.impl.DlTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.ImgTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.LiTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.OlTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.PTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.SpanTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.TableTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.TdTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.UlTagCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.*;
 import com.itextpdf.html2pdf.html.TagConstants;
 
 public class CssApplierFactory {
@@ -62,7 +54,7 @@ public class CssApplierFactory {
             case TagConstants.LI:
                 return new LiTagCssApplier();
             case TagConstants.OL:
-                return new OlTagCssApplier();
+                return new OlUlTagCssApplier();
             case TagConstants.H1:
             case TagConstants.H2:
             case TagConstants.H3:
@@ -84,7 +76,7 @@ public class CssApplierFactory {
             case TagConstants.THEAD:
                 return new TableTagCssApplier();
             case TagConstants.UL:
-                return new UlTagCssApplier();
+                return new OlUlTagCssApplier();
             default:
                 return null;
         }
