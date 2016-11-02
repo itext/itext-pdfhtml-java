@@ -49,10 +49,12 @@ import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
-import java.io.IOException;
-import java.util.Map;
+import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.Map;
 
 public final class FontStyleApplierUtil {
 
@@ -69,8 +71,13 @@ public final class FontStyleApplierUtil {
             }
         }
         if (cssProps.get(CssConstants.FONT_SIZE) != null) {
-            float baseValue = 12; // TODO get base value correctly
-            element.setProperty(Property.FONT_SIZE, CssUtils.parseLengthValueToPt(cssProps.get(CssConstants.FONT_SIZE), baseValue));
+            float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+            UnitValue fontSize = CssUtils.parseLengthValueToPt(cssProps.get(CssConstants.FONT_SIZE), em);
+            if (fontSize.isPointValue()) {
+                element.setProperty(Property.FONT_SIZE, fontSize.getValue());
+            } else {
+                element.setProperty(Property.FONT_SIZE, fontSize.getValue() * em / 100);
+            }
         }
         if (cssProps.get(CssConstants.FONT_WEIGHT) != null) {
             // TODO move to font selection mechanism

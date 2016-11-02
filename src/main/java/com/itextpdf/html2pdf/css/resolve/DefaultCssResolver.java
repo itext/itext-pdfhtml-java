@@ -51,20 +51,18 @@ import com.itextpdf.html2pdf.css.parse.CssRuleSetParser;
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IDataNode;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.html2pdf.html.node.INode;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.*;
 
 public class DefaultCssResolver implements ICssResolver {
 
@@ -105,6 +103,14 @@ public class DefaultCssResolver implements ICssResolver {
                     if ((elementPropValue == null && CssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(elementPropValue)) {
                         elementStyles.put(cssProperty, entry.getValue());
                     }
+                }
+
+                String elementFontSize = elementStyles.get(CssConstants.FONT_SIZE);
+                String parentFontSizeStr = parentStyles.get(CssConstants.FONT_SIZE);
+                if (CssUtils.isRelativeValue(elementFontSize) && parentFontSizeStr != null) {
+                    float parentFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
+                    float absoluteFontSize = CssUtils.parseRelativeValue(elementFontSize, parentFontSize);
+                    elementStyles.put(CssConstants.FONT_SIZE, absoluteFontSize + "pt");
                 }
             }
         }

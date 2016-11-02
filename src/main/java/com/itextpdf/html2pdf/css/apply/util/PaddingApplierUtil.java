@@ -47,9 +47,16 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.UnitValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Map;
 
 public final class PaddingApplierUtil {
+
+    private static final Logger logger = LoggerFactory.getLogger(PaddingApplierUtil.class);
+    private static final String PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED = "Padding value in percents not supported";
 
     private PaddingApplierUtil() {
     }
@@ -61,15 +68,31 @@ public final class PaddingApplierUtil {
         String paddingRight = cssProps.get(CssConstants.PADDING_RIGHT);
 
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
-        float marginTopVal = CssUtils.parseLengthValueToPt(paddingTop, em);
-        float marginBottomVal = CssUtils.parseLengthValueToPt(paddingBottom, em);
-        float marginLeftVal = CssUtils.parseLengthValueToPt(paddingLeft, em);
-        float marginRightVal = CssUtils.parseLengthValueToPt(paddingRight, em);
+        UnitValue marginTopVal = CssUtils.parseLengthValueToPt(paddingTop, em);
+        UnitValue marginBottomVal = CssUtils.parseLengthValueToPt(paddingBottom, em);
+        UnitValue marginLeftVal = CssUtils.parseLengthValueToPt(paddingLeft, em);
+        UnitValue marginRightVal = CssUtils.parseLengthValueToPt(paddingRight, em);
 
-        element.setProperty(Property.PADDING_TOP, marginTopVal);
-        element.setProperty(Property.PADDING_BOTTOM, marginBottomVal);
-        element.setProperty(Property.PADDING_LEFT, marginLeftVal);
-        element.setProperty(Property.PADDING_RIGHT, marginRightVal);
+        if (marginTopVal.isPointValue()) {
+            element.setProperty(Property.PADDING_TOP, marginTopVal.getValue());
+        } else {
+            logger.error(PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+        }
+        if (marginBottomVal.isPointValue()) {
+            element.setProperty(Property.PADDING_BOTTOM, marginBottomVal.getValue());
+        } else {
+            logger.error(PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+        }
+        if (marginLeftVal.isPointValue()) {
+            element.setProperty(Property.PADDING_LEFT, marginLeftVal.getValue());
+        } else {
+            logger.error(PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+        }
+        if (marginRightVal.isPointValue()) {
+            element.setProperty(Property.PADDING_RIGHT, marginRightVal.getValue());
+        } else {
+            logger.error(PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+        }
     }
 
 }

@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css.util;
 
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.kernel.color.WebColors;
+import com.itextpdf.layout.property.UnitValue;
 
 public class CssUtils {
 
@@ -156,27 +157,15 @@ public class CssUtils {
         return f;
     }
 
-    /**
-     * Convenience method for parsing a value to pt if a value can contain: <br />
-     * <ul>
-     * <li>a numeric value in pixels (e.g. 123, 1.23, .123),</li>
-     * <li>a value with a metric unit (px, in, cm, mm, pc or pt) attached to it,</li>
-     * <li>or a value with a relative value (%, em, ex).</li>
-     * </ul>
-     * <b>Note:</b> baseValue must be in pt.<br /><br />
-     *
-     * @param value     the string containing the value to be parsed.
-     * @param baseValue float needed for the calculation of the relative value.
-     * @return parsedValue float containing the parsed value in pt.
-     */
-    public static float parseLengthValueToPt(final String value, final float baseValue) {
-        float parsedValue = 0;
+    public static UnitValue parseLengthValueToPt(final String value, final float emValue) {
         if (isMetricValue(value) || isNumericValue(value)) {
-            parsedValue = parseAbsoluteLength(value);
-        } else if (isRelativeValue(value)) {
-            parsedValue = parseRelativeValue(value, baseValue);
+            return new UnitValue(UnitValue.POINT, parseAbsoluteLength(value));
+        } else if (value != null && value.endsWith(CssConstants.PERCENTAGE)) {
+            return new UnitValue(UnitValue.PERCENT, Float.parseFloat(value.substring(0, value.length() - 1)));
+        } else if (value != null && (value.endsWith(CssConstants.EM) || value.endsWith(CssConstants.EX))) {
+            return new UnitValue(UnitValue.POINT, parseRelativeValue(value, emValue));
         }
-        return parsedValue;
+        return new UnitValue(UnitValue.POINT, 0);
     }
 
     /**
@@ -249,7 +238,6 @@ public class CssUtils {
      */
     public static boolean isRelativeValue(final String value) {
         return value != null && (value.endsWith(CssConstants.PERCENTAGE) || value.endsWith(CssConstants.EM) || value.endsWith(CssConstants.EX));
-
     }
 
     /**

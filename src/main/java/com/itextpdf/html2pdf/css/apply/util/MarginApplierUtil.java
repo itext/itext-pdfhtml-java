@@ -47,9 +47,16 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.UnitValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Map;
 
 public final class MarginApplierUtil {
+
+    private static final Logger logger = LoggerFactory.getLogger(MarginApplierUtil.class);
+    private static final String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
 
     private MarginApplierUtil() {
     }
@@ -61,15 +68,31 @@ public final class MarginApplierUtil {
         String marginRight = cssProps.get(CssConstants.MARGIN_RIGHT);
 
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
-        float marginTopVal = CssUtils.parseLengthValueToPt(marginTop, em);
-        float marginBottomVal = CssUtils.parseLengthValueToPt(marginBottom, em);
-        float marginLeftVal = CssUtils.parseLengthValueToPt(marginLeft, em);
-        float marginRightVal = CssUtils.parseLengthValueToPt(marginRight, em);
+        UnitValue marginTopVal = CssUtils.parseLengthValueToPt(marginTop, em);
+        UnitValue marginBottomVal = CssUtils.parseLengthValueToPt(marginBottom, em);
+        UnitValue marginLeftVal = CssUtils.parseLengthValueToPt(marginLeft, em);
+        UnitValue marginRightVal = CssUtils.parseLengthValueToPt(marginRight, em);
 
-        element.setProperty(Property.MARGIN_TOP, marginTopVal);
-        element.setProperty(Property.MARGIN_BOTTOM, marginBottomVal);
-        element.setProperty(Property.MARGIN_LEFT, marginLeftVal);
-        element.setProperty(Property.MARGIN_RIGHT, marginRightVal);
+        if (marginTopVal.isPointValue()) {
+            element.setProperty(Property.MARGIN_TOP, marginTopVal.getValue());
+        } else {
+            logger.error(MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+        }
+        if (marginBottomVal.isPointValue()) {
+            element.setProperty(Property.MARGIN_BOTTOM, marginBottomVal.getValue());
+        } else {
+            logger.error(MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+        }
+        if (marginLeftVal.isPointValue()) {
+            element.setProperty(Property.MARGIN_LEFT, marginLeftVal.getValue());
+        } else {
+            logger.error(MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+        }
+        if (marginRightVal.isPointValue()) {
+            element.setProperty(Property.MARGIN_RIGHT, marginRightVal.getValue());
+        } else {
+            logger.error(MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+        }
     }
 
 }
