@@ -154,8 +154,15 @@ ul li ul {
     list-style-type: circle;
 }
 
+ol ul, ul ol, ul ul, ol ol {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 ol {
     list-style-type: decimal;
+    margin: 1em 0;
+    padding-left: 40px;
 }
 hr {
     color: gray;

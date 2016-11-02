@@ -60,11 +60,11 @@ public final class PaddingApplierUtil {
         String paddingLeft = cssProps.get(CssConstants.PADDING_LEFT);
         String paddingRight = cssProps.get(CssConstants.PADDING_RIGHT);
 
-        // TODO what about relative values?
-        float marginTopVal = CssUtils.parseAbsoluteLength(paddingTop);
-        float marginBottomVal = CssUtils.parseAbsoluteLength(paddingBottom);
-        float marginLeftVal = CssUtils.parseAbsoluteLength(paddingLeft);
-        float marginRightVal = CssUtils.parseAbsoluteLength(paddingRight);
+        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float marginTopVal = CssUtils.parseLengthValueToPt(paddingTop, em);
+        float marginBottomVal = CssUtils.parseLengthValueToPt(paddingBottom, em);
+        float marginLeftVal = CssUtils.parseLengthValueToPt(paddingLeft, em);
+        float marginRightVal = CssUtils.parseLengthValueToPt(paddingRight, em);
 
         element.setProperty(Property.PADDING_TOP, marginTopVal);
         element.setProperty(Property.PADDING_BOTTOM, marginBottomVal);

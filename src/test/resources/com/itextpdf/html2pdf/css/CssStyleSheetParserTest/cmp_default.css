@@ -193,11 +193,29 @@ dir {
     margin: 1em 0;
     padding-left: 40px
 }
-ul   li   ul {
+ul li ul {
     list-style-type: circle
 }
+ol ul {
+    margin-top: 0;
+    margin-bottom: 0
+}
+ul ol {
+    margin-top: 0;
+    margin-bottom: 0
+}
+ul ul {
+    margin-top: 0;
+    margin-bottom: 0
+}
+ol ol {
+    margin-top: 0;
+    margin-bottom: 0
+}
 ol {
-    list-style-type: decimal
+    list-style-type: decimal;
+    margin: 1em 0;
+    padding-left: 40px
 }
 hr {
     color: gray;

@@ -69,6 +69,6 @@ public class CssSeparatorSelectorItem implements ICssSelectorItem {
 
     @Override
     public String toString() {
-        return MessageFormat.format(" {0} ", separator);
+        return separator == ' ' ? " " : MessageFormat.format(" {0} ", separator);
     }
 }
