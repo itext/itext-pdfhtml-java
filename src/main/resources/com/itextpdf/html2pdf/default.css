@@ -23,7 +23,6 @@ i {
     font-style: italic;
 }
 
-/* styles below are taken from Mozilla Defaults */
 body {
     margin: 10%;
     font-size: 12pt;
@@ -147,6 +146,8 @@ abbr[title], acronym[title] {
 }
 ul, menu, dir {
     list-style-type: disc;
+    margin: 1em 0;
+    padding-left: 40px;
 }
 
 ul li ul {

@@ -68,7 +68,7 @@ public class WaitingInlineElementsHelper {
     public void flushHangingLeafs(IPropertyContainer container) {
         waitingLeafs = TrimUtil.trimLeafElementsFirstAndSanitize(waitingLeafs);
         if (waitingLeafs.size() > 0) {
-            Paragraph p = new Paragraph();
+            Paragraph p = createParagraphContainer();
             for (ILeafElement leaf : waitingLeafs) {
                 p.add(leaf);
             }
@@ -91,6 +91,10 @@ public class WaitingInlineElementsHelper {
             }
             waitingLeafs.clear();
         }
+    }
+
+    public Paragraph createParagraphContainer() {
+        return new Paragraph().setMargin(0);
     }
 
 }

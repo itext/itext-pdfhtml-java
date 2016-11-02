@@ -115,6 +115,9 @@ public class OlUlTagCssApplier implements ICssApplier {
         BackgroundApplierUtil.applyBackground(css, context, list);
         MarginApplierUtil.applyMargins(css, context, list);
         PaddingApplierUtil.applyPaddings(css, context, list);
+
+        // TODO DEVSIX-923
+        list.setPaddingLeft(0);
     }
 
     private void setDiscStyle(List list) {
