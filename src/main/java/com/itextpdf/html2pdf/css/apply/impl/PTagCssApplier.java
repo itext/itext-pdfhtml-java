@@ -45,13 +45,24 @@ package com.itextpdf.html2pdf.css.apply.impl;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.layout.IPropertyContainer;
+
+import java.util.Map;
 
 public class PTagCssApplier implements ICssApplier {
 
     @Override
     public void apply(ProcessorContext context, IElement element, ITagWorker worker) {
-        FontStyleApplierUtil.applyFontStyles(element.getStyles(), context, worker.getElementResult());
+        Map<String, String> css = element.getStyles();
+        IPropertyContainer container = worker.getElementResult();
+        FontStyleApplierUtil.applyFontStyles(css, context, container);
+        BackgroundApplierUtil.applyBackground(css, context, container);
+        MarginApplierUtil.applyMargins(css, context, container);
+        PaddingApplierUtil.applyPaddings(css, context, container);
     }
 }
