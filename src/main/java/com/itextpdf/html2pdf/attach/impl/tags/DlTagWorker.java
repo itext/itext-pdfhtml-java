@@ -95,7 +95,7 @@ public class DlTagWorker implements ITagWorker {
     }
 
     private void processUnlabeledListItem() {
-        Paragraph p = new Paragraph();
+        Paragraph p = inlineHelper.createParagraphContainer();
         ListItem li = new ListItem();
         inlineHelper.flushHangingLeafs(p);
         li.add(p);

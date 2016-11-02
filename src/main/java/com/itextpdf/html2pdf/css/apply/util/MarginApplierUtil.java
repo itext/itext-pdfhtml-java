@@ -60,11 +60,11 @@ public final class MarginApplierUtil {
         String marginLeft = cssProps.get(CssConstants.MARGIN_LEFT);
         String marginRight = cssProps.get(CssConstants.MARGIN_RIGHT);
 
-        // TODO what about relative values?
-        float marginTopVal = CssUtils.parseAbsoluteLength(marginTop);
-        float marginBottomVal = CssUtils.parseAbsoluteLength(marginBottom);
-        float marginLeftVal = CssUtils.parseAbsoluteLength(marginLeft);
-        float marginRightVal = CssUtils.parseAbsoluteLength(marginRight);
+        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float marginTopVal = CssUtils.parseLengthValueToPt(marginTop, em);
+        float marginBottomVal = CssUtils.parseLengthValueToPt(marginBottom, em);
+        float marginLeftVal = CssUtils.parseLengthValueToPt(marginLeft, em);
+        float marginRightVal = CssUtils.parseLengthValueToPt(marginRight, em);
 
         element.setProperty(Property.MARGIN_TOP, marginTopVal);
         element.setProperty(Property.MARGIN_BOTTOM, marginBottomVal);

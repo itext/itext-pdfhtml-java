@@ -135,8 +135,9 @@ public class CssUtils {
     /**
      * Parses an relative value based on the base value that was given, in the metric unit of the base value. <br />
      * (e.g. margin=10% should be based on the page width, so if an A4 is used, the margin = 0.10*595.0 = 59.5f)
+     *
      * @param relativeValue in %, em or ex.
-     * @param baseValue the value the returned float is based on.
+     * @param baseValue     the value the returned float is based on.
      * @return the parsed float in the metric unit of the base value.
      */
     public static float parseRelativeValue(final String relativeValue, final float baseValue) {
@@ -158,18 +159,19 @@ public class CssUtils {
     /**
      * Convenience method for parsing a value to pt if a value can contain: <br />
      * <ul>
-     * 	<li>a numeric value in pixels (e.g. 123, 1.23, .123),</li>
-     * 	<li>a value with a metric unit (px, in, cm, mm, pc or pt) attached to it,</li>
-     * 	<li>or a value with a relative value (%, em, ex).</li>
+     * <li>a numeric value in pixels (e.g. 123, 1.23, .123),</li>
+     * <li>a value with a metric unit (px, in, cm, mm, pc or pt) attached to it,</li>
+     * <li>or a value with a relative value (%, em, ex).</li>
      * </ul>
      * <b>Note:</b> baseValue must be in pt.<br /><br />
-     * @param value the string containing the value to be parsed.
+     *
+     * @param value     the string containing the value to be parsed.
      * @param baseValue float needed for the calculation of the relative value.
      * @return parsedValue float containing the parsed value in pt.
      */
     public static float parseLengthValueToPt(final String value, final float baseValue) {
         float parsedValue = 0;
-        if(isMetricValue(value) || isNumericValue(value)) {
+        if (isMetricValue(value) || isNumericValue(value)) {
             parsedValue = parseAbsoluteLength(value);
         } else if (isRelativeValue(value)) {
             parsedValue = parseRelativeValue(value, baseValue);
@@ -235,9 +237,8 @@ public class CssUtils {
      * @return boolean true if value contains an allowed metric value.
      */
     public static boolean isMetricValue(final String value) {
-        return value.endsWith(CssConstants.PX) || value.endsWith(CssConstants.IN) || value.endsWith(CssConstants.CM)
-                || value.endsWith(CssConstants.MM) || value.endsWith(CssConstants.PC) || value.endsWith(CssConstants.PT);
-
+        return value != null && (value.endsWith(CssConstants.PX) || value.endsWith(CssConstants.IN) || value.endsWith(CssConstants.CM)
+                || value.endsWith(CssConstants.MM) || value.endsWith(CssConstants.PC) || value.endsWith(CssConstants.PT));
     }
 
     /**
@@ -247,7 +248,7 @@ public class CssUtils {
      * @return boolean true if value contains an allowed metric value.
      */
     public static boolean isRelativeValue(final String value) {
-        return value.endsWith(CssConstants.PERCENTAGE) || value.endsWith(CssConstants.EM) || value.endsWith(CssConstants.EX);
+        return value != null && (value.endsWith(CssConstants.PERCENTAGE) || value.endsWith(CssConstants.EM) || value.endsWith(CssConstants.EX));
 
     }
 
@@ -258,7 +259,7 @@ public class CssUtils {
      * @return boolean true if value contains an allowed metric value.
      */
     public static boolean isNumericValue(final String value) {
-        return value.matches("^-?\\d\\d*\\.\\d*$") || value.matches("^-?\\d\\d*$") || value.matches("^-?\\.\\d\\d*$");
+        return value != null && (value.matches("^-?\\d\\d*\\.\\d*$") || value.matches("^-?\\d\\d*$") || value.matches("^-?\\.\\d\\d*$"));
     }
 
     /**
