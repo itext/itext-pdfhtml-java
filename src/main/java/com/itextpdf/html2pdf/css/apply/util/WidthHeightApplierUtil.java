@@ -40,32 +40,51 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply.impl;
+package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.apply.util.*;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.UnitValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
-public class LiTagCssApplier implements ICssApplier {
+public final class WidthHeightApplierUtil {
 
-    @Override
-    public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
-        IPropertyContainer propertyContainer = tagWorker.getElementResult();
-        Map<String, String> css = element.getStyles();
+    private static final Logger logger = LoggerFactory.getLogger(WidthHeightApplierUtil.class);
+    private static final String HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED = "Height value in percent not supported";
 
-        if (propertyContainer != null) {
-            ListStyleApplierUtil.applyListStyleTypeProperty(element, css, context, propertyContainer);
-            ListStyleApplierUtil.applyListStyleImageProperty(css, context, propertyContainer);
-            WidthHeightApplierUtil.applyWidthHeight(css, context, propertyContainer);
-            BackgroundApplierUtil.applyBackground(css, context, propertyContainer);
-            MarginApplierUtil.applyMargins(css, context, propertyContainer);
-            PaddingApplierUtil.applyPaddings(css, context, propertyContainer);
+    private WidthHeightApplierUtil() {
+    }
+
+    public static void applyWidthHeight(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        String widthVal = cssProps.get(CssConstants.WIDTH);
+        if (widthVal != null) {
+            UnitValue width = CssUtils.parseLengthValueToPt(widthVal, em);
+            element.setProperty(Property.WIDTH, width);
+            if (element instanceof Image) {
+                ((Image) element).setAutoScale(false);
+            }
         }
+        String heightVal = cssProps.get(CssConstants.HEIGHT);
+        if (heightVal != null) {
+            UnitValue height = CssUtils.parseLengthValueToPt(heightVal, em);
+            if (height.isPointValue()) {
+                element.setProperty(Property.HEIGHT, height);
+                if (element instanceof Image) {
+                    ((Image) element).setAutoScale(false);
+                }
+            } else {
+                logger.error(HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            }
+        }
+
     }
 
 }

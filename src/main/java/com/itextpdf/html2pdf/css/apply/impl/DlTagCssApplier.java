@@ -45,10 +45,7 @@ package com.itextpdf.html2pdf.css.apply.impl;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.*;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 
@@ -61,6 +58,7 @@ public class DlTagCssApplier implements ICssApplier {
         Map<String, String> css = element.getStyles();
         IPropertyContainer list = tagWorker.getElementResult();
         ListStyleApplierUtil.applyListStyleImageProperty(css, context, list);
+        WidthHeightApplierUtil.applyWidthHeight(css, context, list);
         BackgroundApplierUtil.applyBackground(css, context, list);
         MarginApplierUtil.applyMargins(css, context, list);
         PaddingApplierUtil.applyPaddings(css, context, list);

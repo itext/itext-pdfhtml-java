@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.kernel.color.WebColors;
@@ -69,6 +70,7 @@ public class TableTagCssApplier implements ICssApplier {
     public void apply(ProcessorContext context, IElement element, ITagWorker worker) {
         Map<String, String> cssProps = element.getStyles();
 
+        WidthHeightApplierUtil.applyWidthHeight(cssProps, context, worker.getElementResult());
         BackgroundApplierUtil.applyBackground(cssProps, context, worker.getElementResult());
         if (cssProps.get(CssConstants.BORDER_WIDTH) != null) {
             Float borderWidth = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.BORDER_WIDTH));

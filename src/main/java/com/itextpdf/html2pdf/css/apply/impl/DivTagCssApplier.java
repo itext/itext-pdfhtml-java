@@ -45,26 +45,27 @@ package com.itextpdf.html2pdf.css.apply.impl;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.apply.util.*;
+import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 
 import java.util.Map;
 
-public class LiTagCssApplier implements ICssApplier {
+public class DivTagCssApplier implements ICssApplier {
 
     @Override
     public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
-        IPropertyContainer propertyContainer = tagWorker.getElementResult();
         Map<String, String> css = element.getStyles();
+        IPropertyContainer div = tagWorker.getElementResult();
 
-        if (propertyContainer != null) {
-            ListStyleApplierUtil.applyListStyleTypeProperty(element, css, context, propertyContainer);
-            ListStyleApplierUtil.applyListStyleImageProperty(css, context, propertyContainer);
-            WidthHeightApplierUtil.applyWidthHeight(css, context, propertyContainer);
-            BackgroundApplierUtil.applyBackground(css, context, propertyContainer);
-            MarginApplierUtil.applyMargins(css, context, propertyContainer);
-            PaddingApplierUtil.applyPaddings(css, context, propertyContainer);
+        if (div != null) {
+            WidthHeightApplierUtil.applyWidthHeight(css, context, div);
+            BackgroundApplierUtil.applyBackground(css, context, div);
+            MarginApplierUtil.applyMargins(css, context, div);
+            PaddingApplierUtil.applyPaddings(css, context, div);
         }
     }
 
