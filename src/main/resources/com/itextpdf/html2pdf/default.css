@@ -164,6 +164,12 @@ ol {
     margin: 1em 0;
     padding-left: 40px;
 }
+
+dl {
+    display: block;
+    margin: 1em 0;
+}
+
 hr {
     color: gray;
     height: 2px;
