@@ -44,11 +44,25 @@ package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.impl.UlOlTagCssApplier;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.io.font.FontConstants;
 import com.itextpdf.io.image.ImageData;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.List;
+import com.itextpdf.layout.element.ListItem;
+import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.property.ListNumberingType;
+import com.itextpdf.layout.property.Property;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 import java.util.Map;
 
 public final class ListStyleApplierUtil {
@@ -57,17 +71,103 @@ public final class ListStyleApplierUtil {
     }
 
     public static void applyListStyleImageProperty(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
-        if (element instanceof List) {
-            List list = (List) element;
-            String listStyleImage = cssProps.get(CssConstants.LIST_STYLE_IMAGE);
-            if (listStyleImage != null && !CssConstants.NONE.equals(listStyleImage)) {
-                String url = CssUtils.extractUrl(listStyleImage);
-                ImageData imageData = context.getResourceResolver().retrieveImage(url);
-                if (imageData != null) {
-                    list.setListSymbol(new Image(imageData));
-                    list.setSymbolIndent(5);
-                }
+        String listStyleImage = cssProps.get(CssConstants.LIST_STYLE_IMAGE);
+        if (listStyleImage != null && !CssConstants.NONE.equals(listStyleImage)) {
+            String url = CssUtils.extractUrl(listStyleImage);
+            ImageData imageData = context.getResourceResolver().retrieveImage(url);
+            if (imageData != null) {
+                element.setProperty(Property.LIST_SYMBOL, new Image(imageData));
+                element.setProperty(Property.LIST_SYMBOL_INDENT, 5);
             }
+        }
+    }
+
+    //TODO problems with Pdf/A conversion. Avoid ZapfDingBats, Symbol font
+    public static void applyListStyleTypeProperty(IElement node, Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+        String style = cssProps.get(CssConstants.LIST_STYLE_TYPE);
+        if (CssConstants.DISC.equals(style)) {
+            setDiscStyle(element);
+        } else if (CssConstants.CIRCLE.equals(style)) {
+            setCircleStyle(element);
+        } else if (CssConstants.SQUARE.equals(style)) {
+            setSquareStyle(element);
+        } else if (CssConstants.DECIMAL.equals(style)) {
+            setListSymbol(element, ListNumberingType.DECIMAL);
+        } else if (CssConstants.DECIMAL_LEADING_ZERO.equals(style)) {
+            setListSymbol(element, ListNumberingType.DECIMAL_LEADING_ZERO);
+        } else if (CssConstants.UPPER_ALPHA.equals(style) || CssConstants.UPPER_LATIN.equals(style)) {
+            setListSymbol(element, ListNumberingType.ENGLISH_UPPER);
+        } else if (CssConstants.LOWER_ALPHA.equals(style) || CssConstants.LOWER_LATIN.equals(style)) {
+            setListSymbol(element, ListNumberingType.ENGLISH_LOWER);
+        } else if (CssConstants.UPPER_ROMAN.equals(style)) {
+            setListSymbol(element, ListNumberingType.ROMAN_UPPER);
+        } else if (CssConstants.LOWER_ROMAN.equals(style)) {
+            setListSymbol(element, ListNumberingType.ROMAN_LOWER);
+        } else if (CssConstants.LOWER_GREEK.equals(style)) {
+            setListSymbol(element, ListNumberingType.GREEK_LOWER);
+        } else if (CssConstants.NONE.equals(style)) {
+            setListSymbol(element, new Text(""));
+        } else {
+            Logger logger = LoggerFactory.getLogger(UlOlTagCssApplier.class);
+            logger.error("Not supported list style type: " + style);
+
+            // Fallback style
+            String elementName = node.name();
+            if (TagConstants.UL.equals(elementName)) {
+                setDiscStyle(element);
+            } else if (TagConstants.OL.equals(elementName)) {
+                setListSymbol(element, ListNumberingType.DECIMAL);
+            }
+        }
+    }
+
+    private static void setListSymbol(IPropertyContainer container, Text text) {
+        if (container instanceof List) {
+            ((List) container).setListSymbol(text);
+        } else if (container instanceof ListItem) {
+            ((ListItem) container).setListSymbol(text);
+        }
+    }
+
+    private static void setListSymbol(IPropertyContainer container, ListNumberingType listNumberingType) {
+        if (container instanceof List) {
+            ((List) container).setListSymbol(listNumberingType);
+        } else if (container instanceof ListItem) {
+            ((ListItem) container).setListSymbol(listNumberingType);
+        }
+    }
+
+    private static void setDiscStyle(IPropertyContainer element) {
+        Text symbol = new Text(String.valueOf((char)108)).setFont(createZapfDingBatsSafe());
+        symbol.setTextRise(1.5f);
+        symbol.setFontSize(4.5f);
+        element.setProperty(Property.LIST_SYMBOL, symbol);
+        element.setProperty(Property.LIST_SYMBOL_INDENT, 7.75f);
+    }
+
+    private static void setSquareStyle(IPropertyContainer element) {
+        Text symbol = new Text(String.valueOf((char)110)).setFont(createZapfDingBatsSafe());
+        symbol.setTextRise(1.5f);
+        symbol.setFontSize(4.5f);
+        element.setProperty(Property.LIST_SYMBOL, symbol);
+        element.setProperty(Property.LIST_SYMBOL_INDENT, 7.75f);
+    }
+
+    private static void setCircleStyle(IPropertyContainer element) {
+        Text symbol = new Text(String.valueOf((char)109)).setFont(createZapfDingBatsSafe());
+        symbol.setTextRise(1.5f);
+        symbol.setFontSize(4.5f);
+        element.setProperty(Property.LIST_SYMBOL, symbol);
+        element.setProperty(Property.LIST_SYMBOL_INDENT, 7.75f);
+    }
+
+    private static PdfFont createZapfDingBatsSafe() {
+        try {
+            return PdfFontFactory.createFont(FontConstants.ZAPFDINGBATS);
+        } catch (IOException exc) {
+            Logger logger = LoggerFactory.getLogger(ListStyleApplierUtil.class);
+            logger.error("Unable to create ZapfDingBats font", exc);
+            return null;
         }
     }
 

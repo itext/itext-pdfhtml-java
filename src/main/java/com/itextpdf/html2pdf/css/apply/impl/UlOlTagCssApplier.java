@@ -40,46 +40,40 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply;
+package com.itextpdf.html2pdf.css.apply.impl;
 
-import com.itextpdf.html2pdf.css.apply.impl.*;
-import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
+import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.layout.element.List;
 
-public class CssApplierFactory {
+import java.util.Map;
 
-    public static ICssApplier getCssApplier(String tag) {
-        switch (tag) {
-            case TagConstants.DL:
-                return new DlTagCssApplier();
-            case TagConstants.LI:
-                return new LiTagCssApplier();
-            case TagConstants.OL:
-                return new UlOlTagCssApplier();
-            case TagConstants.H1:
-            case TagConstants.H2:
-            case TagConstants.H3:
-            case TagConstants.H4:
-            case TagConstants.H5:
-            case TagConstants.H6:
-            case TagConstants.P:
-                return new PTagCssApplier();
-            case TagConstants.IMG:
-                return new ImgTagCssApplier();
-			case TagConstants.SPAN:
-                return new SpanTagCssApplier();
-            case TagConstants.TD:
-                return new TdTagCssApplier();
-            case TagConstants.TABLE:
-                return new TableTagCssApplier();
-            case TagConstants.TFOOT:
-                return new TableTagCssApplier();
-            case TagConstants.THEAD:
-                return new TableTagCssApplier();
-            case TagConstants.UL:
-                return new UlOlTagCssApplier();
-            default:
-                return null;
+public class UlOlTagCssApplier implements ICssApplier {
+
+    @Override
+    public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
+        if (!(tagWorker.getElementResult() instanceof List)) {
+            return;
         }
+        Map<String, String> css = element.getStyles();
+
+        List list = (List) tagWorker.getElementResult();
+
+        ListStyleApplierUtil.applyListStyleTypeProperty(element, css, context, list);
+        ListStyleApplierUtil.applyListStyleImageProperty(css, context, list);
+        BackgroundApplierUtil.applyBackground(css, context, list);
+        MarginApplierUtil.applyMargins(css, context, list);
+        PaddingApplierUtil.applyPaddings(css, context, list);
+
+        // TODO DEVSIX-923
+        list.setPaddingLeft(0);
     }
+
 
 }
