@@ -215,6 +215,7 @@ public class CssConstants {
     public static final String SMALLER = "smaller";
     public static final String SOLID = "solid";
     public static final String SQUARE = "square";
+    public static final String START = "start";
     public static final String STATUS_BAR = "status-bar";
     public static final String SUB = "sub";
     public static final String SUPER = "super";

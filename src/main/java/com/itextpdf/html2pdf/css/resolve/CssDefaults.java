@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,6 +93,8 @@ public class CssDefaults {
 
         defaultValues.put(CssConstants.LIST_STYLE_TYPE, CssConstants.DISC);
 
+        defaultValues.put(CssConstants.TEXT_ALIGN, CssConstants.START);
+
         // TODO not complete
     }
 
@@ -99,7 +102,7 @@ public class CssDefaults {
         String defaultVal = defaultValues.get(property);
         if (defaultVal == null) {
             Logger logger = LoggerFactory.getLogger(CssDefaults.class);
-            logger.error("Default value of the css property \"{0}\" is unknown.");
+            logger.error(MessageFormat.format("Default value of the css property \"{0}\" is unknown.", property));
         }
         return defaultVal;
     }
