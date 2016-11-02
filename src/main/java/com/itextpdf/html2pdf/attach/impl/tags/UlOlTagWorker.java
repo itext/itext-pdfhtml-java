@@ -95,7 +95,7 @@ public class UlOlTagWorker implements ITagWorker {
     }
 
     private void processUnlabeledListItem() {
-        Paragraph p = new Paragraph();
+        Paragraph p = inlineHelper.createParagraphContainer();
         inlineHelper.flushHangingLeafs(p);
         if (p.getChildren().size() > 0) {
             ListItem li = new ListItem();
