@@ -46,10 +46,12 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
+
 import java.util.Map;
 
 public class LiTagCssApplier implements ICssApplier {
@@ -60,6 +62,8 @@ public class LiTagCssApplier implements ICssApplier {
         Map<String, String> css = element.getStyles();
 
         if (propertyContainer != null) {
+            ListStyleApplierUtil.applyListStyleTypeProperty(element, css, context, propertyContainer);
+            ListStyleApplierUtil.applyListStyleImageProperty(css, context, propertyContainer);
             BackgroundApplierUtil.applyBackground(css, context, propertyContainer);
             MarginApplierUtil.applyMargins(css, context, propertyContainer);
             PaddingApplierUtil.applyPaddings(css, context, propertyContainer);
