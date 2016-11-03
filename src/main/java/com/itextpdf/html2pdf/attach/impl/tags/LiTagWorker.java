@@ -79,8 +79,12 @@ public class LiTagWorker implements ITagWorker {
             return true;
         } else {
             inlineHelper.flushHangingLeafs(listItem);
-            if (childTagWorker.getElementResult() instanceof BlockElement) {
+            if (childTagWorker instanceof ImgTagWorker) {
+                listItem.add(((ImgTagWorker) childTagWorker).getImage());
+                return true;
+            } else if (childTagWorker.getElementResult() instanceof BlockElement) {
                 listItem.add((BlockElement<com.itextpdf.layout.element.IElement>) childTagWorker.getElementResult());
+                return true;
             }
         }
         return false;

@@ -53,6 +53,7 @@ import com.itextpdf.layout.element.Image;
 
 public class ImgTagWorker implements ITagWorker {
 
+    // TODO get rid of Div
     private Div imageContainer;
     private Image image;
 

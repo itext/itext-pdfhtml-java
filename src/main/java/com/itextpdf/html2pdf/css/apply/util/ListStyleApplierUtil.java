@@ -58,6 +58,7 @@ import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.ListNumberingType;
+import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,13 +85,15 @@ public final class ListStyleApplierUtil {
 
     //TODO problems with Pdf/A conversion. Avoid ZapfDingBats, Symbol font
     public static void applyListStyleTypeProperty(IElement node, Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+
         String style = cssProps.get(CssConstants.LIST_STYLE_TYPE);
         if (CssConstants.DISC.equals(style)) {
-            setDiscStyle(element);
+            setDiscStyle(element, em);
         } else if (CssConstants.CIRCLE.equals(style)) {
-            setCircleStyle(element);
+            setCircleStyle(element, em);
         } else if (CssConstants.SQUARE.equals(style)) {
-            setSquareStyle(element);
+            setSquareStyle(element, em);
         } else if (CssConstants.DECIMAL.equals(style)) {
             setListSymbol(element, ListNumberingType.DECIMAL);
         } else if (CssConstants.DECIMAL_LEADING_ZERO.equals(style)) {
@@ -114,7 +117,7 @@ public final class ListStyleApplierUtil {
             // Fallback style
             String elementName = node.name();
             if (TagConstants.UL.equals(elementName)) {
-                setDiscStyle(element);
+                setDiscStyle(element, em);
             } else if (TagConstants.OL.equals(elementName)) {
                 setListSymbol(element, ListNumberingType.DECIMAL);
             }
@@ -137,28 +140,36 @@ public final class ListStyleApplierUtil {
         }
     }
 
-    private static void setDiscStyle(IPropertyContainer element) {
+    private static void setDiscStyle(IPropertyContainer element, float em) {
         Text symbol = new Text(String.valueOf((char)108)).setFont(createZapfDingBatsSafe());
         symbol.setTextRise(1.5f);
         symbol.setFontSize(4.5f);
         element.setProperty(Property.LIST_SYMBOL, symbol);
-        element.setProperty(Property.LIST_SYMBOL_INDENT, 7.75f);
+        setListSymbolIndent(element, em);
     }
 
-    private static void setSquareStyle(IPropertyContainer element) {
+    private static void setSquareStyle(IPropertyContainer element, float em) {
         Text symbol = new Text(String.valueOf((char)110)).setFont(createZapfDingBatsSafe());
         symbol.setTextRise(1.5f);
         symbol.setFontSize(4.5f);
         element.setProperty(Property.LIST_SYMBOL, symbol);
-        element.setProperty(Property.LIST_SYMBOL_INDENT, 7.75f);
+        setListSymbolIndent(element, em);
     }
 
-    private static void setCircleStyle(IPropertyContainer element) {
+    private static void setCircleStyle(IPropertyContainer element, float em) {
         Text symbol = new Text(String.valueOf((char)109)).setFont(createZapfDingBatsSafe());
         symbol.setTextRise(1.5f);
         symbol.setFontSize(4.5f);
         element.setProperty(Property.LIST_SYMBOL, symbol);
-        element.setProperty(Property.LIST_SYMBOL_INDENT, 7.75f);
+        setListSymbolIndent(element, em);
+    }
+
+    private static void setListSymbolIndent(IPropertyContainer element, float em) {
+        if  (ListSymbolPosition.INSIDE == element.getProperty(Property.LIST_SYMBOL_POSITION)) {
+            element.setProperty(Property.LIST_SYMBOL_INDENT, 1.5f * em);
+        } else {
+            element.setProperty(Property.LIST_SYMBOL_INDENT, 7.75f);
+        }
     }
 
     private static PdfFont createZapfDingBatsSafe() {

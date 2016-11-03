@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
@@ -51,6 +52,8 @@ import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.element.List;
+import com.itextpdf.layout.property.ListSymbolPosition;
+import com.itextpdf.layout.property.Property;
 
 import java.util.Map;
 
@@ -65,14 +68,17 @@ public class UlOlTagCssApplier implements ICssApplier {
 
         List list = (List) tagWorker.getElementResult();
 
+        if (CssConstants.INSIDE.equals(css.get(CssConstants.LIST_STYLE_POSITION))) {
+            list.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
+        } else {
+            list.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.OUTSIDE);
+        }
+
         ListStyleApplierUtil.applyListStyleTypeProperty(element, css, context, list);
         ListStyleApplierUtil.applyListStyleImageProperty(css, context, list);
         BackgroundApplierUtil.applyBackground(css, context, list);
         MarginApplierUtil.applyMargins(css, context, list);
         PaddingApplierUtil.applyPaddings(css, context, list);
-
-        // TODO DEVSIX-923
-        list.setPaddingLeft(0);
     }
 
 
