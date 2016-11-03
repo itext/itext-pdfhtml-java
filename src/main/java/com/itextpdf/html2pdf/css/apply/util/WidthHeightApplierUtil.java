@@ -76,7 +76,7 @@ public final class WidthHeightApplierUtil {
         if (heightVal != null) {
             UnitValue height = CssUtils.parseLengthValueToPt(heightVal, em);
             if (height.isPointValue()) {
-                element.setProperty(Property.HEIGHT, height);
+                element.setProperty(Property.HEIGHT, height.getValue());
                 if (element instanceof Image) {
                     ((Image) element).setAutoScale(false);
                 }
