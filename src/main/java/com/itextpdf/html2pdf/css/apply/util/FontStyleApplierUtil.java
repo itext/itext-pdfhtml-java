@@ -47,6 +47,8 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.impl.PTagCssApplier;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.kernel.color.WebColors;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
+import com.itextpdf.layout.ElementPropertyContainer;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.TextAlignment;
@@ -59,6 +61,8 @@ import java.util.Map;
 
 public final class FontStyleApplierUtil {
 
+    private static final Logger logger = LoggerFactory.getLogger(PTagCssApplier.class);
+
     private FontStyleApplierUtil() {
     }
 
@@ -67,7 +71,6 @@ public final class FontStyleApplierUtil {
             try {
                 element.setProperty(Property.FONT, context.getFontResolver().getFont(cssProps.get(CssConstants.FONT_FAMILY)));
             } catch (IOException exc) {
-                Logger logger = LoggerFactory.getLogger(PTagCssApplier.class);
                 logger.error("Could not load font", exc);
             }
         }
@@ -100,6 +103,25 @@ public final class FontStyleApplierUtil {
             element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.RIGHT);
         } else if (CssConstants.CENTER.equals(align)) {
             element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.CENTER);
+        }
+
+        String textDecoration = cssProps.get(CssConstants.TEXT_DECORATION);
+        ElementPropertyContainer elementPropertyContainer = null;
+        if (element instanceof ElementPropertyContainer) {
+            elementPropertyContainer = (ElementPropertyContainer) element;
+        }
+        if (elementPropertyContainer != null) {
+            if (CssConstants.BLINK.equals(textDecoration)) {
+                logger.error("text-decoration: blink not supported");
+            } else if (CssConstants.LINE_THROUGH.equals(textDecoration)) {
+                elementPropertyContainer.setUnderline(null, .75f, 0, 0, 1/4f, PdfCanvasConstants.LineCapStyle.BUTT);
+            } else if (CssConstants.OVERLINE.equals(textDecoration)) {
+                elementPropertyContainer.setUnderline(null, .75f, 0, 0, 9/10f, PdfCanvasConstants.LineCapStyle.BUTT);
+            } else if (CssConstants.UNDERLINE.equals(textDecoration)) {
+                elementPropertyContainer.setUnderline(null, .75f, 0, 0, -1/10f, PdfCanvasConstants.LineCapStyle.BUTT);
+            } else if (CssConstants.NONE.equals(textDecoration)) {
+                elementPropertyContainer.setProperty(Property.UNDERLINE, null);
+            }
         }
     }
 
