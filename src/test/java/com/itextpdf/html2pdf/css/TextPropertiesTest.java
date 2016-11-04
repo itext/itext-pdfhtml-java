@@ -87,7 +87,13 @@ public class TextPropertiesTest extends ITextTest {
     @Test
     public void letterSpacing01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "letterSpacingTest01.html"), new File(destinationFolder + "letterSpacingTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "letterSpacingTest01.pdf", sourceFolder + "cmp_letterSpacingTest01.pdf", destinationFolder, "diff03_"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "letterSpacingTest01.pdf", sourceFolder + "cmp_letterSpacingTest01.pdf", destinationFolder, "diff04_"));
+    }
+
+    @Test
+    public void wordSpacing01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "wordSpacingTest01.html"), new File(destinationFolder + "wordSpacingTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "wordSpacingTest01.pdf", sourceFolder + "cmp_wordSpacingTest01.pdf", destinationFolder, "diff05_"));
     }
 
 }
