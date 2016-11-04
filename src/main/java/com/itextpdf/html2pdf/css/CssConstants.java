@@ -153,6 +153,7 @@ public class CssConstants {
     // property values
     public static final String ARMENIAN = "armenian";
     public static final String AUTO = "auto";
+    public static final String BLINK = "blink";
     public static final String BOLD = "bold";
     public static final String BOLDER = "bolder";
     public static final String BORDER_BOX = "border-box";
@@ -202,6 +203,7 @@ public class CssConstants {
     public static final String OBLIQUE = "oblique";
     public static final String OUTSIDE = "outside";
     public static final String OUTSET = "outset";
+    public static final String OVERLINE = "overline";
     public static final String PADDING_BOX = "padding-box";
     public static final String REPEAT = "repeat";
     public static final String REPEAT_X = "repeat-x";
