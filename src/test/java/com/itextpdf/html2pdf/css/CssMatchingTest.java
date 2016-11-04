@@ -56,6 +56,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -64,6 +65,10 @@ import org.junit.experimental.categories.Category;
 public class CssMatchingTest extends ITextTest {
 
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssMatchingTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+    }
 
     @Test
     public void test01() throws IOException {

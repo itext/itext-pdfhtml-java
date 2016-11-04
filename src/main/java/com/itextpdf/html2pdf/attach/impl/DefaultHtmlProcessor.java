@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.ResourceResolver;
+import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
@@ -57,6 +58,11 @@ import com.itextpdf.html2pdf.html.node.ITextNode;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import com.itextpdf.html2pdf.Html2PdfProductInfo;
+import com.itextpdf.kernel.Version;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -82,6 +88,42 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
     @Override
     public List<com.itextpdf.layout.element.IElement> processElements() {
+        String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
+        String licenseKeyProductClassName = "com.itextpdf.licensekey.LicenseKeyProduct";
+        String licenseKeyFeatureClassName = "com.itextpdf.licensekey.LicenseKeyProductFeature";
+        String checkLicenseKeyMethodName = "scheduledCheck";
+
+        try {
+            Class licenseKeyClass = Class.forName(licenseKeyClassName);
+            Class licenseKeyProductClass = Class.forName(licenseKeyProductClassName);
+            Class licenseKeyProductFeatureClass = Class.forName(licenseKeyFeatureClassName);
+
+            Object licenseKeyProductFeatureArray = Array.newInstance(licenseKeyProductFeatureClass, 0);
+
+            Class[] params = new Class[] {
+                    String.class,
+                    Integer.TYPE,
+                    Integer.TYPE,
+                    licenseKeyProductFeatureArray.getClass()
+            };
+
+            Constructor licenseKeyProductConstructor = licenseKeyProductClass.getConstructor(params);
+
+            Object licenseKeyProductObject = licenseKeyProductConstructor.newInstance(
+                    Html2PdfProductInfo.PRODUCT_NAME,
+                    Html2PdfProductInfo.MAJOR_VERSION,
+                    Html2PdfProductInfo.MINOR_VERSION,
+                    licenseKeyProductFeatureArray
+            );
+
+            Method method = licenseKeyClass.getMethod(checkLicenseKeyMethodName, licenseKeyProductClass);
+            method.invoke(null, licenseKeyProductObject);
+        } catch (Exception e) {
+            if ( ! Version.isAGPLVersion() ) {
+                throw new RuntimeException(e.getCause());
+            }
+        }
+
         context = new ProcessorContext(cssResolver, resourceResolver);
         roots = new ArrayList<>();
         root = findBodyNode(root);
@@ -99,6 +141,42 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
     @Override
     public Document processDocument(PdfDocument pdfDocument) {
+        String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
+        String licenseKeyProductClassName = "com.itextpdf.licensekey.LicenseKeyProduct";
+        String licenseKeyFeatureClassName = "com.itextpdf.licensekey.LicenseKeyProductFeature";
+        String checkLicenseKeyMethodName = "scheduledCheck";
+
+        try {
+            Class licenseKeyClass = Class.forName(licenseKeyClassName);
+            Class licenseKeyProductClass = Class.forName(licenseKeyProductClassName);
+            Class licenseKeyProductFeatureClass = Class.forName(licenseKeyFeatureClassName);
+
+            Object licenseKeyProductFeatureArray = Array.newInstance(licenseKeyProductFeatureClass, 0);
+
+            Class[] params = new Class[] {
+                    String.class,
+                    Integer.TYPE,
+                    Integer.TYPE,
+                    licenseKeyProductFeatureArray.getClass()
+            };
+
+            Constructor licenseKeyProductConstructor = licenseKeyProductClass.getConstructor(params);
+
+            Object licenseKeyProductObject = licenseKeyProductConstructor.newInstance(
+                    Html2PdfProductInfo.PRODUCT_NAME,
+                    Html2PdfProductInfo.MAJOR_VERSION,
+                    Html2PdfProductInfo.MINOR_VERSION,
+                    licenseKeyProductFeatureArray
+            );
+
+            Method method = licenseKeyClass.getMethod(checkLicenseKeyMethodName, licenseKeyProductClass);
+            method.invoke(null, licenseKeyProductObject);
+        } catch (Exception e) {
+            if ( ! Version.isAGPLVersion() ) {
+                throw new RuntimeException(e.getCause());
+            }
+        }
+
         context = new ProcessorContext(cssResolver, pdfDocument, resourceResolver);
         roots = new ArrayList<>();
         visit(root);

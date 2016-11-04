@@ -49,12 +49,17 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class CssStyleSheetParserTest {
 
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssStyleSheetParserTest/";
     private static final String DEFAULT_CSS_PATH = "com/itextpdf/html2pdf/default.css";
+
+    @BeforeClass
+    public static void beforeClass() {
+    }
 
     @Test
     public void testDefaultCss() throws IOException {

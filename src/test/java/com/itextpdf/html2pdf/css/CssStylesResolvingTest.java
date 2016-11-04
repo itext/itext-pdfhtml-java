@@ -54,6 +54,7 @@ import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -66,6 +67,10 @@ import java.util.*;
 // TODO extend ExtendedITextTest
 public class CssStylesResolvingTest extends ITextTest {
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssElementStylesResolvingTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+    }
 
     @Test
     public void collectStylesDeclarationsTest01() throws IOException {

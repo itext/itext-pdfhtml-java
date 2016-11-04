@@ -58,6 +58,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -65,6 +66,10 @@ import org.junit.experimental.categories.Category;
 public class MediaRuleTest extends ExtendedITextTest {
 
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/media/MediaRuleTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+    }
 
     @Test
     public void test01() throws IOException {
