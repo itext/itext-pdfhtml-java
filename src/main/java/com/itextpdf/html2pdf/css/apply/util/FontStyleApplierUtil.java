@@ -50,6 +50,7 @@ import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
 import com.itextpdf.layout.ElementPropertyContainer;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.property.Leading;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
@@ -151,6 +152,19 @@ public final class FontStyleApplierUtil {
             }
         }
 
+        String lineHeight = cssProps.get(CssConstants.LINE_HEIGHT);
+        if (lineHeight != null) {
+            UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em);
+            if (CssUtils.isNumericValue(lineHeight)) {
+                element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue()));
+            } else if (lineHeightValue.isPointValue()) {
+                element.setProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.getValue()));
+            } else {
+                element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue() / 100));
+            }
+        } else {
+            element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, 1.2f));
+        }
     }
 
 }

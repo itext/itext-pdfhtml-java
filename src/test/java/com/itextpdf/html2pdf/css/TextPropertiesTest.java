@@ -96,4 +96,10 @@ public class TextPropertiesTest extends ITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "wordSpacingTest01.pdf", sourceFolder + "cmp_wordSpacingTest01.pdf", destinationFolder, "diff05_"));
     }
 
+    @Test
+    public void lineHeight01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "lineHeightTest01.html"), new File(destinationFolder + "lineHeightTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "lineHeightTest01.pdf", sourceFolder + "cmp_lineHeightTest01.pdf", destinationFolder, "diff06_"));
+    }
+
 }
