@@ -102,4 +102,10 @@ public class TextPropertiesTest extends ITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "lineHeightTest01.pdf", sourceFolder + "cmp_lineHeightTest01.pdf", destinationFolder, "diff06_"));
     }
 
+    @Test
+    public void direction01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "directionTest01.html"), new File(destinationFolder + "directionTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "directionTest01.pdf", sourceFolder + "cmp_directionTest01.pdf", destinationFolder, "diff07_"));
+    }
+
 }

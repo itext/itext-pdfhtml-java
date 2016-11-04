@@ -51,6 +51,7 @@ public final class AttributeConstants {
     public static final String BORDER = "border";
     public static final String CLASS = "class";
     public static final String COLOR = "color";
+    public static final String DIR = "dir";
     public static final String FACE = "face";
     public static final String HREF = "href";
     public static final String ID = "id";

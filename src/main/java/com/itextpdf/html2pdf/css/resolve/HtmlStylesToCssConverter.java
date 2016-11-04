@@ -85,6 +85,7 @@ class HtmlStylesToCssConverter {
         htmlAttributeConverters.put(AttributeConstants.BORDER, new BorderAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.BGCOLOR, new BgColorAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.COLOR, new FontColorAttributeConverter());
+        htmlAttributeConverters.put(AttributeConstants.DIR, new DirAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.SIZE, new FontSizeAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.FACE, new FontFaceAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.TYPE, new TypeAttributeConverter());
@@ -219,6 +220,20 @@ class HtmlStylesToCssConverter {
             }
             return new CssDeclaration(CssConstants.LIST_STYLE_TYPE, cssEquivalent);
         }
+    }
+
+    private static class DirAttributeConverter implements IAttributeConverter {
+
+        @Override
+        public boolean isSupportedForElement(String elementName) {
+            return true;
+        }
+
+        @Override
+        public CssDeclaration convert(String value) {
+            return new CssDeclaration(CssConstants.DIRECTION, value);
+        }
+
     }
 
 }

@@ -49,12 +49,12 @@ public class CssConstants {
     public static final String BACKGROUND = "background";
     public static final String BACKGROUND_ATTACHMENT = "background-attachment";
     public static final String BACKGROUND_BLEND_MODE = "background-blend-mode";
+    public static final String BACKGROUND_CLIP = "background-clip";
     public static final String BACKGROUND_COLOR = "background-color";
     public static final String BACKGROUND_IMAGE = "background-image";
+    public static final String BACKGROUND_ORIGIN = "background-origin";
     public static final String BACKGROUND_POSITION = "background-position";
     public static final String BACKGROUND_REPEAT = "background-repeat";
-    public static final String BACKGROUND_CLIP = "background-clip";
-    public static final String BACKGROUND_ORIGIN = "background-origin";
     public static final String BACKGROUND_SIZE = "background-size";
     public static final String BORDER = "border";
     public static final String BORDER_BOTTOM = "border-bottom";
@@ -80,9 +80,10 @@ public class CssConstants {
     public static final String BORDER_WIDTH = "border-width";
     public static final String CAPTION_SIDE = "caption-side";
     public static final String COLOR = "color";
+    public static final String COLSPAN = "colspan";
+    public static final String DIRECTION = "direction";
     public static final String EMPTY_CELLS = "empty-cells";
     public static final String FONT = "font";
-    public static final String COLSPAN = "colspan";
     public static final String FONT_FAMILY = "font-family";
     public static final String FONT_FEATURE_SETTINGS = "font-feature-settings";
     public static final String FONT_KERNING = "font-kerning";
@@ -100,7 +101,6 @@ public class CssConstants {
     public static final String FONT_VARIANT_NUMERIC = "font-variant-numeric";
     public static final String FONT_VARIANT_POSITION = "font-variant-position";
     public static final String FONT_WEIGHT = "font-weight";
-    public static final String FONT_DIRECTION = "direction";
     public static final String HANGING_PUNCTUATION = "hanging-punctuation";
     public static final String HEIGHT = "height";
     public static final String HSPACE = "hspace";
@@ -116,9 +116,9 @@ public class CssConstants {
     public static final String MARGIN_LEFT = "margin-left";
     public static final String MARGIN_RIGHT = "margin-right";
     public static final String MARGIN_TOP = "margin-top";
-    public static final String OVERFLOW_WRAP = "overflow-wrap";
     public static final String OPACITY = "opacity";
     public static final String OUTLINE = "outline";
+    public static final String OVERFLOW_WRAP = "overflow-wrap";
     public static final String PADDING = "padding";
     public static final String PADDING_BOTTOM = "padding-bottom";
     public static final String PADDING_LEFT = "padding-left";
@@ -135,8 +135,8 @@ public class CssConstants {
     public static final String TEXT_INDENT = "text-indent";
     public static final String TEXT_JUSTIFY = "text-justify";
     public static final String TEXT_ORIENTATION = "text-orientation";
-    public static final String TEXT_TRANSFORM = "text-transform";
     public static final String TEXT_SHADOW = "text-shadow";
+    public static final String TEXT_TRANSFORM = "text-transform";
     public static final String TEXT_UNDERLINE_POSITION = "text-underline-position";
     public static final String UNICODE_BIDI = "unicode-bidi";
     public static final String VALIGN = "valign";
@@ -145,9 +145,9 @@ public class CssConstants {
     public static final String VSPACE = "vspace";
     public static final String WHITE_SPACE = "white-space";
     public static final String WIDTH = "width";
+    public static final String WORDWRAP = "word-wrap";
     public static final String WORD_BREAK = "word-break";
     public static final String WORD_SPACING = "word-spacing";
-    public static final String WORDWRAP = "word-wrap";
     public static final String WRITING_MODE = "writing-mode";
 
     // property values
@@ -194,6 +194,7 @@ public class CssConstants {
     public static final String LOWER_GREEK = "lower-greek";
     public static final String LOWER_LATIN = "lower-latin";
     public static final String LOWER_ROMAN = "lower-roman";
+    public static final String LTR = "ltr";
     public static final String MEDIUM = "medium";
     public static final String MENU = "menu";
     public static final String MESSAGE_BOX = "message-box";
@@ -210,6 +211,7 @@ public class CssConstants {
     public static final String REPEAT_Y = "repeat-y";
     public static final String RIDGE = "ridge";
     public static final String RIGHT = "right";
+    public static final String RTL = "rtl";
     public static final String SCROLL = "scroll";
     public static final String SMALL = "small";
     public static final String SMALL_CAPS = "small-caps";
