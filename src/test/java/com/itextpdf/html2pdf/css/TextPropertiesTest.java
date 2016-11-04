@@ -67,21 +67,27 @@ public class TextPropertiesTest extends ITextTest {
     }
 
     @Test
-    public void fontSize01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textPropertiesTest01.html"), new File(destinationFolder + "textPropertiesTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textPropertiesTest01.pdf", sourceFolder + "cmp_textPropertiesTest01.pdf", destinationFolder, "diff01_"));
+    public void textAlign01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textAlignTest01.html"), new File(destinationFolder + "textAlignTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textAlignTest01.pdf", sourceFolder + "cmp_textAlignTest01.pdf", destinationFolder, "diff01_"));
     }
 
     @Test
-    public void fontSize02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textPropertiesTest02.html"), new File(destinationFolder + "textPropertiesTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textPropertiesTest02.pdf", sourceFolder + "cmp_textPropertiesTest02.pdf", destinationFolder, "diff02_"));
+    public void textDecoration01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest01.html"), new File(destinationFolder + "textDecorationTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest01.pdf", sourceFolder + "cmp_textDecorationTest01.pdf", destinationFolder, "diff02_"));
     }
 
     @Test
-    public void fontSize03Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textPropertiesTest03.html"), new File(destinationFolder + "textPropertiesTest03.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textPropertiesTest03.pdf", sourceFolder + "cmp_textPropertiesTest03.pdf", destinationFolder, "diff03_"));
+    public void textIndent01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textIndentTest01.html"), new File(destinationFolder + "textIndentTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textIndentTest01.pdf", sourceFolder + "cmp_textIndentTest01.pdf", destinationFolder, "diff03_"));
+    }
+
+    @Test
+    public void letterSpacing01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "letterSpacingTest01.html"), new File(destinationFolder + "letterSpacingTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "letterSpacingTest01.pdf", sourceFolder + "cmp_letterSpacingTest01.pdf", destinationFolder, "diff03_"));
     }
 
 }

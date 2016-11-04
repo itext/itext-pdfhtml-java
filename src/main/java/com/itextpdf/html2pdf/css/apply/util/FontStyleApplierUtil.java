@@ -131,7 +131,15 @@ public final class FontStyleApplierUtil {
             }
         }
 
-
+        String letterSpacing = cssProps.get(CssConstants.LETTER_SPACING);
+        if (letterSpacing != null) {
+            UnitValue letterSpacingValue = CssUtils.parseLengthValueToPt(letterSpacing, em);
+            if (letterSpacingValue.isPointValue()) {
+                element.setProperty(Property.CHARACTER_SPACING, letterSpacingValue.getValue());
+            } else {
+                // browsers ignore values in percents
+            }
+        }
 
     }
 
