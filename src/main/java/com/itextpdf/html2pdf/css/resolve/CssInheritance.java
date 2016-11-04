@@ -102,7 +102,7 @@ public class CssInheritance {
             CssConstants.FONT_WEIGHT,
 
             // Writing Modes Properties
-            CssConstants.FONT_DIRECTION,
+            CssConstants.DIRECTION,
             CssConstants.TEXT_ORIENTATION,
             CssConstants.TEXT_COMBINE_UPRIGHT,
             CssConstants.UNICODE_BIDI,

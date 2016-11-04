@@ -50,10 +50,7 @@ import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
 import com.itextpdf.layout.ElementPropertyContainer;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.property.Leading;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.TextAlignment;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.property.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,6 +89,17 @@ public final class FontStyleApplierUtil {
             element.setProperty(Property.FONT_COLOR, WebColors.getRGBColor(cssProps.get(CssConstants.COLOR)));
         }
 
+        // Make sure to place that before text-align applier
+        String direction = cssProps.get(CssConstants.DIRECTION);
+        if (CssConstants.RTL.equals(direction)) {
+            element.setProperty(Property.BASE_DIRECTION, BaseDirection.RIGHT_TO_LEFT);
+            element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.RIGHT);
+        } else if (CssConstants.LTR.equals(direction)) {
+            element.setProperty(Property.BASE_DIRECTION, BaseDirection.LEFT_TO_RIGHT);
+            element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.LEFT);
+        }
+
+        // Make sure to place that after direction applier
         String align = cssProps.get(CssConstants.TEXT_ALIGN);
         if (CssConstants.LEFT.equals(align)) {
             element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.LEFT);
@@ -165,6 +173,7 @@ public final class FontStyleApplierUtil {
         } else {
             element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, 1.2f));
         }
+
     }
 
 }
