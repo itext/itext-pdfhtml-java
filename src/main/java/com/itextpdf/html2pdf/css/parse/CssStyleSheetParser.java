@@ -42,8 +42,14 @@
  */
 package com.itextpdf.html2pdf.css.parse;
 
+import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.parse.syntax.CssParserStateController;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import com.itextpdf.html2pdf.Html2PdfProductInfo;
+import com.itextpdf.kernel.Version;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -58,6 +64,42 @@ public final class CssStyleSheetParser {
     }
 
     public static CssStyleSheet parse(InputStream stream) throws IOException {
+        String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
+        String licenseKeyProductClassName = "com.itextpdf.licensekey.LicenseKeyProduct";
+        String licenseKeyFeatureClassName = "com.itextpdf.licensekey.LicenseKeyProductFeature";
+        String checkLicenseKeyMethodName = "scheduledCheck";
+
+        try {
+            Class licenseKeyClass = Class.forName(licenseKeyClassName);
+            Class licenseKeyProductClass = Class.forName(licenseKeyProductClassName);
+            Class licenseKeyProductFeatureClass = Class.forName(licenseKeyFeatureClassName);
+
+            Object licenseKeyProductFeatureArray = Array.newInstance(licenseKeyProductFeatureClass, 0);
+
+            Class[] params = new Class[] {
+                    String.class,
+                    Integer.TYPE,
+                    Integer.TYPE,
+                    licenseKeyProductFeatureArray.getClass()
+            };
+
+            Constructor licenseKeyProductConstructor = licenseKeyProductClass.getConstructor(params);
+
+            Object licenseKeyProductObject = licenseKeyProductConstructor.newInstance(
+                    Html2PdfProductInfo.PRODUCT_NAME,
+                    Html2PdfProductInfo.MAJOR_VERSION,
+                    Html2PdfProductInfo.MINOR_VERSION,
+                    licenseKeyProductFeatureArray
+            );
+
+            Method method = licenseKeyClass.getMethod(checkLicenseKeyMethodName, licenseKeyProductClass);
+            method.invoke(null, licenseKeyProductObject);
+        } catch (Exception e) {
+            if ( ! Version.isAGPLVersion() ) {
+                throw new RuntimeException(e.getCause());
+            }
+        }
+
         CssParserStateController controller = new CssParserStateController();
         BufferedReader br = new BufferedReader(new InputStreamReader(stream)); // TODO define charset
         char[] buffer = new char[8192];

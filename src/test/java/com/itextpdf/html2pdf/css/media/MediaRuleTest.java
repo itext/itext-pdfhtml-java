@@ -40,9 +40,10 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css;
+package com.itextpdf.html2pdf.css.media;
 
-import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
+import com.itextpdf.html2pdf.css.CssDeclaration;
+import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
 import com.itextpdf.html2pdf.html.IHtmlParser;
 import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
@@ -55,21 +56,21 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
-import com.itextpdf.test.ITextTest;
+import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(UnitTest.class)
-// TODO check logging by extending from ExtendedITextTest
-public class CssMatchingTest extends ITextTest {
+public class MediaRuleTest extends ExtendedITextTest {
 
-    private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssMatchingTest/";
+    private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/media/MediaRuleTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -82,11 +83,13 @@ public class CssMatchingTest extends ITextTest {
         IHtmlParser htmlParser = new JsoupHtmlParser();
         IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
-        MediaDeviceDescription deviceDescription = new MediaDeviceDescription("all");
+        MediaDeviceDescription deviceDescription = new MediaDeviceDescription(MediaType.PRINT);
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
         List<CssDeclaration> declarations = css.getCssDeclarations(element, deviceDescription);
-        Assert.assertEquals(1, declarations.size());
+        Assert.assertEquals(3, declarations.size());
         Assert.assertEquals("font-weight: bold", declarations.get(0).toString());
+        Assert.assertEquals("color: red", declarations.get(1).toString());
+        Assert.assertEquals("font-size: 20pt", declarations.get(2).toString());
     }
 
     @Test
@@ -96,12 +99,21 @@ public class CssMatchingTest extends ITextTest {
         IHtmlParser htmlParser = new JsoupHtmlParser();
         IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
-        MediaDeviceDescription deviceDescription = new MediaDeviceDescription("all");
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
-        List<CssDeclaration> declarations = css.getCssDeclarations(element, deviceDescription);
-        Assert.assertEquals(2, declarations.size());
-        Assert.assertEquals("font-weight: bold", declarations.get(1).toString());
-        Assert.assertEquals("color: red", declarations.get(0).toString());
+
+        MediaDeviceDescription deviceDescription1 = new MediaDeviceDescription(MediaType.PRINT);
+        deviceDescription1.setWidth(525);
+
+        MediaDeviceDescription deviceDescription2 = new MediaDeviceDescription(MediaType.HANDHELD);
+        deviceDescription2.setOrientation("landscape");
+
+        List<CssDeclaration> declarations1 = css.getCssDeclarations(element, deviceDescription1);
+        List<CssDeclaration> declarations2 = css.getCssDeclarations(element, deviceDescription2);
+
+        Assert.assertTrue(Objects.equals(declarations1, declarations2));
+
+        Assert.assertEquals(1, declarations1.size());
+        Assert.assertEquals("font-weight: bold", declarations1.get(0).toString());
     }
 
     @Test
@@ -111,12 +123,12 @@ public class CssMatchingTest extends ITextTest {
         IHtmlParser htmlParser = new JsoupHtmlParser();
         IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
-        MediaDeviceDescription deviceDescription = new MediaDeviceDescription("all");
+        MediaDeviceDescription deviceDescription = new MediaDeviceDescription(MediaType.PRINT);
+        deviceDescription.setResolution(300);
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
         List<CssDeclaration> declarations = css.getCssDeclarations(element, deviceDescription);
-        Assert.assertEquals(2, declarations.size());
-        Assert.assertEquals("font-weight: bold", declarations.get(0).toString());
-        Assert.assertEquals("color: black", declarations.get(1).toString());
+        Assert.assertEquals(1, declarations.size());
+        Assert.assertEquals("color: black", declarations.get(0).toString());
     }
 
     @Test
@@ -126,11 +138,14 @@ public class CssMatchingTest extends ITextTest {
         IHtmlParser htmlParser = new JsoupHtmlParser();
         IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
-        MediaDeviceDescription deviceDescription = new MediaDeviceDescription("all");
+
+        MediaDeviceDescription deviceDescription = new MediaDeviceDescription(MediaType.PRINT).setColorIndex(256);
+
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
         List<CssDeclaration> declarations = css.getCssDeclarations(element, deviceDescription);
-        Assert.assertEquals(1, declarations.size());
-        Assert.assertEquals("font-size: 100px", declarations.get(0).toString());
+        Assert.assertEquals(2, declarations.size());
+        Assert.assertEquals("color: red", declarations.get(0).toString());
+        Assert.assertEquals("font-size: 20em", declarations.get(1).toString());
     }
 
     @Test
@@ -140,11 +155,21 @@ public class CssMatchingTest extends ITextTest {
         IHtmlParser htmlParser = new JsoupHtmlParser();
         IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
-        MediaDeviceDescription deviceDescription = new MediaDeviceDescription("all");
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
-        List<CssDeclaration> declarations = css.getCssDeclarations(element, deviceDescription);
-        Assert.assertEquals(1, declarations.size());
-        Assert.assertEquals("color: red", declarations.get(0).toString());
+
+        MediaDeviceDescription deviceDescription1 = new MediaDeviceDescription(MediaType.PRINT).
+                setWidth(300).setHeight(301);
+
+        MediaDeviceDescription deviceDescription2 = new MediaDeviceDescription(MediaType.SCREEN).
+                setWidth(400).setHeight(400);
+
+        List<CssDeclaration> declarations1 = css.getCssDeclarations(element, deviceDescription1);
+        List<CssDeclaration> declarations2 = css.getCssDeclarations(element, deviceDescription2);
+
+        Assert.assertEquals(0, declarations1.size());
+
+        Assert.assertEquals(1, declarations2.size());
+        Assert.assertEquals("color: red", declarations2.get(0).toString());
     }
 
     @Test
@@ -154,11 +179,27 @@ public class CssMatchingTest extends ITextTest {
         IHtmlParser htmlParser = new JsoupHtmlParser();
         IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
-        MediaDeviceDescription deviceDescription = new MediaDeviceDescription("all");
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
-        List<CssDeclaration> declarations = css.getCssDeclarations(element, deviceDescription);
-        Assert.assertEquals(1, declarations.size());
-        Assert.assertEquals("color: blue", declarations.get(0).toString());
+
+        MediaDeviceDescription deviceDescription1 = new MediaDeviceDescription(MediaType.PRINT).
+                setBitsPerComponent(2);
+
+        MediaDeviceDescription deviceDescription2 = new MediaDeviceDescription(MediaType.HANDHELD).
+                setBitsPerComponent(2);
+
+        MediaDeviceDescription deviceDescription3 = new MediaDeviceDescription(MediaType.SCREEN).
+                setBitsPerComponent(1);
+
+        List<CssDeclaration> declarations1 = css.getCssDeclarations(element, deviceDescription1);
+        List<CssDeclaration> declarations2 = css.getCssDeclarations(element, deviceDescription2);
+        List<CssDeclaration> declarations3 = css.getCssDeclarations(element, deviceDescription3);
+
+        Assert.assertTrue(Objects.equals(declarations1, declarations2));
+        Assert.assertEquals(0, declarations3.size());
+
+        Assert.assertEquals(1, declarations1.size());
+        Assert.assertEquals("color: red", declarations1.get(0).toString());
     }
+
 
 }

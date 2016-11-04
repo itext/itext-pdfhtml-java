@@ -44,17 +44,27 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
 import com.itextpdf.io.util.ResourceUtil;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import com.itextpdf.html2pdf.Html2PdfProductInfo;
+import com.itextpdf.kernel.Version;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class CssStyleSheetParserTest {
 
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssStyleSheetParserTest/";
     private static final String DEFAULT_CSS_PATH = "com/itextpdf/html2pdf/default.css";
+
+    @BeforeClass
+    public static void beforeClass() {
+    }
 
     @Test
     public void testDefaultCss() throws IOException {
