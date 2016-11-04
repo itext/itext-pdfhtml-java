@@ -49,6 +49,7 @@ import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,6 +91,15 @@ public final class FontStyleApplierUtil {
         }
         if (cssProps.get(CssConstants.COLOR) != null) {
             element.setProperty(Property.FONT_COLOR, WebColors.getRGBColor(cssProps.get(CssConstants.COLOR)));
+        }
+
+        String align = cssProps.get(CssConstants.TEXT_ALIGN);
+        if (CssConstants.LEFT.equals(align)) {
+            element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.LEFT);
+        } else if (CssConstants.RIGHT.equals(align)) {
+            element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.RIGHT);
+        } else if (CssConstants.CENTER.equals(align)) {
+            element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.CENTER);
         }
     }
 

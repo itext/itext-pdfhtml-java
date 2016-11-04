@@ -47,22 +47,13 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.kernel.color.WebColors;
-import com.itextpdf.layout.border.Border;
-import com.itextpdf.layout.border.DashedBorder;
-import com.itextpdf.layout.border.DottedBorder;
-import com.itextpdf.layout.border.DoubleBorder;
-import com.itextpdf.layout.border.GrooveBorder;
-import com.itextpdf.layout.border.InsetBorder;
-import com.itextpdf.layout.border.OutsetBorder;
-import com.itextpdf.layout.border.RidgeBorder;
-import com.itextpdf.layout.border.SolidBorder;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.TextAlignment;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.border.*;
+
 import java.util.Map;
 
 public class TableTagCssApplier implements ICssApplier {
@@ -115,28 +106,8 @@ public class TableTagCssApplier implements ICssApplier {
                 }
             }
         }
-        if (cssProps.get(CssConstants.HEIGHT) != null) {
-            worker.getElementResult().setProperty(Property.HEIGHT, CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.HEIGHT)));
-        }
 
-        if (cssProps.get(CssConstants.TEXT_ALIGN) != null) {
-            String align = cssProps.get(CssConstants.TEXT_ALIGN);
-            switch (align) {
-                case CssConstants.LEFT:
-                    worker.getElementResult().setProperty(Property.TEXT_ALIGNMENT, TextAlignment.LEFT);
-                    break;
-                case CssConstants.RIGHT:
-                    worker.getElementResult().setProperty(Property.TEXT_ALIGNMENT, TextAlignment.RIGHT);
-                    break;
-                case CssConstants.CENTER:
-                    worker.getElementResult().setProperty(Property.TEXT_ALIGNMENT, TextAlignment.CENTER);
-                    break;
-                default: break;
-            }
-        }
-
-        if (cssProps.get(CssConstants.WIDTH) != null) {
-            worker.getElementResult().setProperty(Property.WIDTH, UnitValue.createPointValue(CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.WIDTH))));
-        }
+        FontStyleApplierUtil.applyFontStyles(cssProps, context, worker.getElementResult());
+        WidthHeightApplierUtil.applyWidthHeight(cssProps, context, worker.getElementResult());
     }
 }
