@@ -78,4 +78,10 @@ public class TextPropertiesTest extends ITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textPropertiesTest02.pdf", sourceFolder + "cmp_textPropertiesTest02.pdf", destinationFolder, "diff02_"));
     }
 
+    @Test
+    public void fontSize03Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textPropertiesTest03.html"), new File(destinationFolder + "textPropertiesTest03.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textPropertiesTest03.pdf", sourceFolder + "cmp_textPropertiesTest03.pdf", destinationFolder, "diff03_"));
+    }
+
 }
