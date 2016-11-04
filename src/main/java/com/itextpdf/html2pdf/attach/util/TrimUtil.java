@@ -69,11 +69,11 @@ public final class TrimUtil {
         while (pos < waitingLeafs.size() - 1) {
             if (waitingLeafs.get(pos) instanceof Text) {
                 Text first = (Text) waitingLeafs.get(pos);
-                if (first.getText().matches(".*\\s+$")) {
+                if (first.getText().matches(".*[\\s&&[^\n]]+$")) {
                     while (pos + 1 < waitingLeafs.size() && waitingLeafs.get(pos + 1) instanceof Text) {
                         Text second = (Text) waitingLeafs.get(pos + 1);
-                        if (second.getText().matches("^\\s+.*")) {
-                            second.setText(second.getText().replaceFirst("^\\s+", ""));
+                        if (second.getText().matches("^[\\s&&[^\n]]+.*")) {
+                            second.setText(second.getText().replaceFirst("^[\\s&&[^\n]]+", ""));
                         }
                         if (second.getText().length() == 0) {
                             waitingLeafs.remove(pos + 1);
