@@ -74,14 +74,9 @@ public final class FontStyleApplierUtil {
                 logger.error("Could not load font", exc);
             }
         }
-        if (cssProps.get(CssConstants.FONT_SIZE) != null) {
-            float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
-            UnitValue fontSize = CssUtils.parseLengthValueToPt(cssProps.get(CssConstants.FONT_SIZE), em);
-            if (fontSize.isPointValue()) {
-                element.setProperty(Property.FONT_SIZE, fontSize.getValue());
-            } else {
-                element.setProperty(Property.FONT_SIZE, fontSize.getValue() * em / 100);
-            }
+        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        if (em != 0) {
+            element.setProperty(Property.FONT_SIZE, em);
         }
         if (cssProps.get(CssConstants.FONT_WEIGHT) != null) {
             // TODO move to font selection mechanism
@@ -123,6 +118,21 @@ public final class FontStyleApplierUtil {
                 elementPropertyContainer.setProperty(Property.UNDERLINE, null);
             }
         }
+
+        // TODO text-transform
+
+        String textIndent = cssProps.get(CssConstants.TEXT_INDENT);
+        if (textIndent != null) {
+            UnitValue textIndentValue = CssUtils.parseLengthValueToPt(textIndent, em);
+            if (textIndentValue.isPointValue()) {
+                element.setProperty(Property.FIRST_LINE_INDENT, textIndentValue.getValue());
+            } else {
+                logger.error("text-indent in percents is not supported");
+            }
+        }
+
+
+
     }
 
 }
