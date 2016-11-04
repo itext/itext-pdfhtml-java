@@ -66,8 +66,10 @@ public class JsoupHtmlParser implements IHtmlParser {
     private static Logger logger = LoggerFactory.getLogger(JsoupHtmlParser.class);
 
     @Override
-    public IDocument parse(InputStream htmlStream, String charset, String baseUri) throws IOException {
-        // TODO base URI
+    public IDocument parse(InputStream htmlStream, String charset) throws IOException {
+        // Based on some brief investigations, it seems that Jsoup uses baseUri for resolving relative uri's into absolute
+        // on user demand. We perform such resolving in ResourceResolver class, therefore it is not needed here.
+        String baseUri = "";
         org.jsoup.nodes.Document doc = Jsoup.parse(htmlStream, charset, baseUri);
         INode result = wrapJsoupHierarchy(doc);
         if (result instanceof IDocument) {

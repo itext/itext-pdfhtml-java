@@ -44,47 +44,61 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.MessageFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+// TODO handle <base href=".."> tag?
 public class ResourceResolver {
+    private UriResolver uriResolver;
+    // TODO provide a way to configure capacity, manually reset or disable the image cache?
+    private SimpleImageCache imageCache;
 
-    private String baseUri;
-
+    /**
+     * Creates {@link ResourceResolver} instance. If {@code baseUri} is a string that represents an absolute URI with any schema
+     * except "file" - resources url values will be resolved exactly as "new URL(baseUrl, uriString)". Otherwise base URI
+     * will be handled as path in local file system.
+     * <p>
+     * The main difference between those two is handling of the relative URIs of resources with slashes in the beginning
+     * of them (e.g. "/test/uri", or "//itextpdf.com/example_resources/logo.img"): if base URI is handled as local file
+     * system path, then in those cases resources URIs will be simply concatenated to the base path, rather than processed
+     * with URI resolution rules (See RFC 3986 "5.4.  Reference Resolution Examples"). However absolute resource URIs will
+     * be processed correctly.
+     * </p>
+     * <p>
+     * If empty string or relative URI string is passed as base URI, then it will be resolved against current working
+     * directory of this application instance.
+     * </p>
+     *
+     * @param baseUri base URI against which all relative resource URIs will be resolved.
+     */
     public ResourceResolver(String baseUri) {
-        this.baseUri = baseUri;
+        this.uriResolver = new UriResolver(baseUri);
+        this.imageCache = new SimpleImageCache();
     }
 
-    //TODO store/cache
     public ImageData retrieveImage(String src) {
-        URL url;
         try {
-            url = new URL(src);
-        } catch (MalformedURLException e) {
-            try {
-                url = new File(baseUri + src).toURI().toURL();
-            } catch (MalformedURLException ex) {
-                url = null;
+            URL url = uriResolver.resolveAgainstBaseUri(src);
+            String imageResolvedSrc = url.toExternalForm();
+            ImageData imageData = imageCache.getImage(imageResolvedSrc);
+            if (imageData == null) {
+                imageData = ImageDataFactory.create(url);
+                imageCache.putImage(imageResolvedSrc, imageData);
             }
-        }
-
-        if (url == null) {
-            return null;
-        } else {
-            return ImageDataFactory.create(url);
-        }
-    }
-
-    // TODO port FileRetrieveImpl from iText5 DEVSIX-898
-    public FileInputStream retrieveStyleSheet(String url) {
-        try {
-            return new FileInputStream(baseUri + url);
-        } catch (FileNotFoundException exc) {
+            return imageData;
+        } catch (Exception e) {
+            Logger logger = LoggerFactory.getLogger(ResourceResolver.class);
+            logger.error(MessageFormat.format("Unable to retrieve image with given base URI ({0}) and image source path ({1})", uriResolver.getBaseUri(), src));
             return null;
         }
     }
 
+    public InputStream retrieveStyleSheet(String uri) throws IOException {
+        return uriResolver.resolveAgainstBaseUri(uri).openStream();
+    }
 }
