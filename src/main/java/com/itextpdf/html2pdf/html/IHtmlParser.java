@@ -48,7 +48,7 @@ import java.io.InputStream;
 
 public interface IHtmlParser {
 
-    IDocument parse(InputStream htmlStream, String charset, String baseUri) throws IOException;
+    IDocument parse(InputStream htmlStream, String charset) throws IOException;
 
     IDocument parse(String html);
 

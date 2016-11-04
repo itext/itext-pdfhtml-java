@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
+import com.itextpdf.html2pdf.ResourceResolver;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
@@ -68,18 +69,20 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     private static Logger logger = LoggerFactory.getLogger(DefaultHtmlProcessor.class);
 
     private ProcessorContext context;
-    private ICssResolver resolver;
+    private ICssResolver cssResolver;
     private INode root;
+    private ResourceResolver resourceResolver;
     private List<IPropertyContainer> roots;
 
-    public DefaultHtmlProcessor(INode node, ICssResolver cssResolver) {
-        this.resolver = cssResolver;
+    public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver) {
+        this.cssResolver = cssResolver;
         this.root = node;
+        this.resourceResolver = resourceResolver;
     }
 
     @Override
     public List<com.itextpdf.layout.element.IElement> processElements() {
-        context = new ProcessorContext(resolver);
+        context = new ProcessorContext(cssResolver, resourceResolver);
         roots = new ArrayList<>();
         root = findBodyNode(root);
         visit(root);
@@ -95,8 +98,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     }
 
     @Override
-    public Document processDocument(PdfDocument pdfDocument, String baseUri) {
-        context = new ProcessorContext(resolver, pdfDocument, baseUri);
+    public Document processDocument(PdfDocument pdfDocument) {
+        context = new ProcessorContext(cssResolver, pdfDocument, resourceResolver);
         roots = new ArrayList<>();
         visit(root);
         context = null;

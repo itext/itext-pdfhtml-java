@@ -150,21 +150,31 @@ public class HtmlConverter {
         }
         IHtmlParser parser = new JsoupHtmlParser();
         String detectedCharset = detectEncoding(htmlStream);
-        IDocument doc = parser.parse(htmlStream, detectedCharset, baseUri);
-        ICssResolver resolver = new DefaultCssResolver(doc, deviceDescription, new ResourceResolver(baseUri));
-        Document document = Attacher.attach(doc, resolver, pdfDocument, baseUri);
+        IDocument doc = parser.parse(htmlStream, detectedCharset);
+        ResourceResolver resourceResolver = new ResourceResolver(baseUri);
+        ICssResolver cssResolver = new DefaultCssResolver(doc, deviceDescription, resourceResolver);
+        Document document = Attacher.attach(doc, cssResolver, pdfDocument, resourceResolver);
         return document;
     }
 
     public static List<IElement> convertToElements(String html) {
-        return convertToElements(html, MediaDeviceDescription.createDefault());
+        return convertToElements(html, "");
+    }
+
+    public static List<IElement> convertToElements(String html, String baseUri) {
+        return convertToElements(html, MediaDeviceDescription.createDefault(), baseUri);
     }
 
     public static List<IElement> convertToElements(String html, MediaDeviceDescription deviceDescription) {
+        return convertToElements(html, deviceDescription, "");
+    }
+
+    public static List<IElement> convertToElements(String html, MediaDeviceDescription deviceDescription, String baseUri) {
         IHtmlParser parser = new JsoupHtmlParser();
         IDocument doc = parser.parse(html);
-        ICssResolver resolver = new DefaultCssResolver(doc, deviceDescription, new ResourceResolver(""));
-        return Attacher.attach(doc, resolver);
+        ResourceResolver resourceResolver = new ResourceResolver(baseUri);
+        ICssResolver cssResolver = new DefaultCssResolver(doc, deviceDescription, resourceResolver);
+        return Attacher.attach(doc, cssResolver, resourceResolver);
     }
 
     // TODO

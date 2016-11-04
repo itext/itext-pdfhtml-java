@@ -57,23 +57,28 @@ import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IDataNode;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.html2pdf.html.node.INode;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DefaultCssResolver implements ICssResolver {
 
     private CssStyleSheet cssStyleSheet;
     private MediaDeviceDescription deviceDescription;
-    private ResourceResolver resourceResolver;
 
     public DefaultCssResolver(INode treeRoot, MediaDeviceDescription mediaDeviceDescription, ResourceResolver resourceResolver) {
         this.deviceDescription = mediaDeviceDescription;
-        this.resourceResolver = resourceResolver;
-        collectCssDeclarations(treeRoot);
+        collectCssDeclarations(treeRoot, resourceResolver);
     }
 
     @Override
@@ -141,7 +146,7 @@ public class DefaultCssResolver implements ICssResolver {
         return stylesMap;
     }
 
-    private void collectCssDeclarations(INode treeRoot) {
+    private void collectCssDeclarations(INode treeRoot, ResourceResolver resourceResolver) {
         cssStyleSheet = new CssStyleSheet();
 
         INode headNode = findHeadNode(treeRoot);
@@ -159,16 +164,14 @@ public class DefaultCssResolver implements ICssResolver {
                     }
                 } else if (headChildElement.name().equals(TagConstants.LINK)
                         && AttributeConstants.STYLESHEET.equals(headChildElement.getAttribute(AttributeConstants.REL))) {
-                    String styleSheetUrl = headChildElement.getAttribute(AttributeConstants.HREF);
+                    String styleSheetUri = headChildElement.getAttribute(AttributeConstants.HREF);
 
-                    FileInputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUrl);
-                    if (stream != null) {
-                        try {
-                            cssStyleSheet.appendCssStyleSheet(CssStyleSheetParser.parse(stream));
-                        } catch (IOException exc) {
-                            Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
-                            logger.error("Unable to process external css file", exc);
-                        }
+                    try {
+                        InputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUri);
+                        cssStyleSheet.appendCssStyleSheet(CssStyleSheetParser.parse(stream));
+                    } catch (IOException exc) {
+                        Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
+                        logger.error("Unable to process external css file", exc);
                     }
                 }
             }

@@ -40,29 +40,70 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf;
 
-import com.itextpdf.html2pdf.ResourceResolver;
-import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
-import com.itextpdf.html2pdf.css.resolve.ICssResolver;
-import com.itextpdf.html2pdf.html.node.IDocument;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.layout.Document;
-import java.util.List;
+import com.itextpdf.io.image.ImageData;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
-public class Attacher {
+class SimpleImageCache {
+    private Map<String, ImageData> cache = new LinkedHashMap<>();
+    private Map<String, Integer> imagesFrequency = new LinkedHashMap<>();
+    private int capacity;
 
-    private Attacher() {
+    SimpleImageCache() {
+        this.capacity = 100;
     }
 
-    public static Document attach(IDocument documentNode, ICssResolver cssResolver, PdfDocument pdfDocument, ResourceResolver resourceResolver) {
-        IHtmlProcessor processor = new DefaultHtmlProcessor(documentNode, cssResolver, resourceResolver);
-        return processor.processDocument(pdfDocument);
+    SimpleImageCache(int capacity) {
+        if (capacity < 1) {
+            throw new IllegalArgumentException("capacity");
+        }
+        this.capacity = capacity;
     }
 
-    public static List<com.itextpdf.layout.element.IElement> attach(IDocument documentNode, ICssResolver cssResolver, ResourceResolver resourceResolver) {
-        IHtmlProcessor processor = new DefaultHtmlProcessor(documentNode, cssResolver, resourceResolver);
-        return processor.processElements();
+    void putImage(String src, ImageData imageData) {
+        if (cache.containsKey(src)) {
+            return;
+        }
+        ensureCapacity();
+        cache.put(src, imageData);
     }
 
+    ImageData getImage(String src) {
+        Integer frequency = imagesFrequency.get(src);
+        if (frequency != null) {
+            imagesFrequency.put(src, frequency + 1);
+        } else {
+            imagesFrequency.put(src, 1);
+        }
+
+        return cache.get(src);
+    }
+
+    int size() {
+        return cache.size();
+    }
+
+    private void ensureCapacity() {
+        if (cache.size() >= capacity) {
+            String mostUnpopularImg = null;
+            int minFrequency = Integer.MAX_VALUE;
+            for (String imgSrc : cache.keySet()) { // TODO keySet preserves order of LinkedList? and in .net?
+                Integer imgFrequency = imagesFrequency.get(imgSrc);
+                if (imgFrequency == null || imgFrequency < minFrequency) {
+                    mostUnpopularImg = imgSrc;
+                    if (imgFrequency == null) {
+                        break;
+                    } else {
+                        minFrequency = imgFrequency;
+                    }
+                }
+            }
+
+            cache.remove(mostUnpopularImg);
+        }
+    }
 }

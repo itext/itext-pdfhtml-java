@@ -70,7 +70,7 @@ public class CssMatchingTest extends ITextTest {
         String htmlFileName = sourceFolder + "html01.html";
         String cssFileName = sourceFolder + "css01.css";
         IHtmlParser htmlParser = new JsoupHtmlParser();
-        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8", "");
+        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
         MediaDeviceDescription deviceDescription = new MediaDeviceDescription("all");
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
@@ -84,7 +84,7 @@ public class CssMatchingTest extends ITextTest {
         String htmlFileName = sourceFolder + "html02.html";
         String cssFileName = sourceFolder + "css02.css";
         IHtmlParser htmlParser = new JsoupHtmlParser();
-        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8", "");
+        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
         MediaDeviceDescription deviceDescription = new MediaDeviceDescription("all");
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
@@ -99,7 +99,7 @@ public class CssMatchingTest extends ITextTest {
         String htmlFileName = sourceFolder + "html03.html";
         String cssFileName = sourceFolder + "css03.css";
         IHtmlParser htmlParser = new JsoupHtmlParser();
-        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8", "");
+        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
         MediaDeviceDescription deviceDescription = new MediaDeviceDescription("all");
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
@@ -114,7 +114,7 @@ public class CssMatchingTest extends ITextTest {
         String htmlFileName = sourceFolder + "html04.html";
         String cssFileName = sourceFolder + "css04.css";
         IHtmlParser htmlParser = new JsoupHtmlParser();
-        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8", "");
+        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
         MediaDeviceDescription deviceDescription = new MediaDeviceDescription("all");
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
@@ -128,7 +128,7 @@ public class CssMatchingTest extends ITextTest {
         String htmlFileName = sourceFolder + "html05.html";
         String cssFileName = sourceFolder + "css05.css";
         IHtmlParser htmlParser = new JsoupHtmlParser();
-        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8", "");
+        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
         MediaDeviceDescription deviceDescription = new MediaDeviceDescription("all");
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
@@ -142,7 +142,7 @@ public class CssMatchingTest extends ITextTest {
         String htmlFileName = sourceFolder + "html06.html";
         String cssFileName = sourceFolder + "css06.css";
         IHtmlParser htmlParser = new JsoupHtmlParser();
-        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8", "");
+        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
         MediaDeviceDescription deviceDescription = new MediaDeviceDescription("all");
         IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());

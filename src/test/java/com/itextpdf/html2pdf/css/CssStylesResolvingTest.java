@@ -284,7 +284,7 @@ public class CssStylesResolvingTest extends ITextTest {
     private void test(String fileName, String elementPath, String... expectedStyles) throws IOException {
         String filePath = sourceFolder + fileName;
         IHtmlParser parser = new JsoupHtmlParser();
-        IDocument document = parser.parse(new FileInputStream(filePath), "UTF-8", "");
+        IDocument document = parser.parse(new FileInputStream(filePath), "UTF-8");
         ICssResolver cssResolver = new DefaultCssResolver(document, MediaDeviceDescription.createDefault(), new ResourceResolver(""));
         resolveStylesForTree(document, cssResolver);
 

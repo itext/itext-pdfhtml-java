@@ -55,22 +55,20 @@ public class ProcessorContext {
     private PdfDocument pdfDocument;
     private ICssResolver cssResolver;
     private IFontResolver fontResolver;
-    private ResourceResolver resourceResolver = new ResourceResolver("");
-    private String baseUri;
+    private ResourceResolver resourceResolver;
     private MediaDeviceDescription deviceDescription;
 
-    public ProcessorContext(ICssResolver cssResolver) {
+    public ProcessorContext(ICssResolver cssResolver, ResourceResolver resourceResolver) {
         this.cssResolver = cssResolver;
         this.fontResolver = new DefaultFontResolver();
         this.state = new State();
         this.deviceDescription = MediaDeviceDescription.createDefault();
+        this.resourceResolver = resourceResolver;
     }
 
-    public ProcessorContext(ICssResolver cssResolver, PdfDocument pdfDocument, String baseUri) {
-        this(cssResolver);
+    public ProcessorContext(ICssResolver cssResolver, PdfDocument pdfDocument, ResourceResolver resourceResolver) {
+        this(cssResolver, resourceResolver);
         this.pdfDocument = pdfDocument;
-        this.baseUri = baseUri;
-        this.resourceResolver = new ResourceResolver(baseUri);
     }
 
     public void setFontResolver(IFontResolver fontResolver) {
@@ -91,10 +89,6 @@ public class ProcessorContext {
 
     public IFontResolver getFontResolver() {
         return fontResolver;
-    }
-
-    public String getBaseUri() {
-        return baseUri;
     }
 
     public ResourceResolver getResourceResolver() {
