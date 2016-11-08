@@ -42,40 +42,59 @@
  */
 package com.itextpdf.html2pdf.attach.util;
 
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.ILeafElement;
-import com.itextpdf.layout.element.ListItem;
-import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class WaitingInlineElementsHelper {
 
-    private List<ILeafElement> waitingLeafs = new ArrayList<>();
+    private String whiteSpace;
+    private boolean keepLineBreaks;
+    private boolean collapseSpaces;
+
+    public WaitingInlineElementsHelper(String whiteSpace) {
+        this.whiteSpace = whiteSpace;
+        keepLineBreaks = CssConstants.PRE.equals(whiteSpace) || CssConstants.PRE_WRAP.equals(whiteSpace) || CssConstants.PRE_LINE.equals(whiteSpace);
+        collapseSpaces = !(CssConstants.PRE.equals(whiteSpace) || CssConstants.PRE_WRAP.equals(whiteSpace));
+    }
+
+    private List<ILeafElement> waitingLeaves = new ArrayList<>();
+
+    public void add(String text) {
+        if (!keepLineBreaks && collapseSpaces) {
+            text = text.replaceAll("\\s+", " ");
+        } else if (keepLineBreaks && collapseSpaces) {
+            text = text.replaceAll("[\\s&&[^\n]]+", " ");
+        }
+        waitingLeaves.add(new Text(text));
+    }
 
     public void add(ILeafElement element) {
-        waitingLeafs.add(element);
+        waitingLeaves.add(element);
     }
 
     public void addAll(Collection<ILeafElement> collection) {
-        waitingLeafs.addAll(collection);
+        waitingLeaves.addAll(collection);
     }
 
     public void flushHangingLeafs(IPropertyContainer container) {
-        waitingLeafs = TrimUtil.trimLeafElementsFirstAndSanitize(waitingLeafs);
-        if (waitingLeafs.size() > 0) {
+        if (collapseSpaces) {
+            waitingLeaves = TrimUtil.trimLeafElementsFirstAndSanitize(waitingLeaves);
+        }
+        if (waitingLeaves.size() > 0) {
             Paragraph p = createParagraphContainer();
-            for (ILeafElement leaf : waitingLeafs) {
+            for (ILeafElement leaf : waitingLeaves) {
                 p.add(leaf);
             }
             if (container instanceof Document) {
                 ((Document) container).add(p);
             } else if (container instanceof Paragraph) {
-                for (ILeafElement leafElement : waitingLeafs) {
+                for (ILeafElement leafElement : waitingLeaves) {
                     ((Paragraph) container).add(leafElement);
                 }
             } else if (container instanceof Div) {
@@ -89,8 +108,16 @@ public class WaitingInlineElementsHelper {
             } else {
                 throw new IllegalStateException("Unable to process hanging inline content");
             }
-            waitingLeafs.clear();
+            waitingLeaves.clear();
         }
+    }
+
+    public Collection<ILeafElement> getWaitingLeaves() {
+        return waitingLeaves;
+    }
+
+    public void clearWaitingLeaves() {
+        waitingLeaves.clear();
     }
 
     public Paragraph createParagraphContainer() {

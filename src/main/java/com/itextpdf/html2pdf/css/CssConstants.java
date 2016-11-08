@@ -206,6 +206,9 @@ public class CssConstants {
     public static final String OUTSET = "outset";
     public static final String OVERLINE = "overline";
     public static final String PADDING_BOX = "padding-box";
+    public static final String PRE = "pre";
+    public static final String PRE_LINE = "pre-line";
+    public static final String PRE_WRAP = "pre-wrap";
     public static final String REPEAT = "repeat";
     public static final String REPEAT_X = "repeat-x";
     public static final String REPEAT_Y = "repeat-y";
@@ -229,7 +232,6 @@ public class CssConstants {
     public static final String TRANSPARENT = "transparent";
     public static final String UNDERLINE = "underline";
     public static final String UPPER_ALPHA = "upper-alpha";
-
     public static final String UPPER_LATIN = "upper-latin";
     public static final String UPPER_ROMAN = "upper-roman";
     public static final String X_LARGE = "x-large";

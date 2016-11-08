@@ -43,7 +43,9 @@
 package com.itextpdf.html2pdf.attach.wrapelement;
 
 import com.itextpdf.layout.element.ILeafElement;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class SpanWrapper implements IWrapElement {
@@ -56,6 +58,10 @@ public class SpanWrapper implements IWrapElement {
 
     public void add(ILeafElement img) {
         children.add(img);
+    }
+
+    public void addAll(Collection<ILeafElement> collection) {
+        children.addAll(collection);
     }
 
     public List<ILeafElement> getLeafElements() {

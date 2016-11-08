@@ -45,12 +45,12 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Text;
 
 public class UlOlTagWorker implements ITagWorker {
 
@@ -59,7 +59,7 @@ public class UlOlTagWorker implements ITagWorker {
 
     public UlOlTagWorker(IElement element, ProcessorContext context) {
         list = new List();
-        inlineHelper = new WaitingInlineElementsHelper();
+        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE));
     }
 
     @Override
@@ -69,7 +69,7 @@ public class UlOlTagWorker implements ITagWorker {
 
     @Override
     public boolean processContent(String content, ProcessorContext context) {
-        inlineHelper.add(new Text(content));
+        inlineHelper.add(content);
         return true;
     }
 

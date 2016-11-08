@@ -51,7 +51,6 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.Text;
 
 public class TdTagWorker implements ITagWorker {
 
@@ -70,7 +69,7 @@ public class TdTagWorker implements ITagWorker {
         } catch (NumberFormatException e) {
         }
         cell = new Cell(rowspan, colspan);
-        inlineHelper = new WaitingInlineElementsHelper();
+        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE));
     }
 
     @Override
@@ -80,7 +79,7 @@ public class TdTagWorker implements ITagWorker {
 
     @Override
     public boolean processContent(String content, ProcessorContext context) {
-        inlineHelper.add(new Text(content));
+        inlineHelper.add(content);
         return true;
     }
 

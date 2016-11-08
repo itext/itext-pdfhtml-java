@@ -44,11 +44,13 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.attach.wrapelement.SpanWrapper;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.ILeafElement;
-import com.itextpdf.layout.element.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,21 +59,22 @@ public class SpanTagWorker implements ITagWorker {
     private SpanWrapper spanWrapper;
     private List<ILeafElement> leafElements;
     private List<ILeafElement> ownLeafElements = new ArrayList<>();
+    private WaitingInlineElementsHelper inlineHelper;
 
     public SpanTagWorker(IElement element, ProcessorContext context) {
         spanWrapper = new SpanWrapper();
+        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE));
     }
 
     @Override
     public void processEnd(IElement element, ProcessorContext context) {
+        flushInlineHelper();
         leafElements = spanWrapper.getLeafElements();
     }
 
     @Override
     public boolean processContent(String content, ProcessorContext context) {
-        Text text = new Text(content);
-        spanWrapper.add(text);
-        ownLeafElements.add(text);
+        inlineHelper.add(content);
         return true;
     }
 
@@ -83,6 +86,7 @@ public class SpanTagWorker implements ITagWorker {
             ownLeafElements.add((ILeafElement) element);
             return true;
         } else if (childTagWorker instanceof SpanTagWorker) {
+            flushInlineHelper();
             spanWrapper.add(((SpanTagWorker) childTagWorker).spanWrapper);
             return true;
         }
@@ -101,6 +105,12 @@ public class SpanTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return null;
+    }
+
+    private void flushInlineHelper() {
+        spanWrapper.addAll(inlineHelper.getWaitingLeaves());
+        ownLeafElements.addAll(inlineHelper.getWaitingLeaves());
+        inlineHelper.clearWaitingLeaves();
     }
 
 }
