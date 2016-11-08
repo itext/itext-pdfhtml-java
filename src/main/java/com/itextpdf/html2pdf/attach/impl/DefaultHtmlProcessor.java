@@ -42,8 +42,8 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
-import com.itextpdf.html2pdf.ResourceResolver;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
+import com.itextpdf.html2pdf.ResourceResolver;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
@@ -63,16 +63,17 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DefaultHtmlProcessor implements IHtmlProcessor {
 
-    private static Logger logger = LoggerFactory.getLogger(DefaultHtmlProcessor.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultHtmlProcessor.class);
 
     private ProcessorContext context;
     private ICssResolver cssResolver;
@@ -189,14 +190,14 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     private void visit(INode node) {
         if (node instanceof IElement) {
             IElement element = (IElement) node;
+            element.setStyles(context.getCssResolver().resolveStyles(element));
+
             ITagWorker tagWorker = TagWorkerFactory.getTagWorker(element, context);
             if (tagWorker == null) {
                 logger.error("No worker found for tag " + (element).name());
             } else {
                 context.getState().push(tagWorker);
             }
-
-            element.setStyles(context.getCssResolver().resolveStyles(element));
 
             for (INode childNode : element.childNodes()) {
                 visit(childNode);
@@ -216,7 +217,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 if (!context.getState().empty()) {
                     boolean childProcessed = context.getState().top().processTagChild(tagWorker, context);
                     if (!childProcessed) {
-                        logger.error(String.format( "Worker of type %s wasn't able to process %s",
+                        logger.error(String.format("Worker of type %s wasn't able to process %s",
                                 context.getState().top().getClass().getName(), tagWorker.getClass().getName()));
                     }
                 } else if (tagWorker.getElementResult() != null) {
@@ -227,7 +228,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             element.setStyles(null);
 
         } else if (node instanceof ITextNode) {
-            String content = normalizeSpaces(((ITextNode) node).wholeText());
+            String content = ((ITextNode) node).wholeText();
             if (content != null) {
                 if (!context.getState().empty()) {
                     boolean contentProcessed = context.getState().top().processContent(content, context);
@@ -259,12 +260,4 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
         return null;
     }
-
-    /**
-     * See also {@link com.itextpdf.html2pdf.attach.util.TrimUtil#trimLeafElementsFirstAndSanitize(List)}
-     */
-    private String normalizeSpaces(String content) {
-        return content.replaceAll("\\s+", " ");
-    }
-
 }
