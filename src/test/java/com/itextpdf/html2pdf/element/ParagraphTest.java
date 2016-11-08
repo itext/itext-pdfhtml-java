@@ -51,12 +51,13 @@ import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.io.File;
-import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 // TODO extend from ExtendedITextTest and therefore check logging
@@ -71,9 +72,33 @@ public class ParagraphTest extends ITextTest {
     }
 
     @Test
-    public void parapraphTest01() throws IOException, InterruptedException {
+    public void paragraphTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphTest01.html"), new File(destinationFolder + "paragraphTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphTest01.pdf", sourceFolder + "cmp_paragraphTest01.pdf", destinationFolder, "diff01_"));
+    }
+
+    @Test
+    public void paragraphWithBordersTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithBordersTest01.html"), new File(destinationFolder + "paragraphWithBordersTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithBordersTest01.pdf", sourceFolder + "cmp_paragraphWithBordersTest01.pdf", destinationFolder, "diff02_"));
+    }
+
+    @Test
+    public void paragraphWithMarginsTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithMarginsTest01.html"), new File(destinationFolder + "paragraphWithMarginsTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithMarginsTest01.pdf", sourceFolder + "cmp_paragraphWithMarginsTest01.pdf", destinationFolder, "diff03_"));
+    }
+
+    @Test
+    public void paragraphWithPaddingTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithPaddingTest01.html"), new File(destinationFolder + "paragraphWithPaddingTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithPaddingTest01.pdf", sourceFolder + "cmp_paragraphWithPaddingTest01.pdf", destinationFolder, "diff04_"));
+    }
+
+    @Test
+    public void paragraphWithFontAttributesTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithFontAttributesTest01.html"), new File(destinationFolder + "paragraphWithFontAttributesTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithFontAttributesTest01.pdf", sourceFolder + "cmp_paragraphWithFontAttributesTest01.pdf", destinationFolder, "diff05_"));
     }
 
 }

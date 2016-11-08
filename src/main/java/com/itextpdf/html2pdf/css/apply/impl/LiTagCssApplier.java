@@ -45,37 +45,31 @@ package com.itextpdf.html2pdf.css.apply.impl;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.apply.util.*;
+import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
+import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
 
-import java.util.Map;
-
-public class LiTagCssApplier implements ICssApplier {
+public class LiTagCssApplier extends BlockCssApplier {
 
     @Override
     public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
+        super.apply(context, element, tagWorker);
         IPropertyContainer propertyContainer = tagWorker.getElementResult();
-        Map<String, String> css = element.getStyles();
 
         if (propertyContainer != null) {
             boolean parentIsDl = element.parentNode() instanceof IElement && TagConstants.DL.equals(((IElement) element.parentNode()).name());
-            if (CssConstants.INSIDE.equals(css.get(CssConstants.LIST_STYLE_POSITION)) || parentIsDl) {
+            if (CssConstants.INSIDE.equals(cssProps.get(CssConstants.LIST_STYLE_POSITION)) || parentIsDl) {
                 propertyContainer.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
             } else {
                 propertyContainer.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.OUTSIDE);
             }
 
-            ListStyleApplierUtil.applyListStyleTypeProperty(element, css, context, propertyContainer);
-            ListStyleApplierUtil.applyListStyleImageProperty(css, context, propertyContainer);
-            WidthHeightApplierUtil.applyWidthHeight(css, context, propertyContainer);
-            BackgroundApplierUtil.applyBackground(css, context, propertyContainer);
-            MarginApplierUtil.applyMargins(css, context, propertyContainer);
-            PaddingApplierUtil.applyPaddings(css, context, propertyContainer);
+            ListStyleApplierUtil.applyListStyleTypeProperty(element, cssProps, context, propertyContainer);
+            ListStyleApplierUtil.applyListStyleImageProperty(cssProps, context, propertyContainer);
         }
     }
 

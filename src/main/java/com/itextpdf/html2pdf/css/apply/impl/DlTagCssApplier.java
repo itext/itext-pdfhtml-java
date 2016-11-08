@@ -44,24 +44,20 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.apply.util.*;
+import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
+import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 
-import java.util.Map;
-
-public class DlTagCssApplier implements ICssApplier {
+public class DlTagCssApplier extends BlockCssApplier {
 
     @Override
     public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
-        Map<String, String> css = element.getStyles();
+        super.apply(context, element, tagWorker);
         IPropertyContainer list = tagWorker.getElementResult();
-        ListStyleApplierUtil.applyListStyleImageProperty(css, context, list);
-        WidthHeightApplierUtil.applyWidthHeight(css, context, list);
-        BackgroundApplierUtil.applyBackground(css, context, list);
-        MarginApplierUtil.applyMargins(css, context, list);
-        PaddingApplierUtil.applyPaddings(css, context, list);
+        if (list != null) {
+            ListStyleApplierUtil.applyListStyleImageProperty(cssProps, context, list);
+        }
     }
 
 }

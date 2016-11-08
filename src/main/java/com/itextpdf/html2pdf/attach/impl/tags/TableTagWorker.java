@@ -46,13 +46,10 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableWrapper;
-import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.TextAlignment;
 
 import java.util.Map;
 
@@ -85,7 +82,6 @@ public class TableTagWorker implements ITagWorker {
             TableRowWrapper wrapper = ((TrTagWorker)childTagWorker).getTableRowWrapper();
             tableWrapper.newRow();
             for (Cell cell : wrapper.getCells()) {
-                applyHeaderFooterProperties(cell);
                 tableWrapper.addCell(cell);
             }
             return true;
@@ -123,26 +119,5 @@ public class TableTagWorker implements ITagWorker {
 
     public void setHeader() {
         header = true;
-    }
-
-    private void applyHeaderFooterProperties(Cell cell) {
-        if (!cell.hasProperty(Property.TEXT_ALIGNMENT) && (header || footer)) {
-            String align = cssProps.get(CssConstants.ALIGN);
-            if (align != null) {
-                switch (align) {
-                    case "left":
-                        cell.setTextAlignment(TextAlignment.LEFT);
-                        break;
-                    case "right":
-                        cell.setTextAlignment(TextAlignment.RIGHT);
-                        break;
-                    case "middle":
-                        cell.setTextAlignment(TextAlignment.CENTER);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
     }
 }

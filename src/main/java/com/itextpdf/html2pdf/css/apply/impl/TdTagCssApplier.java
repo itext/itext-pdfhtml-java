@@ -44,81 +44,12 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
+import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
 import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.kernel.color.WebColors;
-import com.itextpdf.layout.border.*;
-import com.itextpdf.layout.property.Property;
 
-import java.util.Map;
-
-public class TdTagCssApplier implements ICssApplier {
+public class TdTagCssApplier extends BlockCssApplier {
     @Override
     public void apply(ProcessorContext context, IElement element, ITagWorker worker) {
-        Map<String, String> cssProps = element.getStyles();
-
-        if (cssProps.get(CssConstants.BORDER_WIDTH) != null) {
-            Float borderWidth = Float.valueOf(cssProps.get(CssConstants.BORDER_WIDTH));
-            String borderStyle = cssProps.get(CssConstants.BORDER_STYLE);
-            String borderColor = cssProps.get(CssConstants.BORDER_COLOR);
-
-            if (borderWidth != null && borderStyle != null) {
-                Border border;
-                switch (borderStyle.toLowerCase()) {
-                    case CssConstants.SOLID:
-                        border = new SolidBorder(borderWidth);
-                        break;
-                    case CssConstants.DASHED:
-                        border = new DashedBorder(borderWidth);
-                        break;
-                    case CssConstants.DOTTED:
-                        border = new DottedBorder(borderWidth);
-                        break;
-                    case CssConstants.DOUBLE:
-                        border = new DoubleBorder(borderWidth);
-                        break;
-                    case CssConstants.GROOVE:
-                        border = new GrooveBorder(borderWidth);
-                        break;
-                    case CssConstants.RIDGE:
-                        border = new RidgeBorder(borderWidth);
-                        break;
-                    case CssConstants.INSET:
-                        border = new InsetBorder(borderWidth);
-                        break;
-                    case CssConstants.OUTSET:
-                        border = new OutsetBorder(borderWidth);
-                        break;
-                    default:
-                        border = null;
-                        break;
-                }
-                if (border != null) {
-                    if (borderColor != null) {
-                        border.setColor(WebColors.getRGBColor(borderColor));
-                    }
-                }
-            }
-        }
-
-        FontStyleApplierUtil.applyFontStyles(cssProps, context, worker.getElementResult());
-        WidthHeightApplierUtil.applyWidthHeight(cssProps, context, worker.getElementResult());
-
-        if (cssProps.get(CssConstants.VALIGN) != null) {
-            String valign = cssProps.get(CssConstants.VALIGN);
-            switch (valign) {
-                case "bottom":
-                    worker.getElementResult().setProperty(Property.VERTICAL_ALIGNMENT, Property.BOTTOM);
-                    break;
-                case "top":
-                    worker.getElementResult().setProperty(Property.VERTICAL_ALIGNMENT, Property.TOP);
-                    break;
-                default: break;
-            }
-        }
-
+        super.apply(context, element, worker);
     }
 }

@@ -82,7 +82,7 @@ public class ImgTagWorker implements ITagWorker {
 
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        return true;
+        return false;
     }
 
     @Override
