@@ -59,7 +59,7 @@ public class UlOlTagWorker implements ITagWorker {
 
     public UlOlTagWorker(IElement element, ProcessorContext context) {
         list = new List();
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE));
+        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
     @Override

@@ -59,7 +59,7 @@ public class DivTagWorker implements ITagWorker {
 
     public DivTagWorker(IElement element, ProcessorContext context) {
         div = new Div();
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE));
+        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
     @Override

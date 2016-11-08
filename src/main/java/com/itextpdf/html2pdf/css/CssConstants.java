@@ -158,6 +158,7 @@ public class CssConstants {
     public static final String BOLDER = "bolder";
     public static final String BORDER_BOX = "border-box";
     public static final String BOTTOM = "bottom";
+    public static final String CAPITALIZE = "capitalize";
     public static final String CAPTION = "caption";
     public static final String CENTER = "center";
     public static final String CIRCLE = "circle";
@@ -194,6 +195,7 @@ public class CssConstants {
     public static final String LOWER_GREEK = "lower-greek";
     public static final String LOWER_LATIN = "lower-latin";
     public static final String LOWER_ROMAN = "lower-roman";
+    public static final String LOWERCASE = "lowercase";
     public static final String LTR = "ltr";
     public static final String MEDIUM = "medium";
     public static final String MENU = "menu";
@@ -234,6 +236,7 @@ public class CssConstants {
     public static final String UPPER_ALPHA = "upper-alpha";
     public static final String UPPER_LATIN = "upper-latin";
     public static final String UPPER_ROMAN = "upper-roman";
+    public static final String UPPERCASE = "uppercase";
     public static final String X_LARGE = "x-large";
     public static final String X_SMALL = "x-small";
     public static final String XX_LARGE = "xx-large";

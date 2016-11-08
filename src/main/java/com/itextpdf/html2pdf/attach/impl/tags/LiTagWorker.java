@@ -58,7 +58,7 @@ public class LiTagWorker implements ITagWorker {
 
     public LiTagWorker(IElement element, ProcessorContext context) {
         listItem = new ListItem();
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE));
+        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
     @Override

@@ -53,14 +53,14 @@ import java.util.List;
 
 public class WaitingInlineElementsHelper {
 
-    private String whiteSpace;
+    private String textTransform;
     private boolean keepLineBreaks;
     private boolean collapseSpaces;
 
-    public WaitingInlineElementsHelper(String whiteSpace) {
-        this.whiteSpace = whiteSpace;
+    public WaitingInlineElementsHelper(String whiteSpace, String textTransform) {
         keepLineBreaks = CssConstants.PRE.equals(whiteSpace) || CssConstants.PRE_WRAP.equals(whiteSpace) || CssConstants.PRE_LINE.equals(whiteSpace);
         collapseSpaces = !(CssConstants.PRE.equals(whiteSpace) || CssConstants.PRE_WRAP.equals(whiteSpace));
+        this.textTransform = textTransform;
     }
 
     private List<ILeafElement> waitingLeaves = new ArrayList<>();
@@ -71,6 +71,13 @@ public class WaitingInlineElementsHelper {
         } else if (keepLineBreaks && collapseSpaces) {
             text = text.replaceAll("[\\s&&[^\n]]+", " ");
         }
+
+        if (CssConstants.UPPERCASE.equals(textTransform)) {
+            text = text.toUpperCase();
+        } else if (CssConstants.LOWERCASE.equals(textTransform)) {
+            text = text.toLowerCase();
+        }
+
         waitingLeaves.add(new Text(text));
     }
 
@@ -85,6 +92,9 @@ public class WaitingInlineElementsHelper {
     public void flushHangingLeafs(IPropertyContainer container) {
         if (collapseSpaces) {
             waitingLeaves = TrimUtil.trimLeafElementsFirstAndSanitize(waitingLeaves);
+        }
+        if (CssConstants.CAPITALIZE.equals(textTransform)) {
+            capitalize(waitingLeaves);
         }
         if (waitingLeaves.size() > 0) {
             Paragraph p = createParagraphContainer();
@@ -122,6 +132,31 @@ public class WaitingInlineElementsHelper {
 
     public Paragraph createParagraphContainer() {
         return new Paragraph().setMargin(0);
+    }
+
+    private static void capitalize(List<ILeafElement> leaves) {
+        boolean previousLetter = false;
+        for (ILeafElement element : leaves) {
+            if (element instanceof Text) {
+                String text = ((Text) element).getText();
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < text.length(); i++) {
+                    if (Character.isLowerCase(text.charAt(i)) && !previousLetter) {
+                        sb.append(Character.toUpperCase(text.charAt(i)));
+                        previousLetter = true;
+                    } else if (Character.isAlphabetic(text.charAt(i))) {
+                        sb.append(text.charAt(i));
+                        previousLetter = true;
+                    } else {
+                        sb.append(text.charAt(i));
+                        previousLetter = false;
+                    }
+                }
+                ((Text) element).setText(sb.toString());
+            } else {
+                previousLetter = false;
+            }
+        }
     }
 
 }

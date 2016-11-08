@@ -58,7 +58,7 @@ public class PTagWorker implements ITagWorker {
 
     public PTagWorker(IElement element, ProcessorContext context) {
         paragraph = new Paragraph();
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE));
+        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
     @Override

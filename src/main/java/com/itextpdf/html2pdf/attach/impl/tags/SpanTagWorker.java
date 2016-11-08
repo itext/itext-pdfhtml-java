@@ -63,7 +63,7 @@ public class SpanTagWorker implements ITagWorker {
 
     public SpanTagWorker(IElement element, ProcessorContext context) {
         spanWrapper = new SpanWrapper();
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE));
+        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
     @Override
