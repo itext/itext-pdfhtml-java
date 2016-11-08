@@ -95,6 +95,9 @@ public class CssDefaults {
 
         defaultValues.put(CssConstants.TEXT_ALIGN, CssConstants.START);
 
+        defaultValues.put(CssConstants.WHITE_SPACE, CssConstants.NORMAL);
+        defaultValues.put(CssConstants.TEXT_TRANSFORM, CssConstants.NONE);
+
         // TODO not complete
     }
 

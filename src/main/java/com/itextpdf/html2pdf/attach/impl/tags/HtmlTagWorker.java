@@ -60,7 +60,7 @@ public class HtmlTagWorker implements ITagWorker {
 
     public HtmlTagWorker(IElement element, ProcessorContext context) {
         document = new Document(context.getPdfDocument(), PageSize.A4);
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE));
+        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
     @Override

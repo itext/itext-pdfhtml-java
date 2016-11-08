@@ -60,7 +60,7 @@ public class DlTagWorker implements ITagWorker {
 
     public DlTagWorker(IElement element, ProcessorContext context) {
         list = new List().setListSymbol(new Text(""));
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE));
+        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
     @Override
