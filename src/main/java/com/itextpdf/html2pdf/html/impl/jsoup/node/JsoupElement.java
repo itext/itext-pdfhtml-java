@@ -56,7 +56,6 @@ public class JsoupElement extends JsoupNode implements IElement {
     public JsoupElement(org.jsoup.nodes.Element element) {
         super(element);
         this.element = element;
-        element.ownerDocument();
         this.attributes = new JsoupAttributes(element.attributes());
     }
 

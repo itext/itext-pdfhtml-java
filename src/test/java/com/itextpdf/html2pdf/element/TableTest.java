@@ -46,12 +46,13 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.io.File;
-import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 // TODO extend from ExtendedITextTest and therefore check logging
@@ -93,6 +94,18 @@ public class TableTest extends ITextTest {
     public void helloTableColspanRowspanDocumentTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hello_table_colspan_rowspan.html"), new File(destinationFolder + "hello_table_colspan_rowspan.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_table_colspan_rowspan.pdf", sourceFolder + "cmp_hello_table_colspan_rowspan.pdf", destinationFolder, "diff05_"));
+    }
+
+    @Test
+    public void tableCssPropsTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "tableCssPropsTest01.html"), new File(destinationFolder + "tableCssPropsTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "tableCssPropsTest01.pdf", sourceFolder + "cmp_tableCssPropsTest01.pdf", destinationFolder, "diff06_"));
+    }
+
+    @Test
+    public void tableCssPropsTest02() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "tableCssPropsTest02.html"), new File(destinationFolder + "tableCssPropsTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "tableCssPropsTest02.pdf", sourceFolder + "cmp_tableCssPropsTest02.pdf", destinationFolder, "diff07_"));
     }
 
 }

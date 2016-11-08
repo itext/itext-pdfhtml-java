@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
@@ -58,16 +59,11 @@ public class TdTagWorker implements ITagWorker {
     private WaitingInlineElementsHelper inlineHelper;
 
     public TdTagWorker(IElement element, ProcessorContext context) {
-        int colspan = 1;
-        int rowspan = 1;
-        try {
-            colspan = Integer.parseInt(element.getAttribute(CssConstants.COLSPAN));
-        } catch (NumberFormatException e) {
-        }
-        try {
-            rowspan = Integer.parseInt(element.getAttribute(CssConstants.ROWSPAN));
-        } catch (NumberFormatException e) {
-        }
+        Integer colspan = CssUtils.parseInteger(element.getAttribute(CssConstants.COLSPAN));
+        Integer rowspan = CssUtils.parseInteger(element.getAttribute(CssConstants.ROWSPAN));
+        colspan = colspan != null ? colspan : 1;
+        rowspan = rowspan != null ? rowspan : 1;
+
         cell = new Cell(rowspan, colspan);
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE));
     }

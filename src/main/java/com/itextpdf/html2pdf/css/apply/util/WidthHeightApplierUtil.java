@@ -46,7 +46,6 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
@@ -68,18 +67,12 @@ public final class WidthHeightApplierUtil {
         if (widthVal != null) {
             UnitValue width = CssUtils.parseLengthValueToPt(widthVal, em);
             element.setProperty(Property.WIDTH, width);
-            if (element instanceof Image) {
-                ((Image) element).setAutoScale(false);
-            }
         }
         String heightVal = cssProps.get(CssConstants.HEIGHT);
         if (heightVal != null) {
             UnitValue height = CssUtils.parseLengthValueToPt(heightVal, em);
             if (height.isPointValue()) {
                 element.setProperty(Property.HEIGHT, height.getValue());
-                if (element instanceof Image) {
-                    ((Image) element).setAutoScale(false);
-                }
             } else {
                 logger.error(HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
