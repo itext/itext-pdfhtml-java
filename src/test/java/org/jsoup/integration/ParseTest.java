@@ -88,12 +88,14 @@ public class ParseTest {
         assertEquals("全国、人気の駅ランキング", a.text());
     }
 
+    private static final String newsHref = "http://news.baidu.com";
+
     @Test
     public void testBaidu() throws IOException {
         // tests <meta http-equiv="Content-Type" content="text/html;charset=gb2312">
         File in = getFile("/htmltests/baidu-cn-home.html");
         Document doc = Jsoup.parse(in, null,
-                "http://www.baidu.com/"); // http charset is gb2312, but NOT specifying it, to test http-equiv parse
+                "http://www.baidu.com"); // http charset is gb2312, but NOT specifying it, to test http-equiv parse
         Element submit = doc.select("#su").first();
         assertEquals("百度一下", submit.attr("value"));
 
@@ -101,7 +103,7 @@ public class ParseTest {
         submit = doc.select("input[value=百度一下]").first();
         assertEquals("su", submit.id());
         Element newsLink = doc.select("a:contains(新)").first();
-        assertEquals("http://news.baidu.com", newsLink.absUrl("href"));
+        assertEquals(newsHref, newsLink.absUrl("href"));
 
         // check auto-detect from meta
         assertEquals("GB2312", doc.outputSettings().charset().displayName());

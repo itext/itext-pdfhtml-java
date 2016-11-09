@@ -35,7 +35,16 @@ public class NodeTest {
 
         Element dodgyBase = new Element(tag, "wtf://no-such-protocol/", attribs);
         assertEquals("http://bar/qux", dodgyBase.absUrl("absHref")); // base fails, but href good, so get that
-        assertEquals("", dodgyBase.absUrl("relHref")); // base fails, only rel href, so return nothing 
+    }
+
+    @Test public void handlesBaseUriBaseFails() {
+        Tag tag = Tag.valueOf("a");
+        Attributes attribs = new Attributes();
+        attribs.put("relHref", "/foo");
+        attribs.put("absHref", "http://bar/qux");
+
+        Element dodgyBase = new Element(tag, "wtf://no-such-protocol/", attribs);
+        assertEquals("", dodgyBase.absUrl("relHref")); // base fails, only rel href, so return nothing
     }
 
     @Test public void setBaseUriIsRecursive() {
