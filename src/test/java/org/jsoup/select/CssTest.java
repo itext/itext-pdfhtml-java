@@ -2,6 +2,8 @@ package org.jsoup.select;
 
 import com.itextpdf.test.annotations.type.UnitTest;
 
+import java.text.MessageFormat;
+
 import static org.junit.Assert.*;
 
 import org.jsoup.Jsoup;
@@ -24,16 +26,16 @@ public class CssTest {
 		
 		sb.append("<div id='pseudo'>");
 		for (int i = 1; i <= 10; i++) {
-			sb.append(String.format("<p>%d</p>",i));
+			sb.append(MessageFormat.format("<p>{0}</p>",i));
 		}
 		sb.append("</div>");
 
 		sb.append("<div id='type'>");
 		for (int i = 1; i <= 10; i++) {
-			sb.append(String.format("<p>%d</p>",i));
-			sb.append(String.format("<span>%d</span>",i));
-			sb.append(String.format("<em>%d</em>",i));
-            sb.append(String.format("<svg>%d</svg>",i));
+			sb.append(MessageFormat.format("<p>{0}</p>",i));
+			sb.append(MessageFormat.format("<span>{0}</span>",i));
+			sb.append(MessageFormat.format("<em>{0}</em>",i));
+            sb.append(MessageFormat.format("<svg>{0}</svg>",i));
 		}
 		sb.append("</div>");
 
@@ -68,35 +70,35 @@ public class CssTest {
 	@Test
 	public void nthChild_simple() {
 		for(int i = 1; i <=10; i++) {
-			check(html.select(String.format("#pseudo :nth-child(%d)", i)), String.valueOf(i));
+			check(html.select(MessageFormat.format("#pseudo :nth-child({0})", i)), String.valueOf(i));
 		}
 	}
 
     @Test
     public void nthOfType_unknownTag() {
         for(int i = 1; i <=10; i++) {
-            check(html.select(String.format("#type svg:nth-of-type(%d)", i)), String.valueOf(i));
+            check(html.select(MessageFormat.format("#type svg:nth-of-type({0})", i)), String.valueOf(i));
         }
     }
 
 	@Test
 	public void nthLastChild_simple() {
 		for(int i = 1; i <=10; i++) {
-			check(html.select(String.format("#pseudo :nth-last-child(%d)", i)), String.valueOf(11-i));
+			check(html.select(MessageFormat.format("#pseudo :nth-last-child({0})", i)), String.valueOf(11-i));
 		}
 	}
 
 	@Test
 	public void nthOfType_simple() {
 		for(int i = 1; i <=10; i++) {
-			check(html.select(String.format("#type p:nth-of-type(%d)", i)), String.valueOf(i));
+			check(html.select(MessageFormat.format("#type p:nth-of-type({0})", i)), String.valueOf(i));
 		}
 	}
 	
 	@Test
 	public void nthLastOfType_simple() {
 		for(int i = 1; i <=10; i++) {
-			check(html.select(String.format("#type :nth-last-of-type(%d)", i)), String.valueOf(11-i),String.valueOf(11-i),String.valueOf(11-i),String.valueOf(11-i));
+			check(html.select(MessageFormat.format("#type :nth-last-of-type({0})", i)), String.valueOf(11-i),String.valueOf(11-i),String.valueOf(11-i),String.valueOf(11-i));
 		}
 	}
 
