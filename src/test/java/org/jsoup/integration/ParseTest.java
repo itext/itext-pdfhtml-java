@@ -185,7 +185,7 @@ public class ParseTest {
         try {
             return new ByteArrayInputStream(s.getBytes("UTF-8"));
         } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Unsupported encoding", e);
         }
     }
 

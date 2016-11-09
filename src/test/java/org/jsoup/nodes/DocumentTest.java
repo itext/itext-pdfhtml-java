@@ -157,7 +157,7 @@ public class DocumentTest {
     	
     	outputSettings.prettyPrint(false);
     	document.outputSettings(outputSettings);
-    	assertEquals(htmlContent, document.html(new StringWriter()).toString());
+    	assertEquals(htmlContent, document.html(new StringBuffer()).toString());
     }
 
     // This test can take awhile to run.

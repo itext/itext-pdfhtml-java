@@ -14,11 +14,11 @@ import static org.junit.Assert.*;
 public class EntitiesTest {
     @Test public void escape() {
         String text = "Hello &<> Å å π 新 there ¾ © »";
-        String escapedAscii = Entities.escape(text, new OutputSettings().charset("ascii").escapeMode(base));
-        String escapedAsciiFull = Entities.escape(text, new OutputSettings().charset("ascii").escapeMode(extended));
-        String escapedAsciiXhtml = Entities.escape(text, new OutputSettings().charset("ascii").escapeMode(xhtml));
-        String escapedUtfFull = Entities.escape(text, new OutputSettings().charset("UTF-8").escapeMode(extended));
-        String escapedUtfMin = Entities.escape(text, new OutputSettings().charset("UTF-8").escapeMode(xhtml));
+        String escapedAscii = Entities.escape(text, new OutputSettings().charset("ascii").escapeMode(Entities.EscapeMode.base));
+        String escapedAsciiFull = Entities.escape(text, new OutputSettings().charset("ascii").escapeMode(Entities.EscapeMode.extended));
+        String escapedAsciiXhtml = Entities.escape(text, new OutputSettings().charset("ascii").escapeMode(Entities.EscapeMode.xhtml));
+        String escapedUtfFull = Entities.escape(text, new OutputSettings().charset("UTF-8").escapeMode(Entities.EscapeMode.extended));
+        String escapedUtfMin = Entities.escape(text, new OutputSettings().charset("UTF-8").escapeMode(Entities.EscapeMode.xhtml));
 
         assertEquals("Hello &amp;&lt;&gt; &Aring; &aring; &#x3c0; &#x65b0; there &frac34; &copy; &raquo;", escapedAscii);
         assertEquals("Hello &amp;&lt;&gt; &angst; &aring; &pi; &#x65b0; there &frac34; &copy; &raquo;", escapedAsciiFull);
@@ -37,9 +37,9 @@ public class EntitiesTest {
 
     @Test public void escapeSupplementaryCharacter() {
         String text = new String(Character.toChars(135361));
-        String escapedAscii = Entities.escape(text, new OutputSettings().charset("ascii").escapeMode(base));
+        String escapedAscii = Entities.escape(text, new OutputSettings().charset("ascii").escapeMode(Entities.EscapeMode.base));
         assertEquals("&#x210c1;", escapedAscii);
-        String escapedUtf = Entities.escape(text, new OutputSettings().charset("UTF-8").escapeMode(base));
+        String escapedUtf = Entities.escape(text, new OutputSettings().charset("UTF-8").escapeMode(Entities.EscapeMode.base));
         assertEquals(text, escapedUtf);
     }
 
@@ -61,7 +61,7 @@ public class EntitiesTest {
     @Test public void caseSensitive() {
         String unescaped = "Ü ü & &";
         assertEquals("&Uuml; &uuml; &amp; &amp;",
-                Entities.escape(unescaped, new OutputSettings().charset("ascii").escapeMode(extended)));
+                Entities.escape(unescaped, new OutputSettings().charset("ascii").escapeMode(Entities.EscapeMode.extended)));
         
         String escaped = "&Uuml; &uuml; &amp; &AMP";
         assertEquals("Ü ü & &", Entities.unescape(escaped));
@@ -98,10 +98,10 @@ public class EntitiesTest {
         Document doc = Jsoup.parse(docHtml);
         Element element = doc.select("a").first();
 
-        doc.outputSettings().escapeMode(base);
+        doc.outputSettings().escapeMode(Entities.EscapeMode.base);
         assertEquals("<a title=\"<p>One</p>\">One</a>", element.outerHtml());
 
-        doc.outputSettings().escapeMode(xhtml);
+        doc.outputSettings().escapeMode(Entities.EscapeMode.xhtml);
         assertEquals("<a title=\"&lt;p>One&lt;/p>\">One</a>", element.outerHtml());
     }
 }
