@@ -61,12 +61,4 @@ public class TagTest {
         assertTrue(foo.isInline());
         assertTrue(foo.formatAsBlock());
     }
-
-    @Test(expected = IllegalArgumentException.class) public void valueOfChecksNotNull() {
-        Tag.valueOf(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class) public void valueOfChecksNotEmpty() {
-        Tag.valueOf(" ");
-    }
 }
