@@ -19,11 +19,6 @@ public class DocumentTypeTest {
         DocumentType fail = new DocumentType("","", "", "");
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void constructorValidationThrowsExceptionOnNulls() {
-        DocumentType fail = new DocumentType("html", null, null, "");
-    }
-
     @Test
     public void constructorValidationOkWithBlankPublicAndSystemIds() {
         DocumentType fail = new DocumentType("html","", "","");
