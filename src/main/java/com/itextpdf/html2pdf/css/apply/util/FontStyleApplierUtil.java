@@ -109,26 +109,27 @@ public final class FontStyleApplierUtil {
             element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.CENTER);
         }
 
-        String textDecoration = cssProps.get(CssConstants.TEXT_DECORATION);
+        String textDecorationProp = cssProps.get(CssConstants.TEXT_DECORATION);
         ElementPropertyContainer elementPropertyContainer = null;
         if (element instanceof ElementPropertyContainer) {
             elementPropertyContainer = (ElementPropertyContainer) element;
         }
-        if (elementPropertyContainer != null) {
-            if (CssConstants.BLINK.equals(textDecoration)) {
-                logger.error("text-decoration: blink not supported");
-            } else if (CssConstants.LINE_THROUGH.equals(textDecoration)) {
-                elementPropertyContainer.setUnderline(null, .75f, 0, 0, 1/4f, PdfCanvasConstants.LineCapStyle.BUTT);
-            } else if (CssConstants.OVERLINE.equals(textDecoration)) {
-                elementPropertyContainer.setUnderline(null, .75f, 0, 0, 9/10f, PdfCanvasConstants.LineCapStyle.BUTT);
-            } else if (CssConstants.UNDERLINE.equals(textDecoration)) {
-                elementPropertyContainer.setUnderline(null, .75f, 0, 0, -1/10f, PdfCanvasConstants.LineCapStyle.BUTT);
-            } else if (CssConstants.NONE.equals(textDecoration)) {
-                elementPropertyContainer.setProperty(Property.UNDERLINE, null);
+        if (elementPropertyContainer != null && textDecorationProp != null) {
+            String[] textDecorations = textDecorationProp.split("\\s+");
+            for (String textDecoration : textDecorations) {
+                if (CssConstants.BLINK.equals(textDecoration)) {
+                    logger.error("text-decoration: blink not supported");
+                } else if (CssConstants.LINE_THROUGH.equals(textDecoration)) {
+                    elementPropertyContainer.setUnderline(null, .75f, 0, 0, 1 / 4f, PdfCanvasConstants.LineCapStyle.BUTT);
+                } else if (CssConstants.OVERLINE.equals(textDecoration)) {
+                    elementPropertyContainer.setUnderline(null, .75f, 0, 0, 9 / 10f, PdfCanvasConstants.LineCapStyle.BUTT);
+                } else if (CssConstants.UNDERLINE.equals(textDecoration)) {
+                    elementPropertyContainer.setUnderline(null, .75f, 0, 0, -1 / 10f, PdfCanvasConstants.LineCapStyle.BUTT);
+                } else if (CssConstants.NONE.equals(textDecoration)) {
+                    elementPropertyContainer.setProperty(Property.UNDERLINE, null);
+                }
             }
         }
-
-        // TODO text-transform
 
         String textIndent = cssProps.get(CssConstants.TEXT_INDENT);
         if (textIndent != null) {
