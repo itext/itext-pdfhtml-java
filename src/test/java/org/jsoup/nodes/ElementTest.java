@@ -686,7 +686,7 @@ public class ElementTest {
         }
 
         try {
-            div2.insertChildren(0, null);
+            div2.<Node>insertChildren(0, null);
             fail();
         } catch (IllegalArgumentException e) {
         }
@@ -772,8 +772,7 @@ public class ElementTest {
         assertEquals("c1 c2", div.className());
 
         // Update the class names to a fresh set
-        final Set<String> newSet = new LinkedHashSet<String>(3);
-        newSet.addAll(set1);
+        final Set<String> newSet = new LinkedHashSet<String>(set1);
         newSet.add("c3");
         
         div.classNames(newSet);

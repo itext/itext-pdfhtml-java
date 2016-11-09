@@ -73,7 +73,7 @@ public class XmlTreeBuilderTest {
     @Test
     public void testSupplyParserToDataStream() throws IOException, URISyntaxException {
         File xmlFile = ParseTest.getFile("/htmltests/xml-test.xml");
-        InputStream inStream = new FileInputStream(xmlFile);
+        InputStream inStream = new FileInputStream(xmlFile.getAbsolutePath());
         Document doc = Jsoup.parse(inStream, null, "http://foo.com", Parser.xmlParser());
         assertEquals("<doc><val>One<val>Two</val>Three</val></doc>",
                 TextUtil.stripNewlines(doc.html()));
@@ -123,7 +123,7 @@ public class XmlTreeBuilderTest {
     @Test
     public void testDetectCharsetEncodingDeclaration() throws IOException, URISyntaxException {
         File xmlFile = ParseTest.getFile("/htmltests/xml-charset.xml");
-        InputStream inStream = new FileInputStream(xmlFile);
+        InputStream inStream = new FileInputStream(xmlFile.getAbsolutePath());
         Document doc = Jsoup.parse(inStream, null, "http://example.com/", Parser.xmlParser());
         assertEquals("ISO-8859-1", doc.charset().name());
         assertEquals("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?> <data>äöåéü</data>",

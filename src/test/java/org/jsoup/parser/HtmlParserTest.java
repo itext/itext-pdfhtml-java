@@ -1,5 +1,6 @@
 package org.jsoup.parser;
 
+import com.itextpdf.io.util.SystemUtil;
 import com.itextpdf.test.annotations.type.UnitTest;
 
 import org.jsoup.Jsoup;
@@ -847,12 +848,12 @@ public class HtmlParserTest {
         }
         
         // Act
-        long start = System.currentTimeMillis();
+        long start = SystemUtil.getSystemTimeMillis();
         Document doc = Parser.parseBodyFragment(longBody.toString(), "");
         
         // Assert
         assertEquals(50000, doc.body().childNodeSize());
-        assertTrue(System.currentTimeMillis() - start < 1000);
+        assertTrue(SystemUtil.getSystemTimeMillis() - start < 1000);
     }
 
     @Test
