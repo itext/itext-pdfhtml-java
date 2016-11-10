@@ -44,12 +44,40 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
 import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.property.Property;
 
 public class TdTagCssApplier extends BlockCssApplier {
     @Override
     public void apply(ProcessorContext context, IElement element, ITagWorker worker) {
         super.apply(context, element, worker);
+
+        IPropertyContainer cell = worker.getElementResult();
+        if(cell != null) {
+            Border topBorder = getCertainBorder(cssProps.get(CssConstants.BORDER_TOP_WIDTH),
+                    cssProps.get(CssConstants.BORDER_TOP_STYLE), cssProps.get(CssConstants.BORDER_TOP_COLOR));
+            if (topBorder == null) {
+                cell.setProperty(Property.BORDER_TOP, Border.NO_BORDER);
+            }
+            Border bottomBorder = getCertainBorder(cssProps.get(CssConstants.BORDER_BOTTOM_WIDTH),
+                    cssProps.get(CssConstants.BORDER_BOTTOM_STYLE), cssProps.get(CssConstants.BORDER_BOTTOM_COLOR));
+            if (bottomBorder == null) {
+                cell.setProperty(Property.BORDER_BOTTOM, Border.NO_BORDER);
+            }
+            Border leftBorder = getCertainBorder(cssProps.get(CssConstants.BORDER_LEFT_WIDTH),
+                    cssProps.get(CssConstants.BORDER_LEFT_STYLE), cssProps.get(CssConstants.BORDER_LEFT_COLOR));
+            if (leftBorder == null) {
+                cell.setProperty(Property.BORDER_LEFT, Border.NO_BORDER);
+            }
+            Border rightBorder = getCertainBorder(cssProps.get(CssConstants.BORDER_RIGHT_WIDTH),
+                    cssProps.get(CssConstants.BORDER_RIGHT_STYLE), cssProps.get(CssConstants.BORDER_RIGHT_COLOR));
+            if (rightBorder == null) {
+                cell.setProperty(Property.BORDER_RIGHT, Border.NO_BORDER);
+            }
+        }
     }
 }
