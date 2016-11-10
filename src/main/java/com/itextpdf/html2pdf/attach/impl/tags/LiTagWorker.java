@@ -49,6 +49,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.ListItem;
 
 public class LiTagWorker implements ITagWorker {
@@ -80,7 +81,7 @@ public class LiTagWorker implements ITagWorker {
         } else {
             inlineHelper.flushHangingLeafs(listItem);
             if (childTagWorker instanceof ImgTagWorker) {
-                listItem.add(((ImgTagWorker) childTagWorker).getImage());
+                listItem.add((Image)(childTagWorker).getElementResult());
                 return true;
             } else if (childTagWorker.getElementResult() instanceof BlockElement) {
                 listItem.add((BlockElement<com.itextpdf.layout.element.IElement>) childTagWorker.getElementResult());

@@ -44,25 +44,13 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.tags.ImgTagWorker;
-import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
-import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.layout.property.Property;
 
 public class ImgTagCssApplier extends BlockCssApplier {
 
     @Override
     public void apply(ProcessorContext context, IElement element, ITagWorker worker) {
         super.apply(context, element, worker);
-        if (cssProps.get(CssConstants.HEIGHT) != null) {
-            ((ImgTagWorker)worker).getImage().setAutoScale(false);
-            ((ImgTagWorker)worker).getImage().setProperty(Property.HEIGHT, CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.HEIGHT)));
-        }
-        if (cssProps.get(CssConstants.WIDTH) != null) {
-            ((ImgTagWorker)worker).getImage().setAutoScale(false);
-            ((ImgTagWorker)worker).getImage().setProperty(Property.WIDTH, CssUtils.parseLengthValueToPt(cssProps.get(CssConstants.WIDTH), 0));
-        }
     }
 }

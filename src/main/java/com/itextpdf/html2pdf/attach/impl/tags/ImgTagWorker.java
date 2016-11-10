@@ -48,25 +48,17 @@ import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.Image;
 
 public class ImgTagWorker implements ITagWorker {
 
-    // TODO get rid of Div
-    private Div imageContainer;
     private Image image;
 
     public ImgTagWorker(IElement element, ProcessorContext context) {
-        imageContainer = new Div();
-        imageContainer.setMargin(0);
-        imageContainer.setPadding(0);
 
         ImageData imageData = context.getResourceResolver().retrieveImage(element.getAttribute(AttributeConstants.SRC));
         if (imageData != null) {
             image = new Image(imageData);
-            image.setAutoScale(true);
-            imageContainer.add(image);
         }
     }
 
@@ -87,10 +79,6 @@ public class ImgTagWorker implements ITagWorker {
 
     @Override
     public IPropertyContainer getElementResult() {
-        return imageContainer;
-    }
-
-    public Image getImage() {
         return image;
     }
 }
