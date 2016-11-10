@@ -53,7 +53,6 @@ import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -115,7 +114,6 @@ public class TableTest extends ITextTest {
     }
 
     @Test
-    @Ignore("ITXT-CR-60")
     public void defaultTableTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "defaultTable.html"), new File(destinationFolder + "defaultTable.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "defaultTable.pdf", sourceFolder + "cmp_defaultTable.pdf", destinationFolder, "diff08_"));
