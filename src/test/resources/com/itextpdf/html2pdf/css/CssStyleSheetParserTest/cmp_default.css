@@ -225,3 +225,9 @@ hr {
     color: gray;
     height: 2px
 }
+u {
+    text-decoration: underline
+}
+strike {
+    text-decoration: line-through
+}
