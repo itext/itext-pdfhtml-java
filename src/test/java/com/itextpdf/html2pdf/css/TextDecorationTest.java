@@ -48,7 +48,6 @@ import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -68,8 +67,6 @@ public class TextDecorationTest extends ITextTest {
     }
 
     @Test
-    @Ignore
-    // TODO Text decorations on inline boxes are drawn across the entire element, going across any descendant elements without paying any attention to their presence.
     public void textDecoration01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest01.html"), new File(destinationFolder + "textDecorationTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest01.pdf", sourceFolder + "cmp_textDecorationTest01.pdf", destinationFolder, "diff01_"));
@@ -79,6 +76,12 @@ public class TextDecorationTest extends ITextTest {
     public void textDecoration02Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest02.html"), new File(destinationFolder + "textDecorationTest02.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest02.pdf", sourceFolder + "cmp_textDecorationTest02.pdf", destinationFolder, "diff02_"));
+    }
+
+    @Test
+    public void textDecoration03Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest03.html"), new File(destinationFolder + "textDecorationTest03.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest03.pdf", sourceFolder + "cmp_textDecorationTest03.pdf", destinationFolder, "diff03_"));
     }
 
 }

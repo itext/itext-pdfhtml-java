@@ -57,7 +57,9 @@ import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IDataNode;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.html2pdf.html.node.INode;
-import java.io.FileInputStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -65,11 +67,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DefaultCssResolver implements ICssResolver {
 
@@ -106,7 +103,15 @@ public class DefaultCssResolver implements ICssResolver {
                     String cssProperty = entry.getKey();
                     String elementPropValue = elementStyles.get(cssProperty);
                     if ((elementPropValue == null && CssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(elementPropValue)) {
-                        elementStyles.put(cssProperty, entry.getValue());
+                        mergeCssDeclaration(elementStyles, cssProperty, entry.getValue());
+                    } else if (CssConstants.TEXT_DECORATION.equals(cssProperty)) {
+                        // TODO Note! This property is formally not inherited, but the browsers behave very similar to inheritance here.
+                        /* Text decorations on inline boxes are drawn across the entire element,
+                            going across any descendant elements without paying any attention to their presence. */
+                        // Also, when, for example, parent element has text-decoration:underline, and the child text-decoration:overline,
+                        // then the text in the child will be both overline and underline. This is why the declarations are merged
+                        // See TextDecorationTest#textDecoration01Test
+                        mergeCssDeclaration(elementStyles, cssProperty, entry.getValue());
                     }
                 }
 
@@ -115,7 +120,7 @@ public class DefaultCssResolver implements ICssResolver {
                 if (CssUtils.isRelativeValue(elementFontSize) && parentFontSizeStr != null) {
                     float parentFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
                     float absoluteFontSize = CssUtils.parseRelativeValue(elementFontSize, parentFontSize);
-                    elementStyles.put(CssConstants.FONT_SIZE, absoluteFontSize + "pt");
+                    mergeCssDeclaration(elementStyles, CssConstants.FONT_SIZE, absoluteFontSize + "pt");
                 }
             }
         }
@@ -123,7 +128,7 @@ public class DefaultCssResolver implements ICssResolver {
         for (Map.Entry<String, String> entry : elementStyles.entrySet()) {
             if (CssConstants.INITIAL.equals(entry.getValue())
                     || CssConstants.INHERIT.equals(entry.getValue())) { // if "inherit" is not resolved till now, parents don't have it
-                elementStyles.put(entry.getKey(), CssDefaults.getDefaultValue(entry.getKey()));
+                mergeCssDeclaration(elementStyles, entry.getKey(), CssDefaults.getDefaultValue(entry.getKey()));
             }
         }
 
@@ -135,11 +140,11 @@ public class DefaultCssResolver implements ICssResolver {
         for (CssDeclaration cssDeclaration : nodeCssDeclarations) {
             IShorthandResolver shorthandResolver = ShorthandResolverFactory.getShorthandResolver(cssDeclaration.getProperty());
             if (shorthandResolver == null) {
-                stylesMap.put(cssDeclaration.getProperty(), cssDeclaration.getExpression());
+                mergeCssDeclaration(stylesMap, cssDeclaration.getProperty(), cssDeclaration.getExpression());
             } else {
                 List<CssDeclaration> resolvedShorthandProps = shorthandResolver.resolveShorthand(cssDeclaration.getExpression());
                 for (CssDeclaration resolvedProp : resolvedShorthandProps) {
-                    stylesMap.put(resolvedProp.getProperty(), resolvedProp.getExpression());
+                    mergeCssDeclaration(stylesMap, resolvedProp.getProperty(), resolvedProp.getExpression());
                 }
             }
         }
@@ -193,5 +198,13 @@ public class DefaultCssResolver implements ICssResolver {
             }
         }
         return null;
+    }
+
+    private void mergeCssDeclaration(Map<String, String> styles, String cssProperty, String value) {
+        if (CssConstants.TEXT_DECORATION.equals(cssProperty) && styles.containsKey(cssProperty)) {
+            styles.put(cssProperty, CssPropertyMerger.mergeTextDecoration(styles.get(cssProperty), value));
+        } else {
+            styles.put(cssProperty, value);
+        }
     }
 }
