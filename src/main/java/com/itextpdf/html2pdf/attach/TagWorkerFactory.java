@@ -79,6 +79,8 @@ public class TagWorkerFactory {
                 return new PTagWorker(tag, context);
             case TagConstants.SPAN:
                 return new SpanTagWorker(tag, context);
+            case TagConstants.STRIKE:
+                return new SpanTagWorker(tag, context);
             case TagConstants.TABLE:
                 return new TableTagWorker(tag, context);
             case TagConstants.TFOOT:
@@ -93,6 +95,8 @@ public class TagWorkerFactory {
                 return new TdTagWorker(tag, context);
             case TagConstants.TR:
                 return new TrTagWorker(tag, context);
+            case TagConstants.U:
+                return new SpanTagWorker(tag, context);
             case TagConstants.UL:
                 return new UlOlTagWorker(tag, context);
         }

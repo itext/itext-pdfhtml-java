@@ -75,12 +75,6 @@ class HtmlStylesToCssConverter {
             defaultCss = parsedStylesheet;
         }
 
-        // TODO text-decoration is not an inheritable property, also both couldn't be applied via css at the same time
-//        htmlStyleTagsToCss.put(TagConstants.U, Arrays.asList(
-//                new CssDeclaration(CssConstants.TEXT_DECORATION, CssConstants.UNDERLINE)));
-//        htmlStyleTagsToCss.put(TagConstants.STRIKE, Arrays.asList(
-//                new CssDeclaration(CssConstants.TEXT_DECORATION, CssConstants.LINE_THROUGH)));
-
         htmlAttributeConverters = new HashMap<>();
         htmlAttributeConverters.put(AttributeConstants.BORDER, new BorderAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.BGCOLOR, new BgColorAttributeConverter());

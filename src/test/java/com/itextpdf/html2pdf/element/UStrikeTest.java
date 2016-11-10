@@ -40,52 +40,41 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply;
+package com.itextpdf.html2pdf.element;
 
-import com.itextpdf.html2pdf.css.apply.impl.*;
-import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.utils.CompareTool;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import com.itextpdf.html2pdf.Html2PdfProductInfo;
+import com.itextpdf.kernel.Version;
+import com.itextpdf.test.ITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-public class CssApplierFactory {
+import java.io.File;
+import java.io.IOException;
 
-    public static ICssApplier getCssApplier(String tag) {
-        switch (tag) {
-            case TagConstants.DIV:
-                return new DivTagCssApplier();
-            case TagConstants.DL:
-                return new DlTagCssApplier();
-            case TagConstants.LI:
-                return new LiTagCssApplier();
-            case TagConstants.OL:
-                return new UlOlTagCssApplier();
-            case TagConstants.H1:
-            case TagConstants.H2:
-            case TagConstants.H3:
-            case TagConstants.H4:
-            case TagConstants.H5:
-            case TagConstants.H6:
-            case TagConstants.P:
-                return new PTagCssApplier();
-            case TagConstants.IMG:
-                return new ImgTagCssApplier();
-			case TagConstants.SPAN:
-                return new SpanTagCssApplier();
-            case TagConstants.STRIKE:
-                return new SpanTagCssApplier();
-            case TagConstants.TD:
-                return new TdTagCssApplier();
-            case TagConstants.TABLE:
-                return new TableTagCssApplier();
-            case TagConstants.TFOOT:
-                return new TableTagCssApplier();
-            case TagConstants.THEAD:
-                return new TableTagCssApplier();
-            case TagConstants.U:
-                return new SpanTagCssApplier();
-            case TagConstants.UL:
-                return new UlOlTagCssApplier();
-            default:
-                return null;
-        }
+@Category(IntegrationTest.class)
+// TODO extend from ExtendedITextTest and therefore check logging
+public class UStrikeTest extends ITextTest {
+
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/UStrikeTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/UStrikeTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+        createDestinationFolder(destinationFolder);
+    }
+
+    @Test
+    public void uStrikeTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "uStrikeTest01.html"), new File(destinationFolder + "uStrikeTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "uStrikeTest01.pdf", sourceFolder + "cmp_uStrikeTest01.pdf", destinationFolder, "diff01_"));
     }
 
 }
