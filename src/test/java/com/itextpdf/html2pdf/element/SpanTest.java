@@ -51,12 +51,13 @@ import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.io.File;
-import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 // TODO extend from ExtendedITextTest and therefore check logging
@@ -92,6 +93,12 @@ public class SpanTest extends ITextTest {
     public void spanTest04() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest04.html"), new File(destinationFolder + "spanTest04.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest04.pdf", sourceFolder + "cmp_spanTest04.pdf", destinationFolder, "diff04_"));
+    }
+
+    @Test
+    public void spanTest05() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest05.html"), new File(destinationFolder + "spanTest05.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest05.pdf", sourceFolder + "cmp_spanTest05.pdf", destinationFolder, "diff05_"));
     }
 
 }

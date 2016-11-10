@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
@@ -76,18 +77,22 @@ public class DlTagWorker implements ITagWorker {
 
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        boolean processed;
         IPropertyContainer child = childTagWorker.getElementResult();
         if (childTagWorker instanceof SpanTagWorker) {
-            inlineHelper.addAll(((SpanTagWorker) childTagWorker).getAllLeafElements());
-            return true;
-        } else {
-            processUnlabeledListItem();
-            if (child instanceof ListItem) {
-                list.add((ListItem) child);
-                return true;
+            boolean allProcessed = true;
+            for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
+                if (propertyContainer instanceof ILeafElement) {
+                    inlineHelper.add((ILeafElement) propertyContainer);
+                } else {
+                    allProcessed = addBlockChild(propertyContainer) && allProcessed;
+                }
             }
+            processed = allProcessed;
+        } else {
+            return addBlockChild(child);
         }
-        return false;
+        return processed;
     }
 
     @Override
@@ -98,10 +103,19 @@ public class DlTagWorker implements ITagWorker {
     private void processUnlabeledListItem() {
         Paragraph p = inlineHelper.createParagraphContainer();
         ListItem li = new ListItem();
-        inlineHelper.flushHangingLeafs(p);
+        inlineHelper.flushHangingLeaves(p);
         li.add(p);
         li.setListSymbol("");
         list.add(li);
+    }
+
+    private boolean addBlockChild(IPropertyContainer child) {
+        processUnlabeledListItem();
+        if (child instanceof ListItem) {
+            list.add((ListItem) child);
+            return true;
+        }
+        return false;
     }
 
 }

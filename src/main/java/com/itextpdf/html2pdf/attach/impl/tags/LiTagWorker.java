@@ -49,6 +49,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
+import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.ListItem;
 
@@ -64,7 +65,7 @@ public class LiTagWorker implements ITagWorker {
 
     @Override
     public void processEnd(IElement element, ProcessorContext context) {
-        inlineHelper.flushHangingLeafs(listItem);
+        inlineHelper.flushHangingLeaves(listItem);
     }
 
     @Override
@@ -76,17 +77,17 @@ public class LiTagWorker implements ITagWorker {
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         if (childTagWorker instanceof SpanTagWorker) {
-            inlineHelper.addAll(((SpanTagWorker) childTagWorker).getAllLeafElements());
-            return true;
-        } else {
-            inlineHelper.flushHangingLeafs(listItem);
-            if (childTagWorker instanceof ImgTagWorker) {
-                listItem.add((Image)(childTagWorker).getElementResult());
-                return true;
-            } else if (childTagWorker.getElementResult() instanceof BlockElement) {
-                listItem.add((BlockElement<com.itextpdf.layout.element.IElement>) childTagWorker.getElementResult());
-                return true;
+            boolean allChildrenProcessed = true;
+            for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
+                if (propertyContainer instanceof ILeafElement) {
+                    inlineHelper.add((ILeafElement) propertyContainer);
+                } else {
+                    allChildrenProcessed = processChild(propertyContainer) && allChildrenProcessed;
+                }
             }
+            return allChildrenProcessed;
+        } else {
+            processChild(childTagWorker.getElementResult());
         }
         return false;
     }
@@ -94,6 +95,18 @@ public class LiTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return listItem;
+    }
+
+    private boolean processChild(IPropertyContainer propertyContainer) {
+        inlineHelper.flushHangingLeaves(listItem);
+        if (propertyContainer instanceof Image) {
+            listItem.add((Image) propertyContainer);
+            return true;
+        } else if (propertyContainer instanceof BlockElement) {
+            listItem.add((BlockElement<com.itextpdf.layout.element.IElement>) propertyContainer);
+            return true;
+        }
+        return false;
     }
 
 }

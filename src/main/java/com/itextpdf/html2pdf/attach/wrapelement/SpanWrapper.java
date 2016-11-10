@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.attach.wrapelement;
 
+import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 
 import java.util.ArrayList;
@@ -60,17 +62,21 @@ public class SpanWrapper implements IWrapElement {
         children.add(img);
     }
 
+    public void add(BlockElement block) {
+        children.add(block);
+    }
+
     public void addAll(Collection<ILeafElement> collection) {
         children.addAll(collection);
     }
 
-    public List<ILeafElement> getLeafElements() {
-        List<ILeafElement> leafs = new ArrayList<>();
+    public List<IPropertyContainer> getElements() {
+        List<IPropertyContainer> leafs = new ArrayList<>();
         for (Object child : children) {
-            if (child instanceof ILeafElement) {
-                leafs.add((ILeafElement) child);
+            if (child instanceof IPropertyContainer) {
+                leafs.add((IPropertyContainer) child);
             } else if (child instanceof SpanWrapper) {
-                leafs.addAll(((SpanWrapper) child).getLeafElements());
+                leafs.addAll(((SpanWrapper) child).getElements());
             }
         }
         return leafs;

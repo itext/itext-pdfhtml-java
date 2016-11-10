@@ -48,19 +48,20 @@ import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.IPropertyContainer;
+
 import java.util.Map;
 
 public class SpanTagCssApplier implements ICssApplier {
 
     @Override
     public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
-        for (ILeafElement child : ((SpanTagWorker) tagWorker).getOwnLeafElements()) {
-            applyLeafElementStyles(child, element.getStyles(), context);
+        for (IPropertyContainer child : ((SpanTagWorker) tagWorker).getOwnLeafElements()) {
+            applyChildElementStyles(child, element.getStyles(), context);
         }
     }
 
-    private void applyLeafElementStyles(ILeafElement element, Map<String, String> css, ProcessorContext context) {
+    private void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context) {
         FontStyleApplierUtil.applyFontStyles(css, context, element);
     }
 

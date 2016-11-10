@@ -51,6 +51,7 @@ import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 
 public class TdTagWorker implements ITagWorker {
@@ -70,7 +71,7 @@ public class TdTagWorker implements ITagWorker {
 
     @Override
     public void processEnd(IElement element, ProcessorContext context) {
-        inlineHelper.flushHangingLeafs(cell);
+        inlineHelper.flushHangingLeaves(cell);
     }
 
     @Override
@@ -83,17 +84,17 @@ public class TdTagWorker implements ITagWorker {
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         boolean processed = false;
         if (childTagWorker instanceof SpanTagWorker) {
-            inlineHelper.addAll(((SpanTagWorker) childTagWorker).getAllLeafElements());
-            processed = true;
-        } else {
-            inlineHelper.flushHangingLeafs(cell);
-            if (childTagWorker.getElementResult() instanceof BlockElement) {
-                cell.add((BlockElement) childTagWorker.getElementResult());
-                processed = true;
-            } else if (childTagWorker.getElementResult() instanceof Image) {
-                cell.add((Image) childTagWorker.getElementResult());
-                processed = true;
+            boolean allChildrenProcesssed = true;
+            for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
+                if (propertyContainer instanceof ILeafElement) {
+                    inlineHelper.add((ILeafElement) propertyContainer);
+                } else {
+                    allChildrenProcesssed = processChild(propertyContainer) && allChildrenProcesssed;
+                }
             }
+            processed = allChildrenProcesssed;
+        } else {
+            processChild(childTagWorker.getElementResult());
         }
         return processed;
     }
@@ -101,5 +102,18 @@ public class TdTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return cell;
+    }
+
+    private boolean processChild(IPropertyContainer propertyContainer) {
+        boolean processed = false;
+        inlineHelper.flushHangingLeaves(cell);
+        if (propertyContainer instanceof BlockElement) {
+            cell.add((BlockElement) propertyContainer);
+            processed = true;
+        } else if (propertyContainer instanceof Image) {
+            cell.add((Image) propertyContainer);
+            processed = true;
+        }
+        return processed;
     }
 }

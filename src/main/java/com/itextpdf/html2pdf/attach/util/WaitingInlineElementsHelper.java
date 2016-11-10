@@ -89,18 +89,9 @@ public class WaitingInlineElementsHelper {
         waitingLeaves.addAll(collection);
     }
 
-    public void flushHangingLeafs(IPropertyContainer container) {
-        if (collapseSpaces) {
-            waitingLeaves = TrimUtil.trimLeafElementsFirstAndSanitize(waitingLeaves);
-        }
-        if (CssConstants.CAPITALIZE.equals(textTransform)) {
-            capitalize(waitingLeaves);
-        }
-        if (waitingLeaves.size() > 0) {
-            Paragraph p = createParagraphContainer();
-            for (ILeafElement leaf : waitingLeaves) {
-                p.add(leaf);
-            }
+    public void flushHangingLeaves(IPropertyContainer container) {
+        Paragraph p = createLeavesContainer();
+        if (p != null) {
             if (container instanceof Document) {
                 ((Document) container).add(p);
             } else if (container instanceof Paragraph) {
@@ -119,6 +110,25 @@ public class WaitingInlineElementsHelper {
                 throw new IllegalStateException("Unable to process hanging inline content");
             }
             waitingLeaves.clear();
+        }
+    }
+
+    public Paragraph createLeavesContainer() {
+        if (collapseSpaces) {
+            waitingLeaves = TrimUtil.trimLeafElementsFirstAndSanitize(waitingLeaves);
+        }
+        if (CssConstants.CAPITALIZE.equals(textTransform)) {
+            capitalize(waitingLeaves);
+        }
+
+        if (waitingLeaves.size() > 0) {
+            Paragraph p = createParagraphContainer();
+            for (ILeafElement leaf : waitingLeaves) {
+                p.add(leaf);
+            }
+            return p;
+        } else {
+            return null;
         }
     }
 
