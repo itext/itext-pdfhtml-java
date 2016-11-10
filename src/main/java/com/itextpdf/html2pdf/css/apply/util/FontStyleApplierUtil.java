@@ -127,6 +127,8 @@ public final class FontStyleApplierUtil {
                     elementPropertyContainer.setUnderline(null, .75f, 0, 0, -1 / 10f, PdfCanvasConstants.LineCapStyle.BUTT);
                 } else if (CssConstants.NONE.equals(textDecoration)) {
                     elementPropertyContainer.setProperty(Property.UNDERLINE, null);
+                    // if none and any other decoration are used together, none is displayed
+                    break;
                 }
             }
         }
