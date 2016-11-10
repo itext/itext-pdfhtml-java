@@ -51,6 +51,7 @@ import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
+import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 
 public class HtmlTagWorker implements ITagWorker {
@@ -65,7 +66,7 @@ public class HtmlTagWorker implements ITagWorker {
 
     @Override
     public void processEnd(IElement element, ProcessorContext context) {
-        inlineHelper.flushHangingLeafs(document);
+        inlineHelper.flushHangingLeaves(document);
     }
 
     @Override
@@ -78,18 +79,17 @@ public class HtmlTagWorker implements ITagWorker {
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         boolean processed = false;
         if (childTagWorker instanceof SpanTagWorker) {
-            inlineHelper.addAll(((SpanTagWorker) childTagWorker).getAllLeafElements());
-            processed = true;
-        } else {
-            inlineHelper.flushHangingLeafs(document);
-            IPropertyContainer element = childTagWorker.getElementResult();
-            if (element instanceof BlockElement) { // TODO porting to .net issue with generics
-                document.add(((BlockElement) element));
-                processed = true;
-            } else if (element instanceof Image) {
-                document.add((Image) element);
-                processed = true;
+            boolean allChildrenProcessed = true;
+            for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
+                if (propertyContainer instanceof ILeafElement) {
+                    inlineHelper.add((ILeafElement) propertyContainer);
+                } else {
+                    allChildrenProcessed = processBlockChild(propertyContainer) && allChildrenProcessed;
+                }
             }
+            processed = allChildrenProcessed;
+        } else {
+            processBlockChild(childTagWorker.getElementResult());
         }
 
         return processed;
@@ -98,5 +98,17 @@ public class HtmlTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return document;
+    }
+
+    private boolean processBlockChild(IPropertyContainer propertyContainer) {
+        inlineHelper.flushHangingLeaves(document);
+        IPropertyContainer element = propertyContainer;
+        if (element instanceof BlockElement) {
+            document.add((BlockElement) element);
+            return true;
+        } else if (element instanceof Image) {
+            document.add((Image) element);
+        }
+        return true;
     }
 }

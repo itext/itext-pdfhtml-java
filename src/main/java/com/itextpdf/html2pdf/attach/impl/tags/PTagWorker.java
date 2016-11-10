@@ -63,7 +63,7 @@ public class PTagWorker implements ITagWorker {
 
     @Override
     public void processEnd(IElement element, ProcessorContext context) {
-        inlineHelper.flushHangingLeafs(paragraph);
+        inlineHelper.flushHangingLeaves(paragraph);
     }
 
     @Override
@@ -79,8 +79,15 @@ public class PTagWorker implements ITagWorker {
             inlineHelper.add((ILeafElement) element);
             return true;
         } else if (childTagWorker instanceof SpanTagWorker) {
-            inlineHelper.addAll(((SpanTagWorker) childTagWorker).getAllLeafElements());
-            return true;
+            boolean allChildrenProcessed = true;
+            for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
+                if (propertyContainer instanceof ILeafElement) {
+                    inlineHelper.add((ILeafElement) propertyContainer);
+                } else {
+                    allChildrenProcessed = false;
+                }
+            }
+            return allChildrenProcessed;
         }
         return false;
     }

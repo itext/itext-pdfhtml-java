@@ -50,6 +50,7 @@ import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 
 public class DivTagWorker implements ITagWorker {
@@ -64,7 +65,7 @@ public class DivTagWorker implements ITagWorker {
 
     @Override
     public void processEnd(IElement element, ProcessorContext context) {
-        inlineHelper.flushHangingLeafs(div);
+        inlineHelper.flushHangingLeaves(div);
     }
 
     @Override
@@ -78,17 +79,17 @@ public class DivTagWorker implements ITagWorker {
         boolean processed = false;
         IPropertyContainer element = childTagWorker.getElementResult();
         if (childTagWorker instanceof SpanTagWorker) {
-            inlineHelper.addAll(((SpanTagWorker) childTagWorker).getAllLeafElements());
-            processed = true;
-        } else {
-            inlineHelper.flushHangingLeafs(div);
-            if (element instanceof BlockElement) {
-                div.add(((BlockElement) element));
-                processed = true;
-            } else if (element instanceof Image) {
-                div.add((Image) element);
-                processed = true;
+            boolean allChildrenProcessed = true;
+            for (IPropertyContainer childElement : ((SpanTagWorker) childTagWorker).getAllElements()) {
+                if (childElement instanceof ILeafElement) {
+                    inlineHelper.add((ILeafElement) childElement);
+                } else if (childElement instanceof IElement) {
+                    allChildrenProcessed = addBlockChild((com.itextpdf.layout.element.IElement) childElement) && allChildrenProcessed;
+                }
             }
+            processed = allChildrenProcessed;
+        } else if (element instanceof com.itextpdf.layout.element.IElement) {
+            processed = addBlockChild((com.itextpdf.layout.element.IElement) element);
         }
         return processed;
     }
@@ -96,5 +97,18 @@ public class DivTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return div;
+    }
+
+    private boolean addBlockChild(com.itextpdf.layout.element.IElement element) {
+        inlineHelper.flushHangingLeaves(div);
+        boolean processed = false;
+        if (element instanceof BlockElement) {
+            div.add(((BlockElement) element));
+            processed = true;
+        } else if (element instanceof Image) {
+            div.add((Image) element);
+            processed = true;
+        }
+        return processed;
     }
 }

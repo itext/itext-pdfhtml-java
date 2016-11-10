@@ -49,6 +49,7 @@ import com.itextpdf.html2pdf.attach.wrapelement.SpanWrapper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 
 import java.util.ArrayList;
@@ -57,11 +58,13 @@ import java.util.List;
 public class SpanTagWorker implements ITagWorker {
 
     private SpanWrapper spanWrapper;
-    private List<ILeafElement> leafElements;
-    private List<ILeafElement> ownLeafElements = new ArrayList<>();
+    private List<IPropertyContainer> elements;
+    private List<IPropertyContainer> ownLeafElements = new ArrayList<>();
     private WaitingInlineElementsHelper inlineHelper;
+    private ITagWorker parentTagWorker;
 
     public SpanTagWorker(IElement element, ProcessorContext context) {
+        parentTagWorker = context.getState().top();
         spanWrapper = new SpanWrapper();
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
@@ -69,7 +72,7 @@ public class SpanTagWorker implements ITagWorker {
     @Override
     public void processEnd(IElement element, ProcessorContext context) {
         flushInlineHelper();
-        leafElements = spanWrapper.getLeafElements();
+        elements = spanWrapper.getElements();
     }
 
     @Override
@@ -89,16 +92,20 @@ public class SpanTagWorker implements ITagWorker {
             flushInlineHelper();
             spanWrapper.add(((SpanTagWorker) childTagWorker).spanWrapper);
             return true;
+        } else if (childTagWorker.getElementResult() instanceof BlockElement) {
+            flushInlineHelper();
+            spanWrapper.add((BlockElement)childTagWorker.getElementResult());
+            ownLeafElements.add(childTagWorker.getElementResult());
         }
 
         return false;
     }
 
-    public List<ILeafElement> getAllLeafElements() {
-        return leafElements;
+    public List<IPropertyContainer> getAllElements() {
+        return elements;
     }
 
-    public List<ILeafElement> getOwnLeafElements() {
+    public List<IPropertyContainer> getOwnLeafElements() {
         return ownLeafElements;
     }
 
