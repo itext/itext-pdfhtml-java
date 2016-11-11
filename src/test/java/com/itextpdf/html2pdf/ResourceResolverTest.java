@@ -111,7 +111,9 @@ public class ResourceResolverTest extends ITextTest {
 
     @Test
     public void resourceResolverTest05() throws IOException, InterruptedException {
-        String baseUri = Paths.get("").toUri() + "src/test/resources/com/itextpdf/html2pdf/ResourceResolverTest/res";
+        // It is important to put a trailing slash in the end: if you specify base URI via absolute URI string,
+        // you need to follow URI standards, in which a path without trailing slash is referring to a file.
+        String baseUri = Paths.get("").toUri() + "src/test/resources/com/itextpdf/html2pdf/ResourceResolverTest/res/";
         String outPdf = destinationFolder + "resourceResolverTest05.pdf";
         String cmpPdf = sourceFolder + "cmp_resourceResolverTest05.pdf";
         HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest03.html"), new FileOutputStream(outPdf), baseUri);
