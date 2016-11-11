@@ -65,10 +65,15 @@ class UriResolver {
     URL resolveAgainstBaseUri(String uriString) throws MalformedURLException {
         URL resolvedUrl = null;
         if (isLocal) {
+            // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
+            // resources around the file system even if on web page the path started with '\'
             uriString = uriString.replaceFirst("/*\\\\*", "");
             if (!uriString.startsWith("file:")) {
                 try {
                     Path path = Paths.get(uriString);
+                    // In general this check is for windows only, in order to handle paths like "c:/temp/img.jpg".
+                    // What concerns unix paths, we already removed leading slashes,
+                    // therefore we can't meet here an absolute path.
                     if (path.isAbsolute()) {
                         resolvedUrl = path.toUri().toURL();
                     }
@@ -99,8 +104,12 @@ class UriResolver {
         URL baseAsUrl = null;
         try {
             URI baseUri = new URI(baseUriString);
-            if (baseUri.isAbsolute() && !"file".equals(baseUri.getScheme())) {
+            if (baseUri.isAbsolute()) {
                 baseAsUrl = baseUri.toURL();
+
+                if ("file".equals(baseUri.getScheme())) {
+                    isLocal = true;
+                }
             }
         } catch (Exception ignored) {
         }
@@ -110,8 +119,7 @@ class UriResolver {
     private URL uriAsFileUrl(String baseUriString) {
         URL baseAsFileUrl= null;
         try {
-            String trimmedFromLeadingScheme = baseUriString.replaceFirst("^file:/*\\\\*", "");
-            Path path = Paths.get(trimmedFromLeadingScheme);
+            Path path = Paths.get(baseUriString);
             baseAsFileUrl = path.toAbsolutePath().normalize().toUri().toURL();
             isLocal = true;
         } catch (Exception ignored) {

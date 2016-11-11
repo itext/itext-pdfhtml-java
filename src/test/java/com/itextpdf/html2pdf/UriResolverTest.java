@@ -60,12 +60,14 @@ public class UriResolverTest extends ExtendedITextTest {
 
     @Test
     public void uriResolverTest01() throws MalformedURLException {
-        UriResolver resolver = new UriResolver("file://c:/test/folder/index.html");
-        Assert.assertEquals("file:/c:/test/folder/index.html", resolver.getBaseUri());
-        Assert.assertEquals("file:/c:/test/folder/innerTest", resolver.resolveAgainstBaseUri("innerTest").toExternalForm());
-        Assert.assertEquals("file:/c:/test/folder2/innerTest2", resolver.resolveAgainstBaseUri("../folder2/innerTest2").toExternalForm());
-        Assert.assertEquals("file:/c:/test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("/folder2/innerTest2").toExternalForm());
-        Assert.assertEquals("file:/c:/test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("//folder2/innerTest2").toExternalForm());
+        String absolutePathRoot = "file://" + Paths.get("").toAbsolutePath().getRoot().toString().replace('\\', '/').replaceFirst("^/", "");
+        String absoluteBaseUri = absolutePathRoot + "test/folder/index.html";
+        UriResolver resolver = new UriResolver(absoluteBaseUri);
+        Assert.assertEquals(absolutePathRoot + "test/folder/index.html", resolver.getBaseUri());
+        Assert.assertEquals(absolutePathRoot + "test/folder/innerTest", resolver.resolveAgainstBaseUri("innerTest").toExternalForm());
+        Assert.assertEquals(absolutePathRoot + "test/folder2/innerTest2", resolver.resolveAgainstBaseUri("../folder2/innerTest2").toExternalForm());
+        Assert.assertEquals(absolutePathRoot + "test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("/folder2/innerTest2").toExternalForm());
+        Assert.assertEquals(absolutePathRoot + "test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("//folder2/innerTest2").toExternalForm());
     }
 
     @Test
@@ -142,40 +144,28 @@ public class UriResolverTest extends ExtendedITextTest {
 
     @Test
     public void uriResolverTest09() throws MalformedURLException {
-        UriResolver resolver = new UriResolver("c:/test/folder/index.html");
-        Assert.assertEquals("file:/c:/test/folder/index.html", resolver.getBaseUri());
-        Assert.assertEquals("file:/c:/test/folder/innerTest", resolver.resolveAgainstBaseUri("innerTest").toExternalForm());
-        Assert.assertEquals("file:/c:/test/folder2/innerTest2", resolver.resolveAgainstBaseUri("../folder2/innerTest2").toExternalForm());
-        Assert.assertEquals("file:/c:/test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("/folder2/innerTest2").toExternalForm());
-        Assert.assertEquals("file:/c:/test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("//folder2/innerTest2").toExternalForm());
-    }
+        String absolutePathRoot = Paths.get("").toAbsolutePath().getRoot().toString().replace('\\', '/');
+        String absoluteBaseUri = absolutePathRoot + "test/folder/index.html";
+        UriResolver resolver = new UriResolver(absoluteBaseUri);
 
-    @Test
-    public void uriResolverTest10() throws MalformedURLException {
-        junitExpectedException.expect(IllegalArgumentException.class);
-        junitExpectedException.expectMessage("Invalid base URI: /C:/test/folder/index.html");
-        UriResolver resolver = new UriResolver("/C:/test/folder/index.html");
-    }
-
-    @Test
-    public void uriResolverTest11() throws MalformedURLException {
-        junitExpectedException.expect(IllegalArgumentException.class);
-        junitExpectedException.expectMessage("Invalid base URI: http://some-external-server.com/info_path%%20-%20way.html");
-        UriResolver resolver = new UriResolver("http://some-external-server.com/info_path%%20-%20way.html");
-    }
-
-    @Test
-    public void uriResolverTest12() throws MalformedURLException {
-        junitExpectedException.expect(IllegalArgumentException.class);
-        junitExpectedException.expectMessage("Invalid base URI: some:random:text:inside");
-        UriResolver resolver = new UriResolver("some:random:text:inside");
+        String uriRoot = Paths.get("").toAbsolutePath().getRoot().toUri().toURL().toExternalForm();
+        Assert.assertEquals(uriRoot + "test/folder/index.html", resolver.getBaseUri());
+        Assert.assertEquals(uriRoot + "test/folder/innerTest", resolver.resolveAgainstBaseUri("innerTest").toExternalForm());
+        Assert.assertEquals(uriRoot + "test/folder2/innerTest2", resolver.resolveAgainstBaseUri("../folder2/innerTest2").toExternalForm());
+        Assert.assertEquals(uriRoot + "test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("/folder2/innerTest2").toExternalForm());
+        Assert.assertEquals(uriRoot + "test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("//folder2/innerTest2").toExternalForm());
     }
 
     @Test
     public void uriResolverTest13() throws MalformedURLException {
-        junitExpectedException.expect(IllegalArgumentException.class);
-        junitExpectedException.expectMessage("Invalid base URI: //test");
-        UriResolver resolver = new UriResolver("//test");
+        UriResolver resolver = new UriResolver("");
+        String runFolder = Paths.get("").toUri().toURL().toExternalForm();
+        Assert.assertEquals(runFolder, resolver.getBaseUri());
+        Assert.assertEquals(runFolder + "innerTest", resolver.resolveAgainstBaseUri("innerTest").toExternalForm());
+        String parentToRunFolder = Paths.get("").toAbsolutePath().getParent().toUri().toURL().toExternalForm();
+        Assert.assertEquals(parentToRunFolder + "folder2/innerTest2", resolver.resolveAgainstBaseUri("../folder2/innerTest2").toExternalForm());
+        Assert.assertEquals(runFolder + "folder2/innerTest2", resolver.resolveAgainstBaseUri("/folder2/innerTest2").toExternalForm());
+        Assert.assertEquals(runFolder + "folder2/innerTest2", resolver.resolveAgainstBaseUri("//folder2/innerTest2").toExternalForm());
     }
 
     @Test
@@ -186,48 +176,34 @@ public class UriResolverTest extends ExtendedITextTest {
         Assert.assertEquals("file:/c:/test/folder/img.txt", resolver.resolveAgainstBaseUri("file:/c:/test/folder/img.txt").toExternalForm());
         Assert.assertEquals("file://c:/test/folder/img.txt", resolver.resolveAgainstBaseUri("file://c:/test/folder/img.txt").toExternalForm());
         Assert.assertEquals("file:/c:/test/folder/data.jpg", resolver.resolveAgainstBaseUri("file:///c:/test/folder/data.jpg").toExternalForm());
-        Assert.assertEquals("file:/c:/test/folder/data.jpg", resolver.resolveAgainstBaseUri("c:/test/folder/data.jpg").toExternalForm());
+
+        // It is windows specific to assume this to work. On unix it shall fail, as it will assume that it is
+        // an absolute URI with scheme 'c', and will not recognize this scheme.
+        // Assert.assertEquals("file:/c:/test/folder/data.jpg", resolver.resolveAgainstBaseUri("c:/test/folder/data.jpg").toExternalForm());
     }
 
     @Test
     public void uriResolverTest15() throws MalformedURLException {
-        UriResolver resolver = new UriResolver("file:/C:/test/folder/index.html");
-        Assert.assertEquals("file:/C:/test/folder/index.html", resolver.getBaseUri());
-        Assert.assertEquals("file:/C:/test/folder/innerTest", resolver.resolveAgainstBaseUri("innerTest").toExternalForm());
-        Assert.assertEquals("file:/C:/test/folder2/innerTest2", resolver.resolveAgainstBaseUri("../folder2/innerTest2").toExternalForm());
-        Assert.assertEquals("file:/C:/test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("/folder2/innerTest2").toExternalForm());
-        Assert.assertEquals("file:/C:/test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("//folder2/innerTest2").toExternalForm());
+        String absolutePathRoot = "file:/" + Paths.get("").toAbsolutePath().getRoot().toString().replace('\\', '/').replaceFirst("^/", "");
+        String absoluteBaseUri = absolutePathRoot + "test/folder/index.html";
+        UriResolver resolver = new UriResolver(absoluteBaseUri);
+        Assert.assertEquals(absolutePathRoot + "test/folder/index.html", resolver.getBaseUri());
+        Assert.assertEquals(absolutePathRoot + "test/folder/innerTest", resolver.resolveAgainstBaseUri("innerTest").toExternalForm());
+        Assert.assertEquals(absolutePathRoot + "test/folder2/innerTest2", resolver.resolveAgainstBaseUri("../folder2/innerTest2").toExternalForm());
+        Assert.assertEquals(absolutePathRoot + "test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("/folder2/innerTest2").toExternalForm());
+        Assert.assertEquals(absolutePathRoot + "test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("//folder2/innerTest2").toExternalForm());
     }
 
     @Test
     public void uriResolverTest16() throws MalformedURLException {
-        UriResolver resolver = new UriResolver("file:///C:/test/folder/index.html");
-        Assert.assertEquals("file:/C:/test/folder/index.html", resolver.getBaseUri());
-        Assert.assertEquals("file:/C:/test/folder/innerTest", resolver.resolveAgainstBaseUri("innerTest").toExternalForm());
-        Assert.assertEquals("file:/C:/test/folder2/innerTest2", resolver.resolveAgainstBaseUri("../folder2/innerTest2").toExternalForm());
-        Assert.assertEquals("file:/C:/test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("/folder2/innerTest2").toExternalForm());
-        Assert.assertEquals("file:/C:/test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("//folder2/innerTest2").toExternalForm());
+        String absolutePathRoot = "file:///" + Paths.get("").toAbsolutePath().getRoot().toString().replace('\\', '/').replaceFirst("^/", "");
+        String absoluteBaseUri = absolutePathRoot + "test/folder/index.html";
+        UriResolver resolver = new UriResolver(absoluteBaseUri);
+        String singleSlashRootPath = absolutePathRoot.replace("///", "/");
+        Assert.assertEquals(singleSlashRootPath + "test/folder/index.html", resolver.getBaseUri());
+        Assert.assertEquals(singleSlashRootPath + "test/folder/innerTest", resolver.resolveAgainstBaseUri("innerTest").toExternalForm());
+        Assert.assertEquals(singleSlashRootPath + "test/folder2/innerTest2", resolver.resolveAgainstBaseUri("../folder2/innerTest2").toExternalForm());
+        Assert.assertEquals(singleSlashRootPath + "test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("/folder2/innerTest2").toExternalForm());
+        Assert.assertEquals(singleSlashRootPath + "test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("//folder2/innerTest2").toExternalForm());
     }
-
-    @Test
-    public void uriResolverTest17() throws MalformedURLException {
-        UriResolver resolver = new UriResolver("file:C:/test/folder/index.html");
-        Assert.assertEquals("file:/C:/test/folder/index.html", resolver.getBaseUri());
-        Assert.assertEquals("file:/C:/test/folder/innerTest", resolver.resolveAgainstBaseUri("innerTest").toExternalForm());
-        Assert.assertEquals("file:/C:/test/folder2/innerTest2", resolver.resolveAgainstBaseUri("../folder2/innerTest2").toExternalForm());
-        Assert.assertEquals("file:/C:/test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("/folder2/innerTest2").toExternalForm());
-        Assert.assertEquals("file:/C:/test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("//folder2/innerTest2").toExternalForm());
-    }
-
-    @Test
-    public void uriResolverTest18() throws MalformedURLException {
-        UriResolver resolver = new UriResolver("C:/test/folder/index.html");
-        Assert.assertEquals("file:/C:/test/folder/index.html", resolver.getBaseUri());
-        Assert.assertEquals("file:/C:/test/folder/innerTest", resolver.resolveAgainstBaseUri("innerTest").toExternalForm());
-        Assert.assertEquals("file:/C:/test/folder2/innerTest2", resolver.resolveAgainstBaseUri("../folder2/innerTest2").toExternalForm());
-        Assert.assertEquals("file:/C:/test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("/folder2/innerTest2").toExternalForm());
-        Assert.assertEquals("file:/C:/test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("//folder2/innerTest2").toExternalForm());
-    }
-
-    // TODO some tests with unix-like paths?
 }

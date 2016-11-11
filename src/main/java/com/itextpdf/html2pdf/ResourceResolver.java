@@ -93,7 +93,7 @@ public class ResourceResolver {
             return imageData;
         } catch (Exception e) {
             Logger logger = LoggerFactory.getLogger(ResourceResolver.class);
-            logger.error(MessageFormat.format("Unable to retrieve image with given base URI ({0}) and image source path ({1})", uriResolver.getBaseUri(), src));
+            logger.error(MessageFormat.format("Unable to retrieve image with given base URI ({0}) and image source path ({1})", uriResolver.getBaseUri(), src), e);
             return null;
         }
     }
