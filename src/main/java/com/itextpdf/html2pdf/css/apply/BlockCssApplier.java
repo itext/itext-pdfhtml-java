@@ -45,14 +45,25 @@ package com.itextpdf.html2pdf.css.apply;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.apply.util.*;
+import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.border.*;
+import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.border.DashedBorder;
+import com.itextpdf.layout.border.DottedBorder;
+import com.itextpdf.layout.border.DoubleBorder;
+import com.itextpdf.layout.border.GrooveBorder;
+import com.itextpdf.layout.border.InsetBorder;
+import com.itextpdf.layout.border.OutsetBorder;
+import com.itextpdf.layout.border.RidgeBorder;
+import com.itextpdf.layout.border.SolidBorder;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.TextAlignment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -77,7 +88,6 @@ public class BlockCssApplier implements ICssApplier {
             PaddingApplierUtil.applyPaddings(cssProps, context, container);
             FontStyleApplierUtil.applyFontStyles(cssProps, context, container);
             applyBorders(container);
-            applyTextAlignment(container);
         }
     }
 
@@ -101,24 +111,6 @@ public class BlockCssApplier implements ICssApplier {
                 cssProps.get(CssConstants.BORDER_RIGHT_STYLE), cssProps.get(CssConstants.BORDER_RIGHT_COLOR));
         if (rightBorder != null) {
             element.setProperty(Property.BORDER_RIGHT, rightBorder);
-        }
-    }
-
-    protected void applyTextAlignment(IPropertyContainer element){
-        if (cssProps.get(CssConstants.TEXT_ALIGN) != null) {
-            String align = cssProps.get(CssConstants.TEXT_ALIGN);
-            switch (align) {
-                case CssConstants.LEFT:
-                    element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.LEFT);
-                    break;
-                case CssConstants.RIGHT:
-                    element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.RIGHT);
-                    break;
-                case CssConstants.CENTER:
-                    element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.CENTER);
-                    break;
-                default: break;
-            }
         }
     }
 
