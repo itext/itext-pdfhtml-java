@@ -96,6 +96,7 @@ public class SpanTagWorker implements ITagWorker {
             flushInlineHelper();
             spanWrapper.add((BlockElement)childTagWorker.getElementResult());
             ownLeafElements.add(childTagWorker.getElementResult());
+            return true;
         }
 
         return false;

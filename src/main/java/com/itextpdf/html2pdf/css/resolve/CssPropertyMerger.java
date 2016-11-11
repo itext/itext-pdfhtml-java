@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.css.resolve;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public final class CssPropertyMerger {
@@ -60,7 +60,8 @@ public final class CssPropertyMerger {
 
         String[] firstParts = firstValue.split("\\s+");
         String[] secondParts = secondValue.split("\\s+");
-        Set<String> merged = new HashSet<>();
+        // LinkedHashSet to make order invariant of JVM
+        Set<String> merged = new LinkedHashSet<>();
         merged.addAll(Arrays.asList(firstParts));
         merged.addAll(Arrays.asList(secondParts));
         StringBuilder sb = new StringBuilder();
