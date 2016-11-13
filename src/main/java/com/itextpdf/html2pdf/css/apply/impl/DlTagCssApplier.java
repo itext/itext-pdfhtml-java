@@ -56,7 +56,7 @@ public class DlTagCssApplier extends BlockCssApplier {
         super.apply(context, element, tagWorker);
         IPropertyContainer list = tagWorker.getElementResult();
         if (list != null) {
-            ListStyleApplierUtil.applyListStyleImageProperty(cssProps, context, list);
+            ListStyleApplierUtil.applyListStyleImageProperty(element.getStyles(), context, list);
         }
     }
 

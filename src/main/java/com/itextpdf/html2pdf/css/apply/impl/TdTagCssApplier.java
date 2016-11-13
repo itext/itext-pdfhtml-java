@@ -52,6 +52,7 @@ import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.property.Property;
+import java.util.Map;
 
 public class TdTagCssApplier extends BlockCssApplier {
     @Override
@@ -60,6 +61,7 @@ public class TdTagCssApplier extends BlockCssApplier {
 
         IPropertyContainer cell = worker.getElementResult();
         if(cell != null) {
+            Map<String, String> cssProps = element.getStyles();
             float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
             Border topBorder = BorderStyleApplierUtil.getCertainBorder(cssProps.get(CssConstants.BORDER_TOP_WIDTH),
                     cssProps.get(CssConstants.BORDER_TOP_STYLE), cssProps.get(CssConstants.BORDER_TOP_COLOR), em);

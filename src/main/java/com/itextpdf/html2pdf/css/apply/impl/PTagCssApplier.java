@@ -56,7 +56,7 @@ public class PTagCssApplier extends BlockCssApplier {
         super.apply(context, element, worker);
         IPropertyContainer container = worker.getElementResult();
         if (container != null) {
-            FontStyleApplierUtil.applyFontStyles(cssProps, context, container);
+            FontStyleApplierUtil.applyFontStyles(element.getStyles(), context, container);
         }
     }
 }
