@@ -53,15 +53,9 @@ import java.util.Map;
 
 public class BlockCssApplier implements ICssApplier {
 
-    protected Map<String, String> cssProps = new HashMap<>();
-    
-    public void resolveCssProperties(ProcessorContext context, IElement element) {
-        cssProps = context.getCssResolver().resolveStyles(element);
-    }
-
     @Override
     public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
-        resolveCssProperties(context, element);
+        Map<String, String> cssProps = element.getStyles();
 
         IPropertyContainer container = tagWorker.getElementResult();
         if (container != null) {

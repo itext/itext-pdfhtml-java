@@ -62,14 +62,14 @@ public class LiTagCssApplier extends BlockCssApplier {
 
         if (propertyContainer != null) {
             boolean parentIsDl = element.parentNode() instanceof IElement && TagConstants.DL.equals(((IElement) element.parentNode()).name());
-            if (CssConstants.INSIDE.equals(cssProps.get(CssConstants.LIST_STYLE_POSITION)) || parentIsDl) {
+            if (CssConstants.INSIDE.equals(element.getStyles().get(CssConstants.LIST_STYLE_POSITION)) || parentIsDl) {
                 propertyContainer.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
             } else {
                 propertyContainer.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.OUTSIDE);
             }
 
-            ListStyleApplierUtil.applyListStyleTypeProperty(element, cssProps, context, propertyContainer);
-            ListStyleApplierUtil.applyListStyleImageProperty(cssProps, context, propertyContainer);
+            ListStyleApplierUtil.applyListStyleTypeProperty(element, element.getStyles(), context, propertyContainer);
+            ListStyleApplierUtil.applyListStyleImageProperty(element.getStyles(), context, propertyContainer);
         }
     }
 
