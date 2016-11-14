@@ -45,11 +45,8 @@ package com.itextpdf.html2pdf.css.apply.impl;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
+import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
 import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.property.ListSymbolPosition;
@@ -57,7 +54,7 @@ import com.itextpdf.layout.property.Property;
 
 import java.util.Map;
 
-public class UlOlTagCssApplier implements ICssApplier {
+public class UlOlTagCssApplier extends BlockCssApplier {
 
     @Override
     public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
@@ -76,9 +73,8 @@ public class UlOlTagCssApplier implements ICssApplier {
 
         ListStyleApplierUtil.applyListStyleTypeProperty(element, css, context, list);
         ListStyleApplierUtil.applyListStyleImageProperty(css, context, list);
-        BackgroundApplierUtil.applyBackground(css, context, list);
-        MarginApplierUtil.applyMargins(css, context, list);
-        PaddingApplierUtil.applyPaddings(css, context, list);
+
+        super.apply(context, element, tagWorker);
     }
 
 

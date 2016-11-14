@@ -55,6 +55,7 @@ public final class AttributeConstants {
     public static final String FACE = "face";
     public static final String HREF = "href";
     public static final String ID = "id";
+    public static final String NAME = "name";
     public static final String REL = "rel";
     public static final String SIZE = "size";
     public static final String SRC = "src";

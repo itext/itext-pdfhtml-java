@@ -47,6 +47,7 @@ public final class TagConstants {
     private TagConstants() {
     }
 
+    public static final String A = "a";
     public static final String B = "b";
     public static final String BIG = "big";
     public static final String BODY = "body";
