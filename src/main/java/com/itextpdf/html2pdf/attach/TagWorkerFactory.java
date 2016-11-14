@@ -51,6 +51,8 @@ public class TagWorkerFactory {
 
     public static ITagWorker getTagWorker(IElement tag, ProcessorContext context) {
         switch (tag.name()) {
+            case TagConstants.A:
+                return new ATagWorker(tag, context);
             case TagConstants.BR:
                 return new BrTagWorker(tag, context);
             case TagConstants.DIV:

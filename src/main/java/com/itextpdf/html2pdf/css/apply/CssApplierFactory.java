@@ -49,6 +49,8 @@ public class CssApplierFactory {
 
     public static ICssApplier getCssApplier(String tag) {
         switch (tag) {
+            case TagConstants.A:
+                return new SpanTagCssApplier();
             case TagConstants.DIV:
                 return new DivTagCssApplier();
             case TagConstants.DL:

@@ -231,3 +231,7 @@ u {
 strike {
     text-decoration: line-through
 }
+a[href] {
+    text-decoration: underline;
+    color: blue
+}

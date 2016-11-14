@@ -42,80 +42,50 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
-import com.itextpdf.html2pdf.attach.wrapelement.SpanWrapper;
-import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.kernel.geom.Rectangle;
+import com.itextpdf.kernel.pdf.PdfArray;
+import com.itextpdf.kernel.pdf.action.PdfAction;
+import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.BlockElement;
-import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.property.Property;
 
-import java.util.ArrayList;
-import java.util.List;
+public class ATagWorker extends SpanTagWorker {
 
-public class SpanTagWorker implements ITagWorker {
+    private IElement element;
 
-    private SpanWrapper spanWrapper;
-    private List<IPropertyContainer> elements;
-    private List<IPropertyContainer> ownLeafElements = new ArrayList<>();
-    private WaitingInlineElementsHelper inlineHelper;
-
-    public SpanTagWorker(IElement element, ProcessorContext context) {
-        spanWrapper = new SpanWrapper();
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
+    public ATagWorker(IElement element, ProcessorContext context) {
+        super(element, context);
+        this.element = element;
     }
 
     @Override
     public void processEnd(IElement element, ProcessorContext context) {
-        flushInlineHelper();
-        elements = spanWrapper.getElements();
-    }
+        super.processEnd(element, context);
 
-    @Override
-    public boolean processContent(String content, ProcessorContext context) {
-        inlineHelper.add(content);
-        return true;
-    }
-
-    @Override
-    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        IPropertyContainer element = childTagWorker.getElementResult();
-        if (element instanceof ILeafElement) {
-            spanWrapper.add((ILeafElement) element);
-            ownLeafElements.add(element);
-            return true;
-        } else if (childTagWorker instanceof SpanTagWorker) {
-            flushInlineHelper();
-            spanWrapper.add(((SpanTagWorker) childTagWorker).spanWrapper);
-            return true;
-        } else if (childTagWorker.getElementResult() instanceof BlockElement) {
-            flushInlineHelper();
-            spanWrapper.add((BlockElement)childTagWorker.getElementResult());
-            return true;
+        String url = element.getAttribute(AttributeConstants.HREF);
+        if (url != null) {
+            for (IPropertyContainer childElement : getAllElements()) {
+                childElement.setProperty(Property.LINK_ANNOTATION, createLinkAnnotation(url));
+            }
         }
 
-        return false;
+        String name = element.getAttribute(AttributeConstants.NAME);
+        IPropertyContainer firstElement = getAllElements().get(0);
+        firstElement.setProperty(Property.DESTINATION, name);
     }
 
-    public List<IPropertyContainer> getAllElements() {
-        return elements;
+    private PdfLinkAnnotation createLinkAnnotation(String url) {
+        PdfLinkAnnotation linkAnnotation;
+        if (url.startsWith("#")) {
+            String name = url.substring(1);
+            linkAnnotation = new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createGoTo(name));
+        } else {
+            linkAnnotation = new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createURI(url));
+        }
+        linkAnnotation.setBorder(new PdfArray(new float[]{0, 0, 0}));
+        return linkAnnotation;
     }
-
-    public List<IPropertyContainer> getOwnLeafElements() {
-        return ownLeafElements;
-    }
-
-    @Override
-    public IPropertyContainer getElementResult() {
-        return null;
-    }
-
-    private void flushInlineHelper() {
-        spanWrapper.addAll(inlineHelper.getWaitingLeaves());
-        ownLeafElements.addAll(inlineHelper.getWaitingLeaves());
-        inlineHelper.clearWaitingLeaves();
-    }
-
 }

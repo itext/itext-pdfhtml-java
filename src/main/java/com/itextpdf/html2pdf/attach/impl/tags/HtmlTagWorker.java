@@ -77,7 +77,7 @@ public class HtmlTagWorker implements ITagWorker {
 
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        boolean processed = false;
+        boolean processed;
         if (childTagWorker instanceof SpanTagWorker) {
             boolean allChildrenProcessed = true;
             for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
@@ -89,7 +89,7 @@ public class HtmlTagWorker implements ITagWorker {
             }
             processed = allChildrenProcessed;
         } else {
-            processBlockChild(childTagWorker.getElementResult());
+            return processBlockChild(childTagWorker.getElementResult());
         }
 
         return processed;
