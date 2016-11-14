@@ -46,6 +46,8 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
+import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.border.Border;
@@ -58,23 +60,24 @@ public class TdTagCssApplier extends BlockCssApplier {
 
         IPropertyContainer cell = worker.getElementResult();
         if(cell != null) {
-            Border topBorder = getCertainBorder(cssProps.get(CssConstants.BORDER_TOP_WIDTH),
-                    cssProps.get(CssConstants.BORDER_TOP_STYLE), cssProps.get(CssConstants.BORDER_TOP_COLOR));
+            float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+            Border topBorder = BorderStyleApplierUtil.getCertainBorder(cssProps.get(CssConstants.BORDER_TOP_WIDTH),
+                    cssProps.get(CssConstants.BORDER_TOP_STYLE), cssProps.get(CssConstants.BORDER_TOP_COLOR), em);
             if (topBorder == null) {
                 cell.setProperty(Property.BORDER_TOP, Border.NO_BORDER);
             }
-            Border bottomBorder = getCertainBorder(cssProps.get(CssConstants.BORDER_BOTTOM_WIDTH),
-                    cssProps.get(CssConstants.BORDER_BOTTOM_STYLE), cssProps.get(CssConstants.BORDER_BOTTOM_COLOR));
+            Border bottomBorder = BorderStyleApplierUtil.getCertainBorder(cssProps.get(CssConstants.BORDER_BOTTOM_WIDTH),
+                    cssProps.get(CssConstants.BORDER_BOTTOM_STYLE), cssProps.get(CssConstants.BORDER_BOTTOM_COLOR), em);
             if (bottomBorder == null) {
                 cell.setProperty(Property.BORDER_BOTTOM, Border.NO_BORDER);
             }
-            Border leftBorder = getCertainBorder(cssProps.get(CssConstants.BORDER_LEFT_WIDTH),
-                    cssProps.get(CssConstants.BORDER_LEFT_STYLE), cssProps.get(CssConstants.BORDER_LEFT_COLOR));
+            Border leftBorder = BorderStyleApplierUtil.getCertainBorder(cssProps.get(CssConstants.BORDER_LEFT_WIDTH),
+                    cssProps.get(CssConstants.BORDER_LEFT_STYLE), cssProps.get(CssConstants.BORDER_LEFT_COLOR), em);
             if (leftBorder == null) {
                 cell.setProperty(Property.BORDER_LEFT, Border.NO_BORDER);
             }
-            Border rightBorder = getCertainBorder(cssProps.get(CssConstants.BORDER_RIGHT_WIDTH),
-                    cssProps.get(CssConstants.BORDER_RIGHT_STYLE), cssProps.get(CssConstants.BORDER_RIGHT_COLOR));
+            Border rightBorder = BorderStyleApplierUtil.getCertainBorder(cssProps.get(CssConstants.BORDER_RIGHT_WIDTH),
+                    cssProps.get(CssConstants.BORDER_RIGHT_STYLE), cssProps.get(CssConstants.BORDER_RIGHT_COLOR), em);
             if (rightBorder == null) {
                 cell.setProperty(Property.BORDER_RIGHT, Border.NO_BORDER);
             }

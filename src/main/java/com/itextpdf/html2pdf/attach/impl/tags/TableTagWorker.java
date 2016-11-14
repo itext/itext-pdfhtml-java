@@ -51,19 +51,15 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
 
-import java.util.Map;
-
 public class TableTagWorker implements ITagWorker {
 
     private TableWrapper tableWrapper;
     private Table table;
     private boolean footer;
     private boolean header;
-    private Map<String, String> cssProps;
 
     public TableTagWorker(IElement element, ProcessorContext context) {
         tableWrapper = new TableWrapper();
-        cssProps = context.getCssResolver().resolveStyles(element);
     }
 
     @Override
