@@ -49,6 +49,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
+import com.itextpdf.test.annotations.type.UnitTest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -56,7 +57,9 @@ import java.util.Scanner;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(UnitTest.class)
 public class CssStyleSheetParserTest {
 
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssStyleSheetParserTest/";
