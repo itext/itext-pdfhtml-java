@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.css.apply.util;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.layout.ElementPropertyContainer;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
@@ -64,17 +65,25 @@ public final class WidthHeightApplierUtil {
     public static void applyWidthHeight(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         String widthVal = cssProps.get(CssConstants.WIDTH);
-        if (widthVal != null) {
+        if (!CssConstants.AUTO.equals(widthVal) && widthVal != null) {
             UnitValue width = CssUtils.parseLengthValueToPt(widthVal, em);
             element.setProperty(Property.WIDTH, width);
         }
+
         String heightVal = cssProps.get(CssConstants.HEIGHT);
         if (heightVal != null) {
-            UnitValue height = CssUtils.parseLengthValueToPt(heightVal, em);
-            if (height.isPointValue()) {
-                element.setProperty(Property.HEIGHT, height.getValue());
-            } else {
-                logger.error(HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            if (!CssConstants.AUTO.equals(heightVal)) {
+                UnitValue height = CssUtils.parseLengthValueToPt(heightVal, em);
+                if (height.isPointValue()) {
+                    if (element instanceof ElementPropertyContainer) { // TODO will cause issues while porting to .NET
+                        // needed for the specific processing of setHeight in blocks
+                        ((ElementPropertyContainer) element).setHeight(height.getValue());
+                    } else {
+                        element.setProperty(Property.HEIGHT, height.getValue());
+                    }
+                } else {
+                    logger.error(HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                }
             }
         }
 

@@ -42,6 +42,10 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class CssConstants {
 
     // properties
@@ -241,6 +245,23 @@ public class CssConstants {
     public static final String X_SMALL = "x-small";
     public static final String XX_LARGE = "xx-large";
     public static final String XX_SMALL = "xx-small";
+
+    // properties possible values
+    public static final Set<String> BACKGROUND_SIZE_VALUES = new HashSet<>(
+            Arrays.asList(AUTO, COVER, CONTAIN));
+    public static final Set<String> BACKGROUND_ORIGIN_OR_CLIP_VALUES = new HashSet<>(
+            Arrays.asList(PADDING_BOX, BORDER_BOX, CONTENT_BOX));
+    public static final Set<String> BACKGROUND_REPEAT_VALUES = new HashSet<>(
+            Arrays.asList(REPEAT, NO_REPEAT, REPEAT_X, REPEAT_Y));
+    public static final Set<String> BACKGROUND_ATTACHMENT_VALUES = new HashSet<>(
+            Arrays.asList(FIXED, SCROLL, LOCAL));
+    public static final Set<String> BACKGROUND_POSITION_VALUES = new HashSet<>(
+            Arrays.asList(LEFT, CENTER, BOTTOM, TOP, RIGHT));
+    public static final Set<String> BORDER_WIDTH_VALUES = new HashSet<>(
+            Arrays.asList(new String[] {THIN, MEDIUM, THICK}));
+    public static final Set<String> BORDER_STYLE_VALUES = new HashSet<>(
+            Arrays.asList(new String[] {NONE, HIDDEN, DOTTED, DASHED, SOLID, DOUBLE, GROOVE, RIDGE, INSET, OUTSET}));
+
 
     // units of measurement
     public static final String CM = "cm";

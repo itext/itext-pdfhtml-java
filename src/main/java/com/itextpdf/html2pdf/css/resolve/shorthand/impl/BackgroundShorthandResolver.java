@@ -49,29 +49,11 @@ import com.itextpdf.html2pdf.css.util.CssUtils;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BackgroundShorthandResolver implements IShorthandResolver {
-
-    // TODO consider moving those collection consts to the more appropriate place
-    private static final Set<String> BACKGROUND_REPEAT_VALUES = new HashSet<>(Arrays.asList(
-            CssConstants.REPEAT, CssConstants.NO_REPEAT, CssConstants.REPEAT_X, CssConstants.REPEAT_Y));
-
-    private static final Set<String> BACKGROUND_ATTACHMENT_VALUES = new HashSet<>(Arrays.asList(
-            CssConstants.FIXED, CssConstants.SCROLL, CssConstants.LOCAL));
-
-    private static final Set<String> BACKGROUND_POSITION_VALUES = new HashSet<>(
-            Arrays.asList(CssConstants.LEFT, CssConstants.CENTER, CssConstants.BOTTOM, CssConstants.TOP, CssConstants.RIGHT));
-
-    private static final Set<String> BACKGROUND_SIZE_VALUES = new HashSet<>(
-            Arrays.asList(CssConstants.AUTO, CssConstants.COVER, CssConstants.CONTAIN));
-
-    private static final Set<String> BACKGROUND_ORIGIN_OR_CLIP_VALUES = new HashSet<>(
-            Arrays.asList(CssConstants.PADDING_BOX, CssConstants.BORDER_BOX, CssConstants.CONTENT_BOX));
 
 
     private static final int UNDEFINED_TYPE = -1;
@@ -147,19 +129,19 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
     private int resolvePropertyType(String value) {
         if (value.contains("url(") || CssConstants.NONE.equals(value)) {
             return BACKGROUND_IMAGE_TYPE;
-        } else if (BACKGROUND_REPEAT_VALUES.contains(value)) {
+        } else if (CssConstants.BACKGROUND_REPEAT_VALUES.contains(value)) {
             return BACKGROUND_REPEAT_TYPE;
-        } else if (BACKGROUND_ATTACHMENT_VALUES.contains(value)) {
+        } else if (CssConstants.BACKGROUND_ATTACHMENT_VALUES.contains(value)) {
             return BACKGROUND_ATTACHMENT_TYPE;
-        } else if (BACKGROUND_POSITION_VALUES.contains(value)) {
+        } else if (CssConstants.BACKGROUND_POSITION_VALUES.contains(value)) {
             return BACKGROUND_POSITION_TYPE;
         } else if (CssUtils.isNumericValue(value) || CssUtils.isMetricValue(value) || CssUtils.isRelativeValue(value)) {
             return BACKGROUND_POSITION_OR_SIZE_TYPE;
-        } else if (BACKGROUND_SIZE_VALUES.contains(value)) {
+        } else if (CssConstants.BACKGROUND_SIZE_VALUES.contains(value)) {
             return BACKGROUND_POSITION_OR_SIZE_TYPE;
         } else if(CssUtils.isColorProperty(value)) {
             return BACKGROUND_COLOR_TYPE;
-        } else if (BACKGROUND_ORIGIN_OR_CLIP_VALUES.contains(value)) {
+        } else if (CssConstants.BACKGROUND_ORIGIN_OR_CLIP_VALUES.contains(value)) {
             return BACKGROUND_ORIGIN_OR_CLIP_TYPE;
         }
         return UNDEFINED_TYPE;

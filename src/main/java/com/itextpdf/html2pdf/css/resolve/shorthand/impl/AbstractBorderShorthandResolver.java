@@ -46,7 +46,6 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.kernel.color.WebColors;
 
 import java.text.MessageFormat;
 import java.util.*;
@@ -56,14 +55,6 @@ public abstract class AbstractBorderShorthandResolver implements IShorthandResol
     private static final String _0_WIDTH = "{0}-width";
     private static final String _0_STYLE = "{0}-style";
     private static final String _0_COLOR = "{0}-color";
-
-    // TODO consider moving those collection consts to the more appropriate place
-    private static final Set<String> BORDER_WIDTH_VALUES = new HashSet<String>(
-            Arrays.asList(new String[] { CssConstants.THIN, CssConstants.MEDIUM, CssConstants.THICK }));
-    private static final Set<String> BORDER_STYLE_VALUES = new HashSet<String>(
-            Arrays.asList(new String[] { CssConstants.NONE, CssConstants.HIDDEN, CssConstants.DOTTED, CssConstants.DASHED,
-                    CssConstants.SOLID, CssConstants.DOUBLE, CssConstants.GROOVE, CssConstants.RIDGE, CssConstants.INSET,
-                    CssConstants.OUTSET}));
 
     protected abstract String getPrefix();
 
@@ -87,9 +78,9 @@ public abstract class AbstractBorderShorthandResolver implements IShorthandResol
         String borderWidthValue = null;
 
         for (String value : props) {
-            if (BORDER_WIDTH_VALUES.contains(value) || CssUtils.isNumericValue(value) || CssUtils.isMetricValue(value)) {
+            if (CssConstants.BORDER_WIDTH_VALUES.contains(value) || CssUtils.isNumericValue(value) || CssUtils.isMetricValue(value)) {
                 borderWidthValue = value;
-            } else if (BORDER_STYLE_VALUES.contains(value)) {
+            } else if (CssConstants.BORDER_STYLE_VALUES.contains(value)) {
                 borderStyleValue = value;
             } else if (CssUtils.isColorProperty(value)) {
                 borderColorValue = value;

@@ -80,6 +80,7 @@ public class CssDefaults {
         defaultValues.put(CssConstants.BORDER_LEFT_WIDTH, CssConstants.MEDIUM);
         defaultValues.put(CssConstants.BORDER_RIGHT_WIDTH, CssConstants.MEDIUM);
         defaultValues.put(CssConstants.BORDER_TOP_WIDTH, CssConstants.MEDIUM);
+        defaultValues.put(CssConstants.BORDER_WIDTH, CssConstants.MEDIUM);
 
         defaultValues.put(CssConstants.MARGIN_BOTTOM, "0");
         defaultValues.put(CssConstants.MARGIN_LEFT, "0");
