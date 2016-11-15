@@ -55,6 +55,7 @@ import java.io.File;
 import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -74,6 +75,24 @@ public class DivTest extends ITextTest {
     public void divTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "divTest01.html"), new File(destinationFolder + "divTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "divTest01.pdf", sourceFolder + "cmp_divTest01.pdf", destinationFolder, "diff01_"));
+    }
+
+    @Test
+    public void divTest02() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "divTest02.html"), new File(destinationFolder + "divTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "divTest02.pdf", sourceFolder + "cmp_divTest02.pdf", destinationFolder, "diff02_"));
+    }
+
+    @Test
+    public void divTest03() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "divTest03.html"), new File(destinationFolder + "divTest03.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "divTest03.pdf", sourceFolder + "cmp_divTest03.pdf", destinationFolder, "diff03_"));
+    }
+
+    @Test
+    public void divTest04() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "divTest04.html"), new File(destinationFolder + "divTest04.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "divTest04.pdf", sourceFolder + "cmp_divTest04.pdf", destinationFolder, "diff04_"));
     }
 
 }

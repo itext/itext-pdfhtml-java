@@ -44,15 +44,20 @@ package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.resolve.CssDefaults;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.border.*;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.UnitValue;
 
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BorderStyleApplierUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BorderStyleApplierUtil.class);
 
     private BorderStyleApplierUtil(){
     }
@@ -82,42 +87,65 @@ public class BorderStyleApplierUtil {
     }
 
     public static Border getCertainBorder(String borderWidth, String borderStyle, String borderColor, float em) {
+        if (borderStyle == null || CssConstants.NONE.equals(borderStyle)) {
+            return null;
+        }
+
         Border border = null;
-        if (borderWidth != null) {
-            float borderWidthValue = CssUtils.parseLengthValueToPt(borderWidth, em).getValue();
-            if (borderWidthValue > 0 && borderStyle != null) {
-                switch (borderStyle.toLowerCase()) {
-                    case CssConstants.SOLID:
-                        border = new SolidBorder(borderWidthValue);
-                        break;
-                    case CssConstants.DASHED:
-                        border = new DashedBorder(borderWidthValue);
-                        break;
-                    case CssConstants.DOTTED:
-                        border = new DottedBorder(borderWidthValue);
-                        break;
-                    case CssConstants.DOUBLE:
-                        border = new DoubleBorder(borderWidthValue);
-                        break;
-                    case CssConstants.GROOVE:
-                        border = new GrooveBorder(borderWidthValue);
-                        break;
-                    case CssConstants.RIDGE:
-                        border = new RidgeBorder(borderWidthValue);
-                        break;
-                    case CssConstants.INSET:
-                        border = new InsetBorder(borderWidthValue);
-                        break;
-                    case CssConstants.OUTSET:
-                        border = new OutsetBorder(borderWidthValue);
-                        break;
-                    default:
-                        border = null;
-                        break;
-                }
-                if (border != null && borderColor != null) {
-                    border.setColor(WebColors.getRGBColor(borderColor));
-                }
+        if (borderWidth == null) {
+            borderWidth = CssDefaults.getDefaultValue(CssConstants.BORDER_WIDTH);
+        }
+
+        float borderWidthValue;
+        if (CssConstants.BORDER_WIDTH_VALUES.contains(borderWidth)) {
+            if (CssConstants.THIN.equals(borderWidth)) {
+                borderWidth = "1px";
+            } else if (CssConstants.MEDIUM.equals(borderWidth)) {
+                borderWidth = "2px";
+            } else if (CssConstants.THICK.equals(borderWidth)) {
+                borderWidth = "3px";
+            }
+        }
+
+        UnitValue unitValue = CssUtils.parseLengthValueToPt(borderWidth, em);
+        if (unitValue.isPercentValue()) {
+            LOGGER.error("border-width in percents is not supported");
+            return null;
+        }
+
+        borderWidthValue = unitValue.getValue();
+        if (borderWidthValue > 0) {
+            switch (borderStyle.toLowerCase()) {
+                case CssConstants.SOLID:
+                    border = new SolidBorder(borderWidthValue);
+                    break;
+                case CssConstants.DASHED:
+                    border = new DashedBorder(borderWidthValue);
+                    break;
+                case CssConstants.DOTTED:
+                    border = new DottedBorder(borderWidthValue);
+                    break;
+                case CssConstants.DOUBLE:
+                    border = new DoubleBorder(borderWidthValue);
+                    break;
+                case CssConstants.GROOVE:
+                    border = new GrooveBorder(borderWidthValue);
+                    break;
+                case CssConstants.RIDGE:
+                    border = new RidgeBorder(borderWidthValue);
+                    break;
+                case CssConstants.INSET:
+                    border = new InsetBorder(borderWidthValue);
+                    break;
+                case CssConstants.OUTSET:
+                    border = new OutsetBorder(borderWidthValue);
+                    break;
+                default:
+                    border = null;
+                    break;
+            }
+            if (border != null && borderColor != null) {
+                border.setColor(WebColors.getRGBColor(borderColor));
             }
         }
         return border;
