@@ -84,19 +84,16 @@ public class HrTest extends ITextTest {
     }
 
     @Test
-    @Ignore("contains 'float' in css")
     public void hrTest02() throws IOException, InterruptedException {
         runHrTest("02");
     }
 
     @Test
-    @Ignore("contains 'float' in css")
     public void hrTest03() throws IOException, InterruptedException {
         runHrTest("03");
     }
 
     @Test
-    @Ignore("contains 'float' in css")
     public void hrTest04() throws IOException, InterruptedException {
         runHrTest("04");
     }
@@ -112,6 +109,7 @@ public class HrTest extends ITextTest {
     }
 
     @Test
+    @Ignore("DEVSIX-938")
     public void hrTest07() throws IOException, InterruptedException {
         runHrTest("07");
     }
@@ -123,11 +121,13 @@ public class HrTest extends ITextTest {
     }
 
     @Test
+    @Ignore("contains 'float' in css")
     public void hrTest09() throws IOException, InterruptedException {
         runHrTest("09");
     }
 
     @Test
+    @Ignore("contains 'float' in css")
     public void hrTest10() throws IOException, InterruptedException {
         runHrTest("10");
     }
@@ -178,6 +178,11 @@ public class HrTest extends ITextTest {
     @Ignore("contains 'before' in css")
     public void hrTest18() throws IOException, InterruptedException {
         runHrTest("18");
+    }
+
+    @Test
+    public void hrTest19() throws IOException, InterruptedException {
+        runHrTest("19");
     }
 
     private void runHrTest(String id) throws IOException, InterruptedException {

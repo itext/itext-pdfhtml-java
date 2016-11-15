@@ -76,17 +76,18 @@ class HtmlStylesToCssConverter {
         }
 
         htmlAttributeConverters = new HashMap<>();
+        htmlAttributeConverters.put(AttributeConstants.ALIGN, new AlignAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.BORDER, new BorderAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.BGCOLOR, new BgColorAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.COLOR, new FontColorAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.DIR, new DirAttributeConverter());
-        htmlAttributeConverters.put(AttributeConstants.SIZE, new FontSizeAttributeConverter());
+        htmlAttributeConverters.put(AttributeConstants.SIZE, new SizeAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.FACE, new FontFaceAttributeConverter());
+        htmlAttributeConverters.put(AttributeConstants.NOSHADE, new NoShadeAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.TYPE, new TypeAttributeConverter());
+        htmlAttributeConverters.put(AttributeConstants.WIDTH, new WidthAttributeConverter());
         // TODO
 //        htmlAttributeConverters.put("height", );
-//        htmlAttributeConverters.put("width", );
-//        htmlAttributeConverters.put("align", );
     }
 
     public static List<CssDeclaration> convert(IElement element) {
@@ -99,7 +100,7 @@ class HtmlStylesToCssConverter {
         for (IAttribute a : element.getAttributes()) {
             IAttributeConverter aConverter = htmlAttributeConverters.get(a.getKey());
             if (aConverter != null && aConverter.isSupportedForElement(element.name())) {
-                convertedHtmlStyles.add(aConverter.convert(a.getValue()));
+                convertedHtmlStyles.addAll(aConverter.convert(element.name(), a.getValue()));
             }
         }
 
@@ -109,7 +110,7 @@ class HtmlStylesToCssConverter {
 
     private interface IAttributeConverter {
         boolean isSupportedForElement(String elementName);
-        CssDeclaration convert(String value);
+        List<CssDeclaration> convert(String elementName, String value);
     }
 
 
@@ -120,8 +121,8 @@ class HtmlStylesToCssConverter {
             return TagConstants.IMG.equals(elementName) || TagConstants.TABLE.equals(elementName);
         }
         @Override
-        public CssDeclaration convert(String value) {
-            return new CssDeclaration(CssConstants.BORDER, value + "px solid black");
+        public List<CssDeclaration> convert(String elementName, String value) {
+            return Arrays.asList(new CssDeclaration(CssConstants.BORDER, value + "px solid black"));
         }
     }
 
@@ -136,8 +137,8 @@ class HtmlStylesToCssConverter {
             return supportedTags.contains(elementName);
         }
         @Override
-        public CssDeclaration convert(String value) {
-            return new CssDeclaration(CssConstants.BACKGROUND_COLOR, value);
+        public List<CssDeclaration> convert(String elementName, String value) {
+            return Arrays.asList(new CssDeclaration(CssConstants.BACKGROUND_COLOR, value));
         }
     }
 
@@ -148,28 +149,35 @@ class HtmlStylesToCssConverter {
             return TagConstants.FONT.equals(elementName);
         }
         @Override
-        public CssDeclaration convert(String value) {
-            return new CssDeclaration(CssConstants.COLOR, value);
+        public List<CssDeclaration> convert(String elementName, String value) {
+            return Arrays.asList(new CssDeclaration(CssConstants.COLOR, value));
         }
     }
 
 
-    private static class FontSizeAttributeConverter implements IAttributeConverter {
+    private static class SizeAttributeConverter implements IAttributeConverter {
         @Override
         public boolean isSupportedForElement(String elementName) {
-            return TagConstants.FONT.equals(elementName);
+            return TagConstants.FONT.equals(elementName) || TagConstants.HR.equals(elementName);
         }
         @Override
-        public CssDeclaration convert(String value) {
-            String cssEquivalent = null;
-            if("1".equals(value))        cssEquivalent = CssConstants.XX_SMALL;
-            else if("2".equals(value))   cssEquivalent = CssConstants.X_SMALL;
-            else if("3".equals(value))   cssEquivalent = CssConstants.SMALL;
-            else if("4".equals(value))   cssEquivalent = CssConstants.MEDIUM;
-            else if("5".equals(value))   cssEquivalent = CssConstants.LARGE;
-            else if("6".equals(value))   cssEquivalent = CssConstants.X_LARGE;
-            else if("7".equals(value))   cssEquivalent = CssConstants.XX_LARGE;
-            return new CssDeclaration(CssConstants.FONT_SIZE, cssEquivalent);
+        public List<CssDeclaration> convert(String elementName, String value) {
+            String cssValueEquivalent = null;
+            String cssPropertyEquivalent = null;
+            if (TagConstants.FONT.equals(elementName)) {
+                cssPropertyEquivalent = CssConstants.FONT_SIZE;
+                if("1".equals(value))                       cssValueEquivalent = CssConstants.XX_SMALL;
+                else if("2".equals(value))                  cssValueEquivalent = CssConstants.X_SMALL;
+                else if("3".equals(value))                  cssValueEquivalent = CssConstants.SMALL;
+                else if("4".equals(value))                  cssValueEquivalent = CssConstants.MEDIUM;
+                else if("5".equals(value))                  cssValueEquivalent = CssConstants.LARGE;
+                else if("6".equals(value))                  cssValueEquivalent = CssConstants.X_LARGE;
+                else if("7".equals(value))                  cssValueEquivalent = CssConstants.XX_LARGE;
+            } else if (TagConstants.HR.equals(elementName)) {
+                cssPropertyEquivalent = CssConstants.HEIGHT;
+                cssValueEquivalent = value + CssConstants.PX;
+            }
+            return Arrays.asList(new CssDeclaration(cssPropertyEquivalent, cssValueEquivalent));
         }
     }
 
@@ -180,8 +188,8 @@ class HtmlStylesToCssConverter {
             return TagConstants.FONT.equals(elementName);
         }
         @Override
-        public CssDeclaration convert(String value) {
-            return new CssDeclaration(CssConstants.FONT_FAMILY, value);
+        public List<CssDeclaration> convert(String elementName, String value) {
+            return Arrays.asList(new CssDeclaration(CssConstants.FONT_FAMILY, value));
         }
     }
 
@@ -193,7 +201,7 @@ class HtmlStylesToCssConverter {
         }
 
         @Override
-        public CssDeclaration convert(String value) {
+        public List<CssDeclaration> convert(String elementName, String value) {
             String cssEquivalent = null;
             switch (value) {
                 case "1":
@@ -212,7 +220,7 @@ class HtmlStylesToCssConverter {
                     cssEquivalent = CssConstants.LOWER_ROMAN;
                     break;
             }
-            return new CssDeclaration(CssConstants.LIST_STYLE_TYPE, cssEquivalent);
+            return Arrays.asList(new CssDeclaration(CssConstants.LIST_STYLE_TYPE, cssEquivalent));
         }
     }
 
@@ -224,10 +232,61 @@ class HtmlStylesToCssConverter {
         }
 
         @Override
-        public CssDeclaration convert(String value) {
-            return new CssDeclaration(CssConstants.DIRECTION, value);
+        public List<CssDeclaration> convert(String elementName, String value) {
+            return Arrays.asList(new CssDeclaration(CssConstants.DIRECTION, value));
         }
-
     }
 
+    private static class WidthAttributeConverter implements IAttributeConverter {
+
+        @Override
+        public boolean isSupportedForElement(String elementName) {
+            return TagConstants.HR.equals(elementName);
+        }
+
+        @Override
+        public List<CssDeclaration> convert(String elementName, String value) {
+            String cssEquivalent = value;
+            if (!value.endsWith("%")) cssEquivalent += CssConstants.PX;
+            return Arrays.asList(new CssDeclaration(CssConstants.WIDTH, cssEquivalent));
+        }
+    }
+
+    private static class AlignAttributeConverter implements IAttributeConverter {
+        @Override
+        public boolean isSupportedForElement(String elementName) {
+            return TagConstants.HR.equals(elementName);
+        }
+
+        @Override
+        public List<CssDeclaration> convert(String elementName, String value) {
+            List<CssDeclaration> result = new ArrayList<CssDeclaration>(2);
+            if ("right".equals(value)) {
+                result.add(new CssDeclaration(CssConstants.MARGIN_RIGHT, "0"));
+            } else if ("left".equals(value)) {
+                result.add(new CssDeclaration(CssConstants.MARGIN_LEFT, "0"));
+            } else if ("center".equals(value)) {
+                result.add(new CssDeclaration(CssConstants.MARGIN_RIGHT, CssConstants.AUTO));
+                result.add(new CssDeclaration(CssConstants.MARGIN_LEFT, CssConstants.AUTO));
+            }
+            return result;
+        }
+    }
+
+    private static class NoShadeAttributeConverter implements IAttributeConverter {
+
+        @Override
+        public boolean isSupportedForElement(String elementName) {
+            return TagConstants.HR.equals(elementName);
+        }
+
+        @Override
+        public List<CssDeclaration> convert(String elementName, String value) {
+            return Arrays.asList(
+                    new CssDeclaration(CssConstants.HEIGHT, "2px"),
+                    new CssDeclaration(CssConstants.BORDER_WIDTH, "0"),
+                    new CssDeclaration(CssConstants.BACKGROUND_COLOR, "gray")
+            );
+        }
+    }
 }
