@@ -52,37 +52,31 @@ public class CssApplierFactory {
             case TagConstants.A:
                 return new SpanTagCssApplier();
             case TagConstants.DIV:
-                return new DivTagCssApplier();
-            case TagConstants.DL:
-                return new DlTagCssApplier();
-            case TagConstants.LI:
-                return new LiTagCssApplier();
-            case TagConstants.OL:
-                return new UlOlTagCssApplier();
             case TagConstants.H1:
             case TagConstants.H2:
             case TagConstants.H3:
             case TagConstants.H4:
             case TagConstants.H5:
             case TagConstants.H6:
-            case TagConstants.P:
-                return new PTagCssApplier();
             case TagConstants.HR:
-                return new HrTagCssApplier();
             case TagConstants.IMG:
-                return new ImgTagCssApplier();
+            case TagConstants.P:
+            case TagConstants.TABLE:
+            case TagConstants.TFOOT:
+            case TagConstants.THEAD:
+                return new BlockCssApplier();
+            case TagConstants.DL:
+                return new DlTagCssApplier();
+            case TagConstants.LI:
+                return new LiTagCssApplier();
+            case TagConstants.OL:
+                return new UlOlTagCssApplier();
 			case TagConstants.SPAN:
                 return new SpanTagCssApplier();
             case TagConstants.STRIKE:
                 return new SpanTagCssApplier();
             case TagConstants.TD:
                 return new TdTagCssApplier();
-            case TagConstants.TABLE:
-                return new TableTagCssApplier();
-            case TagConstants.TFOOT:
-                return new TableTagCssApplier();
-            case TagConstants.THEAD:
-                return new TableTagCssApplier();
             case TagConstants.U:
                 return new SpanTagCssApplier();
             case TagConstants.UL:

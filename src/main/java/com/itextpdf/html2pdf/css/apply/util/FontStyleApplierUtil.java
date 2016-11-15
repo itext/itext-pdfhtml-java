@@ -44,7 +44,6 @@ package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.apply.impl.PTagCssApplier;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
@@ -59,7 +58,7 @@ import java.util.Map;
 
 public final class FontStyleApplierUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(PTagCssApplier.class);
+    private static final Logger logger = LoggerFactory.getLogger(FontStyleApplierUtil.class);
 
     private FontStyleApplierUtil() {
     }
