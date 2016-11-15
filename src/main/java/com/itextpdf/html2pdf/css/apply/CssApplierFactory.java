@@ -67,6 +67,8 @@ public class CssApplierFactory {
             case TagConstants.H6:
             case TagConstants.P:
                 return new PTagCssApplier();
+            case TagConstants.HR:
+                return new HrTagCssApplier();
             case TagConstants.IMG:
                 return new ImgTagCssApplier();
 			case TagConstants.SPAN:

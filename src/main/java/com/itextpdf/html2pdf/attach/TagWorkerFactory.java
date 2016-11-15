@@ -79,6 +79,8 @@ public class TagWorkerFactory {
             case TagConstants.H6:
             case TagConstants.P:
                 return new PTagWorker(tag, context);
+            case TagConstants.HR:
+                return new HrTagWorker(tag, context);
             case TagConstants.SPAN:
                 return new SpanTagWorker(tag, context);
             case TagConstants.STRIKE:
