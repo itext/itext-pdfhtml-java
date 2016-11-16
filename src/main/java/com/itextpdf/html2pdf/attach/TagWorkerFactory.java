@@ -97,6 +97,8 @@ public class TagWorkerFactory {
                 TableTagWorker headerTagWorker = new TableTagWorker(tag, context);
                 headerTagWorker.setHeader();
                 return headerTagWorker;
+            case TagConstants.TITLE:
+                return new TitleTagWorker(tag, context);
             case TagConstants.TD:
                 return new TdTagWorker(tag, context);
             case TagConstants.TR:
