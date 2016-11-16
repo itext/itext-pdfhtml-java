@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.layout.IPropertyContainer;
@@ -63,6 +64,7 @@ public class SpanTagCssApplier implements ICssApplier {
 
     private void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context) {
         FontStyleApplierUtil.applyFontStyles(css, context, element);
+        BackgroundApplierUtil.applyBackground(css, context, element);
     }
 
 }

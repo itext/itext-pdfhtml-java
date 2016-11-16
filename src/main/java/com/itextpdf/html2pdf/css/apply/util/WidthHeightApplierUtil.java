@@ -87,6 +87,26 @@ public final class WidthHeightApplierUtil {
             }
         }
 
+        String maxHeightVal = cssProps.get(CssConstants.MAX_HEIGHT);
+        if (maxHeightVal != null) {
+            UnitValue height = CssUtils.parseLengthValueToPt(maxHeightVal, em);
+            if (height.isPointValue()) {
+                element.setProperty(Property.MAX_HEIGHT, height.getValue());
+            } else {
+                logger.error(HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            }
+        }
+
+        String minHeightVal = cssProps.get(CssConstants.MIN_HEIGHT);
+        if (minHeightVal != null) {
+            UnitValue height = CssUtils.parseLengthValueToPt(minHeightVal, em);
+            if (height.isPointValue()) {
+                element.setProperty(Property.MIN_HEIGHT, height.getValue());
+            } else {
+                logger.error(HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            }
+        }
+
     }
 
 }
