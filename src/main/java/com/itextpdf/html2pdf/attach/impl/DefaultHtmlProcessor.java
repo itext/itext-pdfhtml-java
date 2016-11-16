@@ -69,13 +69,20 @@ import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 public class DefaultHtmlProcessor implements IHtmlProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultHtmlProcessor.class);
+
+    // The tags that do not map into any workers and are deliberately excluded from the logging
+    private static final Set<String> ignoredTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(TagConstants.HEAD)));
 
     private ProcessorContext context;
     private ICssResolver cssResolver;
@@ -187,6 +194,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
 
         context = new ProcessorContext(cssResolver, pdfDocument, resourceResolver);
+        // TODO store html version from document type in context if necessary
         roots = new ArrayList<>();
         root = findHtmlNode(root);
         visit(root);
@@ -203,7 +211,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
             ITagWorker tagWorker = TagWorkerFactory.getTagWorker(element, context);
             if (tagWorker == null) {
-                logger.error("No worker found for tag " + (element).name());
+                if (!ignoredTags.contains(element.name())) {
+                    logger.error("No worker found for tag " + (element).name());
+                }
             } else {
                 context.getState().push(tagWorker);
             }

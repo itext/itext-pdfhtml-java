@@ -40,47 +40,14 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.element;
+package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
+import com.itextpdf.html2pdf.html.node.IDocumentType;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.utils.CompareTool;
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import com.itextpdf.html2pdf.Html2PdfProductInfo;
-import com.itextpdf.kernel.Version;
-import com.itextpdf.test.ITextTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+public class JsoupDocumentType extends JsoupNode implements IDocumentType {
 
-import java.io.File;
-import java.io.IOException;
-
-// TODO extend from ExtendedITextTest and therefore check logging
-public class HtmlTest extends ITextTest {
-
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/HtmlTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/HtmlTest/";
-
-    @BeforeClass
-    public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
-    }
-
-    @Test
-    @Ignore("DEVSIX-941")
-    public void html01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest01.html"), new File(destinationFolder + "htmlTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest01.pdf", sourceFolder + "cmp_htmlTest01.pdf", destinationFolder, "diff01_"));
-    }
-
-    @Test
-    public void html02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest02.html"), new File(destinationFolder + "htmlTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest02.pdf", sourceFolder + "cmp_htmlTest02.pdf", destinationFolder, "diff02_"));
+    public JsoupDocumentType(org.jsoup.nodes.DocumentType node) {
+        super(node);
     }
 
 }
