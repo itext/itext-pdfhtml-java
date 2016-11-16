@@ -188,6 +188,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
         context = new ProcessorContext(cssResolver, pdfDocument, resourceResolver);
         roots = new ArrayList<>();
+        root = findHtmlNode(root);
         visit(root);
         context = null;
         Document doc = (Document) roots.get(0);
@@ -252,12 +253,12 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
     }
 
-    private INode findBodyNode(INode node) {
+    private INode findNode(INode node, String tagName) {
         Queue<INode> q = new LinkedList<>();
         q.add(node);
         while (!q.isEmpty()) {
             INode currentNode = q.poll();
-            if (currentNode instanceof IElement && ((IElement) currentNode).name().equals(TagConstants.BODY)) {
+            if (currentNode instanceof IElement && ((IElement) currentNode).name().equals(tagName)) {
                 return currentNode;
             }
             for (INode child : currentNode.childNodes()) {
@@ -267,5 +268,13 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             }
         }
         return null;
+    }
+
+    private INode findHtmlNode(INode node) {
+        return findNode(node, TagConstants.HTML);
+    }
+
+    private INode findBodyNode(INode node) {
+        return findNode(node, TagConstants.BODY);
     }
 }
