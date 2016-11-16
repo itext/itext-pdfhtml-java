@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.html.impl.jsoup;
 import com.itextpdf.html2pdf.html.IHtmlParser;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupDataNode;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupDocument;
+import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupDocumentType;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElement;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupTextNode;
 import com.itextpdf.html2pdf.html.node.IDocument;
@@ -52,6 +53,7 @@ import com.itextpdf.html2pdf.html.node.INode;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.DataNode;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.DocumentType;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 import org.slf4j.Logger;
@@ -100,6 +102,8 @@ public class JsoupHtmlParser implements IHtmlParser {
             resultNode = new JsoupElement((Element) jsoupNode);
         } else if (jsoupNode instanceof org.jsoup.nodes.DataNode) {
             resultNode = new JsoupDataNode((DataNode) jsoupNode);
+        } else if (jsoupNode instanceof org.jsoup.nodes.DocumentType) {
+            resultNode = new JsoupDocumentType((DocumentType) jsoupNode);
         } else {
             logger.error(MessageFormat.format("Could not map node type: {0}", jsoupNode.getClass()));
         }
