@@ -40,52 +40,20 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply;
+package com.itextpdf.html2pdf.css.apply.impl;
 
-import com.itextpdf.html2pdf.css.apply.impl.*;
-import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.html.node.IElement;
 
-public class CssApplierFactory {
+// TODO apply background property, margins. I am not sure if we should extend from BlockCssApplier
+// DEVSIX-940
+public class BodyTagCssApplier implements ICssApplier {
 
-    public static ICssApplier getCssApplier(String tag) {
-        switch (tag) {
-            case TagConstants.A:
-                return new SpanTagCssApplier();
-            case TagConstants.BODY:
-                return new BodyTagCssApplier();
-            case TagConstants.DIV:
-            case TagConstants.H1:
-            case TagConstants.H2:
-            case TagConstants.H3:
-            case TagConstants.H4:
-            case TagConstants.H5:
-            case TagConstants.H6:
-            case TagConstants.HR:
-            case TagConstants.IMG:
-            case TagConstants.P:
-            case TagConstants.TABLE:
-            case TagConstants.TFOOT:
-            case TagConstants.THEAD:
-                return new BlockCssApplier();
-            case TagConstants.DL:
-                return new DlTagCssApplier();
-            case TagConstants.LI:
-                return new LiTagCssApplier();
-            case TagConstants.OL:
-                return new UlOlTagCssApplier();
-			case TagConstants.SPAN:
-                return new SpanTagCssApplier();
-            case TagConstants.STRIKE:
-                return new SpanTagCssApplier();
-            case TagConstants.TD:
-                return new TdTagCssApplier();
-            case TagConstants.U:
-                return new SpanTagCssApplier();
-            case TagConstants.UL:
-                return new UlOlTagCssApplier();
-            default:
-                return null;
-        }
+    @Override
+    public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
+
     }
 
 }
