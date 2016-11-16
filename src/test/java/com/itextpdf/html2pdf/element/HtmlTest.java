@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.element;
 
+
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import java.lang.reflect.Array;
@@ -49,7 +50,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.ITextTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -59,10 +60,10 @@ import java.io.File;
 import java.io.IOException;
 
 // TODO extend from ExtendedITextTest and therefore check logging
-public class BodyTest extends ExtendedITextTest {
+public class HtmlTest extends ITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/BodyTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/BodyTest/";
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/HtmlTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/HtmlTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -70,38 +71,10 @@ public class BodyTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-940")
-    public void body01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest01.html"), new File(destinationFolder + "bodyTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest01.pdf", sourceFolder + "cmp_bodyTest01.pdf", destinationFolder, "diff01_"));
-    }
-
-    @Test
-    @Ignore("DEVSIX-940")
-    public void body02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest02.html"), new File(destinationFolder + "bodyTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest02.pdf", sourceFolder + "cmp_bodyTest02.pdf", destinationFolder, "diff02_"));
-    }
-
-    @Test
-    @Ignore("DEVSIX-940")
-    public void body03Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest03.html"), new File(destinationFolder + "bodyTest03.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest03.pdf", sourceFolder + "cmp_bodyTest03.pdf", destinationFolder, "diff03_"));
-    }
-
-    @Test
-    @Ignore("DEVSIX-940")
-    public void body04Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest04.html"), new File(destinationFolder + "bodyTest04.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest04.pdf", sourceFolder + "cmp_bodyTest04.pdf", destinationFolder, "diff04_"));
-    }
-
-    @Test
     @Ignore("DEVSIX-941")
-    public void body05Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest05.html"), new File(destinationFolder + "bodyTest05.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest05.pdf", sourceFolder + "cmp_bodyTest05.pdf", destinationFolder, "diff05_"));
+    public void html01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest01.html"), new File(destinationFolder + "htmlTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest01.pdf", sourceFolder + "cmp_htmlTest01.pdf", destinationFolder, "diff01_"));
     }
 
 }
