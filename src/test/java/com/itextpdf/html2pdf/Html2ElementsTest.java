@@ -52,12 +52,15 @@ import java.lang.reflect.Method;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.util.List;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.util.List;
 
 @Category(IntegrationTest.class)
 // TODO extend from ExtendedITextTest and therefore check logging
@@ -113,6 +116,14 @@ public class Html2ElementsTest extends ITextTest {
         Assert.assertTrue(lst.get(1) instanceof Table);
         Assert.assertEquals("Hello world!", ((Text)((Paragraph)lst.get(0)).getChildren().get(0)).getText());
         Assert.assertEquals("123", ((Text)(((Paragraph)((Table)lst.get(1)).getCell(0, 0).getChildren().get(0)).getChildren().get(0))).getText());
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.TEXT_WAS_NOT_PROCESSED)})
+    public void htmlToElementsTest05() {
+        String html = "123";
+        List<IElement> lst = HtmlConverter.convertToElements(html);
+        Assert.assertTrue(lst.size() == 0);
     }
 
 }

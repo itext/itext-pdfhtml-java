@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.ResourceResolver;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
@@ -66,6 +67,7 @@ import com.itextpdf.kernel.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -128,7 +130,13 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         context = new ProcessorContext(cssResolver, resourceResolver);
         roots = new ArrayList<>();
         root = findBodyNode(root);
-        visit(root);
+        for (INode node : root.childNodes()) {
+            if (node instanceof IElement) {
+                visit(node);
+            } else if (node instanceof ITextNode) {
+                logger.error(MessageFormat.format(LogMessageConstant.TEXT_WAS_NOT_PROCESSED, ((ITextNode) node).wholeText()));
+            }
+        }
         context = null;
         List<com.itextpdf.layout.element.IElement> elements = new ArrayList<>();
         for (IPropertyContainer propertyContainer : roots) {

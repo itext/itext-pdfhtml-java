@@ -53,6 +53,8 @@ public class TagWorkerFactory {
         switch (tag.name()) {
             case TagConstants.A:
                 return new ATagWorker(tag, context);
+            case TagConstants.BODY:
+                return new BodyTagWorker(tag, context);
             case TagConstants.BR:
                 return new BrTagWorker(tag, context);
             case TagConstants.DIV:
