@@ -84,6 +84,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     // The tags that do not map into any workers and are deliberately excluded from the logging
     private static final Set<String> ignoredTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(TagConstants.HEAD)));
 
+    // The tags we do not want to apply css to
+    private static final Set<String> ignoredCssTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(TagConstants.BR)));
+
     private ProcessorContext context;
     private ICssResolver cssResolver;
     private INode root;
@@ -228,7 +231,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
                 ICssApplier cssApplier = CssApplierFactory.getCssApplier(element.name());
                 if (cssApplier == null) {
-                    logger.error("No css applier found for tag " + element.name());
+                    if (!ignoredCssTags.contains(element.name())) {
+                        logger.error("No css applier found for tag " + element.name());
+                    }
                 } else {
                     cssApplier.apply(context, element, tagWorker);
                 }
