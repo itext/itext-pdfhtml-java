@@ -78,7 +78,10 @@ public class DivTagWorker implements ITagWorker {
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         boolean processed = false;
         IPropertyContainer element = childTagWorker.getElementResult();
-        if (childTagWorker instanceof SpanTagWorker) {
+        if (childTagWorker instanceof BrTagWorker) {
+            inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
+            return true;
+        } else if (childTagWorker instanceof SpanTagWorker) {
             boolean allChildrenProcessed = true;
             for (IPropertyContainer childElement : ((SpanTagWorker) childTagWorker).getAllElements()) {
                 if (childElement instanceof ILeafElement) {
