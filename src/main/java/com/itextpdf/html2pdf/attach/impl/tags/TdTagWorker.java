@@ -94,7 +94,7 @@ public class TdTagWorker implements ITagWorker {
             }
             processed = allChildrenProcesssed;
         } else {
-            processChild(childTagWorker.getElementResult());
+            processed = processChild(childTagWorker.getElementResult());
         }
         return processed;
     }

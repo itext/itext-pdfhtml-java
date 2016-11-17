@@ -114,4 +114,10 @@ public class TableTest extends ITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "defaultTable.pdf", sourceFolder + "cmp_defaultTable.pdf", destinationFolder, "diff08_"));
     }
 
+    @Test
+    public void textInTableAndRowTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textInTableAndRow.html"), new File(destinationFolder + "textInTableAndRow.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textInTableAndRow.pdf", sourceFolder + "cmp_textInTableAndRow.pdf", destinationFolder, "diff09_"));
+    }
+
 }

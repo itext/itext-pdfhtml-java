@@ -50,10 +50,13 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 
 public class TrTagWorker implements ITagWorker {
+
     private TableRowWrapper rowWrapper;
+    private ITagWorker parentTagWorker;
 
     public TrTagWorker(IElement element, ProcessorContext context) {
         rowWrapper = new TableRowWrapper();
+        parentTagWorker = context.getState().empty() ? null : context.getState().top();
     }
 
     @Override
@@ -63,7 +66,7 @@ public class TrTagWorker implements ITagWorker {
 
     @Override
     public boolean processContent(String content, ProcessorContext context) {
-        return false;
+        return parentTagWorker != null && parentTagWorker.processContent(content, context);
     }
 
     @Override

@@ -57,9 +57,11 @@ public class TableTagWorker implements ITagWorker {
     private Table table;
     private boolean footer;
     private boolean header;
+    private ITagWorker parentTagWorker;
 
     public TableTagWorker(IElement element, ProcessorContext context) {
         tableWrapper = new TableWrapper();
+        parentTagWorker = context.getState().empty() ? null : context.getState().top();
     }
 
     @Override
@@ -69,7 +71,7 @@ public class TableTagWorker implements ITagWorker {
 
     @Override
     public boolean processContent(String content, ProcessorContext context) {
-        return false;
+        return parentTagWorker != null && parentTagWorker.processContent(content, context);
     }
 
     @Override
