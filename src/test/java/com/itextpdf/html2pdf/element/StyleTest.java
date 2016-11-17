@@ -40,17 +40,35 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf;
+package com.itextpdf.html2pdf.element;
 
-public final class LogMessageConstant {
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-    public static final String NO_WORKER_FOUND_FOR_TAG = "No worker found for tag {0}";
-    public static final String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
-    public static final String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
-    public static final String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
-    public static final String UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI = "Unable to retrieve image with given base URI ({0}) and image source path ({1})";
+import java.io.File;
+import java.io.IOException;
 
-    private LogMessageConstant() {
+@Category(IntegrationTest.class)
+public class StyleTest extends ExtendedITextTest {
+
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/StyleTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/StyleTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+        createDestinationFolder(destinationFolder);
+    }
+
+    @Test
+    public void styleTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "styleTest01.html"), new File(destinationFolder + "styleTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "styleTest01.pdf", sourceFolder + "cmp_styleTest01.pdf", destinationFolder, "diff01_"));
     }
 
 }

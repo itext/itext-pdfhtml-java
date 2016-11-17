@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.ResourceResolver;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
@@ -53,8 +54,10 @@ import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IDataNode;
+import com.itextpdf.html2pdf.html.node.IDocument;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.html2pdf.html.node.INode;
 import org.slf4j.Logger;
@@ -93,7 +96,7 @@ public class DefaultCssResolver implements ICssResolver {
         if (element.parentNode() instanceof IElement) {
             Map<String, String> parentStyles = ((IElement) element.parentNode()).getStyles();
 
-            if (parentStyles == null) {
+            if (parentStyles == null && !(element.parentNode() instanceof IDocument)) {
                 Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
                 logger.error("Element parent styles are not resolved. Styles for current element might be incorrect.");
             }
@@ -151,46 +154,32 @@ public class DefaultCssResolver implements ICssResolver {
         return stylesMap;
     }
 
-    private void collectCssDeclarations(INode treeRoot, ResourceResolver resourceResolver) {
+    private INode collectCssDeclarations(INode rootNode, ResourceResolver resourceResolver) {
         cssStyleSheet = new CssStyleSheet();
+        Queue<INode> q = new LinkedList<>();
+        q.add(rootNode);
+        while (!q.isEmpty()) {
+            INode currentNode = q.poll();
 
-        INode headNode = findHeadNode(treeRoot);
-        if (headNode == null) {
-            return;
-        }
-
-        for (INode headChild : headNode.childNodes()) {
-            if (headChild instanceof IElement) {
-                IElement headChildElement = (IElement) headChild;
+            if (currentNode instanceof IElement) {
+                IElement headChildElement = (IElement) currentNode;
                 if (headChildElement.name().equals(TagConstants.STYLE)) {
-                    if (headChild.childNodes().size() > 0 && headChild.childNodes().get(0) instanceof IDataNode) {
-                        String styleData = ((IDataNode) headChild.childNodes().get(0)).getWholeData();
+                    if (currentNode.childNodes().size() > 0 && currentNode.childNodes().get(0) instanceof IDataNode) {
+                        String styleData = ((IDataNode) currentNode.childNodes().get(0)).getWholeData();
                         cssStyleSheet.appendCssStyleSheet(CssStyleSheetParser.parse(styleData));
                     }
-                } else if (headChildElement.name().equals(TagConstants.LINK)
-                        && AttributeConstants.STYLESHEET.equals(headChildElement.getAttribute(AttributeConstants.REL))) {
+                } else if (HtmlUtils.isStyleSheetLink(headChildElement)) {
                     String styleSheetUri = headChildElement.getAttribute(AttributeConstants.HREF);
-
                     try {
                         InputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUri);
                         cssStyleSheet.appendCssStyleSheet(CssStyleSheetParser.parse(stream));
                     } catch (IOException exc) {
                         Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
-                        logger.error("Unable to process external css file", exc);
+                        logger.error(LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, exc);
                     }
                 }
             }
-        }
-    }
 
-    private INode findHeadNode(INode node) {
-        Queue<INode> q = new LinkedList<>();
-        q.add(node);
-        while (!q.isEmpty()) {
-            INode currentNode = q.poll();
-            if (currentNode instanceof IElement && ((IElement) currentNode).name().equals(TagConstants.HEAD)) {
-                return currentNode;
-            }
             for (INode child : currentNode.childNodes()) {
                 if (child instanceof IElement) {
                     q.add(child);

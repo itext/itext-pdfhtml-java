@@ -40,17 +40,18 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf;
+package com.itextpdf.html2pdf.html;
 
-public final class LogMessageConstant {
+import com.itextpdf.html2pdf.html.node.IElement;
 
-    public static final String NO_WORKER_FOUND_FOR_TAG = "No worker found for tag {0}";
-    public static final String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
-    public static final String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
-    public static final String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
-    public static final String UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI = "Unable to retrieve image with given base URI ({0}) and image source path ({1})";
+public final class HtmlUtils {
 
-    private LogMessageConstant() {
+    private HtmlUtils() {
+    }
+
+    public static boolean isStyleSheetLink(IElement headChildElement) {
+        return headChildElement.name().equals(TagConstants.LINK)
+                && AttributeConstants.STYLESHEET.equals(headChildElement.getAttribute(AttributeConstants.REL));
     }
 
 }
