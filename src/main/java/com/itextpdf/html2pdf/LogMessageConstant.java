@@ -44,9 +44,11 @@ package com.itextpdf.html2pdf;
 
 public final class LogMessageConstant {
 
+    public static final String NO_WORKER_FOUND_FOR_TAG = "No worker found for tag {0}";
+    public static final String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
+    public static final String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
+
     private LogMessageConstant() {
     }
-
-    public static final String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
 
 }

@@ -82,10 +82,10 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     private static final Logger logger = LoggerFactory.getLogger(DefaultHtmlProcessor.class);
 
     // The tags that do not map into any workers and are deliberately excluded from the logging
-    private static final Set<String> ignoredTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(TagConstants.HEAD)));
+    private static final Set<String> ignoredTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(TagConstants.HEAD, TagConstants.STYLE)));
 
-    // The tags we do not want to apply css to
-    private static final Set<String> ignoredCssTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(TagConstants.BR)));
+    // The tags we do not want to apply css to and therefore exclude from the logging
+    private static final Set<String> ignoredCssTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(TagConstants.BR, TagConstants.TITLE)));
 
     private ProcessorContext context;
     private ICssResolver cssResolver;
@@ -215,7 +215,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             ITagWorker tagWorker = TagWorkerFactory.getTagWorker(element, context);
             if (tagWorker == null) {
                 if (!ignoredTags.contains(element.name())) {
-                    logger.error("No worker found for tag " + (element).name());
+                    logger.error(MessageFormat.format(LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).name()));
                 }
             } else {
                 context.getState().push(tagWorker);

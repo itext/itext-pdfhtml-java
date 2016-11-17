@@ -42,9 +42,9 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.apply.impl.UlOlTagCssApplier;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
@@ -64,6 +64,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Map;
 
 public final class ListStyleApplierUtil {
@@ -111,8 +112,10 @@ public final class ListStyleApplierUtil {
         } else if (CssConstants.NONE.equals(style)) {
             setListSymbol(element, new Text(""));
         } else {
-            Logger logger = LoggerFactory.getLogger(UlOlTagCssApplier.class);
-            logger.error("Not supported list style type: " + style);
+            if (style != null) {
+                Logger logger = LoggerFactory.getLogger(ListStyleApplierUtil.class);
+                logger.error(MessageFormat.format(LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
+            }
 
             // Fallback style
             String elementName = node.name();

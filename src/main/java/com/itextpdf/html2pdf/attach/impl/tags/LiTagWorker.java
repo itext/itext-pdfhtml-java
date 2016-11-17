@@ -87,9 +87,8 @@ public class LiTagWorker implements ITagWorker {
             }
             return allChildrenProcessed;
         } else {
-            processChild(childTagWorker.getElementResult());
+            return processChild(childTagWorker.getElementResult());
         }
-        return false;
     }
 
     @Override

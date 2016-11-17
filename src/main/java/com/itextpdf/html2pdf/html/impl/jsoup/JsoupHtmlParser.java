@@ -104,12 +104,16 @@ public class JsoupHtmlParser implements IHtmlParser {
             resultNode = new JsoupDataNode((DataNode) jsoupNode);
         } else if (jsoupNode instanceof org.jsoup.nodes.DocumentType) {
             resultNode = new JsoupDocumentType((DocumentType) jsoupNode);
+        } else if (jsoupNode instanceof org.jsoup.nodes.Comment) {
         } else {
             logger.error(MessageFormat.format("Could not map node type: {0}", jsoupNode.getClass()));
         }
 
         for (org.jsoup.nodes.Node node : jsoupNode.childNodes()) {
-            resultNode.addChild(wrapJsoupHierarchy(node));
+            INode childNode = wrapJsoupHierarchy(node);
+            if (childNode != null) {
+                resultNode.addChild(childNode);
+            }
         }
 
         return resultNode;
