@@ -52,6 +52,7 @@ import com.itextpdf.html2pdf.attach.TagWorkerFactory;
 import com.itextpdf.html2pdf.css.apply.CssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
+import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.html2pdf.html.node.INode;
@@ -82,10 +83,18 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     private static final Logger logger = LoggerFactory.getLogger(DefaultHtmlProcessor.class);
 
     // The tags that do not map into any workers and are deliberately excluded from the logging
-    private static final Set<String> ignoredTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(TagConstants.HEAD, TagConstants.STYLE)));
+    private static final Set<String> ignoredTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
+            TagConstants.HEAD,
+            TagConstants.STYLE,
+            // TODO <tbody> is not supported. Styles will be propagated anyway
+            TagConstants.TBODY)));
 
     // The tags we do not want to apply css to and therefore exclude from the logging
-    private static final Set<String> ignoredCssTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(TagConstants.BR, TagConstants.TITLE)));
+    private static final Set<String> ignoredCssTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
+            TagConstants.BR,
+            TagConstants.TITLE,
+            // Content from <tr> is thrown upwards to parent, in other cases css is inherited anyway
+            TagConstants.TR)));
 
     private ProcessorContext context;
     private ICssResolver cssResolver;
@@ -214,7 +223,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
             ITagWorker tagWorker = TagWorkerFactory.getTagWorker(element, context);
             if (tagWorker == null) {
-                if (!ignoredTags.contains(element.name())) {
+                // TODO for stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links
+                if (!ignoredTags.contains(element.name()) && !HtmlUtils.isStyleSheetLink(element)) {
                     logger.error(MessageFormat.format(LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).name()));
                 }
             } else {

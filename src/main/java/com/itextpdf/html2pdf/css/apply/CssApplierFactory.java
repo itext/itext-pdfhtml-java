@@ -53,6 +53,8 @@ public class CssApplierFactory {
                 return new SpanTagCssApplier();
             case TagConstants.BODY:
                 return new BodyTagCssApplier();
+            case TagConstants.DT:
+            case TagConstants.DD:
             case TagConstants.DIV:
             case TagConstants.H1:
             case TagConstants.H2:

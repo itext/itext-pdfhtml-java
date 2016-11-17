@@ -93,6 +93,7 @@ public class TableTagWorker implements ITagWorker {
                         tableWrapper.addHeaderCell(header.getCell(i, j));
                     }
                 }
+                return true;
             } else if (((TableTagWorker) childTagWorker).footer) {
                 Table footer = ((TableTagWorker) childTagWorker).tableWrapper.toTable();
                 for (int i = 0; i < footer.getNumberOfRows(); i++) {
@@ -101,6 +102,7 @@ public class TableTagWorker implements ITagWorker {
                         tableWrapper.addFooterCell(footer.getCell(i, j));
                     }
                 }
+                return true;
             }
         }
         return false;
