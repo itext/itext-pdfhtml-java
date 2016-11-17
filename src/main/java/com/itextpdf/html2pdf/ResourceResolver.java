@@ -44,13 +44,13 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.MessageFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.text.MessageFormat;
 
 // TODO handle <base href=".."> tag?
 public class ResourceResolver {
@@ -93,7 +93,7 @@ public class ResourceResolver {
             return imageData;
         } catch (Exception e) {
             Logger logger = LoggerFactory.getLogger(ResourceResolver.class);
-            logger.error(MessageFormat.format("Unable to retrieve image with given base URI ({0}) and image source path ({1})", uriResolver.getBaseUri(), src), e);
+            logger.error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, uriResolver.getBaseUri(), src), e);
             return null;
         }
     }
