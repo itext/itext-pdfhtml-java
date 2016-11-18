@@ -148,8 +148,12 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
         context = new ProcessorContext(cssResolver, resourceResolver);
         roots = new ArrayList<>();
-        root = findBodyNode(root);
-        for (INode node : root.childNodes()) {
+        IElement html = findHtmlNode(root);
+        IElement body = findBodyNode(root);
+        // Force resolve styles to fetch default font size etc
+        html.setStyles(cssResolver.resolveStyles(html));
+        body.setStyles(cssResolver.resolveStyles(body));
+        for (INode node : body.childNodes()) {
             if (node instanceof IElement) {
                 visit(node);
             } else if (node instanceof ITextNode) {
@@ -278,13 +282,13 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
     }
 
-    private INode findNode(INode node, String tagName) {
+    private IElement findElement(INode node, String tagName) {
         Queue<INode> q = new LinkedList<>();
         q.add(node);
         while (!q.isEmpty()) {
             INode currentNode = q.poll();
             if (currentNode instanceof IElement && ((IElement) currentNode).name().equals(tagName)) {
-                return currentNode;
+                return (IElement) currentNode;
             }
             for (INode child : currentNode.childNodes()) {
                 if (child instanceof IElement) {
@@ -295,11 +299,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         return null;
     }
 
-    private INode findHtmlNode(INode node) {
-        return findNode(node, TagConstants.HTML);
+    private IElement findHtmlNode(INode node) {
+        return findElement(node, TagConstants.HTML);
     }
 
-    private INode findBodyNode(INode node) {
-        return findNode(node, TagConstants.BODY);
+    private IElement findBodyNode(INode node) {
+        return findElement(node, TagConstants.BODY);
     }
 }

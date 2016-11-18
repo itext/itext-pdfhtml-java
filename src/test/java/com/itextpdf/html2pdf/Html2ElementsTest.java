@@ -46,7 +46,8 @@ import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
-import com.itextpdf.test.ITextTest;
+import com.itextpdf.layout.property.Property;
+import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -58,8 +59,7 @@ import org.junit.experimental.categories.Category;
 import java.util.List;
 
 @Category(IntegrationTest.class)
-// TODO extend from ExtendedITextTest and therefore check logging
-public class Html2ElementsTest extends ITextTest {
+public class Html2ElementsTest extends ExtendedITextTest {
 
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/Html2ElementsTest/";
 
@@ -76,17 +76,19 @@ public class Html2ElementsTest extends ITextTest {
         Assert.assertTrue(lst.get(0) instanceof Paragraph);
         Paragraph p = (Paragraph) lst.get(0);
         Assert.assertEquals("Hello world!", ((Text)p.getChildren().get(0)).getText());
+        Assert.assertEquals(12f, p.getProperty(Property.FONT_SIZE));
     }
 
     @Test
     public void htmlToElementsTest02() {
-        String html = "<table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table>";
+        String html = "<table style=\"font-size: 2em\"><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table>";
         List<IElement> lst = HtmlConverter.convertToElements(html);
         Assert.assertTrue(lst.size() == 1);
         Assert.assertTrue(lst.get(0) instanceof Table);
         Table t = (Table) lst.get(0);
         Assert.assertTrue(t.getNumberOfRows() == 2);
         Assert.assertEquals("123", ((Text)(((Paragraph)t.getCell(0, 0).getChildren().get(0)).getChildren().get(0))).getText());
+        Assert.assertEquals(24f, t.getProperty(Property.FONT_SIZE));
     }
 
     @Test
