@@ -51,7 +51,7 @@ import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
 import com.itextpdf.html2pdf.html.node.IDocument;
 import com.itextpdf.html2pdf.html.node.IElement;
 import com.itextpdf.html2pdf.html.node.INode;
-import com.itextpdf.test.ITextTest;
+import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -61,11 +61,14 @@ import org.junit.experimental.categories.Category;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Category(UnitTest.class)
-// TODO extend ExtendedITextTest
-public class CssStylesResolvingTest extends ITextTest {
+public class CssStylesResolvingTest extends ExtendedITextTest {
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssElementStylesResolvingTest/";
 
     @BeforeClass

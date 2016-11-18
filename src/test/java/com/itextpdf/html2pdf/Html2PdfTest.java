@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ITextTest;
+import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -55,8 +55,7 @@ import java.io.File;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
-// TODO extend from ExtendedITextTest and therefore check logging
-public class Html2PdfTest extends ITextTest {
+public class Html2PdfTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/Html2PdfTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/Html2PdfTest/";

@@ -50,19 +50,19 @@ import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupDocument;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElement;
 import com.itextpdf.html2pdf.html.node.IDocument;
 import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.test.ITextTest;
+import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.List;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.List;
+
 @Category(UnitTest.class)
-// TODO check logging by extending from ExtendedITextTest
-public class CssMatchingTest extends ITextTest {
+public class CssMatchingTest extends ExtendedITextTest {
 
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssMatchingTest/";
 

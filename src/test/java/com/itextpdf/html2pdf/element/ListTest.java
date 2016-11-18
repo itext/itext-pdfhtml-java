@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.media.MediaType;
 import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
@@ -50,7 +51,9 @@ import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.pdfa.PdfADocument;
-import com.itextpdf.test.ITextTest;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -64,8 +67,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Category(IntegrationTest.class)
-// TODO extend from ExtendedITextTest and therefore check logging
-public class ListTest extends ITextTest {
+public class ListTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/ListTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/ListTest/";
@@ -100,6 +102,7 @@ public class ListTest extends ITextTest {
     }
 
     @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, count = 32)})
     public void listTest05() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "listTest05.html"), new File(destinationFolder + "listTest05.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest05.pdf", sourceFolder + "cmp_listTest05.pdf", destinationFolder, "diff05_"));

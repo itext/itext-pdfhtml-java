@@ -44,7 +44,9 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ITextTest;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -55,8 +57,7 @@ import java.io.File;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
-// TODO extend from ExtendedITextTest and therefore check logging
-public class TextPropertiesTest extends ITextTest {
+public class TextPropertiesTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/TextPropertiesTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/TextPropertiesTest/";
@@ -73,12 +74,14 @@ public class TextPropertiesTest extends ITextTest {
     }
 
     @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = "text-decoration: blink not supported")})
     public void textDecoration01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest01.html"), new File(destinationFolder + "textDecorationTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest01.pdf", sourceFolder + "cmp_textDecorationTest01.pdf", destinationFolder, "diff02_"));
     }
 
     @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = "text-indent in percents is not supported")})
     public void textIndent01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "textIndentTest01.html"), new File(destinationFolder + "textIndentTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textIndentTest01.pdf", sourceFolder + "cmp_textIndentTest01.pdf", destinationFolder, "diff03_"));

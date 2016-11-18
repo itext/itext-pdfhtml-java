@@ -43,21 +43,23 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ITextTest;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Paths;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Paths;
+
 @Category(IntegrationTest.class)
-// TODO extend from ExtendedITextTest and therefore check logging
-public class ResourceResolverTest extends ITextTest {
+public class ResourceResolverTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/ResourceResolverTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/ResourceResolverTest/";
@@ -77,7 +79,8 @@ public class ResourceResolverTest extends ITextTest {
     }
 
     @Test
-    // TODO check logging errors: not found external css and unable to retrieve image
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI),
+            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE)})
     public void resourceResolverTest02() throws IOException, InterruptedException {
         String baseUri = "/folderInDiskRoot";
         String outPdf = destinationFolder + "resourceResolverTest02.pdf";
