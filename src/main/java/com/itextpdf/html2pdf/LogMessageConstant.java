@@ -49,6 +49,7 @@ public final class LogMessageConstant {
     public static final String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
     public static final String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
     public static final String UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI = "Unable to retrieve image with given base URI ({0}) and image source path ({1})";
+    public static final String UNABLE_TO_RESOLVE_FONT = "Unable to resolve font: {0}. The default one will be used instead";
 
     private LogMessageConstant() {
     }

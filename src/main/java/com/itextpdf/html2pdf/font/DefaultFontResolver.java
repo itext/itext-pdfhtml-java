@@ -42,9 +42,13 @@
  */
 package com.itextpdf.html2pdf.font;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import java.io.IOException;
+import java.text.MessageFormat;
+
+import org.slf4j.LoggerFactory;
 
 public class DefaultFontResolver implements IFontResolver {
 
@@ -55,6 +59,17 @@ public class DefaultFontResolver implements IFontResolver {
     @Override
     public PdfFont getFont(String name) throws IOException {
         //return PdfFontFactory.createRegisteredFont(name);
-        return PdfFontFactory.createFont(name);
+        PdfFont result;
+        try {
+            result = PdfFontFactory.createFont(name);
+        } catch (Exception any) {
+            LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_FONT, name), any);
+            result = PdfFontFactory.createFont();
+        }
+        if (result == null) {
+            LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_FONT, name));
+            result = PdfFontFactory.createFont();
+        }
+        return result;
     }
 }
