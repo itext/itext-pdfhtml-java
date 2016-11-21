@@ -82,6 +82,13 @@ public class CssDefaults {
         defaultValues.put(CssConstants.BORDER_TOP_WIDTH, CssConstants.MEDIUM);
         defaultValues.put(CssConstants.BORDER_WIDTH, CssConstants.MEDIUM);
 
+        defaultValues.put(CssConstants.FONT_WEIGHT, CssConstants.NORMAL);
+        defaultValues.put(CssConstants.FONT_SIZE, CssConstants.MEDIUM);
+        defaultValues.put(CssConstants.FONT_STYLE, CssConstants.NORMAL);
+        defaultValues.put(CssConstants.FONT_VARIANT, CssConstants.NORMAL);
+
+        defaultValues.put(CssConstants.LINE_HEIGHT, CssConstants.NORMAL);
+
         defaultValues.put(CssConstants.MARGIN_BOTTOM, "0");
         defaultValues.put(CssConstants.MARGIN_LEFT, "0");
         defaultValues.put(CssConstants.MARGIN_RIGHT, "0");
@@ -93,6 +100,8 @@ public class CssDefaults {
         defaultValues.put(CssConstants.PADDING_TOP, "0");
 
         defaultValues.put(CssConstants.LIST_STYLE_TYPE, CssConstants.DISC);
+        defaultValues.put(CssConstants.LIST_STYLE_IMAGE, CssConstants.NONE);
+        defaultValues.put(CssConstants.LIST_STYLE_POSITION, CssConstants.OUTSIDE);
 
         defaultValues.put(CssConstants.TEXT_ALIGN, CssConstants.START);
 
