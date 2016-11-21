@@ -125,13 +125,13 @@ public class HrTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("contains 'background image' in css")
+    @Ignore("DEVSIX-939")
     public void hrTest11() throws IOException, InterruptedException {
         runHrTest("11");
     }
 
     @Test
-    @Ignore("contains 'background image' in css")
+    @Ignore("DEVSIX-939")
     public void hrTest12() throws IOException, InterruptedException {
         runHrTest("12");
     }
