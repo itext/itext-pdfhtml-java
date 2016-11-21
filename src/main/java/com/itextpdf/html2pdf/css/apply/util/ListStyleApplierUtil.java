@@ -144,7 +144,7 @@ public final class ListStyleApplierUtil {
     }
 
     private static void setDiscStyle(IPropertyContainer element, float em) {
-        Text symbol = new Text(String.valueOf((char)108)).setFont(createZapfDingBatsSafe());
+        Text symbol = new Text(String.valueOf(((char)108))).setFont(createZapfDingBatsSafe());
         symbol.setTextRise(1.5f);
         symbol.setFontSize(4.5f);
         element.setProperty(Property.LIST_SYMBOL, symbol);
@@ -152,7 +152,7 @@ public final class ListStyleApplierUtil {
     }
 
     private static void setSquareStyle(IPropertyContainer element, float em) {
-        Text symbol = new Text(String.valueOf((char)110)).setFont(createZapfDingBatsSafe());
+        Text symbol = new Text(String.valueOf(((char)110))).setFont(createZapfDingBatsSafe());
         symbol.setTextRise(1.5f);
         symbol.setFontSize(4.5f);
         element.setProperty(Property.LIST_SYMBOL, symbol);
@@ -160,7 +160,7 @@ public final class ListStyleApplierUtil {
     }
 
     private static void setCircleStyle(IPropertyContainer element, float em) {
-        Text symbol = new Text(String.valueOf((char)109)).setFont(createZapfDingBatsSafe());
+        Text symbol = new Text(String.valueOf(((char)109))).setFont(createZapfDingBatsSafe());
         symbol.setTextRise(1.5f);
         symbol.setFontSize(4.5f);
         element.setProperty(Property.LIST_SYMBOL, symbol);
@@ -168,7 +168,7 @@ public final class ListStyleApplierUtil {
     }
 
     private static void setListSymbolIndent(IPropertyContainer element, float em) {
-        if  (ListSymbolPosition.INSIDE == element.getProperty(Property.LIST_SYMBOL_POSITION)) {
+        if  (ListSymbolPosition.INSIDE == element.<ListSymbolPosition>getProperty(Property.LIST_SYMBOL_POSITION)) {
             element.setProperty(Property.LIST_SYMBOL_INDENT, 1.5f * em);
         } else {
             element.setProperty(Property.LIST_SYMBOL_INDENT, 7.75f);

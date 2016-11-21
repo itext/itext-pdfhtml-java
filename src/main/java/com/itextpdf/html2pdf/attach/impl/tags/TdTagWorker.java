@@ -65,7 +65,7 @@ public class TdTagWorker implements ITagWorker {
         colspan = colspan != null ? colspan : 1;
         rowspan = rowspan != null ? rowspan : 1;
 
-        cell = new Cell(rowspan, colspan);
+        cell = new Cell((int)rowspan, (int)colspan);
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
