@@ -50,7 +50,7 @@ import java.util.List;
 public abstract class CssStatement {
 
     public List<CssRuleSet> getCssRuleSets(IElementNode element, MediaDeviceDescription deviceDescription) {
-        return Collections.emptyList(); //TODO
+        return Collections.<CssRuleSet>emptyList(); //TODO
     }
 
 }

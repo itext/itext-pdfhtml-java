@@ -49,7 +49,7 @@ import java.util.regex.Pattern;
 public class CssAttributeSelectorItem implements ICssSelectorItem {
 
     private String property;
-    private char matchSymbol = 0;
+    private char matchSymbol = (char)0;
     private String value = null;
 
     public CssAttributeSelectorItem(String attrSelector) {
@@ -90,7 +90,7 @@ public class CssAttributeSelectorItem implements ICssSelectorItem {
             return true;
         } else {
             switch (matchSymbol) {
-                case 0:
+                case (char)0:
                     return value.equals(attributeValue);
                 case '|':
                     return attributeValue.startsWith(value) && (attributeValue.length() == value.length() || attributeValue.charAt(value.length()) == '-');

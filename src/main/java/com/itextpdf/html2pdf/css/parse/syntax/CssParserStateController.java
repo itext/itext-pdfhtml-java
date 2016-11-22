@@ -120,7 +120,7 @@ public final class CssParserStateController {
     }
 
     void enterUnknownStateIfNestedBlocksFinished() {
-        if (nestedAtRules.empty()) {
+        if (nestedAtRules.size() == 0) {
             setState(unknownState);
         } else {
             setState(atRuleBlockState);
@@ -162,7 +162,7 @@ public final class CssParserStateController {
     }
 
     void pushBlockPrecedingAtRule() {
-        nestedAtRules.add(CssNestedAtRuleFactory.createNestedRule(buffer.toString()));
+        nestedAtRules.push(CssNestedAtRuleFactory.createNestedRule(buffer.toString()));
         buffer.setLength(0);
     }
 
@@ -177,7 +177,7 @@ public final class CssParserStateController {
     private void processProperties(String selector, String properties) {
         List<CssRuleSet> ruleSets = CssRuleSetParser.parseRuleSet(selector, properties);
         for (CssRuleSet ruleSet : ruleSets) {
-            if (nestedAtRules.empty()) {
+            if (nestedAtRules.size() == 0) {
                 styleSheet.addStatement(ruleSet);
             } else {
                 nestedAtRules.peek().addStatementToBody(ruleSet);
@@ -191,7 +191,7 @@ public final class CssParserStateController {
     }
 
     private void processFinishedAtRuleBlock(CssNestedAtRule atRule) {
-        if (!nestedAtRules.empty()) {
+        if (nestedAtRules.size() != 0) {
             nestedAtRules.peek().addStatementToBody(atRule);
         } else {
             styleSheet.addStatement(atRule);

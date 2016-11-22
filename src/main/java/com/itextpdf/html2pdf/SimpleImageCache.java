@@ -43,10 +43,9 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.io.image.ImageData;
-import java.util.HashMap;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 class SimpleImageCache {
     private Map<String, ImageData> cache = new LinkedHashMap<>();
@@ -98,7 +97,7 @@ class SimpleImageCache {
                     if (imgFrequency == null) {
                         break;
                     } else {
-                        minFrequency = imgFrequency;
+                        minFrequency = (int)imgFrequency;
                     }
                 }
             }
