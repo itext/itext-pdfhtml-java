@@ -43,9 +43,9 @@
 package com.itextpdf.html2pdf.css.parse;
 
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
+import com.itextpdf.html2pdf.PortUtil;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.parse.syntax.CssParserStateController;
-import com.itextpdf.io.util.StreamUtil;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -103,7 +103,7 @@ public final class CssStyleSheetParser {
         }
 
         CssParserStateController controller = new CssParserStateController();
-        Reader br = StreamUtil.wrapInBufferedReader(new InputStreamReader(stream)); // TODO define charset
+        Reader br = PortUtil.wrapInBufferedReader(new InputStreamReader(stream)); // TODO define charset
         char[] buffer = new char[8192];
         int length;
         while ((length = br.read(buffer, 0, buffer.length)) > 0) {
