@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
@@ -54,7 +54,7 @@ public class ImgTagWorker implements ITagWorker {
 
     private Image image;
 
-    public ImgTagWorker(IElement element, ProcessorContext context) {
+    public ImgTagWorker(IElementNode element, ProcessorContext context) {
 
         ImageData imageData = context.getResourceResolver().retrieveImage(element.getAttribute(AttributeConstants.SRC));
         if (imageData != null) {
@@ -63,7 +63,7 @@ public class ImgTagWorker implements ITagWorker {
     }
 
     @Override
-    public void processEnd(IElement element, ProcessorContext context) {
+    public void processEnd(IElementNode element, ProcessorContext context) {
 
     }
 

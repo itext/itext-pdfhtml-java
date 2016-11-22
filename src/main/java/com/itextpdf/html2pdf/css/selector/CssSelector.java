@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.css.selector;
 import com.itextpdf.html2pdf.css.parse.CssSelectorParser;
 import com.itextpdf.html2pdf.css.selector.item.CssSeparatorSelectorItem;
 import com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import java.util.List;
 
@@ -69,7 +69,7 @@ public class CssSelector {
         return specificity;
     }
 
-    public boolean matches(IElement element) {
+    public boolean matches(IElementNode element) {
         return matches(element, selectorItems.size() - 1);
     }
 
@@ -83,7 +83,7 @@ public class CssSelector {
     }
 
     private boolean matches(INode element, int lastSelectorItemInd) {
-        if (!(element instanceof IElement)) {
+        if (!(element instanceof IElementNode)) {
             return false;
         }
         if (lastSelectorItemInd < 0) {
@@ -132,7 +132,7 @@ public class CssSelector {
                         return false;
                 }
             } else {
-                if (!currentItem.matches((IElement) element)) {
+                if (!currentItem.matches((IElementNode) element)) {
                     return false;
                 }
             }

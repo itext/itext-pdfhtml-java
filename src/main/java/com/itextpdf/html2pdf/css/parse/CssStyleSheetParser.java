@@ -45,16 +45,18 @@ package com.itextpdf.html2pdf.css.parse;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.parse.syntax.CssParserStateController;
+import com.itextpdf.io.util.StreamUtil;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
-import java.io.BufferedReader;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 
 // TODO refactor into interface
@@ -101,10 +103,10 @@ public final class CssStyleSheetParser {
         }
 
         CssParserStateController controller = new CssParserStateController();
-        BufferedReader br = new BufferedReader(new InputStreamReader(stream)); // TODO define charset
+        Reader br = StreamUtil.wrapInBufferedReader(new InputStreamReader(stream)); // TODO define charset
         char[] buffer = new char[8192];
         int length;
-        while ((length = br.read(buffer)) > 0) {
+        while ((length = br.read(buffer, 0, buffer.length)) > 0) {
             for(int i = 0 ; i < length; i++) {
                 controller.process(buffer[i]);
             }

@@ -40,19 +40,21 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html.node;
+package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
-import java.util.Map;
+import com.itextpdf.html2pdf.html.node.IDocumentNode;
 
-public interface IElement extends INode {
+public class JsoupDocumentNode extends JsoupElementNode implements IDocumentNode {
 
-    String name();
+    private org.jsoup.nodes.Document document;
 
-    IAttributes getAttributes();
+    public JsoupDocumentNode(org.jsoup.nodes.Document document) {
+        super(document);
+        this.document = document;
+    }
 
-    String getAttribute(String key);
+    public org.jsoup.nodes.Document getDocument() {
+        return document;
+    }
 
-    void setStyles(Map<String, String> stringStringMap);
-
-    Map<String, String> getStyles();
 }

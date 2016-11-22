@@ -44,11 +44,11 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 
 public class DdTagWorker extends LiTagWorker {
 
-    public DdTagWorker(IElement element, ProcessorContext context) {
+    public DdTagWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
         listItem.setMarginLeft(CssUtils.parseAbsoluteLength("40px"));
     }

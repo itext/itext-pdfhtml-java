@@ -46,7 +46,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Div;
@@ -58,13 +58,13 @@ public class DivTagWorker implements ITagWorker {
     private Div div;
     private WaitingInlineElementsHelper inlineHelper;
 
-    public DivTagWorker(IElement element, ProcessorContext context) {
+    public DivTagWorker(IElementNode element, ProcessorContext context) {
         div = new Div();
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
     @Override
-    public void processEnd(IElement element, ProcessorContext context) {
+    public void processEnd(IElementNode element, ProcessorContext context) {
         inlineHelper.flushHangingLeaves(div);
     }
 
@@ -86,7 +86,7 @@ public class DivTagWorker implements ITagWorker {
             for (IPropertyContainer childElement : ((SpanTagWorker) childTagWorker).getAllElements()) {
                 if (childElement instanceof ILeafElement) {
                     inlineHelper.add((ILeafElement) childElement);
-                } else if (childElement instanceof IElement) {
+                } else if (childElement instanceof IElementNode) {
                     allChildrenProcessed = addBlockChild((com.itextpdf.layout.element.IElement) childElement) && allChildrenProcessed;
                 }
             }

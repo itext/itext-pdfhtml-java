@@ -42,12 +42,12 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 
 public interface ICssSelectorItem {
 
     int getSpecificity();
 
-    boolean matches(IElement element);
+    boolean matches(IElementNode element);
 
 }

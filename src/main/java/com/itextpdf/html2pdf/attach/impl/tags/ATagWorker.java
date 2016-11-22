@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfArray;
 import com.itextpdf.kernel.pdf.action.PdfAction;
@@ -54,15 +54,15 @@ import com.itextpdf.layout.property.Property;
 
 public class ATagWorker extends SpanTagWorker {
 
-    private IElement element;
+    private IElementNode element;
 
-    public ATagWorker(IElement element, ProcessorContext context) {
+    public ATagWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
         this.element = element;
     }
 
     @Override
-    public void processEnd(IElement element, ProcessorContext context) {
+    public void processEnd(IElementNode element, ProcessorContext context) {
         super.processEnd(element, context);
 
         String url = element.getAttribute(AttributeConstants.HREF);

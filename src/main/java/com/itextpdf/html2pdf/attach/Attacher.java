@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.attach;
 import com.itextpdf.html2pdf.ResourceResolver;
 import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
-import com.itextpdf.html2pdf.html.node.IDocument;
+import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import java.util.List;
@@ -55,12 +55,12 @@ public class Attacher {
     private Attacher() {
     }
 
-    public static Document attach(IDocument documentNode, ICssResolver cssResolver, PdfDocument pdfDocument, ResourceResolver resourceResolver) {
+    public static Document attach(IDocumentNode documentNode, ICssResolver cssResolver, PdfDocument pdfDocument, ResourceResolver resourceResolver) {
         IHtmlProcessor processor = new DefaultHtmlProcessor(documentNode, cssResolver, resourceResolver);
         return processor.processDocument(pdfDocument);
     }
 
-    public static List<com.itextpdf.layout.element.IElement> attach(IDocument documentNode, ICssResolver cssResolver, ResourceResolver resourceResolver) {
+    public static List<com.itextpdf.layout.element.IElement> attach(IDocumentNode documentNode, ICssResolver cssResolver, ResourceResolver resourceResolver) {
         IHtmlProcessor processor = new DefaultHtmlProcessor(documentNode, cssResolver, resourceResolver);
         return processor.processElements();
     }

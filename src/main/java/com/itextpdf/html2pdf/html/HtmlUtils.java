@@ -42,14 +42,14 @@
  */
 package com.itextpdf.html2pdf.html;
 
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 
 public final class HtmlUtils {
 
     private HtmlUtils() {
     }
 
-    public static boolean isStyleSheetLink(IElement headChildElement) {
+    public static boolean isStyleSheetLink(IElementNode headChildElement) {
         return headChildElement.name().equals(TagConstants.LINK)
                 && AttributeConstants.STYLESHEET.equals(headChildElement.getAttribute(AttributeConstants.REL));
     }

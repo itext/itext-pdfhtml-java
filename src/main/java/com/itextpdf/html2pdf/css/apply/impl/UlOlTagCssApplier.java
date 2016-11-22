@@ -47,7 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
 import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
@@ -57,7 +57,7 @@ import java.util.Map;
 public class UlOlTagCssApplier extends BlockCssApplier {
 
     @Override
-    public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
+    public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
         if (!(tagWorker.getElementResult() instanceof List)) {
             return;
         }

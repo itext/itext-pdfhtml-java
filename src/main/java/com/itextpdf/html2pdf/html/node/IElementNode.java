@@ -40,47 +40,19 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html.impl.jsoup.node;
-
-import com.itextpdf.html2pdf.html.node.IAttributes;
-import com.itextpdf.html2pdf.html.node.IElement;
+package com.itextpdf.html2pdf.html.node;
 
 import java.util.Map;
 
-public class JsoupElement extends JsoupNode implements IElement {
+public interface IElementNode extends INode {
 
-    private org.jsoup.nodes.Element element;
-    private IAttributes attributes;
-    private Map<String, String> elementResolvedStyles;
+    String name();
 
-    public JsoupElement(org.jsoup.nodes.Element element) {
-        super(element);
-        this.element = element;
-        this.attributes = new JsoupAttributes(element.attributes());
-    }
+    IAttributes getAttributes();
 
-    @Override
-    public String name() {
-        return element.nodeName();
-    }
+    String getAttribute(String key);
 
-    public IAttributes getAttributes() {
-        return attributes;
-    }
+    void setStyles(Map<String, String> stringStringMap);
 
-    @Override
-    public String getAttribute(String key) {
-        return attributes.getAttribute(key);
-    }
-
-	@Override
-    public void setStyles(Map<String, String> elementResolvedStyles) {
-        this.elementResolvedStyles = elementResolvedStyles;
-    }
-
-    @Override
-    public Map<String, String> getStyles() {
-        return this.elementResolvedStyles;
-    }
+    Map<String, String> getStyles();
 }
-

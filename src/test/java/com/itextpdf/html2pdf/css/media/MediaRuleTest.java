@@ -47,10 +47,10 @@ import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
 import com.itextpdf.html2pdf.html.IHtmlParser;
 import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
-import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupDocument;
-import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElement;
-import com.itextpdf.html2pdf.html.node.IDocument;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupDocumentNode;
+import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
+import com.itextpdf.html2pdf.html.node.IDocumentNode;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -81,10 +81,10 @@ public class MediaRuleTest extends ExtendedITextTest {
         String htmlFileName = sourceFolder + "html01.html";
         String cssFileName = sourceFolder + "css01.css";
         IHtmlParser htmlParser = new JsoupHtmlParser();
-        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
+        IDocumentNode document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
         MediaDeviceDescription deviceDescription = new MediaDeviceDescription(MediaType.PRINT);
-        IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
+        IElementNode element = new JsoupElementNode(((JsoupDocumentNode)document).getDocument().getElementsByTag("p").first());
         List<CssDeclaration> declarations = css.getCssDeclarations(element, deviceDescription);
         Assert.assertEquals(3, declarations.size());
         Assert.assertEquals("font-weight: bold", declarations.get(0).toString());
@@ -97,9 +97,9 @@ public class MediaRuleTest extends ExtendedITextTest {
         String htmlFileName = sourceFolder + "html02.html";
         String cssFileName = sourceFolder + "css02.css";
         IHtmlParser htmlParser = new JsoupHtmlParser();
-        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
+        IDocumentNode document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
-        IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
+        IElementNode element = new JsoupElementNode(((JsoupDocumentNode)document).getDocument().getElementsByTag("p").first());
 
         MediaDeviceDescription deviceDescription1 = new MediaDeviceDescription(MediaType.PRINT);
         deviceDescription1.setWidth(525);
@@ -121,11 +121,11 @@ public class MediaRuleTest extends ExtendedITextTest {
         String htmlFileName = sourceFolder + "html03.html";
         String cssFileName = sourceFolder + "css03.css";
         IHtmlParser htmlParser = new JsoupHtmlParser();
-        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
+        IDocumentNode document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
         MediaDeviceDescription deviceDescription = new MediaDeviceDescription(MediaType.PRINT);
         deviceDescription.setResolution(300);
-        IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
+        IElementNode element = new JsoupElementNode(((JsoupDocumentNode)document).getDocument().getElementsByTag("p").first());
         List<CssDeclaration> declarations = css.getCssDeclarations(element, deviceDescription);
         Assert.assertEquals(1, declarations.size());
         Assert.assertEquals("color: black", declarations.get(0).toString());
@@ -136,12 +136,12 @@ public class MediaRuleTest extends ExtendedITextTest {
         String htmlFileName = sourceFolder + "html04.html";
         String cssFileName = sourceFolder + "css04.css";
         IHtmlParser htmlParser = new JsoupHtmlParser();
-        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
+        IDocumentNode document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
 
         MediaDeviceDescription deviceDescription = new MediaDeviceDescription(MediaType.PRINT).setColorIndex(256);
 
-        IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
+        IElementNode element = new JsoupElementNode(((JsoupDocumentNode)document).getDocument().getElementsByTag("p").first());
         List<CssDeclaration> declarations = css.getCssDeclarations(element, deviceDescription);
         Assert.assertEquals(2, declarations.size());
         Assert.assertEquals("color: red", declarations.get(0).toString());
@@ -153,9 +153,9 @@ public class MediaRuleTest extends ExtendedITextTest {
         String htmlFileName = sourceFolder + "html05.html";
         String cssFileName = sourceFolder + "css05.css";
         IHtmlParser htmlParser = new JsoupHtmlParser();
-        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
+        IDocumentNode document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
-        IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
+        IElementNode element = new JsoupElementNode(((JsoupDocumentNode)document).getDocument().getElementsByTag("p").first());
 
         MediaDeviceDescription deviceDescription1 = new MediaDeviceDescription(MediaType.PRINT).
                 setWidth(300).setHeight(301);
@@ -177,9 +177,9 @@ public class MediaRuleTest extends ExtendedITextTest {
         String htmlFileName = sourceFolder + "html06.html";
         String cssFileName = sourceFolder + "css06.css";
         IHtmlParser htmlParser = new JsoupHtmlParser();
-        IDocument document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
+        IDocumentNode document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
-        IElement element = new JsoupElement(((JsoupDocument)document).getDocument().getElementsByTag("p").first());
+        IElementNode element = new JsoupElementNode(((JsoupDocumentNode)document).getDocument().getElementsByTag("p").first());
 
         MediaDeviceDescription deviceDescription1 = new MediaDeviceDescription(MediaType.PRINT).
                 setBitsPerComponent(2);

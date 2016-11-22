@@ -44,11 +44,10 @@ package com.itextpdf.html2pdf.css.apply;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.html.node.IElement;
-import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 
 public interface ICssApplier {
 
-    void apply(ProcessorContext context, IElement element, ITagWorker tagWorker);
+    void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker);
 
 }

@@ -47,7 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.attach.wrapelement.SpanWrapper;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.ILeafElement;
@@ -62,13 +62,13 @@ public class SpanTagWorker implements ITagWorker {
     private List<IPropertyContainer> ownLeafElements = new ArrayList<>();
     private WaitingInlineElementsHelper inlineHelper;
 
-    public SpanTagWorker(IElement element, ProcessorContext context) {
+    public SpanTagWorker(IElementNode element, ProcessorContext context) {
         spanWrapper = new SpanWrapper();
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
     @Override
-    public void processEnd(IElement element, ProcessorContext context) {
+    public void processEnd(IElementNode element, ProcessorContext context) {
         flushInlineHelper();
         elements = spanWrapper.getElements();
     }

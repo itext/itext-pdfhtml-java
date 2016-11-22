@@ -48,8 +48,8 @@ import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.html.IHtmlParser;
 import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
-import com.itextpdf.html2pdf.html.node.IDocument;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IDocumentNode;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -285,8 +285,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
     }
 
     private void resolveStylesForTree(INode node, ICssResolver cssResolver) {
-        if (node instanceof IElement) {
-            ((IElement)node).setStyles(cssResolver.resolveStyles((IElement)node));
+        if (node instanceof IElementNode) {
+            ((IElementNode)node).setStyles(cssResolver.resolveStyles((IElementNode)node));
         }
 
         for (INode child : node.childNodes()) {
@@ -297,11 +297,11 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
     private void test(String fileName, String elementPath, String... expectedStyles) throws IOException {
         String filePath = sourceFolder + fileName;
         IHtmlParser parser = new JsoupHtmlParser();
-        IDocument document = parser.parse(new FileInputStream(filePath), "UTF-8");
+        IDocumentNode document = parser.parse(new FileInputStream(filePath), "UTF-8");
         ICssResolver cssResolver = new DefaultCssResolver(document, MediaDeviceDescription.createDefault(), new ResourceResolver(""));
         resolveStylesForTree(document, cssResolver);
 
-        IElement element = findElement(document, elementPath);
+        IElementNode element = findElement(document, elementPath);
         if (element == null) {
             Assert.fail(MessageFormat.format("Element at path \"{0}\" was not found.", elementPath));
         }
@@ -311,7 +311,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
         Assert.assertTrue(getDifferencesMessage(expectedStylesSet, actualStylesSet), setsAreEqual(expectedStylesSet, actualStylesSet));
     }
 
-    private IElement findElement(INode root, String ancestryPath) {
+    private IElementNode findElement(INode root, String ancestryPath) {
         INode currElement = root;
         String[] ancestors = ancestryPath.split(" ");
         int ancestorPathIndex = 0;
@@ -329,7 +329,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
             int sameNameInd = 0;
             foundElement = false;
             for (INode nextKid : currElement.childNodes()) {
-                if (nextKid instanceof IElement && ((IElement) nextKid).name().equals(ancestor) && sameNameInd++ == ancestorIndex) {
+                if (nextKid instanceof IElementNode && ((IElementNode) nextKid).name().equals(ancestor) && sameNameInd++ == ancestorIndex) {
                     currElement = nextKid;
                     foundElement = true;
                     break;
@@ -342,7 +342,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
             }
         }
 
-        return foundElement ? (IElement) currElement : null;
+        return foundElement ? (IElementNode) currElement : null;
     }
 
     private Set<String> stylesMapToHashSet(Map<String, String> stylesMap) {
