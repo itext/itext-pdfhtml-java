@@ -54,7 +54,7 @@ import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.ITextNode;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -75,7 +75,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Set;
 
 public class DefaultHtmlProcessor implements IHtmlProcessor {
@@ -148,13 +147,13 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
         context = new ProcessorContext(cssResolver, resourceResolver);
         roots = new ArrayList<>();
-        IElement html = findHtmlNode(root);
-        IElement body = findBodyNode(root);
+        IElementNode html = findHtmlNode(root);
+        IElementNode body = findBodyNode(root);
         // Force resolve styles to fetch default font size etc
         html.setStyles(cssResolver.resolveStyles(html));
         body.setStyles(cssResolver.resolveStyles(body));
         for (INode node : body.childNodes()) {
-            if (node instanceof IElement) {
+            if (node instanceof IElementNode) {
                 visit(node);
             } else if (node instanceof ITextNode) {
                 logger.error(MessageFormat.format(LogMessageConstant.TEXT_WAS_NOT_PROCESSED, ((ITextNode) node).wholeText()));
@@ -221,8 +220,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     }
 
     private void visit(INode node) {
-        if (node instanceof IElement) {
-            IElement element = (IElement) node;
+        if (node instanceof IElementNode) {
+            IElementNode element = (IElementNode) node;
             element.setStyles(context.getCssResolver().resolveStyles(element));
 
             ITagWorker tagWorker = TagWorkerFactory.getTagWorker(element, context);
@@ -282,16 +281,17 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
     }
 
-    private IElement findElement(INode node, String tagName) {
-        Queue<INode> q = new LinkedList<>();
+    private IElementNode findElement(INode node, String tagName) {
+        LinkedList<INode> q = new LinkedList<>();
         q.add(node);
         while (!q.isEmpty()) {
-            INode currentNode = q.poll();
-            if (currentNode instanceof IElement && ((IElement) currentNode).name().equals(tagName)) {
-                return (IElement) currentNode;
+            INode currentNode = q.getFirst();
+            q.removeFirst();
+            if (currentNode instanceof IElementNode && ((IElementNode) currentNode).name().equals(tagName)) {
+                return (IElementNode) currentNode;
             }
             for (INode child : currentNode.childNodes()) {
-                if (child instanceof IElement) {
+                if (child instanceof IElementNode) {
                     q.add(child);
                 }
             }
@@ -299,11 +299,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         return null;
     }
 
-    private IElement findHtmlNode(INode node) {
+    private IElementNode findHtmlNode(INode node) {
         return findElement(node, TagConstants.HTML);
     }
 
-    private IElement findBodyNode(INode node) {
+    private IElementNode findBodyNode(INode node) {
         return findElement(node, TagConstants.BODY);
     }
 }

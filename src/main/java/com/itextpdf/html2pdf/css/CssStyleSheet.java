@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -79,7 +79,7 @@ public class CssStyleSheet {
         return sb.toString();
     }
 
-    public List<CssDeclaration> getCssDeclarations(IElement element, MediaDeviceDescription deviceDescription) {
+    public List<CssDeclaration> getCssDeclarations(IElementNode element, MediaDeviceDescription deviceDescription) {
         List<CssRuleSet> ruleSets = getCssRuleSets(element, deviceDescription);
         Map<String, CssDeclaration> declarations = new LinkedHashMap<>();
         Collections.sort(ruleSets, new CssRuleSetComparator());
@@ -98,7 +98,7 @@ public class CssStyleSheet {
         }
     }
 
-    private List<CssRuleSet> getCssRuleSets(IElement element, MediaDeviceDescription deviceDescription) {
+    private List<CssRuleSet> getCssRuleSets(IElementNode element, MediaDeviceDescription deviceDescription) {
         List<CssRuleSet> ruleSets = new ArrayList<>();
         for (CssStatement statement : statements) {
             ruleSets.addAll(statement.getCssRuleSets(element, deviceDescription));

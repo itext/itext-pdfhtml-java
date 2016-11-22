@@ -44,5 +44,6 @@ package com.itextpdf.html2pdf.html.node;
 
 public interface IAttribute {
     String getKey();
+
     String getValue();
 }

@@ -48,7 +48,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
 import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.property.Property;
@@ -56,7 +56,7 @@ import java.util.Map;
 
 public class TdTagCssApplier extends BlockCssApplier {
     @Override
-    public void apply(ProcessorContext context, IElement element, ITagWorker worker) {
+    public void apply(ProcessorContext context, IElementNode element, ITagWorker worker) {
         super.apply(context, element, worker);
 
         IPropertyContainer cell = worker.getElementResult();

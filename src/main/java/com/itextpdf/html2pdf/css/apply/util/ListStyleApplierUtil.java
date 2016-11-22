@@ -47,7 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.io.font.FontConstants;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.kernel.font.PdfFont;
@@ -85,7 +85,7 @@ public final class ListStyleApplierUtil {
     }
 
     //TODO problems with Pdf/A conversion. Avoid ZapfDingBats, Symbol font
-    public static void applyListStyleTypeProperty(IElement node, Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+    public static void applyListStyleTypeProperty(IElementNode node, Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
 
         String style = cssProps.get(CssConstants.LIST_STYLE_TYPE);

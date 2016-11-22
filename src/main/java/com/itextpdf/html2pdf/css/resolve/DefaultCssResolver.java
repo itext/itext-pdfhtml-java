@@ -57,8 +57,8 @@ import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IDataNode;
-import com.itextpdf.html2pdf.html.node.IDocument;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IDocumentNode;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,7 +82,7 @@ public class DefaultCssResolver implements ICssResolver {
     }
 
     @Override
-    public Map<String, String> resolveStyles(IElement element) {
+    public Map<String, String> resolveStyles(IElementNode element) {
         List<CssDeclaration> nodeCssDeclarations = HtmlStylesToCssConverter.convert(element);
 
         nodeCssDeclarations.addAll(cssStyleSheet.getCssDeclarations(element, deviceDescription));
@@ -93,10 +93,10 @@ public class DefaultCssResolver implements ICssResolver {
 
         Map<String, String> elementStyles = cssDeclarationsToMap(nodeCssDeclarations);
 
-        if (element.parentNode() instanceof IElement) {
-            Map<String, String> parentStyles = ((IElement) element.parentNode()).getStyles();
+        if (element.parentNode() instanceof IElementNode) {
+            Map<String, String> parentStyles = ((IElementNode) element.parentNode()).getStyles();
 
-            if (parentStyles == null && !(element.parentNode() instanceof IDocument)) {
+            if (parentStyles == null && !(element.parentNode() instanceof IDocumentNode)) {
                 Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
                 logger.error("Element parent styles are not resolved. Styles for current element might be incorrect.");
             }
@@ -161,8 +161,8 @@ public class DefaultCssResolver implements ICssResolver {
         while (!q.isEmpty()) {
             INode currentNode = q.poll();
 
-            if (currentNode instanceof IElement) {
-                IElement headChildElement = (IElement) currentNode;
+            if (currentNode instanceof IElementNode) {
+                IElementNode headChildElement = (IElementNode) currentNode;
                 if (headChildElement.name().equals(TagConstants.STYLE)) {
                     if (currentNode.childNodes().size() > 0 && currentNode.childNodes().get(0) instanceof IDataNode) {
                         String styleData = ((IDataNode) currentNode.childNodes().get(0)).getWholeData();
@@ -181,7 +181,7 @@ public class DefaultCssResolver implements ICssResolver {
             }
 
             for (INode child : currentNode.childNodes()) {
-                if (child instanceof IElement) {
+                if (child instanceof IElementNode) {
                     q.add(child);
                 }
             }

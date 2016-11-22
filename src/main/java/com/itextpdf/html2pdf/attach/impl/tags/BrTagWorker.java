@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
 
@@ -52,11 +52,11 @@ public class BrTagWorker implements ITagWorker {
 
     private Text newLine = new Text("\n");
 
-    public BrTagWorker(IElement element, ProcessorContext context) {
+    public BrTagWorker(IElementNode element, ProcessorContext context) {
     }
 
     @Override
-    public void processEnd(IElement element, ProcessorContext context) {
+    public void processEnd(IElementNode element, ProcessorContext context) {
     }
 
     @Override

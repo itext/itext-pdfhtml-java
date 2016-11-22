@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.css.selector.item;
 
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 
 public class CssClassSelectorItem implements ICssSelectorItem {
 
@@ -64,7 +64,7 @@ public class CssClassSelectorItem implements ICssSelectorItem {
     }
 
     @Override
-    public boolean matches(IElement element) {
+    public boolean matches(IElementNode element) {
         String classAttr = element.getAttribute(AttributeConstants.CLASS);
         if (classAttr != null && classAttr.length() > 0) {
             String[] classNames = classAttr.split(" ");

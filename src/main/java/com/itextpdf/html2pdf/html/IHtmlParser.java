@@ -42,14 +42,14 @@
  */
 package com.itextpdf.html2pdf.html;
 
-import com.itextpdf.html2pdf.html.node.IDocument;
+import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import java.io.IOException;
 import java.io.InputStream;
 
 public interface IHtmlParser {
 
-    IDocument parse(InputStream htmlStream, String charset) throws IOException;
+    IDocumentNode parse(InputStream htmlStream, String charset) throws IOException;
 
-    IDocument parse(String html);
+    IDocumentNode parse(String html);
 
 }

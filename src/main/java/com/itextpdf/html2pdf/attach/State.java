@@ -68,7 +68,7 @@ public class State {
     }
 
     public boolean empty() {
-        return stack.empty();
+        return stack.size() == 0;
     }
 
 }

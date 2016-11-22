@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.css.selector.item;
 
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 
 public class CssIdSelectorItem implements ICssSelectorItem {
 
@@ -59,7 +59,7 @@ public class CssIdSelectorItem implements ICssSelectorItem {
     }
 
     @Override
-    public boolean matches(IElement element) {
+    public boolean matches(IElementNode element) {
         return id.equals(element.getAttribute(AttributeConstants.ID));
     }
 

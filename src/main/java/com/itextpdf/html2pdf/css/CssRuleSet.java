@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.selector.CssSelector;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -66,7 +66,7 @@ public class CssRuleSet extends CssStatement {
     }
 
     @Override
-    public List<CssRuleSet> getCssRuleSets(IElement element, MediaDeviceDescription deviceDescription) {
+    public List<CssRuleSet> getCssRuleSets(IElementNode element, MediaDeviceDescription deviceDescription) {
         if (selector.matches(element)) {
             return Collections.singletonList(this);
         } else {

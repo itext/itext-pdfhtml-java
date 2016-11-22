@@ -48,7 +48,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
 import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
 import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
@@ -56,12 +56,12 @@ import com.itextpdf.layout.property.Property;
 public class LiTagCssApplier extends BlockCssApplier {
 
     @Override
-    public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
+    public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
         super.apply(context, element, tagWorker);
         IPropertyContainer propertyContainer = tagWorker.getElementResult();
 
         if (propertyContainer != null) {
-            boolean parentIsDl = element.parentNode() instanceof IElement && TagConstants.DL.equals(((IElement) element.parentNode()).name());
+            boolean parentIsDl = element.parentNode() instanceof IElementNode && TagConstants.DL.equals(((IElementNode) element.parentNode()).name());
             if (CssConstants.INSIDE.equals(element.getStyles().get(CssConstants.LIST_STYLE_POSITION)) || parentIsDl) {
                 propertyContainer.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
             } else {

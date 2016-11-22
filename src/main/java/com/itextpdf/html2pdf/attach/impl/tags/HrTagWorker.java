@@ -44,24 +44,21 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.kernel.pdf.PdfName;
-import com.itextpdf.kernel.pdf.canvas.draw.SolidLine;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.LineSeparator;
 
 public class HrTagWorker implements ITagWorker{
 
     Div div = new Div();
 
-    public HrTagWorker(IElement element, ProcessorContext context) {
+    public HrTagWorker(IElementNode element, ProcessorContext context) {
         div.setRole(PdfName.Artifact);
     }
 
     @Override
-    public void processEnd(IElement element, ProcessorContext context) {
+    public void processEnd(IElementNode element, ProcessorContext context) {
     }
 
     @Override

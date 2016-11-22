@@ -46,7 +46,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.ILeafElement;
@@ -58,13 +58,13 @@ public class LiTagWorker implements ITagWorker {
     protected ListItem listItem;
     private WaitingInlineElementsHelper inlineHelper;
 
-    public LiTagWorker(IElement element, ProcessorContext context) {
+    public LiTagWorker(IElementNode element, ProcessorContext context) {
         listItem = new ListItem();
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
     @Override
-    public void processEnd(IElement element, ProcessorContext context) {
+    public void processEnd(IElementNode element, ProcessorContext context) {
         inlineHelper.flushHangingLeaves(listItem);
     }
 

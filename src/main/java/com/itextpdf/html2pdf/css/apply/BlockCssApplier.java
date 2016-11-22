@@ -45,16 +45,15 @@ package com.itextpdf.html2pdf.css.apply;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.util.*;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class BlockCssApplier implements ICssApplier {
 
     @Override
-    public void apply(ProcessorContext context, IElement element, ITagWorker tagWorker) {
+    public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
         Map<String, String> cssProps = element.getStyles();
 
         IPropertyContainer container = tagWorker.getElementResult();

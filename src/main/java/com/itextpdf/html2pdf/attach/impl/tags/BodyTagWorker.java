@@ -44,19 +44,19 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 
 public class BodyTagWorker implements ITagWorker {
 
     private ITagWorker parentTagWorker;
 
-    public BodyTagWorker(IElement element, ProcessorContext context) {
+    public BodyTagWorker(IElementNode element, ProcessorContext context) {
         parentTagWorker = context.getState().empty() ? null : context.getState().top();
     }
 
     @Override
-    public void processEnd(IElement element, ProcessorContext context) {
+    public void processEnd(IElementNode element, ProcessorContext context) {
     }
 
     @Override

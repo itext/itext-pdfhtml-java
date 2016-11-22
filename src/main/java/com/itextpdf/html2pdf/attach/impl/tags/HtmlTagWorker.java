@@ -46,7 +46,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
@@ -59,13 +59,13 @@ public class HtmlTagWorker implements ITagWorker {
     private Document document;
     private WaitingInlineElementsHelper inlineHelper;
 
-    public HtmlTagWorker(IElement element, ProcessorContext context) {
+    public HtmlTagWorker(IElementNode element, ProcessorContext context) {
         document = new Document(context.getPdfDocument(), PageSize.A4);
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
     @Override
-    public void processEnd(IElement element, ProcessorContext context) {
+    public void processEnd(IElementNode element, ProcessorContext context) {
         inlineHelper.flushHangingLeaves(document);
     }
 

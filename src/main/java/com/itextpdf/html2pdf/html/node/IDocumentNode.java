@@ -42,5 +42,5 @@
  */
 package com.itextpdf.html2pdf.html.node;
 
-public interface IDocumentType extends INode {
+public interface IDocumentNode extends IElementNode {
 }

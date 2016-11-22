@@ -42,12 +42,12 @@
  */
 package com.itextpdf.html2pdf.attach;
 
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 
 public interface ITagWorker {
 
-    void processEnd(IElement element, ProcessorContext context);
+    void processEnd(IElementNode element, ProcessorContext context);
 
     /**
      * @param content

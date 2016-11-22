@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 
@@ -54,13 +54,13 @@ public class TrTagWorker implements ITagWorker {
     private TableRowWrapper rowWrapper;
     private ITagWorker parentTagWorker;
 
-    public TrTagWorker(IElement element, ProcessorContext context) {
+    public TrTagWorker(IElementNode element, ProcessorContext context) {
         rowWrapper = new TableRowWrapper();
         parentTagWorker = context.getState().empty() ? null : context.getState().top();
     }
 
     @Override
-    public void processEnd(IElement element, ProcessorContext context) {
+    public void processEnd(IElementNode element, ProcessorContext context) {
 
     }
 

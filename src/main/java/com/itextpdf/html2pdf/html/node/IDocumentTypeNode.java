@@ -40,14 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html.impl.jsoup.node;
+package com.itextpdf.html2pdf.html.node;
 
-import com.itextpdf.html2pdf.html.node.IDocumentType;
-
-public class JsoupDocumentType extends JsoupNode implements IDocumentType {
-
-    public JsoupDocumentType(org.jsoup.nodes.DocumentType node) {
-        super(node);
-    }
-
+public interface IDocumentTypeNode extends INode {
 }

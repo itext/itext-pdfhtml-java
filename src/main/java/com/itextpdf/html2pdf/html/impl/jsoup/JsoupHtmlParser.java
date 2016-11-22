@@ -44,11 +44,11 @@ package com.itextpdf.html2pdf.html.impl.jsoup;
 
 import com.itextpdf.html2pdf.html.IHtmlParser;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupDataNode;
-import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupDocument;
-import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupDocumentType;
-import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElement;
+import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupDocumentNode;
+import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupDocumentTypeNode;
+import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupTextNode;
-import com.itextpdf.html2pdf.html.node.IDocument;
+import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.DataNode;
@@ -68,25 +68,25 @@ public class JsoupHtmlParser implements IHtmlParser {
     private static Logger logger = LoggerFactory.getLogger(JsoupHtmlParser.class);
 
     @Override
-    public IDocument parse(InputStream htmlStream, String charset) throws IOException {
+    public IDocumentNode parse(InputStream htmlStream, String charset) throws IOException {
         // Based on some brief investigations, it seems that Jsoup uses baseUri for resolving relative uri's into absolute
         // on user demand. We perform such resolving in ResourceResolver class, therefore it is not needed here.
         String baseUri = "";
         org.jsoup.nodes.Document doc = Jsoup.parse(htmlStream, charset, baseUri);
         INode result = wrapJsoupHierarchy(doc);
-        if (result instanceof IDocument) {
-            return (IDocument) result;
+        if (result instanceof IDocumentNode) {
+            return (IDocumentNode) result;
         } else {
             throw new IllegalStateException();
         }
     }
 
     @Override
-    public IDocument parse(String html) {
+    public IDocumentNode parse(String html) {
         org.jsoup.nodes.Document doc = Jsoup.parse(html);
         INode result = wrapJsoupHierarchy(doc);
-        if (result instanceof IDocument) {
-            return (IDocument) result;
+        if (result instanceof IDocumentNode) {
+            return (IDocumentNode) result;
         } else {
             throw new IllegalStateException();
         }
@@ -95,15 +95,15 @@ public class JsoupHtmlParser implements IHtmlParser {
     private INode wrapJsoupHierarchy(org.jsoup.nodes.Node jsoupNode) {
         INode resultNode = null;
         if (jsoupNode instanceof org.jsoup.nodes.Document) {
-            resultNode = new JsoupDocument((Document) jsoupNode) ;
+            resultNode = new JsoupDocumentNode((Document) jsoupNode) ;
         } else if (jsoupNode instanceof org.jsoup.nodes.TextNode) {
             resultNode = new JsoupTextNode((TextNode) jsoupNode);
         } else if (jsoupNode instanceof org.jsoup.nodes.Element) {
-            resultNode = new JsoupElement((Element) jsoupNode);
+            resultNode = new JsoupElementNode((Element) jsoupNode);
         } else if (jsoupNode instanceof org.jsoup.nodes.DataNode) {
             resultNode = new JsoupDataNode((DataNode) jsoupNode);
         } else if (jsoupNode instanceof org.jsoup.nodes.DocumentType) {
-            resultNode = new JsoupDocumentType((DocumentType) jsoupNode);
+            resultNode = new JsoupDocumentTypeNode((DocumentType) jsoupNode);
         } else if (jsoupNode instanceof org.jsoup.nodes.Comment) {
         } else {
             logger.error(MessageFormat.format("Could not map node type: {0}", jsoupNode.getClass()));

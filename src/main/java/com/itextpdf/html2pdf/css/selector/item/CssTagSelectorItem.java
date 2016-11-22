@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 
 public class CssTagSelectorItem implements ICssSelectorItem {
 
@@ -60,7 +60,7 @@ public class CssTagSelectorItem implements ICssSelectorItem {
     }
 
     @Override
-    public boolean matches(IElement element) {
+    public boolean matches(IElementNode element) {
         return isUniversal || tagName.equals(element.name());
     }
 

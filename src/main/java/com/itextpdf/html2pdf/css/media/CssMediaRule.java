@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.css.media;
 import com.itextpdf.html2pdf.css.CssNestedAtRule;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.CssStatement;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class CssMediaRule extends CssNestedAtRule {
     }
 
     @Override
-    public List<CssRuleSet> getCssRuleSets(IElement element, MediaDeviceDescription deviceDescription) {
+    public List<CssRuleSet> getCssRuleSets(IElementNode element, MediaDeviceDescription deviceDescription) {
         List<CssRuleSet> result = new ArrayList<>();
         for (MediaQuery mediaQuery : mediaQueries) {
             if (mediaQuery.matches(deviceDescription)) {

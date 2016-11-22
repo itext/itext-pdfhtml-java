@@ -42,19 +42,45 @@
  */
 package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
-import com.itextpdf.html2pdf.html.node.IDocument;
+import com.itextpdf.html2pdf.html.node.IAttributes;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 
-public class JsoupDocument extends JsoupElement implements IDocument {
+import java.util.Map;
 
-    private org.jsoup.nodes.Document document;
+public class JsoupElementNode extends JsoupNode implements IElementNode {
 
-    public JsoupDocument(org.jsoup.nodes.Document document) {
-        super(document);
-        this.document = document;
+    private org.jsoup.nodes.Element element;
+    private IAttributes attributes;
+    private Map<String, String> elementResolvedStyles;
+
+    public JsoupElementNode(org.jsoup.nodes.Element element) {
+        super(element);
+        this.element = element;
+        this.attributes = new JsoupAttributes(element.attributes());
     }
 
-    public org.jsoup.nodes.Document getDocument() {
-        return document;
+    @Override
+    public String name() {
+        return element.nodeName();
     }
 
+    public IAttributes getAttributes() {
+        return attributes;
+    }
+
+    @Override
+    public String getAttribute(String key) {
+        return attributes.getAttribute(key);
+    }
+
+	@Override
+    public void setStyles(Map<String, String> elementResolvedStyles) {
+        this.elementResolvedStyles = elementResolvedStyles;
+    }
+
+    @Override
+    public Map<String, String> getStyles() {
+        return this.elementResolvedStyles;
+    }
 }
+

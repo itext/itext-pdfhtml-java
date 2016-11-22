@@ -50,7 +50,7 @@ import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IAttribute;
-import com.itextpdf.html2pdf.html.node.IElement;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.io.util.ResourceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,7 +90,7 @@ class HtmlStylesToCssConverter {
 //        htmlAttributeConverters.put("height", );
     }
 
-    public static List<CssDeclaration> convert(IElement element) {
+    public static List<CssDeclaration> convert(IElementNode element) {
         List<CssDeclaration> convertedHtmlStyles = new ArrayList<>();
         List<CssDeclaration> tagCssStyles = defaultCss.getCssDeclarations(element, MediaDeviceDescription.createDefault());
         if (tagCssStyles != null) {
