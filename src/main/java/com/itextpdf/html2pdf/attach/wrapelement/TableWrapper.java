@@ -113,7 +113,6 @@ public class TableWrapper implements IWrapElement {
 
     public Table toTable() {
 
-        //@TODO Refactor this part when the DEVSIX-905 is done
         List<UnitValue> maxWidths = new LinkedList<>();
         if (rows != null) {
             calculateMaxWidths(rows, maxWidths);
@@ -170,8 +169,7 @@ public class TableWrapper implements IWrapElement {
 
     private void calculateMaxWidths(List<List<Cell>> rows, List<UnitValue> maxWidths) {
         int maxRowSize = 1;
-        for (int i = 0; i < rows.size(); i++) {
-            List<Cell> row = rows.get(i);
+        for (List<Cell> row : rows) {
             maxRowSize = Math.max(maxRowSize, row.size());
             for (int j = 0; j < row.size(); j++) {
                 if (maxWidths.size() <= j) {
