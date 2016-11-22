@@ -47,7 +47,6 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.UnitValue;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class TableWrapper implements IWrapElement {
@@ -112,8 +111,7 @@ public class TableWrapper implements IWrapElement {
     }
 
     public Table toTable() {
-
-        List<UnitValue> maxWidths = new LinkedList<>();
+        List<UnitValue> maxWidths = new ArrayList<>();
         if (rows != null) {
             calculateMaxWidths(rows, maxWidths);
         }

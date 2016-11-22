@@ -97,7 +97,7 @@ public class HtmlConverter {
     }
 
     public static void convertToPdf(File htmlFile, File pdfFile, MediaDeviceDescription deviceDescription) throws IOException {
-        convertToPdf(new FileInputStream(htmlFile), new FileOutputStream(pdfFile), htmlFile.getParent() + File.separator, deviceDescription);
+        convertToPdf(new FileInputStream(htmlFile.getAbsolutePath()), new FileOutputStream(pdfFile.getAbsolutePath()), htmlFile.getParent() + File.separator, deviceDescription);
     }
 
     public static void convertToPdf(InputStream htmlStream, OutputStream pdfStream) throws IOException {

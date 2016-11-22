@@ -69,7 +69,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 public class DefaultCssResolver implements ICssResolver {
 
@@ -156,11 +155,11 @@ public class DefaultCssResolver implements ICssResolver {
 
     private INode collectCssDeclarations(INode rootNode, ResourceResolver resourceResolver) {
         cssStyleSheet = new CssStyleSheet();
-        Queue<INode> q = new LinkedList<>();
+        LinkedList<INode> q = new LinkedList<>();
         q.add(rootNode);
         while (!q.isEmpty()) {
-            INode currentNode = q.poll();
-
+            INode currentNode = q.getFirst();
+            q.removeFirst();
             if (currentNode instanceof IElementNode) {
                 IElementNode headChildElement = (IElementNode) currentNode;
                 if (headChildElement.name().equals(TagConstants.STYLE)) {
