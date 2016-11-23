@@ -49,9 +49,11 @@ import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.TagWorkerFactory;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.CssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
@@ -223,7 +225,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         if (node instanceof IElementNode) {
             IElementNode element = (IElementNode) node;
             element.setStyles(context.getCssResolver().resolveStyles(element));
-
+            if (!isDisplayable(element)) {
+                return;
+            }
             ITagWorker tagWorker = TagWorkerFactory.getTagWorker(element, context);
             if (tagWorker == null) {
                 // TODO for stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links
@@ -305,5 +309,12 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
     private IElementNode findBodyNode(INode node) {
         return findElement(node, TagConstants.BODY);
+    }
+
+    private static boolean isDisplayable(IElementNode element) {
+        if (element != null && element.getStyles() != null && CssConstants.NONE.equals(element.getStyles().get(CssConstants.DISPLAY))) {
+            return false;
+        }
+        return element != null;
     }
 }

@@ -86,6 +86,7 @@ public class CssConstants {
     public static final String COLOR = "color";
     public static final String COLSPAN = "colspan";
     public static final String DIRECTION = "direction";
+    public static final String DISPLAY = "display";
     public static final String EMPTY_CELLS = "empty-cells";
     public static final String FONT = "font";
     public static final String FONT_FAMILY = "font-family";

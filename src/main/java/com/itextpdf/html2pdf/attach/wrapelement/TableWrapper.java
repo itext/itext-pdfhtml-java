@@ -180,7 +180,7 @@ public class TableWrapper implements IWrapElement {
                 } else {
                     UnitValue maxWidth = maxWidths.get(j);
                     UnitValue width = row.get(j).getWidth();
-                    if (width != null && width.getValue() > maxWidth.getValue()) {
+                    if (width != null && (maxWidth == null || width.getValue() > maxWidth.getValue())) {
                         maxWidths.set(j, width);
                     }
                 }
