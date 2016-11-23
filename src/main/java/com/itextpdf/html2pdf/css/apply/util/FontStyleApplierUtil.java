@@ -47,13 +47,19 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
-import com.itextpdf.layout.ElementPropertyContainer;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.property.*;
+import com.itextpdf.layout.property.BaseDirection;
+import com.itextpdf.layout.property.Leading;
+import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.Underline;
+import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public final class FontStyleApplierUtil {
@@ -109,27 +115,25 @@ public final class FontStyleApplierUtil {
         }
 
         String textDecorationProp = cssProps.get(CssConstants.TEXT_DECORATION);
-        ElementPropertyContainer elementPropertyContainer = null;
-        if (element instanceof ElementPropertyContainer) {
-            elementPropertyContainer = (ElementPropertyContainer) element;
-        }
-        if (elementPropertyContainer != null && textDecorationProp != null) {
+        if (textDecorationProp != null) {
             String[] textDecorations = textDecorationProp.split("\\s+");
+            List<Underline> underlineList = new ArrayList<>();
             for (String textDecoration : textDecorations) {
                 if (CssConstants.BLINK.equals(textDecoration)) {
                     logger.error("text-decoration: blink not supported");
                 } else if (CssConstants.LINE_THROUGH.equals(textDecoration)) {
-                    elementPropertyContainer.setUnderline(null, .75f, 0, 0, 1 / 4f, PdfCanvasConstants.LineCapStyle.BUTT);
+                    underlineList.add(new Underline(null, .75f, 0, 0, 1 / 4f, PdfCanvasConstants.LineCapStyle.BUTT));
                 } else if (CssConstants.OVERLINE.equals(textDecoration)) {
-                    elementPropertyContainer.setUnderline(null, .75f, 0, 0, 9 / 10f, PdfCanvasConstants.LineCapStyle.BUTT);
+                    underlineList.add(new Underline(null, .75f, 0, 0, 9 / 10f, PdfCanvasConstants.LineCapStyle.BUTT));
                 } else if (CssConstants.UNDERLINE.equals(textDecoration)) {
-                    elementPropertyContainer.setUnderline(null, .75f, 0, 0, -1 / 10f, PdfCanvasConstants.LineCapStyle.BUTT);
+                    underlineList.add(new Underline(null, .75f, 0, 0, -1 / 10f, PdfCanvasConstants.LineCapStyle.BUTT));
                 } else if (CssConstants.NONE.equals(textDecoration)) {
-                    elementPropertyContainer.setProperty(Property.UNDERLINE, null);
+                    underlineList = null;
                     // if none and any other decoration are used together, none is displayed
                     break;
                 }
             }
+            element.setProperty(Property.UNDERLINE, underlineList);
         }
 
         String textIndent = cssProps.get(CssConstants.TEXT_INDENT);
