@@ -375,6 +375,14 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
     }
 
     private boolean setsAreEqual(Set<String> expectedStyles, Set<String> actualStyles) {
-        return expectedStyles.size() == actualStyles.size() && expectedStyles.containsAll(actualStyles);
+        boolean sizesEqual = expectedStyles.size() == actualStyles.size();
+        boolean elementsEqual = true;
+        for (String str : actualStyles) {
+            if (!expectedStyles.contains(str)) {
+                elementsEqual = false;
+                break;
+            }
+        }
+        return sizesEqual && elementsEqual;
     }
 }
