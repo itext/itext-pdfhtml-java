@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css.selector.item;
 
 import com.itextpdf.html2pdf.html.node.IElementNode;
+
 import java.text.MessageFormat;
 import java.util.regex.Pattern;
 
@@ -100,7 +101,7 @@ public class CssAttributeSelectorItem implements ICssSelectorItem {
                     return attributeValue.endsWith(value);
                 case '~':
                     String pattern = String.format("(^%s\\s+)|(\\s+%s\\s+)|(\\s+%s$)", value, value, value);
-                    return Pattern.compile(pattern).matcher(attributeValue).find();
+                    return Pattern.compile(pattern).matcher(attributeValue).matches();
                 case '*':
                     return attributeValue.contains(value);
                 default:

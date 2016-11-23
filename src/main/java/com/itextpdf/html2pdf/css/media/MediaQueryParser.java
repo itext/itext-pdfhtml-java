@@ -44,7 +44,6 @@ package com.itextpdf.html2pdf.css.media;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public final class MediaQueryParser {
 
@@ -64,7 +63,7 @@ public final class MediaQueryParser {
     }
 
     public static MediaQuery parseMediaQuery(String mediaQueryStr) {
-        mediaQueryStr = mediaQueryStr.trim().toLowerCase(Locale.US);
+        mediaQueryStr = mediaQueryStr.trim().toLowerCase();
         boolean only = false;
         boolean not = false;
         if (mediaQueryStr.startsWith(MediaRuleConstants.ONLY)) {
