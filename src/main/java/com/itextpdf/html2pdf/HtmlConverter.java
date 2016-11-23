@@ -49,6 +49,7 @@ import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.html.IHtmlParser;
 import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
 import com.itextpdf.html2pdf.html.node.IDocumentNode;
+import com.itextpdf.io.util.FileUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -97,7 +98,7 @@ public class HtmlConverter {
     }
 
     public static void convertToPdf(File htmlFile, File pdfFile, MediaDeviceDescription deviceDescription) throws IOException {
-        convertToPdf(new FileInputStream(htmlFile.getAbsolutePath()), new FileOutputStream(pdfFile.getAbsolutePath()), htmlFile.getParent() + File.separator, deviceDescription);
+        convertToPdf(new FileInputStream(htmlFile.getAbsolutePath()), new FileOutputStream(pdfFile.getAbsolutePath()), FileUtil.getParentDirectory(htmlFile.getAbsolutePath()) + File.separator, deviceDescription);
     }
 
     public static void convertToPdf(InputStream htmlStream, OutputStream pdfStream) throws IOException {
