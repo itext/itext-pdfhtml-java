@@ -45,7 +45,6 @@ package com.itextpdf.html2pdf.css.apply.util;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.layout.ElementPropertyContainer;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
@@ -75,12 +74,7 @@ public final class WidthHeightApplierUtil {
             if (!CssConstants.AUTO.equals(heightVal)) {
                 UnitValue height = CssUtils.parseLengthValueToPt(heightVal, em);
                 if (height.isPointValue()) {
-                    if (element instanceof ElementPropertyContainer) { // TODO will cause issues while porting to .NET
-                        // needed for the specific processing of setHeight in blocks
-                        ((ElementPropertyContainer) element).setHeight(height.getValue());
-                    } else {
-                        element.setProperty(Property.HEIGHT, height.getValue());
-                    }
+                    element.setProperty(Property.HEIGHT, height.getValue());
                 } else {
                     logger.error(HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 }
