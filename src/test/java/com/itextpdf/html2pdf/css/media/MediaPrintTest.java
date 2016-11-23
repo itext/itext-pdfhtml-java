@@ -46,25 +46,27 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 @Category(IntegrationTest.class)
 public abstract class MediaPrintTest extends ITextTest {
-    public final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/media/print/" + getFolderName() + "/";
-    public final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/media/print/" + getFolderName() + "/";
+    public static final String baseSourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/media/print/";
+    public static final String baseDestinationFolder = "./target/test/com/itextpdf/html2pdf/css/media/print/";
+
+    private String sourceFolder;
+    private String destinationFolder;
 
     public abstract String getFolderName();
 
     @Before
     public void before() {
+        sourceFolder = baseSourceFolder + getFolderName() + "/";
+        destinationFolder = baseDestinationFolder + getFolderName() + "/";
         createDestinationFolder(destinationFolder);
     }
 

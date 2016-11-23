@@ -76,7 +76,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
         Assert.assertTrue(lst.get(0) instanceof Paragraph);
         Paragraph p = (Paragraph) lst.get(0);
         Assert.assertEquals("Hello world!", ((Text)p.getChildren().get(0)).getText());
-        Assert.assertEquals(12f, p.getProperty(Property.FONT_SIZE));
+        Assert.assertEquals(12f, (float)(Object)p.<Float>getProperty(Property.FONT_SIZE), 1e-10);
     }
 
     @Test
@@ -88,7 +88,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
         Table t = (Table) lst.get(0);
         Assert.assertTrue(t.getNumberOfRows() == 2);
         Assert.assertEquals("123", ((Text)(((Paragraph)t.getCell(0, 0).getChildren().get(0)).getChildren().get(0))).getText());
-        Assert.assertEquals(24f, t.getProperty(Property.FONT_SIZE));
+        Assert.assertEquals(24f, (float)(Object)t.<Float>getProperty(Property.FONT_SIZE), 1e-10);
     }
 
     @Test

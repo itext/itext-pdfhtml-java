@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
 import com.itextpdf.io.util.ResourceUtil;
+import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 import org.junit.Assert;
@@ -51,10 +52,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Scanner;
 
 @Category(UnitTest.class)
 public class CssStyleSheetParserTest extends ExtendedITextTest {
@@ -150,7 +149,8 @@ public class CssStyleSheetParserTest extends ExtendedITextTest {
     }
 
     private String getCssFileContents(String filePath) throws IOException {
-        String content = new Scanner(new File(filePath)).useDelimiter("\\Z").next();
+        byte[] bytes = StreamUtil.inputStreamToArray(new FileInputStream(filePath));
+        String content = new String(bytes);
         content = content.trim();
         content = content.replace("\r\n", "\n");
         return content;
