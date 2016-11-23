@@ -66,9 +66,11 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class DefaultCssResolver implements ICssResolver {
 
@@ -127,11 +129,15 @@ public class DefaultCssResolver implements ICssResolver {
             }
         }
 
+        Set<String> keys = new HashSet<>();
         for (Map.Entry<String, String> entry : elementStyles.entrySet()) {
             if (CssConstants.INITIAL.equals(entry.getValue())
                     || CssConstants.INHERIT.equals(entry.getValue())) { // if "inherit" is not resolved till now, parents don't have it
-                mergeCssDeclaration(elementStyles, entry.getKey(), CssDefaults.getDefaultValue(entry.getKey()));
+                keys.add(entry.getKey());
             }
+        }
+        for (String key : keys) {
+            mergeCssDeclaration(elementStyles, key, CssDefaults.getDefaultValue(key));
         }
 
         return elementStyles;

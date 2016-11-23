@@ -53,14 +53,14 @@ import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.List;
 
 @Category(UnitTest.class)
 public class MediaRuleTest extends ExtendedITextTest {
@@ -105,7 +105,7 @@ public class MediaRuleTest extends ExtendedITextTest {
         List<CssDeclaration> declarations1 = css.getCssDeclarations(element, deviceDescription1);
         List<CssDeclaration> declarations2 = css.getCssDeclarations(element, deviceDescription2);
 
-        Assert.assertTrue(Objects.equals(declarations1, declarations2));
+        Assert.assertTrue(declarations1.equals(declarations2));
 
         Assert.assertEquals(1, declarations1.size());
         Assert.assertEquals("font-weight: bold", declarations1.get(0).toString());
@@ -189,7 +189,7 @@ public class MediaRuleTest extends ExtendedITextTest {
         List<CssDeclaration> declarations2 = css.getCssDeclarations(element, deviceDescription2);
         List<CssDeclaration> declarations3 = css.getCssDeclarations(element, deviceDescription3);
 
-        Assert.assertTrue(Objects.equals(declarations1, declarations2));
+        Assert.assertTrue(declarations1.equals(declarations2));
         Assert.assertEquals(0, declarations3.size());
 
         Assert.assertEquals(1, declarations1.size());

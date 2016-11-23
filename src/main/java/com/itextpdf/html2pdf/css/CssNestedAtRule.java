@@ -65,7 +65,8 @@ public class CssNestedAtRule extends CssAtRule {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(MessageFormat.format("@{0} {1} '{'", ruleName, ruleParameters));
+        sb.append(MessageFormat.format("@{0} {1} ", ruleName, ruleParameters));
+        sb.append("{");
         sb.append("\n");
         for (int i = 0; i < body.size(); i++) {
             sb.append("    ");
