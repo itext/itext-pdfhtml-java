@@ -99,7 +99,7 @@ public class CssUtils {
         int pos = determinePositionBetweenValueAndUnit(length);
         if (pos == 0)
             return 0f;
-        float f = Float.parseFloat(length.substring(0, pos) + "f");
+        float f = Float.parseFloat(length.substring(0, pos));
         String unit = length.substring(pos);
         // inches
         if (unit.startsWith(CssConstants.IN) || (unit.equals("") && defaultMetric.equals(CssConstants.IN))) {
@@ -145,7 +145,7 @@ public class CssUtils {
         int pos = determinePositionBetweenValueAndUnit(relativeValue);
         if (pos == 0)
             return 0f;
-        float f = Float.parseFloat(relativeValue.substring(0, pos) + "f");
+        float f = Float.parseFloat(relativeValue.substring(0, pos));
         String unit = relativeValue.substring(pos);
         if (unit.startsWith(CssConstants.PERCENTAGE)) {
             f = baseValue * f / 100;
@@ -179,7 +179,7 @@ public class CssUtils {
         int pos = determinePositionBetweenValueAndUnit(resolutionStr);
         if (pos == 0)
             return 0f;
-        float f = Float.parseFloat(resolutionStr.substring(0, pos) + "f");
+        float f = Float.parseFloat(resolutionStr.substring(0, pos));
         String unit = resolutionStr.substring(pos);
         if (unit.startsWith(CssConstants.DPCM)) {
             f *= 2.54f;
