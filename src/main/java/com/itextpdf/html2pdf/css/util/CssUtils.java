@@ -66,6 +66,9 @@ public class CssUtils {
     }
 
     public static Integer parseInteger(String str) {
+        if (str == null) {
+            return null;
+        }
         try {
             return Integer.valueOf(str);
         } catch (NumberFormatException exc) {
