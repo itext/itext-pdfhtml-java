@@ -69,7 +69,17 @@ public class WaitingInlineElementsHelper {
         if (!keepLineBreaks && collapseSpaces) {
             text = text.replaceAll("\\s+", " ");
         } else if (keepLineBreaks && collapseSpaces) {
-            text = text.replaceAll("[\\s&&[^\n]]+", " ");
+            StringBuilder sb = new StringBuilder(text.length());
+            for (int i = 0; i < text.length(); i++) {
+                if (TrimUtil.isNonLineBreakSpace(text.charAt(i))) {
+                    if (sb.length() == 0 || sb.charAt(sb.length() - 1) != ' ') {
+                        sb.append(" ");
+                    }
+                } else {
+                    sb.append(text.charAt(i));
+                }
+            }
+            text = sb.toString();
         }
 
         if (CssConstants.UPPERCASE.equals(textTransform)) {

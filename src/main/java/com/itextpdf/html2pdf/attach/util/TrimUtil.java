@@ -69,11 +69,15 @@ public final class TrimUtil {
         while (pos < waitingLeafs.size() - 1) {
             if (waitingLeafs.get(pos) instanceof Text) {
                 Text first = (Text) waitingLeafs.get(pos);
-                if (first.getText().matches(".*[\\s&&[^\n]]+$")) {
+                if (first.getText().length() > 0 && isNonLineBreakSpace(first.getText().charAt(first.getText().length() - 1))) {
                     while (pos + 1 < waitingLeafs.size() && waitingLeafs.get(pos + 1) instanceof Text) {
                         Text second = (Text) waitingLeafs.get(pos + 1);
-                        if (second.getText().matches("^[\\s&&[^\n]]+.*")) {
-                            second.setText(second.getText().replaceFirst("^[\\s&&[^\n]]+", ""));
+                        if (second.getText().length() > 0 && isNonLineBreakSpace(second.getText().charAt(0))) {
+                            int secondPos = 0;
+                            while (secondPos < second.getText().length() && isNonLineBreakSpace(second.getText().charAt(secondPos))) {
+                                secondPos++;
+                            }
+                            second.setText(second.getText().substring(secondPos));
                         }
                         if (second.getText().length() == 0) {
                             waitingLeafs.remove(pos + 1);
@@ -92,11 +96,17 @@ public final class TrimUtil {
     public static ILeafElement trimLeafElementFirst(ILeafElement leafElement) {
         if (leafElement instanceof Text) {
             Text text = (Text) leafElement;
-            if (text.getText().matches("^\\s+.*")) {
-                text.setText(text.getText().replaceFirst("^\\s+", ""));
+            int pos = 0;
+            while (pos < text.getText().length() && isNonLineBreakSpace(text.getText().charAt(pos))) {
+                pos++;
             }
+            text.setText(text.getText().substring(pos));
         }
         return leafElement;
+    }
+
+    static boolean isNonLineBreakSpace(char ch) {
+        return Character.isWhitespace(ch) && ch != '\n';
     }
 
 }
