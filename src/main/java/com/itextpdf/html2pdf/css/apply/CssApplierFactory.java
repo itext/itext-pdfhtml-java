@@ -51,20 +51,37 @@ public class CssApplierFactory {
         switch (tag) {
             case TagConstants.A:
                 return new SpanTagCssApplier();
+            case TagConstants.ARTICLE:
+                return new BlockCssApplier();
+            case TagConstants.B:
+                return new SpanTagCssApplier();
+            case TagConstants.ASIDE:
+                return new BlockCssApplier();
+            case TagConstants.BLOCKQUOTE:
+                return new BlockCssApplier();
             case TagConstants.BODY:
                 return new BodyTagCssApplier();
+            case TagConstants.CITE:
+            case TagConstants.CODE:
+            case TagConstants.EM:
+                return new SpanTagCssApplier();
             case TagConstants.DT:
             case TagConstants.DD:
             case TagConstants.DIV:
+            case TagConstants.FOOTER:
             case TagConstants.H1:
             case TagConstants.H2:
             case TagConstants.H3:
             case TagConstants.H4:
             case TagConstants.H5:
             case TagConstants.H6:
+            case TagConstants.HEADER:
             case TagConstants.HR:
             case TagConstants.IMG:
+            case TagConstants.MAIN:
+            case TagConstants.NAV:
             case TagConstants.P:
+            case TagConstants.SECTION:
             case TagConstants.TABLE:
             case TagConstants.TFOOT:
             case TagConstants.THEAD:
@@ -73,16 +90,32 @@ public class CssApplierFactory {
                 return new DlTagCssApplier();
             case TagConstants.HTML:
                 return new HtmlTagCssApplier();
+            case TagConstants.I:
+                return new SpanTagCssApplier();
             case TagConstants.LI:
                 return new LiTagCssApplier();
             case TagConstants.OL:
                 return new UlOlTagCssApplier();
+            case TagConstants.PRE:
+                return new BlockCssApplier();
+            case TagConstants.Q:
+                return new SpanTagCssApplier();
+            case TagConstants.SMALL:
+                return new SpanTagCssApplier();
 			case TagConstants.SPAN:
                 return new SpanTagCssApplier();
             case TagConstants.STRIKE:
                 return new SpanTagCssApplier();
+            case TagConstants.STRONG:
+                return new SpanTagCssApplier();
+            case TagConstants.SUB:
+            case TagConstants.SUP:
+                return new SpanTagCssApplier();
             case TagConstants.TD:
+            case TagConstants.TH:
                 return new TdTagCssApplier();
+            case TagConstants.TIME:
+                return new SpanTagCssApplier();
             case TagConstants.U:
                 return new SpanTagCssApplier();
             case TagConstants.UL:

@@ -125,6 +125,8 @@ public class CssConstants {
     public static final String MIN_HEIGHT = "min-height";
     public static final String OPACITY = "opacity";
     public static final String OUTLINE = "outline";
+    public static final String OUTLINE_COLOR = "outline-color";
+    public static final String OUTLINE_STYLE = "outline-style";
     public static final String OVERFLOW_WRAP = "overflow-wrap";
     public static final String PADDING = "padding";
     public static final String PADDING_BOTTOM = "padding-bottom";
@@ -191,6 +193,7 @@ public class CssConstants {
     public static final String INITIAL = "initial";
     public static final String INSET = "inset";
     public static final String INSIDE = "inside";
+    public static final String INVERT = "invert";
     public static final String ITALIC = "italic";
     public static final String LARGE = "large";
     public static final String LARGER = "larger";

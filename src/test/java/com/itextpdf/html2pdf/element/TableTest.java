@@ -43,8 +43,11 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -117,6 +120,21 @@ public class TableTest extends ExtendedITextTest {
     public void textInTableAndRowTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "textInTableAndRow.html"), new File(destinationFolder + "textInTableAndRow.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textInTableAndRow.pdf", sourceFolder + "cmp_textInTableAndRow.pdf", destinationFolder, "diff09_"));
+    }
+
+    @Test
+    public void thTagTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "thTag.html"), new File(destinationFolder + "thTag.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "thTag.pdf", sourceFolder + "cmp_thTag.pdf", destinationFolder, "diff10_"));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG)
+    })
+    public void captionTagTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "captionTag.html"), new File(destinationFolder + "captionTag.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "captionTag.pdf", sourceFolder + "cmp_captionTag.pdf", destinationFolder, "diff11_"));
     }
 
 }

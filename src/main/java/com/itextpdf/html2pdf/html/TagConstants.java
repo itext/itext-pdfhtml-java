@@ -46,20 +46,26 @@ public final class TagConstants {
 
     private TagConstants() {
     }
-
     public static final String A = "a";
+    public static final String ARTICLE = "article";
+    public static final String ASIDE = "aside";
     public static final String B = "b";
     public static final String BIG = "big";
+    public static final String BLOCKQUOTE = "blockquote";
     public static final String BODY = "body";
 	public static final String BR = "br";
     public static final String CENTER = "center";
+    public static final String CITE = "cite";
+    public static final String CODE = "code";
     public static final String COL = "col";
     public static final String COLGROUP = "colgroup";
     public static final String DD = "dd";
     public static final String DL = "dl";
     public static final String DT = "dt";
     public static final String DIV = "div";
+    public static final String EM = "em";
     public static final String FONT = "font";
+    public static final String FOOTER = "footer";
     public static final String H1 = "h1";
     public static final String H2 = "h2";
     public static final String H3 = "h3";
@@ -68,17 +74,25 @@ public final class TagConstants {
     public static final String H6 = "h6";
     public static final String HR = "hr";
     public static final String HEAD = "head";
+    public static final String HEADER = "header";
     public static final String HTML = "html";
     public static final String I = "i";
     public static final String IMG = "img";
     public static final String LI = "li";
     public static final String LINK = "link";
+    public static final String MAIN = "main";
     public static final String MARQUEE = "marquee";
+    public static final String META = "meta";
+    public static final String NAV = "nav";
     public static final String OL = "ol";
     public static final String P = "p";
+    public static final String PRE = "pre";
+    public static final String Q = "q";
+    public static final String SECTION = "section";
     public static final String SMALL = "small";
     public static final String SPAN = "span";
     public static final String STRIKE = "strike";
+    public static final String STRONG = "strong";
     public static final String STYLE = "style";
     public static final String SUB = "sub";
     public static final String SUP = "sup";
@@ -88,6 +102,7 @@ public final class TagConstants {
     public static final String TFOOT = "tfoot";
     public static final String TH = "th";
     public static final String THEAD = "thead";
+    public static final String TIME = "time";
     public static final String TITLE = "title";
     public static final String TR = "tr";
     public static final String U = "u";

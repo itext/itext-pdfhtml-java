@@ -53,10 +53,20 @@ public class TagWorkerFactory {
         switch (tag.name()) {
             case TagConstants.A:
                 return new ATagWorker(tag, context);
+            case TagConstants.ARTICLE:
+            case TagConstants.ASIDE:
+                return new DivTagWorker(tag, context);
+            case TagConstants.B:
+                return new SpanTagWorker(tag, context);
+            case TagConstants.BLOCKQUOTE:
+                return new DivTagWorker(tag, context);
             case TagConstants.BODY:
                 return new BodyTagWorker(tag, context);
             case TagConstants.BR:
                 return new BrTagWorker(tag, context);
+            case TagConstants.CITE:
+            case TagConstants.CODE:
+                return new SpanTagWorker(tag, context);
             case TagConstants.DIV:
                 return new DivTagWorker(tag, context);
             case TagConstants.DD:
@@ -65,12 +75,28 @@ public class TagWorkerFactory {
                 return new DlTagWorker(tag, context);
             case TagConstants.DT:
                 return new DtTagWorker(tag, context);
+            case TagConstants.EM:
+                return new SpanTagWorker(tag, context);
+            case TagConstants.FOOTER:
+                return new DivTagWorker(tag, context);
+            case TagConstants.HEADER:
+                return new DivTagWorker(tag, context);
+            case TagConstants.HR:
+                return new HrTagWorker(tag, context);
             case TagConstants.HTML:
                 return new HtmlTagWorker(tag, context);
+            case TagConstants.I:
+                return new SpanTagWorker(tag, context);
             case TagConstants.IMG:
                 return new ImgTagWorker(tag, context);
             case TagConstants.LI:
                 return new LiTagWorker(tag, context);
+            case TagConstants.MAIN:
+                return new DivTagWorker(tag, context);
+            case TagConstants.META:
+                return new MetaTagWorker(tag, context);
+            case TagConstants.NAV:
+                return new DivTagWorker(tag, context);
             case TagConstants.OL:
                 return new UlOlTagWorker(tag, context);
             case TagConstants.H1:
@@ -81,11 +107,22 @@ public class TagWorkerFactory {
             case TagConstants.H6:
             case TagConstants.P:
                 return new PTagWorker(tag, context);
-            case TagConstants.HR:
-                return new HrTagWorker(tag, context);
+            case TagConstants.PRE:
+                return new PTagWorker(tag, context);
+            case TagConstants.Q:
+                return new SpanTagWorker(tag, context);
+            case TagConstants.SECTION:
+                return new DivTagWorker(tag, context);
+            case TagConstants.SMALL:
+                return new SpanTagWorker(tag, context);
             case TagConstants.SPAN:
                 return new SpanTagWorker(tag, context);
             case TagConstants.STRIKE:
+                return new SpanTagWorker(tag, context);
+            case TagConstants.STRONG:
+                return new SpanTagWorker(tag, context);
+            case TagConstants.SUB:
+            case TagConstants.SUP:
                 return new SpanTagWorker(tag, context);
             case TagConstants.TABLE:
                 return new TableTagWorker(tag, context);
@@ -97,9 +134,12 @@ public class TagWorkerFactory {
                 TableTagWorker headerTagWorker = new TableTagWorker(tag, context);
                 headerTagWorker.setHeader();
                 return headerTagWorker;
+            case TagConstants.TIME:
+                return new SpanTagWorker(tag, context);
             case TagConstants.TITLE:
                 return new TitleTagWorker(tag, context);
             case TagConstants.TD:
+            case TagConstants.TH:
                 return new TdTagWorker(tag, context);
             case TagConstants.TR:
                 return new TrTagWorker(tag, context);
