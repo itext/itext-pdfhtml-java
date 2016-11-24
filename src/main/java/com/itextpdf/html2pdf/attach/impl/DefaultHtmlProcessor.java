@@ -94,6 +94,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     private static final Set<String> ignoredCssTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
             TagConstants.BR,
             TagConstants.TITLE,
+            TagConstants.META,
             // Content from <tr> is thrown upwards to parent, in other cases css is inherited anyway
             TagConstants.TR)));
 

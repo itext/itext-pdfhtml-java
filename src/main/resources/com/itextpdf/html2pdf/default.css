@@ -124,6 +124,7 @@ th {
     font-weight: bold;
     padding: 1px;
     vertical-align: inherit;
+    text-align: center;
 }
 sub {
     font-size: smaller;
@@ -180,6 +181,16 @@ hr {
     border-width: 1px;
 }
 
+pre {
+    display: block;
+    white-space: pre;
+    margin: 1em 0;
+}
+
+em {
+    font-style: italic;
+}
+
 u {
     text-decoration: underline;
 }
@@ -188,7 +199,31 @@ strike {
     text-decoration: line-through;
 }
 
+strong {
+    font-weight: bold;
+}
+
 a[href] {
     text-decoration: underline;
     color: blue;
+}
+
+q {
+    display: inline;
+}
+
+q:before {
+    content: open-quote;
+}
+
+q:after {
+    content: close-quote;
+}
+
+aside, article, main, nav, footer, header, section {
+    display: block;
+}
+
+cite {
+    font-style: italic;
 }
