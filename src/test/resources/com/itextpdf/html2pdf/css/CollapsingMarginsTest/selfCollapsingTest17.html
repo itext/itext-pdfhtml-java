@@ -1,0 +1,73 @@
+<html>
+<head>
+<style>
+
+html {
+  font-size: 16px;
+}
+
+body {
+  color: #fff;
+  font-family: Helvetica;
+  text-align: center;
+}
+
+h1 {
+  color: black;
+  font-size: 2em;
+}
+
+/* DEMO STYLES */
+
+/* Parent */
+div {
+  margin: 15pt 0;
+}
+
+/* Here come the children */
+.red {
+  background-color: #ff6b6b;
+}
+
+.orange {
+  background-color: #ff9e2c;
+}
+
+.yellow {
+  background-color: #eeee78;
+}
+
+.green {
+  background-color: #4ecd9d;
+}
+
+.blue {
+  background-color: #4e97cd;
+}
+
+.purple {
+  background-color: #6c4ecd;
+}
+
+</style>
+</head>
+<body>
+
+<!-- <h1>Collapsing Child Margins</h1> -->
+
+
+    <div class="yellow" style="height: 99pt">
+      <div class="green" style="border: solid black;">
+        <div class="blue" style="height: 50pt">
+          <div class="purple" style="margin-bottom: 27pt; height: 22pt"><!-- Not Collapsed --></div>
+        </div>
+      </div>
+    </div>
+<!-- 
+<div class="red" style="min-height: 150pt"><div class="orange" style="max-height: 120pt"><div class="yellow" style="min-height: 90pt"><div class="green" style="border-style: solid; color: black"><div class="blue" style="min-height: 22pt"><div class="purple" style="margin-bottom: 35pt; max-height: 20pt">Not Collapsed</div></div></div></div></div></div>
+
+<div class="red" style="min-height: 150pt"><div class="orange" style="max-height: 120pt"><div class="yellow" style="min-height: 90pt"><div class="green" style="border-style: solid; color: black"><div class="blue" style="min-height: 90pt"><div class="purple" style="margin-bottom: 35pt; max-height: 20pt">Not Collapsed</div></div></div></div></div></div>
+ -->
+
+</body>
+</html>
