@@ -49,7 +49,7 @@ import com.itextpdf.html2pdf.attach.wrapelement.SpanWrapper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.BlockElement;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 
 import java.util.ArrayList;
@@ -90,9 +90,9 @@ public class SpanTagWorker implements ITagWorker {
             flushInlineHelper();
             spanWrapper.add(((SpanTagWorker) childTagWorker).spanWrapper);
             return true;
-        } else if (childTagWorker.getElementResult() instanceof BlockElement) {
+        } else if (childTagWorker.getElementResult() instanceof IBlockElement) {
             flushInlineHelper();
-            spanWrapper.add((BlockElement)childTagWorker.getElementResult());
+            spanWrapper.add((IBlockElement)childTagWorker.getElementResult());
             return true;
         }
 

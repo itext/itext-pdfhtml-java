@@ -48,7 +48,7 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.BlockElement;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.ListItem;
@@ -101,8 +101,8 @@ public class LiTagWorker implements ITagWorker {
         if (propertyContainer instanceof Image) {
             listItem.add((Image) propertyContainer);
             return true;
-        } else if (propertyContainer instanceof BlockElement) {
-            listItem.add((BlockElement<com.itextpdf.layout.element.IElement>) propertyContainer);
+        } else if (propertyContainer instanceof IBlockElement) {
+            listItem.add((IBlockElement) propertyContainer);
             return true;
         }
         return false;

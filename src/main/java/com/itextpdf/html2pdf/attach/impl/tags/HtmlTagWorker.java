@@ -51,6 +51,7 @@ import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 
@@ -103,8 +104,8 @@ public class HtmlTagWorker implements ITagWorker {
     private boolean processBlockChild(IPropertyContainer propertyContainer) {
         inlineHelper.flushHangingLeaves(document);
         IPropertyContainer element = propertyContainer;
-        if (element instanceof BlockElement) {
-            document.add((BlockElement) element);
+        if (element instanceof IBlockElement) {
+            document.add((IBlockElement) element);
             return true;
         } else if (element instanceof Image) {
             document.add((Image) element);
