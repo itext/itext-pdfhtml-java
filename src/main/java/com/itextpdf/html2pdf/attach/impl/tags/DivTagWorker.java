@@ -50,6 +50,7 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 
@@ -105,8 +106,8 @@ public class DivTagWorker implements ITagWorker {
     private boolean addBlockChild(com.itextpdf.layout.element.IElement element) {
         inlineHelper.flushHangingLeaves(div);
         boolean processed = false;
-        if (element instanceof BlockElement) {
-            div.add(((BlockElement) element));
+        if (element instanceof IBlockElement) {
+            div.add(((IBlockElement) element));
             processed = true;
         } else if (element instanceof Image) {
             div.add((Image) element);

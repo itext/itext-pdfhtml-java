@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.attach.wrapelement;
 
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.BlockElement;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public class SpanWrapper implements IWrapElement {
         children.add(img);
     }
 
-    public void add(BlockElement block) {
+    public void add(IBlockElement block) {
         children.add(block);
     }
 

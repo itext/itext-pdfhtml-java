@@ -51,6 +51,7 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 
@@ -107,8 +108,8 @@ public class TdTagWorker implements ITagWorker {
     private boolean processChild(IPropertyContainer propertyContainer) {
         boolean processed = false;
         inlineHelper.flushHangingLeaves(cell);
-        if (propertyContainer instanceof BlockElement) {
-            cell.add((BlockElement) propertyContainer);
+        if (propertyContainer instanceof IBlockElement) {
+            cell.add((IBlockElement) propertyContainer);
             processed = true;
         } else if (propertyContainer instanceof Image) {
             cell.add((Image) propertyContainer);
