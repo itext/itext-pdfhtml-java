@@ -96,9 +96,6 @@ public class CollapsingMarginsTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)
-    })
     public void collapsingTest05() throws IOException, InterruptedException {
         // "min-height" property affects margins collapse differently in chrome and mozilla. While in chrome, this property
         // seems to not have any effect on collapsing margins at all (child margins collapse with parent margins even if
@@ -121,13 +118,11 @@ public class CollapsingMarginsTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Not working correctly")
     public void collapsingTest07_malformed() throws IOException, InterruptedException {
         test("collapsingTest07_malformed.html", "collapsingTest07_malformed.pdf", "diff_");
     }
 
     @Test
-    @Ignore("Not working correctly")
     public void collapsingTest07_malformed2() throws IOException, InterruptedException {
         test("collapsingTest07_malformed2.html", "collapsingTest07_malformed2.pdf", "diff_");
     }
@@ -154,7 +149,7 @@ public class CollapsingMarginsTest extends ExtendedITextTest {
 
     @Test
     public void collapsingTest12() throws IOException, InterruptedException {
-        test("collapsingTest11.html", "collapsingTest11.pdf", "diff_");
+        test("collapsingTest12.html", "collapsingTest12.pdf", "diff_");
     }
 
     @Test
@@ -172,13 +167,11 @@ public class CollapsingMarginsTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Not working correctly")
     public void emptyInlinesTest01() throws IOException, InterruptedException {
         test("emptyInlinesTest01.html", "emptyInlinesTest01.pdf", "diff_");
     }
 
     @Test
-    @Ignore("Not working correctly")
     public void emptyInlinesTest02() throws IOException, InterruptedException {
         test("emptyInlinesTest02.html", "emptyInlinesTest02.pdf", "diff_");
     }
@@ -207,31 +200,32 @@ public class CollapsingMarginsTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Not working correctly")
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES))
+    public void negativeMarginsTest03() throws IOException, InterruptedException {
+        test("negativeMarginsTest03.html", "negativeMarginsTest03.pdf", "diff_");
+    }
+
+    @Test
     public void notSanitizedTest01() throws IOException, InterruptedException {
         test("notSanitizedTest01.html", "notSanitizedTest01.pdf", "diff_");
     }
 
     @Test
-    @Ignore("Not working correctly")
     public void notSanitizedTest02() throws IOException, InterruptedException {
         test("notSanitizedTest02.html", "notSanitizedTest02.pdf", "diff_");
     }
 
     @Test
-    @Ignore("Not working correctly")
     public void selfCollapsingEmptyInlinesTest01() throws IOException, InterruptedException {
         test("selfCollapsingEmptyInlinesTest01.html", "selfCollapsingEmptyInlinesTest01.pdf", "diff_");
     }
 
     @Test
-    @Ignore("Not working correctly")
     public void selfCollapsingEmptyInlinesTest02() throws IOException, InterruptedException {
         test("selfCollapsingEmptyInlinesTest02.html", "selfCollapsingEmptyInlinesTest02.pdf", "diff_");
     }
 
     @Test
-    @Ignore("Not working correctly")
     public void selfCollapsingEmptyInlinesTest03() throws IOException, InterruptedException {
         test("selfCollapsingEmptyInlinesTest03.html", "selfCollapsingEmptyInlinesTest03.pdf", "diff_");
     }
@@ -330,6 +324,11 @@ public class CollapsingMarginsTest extends ExtendedITextTest {
     @Test
     public void selfCollapsingTest16() throws IOException, InterruptedException {
         test("selfCollapsingTest16.html", "selfCollapsingTest16.pdf", "diff_");
+    }
+
+    @Test
+    public void selfCollapsingTest17() throws IOException, InterruptedException {
+        test("selfCollapsingTest17.html", "selfCollapsingTest17.pdf", "diff_");
     }
 
     private void test(String in, String out, String diff) throws IOException, InterruptedException {
