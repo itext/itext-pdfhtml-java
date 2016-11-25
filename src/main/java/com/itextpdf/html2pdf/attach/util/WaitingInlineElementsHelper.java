@@ -45,7 +45,12 @@ package com.itextpdf.html2pdf.attach.util;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.*;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.ListItem;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Text;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,7 +72,7 @@ public class WaitingInlineElementsHelper {
 
     public void add(String text) {
         if (!keepLineBreaks && collapseSpaces) {
-            text = text.replaceAll("\\s+", " ");
+            text = collapseConsecutiveSpaces(text);
         } else if (keepLineBreaks && collapseSpaces) {
             StringBuilder sb = new StringBuilder(text.length());
             for (int i = 0; i < text.length(); i++) {
@@ -177,6 +182,20 @@ public class WaitingInlineElementsHelper {
                 previousLetter = false;
             }
         }
+    }
+
+    private static String collapseConsecutiveSpaces(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isWhitespace(s.charAt(i))) {
+                if (sb.length() == 0 || !Character.isWhitespace(sb.charAt(sb.length() - 1))) {
+                    sb.append(" ");
+                }
+            } else {
+                sb.append(s.charAt(i));
+            }
+        }
+        return sb.toString();
     }
 
 }
