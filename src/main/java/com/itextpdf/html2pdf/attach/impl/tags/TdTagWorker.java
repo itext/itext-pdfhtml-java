@@ -54,6 +54,7 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Text;
 
 public class TdTagWorker implements ITagWorker {
 
@@ -94,6 +95,9 @@ public class TdTagWorker implements ITagWorker {
                 }
             }
             processed = allChildrenProcesssed;
+        } else if (childTagWorker instanceof BrTagWorker) {
+            inlineHelper.add((ILeafElement)childTagWorker.getElementResult());
+            processed = true;
         } else {
             processed = processChild(childTagWorker.getElementResult());
         }
