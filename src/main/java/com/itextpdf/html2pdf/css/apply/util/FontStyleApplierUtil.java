@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
@@ -74,7 +75,7 @@ public final class FontStyleApplierUtil {
             try {
                 element.setProperty(Property.FONT, context.getFontResolver().getFont(cssProps.get(CssConstants.FONT_FAMILY)));
             } catch (IOException exc) {
-                logger.error("Could not load font", exc);
+                logger.error(LogMessageConstant.ERROR_LOADING_FONT, exc);
             }
         }
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
@@ -120,7 +121,7 @@ public final class FontStyleApplierUtil {
             List<Underline> underlineList = new ArrayList<>();
             for (String textDecoration : textDecorations) {
                 if (CssConstants.BLINK.equals(textDecoration)) {
-                    logger.error("text-decoration: blink not supported");
+                    logger.error(LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
                 } else if (CssConstants.LINE_THROUGH.equals(textDecoration)) {
                     underlineList.add(new Underline(null, .75f, 0, 0, 1 / 4f, PdfCanvasConstants.LineCapStyle.BUTT));
                 } else if (CssConstants.OVERLINE.equals(textDecoration)) {
@@ -142,7 +143,7 @@ public final class FontStyleApplierUtil {
             if (textIndentValue.isPointValue()) {
                 element.setProperty(Property.FIRST_LINE_INDENT, textIndentValue.getValue());
             } else {
-                logger.error("text-indent in percents is not supported");
+                logger.error(LogMessageConstant.TEXT_INDENT_IN_PERCENTS_IS_NOT_SUPPORTED);
             }
         }
 

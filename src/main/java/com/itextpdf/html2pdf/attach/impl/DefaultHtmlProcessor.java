@@ -250,7 +250,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 ICssApplier cssApplier = CssApplierFactory.getCssApplier(element.name());
                 if (cssApplier == null) {
                     if (!ignoredCssTags.contains(element.name())) {
-                        logger.error("No css applier found for tag " + element.name());
+                        logger.error(MessageFormat.format(LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
                     }
                 } else {
                     cssApplier.apply(context, element, tagWorker);
@@ -259,7 +259,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 if (!context.getState().empty()) {
                     boolean childProcessed = context.getState().top().processTagChild(tagWorker, context);
                     if (!childProcessed) {
-                        logger.error(String.format("Worker of type %s wasn't able to process %s",
+                        logger.error(MessageFormat.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
                                 context.getState().top().getClass().getName(), tagWorker.getClass().getName()));
                     }
                 } else if (tagWorker.getElementResult() != null) {
@@ -275,11 +275,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 if (!context.getState().empty()) {
                     boolean contentProcessed = context.getState().top().processContent(content, context);
                     if (!contentProcessed) {
-                        logger.error(String.format("Worker of type %s wasn't able to process it's text content",
+                        logger.error(MessageFormat.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT,
                                 context.getState().top().getClass().getName()));
                     }
                 } else {
-                    logger.error("No consumer found for content");
+                    logger.error(LogMessageConstant.NO_CONSUMER_FOUND_FOR_CONTENT);
                 }
 
             }

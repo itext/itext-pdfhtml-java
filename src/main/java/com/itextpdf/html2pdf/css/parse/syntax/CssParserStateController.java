@@ -42,18 +42,30 @@
  */
 package com.itextpdf.html2pdf.css.parse.syntax;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssNestedAtRule;
 import com.itextpdf.html2pdf.css.CssNestedAtRuleFactory;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.CssSemicolonAtRule;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.parse.CssRuleSetParser;
+
+import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
+
+import org.slf4j.LoggerFactory;
 
 public final class CssParserStateController {
 
     private IParserState currentState;
+    //Hashed value
+    private boolean isCurrentRuleSupported = true;
     // Non-comment
     private IParserState previousActiveState;
     private StringBuilder buffer = new StringBuilder();
@@ -62,6 +74,10 @@ public final class CssParserStateController {
     private CssStyleSheet styleSheet;
 
     private Stack<CssNestedAtRule> nestedAtRules;
+
+    private static final Set<String> SUPPORTED_RULES = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
+            CssConstants.MEDIA
+    )));
 
     private final IParserState commentStartState;
     private final IParserState commendEndState;
@@ -145,24 +161,32 @@ public final class CssParserStateController {
     }
 
     void storeCurrentProperties() {
-        processProperties(currentSelector, buffer.toString());
+        if (isCurrentRuleSupported) {
+            processProperties(currentSelector, buffer.toString());
+        }
         currentSelector = null;
         buffer.setLength(0);
     }
 
     void storeSemicolonAtRule() {
-        processSemicolonAtRule(buffer.toString());
+        if (isCurrentRuleSupported) {
+            processSemicolonAtRule(buffer.toString());
+        }
         buffer.setLength(0);
     }
 
     void finishAtRuleBlock() {
         CssNestedAtRule atRule = nestedAtRules.pop();
-        processFinishedAtRuleBlock(atRule);
+        if (isCurrentRuleSupported) {
+            processFinishedAtRuleBlock(atRule);
+        }
+        isCurrentRuleSupported = isCurrentRuleSupported();
         buffer.setLength(0);
     }
 
     void pushBlockPrecedingAtRule() {
         nestedAtRules.push(CssNestedAtRuleFactory.createNestedRule(buffer.toString()));
+        isCurrentRuleSupported = isCurrentRuleSupported();
         buffer.setLength(0);
     }
 
@@ -196,5 +220,13 @@ public final class CssParserStateController {
         } else {
             styleSheet.addStatement(atRule);
         }
+    }
+
+    private boolean isCurrentRuleSupported() {
+        boolean isSupported = nestedAtRules.isEmpty() || SUPPORTED_RULES.contains(nestedAtRules.peek().getRuleName());
+        if (!isSupported) {
+            LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.RULE_IS_NOT_SUPPORTED, nestedAtRules.peek().getRuleName()));
+        }
+        return isSupported;
     }
 }

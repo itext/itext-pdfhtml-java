@@ -42,10 +42,13 @@
  */
 package com.itextpdf.html2pdf.css.parse;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.selector.CssSelector;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -66,7 +69,7 @@ public final class CssRuleSetParser {
             if (propertySplit.length == 2) {
                 declarations.add(new CssDeclaration(propertySplit[0], propertySplit[1]));
             } else if (propertyDeclarationStr.trim().length() != 0) {
-                logger.error("Invalid property declaration: " + propertyDeclarationStr);
+                logger.error(MessageFormat.format(LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, propertyDeclarationStr.trim()));
             }
         }
         return declarations;
@@ -89,7 +92,7 @@ public final class CssRuleSetParser {
                 CssSelector selector = new CssSelector(currentSelectorStr);
                 ruleSets.add(new CssRuleSet(selector, declarations));
             } catch (Exception exc) {
-                logger.error("Error parsing selector", exc);
+                logger.error(LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, exc);
                 //if any separated selector has errors, all others become invalid.
                 //in this case we just clear map, it is the easies way to support this.
                 declarations.clear();
