@@ -46,7 +46,10 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.ResourceResolver;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
+import com.itextpdf.html2pdf.css.CssRuleName;
+import com.itextpdf.html2pdf.css.CssStatement;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
+import com.itextpdf.html2pdf.css.media.CssMediaRule;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.parse.CssRuleSetParser;
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
@@ -177,7 +180,16 @@ public class DefaultCssResolver implements ICssResolver {
                     String styleSheetUri = headChildElement.getAttribute(AttributeConstants.HREF);
                     try {
                         InputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUri);
-                        cssStyleSheet.appendCssStyleSheet(CssStyleSheetParser.parse(stream));
+                        CssStyleSheet styleSheet = CssStyleSheetParser.parse(stream);
+                        String mediaAttribute = headChildElement.getAttribute(AttributeConstants.MEDIA);
+                        if (mediaAttribute != null && mediaAttribute.length() > 0) {
+                            List<CssStatement> statements = styleSheet.getStatements();
+                            CssMediaRule mediaRule = new CssMediaRule(CssRuleName.MEDIA, mediaAttribute);
+                            mediaRule.addStatementsToBody(statements);
+                            styleSheet = new CssStyleSheet();
+                            styleSheet.addStatement(mediaRule);
+                        }
+                        cssStyleSheet.appendCssStyleSheet(styleSheet);
                     } catch (IOException exc) {
                         Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
                         logger.error(LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, exc);
