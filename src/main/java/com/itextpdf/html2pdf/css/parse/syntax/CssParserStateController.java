@@ -43,13 +43,14 @@
 package com.itextpdf.html2pdf.css.parse.syntax;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
-import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssNestedAtRule;
 import com.itextpdf.html2pdf.css.CssNestedAtRuleFactory;
+import com.itextpdf.html2pdf.css.CssRuleName;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.CssSemicolonAtRule;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.parse.CssRuleSetParser;
+import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -58,8 +59,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
-
-import org.slf4j.LoggerFactory;
 
 public final class CssParserStateController {
 
@@ -76,7 +75,7 @@ public final class CssParserStateController {
     private Stack<CssNestedAtRule> nestedAtRules;
 
     private static final Set<String> SUPPORTED_RULES = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
-            CssConstants.MEDIA
+            CssRuleName.MEDIA
     )));
 
     private final IParserState commentStartState;
