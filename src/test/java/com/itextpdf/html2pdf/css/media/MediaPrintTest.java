@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.css.media;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ITextTest;
+import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.Before;
@@ -54,7 +54,7 @@ import java.io.File;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
-public abstract class MediaPrintTest extends ITextTest {
+public abstract class MediaPrintTest extends ExtendedITextTest {
     public static final String baseSourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/media/print/";
     public static final String baseDestinationFolder = "./target/test/com/itextpdf/html2pdf/css/media/print/";
 
