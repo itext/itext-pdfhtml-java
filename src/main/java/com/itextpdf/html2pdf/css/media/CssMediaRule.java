@@ -53,6 +53,7 @@ public class CssMediaRule extends CssNestedAtRule {
 
     private List<MediaQuery> mediaQueries;
 
+    // TODO get rid of ruleName in constructor? It is always CssRuleName.MEDIA
     public CssMediaRule(String ruleName, String ruleParameters) {
         super(ruleName, ruleParameters);
         mediaQueries = MediaQueryParser.parseMediaQueries(ruleParameters);

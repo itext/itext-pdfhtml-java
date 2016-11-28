@@ -44,9 +44,6 @@ package com.itextpdf.html2pdf.html;
 
 public final class AttributeConstants {
 
-    private AttributeConstants() {
-    }
-
     public static final String ALIGN = "align";
     public static final String BGCOLOR = "bgcolor";
     public static final String BORDER = "border";
@@ -56,6 +53,7 @@ public final class AttributeConstants {
     public static final String FACE = "face";
     public static final String HREF = "href";
     public static final String ID = "id";
+    public static final String MEDIA = "media";
     public static final String NAME = "name";
     public static final String NOSHADE = "noshade";
     public static final String REL = "rel";
@@ -67,4 +65,7 @@ public final class AttributeConstants {
 
     // attribute values
     public static final String STYLESHEET = "stylesheet";
+
+    private AttributeConstants() {
+    }
 }

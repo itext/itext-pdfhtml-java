@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -79,6 +80,10 @@ public class CssStyleSheet {
         return sb.toString();
     }
 
+    public List<CssStatement> getStatements() {
+        return Collections.unmodifiableList(statements);
+    }
+
     public List<CssDeclaration> getCssDeclarations(IElementNode element, MediaDeviceDescription deviceDescription) {
         List<CssRuleSet> ruleSets = getCssRuleSets(element, deviceDescription);
         Map<String, CssDeclaration> declarations = new LinkedHashMap<>();
@@ -105,6 +110,5 @@ public class CssStyleSheet {
         }
         return ruleSets;
     }
-
 
 }

@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.css.media;
 
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
@@ -51,7 +53,12 @@ import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupDocumentNode;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.io.util.StreamUtil;
+import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.property.Property;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.UnitTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -194,6 +201,23 @@ public class MediaRuleTest extends ExtendedITextTest {
 
         Assert.assertEquals(1, declarations1.size());
         Assert.assertEquals("color: red", declarations1.get(0).toString());
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.TEXT_WAS_NOT_PROCESSED, count = 10)})
+    public void test07() throws IOException {
+        String htmlFileName = sourceFolder + "html07.html";
+        byte[] bytes = StreamUtil.inputStreamToArray(new FileInputStream(htmlFileName));
+        String html = new String(bytes);
+        MediaDeviceDescription printDevice = new MediaDeviceDescription(MediaType.PRINT);
+        MediaDeviceDescription screenDevice = new MediaDeviceDescription(MediaType.SCREEN).setWidth(1000);
+
+        List<IElement> printElements = HtmlConverter.convertToElements(html, printDevice, sourceFolder);
+        List<IElement> screenElements = HtmlConverter.convertToElements(html, screenDevice, sourceFolder);
+
+        Assert.assertEquals(12., (Float) printElements.get(0).getProperty(Property.FONT_SIZE), 1e-10f);
+
+        Assert.assertEquals(20., (Float) screenElements.get(0).getProperty(Property.FONT_SIZE), 1e-10f);
     }
 
 

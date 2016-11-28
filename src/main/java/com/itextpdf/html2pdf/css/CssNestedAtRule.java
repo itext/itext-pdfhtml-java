@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class CssNestedAtRule extends CssAtRule {
@@ -60,6 +61,10 @@ public class CssNestedAtRule extends CssAtRule {
 
     public void addStatementToBody(CssStatement statement) {
         this.body.add(statement);
+    }
+
+    public void addStatementsToBody(Collection<CssStatement> statements) {
+        this.body.addAll(statements);
     }
 
     @Override
