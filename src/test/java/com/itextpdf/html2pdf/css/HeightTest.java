@@ -43,8 +43,11 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import java.io.File;
 import java.io.IOException;
@@ -65,6 +68,9 @@ public class HeightTest extends ExtendedITextTest {
         createOrClearDestinationFolder(destinationFolder);
     }
 
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
+    })
     @Test
     public void heightTest01() throws IOException, InterruptedException {
         String testName = "heightTest01";
@@ -83,6 +89,9 @@ public class HeightTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
     }
 
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
+    })
     @Test
     public void heightTest03() throws IOException, InterruptedException {
         String testName = "heightTest03";
