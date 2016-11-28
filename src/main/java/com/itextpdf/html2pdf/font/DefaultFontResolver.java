@@ -63,11 +63,11 @@ public class DefaultFontResolver implements IFontResolver {
         try {
             result = PdfFontFactory.createFont(name);
         } catch (Exception any) {
-            LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_FONT, name), any);
+            //LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_FONT, name), any);
             result = PdfFontFactory.createFont();
         }
         if (result == null) {
-            LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_FONT, name));
+            //LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_FONT, name));
             result = PdfFontFactory.createFont();
         }
         return result;

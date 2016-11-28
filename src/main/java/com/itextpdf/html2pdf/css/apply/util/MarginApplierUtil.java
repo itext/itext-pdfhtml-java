@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
@@ -56,7 +57,6 @@ import java.util.Map;
 public final class MarginApplierUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(MarginApplierUtil.class);
-    private static final String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
 
     private MarginApplierUtil() {
     }
@@ -76,22 +76,22 @@ public final class MarginApplierUtil {
         if (marginTopVal.isPointValue()) {
             element.setProperty(Property.MARGIN_TOP, marginTopVal.getValue());
         } else {
-            logger.error(MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
         }
         if (marginBottomVal.isPointValue()) {
             element.setProperty(Property.MARGIN_BOTTOM, marginBottomVal.getValue());
         } else {
-            logger.error(MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
         }
         if (marginLeftVal.isPointValue()) {
             element.setProperty(Property.MARGIN_LEFT, marginLeftVal.getValue());
         } else {
-            logger.error(MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
         }
         if (marginRightVal.isPointValue()) {
             element.setProperty(Property.MARGIN_RIGHT, marginRightVal.getValue());
         } else {
-            logger.error(MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
         }
     }
 

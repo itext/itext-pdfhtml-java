@@ -122,6 +122,7 @@ public class CssConstants {
     public static final String MARGIN_RIGHT = "margin-right";
     public static final String MARGIN_TOP = "margin-top";
     public static final String MAX_HEIGHT = "max-height";
+    public static final String MEDIA = "media";
     public static final String MIN_HEIGHT = "min-height";
     public static final String OPACITY = "opacity";
     public static final String OUTLINE = "outline";

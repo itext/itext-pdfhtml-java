@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
@@ -56,7 +57,6 @@ import java.util.Map;
 public final class PaddingApplierUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(PaddingApplierUtil.class);
-    private static final String PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED = "Padding value in percents not supported";
 
     private PaddingApplierUtil() {
     }
@@ -76,22 +76,22 @@ public final class PaddingApplierUtil {
         if (marginTopVal.isPointValue()) {
             element.setProperty(Property.PADDING_TOP, marginTopVal.getValue());
         } else {
-            logger.error(PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
         }
         if (marginBottomVal.isPointValue()) {
             element.setProperty(Property.PADDING_BOTTOM, marginBottomVal.getValue());
         } else {
-            logger.error(PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
         }
         if (marginLeftVal.isPointValue()) {
             element.setProperty(Property.PADDING_LEFT, marginLeftVal.getValue());
         } else {
-            logger.error(PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
         }
         if (marginRightVal.isPointValue()) {
             element.setProperty(Property.PADDING_RIGHT, marginRightVal.getValue());
         } else {
-            logger.error(PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
         }
     }
 

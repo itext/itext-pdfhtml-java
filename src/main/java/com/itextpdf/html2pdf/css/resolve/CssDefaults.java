@@ -94,6 +94,9 @@ public class CssDefaults {
         defaultValues.put(CssConstants.MARGIN_RIGHT, "0");
         defaultValues.put(CssConstants.MARGIN_TOP, "0");
 
+        defaultValues.put(CssConstants.OUTLINE_COLOR, CssConstants.INVERT);
+        defaultValues.put(CssConstants.OUTLINE_STYLE, CssConstants.NONE);
+
         defaultValues.put(CssConstants.PADDING_BOTTOM, "0");
         defaultValues.put(CssConstants.PADDING_LEFT, "0");
         defaultValues.put(CssConstants.PADDING_RIGHT, "0");
@@ -104,6 +107,7 @@ public class CssDefaults {
         defaultValues.put(CssConstants.LIST_STYLE_POSITION, CssConstants.OUTSIDE);
 
         defaultValues.put(CssConstants.TEXT_ALIGN, CssConstants.START);
+        defaultValues.put(CssConstants.TEXT_DECORATION, CssConstants.NONE);
 
         defaultValues.put(CssConstants.WHITE_SPACE, CssConstants.NORMAL);
         defaultValues.put(CssConstants.TEXT_TRANSFORM, CssConstants.NONE);
