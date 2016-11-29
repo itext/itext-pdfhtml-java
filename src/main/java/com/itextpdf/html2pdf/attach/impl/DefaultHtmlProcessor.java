@@ -62,6 +62,7 @@ import com.itextpdf.html2pdf.html.node.ITextNode;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.property.Property;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -166,6 +167,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         List<com.itextpdf.layout.element.IElement> elements = new ArrayList<>();
         for (IPropertyContainer propertyContainer : roots) {
             if (propertyContainer instanceof com.itextpdf.layout.element.IElement) {
+                propertyContainer.setProperty(Property.COLLAPSING_MARGINS, true);
                 elements.add((com.itextpdf.layout.element.IElement) propertyContainer);
             }
         }
