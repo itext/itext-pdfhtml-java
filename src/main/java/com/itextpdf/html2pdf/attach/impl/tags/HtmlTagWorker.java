@@ -54,6 +54,7 @@ import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.property.Property;
 
 public class HtmlTagWorker implements ITagWorker {
 
@@ -62,6 +63,7 @@ public class HtmlTagWorker implements ITagWorker {
 
     public HtmlTagWorker(IElementNode element, ProcessorContext context) {
         document = new Document(context.getPdfDocument(), PageSize.A4);
+        document.setProperty(Property.COLLAPSING_MARGINS, true);
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 

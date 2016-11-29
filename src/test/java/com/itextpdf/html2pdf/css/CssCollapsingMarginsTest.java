@@ -60,10 +60,9 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-@Ignore("Ignored for now")
-public class CollapsingMarginsTest extends ExtendedITextTest {
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CollapsingMarginsTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/CollapsingMarginsTest/";
+public class CssCollapsingMarginsTest extends ExtendedITextTest {
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssCollapsingMarginsTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/CssCollapsingMarginsTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -169,16 +168,6 @@ public class CollapsingMarginsTest extends ExtendedITextTest {
     @Test
     public void emptyInlinesTest02() throws IOException, InterruptedException {
         test("emptyInlinesTest02.html", "emptyInlinesTest02.pdf", "diff_");
-    }
-
-    @Test
-    public void imgTest01() throws IOException, InterruptedException {
-        test("imgTest01.html", "imgTest01.pdf", "diff_");
-    }
-
-    @Test
-    public void imgTest02() throws IOException, InterruptedException {
-        test("imgTest02.html", "imgTest02.pdf", "diff_");
     }
 
     @Test
