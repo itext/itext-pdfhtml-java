@@ -220,9 +220,9 @@ public class MediaRuleTest extends ExtendedITextTest {
         List<IElement> printElements = HtmlConverter.convertToElements(html, printDevice, sourceFolder);
         List<IElement> screenElements = HtmlConverter.convertToElements(html, screenDevice, sourceFolder);
 
-        Assert.assertEquals(12., (Float) printElements.get(0).getProperty(Property.FONT_SIZE), 1e-10f);
+        Assert.assertEquals(12f, (Float) printElements.get(0).<Float>getProperty(Property.FONT_SIZE), 1e-10f);
 
-        Assert.assertEquals(20., (Float) screenElements.get(0).getProperty(Property.FONT_SIZE), 1e-10f);
+        Assert.assertEquals(20f, (Float) screenElements.get(0).<Float>getProperty(Property.FONT_SIZE), 1e-10f);
     }
 
 
