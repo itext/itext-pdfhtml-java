@@ -77,6 +77,7 @@ import java.util.Set;
 
 public class DefaultCssResolver implements ICssResolver {
 
+
     private CssStyleSheet cssStyleSheet;
     private MediaDeviceDescription deviceDescription;
 
@@ -107,27 +108,14 @@ public class DefaultCssResolver implements ICssResolver {
 
             if (parentStyles != null) {
                 for (Map.Entry<String, String> entry : parentStyles.entrySet()) {
-                    String cssProperty = entry.getKey();
-                    String elementPropValue = elementStyles.get(cssProperty);
-                    if ((elementPropValue == null && CssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(elementPropValue)) {
-                        mergeCssDeclaration(elementStyles, cssProperty, entry.getValue());
-                    } else if (CssConstants.TEXT_DECORATION.equals(cssProperty)) {
-                        // TODO Note! This property is formally not inherited, but the browsers behave very similar to inheritance here.
-                        /* Text decorations on inline boxes are drawn across the entire element,
-                            going across any descendant elements without paying any attention to their presence. */
-                        // Also, when, for example, parent element has text-decoration:underline, and the child text-decoration:overline,
-                        // then the text in the child will be both overline and underline. This is why the declarations are merged
-                        // See TextDecorationTest#textDecoration01Test
-                        mergeCssDeclaration(elementStyles, cssProperty, entry.getValue());
-                    }
+                    mergeParentCssDeclaration(elementStyles, entry.getKey(), entry.getValue());
                 }
-
                 String elementFontSize = elementStyles.get(CssConstants.FONT_SIZE);
                 String parentFontSizeStr = parentStyles.get(CssConstants.FONT_SIZE);
                 if (CssUtils.isRelativeValue(elementFontSize) && parentFontSizeStr != null) {
                     float parentFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
                     float absoluteFontSize = CssUtils.parseRelativeValue(elementFontSize, parentFontSize);
-                    mergeCssDeclaration(elementStyles, CssConstants.FONT_SIZE, absoluteFontSize + "pt");
+                    elementStyles.put(CssConstants.FONT_SIZE, absoluteFontSize + "pt");
                 }
             }
         }
@@ -140,7 +128,7 @@ public class DefaultCssResolver implements ICssResolver {
             }
         }
         for (String key : keys) {
-            mergeCssDeclaration(elementStyles, key, CssDefaults.getDefaultValue(key));
+            elementStyles.put(key, CssDefaults.getDefaultValue(key));
         }
 
         return elementStyles;
@@ -151,11 +139,11 @@ public class DefaultCssResolver implements ICssResolver {
         for (CssDeclaration cssDeclaration : nodeCssDeclarations) {
             IShorthandResolver shorthandResolver = ShorthandResolverFactory.getShorthandResolver(cssDeclaration.getProperty());
             if (shorthandResolver == null) {
-                mergeCssDeclaration(stylesMap, cssDeclaration.getProperty(), cssDeclaration.getExpression());
+                stylesMap.put(cssDeclaration.getProperty(), cssDeclaration.getExpression());
             } else {
                 List<CssDeclaration> resolvedShorthandProps = shorthandResolver.resolveShorthand(cssDeclaration.getExpression());
                 for (CssDeclaration resolvedProp : resolvedShorthandProps) {
-                    mergeCssDeclaration(stylesMap, resolvedProp.getProperty(), resolvedProp.getExpression());
+                    stylesMap.put(resolvedProp.getProperty(), resolvedProp.getExpression());
                 }
             }
         }
@@ -206,11 +194,18 @@ public class DefaultCssResolver implements ICssResolver {
         return null;
     }
 
-    private void mergeCssDeclaration(Map<String, String> styles, String cssProperty, String value) {
-        if (CssConstants.TEXT_DECORATION.equals(cssProperty) && styles.containsKey(cssProperty)) {
-            styles.put(cssProperty, CssPropertyMerger.mergeTextDecoration(styles.get(cssProperty), value));
-        } else {
-            styles.put(cssProperty, value);
+    private void mergeParentCssDeclaration(Map<String, String> styles, String cssProperty, String parentPropValue) {
+        String childPropValue = styles.get(cssProperty);
+        if ((childPropValue == null && CssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(childPropValue)) {
+            styles.put(cssProperty, parentPropValue);
+        } else if (CssConstants.TEXT_DECORATION.equals(cssProperty)) {
+            // TODO Note! This property is formally not inherited, but the browsers behave very similar to inheritance here.
+                        /* Text decorations on inline boxes are drawn across the entire element,
+                            going across any descendant elements without paying any attention to their presence. */
+            // Also, when, for example, parent element has text-decoration:underline, and the child text-decoration:overline,
+            // then the text in the child will be both overline and underline. This is why the declarations are merged
+            // See TextDecorationTest#textDecoration01Test
+            styles.put(cssProperty, CssPropertyMerger.mergeTextDecoration(childPropValue, parentPropValue));
         }
     }
 }
