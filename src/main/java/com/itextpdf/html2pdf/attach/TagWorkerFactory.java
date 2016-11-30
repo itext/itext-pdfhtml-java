@@ -46,9 +46,10 @@ import com.itextpdf.html2pdf.attach.impl.tags.*;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 
-// TODO add possibility to register operators
+// TODO add possibility to register operators-->See DefaultTagWorkerFactory
+@Deprecated
 public class TagWorkerFactory {
-
+    @Deprecated
     public static ITagWorker getTagWorker(IElementNode tag, ProcessorContext context) {
         switch (tag.name()) {
             case TagConstants.A:
