@@ -40,14 +40,21 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf;
+package com.itextpdf.html2pdf.exceptions;
 
-public class Html2PdfException extends RuntimeException {
-
-    public Html2PdfException(String message) {
+/**
+ * Created by SamuelHuylebroeck on 11/30/2016.
+ */
+public class NoTagWorkerFoundException extends RuntimeException {
+    public NoTagWorkerFoundException(String message) {
         super(message);
     }
 
-    public static final String PdfDocumentShouldBeInWritingMode = "PdfDocument should be created in writing mode. Reading and stamping is not allowed";
+    public static final String NoTagWorkerRegistered = "No tag worker is registered for this tag in the TagWorkerFactory";
+    public static final String TagWorkerClassDoesNotExist = "No TagWorker implementation exists for this namespace";
+
+    //TODO; Replace this generic message with a more specific one
+    public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Reflection in TagWorkerFactory implementation failed";
+
 
 }

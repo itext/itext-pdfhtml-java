@@ -45,8 +45,10 @@ package com.itextpdf.html2pdf.attach.impl;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.ResourceResolver;
+import com.itextpdf.html2pdf.attach.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.TagWorkerFactory;
 import com.itextpdf.html2pdf.css.CssConstants;
@@ -104,11 +106,21 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     private INode root;
     private ResourceResolver resourceResolver;
     private List<IPropertyContainer> roots;
+    private ITagWorkerFactory tagWorkerFactory;
 
     public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver) {
         this.cssResolver = cssResolver;
         this.root = node;
         this.resourceResolver = resourceResolver;
+        this.tagWorkerFactory = new DefaultTagWorkerFactory();
+    }
+
+    public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver, ITagWorkerFactory tagWorkerFactory) {
+
+        this.cssResolver = cssResolver;
+        this.root = node;
+        this.resourceResolver = resourceResolver;
+        this.tagWorkerFactory = tagWorkerFactory;
     }
 
     @Override
@@ -231,7 +243,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             if (!isDisplayable(element)) {
                 return;
             }
-            ITagWorker tagWorker = TagWorkerFactory.getTagWorker(element, context);
+
+            //ITagWorker tagWorker = TagWorkerFactory.getTagWorker(element, context);
+            ITagWorker tagWorker = tagWorkerFactory.getTagWorkerInstance(element,context);
             if (tagWorker == null) {
                 // TODO for stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links
                 if (!ignoredTags.contains(element.name()) && !HtmlUtils.isStyleSheetLink(element)) {
