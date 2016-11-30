@@ -111,6 +111,7 @@ public class CssDefaults {
 
         defaultValues.put(CssConstants.WHITE_SPACE, CssConstants.NORMAL);
         defaultValues.put(CssConstants.TEXT_TRANSFORM, CssConstants.NONE);
+        defaultValues.put(CssConstants.TEXT_DECORATION, CssConstants.NONE);
 
         // TODO not complete
     }

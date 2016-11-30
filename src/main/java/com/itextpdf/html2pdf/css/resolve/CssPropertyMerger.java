@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
+import com.itextpdf.html2pdf.css.CssConstants;
+
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -58,12 +60,9 @@ public final class CssPropertyMerger {
             return firstValue;
         }
 
-        String[] firstParts = firstValue.split("\\s+");
-        String[] secondParts = secondValue.split("\\s+");
-        // LinkedHashSet to make order invariant of JVM
-        Set<String> merged = new LinkedHashSet<>();
-        merged.addAll(Arrays.asList(firstParts));
-        merged.addAll(Arrays.asList(secondParts));
+        Set<String> merged = normalizeTextDecoration(firstValue);
+        merged.addAll(normalizeTextDecoration(secondValue));
+
         StringBuilder sb = new StringBuilder();
         for (String mergedProp : merged) {
             if (sb.length() != 0) {
@@ -71,7 +70,18 @@ public final class CssPropertyMerger {
             }
             sb.append(mergedProp);
         }
-        return sb.toString();
+        return sb.length() != 0 ? sb.toString() : CssConstants.NONE;
     }
 
+    private static Set<String> normalizeTextDecoration(String value) {
+        String[] parts = value.split("\\s+");
+        // LinkedHashSet to make order invariant of JVM
+        Set<String> merged = new LinkedHashSet<>();
+        merged.addAll(Arrays.asList(parts));
+        // if none and any other decoration are used together, none is displayed
+        if (merged.contains(CssConstants.NONE)) {
+            merged.clear();
+        }
+        return merged;
+    }
 }

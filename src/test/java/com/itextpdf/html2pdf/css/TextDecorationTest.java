@@ -84,4 +84,31 @@ public class TextDecorationTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest03.pdf", sourceFolder + "cmp_textDecorationTest03.pdf", destinationFolder, "diff03_"));
     }
 
+    //Text decoration property is in defaults.css for a[href], should be replaced by css.
+    @Test
+    public void textDecoration04Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest04.html"), new File(destinationFolder + "textDecorationTest04.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest04.pdf", sourceFolder + "cmp_textDecorationTest04.pdf", destinationFolder, "diff04_"));
+    }
+
+    //Text decoration children with none (values should be merged, none should be ignored)
+    @Test
+    public void textDecoration05Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest05.html"), new File(destinationFolder + "textDecorationTest05.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest05.pdf", sourceFolder + "cmp_textDecorationTest05.pdf", destinationFolder, "diff05_"));
+    }
+
+    //Text decoration with display:inline-block spans (values should be replaced)
+    @Test
+    public void textDecoration06Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest06.html"), new File(destinationFolder + "textDecorationTest06.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest06.pdf", sourceFolder + "cmp_textDecorationTest06.pdf", destinationFolder, "diff06_"));
+    }
+
+    //Text decoration property should be replaced by node's style attribute.
+    @Test
+    public void textDecoration07Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest07.html"), new File(destinationFolder + "textDecorationTest07.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest07.pdf", sourceFolder + "cmp_textDecorationTest07.pdf", destinationFolder, "diff07_"));
+    }
 }
