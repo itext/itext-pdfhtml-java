@@ -45,14 +45,15 @@ package com.itextpdf.html2pdf.css.resolve.shorthand.impl;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
+import com.itextpdf.html2pdf.css.util.CssUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class FontShorthandResolver implements IShorthandResolver {
     private static final Set<String> UNSUPPORTED_VALUES_OF_FONT_SHORTHAND = new HashSet<>(Arrays.asList(
@@ -93,7 +94,7 @@ public class FontShorthandResolver implements IShorthandResolver {
         String lineHeightValue = null;
         String fontFamilyValue = null;
 
-        String[] props = shorthandExpression.replaceAll(",\\s*", ",").split(" ");
+        String[] props = shorthandExpression.replaceAll(",\\s*", ",").split("\"?( |$)(?=(([^\"]*\"){2})*[^\"]*$)\"?");
         for (String value : props) {
             int slashSymbolIndex = value.indexOf('/');
             if (CssConstants.ITALIC.equals(value) || CssConstants.OBLIQUE.equals(value)) {
@@ -105,7 +106,7 @@ public class FontShorthandResolver implements IShorthandResolver {
             } else if (slashSymbolIndex > 0) {
                 fontSizeValue = value.substring(0, slashSymbolIndex);
                 lineHeightValue = value.substring(slashSymbolIndex + 1, value.length());
-            } else if (FONT_SIZE_VALUES.contains(value)) {
+            } else if (FONT_SIZE_VALUES.contains(value) || CssUtils.isMetricValue(value) || CssUtils.isNumericValue(value)) {
                 fontSizeValue = value;
             } else {
                 fontFamilyValue = value;
