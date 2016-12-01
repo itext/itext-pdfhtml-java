@@ -40,7 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.util;
+package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.impl.tags.ATagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.BodyTagWorker;
@@ -63,7 +63,18 @@ import com.itextpdf.html2pdf.attach.impl.tags.TdTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TitleTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.UlOlTagWorker;
+
+import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.BodyTagCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.DlTagCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.HtmlTagCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.LiTagCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.SpanTagCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.TdTagCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.UlOlTagCssApplier;
+
 import com.itextpdf.html2pdf.html.TagConstants;
+
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -128,4 +139,58 @@ public class DefaultTagMapping {
         mapping.put(TagConstants.UL, UlOlTagWorker.class.getName());
         return mapping;
     }
+
+    public static Map<String,String> getDefaultCssApplierMapping(){
+        Map<String,String> mapping = new ConcurrentHashMap<String, String>();
+        mapping.put(TagConstants.A, SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.ARTICLE, BlockCssApplier.class.getName());
+        mapping.put(TagConstants.B,SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.ASIDE,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.BLOCKQUOTE,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.BODY, BodyTagCssApplier.class.getName());
+        mapping.put(TagConstants.CITE, SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.CODE,SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.EM, SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.DT,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.DD,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.DIV,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.FOOTER,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.H1,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.H2,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.H3,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.H4,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.H5,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.H6,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.HEADER,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.HR,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.IMG,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.MAIN,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.NAV,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.P,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.SECTION,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.TABLE,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.TFOOT,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.THEAD,BlockCssApplier.class.getName());
+        mapping.put(TagConstants.DL, DlTagCssApplier.class.getName());
+        mapping.put(TagConstants.HTML, HtmlTagCssApplier.class.getName());
+        mapping.put(TagConstants.I,SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.LI, LiTagCssApplier.class.getName());
+        mapping.put(TagConstants.OL, UlOlTagCssApplier.class.getName());
+        mapping.put(TagConstants.PRE, BlockCssApplier.class.getName());
+        mapping.put(TagConstants.Q, SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.SMALL,SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.SPAN,SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.STRIKE,SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.STRONG,SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.SUB,SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.SUP,SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.TD, TdTagCssApplier.class.getName());
+        mapping.put(TagConstants.TH, TdTagCssApplier.class.getName());
+        mapping.put(TagConstants.TIME,SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.U,SpanTagCssApplier.class.getName());
+        mapping.put(TagConstants.UL,UlOlTagCssApplier.class.getName());
+        return mapping;
+    }
+
+
 }

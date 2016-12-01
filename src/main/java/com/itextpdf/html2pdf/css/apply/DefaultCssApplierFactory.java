@@ -40,81 +40,62 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.css.apply;
 
 import com.itextpdf.html2pdf.DefaultTagMapping;
-import com.itextpdf.html2pdf.exceptions.NoTagWorkerFoundException;
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.exceptions.NoCssApplierFoundException;
 
-import java.lang.reflect.Constructor;
-
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by SamuelHuylebroeck on 11/30/2016.
  */
-public class DefaultTagWorkerFactory implements ITagWorkerFactory {
+public class DefaultCssApplierFactory implements ICssApplierFactory {
 
-    /**
-     * Internal map to keep track of tags and associated tagworkers
-     */
-    private Map<String, String> map;
+    private Map<String,String> map;
 
-    public DefaultTagWorkerFactory() {
+    public DefaultCssApplierFactory() {
         this.map = new ConcurrentHashMap<String, String>();
-        registerDefaultHtmlTagWorkers();
+        this.registerDefaultCssAppliers();
     }
 
-
     @Override
-    public ITagWorker getTagWorkerInstance(IElementNode tag, ProcessorContext context) throws NoTagWorkerFoundException {
-        //Get Tag Worker class name
-        String tagWorkerClassName = map.get(tag.name());
-        if (tagWorkerClassName == null) {
-            //TODO:Log the fact that no instance could be found
-            //throw new NoTagWorkerFoundException(NoTagWorkerFoundException.NoTagWorkerRegistered);
+    public ICssApplier getCssApplier(String tag) {
+        //Get css applier classname
+        String cssApplierClassName = map.get(tag);
+        if(cssApplierClassName == null){
+            //TODO add logging
             return null;
         }
         //Use reflection to create an instance
-        try {
-            Class<?> c = Class.forName(tagWorkerClassName);
-            Constructor ctor = c.getDeclaredConstructor(IElementNode.class, ProcessorContext.class);
-            ctor.setAccessible(true);
-            ITagWorker res = (ITagWorker) ctor.newInstance(tag, context);
+        try{
+            Class<?> c = Class.forName(cssApplierClassName);
+            ICssApplier res = (ICssApplier) c.newInstance();
             return res;
-        } catch (ClassNotFoundException e) {
-            throw new NoTagWorkerFoundException(NoTagWorkerFoundException.TagWorkerClassDoesNotExist);
-        } catch (NoSuchMethodException e) {
-            throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED);
         } catch (IllegalAccessException e) {
-            throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED);
+           throw new NoCssApplierFoundException(cssApplierClassName, NoCssApplierFoundException.ReflectionFailed);
         } catch (InstantiationException e) {
-            throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED);
-        } catch (InvocationTargetException e) {
-            throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED);
+            throw new NoCssApplierFoundException(cssApplierClassName, NoCssApplierFoundException.ReflectionFailed);
+        } catch (ClassNotFoundException e) {
+            throw new NoCssApplierFoundException(cssApplierClassName, NoCssApplierFoundException.NoSuchCssApplierExists);
         }
-
-
     }
 
     @Override
-    public void registerTagWorker(String tag, String nameSpace) {
-        map.put(tag, nameSpace);
+    public void registerCssApplier(String tag, String namespace) {
+        this.map.put(tag, namespace);
     }
 
     @Override
-    public void removetagWorker(String tag) {
-        map.remove(tag);
+    public void removeCssApplier(String tag) {
+        this.map.remove(tag);
     }
 
-    private void registerDefaultHtmlTagWorkers() {
-        Map<String, String> defaultMapping = DefaultTagMapping.getDefaultTagWorkerMapping();
+    private void registerDefaultCssAppliers() {
+        Map<String, String> defaultMapping = DefaultTagMapping.getDefaultCssApplierMapping();
         for (Map.Entry<String, String> ent : defaultMapping.entrySet()) {
             map.put(ent.getKey(), ent.getValue());
         }
     }
-
-
 }
