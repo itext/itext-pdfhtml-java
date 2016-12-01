@@ -149,14 +149,12 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
     @Test
     @Ignore("Not working correctly")
     public void elementTableTest() throws IOException, InterruptedException {
-        // TODO empty table is not self-collapsing
         test("elementTableTest.html", "elementTableTest.pdf", "diff_");
     }
 
     @Test
-    @Ignore("Not working correctly")
+    @Ignore("DEVSIX-962")
     public void elementUlOlLiTest() throws IOException, InterruptedException {
-        // TODO empty list items could be treated as self-collapsing elements
         test("elementUlOlLiTest.html", "elementUlOlLiTest.pdf", "diff_");
     }
 
