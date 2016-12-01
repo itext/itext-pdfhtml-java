@@ -147,8 +147,8 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Not working correctly")
     public void elementTableTest() throws IOException, InterruptedException {
+        // empty tables don't self-collapse in browsers
         test("elementTableTest.html", "elementTableTest.pdf", "diff_");
     }
 

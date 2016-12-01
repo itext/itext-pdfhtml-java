@@ -136,7 +136,13 @@ public class TableWrapper implements IWrapElement {
             }
             arr[k] = width;
         }
-        Table table = new Table(arr);
+        Table table;
+        if (arr.length > 0) {
+            table = new Table(arr);
+        } else {
+            // if table is empty, create empty table with single column
+            table = new Table(1);
+        }
         if (headerRows != null) {
             for (List<Cell> headerRow : headerRows) {
                 for (Cell headerCell : headerRow) {
