@@ -45,8 +45,10 @@ package com.itextpdf.html2pdf.css.apply;
 import com.itextpdf.html2pdf.css.apply.impl.*;
 import com.itextpdf.html2pdf.html.TagConstants;
 
+@Deprecated
 public class CssApplierFactory {
 
+    @Deprecated
     public static ICssApplier getCssApplier(String tag) {
         switch (tag) {
             case TagConstants.A:
