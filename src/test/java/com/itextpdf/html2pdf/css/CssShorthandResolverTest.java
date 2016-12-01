@@ -582,6 +582,120 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    @Ignore("Wrong result")
+    public void fontTest04() {
+        String shorthandExpression = "bold Georgia, serif, \"Times New Roman\"";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "font-style: initial",
+                "font-variant: initial",
+                "font-weight: bold",
+                "font-size: initial",
+                "line-height: initial",
+                "font-family: Georgia,serif,\"Times New Roman\""
+        ));
+
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
+    @Ignore("Wrong result")
+    public void fontTest05() {
+        String shorthandExpression = "italic normal bold 12px/30px Georgia, \"Times New Roman\", serif";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "font-style: italic",
+                "font-variant: initial",
+                "font-weight: bold",
+                "font-size: 12px",
+                "line-height: 30px",
+                "font-family: Georgia,\"Times New Roman\",serif"
+        ));
+
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
+    @Ignore("Wrong result")
+    public void fontTest06() {
+        String shorthandExpression = "italic normal bold 12px/30px Georgia    ,   \"Times New Roman\"   ,    serif";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "font-style: italic",
+                "font-variant: initial",
+                "font-weight: bold",
+                "font-size: 12px",
+                "line-height: 30px",
+                "font-family: Georgia,\"Times New Roman\",serif"
+        ));
+
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
+    @Ignore("Wrong result")
+    public void fontTest07() {
+        String shorthandExpression = "italic normal bold 12px/30px Georgia    ,   \"Times New Roman\"   ";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "font-style: italic",
+                "font-variant: initial",
+                "font-weight: bold",
+                "font-size: 12px",
+                "line-height: 30px",
+                "font-family: Georgia,serif,\"Times New Roman\""
+        ));
+
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
+    @Ignore("Wrong result")
+    public void fontTest08() {
+        String shorthandExpression = "Georgia,'Times New Roman'";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "font-style: initial",
+                "font-variant: initial",
+                "font-weight: initial",
+                "font-size: initial",
+                "line-height: initial",
+                "font-family: Georgia,'Times New Roman'"
+        ));
+
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
+    @Ignore("Wrong result")
+    public void fontTest09() {
+        String shorthandExpression = "Georgia  ,   'Times New Roman', serif";
+        Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
+                "font-style: initial",
+                "font-variant: initial",
+                "font-weight: initial",
+                "font-size: initial",
+                "line-height: initial",
+                "font-family: Georgia,'Times New Roman',serif"
+        ));
+
+        IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
+        assertNotNull(resolver);
+        List<CssDeclaration> resolvedShorthandProps = resolver.resolveShorthand(shorthandExpression);
+        compareResolvedProps(resolvedShorthandProps, expectedResolvedProperties);
+    }
+
+    @Test
     public void listStyleTest01() {
         String shorthandExpression = "square inside url('sqpurple.gif')";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(

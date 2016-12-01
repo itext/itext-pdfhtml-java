@@ -65,7 +65,7 @@ class HtmlStylesToCssConverter {
     private static final Map<String, IAttributeConverter> htmlAttributeConverters;
 
     static {
-        CssStyleSheet parsedStylesheet = new CssStyleSheet();;
+        CssStyleSheet parsedStylesheet = new CssStyleSheet();
         try {
             parsedStylesheet = CssStyleSheetParser.parse(ResourceUtil.getResourceStream(DEFAULT_CSS_PATH));
         } catch (IOException exc) {
