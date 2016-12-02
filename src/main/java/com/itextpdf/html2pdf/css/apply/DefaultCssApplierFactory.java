@@ -42,7 +42,6 @@
  */
 package com.itextpdf.html2pdf.css.apply;
 
-import com.itextpdf.html2pdf.DefaultTagMapping;
 import com.itextpdf.html2pdf.exceptions.NoCssApplierFoundException;
 
 import java.util.Map;
@@ -53,38 +52,35 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DefaultCssApplierFactory implements ICssApplierFactory {
 
-    private Map<String,String> map;
+    private Map<String,Class<?>> map;
 
     public DefaultCssApplierFactory() {
-        this.map = new ConcurrentHashMap<String, String>();
+        this.map = new ConcurrentHashMap<String, Class<?>>();
         this.registerDefaultCssAppliers();
     }
 
     @Override
     public ICssApplier getCssApplier(String tag) {
         //Get css applier classname
-        String cssApplierClassName = map.get(tag);
-        if(cssApplierClassName == null){
+        Class<?> cssApplierClass = map.get(tag);
+        if(cssApplierClass == null){
             //TODO add logging
             return null;
         }
         //Use reflection to create an instance
         try{
-            Class<?> c = Class.forName(cssApplierClassName);
-            ICssApplier res = (ICssApplier) c.newInstance();
+            ICssApplier res = (ICssApplier) cssApplierClass.newInstance();
             return res;
         } catch (IllegalAccessException e) {
-           throw new NoCssApplierFoundException(cssApplierClassName, NoCssApplierFoundException.ReflectionFailed);
+           throw new NoCssApplierFoundException(cssApplierClass.getName(), NoCssApplierFoundException.ReflectionFailed);
         } catch (InstantiationException e) {
-            throw new NoCssApplierFoundException(cssApplierClassName, NoCssApplierFoundException.ReflectionFailed);
-        } catch (ClassNotFoundException e) {
-            throw new NoCssApplierFoundException(cssApplierClassName, NoCssApplierFoundException.NoSuchCssApplierExists);
+            throw new NoCssApplierFoundException(cssApplierClass.getName(), NoCssApplierFoundException.ReflectionFailed);
         }
     }
 
     @Override
-    public void registerCssApplier(String tag, String namespace) {
-        this.map.put(tag, namespace);
+    public void registerCssApplier(String tag, Class<?> classToRegister) {
+        this.map.put(tag, classToRegister);
     }
 
     @Override
@@ -93,8 +89,8 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
     }
 
     private void registerDefaultCssAppliers() {
-        Map<String, String> defaultMapping = DefaultTagMapping.getDefaultCssApplierMapping();
-        for (Map.Entry<String, String> ent : defaultMapping.entrySet()) {
+        Map<String, Class<?>> defaultMapping = DefaultTagCssApplierMapping.getDefaultCssApplierMapping();
+        for (Map.Entry<String, Class<?>> ent : defaultMapping.entrySet()) {
             map.put(ent.getKey(), ent.getValue());
         }
     }

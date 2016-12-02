@@ -57,12 +57,14 @@ import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ExtendedITextTest;
 
+import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -70,6 +72,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by SamuelHuylebroeck on 11/30/2016.
  */
+@Category(IntegrationTest.class)
 public class DefaultTagWorkerFactoryTest extends ExtendedITextTest {
 
 
@@ -80,61 +83,50 @@ public class DefaultTagWorkerFactoryTest extends ExtendedITextTest {
     @Test
     public void RegisterTest(){
         String tag = "dummy";
-        String nameSpace = DivTagWorker.class.getName();
+        Class<?> expected = DivTagWorker.class;
         String snippet = "<dummy><p>Hello</p></dummy>";
-
         Document doc = Jsoup.parse(snippet);
         Map<String,String> styles = new ConcurrentHashMap<>();
-        styles.put(CssConstants.WHITE_SPACE, "");
-        styles.put(CssConstants.TEXT_TRANSFORM,"");
         IElementNode testNode = new JsoupElementNode(doc.getElementsByTag(tag).get(0));
         testNode.setStyles(styles);
-        String expected = DivTagWorker.class.getName();
 
         DefaultTagWorkerFactory df = new DefaultTagWorkerFactory();
-        df.registerTagWorker(tag,nameSpace);
-
+        df.registerTagWorker(tag,expected);
         ITagWorker tw = df.getTagWorkerInstance(testNode,null);
-        Assert.assertEquals(tw.getClass().getName(),expected);
+
+        Assert.assertEquals(tw.getClass(), expected);
     }
 
     @Test
     public void OverWriteTest(){
         String tag = TagConstants.DIV;
-        String nameSpace = SpanTagWorker.class.getName();
-        String expected = SpanTagWorker.class.getName();
-
+        Class<?> expected = SpanTagWorker.class;
         String snippet = "<"+tag+"><p>Hello</p></"+tag+">";
         Document doc = Jsoup.parse(snippet);
         Map<String,String> styles = new ConcurrentHashMap<>();
-        styles.put(CssConstants.WHITE_SPACE, "");
-        styles.put(CssConstants.TEXT_TRANSFORM,"");
         IElementNode testNode = new JsoupElementNode(doc.getElementsByTag(tag).get(0));
         testNode.setStyles(styles);
 
         DefaultTagWorkerFactory df = new DefaultTagWorkerFactory();
-        df.registerTagWorker(tag,nameSpace);
+        df.registerTagWorker(tag,expected);
 
         ITagWorker tw = df.getTagWorkerInstance(testNode,null);
-        Assert.assertEquals(tw.getClass().getName(),expected);
+        Assert.assertEquals(tw.getClass(), expected);
 
     }
     @Test
     public void RemoveTagWorkerTest(){
         String tag = TagConstants.DIV;
-
         String snippet = "<"+tag+"><p>Hello</p></"+tag+">";
         Document doc = Jsoup.parse(snippet);
         Map<String,String> styles = new ConcurrentHashMap<>();
-        styles.put(CssConstants.WHITE_SPACE, "");
-        styles.put(CssConstants.TEXT_TRANSFORM,"");
         IElementNode testNode = new JsoupElementNode(doc.getElementsByTag(tag).get(0));
         testNode.setStyles(styles);
 
         DefaultTagWorkerFactory df = new DefaultTagWorkerFactory();
-        df.removetagWorker(tag);
-
+        df.removeTagWorker(tag);
         ITagWorker tw = df.getTagWorkerInstance(testNode,null);
+
         Assert.assertNull(tw);
 
     }
