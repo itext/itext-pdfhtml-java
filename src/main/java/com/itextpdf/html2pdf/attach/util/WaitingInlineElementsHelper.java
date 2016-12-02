@@ -130,7 +130,7 @@ public class WaitingInlineElementsHelper {
 
     public Paragraph createLeavesContainer() {
         if (collapseSpaces) {
-            waitingLeaves = TrimUtil.trimLeafElementsFirstAndSanitize(waitingLeaves);
+            waitingLeaves = TrimUtil.trimLeafElementsAndSanitize(waitingLeaves);
         }
         if (CssConstants.CAPITALIZE.equals(textTransform)) {
             capitalize(waitingLeaves);
