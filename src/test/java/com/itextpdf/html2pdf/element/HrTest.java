@@ -113,13 +113,13 @@ public class HrTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("contains 'float' in css")
+    @Ignore("DEVSIX-938")
     public void hrTest09() throws IOException, InterruptedException {
         runHrTest("09");
     }
 
     @Test
-    @Ignore("contains 'float' in css")
+    @Ignore("DEVSIX-938")
     public void hrTest10() throws IOException, InterruptedException {
         runHrTest("10");
     }
