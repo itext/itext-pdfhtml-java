@@ -45,7 +45,6 @@ package com.itextpdf.html2pdf.attach.util;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Text;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public final class TrimUtil {
@@ -53,19 +52,20 @@ public final class TrimUtil {
     private TrimUtil() {
     }
 
-    // Note that the end is not trimmed. Maybe we should trim the content here, but the end trim is performed during layout anyway
-    public static List<ILeafElement> trimLeafElementsFirstAndSanitize(List<ILeafElement> leafElements) {
+    public static List<ILeafElement> trimLeafElementsAndSanitize(List<ILeafElement> leafElements) {
         ArrayList<ILeafElement> waitingLeafs = new ArrayList<ILeafElement>(leafElements);
 
         trimSubList(waitingLeafs, 0, waitingLeafs.size(), false);
-        //trimSubList(waitingLeafs, 0, waitingLeafs.size(), true);
+        trimSubList(waitingLeafs, 0, waitingLeafs.size(), true);
 
         int pos = 0;
         while (pos < waitingLeafs.size() - 1) {
             if (waitingLeafs.get(pos) instanceof Text) {
                 Text first = (Text) waitingLeafs.get(pos);
-                if (first.getText().length() > 0 && isNonLineBreakSpace(first.getText().charAt(first.getText().length() - 1))) {
+                int firstEnd = getIndexAfterLastNoneSpace(first);
+                if (firstEnd < first.getText().length()) {
                     trimSubList(waitingLeafs, pos + 1, waitingLeafs.size(), false);
+                    first.setText(first.getText().substring(0, firstEnd + 1));
                 }
             }
             pos++;
@@ -98,14 +98,14 @@ public final class TrimUtil {
     private static ILeafElement trimLeafElement(ILeafElement leafElement, boolean last) {
         if (leafElement instanceof Text) {
             Text text = (Text) leafElement;
-            int begin = last ? 0 : getFirstNoneSpaceIndex(text);
-            int end = last ? getLastNoneSpaceIndex(text) : text.getText().length();
+            int begin = last ? 0 : getIndexOfFirstNoneSpace(text);
+            int end = last ? getIndexAfterLastNoneSpace(text) : text.getText().length();
             text.setText(text.getText().substring(begin, end));
         }
         return leafElement;
     }
 
-    private static int getFirstNoneSpaceIndex(Text text) {
+    private static int getIndexOfFirstNoneSpace(Text text) {
         int pos = 0;
         while (pos < text.getText().length() && isNonLineBreakSpace(text.getText().charAt(pos))) {
             pos++;
@@ -113,7 +113,7 @@ public final class TrimUtil {
         return pos;
     }
 
-    private static int getLastNoneSpaceIndex(Text text) {
+    private static int getIndexAfterLastNoneSpace(Text text) {
         int pos = text.getText().length();
         while (pos > 0 && isNonLineBreakSpace(text.getText().charAt(pos - 1))) {
             pos--;

@@ -66,6 +66,7 @@ public class FontSizeTest extends ExtendedITextTest {
         createDestinationFolder(destinationFolder);
     }
 
+    //TODO: Note that in case of font-size < 100% in browsers line-height stays the same as in 100%. We don't do it for now.
     @Test
     public void fontSize01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "fontSizeTest01.html"), new File(destinationFolder + "fontSizeTest01.pdf"));
