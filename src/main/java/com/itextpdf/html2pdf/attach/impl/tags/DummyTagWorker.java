@@ -54,21 +54,21 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class DummyTagWorker implements ITagWorker {
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        throw new NotImplementedException;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean processContent(String content, ProcessorContext context) {
-        throw new NotImplementedException;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        throw new NotImplementedException;
+        throw new NotImplementedException();
     }
 
     @Override
     public IPropertyContainer getElementResult() {
-        throw new NotImplementedException;
+        throw new NotImplementedException();
     }
 }
