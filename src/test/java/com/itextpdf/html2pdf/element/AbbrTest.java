@@ -40,34 +40,42 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html;
+package com.itextpdf.html2pdf.element;
 
-public final class AttributeConstants {
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.utils.CompareTool;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import com.itextpdf.html2pdf.Html2PdfProductInfo;
+import com.itextpdf.kernel.Version;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-    public static final String ALIGN = "align";
-    public static final String BGCOLOR = "bgcolor";
-    public static final String BORDER = "border";
-    public static final String CLASS = "class";
-    public static final String COLOR = "color";
-    public static final String DIR = "dir";
-    public static final String FACE = "face";
-    public static final String HEIGHT = "height";
-    public static final String HREF = "href";
-    public static final String ID = "id";
-    public static final String MEDIA = "media";
-    public static final String NAME = "name";
-    public static final String NOSHADE = "noshade";
-    public static final String REL = "rel";
-    public static final String SIZE = "size";
-    public static final String SRC = "src";
-    public static final String STYLE = "style";
-    public static final String TYPE = "type";
-    public static final String WIDTH = "width";
-    public static final String TITLE = "title";
+import java.io.File;
+import java.io.IOException;
 
-    // attribute values
-    public static final String STYLESHEET = "stylesheet";
+@Category(IntegrationTest.class)
+public class AbbrTest extends ExtendedITextTest {
 
-    private AttributeConstants() {
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/AbbrTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/AbbrTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+        createDestinationFolder(destinationFolder);
+    }
+
+    //TODO unignore when a abrr tag worker is implemented
+    @Ignore
+    @Test
+    public void abbrTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "abbrTest01.html"), new File(destinationFolder + "abbrTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "abbrTest01.pdf", sourceFolder + "cmp_abbrTest01.pdf", destinationFolder, "diff01_"));
     }
 }

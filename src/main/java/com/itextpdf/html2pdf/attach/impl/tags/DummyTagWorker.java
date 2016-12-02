@@ -40,34 +40,35 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html;
+package com.itextpdf.html2pdf.attach.impl.tags;
 
-public final class AttributeConstants {
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.layout.IPropertyContainer;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-    public static final String ALIGN = "align";
-    public static final String BGCOLOR = "bgcolor";
-    public static final String BORDER = "border";
-    public static final String CLASS = "class";
-    public static final String COLOR = "color";
-    public static final String DIR = "dir";
-    public static final String FACE = "face";
-    public static final String HEIGHT = "height";
-    public static final String HREF = "href";
-    public static final String ID = "id";
-    public static final String MEDIA = "media";
-    public static final String NAME = "name";
-    public static final String NOSHADE = "noshade";
-    public static final String REL = "rel";
-    public static final String SIZE = "size";
-    public static final String SRC = "src";
-    public static final String STYLE = "style";
-    public static final String TYPE = "type";
-    public static final String WIDTH = "width";
-    public static final String TITLE = "title";
+/**
+ * Created by SamuelHuylebroeck on 12/1/2016.
+ */
+public class DummyTagWorker implements ITagWorker {
+    @Override
+    public void processEnd(IElementNode element, ProcessorContext context) {
+        throw new NotImplementedException;
+    }
 
-    // attribute values
-    public static final String STYLESHEET = "stylesheet";
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        throw new NotImplementedException;
+    }
 
-    private AttributeConstants() {
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        throw new NotImplementedException;
+    }
+
+    @Override
+    public IPropertyContainer getElementResult() {
+        throw new NotImplementedException;
     }
 }
