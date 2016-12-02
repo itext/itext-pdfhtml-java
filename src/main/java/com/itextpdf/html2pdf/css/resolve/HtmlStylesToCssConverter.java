@@ -56,6 +56,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 class HtmlStylesToCssConverter {
@@ -86,8 +87,7 @@ class HtmlStylesToCssConverter {
         htmlAttributeConverters.put(AttributeConstants.NOSHADE, new NoShadeAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.TYPE, new TypeAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.WIDTH, new WidthAttributeConverter());
-        // TODO
-//        htmlAttributeConverters.put("height", );
+        htmlAttributeConverters.put(AttributeConstants.HEIGHT, new HeightAttributeConverter());
     }
 
     public static List<CssDeclaration> convert(IElementNode element) {
@@ -154,7 +154,6 @@ class HtmlStylesToCssConverter {
         }
     }
 
-
     private static class SizeAttributeConverter implements IAttributeConverter {
         @Override
         public boolean isSupportedForElement(String elementName) {
@@ -180,7 +179,6 @@ class HtmlStylesToCssConverter {
             return Arrays.asList(new CssDeclaration(cssPropertyEquivalent, cssValueEquivalent));
         }
     }
-
 
     private static class FontFaceAttributeConverter implements IAttributeConverter {
         @Override
@@ -241,7 +239,7 @@ class HtmlStylesToCssConverter {
 
         @Override
         public boolean isSupportedForElement(String elementName) {
-            return TagConstants.HR.equals(elementName);
+            return TagConstants.HR.equals(elementName) || TagConstants.IMG.equals(elementName);
         }
 
         @Override
@@ -249,6 +247,19 @@ class HtmlStylesToCssConverter {
             String cssEquivalent = value;
             if (!value.endsWith("%")) cssEquivalent += CssConstants.PX;
             return Arrays.asList(new CssDeclaration(CssConstants.WIDTH, cssEquivalent));
+        }
+    }
+
+    private static class HeightAttributeConverter implements IAttributeConverter {
+
+        @Override
+        public boolean isSupportedForElement(String elementName) {
+            return TagConstants.IMG.equals(elementName);
+        }
+
+        @Override
+        public List<CssDeclaration> convert(String elementName, String value) {
+            return Arrays.asList(new CssDeclaration(CssConstants.HEIGHT, value + CssConstants.PX));
         }
     }
 

@@ -51,6 +51,7 @@ public final class AttributeConstants {
     public static final String COLOR = "color";
     public static final String DIR = "dir";
     public static final String FACE = "face";
+    public static final String HEIGHT = "height";
     public static final String HREF = "href";
     public static final String ID = "id";
     public static final String MEDIA = "media";
