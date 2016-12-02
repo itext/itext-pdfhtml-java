@@ -42,7 +42,6 @@
  */
 package com.itextpdf.html2pdf.attach;
 
-import com.itextpdf.html2pdf.DefaultTagMapping;
 import com.itextpdf.html2pdf.exceptions.NoTagWorkerFoundException;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 
@@ -60,10 +59,10 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
     /**
      * Internal map to keep track of tags and associated tagworkers
      */
-    private Map<String, String> map;
+    private Map<String, Class<?>> map;
 
     public DefaultTagWorkerFactory() {
-        this.map = new ConcurrentHashMap<String, String>();
+        this.map = new ConcurrentHashMap<String, Class<?>>();
         registerDefaultHtmlTagWorkers();
     }
 
@@ -71,21 +70,17 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
     @Override
     public ITagWorker getTagWorkerInstance(IElementNode tag, ProcessorContext context) throws NoTagWorkerFoundException {
         //Get Tag Worker class name
-        String tagWorkerClassName = map.get(tag.name());
-        if (tagWorkerClassName == null) {
+        Class<?> tagWorkerClass = map.get(tag.name());
+        if (tagWorkerClass == null) {
             //TODO:Log the fact that no instance could be found
-            //throw new NoTagWorkerFoundException(NoTagWorkerFoundException.NoTagWorkerRegistered);
+
             return null;
         }
         //Use reflection to create an instance
         try {
-            Class<?> c = Class.forName(tagWorkerClassName);
-            Constructor ctor = c.getDeclaredConstructor(IElementNode.class, ProcessorContext.class);
-            ctor.setAccessible(true);
+            Constructor ctor = tagWorkerClass.getDeclaredConstructor(IElementNode.class, ProcessorContext.class);
             ITagWorker res = (ITagWorker) ctor.newInstance(tag, context);
             return res;
-        } catch (ClassNotFoundException e) {
-            throw new NoTagWorkerFoundException(NoTagWorkerFoundException.TagWorkerClassDoesNotExist);
         } catch (NoSuchMethodException e) {
             throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED);
         } catch (IllegalAccessException e) {
@@ -100,18 +95,18 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
     }
 
     @Override
-    public void registerTagWorker(String tag, String nameSpace) {
-        map.put(tag, nameSpace);
+    public void registerTagWorker(String tag, Class<?> tagWorkerClass) {
+        map.put(tag, tagWorkerClass);
     }
 
     @Override
-    public void removetagWorker(String tag) {
+    public void removeTagWorker(String tag) {
         map.remove(tag);
     }
 
     private void registerDefaultHtmlTagWorkers() {
-        Map<String, String> defaultMapping = DefaultTagMapping.getDefaultTagWorkerMapping();
-        for (Map.Entry<String, String> ent : defaultMapping.entrySet()) {
+        Map<String, Class<?>> defaultMapping = DefaultTagWorkerMapping.getDefaultTagWorkerMapping();
+        for (Map.Entry<String, Class<?>> ent : defaultMapping.entrySet()) {
             map.put(ent.getKey(), ent.getValue());
         }
     }

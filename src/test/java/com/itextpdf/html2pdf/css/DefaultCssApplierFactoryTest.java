@@ -48,54 +48,57 @@ import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Created by SamuelHuylebroeck on 11/30/2016.
  */
+@Category(IntegrationTest.class)
 public class DefaultCssApplierFactoryTest extends ExtendedITextTest {
 
     @BeforeClass
     public static void beforeClass() {
     }
 
-    public void RegisterTagApplierTest(){
+    @Test
+    public void RegisterTagApplierTest() {
         String tag = "dummy";
-        String nameSpace = BlockCssApplier.class.getName();
+        Class<?> applierClass = BlockCssApplier.class;
 
         ICssApplierFactory df = new DefaultCssApplierFactory();
-        df.registerCssApplier(tag, nameSpace);
-
+        df.registerCssApplier(tag, applierClass);
         ICssApplier ca = df.getCssApplier(tag);
 
-        Assert.assertEquals(ca.getClass().getName(),nameSpace);
+        Assert.assertEquals(ca.getClass(), applierClass);
 
     }
 
-    public void RetrieveTagApplierTest(){
+    @Test
+    public void RetrieveTagApplierTest() {
         String tag = TagConstants.DIV;
-        String expected = TagConstants.class.getName();
+        Class<?> expected = BlockCssApplier.class;
 
         ICssApplierFactory df = new DefaultCssApplierFactory();
         ICssApplier ca = df.getCssApplier(tag);
 
-        Assert.assertEquals(ca.getClass().getName(),expected);
+        Assert.assertEquals(ca.getClass(), expected);
 
 
     }
 
-    public void RemoveTagApplierTest(){
+    @Test
+    public void RemoveTagApplierTest() {
         String tag = TagConstants.DIV;
 
         ICssApplierFactory df = new DefaultCssApplierFactory();
-
         df.removeCssApplier(tag);
-
-        ICssApplier ca  = df.getCssApplier(tag);
+        ICssApplier ca = df.getCssApplier(tag);
 
         Assert.assertNull(ca);
-
 
 
     }

@@ -60,8 +60,9 @@ public interface ITagWorkerFactory {
      */
     ITagWorker getTagWorkerInstance(IElementNode tag, ProcessorContext context) ;
 
-    void registerTagWorker(String tag, String nameSpace);
+    void registerTagWorker(String tag, Class<?> tagWorkerClass);
 
-    void removetagWorker(String tag);
+    void removeTagWorker(String tag);
 
 }
+

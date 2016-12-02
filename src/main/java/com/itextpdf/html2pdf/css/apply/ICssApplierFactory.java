@@ -49,7 +49,7 @@ public interface ICssApplierFactory {
 
     ICssApplier getCssApplier(String tag);
 
-    void registerCssApplier(String tag, String namespace);
+    void registerCssApplier(String tag, Class<?> applierToUse);
 
     void removeCssApplier(String tag);
 }

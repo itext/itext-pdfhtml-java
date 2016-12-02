@@ -46,14 +46,10 @@ package com.itextpdf.html2pdf.exceptions;
  * Created by SamuelHuylebroeck on 12/1/2016.
  */
 public class NoCssApplierFoundException extends RuntimeException {
-    public NoCssApplierFoundException(String message) {
-        super(message);
-    }
 
     public NoCssApplierFoundException(String className, String message){
         super(message + className);
     }
     //TODO cleanup excpetions and make more verbose
-    public static String NoSuchCssApplierExists = "No such Css Applier exists: ";
-    public static String ReflectionFailed = "Reflection failed for class: ";
+    public static final String ReflectionFailed = "Reflection failed for class: ";
 }
