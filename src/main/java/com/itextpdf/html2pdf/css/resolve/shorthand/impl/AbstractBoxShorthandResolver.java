@@ -60,7 +60,7 @@ public abstract class AbstractBoxShorthandResolver implements IShorthandResolver
 
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
-        String[] props = shorthandExpression.split(" ");
+        String[] props = shorthandExpression.split("\\s+");
         List<CssDeclaration> resolvedDecl = new ArrayList<>();
         String topProperty = MessageFormat.format(_0_TOP_1, getPrefix(), getPostfix());
         String rightProperty = MessageFormat.format(_0_RIGHT_1, getPrefix(), getPostfix());

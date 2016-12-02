@@ -46,12 +46,13 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class BackgroundShorthandResolver implements IShorthandResolver {
 
@@ -91,7 +92,7 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
         String backgroundExpression = commaSeparatedExpressions.get(0);
         String[] resolvedProps = new String[8];
 
-        String[] props = backgroundExpression.split(" ");
+        String[] props = backgroundExpression.split("\\s+");
         boolean slashEncountered = false;
         for (String value : props) {
             int slashCharInd = value.indexOf('/');

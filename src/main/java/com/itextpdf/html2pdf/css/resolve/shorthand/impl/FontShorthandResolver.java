@@ -50,10 +50,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class FontShorthandResolver implements IShorthandResolver {
     private static final Set<String> UNSUPPORTED_VALUES_OF_FONT_SHORTHAND = new HashSet<>(Arrays.asList(
@@ -94,8 +91,8 @@ public class FontShorthandResolver implements IShorthandResolver {
         String lineHeightValue = null;
         String fontFamilyValue = null;
 
-        String[] props = shorthandExpression.replaceAll(",\\s*", ",").split("\"?( |$)(?=(([^\"]*\"){2})*[^\"]*$)\"?");
-        for (String value : props) {
+        List<String> properties = getFontProperties(shorthandExpression.replaceAll("\\s*,\\s*", ","));
+        for (String value : properties) {
             int slashSymbolIndex = value.indexOf('/');
             if (CssConstants.ITALIC.equals(value) || CssConstants.OBLIQUE.equals(value)) {
                 fontStyleValue = value;
@@ -123,5 +120,33 @@ public class FontShorthandResolver implements IShorthandResolver {
         );
 
         return cssDeclarations;
+    }
+
+    private List<String> getFontProperties(String shorthandExpression) {
+        boolean doubleQuotesAreSpotted = false;
+        boolean singleQuoteIsSpotted = false;
+        List<String> properties = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < shorthandExpression.length(); i++) {
+            char currentChar = shorthandExpression.charAt(i);
+            if (currentChar == '\"') {
+                doubleQuotesAreSpotted = !doubleQuotesAreSpotted;
+                sb.append(currentChar);
+            } else if (currentChar == '\'' ) {
+                singleQuoteIsSpotted = !singleQuoteIsSpotted;
+                sb.append(currentChar);
+            } else if (!doubleQuotesAreSpotted && !singleQuoteIsSpotted && Character.isWhitespace(currentChar)) {
+                if (sb.length() > 0) {
+                    properties.add(sb.toString());
+                    sb = new StringBuilder();
+                }
+            } else {
+                sb.append(currentChar);
+            }
+        }
+        if (sb.length() > 0) {
+            properties.add(sb.toString());
+        }
+        return properties;
     }
 }

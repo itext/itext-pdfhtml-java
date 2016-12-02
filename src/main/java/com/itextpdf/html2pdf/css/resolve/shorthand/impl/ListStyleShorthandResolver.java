@@ -45,13 +45,8 @@ package com.itextpdf.html2pdf.css.resolve.shorthand.impl;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
-import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.kernel.color.WebColors;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
 
 public class ListStyleShorthandResolver implements IShorthandResolver {
     private static final Set<String> LIST_STYLE_TYPE_VALUES = new HashSet<>(Arrays.asList(
@@ -74,7 +69,7 @@ public class ListStyleShorthandResolver implements IShorthandResolver {
                     new CssDeclaration(CssConstants.LIST_STYLE_IMAGE, shorthandExpression));
         }
 
-        String[] props = shorthandExpression.split(" ");
+        String[] props = shorthandExpression.split("\\s+");
 
         String listStyleTypeValue = null;
         String listStylePositionValue = null;

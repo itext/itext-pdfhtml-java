@@ -71,7 +71,7 @@ public abstract class AbstractBorderShorthandResolver implements IShorthandResol
                     new CssDeclaration(colorPropName, shorthandExpression));
         }
 
-        String[] props = shorthandExpression.split(" ");
+        String[] props = shorthandExpression.split("\\s+");
 
         String borderColorValue = null;
         String borderStyleValue = null;

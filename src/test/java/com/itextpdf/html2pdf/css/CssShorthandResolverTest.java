@@ -48,14 +48,10 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.UnitTest;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.util.*;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -582,7 +578,6 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Wrong result")
     public void fontTest04() {
         String shorthandExpression = "bold Georgia, serif, \"Times New Roman\"";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
@@ -601,7 +596,6 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Wrong result")
     public void fontTest05() {
         String shorthandExpression = "italic normal bold 12px/30px Georgia, \"Times New Roman\", serif";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
@@ -620,7 +614,6 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Wrong result")
     public void fontTest06() {
         String shorthandExpression = "italic normal bold 12px/30px Georgia    ,   \"Times New Roman\"   ,    serif";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
@@ -639,7 +632,6 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Wrong result")
     public void fontTest07() {
         String shorthandExpression = "italic normal bold 12px/30px Georgia    ,   \"Times New Roman\"   ";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
@@ -648,7 +640,7 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "font-weight: bold",
                 "font-size: 12px",
                 "line-height: 30px",
-                "font-family: Georgia,serif,\"Times New Roman\""
+                "font-family: Georgia,\"Times New Roman\""
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
@@ -658,7 +650,6 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Wrong result")
     public void fontTest08() {
         String shorthandExpression = "Georgia,'Times New Roman'";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
@@ -677,7 +668,6 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Wrong result")
     public void fontTest09() {
         String shorthandExpression = "Georgia  ,   'Times New Roman', serif";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
