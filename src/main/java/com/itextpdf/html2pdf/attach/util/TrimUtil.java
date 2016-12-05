@@ -53,25 +53,25 @@ public final class TrimUtil {
     }
 
     public static List<ILeafElement> trimLeafElementsAndSanitize(List<ILeafElement> leafElements) {
-        ArrayList<ILeafElement> waitingLeafs = new ArrayList<ILeafElement>(leafElements);
+        ArrayList<ILeafElement> waitingLeaves = new ArrayList<ILeafElement>(leafElements);
 
-        trimSubList(waitingLeafs, 0, waitingLeafs.size(), false);
-        trimSubList(waitingLeafs, 0, waitingLeafs.size(), true);
+        trimSubList(waitingLeaves, 0, waitingLeaves.size(), false);
+        trimSubList(waitingLeaves, 0, waitingLeaves.size(), true);
 
         int pos = 0;
-        while (pos < waitingLeafs.size() - 1) {
-            if (waitingLeafs.get(pos) instanceof Text) {
-                Text first = (Text) waitingLeafs.get(pos);
-                int firstEnd = getIndexAfterLastNoneSpace(first);
+        while (pos < waitingLeaves.size() - 1) {
+            if (waitingLeaves.get(pos) instanceof Text) {
+                Text first = (Text) waitingLeaves.get(pos);
+                int firstEnd = getIndexAfterLastNonSpace(first);
                 if (firstEnd < first.getText().length()) {
-                    trimSubList(waitingLeafs, pos + 1, waitingLeafs.size(), false);
+                    trimSubList(waitingLeaves, pos + 1, waitingLeaves.size(), false);
                     first.setText(first.getText().substring(0, firstEnd + 1));
                 }
             }
             pos++;
         }
 
-        return waitingLeafs;
+        return waitingLeaves;
     }
 
     static boolean isNonLineBreakSpace(char ch) {
@@ -98,14 +98,14 @@ public final class TrimUtil {
     private static ILeafElement trimLeafElement(ILeafElement leafElement, boolean last) {
         if (leafElement instanceof Text) {
             Text text = (Text) leafElement;
-            int begin = last ? 0 : getIndexOfFirstNoneSpace(text);
-            int end = last ? getIndexAfterLastNoneSpace(text) : text.getText().length();
+            int begin = last ? 0 : getIndexOfFirstNonSpace(text);
+            int end = last ? getIndexAfterLastNonSpace(text) : text.getText().length();
             text.setText(text.getText().substring(begin, end));
         }
         return leafElement;
     }
 
-    private static int getIndexOfFirstNoneSpace(Text text) {
+    private static int getIndexOfFirstNonSpace(Text text) {
         int pos = 0;
         while (pos < text.getText().length() && isNonLineBreakSpace(text.getText().charAt(pos))) {
             pos++;
@@ -113,7 +113,7 @@ public final class TrimUtil {
         return pos;
     }
 
-    private static int getIndexAfterLastNoneSpace(Text text) {
+    private static int getIndexAfterLastNonSpace(Text text) {
         int pos = text.getText().length();
         while (pos > 0 && isNonLineBreakSpace(text.getText().charAt(pos - 1))) {
             pos--;
