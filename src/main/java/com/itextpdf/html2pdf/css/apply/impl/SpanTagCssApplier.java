@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
@@ -65,6 +66,8 @@ public class SpanTagCssApplier implements ICssApplier {
     private void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context) {
         FontStyleApplierUtil.applyFontStyles(css, context, element);
         BackgroundApplierUtil.applyBackground(css, context, element);
+        //TODO: Border-applying currently doesn't work in html way for spans inside other spans.
+        BorderStyleApplierUtil.applyBorders(css, context, element);
     }
 
 }
