@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -79,14 +80,14 @@ public class TextPropertiesTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = "text-decoration: blink not supported")})
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED)})
     public void textDecoration01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest01.html"), new File(destinationFolder + "textDecorationTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest01.pdf", sourceFolder + "cmp_textDecorationTest01.pdf", destinationFolder, "diff02_"));
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = "text-indent in percents is not supported")})
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.TEXT_INDENT_IN_PERCENTS_IS_NOT_SUPPORTED)})
     public void textIndent01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "textIndentTest01.html"), new File(destinationFolder + "textIndentTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textIndentTest01.pdf", sourceFolder + "cmp_textIndentTest01.pdf", destinationFolder, "diff03_"));
