@@ -103,7 +103,7 @@ public class DefaultCssResolver implements ICssResolver {
 
             if (parentStyles == null && !(element.parentNode() instanceof IDocumentNode)) {
                 Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
-                logger.error("Element parent styles are not resolved. Styles for current element might be incorrect.");
+                logger.error(LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES);
             }
 
             if (parentStyles != null) {
@@ -115,7 +115,7 @@ public class DefaultCssResolver implements ICssResolver {
                 if (CssUtils.isRelativeValue(elementFontSize) && parentFontSizeStr != null) {
                     float parentFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
                     float absoluteFontSize = CssUtils.parseRelativeValue(elementFontSize, parentFontSize);
-                    elementStyles.put(CssConstants.FONT_SIZE, absoluteFontSize + "pt");
+                    elementStyles.put(CssConstants.FONT_SIZE, absoluteFontSize + CssConstants.PT);
                 }
             }
         }
