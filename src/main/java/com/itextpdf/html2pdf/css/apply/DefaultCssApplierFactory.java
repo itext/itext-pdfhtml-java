@@ -40,14 +40,58 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf;
+package com.itextpdf.html2pdf.css.apply;
 
-public class Html2PdfException extends RuntimeException {
+import com.itextpdf.html2pdf.exceptions.NoCssApplierFoundException;
 
-    public Html2PdfException(String message) {
-        super(message);
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * Created by SamuelHuylebroeck on 11/30/2016.
+ */
+public class DefaultCssApplierFactory implements ICssApplierFactory {
+
+    private Map<String,Class<?>> map;
+
+    public DefaultCssApplierFactory() {
+        this.map = new ConcurrentHashMap<String, Class<?>>();
+        this.registerDefaultCssAppliers();
     }
 
-    public static final String PdfDocumentShouldBeInWritingMode = "PdfDocument should be created in writing mode. Reading and stamping is not allowed";
+    @Override
+    public ICssApplier getCssApplier(String tag) {
+        //Get css applier classname
+        Class<?> cssApplierClass = map.get(tag);
+        if(cssApplierClass == null){
+            //TODO add logging
+            return null;
+        }
+        //Use reflection to create an instance
+        try{
+            ICssApplier res = (ICssApplier) cssApplierClass.newInstance();
+            return res;
+        } catch (IllegalAccessException e) {
+           throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.getName(),tag);
+        } catch (InstantiationException e) {
+            throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.getName(), tag) ;
+        }
+    }
 
+    @Override
+    public void registerCssApplier(String tag, Class<?> classToRegister) {
+        this.map.put(tag, classToRegister);
+    }
+
+    @Override
+    public void removeCssApplier(String tag) {
+        this.map.remove(tag);
+    }
+
+    private void registerDefaultCssAppliers() {
+        Map<String, Class<?>> defaultMapping = DefaultTagCssApplierMapping.getDefaultCssApplierMapping();
+        for (Map.Entry<String, Class<?>> ent : defaultMapping.entrySet()) {
+            map.put(ent.getKey(), ent.getValue());
+        }
+    }
 }
