@@ -42,16 +42,14 @@
  */
 package com.itextpdf.html2pdf.exceptions;
 
-/**
- * Created by SamuelHuylebroeck on 11/30/2016.
- */
+import java.text.MessageFormat;
+
 public class NoTagWorkerFoundException extends RuntimeException {
-    public NoTagWorkerFoundException(String message) {
-        super(message);
+    public NoTagWorkerFoundException(String message, String classNames, String tag) {
+        super(MessageFormat.format(message,classNames,tag));
     }
 
-    //TODO; Replace this generic message with a more specific one
-    public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Reflection in TagWorkerFactory implementation failed";
+    public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
 
 
 }

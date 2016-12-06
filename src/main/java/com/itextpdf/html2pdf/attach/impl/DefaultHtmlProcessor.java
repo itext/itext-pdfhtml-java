@@ -50,14 +50,11 @@ import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.TagWorkerFactory;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.apply.CssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
-import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
@@ -126,11 +123,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
 
     public DefaultHtmlProcessor(INode root,ICssResolver cssResolver,  ResourceResolver resourceResolver, ITagWorkerFactory tagWorkerFactory, ICssApplierFactory cssApplierFactory) {
-        this.context = context;
         this.cssResolver = cssResolver;
         this.root = root;
         this.resourceResolver = resourceResolver;
-        this.roots = roots;
         this.tagWorkerFactory = tagWorkerFactory;
         this.cssApplierFactory = cssApplierFactory;
     }
@@ -256,7 +251,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 return;
             }
 
-            //ITagWorker tagWorker = TagWorkerFactory.getTagWorker(element, context);
+
             ITagWorker tagWorker = tagWorkerFactory.getTagWorkerInstance(element,context);
             if (tagWorker == null) {
                 // TODO for stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links
