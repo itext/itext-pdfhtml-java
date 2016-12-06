@@ -42,14 +42,12 @@
  */
 package com.itextpdf.html2pdf.exceptions;
 
-/**
- * Created by SamuelHuylebroeck on 12/1/2016.
- */
+import java.text.MessageFormat;
+
 public class NoCssApplierFoundException extends RuntimeException {
 
-    public NoCssApplierFoundException(String className, String message){
-        super(message + className);
+    public NoCssApplierFoundException(String message, String className, String tag){
+        super(MessageFormat.format(message,className, tag));
     }
-    //TODO cleanup excpetions and make more verbose
-    public static final String ReflectionFailed = "Reflection failed for class: ";
+    public static final String ReflectionFailed = "Could not instantiate CssApplier-class {0} for tag {1}.";
 }

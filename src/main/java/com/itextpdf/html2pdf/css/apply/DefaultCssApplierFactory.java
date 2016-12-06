@@ -72,9 +72,9 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
             ICssApplier res = (ICssApplier) cssApplierClass.newInstance();
             return res;
         } catch (IllegalAccessException e) {
-           throw new NoCssApplierFoundException(cssApplierClass.getName(), NoCssApplierFoundException.ReflectionFailed);
+           throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.getName(),tag);
         } catch (InstantiationException e) {
-            throw new NoCssApplierFoundException(cssApplierClass.getName(), NoCssApplierFoundException.ReflectionFailed);
+            throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.getName(), tag) ;
         }
     }
 
