@@ -47,6 +47,7 @@ public final class TagConstants {
     private TagConstants() {
     }
     public static final String A = "a";
+    public static final String ABBR = "abbr";
     public static final String ARTICLE = "article";
     public static final String ASIDE = "aside";
     public static final String B = "b";
@@ -107,5 +108,6 @@ public final class TagConstants {
     public static final String TR = "tr";
     public static final String U = "u";
     public static final String UL = "ul";
+
 
 }

@@ -40,34 +40,16 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html;
+package com.itextpdf.html2pdf.exceptions;
 
-public final class AttributeConstants {
+import java.text.MessageFormat;
 
-    public static final String ALIGN = "align";
-    public static final String BGCOLOR = "bgcolor";
-    public static final String BORDER = "border";
-    public static final String CLASS = "class";
-    public static final String COLOR = "color";
-    public static final String DIR = "dir";
-    public static final String FACE = "face";
-    public static final String HEIGHT = "height";
-    public static final String HREF = "href";
-    public static final String ID = "id";
-    public static final String MEDIA = "media";
-    public static final String NAME = "name";
-    public static final String NOSHADE = "noshade";
-    public static final String REL = "rel";
-    public static final String SIZE = "size";
-    public static final String SRC = "src";
-    public static final String STYLE = "style";
-    public static final String TYPE = "type";
-    public static final String WIDTH = "width";
-    public static final String TITLE = "title";
-
-    // attribute values
-    public static final String STYLESHEET = "stylesheet";
-
-    private AttributeConstants() {
+public class NoTagWorkerFoundException extends RuntimeException {
+    public NoTagWorkerFoundException(String message, String classNames, String tag) {
+        super(MessageFormat.format(message,classNames,tag));
     }
+
+    public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
+
+
 }

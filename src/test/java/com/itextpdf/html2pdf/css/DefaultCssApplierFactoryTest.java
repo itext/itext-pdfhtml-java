@@ -40,34 +40,68 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html;
+package com.itextpdf.html2pdf.css;
 
-public final class AttributeConstants {
+import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
+import com.itextpdf.html2pdf.css.apply.DefaultCssApplierFactory;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
+import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-    public static final String ALIGN = "align";
-    public static final String BGCOLOR = "bgcolor";
-    public static final String BORDER = "border";
-    public static final String CLASS = "class";
-    public static final String COLOR = "color";
-    public static final String DIR = "dir";
-    public static final String FACE = "face";
-    public static final String HEIGHT = "height";
-    public static final String HREF = "href";
-    public static final String ID = "id";
-    public static final String MEDIA = "media";
-    public static final String NAME = "name";
-    public static final String NOSHADE = "noshade";
-    public static final String REL = "rel";
-    public static final String SIZE = "size";
-    public static final String SRC = "src";
-    public static final String STYLE = "style";
-    public static final String TYPE = "type";
-    public static final String WIDTH = "width";
-    public static final String TITLE = "title";
+/**
+ * Created by SamuelHuylebroeck on 11/30/2016.
+ */
+@Category(IntegrationTest.class)
+public class DefaultCssApplierFactoryTest extends ExtendedITextTest {
 
-    // attribute values
-    public static final String STYLESHEET = "stylesheet";
-
-    private AttributeConstants() {
+    @BeforeClass
+    public static void beforeClass() {
     }
+
+    @Test
+    public void RegisterTagApplierTest() {
+        String tag = "dummy";
+        Class<?> applierClass = BlockCssApplier.class;
+
+        ICssApplierFactory df = new DefaultCssApplierFactory();
+        df.registerCssApplier(tag, applierClass);
+        ICssApplier ca = df.getCssApplier(tag);
+
+        Assert.assertEquals(ca.getClass(), applierClass);
+
+    }
+
+    @Test
+    public void RetrieveTagApplierTest() {
+        String tag = TagConstants.DIV;
+        Class<?> expected = BlockCssApplier.class;
+
+        ICssApplierFactory df = new DefaultCssApplierFactory();
+        ICssApplier ca = df.getCssApplier(tag);
+
+        Assert.assertEquals(ca.getClass(), expected);
+
+
+    }
+
+    @Test
+    public void RemoveTagApplierTest() {
+        String tag = TagConstants.DIV;
+
+        ICssApplierFactory df = new DefaultCssApplierFactory();
+        df.removeCssApplier(tag);
+        ICssApplier ca = df.getCssApplier(tag);
+
+        Assert.assertNull(ca);
+
+
+    }
+
+
 }

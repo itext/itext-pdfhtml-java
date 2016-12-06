@@ -40,34 +40,58 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html;
+package com.itextpdf.html2pdf.css.apply;
 
-public final class AttributeConstants {
+import com.itextpdf.html2pdf.exceptions.NoCssApplierFoundException;
 
-    public static final String ALIGN = "align";
-    public static final String BGCOLOR = "bgcolor";
-    public static final String BORDER = "border";
-    public static final String CLASS = "class";
-    public static final String COLOR = "color";
-    public static final String DIR = "dir";
-    public static final String FACE = "face";
-    public static final String HEIGHT = "height";
-    public static final String HREF = "href";
-    public static final String ID = "id";
-    public static final String MEDIA = "media";
-    public static final String NAME = "name";
-    public static final String NOSHADE = "noshade";
-    public static final String REL = "rel";
-    public static final String SIZE = "size";
-    public static final String SRC = "src";
-    public static final String STYLE = "style";
-    public static final String TYPE = "type";
-    public static final String WIDTH = "width";
-    public static final String TITLE = "title";
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-    // attribute values
-    public static final String STYLESHEET = "stylesheet";
+/**
+ * Created by SamuelHuylebroeck on 11/30/2016.
+ */
+public class DefaultCssApplierFactory implements ICssApplierFactory {
 
-    private AttributeConstants() {
+    private Map<String,Class<?>> map;
+
+    public DefaultCssApplierFactory() {
+        this.map = new ConcurrentHashMap<String, Class<?>>();
+        this.registerDefaultCssAppliers();
+    }
+
+    @Override
+    public ICssApplier getCssApplier(String tag) {
+        //Get css applier classname
+        Class<?> cssApplierClass = map.get(tag);
+        if(cssApplierClass == null){
+            //TODO add logging
+            return null;
+        }
+        //Use reflection to create an instance
+        try{
+            ICssApplier res = (ICssApplier) cssApplierClass.newInstance();
+            return res;
+        } catch (IllegalAccessException e) {
+           throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.getName(),tag);
+        } catch (InstantiationException e) {
+            throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.getName(), tag) ;
+        }
+    }
+
+    @Override
+    public void registerCssApplier(String tag, Class<?> classToRegister) {
+        this.map.put(tag, classToRegister);
+    }
+
+    @Override
+    public void removeCssApplier(String tag) {
+        this.map.remove(tag);
+    }
+
+    private void registerDefaultCssAppliers() {
+        Map<String, Class<?>> defaultMapping = DefaultTagCssApplierMapping.getDefaultCssApplierMapping();
+        for (Map.Entry<String, Class<?>> ent : defaultMapping.entrySet()) {
+            map.put(ent.getKey(), ent.getValue());
+        }
     }
 }

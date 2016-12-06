@@ -45,15 +45,16 @@ package com.itextpdf.html2pdf.attach.impl;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.ResourceResolver;
+import com.itextpdf.html2pdf.attach.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.TagWorkerFactory;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.apply.CssApplierFactory;
+import com.itextpdf.html2pdf.css.apply.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
-import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
@@ -104,11 +105,29 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     private INode root;
     private ResourceResolver resourceResolver;
     private List<IPropertyContainer> roots;
+    private ITagWorkerFactory tagWorkerFactory;
+    private ICssApplierFactory cssApplierFactory;
 
     public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver) {
+        this(node,cssResolver,resourceResolver,new DefaultTagWorkerFactory(),new DefaultCssApplierFactory());
+    }
+
+    public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver, ITagWorkerFactory tagWorkerFactory) {
+        this(node,cssResolver,resourceResolver,tagWorkerFactory,new DefaultCssApplierFactory());
+    }
+
+    public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver, ICssApplierFactory cssApplierFactory) {
+        this(node,cssResolver,resourceResolver,new DefaultTagWorkerFactory(),cssApplierFactory);
+    }
+
+
+
+    public DefaultHtmlProcessor(INode root,ICssResolver cssResolver,  ResourceResolver resourceResolver, ITagWorkerFactory tagWorkerFactory, ICssApplierFactory cssApplierFactory) {
         this.cssResolver = cssResolver;
-        this.root = node;
+        this.root = root;
         this.resourceResolver = resourceResolver;
+        this.tagWorkerFactory = tagWorkerFactory;
+        this.cssApplierFactory = cssApplierFactory;
     }
 
     @Override
@@ -231,7 +250,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             if (!isDisplayable(element)) {
                 return;
             }
-            ITagWorker tagWorker = TagWorkerFactory.getTagWorker(element, context);
+
+
+            ITagWorker tagWorker = tagWorkerFactory.getTagWorkerInstance(element,context);
             if (tagWorker == null) {
                 // TODO for stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links
                 if (!ignoredTags.contains(element.name()) && !HtmlUtils.isStyleSheetLink(element)) {
@@ -249,7 +270,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 tagWorker.processEnd(element, context);
                 context.getState().pop();
 
-                ICssApplier cssApplier = CssApplierFactory.getCssApplier(element.name());
+                ICssApplier cssApplier = cssApplierFactory.getCssApplier(element.name());
                 if (cssApplier == null) {
                     if (!ignoredCssTags.contains(element.name())) {
                         logger.error(MessageFormat.format(LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
