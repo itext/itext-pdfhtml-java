@@ -43,21 +43,16 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.kernel.utils.CompareTool;
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import com.itextpdf.html2pdf.Html2PdfProductInfo;
-import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class Html2PdfTest extends ExtendedITextTest {
@@ -76,7 +71,7 @@ public class Html2PdfTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_paragraph.pdf", sourceFolder + "cmp_hello_paragraph.pdf", destinationFolder, "diff01_"));
     }
 
-    @Test@Ignore("DEVSIX-924")
+    @Test
     public void helloParagraphTableTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph_table.html"), new File(destinationFolder + "hello_paragraph_table.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_paragraph_table.pdf", sourceFolder + "cmp_hello_paragraph_table.pdf", destinationFolder, "diff02_"));
@@ -95,7 +90,7 @@ public class Html2PdfTest extends ExtendedITextTest {
     }
 
 
-    @Test@Ignore("DEVSIX-924")
+    @Test
     public void helloParagraphNestedInTableDocumentTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph_nested_in_table.html"), new File(destinationFolder + "hello_paragraph_nested_in_table.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_paragraph_nested_in_table.pdf", sourceFolder + "cmp_hello_paragraph_nested_in_table.pdf", destinationFolder, "diff03_"));
