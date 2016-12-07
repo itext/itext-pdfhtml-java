@@ -56,10 +56,10 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class BlockquoteTest extends ExtendedITextTest {
+public class CodeTest extends ExtendedITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/BlockquoteTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/BlockquoteTest/";
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/CodeTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/CodeTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -67,14 +67,20 @@ public class BlockquoteTest extends ExtendedITextTest {
     }
 
     @Test
-    public void blockquote01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "blockquoteTest01.html"), new File(destinationFolder + "blockquoteTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "blockquoteTest01.pdf", sourceFolder + "cmp_blockquoteTest01.pdf", destinationFolder, "diff01_"));
+    public void code01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "codeTest01.html"), new File(destinationFolder + "codeTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "codeTest01.pdf", sourceFolder + "cmp_codeTest01.pdf", destinationFolder, "diff01_"));
     }
 
     @Test
-    public void blockquote02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "blockquoteTest02.html"), new File(destinationFolder + "blockquoteTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "blockquoteTest02.pdf", sourceFolder + "cmp_blockquoteTest02.pdf", destinationFolder, "diff02_"));
+    public void code02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "codeTest02.html"), new File(destinationFolder + "codeTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "codeTest02.pdf", sourceFolder + "cmp_codeTest02.pdf", destinationFolder, "diff02_"));
+    }
+
+    @Test
+    public void code03Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "codeTest03.html"), new File(destinationFolder + "codeTest03.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "codeTest03.pdf", sourceFolder + "cmp_codeTest03.pdf", destinationFolder, "diff02_"));
     }
 }

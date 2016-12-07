@@ -56,10 +56,10 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class BlockquoteTest extends ExtendedITextTest {
+public class MarkTest extends ExtendedITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/BlockquoteTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/BlockquoteTest/";
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/MarkTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/MarkTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -67,14 +67,8 @@ public class BlockquoteTest extends ExtendedITextTest {
     }
 
     @Test
-    public void blockquote01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "blockquoteTest01.html"), new File(destinationFolder + "blockquoteTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "blockquoteTest01.pdf", sourceFolder + "cmp_blockquoteTest01.pdf", destinationFolder, "diff01_"));
-    }
-
-    @Test
-    public void blockquote02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "blockquoteTest02.html"), new File(destinationFolder + "blockquoteTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "blockquoteTest02.pdf", sourceFolder + "cmp_blockquoteTest02.pdf", destinationFolder, "diff02_"));
+    public void mark01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "markTest01.html"), new File(destinationFolder + "markTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "markTest01.pdf", sourceFolder + "cmp_markTest01.pdf", destinationFolder, "diff01_"));
     }
 }
