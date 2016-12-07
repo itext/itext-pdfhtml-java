@@ -61,10 +61,10 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class AsideTest extends ExtendedITextTest {
+public class BTest extends ExtendedITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/AsideTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/AsideTest/";
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/BTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/BTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -72,16 +72,8 @@ public class AsideTest extends ExtendedITextTest {
     }
 
     @Test
-    public void aside01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "asideTest01.html"), new File(destinationFolder + "asideTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "asideTest01.pdf", sourceFolder + "cmp_asideTest01.pdf", destinationFolder, "diff01_"));
+    public void b01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "bTest01.html"), new File(destinationFolder + "bTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bTest01.pdf", sourceFolder + "cmp_bTest01.pdf", destinationFolder, "diff01_"));
     }
-
-    @Test
-    public void aside02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "asideTest02.html"), new File(destinationFolder + "asideTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "asideTest02.pdf", sourceFolder + "cmp_asideTest02.pdf", destinationFolder, "diff02_"));
-    }
-
-
 }

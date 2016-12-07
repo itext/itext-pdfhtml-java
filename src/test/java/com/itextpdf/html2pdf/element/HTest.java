@@ -51,20 +51,19 @@ import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-@Category(IntegrationTest.class)
-public class AsideTest extends ExtendedITextTest {
+import java.io.File;
+import java.io.IOException;
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/AsideTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/AsideTest/";
+@Category(IntegrationTest.class)
+public class HTest extends ExtendedITextTest {
+
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/HTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/HTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -72,16 +71,8 @@ public class AsideTest extends ExtendedITextTest {
     }
 
     @Test
-    public void aside01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "asideTest01.html"), new File(destinationFolder + "asideTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "asideTest01.pdf", sourceFolder + "cmp_asideTest01.pdf", destinationFolder, "diff01_"));
+    public void h1Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hTest01.html"), new File(destinationFolder + "hTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest01.pdf", sourceFolder + "cmp_hTest01.pdf", destinationFolder, "diff01_"));
     }
-
-    @Test
-    public void aside02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "asideTest02.html"), new File(destinationFolder + "asideTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "asideTest02.pdf", sourceFolder + "cmp_asideTest02.pdf", destinationFolder, "diff02_"));
-    }
-
-
 }
