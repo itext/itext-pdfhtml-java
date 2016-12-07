@@ -44,9 +44,10 @@ package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
 import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IAttributes;
-import java.util.Iterator;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Attributes;
+
+import java.util.Iterator;
 
 public class JsoupAttributes implements IAttributes {
 
@@ -59,6 +60,14 @@ public class JsoupAttributes implements IAttributes {
     @Override
     public String getAttribute(String key) {
         return attributes.hasKey(key) ? attributes.get(key) : null;
+    }
+
+    @Override
+    public void setAttribute(String key, String value) {
+        if (attributes.hasKey(key)) {
+            attributes.remove(key);
+        }
+        attributes.put(key, value);
     }
 
     @Override

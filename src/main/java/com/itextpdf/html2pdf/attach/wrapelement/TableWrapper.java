@@ -175,13 +175,26 @@ public class TableWrapper implements IWrapElement {
         int maxRowSize = 1;
         for (List<Cell> row : rows) {
             maxRowSize = Math.max(maxRowSize, row.size());
+            int colspanSum = 0;
             for (int j = 0; j < row.size(); j++) {
-                if (maxWidths.size() <= j) {
-                    UnitValue width = row.get(j).getWidth();
-                    if (width == null) {
-                        maxWidths.add(null);
+                if (maxWidths.size() <= j + colspanSum) {
+                    Cell cell = row.get(j);
+                    UnitValue width = cell.getWidth();
+                    if (cell.getColspan() > 1) {
+                        for (int i = 0; i < cell.getColspan(); i++) {
+                            if (width == null) {
+                                maxWidths.add(null);
+                            } else {
+                                maxWidths.add(new UnitValue(width.getUnitType(), width.getValue() / cell.getColspan()));
+                            }
+                            colspanSum++;
+                        }
                     } else {
-                        maxWidths.add(row.get(j).getWidth());
+                        if (width == null) {
+                            maxWidths.add(null);
+                        } else {
+                            maxWidths.add(cell.getWidth());
+                        }
                     }
                 } else {
                     UnitValue maxWidth = maxWidths.get(j);

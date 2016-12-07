@@ -91,6 +91,14 @@ public final class FontStyleApplierUtil {
                 element.setProperty(Property.BOLD_SIMULATION, false);
             }
         }
+        if (cssProps.get(CssConstants.FONT_STYLE) != null) {
+            String fontStyle = cssProps.get(CssConstants.FONT_STYLE);
+            if (CssConstants.ITALIC.equalsIgnoreCase(fontStyle) || CssConstants.OBLIQUE.equalsIgnoreCase(fontStyle)) {
+                element.setProperty(Property.ITALIC_SIMULATION, true);
+            } else {
+                element.setProperty(Property.ITALIC_SIMULATION, false);
+            }
+        }
         if (cssProps.get(CssConstants.COLOR) != null) {
             element.setProperty(Property.FONT_COLOR, WebColors.getRGBColor(cssProps.get(CssConstants.COLOR)));
         }
