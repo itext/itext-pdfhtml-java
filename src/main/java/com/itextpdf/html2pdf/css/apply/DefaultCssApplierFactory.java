@@ -43,16 +43,12 @@
 package com.itextpdf.html2pdf.css.apply;
 
 import com.itextpdf.html2pdf.exceptions.NoCssApplierFoundException;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Created by SamuelHuylebroeck on 11/30/2016.
- */
 public class DefaultCssApplierFactory implements ICssApplierFactory {
 
-    private Map<String,Class<?>> map;
+    private Map<String, Class<?>> map;
 
     public DefaultCssApplierFactory() {
         this.map = new ConcurrentHashMap<String, Class<?>>();
@@ -63,18 +59,15 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
     public ICssApplier getCssApplier(String tag) {
         //Get css applier classname
         Class<?> cssApplierClass = map.get(tag);
-        if(cssApplierClass == null){
+        if (cssApplierClass == null) {
             //TODO add logging
             return null;
         }
         //Use reflection to create an instance
-        try{
-            ICssApplier res = (ICssApplier) cssApplierClass.newInstance();
-            return res;
-        } catch (IllegalAccessException e) {
-           throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.getName(),tag);
-        } catch (InstantiationException e) {
-            throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.getName(), tag) ;
+        try {
+            return (ICssApplier) cssApplierClass.newInstance();
+        } catch (Exception e) {
+            throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.getName(), tag);
         }
     }
 

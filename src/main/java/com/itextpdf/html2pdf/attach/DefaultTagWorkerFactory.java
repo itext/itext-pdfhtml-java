@@ -44,16 +44,10 @@ package com.itextpdf.html2pdf.attach;
 
 import com.itextpdf.html2pdf.exceptions.NoTagWorkerFoundException;
 import com.itextpdf.html2pdf.html.node.IElementNode;
-
 import java.lang.reflect.Constructor;
-
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Created by SamuelHuylebroeck on 11/30/2016.
- */
 public class DefaultTagWorkerFactory implements ITagWorkerFactory {
 
     /**
@@ -78,20 +72,12 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
         }
         //Use reflection to create an instance
         try {
-            Constructor ctor = tagWorkerClass.getDeclaredConstructor(IElementNode.class, ProcessorContext.class);
-            ITagWorker res = (ITagWorker) ctor.newInstance(tag, context);
+            Constructor ctor = tagWorkerClass.getDeclaredConstructor(new Class<?>[]{IElementNode.class, ProcessorContext.class});
+            ITagWorker res = (ITagWorker) ctor.newInstance(new Object[]{tag, context});
             return res;
-        } catch (NoSuchMethodException e) {
-            throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED, tagWorkerClass.getName(), tag.name());
-        } catch (IllegalAccessException e) {
-            throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED, tagWorkerClass.getName(), tag.name());
-        } catch (InstantiationException e) {
-            throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED, tagWorkerClass.getName(), tag.name());
-        } catch (InvocationTargetException e) {
+        } catch (Exception e) {
             throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED, tagWorkerClass.getName(), tag.name());
         }
-
-
     }
 
     @Override
