@@ -51,12 +51,12 @@ import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.io.util.ResourceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 class HtmlStylesToCssConverter {
@@ -100,7 +100,7 @@ class HtmlStylesToCssConverter {
         for (IAttribute a : element.getAttributes()) {
             IAttributeConverter aConverter = htmlAttributeConverters.get(a.getKey());
             if (aConverter != null && aConverter.isSupportedForElement(element.name())) {
-                convertedHtmlStyles.addAll(aConverter.convert(element.name(), a.getValue()));
+                convertedHtmlStyles.addAll(aConverter.convert(element, a.getValue()));
             }
         }
 
@@ -110,7 +110,7 @@ class HtmlStylesToCssConverter {
 
     private interface IAttributeConverter {
         boolean isSupportedForElement(String elementName);
-        List<CssDeclaration> convert(String elementName, String value);
+        List<CssDeclaration> convert(IElementNode element, String value);
     }
 
 
@@ -121,8 +121,30 @@ class HtmlStylesToCssConverter {
             return TagConstants.IMG.equals(elementName) || TagConstants.TABLE.equals(elementName);
         }
         @Override
-        public List<CssDeclaration> convert(String elementName, String value) {
+        public List<CssDeclaration> convert(IElementNode element, String value) {
+            applyBordersToTableCells(element, value);
             return Arrays.asList(new CssDeclaration(CssConstants.BORDER, value + "px solid black"));
+        }
+
+        private static void applyBordersToTableCells(IElementNode element, String value) {
+            List<INode> nodes = element.childNodes();
+            for (INode node : nodes) {
+                if (node instanceof IElementNode) {
+                    String elementName = ((IElementNode)node).name();
+                    if (elementName.equals(TagConstants.TD) || elementName.equals(TagConstants.TH)) {
+                        String styleAttribute = ((IElementNode) node).getAttribute(AttributeConstants.STYLE);
+                        if (styleAttribute == null) {
+                            styleAttribute = "";
+                        }
+                        if (!styleAttribute.contains(CssConstants.BORDER)) {
+                            ((IElementNode) node).getAttributes().setAttribute(AttributeConstants.STYLE, styleAttribute + "; " +
+                                    new CssDeclaration(CssConstants.BORDER, value + "px solid black").toString());
+                        }
+                    } else {
+                        applyBordersToTableCells((IElementNode) node, value);
+                    }
+                }
+            }
         }
     }
 
@@ -137,7 +159,7 @@ class HtmlStylesToCssConverter {
             return supportedTags.contains(elementName);
         }
         @Override
-        public List<CssDeclaration> convert(String elementName, String value) {
+        public List<CssDeclaration> convert(IElementNode element, String value) {
             return Arrays.asList(new CssDeclaration(CssConstants.BACKGROUND_COLOR, value));
         }
     }
@@ -149,7 +171,7 @@ class HtmlStylesToCssConverter {
             return TagConstants.FONT.equals(elementName);
         }
         @Override
-        public List<CssDeclaration> convert(String elementName, String value) {
+        public List<CssDeclaration> convert(IElementNode element, String value) {
             return Arrays.asList(new CssDeclaration(CssConstants.COLOR, value));
         }
     }
@@ -160,9 +182,10 @@ class HtmlStylesToCssConverter {
             return TagConstants.FONT.equals(elementName) || TagConstants.HR.equals(elementName);
         }
         @Override
-        public List<CssDeclaration> convert(String elementName, String value) {
+        public List<CssDeclaration> convert(IElementNode element, String value) {
             String cssValueEquivalent = null;
             String cssPropertyEquivalent = null;
+            String elementName = element.name();
             if (TagConstants.FONT.equals(elementName)) {
                 cssPropertyEquivalent = CssConstants.FONT_SIZE;
                 if("1".equals(value))                       cssValueEquivalent = CssConstants.XX_SMALL;
@@ -186,7 +209,7 @@ class HtmlStylesToCssConverter {
             return TagConstants.FONT.equals(elementName);
         }
         @Override
-        public List<CssDeclaration> convert(String elementName, String value) {
+        public List<CssDeclaration> convert(IElementNode element, String value) {
             return Arrays.asList(new CssDeclaration(CssConstants.FONT_FAMILY, value));
         }
     }
@@ -199,7 +222,7 @@ class HtmlStylesToCssConverter {
         }
 
         @Override
-        public List<CssDeclaration> convert(String elementName, String value) {
+        public List<CssDeclaration> convert(IElementNode element, String value) {
             String cssEquivalent = null;
             switch (value) {
                 case "1":
@@ -230,7 +253,7 @@ class HtmlStylesToCssConverter {
         }
 
         @Override
-        public List<CssDeclaration> convert(String elementName, String value) {
+        public List<CssDeclaration> convert(IElementNode element, String value) {
             return Arrays.asList(new CssDeclaration(CssConstants.DIRECTION, value));
         }
     }
@@ -243,7 +266,7 @@ class HtmlStylesToCssConverter {
         }
 
         @Override
-        public List<CssDeclaration> convert(String elementName, String value) {
+        public List<CssDeclaration> convert(IElementNode element, String value) {
             String cssEquivalent = value;
             if (!value.endsWith("%")) cssEquivalent += CssConstants.PX;
             return Arrays.asList(new CssDeclaration(CssConstants.WIDTH, cssEquivalent));
@@ -258,7 +281,7 @@ class HtmlStylesToCssConverter {
         }
 
         @Override
-        public List<CssDeclaration> convert(String elementName, String value) {
+        public List<CssDeclaration> convert(IElementNode element, String value) {
             return Arrays.asList(new CssDeclaration(CssConstants.HEIGHT, value + CssConstants.PX));
         }
     }
@@ -270,7 +293,7 @@ class HtmlStylesToCssConverter {
         }
 
         @Override
-        public List<CssDeclaration> convert(String elementName, String value) {
+        public List<CssDeclaration> convert(IElementNode element, String value) {
             List<CssDeclaration> result = new ArrayList<CssDeclaration>(2);
             if ("right".equals(value)) {
                 result.add(new CssDeclaration(CssConstants.MARGIN_RIGHT, "0"));
@@ -292,7 +315,7 @@ class HtmlStylesToCssConverter {
         }
 
         @Override
-        public List<CssDeclaration> convert(String elementName, String value) {
+        public List<CssDeclaration> convert(IElementNode element, String value) {
             return Arrays.asList(
                     new CssDeclaration(CssConstants.HEIGHT, "2px"),
                     new CssDeclaration(CssConstants.BORDER_WIDTH, "0"),
