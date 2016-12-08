@@ -66,8 +66,6 @@ public class AbbrTest extends ExtendedITextTest {
         createDestinationFolder(destinationFolder);
     }
 
-    //TODO unignore when a abrr tag worker is implemented
-    @Ignore
     @Test
     public void abbrTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "abbrTest01.html"), new File(destinationFolder + "abbrTest01.pdf"));

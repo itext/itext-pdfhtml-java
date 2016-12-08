@@ -43,16 +43,20 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.File;
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.io.File;
-import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class CaptionTest extends ExtendedITextTest {
@@ -65,7 +69,9 @@ public class CaptionTest extends ExtendedITextTest {
         createDestinationFolder(destinationFolder);
     }
 
-    @Test
+    @Test@LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1)
+    })
     public void caption01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "captionTest01.html"), new File(destinationFolder + "captionTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "captionTest01.pdf", sourceFolder + "cmp_captionTest01.pdf", destinationFolder, "diff01_"));

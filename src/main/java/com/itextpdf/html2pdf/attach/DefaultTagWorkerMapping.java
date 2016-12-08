@@ -81,15 +81,17 @@ public class DefaultTagWorkerMapping {
         if(mapping == null){
             Map<String,Class<?>> buildMap = new HashMap<String, Class<?>>();
             buildMap.put(TagConstants.A, ATagWorker.class);
-            //buildMap.put(TagConstants.ABBR, ATagWorker.class);
+            buildMap.put(TagConstants.ABBR, ATagWorker.class);
             buildMap.put(TagConstants.ADDRESS, DivTagWorker.class);
             buildMap.put(TagConstants.ARTICLE, DivTagWorker.class);
             buildMap.put(TagConstants.ASIDE,DivTagWorker.class);
             buildMap.put(TagConstants.B, SpanTagWorker.class);
+            buildMap.put(TagConstants.BDI,SpanTagWorker.class);
+            buildMap.put(TagConstants.BDO, SpanTagWorker.class);
             buildMap.put(TagConstants.BLOCKQUOTE,DivTagWorker.class);
             buildMap.put(TagConstants.BODY, BodyTagWorker.class);
             buildMap.put(TagConstants.BR, BrTagWorker.class);
-            buildMap.put(TagConstants.CAPTION, PTagWorker.class);
+            //buildMap.put(TagConstants.CAPTION, SpanTagWorker.class);
             buildMap.put(TagConstants.CENTER,PTagWorker.class);
             buildMap.put(TagConstants.CITE,SpanTagWorker.class);
             buildMap.put(TagConstants.CODE,SpanTagWorker.class);

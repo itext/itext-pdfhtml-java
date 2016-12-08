@@ -68,14 +68,16 @@ public class DefaultTagCssApplierMapping {
         if(mapping == null) {
             Map<String, Class<?>> buildMap = new HashMap<String, Class<?>>();
             buildMap.put(TagConstants.A, SpanTagCssApplier.class);
-            //buildMap.put(TagConstants.ABBR, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.ABBR, SpanTagCssApplier.class);
             buildMap.put(TagConstants.ADDRESS, BlockCssApplier.class);
             buildMap.put(TagConstants.ARTICLE, BlockCssApplier.class);
             buildMap.put(TagConstants.ASIDE, BlockCssApplier.class);
             buildMap.put(TagConstants.B, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.BDI, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.BDO, SpanTagCssApplier.class);
             buildMap.put(TagConstants.BLOCKQUOTE, BlockCssApplier.class);
             buildMap.put(TagConstants.BODY, BodyTagCssApplier.class);
-            buildMap.put(TagConstants.CAPTION,BlockCssApplier.class);
+            //buildMap.put(TagConstants.CAPTION,SpanTagCssApplier.class);
             buildMap.put(TagConstants.CENTER,BlockCssApplier.class);
             buildMap.put(TagConstants.CITE, SpanTagCssApplier.class);
             buildMap.put(TagConstants.CODE, SpanTagCssApplier.class);

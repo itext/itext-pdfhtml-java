@@ -129,15 +129,6 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG)
-    })
-    public void captionTagTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "captionTag.html"), new File(destinationFolder + "captionTag.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "captionTag.pdf", sourceFolder + "cmp_captionTag.pdf", destinationFolder, "diff11_"));
-    }
-
-    @Test
     public void brInTdTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "brInTd.html"), new File(destinationFolder + "brInTd.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brInTd.pdf", sourceFolder + "cmp_brInTd.pdf", destinationFolder, "diff12_"));
