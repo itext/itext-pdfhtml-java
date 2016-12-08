@@ -53,6 +53,7 @@ public final class TagConstants {
     public static final String ASIDE = "aside";
     public static final String B = "b";
     public static final String BDI = "bdi";
+    public static final String BDO = "bdo";
     public static final String BIG = "big";
     public static final String BLOCKQUOTE = "blockquote";
     public static final String BODY = "body";
