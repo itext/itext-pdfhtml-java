@@ -129,7 +129,8 @@ table {
     text-indent: 0
 }
 caption {
-    text-align: center
+    text-align: center;
+    display: table-caption
 }
 tr {
     vertical-align: inherit
@@ -283,5 +284,60 @@ section {
     display: block
 }
 cite {
+    font-style: italic
+}
+code {
+    font-family: monospaced
+}
+address {
+    display: block;
+    font-style: italic
+}
+center {
+    text-align: center
+}
+del {
+    text-decoration: line-through
+}
+dfn {
+    font-style: italic
+}
+fieldset {
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove
+}
+figcaption {
+    display: block
+}
+figure {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 40px;
+    margin-right: 40px
+}
+ins {
+    text-decoration: underline
+}
+kbd {
+    font-family: monospace
+}
+mark {
+    background-color: yellow;
+    color: black
+}
+s {
+    text-decoration: line-through
+}
+samp {
+    font-family: monospace
+}
+var {
     font-style: italic
 }
