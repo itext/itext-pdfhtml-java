@@ -66,7 +66,6 @@ public class CssStyleSheetParserTest extends ExtendedITextTest {
     public static void beforeClass() {
     }
 
-    @Ignore
     @Test
     public void testDefaultCss() throws IOException {
         String cmpFile = sourceFolder + "cmp_default.css";

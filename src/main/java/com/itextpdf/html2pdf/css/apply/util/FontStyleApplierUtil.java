@@ -97,7 +97,7 @@ public final class FontStyleApplierUtil {
             String fontStyle  = cssProps.get(CssConstants.FONT_STYLE);
             if (CssConstants.ITALIC.equalsIgnoreCase(fontStyle)) {
                 element.setProperty(Property.ITALIC_SIMULATION, true);
-            } else if (CssConstants.ITALIC.equalsIgnoreCase(fontStyle)) {
+            } else if (CssConstants.NORMAL.equalsIgnoreCase(fontStyle)) {
                 element.setProperty(Property.ITALIC_SIMULATION, false);
             }
 
