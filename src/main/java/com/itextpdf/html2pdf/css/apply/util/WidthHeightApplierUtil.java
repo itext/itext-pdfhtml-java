@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
@@ -57,7 +58,6 @@ import java.util.Map;
 public final class WidthHeightApplierUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(WidthHeightApplierUtil.class);
-    private static final String HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED = "Height value in percent not supported";
 
     private WidthHeightApplierUtil() {
     }
@@ -77,7 +77,7 @@ public final class WidthHeightApplierUtil {
                 if (height.isPointValue()) {
                     element.setProperty(Property.HEIGHT, height.getValue());
                 } else {
-                    logger.error(HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 }
             }
         }
@@ -91,7 +91,7 @@ public final class WidthHeightApplierUtil {
                     ((Image) element).setAutoScale(true);
                 }
             } else {
-                logger.error(HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
         }
 
@@ -101,7 +101,7 @@ public final class WidthHeightApplierUtil {
             if (height.isPointValue()) {
                 element.setProperty(Property.MIN_HEIGHT, height.getValue());
             } else {
-                logger.error(HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
         }
 
