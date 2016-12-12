@@ -40,17 +40,18 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf;
+package com.itextpdf.html2pdf.resolver.resource;
 
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
-import java.net.MalformedURLException;
-import java.nio.file.Paths;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.rules.ExpectedException;
+
+import java.net.MalformedURLException;
+import java.nio.file.Paths;
 
 @Category(UnitTest.class)
 public class UriResolverTest extends ExtendedITextTest {

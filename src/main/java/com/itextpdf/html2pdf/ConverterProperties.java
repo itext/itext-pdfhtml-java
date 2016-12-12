@@ -40,14 +40,74 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.exceptions;
+package com.itextpdf.html2pdf;
 
-import java.text.MessageFormat;
+import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
+import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
+import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
+import com.itextpdf.html2pdf.resolver.font.IFontResolver;
 
-public class NoCssApplierFoundException extends RuntimeException {
+public class ConverterProperties {
 
-    public NoCssApplierFoundException(String message, String className, String tag){
-        super(MessageFormat.format(message,className, tag));
+    private MediaDeviceDescription mediaDeviceDescription;
+    private IFontResolver fontResolver;
+    private ITagWorkerFactory tagWorkerFactory;
+    private ICssApplierFactory cssApplierFactory;
+    private String baseUri;
+
+    public ConverterProperties() {
     }
-    public static final String ReflectionFailed = "Could not instantiate CssApplier-class {0} for tag {1}.";
+
+    public ConverterProperties(ConverterProperties other) {
+        this.mediaDeviceDescription = other.mediaDeviceDescription;
+        this.fontResolver = other.fontResolver;
+        this.tagWorkerFactory = other.tagWorkerFactory;
+        this.cssApplierFactory = other.cssApplierFactory;
+        this.baseUri = other.baseUri;
+    }
+
+    public MediaDeviceDescription getMediaDeviceDescription() {
+        return mediaDeviceDescription;
+    }
+
+    public ConverterProperties setMediaDeviceDescription(MediaDeviceDescription mediaDeviceDescription) {
+        this.mediaDeviceDescription = mediaDeviceDescription;
+        return this;
+    }
+
+    public IFontResolver getFontResolver() {
+        return fontResolver;
+    }
+
+    public ConverterProperties setFontResolver(IFontResolver fontResolver) {
+        this.fontResolver = fontResolver;
+        return this;
+    }
+
+    public ITagWorkerFactory getTagWorkerFactory() {
+        return tagWorkerFactory;
+    }
+
+    public ConverterProperties setTagWorkerFactory(ITagWorkerFactory tagWorkerFactory) {
+        this.tagWorkerFactory = tagWorkerFactory;
+        return this;
+    }
+
+    public ICssApplierFactory getCssApplierFactory() {
+        return cssApplierFactory;
+    }
+
+    public ConverterProperties setCssApplierFactory(ICssApplierFactory cssApplierFactory) {
+        this.cssApplierFactory = cssApplierFactory;
+        return this;
+    }
+
+    public String getBaseUri() {
+        return baseUri;
+    }
+
+    public ConverterProperties setBaseUri(String baseUri) {
+        this.baseUri = baseUri;
+        return this;
+    }
 }

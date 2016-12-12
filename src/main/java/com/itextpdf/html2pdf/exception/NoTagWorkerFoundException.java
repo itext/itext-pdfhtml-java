@@ -40,13 +40,16 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.font;
+package com.itextpdf.html2pdf.exception;
 
-import com.itextpdf.kernel.font.PdfFont;
-import java.io.IOException;
+import java.text.MessageFormat;
 
-public interface IFontResolver {
+public class NoTagWorkerFoundException extends RuntimeException {
+    public NoTagWorkerFoundException(String message, String classNames, String tag) {
+        super(MessageFormat.format(message,classNames,tag));
+    }
 
-    PdfFont getFont(String name) throws IOException;
+    public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
+
 
 }

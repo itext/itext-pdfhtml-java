@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
-import com.itextpdf.html2pdf.ResourceResolver;
+import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssRuleName;
@@ -76,7 +76,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class DefaultCssResolver implements ICssResolver {
-
 
     private CssStyleSheet cssStyleSheet;
     private MediaDeviceDescription deviceDescription;

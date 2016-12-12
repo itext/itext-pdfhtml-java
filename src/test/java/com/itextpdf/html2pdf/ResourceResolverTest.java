@@ -74,7 +74,7 @@ public class ResourceResolverTest extends ExtendedITextTest {
         String baseUri = sourceFolder + "resourceResolverTest01.html";
         String outPdf = destinationFolder + "resourceResolverTest01.pdf";
         String cmpPdf = sourceFolder + "cmp_resourceResolverTest01.pdf";
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest01.html"), new FileOutputStream(outPdf), baseUri);
+        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest01.html"), new FileOutputStream(outPdf), new ConverterProperties().setBaseUri(baseUri));
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff01_"));
     }
 
@@ -85,7 +85,7 @@ public class ResourceResolverTest extends ExtendedITextTest {
         String baseUri = "/folderInDiskRoot";
         String outPdf = destinationFolder + "resourceResolverTest02.pdf";
         String cmpPdf = sourceFolder + "cmp_resourceResolverTest02.pdf";
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest01.html"), new FileOutputStream(outPdf), baseUri);
+        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest01.html"), new FileOutputStream(outPdf), new ConverterProperties().setBaseUri(baseUri));
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff02_"));
     }
 
@@ -94,7 +94,7 @@ public class ResourceResolverTest extends ExtendedITextTest {
         String baseUri = sourceFolder + "res";
         String outPdf = destinationFolder + "resourceResolverTest03.pdf";
         String cmpPdf = sourceFolder + "cmp_resourceResolverTest03.pdf";
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest03.html"), new FileOutputStream(outPdf), baseUri);
+        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest03.html"), new FileOutputStream(outPdf), new ConverterProperties().setBaseUri(baseUri));
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff03_"));
     }
 
@@ -103,7 +103,7 @@ public class ResourceResolverTest extends ExtendedITextTest {
         String invalidBaseUri = Paths.get("").toAbsolutePath().toString() + "/src/test/resources/com/itextpdf/html2pdf/ResourceResolverTest/" + "res";
         String outPdf = destinationFolder + "resourceResolverTest04.pdf";
         String cmpPdf = sourceFolder + "cmp_resourceResolverTest04.pdf";
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest03.html"), new FileOutputStream(outPdf), invalidBaseUri);
+        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest03.html"), new FileOutputStream(outPdf), new ConverterProperties().setBaseUri(invalidBaseUri));
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff04_"));
     }
 
@@ -114,7 +114,7 @@ public class ResourceResolverTest extends ExtendedITextTest {
         String baseUri = Paths.get("").toUri() + "src/test/resources/com/itextpdf/html2pdf/ResourceResolverTest/res/";
         String outPdf = destinationFolder + "resourceResolverTest05.pdf";
         String cmpPdf = sourceFolder + "cmp_resourceResolverTest05.pdf";
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest03.html"), new FileOutputStream(outPdf), baseUri);
+        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest03.html"), new FileOutputStream(outPdf), new ConverterProperties().setBaseUri(baseUri));
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff05_"));
     }
 

@@ -40,15 +40,69 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.exceptions;
+package com.itextpdf.html2pdf.resolver.resource;
 
-public class Html2PdfException extends RuntimeException {
+import com.itextpdf.io.image.ImageData;
 
-    public Html2PdfException(String message) {
-        super(message);
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+class SimpleImageCache {
+    private Map<String, ImageData> cache = new LinkedHashMap<>();
+    private Map<String, Integer> imagesFrequency = new LinkedHashMap<>();
+    private int capacity;
+
+    SimpleImageCache() {
+        this.capacity = 100;
     }
 
-    public static final String PdfDocumentShouldBeInWritingMode = "PdfDocument should be created in writing mode. Reading and stamping is not allowed";
+    SimpleImageCache(int capacity) {
+        if (capacity < 1) {
+            throw new IllegalArgumentException("capacity");
+        }
+        this.capacity = capacity;
+    }
 
+    void putImage(String src, ImageData imageData) {
+        if (cache.containsKey(src)) {
+            return;
+        }
+        ensureCapacity();
+        cache.put(src, imageData);
+    }
 
+    ImageData getImage(String src) {
+        Integer frequency = imagesFrequency.get(src);
+        if (frequency != null) {
+            imagesFrequency.put(src, frequency + 1);
+        } else {
+            imagesFrequency.put(src, 1);
+        }
+
+        return cache.get(src);
+    }
+
+    int size() {
+        return cache.size();
+    }
+
+    private void ensureCapacity() {
+        if (cache.size() >= capacity) {
+            String mostUnpopularImg = null;
+            int minFrequency = Integer.MAX_VALUE;
+            for (String imgSrc : cache.keySet()) { // TODO keySet preserves order of LinkedList? and in .net?
+                Integer imgFrequency = imagesFrequency.get(imgSrc);
+                if (imgFrequency == null || imgFrequency < minFrequency) {
+                    mostUnpopularImg = imgSrc;
+                    if (imgFrequency == null) {
+                        break;
+                    } else {
+                        minFrequency = (int)imgFrequency;
+                    }
+                }
+            }
+
+            cache.remove(mostUnpopularImg);
+        }
+    }
 }

@@ -40,8 +40,9 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf;
+package com.itextpdf.html2pdf.resolver.resource;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import org.slf4j.Logger;

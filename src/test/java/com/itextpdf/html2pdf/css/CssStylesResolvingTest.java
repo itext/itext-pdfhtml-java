@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.ResourceResolver;
+import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;

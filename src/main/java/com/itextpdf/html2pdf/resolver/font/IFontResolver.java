@@ -40,36 +40,13 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.font;
+package com.itextpdf.html2pdf.resolver.font;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
 import java.io.IOException;
-import java.text.MessageFormat;
 
-import org.slf4j.LoggerFactory;
+public interface IFontResolver {
 
-public class DefaultFontResolver implements IFontResolver {
+    PdfFont getFont(String name) throws IOException;
 
-    public DefaultFontResolver() {
-        //PdfFontFactory.registerSystemDirectories();
-    }
-
-    @Override
-    public PdfFont getFont(String name) throws IOException {
-        //return PdfFontFactory.createRegisteredFont(name);
-        PdfFont result;
-        try {
-            result = PdfFontFactory.createFont(name);
-        } catch (Exception any) {
-            //LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_FONT, name), any);
-            result = PdfFontFactory.createFont();
-        }
-        if (result == null) {
-            //LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_FONT, name));
-            result = PdfFontFactory.createFont();
-        }
-        return result;
-    }
 }
