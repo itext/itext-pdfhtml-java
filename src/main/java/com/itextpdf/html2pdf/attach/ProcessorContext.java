@@ -42,33 +42,60 @@
  */
 package com.itextpdf.html2pdf.attach;
 
-import com.itextpdf.html2pdf.ResourceResolver;
+import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.css.apply.DefaultCssApplierFactory;
+import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
-import com.itextpdf.html2pdf.css.resolve.ICssResolver;
-import com.itextpdf.html2pdf.font.DefaultFontResolver;
-import com.itextpdf.html2pdf.font.IFontResolver;
+import com.itextpdf.html2pdf.resolver.font.DefaultFontResolver;
+import com.itextpdf.html2pdf.resolver.font.IFontResolver;
+import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.kernel.pdf.PdfDocument;
 
 public class ProcessorContext {
 
-    private State state;
-    private PdfDocument pdfDocument;
-    private ICssResolver cssResolver;
     private IFontResolver fontResolver;
     private ResourceResolver resourceResolver;
     private MediaDeviceDescription deviceDescription;
+    private ITagWorkerFactory tagWorkerFactory;
+    private ICssApplierFactory cssApplierFactory;
+    private String baseUri;
 
-    public ProcessorContext(ICssResolver cssResolver, ResourceResolver resourceResolver) {
-        this.cssResolver = cssResolver;
-        this.fontResolver = new DefaultFontResolver();
-        this.state = new State();
-        this.deviceDescription = MediaDeviceDescription.createDefault();
-        this.resourceResolver = resourceResolver;
-    }
+    // Variable fields
+    private State state;
+    private PdfDocument pdfDocument;
 
-    public ProcessorContext(ICssResolver cssResolver, PdfDocument pdfDocument, ResourceResolver resourceResolver) {
-        this(cssResolver, resourceResolver);
-        this.pdfDocument = pdfDocument;
+    public ProcessorContext(ConverterProperties converterProperties) {
+        if (converterProperties == null) {
+            converterProperties = new ConverterProperties();
+        }
+        state = new State();
+
+        deviceDescription = converterProperties.getMediaDeviceDescription();
+        if (deviceDescription == null) {
+            deviceDescription = MediaDeviceDescription.createDefault();
+        }
+
+        fontResolver = converterProperties.getFontResolver();
+        if (fontResolver == null) {
+            fontResolver = new DefaultFontResolver();
+        }
+
+        tagWorkerFactory = converterProperties.getTagWorkerFactory();
+        if (tagWorkerFactory == null) {
+            tagWorkerFactory = new DefaultTagWorkerFactory();
+        }
+
+        cssApplierFactory = converterProperties.getCssApplierFactory();
+        if (cssApplierFactory == null) {
+            cssApplierFactory = new DefaultCssApplierFactory();
+        }
+
+        baseUri = converterProperties.getBaseUri();
+        if (baseUri == null) {
+            baseUri = "";
+        }
+
+        resourceResolver = new ResourceResolver(baseUri);
     }
 
     public void setFontResolver(IFontResolver fontResolver) {
@@ -77,10 +104,6 @@ public class ProcessorContext {
 
     public State getState() {
         return state;
-    }
-
-    public ICssResolver getCssResolver() {
-        return cssResolver;
     }
 
     public PdfDocument getPdfDocument() {
@@ -98,4 +121,23 @@ public class ProcessorContext {
     public MediaDeviceDescription getDeviceDescription() {
         return deviceDescription;
     }
+
+    public ITagWorkerFactory getTagWorkerFactory() {
+        return tagWorkerFactory;
+    }
+
+    public ICssApplierFactory getCssApplierFactory() {
+        return cssApplierFactory;
+    }
+
+    public void reset() {
+        this.pdfDocument = null;
+        this.state = new State();
+    }
+
+    public void reset(PdfDocument pdfDocument) {
+        reset();
+        this.pdfDocument = pdfDocument;
+    }
+
 }

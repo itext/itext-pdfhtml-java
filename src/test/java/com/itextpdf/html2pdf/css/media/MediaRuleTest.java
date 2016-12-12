@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.media;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssDeclaration;
@@ -217,8 +218,8 @@ public class MediaRuleTest extends ExtendedITextTest {
         MediaDeviceDescription printDevice = new MediaDeviceDescription(MediaType.PRINT);
         MediaDeviceDescription screenDevice = new MediaDeviceDescription(MediaType.SCREEN).setWidth(1000);
 
-        List<IElement> printElements = HtmlConverter.convertToElements(html, printDevice, sourceFolder);
-        List<IElement> screenElements = HtmlConverter.convertToElements(html, screenDevice, sourceFolder);
+        List<IElement> printElements = HtmlConverter.convertToElements(html, new ConverterProperties().setMediaDeviceDescription(printDevice).setBaseUri(sourceFolder));
+        List<IElement> screenElements = HtmlConverter.convertToElements(html, new ConverterProperties().setMediaDeviceDescription(screenDevice).setBaseUri(sourceFolder));
 
         Assert.assertEquals(12f, (Float) printElements.get(0).<Float>getProperty(Property.FONT_SIZE), 1e-10f);
 

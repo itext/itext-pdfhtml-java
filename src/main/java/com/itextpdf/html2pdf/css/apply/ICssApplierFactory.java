@@ -42,9 +42,6 @@
  */
 package com.itextpdf.html2pdf.css.apply;
 
-/**
- * Created by SamuelHuylebroeck on 11/30/2016.
- */
 public interface ICssApplierFactory {
 
     ICssApplier getCssApplier(String tag);

@@ -40,16 +40,14 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.exceptions;
+package com.itextpdf.html2pdf.exception;
 
 import java.text.MessageFormat;
 
-public class NoTagWorkerFoundException extends RuntimeException {
-    public NoTagWorkerFoundException(String message, String classNames, String tag) {
-        super(MessageFormat.format(message,classNames,tag));
+public class NoCssApplierFoundException extends RuntimeException {
+
+    public NoCssApplierFoundException(String message, String className, String tag){
+        super(MessageFormat.format(message,className, tag));
     }
-
-    public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
-
-
+    public static final String ReflectionFailed = "Could not instantiate CssApplier-class {0} for tag {1}.";
 }

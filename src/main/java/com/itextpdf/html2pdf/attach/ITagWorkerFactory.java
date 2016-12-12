@@ -46,8 +46,6 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 
 /**
  * TagProcessorFactory Interface
- *
- * Created by SamuelHuylebroeck on 11/30/2016.
  */
 public interface ITagWorkerFactory {
 

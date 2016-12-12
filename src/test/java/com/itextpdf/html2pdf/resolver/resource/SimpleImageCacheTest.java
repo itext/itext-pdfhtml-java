@@ -40,7 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf;
+package com.itextpdf.html2pdf.resolver.resource;
 
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageType;
@@ -52,7 +52,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(UnitTest.class)
-public class SimpleImageCacheTest extends ExtendedITextTest{
+public class SimpleImageCacheTest extends ExtendedITextTest {
 
     @Before
     public void before() {
@@ -147,6 +147,7 @@ public class SimpleImageCacheTest extends ExtendedITextTest{
     private static class ImageDataStub extends ImageData {
         private static int totalNum = 0;
         private int num = 0;
+
         ImageDataStub() {
             super((byte[]) null, ImageType.NONE);
             num = totalNum++;

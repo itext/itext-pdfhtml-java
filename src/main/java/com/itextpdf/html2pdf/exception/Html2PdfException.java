@@ -40,18 +40,15 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.exception;
 
-import com.itextpdf.html2pdf.html.node.INode;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.IElement;
-import java.util.List;
+public class Html2PdfException extends RuntimeException {
 
-public interface IHtmlProcessor {
+    public Html2PdfException(String message) {
+        super(message);
+    }
 
-    Document processDocument(INode root, PdfDocument pdfDocument);
+    public static final String PdfDocumentShouldBeInWritingMode = "PdfDocument should be created in writing mode. Reading and stamping is not allowed";
 
-    List<IElement> processElements(INode root);
 
 }

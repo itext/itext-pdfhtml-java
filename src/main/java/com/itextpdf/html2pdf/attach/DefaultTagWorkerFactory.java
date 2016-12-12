@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach;
 
-import com.itextpdf.html2pdf.exceptions.NoTagWorkerFoundException;
+import com.itextpdf.html2pdf.exception.NoTagWorkerFoundException;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import java.lang.reflect.Constructor;
 import java.util.Map;

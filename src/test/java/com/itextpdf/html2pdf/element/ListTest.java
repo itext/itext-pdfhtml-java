@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
@@ -115,13 +116,13 @@ public class ListTest extends ExtendedITextTest {
 
     @Test
     public void listTest06() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest06.html"), new File(destinationFolder + "listTest06.pdf"), new MediaDeviceDescription(MediaType.PRINT));
+        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest06.html"), new File(destinationFolder + "listTest06.pdf"), new ConverterProperties().setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest06.pdf", sourceFolder + "cmp_listTest06.pdf", destinationFolder, "diff06_"));
     }
 
     @Test
     public void listTest07() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest07.html"), new File(destinationFolder + "listTest07.pdf"), new MediaDeviceDescription(MediaType.PRINT));
+        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest07.html"), new File(destinationFolder + "listTest07.pdf"), new ConverterProperties().setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest07.pdf", sourceFolder + "cmp_listTest07.pdf", destinationFolder, "diff07_"));
     }
 
@@ -136,7 +137,7 @@ public class ListTest extends ExtendedITextTest {
     public void listToPdfaTest() throws IOException, InterruptedException {
         InputStream is = new FileInputStream(sourceFolder + "sRGB Color Space Profile.icm");
         PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "listToPdfa.pdf"), PdfAConformanceLevel.PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", is));
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "listToPdfa.html"), pdfADocument, "", new MediaDeviceDescription(MediaType.PRINT));
+        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "listToPdfa.html"), pdfADocument, new ConverterProperties().setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listToPdfa.pdf", sourceFolder + "cmp_listToPdfa.pdf", destinationFolder, "diff99_"));
     }
 

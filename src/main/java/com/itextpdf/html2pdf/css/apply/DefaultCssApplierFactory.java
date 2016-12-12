@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply;
 
-import com.itextpdf.html2pdf.exceptions.NoCssApplierFoundException;
+import com.itextpdf.html2pdf.exception.NoCssApplierFoundException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
