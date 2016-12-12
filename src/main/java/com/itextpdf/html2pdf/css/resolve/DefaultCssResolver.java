@@ -68,12 +68,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class DefaultCssResolver implements ICssResolver {
 
@@ -92,6 +87,7 @@ public class DefaultCssResolver implements ICssResolver {
         nodeCssDeclarations.addAll(cssStyleSheet.getCssDeclarations(element, deviceDescription));
         String styleAttribute = element.getAttribute(AttributeConstants.STYLE);
         if (styleAttribute != null) {
+            styleAttribute = applyTableBorderAttributeToItsCell(element, styleAttribute, nodeCssDeclarations);
             nodeCssDeclarations.addAll(CssRuleSetParser.parsePropertyDeclarations(styleAttribute));
         }
 
@@ -206,5 +202,21 @@ public class DefaultCssResolver implements ICssResolver {
             // See TextDecorationTest#textDecoration01Test
             styles.put(cssProperty, CssPropertyMerger.mergeTextDecoration(childPropValue, parentPropValue));
         }
+    }
+
+    private String applyTableBorderAttributeToItsCell(IElementNode element, String styleAttribute, List<CssDeclaration> nodeCssDeclarations) {
+        if ((element.name().equals(TagConstants.TD) || element.name().equals(TagConstants.TH)) && styleAttribute.contains(CssConstants.TABLE_CUSTOM_BORDER)) {
+            boolean hasBordersProperty = false;
+            for (CssDeclaration cssDeclaration : nodeCssDeclarations) {
+                if (cssDeclaration.getProperty().equals(CssConstants.BORDER)) {
+                    hasBordersProperty = true;
+                    break;
+                }
+            }
+            if (!hasBordersProperty) {
+                styleAttribute = styleAttribute.replace(CssConstants.TABLE_CUSTOM_BORDER, CssConstants.BORDER);
+            }
+        }
+        return styleAttribute;
     }
 }
