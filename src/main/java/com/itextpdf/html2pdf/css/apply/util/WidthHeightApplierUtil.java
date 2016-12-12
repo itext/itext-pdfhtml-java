@@ -47,7 +47,6 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
@@ -87,9 +86,6 @@ public final class WidthHeightApplierUtil {
             UnitValue height = CssUtils.parseLengthValueToPt(maxHeightVal, em);
             if (height.isPointValue()) {
                 element.setProperty(Property.MAX_HEIGHT, height.getValue());
-                if (element instanceof Image) {
-                    ((Image) element).setAutoScale(true);
-                }
             } else {
                 logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }

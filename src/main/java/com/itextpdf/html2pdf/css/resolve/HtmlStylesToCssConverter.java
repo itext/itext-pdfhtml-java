@@ -138,7 +138,7 @@ class HtmlStylesToCssConverter {
                         }
                         if (!styleAttribute.contains(CssConstants.BORDER)) {
                             ((IElementNode) node).getAttributes().setAttribute(AttributeConstants.STYLE, styleAttribute + "; " +
-                                    new CssDeclaration(CssConstants.BORDER, value + "px solid black").toString());
+                                    new CssDeclaration(CssConstants.TABLE_CUSTOM_BORDER, value + "px solid black").toString());
                         }
                     } else {
                         applyBordersToTableCells((IElementNode) node, value);
