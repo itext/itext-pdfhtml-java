@@ -50,22 +50,17 @@ import com.itextpdf.html2pdf.css.apply.impl.SpanTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.TdTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.UlOlTagCssApplier;
 import com.itextpdf.html2pdf.html.TagConstants;
-
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 
-/**
- * Created by SamuelHuylebroeck on 11/30/2016.
- */
 public class DefaultTagCssApplierMapping {
-    
+
     private static Map<String, Class<?>> mapping;
 
-    public static Map<String,Class<?>> getDefaultCssApplierMapping(){
-        if(mapping == null) {
+    public static Map<String, Class<?>> getDefaultCssApplierMapping() {
+        if (mapping == null) {
             Map<String, Class<?>> buildMap = new HashMap<String, Class<?>>();
             buildMap.put(TagConstants.A, SpanTagCssApplier.class);
             buildMap.put(TagConstants.ARTICLE, BlockCssApplier.class);
@@ -79,6 +74,7 @@ public class DefaultTagCssApplierMapping {
             buildMap.put(TagConstants.DT, BlockCssApplier.class);
             buildMap.put(TagConstants.DD, BlockCssApplier.class);
             buildMap.put(TagConstants.DIV, BlockCssApplier.class);
+            buildMap.put(TagConstants.FONT, SpanTagCssApplier.class);
             buildMap.put(TagConstants.FOOTER, BlockCssApplier.class);
             buildMap.put(TagConstants.H1, BlockCssApplier.class);
             buildMap.put(TagConstants.H2, BlockCssApplier.class);
