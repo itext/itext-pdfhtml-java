@@ -63,37 +63,33 @@ import com.itextpdf.html2pdf.attach.impl.tags.TdTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TitleTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.UlOlTagWorker;
-
 import com.itextpdf.html2pdf.html.TagConstants;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-
-/**
- * Created by SamuelHuylebroeck on 11/30/2016.
- */
 public class DefaultTagWorkerMapping {
 
-    private static Map<String, Class<?>>  mapping;
-    public static Map<String,Class<?>> getDefaultTagWorkerMapping(){
-        if(mapping == null){
-            Map<String,Class<?>> buildMap = new HashMap<String, Class<?>>();
+    private static Map<String, Class<?>> mapping;
+
+    public static Map<String, Class<?>> getDefaultTagWorkerMapping() {
+        if (mapping == null) {
+            Map<String, Class<?>> buildMap = new HashMap<String, Class<?>>();
             buildMap.put(TagConstants.A, ATagWorker.class);
             buildMap.put(TagConstants.ARTICLE, DivTagWorker.class);
-            buildMap.put(TagConstants.ASIDE,DivTagWorker.class);
+            buildMap.put(TagConstants.ASIDE, DivTagWorker.class);
             buildMap.put(TagConstants.B, SpanTagWorker.class);
-            buildMap.put(TagConstants.BLOCKQUOTE,DivTagWorker.class);
+            buildMap.put(TagConstants.BLOCKQUOTE, DivTagWorker.class);
             buildMap.put(TagConstants.BODY, BodyTagWorker.class);
             buildMap.put(TagConstants.BR, BrTagWorker.class);
-            buildMap.put(TagConstants.CITE,SpanTagWorker.class);
-            buildMap.put(TagConstants.CODE,SpanTagWorker.class);
-            buildMap.put(TagConstants.DIV,DivTagWorker.class);
+            buildMap.put(TagConstants.CITE, SpanTagWorker.class);
+            buildMap.put(TagConstants.CODE, SpanTagWorker.class);
+            buildMap.put(TagConstants.DIV, DivTagWorker.class);
             buildMap.put(TagConstants.DD, DdTagWorker.class);
             buildMap.put(TagConstants.DL, DlTagWorker.class);
             buildMap.put(TagConstants.DT, DtTagWorker.class);
             buildMap.put(TagConstants.EM, SpanTagWorker.class);
+            buildMap.put(TagConstants.FONT, SpanTagWorker.class);
             buildMap.put(TagConstants.FOOTER, DivTagWorker.class);
             buildMap.put(TagConstants.HEADER, DivTagWorker.class);
             buildMap.put(TagConstants.HR, HrTagWorker.class);
@@ -115,23 +111,23 @@ public class DefaultTagWorkerMapping {
             buildMap.put(TagConstants.PRE, PTagWorker.class);
             buildMap.put(TagConstants.Q, SpanTagWorker.class);
             buildMap.put(TagConstants.SECTION, DivTagWorker.class);
-            buildMap.put(TagConstants.SMALL,SpanTagWorker.class);
+            buildMap.put(TagConstants.SMALL, SpanTagWorker.class);
             buildMap.put(TagConstants.SPAN, SpanTagWorker.class);
             buildMap.put(TagConstants.STRIKE, SpanTagWorker.class);
-            buildMap.put(TagConstants.STRONG,SpanTagWorker.class);
+            buildMap.put(TagConstants.STRONG, SpanTagWorker.class);
             buildMap.put(TagConstants.SUB, SpanTagWorker.class);
-            buildMap.put(TagConstants.SUP,SpanTagWorker.class);
+            buildMap.put(TagConstants.SUP, SpanTagWorker.class);
             buildMap.put(TagConstants.TABLE, TableTagWorker.class);
             buildMap.put(TagConstants.TFOOT, TableFooterTagWorker.class);
             buildMap.put(TagConstants.THEAD, TableHeaderTagWorker.class);
-            buildMap.put(TagConstants.TIME,SpanTagWorker.class);
+            buildMap.put(TagConstants.TIME, SpanTagWorker.class);
             buildMap.put(TagConstants.TITLE, TitleTagWorker.class);
             buildMap.put(TagConstants.TD, TdTagWorker.class);
-            buildMap.put(TagConstants.TH,TdTagWorker.class);
+            buildMap.put(TagConstants.TH, TdTagWorker.class);
             buildMap.put(TagConstants.TR, TrTagWorker.class);
             buildMap.put(TagConstants.U, SpanTagWorker.class);
             buildMap.put(TagConstants.UL, UlOlTagWorker.class);
-            mapping =  Collections.unmodifiableMap(buildMap);
+            mapping = Collections.unmodifiableMap(buildMap);
 
         }
 
