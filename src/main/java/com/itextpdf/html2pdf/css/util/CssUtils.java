@@ -42,9 +42,13 @@
  */
 package com.itextpdf.html2pdf.css.util;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.layout.property.UnitValue;
+import java.text.MessageFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CssUtils {
 
@@ -104,30 +108,38 @@ public class CssUtils {
             return 0f;
         float f = Float.parseFloat(length.substring(0, pos));
         String unit = length.substring(pos);
+        
+        //points
+        if (unit.startsWith(CssConstants.PT) || unit.equals("") && defaultMetric.equals(CssConstants.PT)) {
+            return f;
+        }
         // inches
         if (unit.startsWith(CssConstants.IN) || (unit.equals("") && defaultMetric.equals(CssConstants.IN))) {
-            f *= 72f;
+            return f * 72f;
         }
         // centimeters
         else if (unit.startsWith(CssConstants.CM) || (unit.equals("") && defaultMetric.equals(CssConstants.CM))) {
-            f = (f / 2.54f) * 72f;
+            return (f / 2.54f) * 72f;
         }
         // quarter of a millimeter (1/40th of a centimeter).
         else if (unit.startsWith(CssConstants.Q) || (unit.equals("") && defaultMetric.equals(CssConstants.Q))) {
-            f = (f / 2.54f) * 72f / 40;
+            return (f / 2.54f) * 72f / 40;
         }
         // millimeters
         else if (unit.startsWith(CssConstants.MM) || (unit.equals("") && defaultMetric.equals(CssConstants.MM))) {
-            f = (f / 25.4f) * 72f;
+            return (f / 25.4f) * 72f;
         }
         // picas
         else if (unit.startsWith(CssConstants.PC) || (unit.equals("") && defaultMetric.equals(CssConstants.PC))) {
-            f *= 12f;
+            return f * 12f;
         }
         // pixels (1px = 0.75pt).
         else if (unit.startsWith(CssConstants.PX) || (unit.equals("") && defaultMetric.equals(CssConstants.PX))) {
-            f *= 0.75f;
+            return f * 0.75f;
         }
+        
+        Logger logger = LoggerFactory.getLogger(CssUtils.class);
+        logger.error(MessageFormat.format(LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, unit.equals("") ? defaultMetric : unit));
         return f;
     }
 
