@@ -47,6 +47,8 @@ import java.util.Objects;
 
 public class MediaExpression {
 
+    private static final float DEFAULT_FONT_SIZE = 12;
+    
     private boolean minPrefix;
     private boolean maxPrefix;
     private String feature;
@@ -123,7 +125,7 @@ public class MediaExpression {
                 }
             }
             case MediaFeature.HEIGHT: {
-                float val = CssUtils.parseAbsoluteLength(value);
+                float val = parseAbsoluteLength(value);
                 if (minPrefix) {
                     return deviceDescription.getHeight() >= val;
                 } else if (maxPrefix) {
@@ -133,7 +135,7 @@ public class MediaExpression {
                 }
             }
             case MediaFeature.WIDTH: {
-                float val = CssUtils.parseAbsoluteLength(value);
+                float val = parseAbsoluteLength(value);
                 if (minPrefix) {
                     return deviceDescription.getWidth() >= val;
                 } else if (maxPrefix) {
@@ -154,6 +156,15 @@ public class MediaExpression {
             }
             default:
                 return false;
+        }
+    }
+    
+    private static float parseAbsoluteLength(String value) {
+        if (CssUtils.isRelativeValue(value)) {
+            // TODO here should be used default font size of the browser, it probably should be fetched from the more generic place than private class constant
+            return CssUtils.parseRelativeValue(value, DEFAULT_FONT_SIZE);
+        } else {
+            return CssUtils.parseAbsoluteLength(value);
         }
     }
 
