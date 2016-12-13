@@ -46,16 +46,15 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.ITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
 import java.io.File;
 import java.io.IOException;
-import java.text.MessageFormat;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -153,7 +152,7 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-962")
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 2)})
     public void elementUlOlLiTest() throws IOException, InterruptedException {
         test("elementUlOlLiTest.html", "elementUlOlLiTest.pdf", "diff_");
     }
