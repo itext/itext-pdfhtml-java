@@ -98,7 +98,7 @@ public class MediaDeviceDescription {
         return width;
     }
 
-    public MediaDeviceDescription setWidth(int width) {
+    public MediaDeviceDescription setWidth(float width) {
         this.width = width;
         return this;
     }
@@ -107,7 +107,7 @@ public class MediaDeviceDescription {
         return height;
     }
 
-    public MediaDeviceDescription setHeight(int height) {
+    public MediaDeviceDescription setHeight(float height) {
         this.height = height;
         return this;
     }
