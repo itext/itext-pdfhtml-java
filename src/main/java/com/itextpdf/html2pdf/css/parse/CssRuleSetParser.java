@@ -47,12 +47,12 @@ import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.selector.CssSelector;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public final class CssRuleSetParser {
 
@@ -62,15 +62,22 @@ public final class CssRuleSetParser {
     }
 
     public static List<CssDeclaration> parsePropertyDeclarations(String propertiesStr) {
-        String[] propertyDeclarationStrs = propertiesStr.split(";");
         List<CssDeclaration> declarations = new ArrayList<>();
-        for (String propertyDeclarationStr : propertyDeclarationStrs) {
-            String[] propertySplit = propertyDeclarationStr.split(":");
-            if (propertySplit.length == 2) {
+        int pos = getSemicolonPosition(propertiesStr);
+        while (pos != -1) {
+            String[] propertySplit = splitCssProperty(propertiesStr.substring(0, pos));
+            if (propertySplit != null) {
                 declarations.add(new CssDeclaration(propertySplit[0], propertySplit[1]));
-            } else if (propertyDeclarationStr.trim().length() != 0) {
-                logger.error(MessageFormat.format(LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, propertyDeclarationStr.trim()));
             }
+            propertiesStr = propertiesStr.substring(pos + 1);
+            pos = getSemicolonPosition(propertiesStr);
+        }
+        if (!propertiesStr.replaceAll("[\\n\\r\\t ]", "").isEmpty()) {
+            String[] propertySplit = splitCssProperty(propertiesStr);
+            if (propertySplit != null) {
+                declarations.add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+            }
+            return declarations;
         }
         return declarations;
     }
@@ -103,4 +110,26 @@ public final class CssRuleSetParser {
         return ruleSets;
     }
 
+    private static String[] splitCssProperty(String property) {
+        String[] result = new String[2];
+        int position = property.indexOf(":");
+        if (position < 0) {
+            logger.error(MessageFormat.format(LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, property.trim()));
+            return null;
+        }
+        result[0] = property.substring(0, position);
+        result[1] = property.substring(position + 1);
+
+        return result;
+    }
+
+    private static int getSemicolonPosition(String propertiesStr) {
+        int semiColonPos = propertiesStr.indexOf(";");
+        int openedBracketPos = propertiesStr.indexOf("(");
+        int closedBracketPos = propertiesStr.indexOf(")");
+        if (semiColonPos != -1 && semiColonPos > openedBracketPos && semiColonPos < closedBracketPos) {
+            semiColonPos += getSemicolonPosition(propertiesStr.substring(semiColonPos + 1)) + 1;
+        }
+        return semiColonPos;
+    }
 }
