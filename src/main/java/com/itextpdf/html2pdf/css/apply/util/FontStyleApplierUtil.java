@@ -191,4 +191,45 @@ public final class FontStyleApplierUtil {
 
     }
 
+    public static float parseAbsoluteFontSize(String fontSizeValue) {
+        if (CssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS.contains(fontSizeValue)) {
+            switch (fontSizeValue) {
+                case CssConstants.XX_SMALL:
+                    fontSizeValue = "9px";
+                    break;
+                case CssConstants.X_SMALL:
+                    fontSizeValue = "10px";
+                    break;
+                case CssConstants.SMALL:
+                    fontSizeValue = "13px";
+                    break;
+                case CssConstants.MEDIUM:
+                    fontSizeValue = "16px";
+                    break;
+                case CssConstants.LARGE:
+                    fontSizeValue = "18px";
+                    break;
+                case CssConstants.X_LARGE:
+                    fontSizeValue = "24px";
+                    break;
+                case CssConstants.XX_LARGE:
+                    fontSizeValue = "32px";
+                    break;
+                default:
+                    fontSizeValue = "16px";
+                    break;
+            }
+        }
+        return CssUtils.parseAbsoluteLength(fontSizeValue);
+    }
+
+    public static float parseRelativeFontSize(final String relativeFontSizeValue, final float baseValue) {
+        if (CssConstants.SMALLER.equals(relativeFontSizeValue)) {
+            return baseValue / 1.2f;
+        } else if (CssConstants.LARGER.equals(relativeFontSizeValue)) {
+            return baseValue * 1.2f;
+        }
+        return CssUtils.parseRelativeValue(relativeFontSizeValue, baseValue);
+    }
+    
 }

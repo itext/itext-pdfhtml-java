@@ -49,6 +49,7 @@ import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssRuleName;
 import com.itextpdf.html2pdf.css.CssStatement;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
+import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.media.CssMediaRule;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.parse.CssRuleSetParser;
@@ -93,8 +94,10 @@ public class DefaultCssResolver implements ICssResolver {
 
         Map<String, String> elementStyles = cssDeclarationsToMap(nodeCssDeclarations);
 
+        String parentFontSizeStr = null;
         if (element.parentNode() instanceof IElementNode) {
-            Map<String, String> parentStyles = ((IElementNode) element.parentNode()).getStyles();
+            IElementNode parentNode = (IElementNode) element.parentNode();
+            Map<String, String> parentStyles = parentNode.getStyles();
 
             if (parentStyles == null && !(element.parentNode() instanceof IDocumentNode)) {
                 Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
@@ -105,14 +108,22 @@ public class DefaultCssResolver implements ICssResolver {
                 for (Map.Entry<String, String> entry : parentStyles.entrySet()) {
                     mergeParentCssDeclaration(elementStyles, entry.getKey(), entry.getValue());
                 }
-                String elementFontSize = elementStyles.get(CssConstants.FONT_SIZE);
-                String parentFontSizeStr = parentStyles.get(CssConstants.FONT_SIZE);
-                if (CssUtils.isRelativeValue(elementFontSize) && parentFontSizeStr != null) {
-                    float parentFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
-                    float absoluteFontSize = CssUtils.parseRelativeValue(elementFontSize, parentFontSize);
-                    elementStyles.put(CssConstants.FONT_SIZE, absoluteFontSize + CssConstants.PT);
-                }
+                parentFontSizeStr = parentStyles.get(CssConstants.FONT_SIZE);
             }
+        }
+
+        String elementFontSize = elementStyles.get(CssConstants.FONT_SIZE);
+        if (CssUtils.isRelativeValue(elementFontSize) || CssConstants.LARGER.equals(elementFontSize) || CssConstants.SMALLER.equals(elementFontSize)) {
+            float parentFontSize;
+            if (parentFontSizeStr == null) {
+                parentFontSize = FontStyleApplierUtil.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
+            } else {
+                parentFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
+            }
+            float absoluteFontSize = FontStyleApplierUtil.parseRelativeFontSize(elementFontSize, parentFontSize);
+            elementStyles.put(CssConstants.FONT_SIZE, absoluteFontSize + CssConstants.PT);
+        } else {
+            elementStyles.put(CssConstants.FONT_SIZE, FontStyleApplierUtil.parseAbsoluteFontSize(elementFontSize) + CssConstants.PT);
         }
 
         Set<String> keys = new HashSet<>();

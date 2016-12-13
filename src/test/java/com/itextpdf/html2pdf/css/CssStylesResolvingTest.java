@@ -83,7 +83,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
     @Test
     public void collectStylesDeclarationsTest01() throws IOException {
         test("collectStylesDeclarationsTest01.html", "html body p",
-                "color: red", "text-align: center", "font-size: 15px",
+                "color: red", "text-align: center", "font-size: 11.25pt",
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
@@ -93,7 +93,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
     @Test
     public void collectStylesDeclarationsTest02() throws IOException {
         test("collectStylesDeclarationsTest02.html", "html body p",
-                "color: blue", "text-align: center", "font-style: italic", "font-size: 15px",
+                "color: blue", "text-align: center", "font-style: italic", "font-size: 11.25pt",
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
@@ -103,7 +103,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
     @Test
     public void collectStylesDeclarationsTest03() throws IOException {
         test("collectStylesDeclarationsTest03.html", "html body p",
-                "color: red", "text-align: right", "font-size: 10px",
+                "color: red", "text-align: right", "font-size: 7.5pt",
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
@@ -113,31 +113,31 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
     @Test
     public void stylesInheritanceTest01() throws IOException {
         test("stylesInheritanceTest01.html", "html body p span",
-                "color: blue", "text-align: center", "font-style: italic", "font-size: 15px");
+                "color: blue", "text-align: center", "font-style: italic", "font-size: 11.25pt");
     }
 
     @Test
     public void stylesInheritanceTest02() throws IOException {
         test("stylesInheritanceTest02.html", "html body p span",
-                "color: black", "text-align: center", "font-style: italic", "font-size: 15px");
+                "color: black", "text-align: center", "font-style: italic", "font-size: 11.25pt");
     }
 
     @Test
     public void stylesInheritanceTest03() throws IOException {
         test("stylesInheritanceTest03.html", "html body p span",
-                "color: green", "font-size: 12pt");
+                "color: green", "font-size: 12.0pt");
     }
 
     @Test
     public void stylesInheritanceTest04() throws IOException {
         test("stylesInheritanceTest04.html", "html body p span",
-                "color: blue", "font-size: 12pt");
+                "color: blue", "font-size: 12.0pt");
     }
 
     @Test
     public void stylesInheritanceTest05() throws IOException {
         test("stylesInheritanceTest05.html", "html body p span",
-                "color: black", "font-size: 12pt");
+                "color: black", "font-size: 12.0pt");
     }
 
     @Test
@@ -146,7 +146,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 20px",
                 "margin-right: 0",
                 "background-color: yellow",
-                "font-size: 12pt");
+                "font-size: 12.0pt");
     }
 
     @Test
@@ -155,7 +155,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 0",
                 "padding-top: 10px",
                 "background-color: yellow",
-                "font-size: 12pt");
+                "font-size: 12.0pt");
     }
 
     @Test
@@ -173,7 +173,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "border-left-color: red",
                 "border-right-color: red",
                 "border-top-color: red",
-                "font-size: 12pt",
+                "font-size: 12.0pt",
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
@@ -184,7 +184,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
     public void htmlStylesConvertingTest01() throws IOException {
         test("htmlStylesConvertingTest01.html", "html body b p",
                 "font-weight: bold",
-                "font-size: 12pt",
+                "font-size: 12.0pt",
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
@@ -195,7 +195,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
     public void htmlStylesConvertingTest02() throws IOException {
         test("htmlStylesConvertingTest01.html", "html body b i p",
                 "font-weight: bold", "font-style: italic",
-                "font-size: 12pt",
+                "font-size: 12.0pt",
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
@@ -206,7 +206,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
     public void htmlStylesConvertingTest03() throws IOException {
         test("htmlStylesConvertingTest01.html", "html body i p",
                 "font-style: italic",
-                "font-size: 12pt",
+                "font-size: 12.0pt",
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
@@ -217,7 +217,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
     public void htmlStylesConvertingTest04() throws IOException {
         test("htmlStylesConvertingTest01.html", "html body i center p",
                 "font-style: italic", "text-align: center",
-                "font-size: 12pt",
+                "font-size: 12.0pt",
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
@@ -230,7 +230,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "border-bottom-style: solid", "border-left-style: solid", "border-right-style: solid", "border-top-style: solid",
                 "border-bottom-width: 2px", "border-left-width: 2px", "border-right-width: 2px", "border-top-width: 2px",
                 "border-bottom-color: black", "border-left-color: black", "border-right-color: black", "border-top-color: black",
-                "font-size: 12pt",
+                "font-size: 12.0pt",
                 "margin-bottom: 0",
                 "margin-left: 0",
                 "margin-right: 0",
@@ -242,7 +242,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
     public void htmlStylesConvertingTest06() throws IOException {
         test("htmlStylesConvertingTest05.html", "html body table tbody tr",
                 "background-color: yellow",
-                "font-size: 12pt",
+                "font-size: 12.0pt",
                 "text-indent: 0",
                 "vertical-align: middle");
     }
@@ -250,13 +250,13 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
     @Test
     public void htmlStylesConvertingTest07() throws IOException {
         test("htmlStylesConvertingTest07.html", "html body p font span",
-                "font-size: large", "font-family: verdana", "color: blue");
+                "font-size: 18.0pt", "font-family: verdana", "color: blue");
     }
 
     @Test
     public void htmlStylesConvertingTest08() throws IOException {
         test("htmlStylesConvertingTest08.html", "html body p font span",
-                "font-size: large", "font-family: verdana", "color: blue");
+                "font-size: 18.0pt", "font-family: verdana", "color: blue");
     }
 
     @Test
@@ -264,20 +264,20 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
         test("htmlStylesConvertingTest08.html", "html body div center",
                 "text-align: center",
                 "display: block",
-                "font-size: 12pt");
+                "font-size: 12.0pt");
     }
 
     @Test
     public void htmlStylesConvertingTest10() throws IOException {
         test("htmlStylesConvertingTest10.html", "html body p font span",
-                "font-size: 10px", "font-family: verdana", "color: blue");
+                "font-size: 7.5pt", "font-family: verdana", "color: blue");
     }
 
     @Test
     public void htmlStylesConvertingTest11() throws IOException {
         test("htmlStylesConvertingTest10.html", "html body",
                 "background-color: yellow",
-                "font-size: 12pt",
+                "font-size: 12.0pt",
                 "margin-bottom: 10%",
                 "margin-left: 10%",
                 "margin-right: 10%",

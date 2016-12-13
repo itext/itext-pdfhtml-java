@@ -268,7 +268,10 @@ public class CssConstants {
             Arrays.asList(new String[] {THIN, MEDIUM, THICK}));
     public static final Set<String> BORDER_STYLE_VALUES = new HashSet<>(
             Arrays.asList(new String[] {NONE, HIDDEN, DOTTED, DASHED, SOLID, DOUBLE, GROOVE, RIDGE, INSET, OUTSET}));
-
+    public static final Set<String> FONT_ABSOLUTE_SIZE_KEYWORDS = new HashSet<>(Arrays.asList(
+            CssConstants.MEDIUM, CssConstants.XX_SMALL, CssConstants.X_SMALL, CssConstants.SMALL, CssConstants.LARGE,
+            CssConstants.X_LARGE, CssConstants.XX_LARGE
+    ));
 
     // units of measurement
     public static final String CM = "cm";

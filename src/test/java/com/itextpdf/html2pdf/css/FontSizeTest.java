@@ -79,4 +79,16 @@ public class FontSizeTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "fontSizeTest02.pdf", sourceFolder + "cmp_fontSizeTest02.pdf", destinationFolder, "diff02_"));
     }
 
+    @Test
+    public void fontAbsoluteKeywords() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "fontAbsoluteKeywords.html"), new File(destinationFolder + "fontAbsoluteKeywords.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "fontAbsoluteKeywords.pdf", sourceFolder + "cmp_fontAbsoluteKeywords.pdf", destinationFolder, "diff03_"));
+    }
+
+    @Test
+    public void fontRelativeKeywords() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "fontRelativeKeywords.html"), new File(destinationFolder + "fontRelativeKeywords.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "fontRelativeKeywords.pdf", sourceFolder + "cmp_fontRelativeKeywords.pdf", destinationFolder, "diff04_"));
+    }
+
 }
