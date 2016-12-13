@@ -53,16 +53,11 @@ import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.io.util.ResourceUtil;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.*;
 
 class HtmlStylesToCssConverter {
 
@@ -133,7 +128,10 @@ class HtmlStylesToCssConverter {
                             styleAttribute = "";
                         }
                         if (!styleAttribute.contains(CssConstants.BORDER)) {
-                            ((IElementNode) node).getAttributes().setAttribute(AttributeConstants.STYLE, styleAttribute + "; " +
+                            if (!styleAttribute.isEmpty()) {
+                                styleAttribute = styleAttribute + "; ";
+                            }
+                            ((IElementNode) node).getAttributes().setAttribute(AttributeConstants.STYLE, styleAttribute +
                                     new CssDeclaration(CssConstants.TABLE_CUSTOM_BORDER, value + "px solid black").toString());
                         }
                     } else {
