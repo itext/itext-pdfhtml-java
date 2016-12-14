@@ -208,6 +208,7 @@ public class CssConstants {
     public static final String LOWER_ROMAN = "lower-roman";
     public static final String LOWERCASE = "lowercase";
     public static final String LTR = "ltr";
+    public static final String MANUAL = "manual";
     public static final String MEDIUM = "medium";
     public static final String MENU = "menu";
     public static final String MESSAGE_BOX = "message-box";

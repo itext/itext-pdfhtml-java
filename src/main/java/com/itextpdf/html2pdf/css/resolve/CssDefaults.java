@@ -113,6 +113,8 @@ public class CssDefaults {
         defaultValues.put(CssConstants.TEXT_TRANSFORM, CssConstants.NONE);
         defaultValues.put(CssConstants.TEXT_DECORATION, CssConstants.NONE);
 
+        defaultValues.put(CssConstants.HYPHENS, CssConstants.MANUAL);
+
         // TODO not complete
     }
 
