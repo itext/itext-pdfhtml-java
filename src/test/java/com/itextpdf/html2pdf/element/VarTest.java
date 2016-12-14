@@ -72,7 +72,7 @@ public class VarTest extends ExtendedITextTest {
 
     @Test
     public void var01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "VarTest01.html"), new File(destinationFolder + "VarTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "VarTest01.pdf", sourceFolder + "cmp_VarTest01.pdf", destinationFolder, "diff01_"));
+        HtmlConverter.convertToPdf(new File(sourceFolder + "varTest01.html"), new File(destinationFolder + "varTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "varTest01.pdf", sourceFolder + "cmp_varTest01.pdf", destinationFolder, "diff01_"));
     }
 }
