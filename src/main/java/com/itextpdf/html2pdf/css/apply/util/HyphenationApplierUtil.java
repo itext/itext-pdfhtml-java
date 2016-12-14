@@ -40,67 +40,43 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html.impl.jsoup.node;
+package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.html.node.IAttributes;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.resolve.CssDefaults;
 import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.hyphenation.HyphenationConfig;
+import com.itextpdf.layout.property.Property;
 
 import java.util.Map;
 
-public class JsoupElementNode extends JsoupNode implements IElementNode {
+public final class HyphenationApplierUtil {
 
-    private org.jsoup.nodes.Element element;
-    private IAttributes attributes;
-    private Map<String, String> elementResolvedStyles;
-    private String lang = null;
+    // TODO these are css properties actually, but it is not supported by the browsers currently
+    private static final int HYPHENATE_BEFORE = 2;
+    private static final int HYPHENATE_AFTER = 3;
 
-    public JsoupElementNode(org.jsoup.nodes.Element element) {
-        super(element);
-        this.element = element;
-        this.attributes = new JsoupAttributes(element.attributes());
-        this.lang = getAttribute(AttributeConstants.LANG);
+    private HyphenationApplierUtil() {
     }
 
-    @Override
-    public String name() {
-        return element.nodeName();
-    }
+    public static void applyHyphenation(Map<String, String> cssProps, ProcessorContext context, IElementNode elementNode, IPropertyContainer element) {
+        String value = cssProps.get(CssConstants.HYPHENS);
+        if (value == null) {
+            value = CssDefaults.getDefaultValue(CssConstants.HYPHENS);
+        }
 
-    public IAttributes getAttributes() {
-        return attributes;
-    }
-
-    @Override
-    public String getAttribute(String key) {
-        return attributes.getAttribute(key);
-    }
-
-	@Override
-    public void setStyles(Map<String, String> elementResolvedStyles) {
-        this.elementResolvedStyles = elementResolvedStyles;
-    }
-
-    @Override
-    public Map<String, String> getStyles() {
-        return this.elementResolvedStyles;
-    }
-
-    @Override
-    public String getLang() {
-        if (lang != null) {
-            return lang;
-        } else {
-            INode parent = parentNode;
-            lang = parent instanceof IElementNode ? ((IElementNode) parent).getLang() : null;
-            if (lang == null) {
-                // Set to empty string to "cache", i.e. not to traverse parent chain each time the method is called for
-                // documents with no "lang" attribute
-                lang = "";
+        if (CssConstants.NONE.equals(value)) {
+            element.setProperty(Property.HYPHENATION, null);
+        } else if (CssConstants.MANUAL.equals(value)) {
+            element.setProperty(Property.HYPHENATION, new HyphenationConfig(HYPHENATE_BEFORE, HYPHENATE_AFTER));
+        } else if (CssConstants.AUTO.equals(value)) {
+            String lang = elementNode.getLang();
+            if (lang != null && lang.length() > 0) {
+                element.setProperty(Property.HYPHENATION, new HyphenationConfig(lang.substring(0, 2), "", HYPHENATE_BEFORE, HYPHENATE_AFTER));
             }
-            return lang;
         }
     }
-}
 
+}

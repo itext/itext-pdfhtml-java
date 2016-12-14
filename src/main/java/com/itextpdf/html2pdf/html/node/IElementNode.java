@@ -55,4 +55,7 @@ public interface IElementNode extends INode {
     void setStyles(Map<String, String> stringStringMap);
 
     Map<String, String> getStyles();
+
+    String getLang();
+
 }

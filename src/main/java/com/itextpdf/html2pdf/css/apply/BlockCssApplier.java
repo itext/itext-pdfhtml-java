@@ -64,6 +64,7 @@ public class BlockCssApplier implements ICssApplier {
             PaddingApplierUtil.applyPaddings(cssProps, context, container);
             FontStyleApplierUtil.applyFontStyles(cssProps, context, container);
             BorderStyleApplierUtil.applyBorders(cssProps, context, container);
+            HyphenationApplierUtil.applyHyphenation(cssProps, context, element, container);
         }
     }
 
