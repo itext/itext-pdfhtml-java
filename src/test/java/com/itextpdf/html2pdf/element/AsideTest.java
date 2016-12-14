@@ -76,4 +76,12 @@ public class AsideTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "asideTest01.html"), new File(destinationFolder + "asideTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "asideTest01.pdf", sourceFolder + "cmp_asideTest01.pdf", destinationFolder, "diff01_"));
     }
+
+    @Test
+    public void aside02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "asideTest02.html"), new File(destinationFolder + "asideTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "asideTest02.pdf", sourceFolder + "cmp_asideTest02.pdf", destinationFolder, "diff02_"));
+    }
+
+
 }

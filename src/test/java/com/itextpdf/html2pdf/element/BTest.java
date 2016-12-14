@@ -51,20 +51,20 @@ import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.IOException;
 
-@Category(IntegrationTest.class)
-public class AbbrTest extends ExtendedITextTest {
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/AbbrTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/AbbrTest/";
+@Category(IntegrationTest.class)
+public class BTest extends ExtendedITextTest {
+
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/BTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/BTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -72,8 +72,8 @@ public class AbbrTest extends ExtendedITextTest {
     }
 
     @Test
-    public void abbrTest01() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "abbrTest01.html"), new File(destinationFolder + "abbrTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "abbrTest01.pdf", sourceFolder + "cmp_abbrTest01.pdf", destinationFolder, "diff01_"));
+    public void b01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "bTest01.html"), new File(destinationFolder + "bTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bTest01.pdf", sourceFolder + "cmp_bTest01.pdf", destinationFolder, "diff01_"));
     }
 }

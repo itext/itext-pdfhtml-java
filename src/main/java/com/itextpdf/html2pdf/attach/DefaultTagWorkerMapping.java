@@ -76,28 +76,41 @@ public class DefaultTagWorkerMapping {
         if (mapping == null) {
             Map<String, Class<?>> buildMap = new HashMap<String, Class<?>>();
             buildMap.put(TagConstants.A, ATagWorker.class);
+            buildMap.put(TagConstants.ABBR, ATagWorker.class);
+            buildMap.put(TagConstants.ADDRESS, DivTagWorker.class);
             buildMap.put(TagConstants.ARTICLE, DivTagWorker.class);
             buildMap.put(TagConstants.ASIDE, DivTagWorker.class);
             buildMap.put(TagConstants.B, SpanTagWorker.class);
-            buildMap.put(TagConstants.BLOCKQUOTE, DivTagWorker.class);
+            buildMap.put(TagConstants.BDI,SpanTagWorker.class);
+            buildMap.put(TagConstants.BDO, SpanTagWorker.class);
+            buildMap.put(TagConstants.BLOCKQUOTE,DivTagWorker.class);
             buildMap.put(TagConstants.BODY, BodyTagWorker.class);
             buildMap.put(TagConstants.BR, BrTagWorker.class);
-            buildMap.put(TagConstants.CITE, SpanTagWorker.class);
-            buildMap.put(TagConstants.CODE, SpanTagWorker.class);
-            buildMap.put(TagConstants.DIV, DivTagWorker.class);
+            //buildMap.put(TagConstants.CAPTION, SpanTagWorker.class);
+            buildMap.put(TagConstants.CENTER,PTagWorker.class);
+            buildMap.put(TagConstants.CITE,SpanTagWorker.class);
+            buildMap.put(TagConstants.CODE,SpanTagWorker.class);
+            buildMap.put(TagConstants.DEL, SpanTagWorker.class);
+            buildMap.put(TagConstants.DFN, SpanTagWorker.class);
+            buildMap.put(TagConstants.DIV,DivTagWorker.class);
             buildMap.put(TagConstants.DD, DdTagWorker.class);
             buildMap.put(TagConstants.DL, DlTagWorker.class);
             buildMap.put(TagConstants.DT, DtTagWorker.class);
             buildMap.put(TagConstants.EM, SpanTagWorker.class);
             buildMap.put(TagConstants.FONT, SpanTagWorker.class);
+            buildMap.put(TagConstants.FIGCAPTION, PTagWorker.class);
+            buildMap.put(TagConstants.FIGURE, DivTagWorker.class);
             buildMap.put(TagConstants.FOOTER, DivTagWorker.class);
             buildMap.put(TagConstants.HEADER, DivTagWorker.class);
             buildMap.put(TagConstants.HR, HrTagWorker.class);
             buildMap.put(TagConstants.HTML, HtmlTagWorker.class);
             buildMap.put(TagConstants.I, SpanTagWorker.class);
             buildMap.put(TagConstants.IMG, ImgTagWorker.class);
+            buildMap.put(TagConstants.INS, SpanTagWorker.class);
+            buildMap.put(TagConstants.KBD,SpanTagWorker.class);
             buildMap.put(TagConstants.LI, LiTagWorker.class);
             buildMap.put(TagConstants.MAIN, DivTagWorker.class);
+            buildMap.put(TagConstants.MARK, SpanTagWorker.class);
             buildMap.put(TagConstants.META, MetaTagWorker.class);
             buildMap.put(TagConstants.NAV, DivTagWorker.class);
             buildMap.put(TagConstants.OL, UlOlTagWorker.class);
@@ -110,6 +123,8 @@ public class DefaultTagWorkerMapping {
             buildMap.put(TagConstants.P, PTagWorker.class);
             buildMap.put(TagConstants.PRE, PTagWorker.class);
             buildMap.put(TagConstants.Q, SpanTagWorker.class);
+            buildMap.put(TagConstants.S, SpanTagWorker.class);
+            buildMap.put(TagConstants.SAMP,SpanTagWorker.class);
             buildMap.put(TagConstants.SECTION, DivTagWorker.class);
             buildMap.put(TagConstants.SMALL, SpanTagWorker.class);
             buildMap.put(TagConstants.SPAN, SpanTagWorker.class);
@@ -127,8 +142,9 @@ public class DefaultTagWorkerMapping {
             buildMap.put(TagConstants.TR, TrTagWorker.class);
             buildMap.put(TagConstants.U, SpanTagWorker.class);
             buildMap.put(TagConstants.UL, UlOlTagWorker.class);
-            mapping = Collections.unmodifiableMap(buildMap);
+            buildMap.put(TagConstants.VAR, SpanTagWorker.class);
 
+            mapping =  Collections.unmodifiableMap(buildMap);
         }
 
         return mapping;

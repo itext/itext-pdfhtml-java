@@ -76,4 +76,10 @@ public class BlockquoteTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "blockquoteTest01.html"), new File(destinationFolder + "blockquoteTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "blockquoteTest01.pdf", sourceFolder + "cmp_blockquoteTest01.pdf", destinationFolder, "diff01_"));
     }
+
+    @Test
+    public void blockquote02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "blockquoteTest02.html"), new File(destinationFolder + "blockquoteTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "blockquoteTest02.pdf", sourceFolder + "cmp_blockquoteTest02.pdf", destinationFolder, "diff02_"));
+    }
 }
