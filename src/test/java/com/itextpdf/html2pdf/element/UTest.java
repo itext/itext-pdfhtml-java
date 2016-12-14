@@ -56,10 +56,10 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class BlockquoteTest extends ExtendedITextTest {
+public class UTest extends ExtendedITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/BlockquoteTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/BlockquoteTest/";
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/UTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/UTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -67,14 +67,9 @@ public class BlockquoteTest extends ExtendedITextTest {
     }
 
     @Test
-    public void blockquote01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "blockquoteTest01.html"), new File(destinationFolder + "blockquoteTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "blockquoteTest01.pdf", sourceFolder + "cmp_blockquoteTest01.pdf", destinationFolder, "diff01_"));
+    public void uStrikeTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "uTest01.html"), new File(destinationFolder + "uTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "uTest01.pdf", sourceFolder + "cmp_uTest01.pdf", destinationFolder, "diff01_"));
     }
 
-    @Test
-    public void blockquote02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "blockquoteTest02.html"), new File(destinationFolder + "blockquoteTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "blockquoteTest02.pdf", sourceFolder + "cmp_blockquoteTest02.pdf", destinationFolder, "diff02_"));
-    }
 }

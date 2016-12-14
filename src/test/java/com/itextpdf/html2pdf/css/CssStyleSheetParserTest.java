@@ -47,13 +47,14 @@ import com.itextpdf.io.util.ResourceUtil;
 import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.io.FileInputStream;
-import java.io.IOException;
 
 @Category(UnitTest.class)
 public class CssStyleSheetParserTest extends ExtendedITextTest {

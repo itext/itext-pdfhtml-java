@@ -63,19 +63,29 @@ public class DefaultTagCssApplierMapping {
         if (mapping == null) {
             Map<String, Class<?>> buildMap = new HashMap<String, Class<?>>();
             buildMap.put(TagConstants.A, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.ABBR, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.ADDRESS, BlockCssApplier.class);
             buildMap.put(TagConstants.ARTICLE, BlockCssApplier.class);
-            buildMap.put(TagConstants.B, SpanTagCssApplier.class);
             buildMap.put(TagConstants.ASIDE, BlockCssApplier.class);
+            buildMap.put(TagConstants.B, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.BDI, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.BDO, SpanTagCssApplier.class);
             buildMap.put(TagConstants.BLOCKQUOTE, BlockCssApplier.class);
             buildMap.put(TagConstants.BODY, BodyTagCssApplier.class);
+            //buildMap.put(TagConstants.CAPTION,SpanTagCssApplier.class);
+            buildMap.put(TagConstants.CENTER,BlockCssApplier.class);
             buildMap.put(TagConstants.CITE, SpanTagCssApplier.class);
             buildMap.put(TagConstants.CODE, SpanTagCssApplier.class);
             buildMap.put(TagConstants.EM, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.DEL, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.DFN,SpanTagCssApplier.class);
             buildMap.put(TagConstants.DT, BlockCssApplier.class);
             buildMap.put(TagConstants.DD, BlockCssApplier.class);
             buildMap.put(TagConstants.DIV, BlockCssApplier.class);
             buildMap.put(TagConstants.FONT, SpanTagCssApplier.class);
             buildMap.put(TagConstants.FOOTER, BlockCssApplier.class);
+            buildMap.put(TagConstants.FIGCAPTION, BlockCssApplier.class);
+            buildMap.put(TagConstants.FIGURE, BlockCssApplier.class);
             buildMap.put(TagConstants.H1, BlockCssApplier.class);
             buildMap.put(TagConstants.H2, BlockCssApplier.class);
             buildMap.put(TagConstants.H3, BlockCssApplier.class);
@@ -95,10 +105,15 @@ public class DefaultTagCssApplierMapping {
             buildMap.put(TagConstants.DL, DlTagCssApplier.class);
             buildMap.put(TagConstants.HTML, HtmlTagCssApplier.class);
             buildMap.put(TagConstants.I, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.INS, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.KBD, SpanTagCssApplier.class);
             buildMap.put(TagConstants.LI, LiTagCssApplier.class);
+            buildMap.put(TagConstants.MARK, SpanTagCssApplier.class);
             buildMap.put(TagConstants.OL, UlOlTagCssApplier.class);
             buildMap.put(TagConstants.PRE, BlockCssApplier.class);
             buildMap.put(TagConstants.Q, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.S, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.SAMP,SpanTagCssApplier.class);
             buildMap.put(TagConstants.SMALL, SpanTagCssApplier.class);
             buildMap.put(TagConstants.SPAN, SpanTagCssApplier.class);
             buildMap.put(TagConstants.STRIKE, SpanTagCssApplier.class);
@@ -110,6 +125,7 @@ public class DefaultTagCssApplierMapping {
             buildMap.put(TagConstants.TIME, SpanTagCssApplier.class);
             buildMap.put(TagConstants.U, SpanTagCssApplier.class);
             buildMap.put(TagConstants.UL, UlOlTagCssApplier.class);
+            buildMap.put(TagConstants.VAR,SpanTagCssApplier.class);
 
             mapping = Collections.unmodifiableMap(buildMap);
         }

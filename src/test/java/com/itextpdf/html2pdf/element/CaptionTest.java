@@ -43,8 +43,11 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
@@ -56,25 +59,21 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class BlockquoteTest extends ExtendedITextTest {
+public class CaptionTest extends ExtendedITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/BlockquoteTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/BlockquoteTest/";
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/CaptionTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/CaptionTest/";
 
     @BeforeClass
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
 
-    @Test
-    public void blockquote01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "blockquoteTest01.html"), new File(destinationFolder + "blockquoteTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "blockquoteTest01.pdf", sourceFolder + "cmp_blockquoteTest01.pdf", destinationFolder, "diff01_"));
-    }
-
-    @Test
-    public void blockquote02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "blockquoteTest02.html"), new File(destinationFolder + "blockquoteTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "blockquoteTest02.pdf", sourceFolder + "cmp_blockquoteTest02.pdf", destinationFolder, "diff02_"));
+    @Test@LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1)
+    })
+    public void caption01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "captionTest01.html"), new File(destinationFolder + "captionTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "captionTest01.pdf", sourceFolder + "cmp_captionTest01.pdf", destinationFolder, "diff01_"));
     }
 }
