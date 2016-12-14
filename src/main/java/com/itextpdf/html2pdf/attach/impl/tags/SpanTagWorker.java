@@ -83,6 +83,7 @@ public class SpanTagWorker implements ITagWorker {
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         IPropertyContainer element = childTagWorker.getElementResult();
         if (element instanceof ILeafElement) {
+            flushInlineHelper();
             spanWrapper.add((ILeafElement) element);
             ownLeafElements.add(element);
             return true;
