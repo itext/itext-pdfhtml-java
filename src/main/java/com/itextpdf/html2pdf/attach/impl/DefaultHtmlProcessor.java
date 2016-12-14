@@ -214,7 +214,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         cssResolver = new DefaultCssResolver(root, context.getDeviceDescription(), context.getResourceResolver());
         root = findHtmlNode(root);
         visit(root);
-        context = null;
         Document doc = (Document) roots.get(0);
         cssResolver = null;
         roots = null;
