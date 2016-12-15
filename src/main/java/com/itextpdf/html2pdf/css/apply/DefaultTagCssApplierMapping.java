@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.css.apply.impl.HtmlTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.LiTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.SpanTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.TdTagCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.TrTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.UlOlTagCssApplier;
 import com.itextpdf.html2pdf.html.TagConstants;
 import java.util.Collections;
@@ -123,6 +124,7 @@ public class DefaultTagCssApplierMapping {
             buildMap.put(TagConstants.TD, TdTagCssApplier.class);
             buildMap.put(TagConstants.TH, TdTagCssApplier.class);
             buildMap.put(TagConstants.TIME, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.TR, TrTagCssApplier.class);
             buildMap.put(TagConstants.U, SpanTagCssApplier.class);
             buildMap.put(TagConstants.UL, UlOlTagCssApplier.class);
             buildMap.put(TagConstants.VAR,SpanTagCssApplier.class);
