@@ -322,19 +322,23 @@ class HtmlStylesToCssConverter {
     private static class AlignAttributeConverter implements IAttributeConverter {
         @Override
         public boolean isSupportedForElement(String elementName) {
-            return TagConstants.HR.equals(elementName);
+            return TagConstants.HR.equals(elementName) || TagConstants.TD.equals(elementName);
         }
 
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             List<CssDeclaration> result = new ArrayList<CssDeclaration>(2);
-            if ("right".equals(value)) {
-                result.add(new CssDeclaration(CssConstants.MARGIN_RIGHT, "0"));
-            } else if ("left".equals(value)) {
-                result.add(new CssDeclaration(CssConstants.MARGIN_LEFT, "0"));
-            } else if ("center".equals(value)) {
-                result.add(new CssDeclaration(CssConstants.MARGIN_RIGHT, CssConstants.AUTO));
-                result.add(new CssDeclaration(CssConstants.MARGIN_LEFT, CssConstants.AUTO));
+            if (TagConstants.HR.equals(element.name())) {
+                if ("right".equals(value)) {
+                    result.add(new CssDeclaration(CssConstants.MARGIN_RIGHT, "0"));
+                } else if ("left".equals(value)) {
+                    result.add(new CssDeclaration(CssConstants.MARGIN_LEFT, "0"));
+                } else if ("center".equals(value)) {
+                    result.add(new CssDeclaration(CssConstants.MARGIN_RIGHT, CssConstants.AUTO));
+                    result.add(new CssDeclaration(CssConstants.MARGIN_LEFT, CssConstants.AUTO));
+                }
+            } else {
+                result.add(new CssDeclaration(CssConstants.TEXT_ALIGN, value));
             }
             return result;
         }
