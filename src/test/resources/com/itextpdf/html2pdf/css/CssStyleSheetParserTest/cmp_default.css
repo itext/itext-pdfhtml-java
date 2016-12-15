@@ -341,3 +341,6 @@ samp {
 var {
     font-style: italic
 }
+img[align="left"] {
+    margin-right: 3px
+}
