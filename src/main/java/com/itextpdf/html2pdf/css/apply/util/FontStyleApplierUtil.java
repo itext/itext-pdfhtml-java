@@ -225,9 +225,9 @@ public final class FontStyleApplierUtil {
 
     public static float parseRelativeFontSize(final String relativeFontSizeValue, final float baseValue) {
         if (CssConstants.SMALLER.equals(relativeFontSizeValue)) {
-            return baseValue / 1.2f;
+            return (float)(baseValue / 1.2);
         } else if (CssConstants.LARGER.equals(relativeFontSizeValue)) {
-            return baseValue * 1.2f;
+            return (float)(baseValue * 1.2);
         }
         return CssUtils.parseRelativeValue(relativeFontSizeValue, baseValue);
     }
