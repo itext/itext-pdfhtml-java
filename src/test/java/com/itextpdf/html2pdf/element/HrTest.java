@@ -106,7 +106,6 @@ public class HrTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-938")
     public void hrTest07() throws IOException, InterruptedException {
         runHrTest("07");
     }
@@ -118,13 +117,12 @@ public class HrTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-938")
+    @Ignore("float-property is not supported")
     public void hrTest09() throws IOException, InterruptedException {
         runHrTest("09");
     }
 
     @Test
-    @Ignore("DEVSIX-938")
     public void hrTest10() throws IOException, InterruptedException {
         runHrTest("10");
     }

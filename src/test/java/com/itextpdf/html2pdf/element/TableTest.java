@@ -43,7 +43,6 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -51,8 +50,6 @@ import java.lang.reflect.Method;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -136,7 +133,7 @@ public class TableTest extends ExtendedITextTest {
     @Test
     public void brInTdTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "brInTd.html"), new File(destinationFolder + "brInTd.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brInTd.pdf", sourceFolder + "cmp_brInTd.pdf", destinationFolder, "diff12_"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brInTd.pdf", sourceFolder + "cmp_brInTd.pdf", destinationFolder, "diff11_"));
     }
 
 

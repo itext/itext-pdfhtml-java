@@ -47,6 +47,9 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
@@ -67,32 +70,52 @@ public final class MarginApplierUtil {
         String marginLeft = cssProps.get(CssConstants.MARGIN_LEFT);
         String marginRight = cssProps.get(CssConstants.MARGIN_RIGHT);
 
+        boolean isBlock = element instanceof IBlockElement;
+        boolean isImage = element instanceof Image;
+        
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
-        UnitValue marginTopVal = CssUtils.parseLengthValueToPt(marginTop, em);
-        UnitValue marginBottomVal = CssUtils.parseLengthValueToPt(marginBottom, em);
-        UnitValue marginLeftVal = CssUtils.parseLengthValueToPt(marginLeft, em);
-        UnitValue marginRightVal = CssUtils.parseLengthValueToPt(marginRight, em);
 
-        if (marginTopVal.isPointValue()) {
-            element.setProperty(Property.MARGIN_TOP, marginTopVal.getValue());
-        } else {
-            logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+        if (isBlock || isImage) {
+            trySetMarginIfNotAuto(Property.MARGIN_TOP, marginTop, element, em);
+            trySetMarginIfNotAuto(Property.MARGIN_BOTTOM, marginBottom, element, em);
         }
-        if (marginBottomVal.isPointValue()) {
-            element.setProperty(Property.MARGIN_BOTTOM, marginBottomVal.getValue());
-        } else {
-            logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+
+        boolean isLeftAuto = !trySetMarginIfNotAuto(Property.MARGIN_LEFT, marginLeft, element, em);
+        boolean isRightAuto = !trySetMarginIfNotAuto(Property.MARGIN_RIGHT, marginRight, element, em);
+
+        if (isBlock) {
+            if (isLeftAuto && isRightAuto) {
+                element.setProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.CENTER);
+            } else if (isLeftAuto) {
+                element.setProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.RIGHT);
+            } else if (isRightAuto) {
+                element.setProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.LEFT);
+            }
         }
-        if (marginLeftVal.isPointValue()) {
-            element.setProperty(Property.MARGIN_LEFT, marginLeftVal.getValue());
-        } else {
-            logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+
+    }
+
+    private static boolean trySetMarginIfNotAuto(int marginProperty, String marginValue, IPropertyContainer element, float em) {
+        boolean isAuto = CssConstants.AUTO.equals(marginValue);
+        if (isAuto) {
+            return false;
         }
-        if (marginRightVal.isPointValue()) {
-            element.setProperty(Property.MARGIN_RIGHT, marginRightVal.getValue());
-        } else {
-            logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+        
+        Float marginTopVal = parseMarginValue(marginValue, em);
+        if (marginTopVal != null) {
+            element.setProperty(marginProperty, marginTopVal);
         }
+        return true;
+    }
+
+    private static Float parseMarginValue(String marginValString, float em) {
+        UnitValue marginTopUnitVal = CssUtils.parseLengthValueToPt(marginValString, em);
+        if (!marginTopUnitVal.isPointValue()) {
+            logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            return null;
+        }
+        
+        return marginTopUnitVal.getValue();
     }
 
 }

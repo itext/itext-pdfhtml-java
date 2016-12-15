@@ -252,19 +252,19 @@ class HtmlStylesToCssConverter {
         public List<CssDeclaration> convert(IElementNode element, String value) {
             String cssEquivalent = null;
             switch (value) {
-                case "1":
+                case AttributeConstants._1:
                     cssEquivalent = CssConstants.DECIMAL;
                     break;
-                case "A":
+                case AttributeConstants.A:
                     cssEquivalent = CssConstants.UPPER_ALPHA;
                     break;
-                case "a":
+                case AttributeConstants.a:
                     cssEquivalent = CssConstants.LOWER_ALPHA;
                     break;
-                case "I":
+                case AttributeConstants.I:
                     cssEquivalent = CssConstants.UPPER_ROMAN;
                     break;
-                case "i":
+                case AttributeConstants.i:
                     cssEquivalent = CssConstants.LOWER_ROMAN;
                     break;
             }
@@ -295,7 +295,7 @@ class HtmlStylesToCssConverter {
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             String cssEquivalent = value;
-            if (!value.endsWith("%")) {
+            if (!value.endsWith(CssConstants.PERCENTAGE)) {
                 cssEquivalent += CssConstants.PX;
             }
             return Arrays.asList(new CssDeclaration(CssConstants.WIDTH, cssEquivalent));
@@ -312,7 +312,7 @@ class HtmlStylesToCssConverter {
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             String cssEquivalent = value;
-            if (!value.endsWith("%")) {
+            if (!value.endsWith(CssConstants.PERCENTAGE)) {
                 cssEquivalent += CssConstants.PX;
             }
             return Arrays.asList(new CssDeclaration(CssConstants.HEIGHT, cssEquivalent));
@@ -322,22 +322,46 @@ class HtmlStylesToCssConverter {
     private static class AlignAttributeConverter implements IAttributeConverter {
         @Override
         public boolean isSupportedForElement(String elementName) {
-            return TagConstants.HR.equals(elementName) || TagConstants.TD.equals(elementName);
+            return TagConstants.HR.equals(elementName) || TagConstants.TABLE.equals(elementName) || TagConstants.IMG.equals(elementName)  
+                    || TagConstants.TD.equals(elementName) || TagConstants.DIV.equals(elementName) || TagConstants.P.equals(elementName);
         }
 
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             List<CssDeclaration> result = new ArrayList<CssDeclaration>(2);
-            if (TagConstants.HR.equals(element.name())) {
-                if ("right".equals(value)) {
-                    result.add(new CssDeclaration(CssConstants.MARGIN_RIGHT, "0"));
-                } else if ("left".equals(value)) {
-                    result.add(new CssDeclaration(CssConstants.MARGIN_LEFT, "0"));
-                } else if ("center".equals(value)) {
-                    result.add(new CssDeclaration(CssConstants.MARGIN_RIGHT, CssConstants.AUTO));
-                    result.add(new CssDeclaration(CssConstants.MARGIN_LEFT, CssConstants.AUTO));
+            if (TagConstants.HR.equals(element.name())
+                    // TODO In fact, 'align' attribute on 'table' and 'img' tags should be translated to the 'float' css property, however it's not supported yet.
+                    
+                    // TODO Another difference here would be that alignment via margins is reset if element itself has explicit corresponding margin property,
+                    // however elements with 'float: left' for example are shown at the right side regardless of the margins. This means that a table with
+                    // 'align: right' in html are shown at the right side regardless of margins properties, however in our current implementation margins matter.
+                    // (see HorizontalAlignmentTest#alignAttribute04)
+                    || TagConstants.TABLE.equals(element.name()) || TagConstants.IMG.equals(element.name())) {
+                
+                String leftMargin = null;
+                String rightMargin = null;
+                if (AttributeConstants.RIGHT.equals(value)) {
+                    leftMargin = CssConstants.AUTO;
+                    rightMargin = "0";
+                } else if (AttributeConstants.LEFT.equals(value)) {
+                    leftMargin = "0";
+                    rightMargin = CssConstants.AUTO;
+                } else if (AttributeConstants.CENTER.equals(value)) {
+                    leftMargin = CssConstants.AUTO;
+                    rightMargin = CssConstants.AUTO;
+                } else if (TagConstants.IMG.equals(element.name())
+                        && AttributeConstants.TOP.equals(value) && AttributeConstants.MIDDLE.equals(value) && AttributeConstants.BOTTOM.equals(value)) {
+                    result.add(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
+                }
+
+                if (leftMargin != null) {
+                    result.add(new CssDeclaration(CssConstants.MARGIN_LEFT, leftMargin));
+                    result.add(new CssDeclaration(CssConstants.MARGIN_RIGHT, rightMargin));
                 }
             } else {
+                // TODO in fact, align attribute also affects horizontal alignment of all child blocks (not only direct children),
+                // however this effect conflicts in queer manner with 'text-align' property if it set on the same blocks explicitly via CSS
+                // (see HorizontalAlignmentTest#alignAttribute01)
                 result.add(new CssDeclaration(CssConstants.TEXT_ALIGN, value));
             }
             return result;
