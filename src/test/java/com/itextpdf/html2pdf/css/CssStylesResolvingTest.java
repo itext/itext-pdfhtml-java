@@ -42,15 +42,16 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.IHtmlParser;
 import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
 import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 import org.junit.Assert;
@@ -225,7 +226,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "border-bottom-style: solid", "border-left-style: solid", "border-right-style: solid", "border-top-style: solid",
                 "border-bottom-width: 2px", "border-left-width: 2px", "border-right-width: 2px", "border-top-width: 2px",
                 "border-bottom-color: black", "border-left-color: black", "border-right-color: black", "border-top-color: black",
-                "font-size: 12.0pt",
+                "font-size: 12pt",
                 "margin-bottom: 0",
                 "margin-left: 0",
                 "margin-right: 0",
@@ -373,11 +374,46 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
         boolean sizesEqual = expectedStyles.size() == actualStyles.size();
         boolean elementsEqual = true;
         for (String str : actualStyles) {
-            if (!expectedStyles.contains(str)) {
+            if (str.startsWith("font-size")) {
+                if (!compareFloatProperty(expectedStyles, actualStyles, "font-size")) {
+                    elementsEqual = false;
+                    break;
+                }
+            } else if (!expectedStyles.contains(str)) {
                 elementsEqual = false;
                 break;
             }
         }
         return sizesEqual && elementsEqual;
     }
+
+    private boolean compareFloatProperty(Set<String> expectedStyles, Set<String> actualStyles, String propertyName) {
+        String containsExpected = null;
+        for (String str : expectedStyles) {
+            if (str.startsWith(propertyName)) {
+                containsExpected = str;
+            }
+        }
+        String containsActual = null;
+        for (String str : actualStyles) {
+            if (str.startsWith(propertyName)) {
+                containsActual = str;
+            }
+        }
+
+        if (containsActual == null && containsExpected == null) {
+            return true;
+        }
+
+        if (containsActual != null && containsExpected != null) {
+            containsActual = containsActual.substring(propertyName.length() + 1).trim();
+            containsExpected = containsExpected.substring(propertyName.length() + 1).trim();
+            float actual = CssUtils.parseAbsoluteLength(containsActual, CssConstants.PT);
+            float expected = CssUtils.parseAbsoluteLength(containsExpected, CssConstants.PT);
+            return Math.abs(actual - expected) < 0.0001;
+        } else {
+            return false;
+        }
+    }
+
 }
