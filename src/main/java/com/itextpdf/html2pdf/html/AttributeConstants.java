@@ -67,7 +67,18 @@ public final class AttributeConstants {
     public static final String TITLE = "title";
 
     // attribute values
+    public static final String _1 = "1";
+    public static final String A = "A";
+    public static final String a = "a";
+    public static final String BOTTOM = "bottom";
+    public static final String CENTER = "center";
+    public static final String I = "I";
+    public static final String i = "i";
+    public static final String LEFT = "left";
+    public static final String MIDDLE = "middle";
+    public static final String RIGHT = "right";
     public static final String STYLESHEET = "stylesheet";
+    public static final String TOP = "top";
 
     private AttributeConstants() {
     }
