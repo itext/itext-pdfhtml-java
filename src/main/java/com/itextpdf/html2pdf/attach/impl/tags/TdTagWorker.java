@@ -49,12 +49,9 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
-import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.Text;
 
 public class TdTagWorker implements ITagWorker {
 
@@ -95,7 +92,7 @@ public class TdTagWorker implements ITagWorker {
                 }
             }
             processed = allChildrenProcesssed;
-        } else if (childTagWorker instanceof BrTagWorker) {
+        } else if (childTagWorker.getElementResult() instanceof ILeafElement) {
             inlineHelper.add((ILeafElement)childTagWorker.getElementResult());
             processed = true;
         } else {
@@ -114,9 +111,6 @@ public class TdTagWorker implements ITagWorker {
         inlineHelper.flushHangingLeaves(cell);
         if (propertyContainer instanceof IBlockElement) {
             cell.add((IBlockElement) propertyContainer);
-            processed = true;
-        } else if (propertyContainer instanceof Image) {
-            cell.add((Image) propertyContainer);
             processed = true;
         }
         return processed;
