@@ -42,8 +42,8 @@
  */
 package com.itextpdf.html2pdf.resolver.resource;
 
-import com.itextpdf.io.image.ImageData;
-import com.itextpdf.io.image.ImageType;
+import com.itextpdf.kernel.pdf.PdfStream;
+import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 import org.junit.Assert;
@@ -56,14 +56,14 @@ public class SimpleImageCacheTest extends ExtendedITextTest {
 
     @Before
     public void before() {
-        ImageDataStub.resetNumbering();
+        ImageXObjectStub.resetNumbering();
     }
 
     @Test
     public void simpleImageCacheTest01() {
         SimpleImageCache cache = new SimpleImageCache();
         String imgSrc = "src1.jpg";
-        ImageDataStub imageData = new ImageDataStub();
+        ImageXObjectStub imageData = new ImageXObjectStub();
         Assert.assertEquals(0, cache.size());
         cache.putImage(imgSrc, imageData);
         Assert.assertEquals(1, cache.size());
@@ -73,8 +73,8 @@ public class SimpleImageCacheTest extends ExtendedITextTest {
     @Test
     public void simpleImageCacheTest02() {
         String[] imgSrc = {"src0.jpg", "src1.jpg", "src2.jpg", "src3.jpg", "src4.jpg", "src5.jpg"};
-        ImageDataStub[] imgData = {new ImageDataStub(), new ImageDataStub(), new ImageDataStub(), new ImageDataStub(),
-                new ImageDataStub(), new ImageDataStub()};
+        ImageXObjectStub[] imgData = {new ImageXObjectStub(), new ImageXObjectStub(), new ImageXObjectStub(), new ImageXObjectStub(),
+                new ImageXObjectStub(), new ImageXObjectStub()};
 
         SimpleImageCache cache = new SimpleImageCache(4);
 
@@ -144,22 +144,22 @@ public class SimpleImageCacheTest extends ExtendedITextTest {
 
     }
 
-    private static class ImageDataStub extends ImageData {
+    private static class ImageXObjectStub extends PdfImageXObject {
         private static int totalNum = 0;
         private int num = 0;
 
-        ImageDataStub() {
-            super((byte[]) null, ImageType.NONE);
+        ImageXObjectStub() {
+            super(new PdfStream());
             num = totalNum++;
-        }
-
-        @Override
-        public String toString() {
-            return "ImageDataStub_" + String.valueOf(num);
         }
 
         public static void resetNumbering() {
             totalNum = 0;
+        }
+
+        @Override
+        public String toString() {
+            return "ImageXObjectStub_" + String.valueOf(num);
         }
     }
 }

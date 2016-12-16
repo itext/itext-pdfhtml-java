@@ -95,8 +95,6 @@ public class HorizontalAlignmentTest extends ExtendedITextTest {
         runTest("marginsAutoInlines");
     }
 
-    //    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)})
-
     private void runTest(String testName) throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName + "_"));

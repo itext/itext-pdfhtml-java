@@ -42,13 +42,12 @@
  */
 package com.itextpdf.html2pdf.resolver.resource;
 
-import com.itextpdf.io.image.ImageData;
-
+import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 class SimpleImageCache {
-    private Map<String, ImageData> cache = new LinkedHashMap<>();
+    private Map<String, PdfImageXObject> cache = new LinkedHashMap<>();
     private Map<String, Integer> imagesFrequency = new LinkedHashMap<>();
     private int capacity;
 
@@ -63,15 +62,15 @@ class SimpleImageCache {
         this.capacity = capacity;
     }
 
-    void putImage(String src, ImageData imageData) {
+    void putImage(String src, PdfImageXObject imageXObject) {
         if (cache.containsKey(src)) {
             return;
         }
         ensureCapacity();
-        cache.put(src, imageData);
+        cache.put(src, imageXObject);
     }
 
-    ImageData getImage(String src) {
+    PdfImageXObject getImage(String src) {
         Integer frequency = imagesFrequency.get(src);
         if (frequency != null) {
             imagesFrequency.put(src, frequency + 1);
@@ -86,6 +85,11 @@ class SimpleImageCache {
         return cache.size();
     }
 
+    void reset() {
+        cache.clear();
+        imagesFrequency.clear();
+    }
+
     private void ensureCapacity() {
         if (cache.size() >= capacity) {
             String mostUnpopularImg = null;
@@ -97,7 +101,7 @@ class SimpleImageCache {
                     if (imgFrequency == null) {
                         break;
                     } else {
-                        minFrequency = (int)imgFrequency;
+                        minFrequency = (int) imgFrequency;
                     }
                 }
             }

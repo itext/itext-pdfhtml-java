@@ -43,15 +43,14 @@
 package com.itextpdf.html2pdf.resolver.resource;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
-import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.text.MessageFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // TODO handle <base href=".."> tag?
 public class ResourceResolver {
@@ -82,16 +81,16 @@ public class ResourceResolver {
         this.imageCache = new SimpleImageCache();
     }
 
-    public ImageData retrieveImage(String src) {
+    public PdfImageXObject retrieveImage(String src) {
         try {
             URL url = uriResolver.resolveAgainstBaseUri(src);
             String imageResolvedSrc = url.toExternalForm();
-            ImageData imageData = imageCache.getImage(imageResolvedSrc);
-            if (imageData == null) {
-                imageData = ImageDataFactory.create(url);
-                imageCache.putImage(imageResolvedSrc, imageData);
+            PdfImageXObject imageXObject = imageCache.getImage(imageResolvedSrc);
+            if (imageXObject == null) {
+                imageXObject = new PdfImageXObject(ImageDataFactory.create(url));
+                imageCache.putImage(imageResolvedSrc, imageXObject);
             }
-            return imageData;
+            return imageXObject;
         } catch (Exception e) {
             Logger logger = LoggerFactory.getLogger(ResourceResolver.class);
             logger.error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, uriResolver.getBaseUri(), src), e);
@@ -101,5 +100,9 @@ public class ResourceResolver {
 
     public InputStream retrieveStyleSheet(String uri) throws IOException {
         return uriResolver.resolveAgainstBaseUri(uri).openStream();
+    }
+    
+    public void resetCache() {
+        imageCache.reset();
     }
 }
