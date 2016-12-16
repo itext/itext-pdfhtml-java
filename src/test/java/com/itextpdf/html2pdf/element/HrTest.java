@@ -112,7 +112,6 @@ public class HrTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("float-property is not supported")
     public void hrTest09() throws IOException, InterruptedException {
         runHrTest("09");
     }
