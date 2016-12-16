@@ -47,17 +47,24 @@ import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.io.util.ResourceUtil;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.util.*;
 
 class HtmlStylesToCssConverter {
 
@@ -88,6 +95,9 @@ class HtmlStylesToCssConverter {
         htmlAttributeConverters.put(AttributeConstants.TYPE, new TypeAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.WIDTH, new WidthAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.HEIGHT, new HeightAttributeConverter());
+
+        // iText custom attributes
+        htmlAttributeConverters.put(AttributeConstants.PARENT_TABLE_BORDER, new ParentTableBorderAttributeConverter());
     }
 
     public static List<CssDeclaration> convert(IElementNode element) {
@@ -115,27 +125,17 @@ class HtmlStylesToCssConverter {
     }
 
 
-    // TODO for table border, border attribute affects cell borders as well
     private static class BorderAttributeConverter implements IAttributeConverter {
-        private static void applyBordersToTableCells(IElementNode element, String value) {
-            List<INode> nodes = element.childNodes();
-            for (INode node : nodes) {
-                if (node instanceof IElementNode) {
-                    String elementName = ((IElementNode) node).name();
-                    if (elementName.equals(TagConstants.TD) || elementName.equals(TagConstants.TH)) {
-                        String styleAttribute = ((IElementNode) node).getAttribute(AttributeConstants.STYLE);
-                        if (styleAttribute == null) {
-                            styleAttribute = "";
-                        }
-                        if (!styleAttribute.contains(CssConstants.BORDER)) {
-                            if (!styleAttribute.isEmpty()) {
-                                styleAttribute = styleAttribute + "; ";
-                            }
-                            ((IElementNode) node).getAttributes().setAttribute(AttributeConstants.STYLE, styleAttribute +
-                                    new CssDeclaration(CssConstants.TABLE_CUSTOM_BORDER, value + "px solid black").toString());
-                        }
+
+        private static void applyBordersToTableCells(INode node, String value) {
+            List<INode> nodes = node.childNodes();
+            for (INode childNode : nodes) {
+                if (childNode instanceof IElementNode) {
+                    IElementNode elementNode = (IElementNode) childNode;
+                    if (TagConstants.TD.equals(elementNode.name()) || TagConstants.TH.equals(elementNode.name())) {
+                        elementNode.getAttributes().setAttribute(AttributeConstants.PARENT_TABLE_BORDER, value);
                     } else {
-                        applyBordersToTableCells((IElementNode) node, value);
+                        applyBordersToTableCells(childNode, value);
                     }
                 }
             }
@@ -148,8 +148,32 @@ class HtmlStylesToCssConverter {
 
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
-            applyBordersToTableCells(element, value);
-            return Arrays.asList(new CssDeclaration(CssConstants.BORDER, value + "px solid black"));
+            if (TagConstants.TABLE.equals(element.name())) {
+                applyBordersToTableCells(element, value);
+            }
+            Float width = CssUtils.parseFloat(value);
+            if (width != null && width >= 0) {
+                return Arrays.asList(new CssDeclaration(CssConstants.BORDER, value + "px solid"));
+            }
+            return Collections.<CssDeclaration>emptyList();
+        }
+    }
+
+
+    private static class ParentTableBorderAttributeConverter implements IAttributeConverter {
+        @Override
+        public boolean isSupportedForElement(String elementName) {
+            return TagConstants.TD.equals(elementName) || TagConstants.TH.equals(elementName);
+        }
+
+        @Override
+        public List<CssDeclaration> convert(IElementNode element, String value) {
+            List<CssDeclaration> cssDeclarations = new ArrayList<>();
+            Float width = CssUtils.parseFloat(value);
+            if (width != null && width != 0) {
+                cssDeclarations.add(new CssDeclaration(CssConstants.BORDER, "1px solid"));
+            }
+            return cssDeclarations;
         }
     }
 
@@ -322,14 +346,14 @@ class HtmlStylesToCssConverter {
     private static class AlignAttributeConverter implements IAttributeConverter {
         @Override
         public boolean isSupportedForElement(String elementName) {
-            return TagConstants.HR.equals(elementName) || TagConstants.TABLE.equals(elementName) || TagConstants.IMG.equals(elementName)  
+            return TagConstants.HR.equals(elementName) || TagConstants.TABLE.equals(elementName) || TagConstants.IMG.equals(elementName)
                     || TagConstants.TD.equals(elementName) || TagConstants.DIV.equals(elementName) || TagConstants.P.equals(elementName);
         }
 
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             List<CssDeclaration> result = new ArrayList<CssDeclaration>(2);
-            if (TagConstants.HR.equals(element.name()) 
+            if (TagConstants.HR.equals(element.name())
                     // html align-center attribute doesn't apply text wrapping
                     || (TagConstants.TABLE.equals(element.name()) && AttributeConstants.CENTER.equals(value))) {
                 String leftMargin = null;
@@ -350,10 +374,10 @@ class HtmlStylesToCssConverter {
                     result.add(new CssDeclaration(CssConstants.MARGIN_RIGHT, rightMargin));
                 }
             } else if (TagConstants.TABLE.equals(element.name()) || TagConstants.IMG.equals(element.name())) {
-                if (TagConstants.IMG.equals(element.name()) && AttributeConstants.TOP.equals(value) 
+                if (TagConstants.IMG.equals(element.name()) && AttributeConstants.TOP.equals(value)
                         && AttributeConstants.MIDDLE.equals(value) && AttributeConstants.BOTTOM.equals(value)) {
                     result.add(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
-                    
+
                 } else if (AttributeConstants.LEFT.equals(value) || AttributeConstants.RIGHT.equals(value)) {
                     result.add(new CssDeclaration(CssConstants.FLOAT, value));
                 }

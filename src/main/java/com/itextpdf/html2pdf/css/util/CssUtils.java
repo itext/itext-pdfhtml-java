@@ -80,6 +80,17 @@ public class CssUtils {
         }
     }
 
+    public static Float parseFloat(String str) {
+        if (str == null) {
+            return null;
+        }
+        try {
+            return Float.valueOf(str);
+        } catch (NumberFormatException exc) {
+            return null;
+        }
+    }
+
     public static int[] parseAspectRatio(String str) {
         int indexOfSlash = str.indexOf('/');
         try {

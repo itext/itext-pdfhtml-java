@@ -80,6 +80,9 @@ public final class AttributeConstants {
     public static final String STYLESHEET = "stylesheet";
     public static final String TOP = "top";
 
+    // iText custom attributes
+    public static final String PARENT_TABLE_BORDER = "parenttableborder";
+    
     private AttributeConstants() {
     }
 }
