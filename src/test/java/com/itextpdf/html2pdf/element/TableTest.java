@@ -67,74 +67,97 @@ public class TableTest extends ExtendedITextTest {
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(destinationFolder);
     }
 
     @Test
     public void helloTableDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_table.html"), new File(destinationFolder + "hello_table.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_table.pdf", sourceFolder + "cmp_hello_table.pdf", destinationFolder, "diff01_"));
+        runTest("hello_table");
     }
 
     @Test
     public void helloTableHeaderFooterDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_table_header_footer.html"), new File(destinationFolder + "hello_table_header_footer.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_table_header_footer.pdf", sourceFolder + "cmp_hello_table_header_footer.pdf", destinationFolder, "diff02_"));
+        runTest("hello_table_header_footer");
     }
 
     @Test
     public void helloTableColspanDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_table_colspan.html"), new File(destinationFolder + "hello_table_colspan.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_table_colspan.pdf", sourceFolder + "cmp_hello_table_colspan.pdf", destinationFolder, "diff03_"));
+        runTest("hello_table_colspan");
     }
 
     @Test
     public void helloTableRowspanDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_table_rowspan.html"), new File(destinationFolder + "hello_table_rowspan.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_table_rowspan.pdf", sourceFolder + "cmp_hello_table_rowspan.pdf", destinationFolder, "diff04_"));
+        runTest("hello_table_rowspan");
     }
 
     @Test
     public void helloTableColspanRowspanDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_table_colspan_rowspan.html"), new File(destinationFolder + "hello_table_colspan_rowspan.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_table_colspan_rowspan.pdf", sourceFolder + "cmp_hello_table_colspan_rowspan.pdf", destinationFolder, "diff05_"));
+        runTest("hello_table_colspan_rowspan");
     }
 
     @Test
     public void tableCssPropsTest01() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "tableCssPropsTest01.html"), new File(destinationFolder + "tableCssPropsTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "tableCssPropsTest01.pdf", sourceFolder + "cmp_tableCssPropsTest01.pdf", destinationFolder, "diff06_"));
+        runTest("tableCssPropsTest01");
     }
 
     @Test
     public void tableCssPropsTest02() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "tableCssPropsTest02.html"), new File(destinationFolder + "tableCssPropsTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "tableCssPropsTest02.pdf", sourceFolder + "cmp_tableCssPropsTest02.pdf", destinationFolder, "diff07_"));
+        runTest("tableCssPropsTest02");
     }
 
     @Test
     public void defaultTableTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "defaultTable.html"), new File(destinationFolder + "defaultTable.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "defaultTable.pdf", sourceFolder + "cmp_defaultTable.pdf", destinationFolder, "diff08_"));
+        runTest("defaultTable");
     }
 
     @Test
     public void textInTableAndRowTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textInTableAndRow.html"), new File(destinationFolder + "textInTableAndRow.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textInTableAndRow.pdf", sourceFolder + "cmp_textInTableAndRow.pdf", destinationFolder, "diff09_"));
+        runTest("textInTableAndRow");
     }
 
     @Test
     public void thTagTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "thTag.html"), new File(destinationFolder + "thTag.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "thTag.pdf", sourceFolder + "cmp_thTag.pdf", destinationFolder, "diff10_"));
+        runTest("thTag");
     }
 
     @Test
     public void brInTdTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "brInTd.html"), new File(destinationFolder + "brInTd.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brInTd.pdf", sourceFolder + "cmp_brInTd.pdf", destinationFolder, "diff11_"));
+        runTest("brInTd");
     }
 
+    @Test
+    public void tableBorderAttributeTest01() throws IOException, InterruptedException {
+        runTest("tableBorderAttributeTest01");
+    }
+
+    @Test
+    public void tableBorderAttributeTest02() throws IOException, InterruptedException {
+        runTest("tableBorderAttributeTest02");
+    }
+
+    @Test
+    public void tableBorderAttributeTest03() throws IOException, InterruptedException {
+        runTest("tableBorderAttributeTest03");
+    }
+
+    @Test
+    public void tableBorderAttributeTest04() throws IOException, InterruptedException {
+        runTest("tableBorderAttributeTest04");
+    }
+
+    @Test
+    public void tableBorderAttributeTest05() throws IOException, InterruptedException {
+        runTest("tableBorderAttributeTest05");
+    }
+
+    @Test
+    public void tableBorderAttributeTest06() throws IOException, InterruptedException {
+        runTest("tableBorderAttributeTest06");
+    }
+
+    private void runTest(String testName) throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+    }
 
 }
