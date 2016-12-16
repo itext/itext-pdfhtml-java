@@ -133,6 +133,7 @@ public class ProcessorContext {
     public void reset() {
         this.pdfDocument = null;
         this.state = new State();
+        this.resourceResolver.resetCache();
     }
 
     public void reset(PdfDocument pdfDocument) {

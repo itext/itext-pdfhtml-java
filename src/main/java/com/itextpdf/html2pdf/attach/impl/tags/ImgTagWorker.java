@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.io.image.ImageData;
+import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
 
@@ -56,9 +57,9 @@ public class ImgTagWorker implements ITagWorker {
 
     public ImgTagWorker(IElementNode element, ProcessorContext context) {
 
-        ImageData imageData = context.getResourceResolver().retrieveImage(element.getAttribute(AttributeConstants.SRC));
-        if (imageData != null) {
-            image = new Image(imageData);
+        PdfImageXObject imageXObject = context.getResourceResolver().retrieveImage(element.getAttribute(AttributeConstants.SRC));
+        if (imageXObject != null) {
+            image = new Image(imageXObject);
         }
     }
 

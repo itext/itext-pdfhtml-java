@@ -52,6 +52,7 @@ import com.itextpdf.io.font.FontConstants;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.List;
@@ -76,9 +77,9 @@ public final class ListStyleApplierUtil {
         String listStyleImage = cssProps.get(CssConstants.LIST_STYLE_IMAGE);
         if (listStyleImage != null && !CssConstants.NONE.equals(listStyleImage)) {
             String url = CssUtils.extractUrl(listStyleImage);
-            ImageData imageData = context.getResourceResolver().retrieveImage(url);
-            if (imageData != null) {
-                element.setProperty(Property.LIST_SYMBOL, new Image(imageData));
+            PdfImageXObject imageXObject = context.getResourceResolver().retrieveImage(url);
+            if (imageXObject != null) {
+                element.setProperty(Property.LIST_SYMBOL, new Image(imageXObject));
                 element.setProperty(Property.LIST_SYMBOL_INDENT, 5);
             }
         }
