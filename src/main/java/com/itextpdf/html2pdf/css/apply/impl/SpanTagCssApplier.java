@@ -50,6 +50,7 @@ import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 
@@ -66,10 +67,13 @@ public class SpanTagCssApplier implements ICssApplier {
 
     private void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context, IElementNode elementNode) {
         FontStyleApplierUtil.applyFontStyles(css, context, element);
+        //TODO: Background-applying currently doesn't work in html way for spans inside other spans.
         BackgroundApplierUtil.applyBackground(css, context, element);
         //TODO: Border-applying currently doesn't work in html way for spans inside other spans.
         BorderStyleApplierUtil.applyBorders(css, context, element);
         HyphenationApplierUtil.applyHyphenation(css, context, elementNode, element);
+        //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
+        MarginApplierUtil.applyMargins(css, context, element);
     }
 
 }
