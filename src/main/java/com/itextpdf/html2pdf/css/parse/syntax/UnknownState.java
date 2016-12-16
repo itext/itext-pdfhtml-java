@@ -59,6 +59,9 @@ class UnknownState implements IParserState {
         } else if (ch == '{') {
             controller.storeCurrentSelector();
             controller.enterPropertiesState();
+        } else if (ch == '-' && "<!-".equals(controller.getBufferContents()) || ch == '>' && "--".equals(controller.getBufferContents())) {
+            // Ignoring html comments
+            controller.resetBuffer();
         } else {
             controller.appendToBuffer(ch);
         }

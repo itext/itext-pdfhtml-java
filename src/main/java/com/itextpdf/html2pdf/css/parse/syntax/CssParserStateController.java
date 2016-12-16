@@ -113,6 +113,14 @@ public final class CssParserStateController {
         buffer.append(ch);
     }
 
+    String getBufferContents() {
+        return buffer.toString();
+    }
+
+    void resetBuffer() {
+        buffer.setLength(0);
+    }
+
     void enterPreviousActiveState() {
         setState(previousActiveState);
     }
