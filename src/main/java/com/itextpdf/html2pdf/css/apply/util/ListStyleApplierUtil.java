@@ -123,6 +123,8 @@ public final class ListStyleApplierUtil {
                 setDiscStyle(element, em);
             } else if (TagConstants.OL.equals(elementName)) {
                 setListSymbol(element, ListNumberingType.DECIMAL);
+            } else if (TagConstants.LI.equals(elementName)) {
+                setDiscStyle(element, em);
             }
         }
     }
