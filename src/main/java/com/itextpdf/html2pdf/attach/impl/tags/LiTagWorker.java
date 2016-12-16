@@ -48,18 +48,28 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.IBlockElement;
-import com.itextpdf.layout.element.ILeafElement;
-import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.ListItem;
+import com.itextpdf.layout.element.*;
+import com.itextpdf.layout.property.ListSymbolPosition;
+import com.itextpdf.layout.property.Property;
+
+import java.util.Map;
 
 public class LiTagWorker implements ITagWorker {
 
     protected ListItem listItem;
+    protected List list;
     private WaitingInlineElementsHelper inlineHelper;
 
     public LiTagWorker(IElementNode element, ProcessorContext context) {
         listItem = new ListItem();
+        if (!(context.getState().top() instanceof UlOlTagWorker) && !(context.getState().top() instanceof DlTagWorker)) {
+            listItem.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
+            list = new List();
+            list.add(listItem);
+
+            Map<String, String> styles = element.getStyles();
+            styles.put(CssConstants.LIST_STYLE_TYPE, CssConstants.DISC);
+        }
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
@@ -93,7 +103,7 @@ public class LiTagWorker implements ITagWorker {
 
     @Override
     public IPropertyContainer getElementResult() {
-        return listItem;
+        return list != null ? list : listItem;
     }
 
     private boolean processChild(IPropertyContainer propertyContainer) {
