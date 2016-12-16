@@ -48,6 +48,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
@@ -140,6 +141,11 @@ public class WaitingInlineElementsHelper {
             Paragraph p = createParagraphContainer();
             for (ILeafElement leaf : waitingLeaves) {
                 p.add(leaf);
+            }
+            // Default leading in html is 1.2 and it is an inherited value. However, if a paragraph only contains an image,
+            // the default leading should be 1. This is the case when we create a dummy paragraph, therefore we should emulate this behavior.
+            if (p.getChildren().size() == 1 && p.getChildren().get(0) instanceof Image) {
+                p.setMultipliedLeading(1);
             }
             return p;
         } else {
