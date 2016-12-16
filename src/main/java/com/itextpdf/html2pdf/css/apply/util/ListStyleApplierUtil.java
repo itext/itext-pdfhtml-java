@@ -49,7 +49,6 @@ import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.io.font.FontConstants;
-import com.itextpdf.io.image.ImageData;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
@@ -124,8 +123,6 @@ public final class ListStyleApplierUtil {
                 setDiscStyle(element, em);
             } else if (TagConstants.OL.equals(elementName)) {
                 setListSymbol(element, ListNumberingType.DECIMAL);
-            } else if (TagConstants.LI.equals(elementName)) {
-                setDiscStyle(element, em);
             }
         }
     }

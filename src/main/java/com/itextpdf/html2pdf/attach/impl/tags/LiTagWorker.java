@@ -46,13 +46,19 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.io.font.FontConstants;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.Map;
+import java.io.IOException;
 
 public class LiTagWorker implements ITagWorker {
 
@@ -64,11 +70,15 @@ public class LiTagWorker implements ITagWorker {
         listItem = new ListItem();
         if (!(context.getState().top() instanceof UlOlTagWorker) && !(context.getState().top() instanceof DlTagWorker)) {
             listItem.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
+            Text symbol = new Text(String.valueOf(((char)108))).setFont(createZapfDingBatsSafe());
+            symbol.setTextRise(1.5f);
+            symbol.setFontSize(4.5f);
+            float em = CssUtils.parseAbsoluteLength(element.getStyles().get(CssConstants.FONT_SIZE));
+            listItem.setProperty(Property.LIST_SYMBOL_INDENT, 1.5f * em);
+            listItem.setProperty(Property.LIST_SYMBOL, symbol);
+
             list = new List();
             list.add(listItem);
-
-            Map<String, String> styles = element.getStyles();
-            styles.put(CssConstants.LIST_STYLE_TYPE, CssConstants.DISC);
         }
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
@@ -118,4 +128,13 @@ public class LiTagWorker implements ITagWorker {
         return false;
     }
 
+    private static PdfFont createZapfDingBatsSafe() {
+        try {
+            return PdfFontFactory.createFont(FontConstants.ZAPFDINGBATS);
+        } catch (IOException exc) {
+            Logger logger = LoggerFactory.getLogger(LiTagWorker.class);
+            logger.error("Unable to create ZapfDingBats font", exc);
+            return null;
+        }
+    }
 }
