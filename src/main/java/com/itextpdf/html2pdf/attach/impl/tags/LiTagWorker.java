@@ -103,7 +103,7 @@ public class LiTagWorker implements ITagWorker {
 
     @Override
     public IPropertyContainer getElementResult() {
-        return list != null ? list : listItem;
+        return list != null ? (IPropertyContainer) list : listItem;
     }
 
     private boolean processChild(IPropertyContainer propertyContainer) {
