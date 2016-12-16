@@ -82,6 +82,7 @@ public class CssDefaults {
         defaultValues.put(CssConstants.BORDER_TOP_WIDTH, CssConstants.MEDIUM);
         defaultValues.put(CssConstants.BORDER_WIDTH, CssConstants.MEDIUM);
 
+        defaultValues.put(CssConstants.FLOAT, CssConstants.NONE);
         defaultValues.put(CssConstants.FONT_WEIGHT, CssConstants.NORMAL);
         defaultValues.put(CssConstants.FONT_SIZE, CssConstants.MEDIUM);
         defaultValues.put(CssConstants.FONT_STYLE, CssConstants.NORMAL);

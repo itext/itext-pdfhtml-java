@@ -40,41 +40,29 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply;
+package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.FloatApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
-
+import com.itextpdf.layout.property.HorizontalAlignment;
+import com.itextpdf.layout.property.Property;
 import java.util.Map;
 
-public class BlockCssApplier implements ICssApplier {
+public class FloatApplierUtil {
 
-    @Override
-    public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-        Map<String, String> cssProps = element.getStyles();
-
-        IPropertyContainer container = tagWorker.getElementResult();
-        if (container != null) {
-            WidthHeightApplierUtil.applyWidthHeight(cssProps, context, container);
-            BackgroundApplierUtil.applyBackground(cssProps, context, container);
-            MarginApplierUtil.applyMargins(cssProps, context, container);
-            PaddingApplierUtil.applyPaddings(cssProps, context, container);
-            FontStyleApplierUtil.applyFontStyles(cssProps, context, container);
-            BorderStyleApplierUtil.applyBorders(cssProps, context, container);
-            HyphenationApplierUtil.applyHyphenation(cssProps, context, element, container);
-            FloatApplierUtil.applyFloating(cssProps, context, container);
-        }
+    private FloatApplierUtil() {
     }
 
-
+    public static void applyFloating(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+        // TODO for now we only support alignment of floated elements, however we don't support text wrapping
+        String floatValue = cssProps.get(CssConstants.FLOAT);
+        if (floatValue != null) {
+            if (CssConstants.LEFT.equals(floatValue)) {
+                element.setProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.LEFT);
+            } else if (CssConstants.RIGHT.equals(floatValue)) {
+                element.setProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.RIGHT);
+            }
+        }
+    }
 }
