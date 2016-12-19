@@ -176,7 +176,7 @@ public final class FontStyleApplierUtil {
         }
 
         String lineHeight = cssProps.get(CssConstants.LINE_HEIGHT);
-        if (lineHeight != null) {
+        if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight)) {
             UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em);
             if (CssUtils.isNumericValue(lineHeight)) {
                 element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue()));
