@@ -46,9 +46,10 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.layout.property.UnitValue;
-import java.text.MessageFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.text.MessageFormat;
 
 public class CssUtils {
 
@@ -171,7 +172,7 @@ public class CssUtils {
         int pos = determinePositionBetweenValueAndUnit(relativeValue);
         if (pos == 0)
             return 0f;
-        float f = Float.parseFloat(relativeValue.substring(0, pos));
+        double f = Double.parseDouble(relativeValue.substring(0, pos));
         String unit = relativeValue.substring(pos);
         if (unit.startsWith(CssConstants.PERCENTAGE)) {
             f = baseValue * f / 100;
@@ -180,7 +181,7 @@ public class CssUtils {
         } else if (unit.contains(CssConstants.EX)) {
             f = baseValue * f / 2;
         }
-        return f;
+        return (float)f;
     }
 
     public static UnitValue parseLengthValueToPt(final String value, final float emValue) {
