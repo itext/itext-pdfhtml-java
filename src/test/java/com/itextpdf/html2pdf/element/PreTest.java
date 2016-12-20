@@ -43,8 +43,6 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.utils.CompareTool;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -53,14 +51,13 @@ import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class PreTest extends ExtendedITextTest {
@@ -78,4 +75,11 @@ public class PreTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "preTest01.html"), new File(destinationFolder + "preTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "preTest01.pdf", sourceFolder + "cmp_preTest01.pdf", destinationFolder, "diff01_"));
     }
+
+    @Test
+    public void pre02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "preTest02.html"), new File(destinationFolder + "preTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "preTest02.pdf", sourceFolder + "cmp_preTest02.pdf", destinationFolder, "diff02_"));
+    }
+
 }
