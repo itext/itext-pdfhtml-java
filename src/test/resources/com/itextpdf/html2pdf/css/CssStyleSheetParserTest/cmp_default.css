@@ -150,14 +150,16 @@ table > tr {
 td {
     padding: 1px;
     text-align: inherit;
-    vertical-align: inherit
+    vertical-align: inherit;
+    background-color: inherit
 }
 th {
     display: table-cell;
     font-weight: bold;
     padding: 1px;
     vertical-align: inherit;
-    text-align: center
+    text-align: center;
+    background-color: inherit
 }
 sub {
     font-size: smaller;

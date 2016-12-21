@@ -95,6 +95,7 @@ class HtmlStylesToCssConverter {
         htmlAttributeConverters.put(AttributeConstants.TYPE, new TypeAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.WIDTH, new WidthAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.HEIGHT, new HeightAttributeConverter());
+        htmlAttributeConverters.put(AttributeConstants.VALIGN, new VAlignAttributeConverter());
 
         // iText custom attributes
         htmlAttributeConverters.put(AttributeConstants.PARENT_TABLE_BORDER, new ParentTableBorderAttributeConverter());
@@ -405,6 +406,19 @@ class HtmlStylesToCssConverter {
                     new CssDeclaration(CssConstants.BORDER_WIDTH, "0"),
                     new CssDeclaration(CssConstants.BACKGROUND_COLOR, "gray")
             );
+        }
+    }
+
+    private static class VAlignAttributeConverter implements IAttributeConverter {
+        @Override
+        public boolean isSupportedForElement(String elementName) {
+            return TagConstants.TD.equals(elementName) || TagConstants.TH.equals(elementName) 
+                    || TagConstants.TR.equals(elementName);
+        }
+
+        @Override
+        public List<CssDeclaration> convert(IElementNode element, String value) {
+            return Arrays.asList(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
         }
     }
 }

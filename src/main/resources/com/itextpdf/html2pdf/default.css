@@ -119,6 +119,7 @@ td {
     padding: 1px;
     text-align: inherit;
     vertical-align: inherit;
+    background-color: inherit;
 }
 th {
     display: table-cell;
@@ -126,6 +127,7 @@ th {
     padding: 1px;
     vertical-align: inherit;
     text-align: center;
+    background-color: inherit;
 }
 sub {
     font-size: smaller;

@@ -63,6 +63,7 @@ public final class AttributeConstants {
     public static final String SRC = "src";
     public static final String STYLE = "style";
     public static final String TYPE = "type";
+    public static final String VALIGN = "valign";
     public static final String VALUE = "value";
     public static final String WIDTH = "width";
     public static final String TITLE = "title";

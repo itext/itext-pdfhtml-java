@@ -71,4 +71,10 @@ public class SupSubTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "supSubTest01.html"), new File(destinationFolder + "supSubTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "supSubTest01.pdf", sourceFolder + "cmp_supSubTest01.pdf", destinationFolder, "diff01_"));
     }
+
+    @Test
+    public void supSub02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "supSubTest02.html"), new File(destinationFolder + "supSubTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "supSubTest02.pdf", sourceFolder + "cmp_supSubTest02.pdf", destinationFolder, "diff02_"));
+    }
 }
