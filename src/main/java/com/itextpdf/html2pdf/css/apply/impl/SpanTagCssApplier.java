@@ -61,9 +61,11 @@ public class SpanTagCssApplier implements ICssApplier {
 
     @Override
     public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-        for (IPropertyContainer child : ((SpanTagWorker) tagWorker).getOwnLeafElements()) {
+        SpanTagWorker spanTagWorker = (SpanTagWorker) tagWorker;
+        for (IPropertyContainer child : spanTagWorker.getOwnLeafElements()) {
             applyChildElementStyles(child, element.getStyles(), context, element);
         }
+        VerticalAlignmentApplierUtil.applyVerticalAlignmentForInlines(element.getStyles(), context, element, spanTagWorker.getAllElements());
     }
 
     private void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context, IElementNode elementNode) {
@@ -75,7 +77,6 @@ public class SpanTagCssApplier implements ICssApplier {
         HyphenationApplierUtil.applyHyphenation(css, context, elementNode, element);
         //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
         MarginApplierUtil.applyMargins(css, context, element);
-        VerticalAlignmentApplierUtil.applyVerticalAlignment(elementNode.getStyles(), context, elementNode, element);
     }
 
 }

@@ -145,6 +145,16 @@ public class VerticalAlignmentTest {
         runTest("vAlignAttributeCellTest01");
     }
     
+    @Test
+    public void verticalAlignOnNestedInlines01() throws IOException, InterruptedException {
+        runTest("verticalAlignOnNestedInlines01");
+    }
+    
+    @Test
+    public void verticalAlignOnNestedInlines02() throws IOException, InterruptedException {
+        runTest("verticalAlignOnNestedInlines02");
+    }
+    
     private void runTest(String testName) throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName + "_"));
