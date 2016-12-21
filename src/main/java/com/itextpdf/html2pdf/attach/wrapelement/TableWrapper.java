@@ -111,34 +111,10 @@ public class TableWrapper implements IWrapElement {
     }
 
     public Table toTable() {
-        List<UnitValue> maxWidths = new ArrayList<>();
-        if (rows != null) {
-            calculateMaxWidths(rows, maxWidths);
-        }
-        if (headerRows != null) {
-            calculateMaxWidths(headerRows, maxWidths);
-        }
-        if (footerRows != null) {
-            calculateMaxWidths(footerRows, maxWidths);
-        }
-
-        UnitValue[] arr = new UnitValue[maxWidths.size()];
-        int nullWidth = 0;
-        for (UnitValue width : maxWidths) {
-            if (width == null) {
-                nullWidth++;
-            }
-        }
-        for (int k = 0; k < maxWidths.size(); k++) {
-            UnitValue width = maxWidths.get(k);
-            if (width == null && nullWidth > 0) {
-                width = UnitValue.createPercentValue(100 / nullWidth);
-            }
-            arr[k] = width;
-        }
+        UnitValue[] widths = recalculateWidths();
         Table table;
-        if (arr.length > 0) {
-            table = new Table(arr);
+        if (widths.length > 0) {
+            table = new Table(widths);
         } else {
             // if table is empty, create empty table with single column
             table = new Table(1);
@@ -169,6 +145,46 @@ public class TableWrapper implements IWrapElement {
         }
 
         return table;
+    }
+
+    private UnitValue[] recalculateWidths() {
+        List<UnitValue> maxWidths = new ArrayList<>();
+        if (rows != null) {
+            calculateMaxWidths(rows, maxWidths);
+        }
+        if (headerRows != null) {
+            calculateMaxWidths(headerRows, maxWidths);
+        }
+        if (footerRows != null) {
+            calculateMaxWidths(footerRows, maxWidths);
+        }
+
+        UnitValue[] arr = new UnitValue[maxWidths.size()];
+        int nullWidth = 0;
+        float totalPercentSum = 0;
+        for (UnitValue width : maxWidths) {
+            if (width == null) {
+                nullWidth++;
+            } else if (width.isPercentValue()) {
+                totalPercentSum += width.getValue();
+            }
+        }
+        if (totalPercentSum >= 100 && nullWidth != 0 && nullWidth < maxWidths.size()) {
+            // TODO In this case, the rest of the column should be assigned to min-width. This is currently unsupported,
+            // so we fall back to just division of the available place uniformly.
+            for (int i = 0; i < maxWidths.size(); i++) {
+                arr[i] = UnitValue.createPercentValue(100 / maxWidths.size());
+            }
+        } else {
+            for (int k = 0; k < maxWidths.size(); k++) {
+                UnitValue width = maxWidths.get(k);
+                if (width == null && nullWidth > 0) {
+                    width = UnitValue.createPercentValue((100 - totalPercentSum) / nullWidth);
+                }
+                arr[k] = width;
+            }
+        }
+        return arr;
     }
 
     private void calculateMaxWidths(List<List<Cell>> rows, List<UnitValue> maxWidths) {
