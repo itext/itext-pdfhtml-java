@@ -63,7 +63,7 @@ public class TdTagCssApplier extends BlockCssApplier {
         IPropertyContainer cell = worker.getElementResult();
         if(cell != null) {
             Map<String, String> cssProps = element.getStyles();
-            VerticalAlignmentApplierUtil.applyVerticalAlignment(element.getStyles(), context, element, cell);
+            VerticalAlignmentApplierUtil.applyVerticalAlignmentForCells(cssProps, context, cell);
 
             float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
             Border topBorder = BorderStyleApplierUtil.getCertainBorder(cssProps.get(CssConstants.BORDER_TOP_WIDTH),

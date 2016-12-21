@@ -47,11 +47,12 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.property.VerticalAlignment;
+import java.util.List;
 import java.util.Map;
 
 public class VerticalAlignmentApplierUtil {
@@ -62,48 +63,66 @@ public class VerticalAlignmentApplierUtil {
     private VerticalAlignmentApplierUtil() {
     }
 
-    public static void applyVerticalAlignment(Map<String, String> cssProps, ProcessorContext context, IElementNode elementNode, IPropertyContainer element) {
+    public static void applyVerticalAlignmentForCells(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         String vAlignVal = cssProps.get(CssConstants.VERTICAL_ALIGN);
         if (vAlignVal != null) {
-            // TODO for inline images and tables (inline-blocks) v-align is not supported 
-            if (element instanceof Cell) {
+            // In layout, 'top' is the default behaviour for cells;
+            // 'baseline' is not supported at the moment on layout level, so it defaults to value 'top';
+            // all other possible values except 'middle' and 'bottom' do not apply to cells; 'baseline' is applied instead.
 
-                // In layout, 'top' is the default behaviour for cells;
-                // 'baseline' is not supported at the moment on layout level, so it defaults to value 'top';
-                // all other possible values except 'middle' and 'bottom' do not apply to cells; 'baseline' is applied instead.
-                
-                if (CssConstants.MIDDLE.equals(vAlignVal)) {
-                    element.setProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.MIDDLE);
-                } else if (CssConstants.BOTTOM.equals(vAlignVal)) {
-                    element.setProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.BOTTOM);
-                }
-                
-            } else if (element instanceof Text) {
-                
-                // TODO 'top' and 'bottom' values are not supported;
-                // 'top' and 'bottom' require information of actual line height, therefore should be applied at layout level;
-                // 'sub', 'super' calculations are based on the behaviour of the common browsers (+33% and -20% shift accordingly from the parent's font size);
-                // 'middle', 'text-top', 'text-bottom' calculations are based on the approximate assumptions that x-height is 0.5 of the font size
-                // and descender and ascender heights are 0.2 and 0.8 of the font size accordingly.
-                
-                if (CssConstants.SUB.equals(vAlignVal) || CssConstants.SUPER.equals(vAlignVal)) {
-                    element.setProperty(Property.TEXT_RISE, calcTextRiseForSupSub(elementNode, vAlignVal));
-                    
-                } else if (CssConstants.MIDDLE.equals(vAlignVal)) {
-                    element.setProperty(Property.TEXT_RISE, calcTextRiseForMiddle(elementNode));
-                    
-                } else if (CssConstants.TEXT_TOP.equals(vAlignVal)) {
-                    element.setProperty(Property.TEXT_RISE, calcTextRiseForTextTop(elementNode));
-                    
-                } else if (CssConstants.TEXT_BOTTOM.equals(vAlignVal)) {
-                    element.setProperty(Property.TEXT_RISE, calcTextRiseForTextBottom(elementNode));
-                    
-                } else if (CssUtils.isMetricValue(vAlignVal)) {
-                    element.setProperty(Property.TEXT_RISE, CssUtils.parseAbsoluteLength(vAlignVal));
-                    
-                } else if (vAlignVal.endsWith(CssConstants.PERCENTAGE)) {
-                    element.setProperty(Property.TEXT_RISE, calcTextRiseForPercentageValue(elementNode, vAlignVal));
-                    
+            if (CssConstants.MIDDLE.equals(vAlignVal)) {
+                element.setProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.MIDDLE);
+            } else if (CssConstants.BOTTOM.equals(vAlignVal)) {
+                element.setProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.BOTTOM);
+            }
+        }
+    }
+
+    public static void applyVerticalAlignmentForInlines(Map<String, String> cssProps, ProcessorContext context, IElementNode elementNode, List<IPropertyContainer> childElements) {
+        String vAlignVal = cssProps.get(CssConstants.VERTICAL_ALIGN);
+        if (vAlignVal != null) {
+
+            // TODO for inline images and tables (inline-blocks) v-align is not supported
+
+            float textRise = 0;
+
+            // TODO 'top' and 'bottom' values are not supported;
+            // 'top' and 'bottom' require information of actual line height, therefore should be applied at layout level;
+            // 'sub', 'super' calculations are based on the behaviour of the common browsers (+33% and -20% shift accordingly from the parent's font size);
+            // 'middle', 'text-top', 'text-bottom' calculations are based on the approximate assumptions that x-height is 0.5 of the font size
+            // and descender and ascender heights are 0.2 and 0.8 of the font size accordingly.
+
+            if (CssConstants.SUB.equals(vAlignVal) || CssConstants.SUPER.equals(vAlignVal)) {
+                textRise = calcTextRiseForSupSub(elementNode, vAlignVal);
+
+            } else if (CssConstants.MIDDLE.equals(vAlignVal)) {
+                textRise = calcTextRiseForMiddle(elementNode);
+
+            } else if (CssConstants.TEXT_TOP.equals(vAlignVal)) {
+                textRise = calcTextRiseForTextTop(elementNode);
+
+            } else if (CssConstants.TEXT_BOTTOM.equals(vAlignVal)) {
+                textRise = calcTextRiseForTextBottom(elementNode);
+
+            } else if (CssUtils.isMetricValue(vAlignVal)) {
+                textRise = CssUtils.parseAbsoluteLength(vAlignVal);
+
+            } else if (vAlignVal.endsWith(CssConstants.PERCENTAGE)) {
+                textRise = calcTextRiseForPercentageValue(elementNode, vAlignVal);
+            }
+            if (textRise != 0) {
+                for (IPropertyContainer element : childElements) {
+                    if (element instanceof Text) {
+                        Float effectiveTr = element.<Float>getProperty(Property.TEXT_RISE);
+                        if (effectiveTr != null) {
+                            effectiveTr += textRise;
+                        } else {
+                            effectiveTr = textRise;
+                        }
+                        element.setProperty(Property.TEXT_RISE, effectiveTr);
+                    } else if (element instanceof IBlockElement) {
+                        break;
+                    }
                 }
             }
         }
@@ -121,11 +140,11 @@ public class VerticalAlignmentApplierUtil {
         String ownFontSizeStr = elementNode.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssUtils.parseAbsoluteLength(ownFontSizeStr);
         float parentFontSize = getParentFontSize(elementNode);
-        
+
         double fontMiddleCoefficient = 0.3;
         float elementMidPoint = (float) (fontSize * fontMiddleCoefficient); // shift to element mid point from the baseline
         float xHeight = parentFontSize / 4;
-        
+
         return xHeight - elementMidPoint;
     }
 
@@ -164,7 +183,7 @@ public class VerticalAlignmentApplierUtil {
         return CssUtils.parseRelativeValue(vAlignVal, lineHeightActualValue);
     }
 
-    
+
     private static float getLineHeightActualValue(float fontSize, String lineHeightStr) {
         float lineHeightActualValue;
         if (lineHeightStr != null) {
