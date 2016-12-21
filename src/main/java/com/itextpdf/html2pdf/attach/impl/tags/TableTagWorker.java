@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.WaitingColgroupsHelper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableWrapper;
 import com.itextpdf.html2pdf.html.node.IElementNode;
@@ -52,16 +53,21 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
 
 public class TableTagWorker implements ITagWorker {
-
     private TableWrapper tableWrapper;
     private Table table;
     private boolean footer;
     private boolean header;
     private ITagWorker parentTagWorker;
+    private WaitingColgroupsHelper colgroupsHelper;
 
     public TableTagWorker(IElementNode element, ProcessorContext context) {
         tableWrapper = new TableWrapper();
         parentTagWorker = context.getState().empty() ? null : context.getState().top();
+        if (parentTagWorker instanceof TableTagWorker) {
+            ((TableTagWorker) parentTagWorker).applyColStyles();
+        } else {
+            colgroupsHelper = new WaitingColgroupsHelper(element);
+        }
     }
 
     @Override
@@ -105,6 +111,12 @@ public class TableTagWorker implements ITagWorker {
                 return true;
             }
         }
+        else if (childTagWorker instanceof ColgroupTagWorker) {
+            if (colgroupsHelper != null) {
+                colgroupsHelper.add(((ColgroupTagWorker) childTagWorker).getColgroup());
+                return true;
+            }
+        }
         return false;
     }
 
@@ -119,5 +131,11 @@ public class TableTagWorker implements ITagWorker {
 
     public void setHeader() {
         header = true;
+    }
+
+    public void applyColStyles() {
+        if (colgroupsHelper != null) {
+            colgroupsHelper.applyColStyles();
+        }
     }
 }

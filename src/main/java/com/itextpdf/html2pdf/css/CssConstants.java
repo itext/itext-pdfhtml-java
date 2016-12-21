@@ -84,7 +84,6 @@ public class CssConstants {
     public static final String BORDER_WIDTH = "border-width";
     public static final String CAPTION_SIDE = "caption-side";
     public static final String COLOR = "color";
-    public static final String COLSPAN = "colspan";
     public static final String DIRECTION = "direction";
     public static final String DISPLAY = "display";
     public static final String EMPTY_CELLS = "empty-cells";
@@ -136,7 +135,6 @@ public class CssConstants {
     public static final String PADDING_RIGHT = "padding-right";
     public static final String PADDING_TOP = "padding-top";
     public static final String QUOTES = "quotes";
-    public static final String ROWSPAN = "rowspan";
     public static final String STYLE = "style";
     public static final String TAB_SIZE = "tab-size";
     public static final String TEXT_ALIGN = "text-align";

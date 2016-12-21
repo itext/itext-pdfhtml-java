@@ -45,6 +45,8 @@ package com.itextpdf.html2pdf.attach;
 import com.itextpdf.html2pdf.attach.impl.tags.ATagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.BodyTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.BrTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.ColTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.ColgroupTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.DdTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.DlTagWorker;
@@ -88,6 +90,8 @@ public class DefaultTagWorkerMapping {
             buildMap.put(TagConstants.BLOCKQUOTE, DivTagWorker.class);
             buildMap.put(TagConstants.BODY, BodyTagWorker.class);
             buildMap.put(TagConstants.BR, BrTagWorker.class);
+            buildMap.put(TagConstants.COL, ColTagWorker.class);
+            buildMap.put(TagConstants.COLGROUP, ColgroupTagWorker.class);
             //buildMap.put(TagConstants.CAPTION, SpanTagWorker.class);
             buildMap.put(TagConstants.CENTER, DivTagWorker.class);
             buildMap.put(TagConstants.CITE, SpanTagWorker.class);

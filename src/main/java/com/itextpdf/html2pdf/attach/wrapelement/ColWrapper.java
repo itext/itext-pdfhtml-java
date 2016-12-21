@@ -40,26 +40,52 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html.node;
+package com.itextpdf.html2pdf.attach.wrapelement;
 
-import java.util.List;
+import com.itextpdf.layout.property.UnitValue;
+
 import java.util.Map;
 
-public interface IElementNode extends INode {
+public class ColWrapper implements IWrapElement {
+    private int span;
+    private UnitValue width;
+    //Those properties should be inherited from <colgroup> to <col> and are eventually applied to <td> or <th>
+    private Map<String, String> cellCssProps;
+    //Those properties shouldn't be applied to <td> or <th>
+    private Map<String, String> ownCssProps;
 
-    String name();
+    public ColWrapper(int span) {
+        this.span = span;
+    }
 
-    IAttributes getAttributes();
+    public int getSpan() {
+        return span;
+    }
 
-    String getAttribute(String key);
+    public UnitValue getWidth() {
+        return width;
+    }
 
-    void setStyles(Map<String, String> stringStringMap);
+    public ColWrapper setWidth(UnitValue width) {
+        this.width = width;
+        return this;
+    }
 
-    Map<String, String> getStyles();
+    public Map<String, String> getCellCssProps() {
+        return cellCssProps;
+    }
 
-    List<Map<String, String>> getAdditionalStyles();
+    public ColWrapper setCellCssProps(Map<String, String> cellCssProps) {
+        this.cellCssProps = cellCssProps;
+        return this;
+    }
 
-    void addAdditionalStyles(Map<String, String> styles);
+    public Map<String, String> getOwnCssProps() {
+        return ownCssProps;
+    }
 
-    String getLang();
+    public ColWrapper setOwnCssProps(Map<String, String> ownCssProps) {
+        this.ownCssProps = ownCssProps;
+        return this;
+    }
 }
