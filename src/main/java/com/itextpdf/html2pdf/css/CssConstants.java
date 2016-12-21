@@ -128,6 +128,7 @@ public class CssConstants {
     public static final String OUTLINE = "outline";
     public static final String OUTLINE_COLOR = "outline-color";
     public static final String OUTLINE_STYLE = "outline-style";
+    public static final String OUTLINE_WIDTH = "outline-width";
     public static final String OVERFLOW_WRAP = "overflow-wrap";
     public static final String PADDING = "padding";
     public static final String PADDING_BOTTOM = "padding-bottom";
