@@ -93,7 +93,6 @@ public class HeightTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
     })
     @Test
-    @Ignore("max-height works incorrectly in conjunction with collapsing bottom margins")
     public void heightTest03() throws IOException, InterruptedException {
         String testName = "heightTest03";
         String diffPrefix = "diff03_";
