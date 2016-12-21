@@ -150,7 +150,6 @@ public class CssConstants {
     public static final String TEXT_TRANSFORM = "text-transform";
     public static final String TEXT_UNDERLINE_POSITION = "text-underline-position";
     public static final String UNICODE_BIDI = "unicode-bidi";
-    public static final String VALIGN = "valign";
     public static final String VERTICAL_ALIGN = "vertical-align";
     public static final String VISIBILITY = "visibility";
     public static final String VSPACE = "vspace";
@@ -213,6 +212,7 @@ public class CssConstants {
     public static final String MEDIUM = "medium";
     public static final String MENU = "menu";
     public static final String MESSAGE_BOX = "message-box";
+    public static final String MIDDLE = "middle";
     public static final String NO_REPEAT = "no-repeat";
     public static final String NONE = "none";
     public static final String NORMAL = "normal";
@@ -241,6 +241,8 @@ public class CssConstants {
     public static final String STATUS_BAR = "status-bar";
     public static final String SUB = "sub";
     public static final String SUPER = "super";
+    public static final String TEXT_BOTTOM = "text-bottom";
+    public static final String TEXT_TOP = "text-top";
     public static final String THICK = "thick";
     public static final String THIN = "thin";
     public static final String TOP = "top";

@@ -40,7 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.element;
+package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
@@ -49,21 +49,21 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+import java.io.File;
+import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import java.io.File;
-import java.io.IOException;
+import static com.itextpdf.test.ITextTest.createOrClearDestinationFolder;
 
 @Category(IntegrationTest.class)
-public class TableTest extends ExtendedITextTest {
-
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/TableTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/TableTest/";
+public class VerticalAlignmentTest {
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/VerticalAlignmentTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/VerticalAlignmentTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -71,98 +71,90 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    public void helloTableDocumentTest() throws IOException, InterruptedException {
-        runTest("hello_table");
+    public void verticalAlignmentTest01() throws IOException, InterruptedException {
+        // TODO 'top' and 'bottom' values are not supported for now
+        runTest("verticalAlignmentTest01");
     }
-
+    
     @Test
-    public void helloTableHeaderFooterDocumentTest() throws IOException, InterruptedException {
-        runTest("hello_table_header_footer");
+    public void verticalAlignmentTest02() throws IOException, InterruptedException {
+        runTest("verticalAlignmentTest02");
     }
-
+    
     @Test
-    public void helloTableColspanDocumentTest() throws IOException, InterruptedException {
-        runTest("hello_table_colspan");
+    public void verticalAlignmentTest03() throws IOException, InterruptedException {
+        runTest("verticalAlignmentTest03");
     }
-
+    
     @Test
-    public void helloTableRowspanDocumentTest() throws IOException, InterruptedException {
-        runTest("hello_table_rowspan");
+    @Ignore("Vertical alignment for inline images is not supported yet.")
+    public void verticalAlignmentTest04() throws IOException, InterruptedException {
+        runTest("verticalAlignmentTest04");
     }
-
+    
     @Test
-    public void helloTableColspanRowspanDocumentTest() throws IOException, InterruptedException {
-        runTest("hello_table_colspan_rowspan");
+    public void verticalAlignmentTest05() throws IOException, InterruptedException {
+        runTest("verticalAlignmentTest05");
     }
-
+    
     @Test
-    public void tableCssPropsTest01() throws IOException, InterruptedException {
-        runTest("tableCssPropsTest01");
+    public void verticalAlignmentTest06() throws IOException, InterruptedException {
+        runTest("verticalAlignmentTest06");
     }
-
+    
     @Test
-    public void tableCssPropsTest02() throws IOException, InterruptedException {
-        runTest("tableCssPropsTest02");
+    public void verticalAlignmentTest07() throws IOException, InterruptedException {
+        runTest("verticalAlignmentTest07");
     }
-
+    
     @Test
-    public void tableCssPropsTest03() throws IOException, InterruptedException {
-        runTest("tableCssPropsTest03");
+    public void verticalAlignmentTest08() throws IOException, InterruptedException {
+        runTest("verticalAlignmentTest08");
     }
-
+    
     @Test
-    public void defaultTableTest() throws IOException, InterruptedException {
-        runTest("defaultTable");
+    public void verticalAlignmentTest09() throws IOException, InterruptedException {
+        runTest("verticalAlignmentTest09");
     }
-
+    
     @Test
-    public void textInTableAndRowTest() throws IOException, InterruptedException {
-        runTest("textInTableAndRow");
+    public void verticalAlignmentTest10() throws IOException, InterruptedException {
+        // TODO interesting thing is that vertical alignment increases line height if needed, however itext doesn't in this case 
+        runTest("verticalAlignmentTest10");
     }
-
+    
     @Test
-    public void thTagTest() throws IOException, InterruptedException {
-        runTest("thTag");
+    public void verticalAlignmentTest11() throws IOException, InterruptedException {
+        runTest("verticalAlignmentTest11");
     }
-
+    
     @Test
-    public void brInTdTest() throws IOException, InterruptedException {
-        runTest("brInTd");
+    public void verticalAlignmentTest12() throws IOException, InterruptedException {
+        runTest("verticalAlignmentTest12");
     }
-
+    
     @Test
-    public void tableBorderAttributeTest01() throws IOException, InterruptedException {
-        runTest("tableBorderAttributeTest01");
+    public void verticalAlignmentCellTest01() throws IOException, InterruptedException {
+        runTest("verticalAlignmentCellTest01");
     }
-
+    
     @Test
-    public void tableBorderAttributeTest02() throws IOException, InterruptedException {
-        runTest("tableBorderAttributeTest02");
+    public void verticalAlignmentCellTest02() throws IOException, InterruptedException {
+        runTest("verticalAlignmentCellTest02");
     }
-
+    
     @Test
-    public void tableBorderAttributeTest03() throws IOException, InterruptedException {
-        runTest("tableBorderAttributeTest03");
+    public void verticalAlignmentCellTest03() throws IOException, InterruptedException {
+        runTest("verticalAlignmentCellTest03");
     }
-
+    
     @Test
-    public void tableBorderAttributeTest04() throws IOException, InterruptedException {
-        runTest("tableBorderAttributeTest04");
+    public void vAlignAttributeCellTest01() throws IOException, InterruptedException {
+        runTest("vAlignAttributeCellTest01");
     }
-
-    @Test
-    public void tableBorderAttributeTest05() throws IOException, InterruptedException {
-        runTest("tableBorderAttributeTest05");
-    }
-
-    @Test
-    public void tableBorderAttributeTest06() throws IOException, InterruptedException {
-        runTest("tableBorderAttributeTest06");
-    }
-
+    
     private void runTest(String testName) throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName + "_"));
     }
-
 }

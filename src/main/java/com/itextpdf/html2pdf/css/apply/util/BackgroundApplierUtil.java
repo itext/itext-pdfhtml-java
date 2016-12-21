@@ -56,8 +56,9 @@ public final class BackgroundApplierUtil {
     }
 
     public static void applyBackground(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
-        if (cssProps.get(CssConstants.BACKGROUND_COLOR) != null) {
-            Background background = new Background(WebColors.getRGBColor(cssProps.get(CssConstants.BACKGROUND_COLOR)));
+        String backgroundColorStr = cssProps.get(CssConstants.BACKGROUND_COLOR);
+        if (backgroundColorStr != null && !CssConstants.TRANSPARENT.equals(backgroundColorStr)) {
+            Background background = new Background(WebColors.getRGBColor(backgroundColorStr));
             element.setProperty(Property.BACKGROUND, background);
         }
     }

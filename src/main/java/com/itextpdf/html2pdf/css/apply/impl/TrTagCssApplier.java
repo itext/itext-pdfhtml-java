@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.TrTagWorker;
 import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.element.Cell;
 
@@ -55,12 +56,8 @@ public class TrTagCssApplier implements ICssApplier {
 
     @Override
     public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-        if (tagWorker instanceof TrTagWorker) {
-            TableRowWrapper rowWrapper = ((TrTagWorker) tagWorker).getTableRowWrapper();
-            for (Cell cell : rowWrapper.getCells()) {
-                BackgroundApplierUtil.applyBackground(element.getStyles(), context, cell);
-            }
-        }
+        // TODO background inheritance to cells is done via default.css at the moment, because it was overwriting cell's properties.
+        // TODO may be this applier will be removed in the future
     }
 
 }
