@@ -52,6 +52,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.DtTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.HrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ImgTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.InputTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.LiTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.MetaTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PTagWorker;
@@ -107,6 +108,7 @@ public class DefaultTagWorkerMapping {
             buildMap.put(TagConstants.HTML, HtmlTagWorker.class);
             buildMap.put(TagConstants.I, SpanTagWorker.class);
             buildMap.put(TagConstants.IMG, ImgTagWorker.class);
+            buildMap.put(TagConstants.INPUT, InputTagWorker.class);
             buildMap.put(TagConstants.INS, SpanTagWorker.class);
             buildMap.put(TagConstants.KBD, SpanTagWorker.class);
             buildMap.put(TagConstants.LI, LiTagWorker.class);
