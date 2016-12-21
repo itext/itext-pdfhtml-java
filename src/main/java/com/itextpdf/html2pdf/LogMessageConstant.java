@@ -48,6 +48,7 @@ public final class LogMessageConstant {
     public static final String ERROR_PARSING_CSS_SELECTOR = "Error while parsing css selector";
     public static final String ERROR_RESOLVING_PARENT_STYLES = "Element parent styles are not resolved. Styles for current element might be incorrect.";
     public static final String HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED = "Height value in percent not supported";
+    public static final String INPUT_TYPE_IS_NOT_SUPPORTED = "Input type {0} is not supported";
     public static final String INVALID_CSS_PROPERTY_DECLARATION = "Invalid css property declaration: {0}";
     public static final String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
     public static final String NO_CONSUMER_FOUND_FOR_CONTENT = "No consumer found for content";

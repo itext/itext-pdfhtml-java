@@ -96,6 +96,7 @@ public class DefaultTagCssApplierMapping {
             buildMap.put(TagConstants.HEADER, BlockCssApplier.class);
             buildMap.put(TagConstants.HR, BlockCssApplier.class);
             buildMap.put(TagConstants.IMG, BlockCssApplier.class);
+            buildMap.put(TagConstants.INPUT, SpanTagCssApplier.class);
             buildMap.put(TagConstants.MAIN, BlockCssApplier.class);
             buildMap.put(TagConstants.NAV, BlockCssApplier.class);
             buildMap.put(TagConstants.P, BlockCssApplier.class);

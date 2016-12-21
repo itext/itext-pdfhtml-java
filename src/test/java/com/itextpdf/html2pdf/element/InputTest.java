@@ -40,51 +40,36 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html;
+package com.itextpdf.html2pdf.element;
 
-public final class AttributeConstants {
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
 
-    public static final String ALIGN = "align";
-    public static final String BGCOLOR = "bgcolor";
-    public static final String BORDER = "border";
-    public static final String CLASS = "class";
-    public static final String COLOR = "color";
-    public static final String DIR = "dir";
-    public static final String FACE = "face";
-    public static final String HEIGHT = "height";
-    public static final String HREF = "href";
-    public static final String ID = "id";
-    public static final String LANG = "lang";
-    public static final String MEDIA = "media";
-    public static final String NAME = "name";
-    public static final String NOSHADE = "noshade";
-    public static final String REL = "rel";
-    public static final String SIZE = "size";
-    public static final String SRC = "src";
-    public static final String STYLE = "style";
-    public static final String TYPE = "type";
-    public static final String VALUE = "value";
-    public static final String WIDTH = "width";
-    public static final String TITLE = "title";
+import java.io.File;
+import java.io.IOException;
 
-    // attribute values
-    public static final String _1 = "1";
-    public static final String A = "A";
-    public static final String a = "a";
-    public static final String BOTTOM = "bottom";
-    public static final String CENTER = "center";
-    public static final String I = "I";
-    public static final String i = "i";
-    public static final String LEFT = "left";
-    public static final String MIDDLE = "middle";
-    public static final String RIGHT = "right";
-    public static final String STYLESHEET = "stylesheet";
-    public static final String TEXT = "text";
-    public static final String TOP = "top";
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-    // iText custom attributes
-    public static final String PARENT_TABLE_BORDER = "parenttableborder";
-    
-    private AttributeConstants() {
+@Category(IntegrationTest.class)
+public class InputTest extends ExtendedITextTest {
+
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/InputTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/InputTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+        createDestinationFolder(destinationFolder);
     }
+
+    @Test
+    public void input01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "inputTest01.html"), new File(destinationFolder + "inputTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "inputTest01.pdf", sourceFolder + "cmp_inputTest01.pdf", destinationFolder, "diff01_"));
+    }
+
 }

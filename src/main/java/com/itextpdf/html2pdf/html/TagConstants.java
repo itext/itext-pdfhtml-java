@@ -87,6 +87,7 @@ public final class TagConstants {
     public static final String HTML = "html";
     public static final String I = "i";
     public static final String IMG = "img";
+    public static final String INPUT = "input";
     public static final String INS = "ins";
     public static final String KBD = "kbd";
     public static final String LI = "li";
