@@ -40,26 +40,49 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html.node;
+package com.itextpdf.html2pdf.attach.impl.tags;
 
-import java.util.List;
-import java.util.Map;
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.wrapelement.ColgroupWrapper;
+import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.layout.IPropertyContainer;
 
-public interface IElementNode extends INode {
+public class ColgroupTagWorker implements ITagWorker {
+    private ColgroupWrapper colgroup;
 
-    String name();
+    public ColgroupTagWorker(IElementNode element, ProcessorContext context) {
+        Integer span = CssUtils.parseInteger(element.getAttribute(AttributeConstants.SPAN));
+        colgroup = new ColgroupWrapper(span != null ? (int)span : 1);
+    }
 
-    IAttributes getAttributes();
+    @Override
+    public void processEnd(IElementNode element, ProcessorContext context) {
+        colgroup.finalizeCols();
+    }
 
-    String getAttribute(String key);
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        return content == null || content.trim().isEmpty();
+    }
 
-    void setStyles(Map<String, String> stringStringMap);
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        if (childTagWorker instanceof ColTagWorker) {
+            colgroup.getColumns().add(((ColTagWorker)childTagWorker).getColumn());
+            return true;
+        }
+        return false;
+    }
 
-    Map<String, String> getStyles();
+    @Override
+    public IPropertyContainer getElementResult() {
+        return null;
+    }
 
-    List<Map<String, String>> getAdditionalStyles();
-
-    void addAdditionalStyles(Map<String, String> styles);
-
-    String getLang();
+    public ColgroupWrapper getColgroup() {
+        return colgroup;
+    }
 }

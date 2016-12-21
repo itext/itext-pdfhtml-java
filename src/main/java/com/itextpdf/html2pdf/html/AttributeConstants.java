@@ -49,6 +49,7 @@ public final class AttributeConstants {
     public static final String BORDER = "border";
     public static final String CLASS = "class";
     public static final String COLOR = "color";
+    public static final String COLSPAN = "colspan";
     public static final String DIR = "dir";
     public static final String FACE = "face";
     public static final String HEIGHT = "height";
@@ -59,7 +60,9 @@ public final class AttributeConstants {
     public static final String NAME = "name";
     public static final String NOSHADE = "noshade";
     public static final String REL = "rel";
+    public static final String ROWSPAN = "rowspan";
     public static final String SIZE = "size";
+    public static final String SPAN = "span";
     public static final String SRC = "src";
     public static final String STYLE = "style";
     public static final String TYPE = "type";

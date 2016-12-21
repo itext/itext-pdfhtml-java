@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
+import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderShorthandResolver;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
@@ -60,6 +61,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -96,18 +98,24 @@ class HtmlStylesToCssConverter {
         htmlAttributeConverters.put(AttributeConstants.WIDTH, new WidthAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.HEIGHT, new HeightAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.VALIGN, new VAlignAttributeConverter());
-
-        // iText custom attributes
-        htmlAttributeConverters.put(AttributeConstants.PARENT_TABLE_BORDER, new ParentTableBorderAttributeConverter());
     }
 
     public static List<CssDeclaration> convert(IElementNode element) {
-        List<CssDeclaration> convertedHtmlStyles = new ArrayList<>();
+        ArrayList<CssDeclaration> convertedHtmlStyles = new ArrayList<>();
         List<CssDeclaration> tagCssStyles = defaultCss.getCssDeclarations(element, MediaDeviceDescription.createDefault());
         if (tagCssStyles != null) {
             convertedHtmlStyles.addAll(tagCssStyles);
         }
-
+        if (element.getAdditionalStyles() != null) {
+            HashMap<String, String> additionalStyles = new HashMap<>();
+            for(Map<String, String> styles : element.getAdditionalStyles()) {
+                additionalStyles.putAll(styles);
+            }
+            convertedHtmlStyles.ensureCapacity(convertedHtmlStyles.size() + additionalStyles.size());
+            for (Map.Entry<String, String> entry : additionalStyles.entrySet()) {
+                convertedHtmlStyles.add(new CssDeclaration(entry.getKey(), entry.getValue()));
+            }
+        }
         for (IAttribute a : element.getAttributes()) {
             IAttributeConverter aConverter = htmlAttributeConverters.get(a.getKey());
             if (aConverter != null && aConverter.isSupportedForElement(element.name())) {
@@ -128,15 +136,15 @@ class HtmlStylesToCssConverter {
 
     private static class BorderAttributeConverter implements IAttributeConverter {
 
-        private static void applyBordersToTableCells(INode node, String value) {
+        private static void applyBordersToTableCells(INode node, Map<String, String> borderStyles) {
             List<INode> nodes = node.childNodes();
             for (INode childNode : nodes) {
                 if (childNode instanceof IElementNode) {
                     IElementNode elementNode = (IElementNode) childNode;
                     if (TagConstants.TD.equals(elementNode.name()) || TagConstants.TH.equals(elementNode.name())) {
-                        elementNode.getAttributes().setAttribute(AttributeConstants.PARENT_TABLE_BORDER, value);
+                        elementNode.addAdditionalStyles(borderStyles);
                     } else {
-                        applyBordersToTableCells(childNode, value);
+                        applyBordersToTableCells(childNode, borderStyles);
                     }
                 }
             }
@@ -149,35 +157,23 @@ class HtmlStylesToCssConverter {
 
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
-            if (TagConstants.TABLE.equals(element.name())) {
-                applyBordersToTableCells(element, value);
-            }
             Float width = CssUtils.parseFloat(value);
-            if (width != null && width >= 0) {
-                return Arrays.asList(new CssDeclaration(CssConstants.BORDER, value + "px solid"));
+            if (width != null) {
+                if (TagConstants.TABLE.equals(element.name()) && width != 0) {
+                    List<CssDeclaration> declarations = new BorderShorthandResolver().resolveShorthand("1px solid");
+                    Map<String, String> styles = new HashMap<>(declarations.size());
+                    for (CssDeclaration declaration : declarations) {
+                        styles.put(declaration.getProperty(), declaration.getExpression());
+                    }
+                    applyBordersToTableCells(element, styles);
+                }
+                if (width >= 0) {
+                    return Arrays.asList(new CssDeclaration(CssConstants.BORDER, value + "px solid"));
+                }
             }
             return Collections.<CssDeclaration>emptyList();
         }
     }
-
-
-    private static class ParentTableBorderAttributeConverter implements IAttributeConverter {
-        @Override
-        public boolean isSupportedForElement(String elementName) {
-            return TagConstants.TD.equals(elementName) || TagConstants.TH.equals(elementName);
-        }
-
-        @Override
-        public List<CssDeclaration> convert(IElementNode element, String value) {
-            List<CssDeclaration> cssDeclarations = new ArrayList<>();
-            Float width = CssUtils.parseFloat(value);
-            if (width != null && width != 0) {
-                cssDeclarations.add(new CssDeclaration(CssConstants.BORDER, "1px solid"));
-            }
-            return cssDeclarations;
-        }
-    }
-
 
     private static class BgColorAttributeConverter implements IAttributeConverter {
         private static Set<String> supportedTags = new HashSet<>(

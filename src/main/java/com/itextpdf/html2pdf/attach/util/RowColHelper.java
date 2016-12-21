@@ -40,26 +40,63 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html.node;
+package com.itextpdf.html2pdf.attach.util;
 
-import java.util.List;
-import java.util.Map;
 
-public interface IElementNode extends INode {
+import java.util.ArrayList;
 
-    String name();
+public class RowColHelper {
+    private ArrayList<Integer> lastEmptyRow = new ArrayList<>();
+    private int currRow = -1;
+    private int currCol = 0;
 
-    IAttributes getAttributes();
+    public void newRow() {
+        ++currRow;
+        currCol = 0;
+    }
 
-    String getAttribute(String key);
+    public void updateCurrentPosition(int colspan, int rowspan) {
+        ensureRowIsStarted();
+        while (lastEmptyRow.size() < currCol) {
+            lastEmptyRow.add((Integer) currRow);
+        }
+        Integer value = (Integer) currRow + rowspan;
+        if (lastEmptyRow.size() == currCol) {
+            lastEmptyRow.add(value);
+        } else {
+            lastEmptyRow.set(currCol, Math.max(value, lastEmptyRow.get(currCol)));
+        }
+        int size = lastEmptyRow.size();
+        int end = currCol + colspan;
+        while (lastEmptyRow.size() < end) {
+            lastEmptyRow.add(value);
+        }
+        for (int i = currCol; i < size; ++i) {
+            lastEmptyRow.set(i, Math.max(value, lastEmptyRow.get(i)));
+        }
+        currCol = end;
+    }
 
-    void setStyles(Map<String, String> stringStringMap);
+    public int moveToNextEmptyCol() {
+        ensureRowIsStarted();
+        while (!canPutCell(currCol)) {
+            ++currCol;
+        }
+        return currCol;
+    }
 
-    Map<String, String> getStyles();
+    public boolean canPutCell(int col) {
+        ensureRowIsStarted();
+        if (col >= lastEmptyRow.size()) {
+            return true;
+        } else {
+            return lastEmptyRow.get(col) <= currRow;
+        }
+    }
 
-    List<Map<String, String>> getAdditionalStyles();
-
-    void addAdditionalStyles(Map<String, String> styles);
-
-    String getLang();
+    private void ensureRowIsStarted() {
+        if (currRow == -1) {
+            newRow();
+        }
+    }
 }

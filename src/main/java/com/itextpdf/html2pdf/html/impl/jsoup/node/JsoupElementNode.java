@@ -47,6 +47,9 @@ import com.itextpdf.html2pdf.html.node.IAttributes;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class JsoupElementNode extends JsoupNode implements IElementNode {
@@ -54,6 +57,7 @@ public class JsoupElementNode extends JsoupNode implements IElementNode {
     private org.jsoup.nodes.Element element;
     private IAttributes attributes;
     private Map<String, String> elementResolvedStyles;
+    private List<Map<String, String>> customDefaultStyles;
     private String lang = null;
 
     public JsoupElementNode(org.jsoup.nodes.Element element) {
@@ -85,6 +89,19 @@ public class JsoupElementNode extends JsoupNode implements IElementNode {
     @Override
     public Map<String, String> getStyles() {
         return this.elementResolvedStyles;
+    }
+
+    @Override
+    public List<Map<String, String>> getAdditionalStyles() {
+        return customDefaultStyles;
+    }
+
+    @Override
+    public void addAdditionalStyles(Map<String, String> styles) {
+        if (customDefaultStyles == null) {
+            customDefaultStyles = new LinkedList<>();
+        }
+        customDefaultStyles.add(styles);
     }
 
     @Override

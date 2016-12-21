@@ -42,7 +42,10 @@
  */
 package com.itextpdf.html2pdf.css.apply;
 
+import com.itextpdf.html2pdf.attach.impl.tags.ColgroupTagWorker;
 import com.itextpdf.html2pdf.css.apply.impl.BodyTagCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.ColTagCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.ColgroupTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.DlTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.HtmlTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.LiTagCssApplier;
@@ -77,6 +80,8 @@ public class DefaultTagCssApplierMapping {
             buildMap.put(TagConstants.CENTER,BlockCssApplier.class);
             buildMap.put(TagConstants.CITE, SpanTagCssApplier.class);
             buildMap.put(TagConstants.CODE, SpanTagCssApplier.class);
+            buildMap.put(TagConstants.COL, ColTagCssApplier.class);
+            buildMap.put(TagConstants.COLGROUP, ColgroupTagCssApplier.class);
             buildMap.put(TagConstants.EM, SpanTagCssApplier.class);
             buildMap.put(TagConstants.DEL, SpanTagCssApplier.class);
             buildMap.put(TagConstants.DFN,SpanTagCssApplier.class);

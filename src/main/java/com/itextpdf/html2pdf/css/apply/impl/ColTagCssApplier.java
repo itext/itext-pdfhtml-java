@@ -40,26 +40,28 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html.node;
+package com.itextpdf.html2pdf.css.apply.impl;
 
-import java.util.List;
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.tags.ColTagWorker;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.SupportedColColgroupPropertiesUtil;
+import com.itextpdf.html2pdf.html.node.IElementNode;
+
 import java.util.Map;
 
-public interface IElementNode extends INode {
+public class ColTagCssApplier implements ICssApplier {
 
-    String name();
+    @Override
+    public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
+        Map<String, String> cssProps = element.getStyles();
 
-    IAttributes getAttributes();
-
-    String getAttribute(String key);
-
-    void setStyles(Map<String, String> stringStringMap);
-
-    Map<String, String> getStyles();
-
-    List<Map<String, String>> getAdditionalStyles();
-
-    void addAdditionalStyles(Map<String, String> styles);
-
-    String getLang();
+        if (cssProps != null && tagWorker instanceof ColTagWorker) {
+            ((ColTagWorker) tagWorker).getColumn()
+                    .setCellCssProps(SupportedColColgroupPropertiesUtil.getCellProperties(cssProps))
+                    .setOwnCssProps(SupportedColColgroupPropertiesUtil.getOwnProperties(cssProps))
+                    .setWidth(SupportedColColgroupPropertiesUtil.getWidth(cssProps));
+        }
+    }
 }

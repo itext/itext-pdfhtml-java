@@ -57,6 +57,9 @@ public class TrTagWorker implements ITagWorker {
     public TrTagWorker(IElementNode element, ProcessorContext context) {
         rowWrapper = new TableRowWrapper();
         parentTagWorker = context.getState().empty() ? null : context.getState().top();
+        if (parentTagWorker instanceof TableTagWorker) {
+            ((TableTagWorker) parentTagWorker).applyColStyles();
+        }
     }
 
     @Override
