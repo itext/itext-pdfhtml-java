@@ -97,6 +97,7 @@ public class CssDefaults {
 
         defaultValues.put(CssConstants.OUTLINE_COLOR, CssConstants.INVERT);
         defaultValues.put(CssConstants.OUTLINE_STYLE, CssConstants.NONE);
+        defaultValues.put(CssConstants.OUTLINE_WIDTH, CssConstants.MEDIUM);
 
         defaultValues.put(CssConstants.PADDING_BOTTOM, "0");
         defaultValues.put(CssConstants.PADDING_LEFT, "0");

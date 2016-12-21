@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.resolve.shorthand.impl;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
@@ -151,7 +152,7 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
     private void putPropertyBasedOnType(int type, String value, String[] resolvedProps, boolean slashEncountered) {
         if (type == UNDEFINED_TYPE) {
             Logger logger = LoggerFactory.getLogger(BackgroundShorthandResolver.class);
-            logger.error(MessageFormat.format("Was not able to define one of the background CSS shorthand properties: {0}", value));
+            logger.error(MessageFormat.format(LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES, value));
             return;
         }
         if (type == BACKGROUND_POSITION_OR_SIZE_TYPE && !slashEncountered) {
