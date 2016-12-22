@@ -56,7 +56,7 @@ public final class CssNestedAtRuleFactory {
 
         switch (ruleName) {
             case CssRuleName.MEDIA:
-                return new CssMediaRule(ruleName, ruleParameters);
+                return new CssMediaRule(ruleParameters);
             default:
                 return new CssNestedAtRule(ruleName, ruleParameters);
         }

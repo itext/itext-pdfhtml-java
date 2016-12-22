@@ -84,7 +84,7 @@ public final class ListStyleApplierUtil {
         }
     }
 
-    //TODO problems with Pdf/A conversion. Avoid ZapfDingBats, Symbol font
+    //TODO problems with Pdf/A conversion. Avoid ZapfDingBats, Symbol font DEVSIX-917
     public static void applyListStyleTypeProperty(IElementNode node, Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
 

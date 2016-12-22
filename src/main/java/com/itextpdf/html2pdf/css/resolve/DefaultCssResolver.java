@@ -43,10 +43,8 @@
 package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
-import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
-import com.itextpdf.html2pdf.css.CssRuleName;
 import com.itextpdf.html2pdf.css.CssStatement;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
@@ -64,12 +62,18 @@ import com.itextpdf.html2pdf.html.node.IDataNode;
 import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DefaultCssResolver implements ICssResolver {
 
@@ -177,7 +181,7 @@ public class DefaultCssResolver implements ICssResolver {
                         String mediaAttribute = headChildElement.getAttribute(AttributeConstants.MEDIA);
                         if (mediaAttribute != null && mediaAttribute.length() > 0) {
                             List<CssStatement> statements = styleSheet.getStatements();
-                            CssMediaRule mediaRule = new CssMediaRule(CssRuleName.MEDIA, mediaAttribute);
+                            CssMediaRule mediaRule = new CssMediaRule(mediaAttribute);
                             mediaRule.addStatementsToBody(statements);
                             styleSheet = new CssStyleSheet();
                             styleSheet.addStatement(mediaRule);

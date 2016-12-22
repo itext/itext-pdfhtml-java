@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css.media;
 
 import com.itextpdf.html2pdf.css.CssNestedAtRule;
+import com.itextpdf.html2pdf.css.CssRuleName;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.CssStatement;
 import com.itextpdf.html2pdf.html.node.IElementNode;
@@ -53,9 +54,8 @@ public class CssMediaRule extends CssNestedAtRule {
 
     private List<MediaQuery> mediaQueries;
 
-    // TODO get rid of ruleName in constructor? It is always CssRuleName.MEDIA
-    public CssMediaRule(String ruleName, String ruleParameters) {
-        super(ruleName, ruleParameters);
+    public CssMediaRule(String ruleParameters) {
+        super(CssRuleName.MEDIA, ruleParameters);
         mediaQueries = MediaQueryParser.parseMediaQueries(ruleParameters);
     }
 
