@@ -89,7 +89,7 @@ public class DefaultTagWorkerMapping {
             buildMap.put(TagConstants.BODY, BodyTagWorker.class);
             buildMap.put(TagConstants.BR, BrTagWorker.class);
             //buildMap.put(TagConstants.CAPTION, SpanTagWorker.class);
-            buildMap.put(TagConstants.CENTER, PTagWorker.class);
+            buildMap.put(TagConstants.CENTER, DivTagWorker.class);
             buildMap.put(TagConstants.CITE, SpanTagWorker.class);
             buildMap.put(TagConstants.CODE, SpanTagWorker.class);
             buildMap.put(TagConstants.DEL, SpanTagWorker.class);
@@ -100,7 +100,7 @@ public class DefaultTagWorkerMapping {
             buildMap.put(TagConstants.DT, DtTagWorker.class);
             buildMap.put(TagConstants.EM, SpanTagWorker.class);
             buildMap.put(TagConstants.FONT, SpanTagWorker.class);
-            buildMap.put(TagConstants.FIGCAPTION, PTagWorker.class);
+            buildMap.put(TagConstants.FIGCAPTION, DivTagWorker.class);
             buildMap.put(TagConstants.FIGURE, DivTagWorker.class);
             buildMap.put(TagConstants.FOOTER, DivTagWorker.class);
             buildMap.put(TagConstants.HEADER, DivTagWorker.class);
