@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css.apply;
 
 import com.itextpdf.html2pdf.exception.NoCssApplierFoundException;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -57,13 +58,12 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
 
     @Override
     public ICssApplier getCssApplier(String tag) {
-        //Get css applier classname
+        // Get css applier classname
         Class<?> cssApplierClass = map.get(tag);
         if (cssApplierClass == null) {
-            //TODO add logging
             return null;
         }
-        //Use reflection to create an instance
+        // Use reflection to create an instance
         try {
             return (ICssApplier) cssApplierClass.newInstance();
         } catch (Exception e) {

@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.attach;
 
 import com.itextpdf.html2pdf.exception.NoTagWorkerFoundException;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+
 import java.lang.reflect.Constructor;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -51,7 +52,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DefaultTagWorkerFactory implements ITagWorkerFactory {
 
     /**
-     * Internal map to keep track of tags and associated tagworkers
+     * Internal map to keep track of tags and associated tag workers
      */
     private Map<String, Class<?>> map;
 
@@ -60,17 +61,15 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
         registerDefaultHtmlTagWorkers();
     }
 
-
     @Override
     public ITagWorker getTagWorkerInstance(IElementNode tag, ProcessorContext context) throws NoTagWorkerFoundException {
-        //Get Tag Worker class name
+        // Get Tag Worker class name
         Class<?> tagWorkerClass = map.get(tag.name());
+        // No tag worker found for tag
         if (tagWorkerClass == null) {
-            //TODO:Log the fact that no instance could be found
-
             return null;
         }
-        //Use reflection to create an instance
+        // Use reflection to create an instance
         try {
             Constructor ctor = tagWorkerClass.getDeclaredConstructor(new Class<?>[]{IElementNode.class, ProcessorContext.class});
             ITagWorker res = (ITagWorker) ctor.newInstance(new Object[]{tag, context});

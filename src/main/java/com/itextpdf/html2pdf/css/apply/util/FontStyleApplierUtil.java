@@ -82,6 +82,7 @@ public final class FontStyleApplierUtil {
         if (em != 0) {
             element.setProperty(Property.FONT_SIZE, em);
         }
+
         if (cssProps.get(CssConstants.FONT_WEIGHT) != null) {
             // TODO move to font selection mechanism
             String fontWeight = cssProps.get(CssConstants.FONT_WEIGHT);
@@ -92,6 +93,7 @@ public final class FontStyleApplierUtil {
             }
         }
         if (cssProps.get(CssConstants.FONT_STYLE) != null) {
+            // TODO move to font selection mechanism
             String fontStyle = cssProps.get(CssConstants.FONT_STYLE);
             if (CssConstants.ITALIC.equalsIgnoreCase(fontStyle) || CssConstants.OBLIQUE.equalsIgnoreCase(fontStyle)) {
                 element.setProperty(Property.ITALIC_SIMULATION, true);
@@ -99,6 +101,7 @@ public final class FontStyleApplierUtil {
                 element.setProperty(Property.ITALIC_SIMULATION, false);
             }
         }
+
         if (cssProps.get(CssConstants.COLOR) != null) {
             element.setProperty(Property.FONT_COLOR, WebColors.getRGBColor(cssProps.get(CssConstants.COLOR)));
         }

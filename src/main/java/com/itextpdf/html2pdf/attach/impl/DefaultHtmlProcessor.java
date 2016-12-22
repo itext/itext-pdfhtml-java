@@ -231,7 +231,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
             ITagWorker tagWorker = context.getTagWorkerFactory().getTagWorkerInstance(element, context);
             if (tagWorker == null) {
-                // TODO for stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links
+                // For stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links
                 if (!ignoredTags.contains(element.name()) && !HtmlUtils.isStyleSheetLink(element)) {
                     logger.error(MessageFormat.format(LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).name()));
                 }
