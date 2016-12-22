@@ -179,6 +179,11 @@ public class HrTest extends ExtendedITextTest {
         runHrTest("19");
     }
 
+    @Test
+    public void hrTest20() throws IOException, InterruptedException {
+        runHrTest("20");
+    }
+
     private void runHrTest(String id) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + "hrTest" + id + ".html";
         String outPdfPath = destinationFolder + "hrTest" + id + ".pdf";

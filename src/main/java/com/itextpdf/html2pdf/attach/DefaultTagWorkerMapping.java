@@ -117,12 +117,12 @@ public class DefaultTagWorkerMapping {
             buildMap.put(TagConstants.META, MetaTagWorker.class);
             buildMap.put(TagConstants.NAV, DivTagWorker.class);
             buildMap.put(TagConstants.OL, UlOlTagWorker.class);
-            buildMap.put(TagConstants.H1, PTagWorker.class);
-            buildMap.put(TagConstants.H2, PTagWorker.class);
-            buildMap.put(TagConstants.H3, PTagWorker.class);
-            buildMap.put(TagConstants.H4, PTagWorker.class);
-            buildMap.put(TagConstants.H5, PTagWorker.class);
-            buildMap.put(TagConstants.H6, PTagWorker.class);
+            buildMap.put(TagConstants.H1, DivTagWorker.class);
+            buildMap.put(TagConstants.H2, DivTagWorker.class);
+            buildMap.put(TagConstants.H3, DivTagWorker.class);
+            buildMap.put(TagConstants.H4, DivTagWorker.class);
+            buildMap.put(TagConstants.H5, DivTagWorker.class);
+            buildMap.put(TagConstants.H6, DivTagWorker.class);
             buildMap.put(TagConstants.P, PTagWorker.class);
             buildMap.put(TagConstants.PRE, DivTagWorker.class);
             buildMap.put(TagConstants.Q, SpanTagWorker.class);
