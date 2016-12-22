@@ -88,11 +88,11 @@ public class HeightTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
     }
-
+    
+    @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
     })
-    @Test
     public void heightTest03() throws IOException, InterruptedException {
         String testName = "heightTest03";
         String diffPrefix = "diff03_";
@@ -116,6 +116,39 @@ public class HeightTest extends ExtendedITextTest {
     public void heightTest05() throws IOException, InterruptedException {
         String testName = "heightTest05";
         String diffPrefix = "diff05_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
+    })
+    public void heightWithCollapsingMarginsTest01() throws IOException, InterruptedException {
+        String testName = "heightWithCollapsingMarginsTest01";
+        String diffPrefix = "diffMargins01_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
+    @Test
+    public void heightWithCollapsingMarginsTest03() throws IOException, InterruptedException {
+        String testName = "heightWithCollapsingMarginsTest03";
+        String diffPrefix = "diffMargins03_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
+    })
+    public void heightWithCollapsingMarginsTest04() throws IOException, InterruptedException {
+        String testName = "heightWithCollapsingMarginsTest04";
+        String diffPrefix = "diffMargins04_";
 
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
