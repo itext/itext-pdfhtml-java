@@ -58,21 +58,16 @@ public class RowColHelper {
     public void updateCurrentPosition(int colspan, int rowspan) {
         ensureRowIsStarted();
         while (lastEmptyRow.size() < currCol) {
-            lastEmptyRow.add((Integer) currRow);
+            lastEmptyRow.add(currRow);
         }
-        Integer value = (Integer) currRow + rowspan;
-        if (lastEmptyRow.size() == currCol) {
-            lastEmptyRow.add(value);
-        } else {
-            lastEmptyRow.set(currCol, Math.max(value, lastEmptyRow.get(currCol)));
-        }
-        int size = lastEmptyRow.size();
+        int value = currRow + rowspan;
         int end = currCol + colspan;
+        int middle = Math.min(lastEmptyRow.size(), end);
+        for (int i = currCol; i < middle; ++i) {
+            lastEmptyRow.set(i, Math.max(value, lastEmptyRow.get(i)));
+        }
         while (lastEmptyRow.size() < end) {
             lastEmptyRow.add(value);
-        }
-        for (int i = currCol; i < size; ++i) {
-            lastEmptyRow.set(i, Math.max(value, lastEmptyRow.get(i)));
         }
         currCol = end;
     }
