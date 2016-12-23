@@ -99,7 +99,7 @@ public class JsoupElementNode extends JsoupNode implements IElementNode {
     @Override
     public void addAdditionalStyles(Map<String, String> styles) {
         if (customDefaultStyles == null) {
-            customDefaultStyles = new LinkedList<>();
+            customDefaultStyles = (List<Map<String,String>>) new LinkedList<Map<String,String>>();
         }
         customDefaultStyles.add(styles);
     }
