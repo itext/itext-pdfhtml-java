@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+td {
+   padding: 1em;
+}
+</style>
+</head>
+
+<body>
+
+<table>
+  <colgroup span=10 style="background:blue">
+    <col span=2 style="background:red">
+    <col style="background:green">
+    <col span=2>
+  </colgroup>
+    <tr>
+      <td rowspan=2 colspan=2>bla bla<br>bla bla</td>
+      <td>bla</td>
+      <td rowspan=3>bla<br>bla<br>bla</td>
+      <td>bla</td>
+    </tr>
+    <tr>
+      <td>bla</td>
+      <td>bla</td>
+    </tr>
+    <tr>
+      <td colspan=3>bla bla bla</td>
+      <td>bla</td>
+    </tr>
+    <tr>
+      <td>bla</td>
+      <td>bla</td>
+      <td rowspan=2 colspan=2>bla bla<br>bla bla</td>
+      <td>bla</td>
+    </tr>
+    <tr>
+      <td colspan=2>bla bla</td>
+      <td>bla</td>
+    </tr>
+</table>
+
+</body>
+</html>

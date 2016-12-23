@@ -60,7 +60,6 @@ public class ColgroupTagWorker implements ITagWorker {
 
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        colgroup.finalizeCols();
     }
 
     @Override

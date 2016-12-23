@@ -99,7 +99,10 @@ public class ColgroupWrapper implements IWrapElement {
         return columns;
     }
 
-    public void finalizeCols() {
+    public ColgroupWrapper finalizeCols() {
+        if (indexToColMapping != null) {
+            return this;
+        }
         if (columns.isEmpty()) {
             columns.add(new ColWrapper(span).setCellCssProps(cellCssProps).setWidth(width));
         } else if (cellCssProps != null) {
@@ -131,6 +134,7 @@ public class ColgroupWrapper implements IWrapElement {
             shift += span;
         }
         span = shift;
+        return this;
     }
 
     public ColWrapper getColumnByIndex(int index) {
