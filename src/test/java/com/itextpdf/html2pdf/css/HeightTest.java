@@ -154,4 +154,16 @@ public class HeightTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
     }
 
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 1)
+    })
+    public void heightWithCollapsingMarginsTest05() throws IOException, InterruptedException {
+        String testName = "heightWithCollapsingMarginsTest05";
+        String diffPrefix = "diffMargins05_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
 }
