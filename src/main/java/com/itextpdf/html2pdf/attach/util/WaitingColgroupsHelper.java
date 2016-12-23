@@ -50,12 +50,11 @@ import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 
 public class WaitingColgroupsHelper {
     private IElementNode tableElement;
-    private List<ColgroupWrapper> colgroups = new LinkedList<>();
+    private ArrayList<ColgroupWrapper> colgroups = new ArrayList<>();
 
     private int maxIndex = -1;
     private int[] indexToColgroupMapping;
@@ -117,7 +116,7 @@ public class WaitingColgroupsHelper {
                     if (getColWraper(col) != null && getColWraper(col).getCellCssProps() != null) {
                         element.addAdditionalStyles(getColWraper(col).getCellCssProps());
                     }
-                    rowColHelper.updateCurrentPosition(colspan, rowspan);
+                    rowColHelper.updateCurrentPosition((int) colspan, (int) rowspan);
                 } else {
                     applyColStyles(child, rowColHelper);
                 }
@@ -139,5 +138,6 @@ public class WaitingColgroupsHelper {
                 indexToColgroupMapping[j + shiftCol[i]] = i;
             }
         }
+        colgroups.trimToSize();
     }
 }
