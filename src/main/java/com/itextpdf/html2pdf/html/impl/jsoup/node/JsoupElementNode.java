@@ -47,8 +47,7 @@ import com.itextpdf.html2pdf.html.node.IAttributes;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -99,7 +98,7 @@ public class JsoupElementNode extends JsoupNode implements IElementNode {
     @Override
     public void addAdditionalStyles(Map<String, String> styles) {
         if (customDefaultStyles == null) {
-            customDefaultStyles = (List<Map<String,String>>) new LinkedList<Map<String,String>>();
+            customDefaultStyles = new ArrayList<>();
         }
         customDefaultStyles.add(styles);
     }

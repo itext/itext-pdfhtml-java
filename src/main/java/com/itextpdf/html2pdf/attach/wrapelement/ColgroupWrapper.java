@@ -125,15 +125,14 @@ public class ColgroupWrapper implements IWrapElement {
             ncol += col.getSpan();
         }
         indexToColMapping = new int[ncol];
-        int shift = 0;
+        span = 0;
         for(int i = 0; i < columns.size(); ++i) {
-            int span = columns.get(i).getSpan();
-            for (int j = 0; j < span; ++j) {
-                indexToColMapping[shift + j] = i;
+            int colSpan = columns.get(i).getSpan();
+            for (int j = 0; j < colSpan; ++j) {
+                indexToColMapping[span + j] = i;
             }
-            shift += span;
+            span += colSpan;
         }
-        span = shift;
         return this;
     }
 
