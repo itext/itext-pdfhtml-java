@@ -171,21 +171,16 @@ public class DefaultCssResolver implements ICssResolver {
                 if (headChildElement.name().equals(TagConstants.STYLE)) {
                     if (currentNode.childNodes().size() > 0 && currentNode.childNodes().get(0) instanceof IDataNode) {
                         String styleData = ((IDataNode) currentNode.childNodes().get(0)).getWholeData();
-                        cssStyleSheet.appendCssStyleSheet(CssStyleSheetParser.parse(styleData));
+                        CssStyleSheet styleSheet = CssStyleSheetParser.parse(styleData);
+                        styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
+                        cssStyleSheet.appendCssStyleSheet(styleSheet);
                     }
                 } else if (HtmlUtils.isStyleSheetLink(headChildElement)) {
                     String styleSheetUri = headChildElement.getAttribute(AttributeConstants.HREF);
                     try {
                         InputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUri);
                         CssStyleSheet styleSheet = CssStyleSheetParser.parse(stream);
-                        String mediaAttribute = headChildElement.getAttribute(AttributeConstants.MEDIA);
-                        if (mediaAttribute != null && mediaAttribute.length() > 0) {
-                            List<CssStatement> statements = styleSheet.getStatements();
-                            CssMediaRule mediaRule = new CssMediaRule(mediaAttribute);
-                            mediaRule.addStatementsToBody(statements);
-                            styleSheet = new CssStyleSheet();
-                            styleSheet.addStatement(mediaRule);
-                        }
+                        styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);
                     } catch (IOException exc) {
                         Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
@@ -201,6 +196,18 @@ public class DefaultCssResolver implements ICssResolver {
             }
         }
         return null;
+    }
+
+    private CssStyleSheet wrapStyleSheetInMediaQueryIfNecessary(IElementNode headChildElement, CssStyleSheet styleSheet) {
+        String mediaAttribute = headChildElement.getAttribute(AttributeConstants.MEDIA);
+        if (mediaAttribute != null && mediaAttribute.length() > 0) {
+            List<CssStatement> statements = styleSheet.getStatements();
+            CssMediaRule mediaRule = new CssMediaRule(mediaAttribute);
+            mediaRule.addStatementsToBody(statements);
+            styleSheet = new CssStyleSheet();
+            styleSheet.addStatement(mediaRule);
+        }
+        return styleSheet;
     }
 
     private void mergeParentCssDeclaration(Map<String, String> styles, String cssProperty, String parentPropValue) {
