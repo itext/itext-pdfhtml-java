@@ -72,7 +72,7 @@ public class TableTagWorker implements ITagWorker {
 
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        table = tableWrapper.toTable();
+        table = tableWrapper.toTable(colgroupsHelper);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class TableTagWorker implements ITagWorker {
         }
         else if (childTagWorker instanceof TableTagWorker) {
             if (((TableTagWorker) childTagWorker).header){
-                Table header = ((TableTagWorker) childTagWorker).tableWrapper.toTable();
+                Table header = ((TableTagWorker) childTagWorker).tableWrapper.toTable(colgroupsHelper);
                 for (int i = 0; i < header.getNumberOfRows(); i++) {
                     tableWrapper.newHeaderRow();
                     for (int j = 0; j < header.getNumberOfColumns(); j++) {
@@ -101,7 +101,7 @@ public class TableTagWorker implements ITagWorker {
                 }
                 return true;
             } else if (((TableTagWorker) childTagWorker).footer) {
-                Table footer = ((TableTagWorker) childTagWorker).tableWrapper.toTable();
+                Table footer = ((TableTagWorker) childTagWorker).tableWrapper.toTable(colgroupsHelper);
                 for (int i = 0; i < footer.getNumberOfRows(); i++) {
                     tableWrapper.newFooterRow();
                     for (int j = 0; j < footer.getNumberOfColumns(); j++) {
@@ -113,7 +113,7 @@ public class TableTagWorker implements ITagWorker {
         }
         else if (childTagWorker instanceof ColgroupTagWorker) {
             if (colgroupsHelper != null) {
-                colgroupsHelper.add(((ColgroupTagWorker) childTagWorker).getColgroup());
+                colgroupsHelper.add(((ColgroupTagWorker) childTagWorker).getColgroup().finalizeCols());
                 return true;
             }
         }

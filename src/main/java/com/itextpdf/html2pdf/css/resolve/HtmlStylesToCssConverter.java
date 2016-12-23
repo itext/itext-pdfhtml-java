@@ -310,7 +310,9 @@ class HtmlStylesToCssConverter {
 
         @Override
         public boolean isSupportedForElement(String elementName) {
-            return TagConstants.HR.equals(elementName) || TagConstants.IMG.equals(elementName);
+            return TagConstants.HR.equals(elementName) || TagConstants.IMG.equals(elementName)
+                    || TagConstants.TD.equals(elementName) || TagConstants.TH.equals(elementName)
+                    || TagConstants.COLGROUP.equals(elementName) || TagConstants.COL.equals(elementName);
         }
 
         @Override
