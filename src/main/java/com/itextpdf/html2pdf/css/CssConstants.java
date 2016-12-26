@@ -134,6 +134,7 @@ public class CssConstants {
     public static final String PADDING_LEFT = "padding-left";
     public static final String PADDING_RIGHT = "padding-right";
     public static final String PADDING_TOP = "padding-top";
+    public static final String POSITION = "position";
     public static final String QUOTES = "quotes";
     public static final String STYLE = "style";
     public static final String TAB_SIZE = "tab-size";
@@ -159,6 +160,7 @@ public class CssConstants {
     public static final String WRITING_MODE = "writing-mode";
 
     // property values
+    public static final String ABSOLUTE = "absolute";
     public static final String ARMENIAN = "armenian";
     public static final String AUTO = "auto";
     public static final String BLINK = "blink";
@@ -222,6 +224,7 @@ public class CssConstants {
     public static final String PRE = "pre";
     public static final String PRE_LINE = "pre-line";
     public static final String PRE_WRAP = "pre-wrap";
+    public static final String RELATIVE = "relative";
     public static final String REPEAT = "repeat";
     public static final String REPEAT_X = "repeat-x";
     public static final String REPEAT_Y = "repeat-y";
@@ -236,6 +239,7 @@ public class CssConstants {
     public static final String SOLID = "solid";
     public static final String SQUARE = "square";
     public static final String START = "start";
+    public static final String STATIC = "static";
     public static final String STATUS_BAR = "status-bar";
     public static final String SUB = "sub";
     public static final String SUPER = "super";

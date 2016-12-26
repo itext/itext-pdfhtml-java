@@ -59,6 +59,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -151,10 +152,12 @@ public final class FontStyleApplierUtil {
         String textIndent = cssProps.get(CssConstants.TEXT_INDENT);
         if (textIndent != null) {
             UnitValue textIndentValue = CssUtils.parseLengthValueToPt(textIndent, em);
-            if (textIndentValue.isPointValue()) {
-                element.setProperty(Property.FIRST_LINE_INDENT, textIndentValue.getValue());
-            } else {
-                logger.error(LogMessageConstant.TEXT_INDENT_IN_PERCENTS_IS_NOT_SUPPORTED);
+            if (textIndentValue != null) {
+                if (textIndentValue.isPointValue()) {
+                    element.setProperty(Property.FIRST_LINE_INDENT, textIndentValue.getValue());
+                } else {
+                    logger.error(MessageFormat.format(LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.TEXT_INDENT));
+                }
             }
         }
 
@@ -171,10 +174,12 @@ public final class FontStyleApplierUtil {
         String wordSpacing = cssProps.get(CssConstants.WORD_SPACING);
         if (wordSpacing != null) {
             UnitValue wordSpacingValue = CssUtils.parseLengthValueToPt(wordSpacing, em);
-            if (wordSpacingValue.isPointValue()) {
-                element.setProperty(Property.WORD_SPACING, wordSpacingValue.getValue());
-            } else {
-                // browsers ignore values in percents
+            if (wordSpacingValue != null) {
+                if (wordSpacingValue.isPointValue()) {
+                    element.setProperty(Property.WORD_SPACING, wordSpacingValue.getValue());
+                } else {
+                    // browsers ignore values in percents
+                }
             }
         }
 
@@ -183,9 +188,9 @@ public final class FontStyleApplierUtil {
             UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em);
             if (CssUtils.isNumericValue(lineHeight)) {
                 element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue()));
-            } else if (lineHeightValue.isPointValue()) {
+            } else if (lineHeightValue != null && lineHeightValue.isPointValue()) {
                 element.setProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.getValue()));
-            } else {
+            } else if (lineHeightValue != null) {
                 element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue() / 100));
             }
         } else {

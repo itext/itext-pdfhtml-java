@@ -110,12 +110,16 @@ public final class MarginApplierUtil {
 
     private static Float parseMarginValue(String marginValString, float em) {
         UnitValue marginTopUnitVal = CssUtils.parseLengthValueToPt(marginValString, em);
-        if (!marginTopUnitVal.isPointValue()) {
-            logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+        if (marginTopUnitVal != null) {
+            if (!marginTopUnitVal.isPointValue()) {
+                logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                return null;
+            }
+
+            return marginTopUnitVal.getValue();
+        } else {
             return null;
         }
-        
-        return marginTopUnitVal.getValue();
     }
 
 }

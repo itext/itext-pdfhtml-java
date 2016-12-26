@@ -58,7 +58,9 @@ public class InputTagWorker extends SpanTagWorker {
         String inputType = element.getAttribute(AttributeConstants.TYPE);
         if (AttributeConstants.TEXT.equals(inputType)) {
             String value = element.getAttribute(AttributeConstants.VALUE);
-            processContent(value, context);
+            if (value != null) {
+                processContent(value, context);
+            }
         } else {
             Logger logger = LoggerFactory.getLogger(InputTagWorker.class);
             logger.error(MessageFormat.format(LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
