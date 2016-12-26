@@ -192,7 +192,7 @@ public class CssUtils {
         } else if (value != null && (value.endsWith(CssConstants.EM) || value.endsWith(CssConstants.EX))) {
             return new UnitValue(UnitValue.POINT, parseRelativeValue(value, emValue));
         }
-        return new UnitValue(UnitValue.POINT, 0);
+        return null;
     }
 
     /**

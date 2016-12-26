@@ -73,10 +73,12 @@ public final class WidthHeightApplierUtil {
         if (heightVal != null) {
             if (!CssConstants.AUTO.equals(heightVal)) {
                 UnitValue height = CssUtils.parseLengthValueToPt(heightVal, em);
-                if (height.isPointValue()) {
-                    element.setProperty(Property.HEIGHT, height.getValue());
-                } else {
-                    logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                if (height != null) {
+                    if (height.isPointValue()) {
+                        element.setProperty(Property.HEIGHT, height.getValue());
+                    } else {
+                        logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    }
                 }
             }
         }
@@ -84,20 +86,24 @@ public final class WidthHeightApplierUtil {
         String maxHeightVal = cssProps.get(CssConstants.MAX_HEIGHT);
         if (maxHeightVal != null) {
             UnitValue height = CssUtils.parseLengthValueToPt(maxHeightVal, em);
-            if (height.isPointValue()) {
-                element.setProperty(Property.MAX_HEIGHT, height.getValue());
-            } else {
-                logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            if (height != null) {
+                if (height.isPointValue()) {
+                    element.setProperty(Property.MAX_HEIGHT, height.getValue());
+                } else {
+                    logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                }
             }
         }
 
         String minHeightVal = cssProps.get(CssConstants.MIN_HEIGHT);
         if (minHeightVal != null) {
             UnitValue height = CssUtils.parseLengthValueToPt(minHeightVal, em);
-            if (height.isPointValue()) {
-                element.setProperty(Property.MIN_HEIGHT, height.getValue());
-            } else {
-                logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            if (height != null) {
+                if (height.isPointValue()) {
+                    element.setProperty(Property.MIN_HEIGHT, height.getValue());
+                } else {
+                    logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                }
             }
         }
 

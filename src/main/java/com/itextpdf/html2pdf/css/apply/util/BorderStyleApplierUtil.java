@@ -48,22 +48,30 @@ import com.itextpdf.html2pdf.css.resolve.CssDefaults;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.border.*;
+import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.border.DashedBorder;
+import com.itextpdf.layout.border.DottedBorder;
+import com.itextpdf.layout.border.DoubleBorder;
+import com.itextpdf.layout.border.GrooveBorder;
+import com.itextpdf.layout.border.InsetBorder;
+import com.itextpdf.layout.border.OutsetBorder;
+import com.itextpdf.layout.border.RidgeBorder;
+import com.itextpdf.layout.border.SolidBorder;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
-
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 public class BorderStyleApplierUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(BorderStyleApplierUtil.class);
 
-    private BorderStyleApplierUtil(){
+    private BorderStyleApplierUtil() {
     }
 
     public static void applyBorders(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
-        float em =  CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         Border topBorder = getCertainBorder(cssProps.get(CssConstants.BORDER_TOP_WIDTH),
                 cssProps.get(CssConstants.BORDER_TOP_STYLE), cssProps.get(CssConstants.BORDER_TOP_COLOR), em);
         if (topBorder != null) {
@@ -108,6 +116,9 @@ public class BorderStyleApplierUtil {
         }
 
         UnitValue unitValue = CssUtils.parseLengthValueToPt(borderWidth, em);
+        if (unitValue == null) {
+            return null;
+        }
         if (unitValue.isPercentValue()) {
             LOGGER.error("border-width in percents is not supported");
             return null;

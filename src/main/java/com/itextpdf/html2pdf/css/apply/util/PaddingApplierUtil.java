@@ -73,25 +73,36 @@ public final class PaddingApplierUtil {
         UnitValue marginLeftVal = CssUtils.parseLengthValueToPt(paddingLeft, em);
         UnitValue marginRightVal = CssUtils.parseLengthValueToPt(paddingRight, em);
 
-        if (marginTopVal.isPointValue()) {
-            element.setProperty(Property.PADDING_TOP, marginTopVal.getValue());
-        } else {
-            logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+        if (marginTopVal != null) {
+            if (marginTopVal.isPointValue()) {
+                element.setProperty(Property.PADDING_TOP, marginTopVal.getValue());
+            } else {
+                logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            }
         }
-        if (marginBottomVal.isPointValue()) {
-            element.setProperty(Property.PADDING_BOTTOM, marginBottomVal.getValue());
-        } else {
-            logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+
+        if (marginBottomVal != null) {
+            if (marginBottomVal.isPointValue()) {
+                element.setProperty(Property.PADDING_BOTTOM, marginBottomVal.getValue());
+            } else {
+                logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            }
         }
-        if (marginLeftVal.isPointValue()) {
-            element.setProperty(Property.PADDING_LEFT, marginLeftVal.getValue());
-        } else {
-            logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+
+        if (marginLeftVal != null) {
+            if (marginLeftVal.isPointValue()) {
+                element.setProperty(Property.PADDING_LEFT, marginLeftVal.getValue());
+            } else {
+                logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            }
         }
-        if (marginRightVal.isPointValue()) {
-            element.setProperty(Property.PADDING_RIGHT, marginRightVal.getValue());
-        } else {
-            logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+
+        if (marginRightVal != null) {
+            if (marginRightVal.isPointValue()) {
+                element.setProperty(Property.PADDING_RIGHT, marginRightVal.getValue());
+            } else {
+                logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            }
         }
     }
 
