@@ -40,16 +40,40 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.exception;
+package com.itextpdf.html2pdf.element;
 
-import java.text.MessageFormat;
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.utils.CompareTool;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import com.itextpdf.html2pdf.Html2PdfProductInfo;
+import com.itextpdf.kernel.Version;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-public class NoTagWorkerFoundException extends RuntimeException {
-    public NoTagWorkerFoundException(String message, String classNames, String tag) {
-        super(MessageFormat.format(message,classNames,tag));
+import java.io.File;
+import java.io.IOException;
+
+@Category(IntegrationTest.class)
+public class LabelTest extends ExtendedITextTest {
+
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/LabelTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/LabelTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+        createDestinationFolder(destinationFolder);
     }
 
-    public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
-
+    @Test
+    public void label01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "labelTest01.html"), new File(destinationFolder + "labelTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelTest01.pdf", sourceFolder + "cmp_labelTest01.pdf", destinationFolder, "diff01_"));
+    }
 
 }

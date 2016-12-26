@@ -40,61 +40,14 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.exception;
 
-import com.itextpdf.html2pdf.exception.TagWorkerInitializationException;
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import java.text.MessageFormat;
 
-import java.lang.reflect.Constructor;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+public class CssApplierInitializationException extends RuntimeException {
 
-public class DefaultTagWorkerFactory implements ITagWorkerFactory {
-
-    /**
-     * Internal map to keep track of tags and associated tag workers
-     */
-    private Map<String, Class<?>> map;
-
-    public DefaultTagWorkerFactory() {
-        this.map = new ConcurrentHashMap<String, Class<?>>();
-        registerDefaultHtmlTagWorkers();
+    public CssApplierInitializationException(String message, String className, String tag){
+        super(MessageFormat.format(message,className, tag));
     }
-
-    @Override
-    public ITagWorker getTagWorkerInstance(IElementNode tag, ProcessorContext context) throws TagWorkerInitializationException {
-        // Get Tag Worker class name
-        Class<?> tagWorkerClass = map.get(tag.name());
-        // No tag worker found for tag
-        if (tagWorkerClass == null) {
-            return null;
-        }
-        // Use reflection to create an instance
-        try {
-            Constructor ctor = tagWorkerClass.getDeclaredConstructor(new Class<?>[]{IElementNode.class, ProcessorContext.class});
-            ITagWorker res = (ITagWorker) ctor.newInstance(new Object[]{tag, context});
-            return res;
-        } catch (Exception e) {
-            throw new TagWorkerInitializationException(TagWorkerInitializationException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED, tagWorkerClass.getName(), tag.name());
-        }
-    }
-
-    @Override
-    public void registerTagWorker(String tag, Class<?> tagWorkerClass) {
-        map.put(tag, tagWorkerClass);
-    }
-
-    @Override
-    public void removeTagWorker(String tag) {
-        map.remove(tag);
-    }
-
-    private void registerDefaultHtmlTagWorkers() {
-        Map<String, Class<?>> defaultMapping = DefaultTagWorkerMapping.getDefaultTagWorkerMapping();
-        for (Map.Entry<String, Class<?>> ent : defaultMapping.entrySet()) {
-            map.put(ent.getKey(), ent.getValue());
-        }
-    }
-
-
+    public static final String ReflectionFailed = "Could not instantiate CssApplier-class {0} for tag {1}.";
 }

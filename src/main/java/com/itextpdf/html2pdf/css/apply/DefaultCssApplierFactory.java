@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply;
 
-import com.itextpdf.html2pdf.exception.NoCssApplierFoundException;
+import com.itextpdf.html2pdf.exception.CssApplierInitializationException;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -67,7 +67,7 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
         try {
             return (ICssApplier) cssApplierClass.newInstance();
         } catch (Exception e) {
-            throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.getName(), tag);
+            throw new CssApplierInitializationException(CssApplierInitializationException.ReflectionFailed, cssApplierClass.getName(), tag);
         }
     }
 
