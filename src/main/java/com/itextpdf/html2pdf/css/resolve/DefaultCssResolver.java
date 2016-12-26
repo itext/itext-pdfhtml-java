@@ -124,9 +124,9 @@ public class DefaultCssResolver implements ICssResolver {
                 parentFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
             }
             float absoluteFontSize = FontStyleApplierUtil.parseRelativeFontSize(elementFontSize, parentFontSize);
-            elementStyles.put(CssConstants.FONT_SIZE, absoluteFontSize + CssConstants.PT);
+            elementStyles.put(CssConstants.FONT_SIZE, Float.toString(absoluteFontSize) + CssConstants.PT);
         } else {
-            elementStyles.put(CssConstants.FONT_SIZE, FontStyleApplierUtil.parseAbsoluteFontSize(elementFontSize) + CssConstants.PT);
+            elementStyles.put(CssConstants.FONT_SIZE, Float.toString(FontStyleApplierUtil.parseAbsoluteFontSize(elementFontSize)) + CssConstants.PT);
         }
 
         Set<String> keys = new HashSet<>();
