@@ -78,7 +78,7 @@ class HtmlStylesToCssConverter {
         CssStyleSheet parsedStylesheet = new CssStyleSheet();
         try {
             parsedStylesheet = CssStyleSheetParser.parse(ResourceUtil.getResourceStream(DEFAULT_CSS_PATH));
-        } catch (IOException exc) {
+        } catch (Exception exc) {
             Logger logger = LoggerFactory.getLogger(HtmlStylesToCssConverter.class);
             logger.error("Error parsing default.css", exc);
         } finally {
