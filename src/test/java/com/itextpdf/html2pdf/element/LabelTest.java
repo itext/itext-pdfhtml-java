@@ -40,14 +40,36 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.exception;
+package com.itextpdf.html2pdf.element;
 
-import java.text.MessageFormat;
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
 
-public class NoCssApplierFoundException extends RuntimeException {
+import java.io.File;
+import java.io.IOException;
 
-    public NoCssApplierFoundException(String message, String className, String tag){
-        super(MessageFormat.format(message,className, tag));
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+@Category(IntegrationTest.class)
+public class LabelTest extends ExtendedITextTest {
+
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/LabelTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/LabelTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+        createDestinationFolder(destinationFolder);
     }
-    public static final String ReflectionFailed = "Could not instantiate CssApplier-class {0} for tag {1}.";
+
+    @Test
+    public void label01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "labelTest01.html"), new File(destinationFolder + "labelTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelTest01.pdf", sourceFolder + "cmp_labelTest01.pdf", destinationFolder, "diff01_"));
+    }
+
 }

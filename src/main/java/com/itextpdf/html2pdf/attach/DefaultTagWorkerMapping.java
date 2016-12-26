@@ -115,6 +115,7 @@ public class DefaultTagWorkerMapping {
             buildMap.put(TagConstants.INPUT, InputTagWorker.class);
             buildMap.put(TagConstants.INS, SpanTagWorker.class);
             buildMap.put(TagConstants.KBD, SpanTagWorker.class);
+            buildMap.put(TagConstants.LABEL, SpanTagWorker.class);
             buildMap.put(TagConstants.LI, LiTagWorker.class);
             buildMap.put(TagConstants.MAIN, DivTagWorker.class);
             buildMap.put(TagConstants.MARK, SpanTagWorker.class);

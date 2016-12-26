@@ -44,8 +44,8 @@ package com.itextpdf.html2pdf.exception;
 
 import java.text.MessageFormat;
 
-public class NoTagWorkerFoundException extends RuntimeException {
-    public NoTagWorkerFoundException(String message, String classNames, String tag) {
+public class TagWorkerInitializationException extends RuntimeException {
+    public TagWorkerInitializationException(String message, String classNames, String tag) {
         super(MessageFormat.format(message,classNames,tag));
     }
 

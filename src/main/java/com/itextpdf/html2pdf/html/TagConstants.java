@@ -90,6 +90,7 @@ public final class TagConstants {
     public static final String INPUT = "input";
     public static final String INS = "ins";
     public static final String KBD = "kbd";
+    public static final String LABEL = "label";
     public static final String LI = "li";
     public static final String LINK = "link";
     public static final String MAIN = "main";
