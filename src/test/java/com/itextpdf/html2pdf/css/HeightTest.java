@@ -121,6 +121,16 @@ public class HeightTest extends ExtendedITextTest {
     }
 
     @Test
+    @Ignore("DEVSIX-1007")
+    public void heightTest06() throws IOException, InterruptedException {
+        String testName = "heightTest06";
+        String diffPrefix = "diff06_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
+    @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
     })
