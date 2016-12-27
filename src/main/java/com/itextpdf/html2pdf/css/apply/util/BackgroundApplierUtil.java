@@ -44,10 +44,16 @@ package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.kernel.color.WebColors;
+import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Background;
+import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.Property;
+
+import java.util.HashMap;
 import java.util.Map;
 
 public final class BackgroundApplierUtil {
@@ -58,9 +64,22 @@ public final class BackgroundApplierUtil {
     public static void applyBackground(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         String backgroundColorStr = cssProps.get(CssConstants.BACKGROUND_COLOR);
         if (backgroundColorStr != null && !CssConstants.TRANSPARENT.equals(backgroundColorStr)) {
-            Background background = new Background(WebColors.getRGBColor(backgroundColorStr));
-            element.setProperty(Property.BACKGROUND, background);
+            Background backgroundColor = new Background(WebColors.getRGBColor(backgroundColorStr));
+            element.setProperty(Property.BACKGROUND, backgroundColor);
+        }
+        String backgroundImageStr = cssProps.get(CssConstants.BACKGROUND_IMAGE);
+        if (backgroundImageStr != null && !backgroundImageStr.equals(CssConstants.NONE)) {
+            String backgroundRepeatStr = cssProps.get(CssConstants.BACKGROUND_REPEAT);
+            PdfImageXObject image = context.getResourceResolver().retrieveImage(CssUtils.extractUrl(backgroundImageStr));
+            boolean repeatX = true, repeatY = true;
+            if (backgroundRepeatStr != null) {
+                repeatX = backgroundRepeatStr.equals(CssConstants.REPEAT) || backgroundRepeatStr.equals(CssConstants.REPEAT_X);
+                repeatY = backgroundRepeatStr.equals(CssConstants.REPEAT) || backgroundRepeatStr.equals(CssConstants.REPEAT_Y);
+            }
+            if (image != null) {
+                BackgroundImage backgroundImage = new BackgroundImage(image, repeatX, repeatY);
+                element.setProperty(Property.BACKGROUND_IMAGE, backgroundImage);
+            }
         }
     }
-
 }
