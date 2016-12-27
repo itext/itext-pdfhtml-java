@@ -102,7 +102,6 @@ public class HeightTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("max-height overrides height in css, while in iText - not")
     public void heightTest04() throws IOException, InterruptedException {
         String testName = "heightTest04";
         String diffPrefix = "diff04_";
