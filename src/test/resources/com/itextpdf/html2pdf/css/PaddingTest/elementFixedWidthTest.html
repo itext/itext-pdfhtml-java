@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div, p, td, table, tr{
+    margin:5px 0px;
+    padding:0px;
+    border-width:0px;
+}
+div, td {
+    width:150px;
+    border:10px solid black;
+}
+p {
+    border:10px solid red;
+}
+</style>
+</head>
+<body>
+<table>
+<tr><td style="padding:10px"><p>I'm pargraph in td with width:150px and padding:10px</p></td></tr>
+</table>
+<div style="padding:10px;"><p>I'm pargraph in div with width:150px and padding:10px</p></div>
+<p style="width:150px;padding:10px;">I'm pargraph with width:150px and padding:10px</p>
+
+<table>
+<tr><td><p>I'm pargraph in td with width:150px and padding:0px</p></td></tr>
+</table>
+<div><p>I'm pargraph in div with width:150px and padding:0px</p></div>
+<p style="width:150px;">I'm pargraph with width:150px and padding:0px</p>
+</body>
+</html>
