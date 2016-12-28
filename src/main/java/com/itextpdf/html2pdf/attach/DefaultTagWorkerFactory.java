@@ -42,32 +42,53 @@
  */
 package com.itextpdf.html2pdf.attach;
 
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.exception.TagWorkerInitializationException;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 public class DefaultTagWorkerFactory implements ITagWorkerFactory {
 
     /**
      * Internal map to keep track of tags and associated tag workers
      */
-    private Map<String, Class<?>> map;
+    private Map<String, Class<?>> tagMap;
+
+    //Internal mappings of tag workers and display ccs property
+    private Map<String, Class<?>> displayMap;
+    // Tags that will consider display property while creating tagWorker.
+    private Set<String> displayPropertySupportedTags;
 
     public DefaultTagWorkerFactory() {
-        this.map = new ConcurrentHashMap<String, Class<?>>();
+        this.tagMap = new ConcurrentHashMap<String, Class<?>>();
+        this.displayMap = new ConcurrentHashMap<String, Class<?>>();
+        this.displayPropertySupportedTags = new HashSet<>();
         registerDefaultHtmlTagWorkers();
     }
 
     @Override
     public ITagWorker getTagWorkerInstance(IElementNode tag, ProcessorContext context) throws TagWorkerInitializationException {
         // Get Tag Worker class name
-        Class<?> tagWorkerClass = map.get(tag.name());
+        Class<?> tagWorkerClass = tagMap.get(tag.name());
         // No tag worker found for tag
         if (tagWorkerClass == null) {
             return null;
+        }
+        if (tag.getStyles() != null) {
+            String displayCssProp = tag.getStyles().get(CssConstants.DISPLAY);
+            if (displayCssProp != null) {
+                Class<?> displayWorkerClass = displayMap.get(displayCssProp);
+                if (displayPropertySupportedTags.contains(tag.name()) && displayWorkerClass != null) {
+                    tagWorkerClass = displayWorkerClass;
+                }
+            }
         }
         // Use reflection to create an instance
         try {
@@ -81,20 +102,20 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
 
     @Override
     public void registerTagWorker(String tag, Class<?> tagWorkerClass) {
-        map.put(tag, tagWorkerClass);
+        tagMap.put(tag, tagWorkerClass);
     }
 
     @Override
     public void removeTagWorker(String tag) {
-        map.remove(tag);
+        tagMap.remove(tag);
     }
 
     private void registerDefaultHtmlTagWorkers() {
         Map<String, Class<?>> defaultMapping = DefaultTagWorkerMapping.getDefaultTagWorkerMapping();
         for (Map.Entry<String, Class<?>> ent : defaultMapping.entrySet()) {
-            map.put(ent.getKey(), ent.getValue());
+            tagMap.put(ent.getKey(), ent.getValue());
         }
+        displayMap.putAll(DefaultDisplayWorkerMapping.getDefaultDisplayWorkerMapping());
+        displayPropertySupportedTags.addAll(DefaultDisplayWorkerMapping.getSupportedTags());
     }
-
-
 }
