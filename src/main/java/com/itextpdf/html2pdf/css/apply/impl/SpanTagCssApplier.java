@@ -51,6 +51,7 @@ import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
@@ -77,6 +78,7 @@ public class SpanTagCssApplier implements ICssApplier {
         HyphenationApplierUtil.applyHyphenation(css, context, elementNode, element);
         //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
         MarginApplierUtil.applyMargins(css, context, element);
+        PositionApplierUtil.applyPosition(css, context, element);
     }
 
 }
