@@ -40,43 +40,13 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply;
+package com.itextpdf.html2pdf.css.w3c.css21.positioning;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.FloatApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-import java.util.Map;
-
-public class BlockCssApplier implements ICssApplier {
-
+public class AbsoluteNonReplacedHeight011Test extends W3CCssTest {
     @Override
-    public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-        Map<String, String> cssProps = element.getStyles();
-
-        IPropertyContainer container = tagWorker.getElementResult();
-        if (container != null) {
-            WidthHeightApplierUtil.applyWidthHeight(cssProps, context, container);
-            BackgroundApplierUtil.applyBackground(cssProps, context, container);
-            MarginApplierUtil.applyMargins(cssProps, context, container);
-            PaddingApplierUtil.applyPaddings(cssProps, context, container);
-            FontStyleApplierUtil.applyFontStyles(cssProps, context, container);
-            BorderStyleApplierUtil.applyBorders(cssProps, context, container);
-            HyphenationApplierUtil.applyHyphenation(cssProps, context, element, container);
-            FloatApplierUtil.applyFloating(cssProps, context, container);
-            PositionApplierUtil.applyPosition(cssProps, context, container);
-        }
+    protected String getHtmlFileName() {
+        return "absolute-non-replaced-height-011.xht";
     }
-
-
 }
