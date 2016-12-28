@@ -43,6 +43,8 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
+import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
+import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 
 import java.util.ArrayList;
@@ -99,7 +101,15 @@ public class CssStyleSheet {
 
     private static void populateDeclarationsMap(List<CssDeclaration> declarations, Map<String, CssDeclaration> map) {
         for (CssDeclaration declaration : declarations) {
-            map.put(declaration.getProperty(), declaration);
+            IShorthandResolver shorthandResolver = ShorthandResolverFactory.getShorthandResolver(declaration.getProperty());
+            if (shorthandResolver == null) {
+                map.put(declaration.getProperty(), declaration);
+            } else {
+                List<CssDeclaration> resolvedShorthandProps = shorthandResolver.resolveShorthand(declaration.getExpression());
+                for (CssDeclaration resolvedProp : resolvedShorthandProps) {
+                    map.put(resolvedProp.getProperty(), resolvedProp);
+                }
+            }
         }
     }
 
