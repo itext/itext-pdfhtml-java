@@ -52,7 +52,6 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
-import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
@@ -92,8 +91,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     // The tags we do not want to apply css to and therefore exclude from the logging
     private static final Set<String> ignoredCssTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
             TagConstants.BR,
-            TagConstants.TITLE,
+            TagConstants.LINK,
             TagConstants.META,
+            TagConstants.TITLE,
             // Content from <tr> is thrown upwards to parent, in other cases css is inherited anyway
             TagConstants.TR)));
 
@@ -231,8 +231,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
             ITagWorker tagWorker = context.getTagWorkerFactory().getTagWorkerInstance(element, context);
             if (tagWorker == null) {
-                // For stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links
-                if (!ignoredTags.contains(element.name()) && !HtmlUtils.isStyleSheetLink(element)) {
+                if (!ignoredTags.contains(element.name())) {
                     logger.error(MessageFormat.format(LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).name()));
                 }
             } else {
