@@ -140,6 +140,18 @@ public class ListTest extends ExtendedITextTest {
     }
 
     @Test
+    public void listTest11() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest11.html"), new File(destinationFolder + "listTest11.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest11.pdf", sourceFolder + "cmp_listTest11.pdf", destinationFolder, "diff11_"));
+    }
+
+    @Test
+    public void listTest12() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest12.html"), new File(destinationFolder + "listTest12.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest12.pdf", sourceFolder + "cmp_listTest12.pdf", destinationFolder, "diff12_"));
+    }
+
+    @Test
     @Ignore("Conversion to Pdf/A for lists not supported. DEVSIX-917")
     public void listToPdfaTest() throws IOException, InterruptedException {
         InputStream is = new FileInputStream(sourceFolder + "sRGB Color Space Profile.icm");

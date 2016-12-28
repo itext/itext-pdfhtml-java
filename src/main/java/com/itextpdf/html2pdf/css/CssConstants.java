@@ -192,6 +192,7 @@ public class CssConstants {
     public static final String ICON = "icon";
     public static final String INHERIT = "inherit";
     public static final String INITIAL = "initial";
+    public static final String INLINE = "inline";
     public static final String INSET = "inset";
     public static final String INSIDE = "inside";
     public static final String INVERT = "invert";
