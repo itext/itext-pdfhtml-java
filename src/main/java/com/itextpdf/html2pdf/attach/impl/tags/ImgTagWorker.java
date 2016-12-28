@@ -59,7 +59,7 @@ public class ImgTagWorker implements ITagWorker {
 
         PdfImageXObject imageXObject = context.getResourceResolver().retrieveImage(element.getAttribute(AttributeConstants.SRC));
         if (imageXObject != null) {
-            image = new Image(imageXObject);
+            image = new HtmlImage(imageXObject);
         }
     }
 
@@ -81,5 +81,25 @@ public class ImgTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return image;
+    }
+
+    private class HtmlImage extends Image {
+
+        // In iText by default we set image sizes (in points) exactly of the image height and width in pixels.
+        private double pxToPt = 0.75;
+
+        public HtmlImage(PdfImageXObject xObject) {
+            super(xObject);
+        }
+
+        @Override
+        public float getImageWidth() {
+            return (float) (xObject.getWidth() * pxToPt);
+        }
+
+        @Override
+        public float getImageHeight() {
+            return (float) (xObject.getHeight() * pxToPt);
+        }
     }
 }
