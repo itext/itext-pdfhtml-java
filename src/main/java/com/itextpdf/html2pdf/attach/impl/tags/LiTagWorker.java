@@ -68,7 +68,7 @@ public class LiTagWorker implements ITagWorker {
 
     public LiTagWorker(IElementNode element, ProcessorContext context) {
         listItem = new ListItem();
-        if (!(context.getState().top() instanceof UlOlTagWorker) && !(context.getState().top() instanceof DlTagWorker)) {
+        if (!(context.getState().top() instanceof UlOlTagWorker)) {
             listItem.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
             Text symbol = new Text(String.valueOf(((char)108))).setFont(createZapfDingBatsSafe());
             symbol.setTextRise(1.5f);
