@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
@@ -59,7 +60,7 @@ public class UlOlTagWorker implements ITagWorker {
     private WaitingInlineElementsHelper inlineHelper;
 
     public UlOlTagWorker(IElementNode element, ProcessorContext context) {
-        list = new List();
+        list = new List().setListSymbol("");
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
@@ -101,17 +102,24 @@ public class UlOlTagWorker implements ITagWorker {
         Paragraph p = inlineHelper.createParagraphContainer();
         inlineHelper.flushHangingLeaves(p);
         if (p.getChildren().size() > 0) {
-            ListItem li = new ListItem();
-            li.add(p);
-            li.setListSymbol("");
-            list.add(li);
+            addUnlabeledListItem(p);
         }
+    }
+
+    private void addUnlabeledListItem(IBlockElement item) {
+        ListItem li = new ListItem();
+        li.add(item);
+        li.setListSymbol("");
+        list.add(li);
     }
 
     private boolean addBlockChild(IPropertyContainer child) {
         processUnlabeledListItem();
         if (child instanceof ListItem) {
             list.add((ListItem) child);
+            return true;
+        } else if (child instanceof IBlockElement) {
+            addUnlabeledListItem((IBlockElement) child);
             return true;
         }
         return false;
