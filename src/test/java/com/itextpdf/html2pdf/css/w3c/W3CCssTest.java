@@ -45,7 +45,6 @@ package com.itextpdf.html2pdf.css.w3c;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.Before;
@@ -74,7 +73,6 @@ public abstract class W3CCssTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {}, ignore = true)
     public void test() throws IOException, InterruptedException {
         String sourceFolder = getSourceFolder();
         String destinationFolder = getDestinationFolder();
