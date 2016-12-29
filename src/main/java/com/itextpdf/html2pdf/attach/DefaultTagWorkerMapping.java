@@ -153,6 +153,8 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.LI, CssConstants.INLINE, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.DD, CssConstants.INLINE, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.DT, CssConstants.INLINE, SpanTagWorker.class);
+
+        workerMapping.putMapping(TagConstants.SPAN, CssConstants.BLOCK, DivTagWorker.class);
     }
 
     static TagProcessorMapping getDefaultTagWorkerMapping() {

@@ -164,6 +164,7 @@ public class CssConstants {
     public static final String ARMENIAN = "armenian";
     public static final String AUTO = "auto";
     public static final String BLINK = "blink";
+    public static final String BLOCK = "block";
     public static final String BOLD = "bold";
     public static final String BOLDER = "bolder";
     public static final String BORDER_BOX = "border-box";
