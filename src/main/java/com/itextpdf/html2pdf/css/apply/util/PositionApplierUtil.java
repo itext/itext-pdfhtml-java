@@ -71,48 +71,65 @@ public final class PositionApplierUtil {
         } else if (CssConstants.RELATIVE.equals(position)) {
             element.setProperty(Property.POSITION, LayoutPosition.RELATIVE);
             applyLeftRightTopBottom(cssProps, context, element);
+        } else if (CssConstants.FIXED.equals(position)) {
+//            element.setProperty(Property.POSITION, LayoutPosition.FIXED);
+//            float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+//            applyLeftProperty(cssProps, element, em, Property.X);
+//            applyTopProperty(cssProps, element, em, Property.Y);
+            // TODO
         }
     }
 
     private static void applyLeftRightTopBottom(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        applyLeftProperty(cssProps, element, em, Property.LEFT);
+        applyRightProperty(cssProps, element, em, Property.RIGHT);
+        applyTopProperty(cssProps, element, em, Property.TOP);
+        applyBottomProperty(cssProps, element, em, Property.BOTTOM);
+    }
+
+    private static void applyLeftProperty(Map<String, String> cssProps, IPropertyContainer element, float em, int layoutPropertyMapping) {
         String left = cssProps.get(CssConstants.LEFT);
-        String right = cssProps.get(CssConstants.RIGHT);
-        String top = cssProps.get(CssConstants.TOP);
-        String bottom = cssProps.get(CssConstants.BOTTOM);
-
         UnitValue leftVal = CssUtils.parseLengthValueToPt(left, em);
-        UnitValue rightVal = CssUtils.parseLengthValueToPt(right, em);
-        UnitValue topVal = CssUtils.parseLengthValueToPt(top, em);
-        UnitValue bottomVal = CssUtils.parseLengthValueToPt(bottom, em);
-
         if (leftVal != null) {
             if (leftVal.isPointValue()) {
-                element.setProperty(Property.LEFT, leftVal.getValue());
+                element.setProperty(layoutPropertyMapping, leftVal.getValue());
             } else {
                 logger.error(MessageFormat.format(LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.LEFT));
             }
         }
+    }
 
+    private static void applyRightProperty(Map<String, String> cssProps, IPropertyContainer element, float em, int layoutPropertyMapping) {
+        String right = cssProps.get(CssConstants.RIGHT);
+        UnitValue rightVal = CssUtils.parseLengthValueToPt(right, em);
         if (rightVal != null) {
             if (rightVal.isPointValue()) {
-                element.setProperty(Property.RIGHT, rightVal.getValue());
+                element.setProperty(layoutPropertyMapping, rightVal.getValue());
             } else {
                 logger.error(MessageFormat.format(LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.RIGHT));
             }
         }
+    }
 
+    private static void applyTopProperty(Map<String, String> cssProps, IPropertyContainer element, float em, int layoutPropertyMapping) {
+        String top = cssProps.get(CssConstants.TOP);
+        UnitValue topVal = CssUtils.parseLengthValueToPt(top, em);
         if (topVal != null) {
             if (topVal.isPointValue()) {
-                element.setProperty(Property.TOP, topVal.getValue());
+                element.setProperty(layoutPropertyMapping, topVal.getValue());
             } else {
                 logger.error(MessageFormat.format(LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.TOP));
             }
         }
+    }
 
+    private static void applyBottomProperty(Map<String, String> cssProps, IPropertyContainer element, float em, int layoutPropertyMapping) {
+        String bottom = cssProps.get(CssConstants.BOTTOM);
+        UnitValue bottomVal = CssUtils.parseLengthValueToPt(bottom, em);
         if (bottomVal != null) {
             if (bottomVal.isPointValue()) {
-                element.setProperty(Property.BOTTOM, bottomVal.getValue());
+                element.setProperty(layoutPropertyMapping, bottomVal.getValue());
             } else {
                 logger.error(MessageFormat.format(LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.BOTTOM));
             }
