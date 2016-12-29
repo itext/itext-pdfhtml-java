@@ -246,7 +246,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 tagWorker.processEnd(element, context);
                 context.getState().pop();
 
-                ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(element.name());
+                ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(element);
                 if (cssApplier == null) {
                     if (!ignoredCssTags.contains(element.name())) {
                         logger.error(MessageFormat.format(LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));

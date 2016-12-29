@@ -42,11 +42,14 @@
  */
 package com.itextpdf.html2pdf.css.apply;
 
+import com.itextpdf.html2pdf.html.node.IElementNode;
+
 public interface ICssApplierFactory {
 
-    ICssApplier getCssApplier(String tag);
+    ICssApplier getCssApplier(IElementNode tag);
 
     void registerCssApplier(String tag, Class<?> applierToUse);
 
-    void removeCssApplier(String tag);
+    void registerCssApplier(String tag, String display, Class<?> applierToUse);
+
 }

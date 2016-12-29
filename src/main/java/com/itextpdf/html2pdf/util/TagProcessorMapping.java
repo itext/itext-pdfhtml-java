@@ -40,44 +40,50 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.util;
 
-import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
-import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.html.TagConstants;
-
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-public class DefaultDisplayWorkerMapping {
+public class TagProcessorMapping {
 
-    private static Map<String, Class<?>> mapping;
-    private static Set<String> supportedTags;
+    private static String DEFAULT_DISPLAY_KEY = "defaultKey";
 
-    public static Map<String, Class<?>> getDefaultDisplayWorkerMapping() {
-        if (mapping == null) {
-            Map<String, Class<?>> buildMap = new HashMap<>(1);
-            buildMap.put(CssConstants.INLINE, SpanTagWorker.class);
-            mapping = Collections.unmodifiableMap(buildMap);
-        }
-        return mapping;
+    private Map<String, Map<String, Class<?>>> mapping;
+
+    public TagProcessorMapping() {
+        mapping = new HashMap<String, Map<String, Class<?>>>();
     }
 
-    public static Set<String> getSupportedTags() {
-        if (supportedTags == null) {
-            Set<String> buildSet = new HashSet<>(Arrays.asList(
-                    TagConstants.LI,
-                    TagConstants.DD,
-                    TagConstants.DT
-            ));
-            supportedTags = Collections.unmodifiableSet(buildSet);
-        }
-        return supportedTags;
+    public void putMapping(String tag, Class<?> mappingClass) {
+        ensureMappingExists(tag).put(DEFAULT_DISPLAY_KEY, mappingClass);
     }
 
+    public void putMapping(String tag, String display, Class<?> mappingClass) {
+        ensureMappingExists(tag).put(display, mappingClass);
+    }
+
+    public Class<?> getMapping(String tag) {
+        return getMapping(tag, DEFAULT_DISPLAY_KEY);
+    }
+
+    public Class<?> getMapping(String tag, String display) {
+        Map<String, Class<?>> tagMapping = mapping.get(tag);
+        if (tagMapping == null) {
+            return null;
+        } else {
+            return tagMapping.get(display);
+        }
+    }
+
+    private Map<String, Class<?>> ensureMappingExists(String tag) {
+        if (mapping.containsKey(tag)) {
+            return mapping.get(tag);
+        } else {
+            Map<String, Class<?>> tagMapping = new HashMap<String, Class<?>>();
+            mapping.put(tag, tagMapping);
+            return tagMapping;
+        }
+    }
 
 }

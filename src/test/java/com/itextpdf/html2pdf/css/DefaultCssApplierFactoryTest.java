@@ -47,16 +47,17 @@ import com.itextpdf.html2pdf.css.apply.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-/**
- * Created by SamuelHuylebroeck on 11/30/2016.
- */
+
 @Category(IntegrationTest.class)
 public class DefaultCssApplierFactoryTest extends ExtendedITextTest {
 
@@ -65,43 +66,31 @@ public class DefaultCssApplierFactoryTest extends ExtendedITextTest {
     }
 
     @Test
-    public void RegisterTagApplierTest() {
+    public void registerTagApplierTest() {
         String tag = "dummy";
+        String snippet = "<dummy><p>Hello</p></dummy>";
+        Document doc = Jsoup.parse(snippet);
         Class<?> applierClass = BlockCssApplier.class;
 
         ICssApplierFactory df = new DefaultCssApplierFactory();
         df.registerCssApplier(tag, applierClass);
-        ICssApplier ca = df.getCssApplier(tag);
+        ICssApplier ca = df.getCssApplier(new JsoupElementNode(doc.getElementsByTag(tag).get(0)));
 
         Assert.assertEquals(ca.getClass(), applierClass);
 
     }
 
     @Test
-    public void RetrieveTagApplierTest() {
+    public void retrieveTagApplierTest() {
         String tag = TagConstants.DIV;
+        String snippet = "<" + tag + "><p>Hello</p></" + tag + ">";
+        Document doc = Jsoup.parse(snippet);
         Class<?> expected = BlockCssApplier.class;
 
         ICssApplierFactory df = new DefaultCssApplierFactory();
-        ICssApplier ca = df.getCssApplier(tag);
+        ICssApplier ca = df.getCssApplier(new JsoupElementNode(doc.getElementsByTag(tag).get(0)));
 
         Assert.assertEquals(ca.getClass(), expected);
-
-
     }
-
-    @Test
-    public void RemoveTagApplierTest() {
-        String tag = TagConstants.DIV;
-
-        ICssApplierFactory df = new DefaultCssApplierFactory();
-        df.removeCssApplier(tag);
-        ICssApplier ca = df.getCssApplier(tag);
-
-        Assert.assertNull(ca);
-
-
-    }
-
 
 }
