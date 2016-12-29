@@ -139,6 +139,8 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.LI, CssConstants.INLINE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.DD, CssConstants.INLINE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.DT, CssConstants.INLINE, SpanTagCssApplier.class);
+
+        mapping.putMapping(TagConstants.SPAN, CssConstants.BLOCK, BlockCssApplier.class);
     }
 
     static TagProcessorMapping getDefaultCssApplierMapping() {
