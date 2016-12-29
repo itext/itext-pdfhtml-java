@@ -119,4 +119,10 @@ public class AbsolutePositionTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "absolutePositionTest08.pdf", sourceFolder + "cmp_absolutePositionTest08.pdf", destinationFolder, "diff08_"));
     }
 
+    @Test
+    public void absolutePosition09Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "absolutePositionTest09.html"), new File(destinationFolder + "absolutePositionTest09.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "absolutePositionTest09.pdf", sourceFolder + "cmp_absolutePositionTest09.pdf", destinationFolder, "diff09_"));
+    }
+
 }
