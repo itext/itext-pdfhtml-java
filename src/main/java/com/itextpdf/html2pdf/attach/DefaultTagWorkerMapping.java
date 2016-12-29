@@ -64,98 +64,99 @@ import com.itextpdf.html2pdf.attach.impl.tags.TdTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TitleTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.UlOlTagWorker;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+class DefaultTagWorkerMapping {
 
-public class DefaultTagWorkerMapping {
-
-    private static Map<String, Class<?>> mapping;
-
-    public static Map<String, Class<?>> getDefaultTagWorkerMapping() {
-        if (mapping == null) {
-            Map<String, Class<?>> buildMap = new HashMap<String, Class<?>>();
-            buildMap.put(TagConstants.A, ATagWorker.class);
-            buildMap.put(TagConstants.ABBR, ATagWorker.class);
-            buildMap.put(TagConstants.ADDRESS, DivTagWorker.class);
-            buildMap.put(TagConstants.ARTICLE, DivTagWorker.class);
-            buildMap.put(TagConstants.ASIDE, DivTagWorker.class);
-            buildMap.put(TagConstants.B, SpanTagWorker.class);
-            buildMap.put(TagConstants.BDI, SpanTagWorker.class);
-            buildMap.put(TagConstants.BDO, SpanTagWorker.class);
-            buildMap.put(TagConstants.BLOCKQUOTE, DivTagWorker.class);
-            buildMap.put(TagConstants.BODY, BodyTagWorker.class);
-            buildMap.put(TagConstants.BR, BrTagWorker.class);
-            buildMap.put(TagConstants.COL, ColTagWorker.class);
-            buildMap.put(TagConstants.COLGROUP, ColgroupTagWorker.class);
-            //buildMap.put(TagConstants.CAPTION, SpanTagWorker.class);
-            buildMap.put(TagConstants.CENTER, DivTagWorker.class);
-            buildMap.put(TagConstants.CITE, SpanTagWorker.class);
-            buildMap.put(TagConstants.CODE, SpanTagWorker.class);
-            buildMap.put(TagConstants.DEL, SpanTagWorker.class);
-            buildMap.put(TagConstants.DFN, SpanTagWorker.class);
-            buildMap.put(TagConstants.DIV, DivTagWorker.class);
-            buildMap.put(TagConstants.DD, LiTagWorker.class);
-            buildMap.put(TagConstants.DL, UlOlTagWorker.class);
-            buildMap.put(TagConstants.DT, LiTagWorker.class);
-            buildMap.put(TagConstants.EM, SpanTagWorker.class);
-            buildMap.put(TagConstants.FONT, SpanTagWorker.class);
-            buildMap.put(TagConstants.FIGCAPTION, DivTagWorker.class);
-            buildMap.put(TagConstants.FIGURE, DivTagWorker.class);
-            buildMap.put(TagConstants.FOOTER, DivTagWorker.class);
-            buildMap.put(TagConstants.HEADER, DivTagWorker.class);
-            buildMap.put(TagConstants.HR, HrTagWorker.class);
-            buildMap.put(TagConstants.HTML, HtmlTagWorker.class);
-            buildMap.put(TagConstants.I, SpanTagWorker.class);
-            buildMap.put(TagConstants.IMG, ImgTagWorker.class);
-            buildMap.put(TagConstants.INPUT, InputTagWorker.class);
-            buildMap.put(TagConstants.INS, SpanTagWorker.class);
-            buildMap.put(TagConstants.KBD, SpanTagWorker.class);
-            buildMap.put(TagConstants.LABEL, SpanTagWorker.class);
-            buildMap.put(TagConstants.LI, LiTagWorker.class);
-            buildMap.put(TagConstants.LINK, LinkTagWorker.class);
-            buildMap.put(TagConstants.MAIN, DivTagWorker.class);
-            buildMap.put(TagConstants.MARK, SpanTagWorker.class);
-            buildMap.put(TagConstants.META, MetaTagWorker.class);
-            buildMap.put(TagConstants.NAV, DivTagWorker.class);
-            buildMap.put(TagConstants.OL, UlOlTagWorker.class);
-            buildMap.put(TagConstants.H1, DivTagWorker.class);
-            buildMap.put(TagConstants.H2, DivTagWorker.class);
-            buildMap.put(TagConstants.H3, DivTagWorker.class);
-            buildMap.put(TagConstants.H4, DivTagWorker.class);
-            buildMap.put(TagConstants.H5, DivTagWorker.class);
-            buildMap.put(TagConstants.H6, DivTagWorker.class);
-            buildMap.put(TagConstants.P, PTagWorker.class);
-            buildMap.put(TagConstants.PRE, DivTagWorker.class);
-            buildMap.put(TagConstants.Q, SpanTagWorker.class);
-            buildMap.put(TagConstants.S, SpanTagWorker.class);
-            buildMap.put(TagConstants.SAMP, SpanTagWorker.class);
-            buildMap.put(TagConstants.SECTION, DivTagWorker.class);
-            buildMap.put(TagConstants.SMALL, SpanTagWorker.class);
-            buildMap.put(TagConstants.SPAN, SpanTagWorker.class);
-            buildMap.put(TagConstants.STRIKE, SpanTagWorker.class);
-            buildMap.put(TagConstants.STRONG, SpanTagWorker.class);
-            buildMap.put(TagConstants.SUB, SpanTagWorker.class);
-            buildMap.put(TagConstants.SUP, SpanTagWorker.class);
-            buildMap.put(TagConstants.TABLE, TableTagWorker.class);
-            buildMap.put(TagConstants.TFOOT, TableFooterTagWorker.class);
-            buildMap.put(TagConstants.THEAD, TableHeaderTagWorker.class);
-            buildMap.put(TagConstants.TIME, SpanTagWorker.class);
-            buildMap.put(TagConstants.TITLE, TitleTagWorker.class);
-            buildMap.put(TagConstants.TD, TdTagWorker.class);
-            buildMap.put(TagConstants.TH, TdTagWorker.class);
-            buildMap.put(TagConstants.TR, TrTagWorker.class);
-            buildMap.put(TagConstants.U, SpanTagWorker.class);
-            buildMap.put(TagConstants.UL, UlOlTagWorker.class);
-            buildMap.put(TagConstants.VAR, SpanTagWorker.class);
-
-            mapping = Collections.unmodifiableMap(buildMap);
-        }
-
-        return mapping;
+    private DefaultTagWorkerMapping() {
     }
 
+    private static TagProcessorMapping workerMapping;
+
+    static {
+        workerMapping = new TagProcessorMapping();
+        workerMapping.putMapping(TagConstants.A, ATagWorker.class);
+        workerMapping.putMapping(TagConstants.ABBR, ATagWorker.class);
+        workerMapping.putMapping(TagConstants.ADDRESS, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.ARTICLE, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.ASIDE, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.B, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.BDI, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.BDO, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.BLOCKQUOTE, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.BODY, BodyTagWorker.class);
+        workerMapping.putMapping(TagConstants.BR, BrTagWorker.class);
+        workerMapping.putMapping(TagConstants.COL, ColTagWorker.class);
+        workerMapping.putMapping(TagConstants.COLGROUP, ColgroupTagWorker.class);
+        workerMapping.putMapping(TagConstants.CENTER, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.CITE, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.CODE, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.DEL, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.DFN, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.DIV, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.DD, LiTagWorker.class);
+        workerMapping.putMapping(TagConstants.DL, UlOlTagWorker.class);
+        workerMapping.putMapping(TagConstants.DT, LiTagWorker.class);
+        workerMapping.putMapping(TagConstants.EM, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.FONT, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.FIGCAPTION, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.FIGURE, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.FOOTER, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.HEADER, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.HR, HrTagWorker.class);
+        workerMapping.putMapping(TagConstants.HTML, HtmlTagWorker.class);
+        workerMapping.putMapping(TagConstants.I, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.IMG, ImgTagWorker.class);
+        workerMapping.putMapping(TagConstants.INPUT, InputTagWorker.class);
+        workerMapping.putMapping(TagConstants.INS, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.KBD, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.LABEL, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.LI, LiTagWorker.class);
+        workerMapping.putMapping(TagConstants.LINK, LinkTagWorker.class);
+        workerMapping.putMapping(TagConstants.MAIN, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.MARK, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.META, MetaTagWorker.class);
+        workerMapping.putMapping(TagConstants.NAV, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.OL, UlOlTagWorker.class);
+        workerMapping.putMapping(TagConstants.H1, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.H2, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.H3, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.H4, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.H5, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.H6, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.P, PTagWorker.class);
+        workerMapping.putMapping(TagConstants.PRE, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.Q, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.S, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.SAMP, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.SECTION, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.SMALL, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.SPAN, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.STRIKE, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.STRONG, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.SUB, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.SUP, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.TABLE, TableTagWorker.class);
+        workerMapping.putMapping(TagConstants.TFOOT, TableFooterTagWorker.class);
+        workerMapping.putMapping(TagConstants.THEAD, TableHeaderTagWorker.class);
+        workerMapping.putMapping(TagConstants.TIME, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.TITLE, TitleTagWorker.class);
+        workerMapping.putMapping(TagConstants.TD, TdTagWorker.class);
+        workerMapping.putMapping(TagConstants.TH, TdTagWorker.class);
+        workerMapping.putMapping(TagConstants.TR, TrTagWorker.class);
+        workerMapping.putMapping(TagConstants.U, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.UL, UlOlTagWorker.class);
+        workerMapping.putMapping(TagConstants.VAR, SpanTagWorker.class);
+
+        workerMapping.putMapping(TagConstants.LI, CssConstants.INLINE, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.DD, CssConstants.INLINE, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.DT, CssConstants.INLINE, SpanTagWorker.class);
+    }
+
+    static TagProcessorMapping getDefaultTagWorkerMapping() {
+        return workerMapping;
+    }
 
 }

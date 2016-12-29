@@ -42,24 +42,27 @@
  */
 package com.itextpdf.html2pdf.css.apply;
 
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.exception.CssApplierInitializationException;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
 public class DefaultCssApplierFactory implements ICssApplierFactory {
 
-    private Map<String, Class<?>> map;
+    private TagProcessorMapping defaultMapping;
+    private TagProcessorMapping userMapping;
 
     public DefaultCssApplierFactory() {
-        this.map = new ConcurrentHashMap<String, Class<?>>();
-        this.registerDefaultCssAppliers();
+        defaultMapping = DefaultTagCssApplierMapping.getDefaultCssApplierMapping();
+        userMapping = new TagProcessorMapping();
     }
 
     @Override
-    public ICssApplier getCssApplier(String tag) {
-        // Get css applier classname
-        Class<?> cssApplierClass = map.get(tag);
+    public ICssApplier getCssApplier(IElementNode tag) {
+        Class<?> cssApplierClass = getCssApplierClass(userMapping, tag);
+        if (cssApplierClass == null) {
+            cssApplierClass = getCssApplierClass(defaultMapping, tag);
+        }
         if (cssApplierClass == null) {
             return null;
         }
@@ -67,24 +70,30 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
         try {
             return (ICssApplier) cssApplierClass.newInstance();
         } catch (Exception e) {
-            throw new CssApplierInitializationException(CssApplierInitializationException.ReflectionFailed, cssApplierClass.getName(), tag);
+            throw new CssApplierInitializationException(CssApplierInitializationException.ReflectionFailed, cssApplierClass.getName(), tag.name());
         }
     }
 
     @Override
     public void registerCssApplier(String tag, Class<?> classToRegister) {
-        this.map.put(tag, classToRegister);
+        userMapping.putMapping(tag, classToRegister);
     }
 
     @Override
-    public void removeCssApplier(String tag) {
-        this.map.remove(tag);
+    public void registerCssApplier(String tag, String display, Class<?> applierToUse) {
+        userMapping.putMapping(tag, display, applierToUse);
     }
 
-    private void registerDefaultCssAppliers() {
-        Map<String, Class<?>> defaultMapping = DefaultTagCssApplierMapping.getDefaultCssApplierMapping();
-        for (Map.Entry<String, Class<?>> ent : defaultMapping.entrySet()) {
-            map.put(ent.getKey(), ent.getValue());
+    private static Class<?> getCssApplierClass(TagProcessorMapping mapping, IElementNode tag) {
+        Class<?> cssApplierClass = null;
+        String display = tag.getStyles() != null ? tag.getStyles().get(CssConstants.DISPLAY) : null;
+        if (display != null) {
+            cssApplierClass = mapping.getMapping(tag.name(), display);
         }
+        if (cssApplierClass == null) {
+            cssApplierClass = mapping.getMapping(tag.name());
+        }
+        return cssApplierClass;
     }
+
 }

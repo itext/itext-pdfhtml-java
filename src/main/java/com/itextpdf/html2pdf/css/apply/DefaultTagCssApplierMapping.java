@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply;
 
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.impl.BodyTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.ColTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.ColgroupTagCssApplier;
@@ -53,91 +54,94 @@ import com.itextpdf.html2pdf.css.apply.impl.TdTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.TrTagCssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.UlOlTagCssApplier;
 import com.itextpdf.html2pdf.html.TagConstants;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
 
-public class DefaultTagCssApplierMapping {
+class DefaultTagCssApplierMapping {
 
-    private static Map<String, Class<?>> mapping;
+    private DefaultTagCssApplierMapping() {
+    }
 
-    public static Map<String, Class<?>> getDefaultCssApplierMapping() {
-        if (mapping == null) {
-            Map<String, Class<?>> buildMap = new HashMap<String, Class<?>>();
-            buildMap.put(TagConstants.A, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.ABBR, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.ADDRESS, BlockCssApplier.class);
-            buildMap.put(TagConstants.ARTICLE, BlockCssApplier.class);
-            buildMap.put(TagConstants.ASIDE, BlockCssApplier.class);
-            buildMap.put(TagConstants.B, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.BDI, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.BDO, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.BLOCKQUOTE, BlockCssApplier.class);
-            buildMap.put(TagConstants.BODY, BodyTagCssApplier.class);
-            //buildMap.put(TagConstants.CAPTION,SpanTagCssApplier.class);
-            buildMap.put(TagConstants.CENTER,BlockCssApplier.class);
-            buildMap.put(TagConstants.CITE, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.CODE, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.COL, ColTagCssApplier.class);
-            buildMap.put(TagConstants.COLGROUP, ColgroupTagCssApplier.class);
-            buildMap.put(TagConstants.EM, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.DEL, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.DFN,SpanTagCssApplier.class);
-            buildMap.put(TagConstants.DT, BlockCssApplier.class);
-            buildMap.put(TagConstants.DD, BlockCssApplier.class);
-            buildMap.put(TagConstants.DIV, BlockCssApplier.class);
-            buildMap.put(TagConstants.FONT, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.FOOTER, BlockCssApplier.class);
-            buildMap.put(TagConstants.FIGCAPTION, BlockCssApplier.class);
-            buildMap.put(TagConstants.FIGURE, BlockCssApplier.class);
-            buildMap.put(TagConstants.H1, BlockCssApplier.class);
-            buildMap.put(TagConstants.H2, BlockCssApplier.class);
-            buildMap.put(TagConstants.H3, BlockCssApplier.class);
-            buildMap.put(TagConstants.H4, BlockCssApplier.class);
-            buildMap.put(TagConstants.H5, BlockCssApplier.class);
-            buildMap.put(TagConstants.H6, BlockCssApplier.class);
-            buildMap.put(TagConstants.HEADER, BlockCssApplier.class);
-            buildMap.put(TagConstants.HR, BlockCssApplier.class);
-            buildMap.put(TagConstants.IMG, BlockCssApplier.class);
-            buildMap.put(TagConstants.INPUT, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.MAIN, BlockCssApplier.class);
-            buildMap.put(TagConstants.NAV, BlockCssApplier.class);
-            buildMap.put(TagConstants.P, BlockCssApplier.class);
-            buildMap.put(TagConstants.SECTION, BlockCssApplier.class);
-            buildMap.put(TagConstants.TABLE, BlockCssApplier.class);
-            buildMap.put(TagConstants.TFOOT, BlockCssApplier.class);
-            buildMap.put(TagConstants.THEAD, BlockCssApplier.class);
-            buildMap.put(TagConstants.DL, DlTagCssApplier.class);
-            buildMap.put(TagConstants.HTML, HtmlTagCssApplier.class);
-            buildMap.put(TagConstants.I, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.INS, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.KBD, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.LABEL, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.LI, LiTagCssApplier.class);
-            buildMap.put(TagConstants.MARK, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.OL, UlOlTagCssApplier.class);
-            buildMap.put(TagConstants.PRE, BlockCssApplier.class);
-            buildMap.put(TagConstants.Q, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.S, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.SAMP,SpanTagCssApplier.class);
-            buildMap.put(TagConstants.SMALL, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.SPAN, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.STRIKE, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.STRONG, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.SUB, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.SUP, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.TD, TdTagCssApplier.class);
-            buildMap.put(TagConstants.TH, TdTagCssApplier.class);
-            buildMap.put(TagConstants.TIME, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.TR, TrTagCssApplier.class);
-            buildMap.put(TagConstants.U, SpanTagCssApplier.class);
-            buildMap.put(TagConstants.UL, UlOlTagCssApplier.class);
-            buildMap.put(TagConstants.VAR,SpanTagCssApplier.class);
+    private static TagProcessorMapping mapping;
 
-            mapping = Collections.unmodifiableMap(buildMap);
-        }
+    static {
+        mapping = new TagProcessorMapping();
+        mapping.putMapping(TagConstants.A, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.ABBR, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.ADDRESS, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.ARTICLE, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.ASIDE, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.B, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.BDI, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.BDO, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.BLOCKQUOTE, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.BODY, BodyTagCssApplier.class);
+        mapping.putMapping(TagConstants.CAPTION, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.CENTER, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.CITE, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.CODE, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.COL, ColTagCssApplier.class);
+        mapping.putMapping(TagConstants.COLGROUP, ColgroupTagCssApplier.class);
+        mapping.putMapping(TagConstants.EM, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.DEL, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.DFN, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.DT, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.DD, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.DIV, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.FONT, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.FOOTER, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.FIGCAPTION, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.FIGURE, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.H1, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.H2, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.H3, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.H4, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.H5, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.H6, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.HEADER, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.HR, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.IMG, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.INPUT, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.MAIN, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.NAV, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.P, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.SECTION, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.TABLE, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.TFOOT, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.THEAD, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.DL, DlTagCssApplier.class);
+        mapping.putMapping(TagConstants.HTML, HtmlTagCssApplier.class);
+        mapping.putMapping(TagConstants.I, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.INS, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.KBD, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.LABEL, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.LI, LiTagCssApplier.class);
+        mapping.putMapping(TagConstants.MARK, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.OL, UlOlTagCssApplier.class);
+        mapping.putMapping(TagConstants.PRE, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.Q, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.S, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.SAMP, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.SMALL, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.SPAN, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.STRIKE, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.STRONG, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.SUB, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.SUP, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.TD, TdTagCssApplier.class);
+        mapping.putMapping(TagConstants.TH, TdTagCssApplier.class);
+        mapping.putMapping(TagConstants.TIME, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.TR, TrTagCssApplier.class);
+        mapping.putMapping(TagConstants.U, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.UL, UlOlTagCssApplier.class);
+        mapping.putMapping(TagConstants.VAR, SpanTagCssApplier.class);
+
+        mapping.putMapping(TagConstants.LI, CssConstants.INLINE, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.DD, CssConstants.INLINE, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.DT, CssConstants.INLINE, SpanTagCssApplier.class);
+    }
+
+    static TagProcessorMapping getDefaultCssApplierMapping() {
         return mapping;
     }
 
