@@ -42,11 +42,34 @@
  */
 package com.itextpdf.html2pdf.resolver.font;
 
+import com.itextpdf.io.font.FontConstants;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DefaultFontResolver implements IFontResolver {
+
+    static final HashMap<String, String> DEFAULT_FONTS = new HashMap<>();
+
+    static {
+        DEFAULT_FONTS.put(FontConstants.COURIER.toLowerCase(), FontConstants.COURIER);
+        DEFAULT_FONTS.put(FontConstants.COURIER_BOLD.toLowerCase(), FontConstants.COURIER_BOLD);
+        DEFAULT_FONTS.put(FontConstants.COURIER_BOLDOBLIQUE.toLowerCase(), FontConstants.COURIER_BOLDOBLIQUE);
+        DEFAULT_FONTS.put(FontConstants.COURIER_OBLIQUE.toLowerCase(), FontConstants.COURIER_OBLIQUE);
+        DEFAULT_FONTS.put(FontConstants.HELVETICA.toLowerCase(), FontConstants.HELVETICA);
+        DEFAULT_FONTS.put(FontConstants.HELVETICA_BOLD.toLowerCase(), FontConstants.HELVETICA_BOLD);
+        DEFAULT_FONTS.put(FontConstants.HELVETICA_BOLDOBLIQUE.toLowerCase(), FontConstants.HELVETICA_BOLDOBLIQUE);
+        DEFAULT_FONTS.put(FontConstants.HELVETICA_OBLIQUE.toLowerCase(), FontConstants.HELVETICA_OBLIQUE);
+        DEFAULT_FONTS.put(FontConstants.SYMBOL.toLowerCase(), FontConstants.SYMBOL);
+        DEFAULT_FONTS.put(FontConstants.TIMES_ROMAN.toLowerCase(), FontConstants.TIMES_ROMAN);
+        DEFAULT_FONTS.put(FontConstants.TIMES_BOLD.toLowerCase(), FontConstants.TIMES_BOLD);
+        DEFAULT_FONTS.put(FontConstants.TIMES_BOLDITALIC.toLowerCase(), FontConstants.TIMES_BOLDITALIC);
+        DEFAULT_FONTS.put(FontConstants.TIMES_ITALIC.toLowerCase(), FontConstants.TIMES_ITALIC);
+        DEFAULT_FONTS.put(FontConstants.ZAPFDINGBATS.toLowerCase(), FontConstants.ZAPFDINGBATS);
+    }
 
     public DefaultFontResolver() {
         //PdfFontFactory.registerSystemDirectories();
@@ -57,7 +80,13 @@ public class DefaultFontResolver implements IFontResolver {
         //return PdfFontFactory.createRegisteredFont(name);
         PdfFont result;
         try {
-            result = PdfFontFactory.createFont(name);
+
+            String defaultName = DEFAULT_FONTS.get(name.toLowerCase());
+            if (defaultName != null) {
+                result = PdfFontFactory.createFont(defaultName);
+            } else {
+                result = PdfFontFactory.createFont(name);
+            }
         } catch (Exception any) {
             //LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_FONT, name), any);
             result = PdfFontFactory.createFont();

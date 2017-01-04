@@ -56,6 +56,10 @@ public class CssUtils {
     private CssUtils() {
     }
 
+    public static String normalizeCssProperty(String str) {
+        return str == null ? null : CssPropertyNormalizer.normalize(str);
+    }
+
     public static String removeDoubleSpacesAndTrim(String str) {
         String[] parts = str.split("\\s");
         StringBuilder sb = new StringBuilder();

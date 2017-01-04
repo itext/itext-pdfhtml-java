@@ -51,8 +51,8 @@ public class CssDeclaration {
     private String expression;
 
     public CssDeclaration(String property, String expression) {
-        this.property = CssUtils.removeDoubleSpacesAndTrim(property);
-        this.expression = CssUtils.removeDoubleSpacesAndTrim(expression);
+        this.property = CssUtils.normalizeCssProperty(property);
+        this.expression = CssUtils.normalizeCssProperty(expression);
     }
 
     @Override

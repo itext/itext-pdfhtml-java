@@ -57,6 +57,7 @@ public final class LogMessageConstant {
     public static final String NO_WORKER_FOUND_FOR_TAG = "No worker found for tag {0}";
     public static final String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
     public static final String PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED = "Padding value in percents not supported";
+    public static final String QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION = "The quote is not closed in css expression: {0}";
     public static final String RULE_IS_NOT_SUPPORTED = "The rule @{0} is unsupported. All selectors in this rule will be ignored.";
     public static final String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
     public static final String TEXT_DECORATION_BLINK_NOT_SUPPORTED = "text-decoration: blink not supported";
