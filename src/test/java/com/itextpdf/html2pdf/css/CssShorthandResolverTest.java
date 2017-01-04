@@ -167,7 +167,7 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     public void backgroundTest06() {
         String shorthandExpression = "DarkOliveGreen fixed center";
         Set<String> expectedResolvedProperties = new HashSet<>(Arrays.asList(
-                "background-color: DarkOliveGreen",
+                "background-color: darkolivegreen",
                 "background-image: initial",
                 "background-position: center",
                 "background-size: initial",
@@ -532,7 +532,7 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "font-weight: bold",
                 "font-size: 12px",
                 "line-height: 30px",
-                "font-family: Georgia,serif"
+                "font-family: georgia,serif"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
@@ -550,7 +550,7 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "font-weight: bold",
                 "font-size: initial",
                 "line-height: initial",
-                "font-family: Georgia,serif"
+                "font-family: georgia,serif"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
@@ -586,7 +586,7 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "font-weight: bold",
                 "font-size: initial",
                 "line-height: initial",
-                "font-family: Georgia,serif,\"Times New Roman\""
+                "font-family: georgia,serif,\"Times New Roman\""
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
@@ -604,7 +604,7 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "font-weight: bold",
                 "font-size: 12px",
                 "line-height: 30px",
-                "font-family: Georgia,\"Times New Roman\",serif"
+                "font-family: georgia,\"Times New Roman\",serif"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
@@ -622,7 +622,7 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "font-weight: bold",
                 "font-size: 12px",
                 "line-height: 30px",
-                "font-family: Georgia,\"Times New Roman\",serif"
+                "font-family: georgia,\"Times New Roman\",serif"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
@@ -640,7 +640,7 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "font-weight: bold",
                 "font-size: 12px",
                 "line-height: 30px",
-                "font-family: Georgia,\"Times New Roman\""
+                "font-family: georgia,\"Times New Roman\""
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
@@ -658,7 +658,7 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "font-weight: initial",
                 "font-size: initial",
                 "line-height: initial",
-                "font-family: Georgia,'Times New Roman'"
+                "font-family: georgia,'Times New Roman'"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);
@@ -676,7 +676,7 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "font-weight: initial",
                 "font-size: initial",
                 "line-height: initial",
-                "font-family: Georgia,'Times New Roman',serif"
+                "font-family: georgia,'Times New Roman',serif"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.FONT);

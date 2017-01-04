@@ -97,7 +97,7 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
         boolean slashEncountered = false;
         for (String value : props) {
             int slashCharInd = value.indexOf('/');
-            if (slashCharInd > 0) {
+            if (slashCharInd > 0 && !value.contains("url(")) {
                 slashEncountered = true;
                 String value1 = value.substring(0, slashCharInd);
                 String value2 = value.substring(slashCharInd + 1, value.length());
