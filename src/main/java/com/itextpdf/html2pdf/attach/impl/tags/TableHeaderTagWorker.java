@@ -45,9 +45,6 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 
-/**
- * Created by SamuelHuylebroeck on 11/30/2016.
- */
 public class TableHeaderTagWorker extends TableTagWorker {
     public TableHeaderTagWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
