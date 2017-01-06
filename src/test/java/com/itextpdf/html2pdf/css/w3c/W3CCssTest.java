@@ -46,15 +46,19 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.File;
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import java.io.File;
-import java.io.IOException;
-
+/**
+ * @see <a href="https://github.com/w3c/csswg-test">https://github.com/w3c/csswg-test</a>
+ */
 @Category(IntegrationTest.class)
 public abstract class W3CCssTest extends ExtendedITextTest {
 
