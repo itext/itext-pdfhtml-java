@@ -88,7 +88,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
-                "margin-top: 1em");
+                "margin-top: 1em",
+                "display: block");
     }
 
     @Test
@@ -98,7 +99,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
-                "margin-top: 1em");
+                "margin-top: 1em",
+                "display: block");
     }
 
     @Test
@@ -108,7 +110,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
-                "margin-top: 1em");
+                "margin-top: 1em",
+                "display: block");
     }
 
     @Test
@@ -178,7 +181,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
-                "margin-top: 1em");
+                "margin-top: 1em",
+                "display: block");
     }
 
     @Test
@@ -189,7 +193,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
-                "margin-top: 1em");
+                "margin-top: 1em",
+                "display: block");
     }
 
     @Test
@@ -200,7 +205,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
-                "margin-top: 1em");
+                "margin-top: 1em",
+                "display: block");
     }
 
     @Test
@@ -211,7 +217,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
-                "margin-top: 1em");
+                "margin-top: 1em",
+                "display: block");
     }
 
     @Test
@@ -222,7 +229,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-bottom: 1em",
                 "margin-left: 0",
                 "margin-right: 0",
-                "margin-top: 1em");
+                "margin-top: 1em",
+                "display: block");
     }
 
     @Test
@@ -236,7 +244,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 0",
                 "margin-right: 0",
                 "margin-top: 0",
-                "text-indent: 0");
+                "text-indent: 0",
+                "display: table");
     }
 
     @Test
@@ -245,7 +254,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "background-color: yellow",
                 "font-size: 12.0pt",
                 "text-indent: 0",
-                "vertical-align: middle");
+                "vertical-align: middle",
+                "display: table-row");
     }
 
     @Test
@@ -282,7 +292,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-bottom: 10%",
                 "margin-left: 10%",
                 "margin-right: 10%",
-                "margin-top: 10%");
+                "margin-top: 10%",
+                "display: block");
     }
 
     private void resolveStylesForTree(INode node, ICssResolver cssResolver) {

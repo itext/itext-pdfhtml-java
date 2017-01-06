@@ -304,5 +304,27 @@ img[align="left"] {
     margin-right: 3px;
 }
 
-
+ADDRESS,
+BLOCKQUOTE,
+BODY, DD, DIV,
+DL, DT,
+FIELDSET, FORM,
+FRAME, FRAMESET,
+H1, H2, H3, H4,
+H5, H6, IFRAME,
+NOFRAMES,
+OBJECT, OL, P,
+UL, APPLET,
+CENTER, DIR,
+HR, MENU, PRE   { display: block }
+LI              { display: list-item }
+TABLE           { display: table }
+TR              { display: table-row }
+THEAD           { display: table-header-group }
+TBODY           { display: table-row-group }
+TFOOT           { display: table-footer-group }
+COL             { display: table-column }
+COLGROUP        { display: table-column-group }
+TD, TH          { display: table-cell }
+CAPTION         { display: table-caption }
 
