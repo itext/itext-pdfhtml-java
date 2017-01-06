@@ -346,3 +346,123 @@ var {
 img[align="left"] {
     margin-right: 3px
 }
+address {
+    display: block
+}
+blockquote {
+    display: block
+}
+body {
+    display: block
+}
+dd {
+    display: block
+}
+div {
+    display: block
+}
+dl {
+    display: block
+}
+dt {
+    display: block
+}
+fieldset {
+    display: block
+}
+form {
+    display: block
+}
+frame {
+    display: block
+}
+frameset {
+    display: block
+}
+h1 {
+    display: block
+}
+h2 {
+    display: block
+}
+h3 {
+    display: block
+}
+h4 {
+    display: block
+}
+h5 {
+    display: block
+}
+h6 {
+    display: block
+}
+iframe {
+    display: block
+}
+noframes {
+    display: block
+}
+object {
+    display: block
+}
+ol {
+    display: block
+}
+p {
+    display: block
+}
+ul {
+    display: block
+}
+applet {
+    display: block
+}
+center {
+    display: block
+}
+dir {
+    display: block
+}
+hr {
+    display: block
+}
+menu {
+    display: block
+}
+pre {
+    display: block
+}
+li {
+    display: list-item
+}
+table {
+    display: table
+}
+tr {
+    display: table-row
+}
+thead {
+    display: table-header-group
+}
+tbody {
+    display: table-row-group
+}
+tfoot {
+    display: table-footer-group
+}
+col {
+    display: table-column
+}
+colgroup {
+    display: table-column-group
+}
+td {
+    display: table-cell
+}
+th {
+    display: table-cell
+}
+caption {
+    display: table-caption
+}
