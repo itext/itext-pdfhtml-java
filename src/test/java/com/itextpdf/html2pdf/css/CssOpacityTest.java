@@ -40,45 +40,43 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply;
+package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.FloatApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
+import java.io.File;
+import java.io.IOException;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-import java.util.Map;
+@Category(IntegrationTest.class)
+public class CssOpacityTest extends ExtendedITextTest {
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssOpacityTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/CssOpacityTest/";
 
-public class BlockCssApplier implements ICssApplier {
-
-    @Override
-    public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-        Map<String, String> cssProps = element.getStyles();
-
-        IPropertyContainer container = tagWorker.getElementResult();
-        if (container != null) {
-            WidthHeightApplierUtil.applyWidthHeight(cssProps, context, container);
-            BackgroundApplierUtil.applyBackground(cssProps, context, container);
-            MarginApplierUtil.applyMargins(cssProps, context, container);
-            PaddingApplierUtil.applyPaddings(cssProps, context, container);
-            FontStyleApplierUtil.applyFontStyles(cssProps, context, container);
-            BorderStyleApplierUtil.applyBorders(cssProps, context, container);
-            HyphenationApplierUtil.applyHyphenation(cssProps, context, element, container);
-            FloatApplierUtil.applyFloating(cssProps, context, container);
-            PositionApplierUtil.applyPosition(cssProps, context, container);
-            OpacityApplierUtil.applyOpacity(cssProps, context, container);
-        }
+    @BeforeClass
+    public static void beforeClass() {
+        createDestinationFolder(destinationFolder);
     }
 
+    @Test
+    public void innerOpacityTest() throws IOException, InterruptedException {
+        // TODO itext "overwrites" parent's opacity while in css, opacity kinda "merges"
+        // i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
+        runTest("innerOpacityTest");
+    }
+    
+    private void runTest(String name) throws IOException, InterruptedException {
+        String htmlPath = sourceFolder + name + ".html";
+        String pdfPath = destinationFolder + name + ".pdf";
+        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+        String diffPrefix = "diff_" + name + "_";
 
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
+        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+    }
 }
