@@ -44,7 +44,9 @@ package com.itextpdf.html2pdf.css.util;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.kernel.color.DeviceRgb;
 import com.itextpdf.kernel.color.WebColors;
+import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -249,6 +251,11 @@ public class CssUtils {
                 || WebColors.NAMES.containsKey(value.toLowerCase()) || CssConstants.TRANSPARENT.equals(value);
     }
 
+    public static float[] parseRgbaColor(String colorValue) {
+        float[] rgbaColor = WebColors.getRGBAColor(colorValue);
+        return rgbaColor;
+    }
+
     /**
      * Checks whether a string contains an allowed metric unit in HTML/CSS; px, in, cm, mm, pc or pt.
      *
@@ -304,5 +311,4 @@ public class CssUtils {
         }
         return str;
     }
-
 }

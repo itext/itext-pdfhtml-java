@@ -46,7 +46,8 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.CssDefaults;
 import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.kernel.color.WebColors;
+import com.itextpdf.kernel.color.Color;
+import com.itextpdf.kernel.color.DeviceRgb;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.border.DashedBorder;
@@ -58,6 +59,7 @@ import com.itextpdf.layout.border.OutsetBorder;
 import com.itextpdf.layout.border.RidgeBorder;
 import com.itextpdf.layout.border.SolidBorder;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,7 +101,6 @@ public class BorderStyleApplierUtil {
             return null;
         }
 
-        Border border = null;
         if (borderWidth == null) {
             borderWidth = CssDefaults.getDefaultValue(CssConstants.BORDER_WIDTH);
         }
@@ -125,38 +126,46 @@ public class BorderStyleApplierUtil {
         }
 
         borderWidthValue = unitValue.getValue();
+        Border border = null;
         if (borderWidthValue > 0) {
-            switch (borderStyle.toLowerCase()) {
+            DeviceRgb color = (DeviceRgb) Color.BLACK;
+            float opacity = 1f;
+            if (borderColor != null) {
+                float[] rgbaColor = CssUtils.parseRgbaColor(borderColor);
+                color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
+                opacity = rgbaColor[3];
+            } else if (CssConstants.GROOVE.equals(borderStyle) || CssConstants.RIDGE.equals(borderStyle) 
+                    || CssConstants.INSET.equals(borderStyle) || CssConstants.OUTSET.equals(borderStyle)) {
+                color = new DeviceRgb(212, 208, 200);
+            }
+            switch (borderStyle) {
                 case CssConstants.SOLID:
-                    border = new SolidBorder(borderWidthValue);
+                    border = new SolidBorder(color, borderWidthValue, opacity);
                     break;
                 case CssConstants.DASHED:
-                    border = new DashedBorder(borderWidthValue);
+                    border = new DashedBorder(color, borderWidthValue, opacity);
                     break;
                 case CssConstants.DOTTED:
-                    border = new DottedBorder(borderWidthValue);
+                    border = new DottedBorder(color, borderWidthValue, opacity);
                     break;
                 case CssConstants.DOUBLE:
-                    border = new DoubleBorder(borderWidthValue);
+                    border = new DoubleBorder(color, borderWidthValue, opacity);
                     break;
                 case CssConstants.GROOVE:
-                    border = new GrooveBorder(borderWidthValue);
+                    border = new GrooveBorder(color, borderWidthValue, opacity);
                     break;
                 case CssConstants.RIDGE:
-                    border = new RidgeBorder(borderWidthValue);
+                    border = new RidgeBorder(color, borderWidthValue, opacity);
                     break;
                 case CssConstants.INSET:
-                    border = new InsetBorder(borderWidthValue);
+                    border = new InsetBorder(color, borderWidthValue, opacity);
                     break;
                 case CssConstants.OUTSET:
-                    border = new OutsetBorder(borderWidthValue);
+                    border = new OutsetBorder(color, borderWidthValue, opacity);
                     break;
                 default:
                     border = null;
                     break;
-            }
-            if (border != null && borderColor != null) {
-                border.setColor(WebColors.getRGBColor(borderColor));
             }
         }
         return border;

@@ -46,6 +46,8 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.kernel.color.Color;
+import com.itextpdf.kernel.color.DeviceRgb;
 import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
 import com.itextpdf.layout.IPropertyContainer;
@@ -53,6 +55,7 @@ import com.itextpdf.layout.property.BaseDirection;
 import com.itextpdf.layout.property.Leading;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.property.Underline;
 import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
@@ -104,7 +107,10 @@ public final class FontStyleApplierUtil {
         }
 
         if (cssProps.get(CssConstants.COLOR) != null) {
-            element.setProperty(Property.FONT_COLOR, WebColors.getRGBColor(cssProps.get(CssConstants.COLOR)));
+            float[] rgbaColor = CssUtils.parseRgbaColor(cssProps.get(CssConstants.COLOR));
+            Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
+            float opacity = rgbaColor[3];
+            element.setProperty(Property.FONT_COLOR, new TransparentColor(color, opacity));
         }
 
         // Make sure to place that before text-align applier

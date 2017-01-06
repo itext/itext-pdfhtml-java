@@ -46,12 +46,15 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
+import com.itextpdf.kernel.color.Color;
+import com.itextpdf.kernel.color.DeviceRgb;
 import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.TransparentColor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,7 +67,10 @@ public final class BackgroundApplierUtil {
     public static void applyBackground(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         String backgroundColorStr = cssProps.get(CssConstants.BACKGROUND_COLOR);
         if (backgroundColorStr != null && !CssConstants.TRANSPARENT.equals(backgroundColorStr)) {
-            Background backgroundColor = new Background(WebColors.getRGBColor(backgroundColorStr));
+            float[] rgbaColor = CssUtils.parseRgbaColor(backgroundColorStr);
+            Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
+            float opacity = rgbaColor[3];
+            Background backgroundColor = new Background(color, opacity);
             element.setProperty(Property.BACKGROUND, backgroundColor);
         }
         String backgroundImageStr = cssProps.get(CssConstants.BACKGROUND_IMAGE);
