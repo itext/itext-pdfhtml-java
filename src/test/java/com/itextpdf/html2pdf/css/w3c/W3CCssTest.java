@@ -60,6 +60,9 @@ import org.junit.experimental.categories.Category;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @see <a href="https://github.com/w3c/csswg-test">https://github.com/w3c/csswg-test</a>
+ */
 @Category(IntegrationTest.class)
 public abstract class W3CCssTest extends ExtendedITextTest {
 
