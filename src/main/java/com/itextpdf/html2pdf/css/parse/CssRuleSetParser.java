@@ -128,7 +128,12 @@ public final class CssRuleSetParser {
         int openedBracketPos = propertiesStr.indexOf("(");
         int closedBracketPos = propertiesStr.indexOf(")");
         if (semiColonPos != -1 && semiColonPos > openedBracketPos && semiColonPos < closedBracketPos) {
-            semiColonPos += getSemicolonPosition(propertiesStr.substring(semiColonPos + 1)) + 1;
+            int pos = getSemicolonPosition(propertiesStr.substring(semiColonPos + 1)) + 1;
+            if (pos > 0) {
+                semiColonPos += getSemicolonPosition(propertiesStr.substring(semiColonPos + 1)) + 1;
+            } else {
+                semiColonPos = -1;
+            }
         }
         return semiColonPos;
     }
