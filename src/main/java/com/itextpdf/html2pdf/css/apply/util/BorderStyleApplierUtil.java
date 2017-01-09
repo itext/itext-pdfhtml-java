@@ -131,9 +131,13 @@ public class BorderStyleApplierUtil {
             DeviceRgb color = (DeviceRgb) Color.BLACK;
             float opacity = 1f;
             if (borderColor != null) {
-                float[] rgbaColor = CssUtils.parseRgbaColor(borderColor);
-                color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
-                opacity = rgbaColor[3];
+                if (!CssConstants.TRANSPARENT.equals(borderColor)) {
+                    float[] rgbaColor = CssUtils.parseRgbaColor(borderColor);
+                    color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
+                    opacity = rgbaColor[3];
+                } else {
+                    opacity = 0f;
+                }
             } else if (CssConstants.GROOVE.equals(borderStyle) || CssConstants.RIDGE.equals(borderStyle) 
                     || CssConstants.INSET.equals(borderStyle) || CssConstants.OUTSET.equals(borderStyle)) {
                 color = new DeviceRgb(212, 208, 200);

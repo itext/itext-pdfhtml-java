@@ -106,11 +106,18 @@ public final class FontStyleApplierUtil {
             }
         }
 
-        if (cssProps.get(CssConstants.COLOR) != null) {
-            float[] rgbaColor = CssUtils.parseRgbaColor(cssProps.get(CssConstants.COLOR));
-            Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
-            float opacity = rgbaColor[3];
-            element.setProperty(Property.FONT_COLOR, new TransparentColor(color, opacity));
+        String cssColorPropValue = cssProps.get(CssConstants.COLOR);
+        if (cssColorPropValue != null) {
+            TransparentColor transparentColor;
+            if (!CssConstants.TRANSPARENT.equals(cssColorPropValue)) {
+                float[] rgbaColor = CssUtils.parseRgbaColor(cssColorPropValue);
+                Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
+                float opacity = rgbaColor[3];
+                transparentColor = new TransparentColor(color, opacity);
+            } else {
+                transparentColor = new TransparentColor(Color.BLACK, 0f);
+            }
+            element.setProperty(Property.FONT_COLOR, transparentColor);
         }
 
         // Make sure to place that before text-align applier

@@ -1,18 +1,18 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 204>>stream
-xœ…MÂ …÷sŠYÖÍT İšèŞ„˜HµÆ¿‚‰×wÚ¥ÕÖÀ‚o¾yLKóµD©ĞU´…¢<G·ƒÌùxÇÛ6F±®ğ~ğÁcqæ°r°¦_-µ!¡ß´Àd—+¿--ÙfÓæ”XÙÅ+ì9Yn`4)‹g¢Hô‰uI­äŠeû›Ï¹ç¬úÜ>h¼ ­¾ûİàƒ(]Êø-'Áƒiüâ¦“xAG&!xuL4J´NÛíà_~'-di&}O,D{K
+<</Filter/FlateDecode/Length 214>>stream
+xœ…É!Dïı}ÔKË2€s5QÏ&ü€‰ŒKÜ&ñ÷ãÂ,jà@‘¢^Ñ5Ì,L¹@[Ôh¦‚¤D»‘u¡Áë:p_a³sŞá>àØ`nauû5Wš˜Êâ­FŞ`t¾ w›¯OËh39œ2+Ã´ü&ËÀqbO2¤	ƒ'àlšécÔ%%ëˆ(Ó¯>ç–³êå‹”ßü(H‰>¯ëîCä¤SíÑºxË€b`JCùù„áƒâ¯ìèÔ‚%§ylï>tRŒ—ú§ïr]ƒ½
 endstream
 endobj
 4 0 obj
-<</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
+<</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</ExtGState<</Gs1 7 0 R/Gs2 8 0 R/Gs3 9 0 R/Gs4 10 0 R>>/Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
 endobj
 1 0 obj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20161229120512+03'00')/ModDate(D:20161229120512+03'00')/Producer(iText Software)/Title(CSS Test: Relative positioning and computed top/bottom values)>>
+<</CreationDate(D:20170109130712-03'00')/ModDate(D:20170109130712-03'00')/Producer(iText Software)/Title(CSS Test: Relative positioning and computed top/bottom values)>>
 endobj
 6 0 obj
 <</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -20,18 +20,34 @@ endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
 endobj
+7 0 obj
+<</ca 0>>
+endobj
+8 0 obj
+<</ca 0>>
+endobj
+9 0 obj
+<</ca 0>>
+endobj
+10 0 obj
+<</ca 0>>
+endobj
 xref
-0 7
+0 11
 0000000000 65535 f 
-0000000419 00000 n 
-0000000737 00000 n 
-0000000464 00000 n 
-0000000286 00000 n 
+0000000484 00000 n 
+0000000802 00000 n 
+0000000529 00000 n 
+0000000296 00000 n 
 0000000015 00000 n 
-0000000649 00000 n 
+0000000714 00000 n 
+0000000853 00000 n 
+0000000878 00000 n 
+0000000903 00000 n 
+0000000928 00000 n 
 trailer
-<</ID [<fd6c34dc9e748e65850a25218eb0d92e><fd6c34dc9e748e65850a25218eb0d92e>]/Info 3 0 R/Root 1 0 R/Size 7>>
+<</ID [<87505fe4cf2d3e6953816e5e61c72ef4><87505fe4cf2d3e6953816e5e61c72ef4>]/Info 3 0 R/Root 1 0 R/Size 11>>
 %TEST-LICE-NSE0-7.0.2-SNAPSHOT
 startxref
-788
+954
 %%EOF
