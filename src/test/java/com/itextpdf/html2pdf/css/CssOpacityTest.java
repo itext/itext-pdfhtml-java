@@ -60,7 +60,7 @@ public class CssOpacityTest extends ExtendedITextTest {
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(destinationFolder);
     }
 
     @Test
@@ -68,6 +68,11 @@ public class CssOpacityTest extends ExtendedITextTest {
         // TODO itext "overwrites" parent's opacity while in css, opacity kinda "merges"
         // i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
         runTest("innerOpacityTest");
+    }
+
+    @Test
+    public void nestedInSpanTest() throws IOException, InterruptedException {
+        runTest("nestedInSpanTest");
     }
     
     private void runTest(String name) throws IOException, InterruptedException {

@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.css.apply.impl;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
@@ -56,6 +57,8 @@ import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.property.Property;
 
 import java.util.Map;
 
@@ -64,10 +67,18 @@ public class SpanTagCssApplier implements ICssApplier {
     @Override
     public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
         SpanTagWorker spanTagWorker = (SpanTagWorker) tagWorker;
+        Map<String, String> cssStyles = element.getStyles();
         for (IPropertyContainer child : spanTagWorker.getOwnLeafElements()) {
-            applyChildElementStyles(child, element.getStyles(), context, element);
+            applyChildElementStyles(child, cssStyles, context, element);
         }
-        VerticalAlignmentApplierUtil.applyVerticalAlignmentForInlines(element.getStyles(), context, element, spanTagWorker.getAllElements());
+        VerticalAlignmentApplierUtil.applyVerticalAlignmentForInlines(cssStyles, context, element, spanTagWorker.getAllElements());
+        if (cssStyles.containsKey(CssConstants.OPACITY)) {
+            for (IPropertyContainer elem : spanTagWorker.getAllElements()) {
+                if (elem instanceof Text && !elem.hasProperty(Property.OPACITY)) {
+                    OpacityApplierUtil.applyOpacity(cssStyles, context, elem);
+                }
+            }
+        }
     }
 
     private void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context, IElementNode elementNode) {
@@ -80,7 +91,6 @@ public class SpanTagCssApplier implements ICssApplier {
         //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
         MarginApplierUtil.applyMargins(css, context, element);
         PositionApplierUtil.applyPosition(css, context, element);
-        OpacityApplierUtil.applyOpacity(css, context, element);
     }
 
 }

@@ -48,9 +48,9 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 
@@ -87,8 +87,8 @@ public class DivTagWorker implements ITagWorker {
             for (IPropertyContainer childElement : ((SpanTagWorker) childTagWorker).getAllElements()) {
                 if (childElement instanceof ILeafElement) {
                     inlineHelper.add((ILeafElement) childElement);
-                } else if (childElement instanceof IElementNode) {
-                    allChildrenProcessed = addBlockChild((com.itextpdf.layout.element.IElement) childElement) && allChildrenProcessed;
+                } else if (childElement instanceof IElement) {
+                    allChildrenProcessed = addBlockChild((IElement) childElement) && allChildrenProcessed;
                 }
             }
             processed = allChildrenProcessed;

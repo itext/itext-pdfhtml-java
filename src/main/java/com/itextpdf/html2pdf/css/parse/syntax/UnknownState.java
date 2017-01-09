@@ -59,8 +59,11 @@ class UnknownState implements IParserState {
         } else if (ch == '{') {
             controller.storeCurrentSelector();
             controller.enterPropertiesState();
-        } else if (ch == '-' && "<!-".equals(controller.getBufferContents()) || ch == '>' && "--".equals(controller.getBufferContents())) {
+        } else if (ch == '-' && controller.getBufferContents().endsWith("<!-") || ch == '>' && controller.getBufferContents().endsWith("--")) {
             // Ignoring html comments
+            controller.resetBuffer();
+        } else if (ch == '[' && controller.getBufferContents().endsWith("<![CDATA") || ch == '>' && controller.getBufferContents().endsWith("]]")) {
+            // Ignoring CDATA keyword
             controller.resetBuffer();
         } else {
             controller.appendToBuffer(ch);
