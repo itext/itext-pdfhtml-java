@@ -43,14 +43,16 @@
 package com.itextpdf.html2pdf.resolver.resource;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.io.codec.Base64;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.text.MessageFormat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 // TODO handle <base href=".."> tag?
 public class ResourceResolver {
@@ -82,6 +84,20 @@ public class ResourceResolver {
     }
 
     public PdfImageXObject retrieveImage(String src) {
+        if (src.contains("base64")) {
+            try {
+                String fixedSrc = src.replaceAll("\\s", "");
+                fixedSrc = fixedSrc.substring(fixedSrc.indexOf("base64") + 7);
+                PdfImageXObject imageXObject = new PdfImageXObject(ImageDataFactory.createPng(Base64.decode(fixedSrc)));
+                imageCache.putImage(fixedSrc, imageXObject);
+                return imageXObject;
+            } catch (Exception e) {
+                Logger logger = LoggerFactory.getLogger(ResourceResolver.class);
+                logger.error(LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_FROM_BASE64_SOURCE, e);
+                return null;
+            }
+        }
+
         try {
             URL url = uriResolver.resolveAgainstBaseUri(src);
             String imageResolvedSrc = url.toExternalForm();
