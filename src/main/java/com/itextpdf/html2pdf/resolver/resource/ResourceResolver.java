@@ -88,13 +88,10 @@ public class ResourceResolver {
             try {
                 String fixedSrc = src.replaceAll("\\s", "");
                 fixedSrc = fixedSrc.substring(fixedSrc.indexOf("base64") + 7);
-                PdfImageXObject imageXObject = new PdfImageXObject(ImageDataFactory.createPng(Base64.decode(fixedSrc)));
+                PdfImageXObject imageXObject = new PdfImageXObject(ImageDataFactory.create(Base64.decode(fixedSrc)));
                 imageCache.putImage(fixedSrc, imageXObject);
                 return imageXObject;
             } catch (Exception e) {
-                Logger logger = LoggerFactory.getLogger(ResourceResolver.class);
-                logger.error(LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_FROM_BASE64_SOURCE, e);
-                return null;
             }
         }
 
