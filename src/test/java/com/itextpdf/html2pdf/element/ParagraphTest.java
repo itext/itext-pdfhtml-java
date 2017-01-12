@@ -101,4 +101,16 @@ public class ParagraphTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithNonBreakableSpaceTest01.pdf", sourceFolder + "cmp_paragraphWithNonBreakableSpaceTest01.pdf", destinationFolder, "diff06_"));
     }
 
+    @Test
+    public void paragraphWithNonBreakableSpaceTest02() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithNonBreakableSpaceTest02.html"), new File(destinationFolder + "paragraphWithNonBreakableSpaceTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithNonBreakableSpaceTest02.pdf", sourceFolder + "cmp_paragraphWithNonBreakableSpaceTest02.pdf", destinationFolder, "diff07_"));
+    }
+
+    @Test
+    public void paragraphWithNonBreakableSpaceTest03() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithNonBreakableSpaceTest03.html"), new File(destinationFolder + "paragraphWithNonBreakableSpaceTest03.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithNonBreakableSpaceTest03.pdf", sourceFolder + "cmp_paragraphWithNonBreakableSpaceTest03.pdf", destinationFolder, "diff08_"));
+    }
+
 }
