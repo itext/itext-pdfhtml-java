@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.css.apply.util;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.resolve.CssDefaults;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.color.DeviceRgb;
@@ -83,6 +84,7 @@ public final class FontStyleApplierUtil {
             }
         }
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float rem = context.getCssContext().getRootFontSize();
         if (em != 0) {
             element.setProperty(Property.FONT_SIZE, em);
         }
@@ -164,7 +166,7 @@ public final class FontStyleApplierUtil {
 
         String textIndent = cssProps.get(CssConstants.TEXT_INDENT);
         if (textIndent != null) {
-            UnitValue textIndentValue = CssUtils.parseLengthValueToPt(textIndent, em);
+            UnitValue textIndentValue = CssUtils.parseLengthValueToPt(textIndent, em, rem);
             if (textIndentValue != null) {
                 if (textIndentValue.isPointValue()) {
                     element.setProperty(Property.FIRST_LINE_INDENT, textIndentValue.getValue());
@@ -176,7 +178,7 @@ public final class FontStyleApplierUtil {
 
         String letterSpacing = cssProps.get(CssConstants.LETTER_SPACING);
         if (letterSpacing != null) {
-            UnitValue letterSpacingValue = CssUtils.parseLengthValueToPt(letterSpacing, em);
+            UnitValue letterSpacingValue = CssUtils.parseLengthValueToPt(letterSpacing, em, rem);
             if (letterSpacingValue.isPointValue()) {
                 element.setProperty(Property.CHARACTER_SPACING, letterSpacingValue.getValue());
             } else {
@@ -186,7 +188,7 @@ public final class FontStyleApplierUtil {
 
         String wordSpacing = cssProps.get(CssConstants.WORD_SPACING);
         if (wordSpacing != null) {
-            UnitValue wordSpacingValue = CssUtils.parseLengthValueToPt(wordSpacing, em);
+            UnitValue wordSpacingValue = CssUtils.parseLengthValueToPt(wordSpacing, em, rem);
             if (wordSpacingValue != null) {
                 if (wordSpacingValue.isPointValue()) {
                     element.setProperty(Property.WORD_SPACING, wordSpacingValue.getValue());
@@ -198,7 +200,7 @@ public final class FontStyleApplierUtil {
 
         String lineHeight = cssProps.get(CssConstants.LINE_HEIGHT);
         if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight)) {
-            UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em);
+            UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em, rem);
             if (CssUtils.isNumericValue(lineHeight)) {
                 element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue()));
             } else if (lineHeightValue != null && lineHeightValue.isPointValue()) {

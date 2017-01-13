@@ -291,6 +291,7 @@ public class CssConstants {
     public static final String PERCENTAGE = "%";
     public static final String PT = "pt";
     public static final String PX = "px";
+    public static final String REM = "rem";
     public static final String Q = "q";
 
     // units of resolution

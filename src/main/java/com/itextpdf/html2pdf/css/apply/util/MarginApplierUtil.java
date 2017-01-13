@@ -74,14 +74,15 @@ public final class MarginApplierUtil {
         boolean isImage = element instanceof Image;
         
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float rem = context.getCssContext().getRootFontSize();
 
         if (isBlock || isImage) {
-            trySetMarginIfNotAuto(Property.MARGIN_TOP, marginTop, element, em);
-            trySetMarginIfNotAuto(Property.MARGIN_BOTTOM, marginBottom, element, em);
+            trySetMarginIfNotAuto(Property.MARGIN_TOP, marginTop, element, em, rem);
+            trySetMarginIfNotAuto(Property.MARGIN_BOTTOM, marginBottom, element, em, rem);
         }
 
-        boolean isLeftAuto = !trySetMarginIfNotAuto(Property.MARGIN_LEFT, marginLeft, element, em);
-        boolean isRightAuto = !trySetMarginIfNotAuto(Property.MARGIN_RIGHT, marginRight, element, em);
+        boolean isLeftAuto = !trySetMarginIfNotAuto(Property.MARGIN_LEFT, marginLeft, element, em, rem);
+        boolean isRightAuto = !trySetMarginIfNotAuto(Property.MARGIN_RIGHT, marginRight, element, em, rem);
 
         if (isBlock) {
             if (isLeftAuto && isRightAuto) {
@@ -95,21 +96,21 @@ public final class MarginApplierUtil {
 
     }
 
-    private static boolean trySetMarginIfNotAuto(int marginProperty, String marginValue, IPropertyContainer element, float em) {
+    private static boolean trySetMarginIfNotAuto(int marginProperty, String marginValue, IPropertyContainer element, float em, float rem) {
         boolean isAuto = CssConstants.AUTO.equals(marginValue);
         if (isAuto) {
             return false;
         }
         
-        Float marginTopVal = parseMarginValue(marginValue, em);
+        Float marginTopVal = parseMarginValue(marginValue, em, rem);
         if (marginTopVal != null) {
             element.setProperty(marginProperty, marginTopVal);
         }
         return true;
     }
 
-    private static Float parseMarginValue(String marginValString, float em) {
-        UnitValue marginTopUnitVal = CssUtils.parseLengthValueToPt(marginValString, em);
+    private static Float parseMarginValue(String marginValString, float em, float rem) {
+        UnitValue marginTopUnitVal = CssUtils.parseLengthValueToPt(marginValString, em, rem);
         if (marginTopUnitVal != null) {
             if (!marginTopUnitVal.isPointValue()) {
                 logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);

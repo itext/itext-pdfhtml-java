@@ -63,16 +63,17 @@ public final class WidthHeightApplierUtil {
 
     public static void applyWidthHeight(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float rem = context.getCssContext().getRootFontSize();
         String widthVal = cssProps.get(CssConstants.WIDTH);
         if (!CssConstants.AUTO.equals(widthVal) && widthVal != null) {
-            UnitValue width = CssUtils.parseLengthValueToPt(widthVal, em);
+            UnitValue width = CssUtils.parseLengthValueToPt(widthVal, em, rem);
             element.setProperty(Property.WIDTH, width);
         }
 
         String heightVal = cssProps.get(CssConstants.HEIGHT);
         if (heightVal != null) {
             if (!CssConstants.AUTO.equals(heightVal)) {
-                UnitValue height = CssUtils.parseLengthValueToPt(heightVal, em);
+                UnitValue height = CssUtils.parseLengthValueToPt(heightVal, em, rem);
                 if (height != null) {
                     if (height.isPointValue()) {
                         element.setProperty(Property.HEIGHT, height.getValue());
@@ -85,7 +86,7 @@ public final class WidthHeightApplierUtil {
 
         String maxHeightVal = cssProps.get(CssConstants.MAX_HEIGHT);
         if (maxHeightVal != null) {
-            UnitValue height = CssUtils.parseLengthValueToPt(maxHeightVal, em);
+            UnitValue height = CssUtils.parseLengthValueToPt(maxHeightVal, em, rem);
             if (height != null) {
                 if (height.isPointValue()) {
                     element.setProperty(Property.MAX_HEIGHT, height.getValue());
@@ -97,7 +98,7 @@ public final class WidthHeightApplierUtil {
 
         String minHeightVal = cssProps.get(CssConstants.MIN_HEIGHT);
         if (minHeightVal != null) {
-            UnitValue height = CssUtils.parseLengthValueToPt(minHeightVal, em);
+            UnitValue height = CssUtils.parseLengthValueToPt(minHeightVal, em, rem);
             if (height != null) {
                 if (height.isPointValue()) {
                     element.setProperty(Property.MIN_HEIGHT, height.getValue());

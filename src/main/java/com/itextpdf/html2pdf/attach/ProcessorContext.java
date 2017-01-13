@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.css.apply.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
+import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontResolver;
 import com.itextpdf.html2pdf.resolver.font.IFontResolver;
 import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
@@ -59,6 +60,7 @@ public class ProcessorContext {
     private ITagWorkerFactory tagWorkerFactory;
     private ICssApplierFactory cssApplierFactory;
     private String baseUri;
+    private CssContext cssContext;
 
     // Variable fields
     private State state;
@@ -96,6 +98,8 @@ public class ProcessorContext {
         }
 
         resourceResolver = new ResourceResolver(baseUri);
+
+        cssContext = new CssContext();
     }
 
     public void setFontResolver(IFontResolver fontResolver) {
@@ -130,10 +134,15 @@ public class ProcessorContext {
         return cssApplierFactory;
     }
 
+    public CssContext getCssContext() {
+        return cssContext;
+    }
+
     public void reset() {
         this.pdfDocument = null;
         this.state = new State();
         this.resourceResolver.resetCache();
+        this.cssContext = new CssContext();
     }
 
     public void reset(PdfDocument pdfDocument) {

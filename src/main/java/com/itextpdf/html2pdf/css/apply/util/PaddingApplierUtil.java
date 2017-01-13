@@ -68,10 +68,11 @@ public final class PaddingApplierUtil {
         String paddingRight = cssProps.get(CssConstants.PADDING_RIGHT);
 
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
-        UnitValue marginTopVal = CssUtils.parseLengthValueToPt(paddingTop, em);
-        UnitValue marginBottomVal = CssUtils.parseLengthValueToPt(paddingBottom, em);
-        UnitValue marginLeftVal = CssUtils.parseLengthValueToPt(paddingLeft, em);
-        UnitValue marginRightVal = CssUtils.parseLengthValueToPt(paddingRight, em);
+        float rem = context.getCssContext().getRootFontSize();
+        UnitValue marginTopVal = CssUtils.parseLengthValueToPt(paddingTop, em, rem);
+        UnitValue marginBottomVal = CssUtils.parseLengthValueToPt(paddingBottom, em, rem);
+        UnitValue marginLeftVal = CssUtils.parseLengthValueToPt(paddingLeft, em, rem);
+        UnitValue marginRightVal = CssUtils.parseLengthValueToPt(paddingRight, em, rem);
 
         if (marginTopVal != null) {
             if (marginTopVal.isPointValue()) {

@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
+import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.layout.property.UnitValue;
@@ -74,10 +75,10 @@ public class SupportedColColgroupPropertiesUtil {
             CssConstants.VISIBILITY));
 
     //The Width is a special case, casue it should be transferred from <colgroup> to <col> but it not applied to <td> or <th>
-    public static UnitValue getWidth(Map<String, String> resolvedCssProps) {
+    public static UnitValue getWidth(Map<String, String> resolvedCssProps, ProcessorContext context) {
         float em = CssUtils.parseAbsoluteLength(resolvedCssProps.get(CssConstants.FONT_SIZE));
         String width = resolvedCssProps.get(CssConstants.WIDTH);
-        return width != null ? CssUtils.parseLengthValueToPt(width, em) : null;
+        return width != null ? CssUtils.parseLengthValueToPt(width, em, context.getCssContext().getRootFontSize()) : null;
     }
 
     public static Map<String, String> getCellProperties(Map<String, String> resolvedCssProps) {

@@ -40,28 +40,25 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply.impl;
+package com.itextpdf.html2pdf.css.resolve;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.tags.ColTagWorker;
-import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.apply.util.SupportedColColgroupPropertiesUtil;
-import com.itextpdf.html2pdf.html.node.IElementNode;
 
-import java.util.Map;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 
-public class ColTagCssApplier implements ICssApplier {
+public class CssContext {
+    //value in pt
+    private float rootFontSize = FontStyleApplierUtil.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
 
-    @Override
-    public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-        Map<String, String> cssProps = element.getStyles();
+    public float getRootFontSize() {
+        return rootFontSize;
+    }
 
-        if (cssProps != null && tagWorker instanceof ColTagWorker) {
-            ((ColTagWorker) tagWorker).getColumn()
-                    .setCellCssProps(SupportedColColgroupPropertiesUtil.getCellProperties(cssProps))
-                    .setOwnCssProps(SupportedColColgroupPropertiesUtil.getOwnProperties(cssProps))
-                    .setWidth(SupportedColColgroupPropertiesUtil.getWidth(cssProps, context));
-        }
+    public void setRootFontSize(float fontSize) {
+        this.rootFontSize = fontSize;
+    }
+
+    public void setRootFontSize(String fontSizeStr) {
+        this.rootFontSize = FontStyleApplierUtil.parseAbsoluteFontSize(fontSizeStr);
     }
 }

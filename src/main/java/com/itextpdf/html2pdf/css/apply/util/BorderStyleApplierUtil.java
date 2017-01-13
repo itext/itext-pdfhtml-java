@@ -74,29 +74,30 @@ public class BorderStyleApplierUtil {
 
     public static void applyBorders(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float rem = context.getCssContext().getRootFontSize();
         Border topBorder = getCertainBorder(cssProps.get(CssConstants.BORDER_TOP_WIDTH),
-                cssProps.get(CssConstants.BORDER_TOP_STYLE), cssProps.get(CssConstants.BORDER_TOP_COLOR), em);
+                cssProps.get(CssConstants.BORDER_TOP_STYLE), cssProps.get(CssConstants.BORDER_TOP_COLOR), em, rem);
         if (topBorder != null) {
             element.setProperty(Property.BORDER_TOP, topBorder);
         }
         Border bottomBorder = getCertainBorder(cssProps.get(CssConstants.BORDER_BOTTOM_WIDTH),
-                cssProps.get(CssConstants.BORDER_BOTTOM_STYLE), cssProps.get(CssConstants.BORDER_BOTTOM_COLOR), em);
+                cssProps.get(CssConstants.BORDER_BOTTOM_STYLE), cssProps.get(CssConstants.BORDER_BOTTOM_COLOR), em, rem);
         if (bottomBorder != null) {
             element.setProperty(Property.BORDER_BOTTOM, bottomBorder);
         }
         Border leftBorder = getCertainBorder(cssProps.get(CssConstants.BORDER_LEFT_WIDTH),
-                cssProps.get(CssConstants.BORDER_LEFT_STYLE), cssProps.get(CssConstants.BORDER_LEFT_COLOR), em);
+                cssProps.get(CssConstants.BORDER_LEFT_STYLE), cssProps.get(CssConstants.BORDER_LEFT_COLOR), em, rem);
         if (leftBorder != null) {
             element.setProperty(Property.BORDER_LEFT, leftBorder);
         }
         Border rightBorder = getCertainBorder(cssProps.get(CssConstants.BORDER_RIGHT_WIDTH),
-                cssProps.get(CssConstants.BORDER_RIGHT_STYLE), cssProps.get(CssConstants.BORDER_RIGHT_COLOR), em);
+                cssProps.get(CssConstants.BORDER_RIGHT_STYLE), cssProps.get(CssConstants.BORDER_RIGHT_COLOR), em, rem);
         if (rightBorder != null) {
             element.setProperty(Property.BORDER_RIGHT, rightBorder);
         }
     }
 
-    public static Border getCertainBorder(String borderWidth, String borderStyle, String borderColor, float em) {
+    public static Border getCertainBorder(String borderWidth, String borderStyle, String borderColor, float em, float rem) {
         if (borderStyle == null || CssConstants.NONE.equals(borderStyle)) {
             return null;
         }
@@ -116,7 +117,7 @@ public class BorderStyleApplierUtil {
             }
         }
 
-        UnitValue unitValue = CssUtils.parseLengthValueToPt(borderWidth, em);
+        UnitValue unitValue = CssUtils.parseLengthValueToPt(borderWidth, em, rem);
         if (unitValue == null) {
             return null;
         }

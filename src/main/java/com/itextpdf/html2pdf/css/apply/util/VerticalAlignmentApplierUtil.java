@@ -99,16 +99,16 @@ public class VerticalAlignmentApplierUtil {
                 textRise = calcTextRiseForMiddle(elementNode);
 
             } else if (CssConstants.TEXT_TOP.equals(vAlignVal)) {
-                textRise = calcTextRiseForTextTop(elementNode);
+                textRise = calcTextRiseForTextTop(elementNode, context.getCssContext().getRootFontSize());
 
             } else if (CssConstants.TEXT_BOTTOM.equals(vAlignVal)) {
-                textRise = calcTextRiseForTextBottom(elementNode);
+                textRise = calcTextRiseForTextBottom(elementNode, context.getCssContext().getRootFontSize());
 
             } else if (CssUtils.isMetricValue(vAlignVal)) {
                 textRise = CssUtils.parseAbsoluteLength(vAlignVal);
 
             } else if (vAlignVal.endsWith(CssConstants.PERCENTAGE)) {
-                textRise = calcTextRiseForPercentageValue(elementNode, vAlignVal);
+                textRise = calcTextRiseForPercentageValue(elementNode, context.getCssContext().getRootFontSize(), vAlignVal);
             }
             if (textRise != 0) {
                 for (IPropertyContainer element : childElements) {
@@ -148,11 +148,11 @@ public class VerticalAlignmentApplierUtil {
         return xHeight - elementMidPoint;
     }
 
-    private static float calcTextRiseForTextTop(IElementNode elementNode) {
+    private static float calcTextRiseForTextTop(IElementNode elementNode, float rootFontSize) {
         String ownFontSizeStr = elementNode.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssUtils.parseAbsoluteLength(ownFontSizeStr);
         String lineHeightStr = elementNode.getStyles().get(CssConstants.LINE_HEIGHT);
-        float lineHeightActualValue = getLineHeightActualValue(fontSize, lineHeightStr);
+        float lineHeightActualValue = getLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
         float parentFontSize = getParentFontSize(elementNode);
 
         float elementTopEdge = (float) (fontSize * ASCENDER_COEFFICIENT + (lineHeightActualValue - fontSize) / 2);
@@ -161,11 +161,11 @@ public class VerticalAlignmentApplierUtil {
         return parentTextTop - elementTopEdge;
     }
 
-    private static float calcTextRiseForTextBottom(IElementNode elementNode) {
+    private static float calcTextRiseForTextBottom(IElementNode elementNode, float rootFontSize) {
         String ownFontSizeStr = elementNode.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssUtils.parseAbsoluteLength(ownFontSizeStr);
         String lineHeightStr = elementNode.getStyles().get(CssConstants.LINE_HEIGHT);
-        float lineHeightActualValue = getLineHeightActualValue(fontSize, lineHeightStr);
+        float lineHeightActualValue = getLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
         float parentFontSize = getParentFontSize(elementNode);
 
         float elementBottomEdge = (float) (fontSize * DESCENDER_COEFFICIENT + (lineHeightActualValue - fontSize) / 2);
@@ -174,20 +174,20 @@ public class VerticalAlignmentApplierUtil {
         return elementBottomEdge - parentTextBottom;
     }
 
-    private static float calcTextRiseForPercentageValue(IElementNode elementNode, String vAlignVal) {
+    private static float calcTextRiseForPercentageValue(IElementNode elementNode, float rootFontSize, String vAlignVal) {
         String ownFontSizeStr = elementNode.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssUtils.parseAbsoluteLength(ownFontSizeStr);
         String lineHeightStr = elementNode.getStyles().get(CssConstants.LINE_HEIGHT);
-        float lineHeightActualValue = getLineHeightActualValue(fontSize, lineHeightStr);
+        float lineHeightActualValue = getLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
 
         return CssUtils.parseRelativeValue(vAlignVal, lineHeightActualValue);
     }
 
 
-    private static float getLineHeightActualValue(float fontSize, String lineHeightStr) {
+    private static float getLineHeightActualValue(float fontSize, float rootFontSize, String lineHeightStr) {
         float lineHeightActualValue;
         if (lineHeightStr != null) {
-            UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeightStr, fontSize);
+            UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeightStr, fontSize, rootFontSize);
             if (CssUtils.isNumericValue(lineHeightStr)) {
                 lineHeightActualValue = fontSize * lineHeightValue.getValue();
             } else if (lineHeightValue.isPointValue()) {

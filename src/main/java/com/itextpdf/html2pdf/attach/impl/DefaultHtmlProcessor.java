@@ -149,8 +149,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         IElementNode html = findHtmlNode(root);
         IElementNode body = findBodyNode(root);
         // Force resolve styles to fetch default font size etc
-        html.setStyles(cssResolver.resolveStyles(html));
-        body.setStyles(cssResolver.resolveStyles(body));
+        html.setStyles(cssResolver.resolveStyles(html, context.getCssContext()));
+        body.setStyles(cssResolver.resolveStyles(body, context.getCssContext()));
         for (INode node : body.childNodes()) {
             if (node instanceof IElementNode) {
                 visit(node);
@@ -223,7 +223,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     private void visit(INode node) {
         if (node instanceof IElementNode) {
             IElementNode element = (IElementNode) node;
-            element.setStyles(cssResolver.resolveStyles(element));
+            element.setStyles(cssResolver.resolveStyles(element, context.getCssContext()));
             if (!isDisplayable(element)) {
                 return;
             }
