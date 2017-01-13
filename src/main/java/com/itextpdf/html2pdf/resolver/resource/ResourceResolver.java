@@ -88,8 +88,12 @@ public class ResourceResolver {
             try {
                 String fixedSrc = src.replaceAll("\\s", "");
                 fixedSrc = fixedSrc.substring(fixedSrc.indexOf("base64") + 7);
-                PdfImageXObject imageXObject = new PdfImageXObject(ImageDataFactory.create(Base64.decode(fixedSrc)));
-                imageCache.putImage(fixedSrc, imageXObject);
+                PdfImageXObject imageXObject = imageCache.getImage(fixedSrc);
+                if (imageXObject == null) {
+                    imageXObject = new PdfImageXObject(ImageDataFactory.create(Base64.decode(fixedSrc)));
+                    imageCache.putImage(fixedSrc, imageXObject);
+                }
+
                 return imageXObject;
             } catch (Exception e) {
             }
