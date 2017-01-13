@@ -184,11 +184,21 @@ public class HtmlConverter {
         return Attacher.attach(doc, pdfDocument, converterProperties);
     }
 
-    public static List<IElement> convertToElements(String html) {
-        return convertToElements(html, null);
+    public static List<IElement> convertToElements(String html) throws IOException {
+        InputStream stream = new ByteArrayInputStream(html.getBytes());
+        return convertToElements(stream, null);
     }
 
-    public static List<IElement> convertToElements(String html, ConverterProperties converterProperties) {
+    public static List<IElement> convertToElements(InputStream htmlStream) throws IOException {
+        return convertToElements(htmlStream, null);
+    }
+
+    public static List<IElement> convertToElements(String html, ConverterProperties converterProperties) throws IOException {
+        ByteArrayInputStream stream = new ByteArrayInputStream(html.getBytes());
+        return convertToElements(stream, converterProperties);
+    }
+
+    public static List<IElement> convertToElements(InputStream htmlStream, ConverterProperties converterProperties) throws IOException {
         String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
         String licenseKeyProductClassName = "com.itextpdf.licensekey.LicenseKeyProduct";
         String licenseKeyFeatureClassName = "com.itextpdf.licensekey.LicenseKeyProductFeature";
@@ -226,10 +236,10 @@ public class HtmlConverter {
         }
 
         IHtmlParser parser = new JsoupHtmlParser();
-        IDocumentNode doc = parser.parse(html);
+        IDocumentNode doc = parser.parse(htmlStream, detectEncoding(htmlStream));
         return Attacher.attach(doc, converterProperties);
     }
-
+    
     // TODO
     private static String detectEncoding(final InputStream in) {
         return "UTF-8";
