@@ -61,6 +61,7 @@ public class CssUtilTest extends ExtendedITextTest {
         assertEquals(true, CssUtils.isMetricValue("mm"));
         assertEquals(true, CssUtils.isMetricValue("pc"));
         assertEquals(false, CssUtils.isMetricValue("em"));
+        assertEquals(false, CssUtils.isMetricValue("rem"));
         assertEquals(false,CssUtils.isMetricValue("ex"));
         assertEquals(true, CssUtils.isMetricValue("pt"));
         assertEquals(false, CssUtils.isMetricValue("inch"));

@@ -78,7 +78,8 @@ public abstract class AbstractBorderShorthandResolver implements IShorthandResol
         String borderWidthValue = null;
 
         for (String value : props) {
-            if (CssConstants.BORDER_WIDTH_VALUES.contains(value) || CssUtils.isNumericValue(value) || CssUtils.isMetricValue(value)) {
+            if (CssConstants.BORDER_WIDTH_VALUES.contains(value) || CssUtils.isNumericValue(value)
+                    || CssUtils.isMetricValue(value) || CssUtils.isRelativeValue(value)) {
                 borderWidthValue = value;
             } else if (CssConstants.BORDER_STYLE_VALUES.contains(value)) {
                 borderStyleValue = value;
