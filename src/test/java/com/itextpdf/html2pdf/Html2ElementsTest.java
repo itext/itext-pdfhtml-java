@@ -51,12 +51,14 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.IOException;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.util.List;
 
 @Category(IntegrationTest.class)
 public class Html2ElementsTest extends ExtendedITextTest {
@@ -69,7 +71,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
     }
 
     @Test
-    public void htmlToElementsTest01() {
+    public void htmlToElementsTest01() throws IOException {
         String html = "<p>Hello world!</p>";
         List<IElement> lst = HtmlConverter.convertToElements(html);
         Assert.assertTrue(lst.size() == 1);
@@ -80,7 +82,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
     }
 
     @Test
-    public void htmlToElementsTest02() {
+    public void htmlToElementsTest02() throws IOException {
         String html = "<table style=\"font-size: 2em\"><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table>";
         List<IElement> lst = HtmlConverter.convertToElements(html);
         Assert.assertTrue(lst.size() == 1);
@@ -92,7 +94,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
     }
 
     @Test
-    public void htmlToElementsTest03() {
+    public void htmlToElementsTest03() throws IOException {
         String html = "<p>Hello world!</p><table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table><p>Hello world!</p>";
         List<IElement> lst = HtmlConverter.convertToElements(html);
         Assert.assertTrue(lst.size() == 3);
@@ -105,7 +107,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
 
     @Test
     // Handles malformed html
-    public void htmlToElementsTest04() {
+    public void htmlToElementsTest04() throws IOException {
         String html = "<p>Hello world!<table><td>123";
         List<IElement> lst = HtmlConverter.convertToElements(html);
         Assert.assertTrue(lst.size() == 2);
@@ -117,7 +119,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.TEXT_WAS_NOT_PROCESSED)})
-    public void htmlToElementsTest05() {
+    public void htmlToElementsTest05() throws IOException {
         String html = "123";
         List<IElement> lst = HtmlConverter.convertToElements(html);
         Assert.assertTrue(lst.size() == 0);
