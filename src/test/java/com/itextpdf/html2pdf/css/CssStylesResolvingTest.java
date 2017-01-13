@@ -43,10 +43,12 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
+import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.IHtmlParser;
+import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
 import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
@@ -296,13 +298,17 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "display: block");
     }
 
-    private void resolveStylesForTree(INode node, ICssResolver cssResolver) {
+    private void resolveStylesForTree(INode node, ICssResolver cssResolver, CssContext context) {
         if (node instanceof IElementNode) {
-            ((IElementNode)node).setStyles(cssResolver.resolveStyles((IElementNode)node));
+            IElementNode element = (IElementNode)node;
+            element.setStyles(cssResolver.resolveStyles((IElementNode)node, context));
+            if (TagConstants.HTML.equals(element.name())) {
+                context.setRootFontSize(element.getStyles().get(CssConstants.FONT_SIZE));
+            }
         }
 
         for (INode child : node.childNodes()) {
-            resolveStylesForTree(child, cssResolver);
+            resolveStylesForTree(child, cssResolver, context);
         }
     }
 
@@ -311,7 +317,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
         IHtmlParser parser = new JsoupHtmlParser();
         IDocumentNode document = parser.parse(new FileInputStream(filePath), "UTF-8");
         ICssResolver cssResolver = new DefaultCssResolver(document, MediaDeviceDescription.createDefault(), new ResourceResolver(""));
-        resolveStylesForTree(document, cssResolver);
+        CssContext context = new CssContext();
+        resolveStylesForTree(document, cssResolver, context);
 
         IElementNode element = findElement(document, elementPath);
         if (element == null) {

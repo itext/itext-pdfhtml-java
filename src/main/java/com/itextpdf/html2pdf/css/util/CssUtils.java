@@ -181,19 +181,21 @@ public class CssUtils {
         String unit = relativeValue.substring(pos);
         if (unit.startsWith(CssConstants.PERCENTAGE)) {
             f = baseValue * f / 100;
-        } else if (unit.startsWith(CssConstants.EM)) {
+        } else if (unit.startsWith(CssConstants.EM) || unit.startsWith(CssConstants.REM)) {
             f = baseValue * f;
-        } else if (unit.contains(CssConstants.EX)) {
+        } else if (unit.startsWith(CssConstants.EX)) {
             f = baseValue * f / 2;
         }
         return (float)f;
     }
 
-    public static UnitValue parseLengthValueToPt(final String value, final float emValue) {
+    public static UnitValue parseLengthValueToPt(final String value, final float emValue, final float remValue) {
         if (isMetricValue(value) || isNumericValue(value)) {
             return new UnitValue(UnitValue.POINT, parseAbsoluteLength(value));
         } else if (value != null && value.endsWith(CssConstants.PERCENTAGE)) {
             return new UnitValue(UnitValue.PERCENT, Float.parseFloat(value.substring(0, value.length() - 1)));
+        } else if (isRemValue(value)) {
+            return new UnitValue(UnitValue.POINT, parseRelativeValue(value, remValue));
         } else if (value != null && (value.endsWith(CssConstants.EM) || value.endsWith(CssConstants.EX))) {
             return new UnitValue(UnitValue.POINT, parseRelativeValue(value, emValue));
         }
@@ -276,6 +278,16 @@ public class CssUtils {
      */
     public static boolean isRelativeValue(final String value) {
         return value != null && (value.endsWith(CssConstants.PERCENTAGE) || value.endsWith(CssConstants.EM) || value.endsWith(CssConstants.EX));
+    }
+
+    /**
+     * Checks whether a string contains an allowed value relative to previously set root value.
+     *
+     * @param value the string that needs to be checked.
+     * @return boolean true if value contains an allowed metric value.
+     */
+    public static boolean isRemValue(final String value) {
+        return value != null && (value.endsWith(CssConstants.REM));
     }
 
     /**

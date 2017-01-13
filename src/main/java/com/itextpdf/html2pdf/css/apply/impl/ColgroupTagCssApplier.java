@@ -61,7 +61,7 @@ public class ColgroupTagCssApplier implements ICssApplier {
             ((ColgroupTagWorker) tagWorker).getColgroup()
                     .setCellCssProps(SupportedColColgroupPropertiesUtil.getCellProperties(cssProps))
                     .setOwnCssProps(SupportedColColgroupPropertiesUtil.getOwnProperties(cssProps))
-                    .setWidth(SupportedColColgroupPropertiesUtil.getWidth(cssProps));
+                    .setWidth(SupportedColColgroupPropertiesUtil.getWidth(cssProps, context));
         }
     }
 }

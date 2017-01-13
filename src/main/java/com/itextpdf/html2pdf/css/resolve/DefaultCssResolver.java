@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssStatement;
@@ -86,7 +87,7 @@ public class DefaultCssResolver implements ICssResolver {
     }
 
     @Override
-    public Map<String, String> resolveStyles(IElementNode element) {
+    public Map<String, String> resolveStyles(IElementNode element, CssContext context) {
         List<CssDeclaration> nodeCssDeclarations = HtmlStylesToCssConverter.convert(element);
 
         nodeCssDeclarations.addAll(cssStyleSheet.getCssDeclarations(element, deviceDescription));
@@ -117,16 +118,25 @@ public class DefaultCssResolver implements ICssResolver {
 
         String elementFontSize = elementStyles.get(CssConstants.FONT_SIZE);
         if (CssUtils.isRelativeValue(elementFontSize) || CssConstants.LARGER.equals(elementFontSize) || CssConstants.SMALLER.equals(elementFontSize)) {
-            float parentFontSize;
-            if (parentFontSizeStr == null) {
-                parentFontSize = FontStyleApplierUtil.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
+            float baseFontSize;
+            if (CssUtils.isRemValue(elementFontSize)) {
+                baseFontSize = context.getRootFontSize();
             } else {
-                parentFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
+                if (parentFontSizeStr == null) {
+                    baseFontSize = FontStyleApplierUtil.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
+                } else {
+                    baseFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
+                }
             }
-            float absoluteFontSize = FontStyleApplierUtil.parseRelativeFontSize(elementFontSize, parentFontSize);
+            float absoluteFontSize = FontStyleApplierUtil.parseRelativeFontSize(elementFontSize, baseFontSize);
             elementStyles.put(CssConstants.FONT_SIZE, Float.toString(absoluteFontSize) + CssConstants.PT);
         } else {
             elementStyles.put(CssConstants.FONT_SIZE, Float.toString(FontStyleApplierUtil.parseAbsoluteFontSize(elementFontSize)) + CssConstants.PT);
+        }
+
+        //Update root font size
+        if (TagConstants.HTML.equals(element.name())) {
+            context.setRootFontSize(elementStyles.get(CssConstants.FONT_SIZE));
         }
 
         Set<String> keys = new HashSet<>();

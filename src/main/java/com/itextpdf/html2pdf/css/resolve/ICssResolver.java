@@ -48,6 +48,6 @@ import java.util.Map;
 
 public interface ICssResolver {
 
-    Map<String, String> resolveStyles(IElementNode node);
+    Map<String, String> resolveStyles(IElementNode node, CssContext context);
 
 }

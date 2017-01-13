@@ -22,7 +22,9 @@ b {
 i {
     font-style: italic;
 }
-
+html {
+    font-size: 12pt;
+}
 body {
     margin: 10%;
     font-size: 12pt;
