@@ -47,14 +47,14 @@ import com.itextpdf.html2pdf.css.apply.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.resolve.CssContext;
-import com.itextpdf.html2pdf.resolver.font.DefaultFontResolver;
-import com.itextpdf.html2pdf.resolver.font.IFontResolver;
+import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.layout.font.FontProvider;
 
 public class ProcessorContext {
 
-    private IFontResolver fontResolver;
+    private FontProvider fontProvider;
     private ResourceResolver resourceResolver;
     private MediaDeviceDescription deviceDescription;
     private ITagWorkerFactory tagWorkerFactory;
@@ -77,9 +77,9 @@ public class ProcessorContext {
             deviceDescription = MediaDeviceDescription.createDefault();
         }
 
-        fontResolver = converterProperties.getFontResolver();
-        if (fontResolver == null) {
-            fontResolver = new DefaultFontResolver();
+        fontProvider = converterProperties.getFontProvider();
+        if (fontProvider == null) {
+            fontProvider = new DefaultFontProvider();
         }
 
         tagWorkerFactory = converterProperties.getTagWorkerFactory();
@@ -102,8 +102,8 @@ public class ProcessorContext {
         cssContext = new CssContext();
     }
 
-    public void setFontResolver(IFontResolver fontResolver) {
-        this.fontResolver = fontResolver;
+    public void setFontProvider(FontProvider fontProvider) {
+        this.fontProvider = fontProvider;
     }
 
     public State getState() {
@@ -114,8 +114,8 @@ public class ProcessorContext {
         return pdfDocument;
     }
 
-    public IFontResolver getFontResolver() {
-        return fontResolver;
+    public FontProvider getFontProvider() {
+        return fontProvider;
     }
 
     public ResourceResolver getResourceResolver() {

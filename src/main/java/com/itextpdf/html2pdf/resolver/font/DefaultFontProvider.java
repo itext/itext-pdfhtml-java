@@ -42,11 +42,13 @@
  */
 package com.itextpdf.html2pdf.resolver.font;
 
-import com.itextpdf.kernel.font.PdfFont;
-import java.io.IOException;
+import com.itextpdf.layout.font.FontProvider;
 
-public interface IFontResolver {
+public class DefaultFontProvider extends FontProvider {
 
-    PdfFont getFont(String name) throws IOException;
-
+    public DefaultFontProvider() {
+        super();
+        addSystemFonts();
+        addStandardPdfFonts();
+    }
 }
