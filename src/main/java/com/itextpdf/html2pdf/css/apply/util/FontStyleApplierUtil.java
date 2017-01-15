@@ -45,11 +45,9 @@ package com.itextpdf.html2pdf.css.apply.util;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.resolve.CssDefaults;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.color.DeviceRgb;
-import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.BaseDirection;
@@ -77,11 +75,7 @@ public final class FontStyleApplierUtil {
 
     public static void applyFontStyles(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         if (cssProps.get(CssConstants.FONT_FAMILY) != null) {
-            try {
-                element.setProperty(Property.FONT, context.getFontResolver().getFont(cssProps.get(CssConstants.FONT_FAMILY)));
-            } catch (IOException exc) {
-                logger.error(LogMessageConstant.ERROR_LOADING_FONT, exc);
-            }
+            element.setProperty(Property.FONT, cssProps.get(CssConstants.FONT_FAMILY));
         }
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();

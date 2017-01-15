@@ -45,12 +45,12 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
-import com.itextpdf.html2pdf.resolver.font.IFontResolver;
+import com.itextpdf.layout.font.FontProvider;
 
 public class ConverterProperties {
 
     private MediaDeviceDescription mediaDeviceDescription;
-    private IFontResolver fontResolver;
+    private FontProvider fontProvider;
     private ITagWorkerFactory tagWorkerFactory;
     private ICssApplierFactory cssApplierFactory;
     private String baseUri;
@@ -60,7 +60,7 @@ public class ConverterProperties {
 
     public ConverterProperties(ConverterProperties other) {
         this.mediaDeviceDescription = other.mediaDeviceDescription;
-        this.fontResolver = other.fontResolver;
+        this.fontProvider = other.fontProvider;
         this.tagWorkerFactory = other.tagWorkerFactory;
         this.cssApplierFactory = other.cssApplierFactory;
         this.baseUri = other.baseUri;
@@ -75,12 +75,12 @@ public class ConverterProperties {
         return this;
     }
 
-    public IFontResolver getFontResolver() {
-        return fontResolver;
+    public FontProvider getFontProvider() {
+        return fontProvider;
     }
 
-    public ConverterProperties setFontResolver(IFontResolver fontResolver) {
-        this.fontResolver = fontResolver;
+    public ConverterProperties setFontProvider(FontProvider fontProvider) {
+        this.fontProvider = fontProvider;
         return this;
     }
 

@@ -62,6 +62,7 @@ public class HtmlTagWorker implements ITagWorker {
     public HtmlTagWorker(IElementNode element, ProcessorContext context) {
         document = new Document(context.getPdfDocument());
         document.setProperty(Property.COLLAPSING_MARGINS, true);
+        document.setFontProvider(context.getFontProvider());
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
