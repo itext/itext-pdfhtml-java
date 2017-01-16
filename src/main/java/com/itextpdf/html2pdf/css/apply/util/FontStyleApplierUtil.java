@@ -74,32 +74,20 @@ public final class FontStyleApplierUtil {
     }
 
     public static void applyFontStyles(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
-        if (cssProps.get(CssConstants.FONT_FAMILY) != null) {
-            element.setProperty(Property.FONT, cssProps.get(CssConstants.FONT_FAMILY));
-        }
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
         if (em != 0) {
             element.setProperty(Property.FONT_SIZE, em);
         }
 
+        if (cssProps.get(CssConstants.FONT_FAMILY) != null) {
+            element.setProperty(Property.FONT, cssProps.get(CssConstants.FONT_FAMILY));
+        }
         if (cssProps.get(CssConstants.FONT_WEIGHT) != null) {
-            // TODO move to font selection mechanism
-            String fontWeight = cssProps.get(CssConstants.FONT_WEIGHT);
-            if (CssConstants.BOLD.equalsIgnoreCase(fontWeight)) {
-                element.setProperty(Property.BOLD_SIMULATION, true);
-            } else if (CssConstants.NORMAL.equalsIgnoreCase(fontWeight)) {
-                element.setProperty(Property.BOLD_SIMULATION, false);
-            }
+            element.setProperty(Property.FONT_WEIGHT, cssProps.get(CssConstants.FONT_WEIGHT));
         }
         if (cssProps.get(CssConstants.FONT_STYLE) != null) {
-            // TODO move to font selection mechanism
-            String fontStyle = cssProps.get(CssConstants.FONT_STYLE);
-            if (CssConstants.ITALIC.equalsIgnoreCase(fontStyle) || CssConstants.OBLIQUE.equalsIgnoreCase(fontStyle)) {
-                element.setProperty(Property.ITALIC_SIMULATION, true);
-            } else {
-                element.setProperty(Property.ITALIC_SIMULATION, false);
-            }
+            element.setProperty(Property.FONT_STYLE, cssProps.get(CssConstants.FONT_STYLE));
         }
 
         String cssColorPropValue = cssProps.get(CssConstants.COLOR);
