@@ -136,6 +136,36 @@ public class SpecificityCalculationTest extends ExtendedITextTest {
         Assert.assertEquals(2, getSpecificity("a::hover"));
     }
 
+    @Test
+    public void test17() {
+        Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY * 2, getSpecificity(".class_name:nth-child(3n + 1)"));
+    }
+
+    @Test
+    public void test18() {
+        Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY * 2, getSpecificity(".class_name:nth-child(2n - 3)"));
+    }
+
+    @Test
+    public void test19() {
+        Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY * 2, getSpecificity(".class_name:lang(it)"));
+    }
+
+    @Test
+    public void test20() {
+        Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY, getSpecificity(":not(p)"));
+    }
+
+    @Test
+    public void test21() {
+        Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY, getSpecificity(":not(#id)"));
+    }
+
+    @Test
+    public void test22() {
+        Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY, getSpecificity(":not(.class_name)"));
+    }
+
     private int getSpecificity(String selector) {
         return new CssSelector(selector).calculateSpecificity();
     }
