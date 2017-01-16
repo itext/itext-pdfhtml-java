@@ -40,31 +40,11 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css.selector;
 
 import com.itextpdf.html2pdf.html.node.INode;
 
-// TODO now this is just a stub implementation
-public class CssPseudoElementSelectorItem implements ICssSelectorItem {
-
-    private String pseudoElement;
-
-    public CssPseudoElementSelectorItem(String pseudoElement) {
-        this.pseudoElement = pseudoElement;
-    }
-
-    @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.ELEMENT_SPECIFICITY;
-    }
-
-    @Override
-    public boolean matches(INode node) {
-        return false; // TODO
-    }
-
-    @Override
-    public String toString() {
-        return "::" + pseudoElement;
-    }
+public interface ICssSelector {
+    int calculateSpecificity();
+    boolean matches(INode element);
 }

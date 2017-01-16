@@ -40,31 +40,36 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css.resolve;
 
+import com.itextpdf.html2pdf.css.CssDeclaration;
+import com.itextpdf.html2pdf.css.CssStyleSheet;
+import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
+import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.io.util.ResourceUtil;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-// TODO now this is just a stub implementation
-public class CssPseudoElementSelectorItem implements ICssSelectorItem {
+class UserAgentCss {
 
-    private String pseudoElement;
+    private static final String DEFAULT_CSS_PATH = "com/itextpdf/html2pdf/default.css";
+    private static final CssStyleSheet defaultCss;
 
-    public CssPseudoElementSelectorItem(String pseudoElement) {
-        this.pseudoElement = pseudoElement;
+    static {
+        CssStyleSheet parsedStylesheet = new CssStyleSheet();
+        try {
+            parsedStylesheet = CssStyleSheetParser.parse(ResourceUtil.getResourceStream(DEFAULT_CSS_PATH));
+        } catch (Exception exc) {
+            Logger logger = LoggerFactory.getLogger(HtmlStylesToCssConverter.class);
+            logger.error("Error parsing default.css", exc);
+        } finally {
+            defaultCss = parsedStylesheet;
+        }
     }
 
-    @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.ELEMENT_SPECIFICITY;
-    }
-
-    @Override
-    public boolean matches(INode node) {
-        return false; // TODO
-    }
-
-    @Override
-    public String toString() {
-        return "::" + pseudoElement;
+    public static List<CssDeclaration> getStyles(INode node) {
+        return defaultCss.getCssDeclarations(node, MediaDeviceDescription.createDefault());
     }
 }

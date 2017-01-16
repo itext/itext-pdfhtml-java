@@ -43,8 +43,8 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
-import com.itextpdf.html2pdf.css.selector.CssSelector;
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.css.selector.ICssSelector;
+import com.itextpdf.html2pdf.html.node.INode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -54,11 +54,11 @@ public class CssRuleSet extends CssStatement {
 
     private static final Pattern importantMatcher = Pattern.compile(".*!\\s*important$");
 
-    private CssSelector selector;
+    private ICssSelector selector;
     private List<CssDeclaration> normalDeclarations;
     private List<CssDeclaration> importantDeclarations;
 
-    public CssRuleSet(CssSelector selector, List<CssDeclaration> declarations) {
+    public CssRuleSet(ICssSelector selector, List<CssDeclaration> declarations) {
         this.selector = selector;
         this.normalDeclarations = new ArrayList<>();
         this.importantDeclarations = new ArrayList<>();
@@ -66,7 +66,7 @@ public class CssRuleSet extends CssStatement {
     }
 
     @Override
-    public List<CssRuleSet> getCssRuleSets(IElementNode element, MediaDeviceDescription deviceDescription) {
+    public List<CssRuleSet> getCssRuleSets(INode element, MediaDeviceDescription deviceDescription) {
         if (selector.matches(element)) {
             return Collections.singletonList(this);
         } else {
@@ -97,7 +97,7 @@ public class CssRuleSet extends CssStatement {
         return sb.toString();
     }
 
-    public CssSelector getSelector() {
+    public ICssSelector getSelector() {
         return selector;
     }
 

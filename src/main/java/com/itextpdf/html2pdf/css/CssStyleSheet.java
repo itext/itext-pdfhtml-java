@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.INode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -86,10 +87,9 @@ public class CssStyleSheet {
         return Collections.unmodifiableList(statements);
     }
 
-    public List<CssDeclaration> getCssDeclarations(IElementNode element, MediaDeviceDescription deviceDescription) {
-        List<CssRuleSet> ruleSets = getCssRuleSets(element, deviceDescription);
+    public List<CssDeclaration> getCssDeclarations(INode node, MediaDeviceDescription deviceDescription) {
+        List<CssRuleSet> ruleSets = getCssRuleSets(node, deviceDescription);
         Map<String, CssDeclaration> declarations = new LinkedHashMap<>();
-        Collections.sort(ruleSets, new CssRuleSetComparator());
         for (CssRuleSet ruleSet : ruleSets) {
             populateDeclarationsMap(ruleSet.getNormalDeclarations(), declarations);
         }
@@ -113,11 +113,12 @@ public class CssStyleSheet {
         }
     }
 
-    private List<CssRuleSet> getCssRuleSets(IElementNode element, MediaDeviceDescription deviceDescription) {
+    private List<CssRuleSet> getCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
         List<CssRuleSet> ruleSets = new ArrayList<>();
         for (CssStatement statement : statements) {
-            ruleSets.addAll(statement.getCssRuleSets(element, deviceDescription));
+            ruleSets.addAll(statement.getCssRuleSets(node, deviceDescription));
         }
+        Collections.sort(ruleSets, new CssRuleSetComparator());
         return ruleSets;
     }
 

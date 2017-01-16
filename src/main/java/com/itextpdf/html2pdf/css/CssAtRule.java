@@ -53,5 +53,4 @@ public abstract class CssAtRule extends CssStatement {
     public String getRuleName() {
         return ruleName;
     }
-
 }

@@ -40,31 +40,33 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css.selector;
 
-import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem;
+import java.util.List;
 
-// TODO now this is just a stub implementation
-public class CssPseudoElementSelectorItem implements ICssSelectorItem {
+public abstract class AbstractCssSelector implements ICssSelector {
+    protected List<ICssSelectorItem> selectorItems;
 
-    private String pseudoElement;
-
-    public CssPseudoElementSelectorItem(String pseudoElement) {
-        this.pseudoElement = pseudoElement;
+    public AbstractCssSelector(List<ICssSelectorItem> selectorItems) {
+        this.selectorItems = selectorItems;
     }
 
     @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.ELEMENT_SPECIFICITY;
-    }
-
-    @Override
-    public boolean matches(INode node) {
-        return false; // TODO
+    public int calculateSpecificity() {
+        int specificity = 0;
+        for (ICssSelectorItem item : selectorItems) {
+            specificity += item.getSpecificity();
+        }
+        return specificity;
     }
 
     @Override
     public String toString() {
-        return "::" + pseudoElement;
+        StringBuilder sb = new StringBuilder();
+        for (ICssSelectorItem item : selectorItems) {
+            sb.append(item.toString());
+        }
+        return sb.toString();
     }
 }

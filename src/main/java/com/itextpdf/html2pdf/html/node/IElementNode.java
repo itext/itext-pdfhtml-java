@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.html.node;
 import java.util.List;
 import java.util.Map;
 
-public interface IElementNode extends INode {
+public interface IElementNode extends INode, IStylesContainer {
 
     String name();
 
@@ -53,13 +53,14 @@ public interface IElementNode extends INode {
 
     String getAttribute(String key);
 
-    void setStyles(Map<String, String> stringStringMap);
+    /**
+     * Styles that affect element based on it's position in html DOM, e.g. cell borders that are set due to the parent
+     * table "border" attribute, or styles from "col" tags that affect table elements, or blocks horizontal alignment
+     * that is the result of parent's "align" attribute.
+     */
+    List<Map<String, String>> getAdditionalHtmlStyles();
 
-    Map<String, String> getStyles();
-
-    List<Map<String, String>> getAdditionalStyles();
-
-    void addAdditionalStyles(Map<String, String> styles);
+    void addAdditionalHtmlStyles(Map<String, String> styles);
 
     String getLang();
 }

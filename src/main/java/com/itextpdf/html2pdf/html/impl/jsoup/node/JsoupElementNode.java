@@ -91,12 +91,12 @@ public class JsoupElementNode extends JsoupNode implements IElementNode {
     }
 
     @Override
-    public List<Map<String, String>> getAdditionalStyles() {
+    public List<Map<String, String>> getAdditionalHtmlStyles() {
         return customDefaultStyles;
     }
 
     @Override
-    public void addAdditionalStyles(Map<String, String> styles) {
+    public void addAdditionalHtmlStyles(Map<String, String> styles) {
         if (customDefaultStyles == null) {
             customDefaultStyles = new ArrayList<>();
         }
