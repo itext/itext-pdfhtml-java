@@ -82,6 +82,9 @@ public class CssDefaults {
         defaultValues.put(CssConstants.BORDER_TOP_WIDTH, CssConstants.MEDIUM);
         defaultValues.put(CssConstants.BORDER_WIDTH, CssConstants.MEDIUM);
 
+        defaultValues.put(CssConstants.BORDER_RADIUS, "0");
+        defaultValues.put(CssConstants.BOX_SHADOW, CssConstants.NONE);
+
         defaultValues.put(CssConstants.FLOAT, CssConstants.NONE);
         defaultValues.put(CssConstants.FONT_WEIGHT, CssConstants.NORMAL);
         defaultValues.put(CssConstants.FONT_SIZE, CssConstants.MEDIUM);
@@ -99,6 +102,8 @@ public class CssDefaults {
         defaultValues.put(CssConstants.MARGIN_LEFT, "0");
         defaultValues.put(CssConstants.MARGIN_RIGHT, "0");
         defaultValues.put(CssConstants.MARGIN_TOP, "0");
+        
+        defaultValues.put(CssConstants.MIN_HEIGHT, "0");
 
         defaultValues.put(CssConstants.OUTLINE_COLOR, CssConstants.INVERT);
         defaultValues.put(CssConstants.OUTLINE_STYLE, CssConstants.NONE);
@@ -116,6 +121,7 @@ public class CssDefaults {
         defaultValues.put(CssConstants.TEXT_DECORATION, CssConstants.NONE);
 
         defaultValues.put(CssConstants.WHITE_SPACE, CssConstants.NORMAL);
+        defaultValues.put(CssConstants.WIDTH, CssConstants.AUTO);
 
         // TODO not complete
     }
