@@ -58,6 +58,10 @@ public class MediaDeviceDescription {
     // in dpi // TODO change default units? If so, change CssUtils#parseResolution as well
     private float resolution;
 
+    /**
+     * See {@link MediaType} class constants for possible values.
+     * @param type a type of the media to use.
+     */
     public MediaDeviceDescription(String type) {
         this.type = type;
     }

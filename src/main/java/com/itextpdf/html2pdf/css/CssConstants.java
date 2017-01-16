@@ -72,6 +72,7 @@ public class CssConstants {
     public static final String BORDER_LEFT_COLOR = "border-left-color";
     public static final String BORDER_LEFT_STYLE = "border-left-style";
     public static final String BORDER_LEFT_WIDTH = "border-left-width";
+    public static final String BORDER_RADIUS = "border-radius";
     public static final String BORDER_RIGHT = "border-right";
     public static final String BORDER_RIGHT_COLOR = "border-right-color";
     public static final String BORDER_RIGHT_STYLE = "border-right-style";
@@ -83,6 +84,7 @@ public class CssConstants {
     public static final String BORDER_TOP_STYLE = "border-top-style";
     public static final String BORDER_TOP_WIDTH = "border-top-width";
     public static final String BORDER_WIDTH = "border-width";
+    public static final String BOX_SHADOW = "box-shadow";
     public static final String CAPTION_SIDE = "caption-side";
     public static final String COLOR = "color";
     public static final String CONTENT = "content";
