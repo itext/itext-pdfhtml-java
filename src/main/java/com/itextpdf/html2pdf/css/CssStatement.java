@@ -43,13 +43,13 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.INode;
 import java.util.Collections;
 import java.util.List;
 
 public abstract class CssStatement {
 
-    public List<CssRuleSet> getCssRuleSets(IElementNode element, MediaDeviceDescription deviceDescription) {
+    public List<CssRuleSet> getCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
         return Collections.<CssRuleSet>emptyList();
     }
 

@@ -114,7 +114,7 @@ public class WaitingColgroupsHelper {
                     rowspan = rowspan != null ? rowspan : 1;
                     col = rowColHelper.moveToNextEmptyCol();
                     if (getColWraper(col) != null && getColWraper(col).getCellCssProps() != null) {
-                        element.addAdditionalStyles(getColWraper(col).getCellCssProps());
+                        element.addAdditionalHtmlStyles(getColWraper(col).getCellCssProps());
                     }
                     rowColHelper.updateCurrentPosition((int) colspan, (int) rowspan);
                 } else {

@@ -53,7 +53,7 @@ class CommentInnerState implements IParserState {
     @Override
     public void process(char ch) {
         if (ch == '*') {
-         controller.enterCommentEndState();
+            controller.enterCommentEndState();
         }
     }
 }

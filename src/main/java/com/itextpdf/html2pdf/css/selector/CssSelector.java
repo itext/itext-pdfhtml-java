@@ -49,37 +49,18 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import java.util.List;
 
-public class CssSelector {
-
-    private List<ICssSelectorItem> selectorItems;
+public class CssSelector extends AbstractCssSelector {
 
     public CssSelector(List<ICssSelectorItem> selectorItems) {
-        this.selectorItems = selectorItems;
+        super(selectorItems);
     }
 
     public CssSelector(String selector) {
         this(CssSelectorParser.parseSelectorItems(selector));
     }
 
-    public int calculateSpecificity() {
-        int specificity = 0;
-        for (ICssSelectorItem item : selectorItems) {
-            specificity += item.getSpecificity();
-        }
-        return specificity;
-    }
-
-    public boolean matches(IElementNode element) {
+    public boolean matches(INode element) {
         return matches(element, selectorItems.size() - 1);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (ICssSelectorItem item : selectorItems) {
-            sb.append(item.toString());
-        }
-        return sb.toString();
     }
 
     private boolean matches(INode element, int lastSelectorItemInd) {
@@ -132,7 +113,7 @@ public class CssSelector {
                         return false;
                 }
             } else {
-                if (!currentItem.matches((IElementNode) element)) {
+                if (!currentItem.matches(element)) {
                     return false;
                 }
             }

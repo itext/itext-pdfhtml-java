@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css.selector.item;
 
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.INode;
 
 import java.text.MessageFormat;
 import java.util.regex.Pattern;
@@ -79,10 +80,11 @@ public class CssAttributeSelectorItem implements ICssSelectorItem {
     }
 
     @Override
-    public boolean matches(IElementNode element) {
-        if (element == null) {
+    public boolean matches(INode node) {
+        if (!(node instanceof IElementNode)) {
             return false;
         }
+        IElementNode element = (IElementNode) node;
         String attributeValue = element.getAttribute(property);
         if (attributeValue == null) {
             return false;

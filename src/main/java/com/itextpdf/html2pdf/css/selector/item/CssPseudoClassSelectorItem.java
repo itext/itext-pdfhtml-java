@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.css.selector.item;
 
 
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.INode;
 
 // TODO now this is just a stub implementation
 public class CssPseudoClassSelectorItem implements ICssSelectorItem {
@@ -60,7 +60,7 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
     }
 
     @Override
-    public boolean matches(IElementNode element) {
+    public boolean matches(INode node) {
         return false; // TODO
     }
 

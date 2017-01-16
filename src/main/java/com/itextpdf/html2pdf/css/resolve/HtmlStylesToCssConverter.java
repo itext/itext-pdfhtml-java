@@ -55,13 +55,11 @@ import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.io.util.ResourceUtil;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -70,21 +68,9 @@ import org.slf4j.LoggerFactory;
 
 class HtmlStylesToCssConverter {
 
-    private static final String DEFAULT_CSS_PATH = "com/itextpdf/html2pdf/default.css";
-    private static final CssStyleSheet defaultCss;
     private static final Map<String, IAttributeConverter> htmlAttributeConverters;
 
     static {
-        CssStyleSheet parsedStylesheet = new CssStyleSheet();
-        try {
-            parsedStylesheet = CssStyleSheetParser.parse(ResourceUtil.getResourceStream(DEFAULT_CSS_PATH));
-        } catch (Exception exc) {
-            Logger logger = LoggerFactory.getLogger(HtmlStylesToCssConverter.class);
-            logger.error("Error parsing default.css", exc);
-        } finally {
-            defaultCss = parsedStylesheet;
-        }
-
         htmlAttributeConverters = new HashMap<>();
         htmlAttributeConverters.put(AttributeConstants.ALIGN, new AlignAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.BORDER, new BorderAttributeConverter());
@@ -102,13 +88,9 @@ class HtmlStylesToCssConverter {
 
     public static List<CssDeclaration> convert(IElementNode element) {
         ArrayList<CssDeclaration> convertedHtmlStyles = new ArrayList<>();
-        List<CssDeclaration> tagCssStyles = defaultCss.getCssDeclarations(element, MediaDeviceDescription.createDefault());
-        if (tagCssStyles != null) {
-            convertedHtmlStyles.addAll(tagCssStyles);
-        }
-        if (element.getAdditionalStyles() != null) {
+        if (element.getAdditionalHtmlStyles() != null) {
             HashMap<String, String> additionalStyles = new HashMap<>();
-            for(Map<String, String> styles : element.getAdditionalStyles()) {
+            for(Map<String, String> styles : element.getAdditionalHtmlStyles()) {
                 additionalStyles.putAll(styles);
             }
             convertedHtmlStyles.ensureCapacity(convertedHtmlStyles.size() + additionalStyles.size());
@@ -142,7 +124,7 @@ class HtmlStylesToCssConverter {
                 if (childNode instanceof IElementNode) {
                     IElementNode elementNode = (IElementNode) childNode;
                     if (TagConstants.TD.equals(elementNode.name()) || TagConstants.TH.equals(elementNode.name())) {
-                        elementNode.addAdditionalStyles(borderStyles);
+                        elementNode.addAdditionalHtmlStyles(borderStyles);
                     } else {
                         applyBordersToTableCells(childNode, borderStyles);
                     }

@@ -43,7 +43,6 @@
 package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssStatement;
@@ -63,6 +62,7 @@ import com.itextpdf.html2pdf.html.node.IDataNode;
 import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,20 +87,25 @@ public class DefaultCssResolver implements ICssResolver {
     }
 
     @Override
-    public Map<String, String> resolveStyles(IElementNode element, CssContext context) {
-        List<CssDeclaration> nodeCssDeclarations = HtmlStylesToCssConverter.convert(element);
-
+    public Map<String, String> resolveStyles(INode element, CssContext context) {
+        List<CssDeclaration> nodeCssDeclarations = UserAgentCss.getStyles(element);
+        if (element instanceof IElementNode) {
+            nodeCssDeclarations.addAll(HtmlStylesToCssConverter.convert((IElementNode) element));
+        }
         nodeCssDeclarations.addAll(cssStyleSheet.getCssDeclarations(element, deviceDescription));
-        String styleAttribute = element.getAttribute(AttributeConstants.STYLE);
-        if (styleAttribute != null) {
-            nodeCssDeclarations.addAll(CssRuleSetParser.parsePropertyDeclarations(styleAttribute));
+        
+        if (element instanceof IElementNode) {
+            String styleAttribute = ((IElementNode)element).getAttribute(AttributeConstants.STYLE);
+            if (styleAttribute != null) {
+                nodeCssDeclarations.addAll(CssRuleSetParser.parsePropertyDeclarations(styleAttribute));
+            }
         }
 
         Map<String, String> elementStyles = cssDeclarationsToMap(nodeCssDeclarations);
 
         String parentFontSizeStr = null;
-        if (element.parentNode() instanceof IElementNode) {
-            IElementNode parentNode = (IElementNode) element.parentNode();
+        if (element.parentNode() instanceof IStylesContainer) {
+            IStylesContainer parentNode = (IStylesContainer) element.parentNode();
             Map<String, String> parentStyles = parentNode.getStyles();
 
             if (parentStyles == null && !(element.parentNode() instanceof IDocumentNode)) {
@@ -135,7 +140,7 @@ public class DefaultCssResolver implements ICssResolver {
         }
 
         //Update root font size
-        if (TagConstants.HTML.equals(element.name())) {
+        if (element instanceof IElementNode && TagConstants.HTML.equals(((IElementNode)element).name())) {
             context.setRootFontSize(elementStyles.get(CssConstants.FONT_SIZE));
         }
 

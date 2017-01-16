@@ -44,10 +44,10 @@ package com.itextpdf.html2pdf.css.selector;
 
 import java.util.Comparator;
 
-public class CssSelectorComparator implements Comparator<CssSelector> {
+public class CssSelectorComparator implements Comparator<ICssSelector> {
 
     @Override
-    public int compare(CssSelector o1, CssSelector o2) {
+    public int compare(ICssSelector o1, ICssSelector o2) {
         return o1.calculateSpecificity() - o2.calculateSpecificity();
     }
 
