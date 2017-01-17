@@ -54,11 +54,7 @@ class RuleState implements IParserState {
     public void process(char ch) {
         if (ch == '{') {
             controller.pushBlockPrecedingAtRule();
-            if (controller.currentAtRuleIsConditionalGroupRule()) {
-                controller.enterConditionalGroupAtRuleBlockState();
-            } else {
-                controller.enterAtRuleBlockState();
-            }
+            controller.enterRuleStateBasedOnItsType();
         } else if (ch == ';') {
             controller.storeSemicolonAtRule();
             controller.enterUnknownState();

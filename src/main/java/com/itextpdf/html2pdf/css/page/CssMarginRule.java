@@ -40,29 +40,31 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css.page;
 
-import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.page.PageContextNode;
-import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.css.CssDeclaration;
+import com.itextpdf.html2pdf.css.CssNestedAtRule;
+import com.itextpdf.html2pdf.css.resolve.CssNonStandardRuleSet;
+import com.itextpdf.html2pdf.css.selector.CssPageMarginBoxSelector;
+import com.itextpdf.html2pdf.css.selector.ICssSelector;
+import java.util.List;
 
-public class CssPageTypeSelectorItem implements ICssSelectorItem {
-    private String pageTypeName;
+public class CssMarginRule extends CssNestedAtRule {
+    private List<ICssSelector> pageSelectors;
 
-    public CssPageTypeSelectorItem(String pageTypeName) {
-        this.pageTypeName = pageTypeName;
+    public CssMarginRule(String ruleName, String ruleParameters) {
+        super(ruleName, ruleParameters);
     }
 
     @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.ID_SPECIFICITY;
-    }
-
-    @Override
-    public boolean matches(INode node) {
-        if (!(node instanceof PageContextNode)) {
-            return false;
+    public void addBodyCssDeclarations(List<CssDeclaration> cssDeclarations) {
+        for (ICssSelector pageSelector : pageSelectors) {
+            this.body.add(new CssNonStandardRuleSet(new CssPageMarginBoxSelector(getRuleName(), pageSelector), cssDeclarations));
         }
-        return !CssConstants.AUTO.equals(pageTypeName.toLowerCase()) && pageTypeName.equals(((PageContextNode) node).getPageTypeName());
     }
+
+    void setPageSelectors(List<ICssSelector> pageSelectors) {
+        this.pageSelectors = pageSelectors;
+    }
+
 }

@@ -60,14 +60,14 @@ public class CssNonStandardRuleSet extends CssRuleSet {
                 sb.append(";").append("\n");
             }
             CssDeclaration declaration = getNormalDeclarations().get(i);
-            sb.append("    ").append(declaration.toString());
+            sb.append(declaration.toString());
         }
         for (int i = 0; i < getImportantDeclarations().size(); i++) {
             if (i > 0 || getNormalDeclarations().size() > 0) {
                 sb.append(";").append("\n");
             }
             CssDeclaration declaration = getImportantDeclarations().get(i);
-            sb.append("    ").append(declaration.toString()).append(" !important");
+            sb.append(declaration.toString()).append(" !important");
         }
         return sb.toString();
     }

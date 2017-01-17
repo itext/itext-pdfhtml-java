@@ -78,7 +78,11 @@ public final class CssParserStateController {
     private Stack<List<CssDeclaration>> storedPropertiesWithoutSelector;
 
     private static final Set<String> SUPPORTED_RULES = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
-            CssRuleName.MEDIA, CssRuleName.PAGE
+            CssRuleName.MEDIA, CssRuleName.PAGE,
+            CssRuleName.TOP_LEFT_CORNER, CssRuleName.TOP_LEFT, CssRuleName.TOP_CENTER, CssRuleName.TOP_RIGHT, CssRuleName.TOP_RIGHT_CORNER, 
+            CssRuleName.BOTTOM_LEFT_CORNER, CssRuleName.BOTTOM_LEFT, CssRuleName.BOTTOM_CENTER, CssRuleName.BOTTOM_RIGHT, CssRuleName.BOTTOM_RIGHT_CORNER,
+            CssRuleName.LEFT_TOP, CssRuleName.LEFT_MIDDLE, CssRuleName.LEFT_BOTTOM,
+            CssRuleName.RIGHT_TOP, CssRuleName.RIGHT_MIDDLE, CssRuleName.RIGHT_BOTTOM
     )));
 
     private static final Set<String> CONDITIONAL_GROUP_RULES = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
@@ -156,7 +160,15 @@ public final class CssParserStateController {
         if (nestedAtRules.size() == 0) {
             setState(unknownState);
         } else {
-            setState(conditionalGroupAtRuleBlockState);
+            enterRuleStateBasedOnItsType();
+        }
+    }
+
+    void enterRuleStateBasedOnItsType() {
+        if (currentAtRuleIsConditionalGroupRule()) {
+            enterConditionalGroupAtRuleBlockState();
+        } else {
+            enterAtRuleBlockState();
         }
     }
 
@@ -207,10 +219,10 @@ public final class CssParserStateController {
         List<CssDeclaration> storedProps = storedPropertiesWithoutSelector.pop();
         CssNestedAtRule atRule = nestedAtRules.pop();
         if (isCurrentRuleSupported) {
+            processFinishedAtRuleBlock(atRule);
             if (!storedProps.isEmpty()) {
                 atRule.addBodyCssDeclarations(storedProps);
             }
-            processFinishedAtRuleBlock(atRule);
         }
         isCurrentRuleSupported = isCurrentRuleSupported();
         buffer.setLength(0);
@@ -223,10 +235,6 @@ public final class CssParserStateController {
         buffer.setLength(0);
     }
     
-    boolean currentAtRuleIsConditionalGroupRule() {
-        return !isCurrentRuleSupported || (nestedAtRules.size() > 0 && CONDITIONAL_GROUP_RULES.contains(nestedAtRules.peek().getRuleName()));
-    }
-
     private void saveActiveState() {
         previousActiveState = currentState;
     }
@@ -272,5 +280,9 @@ public final class CssParserStateController {
             LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.RULE_IS_NOT_SUPPORTED, nestedAtRules.peek().getRuleName()));
         }
         return isSupported;
+    }
+
+    private boolean currentAtRuleIsConditionalGroupRule() {
+        return !isCurrentRuleSupported || (nestedAtRules.size() > 0 && CONDITIONAL_GROUP_RULES.contains(nestedAtRules.peek().getRuleName()));
     }
 }

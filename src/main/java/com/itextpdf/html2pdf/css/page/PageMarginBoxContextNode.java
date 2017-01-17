@@ -40,29 +40,23 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css.page;
 
-import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.page.PageContextNode;
+import com.itextpdf.html2pdf.css.CssContextNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
-public class CssPageTypeSelectorItem implements ICssSelectorItem {
-    private String pageTypeName;
+public class PageMarginBoxContextNode extends CssContextNode {
+    private String marginBoxName;
 
-    public CssPageTypeSelectorItem(String pageTypeName) {
-        this.pageTypeName = pageTypeName;
-    }
-
-    @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.ID_SPECIFICITY;
-    }
-
-    @Override
-    public boolean matches(INode node) {
-        if (!(node instanceof PageContextNode)) {
-            return false;
+    public PageMarginBoxContextNode(INode parentNode, String marginBoxName) {
+        super(parentNode);
+        this.marginBoxName = marginBoxName;
+        if (!(parentNode instanceof PageContextNode)) {
+            throw new IllegalArgumentException("Page-margin-box context node shall have a page context node as parent.");
         }
-        return !CssConstants.AUTO.equals(pageTypeName.toLowerCase()) && pageTypeName.equals(((PageContextNode) node).getPageTypeName());
+    }
+
+    public String getMarginBoxName() {
+        return marginBoxName;
     }
 }
