@@ -44,7 +44,9 @@ package com.itextpdf.html2pdf.css.media;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
@@ -77,7 +79,11 @@ public abstract class MediaPrintTest extends ExtendedITextTest {
         String outPdfPath = destinationFolder + testName + ".pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + testName + ".pdf";
         String diff = "diff_" + testName + "_";
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath), new ConverterProperties().setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
+        ConverterProperties properties = new ConverterProperties().setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT));
+        FontProvider fontProvider = new DefaultFontProvider(true, false, false);
+        fontProvider.addDirectory(baseSourceFolder + "fonts/");
+        properties.setFontProvider(fontProvider);
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath), properties);
         Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));
         Assert.assertTrue(new File(mediaPrintPdfPath).exists());
     }

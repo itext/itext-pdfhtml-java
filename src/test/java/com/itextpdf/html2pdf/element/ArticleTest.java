@@ -67,13 +67,13 @@ public class ArticleTest extends ExtendedITextTest {
     }
 
     @Test
-    public void aside01Test() throws IOException, InterruptedException {
+    public void article01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "articleTest01.html"), new File(destinationFolder + "articleTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "articleTest01.pdf", sourceFolder + "cmp_articleTest01.pdf", destinationFolder, "diff01_"));
     }
 
     @Test
-    public void aside02Test() throws IOException, InterruptedException {
+    public void article02Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "articleTest02.html"), new File(destinationFolder + "articleTest02.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "articleTest02.pdf", sourceFolder + "cmp_articleTest02.pdf", destinationFolder, "diff02_"));
     }

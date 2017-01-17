@@ -86,7 +86,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 0",
                 "margin-right: 0",
                 "margin-top: 1em",
-                "display: block");
+                "display: block",
+                "font-family: helvetica");
     }
 
     @Test
@@ -97,7 +98,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 0",
                 "margin-right: 0",
                 "margin-top: 1em",
-                "display: block");
+                "display: block",
+                "font-family: helvetica");
     }
 
     @Test
@@ -108,37 +110,38 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 0",
                 "margin-right: 0",
                 "margin-top: 1em",
-                "display: block");
+                "display: block",
+                "font-family: helvetica");
     }
 
     @Test
     public void stylesInheritanceTest01() throws IOException {
         test("stylesInheritanceTest01.html", "html body p span",
-                "color: blue", "text-align: center", "font-style: italic", "font-size: 11.25pt");
+                "color: blue", "text-align: center", "font-style: italic", "font-size: 11.25pt", "font-family: helvetica");
     }
 
     @Test
     public void stylesInheritanceTest02() throws IOException {
         test("stylesInheritanceTest02.html", "html body p span",
-                "color: black", "text-align: center", "font-style: italic", "font-size: 11.25pt");
+                "color: black", "text-align: center", "font-style: italic", "font-size: 11.25pt", "font-family: helvetica");
     }
 
     @Test
     public void stylesInheritanceTest03() throws IOException {
         test("stylesInheritanceTest03.html", "html body p span",
-                "color: green", "font-size: 12.0pt");
+                "color: green", "font-size: 12.0pt", "font-family: helvetica");
     }
 
     @Test
     public void stylesInheritanceTest04() throws IOException {
         test("stylesInheritanceTest04.html", "html body p span",
-                "color: blue", "font-size: 12.0pt");
+                "color: blue", "font-size: 12.0pt", "font-family: helvetica");
     }
 
     @Test
     public void stylesInheritanceTest05() throws IOException {
         test("stylesInheritanceTest05.html", "html body p span",
-                "color: black", "font-size: 12.0pt");
+                "color: black", "font-size: 12.0pt", "font-family: helvetica");
     }
 
     @Test
@@ -147,7 +150,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 20px",
                 "margin-right: 0",
                 "background-color: yellow",
-                "font-size: 12.0pt");
+                "font-size: 12.0pt", "font-family: helvetica");
     }
 
     @Test
@@ -156,7 +159,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 0",
                 "padding-top: 10px",
                 "background-color: yellow",
-                "font-size: 12.0pt");
+                "font-size: 12.0pt", "font-family: helvetica");
     }
 
     @Test
@@ -179,7 +182,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 0",
                 "margin-right: 0",
                 "margin-top: 1em",
-                "display: block");
+                "display: block",
+                "font-family: helvetica");
     }
 
     @Test
@@ -191,7 +195,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 0",
                 "margin-right: 0",
                 "margin-top: 1em",
-                "display: block");
+                "display: block",
+                "font-family: helvetica");
     }
 
     @Test
@@ -203,7 +208,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 0",
                 "margin-right: 0",
                 "margin-top: 1em",
-                "display: block");
+                "display: block",
+                "font-family: helvetica");
     }
 
     @Test
@@ -215,7 +221,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 0",
                 "margin-right: 0",
                 "margin-top: 1em",
-                "display: block");
+                "display: block",
+                "font-family: helvetica");
     }
 
     @Test
@@ -227,7 +234,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 0",
                 "margin-right: 0",
                 "margin-top: 1em",
-                "display: block");
+                "display: block",
+                "font-family: helvetica");
     }
 
     @Test
@@ -242,7 +250,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 0",
                 "text-indent: 0",
-                "display: table");
+                "display: table",
+                "font-family: helvetica");
     }
 
     @Test
@@ -252,7 +261,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "font-size: 12.0pt",
                 "text-indent: 0",
                 "vertical-align: middle",
-                "display: table-row");
+                "display: table-row",
+                "font-family: helvetica");
     }
 
     @Test
@@ -272,7 +282,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
         test("htmlStylesConvertingTest08.html", "html body div center",
                 "text-align: center",
                 "display: block",
-                "font-size: 12.0pt");
+                "font-size: 12.0pt",
+                "font-family: helvetica");
     }
 
     @Test
@@ -290,7 +301,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 10%",
                 "margin-right: 10%",
                 "margin-top: 10%",
-                "display: block");
+                "display: block",
+                "font-family: helvetica");
     }
 
     private void resolveStylesForTree(INode node, ICssResolver cssResolver, CssContext context) {

@@ -1,3 +1,7 @@
+html {
+    font-family: Helvetica;
+}
+
 pre, tt, code, kbd, samp {
     font-family: Courier;
     font-size: 9pt;

@@ -48,7 +48,7 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 
 public class PreTagWorker extends DivTagWorker {
 
-    boolean anyContentProcessed = false;
+    private boolean anyContentProcessed = false;
 
     public PreTagWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
