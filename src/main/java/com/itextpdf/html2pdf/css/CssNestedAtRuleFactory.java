@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.css.media.CssMediaRule;
+import com.itextpdf.html2pdf.css.page.CssMarginRule;
 import com.itextpdf.html2pdf.css.page.CssPageRule;
 
 public final class CssNestedAtRuleFactory {
@@ -60,6 +61,23 @@ public final class CssNestedAtRuleFactory {
                 return new CssMediaRule(ruleParameters);
             case CssRuleName.PAGE:
                 return new CssPageRule(ruleParameters);
+            case CssRuleName.TOP_LEFT_CORNER:
+            case CssRuleName.TOP_LEFT:
+            case CssRuleName.TOP_CENTER:
+            case CssRuleName.TOP_RIGHT:
+            case CssRuleName.TOP_RIGHT_CORNER:
+            case CssRuleName.LEFT_TOP:
+            case CssRuleName.LEFT_MIDDLE:
+            case CssRuleName.LEFT_BOTTOM:
+            case CssRuleName.RIGHT_TOP:
+            case CssRuleName.RIGHT_MIDDLE:
+            case CssRuleName.RIGHT_BOTTOM:
+            case CssRuleName.BOTTOM_LEFT_CORNER:
+            case CssRuleName.BOTTOM_LEFT:
+            case CssRuleName.BOTTOM_CENTER:
+            case CssRuleName.BOTTOM_RIGHT:
+            case CssRuleName.BOTTOM_RIGHT_CORNER:
+                return new CssMarginRule(ruleName, ruleParameters);
             default:
                 return new CssNestedAtRule(ruleName, ruleParameters);
         }

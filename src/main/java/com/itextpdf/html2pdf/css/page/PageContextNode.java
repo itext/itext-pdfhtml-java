@@ -42,71 +42,40 @@
  */
 package com.itextpdf.html2pdf.css.page;
 
+import com.itextpdf.html2pdf.css.CssContextNode;
 import com.itextpdf.html2pdf.html.node.INode;
-import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-public class PageContextNode implements INode, IStylesContainer {
-    private List<INode> childNodes = new ArrayList<>();
-    private INode parentNode;
-    private Map<String, String> styles;
-
+public class PageContextNode extends CssContextNode {
     private String pageTypeName;
     private List<String> pageClasses;
 
     public PageContextNode() {
         this(null);
     }
-    
+
     public PageContextNode(INode parentNode) {
-        this.parentNode = parentNode;
+        super(parentNode);
         this.pageClasses = new ArrayList<>();
     }
 
-    @Override
-    public List<INode> childNodes() {
-        return Collections.unmodifiableList(childNodes);
-    }
-    
-
-    @Override
-    public void addChild(INode node) {
-        childNodes.add(node);
+    public PageContextNode addPageClass(String pageClass) {
+        this.pageClasses.add(pageClass.toLowerCase());
+        return this;
     }
 
-    @Override
-    public INode parentNode() {
-        return parentNode;
+    public String getPageTypeName() {
+        return this.pageTypeName;
     }
 
     public PageContextNode setPageTypeName(String pageTypeName) {
         this.pageTypeName = pageTypeName;
         return this;
     }
-    
-    public PageContextNode addPageClass(String pageClass) {
-        this.pageClasses.add(pageClass.toLowerCase());
-        return this;
-    }
-    
-    public String getPageTypeName() {
-        return this.pageTypeName;
-    }
-    
+
     public List<String> getPageClasses() {
         return Collections.unmodifiableList(pageClasses);
-    }
-
-    @Override
-    public void setStyles(Map<String, String> stringStringMap) {
-        this.styles = stringStringMap;
-    }
-
-    @Override
-    public Map<String, String> getStyles() {
-        return this.styles;
     }
 }

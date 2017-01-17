@@ -40,29 +40,35 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css.selector;
 
-import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.page.PageContextNode;
+import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
-public class CssPageTypeSelectorItem implements ICssSelectorItem {
-    private String pageTypeName;
+public class CssPageMarginBoxSelector implements ICssSelector {
+    private String pageMarginBoxName;
+    private ICssSelector pageSelector;
 
-    public CssPageTypeSelectorItem(String pageTypeName) {
-        this.pageTypeName = pageTypeName;
+    public CssPageMarginBoxSelector(String pageMarginBoxName, ICssSelector pageSelector) {
+        this.pageMarginBoxName = pageMarginBoxName;
+        this.pageSelector = pageSelector;
     }
 
     @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.ID_SPECIFICITY;
+    public int calculateSpecificity() {
+        return pageSelector.calculateSpecificity();
     }
 
     @Override
     public boolean matches(INode node) {
-        if (!(node instanceof PageContextNode)) {
+        if (!(node instanceof PageMarginBoxContextNode)) {
             return false;
         }
-        return !CssConstants.AUTO.equals(pageTypeName.toLowerCase()) && pageTypeName.equals(((PageContextNode) node).getPageTypeName());
+        PageMarginBoxContextNode marginBoxNode = (PageMarginBoxContextNode) node;
+        if (pageMarginBoxName.equals(marginBoxNode.getMarginBoxName())) {
+            INode parent = node.parentNode();
+            return pageSelector.matches(parent);   
+        }
+        return false;
     }
 }

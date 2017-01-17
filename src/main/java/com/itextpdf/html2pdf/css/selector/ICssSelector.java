@@ -46,5 +46,5 @@ import com.itextpdf.html2pdf.html.node.INode;
 
 public interface ICssSelector {
     int calculateSpecificity();
-    boolean matches(INode element);
+    boolean matches(INode node);
 }

@@ -40,29 +40,47 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.page.PageContextNode;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
-public class CssPageTypeSelectorItem implements ICssSelectorItem {
-    private String pageTypeName;
+public abstract class CssContextNode implements INode, IStylesContainer {
+    private List<INode> childNodes = new ArrayList<>();
+    private INode parentNode;
+    private Map<String, String> styles;
 
-    public CssPageTypeSelectorItem(String pageTypeName) {
-        this.pageTypeName = pageTypeName;
+    public CssContextNode(INode parentNode) {
+        this.parentNode = parentNode;
     }
 
     @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.ID_SPECIFICITY;
+    public List<INode> childNodes() {
+        return Collections.unmodifiableList(childNodes);
+    }
+
+
+    @Override
+    public void addChild(INode node) {
+        childNodes.add(node);
     }
 
     @Override
-    public boolean matches(INode node) {
-        if (!(node instanceof PageContextNode)) {
-            return false;
-        }
-        return !CssConstants.AUTO.equals(pageTypeName.toLowerCase()) && pageTypeName.equals(((PageContextNode) node).getPageTypeName());
+    public INode parentNode() {
+        return parentNode;
+    }
+
+    @Override
+    public void setStyles(Map<String, String> stringStringMap) {
+        this.styles = stringStringMap;
+    }
+
+    @Override
+    public Map<String, String> getStyles() {
+        return this.styles;
     }
 }

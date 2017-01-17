@@ -54,6 +54,7 @@ import com.itextpdf.html2pdf.css.selector.ICssSelector;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.INode;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class CssPageRule extends CssNestedAtRule {
@@ -74,10 +75,10 @@ public class CssPageRule extends CssNestedAtRule {
     }
 
     @Override
-    public List<CssRuleSet> getCssRuleSets(INode element, MediaDeviceDescription deviceDescription) {
+    public List<CssRuleSet> getCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
         List<CssRuleSet> result = new ArrayList<>();
         for (CssStatement childStatement : body) {
-            result.addAll(childStatement.getCssRuleSets(element, deviceDescription));
+            result.addAll(childStatement.getCssRuleSets(node, deviceDescription));
         }
         return result;
     }
@@ -86,6 +87,19 @@ public class CssPageRule extends CssNestedAtRule {
     public void addBodyCssDeclarations(List<CssDeclaration> cssDeclarations) {
         for (ICssSelector pageSelector : pageSelectors) {
             this.body.add(new CssNonStandardRuleSet(pageSelector, cssDeclarations));
+        }
+    }  
+    
+    public void addStatementToBody(CssStatement statement) {
+        if (statement instanceof CssMarginRule) {
+            ((CssMarginRule) statement).setPageSelectors(pageSelectors);
+        }
+        this.body.add(statement);
+    }
+
+    public void addStatementsToBody(Collection<CssStatement> statements) {
+        for (CssStatement statement : statements) {
+            addStatementToBody(statement);
         }
     }
 

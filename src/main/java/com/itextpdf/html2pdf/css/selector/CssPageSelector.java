@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.selector;
 
+import com.itextpdf.html2pdf.css.page.PageContextNode;
 import com.itextpdf.html2pdf.css.parse.CssPageSelectorParser;
 import com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem;
 import com.itextpdf.html2pdf.html.node.INode;
@@ -53,9 +54,13 @@ public class CssPageSelector extends AbstractCssSelector {
     }
 
     @Override
-    public boolean matches(INode element) {
+    public boolean matches(INode node) {
+        if (!(node instanceof PageContextNode)) {
+            return false;
+        }
+        
         for (ICssSelectorItem selectorItem : selectorItems) {
-            if (!selectorItem.matches(element)) {
+            if (!selectorItem.matches(node)) {
                 return false;
             }
         }
