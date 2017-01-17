@@ -63,6 +63,8 @@ public class HtmlTagWorker implements ITagWorker {
         document = new Document(context.getPdfDocument());
         document.setProperty(Property.COLLAPSING_MARGINS, true);
         document.setFontProvider(context.getFontProvider());
+        String fontFamily = element.getStyles().get(CssConstants.FONT_FAMILY);
+        document.setProperty(Property.FONT, fontFamily);
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 

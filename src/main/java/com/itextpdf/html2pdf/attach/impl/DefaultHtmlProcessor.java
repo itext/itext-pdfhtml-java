@@ -162,6 +162,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         for (IPropertyContainer propertyContainer : roots) {
             if (propertyContainer instanceof com.itextpdf.layout.element.IElement) {
                 propertyContainer.setProperty(Property.COLLAPSING_MARGINS, true);
+                propertyContainer.setProperty(Property.FONT_PROVIDER, context.getFontProvider());
                 elements.add((com.itextpdf.layout.element.IElement) propertyContainer);
             }
         }
@@ -227,7 +228,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             if (!isDisplayable(element)) {
                 return;
             }
-
 
             ITagWorker tagWorker = context.getTagWorkerFactory().getTagWorkerInstance(element, context);
             if (tagWorker == null) {
@@ -317,4 +317,5 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
         return element != null;
     }
+
 }

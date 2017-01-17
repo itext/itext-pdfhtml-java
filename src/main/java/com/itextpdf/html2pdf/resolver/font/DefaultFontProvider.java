@@ -42,13 +42,56 @@
  */
 package com.itextpdf.html2pdf.resolver.font;
 
+import com.itextpdf.io.util.ResourceUtil;
+import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.layout.font.FontProvider;
+
+import java.io.InputStream;
 
 public class DefaultFontProvider extends FontProvider {
 
+    private static final String SHIPPED_FONT_RESOURCE_PATH = "com/itextpdf/html2pdf/font/";
+    private static final String[] SHIPPED_FONT_NAMES = new String[] {
+            "FreeMono.ttf",
+            "FreeMonoBold.ttf",
+            "FreeMonoBoldOblique.ttf",
+            "FreeMonoOblique.ttf",
+            "FreeSans.ttf",
+            "FreeSansBold.ttf",
+            "FreeSansBoldOblique.ttf",
+            "FreeSansOblique.ttf",
+            "FreeSerif.ttf",
+            "FreeSerifBold.ttf",
+            "FreeSerifBoldItalic.ttf",
+            "FreeSerifItalic.ttf",
+    };
+
     public DefaultFontProvider() {
-        super();
-        addSystemFonts();
-        addStandardPdfFonts();
+        this(true, true, false);
     }
+
+    public DefaultFontProvider(boolean registerStandardPdfFonts, boolean registerShippedFreeFonts, boolean registerSystemFonts) {
+        super();
+        if (registerStandardPdfFonts) {
+            addStandardPdfFonts();
+        }
+        if (registerShippedFreeFonts) {
+            addShippedFreeFonts();
+        }
+        if (registerSystemFonts) {
+            addSystemFonts();
+        }
+    }
+
+    private void addShippedFreeFonts() {
+        for (String fontName : SHIPPED_FONT_NAMES) {
+            InputStream stream = ResourceUtil.getResourceStream(SHIPPED_FONT_RESOURCE_PATH + fontName);
+            try {
+                byte[] fontProgramBytes = StreamUtil.inputStreamToArray(stream);
+                addFont(fontProgramBytes);
+            } catch (Exception exc) {
+            }
+        }
+    }
+
 }
