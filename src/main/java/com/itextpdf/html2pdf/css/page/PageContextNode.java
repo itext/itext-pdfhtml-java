@@ -40,43 +40,73 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css;
+package com.itextpdf.html2pdf.css.page;
 
-import com.itextpdf.html2pdf.css.media.CssMediaRule;
-import com.itextpdf.html2pdf.css.page.CssPageRule;
+import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
-public final class CssNestedAtRuleFactory {
+public class PageContextNode implements INode, IStylesContainer {
+    private List<INode> childNodes = new ArrayList<>();
+    private INode parentNode;
+    private Map<String, String> styles;
 
-    private CssNestedAtRuleFactory() {
+    private String pageTypeName;
+    private List<String> pageClasses;
+
+    public PageContextNode() {
+        this(null);
+    }
+    
+    public PageContextNode(INode parentNode) {
+        this.parentNode = parentNode;
+        this.pageClasses = new ArrayList<>();
     }
 
-    public static CssNestedAtRule createNestedRule(String ruleDeclaration) {
-        ruleDeclaration = ruleDeclaration.trim();
-        String ruleName = extractRuleNameFromDeclaration(ruleDeclaration);
-        String ruleParameters = ruleDeclaration.substring(ruleName.length()).trim();
+    @Override
+    public List<INode> childNodes() {
+        return Collections.unmodifiableList(childNodes);
+    }
+    
 
-        switch (ruleName) {
-            case CssRuleName.MEDIA:
-                return new CssMediaRule(ruleParameters);
-            case CssRuleName.PAGE:
-                return new CssPageRule(ruleParameters);
-            default:
-                return new CssNestedAtRule(ruleName, ruleParameters);
-        }
+    @Override
+    public void addChild(INode node) {
+        childNodes.add(node);
     }
 
-    static String extractRuleNameFromDeclaration(String ruleDeclaration) {
-        int spaceIndex = ruleDeclaration.indexOf(' ');
-        int colonIndex = ruleDeclaration.indexOf(':');
-        int separatorIndex;
-        if (spaceIndex == -1) {
-            separatorIndex = colonIndex;
-        } else if (colonIndex == -1) {
-            separatorIndex = spaceIndex;
-        } else {
-            separatorIndex = Math.min(spaceIndex, colonIndex);
-        }
-        return separatorIndex == -1 ? ruleDeclaration : ruleDeclaration.substring(0, separatorIndex);
+    @Override
+    public INode parentNode() {
+        return parentNode;
     }
 
+    public PageContextNode setPageTypeName(String pageTypeName) {
+        this.pageTypeName = pageTypeName;
+        return this;
+    }
+    
+    public PageContextNode addPageClass(String pageClass) {
+        this.pageClasses.add(pageClass.toLowerCase());
+        return this;
+    }
+    
+    public String getPageTypeName() {
+        return this.pageTypeName;
+    }
+    
+    public List<String> getPageClasses() {
+        return Collections.unmodifiableList(pageClasses);
+    }
+
+    @Override
+    public void setStyles(Map<String, String> stringStringMap) {
+        this.styles = stringStringMap;
+    }
+
+    @Override
+    public Map<String, String> getStyles() {
+        return this.styles;
+    }
 }

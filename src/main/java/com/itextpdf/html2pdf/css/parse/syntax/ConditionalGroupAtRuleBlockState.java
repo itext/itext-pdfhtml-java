@@ -40,43 +40,32 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css;
+package com.itextpdf.html2pdf.css.parse.syntax;
 
-import com.itextpdf.html2pdf.css.media.CssMediaRule;
-import com.itextpdf.html2pdf.css.page.CssPageRule;
+class ConditionalGroupAtRuleBlockState implements IParserState {
 
-public final class CssNestedAtRuleFactory {
+    private CssParserStateController controller;
 
-    private CssNestedAtRuleFactory() {
+    public ConditionalGroupAtRuleBlockState(CssParserStateController controller) {
+        this.controller = controller;
     }
 
-    public static CssNestedAtRule createNestedRule(String ruleDeclaration) {
-        ruleDeclaration = ruleDeclaration.trim();
-        String ruleName = extractRuleNameFromDeclaration(ruleDeclaration);
-        String ruleParameters = ruleDeclaration.substring(ruleName.length()).trim();
-
-        switch (ruleName) {
-            case CssRuleName.MEDIA:
-                return new CssMediaRule(ruleParameters);
-            case CssRuleName.PAGE:
-                return new CssPageRule(ruleParameters);
-            default:
-                return new CssNestedAtRule(ruleName, ruleParameters);
-        }
-    }
-
-    static String extractRuleNameFromDeclaration(String ruleDeclaration) {
-        int spaceIndex = ruleDeclaration.indexOf(' ');
-        int colonIndex = ruleDeclaration.indexOf(':');
-        int separatorIndex;
-        if (spaceIndex == -1) {
-            separatorIndex = colonIndex;
-        } else if (colonIndex == -1) {
-            separatorIndex = spaceIndex;
+    @Override
+    // TODO use UnknownState?
+    public void process(char ch) {
+        if (ch == '/') {
+            controller.enterCommentStartState();
+        } else if (ch == '@') {
+            controller.enterRuleState();
+        } else if (ch == '{') {
+            controller.storeCurrentSelector();
+            controller.enterPropertiesState();
+        } else if (ch == '}') {
+            controller.finishAtRuleBlock();
+            controller.enterUnknownStateIfNestedBlocksFinished();
         } else {
-            separatorIndex = Math.min(spaceIndex, colonIndex);
+            controller.appendToBuffer(ch);
         }
-        return separatorIndex == -1 ? ruleDeclaration : ruleDeclaration.substring(0, separatorIndex);
     }
 
 }

@@ -67,6 +67,10 @@ public class CssNestedAtRule extends CssAtRule {
         this.body.addAll(statements);
     }
 
+    public void addBodyCssDeclarations(List<CssDeclaration> cssDeclarations) {
+        // ignore by default
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
