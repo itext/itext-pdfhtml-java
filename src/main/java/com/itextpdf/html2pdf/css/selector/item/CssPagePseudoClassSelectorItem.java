@@ -40,43 +40,32 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css;
+package com.itextpdf.html2pdf.css.selector.item;
 
-import com.itextpdf.html2pdf.css.media.CssMediaRule;
-import com.itextpdf.html2pdf.css.page.CssPageRule;
+import com.itextpdf.html2pdf.css.page.PageContextConstants;
+import com.itextpdf.html2pdf.css.page.PageContextNode;
+import com.itextpdf.html2pdf.html.node.INode;
 
-public final class CssNestedAtRuleFactory {
+public class CssPagePseudoClassSelectorItem implements ICssSelectorItem {
 
-    private CssNestedAtRuleFactory() {
+    private boolean isSpreadPseudoClass;
+    private String pagePseudoClass;
+
+    public CssPagePseudoClassSelectorItem(String pagePseudoClass) {
+        this.isSpreadPseudoClass = pagePseudoClass.equals(PageContextConstants.LEFT) || pagePseudoClass.equals(PageContextConstants.RIGHT);
+        this.pagePseudoClass = pagePseudoClass;
     }
 
-    public static CssNestedAtRule createNestedRule(String ruleDeclaration) {
-        ruleDeclaration = ruleDeclaration.trim();
-        String ruleName = extractRuleNameFromDeclaration(ruleDeclaration);
-        String ruleParameters = ruleDeclaration.substring(ruleName.length()).trim();
+    @Override
+    public int getSpecificity() {
+        return isSpreadPseudoClass ? CssSpecificityConstants.ELEMENT_SPECIFICITY : CssSpecificityConstants.CLASS_SPECIFICITY;
+    }
 
-        switch (ruleName) {
-            case CssRuleName.MEDIA:
-                return new CssMediaRule(ruleParameters);
-            case CssRuleName.PAGE:
-                return new CssPageRule(ruleParameters);
-            default:
-                return new CssNestedAtRule(ruleName, ruleParameters);
+    @Override
+    public boolean matches(INode node) {
+        if (!(node instanceof PageContextNode)) {
+            return false;
         }
+        return ((PageContextNode) node).getPageClasses().contains(pagePseudoClass);
     }
-
-    static String extractRuleNameFromDeclaration(String ruleDeclaration) {
-        int spaceIndex = ruleDeclaration.indexOf(' ');
-        int colonIndex = ruleDeclaration.indexOf(':');
-        int separatorIndex;
-        if (spaceIndex == -1) {
-            separatorIndex = colonIndex;
-        } else if (colonIndex == -1) {
-            separatorIndex = spaceIndex;
-        } else {
-            separatorIndex = Math.min(spaceIndex, colonIndex);
-        }
-        return separatorIndex == -1 ? ruleDeclaration : ruleDeclaration.substring(0, separatorIndex);
-    }
-
 }

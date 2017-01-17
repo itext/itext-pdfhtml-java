@@ -48,5 +48,6 @@ public final class CssRuleName {
     }
 
     public static final String MEDIA = "media";
+    public static final String PAGE = "page";
 
 }

@@ -40,43 +40,53 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css;
+package com.itextpdf.html2pdf.css.page;
 
-import com.itextpdf.html2pdf.css.media.CssMediaRule;
-import com.itextpdf.html2pdf.css.page.CssPageRule;
+import com.itextpdf.html2pdf.css.CssDeclaration;
+import com.itextpdf.html2pdf.css.CssNestedAtRule;
+import com.itextpdf.html2pdf.css.CssRuleName;
+import com.itextpdf.html2pdf.css.CssRuleSet;
+import com.itextpdf.html2pdf.css.CssStatement;
+import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
+import com.itextpdf.html2pdf.css.resolve.CssNonStandardRuleSet;
+import com.itextpdf.html2pdf.css.selector.CssPageSelector;
+import com.itextpdf.html2pdf.css.selector.ICssSelector;
+import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.html.node.INode;
+import java.util.ArrayList;
+import java.util.List;
 
-public final class CssNestedAtRuleFactory {
+public class CssPageRule extends CssNestedAtRule {
 
-    private CssNestedAtRuleFactory() {
-    }
+    private List<ICssSelector> pageSelectors;
 
-    public static CssNestedAtRule createNestedRule(String ruleDeclaration) {
-        ruleDeclaration = ruleDeclaration.trim();
-        String ruleName = extractRuleNameFromDeclaration(ruleDeclaration);
-        String ruleParameters = ruleDeclaration.substring(ruleName.length()).trim();
+    public CssPageRule(String ruleParameters) {
+        super(CssRuleName.PAGE, ruleParameters);
+        pageSelectors = new ArrayList<>();
 
-        switch (ruleName) {
-            case CssRuleName.MEDIA:
-                return new CssMediaRule(ruleParameters);
-            case CssRuleName.PAGE:
-                return new CssPageRule(ruleParameters);
-            default:
-                return new CssNestedAtRule(ruleName, ruleParameters);
+        String[] selectors = ruleParameters.split(",");
+        for (int i = 0; i < selectors.length; i++) {
+            selectors[i] = CssUtils.removeDoubleSpacesAndTrim(selectors[i]);
+        }
+        for (String currentSelectorStr : selectors) {
+            pageSelectors.add(new CssPageSelector(currentSelectorStr));
         }
     }
 
-    static String extractRuleNameFromDeclaration(String ruleDeclaration) {
-        int spaceIndex = ruleDeclaration.indexOf(' ');
-        int colonIndex = ruleDeclaration.indexOf(':');
-        int separatorIndex;
-        if (spaceIndex == -1) {
-            separatorIndex = colonIndex;
-        } else if (colonIndex == -1) {
-            separatorIndex = spaceIndex;
-        } else {
-            separatorIndex = Math.min(spaceIndex, colonIndex);
+    @Override
+    public List<CssRuleSet> getCssRuleSets(INode element, MediaDeviceDescription deviceDescription) {
+        List<CssRuleSet> result = new ArrayList<>();
+        for (CssStatement childStatement : body) {
+            result.addAll(childStatement.getCssRuleSets(element, deviceDescription));
         }
-        return separatorIndex == -1 ? ruleDeclaration : ruleDeclaration.substring(0, separatorIndex);
+        return result;
+    }
+
+    @Override
+    public void addBodyCssDeclarations(List<CssDeclaration> cssDeclarations) {
+        for (ICssSelector pageSelector : pageSelectors) {
+            this.body.add(new CssNonStandardRuleSet(pageSelector, cssDeclarations));
+        }
     }
 
 }

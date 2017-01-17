@@ -51,16 +51,14 @@ class AtRuleBlockState implements IParserState {
     }
 
     @Override
-    // TODO use UnknownState?
     public void process(char ch) {
         if (ch == '/') {
             controller.enterCommentStartState();
         } else if (ch == '@') {
+            controller.storeCurrentPropertiesWithoutSelector();
             controller.enterRuleState();
-        } else if (ch == '{') {
-            controller.storeCurrentSelector();
-            controller.enterPropertiesState();
         } else if (ch == '}') {
+            controller.storeCurrentPropertiesWithoutSelector();
             controller.finishAtRuleBlock();
             controller.enterUnknownStateIfNestedBlocksFinished();
         } else {

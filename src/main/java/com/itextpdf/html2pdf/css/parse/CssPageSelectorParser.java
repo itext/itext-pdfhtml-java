@@ -40,43 +40,33 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css;
+package com.itextpdf.html2pdf.css.parse;
 
-import com.itextpdf.html2pdf.css.media.CssMediaRule;
-import com.itextpdf.html2pdf.css.page.CssPageRule;
+import com.itextpdf.html2pdf.css.selector.item.CssPagePseudoClassSelectorItem;
+import com.itextpdf.html2pdf.css.selector.item.CssPageTypeSelectorItem;
+import com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public final class CssNestedAtRuleFactory {
+public final class CssPageSelectorParser {
+    private static final String PAGE_SELECTOR_PATTERN_STR =
+            "(^-?[_a-zA-Z][\\w-]*)|(:(?i)(left|right|first|blank))";
 
-    private CssNestedAtRuleFactory() {
-    }
+    private static final Pattern selectorPattern = Pattern.compile(PAGE_SELECTOR_PATTERN_STR);
 
-    public static CssNestedAtRule createNestedRule(String ruleDeclaration) {
-        ruleDeclaration = ruleDeclaration.trim();
-        String ruleName = extractRuleNameFromDeclaration(ruleDeclaration);
-        String ruleParameters = ruleDeclaration.substring(ruleName.length()).trim();
-
-        switch (ruleName) {
-            case CssRuleName.MEDIA:
-                return new CssMediaRule(ruleParameters);
-            case CssRuleName.PAGE:
-                return new CssPageRule(ruleParameters);
-            default:
-                return new CssNestedAtRule(ruleName, ruleParameters);
+    public static List<ICssSelectorItem> parseSelectorItems(String selectorItemsStr) {
+        List<ICssSelectorItem> selectorItems = new ArrayList<>();
+        Matcher itemMatcher = selectorPattern.matcher(selectorItemsStr);
+        while (itemMatcher.find()) {
+            String selectorItem = itemMatcher.group(0);
+            if (selectorItem.charAt(0) == ':') {
+                selectorItems.add(new CssPagePseudoClassSelectorItem(selectorItem.substring(1).toLowerCase()));
+            } else {
+                selectorItems.add(new CssPageTypeSelectorItem(selectorItem));
+            }
         }
+        return selectorItems;
     }
-
-    static String extractRuleNameFromDeclaration(String ruleDeclaration) {
-        int spaceIndex = ruleDeclaration.indexOf(' ');
-        int colonIndex = ruleDeclaration.indexOf(':');
-        int separatorIndex;
-        if (spaceIndex == -1) {
-            separatorIndex = colonIndex;
-        } else if (colonIndex == -1) {
-            separatorIndex = spaceIndex;
-        } else {
-            separatorIndex = Math.min(spaceIndex, colonIndex);
-        }
-        return separatorIndex == -1 ? ruleDeclaration : ruleDeclaration.substring(0, separatorIndex);
-    }
-
 }
