@@ -40,48 +40,33 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.element;
+package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 
-import java.io.File;
-import java.io.IOException;
+public class PreTagWorker extends DivTagWorker {
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+    boolean anyContentProcessed = false;
 
-@Category(IntegrationTest.class)
-public class PreTest extends ExtendedITextTest {
-
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/PreTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/PreTest/";
-
-    @BeforeClass
-    public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+    public PreTagWorker(IElementNode element, ProcessorContext context) {
+        super(element, context);
     }
 
-    @Test
-    public void pre01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "preTest01.html"), new File(destinationFolder + "preTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "preTest01.pdf", sourceFolder + "cmp_preTest01.pdf", destinationFolder, "diff01_"));
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        // It seems that browsers just skip first newline symbol, if any
+        if (!anyContentProcessed && content.startsWith("\n")) {
+            content = content.substring(1);
+        }
+        anyContentProcessed = true;
+        return super.processContent(content, context);
     }
 
-    @Test
-    public void pre02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "preTest02.html"), new File(destinationFolder + "preTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "preTest02.pdf", sourceFolder + "cmp_preTest02.pdf", destinationFolder, "diff02_"));
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        anyContentProcessed = true;
+        return super.processTagChild(childTagWorker, context);
     }
-
-    @Test
-    public void pre03Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "preTest03.html"), new File(destinationFolder + "preTest03.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "preTest03.pdf", sourceFolder + "cmp_preTest03.pdf", destinationFolder, "diff03_"));
-    }
-
 }
