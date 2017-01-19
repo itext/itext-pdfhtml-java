@@ -56,6 +56,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.LiTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.LinkTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.MetaTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.PreTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TableFooterTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TableHeaderTagWorker;
@@ -127,7 +128,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.H5, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.H6, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.P, PTagWorker.class);
-        workerMapping.putMapping(TagConstants.PRE, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.PRE, PreTagWorker.class);
         workerMapping.putMapping(TagConstants.Q, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.S, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.SAMP, SpanTagWorker.class);
