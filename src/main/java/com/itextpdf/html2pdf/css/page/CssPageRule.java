@@ -101,6 +101,7 @@ public class CssPageRule extends CssNestedAtRule {
         }
     }  
     
+    @Override
     public void addStatementToBody(CssStatement statement) {
         if (statement instanceof CssMarginRule) {
             ((CssMarginRule) statement).setPageSelectors(pageSelectors);
@@ -108,6 +109,7 @@ public class CssPageRule extends CssNestedAtRule {
         this.body.add(statement);
     }
 
+    @Override
     public void addStatementsToBody(Collection<CssStatement> statements) {
         for (CssStatement statement : statements) {
             addStatementToBody(statement);
