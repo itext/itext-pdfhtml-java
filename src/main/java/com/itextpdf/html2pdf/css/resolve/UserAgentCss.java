@@ -62,7 +62,7 @@ class UserAgentCss {
         try {
             parsedStylesheet = CssStyleSheetParser.parse(ResourceUtil.getResourceStream(DEFAULT_CSS_PATH));
         } catch (Exception exc) {
-            Logger logger = LoggerFactory.getLogger(HtmlStylesToCssConverter.class);
+            Logger logger = LoggerFactory.getLogger(UserAgentCss.class);
             logger.error("Error parsing default.css", exc);
         } finally {
             defaultCss = parsedStylesheet;
