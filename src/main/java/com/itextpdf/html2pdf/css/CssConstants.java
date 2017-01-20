@@ -60,6 +60,7 @@ public class CssConstants {
     public static final String BACKGROUND_POSITION = "background-position";
     public static final String BACKGROUND_REPEAT = "background-repeat";
     public static final String BACKGROUND_SIZE = "background-size";
+    public static final String BLEED = "bleed";
     public static final String BORDER = "border";
     public static final String BORDER_BOTTOM = "border-bottom";
     public static final String BORDER_BOTTOM_COLOR = "border-bottom-color";
@@ -84,6 +85,7 @@ public class CssConstants {
     public static final String BORDER_WIDTH = "border-width";
     public static final String CAPTION_SIDE = "caption-side";
     public static final String COLOR = "color";
+    public static final String CONTENT = "content";
     public static final String DIRECTION = "direction";
     public static final String DISPLAY = "display";
     public static final String EMPTY_CELLS = "empty-cells";
@@ -116,6 +118,7 @@ public class CssConstants {
     public static final String LIST_STYLE_IMAGE = "list-style-image";
     public static final String LIST_STYLE_POSITION = "list-style-position";
     public static final String LIST_STYLE_TYPE = "list-style-type";
+    public static final String MARKS = "marks";
     public static final String MARGIN = "margin";
     public static final String MARGIN_BOTTOM = "margin-bottom";
     public static final String MARGIN_LEFT = "margin-left";
@@ -136,6 +139,7 @@ public class CssConstants {
     public static final String PADDING_TOP = "padding-top";
     public static final String POSITION = "position";
     public static final String QUOTES = "quotes";
+    public static final String SIZE = "size";
     public static final String STYLE = "style";
     public static final String TAB_SIZE = "tab-size";
     public static final String TEXT_ALIGN = "text-align";
@@ -177,6 +181,8 @@ public class CssConstants {
     public static final String CONTAIN = "contain";
     public static final String CONTENT_BOX = "content-box";
     public static final String COVER = "cover";
+    public static final String CROP = "crop";
+    public static final String CROSS = "cross";
     public static final String DASHED = "dashed";
     public static final String DECIMAL = "decimal";
     public static final String DECIMAL_LEADING_ZERO = "decimal-leading-zero";
@@ -198,6 +204,7 @@ public class CssConstants {
     public static final String INSIDE = "inside";
     public static final String INVERT = "invert";
     public static final String ITALIC = "italic";
+    public static final String LANDSCAPE = "landscape";
     public static final String LARGE = "large";
     public static final String LARGER = "larger";
     public static final String LEFT = "left";
@@ -223,6 +230,7 @@ public class CssConstants {
     public static final String OUTSET = "outset";
     public static final String OVERLINE = "overline";
     public static final String PADDING_BOX = "padding-box";
+    public static final String PORTRAIT = "portrait";
     public static final String PRE = "pre";
     public static final String PRE_LINE = "pre-line";
     public static final String PRE_WRAP = "pre-wrap";

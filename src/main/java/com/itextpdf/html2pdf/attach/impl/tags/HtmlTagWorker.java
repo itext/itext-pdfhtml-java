@@ -44,23 +44,29 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.resolve.CssContext;
+import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.renderer.RootRenderer;
 
 public class HtmlTagWorker implements ITagWorker {
 
-    private Document document;
+    private HtmlDocument document;
     private WaitingInlineElementsHelper inlineHelper;
 
     public HtmlTagWorker(IElementNode element, ProcessorContext context) {
-        document = new Document(context.getPdfDocument());
+        document = new HtmlDocument(context.getPdfDocument());
         document.setProperty(Property.COLLAPSING_MARGINS, true);
         document.setFontProvider(context.getFontProvider());
         String fontFamily = element.getStyles().get(CssConstants.FONT_FAMILY);
@@ -104,6 +110,10 @@ public class HtmlTagWorker implements ITagWorker {
         return document;
     }
 
+    public void processPageRules(INode rootNode, ICssResolver cssResolver, ProcessorContext context) {
+        ((HtmlDocumentRenderer)document.getRenderer()).processPageRules(rootNode, cssResolver, context);
+    }
+    
     private boolean processBlockChild(IPropertyContainer propertyContainer) {
         inlineHelper.flushHangingLeaves(document);
         IPropertyContainer element = propertyContainer;
@@ -115,4 +125,19 @@ public class HtmlTagWorker implements ITagWorker {
         }
         return true;
     }
+    
+    private static class HtmlDocument extends Document {
+
+        public HtmlDocument(PdfDocument pdfDoc) {
+            super(pdfDoc);
+        }
+
+        @Override
+        protected RootRenderer ensureRootRendererNotNull() {
+            if (rootRenderer == null)
+                rootRenderer = new HtmlDocumentRenderer(this, immediateFlush);
+            return rootRenderer;
+        }
+    }
+
 }

@@ -102,22 +102,22 @@ public final class MarginApplierUtil {
             return false;
         }
         
-        Float marginTopVal = parseMarginValue(marginValue, em, rem);
-        if (marginTopVal != null) {
-            element.setProperty(marginProperty, marginTopVal);
+        Float marginVal = parseMarginValue(marginValue, em, rem);
+        if (marginVal != null) {
+            element.setProperty(marginProperty, marginVal);
         }
         return true;
     }
 
     private static Float parseMarginValue(String marginValString, float em, float rem) {
-        UnitValue marginTopUnitVal = CssUtils.parseLengthValueToPt(marginValString, em, rem);
-        if (marginTopUnitVal != null) {
-            if (!marginTopUnitVal.isPointValue()) {
+        UnitValue marginUnitVal = CssUtils.parseLengthValueToPt(marginValString, em, rem);
+        if (marginUnitVal != null) {
+            if (!marginUnitVal.isPointValue()) {
                 logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 return null;
             }
 
-            return marginTopUnitVal.getValue();
+            return marginUnitVal.getValue();
         } else {
             return null;
         }

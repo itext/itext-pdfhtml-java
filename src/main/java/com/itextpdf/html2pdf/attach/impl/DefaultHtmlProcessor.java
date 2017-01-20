@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
@@ -236,6 +237,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 }
             } else {
                 context.getState().push(tagWorker);
+            }
+            if (tagWorker instanceof HtmlTagWorker) {
+                ((HtmlTagWorker)tagWorker).processPageRules(node, cssResolver, context);
             }
 
             for (INode childNode : element.childNodes()) {

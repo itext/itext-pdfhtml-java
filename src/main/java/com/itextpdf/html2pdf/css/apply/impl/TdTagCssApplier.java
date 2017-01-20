@@ -67,25 +67,19 @@ public class TdTagCssApplier extends BlockCssApplier {
 
             float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
             float rem =  context.getCssContext().getRootFontSize();
-            Border topBorder = BorderStyleApplierUtil.getCertainBorder(cssProps.get(CssConstants.BORDER_TOP_WIDTH),
-                    cssProps.get(CssConstants.BORDER_TOP_STYLE), cssProps.get(CssConstants.BORDER_TOP_COLOR), em, rem);
-            if (topBorder == null) {
+            
+            Border[] bordersArray = BorderStyleApplierUtil.getBordersArray(cssProps, em, rem);
+            if (bordersArray[0] == null) {
                 cell.setProperty(Property.BORDER_TOP, Border.NO_BORDER);
             }
-            Border bottomBorder = BorderStyleApplierUtil.getCertainBorder(cssProps.get(CssConstants.BORDER_BOTTOM_WIDTH),
-                    cssProps.get(CssConstants.BORDER_BOTTOM_STYLE), cssProps.get(CssConstants.BORDER_BOTTOM_COLOR), em, rem);
-            if (bottomBorder == null) {
+            if (bordersArray[1] == null) {
+                cell.setProperty(Property.BORDER_RIGHT, Border.NO_BORDER);
+            }
+            if (bordersArray[2] == null) {
                 cell.setProperty(Property.BORDER_BOTTOM, Border.NO_BORDER);
             }
-            Border leftBorder = BorderStyleApplierUtil.getCertainBorder(cssProps.get(CssConstants.BORDER_LEFT_WIDTH),
-                    cssProps.get(CssConstants.BORDER_LEFT_STYLE), cssProps.get(CssConstants.BORDER_LEFT_COLOR), em, rem);
-            if (leftBorder == null) {
+            if (bordersArray[3] == null) {
                 cell.setProperty(Property.BORDER_LEFT, Border.NO_BORDER);
-            }
-            Border rightBorder = BorderStyleApplierUtil.getCertainBorder(cssProps.get(CssConstants.BORDER_RIGHT_WIDTH),
-                    cssProps.get(CssConstants.BORDER_RIGHT_STYLE), cssProps.get(CssConstants.BORDER_RIGHT_COLOR), em, rem);
-            if (rightBorder == null) {
-                cell.setProperty(Property.BORDER_RIGHT, Border.NO_BORDER);
             }
         }
     }
