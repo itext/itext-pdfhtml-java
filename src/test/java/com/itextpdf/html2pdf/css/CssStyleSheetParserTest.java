@@ -149,6 +149,17 @@ public class CssStyleSheetParserTest extends ExtendedITextTest {
         Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
     }
 
+    @Test
+    public void test11() throws IOException {
+        // TODO in this test declarations of the page at-rule with compound selector are duplicated.
+        // See CssPageRule#addBodyCssDeclarations() method for the reason and possible solution if this becomes important.
+        
+        String cssFile = sourceFolder + "css11.css";
+        String cmpFile = sourceFolder + "cmp_css11.css";
+        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
+        Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
+    }
+
     private String getCssFileContents(String filePath) throws IOException {
         byte[] bytes = StreamUtil.inputStreamToArray(new FileInputStream(filePath));
         String content = new String(bytes);
