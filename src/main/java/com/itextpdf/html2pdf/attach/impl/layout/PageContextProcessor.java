@@ -118,12 +118,12 @@ class PageContextProcessor {
         }
         if (bleed != null) {
             Rectangle box = page.getMediaBox();
-            box.increaseHeight(bleed * 2);
-            box.setWidth(box.getWidth() + bleed * 2);
+            box.increaseHeight((float)bleed * 2);
+            box.setWidth(box.getWidth() + (float)bleed * 2);
             page.setMediaBox(box).setBleedBox(box);
             Rectangle trimBox = page.getTrimBox();
-            trimBox.moveUp(bleed);
-            trimBox.moveRight(bleed);
+            trimBox.moveUp((float)bleed);
+            trimBox.moveRight((float)bleed);
             page.setTrimBox(trimBox);
         }
     }
@@ -299,10 +299,10 @@ class PageContextProcessor {
         Float left = parseBoxValue(leftStr, em, rem, pageSize.getWidth());
 
         return new float[] {
-                top != null ? top : defaultValue,
-                right != null ? right : defaultValue,
-                bottom != null ? bottom : defaultValue,
-                left != null ? left : defaultValue
+                top != null ? (float)top : defaultValue,
+                right != null ? (float)right : defaultValue,
+                bottom != null ? (float)bottom : defaultValue,
+                left != null ? (float)left : defaultValue
         };
     }
     
