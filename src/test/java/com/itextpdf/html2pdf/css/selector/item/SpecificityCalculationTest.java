@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
+import com.itextpdf.html2pdf.css.selector.CssPageSelector;
 import com.itextpdf.html2pdf.css.selector.CssSelector;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
@@ -166,8 +167,42 @@ public class SpecificityCalculationTest extends ExtendedITextTest {
         Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY, getSpecificity(":not(.class_name)"));
     }
 
+    @Test
+    public void pageTest01() {
+        Assert.assertEquals(CssSpecificityConstants.ID_SPECIFICITY, getPageSelectorSpecificity("customPageName"));
+    }
+
+    @Test
+    public void pageTest02() {
+        Assert.assertEquals(CssSpecificityConstants.ID_SPECIFICITY + CssSpecificityConstants.CLASS_SPECIFICITY, getPageSelectorSpecificity("customPageName:first"));
+    }
+
+    @Test
+    public void pageTest03() {
+        Assert.assertEquals(CssSpecificityConstants.ID_SPECIFICITY + CssSpecificityConstants.CLASS_SPECIFICITY * 2, getPageSelectorSpecificity("customPageName:first:blank"));
+    }
+
+    @Test
+    public void pageTest04() {
+        Assert.assertEquals(CssSpecificityConstants.ELEMENT_SPECIFICITY * 2, getPageSelectorSpecificity(":left:right"));
+    }
+
+    @Test
+    public void pageTest05() {
+        Assert.assertEquals(CssSpecificityConstants.ID_SPECIFICITY + CssSpecificityConstants.CLASS_SPECIFICITY, getPageSelectorSpecificity("left:blank"));
+    }
+
+    @Test
+    public void pageTest06() {
+        Assert.assertEquals(CssSpecificityConstants.ELEMENT_SPECIFICITY + CssSpecificityConstants.CLASS_SPECIFICITY, getPageSelectorSpecificity(":left:blank"));
+    }
+
     private int getSpecificity(String selector) {
         return new CssSelector(selector).calculateSpecificity();
+    }
+
+    private int getPageSelectorSpecificity(String selector) {
+        return new CssPageSelector(selector).calculateSpecificity();
     }
 
 }
