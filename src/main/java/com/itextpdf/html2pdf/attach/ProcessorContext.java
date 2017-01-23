@@ -60,10 +60,10 @@ public class ProcessorContext {
     private ITagWorkerFactory tagWorkerFactory;
     private ICssApplierFactory cssApplierFactory;
     private String baseUri;
-    private CssContext cssContext;
 
     // Variable fields
     private State state;
+    private CssContext cssContext;
     private PdfDocument pdfDocument;
 
     public ProcessorContext(ConverterProperties converterProperties) {
