@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
+import com.itextpdf.html2pdf.html.node.INode;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -69,6 +71,15 @@ public class CssNestedAtRule extends CssAtRule {
 
     public void addBodyCssDeclarations(List<CssDeclaration> cssDeclarations) {
         // ignore by default
+    }   
+    
+    @Override
+    public List<CssRuleSet> getCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
+        List<CssRuleSet> result = new ArrayList<>();
+        for (CssStatement childStatement : body) {
+            result.addAll(childStatement.getCssRuleSets(node, deviceDescription));
+        }
+        return result;
     }
 
     @Override

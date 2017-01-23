@@ -75,15 +75,6 @@ public class CssPageRule extends CssNestedAtRule {
     }
 
     @Override
-    public List<CssRuleSet> getCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
-        List<CssRuleSet> result = new ArrayList<>();
-        for (CssStatement childStatement : body) {
-            result.addAll(childStatement.getCssRuleSets(node, deviceDescription));
-        }
-        return result;
-    }
-
-    @Override
     public void addBodyCssDeclarations(List<CssDeclaration> cssDeclarations) {
         // TODO Due to this for-loop, on toString method call for the CssPageRule instance
         //      all the body declarations will be duplicated for each pageSelector part.
