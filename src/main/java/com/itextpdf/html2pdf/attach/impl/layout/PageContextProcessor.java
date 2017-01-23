@@ -44,8 +44,12 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.CssRuleName;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
+import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
@@ -54,9 +58,12 @@ import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -69,6 +76,9 @@ class PageContextProcessor {
     private float[] paddings;
     private Div pageBackgroundSimulation;
     private Div pageBordersSimulation;
+
+    private Rectangle[] marginBoxRectangles;
+    private Div[] marginBoxElements;
 
     PageContextProcessor(PageContextProperties properties, ProcessorContext context, PageSize defaultPageSize) {
         Map<String, String> styles = properties.getResolvedPageContextNode().getStyles();
@@ -88,6 +98,7 @@ class PageContextProcessor {
         parseBorders(styles, em, rem);
         parsePaddings(styles, em, rem);
         createPageSimulationElements(styles, context);
+        createMarginBoxesElements(properties.getResolvedPageMarginBoxes(), context);
     }
 
     PageSize getPageSize() {
@@ -110,6 +121,7 @@ class PageContextProcessor {
         setBleed(page);
         drawMarks(page);
         drawPageBackgroundAndBorders(page);
+        drawMarginBoxes(page);
     }
 
     private void setBleed(PdfPage page) {
@@ -235,8 +247,20 @@ class PageContextProcessor {
     private void drawPageBackgroundAndBorders(PdfPage page) {
         Canvas canvas = new Canvas(new PdfCanvas(page), page.getDocument(), page.getBleedBox());
         canvas.add(pageBackgroundSimulation);
+        canvas.close();
         canvas = new Canvas(new PdfCanvas(page), page.getDocument(), page.getTrimBox());
         canvas.add(pageBordersSimulation);
+        canvas.close();
+    }
+
+    private void drawMarginBoxes(PdfPage page) {
+        for (int i = 0; i < 16; ++i) {
+            if (marginBoxElements[i] != null) {
+                Canvas canvas = new Canvas(new PdfCanvas(page), page.getDocument(), marginBoxRectangles[i]);
+                canvas.add(marginBoxElements[i]);
+                canvas.close();
+            }
+        }
     }
 
     private static Set<String> parseMarks(String marksStr) {
@@ -258,13 +282,15 @@ class PageContextProcessor {
 
     private void parseMargins(Map<String, String> styles, float em, float rem) {
         float defaultMargin = 36;
-        margins = parseBoxProps(styles, em, rem, defaultMargin, 
+        PageSize pageSize = getPageSize();
+        margins = parseBoxProps(styles, em, rem, defaultMargin, pageSize,
                 CssConstants.MARGIN_TOP, CssConstants.MARGIN_RIGHT, CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT);
     }
 
     private void parsePaddings(Map<String, String> styles, float em, float rem) {
         float defaultPadding = 0;
-        paddings = parseBoxProps(styles, em, rem, defaultPadding,
+        PageSize pageSize = getPageSize();
+        paddings = parseBoxProps(styles, em, rem, defaultPadding, pageSize,
                 CssConstants.PADDING_TOP, CssConstants.PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT);
     }
 
@@ -284,19 +310,135 @@ class PageContextProcessor {
         pageBordersSimulation.setBorderLeft(borders[3]);
     }
 
-    private float[] parseBoxProps(Map<String, String> styles, float em, float rem, float defaultValue,
+    private void createMarginBoxesElements(List<PageMarginBoxContextNode> resolvedPageMarginBoxes, ProcessorContext context) {
+        marginBoxRectangles = calculateMarginBoxRectangles(resolvedPageMarginBoxes);
+        marginBoxElements = new Div[16];
+        for (PageMarginBoxContextNode marginBoxProps : resolvedPageMarginBoxes) {
+            int marginBoxInd = mapMarginBoxNameToIndex(marginBoxProps.getMarginBoxName());
+            Div marginBox = new Div();
+            marginBoxElements[marginBoxInd] = marginBox;
+            Map<String, String> boxStyles = marginBoxProps.getStyles();
+            BackgroundApplierUtil.applyBackground(boxStyles, context, marginBox);
+            FontStyleApplierUtil.applyFontStyles(boxStyles, context, marginBox);
+            BorderStyleApplierUtil.applyBorders(boxStyles, context, marginBox);
+            VerticalAlignmentApplierUtil.applyVerticalAlignmentForCells(boxStyles, context, marginBox);
+
+            float em = CssUtils.parseAbsoluteLength(boxStyles.get(CssConstants.FONT_SIZE));
+            float rem = context.getCssContext().getRootFontSize();
+            float[] boxMargins = parseBoxProps(boxStyles, em, rem, 0, calculateContainingBlockSizesForMarginBox(marginBoxInd),
+                    CssConstants.MARGIN_TOP, CssConstants.MARGIN_RIGHT, CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT);
+            float[] boxPaddings = parseBoxProps(boxStyles, em, rem, 0, calculateContainingBlockSizesForMarginBox(marginBoxInd),
+                    CssConstants.PADDING_TOP, CssConstants.PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT);
+
+            marginBox.setMargins(boxMargins[0], boxMargins[1], boxMargins[2], boxMargins[3]);
+            marginBox.setPaddings(boxPaddings[0], boxPaddings[1], boxPaddings[2], boxPaddings[3]);
+            marginBox.setProperty(Property.FONT_PROVIDER, context.getFontProvider());
+            marginBox.setFillAvailableArea(true);
+
+            marginBox.add(new Paragraph(boxStyles.get(CssConstants.CONTENT)).setMargin(0));
+        }
+    }
+
+    private Rectangle[] calculateMarginBoxRectangles(List<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
+        // TODO It's a very basic implementation for now. In future resolve rectangles based on presence of certain margin boxes, 
+        //      also height and width properties should be taken into account.
+        float topMargin = margins[0];
+        float rightMargin = margins[1];
+        float bottomMargin = margins[2];
+        float leftMargin = margins[3];
+        Rectangle withoutMargins = pageSize.clone().applyMargins(topMargin, rightMargin, bottomMargin, leftMargin, false);
+        float topBottomMarginWidth = withoutMargins.getWidth() / 3;
+        float leftRightMarginHeight = withoutMargins.getHeight() / 3;
+        Rectangle[] hardcodedBoxRectangles = new Rectangle[] {
+                new Rectangle(0, withoutMargins.getTop(), leftMargin, topMargin),
+                new Rectangle(rightMargin, withoutMargins.getTop(), topBottomMarginWidth, topMargin),
+                new Rectangle(rightMargin + topBottomMarginWidth, withoutMargins.getTop(), topBottomMarginWidth, topMargin),
+                new Rectangle(withoutMargins.getRight() - topBottomMarginWidth, withoutMargins.getTop(), topBottomMarginWidth, topMargin),
+                new Rectangle(withoutMargins.getRight(), withoutMargins.getTop(), topBottomMarginWidth, topMargin),
+
+                new Rectangle(withoutMargins.getRight(), withoutMargins.getTop() - leftRightMarginHeight, rightMargin, leftRightMarginHeight),
+                new Rectangle(withoutMargins.getRight(), withoutMargins.getBottom() + leftRightMarginHeight, rightMargin, leftRightMarginHeight),
+                new Rectangle(withoutMargins.getRight(), withoutMargins.getBottom(), rightMargin, leftRightMarginHeight),
+
+                new Rectangle(withoutMargins.getRight(), 0, rightMargin, bottomMargin),
+                new Rectangle(withoutMargins.getRight() - topBottomMarginWidth, 0, topBottomMarginWidth, bottomMargin),
+                new Rectangle(rightMargin + topBottomMarginWidth, 0, topBottomMarginWidth, bottomMargin),
+                new Rectangle(rightMargin, 0, topBottomMarginWidth, bottomMargin),
+                new Rectangle(0, 0, leftMargin, bottomMargin),
+
+                new Rectangle(0, withoutMargins.getBottom(), leftMargin, leftRightMarginHeight),
+                new Rectangle(0, withoutMargins.getBottom() + leftRightMarginHeight, leftMargin, leftRightMarginHeight),
+                new Rectangle(0, withoutMargins.getTop() - leftRightMarginHeight, leftMargin, leftRightMarginHeight),
+
+        };
+        return hardcodedBoxRectangles;
+    }
+
+    private Rectangle calculateContainingBlockSizesForMarginBox(int marginBoxInd) {
+        if (marginBoxInd == 0 || marginBoxInd == 4 || marginBoxInd == 8 || marginBoxInd == 12) {
+            return marginBoxRectangles[marginBoxInd];
+        }
+        Rectangle withoutMargins = pageSize.clone().applyMargins(margins[0], margins[1], margins[2], margins[3], false);
+        if (marginBoxInd < 4) {
+            return new Rectangle(withoutMargins.getWidth(), margins[0]);
+        } else if (marginBoxInd < 8) {
+            return new Rectangle(margins[1], withoutMargins.getHeight());
+        } else if (marginBoxInd < 12) {
+            return new Rectangle(withoutMargins.getWidth(), margins[2]);
+        } else {
+            return new Rectangle(margins[3], withoutMargins.getWidth());
+        }
+    }
+
+    private int mapMarginBoxNameToIndex(String marginBoxName) {
+        switch (marginBoxName) {
+            case CssRuleName.TOP_LEFT_CORNER:
+                return 0;
+            case CssRuleName.TOP_LEFT:
+                return 1;
+            case CssRuleName.TOP_CENTER:
+                return 2;
+            case CssRuleName.TOP_RIGHT:
+                return 3;
+            case CssRuleName.TOP_RIGHT_CORNER:
+                return 4;
+            case CssRuleName.RIGHT_TOP:
+                return 5;
+            case CssRuleName.RIGHT_MIDDLE:
+                return 6;
+            case CssRuleName.RIGHT_BOTTOM:
+                return 7;
+            case CssRuleName.BOTTOM_RIGHT_CORNER:
+                return 8;
+            case CssRuleName.BOTTOM_RIGHT:
+                return 9;
+            case CssRuleName.BOTTOM_CENTER:
+                return 10;
+            case CssRuleName.BOTTOM_LEFT:
+                return 11;
+            case CssRuleName.BOTTOM_LEFT_CORNER:
+                return 12;
+            case CssRuleName.LEFT_BOTTOM:
+                return 13;
+            case CssRuleName.LEFT_MIDDLE:
+                return 14;
+            case CssRuleName.LEFT_TOP:
+                return 15;
+        }
+        return -1;
+    }
+
+    private float[] parseBoxProps(Map<String, String> styles, float em, float rem, float defaultValue, Rectangle containingBlock, 
                                   String topPropName, String rightPropName, String bottomPropName, String leftPropName) {
         String topStr = styles.get(topPropName);
         String rightStr = styles.get(rightPropName);
         String bottomStr = styles.get(bottomPropName);
         String leftStr = styles.get(leftPropName);
 
-        PageSize pageSize = getPageSize();
-
-        Float top = parseBoxValue(topStr, em, rem, pageSize.getHeight());
-        Float right = parseBoxValue(rightStr, em, rem, pageSize.getWidth());
-        Float bottom = parseBoxValue(bottomStr, em, rem, pageSize.getHeight());
-        Float left = parseBoxValue(leftStr, em, rem, pageSize.getWidth());
+        Float top = parseBoxValue(topStr, em, rem, containingBlock.getHeight());
+        Float right = parseBoxValue(rightStr, em, rem, containingBlock.getWidth());
+        Float bottom = parseBoxValue(bottomStr, em, rem, containingBlock.getHeight());
+        Float left = parseBoxValue(leftStr, em, rem, containingBlock.getWidth());
 
         return new float[] {
                 top != null ? (float)top : defaultValue,

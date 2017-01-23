@@ -126,6 +126,27 @@ public class PageRuleTest extends ExtendedITextTest {
     public void marksBleedPageRuleTest() throws IOException, InterruptedException {
         runTest("marksBleedPageRuleTest");
     }
+    
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_INVALID, count = 6))
+    public void marginBoxTest01() throws IOException, InterruptedException {
+        runTest("marginBoxTest01");
+    }
+    
+    @Test
+    public void marginBoxTest02() throws IOException, InterruptedException {
+        runTest("marginBoxTest02");
+    }
+
+    @Test
+    public void marginBoxTest03() throws IOException, InterruptedException {
+        runTest("marginBoxTest03");
+    }
+
+    @Test
+    public void marginBoxTest04() throws IOException, InterruptedException {
+        runTest("marginBoxTest04");
+    }
 
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";

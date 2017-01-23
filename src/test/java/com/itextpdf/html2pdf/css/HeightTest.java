@@ -159,6 +159,8 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightWithCollapsingMarginsTest04";
         String diffPrefix = "diffMargins04_";
 
+        // second paragraph should not be drawn in pdf, as it doesn't fit with it's margins
+        
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
     }
