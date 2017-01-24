@@ -2,27 +2,27 @@ html {
     font-family: helvetica
 }
 pre {
-    font-family: courier;
+    font-family: monospace;
     font-size: 9pt;
     line-height: 12pt
 }
 tt {
-    font-family: courier;
+    font-family: monospace;
     font-size: 9pt;
     line-height: 12pt
 }
 code {
-    font-family: courier;
+    font-family: monospace;
     font-size: 9pt;
     line-height: 12pt
 }
 kbd {
-    font-family: courier;
+    font-family: monospace;
     font-size: 9pt;
     line-height: 12pt
 }
 samp {
-    font-family: courier;
+    font-family: monospace;
     font-size: 9pt;
     line-height: 12pt
 }

@@ -53,6 +53,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
+import com.itextpdf.html2pdf.exception.Html2PdfException;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
@@ -211,6 +212,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
 
         context.reset(pdfDocument);
+        if (context.getFontProvider().getFontSet().getFonts().size() == 0) {
+            throw new Html2PdfException("Font Provider contains zero fonts. At least one font should be present");
+        }
         // TODO store html version from document type in context if necessary
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context.getDeviceDescription(), context.getResourceResolver());

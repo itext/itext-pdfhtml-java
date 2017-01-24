@@ -3,7 +3,7 @@ html {
 }
 
 pre, tt, code, kbd, samp {
-    font-family: Courier;
+    font-family: monospace;
     font-size: 9pt;
     line-height: 12pt;
 }
