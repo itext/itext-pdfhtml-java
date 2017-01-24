@@ -3,7 +3,6 @@ package org.jsoup.parser;
 import org.jsoup.helper.Validate;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 /**
  CharacterReader consumes tokens off a string. To replace the old TokenQueue.
@@ -327,8 +326,8 @@ final class CharacterReader {
 
     boolean containsIgnoreCase(String seq) {
         // used to check presence of </title>, </style>. only finds consistent case.
-        String loScan = seq.toLowerCase(Locale.ENGLISH);
-        String hiScan = seq.toUpperCase(Locale.ENGLISH);
+        String loScan = seq.toLowerCase();
+        String hiScan = seq.toUpperCase();
         return (nextIndexOf(loScan) > -1) || (nextIndexOf(hiScan) > -1);
     }
 
