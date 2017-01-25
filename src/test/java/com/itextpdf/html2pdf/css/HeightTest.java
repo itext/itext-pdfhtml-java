@@ -155,6 +155,7 @@ public class HeightTest extends ExtendedITextTest {
     @LogMessages(messages = {
             @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
     })
+    // TODO DEVSIX-1047
     public void heightWithCollapsingMarginsTest04() throws IOException, InterruptedException {
         String testName = "heightWithCollapsingMarginsTest04";
         String diffPrefix = "diffMargins04_";
