@@ -54,7 +54,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class PageSizeParser {
-    private static Map<String, PageSize> pageSizeConstants = new HashMap<>();
+    private static final Map<String, PageSize> pageSizeConstants = new HashMap<>();
     static {
         pageSizeConstants.put("a5", PageSize.A5);
         pageSizeConstants.put("a4", PageSize.A4);
