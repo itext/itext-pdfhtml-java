@@ -62,11 +62,15 @@ import com.itextpdf.layout.renderer.RootRenderer;
 
 public class HtmlTagWorker implements ITagWorker {
 
-    private HtmlDocument document;
+    private Document document;
     private WaitingInlineElementsHelper inlineHelper;
 
     public HtmlTagWorker(IElementNode element, ProcessorContext context) {
-        document = new HtmlDocument(context.getPdfDocument());
+        boolean immediateFlush = true;
+        PdfDocument pdfDocument = context.getPdfDocument();
+        document = new Document(pdfDocument, pdfDocument.getDefaultPageSize(), immediateFlush);
+        document.setRenderer(new HtmlDocumentRenderer(document, immediateFlush));
+        
         document.setProperty(Property.COLLAPSING_MARGINS, true);
         document.setFontProvider(context.getFontProvider());
         String fontFamily = element.getStyles().get(CssConstants.FONT_FAMILY);
@@ -124,20 +128,6 @@ public class HtmlTagWorker implements ITagWorker {
             document.add((Image) element);
         }
         return true;
-    }
-    
-    private static class HtmlDocument extends Document {
-
-        public HtmlDocument(PdfDocument pdfDoc) {
-            super(pdfDoc);
-        }
-
-        @Override
-        protected RootRenderer ensureRootRendererNotNull() {
-            if (rootRenderer == null)
-                rootRenderer = new HtmlDocumentRenderer(this, immediateFlush);
-            return rootRenderer;
-        }
     }
 
 }

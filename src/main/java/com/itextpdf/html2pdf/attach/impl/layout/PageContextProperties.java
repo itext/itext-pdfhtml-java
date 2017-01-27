@@ -59,7 +59,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class PageContextProperties {
-    private static List<String> pageMarginBoxNames = Arrays.asList(
+    private static final List<String> pageMarginBoxNames = Arrays.asList(
             CssRuleName.TOP_LEFT_CORNER,
             CssRuleName.TOP_LEFT,
             CssRuleName.TOP_CENTER,
