@@ -74,6 +74,15 @@ public class TableTest extends ExtendedITextTest {
     public void helloTableDocumentTest() throws IOException, InterruptedException {
         runTest("hello_table");
     }
+    @Test
+    public void helloTableFixedDocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_fixed");
+    }
+
+    @Test
+    public void helloTableAutoDocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto");
+    }
 
     @Test
     public void helloTableHeaderFooterDocumentTest() throws IOException, InterruptedException {

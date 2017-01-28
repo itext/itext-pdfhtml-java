@@ -165,10 +165,18 @@ public class TableWrapper implements IWrapElement {
         return table;
     }
 
-    private UnitValue[] getColWidths(WaitingColgroupsHelper colgroupsHelper) {
+    private UnitValue[] getColWidths(WaitingColgroupsHelper colgroups) {
         UnitValue[] colWidths = new UnitValue[numberOfColumns];
-        for (int i = 0; i < numberOfColumns; i++) {
-            colWidths[i] = colgroupsHelper.getColWraper(i).getWidth();
+        if (colgroups == null) {
+            for (int i = 0; i < numberOfColumns; i++) {
+                colWidths[i] = UnitValue.createPointValue(-1);
+            }
+        } else {
+            for (int i = 0; i < numberOfColumns; i++) {
+                colWidths[i] = colgroups.getColWraper(i) != null
+                        ? colgroups.getColWraper(i).getWidth()
+                        : UnitValue.createPointValue(-1);
+            }
         }
         return colWidths;
     }
@@ -182,6 +190,4 @@ public class TableWrapper implements IWrapElement {
             this.cell = cell;
         }
     }
-
-
 }
