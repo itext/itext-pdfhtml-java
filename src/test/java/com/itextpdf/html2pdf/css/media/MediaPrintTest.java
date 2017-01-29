@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.css.media;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.font.FontProvider;
 import java.lang.reflect.Array;
@@ -90,6 +91,7 @@ public abstract class MediaPrintTest extends ExtendedITextTest {
         fontProvider.addDirectory(baseSourceFolder + "fonts/");
         properties.setFontProvider(fontProvider);
         HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath), properties);
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));
         Assert.assertTrue(new File(mediaPrintPdfPath).exists());
     }

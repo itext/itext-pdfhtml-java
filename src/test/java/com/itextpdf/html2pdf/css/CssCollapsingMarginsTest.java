@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
@@ -321,8 +322,8 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
         File destFile = new File(outPdf);
         HtmlConverter.convertToPdf(srcFile, destFile);
 
-        CompareTool compareTool = new CompareTool();
-        Assert.assertNull(compareTool.compareByContent(outPdf, cmpPdf, destinationFolder, diff));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(srcFile).getPath() + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, diff));
     }
 
 }
