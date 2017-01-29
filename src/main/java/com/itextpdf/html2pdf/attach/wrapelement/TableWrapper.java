@@ -126,7 +126,7 @@ public class TableWrapper implements IWrapElement {
         tableRowShift.updateCurrentPosition(cell.getColspan(), cell.getRowspan());
         List<CellWrapper> currentRow = table.get(table.size() - 1);
         currentRow.add(new CellWrapper(col, cell));
-        numberOfColumns = Math.max(numberOfColumns, currentRow.size());
+        numberOfColumns = Math.max(numberOfColumns, col + cell.getColspan());
     }
 
     public Table toTable(WaitingColgroupsHelper colgroupsHelper) {
@@ -169,13 +169,13 @@ public class TableWrapper implements IWrapElement {
         UnitValue[] colWidths = new UnitValue[numberOfColumns];
         if (colgroups == null) {
             for (int i = 0; i < numberOfColumns; i++) {
-                colWidths[i] = UnitValue.createPointValue(-1);
+                colWidths[i] = null;
             }
         } else {
             for (int i = 0; i < numberOfColumns; i++) {
                 colWidths[i] = colgroups.getColWraper(i) != null
                         ? colgroups.getColWraper(i).getWidth()
-                        : UnitValue.createPointValue(-1);
+                        : null;
             }
         }
         return colWidths;
@@ -185,7 +185,7 @@ public class TableWrapper implements IWrapElement {
         int col;
         Cell cell;
 
-        public CellWrapper(int col, Cell cell) {
+        CellWrapper(int col, Cell cell) {
             this.col = col;
             this.cell = cell;
         }
