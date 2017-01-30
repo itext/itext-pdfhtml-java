@@ -82,7 +82,7 @@ public class SpanTagCssApplier implements ICssApplier {
     }
 
     private void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context, IElementNode elementNode) {
-        FontStyleApplierUtil.applyFontStyles(css, context, element);
+        FontStyleApplierUtil.applyFontStyles(css, context, elementNode, element);
         //TODO: Background-applying currently doesn't work in html way for spans inside other spans.
         BackgroundApplierUtil.applyBackground(css, context, element);
         //TODO: Border-applying currently doesn't work in html way for spans inside other spans.

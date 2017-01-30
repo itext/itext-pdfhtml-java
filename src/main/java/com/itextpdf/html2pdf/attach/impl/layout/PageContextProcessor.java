@@ -319,7 +319,7 @@ class PageContextProcessor {
             marginBoxElements[marginBoxInd] = marginBox;
             Map<String, String> boxStyles = marginBoxProps.getStyles();
             BackgroundApplierUtil.applyBackground(boxStyles, context, marginBox);
-            FontStyleApplierUtil.applyFontStyles(boxStyles, context, marginBox);
+            FontStyleApplierUtil.applyFontStyles(boxStyles, context, marginBoxProps, marginBox);
             BorderStyleApplierUtil.applyBorders(boxStyles, context, marginBox);
             VerticalAlignmentApplierUtil.applyVerticalAlignmentForCells(boxStyles, context, marginBox);
 
