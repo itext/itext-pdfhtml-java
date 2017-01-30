@@ -44,9 +44,6 @@ package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
-import com.itextpdf.html2pdf.css.CssStyleSheet;
-import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
-import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderShorthandResolver;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
@@ -54,7 +51,6 @@ import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
-import com.itextpdf.io.util.ResourceUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -63,8 +59,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 class HtmlStylesToCssConverter {
 
@@ -293,8 +287,9 @@ class HtmlStylesToCssConverter {
         @Override
         public boolean isSupportedForElement(String elementName) {
             return TagConstants.HR.equals(elementName) || TagConstants.IMG.equals(elementName)
-                    || TagConstants.TD.equals(elementName) || TagConstants.TH.equals(elementName)
-                    || TagConstants.COLGROUP.equals(elementName) || TagConstants.COL.equals(elementName);
+                    || TagConstants.TABLE.equals(elementName) || TagConstants.TD.equals(elementName)
+                    || TagConstants.TH.equals(elementName) || TagConstants.COLGROUP.equals(elementName)
+                    || TagConstants.COL.equals(elementName);
         }
 
         @Override
