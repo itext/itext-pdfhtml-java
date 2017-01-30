@@ -71,7 +71,7 @@ public class BlockCssApplier implements ICssApplier {
             BackgroundApplierUtil.applyBackground(cssProps, context, container);
             MarginApplierUtil.applyMargins(cssProps, context, container);
             PaddingApplierUtil.applyPaddings(cssProps, context, container);
-            FontStyleApplierUtil.applyFontStyles(cssProps, context, container);
+            FontStyleApplierUtil.applyFontStyles(cssProps, context, element, container);
             BorderStyleApplierUtil.applyBorders(cssProps, context, container);
             HyphenationApplierUtil.applyHyphenation(cssProps, context, element, container);
             FloatApplierUtil.applyFloating(cssProps, context, container);
