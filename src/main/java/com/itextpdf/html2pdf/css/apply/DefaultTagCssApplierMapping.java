@@ -119,7 +119,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.STRONG, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SUB, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SUP, SpanTagCssApplier.class);
-        //mapping.putMapping(TagConstants.TABLE, TableTagCssApplier.class);
+        mapping.putMapping(TagConstants.TABLE, TableTagCssApplier.class);
         mapping.putMapping(TagConstants.TD, TdTagCssApplier.class);
         mapping.putMapping(TagConstants.TH, TdTagCssApplier.class);
         mapping.putMapping(TagConstants.TIME, SpanTagCssApplier.class);
