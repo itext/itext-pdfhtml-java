@@ -75,80 +75,73 @@ public class ListTest extends ExtendedITextTest {
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(destinationFolder);
     }
 
     @Test
     public void listTest01() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest01.html"), new File(destinationFolder + "listTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest01.pdf", sourceFolder + "cmp_listTest01.pdf", destinationFolder, "diff01_"));
+        runTest("listTest01");
     }
 
     @Test
     public void listTest02() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest02.html"), new File(destinationFolder + "listTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest02.pdf", sourceFolder + "cmp_listTest02.pdf", destinationFolder, "diff02_"));
+        runTest("listTest02");
     }
 
     @Test
     public void listTest03() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest03.html"), new File(destinationFolder + "listTest03.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest03.pdf", sourceFolder + "cmp_listTest03.pdf", destinationFolder, "diff03_"));
+        runTest("listTest03");
     }
 
     @Test
     public void listTest04() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest04.html"), new File(destinationFolder + "listTest04.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest04.pdf", sourceFolder + "cmp_listTest04.pdf", destinationFolder, "diff04_"));
+        runTest("listTest04");
     }
 
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, count = 32)})
     public void listTest05() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest05.html"), new File(destinationFolder + "listTest05.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest05.pdf", sourceFolder + "cmp_listTest05.pdf", destinationFolder, "diff05_"));
+        runTest("listTest05");
     }
 
     @Test
     public void listTest06() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest06.html"), new File(destinationFolder + "listTest06.pdf"), new ConverterProperties().setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest06.pdf", sourceFolder + "cmp_listTest06.pdf", destinationFolder, "diff06_"));
+        runTest("listTest06");
     }
 
     @Test
     public void listTest07() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest07.html"), new File(destinationFolder + "listTest07.pdf"), new ConverterProperties().setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest07.pdf", sourceFolder + "cmp_listTest07.pdf", destinationFolder, "diff07_"));
+        runTest("listTest07");
     }
 
     @Test
     public void listTest08() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest08.html"), new File(destinationFolder + "listTest08.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest08.pdf", sourceFolder + "cmp_listTest08.pdf", destinationFolder, "diff08_"));
+        runTest("listTest08");
     }
 
     @Test
     public void listTest09() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest09.html"), new File(destinationFolder + "listTest09.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest09.pdf", sourceFolder + "cmp_listTest09.pdf", destinationFolder, "diff09_"));
+        runTest("listTest09");
     }
 
     @Test
     public void listTest10() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest10.html"), new File(destinationFolder + "listTest10.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest10.pdf", sourceFolder + "cmp_listTest10.pdf", destinationFolder, "diff10_"));
+        runTest("listTest10");
     }
 
     @Test
     public void listTest11() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest11.html"), new File(destinationFolder + "listTest11.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest11.pdf", sourceFolder + "cmp_listTest11.pdf", destinationFolder, "diff11_"));
+        runTest("listTest11");
     }
 
     @Test
     public void listTest12() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "listTest12.html"), new File(destinationFolder + "listTest12.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listTest12.pdf", sourceFolder + "cmp_listTest12.pdf", destinationFolder, "diff12_"));
+        runTest("listTest12");
+    }
+
+    @Test
+    public void listTest13() throws IOException, InterruptedException {
+        runTest("listTest13");
     }
 
     @Test
@@ -158,6 +151,11 @@ public class ListTest extends ExtendedITextTest {
         PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "listToPdfa.pdf"), PdfAConformanceLevel.PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", is));
         HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "listToPdfa.html"), pdfADocument, new ConverterProperties().setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listToPdfa.pdf", sourceFolder + "cmp_listToPdfa.pdf", destinationFolder, "diff99_"));
+    }
+
+    private void runTest(String testName) throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
     }
 
 }
