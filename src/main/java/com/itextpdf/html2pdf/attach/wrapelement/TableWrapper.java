@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.attach.util.RowColHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingColgroupsHelper;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 
 import java.util.ArrayList;
@@ -137,6 +138,8 @@ public class TableWrapper implements IWrapElement {
             // if table is empty, create empty table with single column
             table = new Table(1);
         }
+        //Workaround to remove default width:100%
+        table.deleteOwnProperty(Property.WIDTH);
         if (headerRows != null) {
             for (List<CellWrapper> headerRow : headerRows) {
                 for (CellWrapper headerCell : headerRow) {
