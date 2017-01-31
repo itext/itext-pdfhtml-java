@@ -51,6 +51,7 @@ import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.html.node.ITextNode;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfPage;
@@ -335,7 +336,15 @@ class PageContextProcessor {
             marginBox.setProperty(Property.FONT_PROVIDER, context.getFontProvider());
             marginBox.setFillAvailableArea(true);
 
-            marginBox.add(new Paragraph(boxStyles.get(CssConstants.CONTENT)).setMargin(0));
+            if (marginBoxProps.childNodes().isEmpty()) {
+                // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
+                throw new IllegalStateException();
+            }
+            // TODO process possible images in future
+            if (marginBoxProps.childNodes().get(0) instanceof ITextNode) {
+                String text = ((ITextNode) marginBoxProps.childNodes().get(0)).wholeText();
+                marginBox.add(new Paragraph(text).setMargin(0));
+            }
         }
     }
 

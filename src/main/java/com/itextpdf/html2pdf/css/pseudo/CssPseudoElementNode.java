@@ -40,39 +40,86 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.element;
+package com.itextpdf.html2pdf.css.pseudo;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
+import com.itextpdf.html2pdf.css.CssContextNode;
+import com.itextpdf.html2pdf.html.node.IAttribute;
+import com.itextpdf.html2pdf.html.node.IAttributes;
+import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.INode;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-import java.io.File;
-import java.io.IOException;
+public class CssPseudoElementNode extends CssContextNode implements IElementNode {
+    private String pseudoElementName;
+    private String pseudoElementTagName;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
-@Category(IntegrationTest.class)
-public class QTest extends ExtendedITextTest {
-
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/QTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/QTest/";
-
-    @BeforeClass
-    public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+    public CssPseudoElementNode(INode parentNode, String pseudoElementName) {
+        super(parentNode);
+        this.pseudoElementName = pseudoElementName;
+        this.pseudoElementTagName = createPseudoElementTagName(pseudoElementName);
     }
 
-    @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 2))
-    public void q01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "qTest01.html"), new File(destinationFolder + "qTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "qTest01.pdf", sourceFolder + "cmp_qTest01.pdf", destinationFolder, "diff01_"));
+    public static String createPseudoElementTagName(String pseudoElementName) {
+        return "pseudo-element::" + pseudoElementName;
+    }
+
+    public String getPseudoElementName() {
+        return pseudoElementName;
+    }
+
+    @Override
+    public String name() {
+        return pseudoElementTagName;
+    }
+
+    @Override
+    public IAttributes getAttributes() {
+        return new AttributesStub();
+    }
+
+    @Override
+    public String getAttribute(String key) {
+        return null;
+    }
+
+    @Override
+    public List<Map<String, String>> getAdditionalHtmlStyles() {
+        return null;
+    }
+
+    @Override
+    public void addAdditionalHtmlStyles(Map<String, String> styles) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String getLang() {
+        return null;
+    }
+
+    private class AttributesStub implements IAttributes {
+        @Override
+        public String getAttribute(String key) {
+            return null;
+        }
+
+        @Override
+        public void setAttribute(String key, String value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public Iterator<IAttribute> iterator() {
+            return Collections.<IAttribute>emptyIterator();
+        }
     }
 }
+

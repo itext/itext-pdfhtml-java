@@ -42,7 +42,6 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssRuleName;
 import com.itextpdf.html2pdf.css.page.PageContextNode;
@@ -50,13 +49,10 @@ import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.html.node.INode;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 class PageContextProperties {
     private static final List<String> pageMarginBoxNames = Arrays.asList(
@@ -77,7 +73,7 @@ class PageContextProperties {
             CssRuleName.LEFT_MIDDLE,
             CssRuleName.LEFT_TOP
     );
-    
+
     private PageContextNode pageContextNode;
     private List<PageMarginBoxContextNode> pageMarginBoxes;
 
@@ -92,58 +88,17 @@ class PageContextProperties {
         return new PageContextProperties(pageProps, pagesMarginBoxes);
     }
 
-    public PageContextNode getResolvedPageContextNode() {
-        return pageContextNode;
-    }
-
-    public List<PageMarginBoxContextNode> getResolvedPageMarginBoxes() {
-        return pageMarginBoxes;
-    }
-    
     private static List<PageMarginBoxContextNode> getResolvedMarginBoxes(PageContextNode pageClassNode, ICssResolver cssResolver, CssContext context) {
         List<PageMarginBoxContextNode> resolvedMarginBoxes = new ArrayList<>();
         for (String pageMarginBoxName : pageMarginBoxNames) {
             PageMarginBoxContextNode marginBoxNode = new PageMarginBoxContextNode(pageClassNode, pageMarginBoxName);
             Map<String, String> marginBoxStyles = cssResolver.resolveStyles(marginBoxNode, context);
-            if (resolveContent(marginBoxStyles)) {
+            if (!marginBoxNode.childNodes().isEmpty()) {
                 marginBoxNode.setStyles(marginBoxStyles);
                 resolvedMarginBoxes.add(marginBoxNode);
             }
         }
         return resolvedMarginBoxes;
-    }
-
-    private static boolean resolveContent(Map<String, String> marginBoxStyles) {
-        String contentStr = marginBoxStyles.get(CssConstants.CONTENT);
-        if (contentStr == null) {
-            return false;
-        }
-        StringBuilder content = new StringBuilder();
-        StringBuilder nonDirectContent = new StringBuilder();
-        boolean insideQuotes = false;
-        for (int i = 0; i < contentStr.length(); ++i) {
-            if (contentStr.charAt(i) == '"') {
-                if (!insideQuotes) {
-                    // TODO in future, try to resolve if counter() or smth like that encountered
-                    if (!nonDirectContent.toString().trim().isEmpty()) {
-                        break;
-                    }
-                    nonDirectContent.setLength(0);
-                } 
-                insideQuotes = !insideQuotes;
-            } else if (insideQuotes) {
-                content.append(contentStr.charAt(i));
-            } else {
-                nonDirectContent.append(contentStr.charAt(i));
-            }
-        }
-        if (!nonDirectContent.toString().trim().isEmpty()) {
-            Logger logger = LoggerFactory.getLogger(PageContextProperties.class);
-            logger.error(MessageFormat.format(LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_INVALID, contentStr));
-            return false;
-        }
-        marginBoxStyles.put(CssConstants.CONTENT, content.toString());
-        return true;
     }
 
     private static PageContextNode getResolvedPageClassNode(INode rootNode, ICssResolver cssResolver, CssContext context, String... pageClasses) {
@@ -153,7 +108,15 @@ class PageContextProperties {
         }
         Map<String, String> pageClassStyles = cssResolver.resolveStyles(pagesClassNode, context);
         pagesClassNode.setStyles(pageClassStyles);
-        
+
         return pagesClassNode;
+    }
+
+    public PageContextNode getResolvedPageContextNode() {
+        return pageContextNode;
+    }
+
+    public List<PageMarginBoxContextNode> getResolvedPageMarginBoxes() {
+        return pageMarginBoxes;
     }
 }

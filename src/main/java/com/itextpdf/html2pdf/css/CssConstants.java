@@ -292,6 +292,10 @@ public class CssConstants {
             CssConstants.X_LARGE, CssConstants.XX_LARGE
     ));
 
+    // pseudo-elements
+    public static final String AFTER = "after";
+    public static final String BEFORE = "before";
+
     // units of measurement
     public static final String CM = "cm";
     public static final String EM = "em";

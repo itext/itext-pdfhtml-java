@@ -59,7 +59,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     public HtmlDocumentRenderer(Document document, boolean immediateFlush) {
         super(document, immediateFlush);
     }
-    
+
     public void processPageRules(INode rootNode, ICssResolver cssResolver, ProcessorContext context) {
         PageContextProperties firstPageProps = PageContextProperties.resolve(rootNode, cssResolver, context.getCssContext(),
                 PageContextConstants.FIRST, PageContextConstants.RIGHT); // TODO in documents with set to rtl on root document, first page is considered as left 
@@ -85,7 +85,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         } else {
             addedPage = document.getPdfDocument().addNewPage(nextProcessor.getPageSize());
         }
-        
+
         nextProcessor.processNewPage(addedPage);
 
         float[] margins = nextProcessor.computeLayoutMargins();

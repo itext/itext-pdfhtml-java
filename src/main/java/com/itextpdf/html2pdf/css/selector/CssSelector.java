@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css.selector;
 
 import com.itextpdf.html2pdf.css.parse.CssSelectorParser;
+import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.css.selector.item.CssSeparatorSelectorItem;
 import com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem;
 import com.itextpdf.html2pdf.html.node.IElementNode;
@@ -70,7 +71,15 @@ public class CssSelector extends AbstractCssSelector {
         if (lastSelectorItemInd < 0) {
             return true;
         }
+        boolean isPseudoElement = element instanceof CssPseudoElementNode;
         for (int i = lastSelectorItemInd; i >= 0; i--) {
+            if (isPseudoElement && i < lastSelectorItemInd) {
+                // Pseudo element and class selector item shall be at the end of the selector string 
+                // and be single pseudo selector item in it. All other selector items are checked against 
+                // pseudo element node parent.
+                element = element.parentNode();
+                isPseudoElement = false;
+            }
             ICssSelectorItem currentItem = selectorItems.get(i);
             if (currentItem instanceof CssSeparatorSelectorItem) {
                 char separator = ((CssSeparatorSelectorItem) currentItem).getSeparator();

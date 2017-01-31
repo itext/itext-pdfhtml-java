@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf;
 
 public final class LogMessageConstant {
 
+    public static final String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or has unsupported value. At the moment, only <string> values are supported.";
     public static final String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
     public static final String ERROR_LOADING_FONT = "Error while loading font";
     public static final String ERROR_PARSING_CSS_SELECTOR = "Error while parsing css selector";
@@ -57,7 +58,6 @@ public final class LogMessageConstant {
     public static final String NO_CSS_APPLIER_FOUND_FOR_TAG = "No css applier found for tag {0}";
     public static final String NO_WORKER_FOUND_FOR_TAG = "No worker found for tag {0}";
     public static final String PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED = "Padding value in percents not supported";
-    public static final String PAGE_MARGIN_BOX_CONTENT_INVALID = "Page-margin box content property \"{0}\" is either invalid or has unsupported value. At the moment, only <string> values are supported.";
     public static final String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
     public static final String QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION = "The quote is not closed in css expression: {0}";
     public static final String RULE_IS_NOT_SUPPORTED = "The rule @{0} is unsupported. All selectors in this rule will be ignored.";

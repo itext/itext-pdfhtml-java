@@ -42,15 +42,15 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
+import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
-// TODO now this is just a stub implementation
 public class CssPseudoElementSelectorItem implements ICssSelectorItem {
 
-    private String pseudoElement;
+    private String pseudoElementName;
 
-    public CssPseudoElementSelectorItem(String pseudoElement) {
-        this.pseudoElement = pseudoElement;
+    public CssPseudoElementSelectorItem(String pseudoElementName) {
+        this.pseudoElementName = pseudoElementName;
     }
 
     @Override
@@ -60,11 +60,11 @@ public class CssPseudoElementSelectorItem implements ICssSelectorItem {
 
     @Override
     public boolean matches(INode node) {
-        return false; // TODO
+        return node instanceof CssPseudoElementNode && ((CssPseudoElementNode) node).getPseudoElementName().equals(pseudoElementName);
     }
 
     @Override
     public String toString() {
-        return "::" + pseudoElement;
+        return "::" + pseudoElementName;
     }
 }
