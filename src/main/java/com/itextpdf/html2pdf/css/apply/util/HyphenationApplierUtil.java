@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.CssDefaults;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.hyphenation.HyphenationConfig;
 import com.itextpdf.layout.property.Property;
@@ -61,7 +62,7 @@ public final class HyphenationApplierUtil {
     private HyphenationApplierUtil() {
     }
 
-    public static void applyHyphenation(Map<String, String> cssProps, ProcessorContext context, IElementNode elementNode, IPropertyContainer element) {
+    public static void applyHyphenation(Map<String, String> cssProps, ProcessorContext context, IStylesContainer stylesContainer, IPropertyContainer element) {
         String value = cssProps.get(CssConstants.HYPHENS);
         if (value == null) {
             value = CssDefaults.getDefaultValue(CssConstants.HYPHENS);
@@ -71,8 +72,8 @@ public final class HyphenationApplierUtil {
             element.setProperty(Property.HYPHENATION, null);
         } else if (CssConstants.MANUAL.equals(value)) {
             element.setProperty(Property.HYPHENATION, new HyphenationConfig(HYPHENATE_BEFORE, HYPHENATE_AFTER));
-        } else if (CssConstants.AUTO.equals(value)) {
-            String lang = elementNode.getLang();
+        } else if (CssConstants.AUTO.equals(value) && stylesContainer instanceof IElementNode) {
+            String lang = ((IElementNode)stylesContainer).getLang();
             if (lang != null && lang.length() > 0) {
                 element.setProperty(Property.HYPHENATION, new HyphenationConfig(lang.substring(0, 2), "", HYPHENATE_BEFORE, HYPHENATE_AFTER));
             }

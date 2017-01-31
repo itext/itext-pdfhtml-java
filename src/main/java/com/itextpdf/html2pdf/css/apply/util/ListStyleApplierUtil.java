@@ -48,11 +48,14 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.io.font.FontConstants;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
@@ -85,7 +88,7 @@ public final class ListStyleApplierUtil {
     }
 
     //TODO problems with Pdf/A conversion. Avoid ZapfDingBats, Symbol font DEVSIX-917
-    public static void applyListStyleTypeProperty(IElementNode node, Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+    public static void applyListStyleTypeProperty(IStylesContainer stylesContainer, Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
 
         String style = cssProps.get(CssConstants.LIST_STYLE_TYPE);
@@ -118,11 +121,13 @@ public final class ListStyleApplierUtil {
             }
 
             // Fallback style
-            String elementName = node.name();
-            if (TagConstants.UL.equals(elementName)) {
-                setDiscStyle(element, em);
-            } else if (TagConstants.OL.equals(elementName)) {
-                setListSymbol(element, ListNumberingType.DECIMAL);
+            if (stylesContainer instanceof IElementNode) {
+                String elementName = ((IElementNode)stylesContainer).name();
+                if (TagConstants.UL.equals(elementName)) {
+                    setDiscStyle(element, em);
+                } else if (TagConstants.OL.equals(elementName)) {
+                    setListSymbol(element, ListNumberingType.DECIMAL);
+                }
             }
         }
     }

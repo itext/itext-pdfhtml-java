@@ -46,24 +46,18 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
-import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
-import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.property.Property;
-
-import java.util.Map;
 
 public class TableTagCssApplier extends BlockCssApplier {
     @Override
-    public void apply(ProcessorContext context, IElementNode element, ITagWorker worker) {
-        super.apply(context, element, worker);
+    public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker worker) {
+        super.apply(context, stylesContainer, worker);
 
         IPropertyContainer table = worker.getElementResult();
-        if(table != null) {
-            String tableLayout = element.getStyles().get(CssConstants.TABLE_LAYOUT);
+        if (table != null) {
+            String tableLayout = stylesContainer.getStyles().get(CssConstants.TABLE_LAYOUT);
             if (tableLayout != null) {
                 table.setProperty(Property.TABLE_LAYOUT, tableLayout);
             }

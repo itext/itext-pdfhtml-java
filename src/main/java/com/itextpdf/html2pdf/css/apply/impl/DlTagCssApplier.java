@@ -46,17 +46,17 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
 import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
 
 public class DlTagCssApplier extends BlockCssApplier {
 
     @Override
-    public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-        super.apply(context, element, tagWorker);
+    public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
+        super.apply(context, stylesContainer, tagWorker);
         IPropertyContainer list = tagWorker.getElementResult();
         if (list != null) {
-            ListStyleApplierUtil.applyListStyleImageProperty(element.getStyles(), context, list);
+            ListStyleApplierUtil.applyListStyleImageProperty(stylesContainer.getStyles(), context, list);
         }
     }
 

@@ -54,16 +54,15 @@ import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
-
 import java.util.Map;
 
 public class BlockCssApplier implements ICssApplier {
 
     @Override
-    public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-        Map<String, String> cssProps = element.getStyles();
+    public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
+        Map<String, String> cssProps = stylesContainer.getStyles();
 
         IPropertyContainer container = tagWorker.getElementResult();
         if (container != null) {
@@ -71,9 +70,9 @@ public class BlockCssApplier implements ICssApplier {
             BackgroundApplierUtil.applyBackground(cssProps, context, container);
             MarginApplierUtil.applyMargins(cssProps, context, container);
             PaddingApplierUtil.applyPaddings(cssProps, context, container);
-            FontStyleApplierUtil.applyFontStyles(cssProps, context, element, container);
+            FontStyleApplierUtil.applyFontStyles(cssProps, context, stylesContainer, container);
             BorderStyleApplierUtil.applyBorders(cssProps, context, container);
-            HyphenationApplierUtil.applyHyphenation(cssProps, context, element, container);
+            HyphenationApplierUtil.applyHyphenation(cssProps, context, stylesContainer, container);
             FloatApplierUtil.applyFloating(cssProps, context, container);
             PositionApplierUtil.applyPosition(cssProps, context, container);
             OpacityApplierUtil.applyOpacity(cssProps, context, container);

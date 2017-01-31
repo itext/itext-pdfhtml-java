@@ -44,18 +44,13 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.tags.TrTagWorker;
-import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.layout.element.Cell;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 
 public class TrTagCssApplier implements ICssApplier {
 
     @Override
-    public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
+    public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
         // TODO background inheritance to cells is done via default.css at the moment, because it was overwriting cell's properties.
         // TODO may be this applier will be removed in the future
     }

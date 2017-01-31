@@ -49,6 +49,8 @@ import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
 import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
@@ -56,20 +58,21 @@ import com.itextpdf.layout.property.Property;
 public class LiTagCssApplier extends BlockCssApplier {
 
     @Override
-    public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-        super.apply(context, element, tagWorker);
+    public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
+        super.apply(context, stylesContainer, tagWorker);
         IPropertyContainer propertyContainer = tagWorker.getElementResult();
 
-        if (propertyContainer != null) {
-            boolean parentIsDl = element.parentNode() instanceof IElementNode && TagConstants.DL.equals(((IElementNode) element.parentNode()).name());
-            if (CssConstants.INSIDE.equals(element.getStyles().get(CssConstants.LIST_STYLE_POSITION)) || parentIsDl) {
+        if (propertyContainer != null && stylesContainer instanceof INode) {
+            INode parent = ((INode) stylesContainer).parentNode();
+            boolean parentIsDl = parent instanceof IElementNode && TagConstants.DL.equals(((IElementNode) parent).name());
+            if (CssConstants.INSIDE.equals(stylesContainer.getStyles().get(CssConstants.LIST_STYLE_POSITION)) || parentIsDl) {
                 propertyContainer.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
             } else {
                 propertyContainer.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.OUTSIDE);
             }
 
-            ListStyleApplierUtil.applyListStyleTypeProperty(element, element.getStyles(), context, propertyContainer);
-            ListStyleApplierUtil.applyListStyleImageProperty(element.getStyles(), context, propertyContainer);
+            ListStyleApplierUtil.applyListStyleTypeProperty(stylesContainer, stylesContainer.getStyles(), context, propertyContainer);
+            ListStyleApplierUtil.applyListStyleImageProperty(stylesContainer.getStyles(), context, propertyContainer);
         }
     }
 
