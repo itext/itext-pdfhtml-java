@@ -133,7 +133,7 @@ public class PageRuleTest extends ExtendedITextTest {
     }
     
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_INVALID, count = 6))
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 6))
     public void marginBoxTest01() throws IOException, InterruptedException {
         runTest("marginBoxTest01");
     }

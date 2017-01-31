@@ -66,6 +66,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.TitleTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.UlOlTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
@@ -156,6 +157,15 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.DT, CssConstants.INLINE, SpanTagWorker.class);
 
         workerMapping.putMapping(TagConstants.SPAN, CssConstants.BLOCK, DivTagWorker.class);
+
+
+        // pseudo elements mapping
+        String beforePseudoElemName = CssPseudoElementNode.createPseudoElementTagName(CssConstants.BEFORE);
+        String afterPseudoElemName = CssPseudoElementNode.createPseudoElementTagName(CssConstants.AFTER);
+        workerMapping.putMapping(beforePseudoElemName, SpanTagWorker.class);
+        workerMapping.putMapping(afterPseudoElemName, SpanTagWorker.class);
+        workerMapping.putMapping(beforePseudoElemName, CssConstants.BLOCK, DivTagWorker.class);
+        workerMapping.putMapping(afterPseudoElemName, CssConstants.BLOCK, DivTagWorker.class);
     }
 
     static TagProcessorMapping getDefaultTagWorkerMapping() {

@@ -44,14 +44,17 @@ package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.CssContextNode;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssStatement;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.media.CssMediaRule;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
+import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.css.parse.CssRuleSetParser;
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
+import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
 import com.itextpdf.html2pdf.css.util.CssUtils;
@@ -154,8 +157,19 @@ public class DefaultCssResolver implements ICssResolver {
         for (String key : keys) {
             elementStyles.put(key, CssDefaults.getDefaultValue(key));
         }
+        
+        resolveContentProperty(elementStyles.get(CssConstants.CONTENT), element, context);
 
         return elementStyles;
+    }
+
+    private void resolveContentProperty(String contentVal, INode contentContainer, CssContext context) {
+        if (contentContainer instanceof CssPseudoElementNode || contentContainer instanceof PageMarginBoxContextNode) {
+            INode resolvedContent = CssContentPropertyResolver.resolveContent(contentVal, contentContainer, context);
+            if (resolvedContent != null) {
+                contentContainer.addChild(resolvedContent);
+            }
+        }
     }
 
     private Map<String, String> cssDeclarationsToMap(List<CssDeclaration> nodeCssDeclarations) {

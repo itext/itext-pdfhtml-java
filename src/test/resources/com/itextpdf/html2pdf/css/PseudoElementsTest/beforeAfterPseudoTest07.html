@@ -1,0 +1,27 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <style type="text/css">
+        	span {
+        		border: solid 20pt black;
+        	}
+            div.testDiv::before
+            {
+                content: "Test passes if this is visible and red. ";
+                color: red;
+            }
+            div::before
+            {
+            	color: blue;
+                content: "before ";
+            }
+            div::after
+            {
+                content: " After";
+            }
+        </style>
+    </head>
+    <body>
+        <div class="testDiv">div text</div>
+    </body>
+</html>

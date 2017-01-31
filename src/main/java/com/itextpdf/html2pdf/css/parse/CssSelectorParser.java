@@ -137,6 +137,7 @@ public final class CssSelectorParser {
     }
 
     private static ICssSelectorItem resolvePseudoSelector(String pseudoSelector) {
+        pseudoSelector = pseudoSelector.toLowerCase();
         /*
             This :: notation is introduced by the current document in order to establish a discrimination between
             pseudo-classes and pseudo-elements.

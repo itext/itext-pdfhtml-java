@@ -51,6 +51,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
@@ -67,9 +68,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,6 +76,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DefaultHtmlProcessor implements IHtmlProcessor {
 
@@ -243,12 +243,14 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 context.getState().push(tagWorker);
             }
             if (tagWorker instanceof HtmlTagWorker) {
-                ((HtmlTagWorker)tagWorker).processPageRules(node, cssResolver, context);
+                ((HtmlTagWorker) tagWorker).processPageRules(node, cssResolver, context);
             }
 
+            visitPseudoElement(node, CssConstants.BEFORE);
             for (INode childNode : element.childNodes()) {
                 visit(childNode);
             }
+            visitPseudoElement(node, CssConstants.AFTER);
 
             if (tagWorker != null) {
                 tagWorker.processEnd(element, context);
@@ -293,6 +295,12 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
     }
 
+    private void visitPseudoElement(INode node, String pseudoElementName) {
+        if (!(node instanceof CssPseudoElementNode)) {
+            visit(new CssPseudoElementNode(node, pseudoElementName));
+        }
+    }
+
     private IElementNode findElement(INode node, String tagName) {
         LinkedList<INode> q = new LinkedList<>();
         q.add(node);
@@ -319,9 +327,20 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         return findElement(node, TagConstants.BODY);
     }
 
-    private static boolean isDisplayable(IElementNode element) {
+    private boolean isDisplayable(IElementNode element) {
         if (element != null && element.getStyles() != null && CssConstants.NONE.equals(element.getStyles().get(CssConstants.DISPLAY))) {
             return false;
+        }
+        if (element instanceof CssPseudoElementNode) {
+            if (element.childNodes().isEmpty()) {
+                return false;
+            }
+            boolean hasStyles = element.getStyles() != null;
+            String positionVal = hasStyles ? element.getStyles().get(CssConstants.POSITION) : null;
+            String displayVal = hasStyles ? element.getStyles().get(CssConstants.DISPLAY) : null;
+            return element.childNodes().get(0) instanceof ITextNode && !((ITextNode) element.childNodes().get(0)).wholeText().isEmpty() 
+                    || CssConstants.ABSOLUTE.equals(positionVal) || CssConstants.FIXED.equals(positionVal)
+                    || displayVal != null && !CssConstants.INLINE.equals(displayVal);
         }
         return element != null;
     }
