@@ -67,10 +67,10 @@ public final class PositionApplierUtil {
         String position = cssProps.get(CssConstants.POSITION);
         if (CssConstants.ABSOLUTE.equals(position)) {
             element.setProperty(Property.POSITION, LayoutPosition.ABSOLUTE);
-            applyLeftRightTopBottom(cssProps, context, element);
+            applyLeftRightTopBottom(cssProps, context, element, position);
         } else if (CssConstants.RELATIVE.equals(position)) {
             element.setProperty(Property.POSITION, LayoutPosition.RELATIVE);
-            applyLeftRightTopBottom(cssProps, context, element);
+            applyLeftRightTopBottom(cssProps, context, element, position);
         } else if (CssConstants.FIXED.equals(position)) {
 //            element.setProperty(Property.POSITION, LayoutPosition.FIXED);
 //            float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
@@ -80,11 +80,23 @@ public final class PositionApplierUtil {
         }
     }
 
-    private static void applyLeftRightTopBottom(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+    private static void applyLeftRightTopBottom(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element, String position) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
-        applyLeftProperty(cssProps, element, em, rem, Property.LEFT);
-        applyRightProperty(cssProps, element, em, rem, Property.RIGHT);
+        if (CssConstants.RELATIVE.equals(position) && cssProps.containsKey(CssConstants.LEFT) && cssProps.containsKey(CssConstants.RIGHT)) {
+            // When both the right CSS property and the left CSS property are defined, the position of the element is overspecified.
+            // In that case, the left value has precedence when the container is left-to-right (that is that the right computed value is set to -left),
+            // and the right value has precedence when the container is right-to-left (that is that the left computed value is set to -right).
+            boolean isRtl = CssConstants.RTL.equals(cssProps.get(CssConstants.DIRECTION));
+            if (isRtl) {
+                applyRightProperty(cssProps, element, em, rem, Property.RIGHT);
+            } else {
+                applyLeftProperty(cssProps, element, em, rem, Property.LEFT);
+            }
+        } else {
+            applyLeftProperty(cssProps, element, em, rem, Property.LEFT);
+            applyRightProperty(cssProps, element, em, rem, Property.RIGHT);
+        }
         applyTopProperty(cssProps, element, em, rem, Property.TOP);
         applyBottomProperty(cssProps, element, em, rem, Property.BOTTOM);
     }

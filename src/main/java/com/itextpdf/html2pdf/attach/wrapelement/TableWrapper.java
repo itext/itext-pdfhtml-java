@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.attach.util.RowColHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingColgroupsHelper;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 
 import java.util.ArrayList;
@@ -60,6 +61,8 @@ public class TableWrapper implements IWrapElement {
     private RowColHelper rowShift = new RowColHelper();
     private RowColHelper headerRowShift = new RowColHelper();
     private RowColHelper footerRowShift = new RowColHelper();
+
+    private int numberOfColumns = 0;
     
     public int getRowsSize() {
         return rows.size();
@@ -122,36 +125,39 @@ public class TableWrapper implements IWrapElement {
     private void addCellToTable(Cell cell, List<List<CellWrapper>> table, RowColHelper tableRowShift) {
         int col = tableRowShift.moveToNextEmptyCol();
         tableRowShift.updateCurrentPosition(cell.getColspan(), cell.getRowspan());
-        table.get(table.size() - 1).add(new CellWrapper(col, cell));
+        List<CellWrapper> currentRow = table.get(table.size() - 1);
+        currentRow.add(new CellWrapper(col, cell));
+        numberOfColumns = Math.max(numberOfColumns, col + cell.getColspan());
     }
 
     public Table toTable(WaitingColgroupsHelper colgroupsHelper) {
-        UnitValue[] widths = recalculateWidths(colgroupsHelper);
         Table table;
-        if (widths.length > 0) {
-            table = new Table(widths);
+        if (numberOfColumns > 0) {
+            table = new Table(getColWidths(colgroupsHelper));
         } else {
             // if table is empty, create empty table with single column
             table = new Table(1);
         }
+        //Workaround to remove default width:100%
+        table.deleteOwnProperty(Property.WIDTH);
         if (headerRows != null) {
             for (List<CellWrapper> headerRow : headerRows) {
                 for (CellWrapper headerCell : headerRow) {
-                    table.addHeaderCell((Cell) headerCell.cell);
+                    table.addHeaderCell(headerCell.cell);
                 }
             }
         }
         if (footerRows != null) {
             for (List<CellWrapper> footerRow : footerRows) {
                 for (CellWrapper footerCell : footerRow) {
-                    table.addFooterCell((Cell) footerCell.cell);
+                    table.addFooterCell(footerCell.cell);
                 }
             }
         }
         if (rows != null) {
             for (int i = 0; i < rows.size(); i++) {
                 for (int j = 0; j < rows.get(i).size(); j++) {
-                    table.addCell((Cell) (rows.get(i).get(j).cell));
+                    table.addCell(rows.get(i).get(j).cell);
                 }
                 if (i != rows.size() - 1) {
                     table.startNewRow();
@@ -162,127 +168,29 @@ public class TableWrapper implements IWrapElement {
         return table;
     }
 
-    private UnitValue[] recalculateWidths(WaitingColgroupsHelper colgroupsHelper) {
-        List<UnitValue> maxAbsoluteWidths = new ArrayList<>();
-        List<UnitValue> maxPercentageWidths = new ArrayList<>();
-        if (rows != null) {
-            calculateMaxWidths(rows, maxAbsoluteWidths, maxPercentageWidths, colgroupsHelper);
-        }
-        if (headerRows != null) {
-            calculateMaxWidths(headerRows, maxAbsoluteWidths, maxPercentageWidths, colgroupsHelper);
-        }
-        if (footerRows != null) {
-            calculateMaxWidths(footerRows, maxAbsoluteWidths, maxPercentageWidths, colgroupsHelper);
-        }
-
-        UnitValue[] tableWidths = new UnitValue[maxAbsoluteWidths.size()];
-        float totalAbsoluteSum = 0;
-        float totalPercentSum = 0;
-        float maxTotalWidth = 0;
-        int nullWidth = 0;
-
-        UnitValue curAbsWidth;
-        UnitValue curPerWidth;
-        for (int i = 0; i < tableWidths.length; ++i) {
-            if (maxPercentageWidths.get(i) != null) {
-                curPerWidth = maxPercentageWidths.get(i);
-                totalPercentSum += curPerWidth.getValue();
-                tableWidths[i] = maxPercentageWidths.get(i);
-                if (maxAbsoluteWidths.get(i) != null) {
-                    curAbsWidth = maxAbsoluteWidths.get(i);
-                    maxTotalWidth = Math.max(maxTotalWidth, 100 / curPerWidth.getValue() * curAbsWidth.getValue());
-                }
-            } else if (maxAbsoluteWidths.get(i) != null) {
-                curAbsWidth = maxAbsoluteWidths.get(i);
-                totalAbsoluteSum += curAbsWidth.getValue();
-                tableWidths[i] = curAbsWidth;
-            } else {
-                ++nullWidth;
+    private UnitValue[] getColWidths(WaitingColgroupsHelper colgroups) {
+        UnitValue[] colWidths = new UnitValue[numberOfColumns];
+        if (colgroups == null) {
+            for (int i = 0; i < numberOfColumns; i++) {
+                colWidths[i] = null;
+            }
+        } else {
+            for (int i = 0; i < numberOfColumns; i++) {
+                colWidths[i] = colgroups.getColWraper(i) != null
+                        ? colgroups.getColWraper(i).getWidth()
+                        : null;
             }
         }
-        if (totalPercentSum < 100) {
-            maxTotalWidth = Math.max(maxTotalWidth, 100 / (100 - totalPercentSum) * totalAbsoluteSum);
-            // TODO: Layout based maxWidth calculations needed here. Currently unsupported.
-            for (int i = 0; i < tableWidths.length; i++) {
-                UnitValue width = tableWidths[i];
-                if (width == null && nullWidth > 0) {
-                    tableWidths[i] = UnitValue.createPercentValue((100 - totalPercentSum) / nullWidth);
-                }
-            }
-        }
-        else if (nullWidth != 0 && nullWidth < tableWidths.length){
-            // TODO: In this case, the columns without percent width should be assigned to min-width. This is currently unsupported.
-            // So we fall back to just division of the available place uniformly.
-            for (int i = 0; i < tableWidths.length; i++) {
-                tableWidths[i] = UnitValue.createPercentValue(100 / tableWidths.length);
-            }
-        }
-        return tableWidths;
+        return colWidths;
     }
 
-    private void calculateMaxWidths(List<List<CellWrapper>> rows, List<UnitValue> absoluteMaxWidths, List<UnitValue> percentageMaxWidths, WaitingColgroupsHelper colgroupsHelper) {
-        for (List<CellWrapper> row : rows) {
-            for (CellWrapper cellWrapper : row) {
-                int colspan = cellWrapper.cell.getColspan();
-                UnitValue cellWidth = cellWrapper.cell.getWidth();
-                UnitValue collWidth = null;
-                if (colspan > 1 && cellWidth != null) {
-                    cellWidth = new UnitValue(cellWidth.getUnitType(), cellWidth.getValue() / colspan);
-                }
-                if (colgroupsHelper != null && colgroupsHelper.getColWraper(cellWrapper.col) != null) {
-                    collWidth = colgroupsHelper.getColWraper(cellWrapper.col).getWidth();
-                }
-                UnitValue absoluteWidth = getMaxValue(UnitValue.POINT, cellWidth, collWidth);
-                UnitValue percentageWidth = getMaxValue(UnitValue.PERCENT, cellWidth, collWidth);
-                applyNewWidth(absoluteMaxWidths, cellWrapper.col, cellWrapper.col + colspan, absoluteWidth);
-                applyNewWidth(percentageMaxWidths, cellWrapper.col, cellWrapper.col + colspan, percentageWidth);
-            }
-        }
-    }
-
-    private void applyNewWidth(List<UnitValue> maxWidths, int start, int end, UnitValue value) {
-        UnitValue old;
-        while (maxWidths.size() < start) {
-            maxWidths.add(null);
-        }
-        int middle = Math.min(maxWidths.size(), end);
-        for (int i = start; i < middle; ++i) {
-            maxWidths.set(i, getMaxValue(maxWidths.get(i), value));
-        }
-        while (maxWidths.size() < end) {
-            maxWidths.add(value);
-        }
-    }
-
-    private UnitValue getMaxValue(int unitType, UnitValue first, UnitValue second) {
-        if (first != null && first.getUnitType() != unitType) {
-            first = null;
-        }
-        if (second != null && second.getUnitType() != unitType) {
-            second = null;
-        }
-        return getMaxValue(first, second);
-    }
-
-    private UnitValue getMaxValue(UnitValue first, UnitValue second) {
-        if (first == null) {
-            return second;
-        }
-        if (second == null) {
-            return first;
-        }
-        return first.getValue() < second.getValue() ? second : first;
-    }
-    
-    private class CellWrapper {
+    private static class CellWrapper {
         int col;
         Cell cell;
 
-        public CellWrapper(int col, Cell cell) {
+        CellWrapper(int col, Cell cell) {
             this.col = col;
             this.cell = cell;
         }
     }
-
-
 }

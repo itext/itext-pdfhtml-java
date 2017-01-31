@@ -80,8 +80,10 @@ public final class AttributeConstants {
     public static final String I = "I";
     public static final String i = "i";
     public static final String LEFT = "left";
+    public static final String LTR = "ltr";
     public static final String MIDDLE = "middle";
     public static final String RIGHT = "right";
+    public static final String RTL = "rtl";
     public static final String STYLESHEET = "stylesheet";
     public static final String TEXT = "text";
     public static final String TOP = "top";

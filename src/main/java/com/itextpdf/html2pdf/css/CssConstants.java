@@ -144,6 +144,7 @@ public class CssConstants {
     public static final String SIZE = "size";
     public static final String STYLE = "style";
     public static final String TAB_SIZE = "tab-size";
+    public static final String TABLE_LAYOUT = "table-layout";
     public static final String TEXT_ALIGN = "text-align";
     public static final String TEXT_ALIGN_LAST = "text-align-last";
     public static final String TEXT_COMBINE_UPRIGHT = "text-combine-upright";
