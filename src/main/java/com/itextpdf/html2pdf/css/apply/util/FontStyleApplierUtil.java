@@ -46,11 +46,14 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.color.DeviceRgb;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.BaseDirection;
+import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.Leading;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.TextAlignment;
@@ -72,7 +75,7 @@ public final class FontStyleApplierUtil {
     private FontStyleApplierUtil() {
     }
 
-    public static void applyFontStyles(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+    public static void applyFontStyles(Map<String, String> cssProps, ProcessorContext context, IStylesContainer stylesContainer, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
         if (em != 0) {
@@ -111,6 +114,12 @@ public final class FontStyleApplierUtil {
         } else if (CssConstants.LTR.equals(direction)) {
             element.setProperty(Property.BASE_DIRECTION, BaseDirection.LEFT_TO_RIGHT);
             element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.LEFT);
+        }
+
+        if (stylesContainer instanceof IElementNode && ((IElementNode) stylesContainer).parentNode() instanceof IElementNode &&
+                CssConstants.RTL.equals(((IElementNode) ((IElementNode) stylesContainer).parentNode()).getStyles().get(CssConstants.DIRECTION))) {
+            // We should only apply horizontal alignment if parent has dir attribute or direction property
+            element.setProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.RIGHT);
         }
 
         // Make sure to place that after direction applier

@@ -43,16 +43,7 @@
 package com.itextpdf.html2pdf.css.apply;
 
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.apply.impl.BodyTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.ColTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.ColgroupTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.DlTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.HtmlTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.LiTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.SpanTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.TdTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.TrTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.UlOlTagCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.*;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
@@ -128,6 +119,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.STRONG, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SUB, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SUP, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.TABLE, TableTagCssApplier.class);
         mapping.putMapping(TagConstants.TD, TdTagCssApplier.class);
         mapping.putMapping(TagConstants.TH, TdTagCssApplier.class);
         mapping.putMapping(TagConstants.TIME, SpanTagCssApplier.class);

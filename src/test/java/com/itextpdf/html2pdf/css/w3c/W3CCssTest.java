@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css.w3c;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -88,6 +89,7 @@ public abstract class W3CCssTest extends ExtendedITextTest {
         String outFilePath = destinationFolder + getOutPdfFileName();
         String cmpFilePath = sourceFolder + getOutPdfFileName();
         HtmlConverter.convertToPdf(new File(htmlFilePath), new File(outFilePath));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlFilePath).getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(outFilePath, cmpFilePath, destinationFolder, "diff_"));
     }
 
