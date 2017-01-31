@@ -46,6 +46,8 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Text;
@@ -78,7 +80,7 @@ public class VerticalAlignmentApplierUtil {
         }
     }
 
-    public static void applyVerticalAlignmentForInlines(Map<String, String> cssProps, ProcessorContext context, IElementNode elementNode, List<IPropertyContainer> childElements) {
+    public static void applyVerticalAlignmentForInlines(Map<String, String> cssProps, ProcessorContext context, IStylesContainer stylesContainer, List<IPropertyContainer> childElements) {
         String vAlignVal = cssProps.get(CssConstants.VERTICAL_ALIGN);
         if (vAlignVal != null) {
 
@@ -93,22 +95,22 @@ public class VerticalAlignmentApplierUtil {
             // and descender and ascender heights are 0.2 and 0.8 of the font size accordingly.
 
             if (CssConstants.SUB.equals(vAlignVal) || CssConstants.SUPER.equals(vAlignVal)) {
-                textRise = calcTextRiseForSupSub(elementNode, vAlignVal);
+                textRise = calcTextRiseForSupSub(stylesContainer, vAlignVal);
 
             } else if (CssConstants.MIDDLE.equals(vAlignVal)) {
-                textRise = calcTextRiseForMiddle(elementNode);
+                textRise = calcTextRiseForMiddle(stylesContainer);
 
             } else if (CssConstants.TEXT_TOP.equals(vAlignVal)) {
-                textRise = calcTextRiseForTextTop(elementNode, context.getCssContext().getRootFontSize());
+                textRise = calcTextRiseForTextTop(stylesContainer, context.getCssContext().getRootFontSize());
 
             } else if (CssConstants.TEXT_BOTTOM.equals(vAlignVal)) {
-                textRise = calcTextRiseForTextBottom(elementNode, context.getCssContext().getRootFontSize());
+                textRise = calcTextRiseForTextBottom(stylesContainer, context.getCssContext().getRootFontSize());
 
             } else if (CssUtils.isMetricValue(vAlignVal)) {
                 textRise = CssUtils.parseAbsoluteLength(vAlignVal);
 
             } else if (vAlignVal.endsWith(CssConstants.PERCENTAGE)) {
-                textRise = calcTextRiseForPercentageValue(elementNode, context.getCssContext().getRootFontSize(), vAlignVal);
+                textRise = calcTextRiseForPercentageValue(stylesContainer, context.getCssContext().getRootFontSize(), vAlignVal);
             }
             if (textRise != 0) {
                 for (IPropertyContainer element : childElements) {
@@ -128,18 +130,18 @@ public class VerticalAlignmentApplierUtil {
         }
     }
 
-    private static float calcTextRiseForSupSub(IElementNode elementNode, String vAlignVal) {
-        float parentFontSize = getParentFontSize(elementNode);
+    private static float calcTextRiseForSupSub(IStylesContainer stylesContainer, String vAlignVal) {
+        float parentFontSize = getParentFontSize(stylesContainer);
         String superscriptPosition = "33%";
         String subscriptPosition = "-20%";
         String relativeValue = CssConstants.SUPER.equals(vAlignVal) ? superscriptPosition : subscriptPosition;
         return CssUtils.parseRelativeValue(relativeValue, parentFontSize);
     }
 
-    private static float calcTextRiseForMiddle(IElementNode elementNode) {
-        String ownFontSizeStr = elementNode.getStyles().get(CssConstants.FONT_SIZE);
+    private static float calcTextRiseForMiddle(IStylesContainer stylesContainer) {
+        String ownFontSizeStr = stylesContainer.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssUtils.parseAbsoluteLength(ownFontSizeStr);
-        float parentFontSize = getParentFontSize(elementNode);
+        float parentFontSize = getParentFontSize(stylesContainer);
 
         double fontMiddleCoefficient = 0.3;
         float elementMidPoint = (float) (fontSize * fontMiddleCoefficient); // shift to element mid point from the baseline
@@ -148,12 +150,12 @@ public class VerticalAlignmentApplierUtil {
         return xHeight - elementMidPoint;
     }
 
-    private static float calcTextRiseForTextTop(IElementNode elementNode, float rootFontSize) {
-        String ownFontSizeStr = elementNode.getStyles().get(CssConstants.FONT_SIZE);
+    private static float calcTextRiseForTextTop(IStylesContainer stylesContainer, float rootFontSize) {
+        String ownFontSizeStr = stylesContainer.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssUtils.parseAbsoluteLength(ownFontSizeStr);
-        String lineHeightStr = elementNode.getStyles().get(CssConstants.LINE_HEIGHT);
+        String lineHeightStr = stylesContainer.getStyles().get(CssConstants.LINE_HEIGHT);
         float lineHeightActualValue = getLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
-        float parentFontSize = getParentFontSize(elementNode);
+        float parentFontSize = getParentFontSize(stylesContainer);
 
         float elementTopEdge = (float) (fontSize * ASCENDER_COEFFICIENT + (lineHeightActualValue - fontSize) / 2);
         float parentTextTop = (float) (parentFontSize * ASCENDER_COEFFICIENT);
@@ -161,12 +163,12 @@ public class VerticalAlignmentApplierUtil {
         return parentTextTop - elementTopEdge;
     }
 
-    private static float calcTextRiseForTextBottom(IElementNode elementNode, float rootFontSize) {
-        String ownFontSizeStr = elementNode.getStyles().get(CssConstants.FONT_SIZE);
+    private static float calcTextRiseForTextBottom(IStylesContainer stylesContainer, float rootFontSize) {
+        String ownFontSizeStr = stylesContainer.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssUtils.parseAbsoluteLength(ownFontSizeStr);
-        String lineHeightStr = elementNode.getStyles().get(CssConstants.LINE_HEIGHT);
+        String lineHeightStr = stylesContainer.getStyles().get(CssConstants.LINE_HEIGHT);
         float lineHeightActualValue = getLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
-        float parentFontSize = getParentFontSize(elementNode);
+        float parentFontSize = getParentFontSize(stylesContainer);
 
         float elementBottomEdge = (float) (fontSize * DESCENDER_COEFFICIENT + (lineHeightActualValue - fontSize) / 2);
         float parentTextBottom = (float) (parentFontSize * DESCENDER_COEFFICIENT);
@@ -174,10 +176,10 @@ public class VerticalAlignmentApplierUtil {
         return elementBottomEdge - parentTextBottom;
     }
 
-    private static float calcTextRiseForPercentageValue(IElementNode elementNode, float rootFontSize, String vAlignVal) {
-        String ownFontSizeStr = elementNode.getStyles().get(CssConstants.FONT_SIZE);
+    private static float calcTextRiseForPercentageValue(IStylesContainer stylesContainer, float rootFontSize, String vAlignVal) {
+        String ownFontSizeStr = stylesContainer.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssUtils.parseAbsoluteLength(ownFontSizeStr);
-        String lineHeightStr = elementNode.getStyles().get(CssConstants.LINE_HEIGHT);
+        String lineHeightStr = stylesContainer.getStyles().get(CssConstants.LINE_HEIGHT);
         float lineHeightActualValue = getLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
 
         return CssUtils.parseRelativeValue(vAlignVal, lineHeightActualValue);
@@ -201,14 +203,15 @@ public class VerticalAlignmentApplierUtil {
         return lineHeightActualValue;
     }
 
-    private static float getParentFontSize(IElementNode elementNode) {
+    private static float getParentFontSize(IStylesContainer stylesContainer) {
         float parentFontSize;
-        if (elementNode.parentNode() instanceof IElementNode) {
-            String parentFontSizeStr = ((IElementNode) elementNode.parentNode()).getStyles().get(CssConstants.FONT_SIZE);
+        if (stylesContainer instanceof INode && ((IElementNode)stylesContainer).parentNode() instanceof IStylesContainer) {
+            INode parent = ((IElementNode) stylesContainer).parentNode();
+            String parentFontSizeStr = ((IStylesContainer) parent).getStyles().get(CssConstants.FONT_SIZE);
             parentFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
         } else {
             // let's take own font size for this unlikely case
-            String ownFontSizeStr = elementNode.getStyles().get(CssConstants.FONT_SIZE);
+            String ownFontSizeStr = stylesContainer.getStyles().get(CssConstants.FONT_SIZE);
             parentFontSize = CssUtils.parseAbsoluteLength(ownFontSizeStr);
         }
         return parentFontSize;

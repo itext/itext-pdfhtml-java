@@ -47,15 +47,14 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.tags.ColTagWorker;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.SupportedColColgroupPropertiesUtil;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import java.util.Map;
 
 public class ColTagCssApplier implements ICssApplier {
 
     @Override
-    public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-        Map<String, String> cssProps = element.getStyles();
+    public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
+        Map<String, String> cssProps = stylesContainer.getStyles();
 
         if (cssProps != null && tagWorker instanceof ColTagWorker) {
             ((ColTagWorker) tagWorker).getColumn()

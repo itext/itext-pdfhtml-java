@@ -55,23 +55,22 @@ import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.Property;
-
 import java.util.Map;
 
 public class SpanTagCssApplier implements ICssApplier {
 
     @Override
-    public void apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
+    public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
         SpanTagWorker spanTagWorker = (SpanTagWorker) tagWorker;
-        Map<String, String> cssStyles = element.getStyles();
+        Map<String, String> cssStyles = stylesContainer.getStyles();
         for (IPropertyContainer child : spanTagWorker.getOwnLeafElements()) {
-            applyChildElementStyles(child, cssStyles, context, element);
+            applyChildElementStyles(child, cssStyles, context, stylesContainer);
         }
-        VerticalAlignmentApplierUtil.applyVerticalAlignmentForInlines(cssStyles, context, element, spanTagWorker.getAllElements());
+        VerticalAlignmentApplierUtil.applyVerticalAlignmentForInlines(cssStyles, context, stylesContainer, spanTagWorker.getAllElements());
         if (cssStyles.containsKey(CssConstants.OPACITY)) {
             for (IPropertyContainer elem : spanTagWorker.getAllElements()) {
                 if (elem instanceof Text && !elem.hasProperty(Property.OPACITY)) {
@@ -81,13 +80,13 @@ public class SpanTagCssApplier implements ICssApplier {
         }
     }
 
-    private void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context, IElementNode elementNode) {
-        FontStyleApplierUtil.applyFontStyles(css, context, elementNode, element);
+    private void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context, IStylesContainer stylesContainer) {
+        FontStyleApplierUtil.applyFontStyles(css, context, stylesContainer, element);
         //TODO: Background-applying currently doesn't work in html way for spans inside other spans.
         BackgroundApplierUtil.applyBackground(css, context, element);
         //TODO: Border-applying currently doesn't work in html way for spans inside other spans.
         BorderStyleApplierUtil.applyBorders(css, context, element);
-        HyphenationApplierUtil.applyHyphenation(css, context, elementNode, element);
+        HyphenationApplierUtil.applyHyphenation(css, context, stylesContainer, element);
         //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
         MarginApplierUtil.applyMargins(css, context, element);
         PositionApplierUtil.applyPosition(css, context, element);
