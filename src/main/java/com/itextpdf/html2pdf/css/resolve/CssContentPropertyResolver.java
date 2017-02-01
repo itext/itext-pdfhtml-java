@@ -83,6 +83,12 @@ class CssContentPropertyResolver {
         }
         if (!nonDirectContent.toString().trim().isEmpty()) {
             Logger logger = LoggerFactory.getLogger(CssContentPropertyResolver.class);
+            
+            int logMessageParameterMaxLength = 100;
+            if (contentStr.length() > logMessageParameterMaxLength) {
+                contentStr = contentStr.substring(0, logMessageParameterMaxLength) + ".....";
+            }
+            
             logger.error(MessageFormat.format(LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
             return null;
         }
