@@ -53,6 +53,7 @@ import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PageBreakApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
@@ -77,6 +78,7 @@ public class BlockCssApplier implements ICssApplier {
             FloatApplierUtil.applyFloating(cssProps, context, container);
             PositionApplierUtil.applyPosition(cssProps, context, container);
             OpacityApplierUtil.applyOpacity(cssProps, context, container);
+            PageBreakApplierUtil.applyPageBreakProperties(cssProps, context, container);
         }
     }
 

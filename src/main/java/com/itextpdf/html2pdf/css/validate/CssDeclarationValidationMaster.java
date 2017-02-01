@@ -74,6 +74,12 @@ public class CssDeclarationValidationMaster {
         DEFAULT_VALIDATORS.put(CssConstants.FLOAT,
                 new SingleTypeDeclarationValidator(
                         new CssEnumValidator(CssConstants.LEFT, CssConstants.RIGHT, CssConstants.NONE, CssConstants.INHERIT, CssConstants.CENTER /*center comes from legacy*/ )));
+        DEFAULT_VALIDATORS.put(CssConstants.PAGE_BREAK_BEFORE,
+                new SingleTypeDeclarationValidator(
+                        new CssEnumValidator(CssConstants.AUTO, CssConstants.ALWAYS, CssConstants.AVOID, CssConstants.LEFT, CssConstants.RIGHT)));
+        DEFAULT_VALIDATORS.put(CssConstants.PAGE_BREAK_AFTER,
+                new SingleTypeDeclarationValidator(
+                        new CssEnumValidator(CssConstants.AUTO, CssConstants.ALWAYS, CssConstants.AVOID, CssConstants.LEFT, CssConstants.RIGHT)));
     }
 
     private CssDeclarationValidationMaster() {

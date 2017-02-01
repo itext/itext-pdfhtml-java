@@ -139,6 +139,9 @@ public class CssConstants {
     public static final String PADDING_LEFT = "padding-left";
     public static final String PADDING_RIGHT = "padding-right";
     public static final String PADDING_TOP = "padding-top";
+    public static final String PAGE_BREAK_AFTER = "page-break-after";
+    public static final String PAGE_BREAK_BEFORE = "page-break-before";
+    public static final String PAGE_BREAK_INSIDE = "page-break-inside";
     public static final String POSITION = "position";
     public static final String QUOTES = "quotes";
     public static final String SIZE = "size";
@@ -168,7 +171,9 @@ public class CssConstants {
 
     // property values
     public static final String ABSOLUTE = "absolute";
+    public static final String ALWAYS = "always";
     public static final String ARMENIAN = "armenian";
+    public static final String AVOID = "avoid";
     public static final String AUTO = "auto";
     public static final String BLINK = "blink";
     public static final String BLOCK = "block";

@@ -113,6 +113,11 @@ public class CssDefaults {
         defaultValues.put(CssConstants.PADDING_LEFT, "0");
         defaultValues.put(CssConstants.PADDING_RIGHT, "0");
         defaultValues.put(CssConstants.PADDING_TOP, "0");
+
+        defaultValues.put(CssConstants.PAGE_BREAK_AFTER, CssConstants.AUTO);
+        defaultValues.put(CssConstants.PAGE_BREAK_BEFORE, CssConstants.AUTO);
+        defaultValues.put(CssConstants.PAGE_BREAK_INSIDE, CssConstants.AUTO);
+
         defaultValues.put(CssConstants.POSITION, CssConstants.STATIC);
 
         defaultValues.put(CssConstants.TEXT_ALIGN, CssConstants.START);
