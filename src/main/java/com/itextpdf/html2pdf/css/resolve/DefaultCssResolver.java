@@ -58,6 +58,7 @@ import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.css.validate.CssDeclarationValidationMaster;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
@@ -72,6 +73,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -174,18 +176,28 @@ public class DefaultCssResolver implements ICssResolver {
 
     private Map<String, String> cssDeclarationsToMap(List<CssDeclaration> nodeCssDeclarations) {
         Map<String, String> stylesMap = new HashMap<>();
-        for (CssDeclaration cssDeclaration : nodeCssDeclarations) {
+        for (int i = 0; i < nodeCssDeclarations.size(); i++) {
+            CssDeclaration cssDeclaration = nodeCssDeclarations.get(i);
             IShorthandResolver shorthandResolver = ShorthandResolverFactory.getShorthandResolver(cssDeclaration.getProperty());
             if (shorthandResolver == null) {
-                stylesMap.put(cssDeclaration.getProperty(), cssDeclaration.getExpression());
+                putDeclarationInMapIfValid(stylesMap, cssDeclaration);
             } else {
                 List<CssDeclaration> resolvedShorthandProps = shorthandResolver.resolveShorthand(cssDeclaration.getExpression());
                 for (CssDeclaration resolvedProp : resolvedShorthandProps) {
-                    stylesMap.put(resolvedProp.getProperty(), resolvedProp.getExpression());
+                    putDeclarationInMapIfValid(stylesMap, resolvedProp);
                 }
             }
         }
         return stylesMap;
+    }
+
+    private void putDeclarationInMapIfValid(Map<String, String> stylesMap, CssDeclaration cssDeclaration) {
+        if (CssDeclarationValidationMaster.checkDeclaration(cssDeclaration)) {
+            stylesMap.put(cssDeclaration.getProperty(), cssDeclaration.getExpression());
+        } else {
+            Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
+            logger.warn(MessageFormat.format(LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, cssDeclaration));
+        }
     }
 
     private INode collectCssDeclarations(INode rootNode, ResourceResolver resourceResolver) {
@@ -253,4 +265,5 @@ public class DefaultCssResolver implements ICssResolver {
             styles.put(cssProperty, CssPropertyMerger.mergeTextDecoration(childPropValue, parentPropValue));
         }
     }
+
 }

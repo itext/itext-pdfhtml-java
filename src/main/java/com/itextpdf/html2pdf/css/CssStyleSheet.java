@@ -42,12 +42,17 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
+import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.css.validate.CssDeclarationValidationMaster;
 import com.itextpdf.html2pdf.html.node.INode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -103,11 +108,11 @@ public class CssStyleSheet {
         for (CssDeclaration declaration : declarations) {
             IShorthandResolver shorthandResolver = ShorthandResolverFactory.getShorthandResolver(declaration.getProperty());
             if (shorthandResolver == null) {
-                map.put(declaration.getProperty(), declaration);
+                putDeclarationInMapIfValid(map, declaration);
             } else {
                 List<CssDeclaration> resolvedShorthandProps = shorthandResolver.resolveShorthand(declaration.getExpression());
                 for (CssDeclaration resolvedProp : resolvedShorthandProps) {
-                    map.put(resolvedProp.getProperty(), resolvedProp);
+                    putDeclarationInMapIfValid(map, resolvedProp);
                 }
             }
         }
@@ -120,6 +125,15 @@ public class CssStyleSheet {
         }
         Collections.sort(ruleSets, new CssRuleSetComparator());
         return ruleSets;
+    }
+
+    private static void putDeclarationInMapIfValid(Map<String, CssDeclaration> stylesMap, CssDeclaration cssDeclaration) {
+        if (CssDeclarationValidationMaster.checkDeclaration(cssDeclaration)) {
+            stylesMap.put(cssDeclaration.getProperty(), cssDeclaration);
+        } else {
+            Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
+            logger.warn(MessageFormat.format(LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, cssDeclaration));
+        }
     }
 
 }
