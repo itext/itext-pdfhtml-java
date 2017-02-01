@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
@@ -92,6 +93,10 @@ public class DivTagWorker implements ITagWorker {
                 }
             }
             processed = allChildrenProcessed;
+        } else if (element instanceof AreaBreak) {
+            postProcessInlineGroup();
+            div.add((AreaBreak) element);
+            processed = true;
         } else if (element instanceof com.itextpdf.layout.element.IElement) {
             processed = addBlockChild((com.itextpdf.layout.element.IElement) element);
         }
@@ -104,7 +109,7 @@ public class DivTagWorker implements ITagWorker {
     }
 
     private boolean addBlockChild(com.itextpdf.layout.element.IElement element) {
-        inlineHelper.flushHangingLeaves(div);
+        postProcessInlineGroup();
         boolean processed = false;
         if (element instanceof IBlockElement) {
             div.add(((IBlockElement) element));
@@ -115,4 +120,9 @@ public class DivTagWorker implements ITagWorker {
         }
         return processed;
     }
+
+    private void postProcessInlineGroup() {
+        inlineHelper.flushHangingLeaves(div);
+    }
+
 }

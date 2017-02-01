@@ -47,18 +47,17 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.renderer.RootRenderer;
 
 public class HtmlTagWorker implements ITagWorker {
 
@@ -102,6 +101,10 @@ public class HtmlTagWorker implements ITagWorker {
                 }
             }
             processed = allChildrenProcessed;
+        } else if (childTagWorker.getElementResult() instanceof AreaBreak) {
+            inlineHelper.flushHangingLeaves(document);
+            document.add((AreaBreak) childTagWorker.getElementResult());
+            processed = true;
         } else {
             return processBlockChild(childTagWorker.getElementResult());
         }
@@ -118,9 +121,8 @@ public class HtmlTagWorker implements ITagWorker {
         ((HtmlDocumentRenderer)document.getRenderer()).processPageRules(rootNode, cssResolver, context);
     }
     
-    private boolean processBlockChild(IPropertyContainer propertyContainer) {
-        inlineHelper.flushHangingLeaves(document);
-        IPropertyContainer element = propertyContainer;
+    private boolean processBlockChild(IPropertyContainer element) {
+        postProcessInlineGroup();
         if (element instanceof IBlockElement) {
             document.add((IBlockElement) element);
             return true;
@@ -128,6 +130,10 @@ public class HtmlTagWorker implements ITagWorker {
             document.add((Image) element);
         }
         return true;
+    }
+
+    private void postProcessInlineGroup() {
+        inlineHelper.flushHangingLeaves(document);
     }
 
 }

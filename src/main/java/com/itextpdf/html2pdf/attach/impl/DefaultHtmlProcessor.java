@@ -51,6 +51,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.PageBreakApplierUtil;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
@@ -68,6 +69,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -76,8 +80,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DefaultHtmlProcessor implements IHtmlProcessor {
 
@@ -266,7 +268,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 }
 
                 if (!context.getState().empty()) {
+                    PageBreakApplierUtil.addPageBreakElementBefore(context, context.getState().top(), element, tagWorker);
                     boolean childProcessed = context.getState().top().processTagChild(tagWorker, context);
+                    PageBreakApplierUtil.addPageBreakElementAfter(context, context.getState().top(), element, tagWorker);
                     if (!childProcessed) {
                         logger.error(MessageFormat.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
                                 context.getState().top().getClass().getName(), tagWorker.getClass().getName()));
