@@ -40,19 +40,30 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.w3c.css_color_4;
+package com.itextpdf.html2pdf.css.validate.impl.declaration;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.io.LogMessageConstant;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
+import com.itextpdf.html2pdf.css.CssDeclaration;
+import com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator;
+import com.itextpdf.html2pdf.css.validate.ICssDeclarationValidator;
 
-// Color values as in this test are considered for now as invalid. E.g. Chrome does the same. 
-@LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB),
-        @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)})
-public class Hex002Test extends W3CCssTest {
+import java.util.Arrays;
+import java.util.List;
+
+public class MultiTypeDeclarationValidator implements ICssDeclarationValidator {
+
+    private List<ICssDataTypeValidator> allowedTypes;
+
+    public MultiTypeDeclarationValidator(ICssDataTypeValidator... allowedTypes) {
+        this.allowedTypes = Arrays.asList(allowedTypes);
+    }
+
     @Override
-    protected String getHtmlFileName() {
-        return "hex-002.html";
+    public boolean isValid(CssDeclaration cssDeclaration) {
+        for (ICssDataTypeValidator dTypeValidator : allowedTypes) {
+            if (dTypeValidator.isValid(cssDeclaration.getExpression())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

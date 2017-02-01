@@ -44,9 +44,7 @@ package com.itextpdf.html2pdf.css.util;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.kernel.color.DeviceRgb;
 import com.itextpdf.kernel.color.WebColors;
-import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -255,6 +253,11 @@ public class CssUtils {
 
     public static float[] parseRgbaColor(String colorValue) {
         float[] rgbaColor = WebColors.getRGBAColor(colorValue);
+        if (rgbaColor == null) {
+            Logger logger = LoggerFactory.getLogger(CssUtils.class);
+            logger.error(MessageFormat.format(com.itextpdf.io.LogMessageConstant.COLOR_NOT_PARSED, colorValue));
+            rgbaColor = new float[]{0, 0, 0, 1};
+        }
         return rgbaColor;
     }
 

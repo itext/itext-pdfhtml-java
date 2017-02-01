@@ -40,19 +40,49 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.w3c.css_color_4;
+package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
+import com.itextpdf.test.annotations.type.IntegrationTest;
 
-// Color values as in this test are considered for now as invalid. E.g. Chrome does the same. 
-@LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB),
-        @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)})
-public class Hex002Test extends W3CCssTest {
-    @Override
-    protected String getHtmlFileName() {
-        return "hex-002.html";
+import java.io.File;
+import java.io.IOException;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+@Category(IntegrationTest.class)
+public class PropertyValidationTest extends ExtendedITextTest {
+
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/PropertyValidationTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/PropertyValidationTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+        createDestinationFolder(destinationFolder);
     }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+    public void test01() throws IOException, InterruptedException {
+        runTest("test01");
+    }
+
+    private void runTest(String name) throws IOException, InterruptedException {
+        String htmlPath = sourceFolder + name + ".html";
+        String pdfPath = destinationFolder + name + ".pdf";
+        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+        String diffPrefix = "diff_" + name + "_";
+
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
+        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+    }
+
 }

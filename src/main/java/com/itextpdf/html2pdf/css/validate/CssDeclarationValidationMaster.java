@@ -40,19 +40,48 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.w3c.css_color_4;
+package com.itextpdf.html2pdf.css.validate;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.io.LogMessageConstant;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.CssDeclaration;
+import com.itextpdf.html2pdf.css.validate.impl.datatype.CssColorValidator;
+import com.itextpdf.html2pdf.css.validate.impl.datatype.CssEnumValidator;
+import com.itextpdf.html2pdf.css.validate.impl.declaration.MultiTypeDeclarationValidator;
+import com.itextpdf.html2pdf.css.validate.impl.declaration.SingleTypeDeclarationValidator;
 
-// Color values as in this test are considered for now as invalid. E.g. Chrome does the same. 
-@LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB),
-        @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)})
-public class Hex002Test extends W3CCssTest {
-    @Override
-    protected String getHtmlFileName() {
-        return "hex-002.html";
+import java.util.HashMap;
+import java.util.Map;
+
+public class CssDeclarationValidationMaster {
+
+    private static final Map<String, ICssDeclarationValidator> DEFAULT_VALIDATORS;
+
+    static {
+        // TODO lazy initialization?
+
+        ICssDeclarationValidator colorCommonValidator = new MultiTypeDeclarationValidator(
+                new CssEnumValidator(CssConstants.TRANSPARENT, CssConstants.INITIAL, CssConstants.INHERIT),
+                new CssColorValidator());
+
+        DEFAULT_VALIDATORS = new HashMap<>();
+        DEFAULT_VALIDATORS.put(CssConstants.BACKGROUND_COLOR, colorCommonValidator);
+        DEFAULT_VALIDATORS.put(CssConstants.COLOR, colorCommonValidator);
+        DEFAULT_VALIDATORS.put(CssConstants.BORDER_COLOR, colorCommonValidator);
+        DEFAULT_VALIDATORS.put(CssConstants.BORDER_BOTTOM_COLOR, colorCommonValidator);
+        DEFAULT_VALIDATORS.put(CssConstants.BORDER_TOP_COLOR, colorCommonValidator);
+        DEFAULT_VALIDATORS.put(CssConstants.BORDER_LEFT_COLOR, colorCommonValidator);
+        DEFAULT_VALIDATORS.put(CssConstants.BORDER_RIGHT_COLOR, colorCommonValidator);
+        DEFAULT_VALIDATORS.put(CssConstants.FLOAT,
+                new SingleTypeDeclarationValidator(
+                        new CssEnumValidator(CssConstants.LEFT, CssConstants.RIGHT, CssConstants.NONE, CssConstants.INHERIT, CssConstants.CENTER /*center comes from legacy*/ )));
     }
+
+    private CssDeclarationValidationMaster() {
+    }
+
+    public static boolean checkDeclaration(CssDeclaration declaration) {
+        ICssDeclarationValidator validator = DEFAULT_VALIDATORS.get(declaration.getProperty());
+        return validator == null || validator.isValid(declaration);
+    }
+
 }
