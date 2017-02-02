@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf;
 
-import com.itextpdf.html2pdf.attach.DefaultTagWorkerFactory;
+import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;

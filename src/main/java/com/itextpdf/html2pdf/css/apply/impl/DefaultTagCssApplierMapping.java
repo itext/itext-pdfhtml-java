@@ -40,20 +40,9 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply;
+package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.apply.impl.BodyTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.ColTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.ColgroupTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.DlTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.HtmlTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.LiTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.SpanTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.TableTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.TdTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.TrTagCssApplier;
-import com.itextpdf.html2pdf.css.apply.impl.UlOlTagCssApplier;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
