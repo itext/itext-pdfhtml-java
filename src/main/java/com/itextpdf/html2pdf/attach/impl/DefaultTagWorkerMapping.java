@@ -40,7 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach;
+package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.attach.impl.tags.ATagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.BodyTagWorker;

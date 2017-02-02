@@ -40,44 +40,62 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply;
+package com.itextpdf.html2pdf.css.apply.impl;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.FloatApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
-import com.itextpdf.html2pdf.html.node.IStylesContainer;
-import com.itextpdf.layout.IPropertyContainer;
-import java.util.Map;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
+import com.itextpdf.html2pdf.exception.CssApplierInitializationException;
+import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
-public class BlockCssApplier implements ICssApplier {
+public class DefaultCssApplierFactory implements ICssApplierFactory {
+
+    private TagProcessorMapping defaultMapping;
+    private TagProcessorMapping userMapping;
+
+    public DefaultCssApplierFactory() {
+        defaultMapping = DefaultTagCssApplierMapping.getDefaultCssApplierMapping();
+        userMapping = new TagProcessorMapping();
+    }
 
     @Override
-    public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
-        Map<String, String> cssProps = stylesContainer.getStyles();
-
-        IPropertyContainer container = tagWorker.getElementResult();
-        if (container != null) {
-            WidthHeightApplierUtil.applyWidthHeight(cssProps, context, container);
-            BackgroundApplierUtil.applyBackground(cssProps, context, container);
-            MarginApplierUtil.applyMargins(cssProps, context, container);
-            PaddingApplierUtil.applyPaddings(cssProps, context, container);
-            FontStyleApplierUtil.applyFontStyles(cssProps, context, stylesContainer, container);
-            BorderStyleApplierUtil.applyBorders(cssProps, context, container);
-            HyphenationApplierUtil.applyHyphenation(cssProps, context, stylesContainer, container);
-            FloatApplierUtil.applyFloating(cssProps, context, container);
-            PositionApplierUtil.applyPosition(cssProps, context, container);
-            OpacityApplierUtil.applyOpacity(cssProps, context, container);
+    public ICssApplier getCssApplier(IElementNode tag) {
+        Class<?> cssApplierClass = getCssApplierClass(userMapping, tag);
+        if (cssApplierClass == null) {
+            cssApplierClass = getCssApplierClass(defaultMapping, tag);
+        }
+        if (cssApplierClass == null) {
+            return null;
+        }
+        // Use reflection to create an instance
+        try {
+            return (ICssApplier) cssApplierClass.newInstance();
+        } catch (Exception e) {
+            throw new CssApplierInitializationException(CssApplierInitializationException.ReflectionFailed, cssApplierClass.getName(), tag.name());
         }
     }
 
+    @Override
+    public void registerCssApplier(String tag, Class<?> classToRegister) {
+        userMapping.putMapping(tag, classToRegister);
+    }
+
+    @Override
+    public void registerCssApplier(String tag, String display, Class<?> applierToUse) {
+        userMapping.putMapping(tag, display, applierToUse);
+    }
+
+    private static Class<?> getCssApplierClass(TagProcessorMapping mapping, IElementNode tag) {
+        Class<?> cssApplierClass = null;
+        String display = tag.getStyles() != null ? tag.getStyles().get(CssConstants.DISPLAY) : null;
+        if (display != null) {
+            cssApplierClass = mapping.getMapping(tag.name(), display);
+        }
+        if (cssApplierClass == null) {
+            cssApplierClass = mapping.getMapping(tag.name());
+        }
+        return cssApplierClass;
+    }
 
 }

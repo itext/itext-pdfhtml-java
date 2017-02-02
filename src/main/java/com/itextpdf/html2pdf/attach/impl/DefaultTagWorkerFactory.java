@@ -40,60 +40,67 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.apply;
+package com.itextpdf.html2pdf.attach.impl;
 
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.exception.CssApplierInitializationException;
+import com.itextpdf.html2pdf.exception.TagWorkerInitializationException;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
-public class DefaultCssApplierFactory implements ICssApplierFactory {
+import java.lang.reflect.Constructor;
+
+public class DefaultTagWorkerFactory implements ITagWorkerFactory {
 
     private TagProcessorMapping defaultMapping;
     private TagProcessorMapping userMapping;
 
-    public DefaultCssApplierFactory() {
-        defaultMapping = DefaultTagCssApplierMapping.getDefaultCssApplierMapping();
+    public DefaultTagWorkerFactory() {
+        defaultMapping = DefaultTagWorkerMapping.getDefaultTagWorkerMapping();
         userMapping = new TagProcessorMapping();
     }
 
     @Override
-    public ICssApplier getCssApplier(IElementNode tag) {
-        Class<?> cssApplierClass = getCssApplierClass(userMapping, tag);
-        if (cssApplierClass == null) {
-            cssApplierClass = getCssApplierClass(defaultMapping, tag);
+    public ITagWorker getTagWorkerInstance(IElementNode tag, ProcessorContext context) throws TagWorkerInitializationException {
+        Class<?> tagWorkerClass = getTagWorkerClass(userMapping, tag);
+        if (tagWorkerClass == null) {
+            tagWorkerClass = getTagWorkerClass(defaultMapping, tag);
         }
-        if (cssApplierClass == null) {
+        if (tagWorkerClass == null) {
             return null;
         }
         // Use reflection to create an instance
         try {
-            return (ICssApplier) cssApplierClass.newInstance();
+            Constructor ctor = tagWorkerClass.getDeclaredConstructor(new Class<?>[]{IElementNode.class, ProcessorContext.class});
+            ITagWorker res = (ITagWorker) ctor.newInstance(new Object[]{tag, context});
+            return res;
         } catch (Exception e) {
-            throw new CssApplierInitializationException(CssApplierInitializationException.ReflectionFailed, cssApplierClass.getName(), tag.name());
+            throw new TagWorkerInitializationException(TagWorkerInitializationException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED, tagWorkerClass.getName(), tag.name());
         }
     }
 
     @Override
-    public void registerCssApplier(String tag, Class<?> classToRegister) {
-        userMapping.putMapping(tag, classToRegister);
+    public void registerTagWorker(String tag, Class<?> tagWorkerClass) {
+        userMapping.putMapping(tag, tagWorkerClass);
     }
 
     @Override
-    public void registerCssApplier(String tag, String display, Class<?> applierToUse) {
-        userMapping.putMapping(tag, display, applierToUse);
+    public void registerTagWorker(String tag, String display, Class<?> tagWorkerClass) {
+        userMapping.putMapping(tag, display, tagWorkerClass);
     }
 
-    private static Class<?> getCssApplierClass(TagProcessorMapping mapping, IElementNode tag) {
-        Class<?> cssApplierClass = null;
+    private static Class<?> getTagWorkerClass(TagProcessorMapping mapping, IElementNode tag) {
+        Class<?> tagWorkerClass = null;
         String display = tag.getStyles() != null ? tag.getStyles().get(CssConstants.DISPLAY) : null;
         if (display != null) {
-            cssApplierClass = mapping.getMapping(tag.name(), display);
+            tagWorkerClass = mapping.getMapping(tag.name(), display);
         }
-        if (cssApplierClass == null) {
-            cssApplierClass = mapping.getMapping(tag.name());
+        if (tagWorkerClass == null) {
+            tagWorkerClass = mapping.getMapping(tag.name());
         }
-        return cssApplierClass;
+        return tagWorkerClass;
     }
 
 }

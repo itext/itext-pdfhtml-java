@@ -42,8 +42,8 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.css.apply.BlockCssApplier;
-import com.itextpdf.html2pdf.css.apply.DefaultCssApplierFactory;
+import com.itextpdf.html2pdf.css.apply.impl.BlockCssApplier;
+import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.html.TagConstants;

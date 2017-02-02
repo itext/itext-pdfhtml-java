@@ -43,7 +43,8 @@
 package com.itextpdf.html2pdf.attach;
 
 import com.itextpdf.html2pdf.ConverterProperties;
-import com.itextpdf.html2pdf.css.apply.DefaultCssApplierFactory;
+import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
+import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.resolve.CssContext;

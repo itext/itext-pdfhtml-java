@@ -44,19 +44,41 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.FloatApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
+import java.util.Map;
 
-public class DlTagCssApplier extends BlockCssApplier {
+public class BlockCssApplier implements ICssApplier {
 
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
-        super.apply(context, stylesContainer, tagWorker);
-        IPropertyContainer list = tagWorker.getElementResult();
-        if (list != null) {
-            ListStyleApplierUtil.applyListStyleImageProperty(stylesContainer.getStyles(), context, list);
+        Map<String, String> cssProps = stylesContainer.getStyles();
+
+        IPropertyContainer container = tagWorker.getElementResult();
+        if (container != null) {
+            WidthHeightApplierUtil.applyWidthHeight(cssProps, context, container);
+            BackgroundApplierUtil.applyBackground(cssProps, context, container);
+            MarginApplierUtil.applyMargins(cssProps, context, container);
+            PaddingApplierUtil.applyPaddings(cssProps, context, container);
+            FontStyleApplierUtil.applyFontStyles(cssProps, context, stylesContainer, container);
+            BorderStyleApplierUtil.applyBorders(cssProps, context, container);
+            HyphenationApplierUtil.applyHyphenation(cssProps, context, stylesContainer, container);
+            FloatApplierUtil.applyFloating(cssProps, context, container);
+            PositionApplierUtil.applyPosition(cssProps, context, container);
+            OpacityApplierUtil.applyOpacity(cssProps, context, container);
         }
     }
+
 
 }
