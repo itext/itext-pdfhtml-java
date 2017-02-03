@@ -44,7 +44,6 @@ package com.itextpdf.html2pdf.css.page;
 
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssNestedAtRule;
-import com.itextpdf.html2pdf.css.resolve.CssNonStandardRuleSet;
 import com.itextpdf.html2pdf.css.selector.CssPageMarginBoxSelector;
 import com.itextpdf.html2pdf.css.selector.ICssSelector;
 import java.util.List;
