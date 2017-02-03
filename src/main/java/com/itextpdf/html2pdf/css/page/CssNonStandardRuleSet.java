@@ -40,14 +40,14 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.resolve;
+package com.itextpdf.html2pdf.css.page;
 
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.selector.ICssSelector;
 import java.util.List;
 
-public class CssNonStandardRuleSet extends CssRuleSet {
+class CssNonStandardRuleSet extends CssRuleSet {
     public CssNonStandardRuleSet(ICssSelector selector, List<CssDeclaration> declarations) {
         super(selector, declarations);
     }
