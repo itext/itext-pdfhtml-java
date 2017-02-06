@@ -48,8 +48,4 @@ public interface ICssApplierFactory {
 
     ICssApplier getCssApplier(IElementNode tag);
 
-    void registerCssApplier(String tag, Class<?> applierToUse);
-
-    void registerCssApplier(String tag, String display, Class<?> applierToUse);
-
 }

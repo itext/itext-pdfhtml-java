@@ -55,43 +55,36 @@ import java.lang.reflect.Constructor;
 public class DefaultTagWorkerFactory implements ITagWorkerFactory {
 
     private TagProcessorMapping defaultMapping;
-    private TagProcessorMapping userMapping;
 
     public DefaultTagWorkerFactory() {
-        defaultMapping = DefaultTagWorkerMapping.getDefaultTagWorkerMapping();
-        userMapping = new TagProcessorMapping();
+        this.defaultMapping = DefaultTagWorkerMapping.getDefaultTagWorkerMapping();
     }
 
     @Override
-    public ITagWorker getTagWorkerInstance(IElementNode tag, ProcessorContext context) throws TagWorkerInitializationException {
-        Class<?> tagWorkerClass = getTagWorkerClass(userMapping, tag);
-        if (tagWorkerClass == null) {
-            tagWorkerClass = getTagWorkerClass(defaultMapping, tag);
+    public final ITagWorker getTagWorker(IElementNode tag, ProcessorContext context) {
+        ITagWorker tagWorker = getCustomTagWorker(tag, context);
+
+        if ( tagWorker == null ) {
+            Class<?> tagWorkerClass = getTagWorkerClass(this.defaultMapping, tag);
+
+            if (tagWorkerClass == null) {
+                return null;
+            }
+
+            // Use reflection to create an instance
+            try {
+                Constructor ctor = tagWorkerClass.getDeclaredConstructor(new Class<?>[]{IElementNode.class, ProcessorContext.class});
+                ITagWorker res = (ITagWorker) ctor.newInstance(new Object[]{tag, context});
+                return res;
+            } catch (Exception e) {
+                throw new TagWorkerInitializationException(TagWorkerInitializationException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED, tagWorkerClass.getName(), tag.name());
+            }
         }
-        if (tagWorkerClass == null) {
-            return null;
-        }
-        // Use reflection to create an instance
-        try {
-            Constructor ctor = tagWorkerClass.getDeclaredConstructor(new Class<?>[]{IElementNode.class, ProcessorContext.class});
-            ITagWorker res = (ITagWorker) ctor.newInstance(new Object[]{tag, context});
-            return res;
-        } catch (Exception e) {
-            throw new TagWorkerInitializationException(TagWorkerInitializationException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED, tagWorkerClass.getName(), tag.name());
-        }
+
+        return tagWorker;
     }
 
-    @Override
-    public void registerTagWorker(String tag, Class<?> tagWorkerClass) {
-        userMapping.putMapping(tag, tagWorkerClass);
-    }
-
-    @Override
-    public void registerTagWorker(String tag, String display, Class<?> tagWorkerClass) {
-        userMapping.putMapping(tag, display, tagWorkerClass);
-    }
-
-    private static Class<?> getTagWorkerClass(TagProcessorMapping mapping, IElementNode tag) {
+    private Class<?> getTagWorkerClass(TagProcessorMapping mapping, IElementNode tag) {
         Class<?> tagWorkerClass = null;
         String display = tag.getStyles() != null ? tag.getStyles().get(CssConstants.DISPLAY) : null;
         if (display != null) {
@@ -103,4 +96,14 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
         return tagWorkerClass;
     }
 
+    /**
+     * This is a hook method. Users wanting to provide a custom mapping or introduce their own ITagWorkers should implement this method.
+     *
+     * @param tag
+     * @param context
+     * @return
+     */
+    public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
+        return null;
+    }
 }
