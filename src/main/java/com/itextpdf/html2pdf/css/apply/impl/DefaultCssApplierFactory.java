@@ -52,38 +52,31 @@ import com.itextpdf.html2pdf.util.TagProcessorMapping;
 public class DefaultCssApplierFactory implements ICssApplierFactory {
 
     private TagProcessorMapping defaultMapping;
-    private TagProcessorMapping userMapping;
 
     public DefaultCssApplierFactory() {
         defaultMapping = DefaultTagCssApplierMapping.getDefaultCssApplierMapping();
-        userMapping = new TagProcessorMapping();
     }
 
     @Override
-    public ICssApplier getCssApplier(IElementNode tag) {
-        Class<?> cssApplierClass = getCssApplierClass(userMapping, tag);
-        if (cssApplierClass == null) {
-            cssApplierClass = getCssApplierClass(defaultMapping, tag);
+    public final ICssApplier getCssApplier(IElementNode tag) {
+        ICssApplier cssApplier = getCustomCssApplier(tag);
+
+        if (cssApplier == null) {
+            Class<?> cssApplierClass = getCssApplierClass(defaultMapping, tag);
+            if ( cssApplierClass != null ) {
+                try {
+                    return (ICssApplier) cssApplierClass.newInstance();
+                } catch (Exception e) {
+                    throw new CssApplierInitializationException(CssApplierInitializationException.ReflectionFailed, cssApplierClass.getName(), tag.name());
+                }
+            }
         }
-        if (cssApplierClass == null) {
-            return null;
-        }
-        // Use reflection to create an instance
-        try {
-            return (ICssApplier) cssApplierClass.newInstance();
-        } catch (Exception e) {
-            throw new CssApplierInitializationException(CssApplierInitializationException.ReflectionFailed, cssApplierClass.getName(), tag.name());
-        }
+
+        return cssApplier;
     }
 
-    @Override
-    public void registerCssApplier(String tag, Class<?> classToRegister) {
-        userMapping.putMapping(tag, classToRegister);
-    }
-
-    @Override
-    public void registerCssApplier(String tag, String display, Class<?> applierToUse) {
-        userMapping.putMapping(tag, display, applierToUse);
+    public ICssApplier getCustomCssApplier(IElementNode tag) {
+        return null;
     }
 
     private static Class<?> getCssApplierClass(TagProcessorMapping mapping, IElementNode tag) {

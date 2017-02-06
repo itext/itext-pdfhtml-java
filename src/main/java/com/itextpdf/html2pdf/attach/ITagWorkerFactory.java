@@ -52,11 +52,7 @@ public interface ITagWorkerFactory {
     /**
      * Look up a TagProcessor for the given tag and returns an instance constructed with passed parameters.
      */
-    ITagWorker getTagWorkerInstance(IElementNode tag, ProcessorContext context) ;
-
-    void registerTagWorker(String tag, Class<?> tagWorkerClass);
-
-    void registerTagWorker(String tag, String display, Class<?> tagWorkerClass);
+    ITagWorker getTagWorker(IElementNode tag, ProcessorContext context) ;
 
 }
 

@@ -234,7 +234,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 return;
             }
 
-            ITagWorker tagWorker = context.getTagWorkerFactory().getTagWorkerInstance(element, context);
+            ITagWorker tagWorker = context.getTagWorkerFactory().getTagWorker(element, context);
             if (tagWorker == null) {
                 if (!ignoredTags.contains(element.name())) {
                     logger.error(MessageFormat.format(LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).name()));
