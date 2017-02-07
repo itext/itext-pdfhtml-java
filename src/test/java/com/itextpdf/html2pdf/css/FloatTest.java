@@ -90,4 +90,10 @@ public class FloatTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "float04Test.html"), new File(destinationFolder + "float04Test.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float04Test.pdf", sourceFolder + "cmp_float04Test.pdf", destinationFolder, "diff04_"));
     }
+
+    @Test
+    public void float05Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "float05Test.html"), new File(destinationFolder + "float05Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float05Test.pdf", sourceFolder + "cmp_float05Test.pdf", destinationFolder, "diff05_"));
+    }
 }
