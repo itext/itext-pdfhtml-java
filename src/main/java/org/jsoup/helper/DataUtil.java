@@ -14,7 +14,6 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
-import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -211,7 +210,11 @@ public final class DataUtil {
         if (cs == null || cs.length() == 0) return null;
         cs = cs.trim().replaceAll("[\"']", "");
         if (PortUtil.charsetIsSupported(cs)) return cs;
-        cs = cs.toUpperCase(Locale.ENGLISH);
+        StringBuilder upperCase = new StringBuilder();
+        for (int i = 0; i < cs.length(); i++) {
+            upperCase.append(Character.toUpperCase(cs.charAt(i)));
+        }
+        cs = upperCase.toString();
         if (PortUtil.charsetIsSupported(cs)) return cs;
         // if our this charset matching fails.... we just take the default
         return null;
