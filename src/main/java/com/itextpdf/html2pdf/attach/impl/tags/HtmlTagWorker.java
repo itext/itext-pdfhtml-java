@@ -102,7 +102,7 @@ public class HtmlTagWorker implements ITagWorker {
             }
             processed = allChildrenProcessed;
         } else if (childTagWorker.getElementResult() instanceof AreaBreak) {
-            inlineHelper.flushHangingLeaves(document);
+            postProcessInlineGroup();
             document.add((AreaBreak) childTagWorker.getElementResult());
             processed = true;
         } else {

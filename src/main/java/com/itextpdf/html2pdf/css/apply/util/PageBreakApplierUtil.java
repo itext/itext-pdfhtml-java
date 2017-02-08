@@ -47,7 +47,6 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreak;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreakType;
-import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
@@ -70,7 +69,7 @@ public class PageBreakApplierUtil {
     public static void addPageBreakElementBefore(ProcessorContext context, ITagWorker parentTagWorker, IElementNode childElement, ITagWorker childTagWorker) {
         // Applies to block-level elements
         if (CssConstants.BLOCK.equals(childElement.getStyles().get(CssConstants.DISPLAY)) ||
-                childElement.getStyles().get(CssConstants.DISPLAY) == null && childTagWorker instanceof DivTagWorker) {
+                childElement.getStyles().get(CssConstants.DISPLAY) == null && childTagWorker.getElementResult() instanceof IBlockElement) {
             String pageBreakBeforeVal = childElement.getStyles().get(CssConstants.PAGE_BREAK_BEFORE);
             HtmlPageBreak breakBefore = createHtmlPageBreak(pageBreakBeforeVal);
             if (breakBefore != null) {
