@@ -127,6 +127,8 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
                 }
             }
 
+            anythingAddedToCurrentArea = anythingAddedToCurrentArea || overflowResult != null && overflowResult.getStatus() == LayoutResult.PARTIAL;
+
             if (HtmlPageBreakType.ALWAYS.equals(htmlPageBreakType)) {
                 LayoutArea nextArea = currentArea;
                 if (anythingAddedToCurrentArea || currentArea == null) {
@@ -159,11 +161,11 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     }
 
     @Override
-    protected void updateCurrentAreaAndProcessRenderer(IRenderer renderer, List<IRenderer> resultRenderers, LayoutResult result) {
+    protected void shrinkCurrentAreaAndProcessRenderer(IRenderer renderer, List<IRenderer> resultRenderers, LayoutResult result) {
         if (renderer != null) {
             anythingAddedToCurrentArea = true;
         }
-        super.updateCurrentAreaAndProcessRenderer(renderer, resultRenderers, result);
+        super.shrinkCurrentAreaAndProcessRenderer(renderer, resultRenderers, result);
     }
 
     @Override
