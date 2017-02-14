@@ -1,0 +1,34 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <style type="text/css">
+        	div#test {
+        		background-color: #3b7fc4;
+        		color: red;
+        		margin: 15pt 0
+        	}
+            div#test:before
+            {
+            	border: solid 20pt black;
+                background-color: grey;
+                margin: 40px;
+            }
+            div#test:after
+            {
+            	border: solid 20pt black;
+                background-color: grey;
+                margin: 40px;
+            }
+            p {
+            	background-color: #215d9a;
+            	color: white;
+            	margin: 30pt 0;
+            }
+        </style>
+    </head>
+    <body>
+    	<div style="background-color: black">
+        	<div id="test"><p>p text</p></div>
+        </div>
+    </body>
+</html>

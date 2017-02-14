@@ -1,0 +1,33 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <style type="text/css">
+        	div {
+        		color: red;
+        		border: dotted 1pt blue;
+        	}
+            div:before
+            {
+                border: solid 2pt green;
+                content: "before ";
+            }
+            div::after
+            {
+                border: solid 2pt green;
+                content: " after";
+            }
+            div::before
+            {
+            	background-color: yellow;
+            }
+            div:after
+            {
+            	background-color: yellow;
+            	content: " some other text";
+            }
+        </style>
+    </head>
+    <body>
+        <div>div text</div>
+    </body>
+</html>

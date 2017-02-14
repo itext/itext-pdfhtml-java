@@ -1,0 +1,79 @@
+<html>
+<head>
+<style>
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: Helvetica;
+  text-align: center;
+}
+
+h1 {
+  color: black;
+  font-size: 2em;
+}
+
+/* DEMO STYLES */
+
+/* Parent */
+div {
+  color: #fff;
+  margin: 15px 0;
+}
+
+p {
+  margin: 30px 0; 
+}
+
+/* Add padding to the parent */
+.padding {
+  padding: 1px 0;
+}
+
+/* Here come the children */
+.red {
+  background-color: #ff6b6b;
+}
+
+.orange {
+  background-color: #ff9e2c;
+}
+
+.yellow {
+  background-color: #eeee78;
+}
+
+.green {
+  background-color: #4ecd9d;
+}
+
+.blue {
+  background-color: #4e97cd;
+}
+
+.purple {
+  background-color: #6c4ecd;
+}
+
+</style>
+</head>
+<body>
+
+<span>
+text before
+<h1>Collapsing Child Margins</h1>
+
+<div class="red"><div class="orange">Kid1</div><div class="yellow">Kid2</div><div class="green"><span>Kid3</span></div><div class="blue">Kid4</div><div class="purple"><div>Kid5</div><p>paragraph</p></div></div>
+
+<div class="red"><div class="orange">Kid1</div><div class="yellow">Kid2</div><div class="green"><span>Kid3</span></div><div class="blue">Kid4</div><div class="purple"><div>Kid5</div><p>paragraph</p>inline sibling <span>inline sibling in span</span></div></div>
+
+text in the middle
+
+<div class="green">marker div</div>
+text after
+</span>
+</body>
+</html>
