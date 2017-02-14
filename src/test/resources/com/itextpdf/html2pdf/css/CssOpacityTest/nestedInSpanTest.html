@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+	div { margin: 1em; font-family: monospace; }
+	div.test span { opacity: 0.5; }
+	div span a { background: blue; color: red; }
+</style>
+</head>
+<body>
+
+<div class="test"><span>direct span text<a>XXXXX<br/>XXXXX<div style="background-color: blue">unexpected div inside a</div>XXXXX</a></span></div>
+
+<div><span>direct span text<a>XXXXX<br/>XXXXX<div style="background-color: blue">unexpected div inside a</div>XXXXX</a></span></div>
+
+
+</body>
+</html>

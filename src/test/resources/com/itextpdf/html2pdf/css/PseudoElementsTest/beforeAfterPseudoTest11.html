@@ -1,0 +1,34 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <style type="text/css">
+            div::before
+            {
+                margin: 40px;
+                content: "before ";
+            }
+            div::after
+            {   
+                margin: 40px;
+                content: " after";
+            }
+            div#blockPseudo::before
+            {
+                display: block;
+                margin: 40px;
+                content: "before ";
+            }
+            div#blockPseudo::after
+            {   
+                display: block;
+                margin: 40px;
+                content: " after";
+            }
+        </style>
+    </head>
+    <body>
+        <div style="background-color: lightblue;">div text</div>
+        <div id="blockPseudo" style="background-color: lightblue;">div text</div>
+        <span style="background-color: black; color: white;">marker text</span>
+    </body>
+</html>

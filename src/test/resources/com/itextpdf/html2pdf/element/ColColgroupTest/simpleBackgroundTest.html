@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+td {
+   padding: 1em;
+}
+</style>
+</head>
+
+<body>
+<p><br>table with col</p>
+<table>
+  <colgroup>
+    <col span="1" style="background:red">
+  </colgroup>
+    <tr style="background:green">
+      <td>bla</td>
+      <td>bla</td>
+      <td>bla</td>
+    </tr>
+    <tr>
+      <td colspan=2>bla bla</td>
+      <td>bla</td>
+    </tr>
+    <tr>
+      <td style="background:blue">bla</td>
+      <td>bla</td>
+      <td>bla</td>
+    </tr>
+    <tr>
+      <td>bla</td>
+      <td>bla</td>
+      <td>bla</td>
+    </tr>
+</table>
+<p><br>table with empty colgroup</p>
+<table>
+  <colgroup span="1" style="background:red">
+    <tr style="background:green">
+      <td>bla</td>
+      <td>bla</td>
+      <td>bla</td>
+    </tr>
+    <tr>
+      <td colspan=2>bla bla</td>
+      <td>bla</td>
+    </tr>
+    <tr>
+      <td style="background:blue">bla</td>
+      <td>bla</td>
+      <td>bla</td>
+    </tr>
+    <tr>
+      <td>bla</td>
+      <td>bla</td>
+      <td>bla</td>
+    </tr>
+</table>
+
+</body>
+</html>

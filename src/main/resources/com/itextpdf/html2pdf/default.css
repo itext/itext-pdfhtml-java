@@ -1,0 +1,419 @@
+html {
+    font-family: Helvetica;
+}
+
+pre, tt, code, kbd, samp {
+    font-family: monospace;
+    font-size: 9pt;
+    line-height: 12pt;
+}
+dt {
+    margin: 0;
+}
+
+big {
+    font-size: larger;
+}
+
+small {
+    font-size: smaller;
+}
+
+b {
+    font-weight: bold;
+}
+
+i {
+    font-style: italic;
+}
+html {
+    font-size: 12pt;
+}
+body {
+    margin: 10%;
+    font-size: 12pt;
+}
+p, dl, multicol {
+    margin: 1em 0;
+}
+dd {
+    margin-left: 40px;
+    margin-bottom: 0;
+    margin-right: 0;
+    margin-top: 0;
+}
+blockquote, figure {
+    margin: 1em 40px;
+}
+center {
+    display: block;
+    text-align: center;
+}
+blockquote[type="cite"] {
+    border: 3px solid;
+    padding-left: 1em;
+    border-color: blue;
+    border-width: thin;
+    margin: 1em 0;
+}
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0.67em 0;
+}
+h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0.83em 0;
+}
+h3 {
+    font-size: 1.17em;
+    font-weight: bold;
+    margin: 1em 0;
+}
+h4{
+    font-size: 1em;
+    font-weight: bold;
+    margin: 1.33em 0;
+}
+h5 {
+    font-size: 0.83em;
+    font-weight: bold;
+    margin: 1.67em 0;
+}
+h6 {
+    font-size: 0.67em;
+    font-weight: bold;
+    margin: 2.33em 0;
+}
+listing {
+    font-size: medium;
+    margin: 1em 0;
+    white-space: pre;
+}
+xmp, pre, plaintext {
+    margin: 1em 0;
+    white-space: pre;
+}
+table {
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    text-indent: 0;
+}
+caption {
+    text-align: center;
+    display: table-caption;
+}
+tr {
+    vertical-align: inherit;
+}
+tbody {
+    vertical-align: middle;
+}
+thead {
+    vertical-align: middle;
+}
+tfoot {
+    vertical-align: middle;
+}
+table > tr {
+    vertical-align: middle;
+}
+td {
+    padding: 1px;
+    text-align: inherit;
+    vertical-align: inherit;
+    background-color: inherit;
+}
+th {
+    display: table-cell;
+    font-weight: bold;
+    padding: 1px;
+    vertical-align: inherit;
+    text-align: center;
+    background-color: inherit;
+}
+sub {
+    font-size: smaller;
+    vertical-align: sub;
+}
+sup {
+    font-size: smaller;
+    vertical-align: super;
+}
+
+nobr {
+    white-space: nowrap;
+}
+mark {
+    background: none repeat scroll 0 0 yellow;
+    color: black;
+}
+abbr[title], acronym[title] {
+    border-bottom: 1px dotted;
+}
+ul, menu, dir {
+    list-style-type: disc;
+    margin: 1em 0;
+    padding-left: 40px;
+}
+
+ul li ul {
+    list-style-type: circle;
+}
+
+ol ul, ul ol, ul ul, ol ol {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+ol {
+    list-style-type: decimal;
+    margin: 1em 0;
+    padding-left: 40px;
+}
+
+dl {
+    display: block;
+    margin: 1em 0;
+}
+
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
+pre {
+    display: block;
+    white-space: pre;
+    margin: 1em 0;
+}
+
+em {
+    font-style: italic;
+}
+
+u {
+    text-decoration: underline;
+}
+
+strike {
+    text-decoration: line-through;
+}
+
+strong {
+    font-weight: bold;
+}
+
+a[href] {
+    text-decoration: underline;
+    color: blue;
+}
+
+q {
+    display: inline;
+}
+
+q:before {
+    content: open-quote;
+}
+
+q:after {
+    content: close-quote;
+}
+
+aside, article, main, nav, footer, header, section {
+    display: block;
+}
+
+cite {
+    font-style: italic;
+}
+
+code {
+    font-family: monospace;
+}
+
+address {
+    display: block;
+    font-style: italic;
+}
+
+center{
+    text-align: center;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+dfn {
+    font-style: italic;
+}
+
+fieldset {
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove;
+}
+
+figcaption {
+    display: block;
+}
+
+figure {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+ins {
+    text-decoration: underline;
+}
+
+kbd {
+    font-family: monospace;
+}
+
+mark {
+    background-color: yellow;
+    color: black;
+}
+
+s {
+    text-decoration: line-through;
+}
+
+samp {
+    font-family: monospace;
+}
+
+var {
+    font-style: italic;
+}
+
+img[align="left"] {
+    margin-right: 3px;
+}
+
+ADDRESS,
+BLOCKQUOTE,
+BODY, DD, DIV,
+DL, DT,
+FIELDSET, FORM,
+FRAME, FRAMESET,
+H1, H2, H3, H4,
+H5, H6, IFRAME,
+NOFRAMES,
+OBJECT, OL, P,
+UL, APPLET,
+CENTER, DIR,
+HR, MENU, PRE   { display: block }
+LI              { display: list-item }
+TABLE           { display: table }
+TR              { display: table-row }
+THEAD           { display: table-header-group }
+TBODY           { display: table-row-group }
+TFOOT           { display: table-footer-group }
+COL             { display: table-column }
+COLGROUP        { display: table-column-group }
+TD, TH          { display: table-cell }
+CAPTION         { display: table-caption }
+
+@page {
+    @top-left-corner {
+        text-align: right;
+        vertical-align: middle;
+    }
+    
+    @top-left {
+        text-align: left;
+        vertical-align: middle;
+    }
+    
+    @top-center {
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    @top-right {
+        text-align: right;
+        vertical-align: middle;
+    }
+    
+    @top-right-corner {
+        text-align: left;
+        vertical-align: middle;
+    }
+    
+    @left-top {
+        text-align: center;
+        vertical-align: top;
+    }
+    
+    @left-middle {
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    @left-bottom {
+        text-align: center;
+        vertical-align: bottom;
+    }
+    
+    @right-top {
+        text-align: center;
+        vertical-align: top;
+    }
+    
+    @right-middle {
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    @right-bottom {
+        text-align: center;
+        vertical-align: bottom;
+    }
+
+    @bottom-left-corner {
+        text-align: right;
+        vertical-align: middle;
+    }
+    
+    @bottom-left {
+        text-align: left;
+        vertical-align: middle;
+    }
+    
+    @bottom-center {
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    @bottom-right {
+        text-align: right;
+        vertical-align: middle;
+    }
+    
+    @bottom-right-corner {
+        text-align: left;
+        vertical-align: middle;
+    }
+
+}
+

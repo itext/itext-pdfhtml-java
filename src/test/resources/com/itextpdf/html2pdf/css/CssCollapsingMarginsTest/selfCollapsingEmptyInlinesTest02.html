@@ -1,0 +1,68 @@
+<html>
+<head>
+<style>
+
+html {
+  font-size: 16px;
+}
+
+body {
+  color: #fff;
+  font-family: Helvetica;
+  text-align: center;
+}
+
+h1 {
+  color: black;
+  font-size: 2em;
+}
+
+/* DEMO STYLES */
+
+/* Parent */
+div {
+  margin: 15px 0;
+}
+
+/* Add padding to the parent */
+.padding {
+  padding: 1px 0;
+}
+
+/* Here come the children */
+.red {
+  background-color: #ff6b6b;
+}
+
+.orange {
+  background-color: #ff9e2c;
+}
+
+.yellow {
+  background-color: #eeee78;
+}
+
+.green {
+  background-color: #4ecd9d;
+}
+
+.blue {
+  background-color: #4e97cd;
+}
+
+.purple {
+  background-color: #6c4ecd;
+}
+
+</style>
+</head>
+<body>
+
+<h1>Collapsing Child Margins</h1>
+
+<div class="red"><p>  <span>  <span> </span>   </span   >  </p><div class="orange"><div class="yellow"><div class="green"><div class="blue"><div class="purple">Collapsed</div></div></div></div></div></div>
+
+<div class="padding red"><div class="padding orange"><div class="padding yellow"><div class="padding green"><div class="padding blue"><div class="padding purple">Not Collapsed</div></div></div></div></div></div>
+
+</body>
+</html>
