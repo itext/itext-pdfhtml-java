@@ -95,7 +95,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     @Override
     public void addChild(IRenderer renderer) {
         if (waitingElement != null) {
-            if (Boolean.valueOf(true).equals(renderer.getProperty(Html2PdfProperty.KEEP_WITH_PREVIOUS))) {
+            if (Boolean.TRUE.equals(renderer.<Boolean>getProperty(Html2PdfProperty.KEEP_WITH_PREVIOUS))) {
                 waitingElement.setProperty(Property.KEEP_WITH_NEXT, true);
             }
             super.addChild(waitingElement);

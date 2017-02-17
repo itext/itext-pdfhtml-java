@@ -127,7 +127,7 @@ public class PageBreakApplierUtil {
     private static class HtmlPageBreakWorker implements ITagWorker {
         private HtmlPageBreak pageBreak;
 
-        private HtmlPageBreakWorker(HtmlPageBreak pageBreak) {
+        HtmlPageBreakWorker(HtmlPageBreak pageBreak) {
             this.pageBreak = pageBreak;
         }
 
