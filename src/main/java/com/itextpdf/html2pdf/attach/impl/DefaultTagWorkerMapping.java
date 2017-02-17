@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.attach.impl.tags.ATagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.AbbrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.BodyTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.BrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ColTagWorker;
@@ -80,7 +81,7 @@ class DefaultTagWorkerMapping {
     static {
         workerMapping = new TagProcessorMapping();
         workerMapping.putMapping(TagConstants.A, ATagWorker.class);
-        workerMapping.putMapping(TagConstants.ABBR, ATagWorker.class);
+        workerMapping.putMapping(TagConstants.ABBR, AbbrTagWorker.class);
         workerMapping.putMapping(TagConstants.ADDRESS, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.ARTICLE, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.ASIDE, DivTagWorker.class);
