@@ -48,7 +48,6 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -84,8 +83,7 @@ public class FloatTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float03Test.pdf", sourceFolder + "cmp_float03Test.pdf", destinationFolder, "diff03_"));
     }
 
-    //TODO DIV element should pass float property to the paragraphs it creates by default (when div have only spans for example)
-    @Test@Ignore
+    @Test
     public void float04Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "float04Test.html"), new File(destinationFolder + "float04Test.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float04Test.pdf", sourceFolder + "cmp_float04Test.pdf", destinationFolder, "diff04_"));
