@@ -47,44 +47,38 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
 
-public class AbbrTagWorker extends SpanTagWorker{
+public class AbbrTagWorker extends SpanTagWorker {
 
     private String text;
     private final String expansionText;
-    
-    public AbbrTagWorker(IElementNode tag, ProcessorContext context)
-    {      
-        super(tag, context);    
+
+    public AbbrTagWorker(IElementNode tag, ProcessorContext context) {
+        super(tag, context);
         expansionText = tag.getAttribute("title");
     }
-    
-    private void enrichSpan(String text)
-    {
-        for(IPropertyContainer container : this.getOwnLeafElements())
-        {
-            if(container instanceof Text)
-            {
+
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        text = content;
+        return super.processContent(content, context);
+    }
+
+    @Override
+    public void processEnd(IElementNode element, ProcessorContext context) {
+        super.processEnd(element, context);
+        enrichSpan(text);
+    }
+
+    private void enrichSpan(String text) {
+        for (IPropertyContainer container : this.getOwnLeafElements()) {
+            if (container instanceof Text) {
                 Text txt = (Text) container;
-                if(txt.getText().equals(text))
-                {
-                    if(expansionText != null)
+                if (txt.getText().equals(text)) {
+                    if (expansionText != null)
                         txt.getAccessibilityProperties().setExpansion(expansionText);
-                }                
+                }
             }
         }
     }
-    
-    @Override
-    public boolean processContent(String content, ProcessorContext context) {
-        text = content;        
-        return super.processContent(content, context);
-    }
-    
-    @Override
-    public void processEnd(IElementNode element, ProcessorContext context) {      
-        super.processEnd(element, context);
-        enrichSpan(text);          
-    }
-
 }
 
