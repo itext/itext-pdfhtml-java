@@ -46,7 +46,9 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.io.font.FontConstants;
 import com.itextpdf.kernel.font.PdfFont;
@@ -70,13 +72,12 @@ public class LiTagWorker implements ITagWorker {
         listItem = new ListItem();
         if (!(context.getState().top() instanceof UlOlTagWorker)) {
             listItem.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
-            Text symbol = new Text(String.valueOf(((char)108))).setFont(createZapfDingBatsSafe());
-            symbol.setTextRise(1.5f);
-            symbol.setFontSize(4.5f);
             float em = CssUtils.parseAbsoluteLength(element.getStyles().get(CssConstants.FONT_SIZE));
-            listItem.setProperty(Property.LIST_SYMBOL_INDENT, 1.5f * em);
-            listItem.setProperty(Property.LIST_SYMBOL, symbol);
-
+            if (TagConstants.LI.equals(element.name())) {
+                ListStyleApplierUtil.setDiscStyle(listItem, em);
+            } else {
+                listItem.setProperty(Property.LIST_SYMBOL, null);
+            }
             list = new List();
             list.add(listItem);
         }
@@ -126,15 +127,5 @@ public class LiTagWorker implements ITagWorker {
             return true;
         }
         return false;
-    }
-
-    private static PdfFont createZapfDingBatsSafe() {
-        try {
-            return PdfFontFactory.createFont(FontConstants.ZAPFDINGBATS);
-        } catch (IOException exc) {
-            Logger logger = LoggerFactory.getLogger(LiTagWorker.class);
-            logger.error("Unable to create ZapfDingBats font", exc);
-            return null;
-        }
     }
 }

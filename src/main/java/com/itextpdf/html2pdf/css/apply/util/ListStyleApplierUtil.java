@@ -50,9 +50,6 @@ import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
-import com.itextpdf.io.font.FontConstants;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IElement;
@@ -60,17 +57,34 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.font.FontProvider;
+import com.itextpdf.layout.property.IListSymbolFactory;
 import com.itextpdf.layout.property.ListNumberingType;
 import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.renderer.IRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Map;
 
 public final class ListStyleApplierUtil {
+
+    //private static final String HTML_SYMBOL_FONT = "Sans-serif";
+
+    private static final int GREEK_ALPHABET_LENGTH = 24;
+    private static final char[] GREEK_LOWERCASE = new char[GREEK_ALPHABET_LENGTH];
+
+    private static final String DISC_SYMBOL = "\u2022";
+    private static final String CIRCLE_SYMBOL = "\u25cb";
+    private static final String SQUARE_SYMBOL = "\u25a0";
+
+    static {
+        for (int i = 0; i < GREEK_ALPHABET_LENGTH; i++) {
+            GREEK_LOWERCASE[i] = (char) (945 + i + (i > 16 ? 1 : 0));
+        }
+    }
 
     private ListStyleApplierUtil() {
     }
@@ -87,7 +101,6 @@ public final class ListStyleApplierUtil {
         }
     }
 
-    //TODO problems with Pdf/A conversion. Avoid ZapfDingBats, Symbol font DEVSIX-917
     public static void applyListStyleTypeProperty(IStylesContainer stylesContainer, Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
 
@@ -111,7 +124,7 @@ public final class ListStyleApplierUtil {
         } else if (CssConstants.LOWER_ROMAN.equals(style)) {
             setListSymbol(element, ListNumberingType.ROMAN_LOWER);
         } else if (CssConstants.LOWER_GREEK.equals(style)) {
-            setListSymbol(element, ListNumberingType.GREEK_LOWER);
+            element.setProperty(Property.LIST_SYMBOL, new HtmlAlphabetSymbolFactory(GREEK_LOWERCASE));
         } else if (CssConstants.NONE.equals(style)) {
             setListSymbol(element, new Text(""));
         } else {
@@ -132,6 +145,12 @@ public final class ListStyleApplierUtil {
         }
     }
 
+    public static void setDiscStyle(IPropertyContainer element, float em) {
+        Text symbol = new Text(DISC_SYMBOL);
+        element.setProperty(Property.LIST_SYMBOL, symbol);
+        setListSymbolIndent(element, em);
+    }
+
     private static void setListSymbol(IPropertyContainer container, Text text) {
         if (container instanceof List) {
             ((List) container).setListSymbol(text);
@@ -148,26 +167,18 @@ public final class ListStyleApplierUtil {
         }
     }
 
-    private static void setDiscStyle(IPropertyContainer element, float em) {
-        Text symbol = new Text(String.valueOf(((char)108))).setFont(createZapfDingBatsSafe());
-        symbol.setTextRise(1.5f);
-        symbol.setFontSize(4.5f);
-        element.setProperty(Property.LIST_SYMBOL, symbol);
-        setListSymbolIndent(element, em);
-    }
-
     private static void setSquareStyle(IPropertyContainer element, float em) {
-        Text symbol = new Text(String.valueOf(((char)110))).setFont(createZapfDingBatsSafe());
-        symbol.setTextRise(1.5f);
-        symbol.setFontSize(4.5f);
+        Text symbol = new Text(SQUARE_SYMBOL);
+        symbol.setTextRise(1.5f * em / 12);
+        symbol.setFontSize(4.5f * em / 12);
         element.setProperty(Property.LIST_SYMBOL, symbol);
         setListSymbolIndent(element, em);
     }
 
     private static void setCircleStyle(IPropertyContainer element, float em) {
-        Text symbol = new Text(String.valueOf(((char)109))).setFont(createZapfDingBatsSafe());
-        symbol.setTextRise(1.5f);
-        symbol.setFontSize(4.5f);
+        Text symbol = new Text(CIRCLE_SYMBOL);
+        symbol.setTextRise(1.5f * em / 12);
+        symbol.setFontSize(4.5f * em / 12);
         element.setProperty(Property.LIST_SYMBOL, symbol);
         setListSymbolIndent(element, em);
     }
@@ -180,14 +191,33 @@ public final class ListStyleApplierUtil {
         }
     }
 
-    private static PdfFont createZapfDingBatsSafe() {
-        try {
-            return PdfFontFactory.createFont(FontConstants.ZAPFDINGBATS);
-        } catch (IOException exc) {
-            Logger logger = LoggerFactory.getLogger(ListStyleApplierUtil.class);
-            logger.error("Unable to create ZapfDingBats font", exc);
-            return null;
+    private static class HtmlAlphabetSymbolFactory implements IListSymbolFactory {
+        private final char[] alphabet;
+
+        public HtmlAlphabetSymbolFactory(char[] alphabet) {
+            this.alphabet = alphabet;
+        }
+
+        @Override
+        public IElement createSymbol(int index, IPropertyContainer list, IPropertyContainer listItem) {
+            Object preValue = getListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_PRE_TEXT);
+            Object postValue = getListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_POST_TEXT);
+            --index;
+            Text result = new Text(preValue + getUnicodeString(index, alphabet) + postValue);
+            return result;
+        }
+
+        private static String getUnicodeString(int number, char[] alphabet) {
+            StringBuilder builder = new StringBuilder();
+            do {
+                builder.append(alphabet[(number % alphabet.length)]);
+                number /= alphabet.length;
+            } while (number > 0);
+            return builder.reverse().toString();
+        }
+
+        private static Object getListItemOrListProperty(IPropertyContainer listItem, IPropertyContainer list, int propertyId) {
+            return listItem.hasProperty(propertyId) ? listItem.<Object>getProperty(propertyId) : list.<Object>getProperty(propertyId);
         }
     }
-
 }
