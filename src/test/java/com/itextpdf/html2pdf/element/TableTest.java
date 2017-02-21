@@ -188,6 +188,16 @@ public class TableTest extends ExtendedITextTest {
         runTest("tableCellHeightsExpansion02");
     }
 
+    @Test
+    public void tableMaxHeightTest01() throws IOException, InterruptedException {
+        runTest("tableMaxHeight01");
+    }
+
+    @Test
+    public void tableMaxHeightTest02() throws IOException, InterruptedException {
+        runTest("tableMaxHeight02");
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + testName + ".html").getPath() + "\n");

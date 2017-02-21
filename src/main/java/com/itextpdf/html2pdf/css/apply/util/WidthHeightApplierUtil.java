@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
@@ -70,13 +71,21 @@ public final class WidthHeightApplierUtil {
             element.setProperty(Property.WIDTH, width);
         }
 
+        // TODO consider display css property
+        boolean applyToTable = element instanceof Table;
+
+        UnitValue height = null;
         String heightVal = cssProps.get(CssConstants.HEIGHT);
         if (heightVal != null) {
             if (!CssConstants.AUTO.equals(heightVal)) {
-                UnitValue height = CssUtils.parseLengthValueToPt(heightVal, em, rem);
+                height = CssUtils.parseLengthValueToPt(heightVal, em, rem);
                 if (height != null) {
                     if (height.isPointValue()) {
-                        element.setProperty(Property.HEIGHT, height.getValue());
+                        // For tables, max height does not have any effect. The height value will be used when
+                        // calculating effective min height value below
+                        if (!applyToTable) {
+                            element.setProperty(Property.HEIGHT, height.getValue());
+                        }
                     } else {
                         logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
                     }
@@ -85,27 +94,45 @@ public final class WidthHeightApplierUtil {
         }
 
         String maxHeightVal = cssProps.get(CssConstants.MAX_HEIGHT);
+        float maxHeightToApply = 0;
         if (maxHeightVal != null) {
-            UnitValue height = CssUtils.parseLengthValueToPt(maxHeightVal, em, rem);
-            if (height != null) {
-                if (height.isPointValue()) {
-                    element.setProperty(Property.MAX_HEIGHT, height.getValue());
+            UnitValue maxHeight = CssUtils.parseLengthValueToPt(maxHeightVal, em, rem);
+            if (maxHeight != null) {
+                if (maxHeight.isPointValue()) {
+                    // For tables, max height does not have any effect. See also comments below when MIN_HEIGHT is applied.
+                    if (!applyToTable) {
+                        maxHeightToApply = maxHeight.getValue();
+                    }
                 } else {
                     logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 }
             }
         }
+        if (maxHeightToApply > 0) {
+            element.setProperty(Property.MAX_HEIGHT, maxHeightToApply);
+        }
 
         String minHeightVal = cssProps.get(CssConstants.MIN_HEIGHT);
+        float minHeightToApply = 0;
         if (minHeightVal != null) {
-            UnitValue height = CssUtils.parseLengthValueToPt(minHeightVal, em, rem);
-            if (height != null) {
-                if (height.isPointValue()) {
-                    element.setProperty(Property.MIN_HEIGHT, height.getValue());
+            UnitValue minHeight = CssUtils.parseLengthValueToPt(minHeightVal, em, rem);
+            if (minHeight != null) {
+                if (minHeight.isPointValue()) {
+                    minHeightToApply = minHeight.getValue();
                 } else {
                     logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 }
             }
+        }
+        // The height of a table is given by the 'height' property for the 'table' or 'inline-table' element.
+        // A value of 'auto' means that the height is the sum of the row heights plus any cell spacing or borders.
+        // Any other value is treated as a minimum height. CSS 2.1 does not define how extra space is distributed when
+        // the 'height' property causes the table to be taller than it otherwise would be.
+        if (applyToTable && height != null && height.isPointValue() && height.getValue() > minHeightToApply) {
+            minHeightToApply = height.getValue();
+        }
+        if (minHeightToApply > 0) {
+            element.setProperty(Property.MIN_HEIGHT, minHeightToApply);
         }
 
     }
