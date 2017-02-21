@@ -113,6 +113,11 @@ public class SpanTagWorker implements ITagWorker {
         return null;
     }
 
+    public WaitingInlineElementsHelper getWaitingInlineElementsHelper()
+    {
+        return inlineHelper;
+    }
+    
     private void flushInlineHelper() {
         spanWrapper.addAll(inlineHelper.getWaitingLeaves());
         ownLeafElements.addAll(inlineHelper.getWaitingLeaves());
