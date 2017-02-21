@@ -43,7 +43,6 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
@@ -177,6 +176,16 @@ public class TableTest extends ExtendedITextTest {
     @Test
     public void tableBorderAttributeTest06() throws IOException, InterruptedException {
         runTest("tableBorderAttributeTest06");
+    }
+
+    @Test
+    public void tableCellHeightsExpansionTest01() throws IOException, InterruptedException {
+        runTest("tableCellHeightsExpansion01");
+    }
+
+    @Test
+    public void tableCellHeightsExpansionTest02() throws IOException, InterruptedException {
+        runTest("tableCellHeightsExpansion02");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {
