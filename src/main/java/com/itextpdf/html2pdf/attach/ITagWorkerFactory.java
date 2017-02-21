@@ -45,14 +45,14 @@ package com.itextpdf.html2pdf.attach;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 
 /**
- * TagProcessorFactory Interface
+ * {@link ITagWorkerFactory} interface is used for instantiating new {@link ITagWorker} objects.
  */
 public interface ITagWorkerFactory {
 
     /**
-     * Look up a TagProcessor for the given tag and returns an instance constructed with passed parameters.
+     * Returns a {@link ITagWorker} instance constructed based on the passed parameters.
      */
-    ITagWorker getTagWorker(IElementNode tag, ProcessorContext context) ;
+    ITagWorker getTagWorker(IElementNode tag, ProcessorContext context);
 
 }
 

@@ -44,8 +44,14 @@ package com.itextpdf.html2pdf.css.apply;
 
 import com.itextpdf.html2pdf.html.node.IElementNode;
 
+/**
+ * {@link ICssApplierFactory} interface is used for instantiating new {@link ICssApplier} objects.
+ */
 public interface ICssApplierFactory {
 
+    /**
+     * Returns a {@link ICssApplier} instance constructed based on the passed parameters.
+     */
     ICssApplier getCssApplier(IElementNode tag);
 
 }
