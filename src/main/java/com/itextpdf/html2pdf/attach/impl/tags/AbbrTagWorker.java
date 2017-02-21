@@ -60,7 +60,6 @@ public class AbbrTagWorker extends SpanTagWorker {
 
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        context.getPdfDocument().setTagged();
         enrichSpan(element.getAttribute("title"));
         super.processEnd(element, context);
     }
