@@ -77,6 +77,7 @@ public final class AttributeConstants {
     public static final String a = "a";
     public static final String BOTTOM = "bottom";
     public static final String CENTER = "center";
+    public static final String EMAIL = "email";
     public static final String I = "I";
     public static final String i = "i";
     public static final String LEFT = "left";

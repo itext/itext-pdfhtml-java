@@ -72,4 +72,10 @@ public class InputTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "inputTest01.pdf", sourceFolder + "cmp_inputTest01.pdf", destinationFolder, "diff01_"));
     }
 
+    @Test
+    public void input02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "inputTest02.html"), new File(destinationFolder + "inputTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "inputTest02.pdf", sourceFolder + "cmp_inputTest02.pdf", destinationFolder, "diff02_"));
+    }
+
 }
