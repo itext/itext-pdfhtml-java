@@ -56,7 +56,7 @@ public class InputTagWorker extends SpanTagWorker {
     public InputTagWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
         String inputType = element.getAttribute(AttributeConstants.TYPE);
-        if (AttributeConstants.TEXT.equals(inputType)) {
+        if (AttributeConstants.TEXT.equals(inputType) || AttributeConstants.EMAIL.equals(inputType)) {
             String value = element.getAttribute(AttributeConstants.VALUE);
             if (value != null) {
                 processContent(value, context);
