@@ -44,8 +44,8 @@ package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.CssContextNode;
 import com.itextpdf.html2pdf.css.CssDeclaration;
+import com.itextpdf.html2pdf.css.CssFontFaceRule;
 import com.itextpdf.html2pdf.css.CssStatement;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
@@ -74,6 +74,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -85,10 +86,12 @@ public class DefaultCssResolver implements ICssResolver {
 
     private CssStyleSheet cssStyleSheet;
     private MediaDeviceDescription deviceDescription;
+    private List<CssFontFaceRule> fonts = new ArrayList<>();
 
     public DefaultCssResolver(INode treeRoot, MediaDeviceDescription mediaDeviceDescription, ResourceResolver resourceResolver) {
         this.deviceDescription = mediaDeviceDescription;
         collectCssDeclarations(treeRoot, resourceResolver);
+        collectFonts();
     }
 
     @Override
@@ -242,9 +245,8 @@ public class DefaultCssResolver implements ICssResolver {
     private CssStyleSheet wrapStyleSheetInMediaQueryIfNecessary(IElementNode headChildElement, CssStyleSheet styleSheet) {
         String mediaAttribute = headChildElement.getAttribute(AttributeConstants.MEDIA);
         if (mediaAttribute != null && mediaAttribute.length() > 0) {
-            List<CssStatement> statements = styleSheet.getStatements();
             CssMediaRule mediaRule = new CssMediaRule(mediaAttribute);
-            mediaRule.addStatementsToBody(statements);
+            mediaRule.addStatementsToBody(styleSheet.getStatements());
             styleSheet = new CssStyleSheet();
             styleSheet.addStatement(mediaRule);
         }
@@ -263,6 +265,22 @@ public class DefaultCssResolver implements ICssResolver {
             // then the text in the child will be both overline and underline. This is why the declarations are merged
             // See TextDecorationTest#textDecoration01Test
             styles.put(cssProperty, CssPropertyMerger.mergeTextDecoration(childPropValue, parentPropValue));
+        }
+    }
+
+    private void collectFonts() {
+        for (CssStatement cssStatement: cssStyleSheet.getStatements()) {
+            collectFonts(cssStatement);
+        }
+    }
+
+    private void collectFonts(CssStatement cssStatement) {
+        if (cssStatement instanceof CssFontFaceRule) {
+            fonts.add((CssFontFaceRule) cssStatement);
+        } else if (cssStatement instanceof CssMediaRule && ((CssMediaRule) cssStatement).matchMediaDevice(deviceDescription)) {
+            for (CssStatement cssSubStatement: ((CssMediaRule)cssStatement).getStatements()) {
+                collectFonts(cssSubStatement);
+            }
         }
     }
 

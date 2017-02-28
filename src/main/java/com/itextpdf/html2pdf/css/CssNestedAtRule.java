@@ -49,6 +49,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * From the spec:
+ * Nested at-rules ? A subset of nested statements, which can be used as a statement of a style sheet
+ * as well as inside of conditional group rules.
+ */
 public class CssNestedAtRule extends CssAtRule {
 
     private String ruleParameters;
@@ -71,8 +76,8 @@ public class CssNestedAtRule extends CssAtRule {
 
     public void addBodyCssDeclarations(List<CssDeclaration> cssDeclarations) {
         // ignore by default
-    }   
-    
+    }
+
     @Override
     public List<CssRuleSet> getCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
         List<CssRuleSet> result = new ArrayList<>();
@@ -80,6 +85,10 @@ public class CssNestedAtRule extends CssAtRule {
             result.addAll(childStatement.getCssRuleSets(node, deviceDescription));
         }
         return result;
+    }
+
+    public List<CssStatement> getStatements() {
+        return body;
     }
 
     @Override

@@ -40,45 +40,36 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.media;
+package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.css.CssNestedAtRule;
-import com.itextpdf.html2pdf.css.CssRuleName;
-import com.itextpdf.html2pdf.css.CssRuleSet;
-import com.itextpdf.html2pdf.css.CssStatement;
-import com.itextpdf.html2pdf.html.node.INode;
-import java.util.ArrayList;
+import java.text.MessageFormat;
 import java.util.List;
 
-public class CssMediaRule extends CssNestedAtRule {
+public class CssFontFaceRule extends CssNestedAtRule {
 
-    private List<MediaQuery> mediaQueries;
+    List<CssDeclaration> fontProperties;
 
-    public CssMediaRule(String ruleParameters) {
-        super(CssRuleName.MEDIA, ruleParameters);
-        mediaQueries = MediaQueryParser.parseMediaQueries(ruleParameters);
+    protected CssFontFaceRule(String ruleParameters) {
+        super(CssRuleName.FONT_FACE, ruleParameters);
     }
 
     @Override
-    public List<CssRuleSet> getCssRuleSets(INode element, MediaDeviceDescription deviceDescription) {
-        List<CssRuleSet> result = new ArrayList<>();
-        for (MediaQuery mediaQuery : mediaQueries) {
-            if (mediaQuery.matches(deviceDescription)) {
-                for (CssStatement childStatement : body) {
-                    result.addAll(childStatement.getCssRuleSets(element, deviceDescription));
-                }
-                break;
-            }
-        }
-        return result;
+    public void addBodyCssDeclarations(List<CssDeclaration> cssDeclarations) {
+        fontProperties = cssDeclarations;
     }
 
-    public boolean matchMediaDevice(MediaDeviceDescription deviceDescription) {
-        for (MediaQuery mediaQuery : mediaQueries) {
-            if (mediaQuery.matches(deviceDescription)) {
-                return true;
-            }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(MessageFormat.format("@{0} ", ruleName));
+        sb.append("{");
+        sb.append("\n");
+        for (CssDeclaration declaration : fontProperties) {
+            sb.append("\t");
+            sb.append(declaration);
+            sb.append("\n");
         }
-        return false;
+        sb.append("}");
+        return sb.toString();
     }
 }
