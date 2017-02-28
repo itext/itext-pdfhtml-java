@@ -174,6 +174,7 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
+    // TODO DEVSIX-1125
     public void tableBorderAttributeTest06() throws IOException, InterruptedException {
         runTest("tableBorderAttributeTest06");
     }
