@@ -42,69 +42,64 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
-import com.itextpdf.html2pdf.html.node.INode;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import com.itextpdf.html2pdf.css.media.MediaType;
+import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-/**
- * From the spec:
- * Nested at-rules — A subset of nested statements, which can be used as a statement of a style sheet
- * as well as inside of conditional group rules.
- */
-public class CssNestedAtRule extends CssAtRule {
+import java.io.File;
+import java.io.IOException;
 
-    private String ruleParameters;
-    protected List<CssStatement> body;
+@Category(IntegrationTest.class)
+public class FontFaceTest extends ExtendedITextTest {
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/FontFaceTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/FontFaceTest/";
 
-    // without body
-    public CssNestedAtRule(String ruleName, String ruleParameters) {
-        super(ruleName);
-        this.ruleParameters = ruleParameters;
-        this.body = new ArrayList<>();
+    @BeforeClass
+    public static void beforeClass() {
+        createOrClearDestinationFolder(destinationFolder);
     }
 
-    public void addStatementToBody(CssStatement statement) {
-        this.body.add(statement);
+    @Test
+    @Ignore("DEVSIX-1059")
+    public void droidSerifWebFontTest() throws IOException, InterruptedException {
+        runTest("droidSerifWebFontTest");
     }
 
-    public void addStatementsToBody(Collection<CssStatement> statements) {
-        this.body.addAll(statements);
+    @Test
+    @Ignore("DEVSIX-1059")
+    public void droidSerifLocalFontTest() throws IOException, InterruptedException {
+        runTest("droidSerifLocalFontTest");
     }
 
-    public void addBodyCssDeclarations(List<CssDeclaration> cssDeclarations) {
-        // ignore by default
+    @Test
+    @Ignore("DEVSIX-1059")
+    public void droidSerifLocalWithMediaFontTest() throws IOException, InterruptedException {
+        runTest("droidSerifLocalWithMediaFontTest");
     }
 
-    @Override
-    public List<CssRuleSet> getCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
-        List<CssRuleSet> result = new ArrayList<>();
-        for (CssStatement childStatement : body) {
-            result.addAll(childStatement.getCssRuleSets(node, deviceDescription));
-        }
-        return result;
+    @Test
+    @Ignore("DEVSIX-1059")
+    public void droidSerifLocalWithMediaRuleFontTest() throws IOException, InterruptedException {
+        runTest("droidSerifLocalWithMediaRuleFontTest");
     }
 
-    public List<CssStatement> getStatements() {
-        return body;
-    }
+    private void runTest(String name) throws IOException, InterruptedException {
+        String htmlPath = sourceFolder + name + ".html";
+        String pdfPath = destinationFolder + name + ".pdf";
+        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+        String diffPrefix = "diff_" + name + "_";
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(MessageFormat.format("@{0} {1} ", ruleName, ruleParameters));
-        sb.append("{");
-        sb.append("\n");
-        for (int i = 0; i < body.size(); i++) {
-            sb.append("    ");
-            sb.append(body.get(i).toString().replace("\n", "\n    "));
-            if (i != body.size() - 1) {
-                sb.append("\n");
-            }
-        }
-        sb.append("\n}");
-        return sb.toString();
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath),
+                new ConverterProperties().setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
+        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
     }
 }

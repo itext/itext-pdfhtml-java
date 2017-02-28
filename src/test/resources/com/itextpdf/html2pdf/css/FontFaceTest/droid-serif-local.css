@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'Droid Serif';
+  font-weight: 400;
+  font-style: normal;
+  src: url('web-fonts/droid-serif-regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Droid Serif';
+  font-weight: 700;
+  font-style: normal;
+  src: url('web-fonts/droid-serif-bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Droid Serif';
+  font-weight: 700;
+  font-style: italic;
+  src: url('web-fonts/droid-serif-bolditalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Droid Serif';
+  font-weight: 400;
+  font-style: italic;
+  src: url('web-fonts/droid-serif-italic.ttf') format('truetype');
+}
+
+p {
+  font-size: 40pt;
+}

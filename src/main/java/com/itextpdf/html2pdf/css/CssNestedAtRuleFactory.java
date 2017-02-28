@@ -78,6 +78,8 @@ public final class CssNestedAtRuleFactory {
             case CssRuleName.BOTTOM_RIGHT:
             case CssRuleName.BOTTOM_RIGHT_CORNER:
                 return new CssMarginRule(ruleName, ruleParameters);
+            case CssRuleName.FONT_FACE:
+                return new CssFontFaceRule(ruleParameters);
             default:
                 return new CssNestedAtRule(ruleName, ruleParameters);
         }

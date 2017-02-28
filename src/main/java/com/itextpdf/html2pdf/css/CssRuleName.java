@@ -66,4 +66,6 @@ public final class CssRuleName {
     public static final String TOP_RIGHT = "top-right";
     public static final String TOP_RIGHT_CORNER = "top-right-corner";
 
+    public static final String FONT_FACE = "font-face";
+
 }

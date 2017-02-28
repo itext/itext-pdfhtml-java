@@ -220,6 +220,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         // TODO store html version from document type in context if necessary
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context.getDeviceDescription(), context.getResourceResolver());
+
         root = findHtmlNode(root);
         visit(root);
         Document doc = (Document) roots.get(0);
