@@ -45,8 +45,6 @@ package com.itextpdf.html2pdf.css.apply.util;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
 
@@ -61,21 +59,11 @@ public class FloatApplierUtil {
         // TODO for now we only support alignment of floated elements, however we don't support text wrapping
         String floatValue = cssProps.get(CssConstants.FLOAT);
         if (floatValue != null) {
-            FloatPropertyValue value = null;
             if (CssConstants.LEFT.equals(floatValue)) {
-                value = FloatPropertyValue.LEFT;
+                element.setProperty(Property.FLOAT, FloatPropertyValue.LEFT);
 
             } else if (CssConstants.RIGHT.equals(floatValue)) {
-                value = FloatPropertyValue.RIGHT;
-            }
-
-            if (value != null) {
-                element.setProperty(Property.FLOAT, value);
-                if (element instanceof Div) {
-                    for (IElement child : ((Div) element).getChildren()) {
-                        child.setProperty(Property.FLOAT, value);
-                    }
-                }
+                element.setProperty(Property.FLOAT, FloatPropertyValue.RIGHT);
             }
         }
     }

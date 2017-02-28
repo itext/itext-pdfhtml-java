@@ -123,17 +123,32 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-973")
     public void float10Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "float10Test.html"), new File(destinationFolder + "float10Test.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float10Test.pdf", sourceFolder + "cmp_float10Test.pdf", destinationFolder, "diff10_"));
     }
 
     @Test
-    @Ignore("DEVSIX-973")
     public void float11Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "float11Test.html"), new File(destinationFolder + "float11Test.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float11Test.pdf", sourceFolder + "cmp_float11Test.pdf", destinationFolder, "diff11_"));
     }
 
+    @Test
+    public void float12Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "float12Test.html"), new File(destinationFolder + "float12Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float12Test.pdf", sourceFolder + "cmp_float12Test.pdf", destinationFolder, "diff12_"));
+    }
+
+    @Test
+    public void float13Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "float13Test.html"), new File(destinationFolder + "float13Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float13Test.pdf", sourceFolder + "cmp_float13Test.pdf", destinationFolder, "diff13_"));
+    }
+
+    @Test@Ignore("DEVSIX-1132")
+    public void float14Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "float14Test.html"), new File(destinationFolder + "float14Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float14Test.pdf", sourceFolder + "cmp_float14Test.pdf", destinationFolder, "diff14_"));
+    }
 }
