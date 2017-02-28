@@ -93,7 +93,7 @@ public class SpanTagWorker implements ITagWorker {
             return true;
         } else if (childTagWorker.getElementResult() instanceof IBlockElement) {
             flushInlineHelper();
-            spanWrapper.add((IBlockElement)childTagWorker.getElementResult());
+            spanWrapper.add((IBlockElement) childTagWorker.getElementResult());
             return true;
         }
 
@@ -113,11 +113,6 @@ public class SpanTagWorker implements ITagWorker {
         return null;
     }
 
-    public WaitingInlineElementsHelper getWaitingInlineElementsHelper()
-    {
-        return inlineHelper;
-    }
-    
     private void flushInlineHelper() {
         spanWrapper.addAll(inlineHelper.getWaitingLeaves());
         ownLeafElements.addAll(inlineHelper.getWaitingLeaves());
