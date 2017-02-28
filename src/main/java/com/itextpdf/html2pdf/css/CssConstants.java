@@ -85,8 +85,10 @@ public class CssConstants {
     public static final String BORDER_TOP_STYLE = "border-top-style";
     public static final String BORDER_TOP_WIDTH = "border-top-width";
     public static final String BORDER_WIDTH = "border-width";
+    public static final String BOTH = "both";
     public static final String BOX_SHADOW = "box-shadow";
     public static final String CAPTION_SIDE = "caption-side";
+    public static final String CLEAR = "clear";
     public static final String COLOR = "color";
     public static final String CONTENT = "content";
     public static final String COUNTER_INCREMENT = "counter-increment";
