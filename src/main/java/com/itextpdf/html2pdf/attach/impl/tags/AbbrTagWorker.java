@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
@@ -60,12 +61,12 @@ public class AbbrTagWorker extends SpanTagWorker {
 
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        enrichSpan(element.getAttribute("title"));
         super.processEnd(element, context);
+        enrichSpan(element.getAttribute(AttributeConstants.TITLE));
     }
 
     private void enrichSpan(String expansionText) {
-        for (IPropertyContainer container : this.getWaitingInlineElementsHelper().getWaitingLeaves()) {
+        for (IPropertyContainer container : getAllElements()) {
             if (container instanceof Text) {
                 Text txt = (Text) container;
                 if (expansionText != null) {
