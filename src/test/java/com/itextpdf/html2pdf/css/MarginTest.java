@@ -40,64 +40,52 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.tags;
+package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
-import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Image;
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
 
-public class ImgTagWorker implements ITagWorker {
+import java.io.File;
+import java.io.IOException;
 
-    private Image image;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-    public ImgTagWorker(IElementNode element, ProcessorContext context) {
-        PdfImageXObject imageXObject = context.getResourceResolver().retrieveImage(element.getAttribute(AttributeConstants.SRC));
-        if (imageXObject != null) {
-            image = new HtmlImage(imageXObject);
-        }
+@Category(IntegrationTest.class)
+public class MarginTest extends ExtendedITextTest {
+
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/MarginTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/MarginTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+        createDestinationFolder(destinationFolder);
     }
 
-    @Override
-    public void processEnd(IElementNode element, ProcessorContext context) {
-
+    @Test
+    public void marginAutoImageInsideDiv01Test() throws IOException, InterruptedException {
+        runTest("marginAutoImageInsideDiv01");
     }
 
-    @Override
-    public boolean processContent(String content, ProcessorContext context) {
-        return false;
+    @Test
+    public void marginAutoImageInsideDiv02Test() throws IOException, InterruptedException {
+        runTest("marginAutoImageInsideDiv02");
     }
 
-    @Override
-    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        return false;
+    private void runTest(String name) throws IOException, InterruptedException {
+        String htmlPath = sourceFolder + name + ".html";
+        String pdfPath = destinationFolder + name + ".pdf";
+        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+        String diffPrefix = "diff_" + name + "_";
+
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
     }
 
-    @Override
-    public IPropertyContainer getElementResult() {
-        return image;
-    }
-
-    private class HtmlImage extends Image {
-
-        // In iText by default we set image sizes (in points) exactly of the image height and width in pixels.
-        private double pxToPt = 0.75;
-
-        public HtmlImage(PdfImageXObject xObject) {
-            super(xObject);
-        }
-
-        @Override
-        public float getImageWidth() {
-            return (float) (xObject.getWidth() * pxToPt);
-        }
-
-        @Override
-        public float getImageHeight() {
-            return (float) (xObject.getHeight() * pxToPt);
-        }
-    }
 }

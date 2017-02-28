@@ -45,11 +45,6 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import com.itextpdf.html2pdf.Html2PdfProductInfo;
-import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
@@ -73,7 +68,6 @@ public class PaddingTest extends ExtendedITextTest {
     }
     
     @Test
-    //Todo: The cell width is incorrect because of missing table autolayout.
     public void elementFixedWidthTest() throws IOException, InterruptedException {
         runTest("elementFixedWidthTest");
     }
@@ -88,4 +82,5 @@ public class PaddingTest extends ExtendedITextTest {
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
     }
+
 }

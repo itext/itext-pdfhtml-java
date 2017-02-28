@@ -70,7 +70,8 @@ public final class MarginApplierUtil {
         String marginLeft = cssProps.get(CssConstants.MARGIN_LEFT);
         String marginRight = cssProps.get(CssConstants.MARGIN_RIGHT);
 
-        boolean isBlock = element instanceof IBlockElement;
+        // The check for display is useful at least for images
+        boolean isBlock = element instanceof IBlockElement || CssConstants.BLOCK.equals(cssProps.get(CssConstants.DISPLAY));
         boolean isImage = element instanceof Image;
         
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
