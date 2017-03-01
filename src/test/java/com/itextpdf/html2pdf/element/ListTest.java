@@ -165,6 +165,11 @@ public class ListTest extends ExtendedITextTest {
     }
 
     @Test
+    public void listTest17() throws IOException, InterruptedException {
+        runTest("listTest17");
+    }
+
+    @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, count = 32)})
     public void listToPdfaTest() throws IOException, InterruptedException {
         InputStream is = new FileInputStream(sourceFolder + "sRGB Color Space Profile.icm");
