@@ -74,6 +74,7 @@ public class Html2PdfTest extends ExtendedITextTest {
     }
 
     @Test
+    // TODO DEVSIX-1124
     public void helloParagraphTableTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph_table.html"), new File(destinationFolder + "hello_paragraph_table.pdf"));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "hello_paragraph_table.html").getPath() + "\n");
@@ -96,6 +97,7 @@ public class Html2PdfTest extends ExtendedITextTest {
 
 
     @Test
+    // TODO DEVSIX-1124
     public void helloParagraphNestedInTableDocumentTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph_nested_in_table.html"), new File(destinationFolder + "hello_paragraph_nested_in_table.pdf"));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "hello_paragraph_nested_in_table.html").getPath() + "\n");
