@@ -168,6 +168,10 @@ public class DefaultCssResolver implements ICssResolver {
         return elementStyles;
     }
 
+    public List<CssFontFaceRule> getFonts() {
+        return fonts;
+    }
+
     private void resolveContentProperty(String contentVal, INode contentContainer, CssContext context) {
         if (contentContainer instanceof CssPseudoElementNode || contentContainer instanceof PageMarginBoxContextNode) {
             INode resolvedContent = CssContentPropertyResolver.resolveContent(contentVal, contentContainer, context);
