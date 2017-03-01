@@ -50,6 +50,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.CssFontFaceRule;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.PageBreakApplierUtil;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
@@ -63,6 +64,8 @@ import com.itextpdf.html2pdf.html.node.ITextNode;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.font.FontInfo;
+import com.itextpdf.layout.font.FontSet;
 import com.itextpdf.layout.property.Property;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -104,6 +107,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     private ProcessorContext context;
     private List<IPropertyContainer> roots;
     private ICssResolver cssResolver;
+    private Set<FontInfo> temporaryFonts;
 
     public DefaultHtmlProcessor(ConverterProperties converterProperties) {
         this.context = new ProcessorContext(converterProperties);
@@ -150,6 +154,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         context.reset();
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context.getDeviceDescription(), context.getResourceResolver());
+        appendCssFonts();
         IElementNode html = findHtmlNode(root);
         IElementNode body = findBodyNode(root);
         // Force resolve styles to fetch default font size etc
@@ -170,6 +175,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 elements.add((com.itextpdf.layout.element.IElement) propertyContainer);
             }
         }
+        revertCssFonts();
         cssResolver = null;
         roots = null;
         return elements;
@@ -220,10 +226,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         // TODO store html version from document type in context if necessary
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context.getDeviceDescription(), context.getResourceResolver());
-
+        appendCssFonts();
         root = findHtmlNode(root);
         visit(root);
         Document doc = (Document) roots.get(0);
+        revertCssFonts();
         cssResolver = null;
         roots = null;
         return doc;
@@ -296,6 +303,38 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                     logger.error(LogMessageConstant.NO_CONSUMER_FOUND_FOR_CONTENT);
                 }
 
+            }
+        }
+    }
+
+    /**
+     * Adds @font-face fonts to the FontProvider.
+     */
+    protected void appendCssFonts() {
+        if (! (cssResolver instanceof DefaultCssResolver)) {
+            return;
+        }
+        //TODO Shall we add getFonts() to ICssResolver?
+        for (CssFontFaceRule fontFace: ((DefaultCssResolver)cssResolver).getFonts()) {
+            //TODO
+            // 1. Check required font-family (alias)
+            // 2. parse src
+            // 3. check local (e.g. already loaded to FontProvider fonts)
+            // 4. Create FontInfo, add alias
+            // 5. save to temporaryFonts.
+        }
+
+
+    }
+
+    /**
+     * Revert local @font-face fonts.
+     */
+    protected void revertCssFonts() {
+        if (temporaryFonts != null) {
+            FontSet fontSet = context.getFontProvider().getFontSet();
+            for (FontInfo fontInfo: temporaryFonts) {
+                fontSet.remove(fontInfo);
             }
         }
     }
