@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
@@ -73,6 +74,7 @@ public final class WidthHeightApplierUtil {
 
         // TODO consider display css property
         boolean applyToTable = element instanceof Table;
+        boolean applyToCell = element instanceof Cell;
 
         UnitValue height = null;
         String heightVal = cssProps.get(CssConstants.HEIGHT);
@@ -81,9 +83,9 @@ public final class WidthHeightApplierUtil {
                 height = CssUtils.parseLengthValueToPt(heightVal, em, rem);
                 if (height != null) {
                     if (height.isPointValue()) {
-                        // For tables, max height does not have any effect. The height value will be used when
+                        // For tables, height does not have any effect. The height value will be used when
                         // calculating effective min height value below
-                        if (!applyToTable) {
+                        if (!applyToTable && !applyToCell) {
                             element.setProperty(Property.HEIGHT, height.getValue());
                         }
                     } else {
@@ -99,8 +101,8 @@ public final class WidthHeightApplierUtil {
             UnitValue maxHeight = CssUtils.parseLengthValueToPt(maxHeightVal, em, rem);
             if (maxHeight != null) {
                 if (maxHeight.isPointValue()) {
-                    // For tables, max height does not have any effect. See also comments below when MIN_HEIGHT is applied.
-                    if (!applyToTable) {
+                    // For tables and cells, max height does not have any effect. See also comments below when MIN_HEIGHT is applied.
+                    if (!applyToTable && !applyToCell) {
                         maxHeightToApply = maxHeight.getValue();
                     }
                 } else {
@@ -118,17 +120,25 @@ public final class WidthHeightApplierUtil {
             UnitValue minHeight = CssUtils.parseLengthValueToPt(minHeightVal, em, rem);
             if (minHeight != null) {
                 if (minHeight.isPointValue()) {
-                    minHeightToApply = minHeight.getValue();
+                    // For cells, min height does not have any effect. See also comments below when MIN_HEIGHT is applied.
+                    if (!applyToCell) {
+                        minHeightToApply = minHeight.getValue();
+                    }
                 } else {
                     logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 }
             }
         }
+        // About tables:
         // The height of a table is given by the 'height' property for the 'table' or 'inline-table' element.
         // A value of 'auto' means that the height is the sum of the row heights plus any cell spacing or borders.
         // Any other value is treated as a minimum height. CSS 2.1 does not define how extra space is distributed when
         // the 'height' property causes the table to be taller than it otherwise would be.
-        if (applyToTable && height != null && height.isPointValue() && height.getValue() > minHeightToApply) {
+        // About cells:
+        // The height of a 'table-row' element's box is the maximum of the row's computed 'height', the computed 'height' of each cell in the row,
+        // and the minimum height (MIN) required by the cells. MIN depends on cell box heights and cell box alignment.
+        // In CSS??2.1, the height of a cell box is the minimum height required by the content.
+        if ((applyToTable || applyToCell) && height != null && height.isPointValue() && height.getValue() > minHeightToApply) {
             minHeightToApply = height.getValue();
         }
         if (minHeightToApply > 0) {
@@ -136,5 +146,4 @@ public final class WidthHeightApplierUtil {
         }
 
     }
-
 }
