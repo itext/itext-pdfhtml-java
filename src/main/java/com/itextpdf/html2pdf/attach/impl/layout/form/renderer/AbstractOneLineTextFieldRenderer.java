@@ -40,22 +40,62 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.layout;
+package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
-public class Html2PdfProperty {
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.FormField;
+import com.itextpdf.kernel.geom.Rectangle;
+import com.itextpdf.layout.renderer.LineRenderer;
 
-    private static final int PROPERTY_START = (1 << 20);
+import java.util.List;
 
-    /* Works only for top-level elements, i.e. ones that are added to the document directly */
-    public static final int KEEP_WITH_PREVIOUS = PROPERTY_START + 1;
-    public static final int PAGE_COUNT_TYPE = PROPERTY_START + 2;
+public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextFieldRenderer {
 
-    //Form related properties
-    public static final int FORM_FIELD_FLATTEN = PROPERTY_START + 3;
-    public static final int FORM_FIELD_SIZE = PROPERTY_START + 4;
-    public static final int FORM_FIELD_VALUE = PROPERTY_START + 5;
-    public static final int FORM_FIELD_PASSWORD_FLAG = PROPERTY_START + 6;
-    public static final int FORM_FIELD_COLS = PROPERTY_START + 7;
-    public static final int FORM_FIELD_ROWS = PROPERTY_START + 8;
+    protected float baseline;
 
+    protected AbstractOneLineTextFieldRenderer(FormField modelElement) {
+        super(modelElement);
+    }
+
+    @Override
+    public float getAscent() {
+        return occupiedArea.getBBox().getTop() - baseline;
+    }
+
+    @Override
+    public float getDescent() {
+        return occupiedArea.getBBox().getBottom() - baseline;
+    }
+
+    protected void cropContentLines(List<LineRenderer> lines) {
+        LineRenderer drawnLine = lines.get(0);
+        lines.clear();
+        lines.add(drawnLine);
+        Rectangle lineBBox = drawnLine.getOccupiedAreaBBox();
+        flatRenderer.getOccupiedArea().setBBox(lineBBox.clone());
+        updateParagraphHeight();
+        baseline = drawnLine.getYLine();
+    }
+
+    protected void updateParagraphHeight() {
+        overrideHeightProperties();
+        Float height = retrieveHeight();
+        Float minHeight = retrieveMinHeight();
+        Float maxHeight = retrieveMaxHeight();
+        Rectangle flatBBox = flatRenderer.getOccupiedArea().getBBox();
+        if (height != null && height.floatValue() > 0) {
+            setContentHeight(flatBBox, height.floatValue());
+        } else if (minHeight != null && minHeight.floatValue() > flatBBox.getHeight()) {
+            setContentHeight(flatBBox, minHeight.floatValue());
+        } else if (maxHeight != null && maxHeight.floatValue() > 0 && maxHeight.floatValue() < flatBBox.getHeight()) {
+            setContentHeight(flatBBox, maxHeight.floatValue());
+        }
+    }
+
+    private void setContentHeight(Rectangle bBox, float height) {
+        if (bBox.getHeight() < height) {
+            float dy = (height - bBox.getHeight()) / 2;
+            bBox.moveDown(dy);
+        }
+        bBox.setHeight(height);
+    }
 }

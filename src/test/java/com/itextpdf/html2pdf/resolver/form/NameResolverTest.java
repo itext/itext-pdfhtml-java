@@ -40,22 +40,53 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.layout;
+package com.itextpdf.html2pdf.resolver.form;
 
-public class Html2PdfProperty {
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.UnitTest;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-    private static final int PROPERTY_START = (1 << 20);
+@Category(UnitTest.class)
+public class NameResolverTest extends ExtendedITextTest {
 
-    /* Works only for top-level elements, i.e. ones that are added to the document directly */
-    public static final int KEEP_WITH_PREVIOUS = PROPERTY_START + 1;
-    public static final int PAGE_COUNT_TYPE = PROPERTY_START + 2;
+    @Test
+    public void normalizationTest() {
+        runTest("Dots.Should.Be.Removed", "DotsShouldBeRemoved");
+    }
 
-    //Form related properties
-    public static final int FORM_FIELD_FLATTEN = PROPERTY_START + 3;
-    public static final int FORM_FIELD_SIZE = PROPERTY_START + 4;
-    public static final int FORM_FIELD_VALUE = PROPERTY_START + 5;
-    public static final int FORM_FIELD_PASSWORD_FLAG = PROPERTY_START + 6;
-    public static final int FORM_FIELD_COLS = PROPERTY_START + 7;
-    public static final int FORM_FIELD_ROWS = PROPERTY_START + 8;
+    @Test
+    public void noNameTest() {
+        runTest(new String[]{"", null, "  "},
+                new String[]{"Field", "Field_1", "Field_2"});
+    }
 
+    @Test
+    public void equalNamesTest() {
+        runTest(new String[]{"name", "name", "name_4", "name", "name_3", "name_-2", "name_-2"},
+                new String[]{"name", "name_1", "name_4", "name_5", "name_6", "name_-2", "name_-2_1"});
+    }
+
+    @Test
+    public void separatorTest() {
+        runTest(new String[]{"field_name", "field_name_2", "field_name"},
+                new String[]{"field_name", "field_name_2", "field_name_3"});
+    }
+
+    private void runTest(String input, String expectedOutput) {
+        FormFieldNameResolver nameResolver = new FormFieldNameResolver();
+        Assert.assertEquals(expectedOutput, nameResolver.resolveFormName(input));
+    }
+
+    private void runTest(String[] input, String[] expectedOutput) {
+        Assert.assertTrue("Input and output should be the same length", input.length == expectedOutput.length);
+        FormFieldNameResolver nameResolver = new FormFieldNameResolver();
+        String[] output = new String[input.length];
+        for (int i = 0; i < input.length; ++i) {
+            output[i] = nameResolver.resolveFormName(input[i]);
+        }
+        Assert.assertArrayEquals(expectedOutput, output);
+    }
 }

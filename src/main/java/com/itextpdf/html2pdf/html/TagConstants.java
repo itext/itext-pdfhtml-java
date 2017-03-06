@@ -59,6 +59,7 @@ public final class TagConstants {
     public static final String BLOCKQUOTE = "blockquote";
     public static final String BODY = "body";
 	public static final String BR = "br";
+    public static final String BUTTON = "button";
     public static final String CAPTION = "caption";
     public static final String CENTER = "center";
     public static final String CITE = "cite";
@@ -76,6 +77,7 @@ public final class TagConstants {
     public static final String FIGURE = "figure";
     public static final String FONT = "font";
     public static final String FOOTER = "footer";
+    public static final String FORM = "form";
     public static final String H1 = "h1";
     public static final String H2 = "h2";
     public static final String H3 = "h3";
@@ -106,6 +108,7 @@ public final class TagConstants {
     public static final String S = "s";
     public static final String SAMP = "samp";
     public static final String SECTION = "section";
+    public static final String SELECT = "select";
     public static final String SMALL = "small";
     public static final String SPAN = "span";
     public static final String STRIKE = "strike";
@@ -115,6 +118,7 @@ public final class TagConstants {
     public static final String SUP = "sup";
     public static final String TABLE = "table";
     public static final String TBODY = "tbody";
+    public static final String TEXTAREA = "textarea";
     public static final String TD = "td";
     public static final String TFOOT = "tfoot";
     public static final String TH = "th";
@@ -125,6 +129,4 @@ public final class TagConstants {
     public static final String U = "u";
     public static final String UL = "ul";
     public static final String VAR = "var";
-
-
 }

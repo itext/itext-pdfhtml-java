@@ -86,6 +86,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.FIGURE, BlockCssApplier.class);
         mapping.putMapping(TagConstants.FONT, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.FOOTER, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.FORM, BlockCssApplier.class);
         mapping.putMapping(TagConstants.H1, BlockCssApplier.class);
         mapping.putMapping(TagConstants.H2, BlockCssApplier.class);
         mapping.putMapping(TagConstants.H3, BlockCssApplier.class);
@@ -97,7 +98,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.HTML, HtmlTagCssApplier.class);
         mapping.putMapping(TagConstants.I, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.IMG, BlockCssApplier.class);
-        mapping.putMapping(TagConstants.INPUT, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.INPUT, BlockCssApplier.class);
         mapping.putMapping(TagConstants.INS, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.KBD, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.LABEL, SpanTagCssApplier.class);
@@ -119,6 +120,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.SUB, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SUP, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.TABLE, TableTagCssApplier.class);
+        mapping.putMapping(TagConstants.TEXTAREA, BlockCssApplier.class);
         mapping.putMapping(TagConstants.TD, TdTagCssApplier.class);
         mapping.putMapping(TagConstants.TFOOT, BlockCssApplier.class);
         mapping.putMapping(TagConstants.TH, TdTagCssApplier.class);

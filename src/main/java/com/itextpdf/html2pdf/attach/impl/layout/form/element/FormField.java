@@ -40,22 +40,40 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.layout;
+package com.itextpdf.html2pdf.attach.impl.layout.form.element;
 
-public class Html2PdfProperty {
+import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
+import com.itextpdf.layout.element.AbstractElement;
+import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.element.ILeafElement;
 
-    private static final int PROPERTY_START = (1 << 20);
+import java.util.Map;
 
-    /* Works only for top-level elements, i.e. ones that are added to the document directly */
-    public static final int KEEP_WITH_PREVIOUS = PROPERTY_START + 1;
-    public static final int PAGE_COUNT_TYPE = PROPERTY_START + 2;
+public abstract class FormField<T extends IElement> extends AbstractElement<T> implements ILeafElement {
 
-    //Form related properties
-    public static final int FORM_FIELD_FLATTEN = PROPERTY_START + 3;
-    public static final int FORM_FIELD_SIZE = PROPERTY_START + 4;
-    public static final int FORM_FIELD_VALUE = PROPERTY_START + 5;
-    public static final int FORM_FIELD_PASSWORD_FLAG = PROPERTY_START + 6;
-    public static final int FORM_FIELD_COLS = PROPERTY_START + 7;
-    public static final int FORM_FIELD_ROWS = PROPERTY_START + 8;
+    private String id;
+
+    protected FormField(String id) {
+        if (id == null || id.contains(".")) {
+            throw new IllegalArgumentException("id should not contain '.'");
+        }
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public <T1> T1 getDefaultProperty(int property) {
+        switch (property) {
+            case Html2PdfProperty.FORM_FIELD_FLATTEN:
+                return (T1) (Object) true;
+            case Html2PdfProperty.FORM_FIELD_VALUE:
+                return (T1) "";
+            default:
+                return super.getDefaultProperty(property);
+        }
+    }
 
 }

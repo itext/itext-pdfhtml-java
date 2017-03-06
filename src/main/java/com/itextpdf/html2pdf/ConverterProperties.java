@@ -54,6 +54,7 @@ public class ConverterProperties {
     private ITagWorkerFactory tagWorkerFactory;
     private ICssApplierFactory cssApplierFactory;
     private String baseUri;
+    private Boolean flattenFormFields;
 
     public ConverterProperties() {
     }
@@ -64,6 +65,7 @@ public class ConverterProperties {
         this.tagWorkerFactory = other.tagWorkerFactory;
         this.cssApplierFactory = other.cssApplierFactory;
         this.baseUri = other.baseUri;
+        this.flattenFormFields = other.flattenFormFields;
     }
 
     public MediaDeviceDescription getMediaDeviceDescription() {
@@ -108,6 +110,15 @@ public class ConverterProperties {
 
     public ConverterProperties setBaseUri(String baseUri) {
         this.baseUri = baseUri;
+        return this;
+    }
+
+    public Boolean isFlattenFormFields() {
+        return flattenFormFields;
+    }
+
+    public ConverterProperties setFlattenFormFields(boolean flattenFormFields) {
+        this.flattenFormFields = flattenFormFields;
         return this;
     }
 }

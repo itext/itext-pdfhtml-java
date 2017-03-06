@@ -49,6 +49,7 @@ public final class AttributeConstants {
     public static final String BORDER = "border";
     public static final String CLASS = "class";
     public static final String COLOR = "color";
+    public static final String COLS = "cols";
     public static final String COLSPAN = "colspan";
     public static final String DIR = "dir";
     public static final String FACE = "face";
@@ -60,6 +61,7 @@ public final class AttributeConstants {
     public static final String NAME = "name";
     public static final String NOSHADE = "noshade";
     public static final String REL = "rel";
+    public static final String ROWS = "rows";
     public static final String ROWSPAN = "rowspan";
     public static final String SIZE = "size";
     public static final String SPAN = "span";
@@ -76,16 +78,21 @@ public final class AttributeConstants {
     public static final String A = "A";
     public static final String a = "a";
     public static final String BOTTOM = "bottom";
+    public static final String BUTTON = "button";
     public static final String CENTER = "center";
+    public static final String CHECKBOX = "checkbox";
     public static final String EMAIL = "email";
     public static final String I = "I";
     public static final String i = "i";
     public static final String LEFT = "left";
     public static final String LTR = "ltr";
     public static final String MIDDLE = "middle";
+    public static final String PASSWORD = "password";
+    public static final String RADIO = "radio";
     public static final String RIGHT = "right";
     public static final String RTL = "rtl";
     public static final String STYLESHEET = "stylesheet";
+    public static final String SUBMIT = "submit";
     public static final String TEXT = "text";
     public static final String TOP = "top";
 
