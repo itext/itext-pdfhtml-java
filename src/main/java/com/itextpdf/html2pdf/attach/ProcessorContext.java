@@ -49,6 +49,7 @@ import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
+import com.itextpdf.html2pdf.resolver.form.FormFieldNameResolver;
 import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.font.FontInfo;
@@ -66,6 +67,8 @@ public class ProcessorContext {
     private ITagWorkerFactory tagWorkerFactory;
     private ICssApplierFactory cssApplierFactory;
     private String baseUri;
+    private boolean flattenFontFields;
+    private FormFieldNameResolver formFieldNameResolver;
 
     // Variable fields
     private State state;
@@ -107,6 +110,12 @@ public class ProcessorContext {
         resourceResolver = new ResourceResolver(baseUri);
 
         cssContext = new CssContext();
+
+        flattenFontFields = true;
+        if (converterProperties.isFlattenFormFields() != null) {
+            flattenFontFields = (boolean) converterProperties.isFlattenFormFields();
+        }
+        formFieldNameResolver = new FormFieldNameResolver();
     }
 
     public void setFontProvider(FontProvider fontProvider) {
@@ -145,6 +154,14 @@ public class ProcessorContext {
         return cssContext;
     }
 
+    public boolean isFlattenFontFields() {
+        return flattenFontFields;
+    }
+
+    public FormFieldNameResolver getFormFieldNameResolver() {
+        return formFieldNameResolver;
+    }
+
     public void addTemporaryFont(FontInfo fontInfo) {
         tempFonts.add(fontInfo);
     }
@@ -154,6 +171,7 @@ public class ProcessorContext {
         this.state = new State();
         this.resourceResolver.resetCache();
         this.cssContext = new CssContext();
+        this.formFieldNameResolver.reset();
         removeTemporaryFonts();
     }
 

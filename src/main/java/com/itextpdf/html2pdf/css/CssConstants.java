@@ -68,6 +68,7 @@ public class CssConstants {
     public static final String BORDER_BOTTOM_WIDTH = "border-bottom-width";
     public static final String BORDER_COLLAPSE = "border-collapse";
     public static final String BORDER_COLOR = "border-color";
+    public static final String BORDER_IMAGE = "border-image";
     public static final String BORDER_LEFT = "border-left";
     public static final String BORDER_LEFT_COLOR = "border-left-color";
     public static final String BORDER_LEFT_STYLE = "border-left-style";

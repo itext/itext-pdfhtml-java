@@ -65,6 +65,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.TableFooterTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TableHeaderTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TableTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TdTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.TextAreaTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TitleTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.UlOlTagWorker;
@@ -106,6 +107,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.DL, UlOlTagWorker.class);
         workerMapping.putMapping(TagConstants.DT, LiTagWorker.class);
         workerMapping.putMapping(TagConstants.EM, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.FORM, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.FIGCAPTION, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.FIGURE, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.FONT, SpanTagWorker.class);
@@ -146,6 +148,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.SUP, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.TABLE, TableTagWorker.class);
         workerMapping.putMapping(TagConstants.TD, TdTagWorker.class);
+        workerMapping.putMapping(TagConstants.TEXTAREA, TextAreaTagWorker.class);
         workerMapping.putMapping(TagConstants.TFOOT, TableFooterTagWorker.class);
         workerMapping.putMapping(TagConstants.TH, TdTagWorker.class);
         workerMapping.putMapping(TagConstants.THEAD, TableHeaderTagWorker.class);

@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.FormField;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
@@ -101,6 +102,9 @@ public class HtmlTagWorker implements ITagWorker {
                 }
             }
             processed = allChildrenProcessed;
+        }  else if (childTagWorker.getElementResult() instanceof FormField) {
+            inlineHelper.add((FormField) childTagWorker.getElementResult());
+            return true;
         } else if (childTagWorker.getElementResult() instanceof AreaBreak) {
             postProcessInlineGroup();
             document.add((AreaBreak) childTagWorker.getElementResult());

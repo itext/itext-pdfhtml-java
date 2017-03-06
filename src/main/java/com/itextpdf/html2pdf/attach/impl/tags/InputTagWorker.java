@@ -43,29 +43,68 @@
 package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.IElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
 
-public class InputTagWorker extends SpanTagWorker {
+public class InputTagWorker implements ITagWorker {
+
+    IElement formElement;
 
     public InputTagWorker(IElementNode element, ProcessorContext context) {
-        super(element, context);
         String inputType = element.getAttribute(AttributeConstants.TYPE);
+        String value = element.getAttribute(AttributeConstants.VALUE);
+        String name = context.getFormFieldNameResolver().resolveFormName(element.getAttribute(AttributeConstants.NAME));
         // Default input type is text
-        if (inputType == null || AttributeConstants.TEXT.equals(inputType) || AttributeConstants.EMAIL.equals(inputType)) {
-            String value = element.getAttribute(AttributeConstants.VALUE);
-            if (value != null) {
-                processContent(value, context);
+        if (inputType == null || AttributeConstants.TEXT.equals(inputType) || AttributeConstants.EMAIL.equals(inputType)
+                || AttributeConstants.PASSWORD.equals(inputType)) {
+            Integer size = CssUtils.parseInteger(element.getAttribute(AttributeConstants.SIZE));
+            formElement = new InputField(name);
+            formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
+            formElement.setProperty(Html2PdfProperty.FORM_FIELD_SIZE, size);
+            if (AttributeConstants.PASSWORD.equals(inputType)) {
+                formElement.setProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG, true);
             }
+        } else if (AttributeConstants.SUBMIT.equals(inputType) || AttributeConstants.BUTTON.equals(inputType)) {
+            formElement = new Button(name);
+            formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
         } else {
             Logger logger = LoggerFactory.getLogger(InputTagWorker.class);
             logger.error(MessageFormat.format(LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
         }
+        if (formElement != null) {
+            formElement.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, context.isFlattenFontFields());
+        }
     }
 
+    @Override
+    public void processEnd(IElementNode element, ProcessorContext context) {
+
+    }
+
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        return false;
+    }
+
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        return false;
+    }
+
+    @Override
+    public IPropertyContainer getElementResult() {
+        return formElement;
+    }
 }

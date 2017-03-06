@@ -40,22 +40,58 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.layout;
+package com.itextpdf.html2pdf.attach.impl.tags;
 
-public class Html2PdfProperty {
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.TextArea;
+import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.layout.IPropertyContainer;
 
-    private static final int PROPERTY_START = (1 << 20);
+public class TextAreaTagWorker implements ITagWorker {
 
-    /* Works only for top-level elements, i.e. ones that are added to the document directly */
-    public static final int KEEP_WITH_PREVIOUS = PROPERTY_START + 1;
-    public static final int PAGE_COUNT_TYPE = PROPERTY_START + 2;
+    private static final String DEFAULT_TEXTAREA_NAME = "TextArea";
+    private TextArea textArea;
 
-    //Form related properties
-    public static final int FORM_FIELD_FLATTEN = PROPERTY_START + 3;
-    public static final int FORM_FIELD_SIZE = PROPERTY_START + 4;
-    public static final int FORM_FIELD_VALUE = PROPERTY_START + 5;
-    public static final int FORM_FIELD_PASSWORD_FLAG = PROPERTY_START + 6;
-    public static final int FORM_FIELD_COLS = PROPERTY_START + 7;
-    public static final int FORM_FIELD_ROWS = PROPERTY_START + 8;
+    public TextAreaTagWorker(IElementNode element, ProcessorContext context) {
+        String name = element.getAttribute(AttributeConstants.ID);
+        if (name == null) {
+            name = DEFAULT_TEXTAREA_NAME;
+        }
+        name = context.getFormFieldNameResolver().resolveFormName(name);
+        textArea = new TextArea(name);
+        Integer rows = CssUtils.parseInteger(element.getAttribute(AttributeConstants.ROWS));
+        Integer cols = CssUtils.parseInteger(element.getAttribute(AttributeConstants.COLS));
+        textArea.setProperty(Html2PdfProperty.FORM_FIELD_ROWS, rows);
+        textArea.setProperty(Html2PdfProperty.FORM_FIELD_COLS, cols);
+        textArea.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, context.isFlattenFontFields());
+    }
 
+    @Override
+    public void processEnd(IElementNode element, ProcessorContext context) {
+    }
+
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        if (content.startsWith("\r\n")) {
+            content = content.substring(2);
+        } else if (content.startsWith("\r") || content.startsWith("\n")) {
+            content = content.substring(1);
+        }
+        textArea.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, content);
+        return true;
+    }
+
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        return false;
+    }
+
+    @Override
+    public IPropertyContainer getElementResult() {
+        return textArea;
+    }
 }

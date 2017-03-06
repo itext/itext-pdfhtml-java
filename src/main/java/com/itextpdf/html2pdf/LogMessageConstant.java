@@ -49,6 +49,10 @@ public final class LogMessageConstant {
     public static final String ERROR_LOADING_FONT = "Error while loading font";
     public static final String ERROR_PARSING_CSS_SELECTOR = "Error while parsing css selector";
     public static final String ERROR_RESOLVING_PARENT_STYLES = "Element parent styles are not resolved. Styles for current element might be incorrect.";
+    public static final String ERROR_WHILE_LAYOUT_OF_FORM_FIELD = "Cannot layout form field field. It won't be displayed";
+    public static final String ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE = "Error during layout of form filed with type {0}.";
+    public static final String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";
+    public static final String INPUT_SUPPORT_ONLY_POINT_WIDTH = "Input field support only point width";
     public static final String HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED = "Height value in percent not supported";
     public static final String INPUT_TYPE_IS_NOT_SUPPORTED = "Input type {0} is not supported";
     public static final String INVALID_CSS_PROPERTY_DECLARATION = "Invalid css property declaration: {0}";

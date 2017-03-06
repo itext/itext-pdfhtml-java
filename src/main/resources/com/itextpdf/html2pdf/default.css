@@ -314,6 +314,53 @@ img {
     display:inline-block;
 }
 
+input, textarea, select, button {
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em 0em 0em 0em;
+    font: 13.3333px Arial;
+}
+
+input {
+    background-color: white;
+    padding: 1px;
+    border: 2px inset initial;
+    border-image: initial;
+}
+
+input:not([type]), input[type="email"], input[type="number"], input[type="password"], input[type="tel"], input[type="url"], input[type="text"] {
+    padding: 1px 0px;
+}
+
+input[type="radio"] {
+    margin: 3px 3px 0px 5px;
+    padding: 0px;
+    border: initial;
+}
+
+input[type="button"], input[type="submit"], button {
+    background-color: lightgrey;
+    border: 2px outset initial;
+    border-image: initial;
+    padding: 1px 6px;
+}
+
+textarea {
+    font-family: Courier;
+    background-color: white;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border-image: initial;
+    border: 1px solid rgb(169, 169, 169);
+    padding: 2px;
+}
+
 ADDRESS,
 BLOCKQUOTE,
 BODY, DD, DIV,

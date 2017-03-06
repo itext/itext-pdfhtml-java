@@ -167,7 +167,7 @@ public final class FontStyleApplierUtil {
         }
 
         String letterSpacing = cssProps.get(CssConstants.LETTER_SPACING);
-        if (letterSpacing != null) {
+        if (letterSpacing != null && !letterSpacing.equals(CssConstants.NORMAL)) {
             UnitValue letterSpacingValue = CssUtils.parseLengthValueToPt(letterSpacing, em, rem);
             if (letterSpacingValue.isPointValue()) {
                 element.setProperty(Property.CHARACTER_SPACING, letterSpacingValue.getValue());
