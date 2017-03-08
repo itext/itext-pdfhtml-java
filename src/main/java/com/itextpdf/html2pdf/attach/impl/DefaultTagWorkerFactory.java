@@ -101,7 +101,6 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
      *
      * @param tag
      * @param context
-     * @return
      */
     public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
         return null;

@@ -201,10 +201,8 @@ public class CssUtils {
     }
 
     /**
-     * Returns value in dpi (currently)
-     *
      * @param resolutionStr
-     * @return
+     * @return value in dpi (currently)
      */
     // TODO change default units? If so, change MediaDeviceDescription#resolutoin as well
     public static float parseResolution(String resolutionStr) {

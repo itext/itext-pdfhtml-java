@@ -57,16 +57,15 @@ public interface ITagWorker {
     boolean processContent(String content, ProcessorContext context);
 
     /**
-     *
      * @param childTagWorker
      * @return true, if child was successfully processed, otherwise false.
      */
     boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context);
 
     /**
-     * Shall return the same object on every call. Might return null either if result is not yet produced or if
-     * this particular tag worker doesn't produce result in a form of {@link IPropertyContainer}.
-     * @return
+     * @return the same object on every call.
+     *         Might return null either if result is not yet produced or if this particular
+     *         tag worker doesn't produce result in a form of {@link IPropertyContainer}.
      */
     IPropertyContainer getElementResult();
 }
