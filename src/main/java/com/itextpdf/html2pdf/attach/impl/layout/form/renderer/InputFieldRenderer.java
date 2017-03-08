@@ -51,7 +51,9 @@ import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.LineRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
@@ -84,17 +86,17 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
     @Override
     protected void adjustFieldLayout() {
         List<LineRenderer> flatLines = ((ParagraphRenderer) flatRenderer).getLines();
+        Rectangle flatBBox= flatRenderer.getOccupiedArea().getBBox();
         updatePdfFont((ParagraphRenderer) flatRenderer);
         if (!flatLines.isEmpty() && font != null) {
-            font.setSubset(false);
-            cropContentLines(flatLines);
+            cropContentLines(flatLines, flatBBox);
         } else {
             LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "text input"));
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
-            baseline = flatRenderer.getOccupiedArea().getBBox().getTop();
-            flatRenderer.getOccupiedArea().getBBox().setY(baseline).setHeight(0);
+            baseline = flatBBox.getTop();
+            flatBBox.setY(baseline).setHeight(0);
         }
-        flatRenderer.getOccupiedArea().getBBox().setWidth(getContentWidth().floatValue());
+        flatBBox.setWidth(getContentWidth().floatValue());
     }
 
     @Override
@@ -109,11 +111,24 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
     }
 
     @Override
-    protected void applyAcroField(PdfDocument doc, PdfPage page, String name, String value, float fontSize, Rectangle area) {
+    protected void applyAcroField(DrawContext drawContext) {
+        font.setSubset(false);
+        String value = getDefaultValue();
+        String name = getModelId();
+        float fontSize = (float) getPropertyAsFloat(Property.FONT_SIZE);
+        PdfDocument doc = drawContext.getDocument();
+        Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
+        PdfPage page = doc.getPage(occupiedArea.getPageNumber());
+        boolean password = isPassword();
+        if (password) {
+            value = "";
+        }
         PdfFormField inputField = PdfFormField.createText(doc, area, name, value, font, fontSize);
         applyDefaultFieldProperties(inputField);
-        if (isPassword()) {
+        if (password) {
             inputField.setFieldFlag(PdfFormField.FF_PASSWORD, true);
+        } else {
+            inputField.setDefaultValue(new PdfString(value));
         }
         PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
     }

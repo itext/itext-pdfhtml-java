@@ -45,15 +45,17 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.FormField;
 import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfName;
-import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.Leading;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.LineRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //Class that represents form field based on text content.
@@ -70,7 +72,26 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
             // TODO: change to 'defaultValue = "\u00A0"' after trimming of non-breakable spaces is fixed;
             defaultValue = "\u00B7";
         }
-        return new Paragraph(defaultValue).setMultipliedLeading(1).setMargin(0).createRendererSubTree();
+        Paragraph paragraph = new Paragraph(defaultValue).setMargin(0);
+        Leading leading = this.<Leading>getProperty(Property.LEADING);
+        if (leading != null) {
+            paragraph.setProperty(Property.LEADING, leading);
+        }
+        return paragraph.createRendererSubTree();
+    }
+
+    protected void adjustNumberOfContentLines(List<LineRenderer> lines, Rectangle bBox, int linesNumber) {
+        float averageLineHeight = bBox.getHeight() / lines.size();
+        if (lines.size() != linesNumber) {
+            float actualHeight = averageLineHeight * linesNumber;
+            bBox.moveUp(bBox.getHeight() - actualHeight);
+            bBox.setHeight(actualHeight);
+        }
+        if (lines.size() > linesNumber) {
+            List<LineRenderer> subList = new ArrayList<>(lines.subList(0, linesNumber));
+            lines.clear();
+            lines.addAll(subList);
+        }
     }
 
     protected void applyDefaultFieldProperties(PdfFormField inputField) {
@@ -80,7 +101,6 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
         if (color != null) {
             inputField.setColor(color.getColor());
         }
-        inputField.setDefaultValue(new PdfString(getDefaultValue()));
     }
 
     protected void updatePdfFont(ParagraphRenderer renderer) {

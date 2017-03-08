@@ -40,56 +40,48 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
+package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.FormField;
-import com.itextpdf.kernel.geom.Rectangle;
-import com.itextpdf.layout.renderer.LineRenderer;
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.layout.IPropertyContainer;
 
-import java.util.List;
+public class ButtonTagWorker implements ITagWorker {
 
-public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextFieldRenderer {
+    private static final String DEFAULT_BUTTON_NAME = "Button";
+    Button button;
 
-    protected float baseline;
-
-    protected AbstractOneLineTextFieldRenderer(FormField modelElement) {
-        super(modelElement);
-    }
-
-    @Override
-    public float getAscent() {
-        return occupiedArea.getBBox().getTop() - baseline;
-    }
-
-    @Override
-    public float getDescent() {
-        return occupiedArea.getBBox().getBottom() - baseline;
-    }
-
-    protected void cropContentLines(List<LineRenderer> lines, Rectangle bBox) {
-        adjustNumberOfContentLines(lines, bBox, 1);
-        updateParagraphHeight();
-        baseline = lines.get(0).getYLine();
-    }
-
-    protected void updateParagraphHeight() {
-        overrideHeightProperties();
-        Float height = retrieveHeight();
-        Float minHeight = retrieveMinHeight();
-        Float maxHeight = retrieveMaxHeight();
-        Rectangle flatBBox = flatRenderer.getOccupiedArea().getBBox();
-        if (height != null && height.floatValue() > 0) {
-            setContentHeight(flatBBox, height.floatValue());
-        } else if (minHeight != null && minHeight.floatValue() > flatBBox.getHeight()) {
-            setContentHeight(flatBBox, minHeight.floatValue());
-        } else if (maxHeight != null && maxHeight.floatValue() > 0 && maxHeight.floatValue() < flatBBox.getHeight()) {
-            setContentHeight(flatBBox, maxHeight.floatValue());
+    public ButtonTagWorker(IElementNode element, ProcessorContext context) {
+        String name = element.getAttribute(AttributeConstants.ID);
+        if (name == null) {
+            name = DEFAULT_BUTTON_NAME;
         }
+        name = context.getFormFieldNameResolver().resolveFormName(name);
+        button = new Button(name);
+        button.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, context.isFlattenFontFields());
     }
 
-    private void setContentHeight(Rectangle bBox, float height) {
-        float dy = (height - bBox.getHeight()) / 2;
-        bBox.moveDown(dy);
-        bBox.setHeight(height);
+    @Override
+    public void processEnd(IElementNode element, ProcessorContext context) {
+    }
+
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        button.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, content);
+        return true;
+    }
+
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        return false;
+    }
+
+    @Override
+    public IPropertyContainer getElementResult() {
+        return button;
     }
 }

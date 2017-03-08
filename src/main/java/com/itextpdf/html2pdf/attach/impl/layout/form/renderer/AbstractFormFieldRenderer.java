@@ -45,9 +45,6 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.FormField;
-import com.itextpdf.kernel.geom.Rectangle;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
 import com.itextpdf.layout.layout.MinMaxWidthLayoutResult;
@@ -90,10 +87,10 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         float parentWidth = layoutContext.getArea().getBBox().getWidth();
         float parentHeight = layoutContext.getArea().getBBox().getHeight();
 
-        boolean restoreMaxHeight = hasOwnProperty(Property.MAX_HEIGHT);
-        boolean restoreHeight = hasOwnProperty(Property.HEIGHT);
         Float maxHeight = retrieveMaxHeight();
         Float height = retrieveHeight();
+        boolean restoreMaxHeight = hasOwnProperty(Property.MAX_HEIGHT);
+        boolean restoreHeight = hasOwnProperty(Property.HEIGHT);
         setProperty(Property.MAX_HEIGHT, null);
         setProperty(Property.HEIGHT, null);
 
@@ -103,7 +100,11 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
             renderer.setProperty(Property.WIDTH, new UnitValue(UnitValue.POINT, (float) width));
         }
         addChild(renderer);
+
+        layoutContext.getArea().getBBox().setHeight(INF);
         LayoutResult result = super.layout(layoutContext);
+        layoutContext.getArea().getBBox().setHeight(parentHeight);
+        move(0, parentHeight - INF);
 
         if (restoreMaxHeight) {
             setProperty(Property.MAX_HEIGHT, maxHeight);
@@ -154,24 +155,22 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
 
     @Override
     public void drawChildren(DrawContext drawContext) {
+        drawContext.getCanvas().saveState();
         boolean flatten = isFlatten();
         if (flatten) {
+            drawContext.getCanvas().rectangle(occupiedArea.getBBox()).clip().newPath();
             flatRenderer.draw(drawContext);
         } else {
-            String value = getDefaultValue();
-            String name = getModelId();
-            float fontSize = (float) getPropertyAsFloat(Property.FONT_SIZE);
-            Rectangle fieldArea = flatRenderer.getOccupiedArea().getBBox().clone();
-            PdfPage page = drawContext.getDocument().getPage(occupiedArea.getPageNumber());
-            applyAcroField(drawContext.getDocument(), page, name, value, fontSize, fieldArea);
+            applyAcroField(drawContext);
         }
+        drawContext.getCanvas().restoreState();
     }
 
     protected abstract void adjustFieldLayout();
 
     protected abstract IRenderer createFlatRenderer();
 
-    protected abstract void applyAcroField(PdfDocument doc, PdfPage page, String name, String value, float fontSize, Rectangle area);
+    protected abstract void applyAcroField(DrawContext drawContext);
 
     protected boolean isRendererFit(float availableWidth, float availableHeight) {
         if (occupiedArea == null) {

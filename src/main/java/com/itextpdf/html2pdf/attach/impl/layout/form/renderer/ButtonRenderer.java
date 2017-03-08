@@ -43,15 +43,24 @@
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
 import com.itextpdf.forms.PdfAcroForm;
+import com.itextpdf.forms.fields.PdfButtonFormField;
 import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.kernel.pdf.PdfStream;
+import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
+import com.itextpdf.layout.property.Background;
+import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.TransparentColor;
+import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.LineRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
@@ -76,17 +85,24 @@ public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
     @Override
     protected void adjustFieldLayout() {
         List<LineRenderer> flatLines = ((ParagraphRenderer) flatRenderer).getLines();
+        Rectangle flatBBox = flatRenderer.getOccupiedArea().getBBox();
         updatePdfFont((ParagraphRenderer) flatRenderer);
         if (!flatLines.isEmpty() && font != null) {
             if (flatLines.size() != 1) {
                 isSplit = true;
             }
-            cropContentLines(flatLines);
+            cropContentLines(flatLines, flatBBox);
+            Float width = getContentWidth();
+            if (width == null) {
+                LineRenderer drawnLine = flatLines.get(0);
+                drawnLine.move(flatBBox.getX() - drawnLine.getOccupiedArea().getBBox().getX(), 0);
+                flatBBox.setWidth(drawnLine.getOccupiedArea().getBBox().getWidth());
+            }
         } else {
             LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "button"));
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
-            baseline = flatRenderer.getOccupiedArea().getBBox().getTop();
-            flatRenderer.getOccupiedArea().getBBox().setY(baseline).setHeight(0);
+            baseline = flatBBox.getTop();
+            flatBBox.setY(baseline).setHeight(0);
         }
     }
 
@@ -96,10 +112,21 @@ public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
     }
 
     @Override
-    protected void applyAcroField(PdfDocument doc, PdfPage page, String name, String value, float fontSize, Rectangle area) {
-        PdfFormField inputField = PdfFormField.createPushButton(doc, area, name, value, font, fontSize);
-        applyDefaultFieldProperties(inputField);
-        PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
+    protected void applyAcroField(DrawContext drawContext) {
+        String value = getDefaultValue();
+        String name = getModelId();
+        float fontSize = (float) getPropertyAsFloat(Property.FONT_SIZE);
+        PdfDocument doc = drawContext.getDocument();
+        Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
+        applyPaddings(area, true);
+        PdfPage page = doc.getPage(occupiedArea.getPageNumber());
+        PdfButtonFormField button = PdfFormField.createPushButton(doc, area, name, value, font, fontSize);
+        applyDefaultFieldProperties(button);
+        Background background = this.<Background>getProperty(Property.BACKGROUND);
+        if (background != null && background.getColor() != null) {
+            button.setBackgroundColor(background.getColor());
+        }
+        PdfAcroForm.getAcroForm(doc, true).addField(button, page);
     }
 
     @Override
