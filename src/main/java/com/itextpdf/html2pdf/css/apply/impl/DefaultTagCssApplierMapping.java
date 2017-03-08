@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply.impl;
 
+import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
@@ -69,6 +70,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.BDO, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.BLOCKQUOTE, BlockCssApplier.class);
         mapping.putMapping(TagConstants.BODY, BodyTagCssApplier.class);
+        mapping.putMapping(TagConstants.BUTTON, BlockCssApplier.class);
         //mapping.putMapping(TagConstants.CAPTION, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.CENTER, BlockCssApplier.class);
         mapping.putMapping(TagConstants.CITE, SpanTagCssApplier.class);
@@ -82,6 +84,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.DL, DlTagCssApplier.class);
         mapping.putMapping(TagConstants.DT, BlockCssApplier.class);
         mapping.putMapping(TagConstants.EM, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.FIELDSET, BlockCssApplier.class);
         mapping.putMapping(TagConstants.FIGCAPTION, BlockCssApplier.class);
         mapping.putMapping(TagConstants.FIGURE, BlockCssApplier.class);
         mapping.putMapping(TagConstants.FONT, SpanTagCssApplier.class);
@@ -102,6 +105,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.INS, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.KBD, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.LABEL, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.LEGEND, BlockCssApplier.class);
         mapping.putMapping(TagConstants.LI, LiTagCssApplier.class);
         mapping.putMapping(TagConstants.MAIN, BlockCssApplier.class);
         mapping.putMapping(TagConstants.MARK, SpanTagCssApplier.class);

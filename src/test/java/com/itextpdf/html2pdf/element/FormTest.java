@@ -94,10 +94,34 @@ public class FormTest extends ExtendedITextTest {
     }
 
     @Test
+    public void textFieldHeight2Test() throws IOException, InterruptedException {
+        runTest("textFieldHeight2");
+    }
+
+    @Test
+    public void textFieldHeight3Test() throws IOException, InterruptedException {
+        runTest("textFieldHeight3");
+    }
+
+    @Test
     public void simpleButtonTest() throws IOException, InterruptedException {
         runTest("simpleButton");
     }
 
+    @Test
+    public void fieldsetTest() throws IOException, InterruptedException {
+        runTest("fieldset");
+    }
+
+    @Test
+    public void fieldsetLegendTest() throws IOException, InterruptedException {
+        runTest("fieldsetLegend");
+    }
+
+    @Test
+    public void labelTest() throws IOException, InterruptedException {
+        runTest("label");
+    }
 
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";

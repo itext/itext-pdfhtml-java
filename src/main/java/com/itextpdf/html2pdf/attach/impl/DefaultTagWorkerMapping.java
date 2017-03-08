@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.ATagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.AbbrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.BodyTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.BrTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.ButtonTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ColTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ColgroupTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
@@ -95,6 +96,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.BLOCKQUOTE, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.BODY, BodyTagWorker.class);
         workerMapping.putMapping(TagConstants.BR, BrTagWorker.class);
+        workerMapping.putMapping(TagConstants.BUTTON, ButtonTagWorker.class);
         workerMapping.putMapping(TagConstants.CENTER, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.CITE, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.CODE, SpanTagWorker.class);
@@ -107,11 +109,12 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.DL, UlOlTagWorker.class);
         workerMapping.putMapping(TagConstants.DT, LiTagWorker.class);
         workerMapping.putMapping(TagConstants.EM, SpanTagWorker.class);
-        workerMapping.putMapping(TagConstants.FORM, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.FIELDSET, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.FIGCAPTION, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.FIGURE, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.FONT, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.FOOTER, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.FORM, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.H1, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.H2, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.H3, DivTagWorker.class);
@@ -127,6 +130,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.INS, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.KBD, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.LABEL, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.LEGEND, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.LI, LiTagWorker.class);
         workerMapping.putMapping(TagConstants.LINK, LinkTagWorker.class);
         workerMapping.putMapping(TagConstants.MAIN, DivTagWorker.class);

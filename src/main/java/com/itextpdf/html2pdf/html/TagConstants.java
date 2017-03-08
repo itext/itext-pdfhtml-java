@@ -73,6 +73,7 @@ public final class TagConstants {
     public static final String DT = "dt";
     public static final String DIV = "div";
     public static final String EM = "em";
+    public static final String FIELDSET = "fieldset";
     public static final String FIGCAPTION = "figcaption";
     public static final String FIGURE = "figure";
     public static final String FONT = "font";
@@ -94,6 +95,7 @@ public final class TagConstants {
     public static final String INS = "ins";
     public static final String KBD = "kbd";
     public static final String LABEL = "label";
+    public static final String LEGEND = "legend";
     public static final String LI = "li";
     public static final String LINK = "link";
     public static final String MAIN = "main";
