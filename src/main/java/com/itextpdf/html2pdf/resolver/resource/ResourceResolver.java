@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.text.MessageFormat;
 
 // TODO handle <base href=".."> tag?
@@ -101,6 +102,11 @@ public class ResourceResolver {
 
         try {
             URL url = uriResolver.resolveAgainstBaseUri(src);
+            URLConnection connection = url.openConnection();
+            String location = connection.getHeaderField("location");
+            if (location != null) {
+                url = new URL(location);
+            }
             String imageResolvedSrc = url.toExternalForm();
             PdfImageXObject imageXObject = imageCache.getImage(imageResolvedSrc);
             if (imageXObject == null) {
