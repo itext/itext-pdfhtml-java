@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.resolver.resource;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.io.codec.Base64;
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +53,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.net.URLConnection;
 import java.text.MessageFormat;
 
 // TODO handle <base href=".."> tag?
@@ -102,11 +102,7 @@ public class ResourceResolver {
 
         try {
             URL url = uriResolver.resolveAgainstBaseUri(src);
-            URLConnection connection = url.openConnection();
-            String location = connection.getHeaderField("location");
-            if (location != null) {
-                url = new URL(location);
-            }
+            url = UrlUtil.getFinalUrl(url);
             String imageResolvedSrc = url.toExternalForm();
             PdfImageXObject imageXObject = imageCache.getImage(imageResolvedSrc);
             if (imageXObject == null) {
