@@ -46,15 +46,13 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.IOException;
-
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class ClearTest extends ExtendedITextTest {
@@ -68,11 +66,21 @@ public class ClearTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1070")
-    public void clear01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "clear01Test.html"), new File(destinationFolder + "clear01Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear01Test.pdf", sourceFolder + "cmp_clear01Test.pdf", destinationFolder, "diff01_"));
+    public void clear02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "clear02Test.html"), new File(destinationFolder + "clear02Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear02Test.pdf", sourceFolder + "cmp_clear02Test.pdf", destinationFolder, "diff02_"));
     }
 
+    @Test
+    public void clear03Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "clear03Test.html"), new File(destinationFolder + "clear03Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear03Test.pdf", sourceFolder + "cmp_clear03Test.pdf", destinationFolder, "diff03_"));
+    }
+
+    @Test
+    public void clear04Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "clear04Test.html"), new File(destinationFolder + "clear04Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear04Test.pdf", sourceFolder + "cmp_clear04Test.pdf", destinationFolder, "diff04_"));
+    }
 
 }
