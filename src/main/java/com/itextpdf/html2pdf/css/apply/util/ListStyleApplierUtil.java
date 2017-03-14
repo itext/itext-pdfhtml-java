@@ -49,6 +49,7 @@ import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import com.itextpdf.kernel.numbering.AlphabetNumbering;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IElement;
@@ -199,18 +200,8 @@ public final class ListStyleApplierUtil {
         public IElement createSymbol(int index, IPropertyContainer list, IPropertyContainer listItem) {
             Object preValue = getListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_PRE_TEXT);
             Object postValue = getListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_POST_TEXT);
-            --index;
-            Text result = new Text(preValue + getUnicodeString(index, alphabet) + postValue);
+            Text result = new Text(preValue + AlphabetNumbering.toAlphabetNumber(index, alphabet) + postValue);
             return result;
-        }
-
-        private static String getUnicodeString(int number, char[] alphabet) {
-            StringBuilder builder = new StringBuilder();
-            do {
-                builder.append(alphabet[(number % alphabet.length)]);
-                number /= alphabet.length;
-            } while (number > 0);
-            return builder.reverse().toString();
         }
 
         private static Object getListItemOrListProperty(IPropertyContainer listItem, IPropertyContainer list, int propertyId) {
