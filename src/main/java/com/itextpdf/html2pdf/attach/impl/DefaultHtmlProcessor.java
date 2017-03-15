@@ -340,11 +340,10 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             }
         } else {
             try {
-                //TODO DEVSIX-1059 update ResourceResolver
-                InputStream stream = context.getResourceResolver().retrieveStyleSheet(src.src);
                 // Cache at resource resolver level only, at font level we will create font in any case.
                 // The instance of fontProgram will be collected by GC if the is no need in it.
-                FontProgram fp = FontProgramFactory.createFont(StreamUtil.inputStreamToArray(stream), false);
+                byte[] bytes = context.getResourceResolver().retrieveStream(src.src);
+                FontProgram fp = FontProgramFactory.createFont(bytes, false);
                 context.addTemporaryFont(fontSet.add(fp, PdfEncodings.IDENTITY_H, fontFamily));
                 return true;
             } catch (IOException ignored) {

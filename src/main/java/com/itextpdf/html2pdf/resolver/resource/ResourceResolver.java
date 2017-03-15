@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.resolver.resource;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.io.codec.Base64;
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import org.slf4j.Logger;
@@ -84,6 +85,12 @@ public class ResourceResolver {
         this.imageCache = new SimpleImageCache();
     }
 
+    /**
+     * Retrieve {@link PdfImageXObject}.
+     *
+     * @param src either link to file or base64 encoded stream.
+     * @return PdfImageXObject on success, otherwise null.
+     */
     public PdfImageXObject retrieveImage(String src) {
         if (src.contains("base64")) {
             try {
@@ -96,7 +103,7 @@ public class ResourceResolver {
                 }
 
                 return imageXObject;
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
 
@@ -119,6 +126,31 @@ public class ResourceResolver {
 
     public InputStream retrieveStyleSheet(String uri) throws IOException {
         return uriResolver.resolveAgainstBaseUri(uri).openStream();
+    }
+
+    /**
+     * Retrieve bytes.
+     *
+     * @param src either link to file or base64 encoded stream.
+     * @return byte[] on success, otherwise null.
+     */
+    public byte[] retrieveStream(String src) {
+        if (src.contains("base64")) {
+            try {
+                String fixedSrc = src.replaceAll("\\s", "");
+                fixedSrc = fixedSrc.substring(fixedSrc.indexOf("base64") + 7);
+                return Base64.decode(fixedSrc);
+            } catch (Exception ignored) {
+            }
+        }
+
+        try {
+            return StreamUtil.inputStreamToArray(uriResolver.resolveAgainstBaseUri(src).openStream());
+        } catch (Exception e) {
+            Logger logger = LoggerFactory.getLogger(ResourceResolver.class);
+            logger.error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, uriResolver.getBaseUri(), src), e);
+            return null;
+        }
     }
     
     public void resetCache() {
