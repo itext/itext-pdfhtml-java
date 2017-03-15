@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<style>
+#escaped-single-quote::before {
+content: 'string with \' ';
+}
+#escaped-double-quote::before {
+content: "string with \" ";
+}
+</style>
+<body>
+<div id="escaped-single-quote">div-text</div>
+<div id="escaped-double-quote">div-text</div>
+</body>
+</html>

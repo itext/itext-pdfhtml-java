@@ -40,82 +40,31 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.pseudo;
+package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.css.CssContextNode;
-import com.itextpdf.html2pdf.html.node.IAttribute;
-import com.itextpdf.html2pdf.html.node.IAttributes;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.LinkHelper;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.html2pdf.html.node.INode;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import com.itextpdf.layout.property.Property;
 
-public class CssPseudoElementNode extends CssContextNode implements IElementNode {
-    private String pseudoElementName;
-    private String pseudoElementTagName;
-
-    public CssPseudoElementNode(INode parentNode, String pseudoElementName) {
-        super(parentNode);
-        this.pseudoElementName = pseudoElementName;
-        this.pseudoElementTagName = CssPseudoElementUtil.createPseudoElementTagName(pseudoElementName);
-    }
-
-    public String getPseudoElementName() {
-        return pseudoElementName;
+public class ABlockTagWorker extends DivTagWorker {
+    public ABlockTagWorker(IElementNode element, ProcessorContext context) {
+        super(element, context);
     }
 
     @Override
-    public String name() {
-        return pseudoElementTagName;
-    }
+    public void processEnd(IElementNode element, ProcessorContext context) {
+        super.processEnd(element, context);
 
-    @Override
-    public IAttributes getAttributes() {
-        return new AttributesStub();
-    }
-
-    @Override
-    public String getAttribute(String key) {
-        return null;
-    }
-
-    @Override
-    public List<Map<String, String>> getAdditionalHtmlStyles() {
-        return null;
-    }
-
-    @Override
-    public void addAdditionalHtmlStyles(Map<String, String> styles) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String getLang() {
-        return null;
-    }
-
-    private class AttributesStub implements IAttributes {
-        @Override
-        public String getAttribute(String key) {
-            return null;
+        String url = element.getAttribute(AttributeConstants.HREF);
+        if (url != null) {
+            LinkHelper.applyLinkAnnotation(getElementResult(), url);
         }
 
-        @Override
-        public void setAttribute(String key, String value) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public Iterator<IAttribute> iterator() {
-            return Collections.<IAttribute>emptyIterator();
+        if (getElementResult() != null) {
+            String name = element.getAttribute(AttributeConstants.NAME);
+            getElementResult().setProperty(Property.DESTINATION, name);
         }
     }
 }
-

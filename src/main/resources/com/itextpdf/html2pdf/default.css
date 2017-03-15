@@ -310,6 +310,10 @@ img[align="left"] {
     margin-right: 3px;
 }
 
+img {
+    display:inline-block;
+}
+
 ADDRESS,
 BLOCKQUOTE,
 BODY, DD, DIV,

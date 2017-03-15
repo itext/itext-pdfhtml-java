@@ -54,6 +54,7 @@ import com.itextpdf.html2pdf.css.CssFontFaceRule;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.PageBreakApplierUtil;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
+import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
@@ -255,11 +256,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 ((HtmlTagWorker) tagWorker).processPageRules(node, cssResolver, context);
             }
 
-            visitPseudoElement(node, CssConstants.BEFORE);
+            visitPseudoElement(element, CssConstants.BEFORE);
             for (INode childNode : element.childNodes()) {
                 visit(childNode);
             }
-            visitPseudoElement(node, CssConstants.AFTER);
+            visitPseudoElement(element, CssConstants.AFTER);
 
             if (tagWorker != null) {
                 tagWorker.processEnd(element, context);
@@ -375,8 +376,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
     }
 
-    private void visitPseudoElement(INode node, String pseudoElementName) {
-        if (!(node instanceof CssPseudoElementNode)) {
+    private void visitPseudoElement(IElementNode node, String pseudoElementName) {
+        if (CssPseudoElementUtil.hasBeforeAfterElements(node)) {
             visit(new CssPseudoElementNode(node, pseudoElementName));
         }
     }
@@ -415,12 +416,12 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             if (element.childNodes().isEmpty()) {
                 return false;
             }
-            boolean hasStyles = element.getStyles() != null;
-            String positionVal = hasStyles ? element.getStyles().get(CssConstants.POSITION) : null;
-            String displayVal = hasStyles ? element.getStyles().get(CssConstants.DISPLAY) : null;
-            return element.childNodes().get(0) instanceof ITextNode && !((ITextNode) element.childNodes().get(0)).wholeText().isEmpty() 
-                    || CssConstants.ABSOLUTE.equals(positionVal) || CssConstants.FIXED.equals(positionVal)
-                    || displayVal != null && !CssConstants.INLINE.equals(displayVal);
+//            boolean hasStyles = element.getStyles() != null;
+//            String positionVal = hasStyles ? element.getStyles().get(CssConstants.POSITION) : null;
+//            String displayVal = hasStyles ? element.getStyles().get(CssConstants.DISPLAY) : null;
+//            return element.childNodes().get(0) instanceof ITextNode && !((ITextNode) element.childNodes().get(0)).wholeText().isEmpty()
+//                    || CssConstants.ABSOLUTE.equals(positionVal) || CssConstants.FIXED.equals(positionVal)
+//                    || displayVal != null && !CssConstants.INLINE.equals(displayVal);
         }
         return element != null;
     }

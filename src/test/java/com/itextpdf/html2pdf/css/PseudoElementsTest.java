@@ -133,7 +133,7 @@ public class PseudoElementsTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1049")
+    //TODO: incorrect behaviour because of trimmed non-breakable space
     public void collapsingMarginsBeforeAfterPseudo03() throws IOException, InterruptedException {
         runTest("collapsingMarginsBeforeAfterPseudo03");
     }
@@ -159,16 +159,60 @@ public class PseudoElementsTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1049")
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA))
     public void imgPseudoTest01() throws IOException, InterruptedException {
         // width and height properties doesn't affect image in pseudo element
         runTest("imgPseudoTest01");
     }
 
     @Test
-    @Ignore("DEVSIX-1049")
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
+            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)
+    })
     public void imgPseudoTest02() throws IOException, InterruptedException {
         runTest("imgPseudoTest02");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.CLIP_ELEMENT))
+    public void imgPseudoTest03() throws IOException, InterruptedException {
+        //TODO: not correct
+        runTest("imgPseudoTest03");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA))
+    public void imgPseudoTest04() throws IOException, InterruptedException {
+        runTest("imgPseudoTest04");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2))
+    public void imgPseudoTest05() throws IOException, InterruptedException {
+        //img element created in the process of resolving content isn't affected by img selector in css.
+        runTest("imgPseudoTest05");
+    }
+
+    @Test
+    public void escapedStringTest01() throws IOException, InterruptedException {
+        runTest("escapedStringTest01");
+    }
+
+    @Test
+    public void escapedStringTest02() throws IOException, InterruptedException {
+        runTest("escapedStringTest02");
+    }
+
+    @Test
+    public void escapedStringTest03() throws IOException, InterruptedException {
+        runTest("escapedStringTest03");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 5))
+    public void attrTest01() throws IOException, InterruptedException {
+        runTest("attrTest01");
     }
 
     @Test
