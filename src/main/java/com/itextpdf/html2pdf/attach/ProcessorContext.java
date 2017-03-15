@@ -154,7 +154,7 @@ public class ProcessorContext {
         this.state = new State();
         this.resourceResolver.resetCache();
         this.cssContext = new CssContext();
-        resetTemporaryFonts();
+        removeTemporaryFonts();
     }
 
     public void reset(PdfDocument pdfDocument) {
@@ -162,11 +162,10 @@ public class ProcessorContext {
         this.pdfDocument = pdfDocument;
     }
 
-    private void resetTemporaryFonts() {
+    private void removeTemporaryFonts() {
         for (FontInfo fi : tempFonts) {
             fontProvider.getFontSet().remove(fi);
         }
         tempFonts.clear();
     }
-
 }
