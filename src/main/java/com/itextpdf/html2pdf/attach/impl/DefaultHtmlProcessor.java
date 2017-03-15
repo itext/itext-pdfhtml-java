@@ -61,6 +61,10 @@ import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.ITextNode;
+import com.itextpdf.io.font.FontProgram;
+import com.itextpdf.io.font.FontProgramFactory;
+import com.itextpdf.io.font.PdfEncodings;
+import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
@@ -75,6 +79,8 @@ import com.itextpdf.kernel.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -107,7 +113,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     private ProcessorContext context;
     private List<IPropertyContainer> roots;
     private ICssResolver cssResolver;
-    private Set<FontInfo> temporaryFonts;
 
     public DefaultHtmlProcessor(ConverterProperties converterProperties) {
         this.context = new ProcessorContext(converterProperties);
@@ -154,7 +159,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         context.reset();
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context.getDeviceDescription(), context.getResourceResolver());
-        appendCssFonts();
+        addFontFaceFonts();
         IElementNode html = findHtmlNode(root);
         IElementNode body = findBodyNode(root);
         // Force resolve styles to fetch default font size etc
@@ -175,7 +180,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 elements.add((com.itextpdf.layout.element.IElement) propertyContainer);
             }
         }
-        revertCssFonts();
         cssResolver = null;
         roots = null;
         return elements;
@@ -226,11 +230,10 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         // TODO store html version from document type in context if necessary
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context.getDeviceDescription(), context.getResourceResolver());
-        appendCssFonts();
+        addFontFaceFonts();
         root = findHtmlNode(root);
         visit(root);
         Document doc = (Document) roots.get(0);
-        revertCssFonts();
         cssResolver = null;
         roots = null;
         return doc;
@@ -310,33 +313,44 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     /**
      * Adds @font-face fonts to the FontProvider.
      */
-    protected void appendCssFonts() {
-        if (! (cssResolver instanceof DefaultCssResolver)) {
-            return;
-        }
+    protected void addFontFaceFonts() {
         //TODO Shall we add getFonts() to ICssResolver?
-        for (CssFontFaceRule fontFace: ((DefaultCssResolver)cssResolver).getFonts()) {
-            //TODO
-            // 1. Check required font-family (alias)
-            // 2. parse src
-            // 3. check local (e.g. already loaded to FontProvider fonts)
-            // 4. Create FontInfo, add alias
-            // 5. save to temporaryFonts.
-        }
-
-
-    }
-
-    /**
-     * Revert local @font-face fonts.
-     */
-    protected void revertCssFonts() {
-        if (temporaryFonts != null) {
-            FontSet fontSet = context.getFontProvider().getFontSet();
-            for (FontInfo fontInfo: temporaryFonts) {
-                fontSet.remove(fontInfo);
+        //TODO DEVSIX-1059 check font removing.
+        if (cssResolver instanceof DefaultCssResolver) {
+            for (CssFontFaceRule fontFace : ((DefaultCssResolver) cssResolver).getFonts()) {
+                FontFace ff = FontFace.create(fontFace.getProperties());
+                if (ff != null) {
+                    for (FontFace.FontFaceSrc src : ff.getSources()) {
+                        if (createFont(ff.getFontFamily(), src)) {
+                            break;
+                        }
+                    }
+                }
             }
         }
+    }
+
+    private boolean createFont(String fontFamily, FontFace.FontFaceSrc src) {
+        FontSet fontSet = context.getFontProvider().getFontSet();
+        if (src.isLocal) { // to method with lazy initialization
+            FontInfo fi = fontSet.get(src.src);
+            if (fi != null) {
+                context.addTemporaryFont(fontSet.add(fi, fontFamily));
+                return true;
+            }
+        } else {
+            try {
+                //TODO DEVSIX-1059 update ResourceResolver
+                InputStream stream = context.getResourceResolver().retrieveStyleSheet(src.src);
+                // Cache at resource resolver level only, at font level we will create font in any case.
+                // The instance of fontProgram will be collected by GC if the is no need in it.
+                FontProgram fp = FontProgramFactory.createFont(StreamUtil.inputStreamToArray(stream), false);
+                context.addTemporaryFont(fontSet.add(fp, PdfEncodings.IDENTITY_H, fontFamily));
+                return true;
+            } catch (IOException ignored) {
+            }
+        }
+        return false;
     }
 
     private void visitPseudoElement(INode node, String pseudoElementName) {
