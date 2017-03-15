@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<style>
+#escaped-slash::before {
+content: 'string with \\ ';
+}
+#escaped-other::before {
+content: "no\n hex di\g\it ma\y be e\scaped with no effect ";
+}
+</style>
+<body>
+<div id="escaped-slash">div-text</div>
+<div id="escaped-other">div-text</div>
+</body>
+</html>

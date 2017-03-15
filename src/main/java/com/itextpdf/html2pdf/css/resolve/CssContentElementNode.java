@@ -40,45 +40,42 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.pseudo;
+package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.css.CssContextNode;
+import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IAttributes;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
-import java.util.Collections;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class CssPseudoElementNode extends CssContextNode implements IElementNode {
-    private String pseudoElementName;
-    private String pseudoElementTagName;
+class CssContentElementNode extends CssContextNode implements IElementNode {
+    private Attributes attributes;
+    private String tagName;
 
-    public CssPseudoElementNode(INode parentNode, String pseudoElementName) {
+    public CssContentElementNode(INode parentNode, String pseudoElementName, Map<String, String> attributes) {
         super(parentNode);
-        this.pseudoElementName = pseudoElementName;
-        this.pseudoElementTagName = CssPseudoElementUtil.createPseudoElementTagName(pseudoElementName);
-    }
-
-    public String getPseudoElementName() {
-        return pseudoElementName;
+        this.tagName = CssPseudoElementUtil.createPseudoElementTagName(pseudoElementName);
+        this.attributes = new Attributes(attributes);
     }
 
     @Override
     public String name() {
-        return pseudoElementTagName;
+        return tagName;
     }
 
     @Override
     public IAttributes getAttributes() {
-        return new AttributesStub();
+        return attributes;
     }
 
     @Override
     public String getAttribute(String key) {
-        return null;
+        return attributes.getAttribute(key);
     }
 
     @Override
@@ -88,7 +85,7 @@ public class CssPseudoElementNode extends CssContextNode implements IElementNode
 
     @Override
     public void addAdditionalHtmlStyles(Map<String, String> styles) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("addAdditionalHtmlStyles");
     }
 
     @Override
@@ -96,26 +93,72 @@ public class CssPseudoElementNode extends CssContextNode implements IElementNode
         return null;
     }
 
-    private class AttributesStub implements IAttributes {
+    private class Attributes implements IAttributes {
+        private Map<String, String> attributes;
+
+        public Attributes(Map<String, String> attributes) {
+            this.attributes = attributes;
+        }
+
         @Override
         public String getAttribute(String key) {
-            return null;
+            return attributes.get(key);
         }
 
         @Override
         public void setAttribute(String key, String value) {
-            throw new UnsupportedOperationException();
+            throw new UnsupportedOperationException("setAttribute");
         }
 
         @Override
         public int size() {
-            return 0;
+            return attributes.size();
         }
 
         @Override
         public Iterator<IAttribute> iterator() {
-            return Collections.<IAttribute>emptyIterator();
+            return new AttributeIterator(attributes.entrySet().iterator());
+        }
+    }
+
+    private class Attribute implements IAttribute {
+        private Map.Entry<String, String> entry;
+
+        public Attribute(Map.Entry<String, String> entry) {
+            this.entry = entry;
+        }
+
+        @Override
+        public String getKey() {
+            return entry.getKey();
+        }
+
+        @Override
+        public String getValue() {
+            return entry.getValue();
+        }
+    }
+
+    private class AttributeIterator implements Iterator<IAttribute> {
+        private Iterator<Map.Entry<String, String>> iterator;
+
+        public AttributeIterator(Iterator<Map.Entry<String, String>> iterator) {
+            this.iterator = iterator;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return iterator.hasNext();
+        }
+
+        @Override
+        public IAttribute next() {
+            return new Attribute(iterator.next());
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("remove");
         }
     }
 }
-

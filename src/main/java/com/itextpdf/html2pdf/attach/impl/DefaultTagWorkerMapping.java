@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
+import com.itextpdf.html2pdf.attach.impl.tags.ABlockTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ATagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.AbbrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.BodyTagWorker;
@@ -68,6 +69,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.TrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.UlOlTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
+import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
@@ -158,15 +160,17 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.DT, CssConstants.INLINE, SpanTagWorker.class);
 
         workerMapping.putMapping(TagConstants.SPAN, CssConstants.BLOCK, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.A, CssConstants.BLOCK, ABlockTagWorker.class);
 
 
         // pseudo elements mapping
-        String beforePseudoElemName = CssPseudoElementNode.createPseudoElementTagName(CssConstants.BEFORE);
-        String afterPseudoElemName = CssPseudoElementNode.createPseudoElementTagName(CssConstants.AFTER);
+        String beforePseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.BEFORE);
+        String afterPseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.AFTER);
         workerMapping.putMapping(beforePseudoElemName, SpanTagWorker.class);
         workerMapping.putMapping(afterPseudoElemName, SpanTagWorker.class);
         workerMapping.putMapping(beforePseudoElemName, CssConstants.BLOCK, DivTagWorker.class);
         workerMapping.putMapping(afterPseudoElemName, CssConstants.BLOCK, DivTagWorker.class);
+        workerMapping.putMapping(CssPseudoElementUtil.createPseudoElementTagName(TagConstants.IMG), ImgTagWorker.class);
     }
 
     static TagProcessorMapping getDefaultTagWorkerMapping() {

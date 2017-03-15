@@ -44,61 +44,70 @@ package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
+import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.ITextNode;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class CssContentPropertyResolver {
 
-    static INode resolveContent(String contentStr, INode contentContainer, CssContext context) {
+    static List<INode> resolveContent(String contentStr, INode contentContainer, CssContext context) {
+        ArrayList<INode> result = new ArrayList<>();
         if (contentStr == null || CssConstants.NONE.equals(contentStr) || CssConstants.NORMAL.equals(contentStr)) {
             return null;
         }
-
-        StringBuilder content = new StringBuilder();
-        StringBuilder nonDirectContent = new StringBuilder();
-        boolean insideQuotes = false;
-        boolean insideDoubleQuotes = false;
-        for (int i = 0; i < contentStr.length(); ++i) {
-            if (contentStr.charAt(i) == '"' && (!insideQuotes || insideDoubleQuotes) 
-                    || contentStr.charAt(i) == '\'' && (!insideQuotes || !insideDoubleQuotes)) {
-                if (!insideQuotes) {
-                    // TODO in future, try to resolve if counter() or smth like that encountered
-                    if (!nonDirectContent.toString().trim().isEmpty()) {
-                        break;
+        ContentListTokenizer tokenizer = new ContentListTokenizer(contentStr);
+        ContentToken token;
+        while ((token = tokenizer.getNextValidToken()) != null) {
+            if (!token.isString()) {
+                if (token.getValue().startsWith("url(")) {
+                    HashMap<String, String> attributes = new HashMap<>();
+                    attributes.put(AttributeConstants.SRC, CssUtils.extractUrl(token.getValue()));
+                    //TODO: probably should add user agent styles on CssContentElementNode creation, not here.
+                    attributes.put(AttributeConstants.STYLE, "display:inline-block;");
+                    result.add(new CssContentElementNode(contentContainer, TagConstants.IMG, attributes));
+                } else if (token.getValue().startsWith("attr(") && contentContainer instanceof CssPseudoElementNode) {
+                    int endBracket = token.getValue().indexOf(')');
+                    if (endBracket > 5 ) {
+                        String attrName = token.getValue().substring(5, endBracket);
+                        if (attrName.contains("(") || attrName.contains(" ")
+                                || attrName.contains("'") || attrName.contains("\"")) {
+                            return errorFallback(contentStr);
+                        }
+                        IElementNode element = (IElementNode) contentContainer.parentNode();
+                        result.add(new ContentTextNode(contentContainer, element.getAttribute(attrName)));
                     }
-                    nonDirectContent.setLength(0);
-                    insideDoubleQuotes = contentStr.charAt(i) == '"'; 
+                } else {
+                    return errorFallback(contentStr);
                 }
-                insideQuotes = !insideQuotes;
-            } else if (insideQuotes) {
-                content.append(contentStr.charAt(i));
             } else {
-                nonDirectContent.append(contentStr.charAt(i));
+                result.add(new ContentTextNode(contentContainer, token.getValue()));
             }
         }
-        if (!nonDirectContent.toString().trim().isEmpty()) {
-            Logger logger = LoggerFactory.getLogger(CssContentPropertyResolver.class);
-            
-            int logMessageParameterMaxLength = 100;
-            if (contentStr.length() > logMessageParameterMaxLength) {
-                contentStr = contentStr.substring(0, logMessageParameterMaxLength) + ".....";
-            }
-            
-            logger.error(MessageFormat.format(LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
-            return null;
+        return result;
+    }
+
+    private static List<INode> errorFallback(String contentStr) {
+        Logger logger = LoggerFactory.getLogger(CssContentPropertyResolver.class);
+
+        int logMessageParameterMaxLength = 100;
+        if (contentStr.length() > logMessageParameterMaxLength) {
+            contentStr = contentStr.substring(0, logMessageParameterMaxLength) + ".....";
         }
-        // TODO resolve unicode sequences. see PseudoElementsTest#collapsingMarginsBeforeAfterPseudo03
-        String resolvedContent = content.toString();
-        
-        // TODO in future, when img content values will be supported, some specific IElementNode might be returned with 
-        // correct src attribute, however this element shall not get img styles from css style sheet 
-        // and also the one that implements it should be aware of possible infinite loop (see PseudoElementsTest#imgPseudoTest02)
-        return new ContentTextNode(contentContainer, resolvedContent);
+
+        logger.error(MessageFormat.format(LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
+        return null;
     }
 
     private static class ContentTextNode implements ITextNode {
@@ -130,5 +139,113 @@ class CssContentPropertyResolver {
             return content;
         }
 
+    }
+
+    private static class ContentListTokenizer {
+        private String src;
+        private int index;
+        private char stringQuote;
+        private boolean inString;
+
+        public ContentListTokenizer(String src) {
+            this.src = src;
+            index = -1;
+        }
+
+        public ContentToken getNextValidToken() {
+            ContentToken token = getNextToken();
+            while (token != null && !token.isString() && token.getValue().trim().isEmpty()) {
+                token = getNextToken();
+            }
+            return token;
+        }
+
+        private ContentToken getNextToken() {
+            StringBuilder buff = new StringBuilder();
+            char curChar;
+            if (index >= src.length() - 1) {
+                return null;
+            }
+            if (!inString) {
+                while (++index < src.length()) {
+                    curChar = src.charAt(index);
+                    if (curChar == '(') {
+                        int closeBracketIndex = src.indexOf(')', index);
+                        if (closeBracketIndex == -1) {
+                            closeBracketIndex = src.length() - 1;
+                        }
+                        buff.append(src.substring(index, closeBracketIndex + 1));
+                        index = closeBracketIndex;
+                    } else if (curChar == '"' || curChar == '\'') {
+                        stringQuote = curChar;
+                        inString = true;
+                        return new ContentToken(buff.toString(), false);
+                    } else if (Character.isWhitespace(curChar)) {
+                        return new ContentToken(buff.toString(), false);
+                    } else {
+                        buff.append(curChar);
+                    }
+                }
+            } else {
+                boolean isEscaped = false;
+                StringBuilder pendingUnicodeSequence = new StringBuilder();
+                while (++index < src.length()) {
+                    curChar = src.charAt(index);
+                    if (isEscaped) {
+                        if (isHexDigit(curChar) && pendingUnicodeSequence.length() < 6) {
+                            pendingUnicodeSequence.append(curChar);
+                        } else if (pendingUnicodeSequence.length() != 0) {
+                            buff.appendCodePoint(Integer.parseInt(pendingUnicodeSequence.toString(), 16));
+                            pendingUnicodeSequence.setLength(0);
+                            if (curChar == stringQuote) {
+                                inString = false;
+                                return new ContentToken(buff.toString(), true);
+                            } else if (!Character.isWhitespace(curChar)) {
+                                buff.append(curChar);
+                            }
+                            isEscaped = false;
+                        } else {
+                            buff.append(curChar);
+                            isEscaped = false;
+                        }
+                    } else if (curChar == stringQuote){
+                        inString = false;
+                        return new ContentToken(buff.toString(), true);
+                    } else if (curChar == '\\') {
+                        isEscaped = true;
+                    } else {
+                        buff.append(curChar);
+                    }
+                }
+            }
+            return new ContentToken(buff.toString(), false);
+        }
+
+        private boolean isHexDigit(char c) {
+            return (47 < c && c < 58) || (64 < c && c < 71) || (96 < c && c < 103);
+        }
+    }
+
+    private static class ContentToken {
+        private String value;
+        private boolean isString;
+
+        public ContentToken(String value, boolean isString) {
+            this.value = value;
+            this.isString = isString;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public boolean isString() {
+            return isString;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
     }
 }

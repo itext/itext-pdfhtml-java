@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
+import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
@@ -133,14 +134,16 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.DT, CssConstants.INLINE, SpanTagCssApplier.class);
 
         mapping.putMapping(TagConstants.SPAN, CssConstants.BLOCK, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.A, CssConstants.BLOCK, BlockCssApplier.class);
 
         // pseudo elements mapping
-        String beforePseudoElemName = CssPseudoElementNode.createPseudoElementTagName(CssConstants.BEFORE);
-        String afterPseudoElemName = CssPseudoElementNode.createPseudoElementTagName(CssConstants.AFTER);
+        String beforePseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.BEFORE);
+        String afterPseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.AFTER);
         mapping.putMapping(beforePseudoElemName, SpanTagCssApplier.class);
         mapping.putMapping(afterPseudoElemName, SpanTagCssApplier.class);
         mapping.putMapping(beforePseudoElemName, CssConstants.BLOCK, BlockCssApplier.class);
         mapping.putMapping(afterPseudoElemName, CssConstants.BLOCK, BlockCssApplier.class);
+        mapping.putMapping(CssPseudoElementUtil.createPseudoElementTagName(TagConstants.IMG), BlockCssApplier.class);
     }
 
     static TagProcessorMapping getDefaultCssApplierMapping() {

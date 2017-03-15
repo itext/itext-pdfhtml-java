@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.kernel.geom.Rectangle;
@@ -54,11 +55,8 @@ import com.itextpdf.layout.property.Property;
 
 public class ATagWorker extends SpanTagWorker {
 
-    private IElementNode element;
-
     public ATagWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
-        this.element = element;
     }
 
     @Override
@@ -68,7 +66,7 @@ public class ATagWorker extends SpanTagWorker {
         String url = element.getAttribute(AttributeConstants.HREF);
         if (url != null) {
             for (IPropertyContainer childElement : getAllElements()) {
-                childElement.setProperty(Property.LINK_ANNOTATION, createLinkAnnotation(url));
+                LinkHelper.applyLinkAnnotation(childElement, url);
             }
         }
 
@@ -79,15 +77,5 @@ public class ATagWorker extends SpanTagWorker {
         }
     }
 
-    private PdfLinkAnnotation createLinkAnnotation(String url) {
-        PdfLinkAnnotation linkAnnotation;
-        if (url.startsWith("#")) {
-            String name = url.substring(1);
-            linkAnnotation = new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createGoTo(name));
-        } else {
-            linkAnnotation = new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createURI(url));
-        }
-        linkAnnotation.setBorder(new PdfArray(new float[]{0, 0, 0}));
-        return linkAnnotation;
-    }
+
 }

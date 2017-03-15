@@ -174,9 +174,11 @@ public class DefaultCssResolver implements ICssResolver {
 
     private void resolveContentProperty(String contentVal, INode contentContainer, CssContext context) {
         if (contentContainer instanceof CssPseudoElementNode || contentContainer instanceof PageMarginBoxContextNode) {
-            INode resolvedContent = CssContentPropertyResolver.resolveContent(contentVal, contentContainer, context);
+            List<INode> resolvedContent = CssContentPropertyResolver.resolveContent(contentVal, contentContainer, context);
             if (resolvedContent != null) {
-                contentContainer.addChild(resolvedContent);
+                for (INode child : resolvedContent) {
+                    contentContainer.addChild(child);
+                }
             }
         }
     }

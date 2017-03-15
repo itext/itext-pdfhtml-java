@@ -40,82 +40,27 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.pseudo;
+package com.itextpdf.html2pdf.attach.util;
 
-import com.itextpdf.html2pdf.css.CssContextNode;
-import com.itextpdf.html2pdf.html.node.IAttribute;
-import com.itextpdf.html2pdf.html.node.IAttributes;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.html2pdf.html.node.INode;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import com.itextpdf.kernel.geom.Rectangle;
+import com.itextpdf.kernel.pdf.PdfArray;
+import com.itextpdf.kernel.pdf.action.PdfAction;
+import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
+import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.property.Property;
 
-public class CssPseudoElementNode extends CssContextNode implements IElementNode {
-    private String pseudoElementName;
-    private String pseudoElementTagName;
-
-    public CssPseudoElementNode(INode parentNode, String pseudoElementName) {
-        super(parentNode);
-        this.pseudoElementName = pseudoElementName;
-        this.pseudoElementTagName = CssPseudoElementUtil.createPseudoElementTagName(pseudoElementName);
-    }
-
-    public String getPseudoElementName() {
-        return pseudoElementName;
-    }
-
-    @Override
-    public String name() {
-        return pseudoElementTagName;
-    }
-
-    @Override
-    public IAttributes getAttributes() {
-        return new AttributesStub();
-    }
-
-    @Override
-    public String getAttribute(String key) {
-        return null;
-    }
-
-    @Override
-    public List<Map<String, String>> getAdditionalHtmlStyles() {
-        return null;
-    }
-
-    @Override
-    public void addAdditionalHtmlStyles(Map<String, String> styles) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String getLang() {
-        return null;
-    }
-
-    private class AttributesStub implements IAttributes {
-        @Override
-        public String getAttribute(String key) {
-            return null;
-        }
-
-        @Override
-        public void setAttribute(String key, String value) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public Iterator<IAttribute> iterator() {
-            return Collections.<IAttribute>emptyIterator();
+public class LinkHelper {
+    public static void applyLinkAnnotation(IPropertyContainer container, String url) {
+        if (container != null) {
+            PdfLinkAnnotation linkAnnotation;
+            if (url.startsWith("#")) {
+                String name = url.substring(1);
+                linkAnnotation = new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createGoTo(name));
+            } else {
+                linkAnnotation = new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createURI(url));
+            }
+            linkAnnotation.setBorder(new PdfArray(new float[]{0, 0, 0}));
+            container.setProperty(Property.LINK_ANNOTATION, linkAnnotation);
         }
     }
 }
-
