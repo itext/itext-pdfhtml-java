@@ -51,11 +51,16 @@ import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.FontProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProcessorContext {
 
     private FontProvider fontProvider;
+    private List<FontInfo> tempFonts;
     private ResourceResolver resourceResolver;
     private MediaDeviceDescription deviceDescription;
     private ITagWorkerFactory tagWorkerFactory;
@@ -82,6 +87,7 @@ public class ProcessorContext {
         if (fontProvider == null) {
             fontProvider = new DefaultFontProvider();
         }
+        tempFonts = new ArrayList<>();
 
         tagWorkerFactory = converterProperties.getTagWorkerFactory();
         if (tagWorkerFactory == null) {
@@ -139,16 +145,28 @@ public class ProcessorContext {
         return cssContext;
     }
 
+    public void addTemporaryFont(FontInfo fontInfo) {
+        tempFonts.add(fontInfo);
+    }
+
     public void reset() {
         this.pdfDocument = null;
         this.state = new State();
         this.resourceResolver.resetCache();
         this.cssContext = new CssContext();
+        resetTemporaryFonts();
     }
 
     public void reset(PdfDocument pdfDocument) {
         reset();
         this.pdfDocument = pdfDocument;
+    }
+
+    private void resetTemporaryFonts() {
+        for (FontInfo fi : tempFonts) {
+            fontProvider.getFontSet().remove(fi);
+        }
+        tempFonts.clear();
     }
 
 }

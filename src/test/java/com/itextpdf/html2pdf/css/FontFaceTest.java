@@ -87,6 +87,12 @@ public class FontFaceTest extends ExtendedITextTest {
 
     @Test
     @Ignore("DEVSIX-1059")
+    public void droidSerifLocalLocalFontTest() throws IOException, InterruptedException {
+        runTest("droidSerifLocalLocalFontTest");
+    }
+
+    @Test
+    @Ignore("DEVSIX-1059")
     public void droidSerifLocalWithMediaFontTest() throws IOException, InterruptedException {
         runTest("droidSerifLocalWithMediaFontTest");
     }

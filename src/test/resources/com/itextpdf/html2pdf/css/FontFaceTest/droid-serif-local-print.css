@@ -10,7 +10,7 @@
     font-family: 'Droid Serif';
     font-weight: 700;
     font-style: normal;
-    src: url('web-fonts/droid-serif-bold.ttf') format('truetype');
+    src: url('web-fonts/droid-serif-bold.ttf') format('opentype');
   }
 
   @font-face {
@@ -24,6 +24,6 @@
     font-family: 'Droid Serif';
     font-weight: 400;
     font-style: italic;
-    src: url('web-fonts/droid-serif-italic.ttf') format('truetype');
+    src: url('web-fonts/droid-serif-italic.ttf') format('opentype');
   }
 }

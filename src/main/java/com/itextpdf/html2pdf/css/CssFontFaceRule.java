@@ -47,15 +47,19 @@ import java.util.List;
 
 public class CssFontFaceRule extends CssNestedAtRule {
 
-    List<CssDeclaration> fontProperties;
+    List<CssDeclaration> properties;
 
     protected CssFontFaceRule(String ruleParameters) {
         super(CssRuleName.FONT_FACE, ruleParameters);
     }
 
+    public List<CssDeclaration> getProperties() {
+        return properties;
+    }
+
     @Override
     public void addBodyCssDeclarations(List<CssDeclaration> cssDeclarations) {
-        fontProperties = cssDeclarations;
+        properties = cssDeclarations;
     }
 
     @Override
@@ -64,7 +68,7 @@ public class CssFontFaceRule extends CssNestedAtRule {
         sb.append(MessageFormat.format("@{0} ", ruleName));
         sb.append("{");
         sb.append("\n");
-        for (CssDeclaration declaration : fontProperties) {
+        for (CssDeclaration declaration : properties) {
             sb.append("\t");
             sb.append(declaration);
             sb.append("\n");
