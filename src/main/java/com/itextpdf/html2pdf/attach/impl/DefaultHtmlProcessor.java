@@ -314,13 +314,18 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         //TODO DEVSIX-1059 check font removing.
         if (cssResolver instanceof DefaultCssResolver) {
             for (CssFontFaceRule fontFace : ((DefaultCssResolver) cssResolver).getFonts()) {
+                boolean findSupportedSrc = false;
                 FontFace ff = FontFace.create(fontFace.getProperties());
                 if (ff != null) {
                     for (FontFace.FontFaceSrc src : ff.getSources()) {
                         if (createFont(ff.getFontFamily(), src)) {
+                            findSupportedSrc = true;
                             break;
                         }
                     }
+                }
+                if (!findSupportedSrc) {
+                    logger.error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace));
                 }
             }
         }
