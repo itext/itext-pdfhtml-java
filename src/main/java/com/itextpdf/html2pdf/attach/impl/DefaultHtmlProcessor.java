@@ -64,12 +64,10 @@ import com.itextpdf.html2pdf.html.node.ITextNode;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
-import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.font.FontInfo;
-import com.itextpdf.layout.font.FontSet;
 import com.itextpdf.layout.property.Property;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -79,8 +77,6 @@ import com.itextpdf.kernel.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -331,12 +327,15 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     }
 
     private boolean createFont(String fontFamily, FontFace.FontFaceSrc src) {
-        FontSet fontSet = context.getFontProvider().getFontSet();
-        if (src.isLocal) { // to method with lazy initialization
-            FontInfo fi = fontSet.get(src.src);
+        if (!supportedFontFormat(src.format)) {
+            return false;
+        } else if (src.isLocal) { // to method with lazy initialization
+            FontInfo fi = context.getFontProvider().getFontSet().get(src.src);
             if (fi != null) {
-                context.addTemporaryFont(fontSet.add(fi, fontFamily));
+                context.addTemporaryFont(context.getFontProvider().getFontSet().add(fi, fontFamily));
                 return true;
+            } else {
+                return false;
             }
         } else {
             try {
@@ -344,12 +343,31 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 // The instance of fontProgram will be collected by GC if the is no need in it.
                 byte[] bytes = context.getResourceResolver().retrieveStream(src.src);
                 FontProgram fp = FontProgramFactory.createFont(bytes, false);
-                context.addTemporaryFont(fontSet.add(fp, PdfEncodings.IDENTITY_H, fontFamily));
+                context.addTemporaryFont(context.getFontProvider().getFontSet().
+                        add(fp, PdfEncodings.IDENTITY_H, fontFamily));
                 return true;
-            } catch (IOException ignored) {
+            } catch (Exception ignored) {
+                return false;
             }
         }
-        return false;
+    }
+
+    /**
+     * Checks whether in general we support requested font format
+     * Update after DEVSIX-1148
+     *
+     * @param format {@link com.itextpdf.html2pdf.attach.impl.FontFace.FontFormat}
+     * @return true, if supported or unrecognized.
+     */
+    private boolean supportedFontFormat(FontFace.FontFormat format) {
+        switch (format) {
+            case None:
+            case TrueType:
+            case OpenType:
+                return true;
+            default:
+                return false;
+        }
     }
 
     private void visitPseudoElement(INode node, String pseudoElementName) {

@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.media.MediaType;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -69,33 +70,33 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1059")
     public void droidSerifWebFontTest() throws IOException, InterruptedException {
         runTest("droidSerifWebFontTest");
     }
 
     @Test
-    @Ignore("DEVSIX-1059")
     public void droidSerifLocalFontTest() throws IOException, InterruptedException {
         runTest("droidSerifLocalFontTest");
     }
 
     @Test
-    @Ignore("DEVSIX-1059")
     public void droidSerifLocalLocalFontTest() throws IOException, InterruptedException {
         runTest("droidSerifLocalLocalFontTest");
     }
 
     @Test
-    @Ignore("DEVSIX-1059")
     public void droidSerifLocalWithMediaFontTest() throws IOException, InterruptedException {
         runTest("droidSerifLocalWithMediaFontTest");
     }
 
     @Test
-    @Ignore("DEVSIX-1059")
     public void droidSerifLocalWithMediaRuleFontTest() throws IOException, InterruptedException {
         runTest("droidSerifLocalWithMediaRuleFontTest");
+    }
+
+    @Test
+    public void droidSerifLocalWithMediaRuleFontTest2() throws IOException, InterruptedException {
+        runTest("droidSerifLocalWithMediaRuleFontTest2");
     }
 
     private void runTest(String name) throws IOException, InterruptedException {
@@ -103,6 +104,8 @@ public class FontFaceTest extends ExtendedITextTest {
         String pdfPath = destinationFolder + name + ".pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
         String diffPrefix = "diff_" + name + "_";
+
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
 
         HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath),
                 new ConverterProperties().setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
