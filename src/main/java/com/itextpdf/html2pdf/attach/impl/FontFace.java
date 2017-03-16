@@ -96,6 +96,10 @@ class FontFace {
         return sources;
     }
 
+    public String getAlias() {
+        return alias;
+    }
+
     private FontFace(String alias, List<FontFaceSrc> sources) {
         this.alias = alias;
         this.sources = sources;
@@ -113,6 +117,11 @@ class FontFace {
         final String src;
         final boolean isLocal;
 
+        @Override
+        public String toString() {
+            return String.format("%s(%s)%s", isLocal ? "local" : "url", src, format != FontFormat.None ? String.format(" format(%s)", format) : "");
+        }
+
         static FontFaceSrc create(String src) {
             Matcher m = UrlPattern.matcher(src);
             if (!m.matches()) {
@@ -122,12 +131,6 @@ class FontFace {
             return new FontFaceSrc(unquote(m.group(UrlGroup)),
                     "local".equals(m.group(TypeGroup)),
                     parseFormat(m.group(FormatGroup)));
-        }
-
-        private FontFaceSrc(String src, boolean isLocal, FontFormat format) {
-            this.format = format;
-            this.src = src;
-            this.isLocal = isLocal;
         }
 
         static FontFormat parseFormat(String formatStr) {
@@ -155,6 +158,12 @@ class FontFace {
                 return quotedString.substring(1, quotedString.length() - 1);
             }
             return quotedString;
+        }
+
+        private FontFaceSrc(String src, boolean isLocal, FontFormat format) {
+            this.format = format;
+            this.src = src;
+            this.isLocal = isLocal;
         }
     }
 
