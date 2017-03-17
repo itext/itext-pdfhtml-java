@@ -83,4 +83,10 @@ public class ClearTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear04Test.pdf", sourceFolder + "cmp_clear04Test.pdf", destinationFolder, "diff04_"));
     }
 
+    @Test
+    public void clear05Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "clear05Test.html"), new File(destinationFolder + "clear05Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear05Test.pdf", sourceFolder + "cmp_clear05Test.pdf", destinationFolder, "diff05_"));
+    }
+
 }
