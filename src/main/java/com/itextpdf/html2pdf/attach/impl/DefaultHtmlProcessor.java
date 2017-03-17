@@ -178,6 +178,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 elements.add((com.itextpdf.layout.element.IElement) propertyContainer);
             }
         }
+        context.removeTemporaryFonts();
         cssResolver = null;
         roots = null;
         return elements;
@@ -317,7 +318,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      */
     protected void addFontFaceFonts() {
         //TODO Shall we add getFonts() to ICssResolver?
-        //TODO DEVSIX-1059 check font removing.
         if (cssResolver instanceof DefaultCssResolver) {
             for (CssFontFaceRule fontFace : ((DefaultCssResolver) cssResolver).getFonts()) {
                 boolean findSupportedSrc = false;
