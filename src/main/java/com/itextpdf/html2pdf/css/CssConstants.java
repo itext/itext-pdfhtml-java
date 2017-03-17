@@ -186,6 +186,7 @@ public class CssConstants {
     public static final String CENTER = "center";
     public static final String CIRCLE = "circle";
     public static final String CJK_IDEOGRAPHIC = "cjk-ideographic";
+    public static final String CLOSE_QUOTE = "close-quote";
     public static final String CONTAIN = "contain";
     public static final String CONTENT_BOX = "content-box";
     public static final String COVER = "cover";
@@ -230,10 +231,13 @@ public class CssConstants {
     public static final String MENU = "menu";
     public static final String MESSAGE_BOX = "message-box";
     public static final String MIDDLE = "middle";
+    public static final String NO_OPEN_QUOTE = "no-open-quote";
+    public static final String NO_CLOSE_QUOTE = "no-close-quote";
     public static final String NO_REPEAT = "no-repeat";
     public static final String NONE = "none";
     public static final String NORMAL = "normal";
     public static final String OBLIQUE = "oblique";
+    public static final String OPEN_QUOTE = "open-quote";
     public static final String OUTSIDE = "outside";
     public static final String OUTSET = "outset";
     public static final String OVERLINE = "overline";

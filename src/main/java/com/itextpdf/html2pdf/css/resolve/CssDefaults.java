@@ -120,6 +120,8 @@ public class CssDefaults {
 
         defaultValues.put(CssConstants.POSITION, CssConstants.STATIC);
 
+        defaultValues.put(CssConstants.QUOTES, "\"\\00ab\" \"\\00bb\"");
+
         defaultValues.put(CssConstants.TEXT_ALIGN, CssConstants.START);
         defaultValues.put(CssConstants.TEXT_DECORATION, CssConstants.NONE);
         defaultValues.put(CssConstants.TEXT_TRANSFORM, CssConstants.NONE);

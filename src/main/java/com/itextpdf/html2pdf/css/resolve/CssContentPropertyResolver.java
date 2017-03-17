@@ -44,31 +44,36 @@ package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.CssContextNode;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.html2pdf.html.node.ITextNode;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class CssContentPropertyResolver {
 
-    static List<INode> resolveContent(String contentStr, INode contentContainer, CssContext context) {
+    static List<INode> resolveContent(Map<String, String> styles, INode contentContainer, CssContext context) {
+        String contentStr = styles.get(CssConstants.CONTENT);
         ArrayList<INode> result = new ArrayList<>();
         if (contentStr == null || CssConstants.NONE.equals(contentStr) || CssConstants.NORMAL.equals(contentStr)) {
             return null;
         }
-        ContentListTokenizer tokenizer = new ContentListTokenizer(contentStr);
+        ContentTokenizer tokenizer = new ContentTokenizer(contentStr);
         ContentToken token;
+        CssQuotes quotes = null;
         while ((token = tokenizer.getNextValidToken()) != null) {
             if (!token.isString()) {
                 if (token.getValue().startsWith("url(")) {
@@ -86,8 +91,18 @@ class CssContentPropertyResolver {
                             return errorFallback(contentStr);
                         }
                         IElementNode element = (IElementNode) contentContainer.parentNode();
-                        result.add(new ContentTextNode(contentContainer, element.getAttribute(attrName)));
+                        String value = element.getAttribute(attrName);
+                        result.add(new ContentTextNode(contentContainer, value == null ? "" : value));
                     }
+                } else if (token.getValue().endsWith("quote") && contentContainer instanceof IStylesContainer) {
+                    if (quotes == null) {
+                        quotes = new CssQuotes(styles.get(CssConstants.QUOTES));
+                    }
+                    String value = quotes.resolveQuote(token.getValue(), context);
+                    if (value == null) {
+                        return errorFallback(contentStr);
+                    }
+                    result.add(new ContentTextNode(contentContainer, value));
                 } else {
                     return errorFallback(contentStr);
                 }
@@ -141,13 +156,13 @@ class CssContentPropertyResolver {
 
     }
 
-    private static class ContentListTokenizer {
+    private static class ContentTokenizer {
         private String src;
         private int index;
         private char stringQuote;
         private boolean inString;
 
-        public ContentListTokenizer(String src) {
+        public ContentTokenizer(String src) {
             this.src = src;
             index = -1;
         }
@@ -246,6 +261,85 @@ class CssContentPropertyResolver {
         @Override
         public String toString() {
             return value;
+        }
+    }
+
+    private static class CssQuotes {
+        private static final String EMPTY_QUOTE = "";
+
+        private ArrayList<String> openQuotes = new ArrayList<>();
+        private ArrayList<String> closeQuotes = new ArrayList<>();
+
+        public CssQuotes(String quotes) {
+            if (quotes == null) {
+                defaultInit();
+            } else {
+                ContentTokenizer tokenizer = new ContentTokenizer(quotes);
+                ContentToken token;
+                ArrayList<String> quotesArray;
+                for (int i = 0; ((token = tokenizer.getNextValidToken()) != null); ++i) {
+                    quotesArray = i % 2 == 0 ? openQuotes : closeQuotes;
+                    if (token.isString()) {
+                        quotesArray.add(token.getValue());
+                    } else {
+                        defaultInit(quotes);
+                        break;
+                    }
+                }
+                if (openQuotes.size() != closeQuotes.size() || openQuotes.size() == 0) {
+                    defaultInit(quotes);
+                }
+            }
+        }
+
+        public String resolveQuote(String value, CssContext context) {
+            int depth = context.getQuotesDepth();
+            if (CssConstants.OPEN_QUOTE.equals(value)) {
+                increaseDepth(context);
+                return getQuote(depth, openQuotes);
+            } else if (CssConstants.CLOSE_QUOTE.equals(value)) {
+                decreaseDepth(context);
+                return getQuote(depth - 1, closeQuotes);
+            } else if (CssConstants.NO_OPEN_QUOTE.equals(value)) {
+                increaseDepth(context);
+                return EMPTY_QUOTE;
+            } else if (CssConstants.NO_CLOSE_QUOTE.equals(value)) {
+                decreaseDepth(context);
+                return EMPTY_QUOTE;
+            }
+            return null;
+        }
+
+        private void defaultInit() {
+            openQuotes.clear();
+            openQuotes.add("\u00ab");
+            closeQuotes.clear();
+            closeQuotes.add("\u00bb");
+        }
+
+        private void defaultInit(String errorValue) {
+            LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.QUOTES_PROPERTY_INVALID, errorValue));
+            defaultInit();
+        }
+
+        private void increaseDepth(CssContext context) {
+            context.setQuotesDepth(context.getQuotesDepth() + 1);
+        }
+
+        private void decreaseDepth(CssContext context) {
+            if (context.getQuotesDepth() > 0) {
+                context.setQuotesDepth(context.getQuotesDepth() - 1);
+            }
+        }
+
+        private String getQuote(int depth, ArrayList<String> quotes) {
+            if (depth >= quotes.size()) {
+                return quotes.get(quotes.size() - 1);
+            }
+            if (depth < 0) {
+                return EMPTY_QUOTE;
+            }
+            return quotes.get(depth);
         }
     }
 }

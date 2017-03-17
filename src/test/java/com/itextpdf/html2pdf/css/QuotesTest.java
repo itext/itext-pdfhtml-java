@@ -40,16 +40,11 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.element;
+package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import com.itextpdf.html2pdf.Html2PdfProductInfo;
-import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -64,19 +59,49 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class QTest extends ExtendedITextTest {
-
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/QTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/QTest/";
+public class QuotesTest extends ExtendedITextTest {
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/QuotesTest/";
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/QuotesTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(destinationFolder);
     }
 
     @Test
-    public void q01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "qTest01.html"), new File(destinationFolder + "qTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "qTest01.pdf", sourceFolder + "cmp_qTest01.pdf", destinationFolder, "diff01_"));
+    public void depthTest01() throws IOException, InterruptedException {
+        runTest("depthTest01");
+    }
+
+    @Test
+    public void depthTest02() throws IOException, InterruptedException {
+        runTest("depthTest02");
+    }
+
+    @Test
+    public void escapedTest() throws IOException, InterruptedException {
+        runTest("escapedTest");
+    }
+
+    @Test
+    public void noQuoteTest() throws IOException, InterruptedException {
+        runTest("noQuoteTest");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.QUOTES_PROPERTY_INVALID, count = 2))
+    public void errorTest() throws IOException, InterruptedException {
+        //TODO: in case of error we fallback to defaults while html fallbacks to previous correct value
+        runTest("errorTest");
+    }
+
+    private void runTest(String name) throws IOException, InterruptedException {
+        String htmlPath = sourceFolder + name + ".html";
+        String pdfPath = destinationFolder + name + ".pdf";
+        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+        String diffPrefix = "diff_" + name + "_";
+
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
+        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
     }
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html {
+quotes: "+1" "-1" "+2" "-2" "+3" "-3" "+4" "-4" "+5" "-5" "+6" "-6" "+7" "-7" "+8" "-8"
+}
+div::before {
+content: open-quote open-quote" two open quotes of " attr(id) 
+}
+div::after {
+content: close-quote" one close quote of " attr(id)
+}
+</style>
+</head>
+<body>
+<p>Quotes depth is counted in the same order elemetns are rendered and is not affected by perent/child relations.</p>
+<div id="parent">
+This is a first level div.
+<div id="child-one">
+This is a second level div.
+<div id="deep-child">
+This is third level div.
+</div>
+</div>
+<div id="child-two">
+This is a another second level div.
+<div>
+</div>
+</body>
+</html>
