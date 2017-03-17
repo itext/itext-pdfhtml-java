@@ -50,6 +50,8 @@ public class CssContext {
     //value in pt
     private float rootFontSize = FontStyleApplierUtil.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
 
+    private int quotesDepth = 0;
+
     public float getRootFontSize() {
         return rootFontSize;
     }
@@ -60,5 +62,13 @@ public class CssContext {
 
     public void setRootFontSize(String fontSizeStr) {
         this.rootFontSize = FontStyleApplierUtil.parseAbsoluteFontSize(fontSizeStr);
+    }
+
+    public int getQuotesDepth() {
+        return quotesDepth;
+    }
+
+    public void setQuotesDepth(int quotesDepth) {
+        this.quotesDepth = quotesDepth;
     }
 }

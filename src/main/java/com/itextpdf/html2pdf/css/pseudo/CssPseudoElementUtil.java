@@ -52,7 +52,7 @@ public class CssPseudoElementUtil {
     }
 
     public static boolean hasBeforeAfterElements(IElementNode node) {
-        if (node == null || node instanceof CssPseudoElementUtil || node.name().startsWith(TAG_NAME_PREFIX)) {
+        if (node == null || node instanceof CssPseudoElementNode || node.name().startsWith(TAG_NAME_PREFIX)) {
             return false;
         }
         return true;

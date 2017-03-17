@@ -163,7 +163,7 @@ public class DefaultCssResolver implements ICssResolver {
             elementStyles.put(key, CssDefaults.getDefaultValue(key));
         }
         
-        resolveContentProperty(elementStyles.get(CssConstants.CONTENT), element, context);
+        resolveContentProperty(elementStyles, element, context);
 
         return elementStyles;
     }
@@ -172,9 +172,9 @@ public class DefaultCssResolver implements ICssResolver {
         return fonts;
     }
 
-    private void resolveContentProperty(String contentVal, INode contentContainer, CssContext context) {
+    private void resolveContentProperty(Map<String, String> styles, INode contentContainer, CssContext context) {
         if (contentContainer instanceof CssPseudoElementNode || contentContainer instanceof PageMarginBoxContextNode) {
-            List<INode> resolvedContent = CssContentPropertyResolver.resolveContent(contentVal, contentContainer, context);
+            List<INode> resolvedContent = CssContentPropertyResolver.resolveContent(styles, contentContainer, context);
             if (resolvedContent != null) {
                 for (INode child : resolvedContent) {
                     contentContainer.addChild(child);

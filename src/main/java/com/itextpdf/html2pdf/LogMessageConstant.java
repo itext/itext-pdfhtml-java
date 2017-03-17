@@ -60,6 +60,7 @@ public final class LogMessageConstant {
     public static final String PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED = "Padding value in percents not supported";
     public static final String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
     public static final String QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION = "The quote is not closed in css expression: {0}";
+    public static final String QUOTES_PROPERTY_INVALID = "Quote property \"{0}\" is invalid. It should contain even number of <string> values.";
     public static final String RULE_IS_NOT_SUPPORTED = "The rule @{0} is unsupported. All selectors in this rule will be ignored.";
     public static final String TEXT_DECORATION_BLINK_NOT_SUPPORTED = "text-decoration: blink not supported";
     public static final String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";

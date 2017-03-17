@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html {
+quotes: "\00ab" "\00bb" "\te\s\t" "-test" "\"" "\"" '\'' '\''
+}
+div::before {
+content: open-quote open-quote open-quote open-quote open-quote
+}
+div::after {
+content: close-quote close-quote close-quote close-quote close-quote
+}
+</style>
+</head>
+<body>
+<div>
+div
+</div>
+</body>
+</html>
