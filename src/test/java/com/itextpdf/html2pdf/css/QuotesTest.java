@@ -89,7 +89,7 @@ public class QuotesTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.QUOTES_PROPERTY_INVALID, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.QUOTES_PROPERTY_INVALID, count = 4))
     public void errorTest() throws IOException, InterruptedException {
         //TODO: in case of error we fallback to defaults while html fallbacks to previous correct value
         runTest("errorTest");
