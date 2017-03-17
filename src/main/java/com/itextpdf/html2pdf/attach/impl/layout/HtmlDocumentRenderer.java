@@ -57,6 +57,7 @@ import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HtmlDocumentRenderer extends DocumentRenderer {
@@ -70,7 +71,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     // first page break-before might change right page to left (in ltr cases), but a blank page will not be added
     private boolean currentPageEven = true;
     // An child element is kept waiting for the next one to process "keep with previous" property
-    private IRenderer waitingElement;
+    private List<IRenderer> waitingElements = new ArrayList<>();
     private boolean shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = true;
     private boolean anythingAddedToCurrentArea = false;
     private int estimatedNumberOfPages;
@@ -95,16 +96,36 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
 
     @Override
     public void addChild(IRenderer renderer) {
-        if (waitingElement != null) {
-            if (Boolean.TRUE.equals(renderer.<Boolean>getProperty(Html2PdfProperty.KEEP_WITH_PREVIOUS))) {
-                waitingElement.setProperty(Property.KEEP_WITH_NEXT, true);
+        if (waitingElements.size() > 0 && !renderer.hasProperty(Property.FLOAT)) {
+            boolean floatElementsWasMet = false;
+            for (IRenderer waitingElement : waitingElements) {
+                if (Boolean.TRUE.equals(renderer.<Boolean>getProperty(Html2PdfProperty.KEEP_WITH_PREVIOUS))) {
+                    waitingElement.setProperty(Property.KEEP_WITH_NEXT, true);
+                }
+                if (waitingElement.hasProperty(Property.FLOAT)) {
+                    waitingElement.setProperty(Property.DRAW_AFTER_NEXT, true);
+                    super.addChild(waitingElement);
+                    floatElementsWasMet = true;
+                } else {
+                    super.addChild(waitingElement);
+                }
+                // After we have added any child, we should not trim first pages because of break before element, even if the added child had zero height
+                shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
             }
-            super.addChild(waitingElement);
-            // After we have added any child, we should not trim first pages because of break before element, even if the added child had zero height
-            shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
-            waitingElement = null;
+            if (floatElementsWasMet) {
+                super.addChild(renderer);
+                for (IRenderer waitingElement : waitingElements) {
+                    flushSingleRenderer(waitingElement);
+                }
+            }
+
+            waitingElements.clear();
+            if (!floatElementsWasMet) {
+                waitingElements.add(renderer);
+            }
+        } else {
+            waitingElements.add(renderer);
         }
-        waitingElement = renderer;
     }
 
     @Override
@@ -223,6 +244,11 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         return new PageSize(addedPage.getTrimBox());
     }
 
+        if (waitingElements.size() > 0) {
+            for (IRenderer waitingElement : waitingElements) {
+                super.addChild(waitingElement);
+            }
+        }
     int getEstimatedNumberOfPages() {
         return estimatedNumberOfPages;
     }
