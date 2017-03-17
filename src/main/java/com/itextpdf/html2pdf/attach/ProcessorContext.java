@@ -159,8 +159,25 @@ public class ProcessorContext {
         return formFieldNameResolver;
     }
 
+    /**
+     * Add temporary fonts from @font-face.
+     * @param fontInfo {@link FontInfo} of the just created font.
+     */
     public void addTemporaryFont(FontInfo fontInfo) {
         tempFonts.add(fontInfo);
+    }
+
+    /**
+     * Remove previously added temporary fonts.
+     * All temporary fonts shall be removed after document processing.
+     *
+     * @see #addTemporaryFont(FontInfo)
+     */
+    public void removeTemporaryFonts() {
+        for (FontInfo fi : tempFonts) {
+            fontProvider.getFontSet().remove(fi);
+        }
+        tempFonts.clear();
     }
 
     public void reset() {
@@ -169,18 +186,10 @@ public class ProcessorContext {
         this.resourceResolver.resetCache();
         this.cssContext = new CssContext();
         this.formFieldNameResolver.reset();
-        removeTemporaryFonts();
     }
 
     public void reset(PdfDocument pdfDocument) {
         reset();
         this.pdfDocument = pdfDocument;
-    }
-
-    private void removeTemporaryFonts() {
-        for (FontInfo fi : tempFonts) {
-            fontProvider.getFontSet().remove(fi);
-        }
-        tempFonts.clear();
     }
 }
