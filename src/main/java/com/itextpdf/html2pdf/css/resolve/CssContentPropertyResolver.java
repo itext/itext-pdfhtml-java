@@ -44,7 +44,6 @@ package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.CssContextNode;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
@@ -71,11 +70,13 @@ class CssContentPropertyResolver {
         if (contentStr == null || CssConstants.NONE.equals(contentStr) || CssConstants.NORMAL.equals(contentStr)) {
             return null;
         }
-        ContentTokenizer tokenizer = new ContentTokenizer(contentStr);
-        ContentToken token;
+        CssContentTokenizer tokenizer = new CssContentTokenizer(contentStr);
+        CssContentTokenizer.ContentToken token;
         CssQuotes quotes = null;
         while ((token = tokenizer.getNextValidToken()) != null) {
-            if (!token.isString()) {
+            if (token.isString()) {
+                result.add(new ContentTextNode(contentContainer, token.getValue()));
+            } else {
                 if (token.getValue().startsWith("url(")) {
                     HashMap<String, String> attributes = new HashMap<>();
                     attributes.put(AttributeConstants.SRC, CssUtils.extractUrl(token.getValue()));
@@ -96,7 +97,7 @@ class CssContentPropertyResolver {
                     }
                 } else if (token.getValue().endsWith("quote") && contentContainer instanceof IStylesContainer) {
                     if (quotes == null) {
-                        quotes = new CssQuotes(styles.get(CssConstants.QUOTES));
+                        quotes = CssQuotes.createQuotes(styles.get(CssConstants.QUOTES), true);
                     }
                     String value = quotes.resolveQuote(token.getValue(), context);
                     if (value == null) {
@@ -106,8 +107,6 @@ class CssContentPropertyResolver {
                 } else {
                     return errorFallback(contentStr);
                 }
-            } else {
-                result.add(new ContentTextNode(contentContainer, token.getValue()));
             }
         }
         return result;
@@ -154,192 +153,5 @@ class CssContentPropertyResolver {
             return content;
         }
 
-    }
-
-    private static class ContentTokenizer {
-        private String src;
-        private int index;
-        private char stringQuote;
-        private boolean inString;
-
-        public ContentTokenizer(String src) {
-            this.src = src;
-            index = -1;
-        }
-
-        public ContentToken getNextValidToken() {
-            ContentToken token = getNextToken();
-            while (token != null && !token.isString() && token.getValue().trim().isEmpty()) {
-                token = getNextToken();
-            }
-            return token;
-        }
-
-        private ContentToken getNextToken() {
-            StringBuilder buff = new StringBuilder();
-            char curChar;
-            if (index >= src.length() - 1) {
-                return null;
-            }
-            if (!inString) {
-                while (++index < src.length()) {
-                    curChar = src.charAt(index);
-                    if (curChar == '(') {
-                        int closeBracketIndex = src.indexOf(')', index);
-                        if (closeBracketIndex == -1) {
-                            closeBracketIndex = src.length() - 1;
-                        }
-                        buff.append(src.substring(index, closeBracketIndex + 1));
-                        index = closeBracketIndex;
-                    } else if (curChar == '"' || curChar == '\'') {
-                        stringQuote = curChar;
-                        inString = true;
-                        return new ContentToken(buff.toString(), false);
-                    } else if (Character.isWhitespace(curChar)) {
-                        return new ContentToken(buff.toString(), false);
-                    } else {
-                        buff.append(curChar);
-                    }
-                }
-            } else {
-                boolean isEscaped = false;
-                StringBuilder pendingUnicodeSequence = new StringBuilder();
-                while (++index < src.length()) {
-                    curChar = src.charAt(index);
-                    if (isEscaped) {
-                        if (isHexDigit(curChar) && pendingUnicodeSequence.length() < 6) {
-                            pendingUnicodeSequence.append(curChar);
-                        } else if (pendingUnicodeSequence.length() != 0) {
-                            buff.appendCodePoint(Integer.parseInt(pendingUnicodeSequence.toString(), 16));
-                            pendingUnicodeSequence.setLength(0);
-                            if (curChar == stringQuote) {
-                                inString = false;
-                                return new ContentToken(buff.toString(), true);
-                            } else if (!Character.isWhitespace(curChar)) {
-                                buff.append(curChar);
-                            }
-                            isEscaped = false;
-                        } else {
-                            buff.append(curChar);
-                            isEscaped = false;
-                        }
-                    } else if (curChar == stringQuote){
-                        inString = false;
-                        return new ContentToken(buff.toString(), true);
-                    } else if (curChar == '\\') {
-                        isEscaped = true;
-                    } else {
-                        buff.append(curChar);
-                    }
-                }
-            }
-            return new ContentToken(buff.toString(), false);
-        }
-
-        private boolean isHexDigit(char c) {
-            return (47 < c && c < 58) || (64 < c && c < 71) || (96 < c && c < 103);
-        }
-    }
-
-    private static class ContentToken {
-        private String value;
-        private boolean isString;
-
-        public ContentToken(String value, boolean isString) {
-            this.value = value;
-            this.isString = isString;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public boolean isString() {
-            return isString;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
-    }
-
-    private static class CssQuotes {
-        private static final String EMPTY_QUOTE = "";
-
-        private ArrayList<String> openQuotes = new ArrayList<>();
-        private ArrayList<String> closeQuotes = new ArrayList<>();
-
-        public CssQuotes(String quotes) {
-            if (quotes == null) {
-                defaultInit();
-            } else {
-                ContentTokenizer tokenizer = new ContentTokenizer(quotes);
-                ContentToken token;
-                ArrayList<String> quotesArray;
-                for (int i = 0; ((token = tokenizer.getNextValidToken()) != null); ++i) {
-                    quotesArray = i % 2 == 0 ? openQuotes : closeQuotes;
-                    if (token.isString()) {
-                        quotesArray.add(token.getValue());
-                    } else {
-                        defaultInit(quotes);
-                        break;
-                    }
-                }
-                if (openQuotes.size() != closeQuotes.size() || openQuotes.size() == 0) {
-                    defaultInit(quotes);
-                }
-            }
-        }
-
-        public String resolveQuote(String value, CssContext context) {
-            int depth = context.getQuotesDepth();
-            if (CssConstants.OPEN_QUOTE.equals(value)) {
-                increaseDepth(context);
-                return getQuote(depth, openQuotes);
-            } else if (CssConstants.CLOSE_QUOTE.equals(value)) {
-                decreaseDepth(context);
-                return getQuote(depth - 1, closeQuotes);
-            } else if (CssConstants.NO_OPEN_QUOTE.equals(value)) {
-                increaseDepth(context);
-                return EMPTY_QUOTE;
-            } else if (CssConstants.NO_CLOSE_QUOTE.equals(value)) {
-                decreaseDepth(context);
-                return EMPTY_QUOTE;
-            }
-            return null;
-        }
-
-        private void defaultInit() {
-            openQuotes.clear();
-            openQuotes.add("\u00ab");
-            closeQuotes.clear();
-            closeQuotes.add("\u00bb");
-        }
-
-        private void defaultInit(String errorValue) {
-            LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.QUOTES_PROPERTY_INVALID, errorValue));
-            defaultInit();
-        }
-
-        private void increaseDepth(CssContext context) {
-            context.setQuotesDepth(context.getQuotesDepth() + 1);
-        }
-
-        private void decreaseDepth(CssContext context) {
-            if (context.getQuotesDepth() > 0) {
-                context.setQuotesDepth(context.getQuotesDepth() - 1);
-            }
-        }
-
-        private String getQuote(int depth, ArrayList<String> quotes) {
-            if (depth >= quotes.size()) {
-                return quotes.get(quotes.size() - 1);
-            }
-            if (depth < 0) {
-                return EMPTY_QUOTE;
-            }
-            return quotes.get(depth);
-        }
     }
 }

@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.validate.impl.datatype.CssColorValidator;
 import com.itextpdf.html2pdf.css.validate.impl.datatype.CssEnumValidator;
+import com.itextpdf.html2pdf.css.validate.impl.datatype.CssQuotesValidator;
 import com.itextpdf.html2pdf.css.validate.impl.declaration.MultiTypeDeclarationValidator;
 import com.itextpdf.html2pdf.css.validate.impl.declaration.SingleTypeDeclarationValidator;
 
@@ -80,6 +81,11 @@ public class CssDeclarationValidationMaster {
         DEFAULT_VALIDATORS.put(CssConstants.PAGE_BREAK_AFTER,
                 new SingleTypeDeclarationValidator(
                         new CssEnumValidator(CssConstants.AUTO, CssConstants.ALWAYS, CssConstants.AVOID, CssConstants.LEFT, CssConstants.RIGHT)));
+        DEFAULT_VALIDATORS.put(CssConstants.QUOTES,
+                new MultiTypeDeclarationValidator(
+                        new CssEnumValidator(CssConstants.INITIAL, CssConstants.INHERIT, CssConstants.NONE),
+                        new CssQuotesValidator()
+                ));
     }
 
     private CssDeclarationValidationMaster() {
