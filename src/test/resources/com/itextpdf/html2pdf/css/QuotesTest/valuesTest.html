@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html {
+quotes: "+1" "-1" "+2" "-2" "+3" "-3" "+4" "-4" "+5" "-5" "+6" "-6" "+7" "-7" "+8" "-8" "+9" "-9"
+}
+div::before {
+content: open-quote;
+}
+div::after {
+content: close-quote;
+}
+#init {
+quotes: initial;
+}
+#inherit {
+quotes: inherit;
+}
+#none {
+quotes: none;
+}
+</style>
+</head>
+<body>
+<div id="init">
+initial
+</div>
+<div id="inherit">
+inherit
+</div>
+<div id="none">
+none
+</div>
+</body>
+</html>

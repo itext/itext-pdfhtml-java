@@ -94,16 +94,26 @@ public class QuotesTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.QUOTES_PROPERTY_INVALID, count = 2))
+    public void valuesTest() throws IOException, InterruptedException {
+        runTest("valuesTest");
+    }
+
+    @Test
+    //attr() is not supported in quotes property in browsers
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.QUOTES_PROPERTY_INVALID),
+            @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
+    })
     public void attrTest() throws IOException, InterruptedException {
-        //attr() is not supported in quotes property in browsers
         runTest("attrTest");
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.QUOTES_PROPERTY_INVALID, count = 4))
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.QUOTES_PROPERTY_INVALID, count = 2),
+            @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2)
+    })
     public void errorTest() throws IOException, InterruptedException {
-        //TODO: in case of error we fallback to defaults while html fallbacks to previous correct value
         runTest("errorTest");
     }
 

@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf;
 
 public final class LogMessageConstant {
 
-    public static final String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or has unsupported value. At the moment, only <string> values are supported.";
+    public static final String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or has unsupported value. Supported values are <string>, <url>, <quote>, <attr> (<attr> is not supported in page margin box)";
     public static final String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
     public static final String ERROR_LOADING_FONT = "Error while loading font";
     public static final String ERROR_PARSING_CSS_SELECTOR = "Error while parsing css selector";
