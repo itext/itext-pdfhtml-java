@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html {
+quotes: "\00ab" "\00bb"
+}
+div {
+quotes: attr(open) attr(close) " aba " " caba "
+}
+div::before {
+content: open-quote open-quote
+}
+div::after {
+content: close-quote close-quote
+}
+</style>
+</head>
+<body>
+<div open=" open " close=" close ">
+attr in quotes
+</div>
+</div>
+</body>
+</html>

@@ -96,7 +96,7 @@ public class CssPseudoElementNode extends CssContextNode implements IElementNode
         return null;
     }
 
-    private class AttributesStub implements IAttributes {
+    private static class AttributesStub implements IAttributes {
         @Override
         public String getAttribute(String key) {
             return null;

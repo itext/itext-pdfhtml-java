@@ -254,7 +254,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             }
             if (tagWorker instanceof HtmlTagWorker) {
                 ((HtmlTagWorker) tagWorker).processPageRules(node, cssResolver, context);
-                context.getCssContext().setQuotesDepth(0);
             }
 
             visitPseudoElement(element, CssConstants.BEFORE);

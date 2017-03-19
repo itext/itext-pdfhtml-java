@@ -93,7 +93,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode {
         return null;
     }
 
-    private class Attributes implements IAttributes {
+    private static class Attributes implements IAttributes {
         private Map<String, String> attributes;
 
         public Attributes(Map<String, String> attributes) {
@@ -121,7 +121,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode {
         }
     }
 
-    private class Attribute implements IAttribute {
+    private static class Attribute implements IAttribute {
         private Map.Entry<String, String> entry;
 
         public Attribute(Map.Entry<String, String> entry) {
@@ -139,7 +139,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode {
         }
     }
 
-    private class AttributeIterator implements Iterator<IAttribute> {
+    private static class AttributeIterator implements Iterator<IAttribute> {
         private Iterator<Map.Entry<String, String>> iterator;
 
         public AttributeIterator(Iterator<Map.Entry<String, String>> iterator) {

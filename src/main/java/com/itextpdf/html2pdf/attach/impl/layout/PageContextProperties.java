@@ -97,6 +97,7 @@ class PageContextProperties {
                 marginBoxNode.setStyles(marginBoxStyles);
                 resolvedMarginBoxes.add(marginBoxNode);
             }
+            context.setQuotesDepth(0);
         }
         return resolvedMarginBoxes;
     }
