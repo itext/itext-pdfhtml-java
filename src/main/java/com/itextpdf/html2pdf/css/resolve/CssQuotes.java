@@ -57,27 +57,27 @@ public class CssQuotes {
 
     public static CssQuotes createQuotes(String quotesString, boolean fallbackToDefault) {
         boolean error = false;
-        ArrayList<String>[] quotes = new ArrayList[2];
-        quotes[0] = new ArrayList<>();
-        quotes[1] = new ArrayList<>();
+        ArrayList<ArrayList<String>> quotes = new ArrayList<>(2);
+        quotes.add(new ArrayList<String>());
+        quotes.add(new ArrayList<String>());
         if (quotesString != null) {
             if (quotesString.equals(CssConstants.NONE)) {
-                quotes[0].add(EMPTY_QUOTE);
-                quotes[1].add(EMPTY_QUOTE);
-                return new CssQuotes(quotes[0], quotes[1]);
+                quotes.get(0).add(EMPTY_QUOTE);
+                quotes.get(1).add(EMPTY_QUOTE);
+                return new CssQuotes(quotes.get(0), quotes.get(1));
             }
             CssContentTokenizer tokenizer = new CssContentTokenizer(quotesString);
             CssContentTokenizer.ContentToken token;
             for (int i = 0; ((token = tokenizer.getNextValidToken()) != null); ++i) {
                 if (token.isString()) {
-                    quotes[i % 2].add(token.getValue());
+                    quotes.get(i % 2).add(token.getValue());
                 } else {
                     error = true;
                     break;
                 }
             }
-            if (quotes[0].size() == quotes[1].size() && !quotes[0].isEmpty() && !error) {
-                return new CssQuotes(quotes[0], quotes[1]);
+            if (quotes.get(0).size() == quotes.get(1).size() && !quotes.get(0).isEmpty() && !error) {
+                return new CssQuotes(quotes.get(0), quotes.get(1));
             } else {
                 LoggerFactory.getLogger(CssQuotes.class).error(MessageFormat.format(LogMessageConstant.QUOTES_PROPERTY_INVALID, quotesString));
             }
