@@ -79,6 +79,11 @@ public class QuotesTest extends ExtendedITextTest {
     }
 
     @Test
+    public void depthTest03() throws IOException, InterruptedException {
+        runTest("depthTest03");
+    }
+
+    @Test
     public void escapedTest() throws IOException, InterruptedException {
         runTest("escapedTest");
     }
@@ -86,6 +91,13 @@ public class QuotesTest extends ExtendedITextTest {
     @Test
     public void noQuoteTest() throws IOException, InterruptedException {
         runTest("noQuoteTest");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.QUOTES_PROPERTY_INVALID, count = 2))
+    public void attrTest() throws IOException, InterruptedException {
+        //attr() is not supported in quotes property in browsers
+        runTest("attrTest");
     }
 
     @Test

@@ -195,6 +195,16 @@ public class PseudoElementsTest extends ExtendedITextTest {
     }
 
     @Test
+    public void imgPseudoTest06() throws IOException, InterruptedException {
+        runTest("imgPseudoTest06");
+    }
+
+    @Test
+    public void imgPseudoTest07() throws IOException, InterruptedException {
+        runTest("imgPseudoTest07");
+    }
+
+    @Test
     public void escapedStringTest01() throws IOException, InterruptedException {
         runTest("escapedStringTest01");
     }
@@ -214,6 +224,13 @@ public class PseudoElementsTest extends ExtendedITextTest {
     public void attrTest01() throws IOException, InterruptedException {
         runTest("attrTest01");
     }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 3))
+    public void attrTest02() throws IOException, InterruptedException {
+        runTest("attrTest02");
+    }
+
 
     @Test
     public void emptyStillShownPseudoTest01() throws IOException, InterruptedException {

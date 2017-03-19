@@ -42,7 +42,10 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssRuleName;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
@@ -51,17 +54,25 @@ import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.ITextNode;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Canvas;
+import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
+import org.slf4j.LoggerFactory;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -340,11 +351,29 @@ class PageContextProcessor {
                 // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
                 throw new IllegalStateException();
             }
-            // TODO process possible images in future
-            if (marginBoxProps.childNodes().get(0) instanceof ITextNode) {
-                String text = ((ITextNode) marginBoxProps.childNodes().get(0)).wholeText();
-                marginBox.add(new Paragraph(text).setMargin(0));
+            WaitingInlineElementsHelper inlineHelper = new WaitingInlineElementsHelper(boxStyles.get(CssConstants.WHITE_SPACE), boxStyles.get(CssConstants.TEXT_TRANSFORM));
+            for (INode child : marginBoxProps.childNodes()) {
+                if (child instanceof IElementNode) {
+                    //TODO: support only for element node with no children
+                    IElementNode elementNode = (IElementNode) child;
+                    ITagWorker worker = context.getTagWorkerFactory().getTagWorker(elementNode, context);
+                    if (worker != null) {
+                        worker.processEnd(elementNode, context);
+                        IPropertyContainer element = worker.getElementResult();
+                        if (element instanceof IBlockElement) {
+                            inlineHelper.flushHangingLeaves(marginBox);
+                            marginBox.add((IBlockElement) element);
+                        } else if (element instanceof ILeafElement) {
+                            inlineHelper.add((ILeafElement) element);
+                        }
+                    }
+                } else if (child instanceof ITextNode) {
+                    inlineHelper.add(((ITextNode) child).wholeText());
+                } else {
+                    LoggerFactory.getLogger(getClass()).error(LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
+                }
             }
+            inlineHelper.flushHangingLeaves(marginBox);
         }
     }
 
