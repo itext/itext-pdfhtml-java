@@ -357,6 +357,7 @@ class PageContextProcessor {
             marginBox.setMargins(boxMargins[0], boxMargins[1], boxMargins[2], boxMargins[3]);
             marginBox.setPaddings(boxPaddings[0], boxPaddings[1], boxPaddings[2], boxPaddings[3]);
             marginBox.setProperty(Property.FONT_PROVIDER, context.getFontProvider());
+            marginBox.setProperty(Property.FONT_SET, context.getTempFonts());
             marginBox.setFillAvailableArea(true);
 
             if (marginBoxContentNode.childNodes().isEmpty()) {
