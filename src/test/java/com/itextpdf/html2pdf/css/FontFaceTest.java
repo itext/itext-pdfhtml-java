@@ -46,9 +46,11 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.media.MediaType;
+import com.itextpdf.html2pdf.exception.Html2PdfException;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
@@ -56,6 +58,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -99,12 +102,30 @@ public class FontFaceTest extends ExtendedITextTest {
         runTest("droidSerifLocalWithMediaRuleFontTest2");
     }
 
+    @Test
+    public void droidSerifLocalWithMediaRuleFontTest3() throws IOException, InterruptedException {
+        String name = "droidSerifLocalWithMediaRuleFontTest";
+        String htmlPath = sourceFolder + name + ".html";
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+
+        ConverterProperties converterProperties = new ConverterProperties()
+                .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT))
+                .setFontProvider(new FontProvider());
+        String exception = null;
+        try {
+            HtmlConverter.convertToPdf(htmlPath, new ByteArrayOutputStream(), converterProperties);
+        } catch (Exception e) {
+            exception = e.getMessage();
+        }
+        Assert.assertEquals("Font Provider with zero fonts shall fail",
+                Html2PdfException.FontProviderContainsZeroFonts, exception);
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
         String diffPrefix = "diff_" + name + "_";
-
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
 
         ConverterProperties converterProperties = new ConverterProperties()

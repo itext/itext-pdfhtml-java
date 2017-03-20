@@ -51,17 +51,16 @@ import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.html2pdf.resolver.form.FormFieldNameResolver;
 import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
+import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.FontProvider;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.itextpdf.layout.font.FontSet;
 
 public class ProcessorContext {
 
     private FontProvider fontProvider;
-    private List<FontInfo> tempFonts;
+    private FontSet tempFonts;
     private ResourceResolver resourceResolver;
     private MediaDeviceDescription deviceDescription;
     private ITagWorkerFactory tagWorkerFactory;
@@ -90,7 +89,6 @@ public class ProcessorContext {
         if (fontProvider == null) {
             fontProvider = new DefaultFontProvider();
         }
-        tempFonts = new ArrayList<>();
 
         tagWorkerFactory = converterProperties.getTagWorkerFactory();
         if (tagWorkerFactory == null) {
@@ -131,6 +129,10 @@ public class ProcessorContext {
         return fontProvider;
     }
 
+    public FontSet getTempFonts() {
+        return tempFonts;
+    }
+
     public ResourceResolver getResourceResolver() {
         return resourceResolver;
     }
@@ -160,24 +162,31 @@ public class ProcessorContext {
     }
 
     /**
-     * Add temporary fonts from @font-face.
-     * @param fontInfo {@link FontInfo} of the just created font.
+     * Add temporary font from @font-face.
      */
-    public void addTemporaryFont(FontInfo fontInfo) {
-        tempFonts.add(fontInfo);
+    public void addTemporaryFont(FontInfo fontInfo, String alias) {
+        if (tempFonts == null) tempFonts = new FontSet();
+        tempFonts.add(fontInfo, alias);
     }
 
     /**
-     * Remove previously added temporary fonts.
-     * All temporary fonts shall be removed after document processing.
-     *
-     * @see #addTemporaryFont(FontInfo)
+     * Add temporary font from @font-face.
      */
-    public void removeTemporaryFonts() {
-        for (FontInfo fi : tempFonts) {
-            fontProvider.getFontSet().remove(fi);
-        }
-        tempFonts.clear();
+    public void addTemporaryFont(FontProgram fontProgram, String encoding, String alias) {
+        if (tempFonts == null) tempFonts = new FontSet();
+        tempFonts.add(fontProgram, encoding, alias);
+    }
+
+    /**
+     * Check fonts in font provider and temporary font set.
+     *
+     * @return true, if there is at least one font either in FontProvider or temporary FontSet.
+     * @see #addTemporaryFont(FontInfo, String)
+     * @see #addTemporaryFont(FontProgram, String, String)
+     */
+    public boolean hasFonts() {
+        return !fontProvider.getFontSet().isEmpty()
+                || (tempFonts != null && !tempFonts.isEmpty());
     }
 
     public void reset() {
@@ -186,6 +195,9 @@ public class ProcessorContext {
         this.resourceResolver.resetCache();
         this.cssContext = new CssContext();
         this.formFieldNameResolver.reset();
+        //Reset font provider. PdfFonts shall be reseted.
+        this.fontProvider = new FontProvider(this.fontProvider.getFontSet());
+        this.tempFonts = null;
     }
 
     public void reset(PdfDocument pdfDocument) {

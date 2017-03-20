@@ -175,10 +175,12 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             if (propertyContainer instanceof com.itextpdf.layout.element.IElement) {
                 propertyContainer.setProperty(Property.COLLAPSING_MARGINS, true);
                 propertyContainer.setProperty(Property.FONT_PROVIDER, context.getFontProvider());
+                if (context.getTempFonts() != null) {
+                    propertyContainer.setProperty(Property.FONT_SET, context.getTempFonts());
+                }
                 elements.add((com.itextpdf.layout.element.IElement) propertyContainer);
             }
         }
-        context.removeTemporaryFonts();
         cssResolver = null;
         roots = null;
         return elements;
@@ -223,8 +225,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
 
         context.reset(pdfDocument);
-        if (context.getFontProvider().getFontSet().getFonts().size() == 0) {
-            throw new Html2PdfException("Font Provider contains zero fonts. At least one font should be present");
+        if (!context.hasFonts()) {
+            throw new Html2PdfException(Html2PdfException.FontProviderContainsZeroFonts);
         }
         // TODO store html version from document type in context if necessary
         roots = new ArrayList<>();
@@ -343,7 +345,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         } else if (src.isLocal) { // to method with lazy initialization
             FontInfo fi = context.getFontProvider().getFontSet().get(src.src);
             if (fi != null) {
-                context.addTemporaryFont(context.getFontProvider().getFontSet().add(fi, fontFamily));
+                context.addTemporaryFont(fi, fontFamily);
                 return true;
             } else {
                 return false;
@@ -354,8 +356,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 // The instance of fontProgram will be collected by GC if the is no need in it.
                 byte[] bytes = context.getResourceResolver().retrieveStream(src.src);
                 FontProgram fp = FontProgramFactory.createFont(bytes, false);
-                context.addTemporaryFont(context.getFontProvider().getFontSet().
-                        add(fp, PdfEncodings.IDENTITY_H, fontFamily));
+                context.addTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily);
                 return true;
             } catch (Exception ignored) {
                 return false;
