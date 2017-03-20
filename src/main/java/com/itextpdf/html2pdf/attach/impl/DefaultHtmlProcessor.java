@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
 import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssFontFaceRule;
@@ -155,7 +156,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
         context.reset();
         roots = new ArrayList<>();
-        cssResolver = new DefaultCssResolver(root, context.getDeviceDescription(), context.getResourceResolver());
+        cssResolver = new DefaultCssResolver(root, context);
         addFontFaceFonts();
         IElementNode html = findHtmlNode(root);
         IElementNode body = findBodyNode(root);
@@ -226,11 +227,15 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
         // TODO store html version from document type in context if necessary
         roots = new ArrayList<>();
-        cssResolver = new DefaultCssResolver(root, context.getDeviceDescription(), context.getResourceResolver());
+        cssResolver = new DefaultCssResolver(root, context);
         addFontFaceFonts();
         root = findHtmlNode(root);
         visit(root);
         Document doc = (Document) roots.get(0);
+        // TODO more precise check if a counter was actually added to the document
+        if (context.getCssContext().isPagesCounterPresent() && doc.getRenderer() instanceof HtmlDocumentRenderer) {
+            doc.relayout();
+        }
         cssResolver = null;
         roots = null;
         return doc;
@@ -416,12 +421,21 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             if (element.childNodes().isEmpty()) {
                 return false;
             }
-//            boolean hasStyles = element.getStyles() != null;
-//            String positionVal = hasStyles ? element.getStyles().get(CssConstants.POSITION) : null;
-//            String displayVal = hasStyles ? element.getStyles().get(CssConstants.DISPLAY) : null;
-//            return element.childNodes().get(0) instanceof ITextNode && !((ITextNode) element.childNodes().get(0)).wholeText().isEmpty()
-//                    || CssConstants.ABSOLUTE.equals(positionVal) || CssConstants.FIXED.equals(positionVal)
-//                    || displayVal != null && !CssConstants.INLINE.equals(displayVal);
+            boolean hasStyles = element.getStyles() != null;
+            String positionVal = hasStyles ? element.getStyles().get(CssConstants.POSITION) : null;
+            String displayVal = hasStyles ? element.getStyles().get(CssConstants.DISPLAY) : null;
+            boolean containsNonEmptyChildNode = false;
+            boolean containsElementNode = false;
+            for (int i = 0; i < element.childNodes().size(); i++) {
+                if (element.childNodes().get(i) instanceof ITextNode && !((ITextNode) element.childNodes().get(i)).wholeText().isEmpty()) {
+                    containsNonEmptyChildNode = true;
+                    break;
+                } else if (element.childNodes().get(i) instanceof IElementNode) {
+                    containsElementNode = true;
+                }
+            }
+            return containsElementNode || containsNonEmptyChildNode || CssConstants.ABSOLUTE.equals(positionVal) || CssConstants.FIXED.equals(positionVal)
+                    || displayVal != null && !CssConstants.INLINE.equals(displayVal);
         }
         return element != null;
     }

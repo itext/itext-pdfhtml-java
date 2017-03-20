@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf;
 
 public final class LogMessageConstant {
 
-    public static final String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or has unsupported value. Supported values are <string>, <url>, <quote>, <attr>. Note that <attr> is not supported in page margin box";
+    public static final String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
     public static final String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
     public static final String ERROR_LOADING_FONT = "Error while loading font";
     public static final String ERROR_PARSING_CSS_SELECTOR = "Error while parsing css selector";
@@ -65,6 +65,7 @@ public final class LogMessageConstant {
     public static final String TEXT_DECORATION_BLINK_NOT_SUPPORTED = "text-decoration: blink not supported";
     public static final String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
     public static final String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
+    public static final String UNABLE_TO_RESOLVE_COUNTER = "Unable to resolve counter \"{0}\"";
     public static final String UNABLE_TO_RESOLVE_FONT = "Unable to resolve font: {0}. The default one will be used instead";
     public static final String UNABLE_TO_RETRIEVE_IMAGE_FROM_BASE64_SOURCE = "Unable to retrieve image from given base64 source string";
     public static final String UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI = "Unable to retrieve image with given base URI ({0}) and image source path ({1})";

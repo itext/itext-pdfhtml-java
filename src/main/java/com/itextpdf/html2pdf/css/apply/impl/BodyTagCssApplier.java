@@ -53,7 +53,6 @@ public class BodyTagCssApplier implements ICssApplier {
 
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
-
     }
 
 }

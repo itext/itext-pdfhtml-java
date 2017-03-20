@@ -73,6 +73,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     private IRenderer waitingElement;
     private boolean shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = true;
     private boolean anythingAddedToCurrentArea = false;
+    private int estimatedNumberOfPages;
 
     public HtmlDocumentRenderer(Document document, boolean immediateFlush) {
         super(document, immediateFlush);
@@ -104,6 +105,39 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
             waitingElement = null;
         }
         waitingElement = renderer;
+    }
+
+    @Override
+    public void close() {
+        if (waitingElement != null) {
+            super.addChild(waitingElement);
+        }
+        super.close();
+        if (TRIM_LAST_BLANK_PAGE) {
+            PdfDocument pdfDocument = document.getPdfDocument();
+            if (pdfDocument.getNumberOfPages() > 1) {
+                PdfPage lastPage = pdfDocument.getLastPage();
+                if (lastPage.getContentStreamCount() == 1 && lastPage.getContentStream(0).getOutputStream().getCurrentPos() <= 0) {
+                    // Remove last empty page
+                    pdfDocument.removePage(pdfDocument.getNumberOfPages());
+                }
+            }
+        }
+    }
+
+    @Override
+    public IRenderer getNextRenderer() {
+        // Process waiting element to get the correct number of pages
+        if (waitingElement != null) {
+            super.addChild(waitingElement);
+            waitingElement = null;
+        }
+        HtmlDocumentRenderer relayoutRenderer = new HtmlDocumentRenderer(document, immediateFlush);
+        relayoutRenderer.firstPageProc = firstPageProc;
+        relayoutRenderer.leftPageProc = leftPageProc;
+        relayoutRenderer.rightPageProc = rightPageProc;
+        relayoutRenderer.estimatedNumberOfPages = currentPageNumber;
+        return relayoutRenderer;
     }
 
     @Override
@@ -182,29 +216,15 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
 
         currentPageEven = !currentPageEven;
         
-        nextProcessor.processNewPage(addedPage);
+        nextProcessor.processNewPage(addedPage, this);
 
         float[] margins = nextProcessor.computeLayoutMargins();
         document.setMargins(margins[0], margins[1], margins[2], margins[3]);
         return new PageSize(addedPage.getTrimBox());
     }
 
-    @Override
-    public void close() {
-        if (waitingElement != null) {
-            super.addChild(waitingElement);
-        }
-        super.close();
-        if (TRIM_LAST_BLANK_PAGE) {
-            PdfDocument pdfDocument = document.getPdfDocument();
-            if (pdfDocument.getNumberOfPages() > 1) {
-                PdfPage lastPage = pdfDocument.getLastPage();
-                if (lastPage.getContentStreamCount() == 1 && lastPage.getContentStream(0).getOutputStream().getCurrentPos() <= 0) {
-                    // Remove last empty page
-                    pdfDocument.removePage(pdfDocument.getNumberOfPages());
-                }
-            }
-        }
+    int getEstimatedNumberOfPages() {
+        return estimatedNumberOfPages;
     }
 
     private PageContextProcessor getNextPageProcessor(boolean firstPage) {

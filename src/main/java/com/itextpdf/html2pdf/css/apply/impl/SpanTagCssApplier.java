@@ -59,6 +59,7 @@ import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.Property;
+
 import java.util.Map;
 
 public class SpanTagCssApplier implements ICssApplier {

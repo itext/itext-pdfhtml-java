@@ -42,13 +42,13 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
-import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssRuleName;
 import com.itextpdf.html2pdf.css.page.PageContextNode;
 import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.html.node.INode;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

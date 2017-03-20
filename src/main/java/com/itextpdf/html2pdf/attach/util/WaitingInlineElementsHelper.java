@@ -63,13 +63,13 @@ public class WaitingInlineElementsHelper {
     private boolean keepLineBreaks;
     private boolean collapseSpaces;
 
+    private List<ILeafElement> waitingLeaves = new ArrayList<>();
+
     public WaitingInlineElementsHelper(String whiteSpace, String textTransform) {
         keepLineBreaks = CssConstants.PRE.equals(whiteSpace) || CssConstants.PRE_WRAP.equals(whiteSpace) || CssConstants.PRE_LINE.equals(whiteSpace);
         collapseSpaces = !(CssConstants.PRE.equals(whiteSpace) || CssConstants.PRE_WRAP.equals(whiteSpace));
         this.textTransform = textTransform;
     }
-
-    private List<ILeafElement> waitingLeaves = new ArrayList<>();
 
     public void add(String text) {
         if (!keepLineBreaks && collapseSpaces) {
@@ -155,6 +155,14 @@ public class WaitingInlineElementsHelper {
 
     public Collection<ILeafElement> getWaitingLeaves() {
         return waitingLeaves;
+    }
+
+    public List<ILeafElement> getSanitizedWaitingLeaves() {
+        if (collapseSpaces) {
+            return TrimUtil.trimLeafElementsAndSanitize(waitingLeaves);
+        } else {
+            return waitingLeaves;
+        }
     }
 
     public void clearWaitingLeaves() {

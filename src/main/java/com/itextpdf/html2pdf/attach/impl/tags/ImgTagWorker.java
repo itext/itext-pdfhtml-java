@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
@@ -53,17 +54,22 @@ import com.itextpdf.layout.element.Image;
 public class ImgTagWorker implements ITagWorker {
 
     private Image image;
+    private String display;
 
     public ImgTagWorker(IElementNode element, ProcessorContext context) {
         PdfImageXObject imageXObject = context.getResourceResolver().retrieveImage(element.getAttribute(AttributeConstants.SRC));
         if (imageXObject != null) {
             image = new HtmlImage(imageXObject);
         }
+        display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
+        // TODO this is a workaround for now to that image is not added as inline
+        if (element.getStyles() != null && CssConstants.ABSOLUTE.equals(element.getStyles().get(CssConstants.POSITION))) {
+            display = CssConstants.BLOCK;
+        }
     }
 
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-
     }
 
     @Override
@@ -79,6 +85,10 @@ public class ImgTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return image;
+    }
+
+    String getDisplay() {
+        return display;
     }
 
     private class HtmlImage extends Image {

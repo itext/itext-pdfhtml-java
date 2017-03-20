@@ -43,8 +43,8 @@
 package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
+import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
@@ -144,6 +144,11 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(beforePseudoElemName, CssConstants.BLOCK, BlockCssApplier.class);
         mapping.putMapping(afterPseudoElemName, CssConstants.BLOCK, BlockCssApplier.class);
         mapping.putMapping(CssPseudoElementUtil.createPseudoElementTagName(TagConstants.IMG), BlockCssApplier.class);
+
+
+        // custom elements mapping, implementation-specific
+        mapping.putMapping(PageCountElementNode.PAGE_COUNTER_TAG, SpanTagCssApplier.class);
+
     }
 
     static TagProcessorMapping getDefaultCssApplierMapping() {
