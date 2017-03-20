@@ -58,6 +58,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.LiTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.LinkTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.MetaTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.PageCountWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PreTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TableFooterTagWorker;
@@ -68,8 +69,8 @@ import com.itextpdf.html2pdf.attach.impl.tags.TitleTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.UlOlTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
+import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
@@ -171,6 +172,10 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(beforePseudoElemName, CssConstants.BLOCK, DivTagWorker.class);
         workerMapping.putMapping(afterPseudoElemName, CssConstants.BLOCK, DivTagWorker.class);
         workerMapping.putMapping(CssPseudoElementUtil.createPseudoElementTagName(TagConstants.IMG), ImgTagWorker.class);
+
+
+        // custom elements mapping, implementation-specific
+        workerMapping.putMapping(PageCountElementNode.PAGE_COUNTER_TAG, PageCountWorker.class);
     }
 
     static TagProcessorMapping getDefaultTagWorkerMapping() {

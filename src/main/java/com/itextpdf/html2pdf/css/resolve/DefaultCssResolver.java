@@ -43,11 +43,13 @@
 package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssFontFaceRule;
 import com.itextpdf.html2pdf.css.CssStatement;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
+import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.media.CssMediaRule;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
@@ -68,9 +70,11 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
+import com.itextpdf.io.util.StreamUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
@@ -86,11 +90,19 @@ public class DefaultCssResolver implements ICssResolver {
 
     private CssStyleSheet cssStyleSheet;
     private MediaDeviceDescription deviceDescription;
+    private ProcessorContext context;
     private List<CssFontFaceRule> fonts = new ArrayList<>();
 
     public DefaultCssResolver(INode treeRoot, MediaDeviceDescription mediaDeviceDescription, ResourceResolver resourceResolver) {
         this.deviceDescription = mediaDeviceDescription;
         collectCssDeclarations(treeRoot, resourceResolver);
+        collectFonts();
+    }
+
+    public DefaultCssResolver(INode treeRoot, ProcessorContext context) {
+        this.deviceDescription = context.getDeviceDescription();
+        this.context = context;
+        collectCssDeclarations(treeRoot, context.getResourceResolver());
         collectFonts();
     }
 
@@ -147,7 +159,7 @@ public class DefaultCssResolver implements ICssResolver {
             elementStyles.put(CssConstants.FONT_SIZE, Float.toString(FontStyleApplierUtil.parseAbsoluteFontSize(elementFontSize)) + CssConstants.PT);
         }
 
-        //Update root font size
+        // Update root font size
         if (element instanceof IElementNode && TagConstants.HTML.equals(((IElementNode)element).name())) {
             context.setRootFontSize(elementStyles.get(CssConstants.FONT_SIZE));
         }
@@ -162,7 +174,9 @@ public class DefaultCssResolver implements ICssResolver {
         for (String key : keys) {
             elementStyles.put(key, CssDefaults.getDefaultValue(key));
         }
-        
+
+        // This is needed for correct resolving of content property, so doing it right here
+        CounterProcessorUtil.processCounters(elementStyles, context, element);
         resolveContentProperty(elementStyles, element, context);
 
         return elementStyles;
@@ -221,6 +235,7 @@ public class DefaultCssResolver implements ICssResolver {
                 if (headChildElement.name().equals(TagConstants.STYLE)) {
                     if (currentNode.childNodes().size() > 0 && currentNode.childNodes().get(0) instanceof IDataNode) {
                         String styleData = ((IDataNode) currentNode.childNodes().get(0)).getWholeData();
+                        checkIfPagesCounterMentioned(styleData);
                         CssStyleSheet styleSheet = CssStyleSheetParser.parse(styleData);
                         styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);
@@ -229,7 +244,9 @@ public class DefaultCssResolver implements ICssResolver {
                     String styleSheetUri = headChildElement.getAttribute(AttributeConstants.HREF);
                     try {
                         InputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUri);
-                        CssStyleSheet styleSheet = CssStyleSheetParser.parse(stream);
+                        byte[] bytes = StreamUtil.inputStreamToArray(stream);
+                        checkIfPagesCounterMentioned(new String(bytes));
+                        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new ByteArrayInputStream(bytes));
                         styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);
                     } catch (IOException exc) {
@@ -246,6 +263,18 @@ public class DefaultCssResolver implements ICssResolver {
             }
         }
         return null;
+    }
+
+    private void checkIfPagesCounterMentioned(String cssContents) {
+        // TODO more efficient (avoid searching in text string) and precise (e.g. skip spaces) check during the parsing.
+        if (cssContents.contains("counter(pages)") || cssContents.contains("counters(pages")) {
+            if (context != null) {
+                // The presence of counter(pages) means that theoretically relayout may be needed.
+                // We don't know it yet because that selector might not even be used, but
+                // when we know it for sure, it's too late because the Document is created right in the start.
+                context.getCssContext().setPagesCounterPresent(true);
+            }
+        }
     }
 
     private CssStyleSheet wrapStyleSheetInMediaQueryIfNecessary(IElementNode headChildElement, CssStyleSheet styleSheet) {

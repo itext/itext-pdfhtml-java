@@ -65,7 +65,7 @@ public class HtmlTagWorker implements ITagWorker {
     private WaitingInlineElementsHelper inlineHelper;
 
     public HtmlTagWorker(IElementNode element, ProcessorContext context) {
-        boolean immediateFlush = true;
+        boolean immediateFlush = !context.getCssContext().isPagesCounterPresent();
         PdfDocument pdfDocument = context.getPdfDocument();
         document = new Document(pdfDocument, pdfDocument.getDefaultPageSize(), immediateFlush);
         document.setRenderer(new HtmlDocumentRenderer(document, immediateFlush));

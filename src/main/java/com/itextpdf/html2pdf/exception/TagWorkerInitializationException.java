@@ -49,6 +49,10 @@ public class TagWorkerInitializationException extends RuntimeException {
         super(MessageFormat.format(message,classNames,tag));
     }
 
+    public TagWorkerInitializationException(String message, String classNames, String tag, Throwable cause) {
+        super(MessageFormat.format(message,classNames,tag), cause);
+    }
+
     public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
 
 

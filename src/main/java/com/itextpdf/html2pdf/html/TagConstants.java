@@ -46,6 +46,7 @@ public final class TagConstants {
 
     private TagConstants() {
     }
+
     public static final String A = "a";
     public static final String ABBR = "abbr";
     public static final String ADDRESS="address";

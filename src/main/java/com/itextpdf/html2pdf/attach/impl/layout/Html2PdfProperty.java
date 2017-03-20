@@ -48,5 +48,6 @@ public class Html2PdfProperty {
 
     /* Works only for top-level elements, i.e. ones that are added to the document directly */
     public static final int KEEP_WITH_PREVIOUS = PROPERTY_START + 1;
+    public static final int PAGE_COUNT_TYPE = PROPERTY_START + 2;
 
 }

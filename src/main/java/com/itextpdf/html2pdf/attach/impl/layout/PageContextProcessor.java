@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
+import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssRuleName;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
@@ -54,6 +54,8 @@ import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.ITextNode;
@@ -66,11 +68,18 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
-import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.layout.LayoutArea;
+import com.itextpdf.layout.layout.LayoutContext;
+import com.itextpdf.layout.layout.LayoutResult;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.renderer.DocumentRenderer;
+import com.itextpdf.layout.renderer.DrawContext;
+import com.itextpdf.layout.renderer.IRenderer;
+import org.jsoup.nodes.Element;
+import org.jsoup.parser.Tag;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
@@ -129,11 +138,11 @@ class PageContextProcessor {
         return layoutMargins;
     }
 
-    void processNewPage(PdfPage page) {
+    void processNewPage(PdfPage page, DocumentRenderer documentRenderer) {
         setBleed(page);
         drawMarks(page);
         drawPageBackgroundAndBorders(page);
-        drawMarginBoxes(page);
+        drawMarginBoxes(page, documentRenderer);
     }
 
     private void setBleed(PdfPage page) {
@@ -265,12 +274,15 @@ class PageContextProcessor {
         canvas.close();
     }
 
-    private void drawMarginBoxes(PdfPage page) {
+    private void drawMarginBoxes(PdfPage page, DocumentRenderer documentRenderer) {
         for (int i = 0; i < 16; ++i) {
             if (marginBoxElements[i] != null) {
-                Canvas canvas = new Canvas(new PdfCanvas(page), page.getDocument(), marginBoxRectangles[i]);
-                canvas.add(marginBoxElements[i]);
-                canvas.close();
+                Div curBoxElement = marginBoxElements[i];
+                IRenderer renderer = curBoxElement.createRendererSubTree();
+                renderer.setParent(documentRenderer);
+                LayoutResult result = renderer.layout(new LayoutContext(new LayoutArea(page.getDocument().getPageNumber(page), marginBoxRectangles[i])));
+                IRenderer rendererToDraw = result.getStatus() == LayoutResult.FULL ? renderer : result.getSplitRenderer();
+                rendererToDraw.setParent(documentRenderer).draw(new DrawContext(page.getDocument(), new PdfCanvas(page)));
             }
         }
     }
@@ -325,13 +337,13 @@ class PageContextProcessor {
     private void createMarginBoxesElements(List<PageMarginBoxContextNode> resolvedPageMarginBoxes, ProcessorContext context) {
         marginBoxRectangles = calculateMarginBoxRectangles(resolvedPageMarginBoxes);
         marginBoxElements = new Div[16];
-        for (PageMarginBoxContextNode marginBoxProps : resolvedPageMarginBoxes) {
-            int marginBoxInd = mapMarginBoxNameToIndex(marginBoxProps.getMarginBoxName());
+        for (PageMarginBoxContextNode marginBoxContentNode : resolvedPageMarginBoxes) {
+            int marginBoxInd = mapMarginBoxNameToIndex(marginBoxContentNode.getMarginBoxName());
             Div marginBox = new Div();
             marginBoxElements[marginBoxInd] = marginBox;
-            Map<String, String> boxStyles = marginBoxProps.getStyles();
+            Map<String, String> boxStyles = marginBoxContentNode.getStyles();
             BackgroundApplierUtil.applyBackground(boxStyles, context, marginBox);
-            FontStyleApplierUtil.applyFontStyles(boxStyles, context, marginBoxProps, marginBox);
+            FontStyleApplierUtil.applyFontStyles(boxStyles, context, marginBoxContentNode, marginBox);
             BorderStyleApplierUtil.applyBorders(boxStyles, context, marginBox);
             VerticalAlignmentApplierUtil.applyVerticalAlignmentForCells(boxStyles, context, marginBox);
 
@@ -347,33 +359,40 @@ class PageContextProcessor {
             marginBox.setProperty(Property.FONT_PROVIDER, context.getFontProvider());
             marginBox.setFillAvailableArea(true);
 
-            if (marginBoxProps.childNodes().isEmpty()) {
+            if (marginBoxContentNode.childNodes().isEmpty()) {
                 // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
                 throw new IllegalStateException();
             }
-            WaitingInlineElementsHelper inlineHelper = new WaitingInlineElementsHelper(boxStyles.get(CssConstants.WHITE_SPACE), boxStyles.get(CssConstants.TEXT_TRANSFORM));
-            for (INode child : marginBoxProps.childNodes()) {
-                if (child instanceof IElementNode) {
-                    //TODO: support only for element node with no children
-                    IElementNode elementNode = (IElementNode) child;
-                    ITagWorker worker = context.getTagWorkerFactory().getTagWorker(elementNode, context);
-                    if (worker != null) {
-                        worker.processEnd(elementNode, context);
-                        IPropertyContainer element = worker.getElementResult();
-                        if (element instanceof IBlockElement) {
-                            inlineHelper.flushHangingLeaves(marginBox);
-                            marginBox.add((IBlockElement) element);
-                        } else if (element instanceof ILeafElement) {
-                            inlineHelper.add((ILeafElement) element);
-                        }
+
+            // TODO it would be great to reuse DefaultHtmlProcessor, but it seems there is no convenient way of doing so, and maybe it would be an overkill
+            IElementNode dummyMarginBoxNode = new JsoupElementNode(new Element(Tag.valueOf(TagConstants.DIV), ""));
+            DivTagWorker marginBoxWorker = new DivTagWorker(dummyMarginBoxNode, context);
+            for (int i = 0; i < marginBoxContentNode.childNodes().size(); i++) {
+                INode childNode = marginBoxContentNode.childNodes().get(i);
+                if (childNode instanceof ITextNode) {
+                    String text = ((ITextNode) marginBoxContentNode.childNodes().get(i)).wholeText();
+                    marginBoxWorker.processContent(text, context);
+                } else if (childNode instanceof IElementNode) {
+                    ITagWorker childTagWorker = context.getTagWorkerFactory().getTagWorker((IElementNode) childNode, context);
+                    if (childTagWorker != null) {
+                        childTagWorker.processEnd((IElementNode) childNode, context);
+                        marginBoxWorker.processTagChild(childTagWorker, context);
                     }
-                } else if (child instanceof ITextNode) {
-                    inlineHelper.add(((ITextNode) child).wholeText());
-                } else {
+                }  else {
                     LoggerFactory.getLogger(getClass()).error(LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
                 }
             }
-            inlineHelper.flushHangingLeaves(marginBox);
+            marginBoxWorker.processEnd(dummyMarginBoxNode, context);
+            IPropertyContainer workerResult = marginBoxWorker.getElementResult();
+            if (workerResult instanceof Div) {
+                for (IElement child : ((Div) workerResult).getChildren()) {
+                    if (child instanceof IBlockElement) {
+                        marginBox.add((IBlockElement) child);
+                    } else if (child instanceof Image) {
+                        marginBox.add((Image) child);
+                    }
+                }
+            }
         }
     }
 

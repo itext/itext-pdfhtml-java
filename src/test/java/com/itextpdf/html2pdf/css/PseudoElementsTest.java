@@ -49,13 +49,14 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.io.File;
-import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class PseudoElementsTest extends ExtendedITextTest {
@@ -175,9 +176,9 @@ public class PseudoElementsTest extends ExtendedITextTest {
     }
 
     @Test
+    @Ignore("DEVSIX-992")
     @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.CLIP_ELEMENT))
     public void imgPseudoTest03() throws IOException, InterruptedException {
-        //TODO: not correct
         runTest("imgPseudoTest03");
     }
 

@@ -88,6 +88,8 @@ public class CssConstants {
     public static final String CAPTION_SIDE = "caption-side";
     public static final String COLOR = "color";
     public static final String CONTENT = "content";
+    public static final String COUNTER_INCREMENT = "counter-increment";
+    public static final String COUNTER_RESET = "counter-reset";
     public static final String DIRECTION = "direction";
     public static final String DISPLAY = "display";
     public static final String EMPTY_CELLS = "empty-cells";
@@ -304,6 +306,10 @@ public class CssConstants {
     // pseudo-elements
     public static final String AFTER = "after";
     public static final String BEFORE = "before";
+
+    // Functions
+    public static final String COUNTER = "counter";
+    public static final String COUNTERS = "counters";
 
     // units of measurement
     public static final String CM = "cm";

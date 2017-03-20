@@ -45,6 +45,8 @@ package com.itextpdf.html2pdf.css.resolve;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
+import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
+import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
@@ -52,6 +54,9 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.html2pdf.html.node.ITextNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -59,14 +64,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 class CssContentPropertyResolver {
+
+    private static final Logger logger = LoggerFactory.getLogger(CssContentPropertyResolver.class);
 
     static List<INode> resolveContent(Map<String, String> styles, INode contentContainer, CssContext context) {
         String contentStr = styles.get(CssConstants.CONTENT);
-        ArrayList<INode> result = new ArrayList<>();
+        List<INode> result = new ArrayList<>();
         if (contentStr == null || CssConstants.NONE.equals(contentStr) || CssConstants.NORMAL.equals(contentStr)) {
             return null;
         }
@@ -77,8 +81,56 @@ class CssContentPropertyResolver {
             if (token.isString()) {
                 result.add(new ContentTextNode(contentContainer, token.getValue()));
             } else {
-                if (token.getValue().startsWith("url(")) {
-                    HashMap<String, String> attributes = new HashMap<>();
+                if (token.getValue().startsWith(CssConstants.COUNTERS + "(")) {
+                    String paramsStr = token.getValue().substring(CssConstants.COUNTERS.length() + 1, token.getValue().length() - 1);
+                    String[] params = paramsStr.split(",");
+                    if (params.length == 0) {
+                        return null;
+                    }
+                    // Counters are denoted by case-sensitive identifiers
+                    String counterName = params[0].trim();
+                    String counterSeparationStr = params[1].trim();
+                    counterSeparationStr = counterSeparationStr.substring(1, counterSeparationStr.length() - 1);
+                    String listStyleType = params.length > 2 ? params[2].trim() : null;
+                    CssCounterManager counterManager = context.getCounterManager();
+                    INode scope = contentContainer;
+                    if ("page".equals(counterName)) {
+                        result.add(new PageCountElementNode(false));
+                    } else if ("pages".equals(counterName)) {
+                        result.add(new PageCountElementNode(true));
+                    } else {
+                        String resolvedCounter = counterManager.resolveCounters(counterName, counterSeparationStr, listStyleType, scope);
+                        if (resolvedCounter == null) {
+                            logger.error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName));
+                        } else {
+                            result.add(new ContentTextNode(scope, resolvedCounter));
+                        }
+                    }
+                } else if (token.getValue().startsWith(CssConstants.COUNTER + "(")) {
+                    String paramsStr = token.getValue().substring(CssConstants.COUNTER.length() + 1, token.getValue().length() - 1);
+                    String[] params = paramsStr.split(",");
+                    if (params.length == 0) {
+                        return null;
+                    }
+                    // Counters are denoted by case-sensitive identifiers
+                    String counterName = params[0].trim();
+                    String listStyleType = params.length > 1 ? params[1].trim() : null;
+                    CssCounterManager counterManager = context.getCounterManager();
+                    INode scope = contentContainer;
+                    if ("page".equals(counterName)) {
+                        result.add(new PageCountElementNode(false));
+                    } else if ("pages".equals(counterName)) {
+                        result.add(new PageCountElementNode(true));
+                    } else {
+                        String resolvedCounter = counterManager.resolveCounter(counterName, listStyleType, scope);
+                        if (resolvedCounter == null) {
+                            logger.error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName));
+                        } else {
+                            result.add(new ContentTextNode(scope, resolvedCounter));
+                        }
+                    }
+                } else if (token.getValue().startsWith("url(")) {
+                    Map<String, String> attributes = new HashMap<>();
                     attributes.put(AttributeConstants.SRC, CssUtils.extractUrl(token.getValue()));
                     //TODO: probably should add user agent styles on CssContentElementNode creation, not here.
                     attributes.put(AttributeConstants.STYLE, "display:inline-block;");
@@ -154,4 +206,5 @@ class CssContentPropertyResolver {
         }
 
     }
+
 }

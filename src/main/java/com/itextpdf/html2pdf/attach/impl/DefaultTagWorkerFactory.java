@@ -77,7 +77,7 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
                 ITagWorker res = (ITagWorker) ctor.newInstance(new Object[]{tag, context});
                 return res;
             } catch (Exception e) {
-                throw new TagWorkerInitializationException(TagWorkerInitializationException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED, tagWorkerClass.getName(), tag.name());
+                throw new TagWorkerInitializationException(TagWorkerInitializationException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED, tagWorkerClass.getName(), tag.name(), e);
             }
         }
 

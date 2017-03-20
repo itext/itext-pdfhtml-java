@@ -55,6 +55,8 @@ import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 
+import java.util.Map;
+
 public class DivTagWorker implements ITagWorker {
 
     private Div div;
@@ -62,7 +64,9 @@ public class DivTagWorker implements ITagWorker {
 
     public DivTagWorker(IElementNode element, ProcessorContext context) {
         div = new Div();
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
+        Map<String, String> styles = element.getStyles();
+        inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE),
+                styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM));
     }
 
     @Override
@@ -81,6 +85,10 @@ public class DivTagWorker implements ITagWorker {
         boolean processed = false;
         IPropertyContainer element = childTagWorker.getElementResult();
         if (childTagWorker instanceof BrTagWorker) {
+            if (inlineHelper.getSanitizedWaitingLeaves().size() == 1 && inlineHelper.getSanitizedWaitingLeaves().get(0) instanceof Image) {
+                // TODO This is a workaround for case of single image to set leading to 1
+                postProcessInlineGroup();
+            }
             inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
             return true;
         } else if (childTagWorker instanceof SpanTagWorker) {
@@ -97,6 +105,13 @@ public class DivTagWorker implements ITagWorker {
             postProcessInlineGroup();
             div.add((AreaBreak) element);
             processed = true;
+        } else if (childTagWorker instanceof ImgTagWorker) {
+            if (CssConstants.BLOCK.equals(((ImgTagWorker) childTagWorker).getDisplay())) {
+                processed = addBlockChild((com.itextpdf.layout.element.IElement) element);
+            } else if (childTagWorker.getElementResult() instanceof Image) {
+                inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
+                processed = true;
+            }
         } else if (element instanceof com.itextpdf.layout.element.IElement) {
             processed = addBlockChild((com.itextpdf.layout.element.IElement) element);
         }

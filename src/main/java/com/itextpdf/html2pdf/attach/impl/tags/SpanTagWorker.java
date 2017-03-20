@@ -54,17 +54,19 @@ import com.itextpdf.layout.element.ILeafElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SpanTagWorker implements ITagWorker {
 
-    private SpanWrapper spanWrapper;
+    SpanWrapper spanWrapper;
     private List<IPropertyContainer> elements;
     private List<IPropertyContainer> ownLeafElements = new ArrayList<>();
     private WaitingInlineElementsHelper inlineHelper;
 
     public SpanTagWorker(IElementNode element, ProcessorContext context) {
         spanWrapper = new SpanWrapper();
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
+        Map<String, String> styles = element.getStyles();
+        inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE), styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM));
     }
 
     @Override

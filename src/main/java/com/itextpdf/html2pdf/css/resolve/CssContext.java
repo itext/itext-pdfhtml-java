@@ -45,11 +45,13 @@ package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
+import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
 
 public class CssContext {
     //value in pt
     private float rootFontSize = FontStyleApplierUtil.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
-
+    private CssCounterManager counterManager = new CssCounterManager();
+    private boolean pagesCounterPresent = false;
     private int quotesDepth = 0;
 
     public float getRootFontSize() {
@@ -64,6 +66,18 @@ public class CssContext {
         this.rootFontSize = FontStyleApplierUtil.parseAbsoluteFontSize(fontSizeStr);
     }
 
+    public CssCounterManager getCounterManager() {
+        return counterManager;
+    }
+
+    public void setPagesCounterPresent(boolean pagesCounterPresent) {
+        this.pagesCounterPresent = pagesCounterPresent;
+    }
+
+    public boolean isPagesCounterPresent() {
+        return pagesCounterPresent;
+    }
+
     public int getQuotesDepth() {
         return quotesDepth;
     }
@@ -71,4 +85,5 @@ public class CssContext {
     public void setQuotesDepth(int quotesDepth) {
         this.quotesDepth = quotesDepth;
     }
+
 }
