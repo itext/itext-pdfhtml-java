@@ -109,7 +109,7 @@ public class ResourceResolver {
 
         try {
             URL url = uriResolver.resolveAgainstBaseUri(src);
-            url = UrlUtil.getFinalUrl(url);
+            url = UrlUtil.getFinalURL(url);
             String imageResolvedSrc = url.toExternalForm();
             PdfImageXObject imageXObject = imageCache.getImage(imageResolvedSrc);
             if (imageXObject == null) {
