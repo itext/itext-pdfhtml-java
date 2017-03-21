@@ -62,7 +62,7 @@ class PageCountRenderer extends TextRenderer {
 
     @Override
     public LayoutResult layout(LayoutContext layoutContext) {
-        PageCountType pageCountType = this.<PageCountType>getProperty(Html2PdfProperty.PAGE_COUNT_TYPE);
+        PageCountType pageCountType = (PageCountType)this.<PageCountType>getProperty(Html2PdfProperty.PAGE_COUNT_TYPE);
         if (pageCountType == PageCountType.CURRENT_PAGE_NUMBER) {
             setText(String.valueOf(layoutContext.getArea().getPageNumber()));
         } else if (pageCountType == PageCountType.TOTAL_PAGE_COUNT) {
