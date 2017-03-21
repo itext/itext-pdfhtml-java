@@ -88,21 +88,21 @@ public class CssCounterManager {
                 } else if (CssConstants.CIRCLE.equals(listSymbolType)) {
                     return CIRCLE_SYMBOL;
                 } else if (CssConstants.UPPER_ALPHA.equals(listSymbolType) || CssConstants.UPPER_LATIN.equals(listSymbolType)) {
-                    return EnglishAlphabetNumbering.toLatinAlphabetNumberUpperCase(counterValue);
+                    return EnglishAlphabetNumbering.toLatinAlphabetNumberUpperCase((int)counterValue);
                 } else if (CssConstants.LOWER_ALPHA.equals(listSymbolType) || CssConstants.LOWER_LATIN.equals(listSymbolType)) {
-                    return EnglishAlphabetNumbering.toLatinAlphabetNumberLowerCase(counterValue);
+                    return EnglishAlphabetNumbering.toLatinAlphabetNumberLowerCase((int)counterValue);
                 } else if (CssConstants.LOWER_ROMAN.equals(listSymbolType)) {
-                    return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.toRomanLowerCase(counterValue) : String.valueOf(counterValue);
+                    return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.toRomanLowerCase((int)counterValue) : String.valueOf(counterValue);
                 } else if (CssConstants.UPPER_ROMAN.equals(listSymbolType)) {
-                    return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.toRomanUpperCase(counterValue) : String.valueOf(counterValue);
+                    return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.toRomanUpperCase((int)counterValue) : String.valueOf(counterValue);
                 } else if (CssConstants.DECIMAL_LEADING_ZERO.equals(listSymbolType)) {
                     return (counterValue < 10 ? "0" : "") + String.valueOf(counterValue);
                 } else if (CssConstants.LOWER_GREEK.equals(listSymbolType)) {
-                    return GreekAlphabetNumbering.toGreekAlphabetNumberLowerCase(counterValue);
+                    return GreekAlphabetNumbering.toGreekAlphabetNumberLowerCase((int)counterValue);
                 } else if (CssConstants.GEORGIAN.equals(listSymbolType)) {
-                    return GeorgianNumbering.toGeorgian(counterValue);
+                    return GeorgianNumbering.toGeorgian((int)counterValue);
                 } else if (CssConstants.ARMENIAN.equals(listSymbolType)) {
-                    return ArmenianNumbering.toArmenian(counterValue);
+                    return ArmenianNumbering.toArmenian((int)counterValue);
                 } else {
                     return String.valueOf(counterValue); //TODO
                 }
@@ -152,7 +152,7 @@ public class CssCounterManager {
             // If 'counter-increment' or 'content' on an element or pseudo-element refers to a counter that is not in the scope of any 'counter-reset',
             // implementations should behave as though a 'counter-reset' had reset the counter to 0 on that element or pseudo-element.
             curValue = DEFAULT_COUNTER_VALUE;
-            resetCounter(counterName, curValue, scope);
+            resetCounter(counterName, (int)curValue, scope);
             scopeCounters = getOrCreateScopeCounterMap(scope);
         }
         scopeCounters.put(counterName, curValue + incrementValue);

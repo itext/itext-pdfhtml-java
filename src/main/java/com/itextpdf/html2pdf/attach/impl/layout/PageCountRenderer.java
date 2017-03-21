@@ -62,7 +62,7 @@ class PageCountRenderer extends TextRenderer {
 
     @Override
     public LayoutResult layout(LayoutContext layoutContext) {
-        PageCountType pageCountType = getProperty(Html2PdfProperty.PAGE_COUNT_TYPE);
+        PageCountType pageCountType = this.<PageCountType>getProperty(Html2PdfProperty.PAGE_COUNT_TYPE);
         if (pageCountType == PageCountType.CURRENT_PAGE_NUMBER) {
             setText(String.valueOf(layoutContext.getArea().getPageNumber()));
         } else if (pageCountType == PageCountType.TOTAL_PAGE_COUNT) {
@@ -83,7 +83,7 @@ class PageCountRenderer extends TextRenderer {
     protected boolean resolveFonts(List<IRenderer> addTo) {
         List<IRenderer> dummyList = new ArrayList<>();
         super.resolveFonts(dummyList);
-        setProperty(Property.FONT, dummyList.get(0).getProperty(Property.FONT));
+        setProperty(Property.FONT, dummyList.get(0).<Object>getProperty(Property.FONT));
         addTo.add(this);
         return true;
     }
