@@ -61,7 +61,7 @@ public class CounterProcessorUtil {
                 String counterName = params[i];
                 Integer possibleCounterValue;
                 if (i + 1 < params.length && (possibleCounterValue = CssUtils.parseInteger(params[i + 1])) != null) {
-                    counterManager.resetCounter(counterName, possibleCounterValue, scope);
+                    counterManager.resetCounter(counterName, (int)possibleCounterValue, scope);
                     i++;
                 } else {
                     counterManager.resetCounter(counterName, scope);
@@ -76,7 +76,7 @@ public class CounterProcessorUtil {
                 String counterName = params[i];
                 Integer possibleIncrementValue;
                 if (i + 1 < params.length && (possibleIncrementValue = CssUtils.parseInteger(params[i + 1])) != null) {
-                    counterManager.incrementCounter(counterName, possibleIncrementValue, scope);
+                    counterManager.incrementCounter(counterName, (int)possibleIncrementValue, scope);
                     i++;
                 } else {
                     counterManager.incrementCounter(counterName, scope);
