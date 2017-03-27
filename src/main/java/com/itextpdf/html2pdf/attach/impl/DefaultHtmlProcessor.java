@@ -82,6 +82,7 @@ import org.slf4j.LoggerFactory;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -343,9 +344,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         if (!supportedFontFormat(src.format)) {
             return false;
         } else if (src.isLocal) { // to method with lazy initialization
-            FontInfo fi = context.getFontProvider().getFontSet().get(src.src);
-            if (fi != null) {
-                context.addTemporaryFont(fi, fontFamily);
+            Collection<FontInfo> fonts = context.getFontProvider().getFontSet().get(src.src);
+            if (fonts.size() > 0) {
+                for (FontInfo fi : fonts) {
+                    context.addTemporaryFont(fi, fontFamily);
+                }
                 return true;
             } else {
                 return false;
