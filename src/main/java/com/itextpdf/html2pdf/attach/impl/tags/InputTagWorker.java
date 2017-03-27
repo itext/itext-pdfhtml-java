@@ -84,7 +84,7 @@ public class InputTagWorker implements ITagWorker {
             logger.error(MessageFormat.format(LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
         }
         if (formElement != null) {
-            formElement.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, context.isFlattenFontFields());
+            formElement.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
         }
     }
 

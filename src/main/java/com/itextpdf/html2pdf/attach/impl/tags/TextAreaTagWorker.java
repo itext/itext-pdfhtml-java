@@ -67,7 +67,7 @@ public class TextAreaTagWorker implements ITagWorker {
         Integer cols = CssUtils.parseInteger(element.getAttribute(AttributeConstants.COLS));
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_ROWS, rows);
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_COLS, cols);
-        textArea.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, context.isFlattenFontFields());
+        textArea.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
     }
 
     @Override

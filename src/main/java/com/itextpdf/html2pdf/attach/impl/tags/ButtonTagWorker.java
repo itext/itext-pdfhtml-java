@@ -62,7 +62,7 @@ public class ButtonTagWorker implements ITagWorker {
         }
         name = context.getFormFieldNameResolver().resolveFormName(name);
         button = new Button(name);
-        button.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, context.isFlattenFontFields());
+        button.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
     }
 
     @Override

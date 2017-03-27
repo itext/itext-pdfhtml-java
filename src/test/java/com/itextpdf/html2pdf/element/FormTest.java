@@ -139,7 +139,7 @@ public class FormTest extends ExtendedITextTest {
         String diff = "diff_" + name + "_";
 
         HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath));
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(outAcroPdfPath), new ConverterProperties().setFlattenFormFields(false));
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(outAcroPdfPath), new ConverterProperties().setCreateAcroForm(true));
         PdfDocument document = new PdfDocument(new PdfReader(outAcroPdfPath), new PdfWriter(outAcroFlattenPdfPath));
         PdfAcroForm acroForm = PdfAcroForm.getAcroForm(document, false);
         acroForm.flattenFields();
