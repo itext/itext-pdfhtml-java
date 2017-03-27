@@ -55,6 +55,7 @@ public final class CssRuleName {
     public static final String LEFT_BOTTOM = "left-bottom";
     public static final String LEFT_MIDDLE = "left-middle";
     public static final String LEFT_TOP = "left-top";
+    public static final String FONT_FACE = "font-face";
     public static final String MEDIA = "media";
     public static final String PAGE = "page";
     public static final String RIGHT_BOTTOM = "right-bottom";
@@ -65,7 +66,4 @@ public final class CssRuleName {
     public static final String TOP_LEFT_CORNER = "top-left-corner";
     public static final String TOP_RIGHT = "top-right";
     public static final String TOP_RIGHT_CORNER = "top-right-corner";
-
-    public static final String FONT_FACE = "font-face";
-
 }
