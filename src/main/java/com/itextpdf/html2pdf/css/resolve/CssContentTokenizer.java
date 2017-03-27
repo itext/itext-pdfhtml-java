@@ -44,19 +44,33 @@ package com.itextpdf.html2pdf.css.resolve;
 
 class CssContentTokenizer {
     private String src;
-    private int index;
+    private int index = -1;
     private char stringQuote;
     private boolean inString;
+    private int functionDepth = 0;
 
     public CssContentTokenizer(String src) {
         this.src = src;
-        index = -1;
     }
 
     public ContentToken getNextValidToken() {
         ContentToken token = getNextToken();
         while (token != null && !token.isString() && token.getValue().trim().isEmpty()) {
             token = getNextToken();
+        }
+        if (token != null && functionDepth > 0) {
+            StringBuilder functionBuffer = new StringBuilder();
+            while (token != null && functionDepth > 0) {
+                processFunctionToken(token, functionBuffer);
+                token = getNextToken();
+            }
+            functionDepth = 0;
+            if (functionBuffer.length() != 0) {
+                if (token != null) {
+                    processFunctionToken(token, functionBuffer);
+                }
+                return new ContentToken(functionBuffer.toString(), false);
+            }
         }
         return token;
     }
@@ -107,17 +121,19 @@ class CssContentTokenizer {
             while (++index < src.length()) {
                 curChar = src.charAt(index);
                 if (curChar == '(') {
-                    int closeBracketIndex = src.indexOf(')', index);
-                    if (closeBracketIndex == -1) {
-                        closeBracketIndex = src.length() - 1;
-                    }
-                    buff.append(src.substring(index, closeBracketIndex + 1));
-                    index = closeBracketIndex;
+                    ++functionDepth;
+                    buff.append(curChar);
+                } else if (curChar == ')') {
+                    --functionDepth;
+                    buff.append(curChar);
                 } else if (curChar == '"' || curChar == '\'') {
                     stringQuote = curChar;
                     inString = true;
                     return new ContentToken(buff.toString(), false);
                 } else if (Character.isWhitespace(curChar)) {
+                    if (functionDepth > 0) {
+                        buff.append(curChar);
+                    }
                     return new ContentToken(buff.toString(), false);
                 } else {
                     buff.append(curChar);
@@ -129,6 +145,16 @@ class CssContentTokenizer {
 
     private boolean isHexDigit(char c) {
         return (47 < c && c < 58) || (64 < c && c < 71) || (96 < c && c < 103);
+    }
+
+    private void processFunctionToken(ContentToken token, StringBuilder functionBuffer) {
+        if (token.isString()) {
+            functionBuffer.append(stringQuote);
+            functionBuffer.append(token.getValue());
+            functionBuffer.append(stringQuote);
+        } else {
+            functionBuffer.append(token.getValue());
+        }
     }
 
     static class ContentToken {

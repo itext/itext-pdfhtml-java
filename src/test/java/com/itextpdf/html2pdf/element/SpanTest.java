@@ -108,4 +108,10 @@ public class SpanTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest07.pdf", sourceFolder + "cmp_spanTest07.pdf", destinationFolder, "diff07_"));
     }
 
+    @Test
+    public void spanTest08() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest08.html"), new File(destinationFolder + "spanTest08.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest08.pdf", sourceFolder + "cmp_spanTest08.pdf", destinationFolder, "diff08_"));
+    }
+
 }

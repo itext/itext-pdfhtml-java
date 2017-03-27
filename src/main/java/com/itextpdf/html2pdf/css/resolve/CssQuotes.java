@@ -52,8 +52,13 @@ import java.util.ArrayList;
 public class CssQuotes {
     private static final String EMPTY_QUOTE = "";
 
-    private ArrayList<String> openQuotes = new ArrayList<>();
-    private ArrayList<String> closeQuotes = new ArrayList<>();
+    private ArrayList<String> openQuotes;
+    private ArrayList<String> closeQuotes;
+
+    private CssQuotes(ArrayList<String> openQuotes, ArrayList<String> closeQuotes) {
+        this.openQuotes = openQuotes;
+        this.closeQuotes = closeQuotes;
+    }
 
     public static CssQuotes createQuotes(String quotesString, boolean fallbackToDefault) {
         boolean error = false;
@@ -91,11 +96,6 @@ public class CssQuotes {
         openQuotes.add("\u00ab");
         closeQuotes.add("\u00bb");
         return new CssQuotes(openQuotes, closeQuotes);
-    }
-
-    public CssQuotes(ArrayList<String> openQuotes, ArrayList<String> closeQuotes) {
-        this.openQuotes = openQuotes;
-        this.closeQuotes = closeQuotes;
     }
 
     public String resolveQuote(String value, CssContext context) {
