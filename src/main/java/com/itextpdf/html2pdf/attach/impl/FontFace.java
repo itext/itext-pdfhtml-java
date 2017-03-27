@@ -88,16 +88,15 @@ class FontFace {
         }
     }
 
+    /**
+     * Actually font-family is an alias.
+     */
     public String getFontFamily() {
         return alias;
     }
 
     public List<FontFaceSrc> getSources() {
         return sources;
-    }
-
-    public String getAlias() {
-        return alias;
     }
 
     private FontFace(String alias, List<FontFaceSrc> sources) {

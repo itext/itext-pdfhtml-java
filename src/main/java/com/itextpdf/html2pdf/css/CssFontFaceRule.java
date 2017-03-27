@@ -47,7 +47,7 @@ import java.util.List;
 
 public class CssFontFaceRule extends CssNestedAtRule {
 
-    List<CssDeclaration> properties;
+    private List<CssDeclaration> properties;
 
     protected CssFontFaceRule(String ruleParameters) {
         super(CssRuleName.FONT_FACE, ruleParameters);
