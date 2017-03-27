@@ -40,31 +40,55 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.util;
+package com.itextpdf.html2pdf.css.resolve;
 
-import com.itextpdf.kernel.geom.Rectangle;
-import com.itextpdf.kernel.pdf.PdfArray;
-import com.itextpdf.kernel.pdf.action.PdfAction;
-import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
-import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.property.Property;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.UnitTest;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-public class LinkHelper {
+import java.util.Arrays;
+import java.util.List;
 
-    private LinkHelper() {
+@Category(UnitTest.class)
+public class CssContentTokenizerTest extends ExtendedITextTest {
+
+    @Test
+    public void functionTest01() {
+        runTest("func(param)", Arrays.asList("func(param)"), Arrays.asList(false));
     }
 
-    public static void applyLinkAnnotation(IPropertyContainer container, String url) {
-        if (container != null) {
-            PdfLinkAnnotation linkAnnotation;
-            if (url.startsWith("#")) {
-                String name = url.substring(1);
-                linkAnnotation = new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createGoTo(name));
-            } else {
-                linkAnnotation = new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createURI(url));
-            }
-            linkAnnotation.setBorder(new PdfArray(new float[]{0, 0, 0}));
-            container.setProperty(Property.LINK_ANNOTATION, linkAnnotation);
+    @Test
+    public void functionTest02() {
+        runTest("func(param1, param2)", Arrays.asList("func(param1, param2)"), Arrays.asList(false));
+    }
+
+    @Test
+    public void functionTest03() {
+        runTest("func(param,'param)',\"param))\")", Arrays.asList("func(param,'param)',\"param))\")"), Arrays.asList(false));
+    }
+
+    @Test
+    public void functionTest04() {
+        runTest("func(param, innerFunc())", Arrays.asList("func(param, innerFunc())"), Arrays.asList(false));
+    }
+
+    @Test
+    public void functionTest05() {
+        runTest(") )) function()", Arrays.asList(")", "))", "function()"), Arrays.asList(false, false, false));
+    }
+
+    private void runTest(String src, List<String> tokenValues, List<Boolean> isTokenStrings) {
+        CssContentTokenizer tokenizer = new CssContentTokenizer(src);
+        CssContentTokenizer.ContentToken token = null;
+        Assert.assertTrue("Value and type arrays size should be equal", tokenValues.size() == isTokenStrings.size());
+        int index = 0;
+        while ((token = tokenizer.getNextValidToken()) != null) {
+            Assert.assertEquals(token.getValue(), tokenValues.get(index));
+            Assert.assertTrue(token.isString() == isTokenStrings.get(index));
+            ++index;
         }
+        Assert.assertTrue(index == tokenValues.size());
     }
 }

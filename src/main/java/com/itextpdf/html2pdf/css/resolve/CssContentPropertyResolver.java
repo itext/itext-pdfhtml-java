@@ -133,7 +133,7 @@ class CssContentPropertyResolver {
                     Map<String, String> attributes = new HashMap<>();
                     attributes.put(AttributeConstants.SRC, CssUtils.extractUrl(token.getValue()));
                     //TODO: probably should add user agent styles on CssContentElementNode creation, not here.
-                    attributes.put(AttributeConstants.STYLE, "display:inline-block;");
+                    attributes.put(AttributeConstants.STYLE, CssConstants.DISPLAY + ":" + CssConstants.INLINE_BLOCK);
                     result.add(new CssContentElementNode(contentContainer, TagConstants.IMG, attributes));
                 } else if (token.getValue().startsWith("attr(") && contentContainer instanceof CssPseudoElementNode) {
                     int endBracket = token.getValue().indexOf(')');
