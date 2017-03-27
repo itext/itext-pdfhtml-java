@@ -166,7 +166,7 @@ public class ProcessorContext {
      */
     public void addTemporaryFont(FontInfo fontInfo, String alias) {
         if (tempFonts == null) tempFonts = new FontSet();
-        tempFonts.add(fontInfo, alias);
+        tempFonts.addFont(fontInfo, alias);
     }
 
     /**
@@ -174,7 +174,7 @@ public class ProcessorContext {
      */
     public void addTemporaryFont(FontProgram fontProgram, String encoding, String alias) {
         if (tempFonts == null) tempFonts = new FontSet();
-        tempFonts.add(fontProgram, encoding, alias);
+        tempFonts.addFont(fontProgram, encoding, alias);
     }
 
     /**
