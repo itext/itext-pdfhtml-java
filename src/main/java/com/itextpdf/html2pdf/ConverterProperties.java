@@ -113,7 +113,7 @@ public class ConverterProperties {
         return this;
     }
 
-    public Boolean isCreateAcroForm() {
+    public boolean isCreateAcroForm() {
         return createAcroForm;
     }
 
