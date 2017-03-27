@@ -42,17 +42,8 @@
  */
 package com.itextpdf.html2pdf.resolver.form;
 
-import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.kernel.pdf.PdfArray;
-import com.itextpdf.kernel.pdf.PdfDictionary;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfName;
-import com.itextpdf.kernel.pdf.PdfObject;
-import com.itextpdf.kernel.pdf.PdfString;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,14 +54,6 @@ public class FormFieldNameResolver {
 
     public FormFieldNameResolver() {
     }
-
-//    public FormFieldNameResolver(Iterable<String> occupiedNames) {
-//        reset(occupiedNames);
-//    }
-//
-//    public FormFieldNameResolver(PdfDocument document) {
-//        reset(document);
-//    }
 
     public String resolveFormName(String name) {
         name = normalizeString(name);
@@ -85,41 +68,6 @@ public class FormFieldNameResolver {
     public void reset() {
         names.clear();
     }
-
-//    public void reset(Iterable<String> occupiedNames) {
-//        reset();
-//        if (occupiedNames != null) {
-//            String normalized;
-//            for (String name : occupiedNames) {
-//                normalized = normalizeString(name);
-//                if (!normalized.isEmpty()) {
-//                    resolveNormalisedFormName(normalized);
-//                }
-//            }
-//        }
-//    }
-//
-//    public void reset(PdfDocument document) {
-//        if (document != null) {
-//            PdfAcroForm acroForm = PdfAcroForm.getAcroForm(document, false);
-//            if (acroForm != null) {
-//                //We add all fields to acro form directly, so it is enough to check only direct kids names
-//                PdfArray fieldsArray = acroForm.getPdfObject().getAsArray(PdfName.Fields);
-//                if (fieldsArray != null) {
-//                    ArrayList<String> fieldsNames = new ArrayList<>();
-//                    for (PdfObject field : fieldsArray) {
-//                        if (field.isDictionary()) {
-//                            PdfString namePdfString = ((PdfDictionary) field).getAsString(PdfName.T);
-//                            if (namePdfString != null) {
-//                                fieldsNames.add(namePdfString.toUnicodeString());
-//                            }
-//                        }
-//                    }
-//                    reset(fieldsNames);
-//                }
-//            }
-//        }
-//    }
 
     private String normalizeString(String s) {
         return s != null ? s.trim().replace(".", "") : "";

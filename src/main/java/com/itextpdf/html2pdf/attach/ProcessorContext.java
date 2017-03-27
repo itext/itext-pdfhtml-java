@@ -67,7 +67,7 @@ public class ProcessorContext {
     private ITagWorkerFactory tagWorkerFactory;
     private ICssApplierFactory cssApplierFactory;
     private String baseUri;
-    private boolean flattenFontFields;
+    private boolean createAcroForm;
     private FormFieldNameResolver formFieldNameResolver;
 
     // Variable fields
@@ -111,10 +111,7 @@ public class ProcessorContext {
 
         cssContext = new CssContext();
 
-        flattenFontFields = true;
-        if (converterProperties.isFlattenFormFields() != null) {
-            flattenFontFields = (boolean) converterProperties.isFlattenFormFields();
-        }
+        createAcroForm = converterProperties.isCreateAcroForm();
         formFieldNameResolver = new FormFieldNameResolver();
     }
 
@@ -154,8 +151,8 @@ public class ProcessorContext {
         return cssContext;
     }
 
-    public boolean isFlattenFontFields() {
-        return flattenFontFields;
+    public boolean isCreateAcroForm() {
+        return createAcroForm;
     }
 
     public FormFieldNameResolver getFormFieldNameResolver() {

@@ -54,7 +54,7 @@ public class ConverterProperties {
     private ITagWorkerFactory tagWorkerFactory;
     private ICssApplierFactory cssApplierFactory;
     private String baseUri;
-    private Boolean flattenFormFields;
+    private boolean createAcroForm = false;
 
     public ConverterProperties() {
     }
@@ -65,7 +65,7 @@ public class ConverterProperties {
         this.tagWorkerFactory = other.tagWorkerFactory;
         this.cssApplierFactory = other.cssApplierFactory;
         this.baseUri = other.baseUri;
-        this.flattenFormFields = other.flattenFormFields;
+        this.createAcroForm = other.createAcroForm;
     }
 
     public MediaDeviceDescription getMediaDeviceDescription() {
@@ -113,12 +113,12 @@ public class ConverterProperties {
         return this;
     }
 
-    public Boolean isFlattenFormFields() {
-        return flattenFormFields;
+    public Boolean isCreateAcroForm() {
+        return createAcroForm;
     }
 
-    public ConverterProperties setFlattenFormFields(boolean flattenFormFields) {
-        this.flattenFormFields = flattenFormFields;
+    public ConverterProperties setCreateAcroForm(boolean createAcroForm) {
+        this.createAcroForm = createAcroForm;
         return this;
     }
 }
