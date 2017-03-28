@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
 import com.itextpdf.forms.fields.PdfFormField;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.FormField;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfName;
@@ -63,7 +63,7 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
 
     protected PdfFont font;
 
-    protected AbstractTextFieldRenderer(FormField modelElement) {
+    protected AbstractTextFieldRenderer(IFormField modelElement) {
         super(modelElement);
     }
 
@@ -110,7 +110,7 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
             if (lines != null) {
                 for (LineRenderer line : lines) {
                     for (IRenderer child : line.getChildRenderers()) {
-                        retrievedFont = child.getProperty(Property.FONT);
+                        retrievedFont = child.<PdfFont>getProperty(Property.FONT);
                         if (retrievedFont instanceof PdfFont) {
                             font = (PdfFont) retrievedFont;
                             return;
@@ -119,7 +119,7 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
                 }
             }
         }
-        retrievedFont = renderer.getProperty(Property.FONT);
+        retrievedFont = renderer.<PdfFont>getProperty(Property.FONT);
         if (retrievedFont instanceof PdfFont) {
             font = (PdfFont) retrievedFont;
         }

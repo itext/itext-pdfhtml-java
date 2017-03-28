@@ -74,13 +74,13 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
     }
 
     public int getSize() {
-        Integer size = getPropertyAsInteger(Html2PdfProperty.FORM_FIELD_SIZE);
-        return size != null ? (int) size : (int) modelElement.getDefaultProperty(Html2PdfProperty.FORM_FIELD_SIZE);
+        Integer size = this.getPropertyAsInteger(Html2PdfProperty.FORM_FIELD_SIZE);
+        return size != null ? (int) size : (int) modelElement.<Integer>getDefaultProperty(Html2PdfProperty.FORM_FIELD_SIZE);
     }
 
     public boolean isPassword() {
         Boolean password = getPropertyAsBoolean(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG);
-        return password != null ? (boolean) password : (boolean) modelElement.getDefaultProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG);
+        return password != null ? (boolean) password : (boolean) modelElement.<Boolean>getDefaultProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
         font.setSubset(false);
         String value = getDefaultValue();
         String name = getModelId();
-        float fontSize = (float) getPropertyAsFloat(Property.FONT_SIZE);
+        float fontSize = (float) this.getPropertyAsFloat(Property.FONT_SIZE);
         PdfDocument doc = drawContext.getDocument();
         Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
         PdfPage page = doc.getPage(occupiedArea.getPageNumber());
@@ -137,7 +137,7 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
     protected Float getContentWidth() {
         Float width = super.getContentWidth();
         if (width == null) {
-            float fontSize = (float) getPropertyAsFloat(Property.FONT_SIZE);
+            float fontSize = (float) this.getPropertyAsFloat(Property.FONT_SIZE);
             int size = getSize();
             return fontSize * (size * 0.5f + 2) + 2;
         }

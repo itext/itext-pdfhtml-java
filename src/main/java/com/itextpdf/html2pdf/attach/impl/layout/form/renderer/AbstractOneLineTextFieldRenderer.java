@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.FormField;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.layout.renderer.LineRenderer;
 
@@ -52,7 +52,7 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
 
     protected float baseline;
 
-    protected AbstractOneLineTextFieldRenderer(FormField modelElement) {
+    protected AbstractOneLineTextFieldRenderer(IFormField modelElement) {
         super(modelElement);
     }
 

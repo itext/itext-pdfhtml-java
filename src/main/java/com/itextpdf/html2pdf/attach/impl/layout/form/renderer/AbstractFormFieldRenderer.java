@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.FormField;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
 import com.itextpdf.layout.layout.MinMaxWidthLayoutResult;
@@ -61,22 +61,18 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
 
     protected IRenderer flatRenderer;
 
-    protected AbstractFormFieldRenderer(FormField modelElement) {
+    protected AbstractFormFieldRenderer(IFormField modelElement) {
         super(modelElement);
     }
 
     public boolean isFlatten() {
         Boolean flatten = getPropertyAsBoolean(Html2PdfProperty.FORM_FIELD_FLATTEN);
-        return flatten != null ? (boolean) flatten : (boolean) modelElement.getDefaultProperty(Html2PdfProperty.FORM_FIELD_FLATTEN);
+        return flatten != null ? (boolean) flatten : (boolean) modelElement.<Boolean>getDefaultProperty(Html2PdfProperty.FORM_FIELD_FLATTEN);
     }
 
     public String getDefaultValue() {
         String defaultValue = this.<String>getProperty(Html2PdfProperty.FORM_FIELD_VALUE);
-        return defaultValue != null ? defaultValue : (String) modelElement.getDefaultProperty(Html2PdfProperty.FORM_FIELD_VALUE);
-    }
-
-    public String getModelId() {
-        return ((FormField) getModelElement()).getId();
+        return defaultValue != null ? defaultValue : modelElement.<String>getDefaultProperty(Html2PdfProperty.FORM_FIELD_VALUE);
     }
 
     @Override
@@ -171,6 +167,10 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
     protected abstract IRenderer createFlatRenderer();
 
     protected abstract void applyAcroField(DrawContext drawContext);
+
+    protected String getModelId() {
+        return ((IFormField)getModelElement()).getId();
+    }
 
     protected boolean isRendererFit(float availableWidth, float availableHeight) {
         if (occupiedArea == null) {

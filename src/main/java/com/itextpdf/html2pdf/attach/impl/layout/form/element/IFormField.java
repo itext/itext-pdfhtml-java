@@ -42,30 +42,9 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout.form.element;
 
-import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
-import com.itextpdf.html2pdf.attach.impl.layout.form.renderer.InputFieldRenderer;
-import com.itextpdf.layout.renderer.IRenderer;
+import com.itextpdf.layout.element.ILeafElement;
 
-public class InputField extends FormField<InputField> {
+public interface IFormField extends ILeafElement {
 
-    public InputField(String id) {
-        super(id);
-    }
-
-    @Override
-    public <T1> T1 getDefaultProperty(int property) {
-        switch (property) {
-            case Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG:
-                return (T1) (Object) false;
-            case Html2PdfProperty.FORM_FIELD_SIZE:
-                return (T1) (Object) 20;
-            default:
-                return super.<T1>getDefaultProperty(property);
-        }
-    }
-
-    @Override
-    protected IRenderer makeNewRenderer() {
-        return new InputFieldRenderer(this);
-    }
+    String getId();
 }

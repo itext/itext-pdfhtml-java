@@ -71,19 +71,34 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
     }
 
     public int getCols() {
-        Integer cols = getPropertyAsInteger(Html2PdfProperty.FORM_FIELD_COLS);
+        Integer cols = this.getPropertyAsInteger(Html2PdfProperty.FORM_FIELD_COLS);
         if (cols != null && cols.intValue() > 0) {
             return (int) cols;
         }
-        return cols != null ? (int) cols : (int) modelElement.getDefaultProperty(Html2PdfProperty.FORM_FIELD_COLS);
+        return (int) modelElement.<Integer>getDefaultProperty(Html2PdfProperty.FORM_FIELD_COLS);
     }
 
     public int getRows() {
-        Integer rows = getPropertyAsInteger(Html2PdfProperty.FORM_FIELD_ROWS);
+        Integer rows = this.getPropertyAsInteger(Html2PdfProperty.FORM_FIELD_ROWS);
         if (rows != null && rows.intValue() > 0) {
             return (int) rows;
         }
-        return (int) modelElement.getDefaultProperty(Html2PdfProperty.FORM_FIELD_ROWS);
+        return (int) modelElement.<Integer>getDefaultProperty(Html2PdfProperty.FORM_FIELD_ROWS);
+    }
+
+    @Override
+    public float getAscent() {
+        return occupiedArea.getBBox().getHeight();
+    }
+
+    @Override
+    public float getDescent() {
+        return 0;
+    }
+
+    @Override
+    public IRenderer getNextRenderer() {
+        return new TextAreaRenderer((TextArea) getModelElement());
     }
 
     @Override
@@ -112,7 +127,7 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         font.setSubset(false);
         String value = getDefaultValue();
         String name = getModelId();
-        float fontSize = (float) getPropertyAsFloat(Property.FONT_SIZE);
+        float fontSize = (float) this.getPropertyAsFloat(Property.FONT_SIZE);
         PdfDocument doc = drawContext.getDocument();
         Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
         PdfPage page = doc.getPage(occupiedArea.getPageNumber());
@@ -124,25 +139,10 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
     }
 
     @Override
-    public float getAscent() {
-        return occupiedArea.getBBox().getHeight();
-    }
-
-    @Override
-    public float getDescent() {
-        return 0;
-    }
-
-    @Override
-    public IRenderer getNextRenderer() {
-        return new TextAreaRenderer((TextArea) getModelElement());
-    }
-
-    @Override
     protected Float getContentWidth() {
         Float width = super.getContentWidth();
         if (width == null) {
-            float fontSize = (float) getPropertyAsFloat(Property.FONT_SIZE);
+            float fontSize = (float) this.getPropertyAsFloat(Property.FONT_SIZE);
             int cols = getCols();
             return fontSize * (cols * 0.5f + 2) + 2;
         }
