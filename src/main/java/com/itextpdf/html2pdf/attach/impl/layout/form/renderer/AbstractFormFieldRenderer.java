@@ -185,7 +185,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
             if (width.isPointValue()) {
                 return width.getValue();
             } else {
-                LoggerFactory.getLogger(getClass()).warn(LogMessageConstant.INPUT_SUPPORT_ONLY_POINT_WIDTH);
+                LoggerFactory.getLogger(getClass()).warn(LogMessageConstant.INPUT_SUPPORTS_ONLY_POINT_WIDTH);
             }
         }
         return null;
