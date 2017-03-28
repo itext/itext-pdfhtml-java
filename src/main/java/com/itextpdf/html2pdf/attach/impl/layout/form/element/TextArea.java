@@ -60,7 +60,7 @@ public class TextArea extends FormField<TextArea> {
             case Html2PdfProperty.FORM_FIELD_COLS:
                 return (T1) (Object) 20;
             default:
-                return super.getDefaultProperty(property);
+                return super.<T1>getDefaultProperty(property);
         }
     }
 

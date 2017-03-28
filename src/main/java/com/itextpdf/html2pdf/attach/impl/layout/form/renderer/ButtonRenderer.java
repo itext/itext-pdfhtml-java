@@ -115,7 +115,7 @@ public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
     protected void applyAcroField(DrawContext drawContext) {
         String value = getDefaultValue();
         String name = getModelId();
-        float fontSize = (float) getPropertyAsFloat(Property.FONT_SIZE);
+        float fontSize = (float) this.getPropertyAsFloat(Property.FONT_SIZE);
         PdfDocument doc = drawContext.getDocument();
         Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
         applyPaddings(area, true);

@@ -49,7 +49,7 @@ import com.itextpdf.layout.element.ILeafElement;
 
 import java.util.Map;
 
-public abstract class FormField<T extends IElement> extends AbstractElement<T> implements ILeafElement {
+public abstract class FormField<T extends IFormField> extends AbstractElement<T> implements IFormField {
 
     private String id;
 
@@ -60,6 +60,7 @@ public abstract class FormField<T extends IElement> extends AbstractElement<T> i
         this.id = id;
     }
 
+    @Override
     public String getId() {
         return id;
     }
@@ -70,9 +71,9 @@ public abstract class FormField<T extends IElement> extends AbstractElement<T> i
             case Html2PdfProperty.FORM_FIELD_FLATTEN:
                 return (T1) (Object) true;
             case Html2PdfProperty.FORM_FIELD_VALUE:
-                return (T1) "";
+                return (T1) (Object) "";
             default:
-                return super.getDefaultProperty(property);
+                return super.<T1>getDefaultProperty(property);
         }
     }
 
