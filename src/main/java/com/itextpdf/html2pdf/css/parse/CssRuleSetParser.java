@@ -63,14 +63,14 @@ public final class CssRuleSetParser {
 
     public static List<CssDeclaration> parsePropertyDeclarations(String propertiesStr) {
         List<CssDeclaration> declarations = new ArrayList<>();
-        int pos = getSemicolonPosition(propertiesStr);
+        int pos = getSemicolonPosition(propertiesStr, 0);
         while (pos != -1) {
             String[] propertySplit = splitCssProperty(propertiesStr.substring(0, pos));
             if (propertySplit != null) {
                 declarations.add(new CssDeclaration(propertySplit[0], propertySplit[1]));
             }
             propertiesStr = propertiesStr.substring(pos + 1);
-            pos = getSemicolonPosition(propertiesStr);
+            pos = getSemicolonPosition(propertiesStr, 0);
         }
         if (!propertiesStr.replaceAll("[\\n\\r\\t ]", "").isEmpty()) {
             String[] propertySplit = splitCssProperty(propertiesStr);
@@ -123,17 +123,19 @@ public final class CssRuleSetParser {
         return result;
     }
 
-    private static int getSemicolonPosition(String propertiesStr) {
-        int semiColonPos = propertiesStr.indexOf(";");
-        int openedBracketPos = propertiesStr.indexOf("(");
-        int closedBracketPos = propertiesStr.indexOf(")");
+    private static int getSemicolonPosition(String propertiesStr, int fromIndex) {
+        int semiColonPos = propertiesStr.indexOf(";", fromIndex);
+        int closedBracketPos = propertiesStr.indexOf(")", semiColonPos + 1);
+        int openedBracketPos = propertiesStr.indexOf("(", fromIndex);
+        if (semiColonPos != -1 && openedBracketPos < semiColonPos && closedBracketPos > 0) {
+            int nextOpenedBracketPos = openedBracketPos;
+            do {
+                openedBracketPos = nextOpenedBracketPos;
+                nextOpenedBracketPos = propertiesStr.indexOf("(", openedBracketPos + 1);
+            } while (nextOpenedBracketPos < closedBracketPos && nextOpenedBracketPos > 0);
+        }
         if (semiColonPos != -1 && semiColonPos > openedBracketPos && semiColonPos < closedBracketPos) {
-            int pos = getSemicolonPosition(propertiesStr.substring(semiColonPos + 1)) + 1;
-            if (pos > 0) {
-                semiColonPos += getSemicolonPosition(propertiesStr.substring(semiColonPos + 1)) + 1;
-            } else {
-                semiColonPos = -1;
-            }
+            return getSemicolonPosition(propertiesStr, closedBracketPos + 1);
         }
         return semiColonPos;
     }

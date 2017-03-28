@@ -69,7 +69,7 @@ public class CssFontFaceRule extends CssNestedAtRule {
         sb.append("{");
         sb.append("\n");
         for (CssDeclaration declaration : properties) {
-            sb.append("\t");
+            sb.append("    ");
             sb.append(declaration);
             sb.append("\n");
         }
