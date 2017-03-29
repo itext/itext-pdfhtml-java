@@ -62,7 +62,6 @@ public class FontFaceSrcTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1179")
     public void srcPropertyTest() throws Exception {
 
         final String fontSrc = "web-fonts/droid-serif-invalid.";
