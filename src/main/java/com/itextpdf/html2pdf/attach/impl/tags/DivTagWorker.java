@@ -104,13 +104,15 @@ public class DivTagWorker implements ITagWorker {
             processed = allChildrenProcessed;
         } else if (element instanceof IFormField) {
             if (childTagWorker instanceof IDisplayAware && CssConstants.BLOCK.equals(((IDisplayAware) childTagWorker).getDisplay())) {
+                // TODO make IFormField implement IBlockElement and add it directly to div without inline helper.
+                // TODO Requires refactoring of AbstractOneLineTextFieldRenderer (calculate baselines properly)
                 postProcessInlineGroup();
                 inlineHelper.add((ILeafElement) element);
                 postProcessInlineGroup();
             } else {
                 inlineHelper.add((IFormField) element);
             }
-            return true;
+            processed = true;
         } else if (element instanceof AreaBreak) {
             postProcessInlineGroup();
             div.add((AreaBreak) element);

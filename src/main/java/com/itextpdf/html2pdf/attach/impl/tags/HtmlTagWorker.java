@@ -106,8 +106,14 @@ public class HtmlTagWorker implements ITagWorker {
             }
             processed = allChildrenProcessed;
         }  else if (childTagWorker.getElementResult() instanceof IFormField) {
-            inlineHelper.add((IFormField) childTagWorker.getElementResult());
-            return true;
+            if (childTagWorker instanceof IDisplayAware && CssConstants.BLOCK.equals(((IDisplayAware) childTagWorker).getDisplay())) {
+                postProcessInlineGroup();
+                inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
+                postProcessInlineGroup();
+            } else {
+                inlineHelper.add((IFormField) childTagWorker.getElementResult());
+            }
+            processed = true;
         } else if (childTagWorker.getElementResult() instanceof AreaBreak) {
             postProcessInlineGroup();
             document.add((AreaBreak) childTagWorker.getElementResult());
