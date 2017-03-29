@@ -156,7 +156,7 @@ public class FloatTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float15Test.pdf", sourceFolder + "cmp_float15Test.pdf", destinationFolder, "diff15_"));
     }
 
-    @Test@Ignore
+    @Test
     public void float16Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "float16Test.html"), new File(destinationFolder + "float16Test.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float16Test.pdf", sourceFolder + "cmp_float16Test.pdf", destinationFolder, "diff16_"));
@@ -178,5 +178,11 @@ public class FloatTest extends ExtendedITextTest {
     public void float19Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "float19Test.html"), new File(destinationFolder + "float19Test.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float19Test.pdf", sourceFolder + "cmp_float19Test.pdf", destinationFolder, "diff19_"));
+    }
+
+    @Test
+    public void float20Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "float20Test.html"), new File(destinationFolder + "float20Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float20Test.pdf", sourceFolder + "cmp_float20Test.pdf", destinationFolder, "diff20_"));
     }
 }

@@ -129,29 +129,12 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     }
 
     @Override
-    public void close() {
-        if (waitingElement != null) {
-            super.addChild(waitingElement);
-        }
-        super.close();
-        if (TRIM_LAST_BLANK_PAGE) {
-            PdfDocument pdfDocument = document.getPdfDocument();
-            if (pdfDocument.getNumberOfPages() > 1) {
-                PdfPage lastPage = pdfDocument.getLastPage();
-                if (lastPage.getContentStreamCount() == 1 && lastPage.getContentStream(0).getOutputStream().getCurrentPos() <= 0) {
-                    // Remove last empty page
-                    pdfDocument.removePage(pdfDocument.getNumberOfPages());
-                }
-            }
-        }
-    }
-
-    @Override
     public IRenderer getNextRenderer() {
         // Process waiting element to get the correct number of pages
-        if (waitingElement != null) {
-            super.addChild(waitingElement);
-            waitingElement = null;
+        if (waitingElements.size() > 0) {
+            for (IRenderer waitingElement : waitingElements) {
+                super.addChild(waitingElement);
+            }
         }
         HtmlDocumentRenderer relayoutRenderer = new HtmlDocumentRenderer(document, immediateFlush);
         relayoutRenderer.firstPageProc = firstPageProc;
@@ -244,13 +227,28 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         return new PageSize(addedPage.getTrimBox());
     }
 
+    int getEstimatedNumberOfPages() {
+        return estimatedNumberOfPages;
+	}
+
+    @Override
+    public void close() {
         if (waitingElements.size() > 0) {
             for (IRenderer waitingElement : waitingElements) {
                 super.addChild(waitingElement);
             }
         }
-    int getEstimatedNumberOfPages() {
-        return estimatedNumberOfPages;
+        super.close();
+        if (TRIM_LAST_BLANK_PAGE) {
+            PdfDocument pdfDocument = document.getPdfDocument();
+            if (pdfDocument.getNumberOfPages() > 1) {
+                PdfPage lastPage = pdfDocument.getLastPage();
+                if (lastPage.getContentStreamCount() == 1 && lastPage.getContentStream(0).getOutputStream().getCurrentPos() <= 0) {
+                    // Remove last empty page
+                    pdfDocument.removePage(pdfDocument.getNumberOfPages());
+                }
+            }
+        }
     }
 
     private PageContextProcessor getNextPageProcessor(boolean firstPage) {
