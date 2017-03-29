@@ -133,7 +133,6 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.UNEXPECTED_BEHAVIOUR_DURING_TABLE_ROW_COLLAPSING, count = 1)})
     public void textInTableAndRowTest() throws IOException, InterruptedException {
         runTest("textInTableAndRow");
     }
