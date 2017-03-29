@@ -62,10 +62,12 @@ public class DivTagWorker implements ITagWorker {
 
     private Div div;
     private WaitingInlineElementsHelper inlineHelper;
+    private String floatProperty;
 
     public DivTagWorker(IElementNode element, ProcessorContext context) {
         div = new Div();
         Map<String, String> styles = element.getStyles();
+        floatProperty = styles == null ? null : styles.get(CssConstants.FLOAT);
         inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE),
                 styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM));
     }
@@ -149,7 +151,9 @@ public class DivTagWorker implements ITagWorker {
     }
 
     private void postProcessInlineGroup() {
-        inlineHelper.flushHangingLeaves(div);
+        if (floatProperty == null) {
+            inlineHelper.flushHangingLeaves(div);
+        }
     }
 
 }
