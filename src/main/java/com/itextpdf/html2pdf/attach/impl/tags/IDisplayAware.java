@@ -42,55 +42,8 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
-import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.layout.IPropertyContainer;
+public interface IDisplayAware {
 
-public class ButtonTagWorker implements ITagWorker, IDisplayAware {
-
-    private static final String DEFAULT_BUTTON_NAME = "Button";
-    private Button button;
-    private String display;
-
-    public ButtonTagWorker(IElementNode element, ProcessorContext context) {
-        String name = element.getAttribute(AttributeConstants.ID);
-        if (name == null) {
-            name = DEFAULT_BUTTON_NAME;
-        }
-        name = context.getFormFieldNameResolver().resolveFormName(name);
-        button = new Button(name);
-        button.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
-        display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
-    }
-
-    @Override
-    public void processEnd(IElementNode element, ProcessorContext context) {
-    }
-
-    @Override
-    public String getDisplay() {
-        return display;
-    }
-
-    @Override
-    public boolean processContent(String content, ProcessorContext context) {
-        button.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, content);
-        return true;
-    }
-
-    @Override
-    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        return false;
-    }
-
-    @Override
-    public IPropertyContainer getElementResult() {
-        return button;
-    }
+    String getDisplay();
 
 }

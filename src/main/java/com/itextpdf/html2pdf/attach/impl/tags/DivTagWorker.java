@@ -103,8 +103,7 @@ public class DivTagWorker implements ITagWorker {
             }
             processed = allChildrenProcessed;
         } else if (element instanceof IFormField) {
-            // TODO refactor and generalize
-            if (childTagWorker instanceof ButtonTagWorker && CssConstants.BLOCK.equals(((ButtonTagWorker) childTagWorker).getDisplay())) {
+            if (childTagWorker instanceof IDisplayAware && CssConstants.BLOCK.equals(((IDisplayAware) childTagWorker).getDisplay())) {
                 postProcessInlineGroup();
                 inlineHelper.add((ILeafElement) element);
                 postProcessInlineGroup();
