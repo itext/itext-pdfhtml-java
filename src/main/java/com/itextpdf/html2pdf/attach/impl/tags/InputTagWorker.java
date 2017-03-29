@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
@@ -58,9 +59,10 @@ import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
 
-public class InputTagWorker implements ITagWorker {
+public class InputTagWorker implements ITagWorker, IDisplayAware {
 
-    IElement formElement;
+    private IElement formElement;
+    private String display;
 
     public InputTagWorker(IElementNode element, ProcessorContext context) {
         String inputType = element.getAttribute(AttributeConstants.TYPE);
@@ -86,11 +88,17 @@ public class InputTagWorker implements ITagWorker {
         if (formElement != null) {
             formElement.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
         }
+        display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
 
+    }
+
+    @Override
+    public String getDisplay() {
+        return display;
     }
 
     @Override
