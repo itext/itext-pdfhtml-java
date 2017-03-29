@@ -44,10 +44,6 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.element;
 
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.layout.element.AbstractElement;
-import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.element.ILeafElement;
-
-import java.util.Map;
 
 public abstract class FormField<T extends IFormField> extends AbstractElement<T> implements IFormField {
 

@@ -103,7 +103,14 @@ public class DivTagWorker implements ITagWorker {
             }
             processed = allChildrenProcessed;
         } else if (element instanceof IFormField) {
-            inlineHelper.add((IFormField) element);
+            // TODO refactor and generalize
+            if (childTagWorker instanceof ButtonTagWorker && CssConstants.BLOCK.equals(((ButtonTagWorker) childTagWorker).getDisplay())) {
+                postProcessInlineGroup();
+                inlineHelper.add((ILeafElement) element);
+                postProcessInlineGroup();
+            } else {
+                inlineHelper.add((IFormField) element);
+            }
             return true;
         } else if (element instanceof AreaBreak) {
             postProcessInlineGroup();

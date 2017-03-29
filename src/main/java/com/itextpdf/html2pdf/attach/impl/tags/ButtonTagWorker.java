@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
@@ -53,7 +54,8 @@ import com.itextpdf.layout.IPropertyContainer;
 public class ButtonTagWorker implements ITagWorker {
 
     private static final String DEFAULT_BUTTON_NAME = "Button";
-    Button button;
+    private Button button;
+    private String display;
 
     public ButtonTagWorker(IElementNode element, ProcessorContext context) {
         String name = element.getAttribute(AttributeConstants.ID);
@@ -63,10 +65,15 @@ public class ButtonTagWorker implements ITagWorker {
         name = context.getFormFieldNameResolver().resolveFormName(name);
         button = new Button(name);
         button.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
+        display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
+    }
+
+    String getDisplay() {
+        return display;
     }
 
     @Override
@@ -84,4 +91,5 @@ public class ButtonTagWorker implements ITagWorker {
     public IPropertyContainer getElementResult() {
         return button;
     }
+
 }
