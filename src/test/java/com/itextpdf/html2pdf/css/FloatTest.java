@@ -185,4 +185,10 @@ public class FloatTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "float20Test.html"), new File(destinationFolder + "float20Test.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float20Test.pdf", sourceFolder + "cmp_float20Test.pdf", destinationFolder, "diff20_"));
     }
+
+    @Test
+    public void float21Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "float21Test.html"), new File(destinationFolder + "float21Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float21Test.pdf", sourceFolder + "cmp_float21Test.pdf", destinationFolder, "diff21_"));
+    }
 }
