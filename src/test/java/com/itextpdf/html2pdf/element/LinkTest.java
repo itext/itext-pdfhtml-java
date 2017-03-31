@@ -43,6 +43,8 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -58,6 +60,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
@@ -73,7 +76,9 @@ public class LinkTest extends ExtendedITextTest {
 
     @Test
     public void linkTest01() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "linkTest01.html"), new File(destinationFolder + "linkTest01.pdf"));
+        PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "linkTest01.pdf"));
+        outDoc.setTagged();
+        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "linkTest01.html"), outDoc);
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest01.pdf", sourceFolder + "cmp_linkTest01.pdf", destinationFolder, "diff01_"));
     }
 
