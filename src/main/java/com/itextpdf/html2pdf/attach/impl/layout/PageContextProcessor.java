@@ -61,7 +61,9 @@ import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.ITextNode;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
+import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.kernel.pdf.canvas.CanvasArtifact;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.IPropertyContainer;
@@ -105,14 +107,14 @@ class PageContextProcessor {
         Map<String, String> styles = properties.getResolvedPageContextNode().getStyles();
         float em = CssUtils.parseAbsoluteLength(styles.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
-        
+
         pageSize = PageSizeParser.fetchPageSize(styles.get(CssConstants.SIZE), em, rem, defaultPageSize);
-        
+
         UnitValue bleedValue = CssUtils.parseLengthValueToPt(styles.get(CssConstants.BLEED), em, rem);
         if (bleedValue != null && bleedValue.isPointValue()) {
             bleed = bleedValue.getValue();
         }
-        
+
         marks = parseMarks(styles.get(CssConstants.MARKS));
 
         parseMargins(styles, em, rem);
@@ -125,7 +127,7 @@ class PageContextProcessor {
     PageSize getPageSize() {
         return pageSize;
     }
-    
+
     float[] computeLayoutMargins() {
         float[] layoutMargins = Arrays.copyOf(margins, margins.length);
         for (int i = 0; i < borders.length; ++i) {
@@ -165,7 +167,7 @@ class PageContextProcessor {
         if (marks.isEmpty()) {
             return;
         }
-        
+
         float horizontalIndent = 48;
         float verticalIndent = 57;
 
@@ -173,18 +175,21 @@ class PageContextProcessor {
         mediaBox.increaseHeight(verticalIndent * 2);
         mediaBox.setWidth(mediaBox.getWidth() + horizontalIndent * 2);
         page.setMediaBox(mediaBox);
-        
+
         Rectangle bleedBox = page.getBleedBox();
         bleedBox.moveUp(verticalIndent);
         bleedBox.moveRight(horizontalIndent);
         page.setBleedBox(bleedBox);
-        
+
         Rectangle trimBox = page.getTrimBox();
         trimBox.moveUp(verticalIndent);
         trimBox.moveRight(horizontalIndent);
         page.setTrimBox(trimBox);
-        
+
         PdfCanvas canvas = new PdfCanvas(page);
+        if (page.getDocument().isTagged()) {
+            canvas.openTag(new CanvasArtifact());
+        }
         if (marks.contains(CssConstants.CROP)) {
             float cropLineLength = 24;
             float verticalCropStartIndent = verticalIndent - cropLineLength;
@@ -192,29 +197,29 @@ class PageContextProcessor {
             canvas
                     .saveState()
                     .setLineWidth(0.1f)
-                    
+
                     .moveTo(trimBox.getLeft(), verticalCropStartIndent)
                     .lineTo(trimBox.getLeft(), verticalIndent)
                     .moveTo(horizontalCropStartIndent, trimBox.getTop())
                     .lineTo(horizontalIndent, trimBox.getTop())
-                    
+
                     .moveTo(trimBox.getRight(), verticalCropStartIndent)
                     .lineTo(trimBox.getRight(), verticalIndent)
                     .moveTo(mediaBox.getWidth() - horizontalCropStartIndent, trimBox.getTop())
                     .lineTo(mediaBox.getWidth() - horizontalIndent, trimBox.getTop())
-                    
-                    
+
+
                     .moveTo(trimBox.getLeft(), mediaBox.getHeight() - verticalCropStartIndent)
                     .lineTo(trimBox.getLeft(), mediaBox.getHeight() - verticalIndent)
                     .moveTo(mediaBox.getWidth() - horizontalCropStartIndent, trimBox.getBottom())
                     .lineTo(mediaBox.getWidth() - horizontalIndent, trimBox.getBottom())
-                    
-                    
+
+
                     .moveTo(trimBox.getRight(), mediaBox.getHeight() - verticalCropStartIndent)
                     .lineTo(trimBox.getRight(), mediaBox.getHeight() - verticalIndent)
                     .moveTo(horizontalCropStartIndent, trimBox.getBottom())
                     .lineTo(horizontalIndent, trimBox.getBottom())
-                    
+
                     .stroke()
                     .restoreState();
         }
@@ -223,15 +228,15 @@ class PageContextProcessor {
             float verCrossCenterIndent = horizontalIndent - 12;
             float x, y;
             canvas.saveState().setLineWidth(0.1f);
-            
+
             x = mediaBox.getWidth() / 2;
             y = mediaBox.getHeight() - horCrossCenterIndent;
             drawCross(canvas, x, y, true);
-            
+
             x = mediaBox.getWidth() / 2;
             y = horCrossCenterIndent;
             drawCross(canvas, x, y, true);
-            
+
             x = verCrossCenterIndent;
             y = mediaBox.getHeight() / 2;
             drawCross(canvas, x, y, false);
@@ -239,8 +244,11 @@ class PageContextProcessor {
             x = mediaBox.getWidth() - verCrossCenterIndent;
             y = mediaBox.getHeight() / 2;
             drawCross(canvas, x, y, false);
-            
+
             canvas.restoreState();
+        }
+        if (page.getDocument().isTagged()) {
+            canvas.closeTag();
         }
     }
 
@@ -261,7 +269,7 @@ class PageContextProcessor {
                 .moveTo(x, y - yLineHalf)
                 .lineTo(x, y + yLineHalf);
         canvas.circle(x, y, circleR);
-        
+
         canvas.stroke();
     }
 
@@ -325,7 +333,7 @@ class PageContextProcessor {
     private void createPageSimulationElements(Map<String, String> styles, ProcessorContext context) {
         pageBackgroundSimulation = new Div().setFillAvailableArea(true);
         BackgroundApplierUtil.applyBackground(styles, context, pageBackgroundSimulation);
-        
+
         pageBordersSimulation = new Div().setFillAvailableArea(true);
         pageBordersSimulation.setMargins(margins[0], margins[1], margins[2], margins[3]);
         pageBordersSimulation.setBorderTop(borders[0]);
@@ -394,11 +402,12 @@ class PageContextProcessor {
                     }
                 }
             }
+            marginBox.setRole(PdfName.Artifact);
         }
     }
 
     private Rectangle[] calculateMarginBoxRectangles(List<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
-        // TODO It's a very basic implementation for now. In future resolve rectangles based on presence of certain margin boxes, 
+        // TODO It's a very basic implementation for now. In future resolve rectangles based on presence of certain margin boxes,
         //      also height and width properties should be taken into account.
         float topMargin = margins[0];
         float rightMargin = margins[1];
@@ -486,7 +495,7 @@ class PageContextProcessor {
         return -1;
     }
 
-    private float[] parseBoxProps(Map<String, String> styles, float em, float rem, float defaultValue, Rectangle containingBlock, 
+    private float[] parseBoxProps(Map<String, String> styles, float em, float rem, float defaultValue, Rectangle containingBlock,
                                   String topPropName, String rightPropName, String bottomPropName, String leftPropName) {
         String topStr = styles.get(topPropName);
         String rightStr = styles.get(rightPropName);
@@ -505,7 +514,7 @@ class PageContextProcessor {
                 left != null ? (float)left : defaultValue
         };
     }
-    
+
     private static Float parseBoxValue(String valString, float em, float rem, float dimensionSize) {
         UnitValue marginUnitVal = CssUtils.parseLengthValueToPt(valString, em, rem);
         if (marginUnitVal != null) {
@@ -516,7 +525,7 @@ class PageContextProcessor {
                 return marginUnitVal.getValue() * dimensionSize / 100;
             }
         }
-        
+
         return null;
     }
 }
