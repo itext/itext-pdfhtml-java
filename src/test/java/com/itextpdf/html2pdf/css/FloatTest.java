@@ -144,7 +144,8 @@ public class FloatTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float13Test.pdf", sourceFolder + "cmp_float13Test.pdf", destinationFolder, "diff13_"));
     }
 
-    @Test@Ignore("DEVSIX-1132")
+    @Test
+    @Ignore("In this test css property overflow: hidden is ignored by iText. This leads to invalid results. Perhaps, one day it will be fixed")
     public void float14Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "float14Test.html"), new File(destinationFolder + "float14Test.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float14Test.pdf", sourceFolder + "cmp_float14Test.pdf", destinationFolder, "diff14_"));
