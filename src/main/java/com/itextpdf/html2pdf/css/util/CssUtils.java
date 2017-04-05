@@ -324,4 +324,8 @@ public class CssUtils {
         }
         return str;
     }
+
+    public static boolean isBase64Data(String data) {
+        return data.matches("^data:([^\\s]*);base64,([^\\s]*)");
+    }
 }

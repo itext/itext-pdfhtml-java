@@ -43,10 +43,9 @@
 package com.itextpdf.html2pdf.css.util;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
+import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
-
-import org.slf4j.LoggerFactory;
 
 class CssPropertyNormalizer {
 
@@ -75,7 +74,12 @@ class CssPropertyNormalizer {
                 if (sb.length() > 0 && !trimSpaceAfter(sb.charAt(sb.length() - 1)) && !trimSpaceBefore(part.charAt(0))) {
                     sb.append(" ");
                 }
-                sb.append(part.toLowerCase());
+                // Do not make base64 data lowercase, function name only
+                if (part.matches("^[uU][rR][lL]\\(.+\\)") && CssUtils.isBase64Data(part.substring(4, part.length() - 1))) {
+                    sb.append(part.substring(0, 3).toLowerCase()).append(part.substring(3));
+                } else {
+                    sb.append(part.toLowerCase());
+                }
             }
         }
         buffer.append(sb);
