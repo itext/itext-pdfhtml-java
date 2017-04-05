@@ -65,7 +65,7 @@ public final class CssStyleSheetParser {
     private CssStyleSheetParser() {
     }
 
-    public static CssStyleSheet parse(InputStream stream) throws IOException {
+    public static CssStyleSheet parse(InputStream stream, String baseUrl) throws IOException {
         String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
         String licenseKeyProductClassName = "com.itextpdf.licensekey.LicenseKeyProduct";
         String licenseKeyFeatureClassName = "com.itextpdf.licensekey.LicenseKeyProductFeature";
@@ -102,7 +102,7 @@ public final class CssStyleSheetParser {
             }
         }
 
-        CssParserStateController controller = new CssParserStateController();
+        CssParserStateController controller = new CssParserStateController(baseUrl);
         Reader br = PortUtil.wrapInBufferedReader(new InputStreamReader(stream)); // TODO define charset
         char[] buffer = new char[8192];
         int length;
@@ -114,13 +114,21 @@ public final class CssStyleSheetParser {
         return controller.getParsingResult();
     }
 
-    public static CssStyleSheet parse(String data) {
+    public static CssStyleSheet parse(InputStream stream) throws IOException {
+        return parse(stream, null);
+    }
+
+    public static CssStyleSheet parse(String data, String baseUrl) {
         // TODO charset? better to create parse logic based on string completely
         ByteArrayInputStream stream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
         try {
-            return parse(stream);
+            return parse(stream, baseUrl);
         } catch (IOException exc) {
             return null;
         }
+    }
+
+    public static CssStyleSheet parse(String data) {
+        return parse(data, null);
     }
 }

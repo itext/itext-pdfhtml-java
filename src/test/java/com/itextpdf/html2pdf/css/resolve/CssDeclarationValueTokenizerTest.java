@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
+import com.itextpdf.html2pdf.css.parse.CssDeclarationValueTokenizer;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 import org.junit.Assert;
@@ -52,41 +53,46 @@ import java.util.Arrays;
 import java.util.List;
 
 @Category(UnitTest.class)
-public class CssContentTokenizerTest extends ExtendedITextTest {
+public class CssDeclarationValueTokenizerTest extends ExtendedITextTest {
 
     @Test
     public void functionTest01() {
-        runTest("func(param)", Arrays.asList("func(param)"), Arrays.asList(false));
+        runTest("func(param)", Arrays.asList("func(param)"), Arrays.asList(CssDeclarationValueTokenizer.TokenType.FUNCTION));
     }
 
     @Test
     public void functionTest02() {
-        runTest("func(param1, param2)", Arrays.asList("func(param1, param2)"), Arrays.asList(false));
+        runTest("func(param1, param2)", Arrays.asList("func(param1, param2)"), Arrays.asList(CssDeclarationValueTokenizer.TokenType.FUNCTION));
     }
 
     @Test
     public void functionTest03() {
-        runTest("func(param,'param)',\"param))\")", Arrays.asList("func(param,'param)',\"param))\")"), Arrays.asList(false));
+        runTest("func(param,'param)',\"param))\")", Arrays.asList("func(param,'param)',\"param))\")"), Arrays.asList(CssDeclarationValueTokenizer.TokenType.FUNCTION));
     }
 
     @Test
     public void functionTest04() {
-        runTest("func(param, innerFunc())", Arrays.asList("func(param, innerFunc())"), Arrays.asList(false));
+        runTest("func(param, innerFunc())", Arrays.asList("func(param, innerFunc())"), Arrays.asList(CssDeclarationValueTokenizer.TokenType.FUNCTION));
     }
 
     @Test
     public void functionTest05() {
-        runTest(") )) function()", Arrays.asList(")", "))", "function()"), Arrays.asList(false, false, false));
+        runTest(") )) function()", Arrays.asList(")", "))", "function()"), Arrays.asList(CssDeclarationValueTokenizer.TokenType.UNKNOWN, CssDeclarationValueTokenizer.TokenType.UNKNOWN, CssDeclarationValueTokenizer.TokenType.FUNCTION));
     }
 
-    private void runTest(String src, List<String> tokenValues, List<Boolean> isTokenStrings) {
-        CssContentTokenizer tokenizer = new CssContentTokenizer(src);
-        CssContentTokenizer.ContentToken token = null;
-        Assert.assertTrue("Value and type arrays size should be equal", tokenValues.size() == isTokenStrings.size());
+    @Test
+    public void functionTest06() {
+        runTest("a('x'), b('x')", Arrays.asList("a('x')", ",", "b('x')"), Arrays.asList(CssDeclarationValueTokenizer.TokenType.FUNCTION, CssDeclarationValueTokenizer.TokenType.COMMA, CssDeclarationValueTokenizer.TokenType.FUNCTION));
+    }
+
+    private void runTest(String src, List<String> tokenValues, List<CssDeclarationValueTokenizer.TokenType> tokenTypes) {
+        CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(src);
+        CssDeclarationValueTokenizer.Token token = null;
+        Assert.assertTrue("Value and type arrays size should be equal", tokenValues.size() == tokenTypes.size());
         int index = 0;
         while ((token = tokenizer.getNextValidToken()) != null) {
-            Assert.assertEquals(token.getValue(), tokenValues.get(index));
-            Assert.assertTrue(token.isString() == isTokenStrings.get(index));
+            Assert.assertEquals(tokenValues.get(index), token.getValue());
+            Assert.assertEquals(tokenTypes.get(index), token.getType());
             ++index;
         }
         Assert.assertTrue(index == tokenValues.size());

@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.parse.CssDeclarationValueTokenizer;
 import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
@@ -71,8 +72,8 @@ public class CssQuotes {
                 quotes.get(1).add(EMPTY_QUOTE);
                 return new CssQuotes(quotes.get(0), quotes.get(1));
             }
-            CssContentTokenizer tokenizer = new CssContentTokenizer(quotesString);
-            CssContentTokenizer.ContentToken token;
+            CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(quotesString);
+            CssDeclarationValueTokenizer.Token token;
             for (int i = 0; ((token = tokenizer.getNextValidToken()) != null); ++i) {
                 if (token.isString()) {
                     quotes.get(i % 2).add(token.getValue());

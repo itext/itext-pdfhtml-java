@@ -53,6 +53,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
 
@@ -151,6 +152,10 @@ public class ResourceResolver {
             logger.error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, uriResolver.getBaseUri(), src), e);
             return null;
         }
+    }
+
+    public URL resolveAgainstBaseUri(String uri) throws MalformedURLException {
+        return uriResolver.resolveAgainstBaseUri(uri);
     }
     
     public void resetCache() {
