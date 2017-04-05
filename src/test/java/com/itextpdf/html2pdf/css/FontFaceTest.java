@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.media.MediaType;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
@@ -52,6 +53,8 @@ import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -100,6 +103,12 @@ public class FontFaceTest extends ExtendedITextTest {
     @Test
     public void droidSerifLocalWithMediaRuleFontTest2() throws IOException, InterruptedException {
         runTest("droidSerifLocalWithMediaRuleFontTest2");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)})
+    public void fontFaceGrammarTest() throws IOException, InterruptedException {
+        runTest("fontFaceGrammarTest");
     }
 
     @Test

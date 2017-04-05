@@ -75,7 +75,7 @@ class FontFace {
         // ttc collection are supported via url(Arial.ttc#1), url(Arial.ttc#2), etc.
         for (String src : srcs.split(",")) {
             //local|url("ideal-sans-serif.woff")( format("woff"))?
-            FontFaceSrc source = FontFaceSrc.create(src);
+            FontFaceSrc source = FontFaceSrc.create(src.trim());
             if (source != null) {
                 sources.add(source);
             }
