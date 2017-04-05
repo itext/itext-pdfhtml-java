@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.parse.CssDeclarationValueTokenizer;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
@@ -74,8 +75,8 @@ class CssContentPropertyResolver {
         if (contentStr == null || CssConstants.NONE.equals(contentStr) || CssConstants.NORMAL.equals(contentStr)) {
             return null;
         }
-        CssContentTokenizer tokenizer = new CssContentTokenizer(contentStr);
-        CssContentTokenizer.ContentToken token;
+        CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(contentStr);
+        CssDeclarationValueTokenizer.Token token;
         CssQuotes quotes = null;
         while ((token = tokenizer.getNextValidToken()) != null) {
             if (token.isString()) {

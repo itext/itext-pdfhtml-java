@@ -50,9 +50,13 @@ import com.itextpdf.html2pdf.css.CssRuleName;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.CssSemicolonAtRule;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
+import com.itextpdf.html2pdf.css.parse.CssDeclarationValueTokenizer;
 import com.itextpdf.html2pdf.css.parse.CssRuleSetParser;
+import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.resolver.resource.UriResolver;
 import org.slf4j.LoggerFactory;
 
+import java.net.MalformedURLException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,7 +103,16 @@ public final class CssParserStateController {
     private final IParserState conditionalGroupAtRuleBlockState;
     private final IParserState atRuleBlockState;
 
+    private UriResolver uriResolver;
+
     public CssParserStateController() {
+        this("");
+    }
+
+    public CssParserStateController(String baseUrl) {
+        if (baseUrl != null && baseUrl.length() > 0) {
+            this.uriResolver = new UriResolver(baseUrl);
+        }
         styleSheet = new CssStyleSheet();
         nestedAtRules = new Stack<>();
         storedPropertiesWithoutSelector = new Stack<>();
@@ -247,6 +260,10 @@ public final class CssParserStateController {
     private void processProperties(String selector, String properties) {
         List<CssRuleSet> ruleSets = CssRuleSetParser.parseRuleSet(selector, properties);
         for (CssRuleSet ruleSet : ruleSets) {
+            normalizeDeclarationURIs(ruleSet.getNormalDeclarations());
+            normalizeDeclarationURIs(ruleSet.getImportantDeclarations());
+        }
+        for (CssRuleSet ruleSet : ruleSets) {
             if (nestedAtRules.size() == 0) {
                 styleSheet.addStatement(ruleSet);
             } else {
@@ -258,7 +275,50 @@ public final class CssParserStateController {
     private void processProperties(String properties) {
         if (storedPropertiesWithoutSelector.size() > 0) {
             List<CssDeclaration> cssDeclarations = CssRuleSetParser.parsePropertyDeclarations(properties);
+            normalizeDeclarationURIs(cssDeclarations);
             storedPropertiesWithoutSelector.peek().addAll(cssDeclarations);
+        }
+    }
+
+    private void normalizeDeclarationURIs(List<CssDeclaration> declarations) {
+        // This is the case when css has no location and thus urls should not be resolved against base css location
+        if (this.uriResolver == null) {
+            return;
+        }
+        for (CssDeclaration declaration : declarations) {
+            if (declaration.getExpression().contains("url(")) {
+                CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(declaration.getExpression());
+                CssDeclarationValueTokenizer.Token token;
+                StringBuilder normalizedDeclaration = new StringBuilder();
+                while ((token = tokenizer.getNextValidToken()) != null) {
+                    String strToAppend;
+                    if (token.getType() == CssDeclarationValueTokenizer.TokenType.FUNCTION && token.getValue().startsWith("url(")) {
+                        String url = token.getValue().trim();
+                        url = url.substring(4, url.length() - 1).trim();
+                        if (CssUtils.isBase64Data(url)) {
+                            strToAppend = token.getValue().trim();
+                        } else {
+                            if (url.startsWith("'") && url.endsWith("'") || url.startsWith("\"") && url.endsWith("\"")) {
+                                url = url.substring(1, url.length() - 1);
+                            }
+                            url = url.trim();
+                            String finalUrl = url;
+                            try {
+                                finalUrl = uriResolver.resolveAgainstBaseUri(url).toExternalForm();
+                            } catch (MalformedURLException ignored) {
+                            }
+                            strToAppend = MessageFormat.format("url({0})", finalUrl);
+                        }
+                    } else {
+                        strToAppend = token.getValue();
+                    }
+                    if (normalizedDeclaration.length() > 0) {
+                        normalizedDeclaration.append(' ');
+                    }
+                    normalizedDeclaration.append(strToAppend);
+                }
+                declaration.setExpression(normalizedDeclaration.toString());
+            }
         }
     }
 

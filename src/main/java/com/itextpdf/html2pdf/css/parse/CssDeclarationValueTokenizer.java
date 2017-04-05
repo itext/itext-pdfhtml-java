@@ -40,21 +40,21 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.resolve;
+package com.itextpdf.html2pdf.css.parse;
 
-class CssContentTokenizer {
+public class CssDeclarationValueTokenizer {
     private String src;
     private int index = -1;
     private char stringQuote;
     private boolean inString;
     private int functionDepth = 0;
 
-    public CssContentTokenizer(String src) {
-        this.src = src;
+    public CssDeclarationValueTokenizer(String propertyValue) {
+        this.src = propertyValue;
     }
 
-    public ContentToken getNextValidToken() {
-        ContentToken token = getNextToken();
+    public Token getNextValidToken() {
+        Token token = getNextToken();
         while (token != null && !token.isString() && token.getValue().trim().isEmpty()) {
             token = getNextToken();
         }
@@ -69,13 +69,13 @@ class CssContentTokenizer {
                 if (token != null) {
                     processFunctionToken(token, functionBuffer);
                 }
-                return new ContentToken(functionBuffer.toString(), false);
+                return new Token(functionBuffer.toString(), TokenType.FUNCTION);
             }
         }
         return token;
     }
 
-    private ContentToken getNextToken() {
+    private Token getNextToken() {
         StringBuilder buff = new StringBuilder();
         char curChar;
         if (index >= src.length() - 1) {
@@ -99,7 +99,7 @@ class CssContentTokenizer {
                         pendingUnicodeSequence.setLength(0);
                         if (curChar == stringQuote) {
                             inString = false;
-                            return new ContentToken(buff.toString(), true);
+                            return new Token(buff.toString(), TokenType.STRING);
                         } else if (!Character.isWhitespace(curChar)) {
                             buff.append(curChar);
                         }
@@ -110,7 +110,7 @@ class CssContentTokenizer {
                     }
                 } else if (curChar == stringQuote){
                     inString = false;
-                    return new ContentToken(buff.toString(), true);
+                    return new Token(buff.toString(), TokenType.STRING);
                 } else if (curChar == '\\') {
                     isEscaped = true;
                 } else {
@@ -126,28 +126,33 @@ class CssContentTokenizer {
                 } else if (curChar == ')') {
                     --functionDepth;
                     buff.append(curChar);
+                    if (functionDepth == 0) {
+                        return new Token(buff.toString(), TokenType.FUNCTION);
+                    }
                 } else if (curChar == '"' || curChar == '\'') {
                     stringQuote = curChar;
                     inString = true;
-                    return new ContentToken(buff.toString(), false);
+                    return new Token(buff.toString(), TokenType.FUNCTION);
+                } else if (curChar == ',' && !inString && functionDepth == 0) {
+                    return new Token(",", TokenType.COMMA);
                 } else if (Character.isWhitespace(curChar)) {
                     if (functionDepth > 0) {
                         buff.append(curChar);
                     }
-                    return new ContentToken(buff.toString(), false);
+                    return new Token(buff.toString(), functionDepth > 0 ? TokenType.FUNCTION : TokenType.UNKNOWN);
                 } else {
                     buff.append(curChar);
                 }
             }
         }
-        return new ContentToken(buff.toString(), false);
+        return new Token(buff.toString(), TokenType.FUNCTION);
     }
 
     private boolean isHexDigit(char c) {
         return (47 < c && c < 58) || (64 < c && c < 71) || (96 < c && c < 103);
     }
 
-    private void processFunctionToken(ContentToken token, StringBuilder functionBuffer) {
+    private void processFunctionToken(Token token, StringBuilder functionBuffer) {
         if (token.isString()) {
             functionBuffer.append(stringQuote);
             functionBuffer.append(token.getValue());
@@ -157,26 +162,37 @@ class CssContentTokenizer {
         }
     }
 
-    static class ContentToken {
+    public static class Token {
         private String value;
-        private boolean isString;
+        private TokenType type;
 
-        public ContentToken(String value, boolean isString) {
+        public Token(String value, TokenType type) {
             this.value = value;
-            this.isString = isString;
+            this.type = type;
         }
 
         public String getValue() {
             return value;
         }
 
+        public TokenType getType() {
+            return type;
+        }
+
         public boolean isString() {
-            return isString;
+            return type == TokenType.STRING;
         }
 
         @Override
         public String toString() {
             return value;
         }
+    }
+
+    public enum TokenType {
+        STRING,
+        FUNCTION,
+        COMMA,
+        UNKNOWN
     }
 }

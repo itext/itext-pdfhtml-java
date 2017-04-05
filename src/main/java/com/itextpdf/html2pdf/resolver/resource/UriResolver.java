@@ -49,20 +49,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
 
-class UriResolver {
+public class UriResolver {
 
     private URL baseUrl;
     private boolean isLocal;
 
-    UriResolver(String baseUri) {
+    public UriResolver(String baseUri) {
         resolveBaseUrlOrPath(baseUri);
     }
 
-    String getBaseUri() {
+    public String getBaseUri() {
         return baseUrl.toExternalForm();
     }
 
-    URL resolveAgainstBaseUri(String uriString) throws MalformedURLException {
+    public URL resolveAgainstBaseUri(String uriString) throws MalformedURLException {
         URL resolvedUrl = null;
         if (isLocal) {
             // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
