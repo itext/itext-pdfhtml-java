@@ -271,6 +271,7 @@ public class CssConstants {
     public static final String STATUS_BAR = "status-bar";
     public static final String SUB = "sub";
     public static final String SUPER = "super";
+    public static final String TABLE = "table";
     public static final String TEXT_BOTTOM = "text-bottom";
     public static final String TEXT_TOP = "text-top";
     public static final String THICK = "thick";
