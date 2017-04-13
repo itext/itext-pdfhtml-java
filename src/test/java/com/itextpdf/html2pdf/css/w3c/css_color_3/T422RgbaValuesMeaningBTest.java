@@ -45,7 +45,6 @@ package com.itextpdf.html2pdf.css.w3c.css_color_3;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import org.junit.Ignore;
 
-@Ignore("DEVSIX-925: trimFirst on layout level trims all the non-breakable spaces")
 public class T422RgbaValuesMeaningBTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

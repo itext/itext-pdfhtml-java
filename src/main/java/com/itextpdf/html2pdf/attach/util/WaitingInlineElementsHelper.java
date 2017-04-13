@@ -87,6 +87,21 @@ public class WaitingInlineElementsHelper {
             }
             text = sb.toString();
         }
+        else { // false == collapseSpaces
+            // prohibit trimming first and last spaces
+            StringBuilder sb = new StringBuilder(text.length());
+            sb.append('\u200d');
+            for (int i = 0; i < text.length(); i++) {
+                sb.append(text.charAt(i));
+                if ('\n' == text.charAt(i) || '\r' == text.charAt(i)) {
+                    sb.append('\u200d');
+                }
+            }
+            if ('\u200d' == sb.charAt(sb.length()-1)) {
+                sb.deleteCharAt(sb.length()-1);
+            }
+            text = sb.toString();
+        }
 
         if (CssConstants.UPPERCASE.equals(textTransform)) {
             text = text.toUpperCase();

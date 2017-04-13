@@ -43,9 +43,13 @@
 package com.itextpdf.html2pdf.css.w3c.css_color_3;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import org.junit.Ignore;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 
-@Ignore("DEVSIX-925: trimFirst on layout level trims all the non-breakable spaces")
+@LogMessages(messages = {
+        @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES, count = 6),
+})
+
 public class T43SvgKeywordsATest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
