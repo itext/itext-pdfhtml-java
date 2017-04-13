@@ -86,8 +86,7 @@ public class WaitingInlineElementsHelper {
                 }
             }
             text = sb.toString();
-        }
-        else { // false == collapseSpaces
+        } else { // false == collapseSpaces
             // prohibit trimming first and last spaces
             StringBuilder sb = new StringBuilder(text.length());
             sb.append('\u200d');
@@ -97,8 +96,8 @@ public class WaitingInlineElementsHelper {
                     sb.append('\u200d');
                 }
             }
-            if ('\u200d' == sb.charAt(sb.length()-1)) {
-                sb.deleteCharAt(sb.length()-1);
+            if ('\u200d' == sb.charAt(sb.length() - 1)) {
+                sb.delete(sb.length() - 1, sb.length());
             }
             text = sb.toString();
         }
