@@ -53,10 +53,10 @@ import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.FileInputStream;
+import java.text.MessageFormat;
 import java.util.regex.Matcher;
 
 public class FontFaceSrcTest {
@@ -87,7 +87,7 @@ public class FontFaceSrcTest {
             Assert.assertTrue("Expression doesn't match pattern: " + sources[i], m.matches());
 
             String format = m.group(FontFace.FontFaceSrc.FormatGroup);
-            String source2 = String.format("%s(%s)%s", m.group(FontFace.FontFaceSrc.TypeGroup), m.group(FontFace.FontFaceSrc.UrlGroup), format != null ? String.format(" format(%s)", format) : "");
+            String source2 = MessageFormat.format("{0}({1}){2}", m.group(FontFace.FontFaceSrc.TypeGroup), m.group(FontFace.FontFaceSrc.UrlGroup), format != null ? MessageFormat.format(" format({0})", format) : "");
             String url = FontFace.FontFaceSrc.unquote(m.group(FontFace.FontFaceSrc.UrlGroup));
 
             Assert.assertTrue("Invalid url: " + url, url.startsWith(fontSrc));
