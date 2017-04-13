@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.FileInputStream;
@@ -62,6 +63,7 @@ public class FontFaceSrcTest {
     }
 
     @Test
+    @Ignore("Some mystery in .NET. Conflict with DivInTable002Test")
     public void srcPropertyTest() throws Exception {
 
         final String fontSrc = "web-fonts/droid-serif-invalid.";
