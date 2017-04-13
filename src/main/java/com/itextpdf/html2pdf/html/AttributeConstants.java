@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.html;
 public final class AttributeConstants {
 
     public static final String ALIGN = "align";
+    public static final String ALT = "alt";
     public static final String BGCOLOR = "bgcolor";
     public static final String BORDER = "border";
     public static final String CLASS = "class";
