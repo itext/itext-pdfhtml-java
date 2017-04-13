@@ -53,13 +53,17 @@ import com.itextpdf.layout.element.Image;
 
 public class ImgTagWorker implements ITagWorker {
 
-    private Image image;
+    private HtmlImage image;
     private String display;
 
     public ImgTagWorker(IElementNode element, ProcessorContext context) {
         PdfImageXObject imageXObject = context.getResourceResolver().retrieveImage(element.getAttribute(AttributeConstants.SRC));
         if (imageXObject != null) {
             image = new HtmlImage(imageXObject);
+            String altText = element.getAttribute(AttributeConstants.ALT);
+            if (altText != null) {
+                image.setAltText(altText);
+            }
         }
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
         // TODO this is a workaround for now to that image is not added as inline
@@ -108,6 +112,10 @@ public class ImgTagWorker implements ITagWorker {
         @Override
         public float getImageHeight() {
             return (float) (xObject.getHeight() * pxToPt);
+        }
+
+        private void setAltText(String altText) {
+            getAccessibilityProperties().setAlternateDescription(altText);
         }
     }
 }
