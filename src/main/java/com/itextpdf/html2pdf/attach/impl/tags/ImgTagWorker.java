@@ -114,7 +114,7 @@ public class ImgTagWorker implements ITagWorker {
             return (float) (xObject.getHeight() * pxToPt);
         }
 
-        private void setAltText(String altText) {
+        void setAltText(String altText) {
             getAccessibilityProperties().setAlternateDescription(altText);
         }
     }
