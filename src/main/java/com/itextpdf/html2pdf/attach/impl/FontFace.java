@@ -108,10 +108,10 @@ class FontFace {
     //region Nested types
 
     static class FontFaceSrc {
-        static Pattern UrlPattern = Pattern.compile("^((local)|(url))\\(((\'[^\']*\')|(\"[^\"]*\")|([^\'\"\\)]*))\\)( format\\(((\'[^\']*\')|(\"[^\"]*\")|([^\'\"\\)]*))\\))?$");
-        static int TypeGroup = 1;
-        static int UrlGroup = 4;
-        static int FormatGroup = 9;
+        static final Pattern UrlPattern = Pattern.compile("^((local)|(url))\\(((\'[^\']*\')|(\"[^\"]*\")|([^\'\"\\)]*))\\)( format\\(((\'[^\']*\')|(\"[^\"]*\")|([^\'\"\\)]*))\\))?$");
+        static final int TypeGroup = 1;
+        static final int UrlGroup = 4;
+        static final int FormatGroup = 9;
 
         final FontFormat format;
         final String src;
@@ -127,7 +127,6 @@ class FontFace {
             if (!m.matches()) {
                 return null;
             }
-
             return new FontFaceSrc(unquote(m.group(UrlGroup)),
                     "local".equals(m.group(TypeGroup)),
                     parseFormat(m.group(FormatGroup)));
