@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.css.CssDeclaration;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -118,7 +119,7 @@ class FontFace {
 
         @Override
         public String toString() {
-            return String.format("%s(%s)%s", isLocal ? "local" : "url", src, format != FontFormat.None ? String.format(" format(%s)", format) : "");
+            return MessageFormat.format("{0}({1}){2}", isLocal ? "local" : "url", src, format != FontFormat.None ? MessageFormat.format(" format({0})", format) : "");
         }
 
         static FontFaceSrc create(String src) {

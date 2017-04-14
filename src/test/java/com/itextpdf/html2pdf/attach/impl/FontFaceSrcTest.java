@@ -46,16 +46,16 @@ import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssFontFaceRule;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
+import com.itextpdf.test.ExtendedITextTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.FileInputStream;
 import java.text.MessageFormat;
 import java.util.regex.Matcher;
 
-public class FontFaceSrcTest {
+public class FontFaceSrcTest extends ExtendedITextTest {
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/attacher/impl/FontFaceSrcTest/";
 
     @BeforeClass
@@ -63,7 +63,6 @@ public class FontFaceSrcTest {
     }
 
     @Test
-    @Ignore("Some mystery in .NET. Conflict with DivInTable002Test")
     public void srcPropertyTest() throws Exception {
 
         final String fontSrc = "web-fonts/droid-serif-invalid.";
