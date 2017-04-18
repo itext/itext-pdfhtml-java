@@ -90,19 +90,17 @@ public class DefaultCssResolver implements ICssResolver {
 
     private CssStyleSheet cssStyleSheet;
     private MediaDeviceDescription deviceDescription;
-    private ProcessorContext context;
     private List<CssFontFaceRule> fonts = new ArrayList<>();
 
     public DefaultCssResolver(INode treeRoot, MediaDeviceDescription mediaDeviceDescription, ResourceResolver resourceResolver) {
         this.deviceDescription = mediaDeviceDescription;
-        collectCssDeclarations(treeRoot, resourceResolver);
+        collectCssDeclarations(treeRoot, resourceResolver, null);
         collectFonts();
     }
 
     public DefaultCssResolver(INode treeRoot, ProcessorContext context) {
         this.deviceDescription = context.getDeviceDescription();
-        this.context = context;
-        collectCssDeclarations(treeRoot, context.getResourceResolver());
+        collectCssDeclarations(treeRoot, context.getResourceResolver(), context.getCssContext());
         collectFonts();
     }
 
@@ -223,7 +221,7 @@ public class DefaultCssResolver implements ICssResolver {
         }
     }
 
-    private INode collectCssDeclarations(INode rootNode, ResourceResolver resourceResolver) {
+    private INode collectCssDeclarations(INode rootNode, ResourceResolver resourceResolver, CssContext cssContext) {
         cssStyleSheet = new CssStyleSheet();
         LinkedList<INode> q = new LinkedList<>();
         q.add(rootNode);
@@ -235,7 +233,7 @@ public class DefaultCssResolver implements ICssResolver {
                 if (headChildElement.name().equals(TagConstants.STYLE)) {
                     if (currentNode.childNodes().size() > 0 && currentNode.childNodes().get(0) instanceof IDataNode) {
                         String styleData = ((IDataNode) currentNode.childNodes().get(0)).getWholeData();
-                        checkIfPagesCounterMentioned(styleData);
+                        checkIfPagesCounterMentioned(styleData, cssContext);
                         CssStyleSheet styleSheet = CssStyleSheetParser.parse(styleData);
                         styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);
@@ -245,7 +243,7 @@ public class DefaultCssResolver implements ICssResolver {
                     try {
                         InputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUri);
                         byte[] bytes = StreamUtil.inputStreamToArray(stream);
-                        checkIfPagesCounterMentioned(new String(bytes));
+                        checkIfPagesCounterMentioned(new String(bytes), cssContext);
                         CssStyleSheet styleSheet = CssStyleSheetParser.parse(new ByteArrayInputStream(bytes), resourceResolver.resolveAgainstBaseUri(styleSheetUri).toString());
                         styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);
@@ -265,15 +263,13 @@ public class DefaultCssResolver implements ICssResolver {
         return null;
     }
 
-    private void checkIfPagesCounterMentioned(String cssContents) {
+    private void checkIfPagesCounterMentioned(String cssContents, CssContext cssContext) {
         // TODO more efficient (avoid searching in text string) and precise (e.g. skip spaces) check during the parsing.
         if (cssContents.contains("counter(pages)") || cssContents.contains("counters(pages")) {
-            if (context != null) {
-                // The presence of counter(pages) means that theoretically relayout may be needed.
-                // We don't know it yet because that selector might not even be used, but
-                // when we know it for sure, it's too late because the Document is created right in the start.
-                context.getCssContext().setPagesCounterPresent(true);
-            }
+            // The presence of counter(pages) means that theoretically relayout may be needed.
+            // We don't know it yet because that selector might not even be used, but
+            // when we know it for sure, it's too late because the Document is created right in the start.
+            cssContext.setPagesCounterPresent(true);
         }
     }
 
