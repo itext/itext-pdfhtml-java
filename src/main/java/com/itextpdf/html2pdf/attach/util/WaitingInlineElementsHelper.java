@@ -92,7 +92,8 @@ public class WaitingInlineElementsHelper {
             sb.append('\u200d');
             for (int i = 0; i < text.length(); i++) {
                 sb.append(text.charAt(i));
-                if ('\n' == text.charAt(i) || '\r' == text.charAt(i)) {
+                if ('\n' == text.charAt(i) ||
+                        ('\r' == text.charAt(i) && i + 1 < text.length() && '\n' != text.charAt(i + 1))) {
                     sb.append('\u200d');
                 }
             }
