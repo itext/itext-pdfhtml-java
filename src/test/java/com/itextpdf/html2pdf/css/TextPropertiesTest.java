@@ -129,4 +129,9 @@ public class TextPropertiesTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textTransformTest01.pdf", sourceFolder + "cmp_textTransformTest01.pdf", destinationFolder, "diff09_"));
     }
 
+    @Test
+    public void whiteSpace02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "whiteSpaceTest02.html"), new File(destinationFolder + "whiteSpaceTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "whiteSpaceTest02.pdf", sourceFolder + "cmp_whiteSpaceTest02.pdf", destinationFolder, "diff10_"));
+    }
 }
