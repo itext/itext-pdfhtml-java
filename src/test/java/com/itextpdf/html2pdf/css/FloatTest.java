@@ -192,4 +192,34 @@ public class FloatTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "float21Test.html"), new File(destinationFolder + "float21Test.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float21Test.pdf", sourceFolder + "cmp_float21Test.pdf", destinationFolder, "diff21_"));
     }
+
+    @Test
+    public void float22Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "float22Test.html"), new File(destinationFolder + "float22Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float22Test.pdf", sourceFolder + "cmp_float22Test.pdf", destinationFolder, "diff22_"));
+    }
+
+    @Test
+    public void float23Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "float23Test.html"), new File(destinationFolder + "float23Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float23Test.pdf", sourceFolder + "cmp_float23Test.pdf", destinationFolder, "diff23_"));
+    }
+
+    @Test
+    public void float24Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "float24Test.html"), new File(destinationFolder + "float24Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float24Test.pdf", sourceFolder + "cmp_float24Test.pdf", destinationFolder, "diff24_"));
+    }
+
+    @Test
+    public void float25Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "float25Test.html"), new File(destinationFolder + "float25Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float25Test.pdf", sourceFolder + "cmp_float25Test.pdf", destinationFolder, "diff25_"));
+    }
+
+    @Test
+    public void float26Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "float26Test.html"), new File(destinationFolder + "float26Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float26Test.pdf", sourceFolder + "cmp_float26Test.pdf", destinationFolder, "diff26_"));
+    }
 }
