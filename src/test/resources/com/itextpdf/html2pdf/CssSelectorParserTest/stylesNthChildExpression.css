@@ -1,0 +1,12 @@
+p:nth-child(3n + 1){
+	color: red;
+}
+
+p:nth-child(3n - 1){
+	color: blue;
+}
+
+span {
+	font-size: 24px;
+	text-align: center; 
+}
