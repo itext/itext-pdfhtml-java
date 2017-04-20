@@ -50,6 +50,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.BrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ButtonTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ColTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ColgroupTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.DisplayTableTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.HrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
@@ -169,6 +170,9 @@ class DefaultTagWorkerMapping {
 
         workerMapping.putMapping(TagConstants.SPAN, CssConstants.BLOCK, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.A, CssConstants.BLOCK, ABlockTagWorker.class);
+
+        workerMapping.putMapping(TagConstants.DIV, CssConstants.TABLE, DisplayTableTagWorker.class);
+        workerMapping.putMapping(TagConstants.DIV, CssConstants.INLINE_TABLE, DisplayTableTagWorker.class);
 
 
         // pseudo elements mapping
