@@ -56,17 +56,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class SpanTagWorker implements ITagWorker {
+public class SpanTagWorker implements ITagWorker, IDisplayAware {
 
     SpanWrapper spanWrapper;
     private List<IPropertyContainer> elements;
     private List<IPropertyContainer> ownLeafElements = new ArrayList<>();
     private WaitingInlineElementsHelper inlineHelper;
+    private String display;
 
     public SpanTagWorker(IElementNode element, ProcessorContext context) {
         spanWrapper = new SpanWrapper();
         Map<String, String> styles = element.getStyles();
         inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE), styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM));
+        display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
     @Override
@@ -113,6 +115,11 @@ public class SpanTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return null;
+    }
+
+    @Override
+    public String getDisplay() {
+        return display;
     }
 
     private void flushInlineHelper() {

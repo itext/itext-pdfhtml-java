@@ -106,19 +106,19 @@ public class DisplayTableTagWorker implements ITagWorker {
 
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        if (childTagWorker.getElementResult() instanceof IBlockElement && childTagWorker instanceof IDisplayAware && CssConstants.TABLE_CELL.equals(((IDisplayAware) childTagWorker).getDisplay())) {
+        boolean displayTableCell = childTagWorker instanceof IDisplayAware && CssConstants.TABLE_CELL.equals(((IDisplayAware) childTagWorker).getDisplay());
+        if (childTagWorker.getElementResult() instanceof IBlockElement) {
             Cell curCell = createWrapperCell();
             curCell.add((IBlockElement) childTagWorker.getElementResult());
-            processCell(curCell, true);
-            return true;
-        } else if (childTagWorker.getElementResult() instanceof IBlockElement) {
-            Cell curCell = createWrapperCell().add((IBlockElement) childTagWorker.getElementResult());
-            processCell(curCell, false);
+            processCell(curCell, displayTableCell);
             return true;
         } else if (childTagWorker.getElementResult() instanceof ILeafElement) {
             inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
             return true;
         } else if (childTagWorker instanceof SpanTagWorker) {
+            if (displayTableCell) {
+                flushInlineElements();
+            }
             boolean allChildrenProcessed = true;
             for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
                 if (propertyContainer instanceof ILeafElement) {
@@ -126,6 +126,11 @@ public class DisplayTableTagWorker implements ITagWorker {
                 } else {
                     allChildrenProcessed = false;
                 }
+            }
+            if (displayTableCell) {
+                Cell cell = createWrapperCell();
+                inlineHelper.flushHangingLeaves(cell);
+                processCell(cell, displayTableCell);
             }
             return allChildrenProcessed;
         }
