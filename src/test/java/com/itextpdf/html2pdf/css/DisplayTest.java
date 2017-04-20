@@ -40,39 +40,40 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.tags;
+package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.kernel.pdf.PdfName;
-import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Div;
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.utils.CompareTool;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import com.itextpdf.html2pdf.Html2PdfProductInfo;
+import com.itextpdf.kernel.Version;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-public class HrTagWorker implements ITagWorker {
+import java.io.File;
+import java.io.IOException;
 
-    Div div = new Div();
+@Category(IntegrationTest.class)
+public class DisplayTest extends ExtendedITextTest {
 
-    public HrTagWorker(IElementNode element, ProcessorContext context) {
-        div.setRole(PdfName.Artifact);
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/DisplayTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/DisplayTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+        createDestinationFolder(destinationFolder);
     }
 
-    @Override
-    public void processEnd(IElementNode element, ProcessorContext context) {
+    @Test
+    public void displayTable01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table01.html"), new File(destinationFolder + "display_table01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table01.pdf", sourceFolder + "cmp_display_table01.pdf", destinationFolder, "diff01_"));
     }
 
-    @Override
-    public boolean processContent(String content, ProcessorContext context) {
-        return false;
-    }
-
-    @Override
-    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        return false;
-    }
-
-    @Override
-    public IPropertyContainer getElementResult() {
-        return div;
-    }
 }

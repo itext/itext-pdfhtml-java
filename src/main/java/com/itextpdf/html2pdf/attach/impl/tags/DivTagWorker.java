@@ -55,16 +55,18 @@ import com.itextpdf.layout.property.Property;
 
 import java.util.Map;
 
-public class DivTagWorker implements ITagWorker {
+public class DivTagWorker implements ITagWorker, IDisplayAware {
 
     private Div div;
     private WaitingInlineElementsHelper inlineHelper;
+    private String display;
 
     public DivTagWorker(IElementNode element, ProcessorContext context) {
         div = new Div();
         Map<String, String> styles = element.getStyles();
         inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE),
                 styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM));
+        display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
     @Override
@@ -130,6 +132,11 @@ public class DivTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return div;
+    }
+
+    @Override
+    public String getDisplay() {
+        return display;
     }
 
     private boolean addBlockChild(com.itextpdf.layout.element.IElement element) {

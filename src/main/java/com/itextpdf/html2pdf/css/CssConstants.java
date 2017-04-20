@@ -152,6 +152,7 @@ public class CssConstants {
     public static final String SIZE = "size";
     public static final String STYLE = "style";
     public static final String TAB_SIZE = "tab-size";
+    public static final String TABLE_CELL = "table-cell";
     public static final String TABLE_LAYOUT = "table-layout";
     public static final String TEXT_ALIGN = "text-align";
     public static final String TEXT_ALIGN_LAST = "text-align-last";
@@ -215,6 +216,7 @@ public class CssConstants {
     public static final String INITIAL = "initial";
     public static final String INLINE = "inline";
     public static final String INLINE_BLOCK = "inline-block";
+    public static final String INLINE_TABLE = "inline-table";
     public static final String INSET = "inset";
     public static final String INSIDE = "inside";
     public static final String INVERT = "invert";
