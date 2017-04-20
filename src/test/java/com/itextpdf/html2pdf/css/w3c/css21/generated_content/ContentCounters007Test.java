@@ -43,9 +43,7 @@
 package com.itextpdf.html2pdf.css.w3c.css21.generated_content;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import org.junit.Ignore;
 
-@Ignore("DEVSIX-1100")
 public class ContentCounters007Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
