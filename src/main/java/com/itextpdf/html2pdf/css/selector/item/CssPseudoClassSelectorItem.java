@@ -43,8 +43,7 @@
 package com.itextpdf.html2pdf.css.selector.item;
 
 
-import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
-import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupTextNode;
+import com.itextpdf.html2pdf.html.node.ICustomElementNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
@@ -78,7 +77,7 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
     @Override
     public boolean matches(INode node) {
-        if (!(node instanceof IElementNode) || node instanceof CssPseudoElementNode) {
+        if (!(node instanceof IElementNode) || node instanceof ICustomElementNode) {
             return false;
         }
         List<INode> children = getAllChildren(node);

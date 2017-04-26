@@ -40,26 +40,8 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.resolve.func.counter;
+package com.itextpdf.html2pdf.html.node;
 
-import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
-import com.itextpdf.html2pdf.html.node.ICustomElementNode;
-import org.jsoup.nodes.Element;
-import org.jsoup.parser.Tag;
-
-public class PageCountElementNode extends JsoupElementNode implements ICustomElementNode {
-
-    public static final String PAGE_COUNTER_TAG = "_e0d00a6_page-counter";
-
-    private boolean totalPageCount = false;
-
-    public PageCountElementNode(boolean totalPageCount) {
-        super(new Element(Tag.valueOf(PAGE_COUNTER_TAG), ""));
-        this.totalPageCount = totalPageCount;
-    }
-
-    public boolean isTotalPageCount() {
-        return totalPageCount;
-    }
-
+// This interface serves as a marker that this particular IElementNode is something non-standard.
+public interface ICustomElementNode extends IElementNode {
 }
