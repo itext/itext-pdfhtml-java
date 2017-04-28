@@ -45,13 +45,10 @@ package com.itextpdf.html2pdf.attach.util;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.ILeafElement;
-import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.ListItem;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.element.*;
+import com.itextpdf.layout.property.ClearPropertyValue;
+import com.itextpdf.layout.property.FloatPropertyValue;
+import com.itextpdf.layout.property.Property;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -156,6 +153,14 @@ public class WaitingInlineElementsHelper {
             Paragraph p = createParagraphContainer();
             for (ILeafElement leaf : waitingLeaves) {
                 p.add(leaf);
+                FloatPropertyValue floatPropertyValue = leaf.getProperty(Property.FLOAT);
+                if (floatPropertyValue != null && !(leaf instanceof Image)) {
+                    p.setProperty(Property.FLOAT, floatPropertyValue);
+                }
+                ClearPropertyValue clearPropertyValue = leaf.getProperty(Property.CLEAR);
+                if (clearPropertyValue != null && !(leaf instanceof Image)) {
+                    p.setProperty(Property.CLEAR, clearPropertyValue);
+                }
             }
             // Default leading in html is 1.2 and it is an inherited value. However, if a paragraph only contains an image,
             // the default leading should be 1. This is the case when we create a dummy paragraph, therefore we should emulate this behavior.

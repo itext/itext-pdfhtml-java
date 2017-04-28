@@ -105,6 +105,11 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
             waitingElement = null;
         }
         waitingElement = renderer;
+
+        if (renderer.hasProperty(Property.FLOAT)) {
+            waitingElement = null;
+            super.addChild(renderer);
+        }
     }
 
     @Override
@@ -225,7 +230,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
 
     int getEstimatedNumberOfPages() {
         return estimatedNumberOfPages;
-    }
+	}
 
     private PageContextProcessor getNextPageProcessor(boolean firstPage) {
         // If first page, but break-before: left for ltr is present, we should use left page instead of first

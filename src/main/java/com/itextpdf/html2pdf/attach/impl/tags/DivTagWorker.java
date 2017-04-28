@@ -49,25 +49,24 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.AreaBreak;
-import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.IBlockElement;
-import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.element.ILeafElement;
-import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.*;
+import com.itextpdf.layout.property.FloatPropertyValue;
+import com.itextpdf.layout.property.Property;
 
 import java.util.Map;
 
-public class DivTagWorker implements ITagWorker {
+public class DivTagWorker implements ITagWorker, IDisplayAware {
 
     private Div div;
     private WaitingInlineElementsHelper inlineHelper;
+    private String display;
 
     public DivTagWorker(IElementNode element, ProcessorContext context) {
         div = new Div();
         Map<String, String> styles = element.getStyles();
         inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE),
                 styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM));
+        display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
     @Override
@@ -135,8 +134,28 @@ public class DivTagWorker implements ITagWorker {
         return div;
     }
 
+    @Override
+    public String getDisplay() {
+        return display;
+    }
+
     private boolean addBlockChild(com.itextpdf.layout.element.IElement element) {
-        postProcessInlineGroup();
+        boolean waitingLeavesContainsFloat = false;
+        for (ILeafElement waitingLeaf : inlineHelper.getWaitingLeaves()) {
+            if (elementIsFloated(waitingLeaf)) {
+                waitingLeavesContainsFloat = true;
+                break;
+            }
+        }
+
+        if (elementIsFloated(element)) {
+            if (waitingLeavesContainsFloat) {
+                postProcessInlineGroup();
+            }
+        } else {
+            postProcessInlineGroup();
+        }
+
         boolean processed = false;
         if (element instanceof IBlockElement) {
             div.add(((IBlockElement) element));
@@ -148,8 +167,12 @@ public class DivTagWorker implements ITagWorker {
         return processed;
     }
 
+    private boolean elementIsFloated(IElement element) {
+        FloatPropertyValue floatPropertyValue = element.getProperty(Property.FLOAT);
+        return floatPropertyValue != null && !floatPropertyValue.equals(FloatPropertyValue.NONE);
+    }
+
     private void postProcessInlineGroup() {
         inlineHelper.flushHangingLeaves(div);
     }
-
 }

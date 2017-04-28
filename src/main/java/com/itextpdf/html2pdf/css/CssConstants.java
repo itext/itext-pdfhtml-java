@@ -85,8 +85,10 @@ public class CssConstants {
     public static final String BORDER_TOP_STYLE = "border-top-style";
     public static final String BORDER_TOP_WIDTH = "border-top-width";
     public static final String BORDER_WIDTH = "border-width";
+    public static final String BOTH = "both";
     public static final String BOX_SHADOW = "box-shadow";
     public static final String CAPTION_SIDE = "caption-side";
+    public static final String CLEAR = "clear";
     public static final String COLOR = "color";
     public static final String CONTENT = "content";
     public static final String COUNTER_INCREMENT = "counter-increment";
@@ -150,6 +152,7 @@ public class CssConstants {
     public static final String SIZE = "size";
     public static final String STYLE = "style";
     public static final String TAB_SIZE = "tab-size";
+    public static final String TABLE_CELL = "table-cell";
     public static final String TABLE_LAYOUT = "table-layout";
     public static final String TEXT_ALIGN = "text-align";
     public static final String TEXT_ALIGN_LAST = "text-align-last";
@@ -213,6 +216,7 @@ public class CssConstants {
     public static final String INITIAL = "initial";
     public static final String INLINE = "inline";
     public static final String INLINE_BLOCK = "inline-block";
+    public static final String INLINE_TABLE = "inline-table";
     public static final String INSET = "inset";
     public static final String INSIDE = "inside";
     public static final String INVERT = "invert";
@@ -269,6 +273,7 @@ public class CssConstants {
     public static final String STATUS_BAR = "status-bar";
     public static final String SUB = "sub";
     public static final String SUPER = "super";
+    public static final String TABLE = "table";
     public static final String TEXT_BOTTOM = "text-bottom";
     public static final String TEXT_TOP = "text-top";
     public static final String THICK = "thick";

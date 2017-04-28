@@ -266,6 +266,16 @@ public class PseudoElementsTest extends ExtendedITextTest {
         runTest("emptyStillShownPseudoTest05");
     }
 
+    @Test
+    public void pseudoDisplayTable01Test() throws IOException, InterruptedException {
+        runTest("pseudoDisplayTable01");
+    }
+
+    @Test
+    public void pseudoDisplayTable02Test() throws IOException, InterruptedException {
+        runTest("pseudoDisplayTable02");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";

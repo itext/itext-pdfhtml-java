@@ -47,8 +47,10 @@ import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
 import java.io.File;
 import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -75,7 +77,7 @@ public class HorizontalAlignmentTest extends ExtendedITextTest {
         runTest("alignAttribute03");
     }
 
-    @Test
+    @Test@Ignore("DEVSIX-1223")
     public void alignAttribute04() throws IOException, InterruptedException {
         // TODO result is somewhat different from what browsers render; see TODO in HtmlStylesToCssConverter.AlignAttributeConverter
         runTest("alignAttribute04");
