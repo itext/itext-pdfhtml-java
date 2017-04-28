@@ -55,23 +55,26 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
     private String pseudoClass;
     private String arguments;
+    private int nthChildA;
+    private int nthChildB;
 
     public CssPseudoClassSelectorItem(String pseudoClass) {
         int indexOfParentheses = pseudoClass.indexOf('(');
         if (indexOfParentheses == -1) {
             this.pseudoClass = pseudoClass;
-            this.arguments = null;
+            this.arguments = "";
         }
         else {
             this.pseudoClass = pseudoClass.substring(0, indexOfParentheses);
-            this.arguments = pseudoClass.substring(indexOfParentheses + 1, pseudoClass.length() - 1).toLowerCase();
+            this.arguments = pseudoClass.substring(indexOfParentheses + 1, pseudoClass.length() - 1).trim();
+            int[] nthChildArguments = getNthChildArguments();
+            nthChildA = nthChildArguments[0];
+            nthChildB = nthChildArguments[1];
         }
     }
 
     @Override
-    public int getSpecificity() {
-        return CssSpecificityConstants.CLASS_SPECIFICITY;
-    }
+    public int getSpecificity() { return CssSpecificityConstants.CLASS_SPECIFICITY; }
 
     @Override
     public boolean matches(INode node) {
@@ -93,48 +96,74 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
     @Override
     public String toString() {
-        return ":" + pseudoClass + (arguments != null ? new String("(" + arguments + ")") : "");
+        return ":" + pseudoClass + (!arguments.isEmpty() ? new String("(" + arguments + ")") : "");
     }
 
     private List<INode> getAllChildren(INode child) {
         INode parentElement = child.parentNode();
-        List<INode> childrenUnmodifiable = parentElement.childNodes();
-        List<INode> children = new ArrayList<INode>(childrenUnmodifiable.size());
-        for (INode iNode : childrenUnmodifiable) {
-            if (iNode instanceof IElementNode)
-                children.add(iNode);
+        if (parentElement != null) {
+            List<INode> childrenUnmodifiable = parentElement.childNodes();
+            List<INode> children = new ArrayList<INode>(childrenUnmodifiable.size());
+            for (INode iNode : childrenUnmodifiable) {
+                if (iNode instanceof IElementNode)
+                    children.add(iNode);
+            }
+            return children;
         }
-        return children;
+        return new ArrayList<INode>();
     }
 
-    private boolean resolveNthChild(INode node, List<INode> children) {
-        if (arguments.matches("\\s*((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)\\s*")) {
-            int a, b;
-            boolean bIsPositive = true;
-            if (arguments.matches("\\s*(odd|even)\\s*")) {
-                a = 2;
-                b = arguments.matches("\\s*odd\\s*") ? 1 : 0;
-            }
-            else {
+    private int[] getNthChildArguments() {
+        if (arguments.matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
+            if (arguments.equals("odd")) {
+                this.nthChildA = 2;
+                this.nthChildB = 1;
+            } else if (arguments.equals("even")) {
+                this.nthChildA = 2;
+                this.nthChildB = 0;
+            } else {
                 int indexOfN = arguments.indexOf('n');
                 if (indexOfN == -1) {
-                    a = children.size();
-                    b = Integer.valueOf(arguments);
-                }
-                else
-                {
-                    a = Integer.valueOf(arguments.substring(0, indexOfN).trim());
-                    String[] bParticle = arguments.substring(indexOfN + 1).trim().split("\\s+");
-                    bIsPositive = bParticle[0].equals("+") ? true : false;
-                    b = Integer.valueOf(bParticle[1]);
+                    this.nthChildA = 0;
+                    this.nthChildB = Integer.valueOf(arguments);
+                } else {
+                    String aParticle = arguments.substring(0, indexOfN).trim();
+                    if (aParticle.isEmpty())
+                        this.nthChildA = 0;
+                    else if (aParticle.length() == 1 && !Character.isDigit(aParticle.charAt(0)))
+                        this.nthChildA = aParticle.equals("+") ? 1 : -1;
+                    else
+                        this.nthChildA = Integer.valueOf(arguments.substring(0, indexOfN).trim());
+                    String bParticle = arguments.substring(indexOfN + 1).trim();
+                    if (!bParticle.isEmpty())
+                        this.nthChildB  = Integer.valueOf(bParticle.charAt(0) + bParticle.substring(1).trim());
+                    else
+                        this.nthChildB  = 0;
                 }
             }
-            if (bIsPositive)
-                return (children.indexOf(node) + 1) % a == b;
-            else
-                return (children.indexOf(node) + 1) % a == a - b;
         }
         else
+        {
+            this.nthChildA  = 0;
+            this.nthChildB  = 0;
+        }
+        return new int[] {this.nthChildA, this.nthChildB};
+        }
+
+    private boolean resolveNthChild(INode node, List<INode> children) {
+        if (!children.contains(node))
             return false;
+        if (this.nthChildA > 0)
+        {
+            int temp = children.indexOf(node) + 1 - this.nthChildB;
+            return temp >= 0 ? temp % this.nthChildA == 0 : false;
+        }
+        else if (this.nthChildA < 0)
+        {
+            int temp = children.indexOf(node) + 1 - this.nthChildA;
+            return temp <= 0 ? temp % this.nthChildA == 0 : false;
+        }
+        else
+            return (children.indexOf(node) + 1) - this.nthChildB == 0;
     }
 }
