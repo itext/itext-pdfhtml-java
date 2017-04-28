@@ -47,19 +47,20 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.File;
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import java.io.File;
-import java.io.IOException;
-
 
 @Category(IntegrationTest.class)
-public class CssSelectorParserTest extends ExtendedITextTest {
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/CssSelectorParserTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/CssSelectorParserTest/";
+public class CssNthChildSelectorTest extends ExtendedITextTest {
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssNthChildSelectorTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/CssNthChildSelectorTest/";
 
     @BeforeClass
     public static void beforeClass() {
