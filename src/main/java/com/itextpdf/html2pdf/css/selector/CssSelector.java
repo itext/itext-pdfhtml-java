@@ -114,7 +114,14 @@ public class CssSelector extends AbstractCssSelector {
                         INode parent = element.parentNode();
                         if (parent != null) {
                             int indexOfElement = parent.childNodes().indexOf(element);
-                            return indexOfElement > 0 && matches(parent.childNodes().get(indexOfElement - 1), i - 1);
+                            INode previousElement = null;
+                            for (int j = indexOfElement - 1; j >= 0; j--)
+                                if (parent.childNodes().get(j) instanceof IElementNode) {
+                                    previousElement = parent.childNodes().get(j);
+                                    break;
+                                }
+                            if (previousElement != null)
+                                return indexOfElement > 0 && matches(previousElement, i - 1);
                         }
                         return false;
                     }
