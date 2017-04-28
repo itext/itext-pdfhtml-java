@@ -62,9 +62,9 @@ import java.io.IOException;
 
 
 @Category(IntegrationTest.class)
-public class CssSelectorParserTest extends ExtendedITextTest {
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/CssSelectorParserTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/CssSelectorParserTest/";
+public class CssNthChildSelectorTest extends ExtendedITextTest {
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssNthChildSelectorTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/CssNthChildSelectorTest/";
 
     @BeforeClass
     public static void beforeClass() {
