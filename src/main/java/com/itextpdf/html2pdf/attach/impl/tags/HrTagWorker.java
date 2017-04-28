@@ -49,7 +49,7 @@ import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 
-public class HrTagWorker implements ITagWorker{
+public class HrTagWorker implements ITagWorker {
 
     Div div = new Div();
 

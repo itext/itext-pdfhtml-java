@@ -42,7 +42,6 @@
  */
 package com.itextpdf.html2pdf.css.apply.impl;
 
-import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
@@ -149,6 +148,9 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(afterPseudoElemName, SpanTagCssApplier.class);
         mapping.putMapping(beforePseudoElemName, CssConstants.BLOCK, BlockCssApplier.class);
         mapping.putMapping(afterPseudoElemName, CssConstants.BLOCK, BlockCssApplier.class);
+        // For now behaving like display:block in display:table case is sufficient
+        mapping.putMapping(beforePseudoElemName, CssConstants.TABLE, BlockCssApplier.class);
+        mapping.putMapping(afterPseudoElemName, CssConstants.TABLE, BlockCssApplier.class);
         mapping.putMapping(CssPseudoElementUtil.createPseudoElementTagName(TagConstants.IMG), BlockCssApplier.class);
 
 

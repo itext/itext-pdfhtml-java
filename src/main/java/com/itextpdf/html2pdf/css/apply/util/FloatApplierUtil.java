@@ -45,8 +45,10 @@ package com.itextpdf.html2pdf.css.apply.util;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.property.HorizontalAlignment;
+import com.itextpdf.layout.property.ClearPropertyValue;
+import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
+
 import java.util.Map;
 
 public class FloatApplierUtil {
@@ -59,9 +61,21 @@ public class FloatApplierUtil {
         String floatValue = cssProps.get(CssConstants.FLOAT);
         if (floatValue != null) {
             if (CssConstants.LEFT.equals(floatValue)) {
-                element.setProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.LEFT);
+                element.setProperty(Property.FLOAT, FloatPropertyValue.LEFT);
+
             } else if (CssConstants.RIGHT.equals(floatValue)) {
-                element.setProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.RIGHT);
+                element.setProperty(Property.FLOAT, FloatPropertyValue.RIGHT);
+            }
+        }
+
+        String clearValue = cssProps.get(CssConstants.CLEAR);
+        if (clearValue != null) {
+            if(CssConstants.LEFT.equals(clearValue)) {
+                element.setProperty(Property.CLEAR, ClearPropertyValue.LEFT);
+            } else if (CssConstants.RIGHT.equals(clearValue)) {
+                element.setProperty(Property.CLEAR, ClearPropertyValue.RIGHT);
+            } else if (CssConstants.BOTH.equals(clearValue)) {
+                element.setProperty(Property.CLEAR, ClearPropertyValue.BOTH);
             }
         }
     }
