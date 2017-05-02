@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CssPseudoClassSelectorItem implements ICssSelectorItem {
@@ -62,18 +63,17 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
         if (indexOfParentheses == -1) {
             this.pseudoClass = pseudoClass;
             this.arguments = "";
-        }
-        else {
+        } else {
             this.pseudoClass = pseudoClass.substring(0, indexOfParentheses);
             this.arguments = pseudoClass.substring(indexOfParentheses + 1, pseudoClass.length() - 1).trim();
-            int[] nthChildArguments = getNthChildArguments();
-            nthChildA = nthChildArguments[0];
-            nthChildB = nthChildArguments[1];
+            getNthChildArguments();
         }
     }
 
     @Override
-    public int getSpecificity() { return CssSpecificityConstants.CLASS_SPECIFICITY; }
+    public int getSpecificity() {
+        return CssSpecificityConstants.CLASS_SPECIFICITY;
+    }
 
     @Override
     public boolean matches(INode node) {
@@ -109,10 +109,10 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
             }
             return children;
         }
-        return new ArrayList<INode>();
+        return Collections.<INode>emptyList();
     }
 
-    private int[] getNthChildArguments() {
+    private void getNthChildArguments() {
         if (arguments.matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
             if (arguments.equals("odd")) {
                 this.nthChildA = 2;
@@ -132,37 +132,30 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
                     else if (aParticle.length() == 1 && !Character.isDigit(aParticle.charAt(0)))
                         this.nthChildA = aParticle.equals("+") ? 1 : -1;
                     else
-                        this.nthChildA = Integer.valueOf(arguments.substring(0, indexOfN).trim());
+                        this.nthChildA = Integer.valueOf(aParticle);
                     String bParticle = arguments.substring(indexOfN + 1).trim();
                     if (!bParticle.isEmpty())
-                        this.nthChildB  = Integer.valueOf(bParticle.charAt(0) + bParticle.substring(1).trim());
+                        this.nthChildB = Integer.valueOf(bParticle.charAt(0) + bParticle.substring(1).trim());
                     else
-                        this.nthChildB  = 0;
+                        this.nthChildB = 0;
                 }
             }
+        } else {
+            this.nthChildA = 0;
+            this.nthChildB = 0;
         }
-        else
-        {
-            this.nthChildA  = 0;
-            this.nthChildB  = 0;
-        }
-        return new int[] {this.nthChildA, this.nthChildB};
-        }
+    }
 
     private boolean resolveNthChild(INode node, List<INode> children) {
         if (!children.contains(node))
             return false;
-        if (this.nthChildA > 0)
-        {
+        if (this.nthChildA > 0) {
             int temp = children.indexOf(node) + 1 - this.nthChildB;
             return temp >= 0 ? temp % this.nthChildA == 0 : false;
-        }
-        else if (this.nthChildA < 0)
-        {
-            int temp = children.indexOf(node) + 1 - this.nthChildA;
+        } else if (this.nthChildA < 0) {
+            int temp = children.indexOf(node) + 1 - this.nthChildB;
             return temp <= 0 ? temp % this.nthChildA == 0 : false;
-        }
-        else
+        } else
             return (children.indexOf(node) + 1) - this.nthChildB == 0;
     }
 }

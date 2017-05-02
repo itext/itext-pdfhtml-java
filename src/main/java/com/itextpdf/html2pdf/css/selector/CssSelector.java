@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.css.selector.item.CssSeparatorSelectorItem;
 import com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
+
 import java.util.List;
 
 public class CssSelector extends AbstractCssSelector {
