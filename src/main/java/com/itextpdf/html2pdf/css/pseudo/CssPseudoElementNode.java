@@ -47,12 +47,13 @@ import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IAttributes;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.html.node.ICustomElementNode;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class CssPseudoElementNode extends CssContextNode implements IElementNode {
+public class CssPseudoElementNode extends CssContextNode implements IElementNode, ICustomElementNode {
     private String pseudoElementName;
     private String pseudoElementTagName;
 

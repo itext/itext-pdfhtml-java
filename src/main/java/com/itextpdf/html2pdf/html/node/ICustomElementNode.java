@@ -40,13 +40,8 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.w3c.css21.generated_content;
+package com.itextpdf.html2pdf.html.node;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-
-public class ContentCounters009Test extends W3CCssTest {
-    @Override
-    protected String getHtmlFileName() {
-        return "content-counters-009.xht";
-    }
+// This interface serves as a marker that this particular IElementNode is something non-standard.
+public interface ICustomElementNode extends IElementNode {
 }
