@@ -84,9 +84,42 @@ public class ClearTest extends ExtendedITextTest {
     }
 
     @Test
-    public void clear05Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "clear05Test.html"), new File(destinationFolder + "clear05Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear05Test.pdf", sourceFolder + "cmp_clear05Test.pdf", destinationFolder, "diff05_"));
+    public void clear06Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "clear06Test.html"), new File(destinationFolder + "clear06Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear06Test.pdf", sourceFolder + "cmp_clear06Test.pdf", destinationFolder, "diff06_"));
+    }
+
+    @Test
+    public void clear07Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "clear07Test.html"), new File(destinationFolder + "clear07Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear07Test.pdf", sourceFolder + "cmp_clear07Test.pdf", destinationFolder, "diff07_"));
+    }
+
+    @Test
+    public void clear08Test() throws IOException, InterruptedException {
+        // TODO behaving differently from browser in some cases of selfcollapsing margins
+        HtmlConverter.convertToPdf(new File(sourceFolder + "clear08Test.html"), new File(destinationFolder + "clear08Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear08Test.pdf", sourceFolder + "cmp_clear08Test.pdf", destinationFolder, "diff08_"));
+    }
+
+    @Test
+    public void clear09Test() throws IOException, InterruptedException {
+        // TODO behaving differently from browser in some cases of selfcollapsing margins
+        HtmlConverter.convertToPdf(new File(sourceFolder + "clear09Test.html"), new File(destinationFolder + "clear09Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear09Test.pdf", sourceFolder + "cmp_clear09Test.pdf", destinationFolder, "diff09_"));
+    }
+
+    @Test
+    public void clear10Test() throws IOException, InterruptedException {
+        // TODO behaving differently from browser in some cases of selfcollapsing margins
+        HtmlConverter.convertToPdf(new File(sourceFolder + "clear10Test.html"), new File(destinationFolder + "clear10Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear10Test.pdf", sourceFolder + "cmp_clear10Test.pdf", destinationFolder, "dif10_"));
+    }
+
+    @Test
+    public void clear11Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "clear11Test.html"), new File(destinationFolder + "clear11Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear11Test.pdf", sourceFolder + "cmp_clear11Test.pdf", destinationFolder, "dif11_"));
     }
 
 }

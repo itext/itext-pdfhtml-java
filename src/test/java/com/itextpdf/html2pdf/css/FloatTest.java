@@ -63,163 +63,289 @@ public class FloatTest extends ExtendedITextTest {
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(destinationFolder);
     }
 
     @Test
     public void float01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float01Test.html"), new File(destinationFolder + "float01Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float01Test.pdf", sourceFolder + "cmp_float01Test.pdf", destinationFolder, "diff01_"));
+        runTest("float01Test", "diff01_");
     }
 
     @Test
     public void float02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float02Test.html"), new File(destinationFolder + "float02Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float02Test.pdf", sourceFolder + "cmp_float02Test.pdf", destinationFolder, "diff02_"));
+        runTest("float02Test", "diff02_");
     }
 
     @Test
     public void float03Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float03Test.html"), new File(destinationFolder + "float03Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float03Test.pdf", sourceFolder + "cmp_float03Test.pdf", destinationFolder, "diff03_"));
+        runTest("float03Test", "diff03_");
     }
 
     @Test
     public void float04Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float04Test.html"), new File(destinationFolder + "float04Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float04Test.pdf", sourceFolder + "cmp_float04Test.pdf", destinationFolder, "diff04_"));
+        runTest("float04Test", "diff04_");
     }
 
     @Test
     public void float05Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float05Test.html"), new File(destinationFolder + "float05Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float05Test.pdf", sourceFolder + "cmp_float05Test.pdf", destinationFolder, "diff05_"));
+        runTest("float05Test", "diff05_");
     }
 
     @Test
     public void float06Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float06Test.html"), new File(destinationFolder + "float06Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float06Test.pdf", sourceFolder + "cmp_float06Test.pdf", destinationFolder, "diff06_"));
+        runTest("float06Test", "diff07_");
     }
 
     @Test
     public void float07Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float07Test.html"), new File(destinationFolder + "float07Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float07Test.pdf", sourceFolder + "cmp_float07Test.pdf", destinationFolder, "diff07_"));
+        runTest("float07Test", "diff08_");
     }
 
     @Test
     public void float08Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float08Test.html"), new File(destinationFolder + "float08Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float08Test.pdf", sourceFolder + "cmp_float08Test.pdf", destinationFolder, "diff08_"));
+        runTest("float08Test", "diff27_");
     }
 
     @Test
     public void float09Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float09Test.html"), new File(destinationFolder + "float09Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float09Test.pdf", sourceFolder + "cmp_float09Test.pdf", destinationFolder, "diff09_"));
+        runTest("float09Test", "diff09_");
     }
 
     @Test
     public void float10Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float10Test.html"), new File(destinationFolder + "float10Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float10Test.pdf", sourceFolder + "cmp_float10Test.pdf", destinationFolder, "diff10_"));
+        runTest("float10Test", "diff10_");
     }
 
     @Test
     public void float11Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float11Test.html"), new File(destinationFolder + "float11Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float11Test.pdf", sourceFolder + "cmp_float11Test.pdf", destinationFolder, "diff11_"));
+        runTest("float11Test", "diff11_");
     }
 
     @Test
     public void float12Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float12Test.html"), new File(destinationFolder + "float12Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float12Test.pdf", sourceFolder + "cmp_float12Test.pdf", destinationFolder, "diff12_"));
+        runTest("float12Test", "diff12_");
     }
 
     @Test
     public void float13Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float13Test.html"), new File(destinationFolder + "float13Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float13Test.pdf", sourceFolder + "cmp_float13Test.pdf", destinationFolder, "diff13_"));
+        runTest("float13Test", "diff13_");
     }
 
     @Test
     @Ignore("In this test css property overflow: hidden is ignored by iText. This leads to invalid results. Perhaps, one day it will be fixed")
     public void float14Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float14Test.html"), new File(destinationFolder + "float14Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float14Test.pdf", sourceFolder + "cmp_float14Test.pdf", destinationFolder, "diff14_"));
+        runTest("float14Test", "diff14_");
     }
 
     @Test
     public void float15Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float15Test.html"), new File(destinationFolder + "float15Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float15Test.pdf", sourceFolder + "cmp_float15Test.pdf", destinationFolder, "diff15_"));
+        runTest("float15Test", "diff15_");
     }
 
     @Test
     public void float16Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float16Test.html"), new File(destinationFolder + "float16Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float16Test.pdf", sourceFolder + "cmp_float16Test.pdf", destinationFolder, "diff16_"));
+        runTest("float16Test", "diff16_");
     }
 
     @Test
     public void float17Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float17Test.html"), new File(destinationFolder + "float17Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float17Test.pdf", sourceFolder + "cmp_float17Test.pdf", destinationFolder, "diff17_"));
-    }
-
-    @Test
-    public void float18Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float18Test.html"), new File(destinationFolder + "float18Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float18Test.pdf", sourceFolder + "cmp_float18Test.pdf", destinationFolder, "diff18_"));
+        runTest("float17Test", "diff17_");
     }
 
     @Test
     public void float19Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float19Test.html"), new File(destinationFolder + "float19Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float19Test.pdf", sourceFolder + "cmp_float19Test.pdf", destinationFolder, "diff19_"));
+        runTest("float19Test", "diff19_");
     }
 
-    @Test@Ignore("DEVSIX-1240")
+    @Test
     public void float20Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float20Test.html"), new File(destinationFolder + "float20Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float20Test.pdf", sourceFolder + "cmp_float20Test.pdf", destinationFolder, "diff20_"));
+        runTest("float20Test", "diff20_");
     }
 
     @Test
     public void float21Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float21Test.html"), new File(destinationFolder + "float21Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float21Test.pdf", sourceFolder + "cmp_float21Test.pdf", destinationFolder, "diff21_"));
+        runTest("float21Test", "diff21_");
     }
 
     @Test
     public void float22Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float22Test.html"), new File(destinationFolder + "float22Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float22Test.pdf", sourceFolder + "cmp_float22Test.pdf", destinationFolder, "diff22_"));
+        runTest("float22Test", "diff22_");
     }
 
     @Test
     public void float23Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float23Test.html"), new File(destinationFolder + "float23Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float23Test.pdf", sourceFolder + "cmp_float23Test.pdf", destinationFolder, "diff23_"));
+        runTest("float23Test", "diff23_");
     }
 
     @Test
     public void float24Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float24Test.html"), new File(destinationFolder + "float24Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float24Test.pdf", sourceFolder + "cmp_float24Test.pdf", destinationFolder, "diff24_"));
+        runTest("float24Test", "diff24_");
     }
 
     @Test
     public void float25Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float25Test.html"), new File(destinationFolder + "float25Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float25Test.pdf", sourceFolder + "cmp_float25Test.pdf", destinationFolder, "diff25_"));
+        runTest("float25Test", "diff25_");
     }
 
     @Test
     public void float26Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "float26Test.html"), new File(destinationFolder + "float26Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "float26Test.pdf", sourceFolder + "cmp_float26Test.pdf", destinationFolder, "diff26_"));
+        runTest("float26Test", "diff26_");
+    }
+
+    @Test
+    public void float27Test() throws IOException, InterruptedException {
+        runTest("float27Test", "diff27_");
+    }
+
+    @Test
+    public void float28Test() throws IOException, InterruptedException {
+        // TODO DEVSIX-1269
+        runTest("float28Test", "diff28_");
+    }
+
+    @Test
+    public void float29Test() throws IOException, InterruptedException {
+        runTest("float29Test", "diff29_");
+    }
+
+    @Test
+    public void float30Test() throws IOException, InterruptedException {
+        // TODO DEVSIX-1269 and DEVSIX-1270
+        runTest("float30Test", "diff30_");
+    }
+
+    @Test
+    public void float31Test() throws IOException, InterruptedException {
+        // TODO DEVSIX-1269 and DEVSIX-1270
+        runTest("float31Test", "diff31_");
+    }
+
+    @Test
+    public void float32Test() throws IOException, InterruptedException {
+        // TODO DEVSIX-1269
+        runTest("float32Test", "diff32_");
+    }
+
+    @Test
+    public void float33Test() throws IOException, InterruptedException {
+        runTest("float33Test", "diff33_");
+    }
+
+    @Test
+    public void float34Test() throws IOException, InterruptedException {
+        // TODO DEVSIX-1269
+        runTest("float34Test", "diff34_");
+    }
+
+    @Test
+    public void float35Test() throws IOException, InterruptedException {
+        // TODO DEVSIX-1269
+        runTest("float35Test", "diff35_");
+    }
+
+    @Test
+    public void float36Test() throws IOException, InterruptedException {
+        runTest("float36Test", "diff36_");
+    }
+
+    @Test
+    public void float37Test() throws IOException, InterruptedException {
+        runTest("float37Test", "diff37_");
+    }
+
+    @Test
+    public void float38Test() throws IOException, InterruptedException {
+        runTest("float38Test", "diff38_");
+    }
+
+    @Test
+    public void float39Test() throws IOException, InterruptedException {
+        runTest("float39Test", "diff39_");
+    }
+
+    @Test
+    public void float40Test() throws IOException, InterruptedException {
+        // TODO DEVSIX-1269
+        runTest("float40Test", "diff40_");
+    }
+
+    @Test
+    public void float41Test() throws IOException, InterruptedException {
+        runTest("float41Test", "diff41_");
+    }
+
+    @Test
+    public void float42Test() throws IOException, InterruptedException {
+        runTest("float42Test", "diff42_");
+    }
+
+    @Test
+    public void float43Test() throws IOException, InterruptedException {
+        runTest("float43Test", "diff43_");
+    }
+
+    @Test
+    public void float44Test() throws IOException, InterruptedException {
+        // TODO DEVSIX-1268
+        runTest("float44Test", "diff44_");
+    }
+
+    @Test
+    public void float45Test() throws IOException, InterruptedException {
+        // TODO DEVSIX-1268
+        runTest("float45Test", "diff45_");
+    }
+
+    @Test
+    public void float46Test() throws IOException, InterruptedException {
+        runTest("float46Test", "diff46_");
+    }
+
+    @Test
+    public void float47Test() throws IOException, InterruptedException {
+        runTest("float47Test", "diff47_");
+    }
+
+    @Test
+    public void float48Test() throws IOException, InterruptedException {
+        runTest("float48Test", "diff48_");
+    }
+
+    @Test
+    public void float49Test() throws IOException, InterruptedException {
+        runTest("float49Test", "diff49_");
+    }
+
+    @Test
+    public void floatAndTables01Test() throws IOException, InterruptedException {
+        runTest("floatAndTables01Test", "diffTables01_");
+    }
+
+    @Test
+    public void floatAndTables02Test() throws IOException, InterruptedException {
+        runTest("floatAndTables02Test", "diffTables02_");
+    }
+
+    @Test
+    public void floatAndTables03Test() throws IOException, InterruptedException {
+        runTest("floatAndTables03Test", "diffTables03_");
+    }
+
+    @Test
+    public void floatAndTables04Test() throws IOException, InterruptedException {
+        runTest("floatAndTables04Test", "diffTables04_");
+    }
+
+    @Test
+    public void floatAndTables05Test() throws IOException, InterruptedException {
+        runTest("floatAndTables05Test", "diffTables05_");
+    }
+
+    private void runTest(String testName, String diff) throws IOException, InterruptedException {
+        String htmlName = sourceFolder + testName + ".html";
+        String outFileName = destinationFolder + testName + ".pdf";
+        String cmpFileName = sourceFolder + "cmp_" + testName + ".pdf";
+        HtmlConverter.convertToPdf(new File(htmlName), new File(outFileName));
+        Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, destinationFolder, diff));
     }
 }
