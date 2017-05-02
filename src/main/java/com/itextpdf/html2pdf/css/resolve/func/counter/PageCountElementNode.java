@@ -43,10 +43,11 @@
 package com.itextpdf.html2pdf.css.resolve.func.counter;
 
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
+import com.itextpdf.html2pdf.html.node.ICustomElementNode;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
 
-public class PageCountElementNode extends JsoupElementNode {
+public class PageCountElementNode extends JsoupElementNode implements ICustomElementNode {
 
     public static final String PAGE_COUNTER_TAG = "_e0d00a6_page-counter";
 

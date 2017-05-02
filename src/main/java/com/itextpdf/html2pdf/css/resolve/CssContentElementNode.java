@@ -48,12 +48,13 @@ import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IAttributes;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.html.node.ICustomElementNode;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-class CssContentElementNode extends CssContextNode implements IElementNode {
+class CssContentElementNode extends CssContextNode implements IElementNode, ICustomElementNode {
     private Attributes attributes;
     private String tagName;
 

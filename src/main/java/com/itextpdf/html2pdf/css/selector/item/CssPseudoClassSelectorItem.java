@@ -43,15 +43,31 @@
 package com.itextpdf.html2pdf.css.selector.item;
 
 
+import com.itextpdf.html2pdf.html.node.ICustomElementNode;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
-// TODO now this is just a stub implementation
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
     private String pseudoClass;
+    private String arguments;
+    private int nthChildA;
+    private int nthChildB;
 
     public CssPseudoClassSelectorItem(String pseudoClass) {
-        this.pseudoClass = pseudoClass;
+        int indexOfParentheses = pseudoClass.indexOf('(');
+        if (indexOfParentheses == -1) {
+            this.pseudoClass = pseudoClass;
+            this.arguments = "";
+        } else {
+            this.pseudoClass = pseudoClass.substring(0, indexOfParentheses);
+            this.arguments = pseudoClass.substring(indexOfParentheses + 1, pseudoClass.length() - 1).trim();
+            getNthChildArguments();
+        }
     }
 
     @Override
@@ -61,11 +77,85 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
     @Override
     public boolean matches(INode node) {
-        return false; // TODO
+        if (!(node instanceof IElementNode) || node instanceof ICustomElementNode) {
+            return false;
+        }
+        List<INode> children = getAllChildren(node);
+        switch (pseudoClass) {
+            case "first-child":
+                return children.isEmpty() ? false : node.equals(children.get(0));
+            case "last-child":
+                return children.isEmpty() ? false : node.equals(children.get(children.size() - 1));
+            case "nth-child":
+                return children.isEmpty() ? false : resolveNthChild(node, children);
+            default:
+                return false;
+        }
     }
 
     @Override
     public String toString() {
-        return ":" + pseudoClass;
+        return ":" + pseudoClass + (!arguments.isEmpty() ? new String("(" + arguments + ")") : "");
+    }
+
+    private List<INode> getAllChildren(INode child) {
+        INode parentElement = child.parentNode();
+        if (parentElement != null) {
+            List<INode> childrenUnmodifiable = parentElement.childNodes();
+            List<INode> children = new ArrayList<INode>(childrenUnmodifiable.size());
+            for (INode iNode : childrenUnmodifiable) {
+                if (iNode instanceof IElementNode)
+                    children.add(iNode);
+            }
+            return children;
+        }
+        return Collections.<INode>emptyList();
+    }
+
+    private void getNthChildArguments() {
+        if (arguments.matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
+            if (arguments.equals("odd")) {
+                this.nthChildA = 2;
+                this.nthChildB = 1;
+            } else if (arguments.equals("even")) {
+                this.nthChildA = 2;
+                this.nthChildB = 0;
+            } else {
+                int indexOfN = arguments.indexOf('n');
+                if (indexOfN == -1) {
+                    this.nthChildA = 0;
+                    this.nthChildB = Integer.valueOf(arguments);
+                } else {
+                    String aParticle = arguments.substring(0, indexOfN).trim();
+                    if (aParticle.isEmpty())
+                        this.nthChildA = 0;
+                    else if (aParticle.length() == 1 && !Character.isDigit(aParticle.charAt(0)))
+                        this.nthChildA = aParticle.equals("+") ? 1 : -1;
+                    else
+                        this.nthChildA = Integer.valueOf(aParticle);
+                    String bParticle = arguments.substring(indexOfN + 1).trim();
+                    if (!bParticle.isEmpty())
+                        this.nthChildB = Integer.valueOf(bParticle.charAt(0) + bParticle.substring(1).trim());
+                    else
+                        this.nthChildB = 0;
+                }
+            }
+        } else {
+            this.nthChildA = 0;
+            this.nthChildB = 0;
+        }
+    }
+
+    private boolean resolveNthChild(INode node, List<INode> children) {
+        if (!children.contains(node))
+            return false;
+        if (this.nthChildA > 0) {
+            int temp = children.indexOf(node) + 1 - this.nthChildB;
+            return temp >= 0 ? temp % this.nthChildA == 0 : false;
+        } else if (this.nthChildA < 0) {
+            int temp = children.indexOf(node) + 1 - this.nthChildB;
+            return temp <= 0 ? temp % this.nthChildA == 0 : false;
+        } else
+            return (children.indexOf(node) + 1) - this.nthChildB == 0;
     }
 }
