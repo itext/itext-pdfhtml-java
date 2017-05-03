@@ -221,6 +221,7 @@ public class CssConstants {
     public static final String INSIDE = "inside";
     public static final String INVERT = "invert";
     public static final String ITALIC = "italic";
+    public static final String JUSTIFY = "justify";
     public static final String LANDSCAPE = "landscape";
     public static final String LARGE = "large";
     public static final String LARGER = "larger";

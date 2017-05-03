@@ -134,4 +134,11 @@ public class TextPropertiesTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "whiteSpaceTest02.html"), new File(destinationFolder + "whiteSpaceTest02.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "whiteSpaceTest02.pdf", sourceFolder + "cmp_whiteSpaceTest02.pdf", destinationFolder, "diff10_"));
     }
+
+    @Test
+    public void textAlign02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textAlignTest02.html"), new File(destinationFolder + "textAlignTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textAlignTest02.pdf", sourceFolder + "cmp_textAlignTest02.pdf", destinationFolder, "diff11_"));
+    }
+
 }
