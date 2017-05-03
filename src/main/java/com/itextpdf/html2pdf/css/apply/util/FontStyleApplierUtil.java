@@ -132,6 +132,7 @@ public final class FontStyleApplierUtil {
             element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.CENTER);
         } else if (CssConstants.JUSTIFY.equals(align)) {
             element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.JUSTIFIED);
+            element.setProperty(Property.SPACING_RATIO, 1f);
         }
 
         String textDecorationProp = cssProps.get(CssConstants.TEXT_DECORATION);
