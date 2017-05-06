@@ -95,7 +95,7 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
     @Override
     public String toString() {
-        return ":" + pseudoClass + (!arguments.isEmpty() ? new String("(" + arguments + ")") : "");
+        return ":" + pseudoClass + (!arguments.isEmpty() ? "(" + arguments + ")" : "");
     }
 
     private List<INode> getAllChildren(INode child) {
