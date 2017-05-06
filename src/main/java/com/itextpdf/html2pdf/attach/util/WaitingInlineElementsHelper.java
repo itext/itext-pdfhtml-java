@@ -153,11 +153,11 @@ public class WaitingInlineElementsHelper {
             Paragraph p = createParagraphContainer();
             for (ILeafElement leaf : waitingLeaves) {
                 p.add(leaf);
-                FloatPropertyValue floatPropertyValue = leaf.getProperty(Property.FLOAT);
+                FloatPropertyValue floatPropertyValue = leaf.<FloatPropertyValue>getProperty(Property.FLOAT);
                 if (floatPropertyValue != null && !(leaf instanceof Image)) {
                     p.setProperty(Property.FLOAT, floatPropertyValue);
                 }
-                ClearPropertyValue clearPropertyValue = leaf.getProperty(Property.CLEAR);
+                ClearPropertyValue clearPropertyValue = leaf.<ClearPropertyValue>getProperty(Property.CLEAR);
                 if (clearPropertyValue != null && !(leaf instanceof Image)) {
                     p.setProperty(Property.CLEAR, clearPropertyValue);
                 }
