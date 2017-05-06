@@ -168,7 +168,7 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
     }
 
     private boolean elementIsFloated(IElement element) {
-        FloatPropertyValue floatPropertyValue = element.getProperty(Property.FLOAT);
+        FloatPropertyValue floatPropertyValue = element.<FloatPropertyValue>getProperty(Property.FLOAT);
         return floatPropertyValue != null && !floatPropertyValue.equals(FloatPropertyValue.NONE);
     }
 
