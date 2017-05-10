@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
+import com.itextpdf.html2pdf.attach.impl.OutlinesHandler;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.layout.font.FontProvider;
@@ -53,6 +54,7 @@ public class ConverterProperties {
     private FontProvider fontProvider;
     private ITagWorkerFactory tagWorkerFactory;
     private ICssApplierFactory cssApplierFactory;
+    private OutlinesHandler outlinesHandler;
     private String baseUri;
     private boolean createAcroForm = false;
 
@@ -66,6 +68,7 @@ public class ConverterProperties {
         this.cssApplierFactory = other.cssApplierFactory;
         this.baseUri = other.baseUri;
         this.createAcroForm = other.createAcroForm;
+        this.outlinesHandler = other.outlinesHandler;
     }
 
     public MediaDeviceDescription getMediaDeviceDescription() {
@@ -119,6 +122,15 @@ public class ConverterProperties {
 
     public ConverterProperties setCreateAcroForm(boolean createAcroForm) {
         this.createAcroForm = createAcroForm;
+        return this;
+    }
+
+    public OutlinesHandler getOutlinesHandler() {
+        return outlinesHandler;
+    }
+
+    public ConverterProperties setOutlinesHandler(OutlinesHandler outlinesHandler) {
+        this.outlinesHandler = outlinesHandler;
         return this;
     }
 }
