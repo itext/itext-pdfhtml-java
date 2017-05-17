@@ -103,7 +103,7 @@ public class UriResolver {
     private URL baseUriAsUrl(String baseUriString) {
         URL baseAsUrl = null;
         try {
-            URI baseUri = new URI(baseUriString);
+            URI baseUri = new URI(baseUriString.replace(" ", "%20"));
             if (baseUri.isAbsolute()) {
                 baseAsUrl = baseUri.toURL();
 
@@ -117,7 +117,7 @@ public class UriResolver {
     }
 
     private URL uriAsFileUrl(String baseUriString) {
-        URL baseAsFileUrl= null;
+        URL baseAsFileUrl = null;
         try {
             Path path = Paths.get(baseUriString);
             baseAsFileUrl = path.toAbsolutePath().normalize().toUri().toURL();
