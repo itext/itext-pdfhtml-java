@@ -207,4 +207,12 @@ public class UriResolverTest extends ExtendedITextTest {
         Assert.assertEquals(singleSlashRootPath + "test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("/folder2/innerTest2").toExternalForm());
         Assert.assertEquals(singleSlashRootPath + "test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("//folder2/innerTest2").toExternalForm());
     }
+
+    @Test
+    // check if iText can resolve paths with spaces
+    public void uriResolverTest17() throws MalformedURLException {
+        String absolutePathRoot = "file:///" + Paths.get("").toAbsolutePath().getRoot().toString().replace('\\', '/').replaceFirst("^/", "");
+        String absoluteBaseUri = absolutePathRoot + "test/fol der/index.html";
+        UriResolver resolver = new UriResolver(absoluteBaseUri);
+    }
 }
