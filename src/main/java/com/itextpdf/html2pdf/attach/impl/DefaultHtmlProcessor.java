@@ -265,7 +265,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 ((HtmlTagWorker) tagWorker).processPageRules(node, cssResolver, context);
             }
 
-            context.getOutlinesHandler().addOutline(tagWorker, element, context);
+            context.getOutlineHandler().addOutline(tagWorker, element, context);
 
             visitPseudoElement(element, CssConstants.BEFORE);
             for (INode childNode : element.childNodes()) {
@@ -275,7 +275,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
             if (tagWorker != null) {
                 tagWorker.processEnd(element, context);
-                context.getOutlinesHandler().addDestination(tagWorker, element);
+                context.getOutlineHandler().addDestination(tagWorker, element);
                 context.getState().pop();
 
                 ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(element);

@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.attach;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
-import com.itextpdf.html2pdf.attach.impl.OutlinesHandler;
+import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
@@ -69,7 +69,7 @@ public class ProcessorContext {
     private String baseUri;
     private boolean createAcroForm;
     private FormFieldNameResolver formFieldNameResolver;
-    private OutlinesHandler outlinesHandler;
+    private OutlineHandler outlineHandler;
 
     // Variable fields
     private State state;
@@ -107,9 +107,9 @@ public class ProcessorContext {
             baseUri = "";
         }
 
-        outlinesHandler = converterProperties.getOutlinesHandler();
-        if (outlinesHandler == null) {
-            outlinesHandler = OutlinesHandler.createDefault();
+        outlineHandler = converterProperties.getOutlineHandler();
+        if (outlineHandler == null) {
+            outlineHandler = new OutlineHandler();
         }
 
         resourceResolver = new ResourceResolver(baseUri);
@@ -168,8 +168,8 @@ public class ProcessorContext {
         return formFieldNameResolver;
     }
 
-    public OutlinesHandler getOutlinesHandler() {
-        return outlinesHandler;
+    public OutlineHandler getOutlineHandler() {
+        return outlineHandler;
     }
 
     /**
