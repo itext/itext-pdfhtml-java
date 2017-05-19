@@ -58,7 +58,7 @@ public final class LogMessageConstant {
     public static final String INVALID_CSS_PROPERTY_DECLARATION = "Invalid css property declaration: {0}";
     public static final String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
     public static final String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
-    public static final String NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG = "Tag worker does not produce result in a form of IPropertyContainer for \"{0}\" tag.";
+    public static final String NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG = "Tag worker does not produce IPropertyContainer for \"{0}\" tag. An outline for \"{0}\" tag will not be created.";
     public static final String NO_CONSUMER_FOUND_FOR_CONTENT = "No consumer found for content";
     public static final String NO_CSS_APPLIER_FOUND_FOR_TAG = "No css applier found for tag {0}";
     public static final String NO_WORKER_FOUND_FOR_TAG = "No worker found for tag {0}";

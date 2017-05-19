@@ -57,8 +57,13 @@ import org.slf4j.LoggerFactory;
 import java.text.MessageFormat;
 import java.util.*;
 
-public class OutlinesHandler {
-    private static final String DESTINATION_PREFIX = "pdfHTML-itext-outline-";
+/**
+ * A {@link OutlineHandler} handles creating outlines for tags.
+ *
+ * This class is not reusable and a new instance shall be created for every new conversion process.
+ */
+public class OutlineHandler {
+    private static final String DESTINATION_PREFIX = "pdfHTML-iText-outline-";
 
     private PdfOutline currentOutline;
 
@@ -68,8 +73,12 @@ public class OutlinesHandler {
     private Map<String, Integer> tagPrioritiesMapping = new HashMap<String, Integer>();
     private Map<String, Integer> uniqueIDs = new HashMap<String, Integer>();
 
-    public static OutlinesHandler createDefault() {
-        OutlinesHandler handler = new OutlinesHandler();
+
+    /**
+     * Creates an OutlineHandler with standard predefined mappings.
+     */
+    public static OutlineHandler createStandardHandler() {
+        OutlineHandler handler = new OutlineHandler();
         handler.putTagPriorityMapping("h1", 1);
         handler.putTagPriorityMapping("h2", 2);
         handler.putTagPriorityMapping("h3", 3);
@@ -79,12 +88,12 @@ public class OutlinesHandler {
         return handler;
     }
 
-    public OutlinesHandler putTagPriorityMapping(String tagName, Integer priority) {
+    public OutlineHandler putTagPriorityMapping(String tagName, Integer priority) {
         tagPrioritiesMapping.put(tagName, priority);
         return this;
     }
 
-    public OutlinesHandler putAllTagPriorityMappings(Map<String, Integer> mappings) {
+    public OutlineHandler putAllTagPriorityMappings(Map<String, Integer> mappings) {
         tagPrioritiesMapping.putAll(mappings);
         return this;
     }
@@ -97,7 +106,7 @@ public class OutlinesHandler {
         return tagPrioritiesMapping.containsKey(tagName);
     }
 
-    public OutlinesHandler addOutline(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
+    OutlineHandler addOutline(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
         String tagName = element.name();
         if (null != tagWorker && hasTagPriorityMapping(tagName)) {
             int level = getTagPriorityMapping(tagName);
@@ -125,14 +134,14 @@ public class OutlinesHandler {
         return this;
     }
 
-    public OutlinesHandler addDestination(ITagWorker tagWorker, IElementNode element) {
+    OutlineHandler addDestination(ITagWorker tagWorker, IElementNode element) {
         String tagName = element.name();
         if (null != tagWorker && hasTagPriorityMapping(tagName)) {
             String content = destinationsInProcess.pop();
-            if (null != tagWorker.getElementResult()) {
+            if (tagWorker.getElementResult() instanceof ElementPropertyContainer) {
                 ((ElementPropertyContainer) tagWorker.getElementResult()).setDestination(content);
             } else {
-                Logger logger = LoggerFactory.getLogger(OutlinesHandler.class);
+                Logger logger = LoggerFactory.getLogger(OutlineHandler.class);
                 logger.warn(MessageFormat.format(LogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG, tagName));
             }
         }
