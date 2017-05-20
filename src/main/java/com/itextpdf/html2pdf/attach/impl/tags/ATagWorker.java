@@ -46,11 +46,12 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.kernel.geom.Rectangle;
-import com.itextpdf.kernel.pdf.PdfArray;
-import com.itextpdf.kernel.pdf.action.PdfAction;
-import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
+import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.layout.LayoutPosition;
 import com.itextpdf.layout.property.Property;
 
 public class ATagWorker extends SpanTagWorker {
@@ -65,8 +66,14 @@ public class ATagWorker extends SpanTagWorker {
 
         String url = element.getAttribute(AttributeConstants.HREF);
         if (url != null) {
-            for (IPropertyContainer childElement : getAllElements()) {
-                LinkHelper.applyLinkAnnotation(childElement, url);
+            for (int i = 0; i < getAllElements().size(); i++) {
+                LinkHelper.applyLinkAnnotation(getAllElements().get(i), url);
+                if (getAllElements().get(i) instanceof IBlockElement) {
+                    Div simulatedDiv = new Div();
+                    simulatedDiv.setRole(PdfName.Link);
+                    simulatedDiv.add((IBlockElement) getAllElements().get(i));
+                    getAllElements().set(i, simulatedDiv);
+                }
             }
         }
 
