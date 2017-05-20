@@ -42,11 +42,15 @@
  */
 package com.itextpdf.html2pdf.attach.util;
 
+import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfArray;
+import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.kernel.pdf.action.PdfAction;
 import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
+import com.itextpdf.kernel.pdf.tagutils.IAccessibleElement;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.property.Property;
 
 public class LinkHelper {
@@ -65,6 +69,9 @@ public class LinkHelper {
             }
             linkAnnotation.setBorder(new PdfArray(new float[]{0, 0, 0}));
             container.setProperty(Property.LINK_ANNOTATION, linkAnnotation);
+            if (container instanceof ILeafElement && container instanceof IAccessibleElement) {
+                    ((IAccessibleElement) container).setRole(PdfName.Link);
+            }
         }
     }
 }
