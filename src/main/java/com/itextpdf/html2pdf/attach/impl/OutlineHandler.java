@@ -50,16 +50,20 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.kernel.pdf.PdfOutline;
 import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.kernel.pdf.navigation.PdfDestination;
-import com.itextpdf.layout.ElementPropertyContainer;
+import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.property.Property;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * A {@link OutlineHandler} handles creating outlines for tags.
- *
+ * 
  * This class is not reusable and a new instance shall be created for every new conversion process.
  */
 public class OutlineHandler {
@@ -109,12 +113,12 @@ public class OutlineHandler {
     OutlineHandler addOutline(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
         String tagName = element.name();
         if (null != tagWorker && hasTagPriorityMapping(tagName)) {
-            int level = getTagPriorityMapping(tagName);
+            int level = (int) getTagPriorityMapping(tagName);
             if (null == currentOutline) {
                 currentOutline = context.getPdfDocument().getOutlines(false);
             }
             PdfOutline parent = currentOutline;
-            while (!levelsInProcess.isEmpty() && level <= levelsInProcess.peek()) {
+            while (!levelsInProcess.isEmpty() && level <= levelsInProcess.getFirst()) {
                 parent = parent.getParent();
                 levelsInProcess.pop();
             }
@@ -138,8 +142,8 @@ public class OutlineHandler {
         String tagName = element.name();
         if (null != tagWorker && hasTagPriorityMapping(tagName)) {
             String content = destinationsInProcess.pop();
-            if (tagWorker.getElementResult() instanceof ElementPropertyContainer) {
-                ((ElementPropertyContainer) tagWorker.getElementResult()).setDestination(content);
+            if (tagWorker.getElementResult() instanceof IElement) {
+                tagWorker.getElementResult().setProperty(Property.DESTINATION, content);
             } else {
                 Logger logger = LoggerFactory.getLogger(OutlineHandler.class);
                 logger.warn(MessageFormat.format(LogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG, tagName));
@@ -152,8 +156,8 @@ public class OutlineHandler {
         if (!uniqueIDs.containsKey(key)) {
             uniqueIDs.put(key, 1);
         }
-        int id =  uniqueIDs.get(key);
-        uniqueIDs.put(key, id+1);
+        int id = (int) uniqueIDs.get(key);
+        uniqueIDs.put(key, id + 1);
         return key + id;
     }
 }
