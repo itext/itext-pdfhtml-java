@@ -118,5 +118,9 @@ public class JsoupElementNode extends JsoupNode implements IElementNode {
             return lang;
         }
     }
+
+    public String text() {
+        return element.text();
+    }
 }
 
