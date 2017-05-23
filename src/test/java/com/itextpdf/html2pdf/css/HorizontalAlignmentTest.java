@@ -77,22 +77,17 @@ public class HorizontalAlignmentTest extends ExtendedITextTest {
         runTest("alignAttribute03");
     }
 
-    @Test@Ignore("DEVSIX-1223")
+    @Test
     public void alignAttribute04() throws IOException, InterruptedException {
         // TODO result is somewhat different from what browsers render; see TODO in HtmlStylesToCssConverter.AlignAttributeConverter
         runTest("alignAttribute04");
     }
-    
+
     @Test
     public void marginsAutoBlocks() throws IOException, InterruptedException {
         runTest("marginsAutoBlocks");
     }
-    
-    @Test
-    public void marginsAutoImages() throws IOException, InterruptedException {
-        runTest("marginsAutoImages");
-    }
-    
+
     @Test
     public void marginsAutoInlines() throws IOException, InterruptedException {
         runTest("marginsAutoInlines");

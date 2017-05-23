@@ -70,7 +70,6 @@ public class FloatApplierUtil {
      * @param element the element
      */
     public static void applyFloating(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
-        // TODO for now we only support alignment of floated elements, however we don't support text wrapping
         String floatValue = cssProps.get(CssConstants.FLOAT);
         if (floatValue != null) {
             if (CssConstants.LEFT.equals(floatValue)) {

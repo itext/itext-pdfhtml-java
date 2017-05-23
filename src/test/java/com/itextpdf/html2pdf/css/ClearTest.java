@@ -46,13 +46,15 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class ClearTest extends ExtendedITextTest {
@@ -96,6 +98,7 @@ public class ClearTest extends ExtendedITextTest {
     }
 
     @Test
+    @Ignore("DEVSIX-1269")
     public void clear08Test() throws IOException, InterruptedException {
         // TODO behaving differently from browser in some cases of selfcollapsing margins
         HtmlConverter.convertToPdf(new File(sourceFolder + "clear08Test.html"), new File(destinationFolder + "clear08Test.pdf"));
@@ -120,6 +123,14 @@ public class ClearTest extends ExtendedITextTest {
     public void clear11Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "clear11Test.html"), new File(destinationFolder + "clear11Test.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear11Test.pdf", sourceFolder + "cmp_clear11Test.pdf", destinationFolder, "dif11_"));
+    }
+
+    private void runTest(String testName, String diff) throws IOException, InterruptedException {
+        String htmlName = sourceFolder + testName + ".html";
+        String outFileName = destinationFolder + testName + ".pdf";
+        String cmpFileName = sourceFolder + "cmp_" + testName + ".pdf";
+        HtmlConverter.convertToPdf(new File(htmlName), new File(outFileName));
+        Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, destinationFolder, diff));
     }
 
 }
