@@ -198,6 +198,7 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
+    @Ignore("DEVSIX-1269")
     public void float28Test() throws IOException, InterruptedException {
         // TODO DEVSIX-1269
         runTest("float28Test", "diff28_");
@@ -209,35 +210,41 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
+    @Ignore("DEVSIX-1269")
     public void float30Test() throws IOException, InterruptedException {
         // TODO DEVSIX-1269 and DEVSIX-1270
         runTest("float30Test", "diff30_");
     }
 
     @Test
+    @Ignore("DEVSIX-1269")
     public void float31Test() throws IOException, InterruptedException {
         // TODO DEVSIX-1269 and DEVSIX-1270
         runTest("float31Test", "diff31_");
     }
 
     @Test
+    @Ignore("DEVSIX-1269")
     public void float32Test() throws IOException, InterruptedException {
         // TODO DEVSIX-1269
         runTest("float32Test", "diff32_");
     }
 
     @Test
+    @Ignore("DEVSIX-1269")
     public void float33Test() throws IOException, InterruptedException {
         runTest("float33Test", "diff33_");
     }
 
     @Test
+    @Ignore("DEVSIX-1269")
     public void float34Test() throws IOException, InterruptedException {
         // TODO DEVSIX-1269
         runTest("float34Test", "diff34_");
     }
 
     @Test
+    @Ignore("DEVSIX-1269")
     public void float35Test() throws IOException, InterruptedException {
         // TODO DEVSIX-1269
         runTest("float35Test", "diff35_");
@@ -264,6 +271,7 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
+    @Ignore("DEVSIX-1269")
     public void float40Test() throws IOException, InterruptedException {
         // TODO DEVSIX-1269
         runTest("float40Test", "diff40_");
@@ -285,12 +293,14 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
+    @Ignore("DEVSIX-1268")
     public void float44Test() throws IOException, InterruptedException {
         // TODO DEVSIX-1268
         runTest("float44Test", "diff44_");
     }
 
     @Test
+    @Ignore("DEVSIX-1268")
     public void float45Test() throws IOException, InterruptedException {
         // TODO DEVSIX-1268
         runTest("float45Test", "diff45_");
@@ -317,6 +327,17 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
+    public void float50Test() throws IOException, InterruptedException {
+        // TODO at the moment we always wrap inline text in paragraphs, thus we process this test exactly like in float51Test
+        runTest("float50Test", "diff50_");
+    }
+
+    @Test
+    public void float51Test() throws IOException, InterruptedException {
+        runTest("float51Test", "diff51_");
+    }
+
+    @Test
     public void floatAndTables01Test() throws IOException, InterruptedException {
         runTest("floatAndTables01Test", "diffTables01_");
     }
@@ -339,6 +360,183 @@ public class FloatTest extends ExtendedITextTest {
     @Test
     public void floatAndTables05Test() throws IOException, InterruptedException {
         runTest("floatAndTables05Test", "diffTables05_");
+    }
+
+    @Test
+    public void floatAndTables06Test() throws IOException, InterruptedException {
+        runTest("floatAndTables06Test", "diffTables06_");
+    }
+
+    @Test
+    public void floatAndTables07Test() throws IOException, InterruptedException {
+        runTest("floatAndTables07Test", "diffTables07_");
+    }
+
+    @Test
+    public void floatAndTables08Test() throws IOException, InterruptedException {
+        runTest("floatAndTables08Test", "diffTables08_");
+    }
+
+    @Test
+    public void floatAndTables09Test() throws IOException, InterruptedException {
+        runTest("floatAndTables09Test", "diffTables09_");
+    }
+
+    @Test
+    public void floatAndTables10Test() throws IOException, InterruptedException {
+        runTest("floatAndTables10Test", "diffTables10_");
+    }
+
+    @Test
+    public void floatImage01Test() throws IOException, InterruptedException {
+        runTest("floatImage01Test", "diffImages01_");
+    }
+
+    @Test
+    public void floatImage02Test() throws IOException, InterruptedException {
+        runTest("floatImage02Test", "diffImages02_");
+    }
+
+    @Test
+    public void floatImage03Test() throws IOException, InterruptedException {
+        runTest("floatImage03Test", "diffImages03_");
+    }
+
+    @Test
+    public void floatImage04Test() throws IOException, InterruptedException {
+        // TODO word splitting logic working not entirely correctly
+        runTest("floatImage04Test", "diffImages04_");
+    }
+
+    @Test
+    public void floatImage05Test() throws IOException, InterruptedException {
+        runTest("floatImage05Test", "diffImages05_");
+    }
+
+    @Test
+    public void floatImage06Test() throws IOException, InterruptedException {
+        runTest("floatImage06Test", "diffImages06_");
+    }
+
+    @Test
+    public void floatImage07Test() throws IOException, InterruptedException {
+        // TODO word splitting logic working not entirely correctly
+        runTest("floatImage07Test", "diffImages07_");
+    }
+
+    @Test
+    public void floatImage08Test() throws IOException, InterruptedException {
+        runTest("floatImage08Test", "diffImages08_");
+    }
+
+    @Test
+    public void floatImage09Test() throws IOException, InterruptedException {
+        runTest("floatImage09Test", "diffImages09_");
+    }
+
+    @Test
+    public void floatImage10Test() throws IOException, InterruptedException {
+        // TODO we don't apply leading on floats, this somewhat noticeable when huge line-height in html is used
+        runTest("floatImage10Test", "diffImages10_");
+    }
+
+    @Test
+    public void floatImage11Test() throws IOException, InterruptedException {
+        runTest("floatImage11Test", "diffImages11_");
+    }
+
+    @Test
+    public void floatImage12Test() throws IOException, InterruptedException {
+        // TODO we don't apply leading on floats, this somewhat noticeable when huge line-height in html is used
+        runTest("floatImage12Test", "diffImages12_");
+    }
+
+    @Test
+    public void floatImage13Test() throws IOException, InterruptedException {
+        // TODO we don't apply leading on floats, this somewhat noticeable when huge line-height in html is used
+        runTest("floatImage13Test", "diffImages13_");
+    }
+
+    @Test
+    public void floatInline01Test() throws IOException, InterruptedException {
+        runTest("floatInline01Test", "diffImages01_");
+    }
+
+    @Test
+    public void floatInline02Test() throws IOException, InterruptedException {
+        runTest("floatInline02Test", "diffImages02_");
+    }
+
+    @Test
+    public void floatInline03Test() throws IOException, InterruptedException {
+        runTest("floatInline03Test", "diffImages03_");
+    }
+
+    @Test
+    public void floatInline04Test() throws IOException, InterruptedException {
+        runTest("floatInline04Test", "diffImages04_");
+    }
+
+    @Test
+    public void floatInline05Test() throws IOException, InterruptedException {
+        runTest("floatInline05Test", "diffImages05_");
+    }
+
+    @Test
+    public void floatInline06Test() throws IOException, InterruptedException {
+        runTest("floatInline06Test", "diffImages06_");
+    }
+
+    @Test
+    public void floatInline07Test() throws IOException, InterruptedException {
+        runTest("floatInline07Test", "diffImages07_");
+    }
+
+    @Test
+    public void floatInline08Test() throws IOException, InterruptedException {
+        runTest("floatInline08Test", "diffImages08_");
+    }
+
+    @Test
+    public void floatInline09Test() throws IOException, InterruptedException {
+        // TODO DEVSIX-1269
+        runTest("floatInline09Test", "diffImages09_");
+    }
+
+    @Test
+    public void floatInline10Test() throws IOException, InterruptedException {
+        runTest("floatInline10Test", "diffImages10_");
+    }
+
+    @Test
+    public void floatInline11Test() throws IOException, InterruptedException {
+        runTest("floatInline11Test", "diffImages11_");
+    }
+
+    @Test
+    public void floatInline12Test() throws IOException, InterruptedException {
+        runTest("floatInline12Test", "diffImages12_");
+    }
+
+    @Test
+    public void floatInline13Test() throws IOException, InterruptedException {
+        runTest("floatInline13Test", "diffImages13_");
+    }
+
+    @Test
+    public void floatInline14Test() throws IOException, InterruptedException {
+        runTest("floatInline14Test", "diffImages14_");
+    }
+
+    @Test
+    public void floatInline15Test() throws IOException, InterruptedException {
+        // TODO another difference concerning nested spans processing
+        runTest("floatInline15Test", "diffImages15_");
+    }
+
+    @Test
+    public void floatInline16Test() throws IOException, InterruptedException {
+        runTest("floatInline16Test", "diffImages16_");
     }
 
     private void runTest(String testName, String diff) throws IOException, InterruptedException {
