@@ -50,4 +50,5 @@ public class Html2PdfException extends RuntimeException {
 
     public static final String PdfDocumentShouldBeInWritingMode = "PdfDocument should be created in writing mode. Reading and stamping is not allowed";
     public static final String FontProviderContainsZeroFonts = "Font Provider contains zero fonts. At least one font shall be present";
+    public static final String UnsupportedEncodingException = "Unsupported encoding exception.";
 }
