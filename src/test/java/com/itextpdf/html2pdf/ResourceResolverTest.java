@@ -126,6 +126,14 @@ public class ResourceResolverTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff06_"));
     }
 
+    @Test
+    public void resourceResolverTest07() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceResolverTest07.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest07.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceResolverTest07.html"), new File(outPdf));
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff07_"));
+    }
+
     // TODO test with absolute http links for resources?
     // TODO test with http base URI?
 }
