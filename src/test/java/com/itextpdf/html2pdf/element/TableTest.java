@@ -93,6 +93,26 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
+    public void helloTableFixed5DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_fixed5");
+    }
+
+    @Test
+    public void helloTableFixed6DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_fixed6");
+    }
+
+    @Test
+    public void helloTableFixed7DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_fixed7");
+    }
+
+    @Test
+    public void helloTableFixed8DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_fixed8");
+    }
+
+    @Test
     public void helloTableAutoDocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_auto");
     }
@@ -112,10 +132,34 @@ public class TableTest extends ExtendedITextTest {
         runTest("hello_table_auto4");
     }
 
-    @Test
-    @Ignore("DEVSIX-1252")
+    @Test //TODO this test should be improved, incorrect widths
     public void helloTableAuto5DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_auto5");
+    }
+
+    @Test
+    public void helloTableAuto6DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto6");
+    }
+
+    @Test
+    public void helloTableAuto7DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto7");
+    }
+
+    @Test
+    public void helloTableAuto8DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto8");
+    }
+
+    @Test
+    public void helloTableAuto9DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto9");
+    }
+
+    @Test //TODO this test should be improved, incorrect widths
+    public void helloTableAuto10DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto10");
     }
 
     @Test
