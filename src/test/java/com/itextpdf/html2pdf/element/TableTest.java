@@ -162,9 +162,19 @@ public class TableTest extends ExtendedITextTest {
         runTest("hello_table_auto9");
     }
 
-    @Test //TODO this test should be improved, incorrect widths
+    @Test //TODO this test should be improved, incorrect widths. Each cell shall have its max width.
     public void helloTableAuto10DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_auto10");
+    }
+
+    @Test
+    public void helloTableAuto11DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto11");
+    }
+
+    @Test
+    public void helloTableAuto12DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto12");
     }
 
     @Test
