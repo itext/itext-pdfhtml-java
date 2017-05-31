@@ -244,7 +244,7 @@ public class DefaultCssResolver implements ICssResolver {
                         InputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUri);
                         byte[] bytes = StreamUtil.inputStreamToArray(stream);
                         checkIfPagesCounterMentioned(new String(bytes), cssContext);
-                        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new ByteArrayInputStream(bytes), resourceResolver.resolveAgainstBaseUri(styleSheetUri).toString());
+                        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new ByteArrayInputStream(bytes), resourceResolver.resolveAgainstBaseUri(styleSheetUri).toExternalForm());
                         styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);
                     } catch (IOException exc) {
