@@ -127,4 +127,11 @@ public class LinkTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest08.pdf", sourceFolder + "cmp_linkTest08.pdf", destinationFolder, "diff08_"));
     }
 
+    @Test
+    public void linkTest09() throws IOException, InterruptedException {
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest09.pdf"));
+        pdfDocument.setTagged();
+        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "linkTest09.html"), pdfDocument, new ConverterProperties().setBaseUri(sourceFolder));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest09.pdf", sourceFolder + "cmp_linkTest09.pdf", destinationFolder, "diff09_"));
+    }
 }

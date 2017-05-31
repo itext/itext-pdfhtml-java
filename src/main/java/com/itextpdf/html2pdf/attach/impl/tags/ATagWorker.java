@@ -67,13 +67,13 @@ public class ATagWorker extends SpanTagWorker {
         String url = element.getAttribute(AttributeConstants.HREF);
         if (url != null) {
             for (int i = 0; i < getAllElements().size(); i++) {
-                LinkHelper.applyLinkAnnotation(getAllElements().get(i), url);
                 if (getAllElements().get(i) instanceof IBlockElement) {
                     Div simulatedDiv = new Div();
                     simulatedDiv.setRole(PdfName.Link);
                     simulatedDiv.add((IBlockElement) getAllElements().get(i));
                     getAllElements().set(i, simulatedDiv);
                 }
+                LinkHelper.applyLinkAnnotation(getAllElements().get(i), url);
             }
         }
 
