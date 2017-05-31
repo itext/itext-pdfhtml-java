@@ -43,13 +43,13 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -73,7 +73,7 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    public void helloTableFixedDocumentTest() throws IOException, InterruptedException {
+    public void helloTableFixed1DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_fixed1");
     }
 
@@ -97,7 +97,8 @@ public class TableTest extends ExtendedITextTest {
         runTest("hello_table_fixed5");
     }
 
-    @Test
+    @Test  //TODO this test could be improved, somehow.
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)})
     public void helloTableFixed6DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_fixed6");
     }
@@ -132,7 +133,7 @@ public class TableTest extends ExtendedITextTest {
         runTest("hello_table_auto4");
     }
 
-    @Test //TODO this test should be improved, incorrect widths
+    @Test //TODO this test should be improved, incorrect widths. Each cell shall have its max width.
     public void helloTableAuto5DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_auto5");
     }
@@ -157,7 +158,7 @@ public class TableTest extends ExtendedITextTest {
         runTest("hello_table_auto9");
     }
 
-    @Test //TODO this test should be improved, incorrect widths. Each cell shall have its max width.
+    @Test //TODO this test should be improved, incorrect widths.
     public void helloTableAuto10DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_auto10");
     }

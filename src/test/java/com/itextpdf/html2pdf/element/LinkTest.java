@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
@@ -71,6 +72,7 @@ public class LinkTest extends ExtendedITextTest {
 
     @Test
     public void linkTest01() throws IOException, InterruptedException {
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "linkTest01.html").getPath() + "\n");
         PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "linkTest01.pdf"));
         outDoc.setTagged();
         HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "linkTest01.html"), outDoc);
