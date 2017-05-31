@@ -96,7 +96,10 @@ public class TableTagWorker implements ITagWorker {
                 for (int i = 0; i < header.getNumberOfRows(); i++) {
                     tableWrapper.newHeaderRow();
                     for (int j = 0; j < header.getNumberOfColumns(); j++) {
-                        tableWrapper.addHeaderCell(header.getCell(i, j));
+                        Cell headerCell = header.getCell(i, j);
+                        if (headerCell != null) {
+                            tableWrapper.addHeaderCell(headerCell);
+                        }
                     }
                 }
                 return true;
@@ -105,7 +108,10 @@ public class TableTagWorker implements ITagWorker {
                 for (int i = 0; i < footer.getNumberOfRows(); i++) {
                     tableWrapper.newFooterRow();
                     for (int j = 0; j < footer.getNumberOfColumns(); j++) {
-                        tableWrapper.addFooterCell(footer.getCell(i, j));
+                        Cell footerCell = footer.getCell(i, j);
+                        if (footerCell != null) {
+                            tableWrapper.addFooterCell(footerCell);
+                        }
                     }
                 }
                 return true;

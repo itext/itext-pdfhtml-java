@@ -51,8 +51,6 @@ import java.lang.reflect.Method;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -229,6 +227,11 @@ public class TableTest extends ExtendedITextTest {
     @Test
     public void tableMaxHeightTest02() throws IOException, InterruptedException {
         runTest("tableMaxHeight02");
+    }
+
+    @Test
+    public void colspanInHeaderFooterTest() throws IOException, InterruptedException {
+        runTest("table_header_footer_colspan");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {
