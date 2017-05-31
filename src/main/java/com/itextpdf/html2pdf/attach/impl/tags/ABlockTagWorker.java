@@ -46,7 +46,10 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.property.Property;
+
+import static com.itextpdf.kernel.pdf.PdfName.Link;
 
 public class ABlockTagWorker extends DivTagWorker {
     public ABlockTagWorker(IElementNode element, ProcessorContext context) {
@@ -59,6 +62,7 @@ public class ABlockTagWorker extends DivTagWorker {
 
         String url = element.getAttribute(AttributeConstants.HREF);
         if (url != null) {
+            ((Div) getElementResult()).setRole(Link);
             LinkHelper.applyLinkAnnotation(getElementResult(), url);
         }
 
