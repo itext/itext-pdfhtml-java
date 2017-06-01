@@ -64,13 +64,13 @@ public class UriResolver {
 
     public URL resolveAgainstBaseUri(String uriString) throws MalformedURLException {
         URL resolvedUrl = null;
+        uriString = uriString.trim();
+        // decode and then encode uri string in order to process unsafe characters correctly
+        uriString = EncodeUtil.encode(DecodeUtil.decode(uriString));
         if (isLocal) {
             // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
             // resources around the file system even if on web page the path started with '\'
             uriString = uriString.replaceFirst("/*\\\\*", "");
-            uriString = uriString.trim();
-            // decode and then encode uri string in order to process unsafe characters correctly
-            uriString = EncodeUtil.encode(DecodeUtil.decode(uriString));
             if (!uriString.startsWith("file:")) {
                 try {
                     Path path = Paths.get(uriString);
