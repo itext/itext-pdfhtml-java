@@ -54,12 +54,11 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 
-import org.jsoup.nodes.Attribute;
-
-public class TdTagWorker implements ITagWorker {
+public class TdTagWorker implements ITagWorker, IDisplayAware {
 
     private Cell cell;
     private WaitingInlineElementsHelper inlineHelper;
+    private String display;
 
     public TdTagWorker(IElementNode element, ProcessorContext context) {
         Integer colspan = CssUtils.parseInteger(element.getAttribute(AttributeConstants.COLSPAN));
@@ -68,7 +67,9 @@ public class TdTagWorker implements ITagWorker {
         rowspan = rowspan != null ? rowspan : 1;
 
         cell = new Cell((int)rowspan, (int)colspan);
+        cell.setPadding(0);
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
+        display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
     @Override
@@ -107,6 +108,11 @@ public class TdTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return cell;
+    }
+
+    @Override
+    public String getDisplay() {
+        return display;
     }
 
     private boolean processChild(IPropertyContainer propertyContainer) {

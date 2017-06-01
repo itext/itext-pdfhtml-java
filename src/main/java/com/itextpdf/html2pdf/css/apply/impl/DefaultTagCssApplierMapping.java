@@ -141,6 +141,8 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.SPAN, CssConstants.BLOCK, BlockCssApplier.class);
         mapping.putMapping(TagConstants.A, CssConstants.BLOCK, BlockCssApplier.class);
 
+        mapping.putMapping(TagConstants.DIV, CssConstants.TABLE_CELL, TdTagCssApplier.class);
+
         // pseudo elements mapping
         String beforePseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.BEFORE);
         String afterPseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.AFTER);

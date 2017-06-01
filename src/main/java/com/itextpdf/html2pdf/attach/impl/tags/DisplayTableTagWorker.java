@@ -108,8 +108,8 @@ public class DisplayTableTagWorker implements ITagWorker {
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         boolean displayTableCell = childTagWorker instanceof IDisplayAware && CssConstants.TABLE_CELL.equals(((IDisplayAware) childTagWorker).getDisplay());
         if (childTagWorker.getElementResult() instanceof IBlockElement) {
-            Cell curCell = createWrapperCell();
-            curCell.add((IBlockElement) childTagWorker.getElementResult());
+            IBlockElement childResult = (IBlockElement) childTagWorker.getElementResult();
+            Cell curCell = childResult instanceof Cell ? (Cell)childResult : createWrapperCell().add(childResult);
             processCell(curCell, displayTableCell);
             return true;
         } else if (childTagWorker.getElementResult() instanceof ILeafElement) {
