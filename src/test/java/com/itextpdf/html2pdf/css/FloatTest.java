@@ -539,6 +539,11 @@ public class FloatTest extends ExtendedITextTest {
         runTest("floatInline16Test", "diffImages16_");
     }
 
+    @Test
+    public void floatInline17Test() throws IOException, InterruptedException {
+        runTest("floatInline17Test", "diffImages17_");
+    }
+
     private void runTest(String testName, String diff) throws IOException, InterruptedException {
         String htmlName = sourceFolder + testName + ".html";
         String outFileName = destinationFolder + testName + ".pdf";

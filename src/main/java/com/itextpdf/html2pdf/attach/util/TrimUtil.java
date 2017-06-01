@@ -77,10 +77,15 @@ public final class TrimUtil {
         while (pos < waitingLeaves.size() - 1) {
             if (waitingLeaves.get(pos) instanceof Text) {
                 Text first = (Text) waitingLeaves.get(pos);
-                int firstEnd = getIndexAfterLastNonSpace(first);
-                if (firstEnd < first.getText().length()) {
-                    trimSubList(waitingLeaves, pos + 1, waitingLeaves.size(), false);
-                    first.setText(first.getText().substring(0, firstEnd + 1));
+                if (isElementFloating(first)) {
+                    trimTextElement(first, false);
+                    trimTextElement(first, true);
+                } else {
+                    int firstEnd = getIndexAfterLastNonSpace(first);
+                    if (firstEnd < first.getText().length()) {
+                        trimSubList(waitingLeaves, pos + 1, waitingLeaves.size(), false);
+                        first.setText(first.getText().substring(0, firstEnd + 1));
+                    }
                 }
             }
             pos++;
@@ -111,9 +116,14 @@ public final class TrimUtil {
         while (end > begin) {
             int pos = last ? end - 1 : begin;
             ILeafElement leaf = list.get(pos);
+            if (isElementFloating(leaf)) {
+                if (last) { --end; }
+                else      { ++begin; }
+                continue;
+            }
             if (leaf instanceof Text) {
                 Text text = (Text) leaf;
-                trimLeafElement(text, last);
+                trimTextElement(text, last);
                 if (text.getText().length() == 0) {
                     list.remove(pos);
                     end--;
@@ -125,20 +135,15 @@ public final class TrimUtil {
     }
 
     /**
-     * Trims a leaf element.
+     * Trims a text element.
      *
-     * @param leafElement the leaf element
+     * @param text the text element
      * @param last indicates where to start, if true, we start at the end
-     * @return the leaf element
      */
-    private static ILeafElement trimLeafElement(ILeafElement leafElement, boolean last) {
-        if (leafElement instanceof Text) {
-            Text text = (Text) leafElement;
-            int begin = last ? 0 : getIndexOfFirstNonSpace(text);
-            int end = last ? getIndexAfterLastNonSpace(text) : text.getText().length();
-            text.setText(text.getText().substring(begin, end));
-        }
-        return leafElement;
+    private static void trimTextElement(Text text, boolean last) {
+        int begin = last ? 0 : getIndexOfFirstNonSpace(text);
+        int end = last ? getIndexAfterLastNonSpace(text) : text.getText().length();
+        text.setText(text.getText().substring(begin, end));
     }
 
     /**
@@ -169,5 +174,11 @@ public final class TrimUtil {
             pos--;
         }
         return pos;
+    }
+
+    private static boolean isElementFloating(ILeafElement leafElement) {
+        FloatPropertyValue floatPropertyValue = leafElement.<FloatPropertyValue>getProperty(Property.FLOAT);
+        Integer position = leafElement.<Integer>getProperty(Property.POSITION);
+        return (position == null || position != LayoutPosition.ABSOLUTE) && floatPropertyValue != null && !floatPropertyValue.equals(FloatPropertyValue.NONE);
     }
 }
