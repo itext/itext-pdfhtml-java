@@ -75,7 +75,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -247,7 +246,7 @@ public class DefaultCssResolver implements ICssResolver {
                         CssStyleSheet styleSheet = CssStyleSheetParser.parse(new ByteArrayInputStream(bytes), resourceResolver.resolveAgainstBaseUri(styleSheetUri).toExternalForm());
                         styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);
-                    } catch (IOException exc) {
+                    } catch (Exception exc) {
                         Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
                         logger.error(LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, exc);
                     }
