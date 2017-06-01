@@ -173,6 +173,7 @@ class DefaultTagWorkerMapping {
 
         workerMapping.putMapping(TagConstants.DIV, CssConstants.TABLE, DisplayTableTagWorker.class);
         workerMapping.putMapping(TagConstants.DIV, CssConstants.INLINE_TABLE, DisplayTableTagWorker.class);
+        workerMapping.putMapping(TagConstants.DIV, CssConstants.TABLE_CELL, TdTagWorker.class);
 
 
         // pseudo elements mapping
