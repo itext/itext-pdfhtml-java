@@ -175,21 +175,7 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
      * @return true, if successful
      */
     private boolean addBlockChild(com.itextpdf.layout.element.IElement element) {
-        boolean waitingLeavesContainsFloat = false;
-        for (ILeafElement waitingLeaf : inlineHelper.getWaitingLeaves()) {
-            if (elementIsFloated(waitingLeaf)) {
-                waitingLeavesContainsFloat = true;
-                break;
-            }
-        }
-
-        if (elementIsFloated(element)) {
-            if (waitingLeavesContainsFloat) {
-                postProcessInlineGroup();
-            }
-        } else {
-            postProcessInlineGroup();
-        }
+        postProcessInlineGroup();
 
         boolean processed = false;
         if (element instanceof IBlockElement) {
@@ -202,21 +188,11 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
         return processed;
     }
 
-    /**
-     * Checks if the element has a float layout.
-     *
-     * @param element the element
-     * @return true, if the element has a float layout
-     */
-    private boolean elementIsFloated(IElement element) {
-        FloatPropertyValue floatPropertyValue = element.<FloatPropertyValue>getProperty(Property.FLOAT);
-        return floatPropertyValue != null && !floatPropertyValue.equals(FloatPropertyValue.NONE);
-    }
-
-    /**
+    
+	/**
      * Post-processes the hanging leaves of the waiting inline elements.
      */
-    private void postProcessInlineGroup() {
+	private void postProcessInlineGroup() {
         inlineHelper.flushHangingLeaves(div);
     }
 }
