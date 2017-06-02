@@ -2,7 +2,7 @@
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
-    
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-    
+
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-    
+
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-    
+
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-    
+
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,7 +36,7 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-    
+
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
@@ -45,12 +45,15 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
+import com.itextpdf.kernel.geom.Rectangle;
+import com.itextpdf.layout.layout.LayoutArea;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
 import com.itextpdf.layout.layout.MinMaxWidthLayoutResult;
 import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.renderer.AbstractRenderer;
 import com.itextpdf.layout.renderer.BlockRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.ILeafElementRenderer;
@@ -119,10 +122,9 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         }
         addChild(renderer);
 
-        layoutContext.getArea().getBBox().setHeight(INF);
+        Rectangle bBox = layoutContext.getArea().getBBox().clone().moveDown(INF - parentHeight).setHeight(INF);
+        layoutContext.getArea().setBBox(bBox);
         LayoutResult result = super.layout(layoutContext);
-        layoutContext.getArea().getBBox().setHeight(parentHeight);
-        move(0, parentHeight - INF);
 
         if (restoreMaxHeight) {
             setProperty(Property.MAX_HEIGHT, maxHeight);
@@ -144,7 +146,8 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
             childRenderers.clear();
             childRenderers.add(flatRenderer);
             adjustFieldLayout();
-            occupiedArea.setBBox(flatRenderer.getOccupiedArea().getBBox().clone());
+            Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
+            occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
             applyPaddings(occupiedArea.getBBox(), true);
             applyBorderBox(occupiedArea.getBBox(), true);
             applyMargins(occupiedArea.getBBox(), true);
@@ -190,6 +193,12 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         drawContext.getCanvas().restoreState();
     }
 
+    @Override
+    protected MinMaxWidth getMinMaxWidth(float availableWidth) {
+        MinMaxWidthLayoutResult result = (MinMaxWidthLayoutResult) layout(new LayoutContext(new LayoutArea(1, new Rectangle(availableWidth, AbstractRenderer.INF))));
+        return result.getNotNullMinMaxWidth(availableWidth);
+    }
+
     /**
      * Adjusts the field layout.
      */
@@ -215,7 +224,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
      * @return the model id
      */
     protected String getModelId() {
-        return ((IFormField)getModelElement()).getId();
+        return ((IFormField) getModelElement()).getId();
     }
 
     /**
