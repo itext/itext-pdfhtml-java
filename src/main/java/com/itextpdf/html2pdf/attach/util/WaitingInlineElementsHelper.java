@@ -193,14 +193,6 @@ public class WaitingInlineElementsHelper {
             Paragraph p = createParagraphContainer();
             for (ILeafElement leaf : waitingLeaves) {
                 p.add(leaf);
-                FloatPropertyValue floatPropertyValue = leaf.<FloatPropertyValue>getProperty(Property.FLOAT);
-                if (floatPropertyValue != null && !(leaf instanceof Image)) {
-                    p.setProperty(Property.FLOAT, floatPropertyValue);
-                }
-                ClearPropertyValue clearPropertyValue = leaf.<ClearPropertyValue>getProperty(Property.CLEAR);
-                if (clearPropertyValue != null && !(leaf instanceof Image)) {
-                    p.setProperty(Property.CLEAR, clearPropertyValue);
-                }
             }
             // Default leading in html is 1.2 and it is an inherited value. However, if a paragraph only contains an image,
             // the default leading should be 1. This is the case when we create a dummy paragraph, therefore we should emulate this behavior.

@@ -144,6 +144,10 @@ public class FloatTest extends ExtendedITextTest {
 
     @Test
     public void float16Test() throws IOException, InterruptedException {
+        // TODO at the moment we always wrap inline text in paragraphs, thus when we process next floating element it's always on next line
+        // see also float50Test and float51Test
+
+        // TODO as a possible solution in future we might consider adding floats blocks as inlines-blocks in inline helper
         runTest("float16Test", "diff16_");
     }
 
@@ -184,6 +188,8 @@ public class FloatTest extends ExtendedITextTest {
 
     @Test
     public void float25Test() throws IOException, InterruptedException {
+        // TODO at the moment we always wrap inline text in paragraphs, thus when we process next floating element it's always on next line
+        // see also float50Test and float51Test
         runTest("float25Test", "diff25_");
     }
 
@@ -252,6 +258,8 @@ public class FloatTest extends ExtendedITextTest {
 
     @Test
     public void float36Test() throws IOException, InterruptedException {
+        // TODO at the moment we always wrap inline text in paragraphs, thus when we process next floating element it's always on next line
+        // see also float50Test and float51Test
         runTest("float36Test", "diff36_");
     }
 
