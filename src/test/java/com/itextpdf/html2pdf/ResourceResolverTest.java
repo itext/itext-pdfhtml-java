@@ -49,6 +49,7 @@ import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -132,6 +133,15 @@ public class ResourceResolverTest extends ExtendedITextTest {
         String cmpPdf = sourceFolder + "cmp_resourceResolverTest07.pdf";
         HtmlConverter.convertToPdf(new File(sourceFolder + "resourceResolverTest07.html"), new File(outPdf));
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff07_"));
+    }
+
+    @Test
+    @Ignore
+    public void resourceResolverTest08() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceResolverTest08.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest08.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceResolverTest08.html"), new File(outPdf));
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff08_"));
     }
 
     // TODO test with absolute http links for resources?
