@@ -44,12 +44,30 @@ package com.itextpdf.html2pdf.html.node;
 
 import java.util.List;
 
+/**
+ * Interface for classes that describe a Node with a parent and children.
+ */
 public interface INode {
 
+    /**
+     * Gets the child nodes.
+     *
+     * @return a list of <code>INode</code> instances.
+     */
     List<INode> childNodes();
 
+    /**
+     * Adds a child node.
+     *
+     * @param node a child node that will be added to the current node
+     */
     void addChild(INode node);
 
+    /**
+     * Gets the parent node.
+     *
+     * @return the parent node
+     */
     INode parentNode();
 
 }
