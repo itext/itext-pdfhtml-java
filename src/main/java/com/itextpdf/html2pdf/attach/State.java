@@ -44,29 +44,62 @@ package com.itextpdf.html2pdf.attach;
 
 import java.util.Stack;
 
+/**
+ * State machine to push, pop, peek,... {@link ITagWorker} instances to and from the <code>Stack</code>.
+ */
 public class State {
+    
+    /** The stack. */
     private Stack<ITagWorker> stack;
 
+    /**
+     * Instantiates a new <code>State</code> instance.
+     */
     public State() {
         stack = new Stack<>();
     }
 
+    /**
+     * Gets the stack.
+     *
+     * @return the stack
+     */
     public Stack<ITagWorker> getStack() {
         return stack;
     }
 
+    /**
+     * Pushes a {@link ITagWorker} instance to the stack.
+     *
+     * @param tagWorker the tag worker
+     */
     public void push(ITagWorker tagWorker) {
         stack.push(tagWorker);
     }
 
+    /**
+     * Pops a {@link ITagWorker} from the stack.
+     *
+     * @return the tag worker
+     */
     public ITagWorker pop() {
         return stack.pop();
     }
 
+    /**
+     * Peeks at the {@link ITagWorker} at the top of the stack.
+     *
+     * @return the tag worker at the top
+     */
     public ITagWorker top() {
         return stack.peek();
     }
 
+    /**
+     * Checks if the stack is empty.
+     *
+     * @return true, if the stack is empty
+     */
     public boolean empty() {
         return stack.size() == 0;
     }

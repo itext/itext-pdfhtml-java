@@ -58,24 +58,57 @@ import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.font.FontSet;
 
+/**
+ * Keeps track of the context of the processor.
+ */
 public class ProcessorContext {
 
+    /** The font provider. */
     private FontProvider fontProvider;
+    
+    /** Temporary set of fonts used in the PDF. */
     private FontSet tempFonts;
+    
+    /** The resource resolver. */
     private ResourceResolver resourceResolver;
+    
+    /** The device description. */
     private MediaDeviceDescription deviceDescription;
+    
+    /** The tag worker factory. */
     private ITagWorkerFactory tagWorkerFactory;
+    
+    /** The CSS applier factory. */
     private ICssApplierFactory cssApplierFactory;
+    
+    /** The base URI. */
     private String baseUri;
+    
+    /** Indicates whether an AcroForm needs to be created. */
     private boolean createAcroForm;
+    
+    /** The form field name resolver. */
     private FormFieldNameResolver formFieldNameResolver;
+    
+    /** The outline handler. */
     private OutlineHandler outlineHandler;
 
     // Variable fields
+    
+    /** The state. */
     private State state;
+    
+    /** The CSS context. */
     private CssContext cssContext;
+    
+    /** The PDF document. */
     private PdfDocument pdfDocument;
 
+    /**
+     * Instantiates a new <code>ProcessorContext</code> instance.
+     *
+     * @param converterProperties a <code>ConverterProperties</code> instance
+     */
     public ProcessorContext(ConverterProperties converterProperties) {
         if (converterProperties == null) {
             converterProperties = new ConverterProperties();
@@ -120,60 +153,128 @@ public class ProcessorContext {
         formFieldNameResolver = new FormFieldNameResolver();
     }
 
+    /**
+     * Sets the font provider.
+     *
+     * @param fontProvider the new font provider
+     */
     public void setFontProvider(FontProvider fontProvider) {
         this.fontProvider = fontProvider;
     }
 
+    /**
+     * Gets the state.
+     *
+     * @return the state
+     */
     public State getState() {
         return state;
     }
 
+    /**
+     * Gets the PDF document.
+     *
+     * @return the PDF document
+     */
     public PdfDocument getPdfDocument() {
         return pdfDocument;
     }
 
+    /**
+     * Gets the font provider.
+     *
+     * @return the font provider
+     */
     public FontProvider getFontProvider() {
         return fontProvider;
     }
 
+    /**
+     * Gets the temporary set of fonts.
+     *
+     * @return the set of fonts
+     */
     public FontSet getTempFonts() {
         return tempFonts;
     }
 
+    /**
+     * Gets the resource resolver.
+     *
+     * @return the resource resolver
+     */
     public ResourceResolver getResourceResolver() {
         return resourceResolver;
     }
 
+    /**
+     * Gets the device description.
+     *
+     * @return the device description
+     */
     public MediaDeviceDescription getDeviceDescription() {
         return deviceDescription;
     }
 
+    /**
+     * Gets the tag worker factory.
+     *
+     * @return the tag worker factory
+     */
     public ITagWorkerFactory getTagWorkerFactory() {
         return tagWorkerFactory;
     }
 
+    /**
+     * Gets the CSS applier factory.
+     *
+     * @return the CSS applier factory
+     */
     public ICssApplierFactory getCssApplierFactory() {
         return cssApplierFactory;
     }
 
+    /**
+     * Gets the CSS context.
+     *
+     * @return the CSS context
+     */
     public CssContext getCssContext() {
         return cssContext;
     }
 
+    /**
+     * Checks if is an AcroForm needs to be created.
+     *
+     * @return true, an AcroForm should be created
+     */
     public boolean isCreateAcroForm() {
         return createAcroForm;
     }
 
+    /**
+     * Gets the form field name resolver.
+     *
+     * @return the form field name resolver
+     */
     public FormFieldNameResolver getFormFieldNameResolver() {
         return formFieldNameResolver;
     }
 
+    /**
+     * Gets the outline handler.
+     *
+     * @return the outline handler
+     */
     public OutlineHandler getOutlineHandler() {
         return outlineHandler;
     }
 
     /**
      * Add temporary font from @font-face.
+     *
+     * @param fontInfo the font info
+     * @param alias the alias
      */
     public void addTemporaryFont(FontInfo fontInfo, String alias) {
         if (tempFonts == null) tempFonts = new FontSet();
@@ -182,6 +283,10 @@ public class ProcessorContext {
 
     /**
      * Add temporary font from @font-face.
+     *
+     * @param fontProgram the font program
+     * @param encoding the encoding
+     * @param alias the alias
      */
     public void addTemporaryFont(FontProgram fontProgram, String encoding, String alias) {
         if (tempFonts == null) tempFonts = new FontSet();
@@ -200,6 +305,9 @@ public class ProcessorContext {
                 || (tempFonts != null && !tempFonts.isEmpty());
     }
 
+    /**
+     * Resets the context.
+     */
     public void reset() {
         this.pdfDocument = null;
         this.state = new State();
@@ -211,6 +319,11 @@ public class ProcessorContext {
         this.tempFonts = null;
     }
 
+    /**
+     * Resets the context, and assigns a new PDF document.
+     *
+     * @param pdfDocument the new PDF document for the context
+     */
     public void reset(PdfDocument pdfDocument) {
         reset();
         this.pdfDocument = pdfDocument;

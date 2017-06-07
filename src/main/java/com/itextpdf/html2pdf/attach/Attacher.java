@@ -50,16 +50,41 @@ import com.itextpdf.layout.Document;
 
 import java.util.List;
 
+/**
+ * Helper class to add parsed HTML content to an existing iText document,
+ * or to parse HTML to a list of iText elements.
+ */
 public class Attacher {
 
+    /**
+     * Instantiates a new <code>Attacher</code> instance.
+     */
     private Attacher() {
     }
 
+    /**
+     * Attaches the HTML content stored in a document node to
+     * an existing PDF document, using specific converter properties,
+     * and returning an iText <code>Document</code> object.
+     *
+     * @param documentNode the document node with the HTML
+     * @param pdfDocument the <code>PdfDocument</code> instance
+     * @param converterProperties the <code>ConverterProperties</code> instance
+     * @return an iText <code>Document</code> object
+     */
     public static Document attach(IDocumentNode documentNode, PdfDocument pdfDocument, ConverterProperties converterProperties) {
         IHtmlProcessor processor = new DefaultHtmlProcessor(converterProperties);
         return processor.processDocument(documentNode, pdfDocument);
     }
 
+    /**
+     * Attaches the HTML content stored in a document node to
+     * a list of <code>IElement</code> objects.
+     *
+     * @param documentNode the document node with the HTML
+     * @param converterProperties the <code>ConverterProperties</code> instance
+     * @return the list of <code>IElement</code> objects
+     */
     public static List<com.itextpdf.layout.element.IElement> attach(IDocumentNode documentNode, ConverterProperties converterProperties) {
         IHtmlProcessor processor = new DefaultHtmlProcessor(converterProperties);
         return processor.processElements(documentNode);

@@ -48,10 +48,27 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IElement;
 import java.util.List;
 
+/**
+ * Interface for classes that can process HTML to PDF in the form of a
+ * <code>PdfDocument</code> or a list of <code>IElement</code> objects.
+ */
 public interface IHtmlProcessor {
 
+    /**
+     * Parses HTML to add the content to a <code>PdfDocument</code>.
+     *
+     * @param root the root node of the HTML that needs to be parsed
+     * @param pdfDocument the <code>PdfDocument</code> instance
+     * @return a <code>Document</code> instance
+     */
     Document processDocument(INode root, PdfDocument pdfDocument);
 
+    /**
+     * Parses HTML to add the content to a list of <code>IElement</code> objects.
+     *
+     * @param root the root node of the HTML that needs to be parsed
+     * @return the resulting list
+     */
     List<IElement> processElements(INode root);
 
 }
