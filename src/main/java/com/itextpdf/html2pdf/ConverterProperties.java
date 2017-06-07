@@ -49,19 +49,44 @@ import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.layout.font.FontProvider;
 
+/**
+ * Properties that will be used by the converter.
+ */
 public class ConverterProperties {
 
+    /** The media device description. */
     private MediaDeviceDescription mediaDeviceDescription;
+    
+    /** The font provider. */
     private FontProvider fontProvider;
+    
+    /** The tag worker factory. */
     private ITagWorkerFactory tagWorkerFactory;
+    
+    /** The CSS applier factory. */
     private ICssApplierFactory cssApplierFactory;
+    
+    /** The outline handler. */
     private OutlineHandler outlineHandler;
+    
+    /** The base URI. */
     private String baseUri;
+    
+    /** Indicates whether an AcroForm should be created. */
     private boolean createAcroForm = false;
 
+    /**
+     * Instantiates a new ConverterProperties instance.
+     */
     public ConverterProperties() {
     }
 
+    /**
+     * Instantiates a new ConverterProperties instance based on another ConverterProperties instance
+     * (copy constructor).
+     *
+     * @param other the other ConverterProperties instance
+     */
     public ConverterProperties(ConverterProperties other) {
         this.mediaDeviceDescription = other.mediaDeviceDescription;
         this.fontProvider = other.fontProvider;
@@ -72,64 +97,141 @@ public class ConverterProperties {
         this.outlineHandler = other.outlineHandler;
     }
 
+    /**
+     * Gets the media device description.
+     *
+     * @return the media device description
+     */
     public MediaDeviceDescription getMediaDeviceDescription() {
         return mediaDeviceDescription;
     }
 
+    /**
+     * Sets the media device description.
+     *
+     * @param mediaDeviceDescription the media device description
+     * @return the ConverterProperties instance
+     */
     public ConverterProperties setMediaDeviceDescription(MediaDeviceDescription mediaDeviceDescription) {
         this.mediaDeviceDescription = mediaDeviceDescription;
         return this;
     }
 
+    /**
+     * Gets the font provider.
+     *
+     * @return the font provider
+     */
     public FontProvider getFontProvider() {
         return fontProvider;
     }
 
+    /**
+     * Sets the font provider.
+     *
+     * @param fontProvider the font provider
+     * @return the ConverterProperties instance
+     */
     public ConverterProperties setFontProvider(FontProvider fontProvider) {
         this.fontProvider = fontProvider;
         return this;
     }
 
+    /**
+     * Gets the TagWorkerFactory instance.
+     *
+     * @return the TagWorkerFactory
+     */
     public ITagWorkerFactory getTagWorkerFactory() {
         return tagWorkerFactory;
     }
 
+    /**
+     * Sets the TagWorkerFactory.
+     *
+     * @param tagWorkerFactory the TagWorkerFactory
+     * @return the ConverterProperties instance
+     */
     public ConverterProperties setTagWorkerFactory(ITagWorkerFactory tagWorkerFactory) {
         this.tagWorkerFactory = tagWorkerFactory;
         return this;
     }
 
+    /**
+     * Gets the CSS applier factory.
+     *
+     * @return the CSS applier factory
+     */
     public ICssApplierFactory getCssApplierFactory() {
         return cssApplierFactory;
     }
 
+    /**
+     * Sets the CSS applier factory.
+     *
+     * @param cssApplierFactory the CSS applier factory
+     * @return the ConverterProperties instance
+     */
     public ConverterProperties setCssApplierFactory(ICssApplierFactory cssApplierFactory) {
         this.cssApplierFactory = cssApplierFactory;
         return this;
     }
 
+    /**
+     * Gets the base URI.
+     *
+     * @return the base URI
+     */
     public String getBaseUri() {
         return baseUri;
     }
 
+    /**
+     * Sets the base URI.
+     *
+     * @param baseUri the base URI
+     * @return the ConverterProperties instance
+     */
     public ConverterProperties setBaseUri(String baseUri) {
         this.baseUri = baseUri;
         return this;
     }
 
+    /**
+     * Checks if is an AcroForm needs to be created.
+     *
+     * @return true, an AcroForm should be created
+     */
     public boolean isCreateAcroForm() {
         return createAcroForm;
     }
 
+    /**
+     * Sets the createAcroForm value.
+     *
+     * @param createAcroForm true if an AcroForm needs to be created
+     * @return the ConverterProperties instance
+     */
     public ConverterProperties setCreateAcroForm(boolean createAcroForm) {
         this.createAcroForm = createAcroForm;
         return this;
     }
 
+    /**
+     * Gets the outline handler.
+     *
+     * @return the outline handler
+     */
     public OutlineHandler getOutlineHandler() {
         return outlineHandler;
     }
 
+    /**
+     * Sets the outline handler.
+     *
+     * @param outlineHandler the outline handler
+     * @return the ConverterProperties instance
+     */
     public ConverterProperties setOutlineHandler(OutlineHandler outlineHandler) {
         this.outlineHandler = outlineHandler;
         return this;
