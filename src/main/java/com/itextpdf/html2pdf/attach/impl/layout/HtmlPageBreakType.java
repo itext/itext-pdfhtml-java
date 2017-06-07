@@ -42,8 +42,17 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
+/**
+ * Enumeration of the HTML page break types.
+ */
 public enum HtmlPageBreakType {
+    
+    /** Always break. */
     ALWAYS,
+    
+    /**  Insert page break so that the next page is formatted as a left page. */
     LEFT,
+    
+    /** Insert page break so that the next page is formatted as a right page. */
     RIGHT
 }

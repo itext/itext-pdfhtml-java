@@ -44,14 +44,28 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.layout.element.AreaBreak;
 
+/**
+ * The HTML implementation of an {@link AreaBreak}.
+ */
 public class HtmlPageBreak extends AreaBreak {
 
+    /** The {@link HtmlPageBreakType}. */
     HtmlPageBreakType breakType;
 
+    /**
+     * Instantiates a new html page break.
+     *
+     * @param type the page break type
+     */
     public HtmlPageBreak(HtmlPageBreakType type) {
         this.breakType = type;
     }
 
+    /**
+     * Gets the {@link HtmlPageBreakType}.
+     *
+     * @return the page break type
+     */
     public HtmlPageBreakType getBreakType() {
         return breakType;
     }
