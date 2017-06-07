@@ -45,22 +45,56 @@ package com.itextpdf.html2pdf.html.node;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Interface for node classes that have a parent and children, and for which
+ * styles can be defined; each of these nodes can also have a name and attributes.
+ */
 public interface IElementNode extends INode, IStylesContainer {
 
+    /**
+     * Gets the name of the element node.
+     *
+     * @return the string
+     */
     String name();
 
+    /**
+     * Gets the attributes.
+     *
+     * @return the attributes
+     */
     IAttributes getAttributes();
 
+    /**
+     * Gets an attribute.
+     *
+     * @param key the key of the attribute we want to get
+     * @return the value of the attribute
+     */
     String getAttribute(String key);
 
     /**
-     * Styles that affect element based on it's position in html DOM, e.g. cell borders that are set due to the parent
-     * table "border" attribute, or styles from "col" tags that affect table elements, or blocks horizontal alignment
-     * that is the result of parent's "align" attribute.
+     * Gets additional styles, more specifically styles that affect an element
+     * based on its position in the HTML DOM, e.g. cell borders that are set
+     * due to the parent table "border" attribute, or styles from "col" tags
+     * that affect table elements, or blocks horizontal alignment that is
+     * the result of parent's "align" attribute.
+     *
+     * @return the additional html styles
      */
     List<Map<String, String>> getAdditionalHtmlStyles();
 
+    /**
+     * Adds additional HTML styles.
+     *
+     * @param styles the styles
+     */
     void addAdditionalHtmlStyles(Map<String, String> styles);
 
+    /**
+     * Gets the language.
+     *
+     * @return the language value
+     */
     String getLang();
 }

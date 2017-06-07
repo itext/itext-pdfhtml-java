@@ -44,9 +44,22 @@ package com.itextpdf.html2pdf.html.node;
 
 import java.util.Map;
 
+/**
+ * Interface for classes that can get and set styles.
+ */
 public interface IStylesContainer {
 
+    /**
+     * Sets the styles.
+     *
+     * @param stringStringMap a <code>Map</code> with style keys and values.
+     */
     void setStyles(Map<String, String> stringStringMap);
 
+    /**
+     * Gets the styles.
+     *
+     * @return the styles
+     */
     Map<String, String> getStyles();
 }

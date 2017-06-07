@@ -42,5 +42,9 @@
  */
 package com.itextpdf.html2pdf.html.node;
 
+/**
+ * Interface implemented by classes that are a top node,
+ * and as such represent a Document.
+ */
 public interface IDocumentNode extends IElementNode {
 }
