@@ -45,11 +45,23 @@ package com.itextpdf.html2pdf;
 import java.io.BufferedReader;
 import java.io.Reader;
 
+/**
+ * Utility class to wrap any <code>Reader</class> in a <code>BufferedReader</code>.
+ */
 public class PortUtil {
 
+    /**
+     * Instantiates a <code>PortUtil</code> instance.
+     */
     private PortUtil() {
     }
 
+    /**
+     * Wraps a <code>Reader</code> instance in a <code>BufferedReader</code>.
+     *
+     * @param inputStreamReader the original reader
+     * @return the buffered reader
+     */
     public static Reader wrapInBufferedReader(Reader inputStreamReader) {
         return new BufferedReader(inputStreamReader);
     }
