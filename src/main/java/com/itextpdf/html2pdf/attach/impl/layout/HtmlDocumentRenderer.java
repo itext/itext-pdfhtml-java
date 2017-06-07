@@ -59,29 +59,74 @@ import com.itextpdf.layout.renderer.IRenderer;
 
 import java.util.List;
 
+/**
+ * The DocumentRenderer class for HTML.
+ */
 public class HtmlDocumentRenderer extends DocumentRenderer {
-    // Maybe later we will want to expose this to the users or make it a public setting of this renderer
+    
+    /**
+     * The Constant TRIM_LAST_BLANK_PAGE.
+     * In a future version, we might want to expose this value to the users,
+     * or make it a public setting of the HTML renderer.
+     */
     private static final boolean TRIM_LAST_BLANK_PAGE = true;
 
+    /** The page context processor for the first page. */
     private PageContextProcessor firstPageProc;
+    
+    /** The page context processor for all left pages. */
     private PageContextProcessor leftPageProc;
+    
+    /** The page context processor for all right pages. */
     private PageContextProcessor rightPageProc;
-    // NOTE! This number may differ from checking the number of pages in the document on whether it is an even number or not, because
-    // first page break-before might change right page to left (in ltr cases), but a blank page will not be added
+    /**
+     * Indicates if the current page is even.
+     * Important: this number may differ from the result you get checking
+     * if the number of pages in the document is even or not, because
+     * the first page break-before might change right page to left (in ltr cases),
+     * but a blank page will not be added.
+     */
     private boolean currentPageEven = true;
-    // An child element is kept waiting for the next one to process "keep with previous" property
+    
+    /**
+     * The waiting element, an child element is kept waiting for the
+     * next element to process the "keep with previous" property.
+     */
     private IRenderer waitingElement;
+    
+    /**
+     * Indicates if the first blank pages caused by a break-before-first
+     * element should be trimmed.
+     */
     private boolean shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = true;
+    
+    /** Indicates if anything was added to the current area. */
     private boolean anythingAddedToCurrentArea = false;
+    
+    /** The estimated number of pages. */
     private int estimatedNumberOfPages;
 
+    /**
+     * Instantiates a new <code>HtmlDocumentRenderer</code> instance.
+     *
+     * @param document an iText <code>Document</code> instance
+     * @param immediateFlush the immediate flush indicator
+     */
     public HtmlDocumentRenderer(Document document, boolean immediateFlush) {
         super(document, immediateFlush);
     }
 
+    /**
+     * Processes the page rules.
+     *
+     * @param rootNode the root node
+     * @param cssResolver the CSS resolver
+     * @param context the processor context
+     */
     public void processPageRules(INode rootNode, ICssResolver cssResolver, ProcessorContext context) {
         PageContextProperties firstPageProps = PageContextProperties.resolve(rootNode, cssResolver, context.getCssContext(),
-                PageContextConstants.FIRST, PageContextConstants.RIGHT); // TODO in documents with set to rtl on root document, first page is considered as left 
+                PageContextConstants.FIRST, PageContextConstants.RIGHT);
+        // TODO in documents with set to rtl on root document, first page is considered as left 
         PageContextProperties leftPageProps = PageContextProperties.resolve(rootNode, cssResolver, context.getCssContext(),
                 PageContextConstants.LEFT);
         PageContextProperties rightPageProps = PageContextProperties.resolve(rootNode, cssResolver, context.getCssContext(),
@@ -93,6 +138,9 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         rightPageProc = new PageContextProcessor(rightPageProps, context, defaultPageSize);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.RootRenderer#addChild(com.itextpdf.layout.renderer.IRenderer)
+     */
     @Override
     public void addChild(IRenderer renderer) {
         if (waitingElement != null) {
@@ -112,6 +160,9 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.DocumentRenderer#close()
+     */
     @Override
     public void close() {
         if (waitingElement != null) {
@@ -130,6 +181,9 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.DocumentRenderer#getNextRenderer()
+     */
     @Override
     public IRenderer getNextRenderer() {
         // Process waiting element to get the correct number of pages
@@ -145,6 +199,9 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         return relayoutRenderer;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.DocumentRenderer#updateCurrentArea(com.itextpdf.layout.layout.LayoutResult)
+     */
     @Override
     protected LayoutArea updateCurrentArea(LayoutResult overflowResult) {
         AreaBreak areaBreak = overflowResult != null ? overflowResult.getAreaBreak() : null;
@@ -199,6 +256,9 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         return super.updateCurrentArea(overflowResult);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.RootRenderer#shrinkCurrentAreaAndProcessRenderer(com.itextpdf.layout.renderer.IRenderer, java.util.List, com.itextpdf.layout.layout.LayoutResult)
+     */
     @Override
     protected void shrinkCurrentAreaAndProcessRenderer(IRenderer renderer, List<IRenderer> resultRenderers, LayoutResult result) {
         if (renderer != null) {
@@ -207,6 +267,9 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         super.shrinkCurrentAreaAndProcessRenderer(renderer, resultRenderers, result);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.DocumentRenderer#addNewPage(com.itextpdf.kernel.geom.PageSize)
+     */
     @Override
     protected PageSize addNewPage(PageSize customPageSize) {
         PdfPage addedPage;
@@ -228,10 +291,21 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         return new PageSize(addedPage.getTrimBox());
     }
 
+    /**
+     * Gets the estimated number of pages.
+     *
+     * @return the estimated number of pages
+     */
     int getEstimatedNumberOfPages() {
         return estimatedNumberOfPages;
 	}
 
+    /**
+     * Gets the next page processor.
+     *
+     * @param firstPage the first page
+     * @return the next page processor
+     */
     private PageContextProcessor getNextPageProcessor(boolean firstPage) {
         // If first page, but break-before: left for ltr is present, we should use left page instead of first
         if (firstPage && currentPageEven) {
@@ -243,11 +317,21 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         }
     }
 
+    /**
+     * Checks if the current page is a left page.
+     *
+     * @return true, if is current page left
+     */
     private boolean isCurrentPageLeft() {
         // TODO rtl
         return currentPageEven;
     }
 
+    /**
+     * Checks if the current page is a right page.
+     *
+     * @return true, if is current page right
+     */
     private boolean isCurrentPageRight() {
         return !isCurrentPageLeft();
     }

@@ -90,19 +90,48 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Context processor for specific types of pages: first, left, or right page.
+ */
 class PageContextProcessor {
+    
+    /** The page size. */
     private PageSize pageSize;
+    
+    /** Marks for page boundaries. */
     private Set<String> marks;
+    
+    /** The bleed value for the margin. */
     private Float bleed;
+    
+    /** The margins. */
     private float[] margins;
+    
+    /** The borders. */
     private Border[] borders;
+    
+    /** The paddings. */
     private float[] paddings;
+    
+    /** Page background simulation. */
     private Div pageBackgroundSimulation;
+    
+    /** Page borders simulation. */
     private Div pageBordersSimulation;
 
+    /** The margin box rectangles. */
     private Rectangle[] marginBoxRectangles;
+    
+    /** The margin box elements. */
     private Div[] marginBoxElements;
 
+    /**
+     * Instantiates a new page context processor.
+     *
+     * @param properties the page contex properties
+     * @param context the processor context
+     * @param defaultPageSize the default page size
+     */
     PageContextProcessor(PageContextProperties properties, ProcessorContext context, PageSize defaultPageSize) {
         Map<String, String> styles = properties.getResolvedPageContextNode().getStyles();
         float em = CssUtils.parseAbsoluteLength(styles.get(CssConstants.FONT_SIZE));
@@ -124,10 +153,20 @@ class PageContextProcessor {
         createMarginBoxesElements(properties.getResolvedPageMarginBoxes(), context);
     }
 
+    /**
+     * Gets the page size.
+     *
+     * @return the page size
+     */
     PageSize getPageSize() {
         return pageSize;
     }
 
+    /**
+     * Compute layout margins.
+     *
+     * @return the float values of the margins
+     */
     float[] computeLayoutMargins() {
         float[] layoutMargins = Arrays.copyOf(margins, margins.length);
         for (int i = 0; i < borders.length; ++i) {
@@ -140,6 +179,13 @@ class PageContextProcessor {
         return layoutMargins;
     }
 
+    /**
+     * Processes a new page by setting the bleed value, adding marks, drawing
+     * page backgrounds and borders, and margin boxes (if necessary).
+     *
+     * @param page the page to process
+     * @param documentRenderer the document renderer
+     */
     void processNewPage(PdfPage page, DocumentRenderer documentRenderer) {
         setBleed(page);
         drawMarks(page);
@@ -147,6 +193,11 @@ class PageContextProcessor {
         drawMarginBoxes(page, documentRenderer);
     }
 
+    /**
+     * Sets the bleed value for a page.
+     *
+     * @param page the new bleed
+     */
     private void setBleed(PdfPage page) {
         if (bleed == null && !marks.isEmpty()) {
             bleed = 6f;
@@ -163,6 +214,12 @@ class PageContextProcessor {
         }
     }
 
+    /**
+     * Sets the different page boundaries and draws printer marks on the page
+     * (if necessary).
+     *
+     * @param page the page
+     */
     private void drawMarks(PdfPage page) {
         if (marks.isEmpty()) {
             return;
@@ -252,6 +309,14 @@ class PageContextProcessor {
         }
     }
 
+    /**
+     * Draws a cross (used in the <code>drawMarks()</code> method).
+     *
+     * @param canvas the canvas to draw on
+     * @param x the x value
+     * @param y the y value
+     * @param horizontalCross true if horizontal
+     */
     private void drawCross(PdfCanvas canvas, float x, float y, boolean horizontalCross) {
         float xLineHalf;
         float yLineHalf;
@@ -273,6 +338,11 @@ class PageContextProcessor {
         canvas.stroke();
     }
 
+    /**
+     * Draws page background and borders.
+     *
+     * @param page the page
+     */
     private void drawPageBackgroundAndBorders(PdfPage page) {
         Canvas canvas = new Canvas(new PdfCanvas(page), page.getDocument(), page.getBleedBox());
         canvas.add(pageBackgroundSimulation);
@@ -282,6 +352,12 @@ class PageContextProcessor {
         canvas.close();
     }
 
+    /**
+     * Draws margin boxes.
+     *
+     * @param page the page
+     * @param documentRenderer the document renderer
+     */
     private void drawMarginBoxes(PdfPage page, DocumentRenderer documentRenderer) {
         for (int i = 0; i < 16; ++i) {
             if (marginBoxElements[i] != null) {
@@ -295,6 +371,12 @@ class PageContextProcessor {
         }
     }
 
+    /**
+     * Parses the marks.
+     *
+     * @param marksStr a <code>String</code> value defining the marks
+     * @return a <code>Set</code> of mark values
+     */
     private static Set<String> parseMarks(String marksStr) {
         Set<String> marks = new HashSet<>();
         if (marksStr == null) {
@@ -312,6 +394,13 @@ class PageContextProcessor {
         return marks;
     }
 
+    /**
+     * Parses the margins.
+     *
+     * @param styles a <code>Map</code> containing the styles
+     * @param em a measurement expressed in em
+     * @param rem a measurement expressed in rem (root em)
+     */
     private void parseMargins(Map<String, String> styles, float em, float rem) {
         float defaultMargin = 36;
         PageSize pageSize = getPageSize();
@@ -319,6 +408,13 @@ class PageContextProcessor {
                 CssConstants.MARGIN_TOP, CssConstants.MARGIN_RIGHT, CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT);
     }
 
+    /**
+     * Parses the paddings.
+     *
+     * @param styles a <code>Map</code> containing the styles
+     * @param em a measurement expressed in em
+     * @param rem a measurement expressed in rem (root em)
+     */
     private void parsePaddings(Map<String, String> styles, float em, float rem) {
         float defaultPadding = 0;
         PageSize pageSize = getPageSize();
@@ -326,10 +422,23 @@ class PageContextProcessor {
                 CssConstants.PADDING_TOP, CssConstants.PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT);
     }
 
+    /**
+     * Parses the borders.
+     *
+     * @param styles a <code>Map</code> containing the styles
+     * @param em a measurement expressed in em
+     * @param rem a measurement expressed in rem (root em)
+     */
     private void parseBorders(Map<String, String> styles, float em, float rem) {
         borders = BorderStyleApplierUtil.getBordersArray(styles, em, rem);
     }
 
+    /**
+     * Creates the page simulation elements.
+     *
+     * @param styles a <code>Map</code> containing the styles
+     * @param context the processor context
+     */
     private void createPageSimulationElements(Map<String, String> styles, ProcessorContext context) {
         pageBackgroundSimulation = new Div().setFillAvailableArea(true);
         BackgroundApplierUtil.applyBackground(styles, context, pageBackgroundSimulation);
@@ -342,6 +451,12 @@ class PageContextProcessor {
         pageBordersSimulation.setBorderLeft(borders[3]);
     }
 
+    /**
+     * Creates the margin boxes elements.
+     *
+     * @param resolvedPageMarginBoxes the resolved page margin boxes
+     * @param context the processor context
+     */
     private void createMarginBoxesElements(List<PageMarginBoxContextNode> resolvedPageMarginBoxes, ProcessorContext context) {
         marginBoxRectangles = calculateMarginBoxRectangles(resolvedPageMarginBoxes);
         marginBoxElements = new Div[16];
@@ -406,6 +521,12 @@ class PageContextProcessor {
         }
     }
 
+    /**
+     * Calculate margin box rectangles.
+     *
+     * @param resolvedPageMarginBoxes the resolved page margin boxes
+     * @return an array of <code>Rectangle</code> values
+     */
     private Rectangle[] calculateMarginBoxRectangles(List<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
         // TODO It's a very basic implementation for now. In future resolve rectangles based on presence of certain margin boxes,
         //      also height and width properties should be taken into account.
@@ -441,6 +562,12 @@ class PageContextProcessor {
         return hardcodedBoxRectangles;
     }
 
+    /**
+     * Calculate containing block sizes for margin box.
+     *
+     * @param marginBoxInd the margin box index
+     * @return the corresponding rectangle
+     */
     private Rectangle calculateContainingBlockSizesForMarginBox(int marginBoxInd) {
         if (marginBoxInd == 0 || marginBoxInd == 4 || marginBoxInd == 8 || marginBoxInd == 12) {
             return marginBoxRectangles[marginBoxInd];
@@ -457,6 +584,12 @@ class PageContextProcessor {
         }
     }
 
+    /**
+     * Maps a margin box name to an index.
+     *
+     * @param marginBoxName the margin box name
+     * @return the index corresponding with the margin box name
+     */
     private int mapMarginBoxNameToIndex(String marginBoxName) {
         switch (marginBoxName) {
             case CssRuleName.TOP_LEFT_CORNER:
@@ -495,6 +628,20 @@ class PageContextProcessor {
         return -1;
     }
 
+    /**
+     * Parses the box props.
+     *
+     * @param styles a <code>Map</code> containing the styles
+     * @param em a measurement expressed in em
+     * @param rem a measurement expressed in rem (root em)
+     * @param defaultValue the default value
+     * @param containingBlock the containing block
+     * @param topPropName the top prop name
+     * @param rightPropName the right prop name
+     * @param bottomPropName the bottom prop name
+     * @param leftPropName the left prop name
+     * @return an array with a top, right, bottom, and top float value
+     */
     private float[] parseBoxProps(Map<String, String> styles, float em, float rem, float defaultValue, Rectangle containingBlock,
                                   String topPropName, String rightPropName, String bottomPropName, String leftPropName) {
         String topStr = styles.get(topPropName);
@@ -515,6 +662,15 @@ class PageContextProcessor {
         };
     }
 
+    /**
+     * Parses the box value.
+     *
+     * @param styles a <code>Map</code> containing the styles
+     * @param em a measurement expressed in em
+     * @param rem a measurement expressed in rem (root em)
+     * @param dimensionSize the dimension size
+     * @return a float value
+     */
     private static Float parseBoxValue(String valString, float em, float rem, float dimensionSize) {
         UnitValue marginUnitVal = CssUtils.parseLengthValueToPt(valString, em, rem);
         if (marginUnitVal != null) {
