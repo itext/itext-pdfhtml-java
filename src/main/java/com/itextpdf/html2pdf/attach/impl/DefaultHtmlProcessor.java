@@ -89,34 +89,51 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The default implementation to process HTML.
+ */
 public class DefaultHtmlProcessor implements IHtmlProcessor {
 
+    /** The logger instance. */
     private static final Logger logger = LoggerFactory.getLogger(DefaultHtmlProcessor.class);
 
-    // The tags that do not map into any workers and are deliberately excluded from the logging
+    /** Set of tags that do not map to any tag worker and that are deliberately excluded from the logging. */
     private static final Set<String> ignoredTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
             TagConstants.HEAD,
             TagConstants.STYLE,
             // TODO <tbody> is not supported. Styles will be propagated anyway
             TagConstants.TBODY)));
 
-    // The tags we do not want to apply css to and therefore exclude from the logging
+    /** Set of tags to which we do not want to apply CSS to and that are deliberately excluded from the logging */
     private static final Set<String> ignoredCssTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
             TagConstants.BR,
             TagConstants.LINK,
             TagConstants.META,
             TagConstants.TITLE,
-            // Content from <tr> is thrown upwards to parent, in other cases css is inherited anyway
+            // Content from <tr> is thrown upwards to parent, in other cases CSS is inherited anyway
             TagConstants.TR)));
 
+    /** The processor context. */
     private ProcessorContext context;
+    
+    /** A list of parent objects that result from parsing the HTML. */
     private List<IPropertyContainer> roots;
+    
+    /** The CSS resolver. */
     private ICssResolver cssResolver;
 
+    /**
+     * Instantiates a new default html processor.
+     *
+     * @param converterProperties the converter properties
+     */
     public DefaultHtmlProcessor(ConverterProperties converterProperties) {
         this.context = new ProcessorContext(converterProperties);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processElements(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public List<com.itextpdf.layout.element.IElement> processElements(INode root) {
         String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
@@ -187,6 +204,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         return elements;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processDocument(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.kernel.pdf.PdfDocument)
+     */
     @Override
     public Document processDocument(INode root, PdfDocument pdfDocument) {
         String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
@@ -245,6 +265,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         return doc;
     }
 
+    /**
+     * Recursively processes a node converting HTML into PDF using tag workers.
+     *
+     * @param node the node
+     */
     private void visit(INode node) {
         if (node instanceof IElementNode) {
             IElementNode element = (IElementNode) node;
@@ -343,6 +368,13 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
     }
 
+    /**
+     * Creates a font and adds it to the context.
+     *
+     * @param fontFamily the font family
+     * @param src the source of the font
+     * @return true, if successful
+     */
     private boolean createFont(String fontFamily, FontFace.FontFaceSrc src) {
         if (!supportedFontFormat(src.format)) {
             return false;
@@ -371,12 +403,12 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     }
 
     /**
-     * Checks whether in general we support requested font format
-     * Update after DEVSIX-1148
+     * Checks whether in general we support requested font format.
      *
      * @param format {@link com.itextpdf.html2pdf.attach.impl.FontFace.FontFormat}
      * @return true, if supported or unrecognized.
      */
+    // TODO Update after DEVSIX-1148
     private boolean supportedFontFormat(FontFace.FontFormat format) {
         switch (format) {
             case None:
@@ -388,12 +420,25 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
     }
 
+    /**
+     * Processes a pseudo element (before and after CSS).
+     *
+     * @param node the node
+     * @param pseudoElementName the pseudo element name
+     */
     private void visitPseudoElement(IElementNode node, String pseudoElementName) {
         if (CssPseudoElementUtil.hasBeforeAfterElements(node)) {
             visit(new CssPseudoElementNode(node, pseudoElementName));
         }
     }
 
+    /**
+     * Find an element in a node.
+     *
+     * @param node the node
+     * @param tagName the tag name
+     * @return the element node
+     */
     private IElementNode findElement(INode node, String tagName) {
         LinkedList<INode> q = new LinkedList<>();
         q.add(node);
@@ -412,14 +457,32 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         return null;
     }
 
+    /**
+     * Find the HTML node.
+     *
+     * @param node the node
+     * @return the i element node
+     */
     private IElementNode findHtmlNode(INode node) {
         return findElement(node, TagConstants.HTML);
     }
 
+    /**
+     * Find the BODY node.
+     *
+     * @param node the node
+     * @return the i element node
+     */
     private IElementNode findBodyNode(INode node) {
         return findElement(node, TagConstants.BODY);
     }
 
+    /**
+     * Checks if an element should be displayed.
+     *
+     * @param element the element
+     * @return true, if the element should be displayed
+     */
     private boolean isDisplayable(IElementNode element) {
         if (element != null && element.getStyles() != null && CssConstants.NONE.equals(element.getStyles().get(CssConstants.DISPLAY))) {
             return false;

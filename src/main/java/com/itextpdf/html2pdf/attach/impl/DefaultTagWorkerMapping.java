@@ -77,11 +77,18 @@ import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
+/**
+ * Contains the actual mapping of the {@link DefaultTagWorkerFactory}.
+ */
 class DefaultTagWorkerMapping {
 
+    /**
+     * Instantiates a new <code>DefaultTagWorkerMapping</code> instance.
+     */
     private DefaultTagWorkerMapping() {
     }
 
+    /** The worker mapping. */
     private static TagProcessorMapping workerMapping;
 
     static {
@@ -193,6 +200,11 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(PageCountElementNode.PAGE_COUNTER_TAG, PageCountWorker.class);
     }
 
+    /**
+     * Gets the default tag worker mapping.
+     *
+     * @return the default mapping
+     */
     static TagProcessorMapping getDefaultTagWorkerMapping() {
         return workerMapping;
     }

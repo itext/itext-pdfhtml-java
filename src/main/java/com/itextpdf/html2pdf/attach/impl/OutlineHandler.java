@@ -67,19 +67,30 @@ import java.util.Map;
  * This class is not reusable and a new instance shall be created for every new conversion process.
  */
 public class OutlineHandler {
+    
+    /** The Constant DESTINATION_PREFIX. */
     private static final String DESTINATION_PREFIX = "pdfHTML-iText-outline-";
 
+    /** The current outline. */
     private PdfOutline currentOutline;
 
+    /** The destinations in process. */
     private Deque<String> destinationsInProcess = new LinkedList<String>();
+    
+    /** The levels in process. */
     private Deque<Integer> levelsInProcess = new LinkedList<Integer>();
 
+    /** The tag priorities mapping. */
     private Map<String, Integer> tagPrioritiesMapping = new HashMap<String, Integer>();
+    
+    /** The unique IDs. */
     private Map<String, Integer> uniqueIDs = new HashMap<String, Integer>();
 
 
     /**
      * Creates an OutlineHandler with standard predefined mappings.
+     *
+     * @return the outline handler
      */
     public static OutlineHandler createStandardHandler() {
         OutlineHandler handler = new OutlineHandler();
@@ -92,24 +103,57 @@ public class OutlineHandler {
         return handler;
     }
 
+    /**
+     * Put tag priority mapping.
+     *
+     * @param tagName the tag name
+     * @param priority the priority
+     * @return the outline handler
+     */
     public OutlineHandler putTagPriorityMapping(String tagName, Integer priority) {
         tagPrioritiesMapping.put(tagName, priority);
         return this;
     }
 
+    /**
+     * Put all tag priority mappings.
+     *
+     * @param mappings the mappings
+     * @return the outline handler
+     */
     public OutlineHandler putAllTagPriorityMappings(Map<String, Integer> mappings) {
         tagPrioritiesMapping.putAll(mappings);
         return this;
     }
 
+    /**
+     * Gets the tag priority mapping.
+     *
+     * @param tagName the tag name
+     * @return the tag priority mapping
+     */
     public Integer getTagPriorityMapping(String tagName) {
         return tagPrioritiesMapping.get(tagName);
     }
 
+    /**
+     * Checks for tag priority mapping.
+     *
+     * @param tagName the tag name
+     * @return true, if the tag name is listed in the tag priorities mapping
+     */
     public boolean hasTagPriorityMapping(String tagName) {
         return tagPrioritiesMapping.containsKey(tagName);
     }
 
+    /**
+     * Adds the outline.
+     *
+     * @param tagWorker the tag worker
+     * @param element the element
+     * @param context the processor context
+     * @return the outline handler
+     */
     OutlineHandler addOutline(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
         String tagName = element.name();
         if (null != tagWorker && hasTagPriorityMapping(tagName)) {
@@ -138,6 +182,13 @@ public class OutlineHandler {
         return this;
     }
 
+    /**
+     * Adds the destination.
+     *
+     * @param tagWorker the tag worker
+     * @param element the element
+     * @return the outline handler
+     */
     OutlineHandler addDestination(ITagWorker tagWorker, IElementNode element) {
         String tagName = element.name();
         if (null != tagWorker && hasTagPriorityMapping(tagName)) {
@@ -152,6 +203,12 @@ public class OutlineHandler {
         return this;
     }
 
+    /**
+     * Gets the unique ID.
+     *
+     * @param key the key
+     * @return the unique ID
+     */
     private String getUniqueID(String key) {
         if (!uniqueIDs.containsKey(key)) {
             uniqueIDs.put(key, 1);

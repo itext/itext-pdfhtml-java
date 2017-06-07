@@ -52,14 +52,25 @@ import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
 import java.lang.reflect.Constructor;
 
+/**
+ * The default implementation of a tag worker factory, mapping tags to
+ * tag worker implementations.
+ */
 public class DefaultTagWorkerFactory implements ITagWorkerFactory {
 
+    /** The default mapping. */
     private TagProcessorMapping defaultMapping;
 
+    /**
+     * Instantiates a new default tag worker factory.
+     */
     public DefaultTagWorkerFactory() {
         this.defaultMapping = DefaultTagWorkerMapping.getDefaultTagWorkerMapping();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorkerFactory#getTagWorker(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public final ITagWorker getTagWorker(IElementNode tag, ProcessorContext context) {
         ITagWorker tagWorker = getCustomTagWorker(tag, context);
@@ -84,6 +95,13 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
         return tagWorker;
     }
 
+    /**
+     * Gets the tag worker class for a specific element node.
+     *
+     * @param mapping the mapping
+     * @param tag the element node
+     * @return the tag worker class
+     */
     private Class<?> getTagWorkerClass(TagProcessorMapping mapping, IElementNode tag) {
         Class<?> tagWorkerClass = null;
         String display = tag.getStyles() != null ? tag.getStyles().get(CssConstants.DISPLAY) : null;
@@ -97,10 +115,12 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
     }
 
     /**
-     * This is a hook method. Users wanting to provide a custom mapping or introduce their own ITagWorkers should implement this method.
+     * This is a hook method. Users wanting to provide a custom mapping
+     * or introduce their own ITagWorkers should implement this method.
      *
-     * @param tag
-     * @param context
+     * @param tag the tag
+     * @param context the context
+     * @return the custom tag worker
      */
     public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
         return null;
