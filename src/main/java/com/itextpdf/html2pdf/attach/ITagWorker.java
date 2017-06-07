@@ -45,24 +45,40 @@ package com.itextpdf.html2pdf.attach;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 
+/**
+ * Interface for all the tag worker implementations.
+ */
 public interface ITagWorker {
 
+    /**
+     * Placeholder for what needs to be done after the content of a tag has been processed.
+     *
+     * @param element the element node
+     * @param context the processor context
+     */
     void processEnd(IElementNode element, ProcessorContext context);
 
     /**
-     * @param content
-     * @param context
+     * Placeholder for what needs to be done while the content of a tag is being processed.
+     *
+     * @param content the content of a node
+     * @param context the processor context
      * @return true, if content was successfully processed, otherwise false.
      */
     boolean processContent(String content, ProcessorContext context);
 
     /**
-     * @param childTagWorker
+     * Placeholder for what needs to be done when a child node is being processed.
+     *
+     * @param childTagWorker the tag worker of the child node
+     * @param context the processor context
      * @return true, if child was successfully processed, otherwise false.
      */
     boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context);
 
     /**
+     * Gets a processed object if it can be expressed as an <code>IPropertyContainer</code> instance.
+     *
      * @return the same object on every call.
      *         Might return null either if result is not yet produced or if this particular
      *         tag worker doesn't produce result in a form of {@link IPropertyContainer}.
