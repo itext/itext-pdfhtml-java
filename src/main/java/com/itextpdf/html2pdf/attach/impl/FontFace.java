@@ -50,11 +50,25 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// TODO: Auto-generated Javadoc
+/**
+ * Class that will examine the font as described in the CSS, and store it
+ * in a form that the font provider will understand.
+ */
 class FontFace {
 
+	/** Name that will be used as the alias of the font. */
     private final String alias;
+    /** A list of font face sources. */
     private final List<FontFaceSrc> sources;
 
+    /**
+     * Create a <code>FontFace</code> instance from a list of
+     * CSS font attributes ("font-family" or "src").
+     *
+     * @param properties the font properties
+     * @return the <code>FontFace</code> instance
+     */
     public static FontFace create(List<CssDeclaration> properties) {
         String fontFamily = null;
         String srcs = null;
@@ -90,16 +104,30 @@ class FontFace {
     }
 
     /**
+     * Gets the font-family.
      * Actually font-family is an alias.
+     *
+     * @return the font family (or alias)
      */
     public String getFontFamily() {
         return alias;
     }
 
+    /**
+     * Gets the font face sources.
+     *
+     * @return the sources
+     */
     public List<FontFaceSrc> getSources() {
         return sources;
     }
 
+    /**
+     * Instantiates a new font face.
+     *
+     * @param alias the font-family (or alias)
+     * @param sources the sources
+     */
     private FontFace(String alias, List<FontFaceSrc> sources) {
         this.alias = alias;
         this.sources = sources;
@@ -107,21 +135,48 @@ class FontFace {
 
     //region Nested types
 
+    /**
+     * Class that defines a font face source.
+     */
     static class FontFaceSrc {
+        
+        /** The UrlPattern used to compose a source path. */
         static final Pattern UrlPattern = Pattern.compile("^((local)|(url))\\(((\'[^\']*\')|(\"[^\"]*\")|([^\'\"\\)]*))\\)( format\\(((\'[^\']*\')|(\"[^\"]*\")|([^\'\"\\)]*))\\))?$");
+        
+        /** The Constant TypeGroup. */
         static final int TypeGroup = 1;
+        
+        /** The Constant UrlGroup. */
         static final int UrlGroup = 4;
+        
+        /** The Constant FormatGroup. */
         static final int FormatGroup = 9;
 
+        /** The font format. */
         final FontFormat format;
+        
+        /** The source path. */
         final String src;
+        
+        /** Indicates if the font is local. */
         final boolean isLocal;
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return MessageFormat.format("{0}({1}){2}", isLocal ? "local" : "url", src, format != FontFormat.None ? MessageFormat.format(" format({0})", format) : "");
         }
 
+        /**
+         * Creates a <code>FontFace</code> object by parsing a <code>String</code>
+         * trying to match patterns that reveal the font name, whether that font is local,
+         * and which format the font is in.
+         *
+         * @param src a string containing information about a font
+         * @return the font in the form of a <code>FontFace</code> object
+         */
         static FontFaceSrc create(String src) {
             Matcher m = UrlPattern.matcher(src);
             if (!m.matches()) {
@@ -132,6 +187,12 @@ class FontFace {
                     parseFormat(m.group(FormatGroup)));
         }
 
+        /**
+         * Parses a <code>String</code> to a font format.
+         *
+         * @param formatStr a string
+         * @return a font format
+         */
         static FontFormat parseFormat(String formatStr) {
             if (formatStr != null && formatStr.length() > 0) {
                 switch (unquote(formatStr).toLowerCase()) {
@@ -152,6 +213,12 @@ class FontFace {
             return FontFormat.None;
         }
 
+        /**
+         * Removes single and double quotes at the start and the end of a <code>String</code>.
+         *
+         * @param quotedString a <code>String</quote> that might be between quotes
+         * @return the <code>String</code> without the quotes
+         */
         static String unquote(String quotedString) {
             if (quotedString.charAt(0) == '\'' || quotedString.charAt(0) == '\"') {
                 return quotedString.substring(1, quotedString.length() - 1);
@@ -159,6 +226,13 @@ class FontFace {
             return quotedString;
         }
 
+        /**
+         * Instantiates a new <code>FontFaceSrc</code> insance.
+         *
+         * @param src a source path
+         * @param isLocal indicates if the font is local
+         * @param format the font format (true type, open type, woff,...)
+         */
         private FontFaceSrc(String src, boolean isLocal, FontFormat format) {
             this.format = format;
             this.src = src;
@@ -166,14 +240,23 @@ class FontFace {
         }
     }
 
+    /**
+     * The Enum FontFormat.
+     */
     enum FontFormat {
         None,
-        TrueType, // "truetype"
-        OpenType, // "opentype"
-        WOFF, // "woff"
-        WOFF2, // "woff2"
-        EOT, // "embedded-opentype"
-        SVG // "svg"
+        /** "truetype" */
+        TrueType, 
+        /** "opentype" */
+        OpenType, 
+        /** "woff" */
+        WOFF, 
+        /** "woff2" */
+        WOFF2, 
+        /** "embedded-opentype" */
+        EOT, 
+        /** "svg" */
+        SVG
     }
 
     //endregion
