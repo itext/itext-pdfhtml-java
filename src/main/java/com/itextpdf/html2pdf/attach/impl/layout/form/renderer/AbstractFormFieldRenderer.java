@@ -57,24 +57,46 @@ import com.itextpdf.layout.renderer.ILeafElementRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Abstract {@link BlockRenderer} for form fields.
+ */
 public abstract class AbstractFormFieldRenderer extends BlockRenderer implements ILeafElementRenderer {
 
+    /** The flat renderer. */
     protected IRenderer flatRenderer;
 
+    /**
+     * Creates a new <code>AbstractFormFieldRenderer</code> instance.
+     *
+     * @param modelElement the model element
+     */
     protected AbstractFormFieldRenderer(IFormField modelElement) {
         super(modelElement);
     }
 
+    /**
+     * Checks if form fields need to be flattened.
+     *
+     * @return true, if fields need to be flattened
+     */
     public boolean isFlatten() {
         Boolean flatten = getPropertyAsBoolean(Html2PdfProperty.FORM_FIELD_FLATTEN);
         return flatten != null ? (boolean) flatten : (boolean) modelElement.<Boolean>getDefaultProperty(Html2PdfProperty.FORM_FIELD_FLATTEN);
     }
 
+    /**
+     * Gets the default value of the form field.
+     *
+     * @return the default value of the form field
+     */
     public String getDefaultValue() {
         String defaultValue = this.<String>getProperty(Html2PdfProperty.FORM_FIELD_VALUE);
         return defaultValue != null ? defaultValue : modelElement.<String>getDefaultProperty(Html2PdfProperty.FORM_FIELD_VALUE);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.BlockRenderer#layout(com.itextpdf.layout.layout.LayoutContext)
+     */
     @Override
     public LayoutResult layout(LayoutContext layoutContext) {
         childRenderers.clear();
@@ -142,6 +164,9 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
                 .setMinMaxWidth(new MinMaxWidth(0, parentWidth, occupiedArea.getBBox().getWidth(), occupiedArea.getBBox().getWidth()));
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.BlockRenderer#draw(com.itextpdf.layout.renderer.DrawContext)
+     */
     @Override
     public void draw(DrawContext drawContext) {
         if (flatRenderer != null) {
@@ -149,6 +174,9 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.AbstractRenderer#drawChildren(com.itextpdf.layout.renderer.DrawContext)
+     */
     @Override
     public void drawChildren(DrawContext drawContext) {
         drawContext.getCanvas().saveState();
@@ -162,16 +190,41 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         drawContext.getCanvas().restoreState();
     }
 
+    /**
+     * Adjusts the field layout.
+     */
     protected abstract void adjustFieldLayout();
 
+    /**
+     * Creates the flat renderer instance.
+     *
+     * @return the renderer instance
+     */
     protected abstract IRenderer createFlatRenderer();
 
+    /**
+     * Applies the AcroField widget.
+     *
+     * @param drawContext the draw context
+     */
     protected abstract void applyAcroField(DrawContext drawContext);
 
+    /**
+     * Gets the model id.
+     *
+     * @return the model id
+     */
     protected String getModelId() {
         return ((IFormField)getModelElement()).getId();
     }
 
+    /**
+     * Checks if the renderer fits a certain width and height.
+     *
+     * @param availableWidth the available width
+     * @param availableHeight the available height
+     * @return true, if the renderer fits
+     */
     protected boolean isRendererFit(float availableWidth, float availableHeight) {
         if (occupiedArea == null) {
             return false;
@@ -179,6 +232,11 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         return availableHeight >= occupiedArea.getBBox().getHeight() && availableWidth >= occupiedArea.getBBox().getWidth();
     }
 
+    /**
+     * Gets the content width.
+     *
+     * @return the content width
+     */
     protected Float getContentWidth() {
         UnitValue width = this.<UnitValue>getProperty(Property.WIDTH);
         if (width != null) {

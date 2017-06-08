@@ -61,27 +61,51 @@ import org.slf4j.LoggerFactory;
 import java.text.MessageFormat;
 import java.util.List;
 
+/**
+ * The {@link AbstractOneLineTextFieldRenderer} implementation for input fields.
+ */
 public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
 
+    /**
+     * Creates a new <code>InputFieldRenderer</code> instance.
+     *
+     * @param modelElement the model element
+     */
     public InputFieldRenderer(InputField modelElement) {
         super(modelElement);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.IRenderer#getNextRenderer()
+     */
     @Override
     public IRenderer getNextRenderer() {
         return new InputFieldRenderer((InputField) modelElement);
     }
 
+    /**
+     * Gets the size of the input field.
+     *
+     * @return the input field size
+     */
     public int getSize() {
         Integer size = this.getPropertyAsInteger(Html2PdfProperty.FORM_FIELD_SIZE);
         return size != null ? (int) size : (int) modelElement.<Integer>getDefaultProperty(Html2PdfProperty.FORM_FIELD_SIZE);
     }
 
+    /**
+     * Checks if the input field is a password field.
+     *
+     * @return true, if the input field is a password field
+     */
     public boolean isPassword() {
         Boolean password = getPropertyAsBoolean(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG);
         return password != null ? (boolean) password : (boolean) modelElement.<Boolean>getDefaultProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
+     */
     @Override
     protected void adjustFieldLayout() {
         List<LineRenderer> flatLines = ((ParagraphRenderer) flatRenderer).getLines();
@@ -98,6 +122,9 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
         flatBBox.setWidth(getContentWidth().floatValue());
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#createFlatRenderer()
+     */
     @Override
     protected IRenderer createFlatRenderer() {
         String defaultValue = getDefaultValue();
@@ -109,6 +136,9 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
         return createParagraphRenderer(defaultValue);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#applyAcroField(com.itextpdf.layout.renderer.DrawContext)
+     */
     @Override
     protected void applyAcroField(DrawContext drawContext) {
         font.setSubset(false);
@@ -132,6 +162,9 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
         PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#getContentWidth()
+     */
     @Override
     protected Float getContentWidth() {
         Float width = super.getContentWidth();
@@ -143,6 +176,12 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
         return width;
     }
 
+    /**
+     * Obfuscates the content of a password input field.
+     *
+     * @param text the password
+     * @return a string consisting of '*' characters.
+     */
     private String obfuscatePassword(String text) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < text.length(); ++i) {

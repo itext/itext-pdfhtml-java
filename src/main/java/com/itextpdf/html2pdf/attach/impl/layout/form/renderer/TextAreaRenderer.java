@@ -42,34 +42,46 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
+import java.text.MessageFormat;
+import java.util.List;
+
+import org.slf4j.LoggerFactory;
+
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.TextArea;
-import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfString;
-import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.LineRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
-import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-
+// TODO: Auto-generated Javadoc
+/**
+ * The {@link AbstractTextFieldRenderer} implementation for text area fields.
+ */
 public class TextAreaRenderer extends AbstractTextFieldRenderer {
 
+    /**
+     * Creates a new <code>TextAreaRenderer</code> instance.
+     *
+     * @param modelElement the model element
+     */
     public TextAreaRenderer(TextArea modelElement) {
         super(modelElement);
     }
 
+    /**
+     * Gets the number of columns.
+     *
+     * @return the cols value of the text area field
+     */
     public int getCols() {
         Integer cols = this.getPropertyAsInteger(Html2PdfProperty.FORM_FIELD_COLS);
         if (cols != null && cols.intValue() > 0) {
@@ -78,6 +90,11 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         return (int) modelElement.<Integer>getDefaultProperty(Html2PdfProperty.FORM_FIELD_COLS);
     }
 
+    /**
+     * Gets the number of rows.
+     *
+     * @return the rows value of the text area field
+     */
     public int getRows() {
         Integer rows = this.getPropertyAsInteger(Html2PdfProperty.FORM_FIELD_ROWS);
         if (rows != null && rows.intValue() > 0) {
@@ -86,21 +103,33 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         return (int) modelElement.<Integer>getDefaultProperty(Html2PdfProperty.FORM_FIELD_ROWS);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getAscent()
+     */
     @Override
     public float getAscent() {
         return occupiedArea.getBBox().getHeight();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getDescent()
+     */
     @Override
     public float getDescent() {
         return 0;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.IRenderer#getNextRenderer()
+     */
     @Override
     public IRenderer getNextRenderer() {
         return new TextAreaRenderer((TextArea) getModelElement());
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
+     */
     @Override
     protected void adjustFieldLayout() {
         List<LineRenderer> flatLines = ((ParagraphRenderer) flatRenderer).getLines();
@@ -117,11 +146,17 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         flatBBox.setWidth(getContentWidth().floatValue());
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#createFlatRenderer()
+     */
     @Override
     protected IRenderer createFlatRenderer() {
         return createParagraphRenderer(getDefaultValue());
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#applyAcroField(com.itextpdf.layout.renderer.DrawContext)
+     */
     @Override
     protected void applyAcroField(DrawContext drawContext) {
         font.setSubset(false);
@@ -138,6 +173,9 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#getContentWidth()
+     */
     @Override
     protected Float getContentWidth() {
         Float width = super.getContentWidth();
