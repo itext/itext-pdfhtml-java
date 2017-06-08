@@ -46,8 +46,18 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 
+/**
+ * Interface to be implemented by all types of CSS appliers.
+ */
 public interface ICssApplier {
 
+    /**
+     * Applies styles to an element.
+     *
+     * @param context the processor context
+     * @param stylesContainer the styles
+     * @param tagWorker the tag worker for the element
+     */
     void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker);
 
 }

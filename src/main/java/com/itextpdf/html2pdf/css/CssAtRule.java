@@ -42,14 +42,28 @@
  */
 package com.itextpdf.html2pdf.css;
 
+/**
+ * Abstract superclass for all CSS at-rules (rules in CSS that start with an @ sign).
+ */
 public abstract class CssAtRule extends CssStatement {
 
+    /** The rule name. */
     protected String ruleName;
 
+    /**
+     * Creates a new <code>CssAtRule</code> instance.
+     *
+     * @param ruleName the rule name
+     */
     protected CssAtRule(String ruleName) {
         this.ruleName = ruleName;
     }
 
+    /**
+     * Gets the rule name.
+     *
+     * @return the rule name
+     */
     public String getRuleName() {
         return ruleName;
     }

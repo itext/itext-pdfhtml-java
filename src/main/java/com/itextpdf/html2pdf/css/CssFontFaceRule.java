@@ -45,23 +45,43 @@ package com.itextpdf.html2pdf.css;
 import java.text.MessageFormat;
 import java.util.List;
 
+/**
+ * Class to store a CSS font face At rule.
+ */
 public class CssFontFaceRule extends CssNestedAtRule {
 
+    /** Properties in the form of a list of CSS declarations. */
     private List<CssDeclaration> properties;
 
+    /**
+     * Instantiates a new CSS font face rule.
+     *
+     * @param ruleParameters the rule parameters
+     */
     protected CssFontFaceRule(String ruleParameters) {
         super(CssRuleName.FONT_FACE, ruleParameters);
     }
 
+    /**
+     * Gets the properties.
+     *
+     * @return the properties
+     */
     public List<CssDeclaration> getProperties() {
         return properties;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.CssNestedAtRule#addBodyCssDeclarations(java.util.List)
+     */
     @Override
     public void addBodyCssDeclarations(List<CssDeclaration> cssDeclarations) {
         properties = cssDeclarations;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.CssNestedAtRule#toString()
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

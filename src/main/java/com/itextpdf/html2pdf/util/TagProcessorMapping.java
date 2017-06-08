@@ -45,28 +45,63 @@ package com.itextpdf.html2pdf.util;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class that allows to map keys (html tags, css attributes) to the
+ * corresponding tag processors (a tag worker or a CSS applier).
+ */
 public class TagProcessorMapping {
 
+    /** The default display key. */
     private static String DEFAULT_DISPLAY_KEY = "defaultKey";
 
+    /** The actual mapping. */
     private Map<String, Map<String, Class<?>>> mapping;
 
+    /**
+     * Creates a new <code>TagProcessorMapping</code> instance.
+     */
     public TagProcessorMapping() {
         mapping = new HashMap<String, Map<String, Class<?>>>();
     }
 
+    /**
+     * Add a new tag to the map.
+     *
+     * @param tag the key
+     * @param mappingClass the class that maps to the tag
+     */
     public void putMapping(String tag, Class<?> mappingClass) {
         ensureMappingExists(tag).put(DEFAULT_DISPLAY_KEY, mappingClass);
     }
 
+    /**
+     * Add a new tag to the map.
+     *
+     * @param tag the key
+     * @param display the display value
+     * @param mappingClass the class that maps to the tag
+     */
     public void putMapping(String tag, String display, Class<?> mappingClass) {
         ensureMappingExists(tag).put(display, mappingClass);
     }
 
+    /**
+     * Gets the class that maps to a specific tag.
+     *
+     * @param tag the key
+     * @return the class that maps to the tag
+     */
     public Class<?> getMapping(String tag) {
         return getMapping(tag, DEFAULT_DISPLAY_KEY);
     }
 
+    /**
+     * Gets the class that maps to a specific tag.
+     *
+     * @param tag the key
+     * @param display the display value
+     * @return the class that maps to the tag
+     */
     public Class<?> getMapping(String tag, String display) {
         Map<String, Class<?>> tagMapping = mapping.get(tag);
         if (tagMapping == null) {
@@ -76,6 +111,12 @@ public class TagProcessorMapping {
         }
     }
 
+    /**
+     * Ensure that a mapping for a specific key exists.
+     *
+     * @param tag the key
+     * @return the map
+     */
     private Map<String, Class<?>> ensureMappingExists(String tag) {
         if (mapping.containsKey(tag)) {
             return mapping.get(tag);

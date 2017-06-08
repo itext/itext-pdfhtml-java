@@ -49,36 +49,65 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The CSS context node.
+ */
 public abstract class CssContextNode implements INode, IStylesContainer {
+    
+    /** The child nodes. */
     private List<INode> childNodes = new ArrayList<>();
+    
+    /** The parent node. */
     private INode parentNode;
+    
+    /** The styles. */
     private Map<String, String> styles;
 
+    /**
+     * Creates a new <code>CssContextNode</code> instance.
+     *
+     * @param parentNode the parent node
+     */
     public CssContextNode(INode parentNode) {
         this.parentNode = parentNode;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.INode#childNodes()
+     */
     @Override
     public List<INode> childNodes() {
         return Collections.unmodifiableList(childNodes);
     }
 
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.INode#addChild(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public void addChild(INode node) {
         childNodes.add(node);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.INode#parentNode()
+     */
     @Override
     public INode parentNode() {
         return parentNode;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IStylesContainer#setStyles(java.util.Map)
+     */
     @Override
     public void setStyles(Map<String, String> stringStringMap) {
         this.styles = stringStringMap;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IStylesContainer#getStyles()
+     */
     @Override
     public Map<String, String> getStyles() {
         return this.styles;

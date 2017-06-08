@@ -46,11 +46,23 @@ import com.itextpdf.html2pdf.css.media.CssMediaRule;
 import com.itextpdf.html2pdf.css.page.CssMarginRule;
 import com.itextpdf.html2pdf.css.page.CssPageRule;
 
+/**
+ * A factory for creating <code>CssNestedAtRule</code> objects.
+ */
 public final class CssNestedAtRuleFactory {
 
+    /**
+     * Creates a new <code>CssNestedAtRuleFactory</code> instance.
+     */
     private CssNestedAtRuleFactory() {
     }
 
+    /**
+     * Creates a new <code>CssNestedAtRule</code> object.
+     *
+     * @param ruleDeclaration the rule declaration
+     * @return a <code>CssNestedAtRule</code> instance
+     */
     public static CssNestedAtRule createNestedRule(String ruleDeclaration) {
         ruleDeclaration = ruleDeclaration.trim();
         String ruleName = extractRuleNameFromDeclaration(ruleDeclaration);
@@ -85,6 +97,12 @@ public final class CssNestedAtRuleFactory {
         }
     }
 
+    /**
+     * Extracts the rule name from the CSS rule declaration.
+     *
+     * @param ruleDeclaration the rule declaration
+     * @return the rule name
+     */
     static String extractRuleNameFromDeclaration(String ruleDeclaration) {
         int spaceIndex = ruleDeclaration.indexOf(' ');
         int colonIndex = ruleDeclaration.indexOf(':');

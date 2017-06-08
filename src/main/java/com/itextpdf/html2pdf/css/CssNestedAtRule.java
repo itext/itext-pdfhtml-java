@@ -49,35 +49,62 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
- * From the spec:
- * Nested at-rules — A subset of nested statements, which can be used as a statement of a style sheet
- * as well as inside of conditional group rules.
+ * Class to store a nested CSS at-rule
+ * Nested at-rules are a subset of nested statements, which can be used
+ * as a statement of a style sheet as well as inside of conditional group rules.
  */
 public class CssNestedAtRule extends CssAtRule {
 
+    /** The rule parameters. */
     private String ruleParameters;
+    
+    /** The body. */
     protected List<CssStatement> body;
 
-    // without body
+    /**
+     * Creates a <code>CssNestedAtRule</code> instance
+     * with an empty body.
+     * @param ruleName the rule name
+     * @param ruleParameters the rule parameters
+     */
     public CssNestedAtRule(String ruleName, String ruleParameters) {
         super(ruleName);
         this.ruleParameters = ruleParameters;
         this.body = new ArrayList<>();
     }
 
+    /**
+     * Adds a CSS statement to body.
+     *
+     * @param statement a CSS statement
+     */
     public void addStatementToBody(CssStatement statement) {
         this.body.add(statement);
     }
 
+    /**
+     * Adds CSS statements to the body.
+     *
+     * @param statements a list of CSS statements
+     */
     public void addStatementsToBody(Collection<CssStatement> statements) {
         this.body.addAll(statements);
     }
 
+    /**
+     * Adds the body CSS declarations.
+     *
+     * @param cssDeclarations a list of CSS declarations
+     */
     public void addBodyCssDeclarations(List<CssDeclaration> cssDeclarations) {
         // ignore by default
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.CssStatement#getCssRuleSets(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.media.MediaDeviceDescription)
+     */
     @Override
     public List<CssRuleSet> getCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
         List<CssRuleSet> result = new ArrayList<>();
@@ -87,10 +114,18 @@ public class CssNestedAtRule extends CssAtRule {
         return result;
     }
 
+    /**
+     * Gets the list of CSS statements.
+     *
+     * @return the list of CSS statements
+     */
     public List<CssStatement> getStatements() {
         return body;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

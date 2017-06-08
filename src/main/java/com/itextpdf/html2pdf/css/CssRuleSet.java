@@ -50,14 +50,29 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * Class to store a CSS rule set.
+ */
 public class CssRuleSet extends CssStatement {
 
+    /** Pattern to match "important" in a rule declaration. */
     private static final Pattern importantMatcher = Pattern.compile(".*!\\s*important$");
 
+    /** The CSS selector. */
     private ICssSelector selector;
+    
+    /** The normal CSS declarations. */
     private List<CssDeclaration> normalDeclarations;
+    
+    /** The important CSS declarations. */
     private List<CssDeclaration> importantDeclarations;
 
+    /**
+     * Creates a new <code>CssRuleSet</code>.
+     *
+     * @param selector the CSS selector
+     * @param declarations the CSS declarations
+     */
     public CssRuleSet(ICssSelector selector, List<CssDeclaration> declarations) {
         this.selector = selector;
         this.normalDeclarations = new ArrayList<>();
@@ -65,6 +80,9 @@ public class CssRuleSet extends CssStatement {
         splitDeclarationsIntoNormalAndImportant(declarations);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.CssStatement#getCssRuleSets(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.media.MediaDeviceDescription)
+     */
     @Override
     public List<CssRuleSet> getCssRuleSets(INode element, MediaDeviceDescription deviceDescription) {
         if (selector.matches(element)) {
@@ -74,6 +92,9 @@ public class CssRuleSet extends CssStatement {
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -97,18 +118,38 @@ public class CssRuleSet extends CssStatement {
         return sb.toString();
     }
 
+    /**
+     * Gets the CSS selector.
+     *
+     * @return the CSS selector
+     */
     public ICssSelector getSelector() {
         return selector;
     }
 
+    /**
+     * Gets the normal CSS declarations.
+     *
+     * @return the normal declarations
+     */
     public List<CssDeclaration> getNormalDeclarations() {
         return normalDeclarations;
     }
 
+    /**
+     * Gets the important CSS declarations.
+     *
+     * @return the important declarations
+     */
     public List<CssDeclaration> getImportantDeclarations() {
         return importantDeclarations;
     }
 
+    /**
+     * Split CSS declarations into normal and important CSS declarations.
+     *
+     * @param declarations the declarations
+     */
     private void splitDeclarationsIntoNormalAndImportant(List<CssDeclaration> declarations) {
         for (CssDeclaration declaration : declarations) {
             int exclIndex = declaration.getExpression().indexOf('!');
