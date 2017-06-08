@@ -45,12 +45,24 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.element;
 import com.itextpdf.html2pdf.attach.impl.layout.form.renderer.ButtonRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
 
+/**
+ * Extension of the {@link FormField} class representing a button so that
+ * a {@link ButtonRenderer} is used instead.
+ */
 public class Button extends FormField<Button> {
 
+    /**
+     * Creates a new <code>Button</code> instance.
+     *
+     * @param id the id
+     */
     public Button(String id) {
         super(id);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.element.AbstractElement#makeNewRenderer()
+     */
     @Override
     protected IRenderer makeNewRenderer() {
         return new ButtonRenderer(this);
