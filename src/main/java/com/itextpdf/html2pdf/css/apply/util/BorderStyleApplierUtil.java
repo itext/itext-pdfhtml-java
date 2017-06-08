@@ -42,6 +42,11 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.CssDefaults;
@@ -59,12 +64,7 @@ import com.itextpdf.layout.border.OutsetBorder;
 import com.itextpdf.layout.border.RidgeBorder;
 import com.itextpdf.layout.border.SolidBorder;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.property.UnitValue;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Map;
 
 public class BorderStyleApplierUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(BorderStyleApplierUtil.class);

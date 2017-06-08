@@ -42,22 +42,18 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
+import java.util.Map;
+
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.color.DeviceRgb;
-import com.itextpdf.kernel.color.WebColors;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.TransparentColor;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public final class BackgroundApplierUtil {
 

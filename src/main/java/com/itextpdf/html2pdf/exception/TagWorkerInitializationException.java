@@ -44,16 +44,37 @@ package com.itextpdf.html2pdf.exception;
 
 import java.text.MessageFormat;
 
+/**
+ * Runtime exception that gets thrown if a tag worker can't be initialized.
+ */
 public class TagWorkerInitializationException extends RuntimeException {
-    public TagWorkerInitializationException(String message, String classNames, String tag) {
+
+	/**
+	 * Creates a <code>TagWorkerInitializationException</code> instance.
+	 *
+	 * @param message the message
+	 * @param classNames the class names
+	 * @param tag the tag
+	 */
+	public TagWorkerInitializationException(String message, String classNames, String tag) {
         super(MessageFormat.format(message,classNames,tag));
     }
 
+    /**
+	 * Creates a <code>TagWorkerInitializationException</code> instance.
+     *
+     * @param message the message
+     * @param classNames the class names
+     * @param tag the tag
+     * @param cause the cause
+     */
     public TagWorkerInitializationException(String message, String classNames, String tag, Throwable cause) {
         super(MessageFormat.format(message,classNames,tag), cause);
     }
 
+    /** Template for the error message in case a tag worker couldn't be instantiated. */
     public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
 
-
+    /**  Serial version UID. */
+	private static final long serialVersionUID = -2832848748573223220L;
 }
