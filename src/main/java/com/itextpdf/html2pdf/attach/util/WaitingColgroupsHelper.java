@@ -52,22 +52,47 @@ import com.itextpdf.html2pdf.html.node.INode;
 
 import java.util.ArrayList;
 
+/**
+ * Helper class for waiting column groups.
+ */
 public class WaitingColgroupsHelper {
+    
+    /** The table element. */
     private IElementNode tableElement;
+    
+    /** The column groups. */
     private ArrayList<ColgroupWrapper> colgroups = new ArrayList<>();
 
+    /** The maximum value of the index. */
     private int maxIndex = -1;
+    
+    /** The index to column group mapping. */
     private int[] indexToColgroupMapping;
+    
+    /** The shift values for the columns. */
     private int[] shiftCol;
 
+    /**
+     * Creates a new <code>WaitingColgroupsHelper</code> instance.
+     *
+     * @param tableElement the table element
+     */
     public WaitingColgroupsHelper(IElementNode tableElement) {
         this.tableElement = tableElement;
     }
 
+    /**
+     * Adds a column group.
+     *
+     * @param colgroup the column group
+     */
     public void add(ColgroupWrapper colgroup) {
         colgroups.add(colgroup);
     }
 
+    /**
+     * Applies column styles.
+     */
     public void applyColStyles() {
         if (colgroups.isEmpty() || maxIndex != -1) {
             return;
@@ -91,13 +116,25 @@ public class WaitingColgroupsHelper {
         }
     }
 
-    public ColWrapper getColWraper(int index) {
+    /**
+     * Gets a specific column.
+     *
+     * @param index the index of the column
+     * @return the column
+     */
+    public ColWrapper getColWrapper(int index) {
         if (index > maxIndex) {
             return null;
         }
         return colgroups.get(indexToColgroupMapping[index]).getColumnByIndex(index - shiftCol[indexToColgroupMapping[index]]);
     }
 
+    /**
+     * Applies column styles.
+     *
+     * @param node the node
+     * @param rowColHelper the helper class to keep track of the position inside the table
+     */
     private void applyColStyles(INode node, RowColHelper rowColHelper) {
         int col;
         IElementNode element;
@@ -113,8 +150,8 @@ public class WaitingColgroupsHelper {
                     colspan = colspan != null ? colspan : 1;
                     rowspan = rowspan != null ? rowspan : 1;
                     col = rowColHelper.moveToNextEmptyCol();
-                    if (getColWraper(col) != null && getColWraper(col).getCellCssProps() != null) {
-                        element.addAdditionalHtmlStyles(getColWraper(col).getCellCssProps());
+                    if (getColWrapper(col) != null && getColWrapper(col).getCellCssProps() != null) {
+                        element.addAdditionalHtmlStyles(getColWrapper(col).getCellCssProps());
                     }
                     rowColHelper.updateCurrentPosition((int) colspan, (int) rowspan);
                 } else {
@@ -124,6 +161,9 @@ public class WaitingColgroupsHelper {
         }
     }
 
+    /**
+     * Finalizes the column groups.
+     */
     private void finalizeColgroups() {
         int shift = 0;
         shiftCol = new int[colgroups.size()];

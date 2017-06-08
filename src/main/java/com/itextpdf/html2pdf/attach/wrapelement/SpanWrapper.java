@@ -50,26 +50,55 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Wrapper for the <code>span</code> element.
+ */
 public class SpanWrapper implements IWrapElement {
 
+    /** The children of the span element. */
     private List<Object> children = new ArrayList<>();
 
+    /**
+     * Adds a child span.
+     *
+     * @param span the span element to add
+     */
     public void add(SpanWrapper span) {
         children.add(span);
     }
 
+    /**
+     * Adds a child image.
+     *
+     * @param img the img element to add
+     */
     public void add(ILeafElement img) {
         children.add(img);
     }
 
+    /**
+     * Adds a child block element.
+     *
+     * @param block the block element to add
+     */
     public void add(IBlockElement block) {
         children.add(block);
     }
 
+    /**
+     * Adds a collection of lead elements as children.
+     *
+     * @param collection the collection to add
+     */
     public void addAll(Collection<ILeafElement> collection) {
         children.addAll(collection);
     }
 
+    /**
+     * Gets a list of all the child elements.
+     *
+     * @return the child elements
+     */
     public List<IPropertyContainer> getElements() {
         List<IPropertyContainer> leafs = new ArrayList<>();
         for (Object child : children) {

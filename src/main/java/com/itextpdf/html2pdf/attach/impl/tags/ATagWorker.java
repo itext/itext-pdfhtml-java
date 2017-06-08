@@ -48,10 +48,8 @@ import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.layout.LayoutPosition;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.property.Property;
 
 public class ATagWorker extends SpanTagWorker {

@@ -42,5 +42,8 @@
  */
 package com.itextpdf.html2pdf.attach.wrapelement;
 
+/**
+ * Interface for all the element wrapper classes (such as SpanWrapper, TableWrapper,...).
+ */
 public interface IWrapElement {
 }

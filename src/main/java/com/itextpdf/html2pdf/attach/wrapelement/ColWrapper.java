@@ -46,44 +46,103 @@ import com.itextpdf.layout.property.UnitValue;
 
 import java.util.Map;
 
+/**
+ * Wrapper for the <code>col</code> element.
+ */
 public class ColWrapper implements IWrapElement {
+    
+    /** The span. */
     private int span;
+    
+    /** The width. */
     private UnitValue width;
-    //Those properties should be inherited from <colgroup> to <col> and are eventually applied to <td> or <th>
+
+    /**
+     * The cell CSS properties.
+     * These properties should be inherited from &lt;colgroup&gt; to &lt;col&gt;
+     * and are eventually applied to &lt;td&gt; or &lt;th&gt;.
+     */
     private Map<String, String> cellCssProps;
-    //Those properties shouldn't be applied to <td> or <th>
+    
+    /**
+     * The own CSS properties.
+     * These properties shouldn't be applied to &lt;td&gt; or &lt;th&gt;.
+     */
     private Map<String, String> ownCssProps;
 
+    /**
+     * Creates a new <code>ColWrapper</code> instance.
+     *
+     * @param span the span
+     */
     public ColWrapper(int span) {
         this.span = span;
     }
 
+    /**
+     * Gets the span.
+     *
+     * @return the span
+     */
     public int getSpan() {
         return span;
     }
 
+    /**
+     * Gets the width.
+     *
+     * @return the width
+     */
     public UnitValue getWidth() {
         return width;
     }
 
+    /**
+     * Sets the width.
+     *
+     * @param width the width
+     * @return this <code>ColWrapper</code> instance
+     */
     public ColWrapper setWidth(UnitValue width) {
         this.width = width;
         return this;
     }
 
+    /**
+     * Gets the cell CSS properties.
+     *
+     * @return the cell CSS properties
+     */
     public Map<String, String> getCellCssProps() {
         return cellCssProps;
     }
 
+    /**
+     * Sets the cell CSS properties.
+     *
+     * @param cellCssProps the cell CSS properties
+     * @return this <code>ColWrapper</code> instance
+     */
     public ColWrapper setCellCssProps(Map<String, String> cellCssProps) {
         this.cellCssProps = cellCssProps;
         return this;
     }
 
+    /**
+     * Gets the own CSS properties.
+     *
+     * @return the own CSS properties
+     */
     public Map<String, String> getOwnCssProps() {
         return ownCssProps;
     }
 
+    /**
+     * Sets the own CSS properties.
+     *
+     * @param ownCssProps the own CSS properties
+     * @return this <code>ColWrapper</code> instance
+     */
     public ColWrapper setOwnCssProps(Map<String, String> ownCssProps) {
         this.ownCssProps = ownCssProps;
         return this;

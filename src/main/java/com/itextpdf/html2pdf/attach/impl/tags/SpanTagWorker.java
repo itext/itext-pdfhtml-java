@@ -56,14 +56,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * TagWorker class for the <code>span</code> tag.
+ */
 public class SpanTagWorker implements ITagWorker, IDisplayAware {
 
+    /** The span wrapper. */
     SpanWrapper spanWrapper;
+    
+    /** A list of elements belonging to the span. */
     private List<IPropertyContainer> elements;
+    
+    /** The own leaf elements. */
     private List<IPropertyContainer> ownLeafElements = new ArrayList<>();
+    
+    /** The helper object for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
+    
+    /** The display value. */
     private String display;
 
+    /**
+     * Creates a new <code>SpanTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the processor context
+     */
     public SpanTagWorker(IElementNode element, ProcessorContext context) {
         spanWrapper = new SpanWrapper();
         Map<String, String> styles = element.getStyles();
@@ -71,18 +89,27 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         flushInlineHelper();
         elements = spanWrapper.getElements();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         inlineHelper.add(content);
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         IPropertyContainer element = childTagWorker.getElementResult();
@@ -104,24 +131,43 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
         return false;
     }
 
+    /**
+     * Gets all the elements in the span.
+     *
+     * @return a list of elements
+     */
     public List<IPropertyContainer> getAllElements() {
         return elements;
     }
 
+    /**
+     * Gets the span's own leaf elements.
+     *
+     * @return the own leaf elements
+     */
     public List<IPropertyContainer> getOwnLeafElements() {
         return ownLeafElements;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.tags.IDisplayAware#getDisplay()
+     */
     @Override
     public String getDisplay() {
         return display;
     }
 
+    /**
+     * Flushes the waiting leaf elements.
+     */
     private void flushInlineHelper() {
         spanWrapper.addAll(inlineHelper.getWaitingLeaves());
         ownLeafElements.addAll(inlineHelper.getWaitingLeaves());

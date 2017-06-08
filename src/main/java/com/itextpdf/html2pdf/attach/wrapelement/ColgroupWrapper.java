@@ -50,55 +50,128 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Wrapper for the <code>colgroup</code> element.
+ */
 public class ColgroupWrapper implements IWrapElement {
+    
+    /** The span. */
     private int span;
+    
+    /** The width. */
     private UnitValue width;
+    
+    /** The index to column mapping. */
     private int[] indexToColMapping;
-    //Those properties should be inherited from <colgroup> to <col> and are eventually applied to <td> or <th>
+    
+    /**
+     * The cell CSS properties.
+     * These properties should be inherited from &lt;colgroup&gt; to &lt;col&gt;
+     * and are eventually applied to &lt;td&gt; or &lt;th&gt;.
+     */
     private Map<String, String> cellCssProps;
-    //Those properties shouldn't be applied to <td> or <th>private Map<String, String> ownCssProps;
+    
+    /**
+     * The own CSS properties.
+     * These properties shouldn't be applied to &lt;td&gt; or &lt;th&gt;.
+     */
     private Map<String, String> ownCssProps;
+    
+    /** A list of column wrappers. */
     private List<ColWrapper> columns = new ArrayList<>();
 
+    /**
+     * Creates a new <code>ColgroupWrapper</code> instance.
+     *
+     * @param span the span
+     */
     public ColgroupWrapper(int span) {
         this.span = span;
     }
 
+    /**
+     * Gets the span.
+     *
+     * @return the span
+     */
     public int getSpan() {
         return span;
     }
 
+    /**
+     * Gets the width.
+     *
+     * @return the width
+     */
     public UnitValue getWidth() {
         return width;
     }
 
+    /**
+     * Sets the width.
+     *
+     * @param width the width
+     * @return this <code>ColgroupWrapper</code> instance
+     */
     public ColgroupWrapper setWidth(UnitValue width) {
         this.width = width;
         return this;
     }
 
+    /**
+     * Gets the cell CSS properties.
+     *
+     * @return the cell CSS properties
+     */
     public Map<String, String> getCellCssProps() {
         return cellCssProps;
     }
 
+    /**
+     * Sets the cell CSS properties.
+     *
+     * @param cellCssProps the cell CSS properties
+     * @return this <code>ColgroupWrapper</code> instance
+     */
     public ColgroupWrapper setCellCssProps(Map<String, String> cellCssProps) {
         this.cellCssProps = cellCssProps;
         return this;
     }
 
+    /**
+     * Gets the own CSS properties.
+     *
+     * @return the own CSS properties
+     */
     public Map<String, String> getOwnCssProps() {
         return ownCssProps;
     }
 
+    /**
+     * Sets the own CSS properties.
+     *
+     * @param ownCssProps the own CSS properties
+     * @return this <code>ColgroupWrapper</code> instance
+     */
     public ColgroupWrapper setOwnCssProps(Map<String, String> ownCssProps) {
         this.ownCssProps = ownCssProps;
         return this;
     }
 
+    /**
+     * Gets the columns.
+     *
+     * @return the columns
+     */
     public List<ColWrapper> getColumns() {
         return columns;
     }
 
+    /**
+     * Finalize the columns.
+     *
+     * @return this <code>ColgroupWrapper</code> instance
+     */
     public ColgroupWrapper finalizeCols() {
         if (indexToColMapping != null) {
             return this;
@@ -136,6 +209,12 @@ public class ColgroupWrapper implements IWrapElement {
         return this;
     }
 
+    /**
+     * Gets the column by index.
+     *
+     * @param index the index
+     * @return the column corresponding with the index
+     */
     public ColWrapper getColumnByIndex(int index) {
         return columns.get(indexToColMapping[index]);
     }
