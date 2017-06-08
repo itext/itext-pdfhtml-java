@@ -46,14 +46,31 @@ import com.itextpdf.html2pdf.exception.Html2PdfException;
 
 import java.io.UnsupportedEncodingException;
 
-
+/**
+ * Utilities class to decode HTML strings to a strings in a specific encoding.
+ */
 public class DecodeUtil {
+    
+    /** The default encoding ("UTF-8"). */
     static String dfltEncName = "UTF-8";
 
+    /**
+     * Decode a <code>String</code> to a <code>String</code> using the default encoding.
+     *
+     * @param s the string to decode
+     * @return the decoded string
+     */
     public static String decode(String s) {
         return decode(s, dfltEncName);
     }
 
+    /**
+     * Decodes a <code>String</code> to a <code>String</code> using a specific encoding.
+     *
+     * @param s the string to decode
+     * @param enc the encoding
+     * @return the decoded string
+     */
     public static String decode(String s, String enc) {
         boolean needToChange = false;
         int numChars = s.length();

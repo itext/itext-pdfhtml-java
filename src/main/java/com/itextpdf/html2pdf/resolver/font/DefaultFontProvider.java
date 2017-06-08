@@ -48,9 +48,17 @@ import com.itextpdf.layout.font.FontProvider;
 
 import java.io.InputStream;
 
+/**
+ * The default {@link FontProvider} for pdfHTML, that, as opposed to
+ * the font provider in iText 7, also includes a series of fonts that
+ * are shipped with the add-on.
+ */
 public class DefaultFontProvider extends FontProvider {
 
+    /** The path to the shipped fonts. */
     private static final String SHIPPED_FONT_RESOURCE_PATH = "com/itextpdf/html2pdf/font/";
+    
+    /** The file names of the shipped fonts. */
     private static final String[] SHIPPED_FONT_NAMES = new String[] {
             "FreeMono.ttf",
             "FreeMonoBold.ttf",
@@ -66,10 +74,20 @@ public class DefaultFontProvider extends FontProvider {
             "FreeSerifItalic.ttf",
     };
 
+    /**
+     * Creates a new <code>DefaultFontProvider</code> instance.
+     */
     public DefaultFontProvider() {
         this(true, true, false);
     }
 
+    /**
+     * Creates a new <code>DefaultFontProvider</code> instance.
+     *
+     * @param registerStandardPdfFonts use true if you want to register the standard Type 1 fonts (can't be embedded)
+     * @param registerShippedFreeFonts use true if you want to register the shipped fonts (can be embedded)
+     * @param registerSystemFonts use true if you want to register the system fonts (can require quite some resources)
+     */
     public DefaultFontProvider(boolean registerStandardPdfFonts, boolean registerShippedFreeFonts, boolean registerSystemFonts) {
         super();
         if (registerStandardPdfFonts) {
@@ -83,6 +101,9 @@ public class DefaultFontProvider extends FontProvider {
         }
     }
 
+    /**
+     * Adds the shipped free fonts.
+     */
     private void addShippedFreeFonts() {
         for (String fontName : SHIPPED_FONT_NAMES) {
             InputStream stream = ResourceUtil.getResourceStream(SHIPPED_FONT_RESOURCE_PATH + fontName);

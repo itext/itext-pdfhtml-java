@@ -57,9 +57,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
 
+/**
+ * Utilities class to resolve resources.
+ */
 // TODO handle <base href=".."> tag?
 public class ResourceResolver {
+    
+    /** The {@link UriResolver} instance. */
     private UriResolver uriResolver;
+    
+    /** The {@link SimpleImageCache} instance. */
     // TODO provide a way to configure capacity, manually reset or disable the image cache?
     private SimpleImageCache imageCache;
 
@@ -125,12 +132,20 @@ public class ResourceResolver {
         }
     }
 
+    /**
+     * Open an <code>InputStream</code> to a style sheet URI.
+     *
+     * @param uri the URI
+     * @return the <code>InputStream</code>
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public InputStream retrieveStyleSheet(String uri) throws IOException {
         return uriResolver.resolveAgainstBaseUri(uri).openStream();
     }
 
     /**
-     * Retrieve bytes.
+     * Retrieve a resource as a byte array from a source that
+     * can either be a link to a file, or a base64 encoded <code>String</code>.
      *
      * @param src either link to file or base64 encoded stream.
      * @return byte[] on success, otherwise null.
@@ -154,10 +169,20 @@ public class ResourceResolver {
         }
     }
 
+    /**
+     * Resolves a given URI against the base URI.
+     *
+     * @param uri the uri
+     * @return the url
+     * @throws MalformedURLException the malformed URL exception
+     */
     public URL resolveAgainstBaseUri(String uri) throws MalformedURLException {
         return uriResolver.resolveAgainstBaseUri(uri);
     }
     
+    /**
+     * Resets the simple image cache.
+     */
     public void resetCache() {
         imageCache.reset();
     }

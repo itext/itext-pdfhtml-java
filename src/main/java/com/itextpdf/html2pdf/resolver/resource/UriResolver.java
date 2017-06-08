@@ -49,19 +49,42 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
 
+/**
+ * Utilities class to resolve URIs.
+ */
 public class UriResolver {
 
+    /** The base url. */
     private URL baseUrl;
+    
+    /** Indicates if the Uri refers to a local resource. */
     private boolean isLocal;
 
+    /**
+     * Creates a new <code>UriResolver</code> instance.
+     *
+     * @param baseUri the base URI
+     */
     public UriResolver(String baseUri) {
         resolveBaseUrlOrPath(baseUri);
     }
 
+    /**
+     * Gets the base URI.
+     *
+     * @return the base uri
+     */
     public String getBaseUri() {
         return baseUrl.toExternalForm();
     }
 
+    /**
+     * Resolve a given URI against the base URI.
+     *
+     * @param uriString the given URI
+     * @return the resolved URI
+     * @throws MalformedURLException the malformed URL exception
+     */
     public URL resolveAgainstBaseUri(String uriString) throws MalformedURLException {
         URL resolvedUrl = null;
         uriString = uriString.trim();
@@ -91,6 +114,11 @@ public class UriResolver {
         return resolvedUrl;
     }
 
+    /**
+     * Resolves the base URI to an URL or path.
+     *
+     * @param base the base URI
+     */
     private void resolveBaseUrlOrPath(String base) {
         base = base.trim();
         base = EncodeUtil.encode(DecodeUtil.decode(base));
@@ -105,6 +133,12 @@ public class UriResolver {
         }
     }
 
+    /**
+     * Resolves a base URI as an URL.
+     *
+     * @param baseUriString the base URI
+     * @return the URL, or null if not successful
+     */
     private URL baseUriAsUrl(String baseUriString) {
         URL baseAsUrl = null;
         try {
@@ -121,6 +155,12 @@ public class UriResolver {
         return baseAsUrl;
     }
 
+    /**
+     * Resolves a base URI as a file URL.
+     *
+     * @param baseUriString the base URI
+     * @return the file URL
+     */
     private URL uriAsFileUrl(String baseUriString) {
         URL baseAsFileUrl = null;
         try {
