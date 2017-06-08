@@ -47,8 +47,14 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 
+/**
+ * {@link ICssApplier} implementation for Html elements.
+ */
 public class HtmlTagCssApplier implements ICssApplier {
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
+     */
     // TODO apply borders. DEVSIX-941
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {

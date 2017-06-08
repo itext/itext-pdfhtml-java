@@ -63,8 +63,14 @@ import com.itextpdf.layout.property.Property;
 
 import java.util.Map;
 
+/**
+ * {@link ICssApplier} implementation for Span elements.
+ */
 public class SpanTagCssApplier implements ICssApplier {
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
+     */
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
         SpanTagWorker spanTagWorker = (SpanTagWorker) tagWorker;
@@ -82,6 +88,14 @@ public class SpanTagCssApplier implements ICssApplier {
         }
     }
 
+    /**
+     * Applies styles to child elements.
+     *
+     * @param element the element
+     * @param css the CSS mapping
+     * @param context the processor context
+     * @param stylesContainer the styles container
+     */
     private void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context, IStylesContainer stylesContainer) {
         FontStyleApplierUtil.applyFontStyles(css, context, stylesContainer, element);
         //TODO: Background-applying currently doesn't work in html way for spans inside other spans.

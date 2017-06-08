@@ -49,14 +49,24 @@ import com.itextpdf.html2pdf.exception.CssApplierInitializationException;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
+/**
+ * A factory for creating {@link ICssApplier} objects.
+ */
 public class DefaultCssApplierFactory implements ICssApplierFactory {
 
+    /** The default mapping of CSS keywords and CSS appliers. */
     private TagProcessorMapping defaultMapping;
 
+    /**
+     * Creates a new <code>DefaultCssApplierFactory</code> instance.
+     */
     public DefaultCssApplierFactory() {
         defaultMapping = DefaultTagCssApplierMapping.getDefaultCssApplierMapping();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.apply.ICssApplierFactory#getCssApplier(com.itextpdf.html2pdf.html.node.IElementNode)
+     */
     @Override
     public final ICssApplier getCssApplier(IElementNode tag) {
         ICssApplier cssApplier = getCustomCssApplier(tag);
@@ -75,10 +85,25 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
         return cssApplier;
     }
 
+    /**
+     * Gets a custom CSS applier.
+     * This method needs to be overridden because the default CSS applier
+     * factory will always return <code>null</code>.
+     *
+     * @param tag the key
+     * @return the custom CSS applier
+     */
     public ICssApplier getCustomCssApplier(IElementNode tag) {
         return null;
     }
 
+    /**
+     * Gets the css applier class.
+     *
+     * @param mapping the mapping
+     * @param tag the tag
+     * @return the css applier class
+     */
     private static Class<?> getCssApplierClass(TagProcessorMapping mapping, IElementNode tag) {
         Class<?> cssApplierClass = null;
         String display = tag.getStyles() != null ? tag.getStyles().get(CssConstants.DISPLAY) : null;
