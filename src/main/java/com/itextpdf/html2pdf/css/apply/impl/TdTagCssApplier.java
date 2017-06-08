@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.css.apply.impl;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.html2pdf.css.util.CssUtils;
@@ -54,7 +55,14 @@ import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.property.Property;
 import java.util.Map;
 
+/**
+ * {@link ICssApplier} implementation for Td elements.
+ */
 public class TdTagCssApplier extends BlockCssApplier {
+    
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.apply.impl.BlockCssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
+     */
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker worker) {
         super.apply(context, stylesContainer, worker);

@@ -47,8 +47,14 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 
+/**
+ * {@link ICssApplier} implementation for Tr elements.
+ */
 public class TrTagCssApplier implements ICssApplier {
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
+     */
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
         // TODO background inheritance to cells is done via default.css at the moment, because it was overwriting cell's properties.

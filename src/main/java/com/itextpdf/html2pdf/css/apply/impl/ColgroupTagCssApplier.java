@@ -50,8 +50,14 @@ import com.itextpdf.html2pdf.css.apply.util.SupportedColColgroupPropertiesUtil;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import java.util.Map;
 
+/**
+ * {@link ICssApplier} implementation for column groups.
+ */
 public class ColgroupTagCssApplier implements ICssApplier {
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
+     */
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
         Map<String, String> cssProps = stylesContainer.getStyles();

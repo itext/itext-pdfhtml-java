@@ -48,14 +48,19 @@ import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
 
-
+/**
+ * Class that contains the default mapping between CSS keys and CSS appliers.
+ */
 class DefaultTagCssApplierMapping {
 
+    /**
+     * Creates a new <code>DefaultTagCssApplierMapping</code> instance.
+     */
     private DefaultTagCssApplierMapping() {
     }
 
+    /** The default mapping. */
     private static TagProcessorMapping mapping;
-
     static {
         mapping = new TagProcessorMapping();
 
@@ -161,6 +166,11 @@ class DefaultTagCssApplierMapping {
 
     }
 
+    /**
+     * Gets the default CSS applier mapping.
+     *
+     * @return the default CSS applier mapping
+     */
     static TagProcessorMapping getDefaultCssApplierMapping() {
         return mapping;
     }

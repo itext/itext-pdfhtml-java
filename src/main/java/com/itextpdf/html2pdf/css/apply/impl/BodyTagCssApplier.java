@@ -47,10 +47,16 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 
-// TODO apply background property, margins. I am not sure if we should extend from BlockCssApplier
-// DEVSIX-940
+/**
+ * {@link ICssApplier} implementation for Body elements.
+ */
+//TODO apply background property, margins. I am not sure if we should extend from BlockCssApplier
+//DEVSIX-940
 public class BodyTagCssApplier implements ICssApplier {
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
+     */
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
     }
