@@ -45,10 +45,21 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.element;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.layout.element.AbstractElement;
 
+/**
+ * Implementation of the <code>AbstractElement</code> class for form fields.
+ *
+ * @param <T> the generic type of the form field (e.g. input field, button, text area)
+ */
 public abstract class FormField<T extends IFormField> extends AbstractElement<T> implements IFormField {
 
+    /** The id. */
     private String id;
 
+    /**
+     * Instantiates a new <code>FormField</code> instance.
+     *
+     * @param id the id
+     */
     protected FormField(String id) {
         if (id == null || id.contains(".")) {
             throw new IllegalArgumentException("id should not contain '.'");
@@ -56,11 +67,17 @@ public abstract class FormField<T extends IFormField> extends AbstractElement<T>
         this.id = id;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField#getId()
+     */
     @Override
     public String getId() {
         return id;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.ElementPropertyContainer#getDefaultProperty(int)
+     */
     @Override
     public <T1> T1 getDefaultProperty(int property) {
         switch (property) {

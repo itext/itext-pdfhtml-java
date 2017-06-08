@@ -46,12 +46,24 @@ import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.renderer.InputFieldRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
 
+/**
+ * Extension of the {@link FormField} class representing a button so that
+ * a {@link InputFieldRenderer} is used.
+ */
 public class InputField extends FormField<InputField> {
 
+    /**
+     * Creates a new input field.
+     *
+     * @param id the id
+     */
     public InputField(String id) {
         super(id);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.element.FormField#getDefaultProperty(int)
+     */
     @Override
     public <T1> T1 getDefaultProperty(int property) {
         switch (property) {
@@ -64,6 +76,9 @@ public class InputField extends FormField<InputField> {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.element.AbstractElement#makeNewRenderer()
+     */
     @Override
     protected IRenderer makeNewRenderer() {
         return new InputFieldRenderer(this);
