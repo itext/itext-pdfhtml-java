@@ -42,6 +42,11 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
+import java.text.MessageFormat;
+import java.util.List;
+
+import org.slf4j.LoggerFactory;
+
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.forms.fields.PdfButtonFormField;
 import com.itextpdf.forms.fields.PdfFormField;
@@ -50,38 +55,42 @@ import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.kernel.pdf.PdfPage;
-import com.itextpdf.kernel.pdf.PdfStream;
-import com.itextpdf.kernel.pdf.PdfString;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.layout.LayoutResult;
 import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.TextAlignment;
-import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.LineRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
-import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
-import java.util.List;
-
+/**
+ * The {@link AbstractOneLineTextFieldRenderer} implementation for buttons.
+ */
 public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
 
+    /** Indicates of the content was split. */
     private boolean isSplit = false;
 
+    /**
+     * Creates a new <code>ButtonRenderer</code> instance.
+     *
+     * @param modelElement the model element
+     */
     public ButtonRenderer(Button modelElement) {
         super(modelElement);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.IRenderer#getNextRenderer()
+     */
     @Override
     public IRenderer getNextRenderer() {
         return new ButtonRenderer((Button) modelElement);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
+     */
     @Override
     protected void adjustFieldLayout() {
         List<LineRenderer> flatLines = ((ParagraphRenderer) flatRenderer).getLines();
@@ -106,11 +115,17 @@ public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#createFlatRenderer()
+     */
     @Override
     protected IRenderer createFlatRenderer() {
         return createParagraphRenderer(getDefaultValue());
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#applyAcroField(com.itextpdf.layout.renderer.DrawContext)
+     */
     @Override
     protected void applyAcroField(DrawContext drawContext) {
         String value = getDefaultValue();
@@ -129,6 +144,9 @@ public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
         PdfAcroForm.getAcroForm(doc, true).addField(button, page);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#isRendererFit(float, float)
+     */
     @Override
     protected boolean isRendererFit(float availableWidth, float availableHeight) {
         return !isSplit && super.isRendererFit(availableWidth, availableHeight);

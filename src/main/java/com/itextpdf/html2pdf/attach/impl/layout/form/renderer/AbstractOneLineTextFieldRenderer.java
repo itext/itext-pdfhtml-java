@@ -44,34 +44,60 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.kernel.geom.Rectangle;
+import com.itextpdf.layout.renderer.BlockRenderer;
 import com.itextpdf.layout.renderer.LineRenderer;
 
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+* Abstract {@link BlockRenderer} for a single line of text content in a form field.
+*/
 public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextFieldRenderer {
 
+	/** The position of the base line of the text. */
     protected float baseline;
 
+    /**
+     * Creates a new <code>AbstractOneLineTextFieldRenderer</code> instance.
+     *
+     * @param modelElement the model element
+     */
     protected AbstractOneLineTextFieldRenderer(IFormField modelElement) {
         super(modelElement);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getAscent()
+     */
     @Override
     public float getAscent() {
         return occupiedArea.getBBox().getTop() - baseline;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getDescent()
+     */
     @Override
     public float getDescent() {
         return occupiedArea.getBBox().getBottom() - baseline;
     }
 
+    /**
+     * Crops the content lines.
+     *
+     * @param lines a list of lines
+     * @param bBox the bounding box
+     */
     protected void cropContentLines(List<LineRenderer> lines, Rectangle bBox) {
         adjustNumberOfContentLines(lines, bBox, 1);
         updateParagraphHeight();
         baseline = lines.get(0).getYLine();
     }
 
+    /**
+     * Updates the paragraph height.
+     */
     protected void updateParagraphHeight() {
         overrideHeightProperties();
         Float height = retrieveHeight();
@@ -87,6 +113,12 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
         }
     }
 
+    /**
+     * Sets the content height.
+     *
+     * @param bBox the bounding box
+     * @param height the height
+     */
     private void setContentHeight(Rectangle bBox, float height) {
         float dy = (height - bBox.getHeight()) / 2;
         bBox.moveDown(dy);
