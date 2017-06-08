@@ -47,11 +47,23 @@ import com.itextpdf.layout.element.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utility class to trim content.
+ */
 public final class TrimUtil {
 
+    /**
+     * Creates a new <code>TrimUtil</code> instance.
+     */
     private TrimUtil() {
     }
 
+    /**
+     * Trim leaf elements, and sanitize.
+     *
+     * @param leafElements the leaf elements
+     * @return the trimmed and sanitized list
+     */
     public static List<ILeafElement> trimLeafElementsAndSanitize(List<ILeafElement> leafElements) {
         ArrayList<ILeafElement> waitingLeaves = new ArrayList<ILeafElement>(leafElements);
 
@@ -74,10 +86,24 @@ public final class TrimUtil {
         return waitingLeaves;
     }
 
+    /**
+     * Checks if a character is white space value that doesn't cause a newline.
+     *
+     * @param ch the character
+     * @return true, if the character is a white space character, but no newline
+     */
     static boolean isNonLineBreakSpace(char ch) {
         return Character.isWhitespace(ch) && ch != '\n';
     }
 
+    /**
+     * Trims a sub list of leaf elements.
+     *
+     * @param list the list of leaf elements
+     * @param begin the index where to begin
+     * @param end the index where to end
+     * @param last indicates where to start, if true, we start at the end
+     */
     private static void trimSubList(ArrayList<ILeafElement> list, int begin, int end, boolean last) {
         while (end > begin) {
             int pos = last ? end - 1 : begin;
@@ -95,6 +121,13 @@ public final class TrimUtil {
         }
     }
 
+    /**
+     * Trims a leaf element.
+     *
+     * @param leafElement the leaf element
+     * @param last indicates where to start, if true, we start at the end
+     * @return the leaf element
+     */
     private static ILeafElement trimLeafElement(ILeafElement leafElement, boolean last) {
         if (leafElement instanceof Text) {
             Text text = (Text) leafElement;
@@ -105,6 +138,13 @@ public final class TrimUtil {
         return leafElement;
     }
 
+    /**
+     * Gets the index of first character that isn't white space in some text.
+     * Note: newline characters aren't counted as white space characters.
+     *
+     * @param text the text
+     * @return the index of first character that isn't white space
+     */
     private static int getIndexOfFirstNonSpace(Text text) {
         int pos = 0;
         while (pos < text.getText().length() && isNonLineBreakSpace(text.getText().charAt(pos))) {
@@ -113,6 +153,13 @@ public final class TrimUtil {
         return pos;
     }
 
+    /**
+     * Gets the index of last character following a character that isn't white space in some text.
+     * Note: newline characters aren't counted as white space characters.
+     *
+     * @param text the text
+     * @return the index following the last character that isn't white space
+     */
     private static int getIndexAfterLastNonSpace(Text text) {
         int pos = text.getText().length();
         while (pos > 0 && isNonLineBreakSpace(text.getText().charAt(pos - 1))) {

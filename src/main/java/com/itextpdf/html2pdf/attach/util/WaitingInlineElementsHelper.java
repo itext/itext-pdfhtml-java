@@ -54,20 +54,40 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Helper class for waiting inline elements.
+ */
 public class WaitingInlineElementsHelper {
 
+    /** A value that defines how to transform text. */
     private String textTransform;
+    
+    /** Indicates whether line breaks need to be preserved. */
     private boolean keepLineBreaks;
+    
+    /** Indicates whether white space characters need to be collapsed. */
     private boolean collapseSpaces;
 
+    /** List of waiting leaf elements. */
     private List<ILeafElement> waitingLeaves = new ArrayList<>();
 
+    /**
+     * Creates a new <code>WaitingInlineElementsHelper</code> instance.
+     *
+     * @param whiteSpace we'll check if this value equals "pre" or "pre-wrap"
+     * @param textTransform will define the transformation that needs to be applied to the text
+     */
     public WaitingInlineElementsHelper(String whiteSpace, String textTransform) {
         keepLineBreaks = CssConstants.PRE.equals(whiteSpace) || CssConstants.PRE_WRAP.equals(whiteSpace) || CssConstants.PRE_LINE.equals(whiteSpace);
         collapseSpaces = !(CssConstants.PRE.equals(whiteSpace) || CssConstants.PRE_WRAP.equals(whiteSpace));
         this.textTransform = textTransform;
     }
 
+    /**
+     * Adds text to the waiting leaves.
+     *
+     * @param text the text
+     */
     public void add(String text) {
         if (!keepLineBreaks && collapseSpaces) {
             text = collapseConsecutiveSpaces(text);
@@ -109,14 +129,29 @@ public class WaitingInlineElementsHelper {
         waitingLeaves.add(new Text(text));
     }
 
+    /**
+     * Adds a leaf element to the waiting leaves.
+     *
+     * @param element the element
+     */
     public void add(ILeafElement element) {
         waitingLeaves.add(element);
     }
 
+    /**
+     * Adds a collecton of leaf elements to the waiting leaves.
+     *
+     * @param collection the collection
+     */
     public void addAll(Collection<ILeafElement> collection) {
         waitingLeaves.addAll(collection);
     }
 
+    /**
+     * Flush hanging leaves.
+     *
+     * @param container a container element
+     */
     public void flushHangingLeaves(IPropertyContainer container) {
         Paragraph p = createLeavesContainer();
         if (p != null) {
@@ -141,6 +176,11 @@ public class WaitingInlineElementsHelper {
         }
     }
 
+    /**
+     * Creates the leaves container.
+     *
+     * @return a paragraph
+     */
     public Paragraph createLeavesContainer() {
         if (collapseSpaces) {
             waitingLeaves = TrimUtil.trimLeafElementsAndSanitize(waitingLeaves);
@@ -173,10 +213,20 @@ public class WaitingInlineElementsHelper {
         }
     }
 
+    /**
+     * Gets the waiting leaves.
+     *
+     * @return the waiting leaves
+     */
     public Collection<ILeafElement> getWaitingLeaves() {
         return waitingLeaves;
     }
 
+    /**
+     * Gets the sanitized waiting leaves.
+     *
+     * @return the sanitized waiting leaves
+     */
     public List<ILeafElement> getSanitizedWaitingLeaves() {
         if (collapseSpaces) {
             return TrimUtil.trimLeafElementsAndSanitize(waitingLeaves);
@@ -185,14 +235,27 @@ public class WaitingInlineElementsHelper {
         }
     }
 
+    /**
+     * Clears the waiting leaves.
+     */
     public void clearWaitingLeaves() {
         waitingLeaves.clear();
     }
 
+    /**
+     * Creates a paragraph container.
+     *
+     * @return the paragraph container
+     */
     public Paragraph createParagraphContainer() {
         return new Paragraph().setMargin(0);
     }
 
+    /**
+     * Capitalizes a series of leaf elements.
+     *
+     * @param leaves a list of leaf elements
+     */
     private static void capitalize(List<ILeafElement> leaves) {
         boolean previousLetter = false;
         for (ILeafElement element : leaves) {
@@ -218,6 +281,12 @@ public class WaitingInlineElementsHelper {
         }
     }
 
+    /**
+     * Collapses consecutive spaces.
+     *
+     * @param s a string
+     * @return the string with the consecutive spaces collapsed
+     */
     private static String collapseConsecutiveSpaces(String s) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {

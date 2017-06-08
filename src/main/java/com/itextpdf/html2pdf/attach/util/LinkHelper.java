@@ -42,7 +42,6 @@
  */
 package com.itextpdf.html2pdf.attach.util;
 
-import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfArray;
 import com.itextpdf.kernel.pdf.PdfName;
@@ -53,11 +52,23 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.property.Property;
 
+/**
+ * Helper class for links.
+ */
 public class LinkHelper {
 
+    /**
+     * Creates a new <code>LinkHelper</code> class.
+     */
     private LinkHelper() {
     }
 
+    /**
+     * Applies a link annotation.
+     *
+     * @param container the containing object
+     * @param url the destination
+     */
     public static void applyLinkAnnotation(IPropertyContainer container, String url) {
         if (container != null) {
             PdfLinkAnnotation linkAnnotation;

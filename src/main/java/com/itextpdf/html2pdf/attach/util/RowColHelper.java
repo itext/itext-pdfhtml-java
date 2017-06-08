@@ -45,16 +45,34 @@ package com.itextpdf.html2pdf.attach.util;
 
 import java.util.ArrayList;
 
+/**
+ * Helper class to keep track of the current column / row position in a table.
+ */
 public class RowColHelper {
+    
+    /** The last empty row. */
     private ArrayList<Integer> lastEmptyRow = new ArrayList<>();
+    
+    /** The current row index. */
     private int currRow = -1;
+    
+    /** The current column index. */
     private int currCol = 0;
 
+    /**
+     * Move to a new row.
+     */
     public void newRow() {
         ++currRow;
         currCol = 0;
     }
 
+    /**
+     * Update current position based on a colspan and a rowspan.
+     *
+     * @param colspan the colspan
+     * @param rowspan the rowspan
+     */
     public void updateCurrentPosition(int colspan, int rowspan) {
         ensureRowIsStarted();
         while (lastEmptyRow.size() < currCol) {
@@ -72,6 +90,11 @@ public class RowColHelper {
         currCol = end;
     }
 
+    /**
+     * Move to next empty column.
+     *
+     * @return the current column position
+     */
     public int moveToNextEmptyCol() {
         ensureRowIsStarted();
         while (!canPutCell(currCol)) {
@@ -80,6 +103,12 @@ public class RowColHelper {
         return currCol;
     }
 
+    /**
+     * Checks if we can put a new cell in the column.
+     *
+     * @param col the column index
+     * @return true, if successful
+     */
     public boolean canPutCell(int col) {
         ensureRowIsStarted();
         if (col >= lastEmptyRow.size()) {
@@ -89,6 +118,9 @@ public class RowColHelper {
         }
     }
 
+    /**
+     * Ensure that a row is started.
+     */
     private void ensureRowIsStarted() {
         if (currRow == -1) {
             newRow();

@@ -47,13 +47,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Wrapper for the <code>tr</code> element.
+ */
 public class TableRowWrapper implements IWrapElement {
+    
+    /** The cells in the row. */
     private List<Cell> cells = new ArrayList<>();
 
+    /**
+     * Adds a cell to the row.
+     *
+     * @param cell the cell
+     */
     public void addCell(Cell cell) {
         cells.add(cell);
     }
 
+    /**
+     * Gets the cells of the row.
+     *
+     * @return the cells
+     */
     public List<Cell> getCells() {
         return Collections.unmodifiableList(cells);
     }

@@ -53,7 +53,6 @@ import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.Property;
 
 public class UlOlTagWorker implements ITagWorker {
