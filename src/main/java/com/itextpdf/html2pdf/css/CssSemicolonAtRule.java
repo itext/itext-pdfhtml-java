@@ -44,15 +44,27 @@ package com.itextpdf.html2pdf.css;
 
 import java.text.MessageFormat;
 
+/**
+ * A <code>CssAtRule</code> implementation.
+ */
 public class CssSemicolonAtRule extends CssAtRule {
 
+    /** The rule parameters. */
     private String ruleParams;
 
+    /**
+     * Creates a new <code>CssSemicolonAtRule</code> instance.
+     *
+     * @param ruleDeclaration the rule declaration
+     */
     public CssSemicolonAtRule(String ruleDeclaration) {
         super(CssNestedAtRuleFactory.extractRuleNameFromDeclaration(ruleDeclaration.trim()));
         this.ruleParams = ruleDeclaration.trim().substring(ruleName.length()).trim();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return MessageFormat.format("@{0} {1};", ruleName, ruleParams);

@@ -50,7 +50,7 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 public interface ICssApplierFactory {
 
     /**
-     * Returns a {@link ICssApplier} instance constructed based on the passed parameters.
+     * Returns a {@link ICssApplier} instance constructed based on the parameters of a node.
      */
     ICssApplier getCssApplier(IElementNode tag);
 

@@ -47,8 +47,16 @@ import com.itextpdf.html2pdf.html.node.INode;
 import java.util.Collections;
 import java.util.List;
 
+/** Abstract superclass for all kinds of CSS statements. */
 public abstract class CssStatement {
 
+    /**
+     * Gets a list of {@link CSSRuleSet} objects.
+     *
+     * @param node a node
+     * @param deviceDescription a media device description
+     * @return the css rule sets
+     */
     public List<CssRuleSet> getCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
         return Collections.<CssRuleSet>emptyList();
     }
