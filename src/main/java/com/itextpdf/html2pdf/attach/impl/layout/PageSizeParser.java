@@ -53,7 +53,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class PageSizeParser.
+ */
 class PageSizeParser {
+    
+    /** A Map mapping page size names to page size values. */
     private static final Map<String, PageSize> pageSizeConstants = new HashMap<>();
     static {
         pageSizeConstants.put("a5", PageSize.A5);
@@ -68,6 +73,15 @@ class PageSizeParser {
         pageSizeConstants.put("ledger", PageSize.LEDGER); // TODO may be use here TABLOID? based on w3c tests, ledger in html is interpreted as portrait-oriented page
     }
 
+    /**
+     * Fetch the page size.
+     *
+     * @param pageSizeStr the name of the page size ("a4", "letter",...)
+     * @param em the em value
+     * @param rem the root em value
+     * @param defaultPageSize the default page size
+     * @return the page size
+     */
     static PageSize fetchPageSize(String pageSizeStr, float em, float rem, PageSize defaultPageSize) {
         PageSize pageSize = defaultPageSize.clone();
         if (pageSizeStr == null || CssConstants.AUTO.equals(pageSizeStr)) {
@@ -122,6 +136,14 @@ class PageSizeParser {
         return pageSize;
     }
 
+    /**
+     * Parses a page length value into a page size.
+     *
+     * @param pageSizeChunks array of string values that represent the page size
+     * @param em the em value
+     * @param rem the root em value
+     * @return the page size
+     */
     private static PageSize parsePageLengthValue(String[] pageSizeChunks, float em, float rem) {
         Float width, height;
         width = tryParsePageLengthValue(pageSizeChunks[0], em, rem);
@@ -139,6 +161,14 @@ class PageSizeParser {
         return new PageSize((float) width, (float) height);
     }
 
+    /**
+     * Try to parse a page length value.
+     *
+     * @param valueChunk a string containing a value
+     * @param em the em value
+     * @param rem the root em value
+     * @return the value as a float
+     */
     private static Float tryParsePageLengthValue(String valueChunk, float em, float rem) {
         UnitValue unitValue = CssUtils.parseLengthValueToPt(valueChunk, em, rem);
         if (unitValue == null || unitValue.isPercentValue()) {
@@ -147,10 +177,22 @@ class PageSizeParser {
         return unitValue.getValue();
     }
 
+    /**
+     * Checks if a string represents length value.
+     *
+     * @param pageSizeChunk the string that possibly represents a length value
+     * @return true, if the string represents a length value
+     */
     private static boolean isLengthValue(String pageSizeChunk) {
         return CssUtils.isMetricValue(pageSizeChunk) || CssUtils.isRelativeValue(pageSizeChunk);
     }
 
+    /**
+     * Checks if a string represents thae CSS value for landscape or portrait orientation.
+     *
+     * @param pageSizeChunk the string that possibly represents a landscape or portrait value
+     * @return true, if the string represents a landscape or portrait value
+     */
     private static boolean isLandscapePortraitValue(String pageSizeChunk) {
         return CssConstants.LANDSCAPE.equals(pageSizeChunk) || CssConstants.PORTRAIT.equals(pageSizeChunk);
     }

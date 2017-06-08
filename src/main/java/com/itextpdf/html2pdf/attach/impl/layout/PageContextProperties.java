@@ -54,7 +54,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Properties class for the {@link PageContextProcessor}.
+ */
 class PageContextProperties {
+    
+    /** List containing possible names for page margin boxes. */
     private static final List<String> pageMarginBoxNames = Arrays.asList(
             CssRuleName.TOP_LEFT_CORNER,
             CssRuleName.TOP_LEFT,
@@ -74,20 +79,46 @@ class PageContextProperties {
             CssRuleName.LEFT_TOP
     );
 
+    /** The page context node. */
     private PageContextNode pageContextNode;
+    
+    /** The page margin boxes. */
     private List<PageMarginBoxContextNode> pageMarginBoxes;
 
+    /**
+     * Instantiates a new <code>PageContextProperties</code> instance.
+     *
+     * @param pageProps the page context node
+     * @param pagesMarginBoxes the page margin boxes
+     */
     private PageContextProperties(PageContextNode pageProps, List<PageMarginBoxContextNode> pagesMarginBoxes) {
         this.pageContextNode = pageProps;
         this.pageMarginBoxes = pagesMarginBoxes;
     }
 
+    /**
+     * Resolves a node with a <code>PageContextProperties</code> instance as result.
+     *
+     * @param rootNode the root node to resolve
+     * @param cssResolver the CSS resolver
+     * @param context the CSS context
+     * @param pageClasses the page classes
+     * @return the <code>PageContextProperties</code> for a specific node
+     */
     public static PageContextProperties resolve(INode rootNode, ICssResolver cssResolver, CssContext context, String... pageClasses) {
         PageContextNode pageProps = getResolvedPageClassNode(rootNode, cssResolver, context, pageClasses);
         List<PageMarginBoxContextNode> pagesMarginBoxes = getResolvedMarginBoxes(pageProps, cssResolver, context);
         return new PageContextProperties(pageProps, pagesMarginBoxes);
     }
 
+    /**
+     * Gets the resolved margin boxes.
+     *
+     * @param pageClassNode the page contex node
+     * @param cssResolver the CSS resolver
+     * @param context the CSS context
+     * @return the resolved margin boxes
+     */
     private static List<PageMarginBoxContextNode> getResolvedMarginBoxes(PageContextNode pageClassNode, ICssResolver cssResolver, CssContext context) {
         List<PageMarginBoxContextNode> resolvedMarginBoxes = new ArrayList<>();
         for (String pageMarginBoxName : pageMarginBoxNames) {
@@ -102,6 +133,15 @@ class PageContextProperties {
         return resolvedMarginBoxes;
     }
 
+    /**
+     * Gets the resolved page class node.
+     *
+     * @param rootNode the root node
+     * @param cssResolver the CSS resolver
+     * @param context the CSS context
+     * @param pageClasses the page classes
+     * @return the resolved page class node
+     */
     private static PageContextNode getResolvedPageClassNode(INode rootNode, ICssResolver cssResolver, CssContext context, String... pageClasses) {
         PageContextNode pagesClassNode = new PageContextNode(rootNode);
         for (String pageClass : pageClasses) {
@@ -113,10 +153,20 @@ class PageContextProperties {
         return pagesClassNode;
     }
 
+    /**
+     * Gets the resolved page context node.
+     *
+     * @return the resolved page context node
+     */
     public PageContextNode getResolvedPageContextNode() {
         return pageContextNode;
     }
 
+    /**
+     * Gets the resolved page margin boxes.
+     *
+     * @return the resolved page margin boxes
+     */
     public List<PageMarginBoxContextNode> getResolvedPageMarginBoxes() {
         return pageMarginBoxes;
     }

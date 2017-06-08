@@ -54,12 +54,23 @@ import com.itextpdf.layout.renderer.TextRenderer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@link TextRenderer} implementation for the page count.
+ */
 class PageCountRenderer extends TextRenderer {
 
+    /**
+     * Instantiates a new page count renderer.
+     *
+     * @param textElement the text element
+     */
     PageCountRenderer(PageCountElement textElement) {
         super(textElement);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.TextRenderer#layout(com.itextpdf.layout.layout.LayoutContext)
+     */
     @Override
     public LayoutResult layout(LayoutContext layoutContext) {
         PageCountType pageCountType = (PageCountType)this.<PageCountType>getProperty(Html2PdfProperty.PAGE_COUNT_TYPE);
@@ -79,6 +90,9 @@ class PageCountRenderer extends TextRenderer {
         return super.layout(layoutContext);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.TextRenderer#resolveFonts(java.util.List)
+     */
     @Override
     protected boolean resolveFonts(List<IRenderer> addTo) {
         List<IRenderer> dummyList = new ArrayList<>();
