@@ -46,15 +46,32 @@ import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Simple implementation of an image cache.
+ */
 class SimpleImageCache {
+    
+    /** The cache mapping a source path to an Image XObject. */
     private Map<String, PdfImageXObject> cache = new LinkedHashMap<>();
+    
+    /** Stores how many times each image is used. */
     private Map<String, Integer> imagesFrequency = new LinkedHashMap<>();
+    
+    /** The capacity of the cache. */
     private int capacity;
 
+    /**
+     * Creates a new <code>SimpleImageCache</code> instance.
+     */
     SimpleImageCache() {
         this.capacity = 100;
     }
 
+    /**
+     * Creates a new <code>SimpleImageCache</code> instance.
+     *
+     * @param capacity the capacity
+     */
     SimpleImageCache(int capacity) {
         if (capacity < 1) {
             throw new IllegalArgumentException("capacity");
@@ -62,6 +79,12 @@ class SimpleImageCache {
         this.capacity = capacity;
     }
 
+    /**
+     * Adds an image to the cache.
+     *
+     * @param src the source path
+     * @param imageXObject the image XObject to be cached
+     */
     void putImage(String src, PdfImageXObject imageXObject) {
         if (cache.containsKey(src)) {
             return;
@@ -70,6 +93,12 @@ class SimpleImageCache {
         cache.put(src, imageXObject);
     }
 
+    /**
+     * Gets an image from the cache.
+     *
+     * @param src the source path
+     * @return the image XObject
+     */
     PdfImageXObject getImage(String src) {
         Integer frequency = imagesFrequency.get(src);
         if (frequency != null) {
@@ -81,15 +110,27 @@ class SimpleImageCache {
         return cache.get(src);
     }
 
+    /**
+     * Gets the size of the cache.
+     *
+     * @return the cache size
+     */
     int size() {
         return cache.size();
     }
 
+    /**
+     * Resets the cache.
+     */
     void reset() {
         cache.clear();
         imagesFrequency.clear();
     }
 
+    /**
+     * Ensures the capacity of the cache by removing the least important images
+     * (based on the number of times an image is used).
+     */
     private void ensureCapacity() {
         if (cache.size() >= capacity) {
             String mostUnpopularImg = null;

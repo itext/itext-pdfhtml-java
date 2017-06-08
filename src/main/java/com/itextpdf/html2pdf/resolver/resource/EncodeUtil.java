@@ -49,9 +49,18 @@ import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
 import java.util.BitSet;
 
+/**
+ * Utilities class to encode strings in a specific encoding to HTML strings.
+ */
 class EncodeUtil {
+    
+    /** Set of 256 characters with the bits that don't need encoding set to on. */
     static BitSet dontNeedEncoding;
+    
+    /** The difference between the value a character in lower cases and the upper case character value. */
     static final int caseDiff = ('a' - 'A');
+    
+    /** The default encoding ("UTF-8"). */
     static String dfltEncName = "UTF-8";
 
     static {
@@ -81,10 +90,23 @@ class EncodeUtil {
         dontNeedEncoding.set('\\');
     }
 
+    /**
+     * Encodes a <code>String</code> in the default encoding to an HTML-encoded <code>String</code>.
+     *
+     * @param s the original string
+     * @return the encoded string
+     */
     public static String encode(String s) {
         return encode(s, dfltEncName);
     }
 
+    /**
+     * Encodes a <code>String</code> in a specific encoding to an HTML-encoded <code>String</code>.
+     *
+     * @param s the original string
+     * @param enc the encoding
+     * @return the encoded string
+     */
     public static String encode(String s, String enc) {
         boolean needToChange = false;
         StringBuffer out = new StringBuffer(s.length());

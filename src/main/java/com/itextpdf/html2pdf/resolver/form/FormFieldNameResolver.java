@@ -47,33 +47,66 @@ import com.itextpdf.html2pdf.css.util.CssUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Utilities class that resolves form field names.
+ */
 public class FormFieldNameResolver {
+    
+    /** The default base name of a field: "Field". */
     private static final String DEFAULT_NAME = "Field";
+    
+    /** The separator between a field name and an index. */
     private static final String NAME_COUNT_SEPARATOR = "_";
+    
+    /** A map containing all the base field names, mapped to the current index. */
     private final Map<String, Integer> names = new HashMap<>();
 
+    /**
+     * Creates a new <code>FormFieldNameResolver</code> instance.
+     */
     public FormFieldNameResolver() {
     }
 
+    /**
+     * Resolves a proposed field name to a valid field name.
+     *
+     * @param name the proposed name
+     * @return the valid name
+     */
     public String resolveFormName(String name) {
         name = normalizeString(name);
         if (name.isEmpty()) {
-            return resolveNormalisedFormName(DEFAULT_NAME);
+            return resolveNormalizedFormName(DEFAULT_NAME);
         } else {
-            return resolveNormalisedFormName(name);
+            return resolveNormalizedFormName(name);
         }
 
     }
 
+    /**
+     * Resets the map containing all the field names.
+     */
     public void reset() {
         names.clear();
     }
 
+    /**
+     * Normalizes a field name.
+     *
+     * @param s the proposed field name
+     * @return the normalized name
+     */
     private String normalizeString(String s) {
         return s != null ? s.trim().replace(".", "") : "";
     }
 
-    private String resolveNormalisedFormName(String name) {
+    /**
+     * Resolves a normalized form name.
+     *
+     * @param name the proposed name
+     * @return the resolved name
+     */
+    private String resolveNormalizedFormName(String name) {
         int separatorIndex = name.lastIndexOf(NAME_COUNT_SEPARATOR);
         Integer nameIndex = null;
         if (separatorIndex != -1 && separatorIndex < name.length()) {
