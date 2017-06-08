@@ -42,13 +42,29 @@
  */
 package com.itextpdf.html2pdf.exception;
 
+/**
+ * Runtime exception that gets thrown if something goes wrong in the HTML to PDF conversion.
+ */
 public class Html2PdfException extends RuntimeException {
 
-    public Html2PdfException(String message) {
+	/**
+	 * Creates a new <code>Html2PdfException</code> instance.
+	 *
+	 * @param message the message
+	 */
+	public Html2PdfException(String message) {
         super(message);
     }
 
+    /** Message in case one tries to write to a PDF document that isn't in writing mode. */
     public static final String PdfDocumentShouldBeInWritingMode = "PdfDocument should be created in writing mode. Reading and stamping is not allowed";
+    
+    /** Message in case the font provider doesn't know about any fonts. */
     public static final String FontProviderContainsZeroFonts = "Font Provider contains zero fonts. At least one font shall be present";
+    
+    /** The Constant UnsupportedEncodingException. */
     public static final String UnsupportedEncodingException = "Unsupported encoding exception.";
+    
+    /**  Serial version UID. */
+	private static final long serialVersionUID = -136587601709625428L;
 }

@@ -44,10 +44,25 @@ package com.itextpdf.html2pdf.exception;
 
 import java.text.MessageFormat;
 
+/**
+ * Runtime exception in case a CSS applier can't be initialized.
+ */
 public class CssApplierInitializationException extends RuntimeException {
-
-    public CssApplierInitializationException(String message, String className, String tag){
+	
+	/**
+	 * Creates a new <code>CssApplierInitializationException</code> instance.
+	 *
+	 * @param message the message
+	 * @param className the class name of the CSS applier
+	 * @param tag the key
+	 */
+	public CssApplierInitializationException(String message, String className, String tag){
         super(MessageFormat.format(message,className, tag));
     }
+    
+    /** The message template in case reflection failed. */
     public static final String ReflectionFailed = "Could not instantiate CssApplier-class {0} for tag {1}.";
+
+    /**  Serial version UID. */
+	private static final long serialVersionUID = -3098207669765613290L;
 }

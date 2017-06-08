@@ -43,9 +43,6 @@
 package com.itextpdf.html2pdf.css.resolve.shorthand.impl;
 
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.CssDeclaration;
-import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
-import java.util.List;
 
 public class OutlineShorthandResolver extends AbstractBorderShorthandResolver {
     @Override
