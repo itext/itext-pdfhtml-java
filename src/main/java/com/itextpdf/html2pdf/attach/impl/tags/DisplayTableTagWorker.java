@@ -59,17 +59,34 @@ import com.itextpdf.layout.property.UnitValue;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TagWorker class for a table element.
+ */
 public class DisplayTableTagWorker implements ITagWorker {
 
+    /** Two-dimensional array of <code>Cell</code> objects. */
     private List<List<Cell>> columns = new ArrayList<>();
+    
+    /** The table. */
     private IPropertyContainer table;
+    
+    /** The helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
 
+    /**
+     * Creates a new <code>DisplayTableTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public DisplayTableTagWorker(IElementNode element, ProcessorContext context) {
         columns.add(new ArrayList<Cell>());
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         flushInlineElements();
@@ -98,12 +115,18 @@ public class DisplayTableTagWorker implements ITagWorker {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         inlineHelper.add(content);
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         boolean displayTableCell = childTagWorker instanceof IDisplayAware && CssConstants.TABLE_CELL.equals(((IDisplayAware) childTagWorker).getDisplay());
@@ -137,11 +160,20 @@ public class DisplayTableTagWorker implements ITagWorker {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return table;
     }
 
+    /**
+     * Processes a cell.
+     *
+     * @param cell the cell
+     * @param displayTableCell
+     */
     private void processCell(Cell cell, boolean displayTableCell) {
         flushInlineElements();
         if (displayTableCell) {
@@ -157,6 +189,9 @@ public class DisplayTableTagWorker implements ITagWorker {
         }
     }
 
+    /**
+     * Flushes the waiting inline elements.
+     */
     private void flushInlineElements() {
         if (inlineHelper.getSanitizedWaitingLeaves().size() > 0) {
             Cell waitingLavesCell = createWrapperCell();
@@ -165,6 +200,11 @@ public class DisplayTableTagWorker implements ITagWorker {
         }
     }
 
+    /**
+     * Creates a wrapper cell.
+     *
+     * @return the cell
+     */
     private Cell createWrapperCell() {
         return new Cell().setBorder(Border.NO_BORDER).setPadding(0);
     }

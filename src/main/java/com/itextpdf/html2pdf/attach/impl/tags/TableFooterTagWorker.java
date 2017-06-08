@@ -45,7 +45,17 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 
+/**
+ * TagWorker class for the footer of a table.
+ */
 public class TableFooterTagWorker extends TableTagWorker {
+    
+    /**
+     * Creates a new <code>TableFooterTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public TableFooterTagWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
         setFooter();

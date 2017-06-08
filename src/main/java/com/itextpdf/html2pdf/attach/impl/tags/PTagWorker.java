@@ -51,27 +51,48 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Paragraph;
 
+/**
+ * TagWorker class for the <code>p</code> element.
+ */
 public class PTagWorker implements ITagWorker {
 
+    /** The paragraph object. */
     private Paragraph paragraph;
+    
+    /** Helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
 
+    /**
+     * Creates a new <code>PTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public PTagWorker(IElementNode element, ProcessorContext context) {
         paragraph = new Paragraph();
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         inlineHelper.flushHangingLeaves(paragraph);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         inlineHelper.add(content);
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         IPropertyContainer element = childTagWorker.getElementResult();
@@ -92,6 +113,9 @@ public class PTagWorker implements ITagWorker {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return paragraph;

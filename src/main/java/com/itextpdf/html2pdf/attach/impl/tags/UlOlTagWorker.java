@@ -55,27 +55,48 @@ import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.Property;
 
+/**
+ * TagWorker class for the <code>ul</code> and <code>ol</code> elements.
+ */
 public class UlOlTagWorker implements ITagWorker {
 
+    /** The list object. */
     private List list;
+    
+    /** Helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
 
+    /**
+     * Creates a new <code>UlOlTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public UlOlTagWorker(IElementNode element, ProcessorContext context) {
         list = new List().setListSymbol("");
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         processUnlabeledListItem();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         inlineHelper.add(content);
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         IPropertyContainer child = childTagWorker.getElementResult();
@@ -94,11 +115,17 @@ public class UlOlTagWorker implements ITagWorker {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return list;
     }
 
+    /**
+     * Processes an unlabeled list item.
+     */
     private void processUnlabeledListItem() {
         Paragraph p = inlineHelper.createParagraphContainer();
         inlineHelper.flushHangingLeaves(p);
@@ -107,6 +134,11 @@ public class UlOlTagWorker implements ITagWorker {
         }
     }
 
+    /**
+     * Adds an unlabeled list item.
+     *
+     * @param item the item
+     */
     private void addUnlabeledListItem(IBlockElement item) {
         ListItem li = new ListItem();
         li.add(item);
@@ -114,6 +146,12 @@ public class UlOlTagWorker implements ITagWorker {
         list.add(li);
     }
 
+    /**
+     * Adds a child.
+     *
+     * @param child the child
+     * @return true, if successful
+     */
     private boolean addBlockChild(IPropertyContainer child) {
         processUnlabeledListItem();
         if (child instanceof ListItem) {

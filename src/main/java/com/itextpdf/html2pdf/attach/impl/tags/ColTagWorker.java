@@ -50,33 +50,61 @@ import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 
+/**
+ * TagWorker class for a column.
+ */
 public class ColTagWorker implements ITagWorker {
+    
+    /** The column. */
     private ColWrapper col;
 
+    /**
+     * Creates a new <code>ColTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public ColTagWorker(IElementNode element, ProcessorContext context) {
         Integer span = CssUtils.parseInteger(element.getAttribute(AttributeConstants.SPAN));
         col = new ColWrapper(span != null ? (int)span : 1);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         return content == null || content.trim().isEmpty();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return null;
     }
 
+    /**
+     * Gets the column.
+     *
+     * @return the column
+     */
     public ColWrapper getColumn() {
         return col;
     }

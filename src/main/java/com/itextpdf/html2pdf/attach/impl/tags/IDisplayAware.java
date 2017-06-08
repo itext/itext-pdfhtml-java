@@ -42,8 +42,17 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
+/**
+ * Interface for those TagWorker implementations that deal
+ * with tags that can have a display value.
+ */
 public interface IDisplayAware {
 
+    /**
+     * Gets the display value.
+     *
+     * @return the display value
+     */
     String getDisplay();
 
 }

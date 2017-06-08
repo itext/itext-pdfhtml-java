@@ -50,12 +50,24 @@ import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.element.ILeafElement;
 
+/**
+ * TagWorker class for the page count.
+ */
 public class PageCountWorker extends SpanTagWorker {
 
+    /**
+     * Creates a new <code>PageCountTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public PageCountWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         boolean totalPageCount = element instanceof PageCountElementNode && ((PageCountElementNode) element).isTotalPageCount();

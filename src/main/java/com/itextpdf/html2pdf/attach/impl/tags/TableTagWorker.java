@@ -52,14 +52,35 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
 
+/**
+ * TagWorker class for the <code>table</code> element.
+ */
 public class TableTagWorker implements ITagWorker {
+    
+    /** The table wrapper. */
     private TableWrapper tableWrapper;
+    
+    /** The table. */
     private Table table;
+    
+    /** The footer. */
     private boolean footer;
+    
+    /** The header. */
     private boolean header;
+    
+    /** The parent tag worker. */
     private ITagWorker parentTagWorker;
+    
+    /** The colgroups helper. */
     private WaitingColgroupsHelper colgroupsHelper;
 
+    /**
+     * Creates a new <code>TableTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public TableTagWorker(IElementNode element, ProcessorContext context) {
         tableWrapper = new TableWrapper();
         parentTagWorker = context.getState().empty() ? null : context.getState().top();
@@ -70,16 +91,25 @@ public class TableTagWorker implements ITagWorker {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         table = tableWrapper.toTable(colgroupsHelper);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         return parentTagWorker != null && parentTagWorker.processContent(content, context);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         if (childTagWorker instanceof TrTagWorker) {
@@ -126,19 +156,31 @@ public class TableTagWorker implements ITagWorker {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return table;
     }
 
+    /**
+     * Method to indicate that this is actually a {@link TableFooterTagWorker} instance.
+     */
     public void setFooter() {
         footer = true;
     }
 
+    /**
+     * Method to indicate that this is actually a {@link TableHeaderTagWorker} instance.
+     */
     public void setHeader() {
         header = true;
     }
 
+    /**
+     * Applies the column styles.
+     */
     public void applyColStyles() {
         if (colgroupsHelper != null) {
             colgroupsHelper.applyColStyles();

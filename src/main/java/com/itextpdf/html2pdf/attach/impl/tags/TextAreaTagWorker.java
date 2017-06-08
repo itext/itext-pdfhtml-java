@@ -51,11 +51,23 @@ import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 
+/**
+ * TagWorker class for the <code>textarea</code> element.
+ */
 public class TextAreaTagWorker implements ITagWorker {
 
+    /** The Constant DEFAULT_TEXTAREA_NAME. */
     private static final String DEFAULT_TEXTAREA_NAME = "TextArea";
+    
+    /** The text area. */
     private TextArea textArea;
 
+    /**
+     * Creates a new <code>TextAreaTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public TextAreaTagWorker(IElementNode element, ProcessorContext context) {
         String name = element.getAttribute(AttributeConstants.ID);
         if (name == null) {
@@ -70,10 +82,16 @@ public class TextAreaTagWorker implements ITagWorker {
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         if (content.startsWith("\r\n")) {
@@ -85,11 +103,17 @@ public class TextAreaTagWorker implements ITagWorker {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return textArea;
