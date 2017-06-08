@@ -42,9 +42,15 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
+/**
+ * Enumeration of page count types.
+ */
 public enum PageCountType {
 
+    /** Type for the current page number. */
     CURRENT_PAGE_NUMBER,
+    
+    /** Type for the total page count. */
     TOTAL_PAGE_COUNT
     
 }

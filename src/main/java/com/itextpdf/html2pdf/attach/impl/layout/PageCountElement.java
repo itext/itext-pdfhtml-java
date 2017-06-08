@@ -45,13 +45,22 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.renderer.IRenderer;
 
+/**
+ * {@link Text} implementation to be used for the page count.
+ */
 public class PageCountElement extends Text {
 
+    /**
+     * Instantiates a new <code>PageCountElement</code>.
+     */
     public PageCountElement() {
         // Workaround to match correct font containing number glyphs
         super("1234567890");
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.element.Text#makeNewRenderer()
+     */
     @Override
     public IRenderer makeNewRenderer() {
         return new PageCountRenderer(this);
