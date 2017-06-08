@@ -51,11 +51,24 @@ import com.itextpdf.layout.property.Property;
 
 import static com.itextpdf.kernel.pdf.PdfName.Link;
 
+/**
+ * TagWorker class for a link block.
+ */
 public class ABlockTagWorker extends DivTagWorker {
+    
+    /**
+     * Creates a new <code>ABlockTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public ABlockTagWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         super.processEnd(element, context);

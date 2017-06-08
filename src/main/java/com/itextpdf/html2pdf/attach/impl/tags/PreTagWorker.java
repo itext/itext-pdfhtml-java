@@ -46,14 +46,27 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 
+/**
+ * TagWorker class for the <code>pre</code> element.
+ */
 public class PreTagWorker extends DivTagWorker {
 
+    /** Keeps track to see if any content was processed. */
     private boolean anyContentProcessed = false;
 
+    /**
+     * Creates a new <code>PreTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public PreTagWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         // It seems that browsers just skip first newline symbol, if any
@@ -64,6 +77,9 @@ public class PreTagWorker extends DivTagWorker {
         return super.processContent(content, context);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         anyContentProcessed = true;

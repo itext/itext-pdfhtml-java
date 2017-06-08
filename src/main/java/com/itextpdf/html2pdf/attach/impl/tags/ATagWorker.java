@@ -52,12 +52,24 @@ import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.property.Property;
 
+/**
+ * TagWorker class for the <code>a</code> element.
+ */
 public class ATagWorker extends SpanTagWorker {
 
+    /**
+     * Creates a new <code>ATagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public ATagWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         super.processEnd(element, context);

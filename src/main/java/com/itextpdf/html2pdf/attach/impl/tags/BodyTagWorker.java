@@ -47,18 +47,34 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 
+/**
+ * TagWorker class for the <code>body</code> element.
+ */
 public class BodyTagWorker implements ITagWorker {
 
+    /** The parent tag worker. */
     private ITagWorker parentTagWorker;
 
+    /**
+     * Creates a new <code>BodyTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public BodyTagWorker(IElementNode element, ProcessorContext context) {
         parentTagWorker = context.getState().empty() ? null : context.getState().top();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         if (parentTagWorker == null) {
@@ -68,6 +84,9 @@ public class BodyTagWorker implements ITagWorker {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         if (parentTagWorker == null) {
@@ -77,6 +96,9 @@ public class BodyTagWorker implements ITagWorker {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return null;

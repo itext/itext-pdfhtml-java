@@ -50,23 +50,43 @@ import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 
+/**
+ * TagWorker class for a column group.
+ */
 public class ColgroupTagWorker implements ITagWorker {
+    
+    /** The column group. */
     private ColgroupWrapper colgroup;
 
+    /**
+     * Creates a new <code>ColgroupTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public ColgroupTagWorker(IElementNode element, ProcessorContext context) {
         Integer span = CssUtils.parseInteger(element.getAttribute(AttributeConstants.SPAN));
         colgroup = new ColgroupWrapper(span != null ? (int)span : 1);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         return content == null || content.trim().isEmpty();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         if (childTagWorker instanceof ColTagWorker) {
@@ -76,11 +96,19 @@ public class ColgroupTagWorker implements ITagWorker {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return null;
     }
 
+    /**
+     * Gets the column group.
+     *
+     * @return the column group
+     */
     public ColgroupWrapper getColgroup() {
         return colgroup;
     }

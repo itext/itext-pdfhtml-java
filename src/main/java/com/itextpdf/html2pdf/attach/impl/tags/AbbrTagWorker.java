@@ -48,23 +48,43 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
 
+/**
+ * Tag worker class for the <code>abbr</code> element.
+ */
 public class AbbrTagWorker extends SpanTagWorker {
 
+    /**
+     * Creates a new <code>AbbrTagWorker</code> instance.
+     *
+     * @param tag the tag
+     * @param context the context
+     */
     public AbbrTagWorker(IElementNode tag, ProcessorContext context) {
         super(tag, context);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         return super.processContent(content, context);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         super.processEnd(element, context);
         enrichSpan(element.getAttribute(AttributeConstants.TITLE));
     }
 
+    /**
+     * Enrich the span with accessibility features, more specifically the expansion text.
+     *
+     * @param expansionText the expansion text
+     */
     private void enrichSpan(String expansionText) {
         for (IPropertyContainer container : getAllElements()) {
             if (container instanceof Text) {

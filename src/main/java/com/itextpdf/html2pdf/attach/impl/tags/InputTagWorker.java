@@ -59,11 +59,23 @@ import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
 
+/**
+ * TagWorker class for the <code>input</code> element.
+ */
 public class InputTagWorker implements ITagWorker, IDisplayAware {
 
+    /** The form element. */
     private IElement formElement;
+    
+    /** The display. */
     private String display;
 
+    /**
+     * Creates a new <code>InputTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public InputTagWorker(IElementNode element, ProcessorContext context) {
         String inputType = element.getAttribute(AttributeConstants.TYPE);
         String value = element.getAttribute(AttributeConstants.VALUE);
@@ -91,26 +103,41 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
 
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.tags.IDisplayAware#getDisplay()
+     */
     @Override
     public String getDisplay() {
         return display;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return formElement;

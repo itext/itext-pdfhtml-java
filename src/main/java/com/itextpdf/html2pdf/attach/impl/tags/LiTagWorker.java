@@ -59,12 +59,26 @@ import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
 
+/**
+ * TagWorker class for the <code>li</code> element.
+ */
 public class LiTagWorker implements ITagWorker {
 
+    /** The list item. */
     protected ListItem listItem;
+    
+    /** The list. */
     protected List list;
+    
+    /** The inline helper. */
     private WaitingInlineElementsHelper inlineHelper;
 
+    /**
+     * Creates a new <code>LiTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public LiTagWorker(IElementNode element, ProcessorContext context) {
         listItem = new ListItem();
         if (!(context.getState().top() instanceof UlOlTagWorker)) {
@@ -81,17 +95,26 @@ public class LiTagWorker implements ITagWorker {
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         inlineHelper.flushHangingLeaves(listItem);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         inlineHelper.add(content);
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         if (childTagWorker instanceof SpanTagWorker) {
@@ -109,11 +132,20 @@ public class LiTagWorker implements ITagWorker {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return list != null ? (IPropertyContainer) list : listItem;
     }
 
+    /**
+     * Processes a child.
+     *
+     * @param propertyContainer the property container
+     * @return true, if successful
+     */
     private boolean processChild(IPropertyContainer propertyContainer) {
         inlineHelper.flushHangingLeaves(listItem);
         if (propertyContainer instanceof Image) {

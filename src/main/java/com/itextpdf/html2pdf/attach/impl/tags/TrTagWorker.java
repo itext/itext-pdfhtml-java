@@ -49,11 +49,23 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 
+/**
+ * TagWorker class for the <code>tr</code> element.
+ */
 public class TrTagWorker implements ITagWorker {
 
+    /** The row wrapper. */
     private TableRowWrapper rowWrapper;
+    
+    /** The parent tag worker. */
     private ITagWorker parentTagWorker;
 
+    /**
+     * Creates a new <code>TrTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public TrTagWorker(IElementNode element, ProcessorContext context) {
         rowWrapper = new TableRowWrapper();
         parentTagWorker = context.getState().empty() ? null : context.getState().top();
@@ -62,16 +74,25 @@ public class TrTagWorker implements ITagWorker {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
 
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         return parentTagWorker != null && parentTagWorker.processContent(content, context);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         if (childTagWorker.getElementResult() instanceof Cell) {
@@ -82,11 +103,19 @@ public class TrTagWorker implements ITagWorker {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return null;
     }
 
+    /**
+     * Gets the table row wrapper.
+     *
+     * @return the table row wrapper
+     */
     public TableRowWrapper getTableRowWrapper() {
         return rowWrapper;
     }

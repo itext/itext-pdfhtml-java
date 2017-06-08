@@ -54,12 +54,26 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 
+/**
+ * TagWorker class for the <code>td</code> element.
+ */
 public class TdTagWorker implements ITagWorker, IDisplayAware {
 
+    /** The cell. */
     private Cell cell;
+    
+    /** The inline helper. */
     private WaitingInlineElementsHelper inlineHelper;
+    
+    /** The display. */
     private String display;
 
+    /**
+     * Creates a new <code>TdTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public TdTagWorker(IElementNode element, ProcessorContext context) {
         Integer colspan = CssUtils.parseInteger(element.getAttribute(AttributeConstants.COLSPAN));
         Integer rowspan = CssUtils.parseInteger(element.getAttribute(AttributeConstants.ROWSPAN));
@@ -72,17 +86,26 @@ public class TdTagWorker implements ITagWorker, IDisplayAware {
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         inlineHelper.flushHangingLeaves(cell);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         inlineHelper.add(content);
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         boolean processed = false;
@@ -105,16 +128,28 @@ public class TdTagWorker implements ITagWorker, IDisplayAware {
         return processed;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return cell;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.tags.IDisplayAware#getDisplay()
+     */
     @Override
     public String getDisplay() {
         return display;
     }
 
+    /**
+     * Processes a child element.
+     *
+     * @param propertyContainer the property container
+     * @return true, if successful
+     */
     private boolean processChild(IPropertyContainer propertyContainer) {
         boolean processed = false;
         inlineHelper.flushHangingLeaves(cell);

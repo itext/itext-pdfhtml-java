@@ -55,12 +55,26 @@ import com.itextpdf.layout.property.Property;
 
 import java.util.Map;
 
+/**
+ * TagWorker class for the <code>div</code> element.
+ */
 public class DivTagWorker implements ITagWorker, IDisplayAware {
 
+    /** The div element. */
     private Div div;
+    
+    /** Helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
+    
+    /** The display value. */
     private String display;
 
+    /**
+     * Creates a new <code>DivTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public DivTagWorker(IElementNode element, ProcessorContext context) {
         div = new Div();
         Map<String, String> styles = element.getStyles();
@@ -69,17 +83,26 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         inlineHelper.flushHangingLeaves(div);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         inlineHelper.add(content);
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         boolean processed = false;
@@ -129,16 +152,28 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
         return processed;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return div;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.tags.IDisplayAware#getDisplay()
+     */
     @Override
     public String getDisplay() {
         return display;
     }
 
+    /**
+     * Adds a child element to the div block.
+     *
+     * @param element the element
+     * @return true, if successful
+     */
     private boolean addBlockChild(com.itextpdf.layout.element.IElement element) {
         boolean waitingLeavesContainsFloat = false;
         for (ILeafElement waitingLeaf : inlineHelper.getWaitingLeaves()) {
@@ -167,11 +202,20 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
         return processed;
     }
 
+    /**
+     * Checks if the element has a float layout.
+     *
+     * @param element the element
+     * @return true, if the element has a float layout
+     */
     private boolean elementIsFloated(IElement element) {
         FloatPropertyValue floatPropertyValue = element.<FloatPropertyValue>getProperty(Property.FLOAT);
         return floatPropertyValue != null && !floatPropertyValue.equals(FloatPropertyValue.NONE);
     }
 
+    /**
+     * Post-processes the hanging leaves of the waiting inline elements.
+     */
     private void postProcessInlineGroup() {
         inlineHelper.flushHangingLeaves(div);
     }

@@ -60,11 +60,23 @@ import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.property.Property;
 
+/**
+ * TagWorker class for the <code>html</code> element.
+ */
 public class HtmlTagWorker implements ITagWorker {
 
+    /** The iText document instance. */
     private Document document;
+    
+    /** Helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
 
+    /**
+     * Creates a new <code>HtmlTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public HtmlTagWorker(IElementNode element, ProcessorContext context) {
         boolean immediateFlush = !context.getCssContext().isPagesCounterPresent();
         PdfDocument pdfDocument = context.getPdfDocument();
@@ -81,17 +93,26 @@ public class HtmlTagWorker implements ITagWorker {
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         inlineHelper.flushHangingLeaves(document);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         inlineHelper.add(content);
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         boolean processed;
@@ -125,15 +146,31 @@ public class HtmlTagWorker implements ITagWorker {
         return processed;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return document;
     }
 
+    /**
+     * Processes the page rules.
+     *
+     * @param rootNode the root node
+     * @param cssResolver the css resolver
+     * @param context the context
+     */
     public void processPageRules(INode rootNode, ICssResolver cssResolver, ProcessorContext context) {
         ((HtmlDocumentRenderer)document.getRenderer()).processPageRules(rootNode, cssResolver, context);
     }
     
+    /**
+     * Processes a block child.
+     *
+     * @param element the element
+     * @return true, if successful
+     */
     private boolean processBlockChild(IPropertyContainer element) {
         postProcessInlineGroup();
         if (element instanceof IBlockElement) {
@@ -145,6 +182,9 @@ public class HtmlTagWorker implements ITagWorker {
         return true;
     }
 
+    /**
+     * Post-processes the hanging leaves of the waiting inline elements.
+     */
     private void postProcessInlineGroup() {
         inlineHelper.flushHangingLeaves(document);
     }

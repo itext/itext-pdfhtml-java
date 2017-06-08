@@ -51,12 +51,27 @@ import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 
+// TODO: Auto-generated Javadoc
+/**
+ * TagWorker class for a button element.
+ */
 public class ButtonTagWorker implements ITagWorker, IDisplayAware {
 
+    /** The Constant DEFAULT_BUTTON_NAME. */
     private static final String DEFAULT_BUTTON_NAME = "Button";
+    
+    /** The button. */
     private Button button;
+    
+    /** The display value. */
     private String display;
 
+    /**
+     * Creates a new <code>ButtonTagWorker</code> instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public ButtonTagWorker(IElementNode element, ProcessorContext context) {
         String name = element.getAttribute(AttributeConstants.ID);
         if (name == null) {
@@ -68,26 +83,41 @@ public class ButtonTagWorker implements ITagWorker, IDisplayAware {
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.tags.IDisplayAware#getDisplay()
+     */
     @Override
     public String getDisplay() {
         return display;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         button.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, content);
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
         return button;
