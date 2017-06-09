@@ -63,6 +63,9 @@ class EncodeUtil {
     /** The default encoding ("UTF-8"). */
     static String dfltEncName = "UTF-8";
 
+    /** The default uri scheme ("file"). */
+    static String dfltUriScheme = "file";
+
     static {
         dontNeedEncoding = new BitSet(256);
         int i;
@@ -91,23 +94,35 @@ class EncodeUtil {
     }
 
     /**
-     * Encodes a <code>String</code> in the default encoding to an HTML-encoded <code>String</code>.
+     * Encodes a <code>String</code> in the default encoding and default uri scheme to an HTML-encoded <code>String</code>.
      *
      * @param s the original string
      * @return the encoded string
      */
     public static String encode(String s) {
-        return encode(s, dfltEncName);
+        return encode(s, dfltUriScheme);
     }
 
     /**
-     * Encodes a <code>String</code> in a specific encoding to an HTML-encoded <code>String</code>.
+     * Encodes a <code>String</code> in a default encoding and uri scheme to an HTML-encoded <code>String</code>.
      *
      * @param s the original string
+     * @param scheme the uri scheme
+     * @return the encoded string
+     */
+    public static String encode(String s, String scheme) {
+        return encode(s, scheme, dfltEncName);
+    }
+
+    /**
+     * Encodes a <code>String</code> in a specific encoding and uri scheme to an HTML-encoded <code>String</code>.
+     *
+     * @param s the original string
+     * @param scheme the uri scheme
      * @param enc the encoding
      * @return the encoded string
      */
-    public static String encode(String s, String enc) {
+    public static String encode(String s, String scheme, String enc) {
         boolean needToChange = false;
         StringBuffer out = new StringBuffer(s.length());
         Charset charset;
@@ -128,6 +143,10 @@ class EncodeUtil {
             if (dontNeedEncoding.get(c)) {
                 out.append((char) c);
                 i++;
+            } else if (!"file".equals(scheme) && '#' == s.charAt(i) && i+1 < s.length() && '#' == s.charAt(i+1)){
+                out.append((char) c);
+                needToChange = true;
+                i+=2;
             } else {
                 // convert to external encoding before hex conversion
                 do {

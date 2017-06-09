@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.resolver.resource;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -89,7 +90,8 @@ public class UriResolver {
         URL resolvedUrl = null;
         uriString = uriString.trim();
         // decode and then encode uri string in order to process unsafe characters correctly
-        uriString = EncodeUtil.encode(DecodeUtil.decode(uriString));
+        String scheme = getUriStringScheme(uriString);
+        uriString = EncodeUtil.encode(DecodeUtil.decode(uriString, scheme), scheme);
         if (isLocal) {
             // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
             // resources around the file system even if on web page the path started with '\'
@@ -121,7 +123,8 @@ public class UriResolver {
      */
     private void resolveBaseUrlOrPath(String base) {
         base = base.trim();
-        base = EncodeUtil.encode(DecodeUtil.decode(base));
+        String scheme = getUriStringScheme(base);
+        base = EncodeUtil.encode(DecodeUtil.decode(base, scheme), scheme);
         baseUrl = baseUriAsUrl(base);
         if (baseUrl == null) {
             baseUrl = uriAsFileUrl(base);
@@ -171,6 +174,19 @@ public class UriResolver {
         }
 
         return baseAsFileUrl;
+    }
+
+    private String getUriStringScheme(String uriString) {
+        String result = null;
+        if (uriString.contains(":")) {
+            result = uriString.split(":", 1)[0];
+        } else if (null != baseUrl) {
+            try {
+                result = baseUrl.toURI().getScheme();
+            } catch (URISyntaxException e) {
+            }
+        }
+        return result;
     }
 
 }
