@@ -48,16 +48,40 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Abstract {@link IShorthandResolver} implementation for box definitions.
+ */
 public abstract class AbstractBoxShorthandResolver implements IShorthandResolver {
 
+    /** The template for -left properties. */
     private static final String _0_LEFT_1 = "{0}-left{1}";
+    
+    /** The template for -right properties. */
     private static final String _0_RIGHT_1 = "{0}-right{1}";
+    
+    /** The template for -bottom properties. */
     private static final String _0_BOTTOM_1 = "{0}-bottom{1}";
+    
+    /** The template for -top properties. */
     private static final String _0_TOP_1 = "{0}-top{1}";
 
+    /**
+     * Gets the prefix of a property.
+     *
+     * @return the prefix
+     */
     protected abstract String getPrefix();
+    
+    /**
+     * Gets the postfix of a property.
+     *
+     * @return the postfix
+     */
     protected abstract String getPostfix();
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
+     */
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
         String[] props = shorthandExpression.split("\\s+");

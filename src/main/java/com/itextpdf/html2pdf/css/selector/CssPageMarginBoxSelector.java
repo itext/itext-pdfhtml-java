@@ -45,20 +45,39 @@ package com.itextpdf.html2pdf.css.selector;
 import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
+/**
+ * {@link ICssSelector} implementation for CSS page margin box selectors.
+ */
 public class CssPageMarginBoxSelector implements ICssSelector {
+    
+    /** The page margin box name. */
     private String pageMarginBoxName;
+    
+    /** The page selector. */
     private ICssSelector pageSelector;
 
+    /**
+     * Creates a new <code>CssPageMarginBoxSelector</code> instance.
+     *
+     * @param pageMarginBoxName the page margin box name
+     * @param pageSelector the page selector
+     */
     public CssPageMarginBoxSelector(String pageMarginBoxName, ICssSelector pageSelector) {
         this.pageMarginBoxName = pageMarginBoxName;
         this.pageSelector = pageSelector;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.ICssSelector#calculateSpecificity()
+     */
     @Override
     public int calculateSpecificity() {
         return pageSelector.calculateSpecificity();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.ICssSelector#matches(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public boolean matches(INode node) {
         if (!(node instanceof PageMarginBoxContextNode)) {

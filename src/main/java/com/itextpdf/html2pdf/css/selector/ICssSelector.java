@@ -44,7 +44,23 @@ package com.itextpdf.html2pdf.css.selector;
 
 import com.itextpdf.html2pdf.html.node.INode;
 
+/**
+ * Interface for CSS Selector classes.
+ */
 public interface ICssSelector {
+    
+    /**
+     * Calculates the specificity.
+     *
+     * @return the specificity
+     */
     int calculateSpecificity();
+    
+    /**
+     * Checks if a node matches the selector.
+     *
+     * @param node the node
+     * @return true, if the selector is a match for the node
+     */
     boolean matches(INode node);
 }

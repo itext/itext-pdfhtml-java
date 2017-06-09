@@ -51,20 +51,43 @@ import com.itextpdf.html2pdf.html.node.INode;
 
 import java.util.List;
 
+/**
+ * {@link ICssSelector} implementation for CSS selectors.
+ */
 public class CssSelector extends AbstractCssSelector {
 
+    /**
+     * Creates a new <code>CssSelector</code> instance.
+     *
+     * @param selectorItems the selector items
+     */
     public CssSelector(List<ICssSelectorItem> selectorItems) {
         super(selectorItems);
     }
 
+    /**
+     * Creates a new <code>CssSelector</code> instance.
+     *
+     * @param selector the selector
+     */
     public CssSelector(String selector) {
         this(CssSelectorParser.parseSelectorItems(selector));
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.ICssSelector#matches(com.itextpdf.html2pdf.html.node.INode)
+     */
     public boolean matches(INode element) {
         return matches(element, selectorItems.size() - 1);
     }
 
+    /**
+     * Checks if a node matches the selector.
+     *
+     * @param element the node
+     * @param lastSelectorItemInd the index of the last selector
+     * @return true, if there's a match
+     */
     private boolean matches(INode element, int lastSelectorItemInd) {
         if (!(element instanceof IElementNode)) {
             return false;

@@ -50,14 +50,30 @@ import com.itextpdf.html2pdf.css.util.CssUtils;
 import java.text.MessageFormat;
 import java.util.*;
 
+/**
+ * Abstract {@link IShorthandResolver} implementation for borders.
+ */
 public abstract class AbstractBorderShorthandResolver implements IShorthandResolver {
 
+    /** The template for -width properties. */
     private static final String _0_WIDTH = "{0}-width";
+    
+    /** The template for -style properties. */
     private static final String _0_STYLE = "{0}-style";
+    
+    /** The template for -color properties. */
     private static final String _0_COLOR = "{0}-color";
 
+    /**
+     * Gets the prefix of a property.
+     *
+     * @return the prefix
+     */
     protected abstract String getPrefix();
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
+     */
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
         String widthPropName = MessageFormat.format(_0_WIDTH, getPrefix());

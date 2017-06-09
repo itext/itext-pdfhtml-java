@@ -52,21 +52,32 @@ import org.slf4j.LoggerFactory;
 import java.text.MessageFormat;
 import java.util.*;
 
+/**
+ * {@link IShorthandResolver} implementation for fonts.
+ */
 public class FontShorthandResolver implements IShorthandResolver {
+    
+    /** Unsupported shorthand values. */
     private static final Set<String> UNSUPPORTED_VALUES_OF_FONT_SHORTHAND = new HashSet<>(Arrays.asList(
             CssConstants.CAPTION, CssConstants.ICON, CssConstants.MENU, CssConstants.MESSAGE_BOX,
             CssConstants.SMALL_CAPTION, CssConstants.STATUS_BAR
     ));
 
+    /** Font weight values. */
     private static final Set<String> FONT_WEIGHT_NOT_DEFAULT_VALUES = new HashSet<>(Arrays.asList(
             CssConstants.BOLD, CssConstants.BOLDER, CssConstants.LIGHTER,
             "100", "200", "300", "400", "500", "600", "700", "800", "900"
     ));
+    
+    /** Font size values. */
     private static final Set<String> FONT_SIZE_VALUES = new HashSet<>(Arrays.asList(
             CssConstants.MEDIUM, CssConstants.XX_SMALL, CssConstants.X_SMALL, CssConstants.SMALL, CssConstants.LARGE,
             CssConstants.X_LARGE, CssConstants.XX_LARGE, CssConstants.SMALLER, CssConstants.LARGER
     ));
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
+     */
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
         if (UNSUPPORTED_VALUES_OF_FONT_SHORTHAND.contains(shorthandExpression)) {
@@ -123,6 +134,12 @@ public class FontShorthandResolver implements IShorthandResolver {
         return cssDeclarations;
     }
 
+    /**
+     * Gets the font properties.
+     *
+     * @param shorthandExpression the shorthand expression
+     * @return the font properties
+     */
     private List<String> getFontProperties(String shorthandExpression) {
         boolean doubleQuotesAreSpotted = false;
         boolean singleQuoteIsSpotted = false;
