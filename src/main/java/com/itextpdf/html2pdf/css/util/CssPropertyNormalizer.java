@@ -47,8 +47,17 @@ import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
 
+/**
+ * Utilities class with functionality to normalize CSS properties.
+ */
 class CssPropertyNormalizer {
 
+    /**
+     * Normalize a property.
+     *
+     * @param str the property
+     * @return the normalized property
+     */
     public static String normalize(String str) {
         StringBuilder buffer = new StringBuilder();
         int segmentStart = 0;
@@ -66,6 +75,14 @@ class CssPropertyNormalizer {
         return buffer.toString();
     }
 
+    /**
+     * Appends and formats a segment.
+     *
+     * @param buffer the current buffer
+     * @param source a source
+     * @param start where to start in the source
+     * @param end where to end in the source
+     */
     private static void appendAndFormatSegment(StringBuilder buffer, String source, int start, int end) {
         String[] parts = source.substring(start, end).split("\\s");
         StringBuilder sb = new StringBuilder();
@@ -85,6 +102,15 @@ class CssPropertyNormalizer {
         buffer.append(sb);
     }
 
+    /**
+     * Appends quoted content.
+     *
+     * @param buffer the current buffer
+     * @param source a source
+     * @param start where to start in the source
+     * @param endQuoteSymbol the end quote symbol
+     * @return the new position in the source
+     */
     private static int appendQuoteContent(StringBuilder buffer, String source, int start, char endQuoteSymbol) {
         int end = findNextUnescapedChar(source, endQuoteSymbol, start);
         if (end == -1) {
@@ -95,6 +121,14 @@ class CssPropertyNormalizer {
         return end;
     }
 
+    /**
+     * Find the next unescaped character.
+     *
+     * @param source a source
+     * @param ch the character to look for
+     * @param startIndex where to start looking
+     * @return the position of the next unescaped character
+     */
     private static int findNextUnescapedChar(String source, char ch, int startIndex) {
         int symbolPos = source.indexOf(ch, startIndex);
         if (symbolPos == -1) {
@@ -107,10 +141,22 @@ class CssPropertyNormalizer {
         return (symbolPos - afterNoneEscapePos) % 2 == 0 ? symbolPos : findNextUnescapedChar(source, ch, symbolPos + 1);
     }
 
+    /**
+     * Checks if spaces can be trimmed after a specific character.
+     *
+     * @param ch the character
+     * @return true, if spaces can be trimmed after the character
+     */
     private static boolean trimSpaceAfter(char ch) {
         return ch == ',' || ch == '(';
     }
 
+    /**
+     * Checks if spaces can be trimmed before a specific character.
+     *
+     * @param ch the character
+     * @return true, if spaces can be trimmed before the character
+     */
     private static boolean trimSpaceBefore(char ch) {
         return ch == ',' || ch == ')';
     }

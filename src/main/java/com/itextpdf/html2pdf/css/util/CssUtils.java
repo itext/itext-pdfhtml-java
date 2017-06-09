@@ -51,15 +51,33 @@ import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
 
+/**
+ * Utilities class for CSS operations.
+ */
 public class CssUtils {
 
+    /**
+     * Creates a new <code>CssUtils</code> instance.
+     */
     private CssUtils() {
     }
 
+    /**
+     * Normalizes a CSS property.
+     *
+     * @param str the property
+     * @return the normalized property
+     */
     public static String normalizeCssProperty(String str) {
         return str == null ? null : CssPropertyNormalizer.normalize(str);
     }
 
+    /**
+     * Removes double spaces and trims a string.
+     *
+     * @param str the string
+     * @return the string without the unnecessary spaces
+     */
     public static String removeDoubleSpacesAndTrim(String str) {
         String[] parts = str.split("\\s");
         StringBuilder sb = new StringBuilder();
@@ -74,6 +92,12 @@ public class CssUtils {
         return sb.toString();
     }
 
+    /**
+     * Parses an integer without throwing an exception if something goes wrong.
+     *
+     * @param str a string that might be an integer value
+     * @return the integer value, or null if something went wrong
+     */
     public static Integer parseInteger(String str) {
         if (str == null) {
             return null;
@@ -85,6 +109,12 @@ public class CssUtils {
         }
     }
 
+    /**
+     * Parses a float without throwing an exception if something goes wrong.
+     *
+     * @param str a string that might be a float value
+     * @return the float value, or null if something went wrong
+     */
     public static Float parseFloat(String str) {
         if (str == null) {
             return null;
@@ -96,6 +126,12 @@ public class CssUtils {
         }
     }
 
+    /**
+     * Parses an aspect ratio into an array with two integers.
+     *
+     * @param str a string that might contain two integer values
+     * @return the aspect ratio as an array of two integer values
+     */
     public static int[] parseAspectRatio(String str) {
         int indexOfSlash = str.indexOf('/');
         try {
@@ -159,6 +195,12 @@ public class CssUtils {
         return f;
     }
 
+    /**
+     * Parses the absolute length.
+     *
+     * @param length the length as a string
+     * @return the length as a float
+     */
     public static float parseAbsoluteLength(String length) {
         return parseAbsoluteLength(length, CssConstants.PX);
     }
@@ -187,6 +229,14 @@ public class CssUtils {
         return (float)f;
     }
 
+    /**
+     * Parses the length value to pt.
+     *
+     * @param value the value
+     * @param emValue the em value
+     * @param remValue the root em value
+     * @return the unit value
+     */
     public static UnitValue parseLengthValueToPt(final String value, final float emValue, final float remValue) {
         if (isMetricValue(value) || isNumericValue(value)) {
             return new UnitValue(UnitValue.POINT, parseAbsoluteLength(value));
@@ -201,8 +251,10 @@ public class CssUtils {
     }
 
     /**
-     * @param resolutionStr
-     * @return value in dpi (currently)
+     * Parses the resolution.
+     *
+     * @param resolutionStr the resolution as a string
+     * @return a value in dpi (currently)
      */
     // TODO change default units? If so, change MediaDeviceDescription#resolutoin as well
     public static float parseResolution(String resolutionStr) {
@@ -244,11 +296,23 @@ public class CssUtils {
         return pos;
     }
 
+    /**
+     * Checks if a value is a color property.
+     *
+     * @param value the value
+     * @return true, if the value contains a color property
+     */
     public static boolean isColorProperty(String value) {
         return value.contains("rgb(") || value.contains("rgba(") || value.contains("#")
                 || WebColors.NAMES.containsKey(value.toLowerCase()) || CssConstants.TRANSPARENT.equals(value);
     }
 
+    /**
+     * Parses the RGBA color.
+     *
+     * @param colorValue the color value
+     * @return an RGBA value expressed as an array with four float values
+     */
     public static float[] parseRgbaColor(String colorValue) {
         float[] rgbaColor = WebColors.getRGBAColor(colorValue);
         if (rgbaColor == null) {
@@ -325,6 +389,12 @@ public class CssUtils {
         return str;
     }
 
+    /**
+     * Checks if a data is base 64 encoded.
+     *
+     * @param data the data
+     * @return true, if the data is base 64 encoded
+     */
     public static boolean isBase64Data(String data) {
         return data.matches("^data:([^\\s]*);base64,([^\\s]*)");
     }
