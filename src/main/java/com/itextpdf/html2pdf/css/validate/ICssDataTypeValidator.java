@@ -42,8 +42,17 @@
  */
 package com.itextpdf.html2pdf.css.validate;
 
+/**
+ * Interface for CSS data type validators.
+ */
 public interface ICssDataTypeValidator {
 
+    /**
+     * Checks if a value is a valid data type (e.g. a color, an identifier,...).
+     *
+     * @param objectString the value
+     * @return true, if the value is a valid data type
+     */
     boolean isValid(String objectString);
 
 }

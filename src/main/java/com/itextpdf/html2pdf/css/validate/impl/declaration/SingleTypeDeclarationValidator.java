@@ -46,14 +46,26 @@ import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator;
 import com.itextpdf.html2pdf.css.validate.ICssDeclarationValidator;
 
+/**
+ * {@link ICssDeclarationValidator} implementation to validate a single type.
+ */
 public class SingleTypeDeclarationValidator implements ICssDeclarationValidator {
 
+    /** The data type validator. */
     private ICssDataTypeValidator dataTypeValidator;
 
+    /**
+     * Creates a new <code>SingleTypeDeclarationValidator</code> instance.
+     *
+     * @param dataTypeValidator the data type validator
+     */
     public SingleTypeDeclarationValidator(ICssDataTypeValidator dataTypeValidator) {
         this.dataTypeValidator = dataTypeValidator;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.validate.ICssDeclarationValidator#isValid(com.itextpdf.html2pdf.css.CssDeclaration)
+     */
     @Override
     public boolean isValid(CssDeclaration cssDeclaration) {
         return dataTypeValidator.isValid(cssDeclaration.getExpression());

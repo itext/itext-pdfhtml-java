@@ -53,8 +53,12 @@ import com.itextpdf.html2pdf.css.validate.impl.declaration.SingleTypeDeclaration
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class that bundles all the CSS declaration validators.
+ */
 public class CssDeclarationValidationMaster {
 
+    /** A map containing all the CSS declaration validators. */
     private static final Map<String, ICssDeclarationValidator> DEFAULT_VALIDATORS;
 
     static {
@@ -88,9 +92,18 @@ public class CssDeclarationValidationMaster {
                 ));
     }
 
+    /**
+     * Creates a new <code>CssDeclarationValidationMaster</code> instance.
+     */
     private CssDeclarationValidationMaster() {
     }
 
+    /**
+     * Checks a CSS declaration.
+     *
+     * @param declaration the CSS declaration
+     * @return true, if the validation was successful
+     */
     public static boolean checkDeclaration(CssDeclaration declaration) {
         ICssDeclarationValidator validator = DEFAULT_VALIDATORS.get(declaration.getProperty());
         return validator == null || validator.isValid(declaration);

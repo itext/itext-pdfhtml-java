@@ -49,14 +49,26 @@ import com.itextpdf.html2pdf.css.validate.ICssDeclarationValidator;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * {@link ICssDeclarationValidator} implementation in case multiple types have to be checked.
+ */
 public class MultiTypeDeclarationValidator implements ICssDeclarationValidator {
 
+    /** The allowed data types. */
     private List<ICssDataTypeValidator> allowedTypes;
 
+    /**
+     * Creates a new <code>MultiTypeDeclarationValidator</code> instance.
+     *
+     * @param allowedTypes the allowed types
+     */
     public MultiTypeDeclarationValidator(ICssDataTypeValidator... allowedTypes) {
         this.allowedTypes = Arrays.asList(allowedTypes);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.validate.ICssDeclarationValidator#isValid(com.itextpdf.html2pdf.css.CssDeclaration)
+     */
     @Override
     public boolean isValid(CssDeclaration cssDeclaration) {
         for (ICssDataTypeValidator dTypeValidator : allowedTypes) {

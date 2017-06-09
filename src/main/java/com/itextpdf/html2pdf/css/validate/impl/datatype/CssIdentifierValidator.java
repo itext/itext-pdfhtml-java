@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.css.validate.impl.datatype;
 import com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator;
 
 /**
+ * {@link ICssDataTypeValidator} implementation for identifiers.
  * In CSS, identifiers (including element names, classes, and IDs in selectors) can contain only the characters [a-zA-Z0-9]
  * and ISO 10646 characters U+00A0 and higher, plus the hyphen (-) and the underscore (_);
  * they cannot start with a digit, two hyphens, or a hyphen followed by a digit.
