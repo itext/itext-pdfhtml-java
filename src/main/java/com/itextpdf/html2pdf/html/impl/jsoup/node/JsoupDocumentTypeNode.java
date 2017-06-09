@@ -44,8 +44,16 @@ package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
 import com.itextpdf.html2pdf.html.node.IDocumentTypeNode;
 
+/**
+ * Implementation of the {@link IDocumentTypeNode} interface; wrapper for the JSoup {@link org.jsoup.nodes.DocumentType} class.
+ */
 public class JsoupDocumentTypeNode extends JsoupNode implements IDocumentTypeNode {
 
+    /**
+     * Creates a new <code>JsoupDocumentTypeNode</code> instance.
+     *
+     * @param node the node
+     */
     public JsoupDocumentTypeNode(org.jsoup.nodes.DocumentType node) {
         super(node);
     }

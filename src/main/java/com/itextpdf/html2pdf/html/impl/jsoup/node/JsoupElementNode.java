@@ -51,14 +51,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Implementation of the {@link IElementNode} interface; wrapper for the JSoup {@link JsoupNode} class.
+ */
 public class JsoupElementNode extends JsoupNode implements IElementNode {
 
+    /** The JSoup element. */
     private org.jsoup.nodes.Element element;
+    
+    /** The attributes. */
     private IAttributes attributes;
+    
+    /** The resolved styles. */
     private Map<String, String> elementResolvedStyles;
+    
+    /** The custom default styles. */
     private List<Map<String, String>> customDefaultStyles;
+    
+    /** The language. */
     private String lang = null;
 
+    /**
+     * Creates a new <code>JsoupElementNode</code> instance.
+     *
+     * @param element the element
+     */
     public JsoupElementNode(org.jsoup.nodes.Element element) {
         super(element);
         this.element = element;
@@ -66,35 +83,56 @@ public class JsoupElementNode extends JsoupNode implements IElementNode {
         this.lang = getAttribute(AttributeConstants.LANG);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#name()
+     */
     @Override
     public String name() {
         return element.nodeName();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#getAttributes()
+     */
     public IAttributes getAttributes() {
         return attributes;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#getAttribute(java.lang.String)
+     */
     @Override
     public String getAttribute(String key) {
         return attributes.getAttribute(key);
     }
 
+	/* (non-Javadoc)
+	 * @see com.itextpdf.html2pdf.html.node.IStylesContainer#setStyles(java.util.Map)
+	 */
 	@Override
     public void setStyles(Map<String, String> elementResolvedStyles) {
         this.elementResolvedStyles = elementResolvedStyles;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IStylesContainer#getStyles()
+     */
     @Override
     public Map<String, String> getStyles() {
         return this.elementResolvedStyles;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#getAdditionalHtmlStyles()
+     */
     @Override
     public List<Map<String, String>> getAdditionalHtmlStyles() {
         return customDefaultStyles;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#addAdditionalHtmlStyles(java.util.Map)
+     */
     @Override
     public void addAdditionalHtmlStyles(Map<String, String> styles) {
         if (customDefaultStyles == null) {
@@ -103,6 +141,9 @@ public class JsoupElementNode extends JsoupNode implements IElementNode {
         customDefaultStyles.add(styles);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#getLang()
+     */
     @Override
     public String getLang() {
         if (lang != null) {
@@ -119,6 +160,11 @@ public class JsoupElementNode extends JsoupNode implements IElementNode {
         }
     }
 
+    /**
+     * Returns the element text.
+     *
+     * @return the text
+     */
     public String text() {
         return element.text();
     }

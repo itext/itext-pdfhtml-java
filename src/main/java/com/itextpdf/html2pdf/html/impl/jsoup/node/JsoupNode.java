@@ -49,21 +49,40 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Implementation of the {@link INode} interface; wrapper for the JSoup {@link org.jsoup.nodes.Node} class.
+ */
 public class JsoupNode implements INode {
 
+    /** The JSoup node instance. */
     private org.jsoup.nodes.Node node;
+    
+    /** The child nodes. */
     private List<INode> childNodes = new ArrayList<>();
+    
+    /** The parent node. */
     INode parentNode;
 
+    /**
+     * Creates a new <code>JsoupNode</code> instance.
+     *
+     * @param node the node
+     */
     public JsoupNode(org.jsoup.nodes.Node node) {
         this.node = node;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.INode#childNodes()
+     */
     @Override
     public List<INode> childNodes() {
         return Collections.unmodifiableList(childNodes);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.INode#addChild(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public void addChild(INode node) {
         if (node instanceof JsoupNode) {
@@ -75,6 +94,9 @@ public class JsoupNode implements INode {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.INode#parentNode()
+     */
     @Override
     public INode parentNode() {
         return parentNode;
