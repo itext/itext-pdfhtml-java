@@ -45,24 +45,42 @@ package com.itextpdf.html2pdf.css.selector.item;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
+/**
+ * {@link ICssSelectorItem} implementation for pseude element selectors.
+ */
 public class CssPseudoElementSelectorItem implements ICssSelectorItem {
 
+    /** The pseudo element name. */
     private String pseudoElementName;
 
+    /**
+     * Creates a new <code>CssPseudoElementSelectorItem<code> instance.
+     *
+     * @param pseudoElementName the pseudo element name
+     */
     public CssPseudoElementSelectorItem(String pseudoElementName) {
         this.pseudoElementName = pseudoElementName;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+     */
     @Override
     public int getSpecificity() {
         return CssSpecificityConstants.ELEMENT_SPECIFICITY;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public boolean matches(INode node) {
         return node instanceof CssPseudoElementNode && ((CssPseudoElementNode) node).getPseudoElementName().equals(pseudoElementName);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "::" + pseudoElementName;

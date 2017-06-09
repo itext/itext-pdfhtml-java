@@ -46,19 +46,34 @@ import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
+/**
+ * {@link ICssSelectorItem} implementation for id selectors.
+ */
 public class CssIdSelectorItem implements ICssSelectorItem {
 
+    /** The id. */
     private String id;
 
+    /**
+     * Creates a new <code>CssIdSelectorItem<code> instance.
+     *
+     * @param id the id
+     */
     public CssIdSelectorItem(String id) {
         this.id = id;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+     */
     @Override
     public int getSpecificity() {
         return CssSpecificityConstants.ID_SPECIFICITY;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public boolean matches(INode node) {
         if (!(node instanceof IElementNode)) {
@@ -68,6 +83,9 @@ public class CssIdSelectorItem implements ICssSelectorItem {
         return id.equals(element.getAttribute(AttributeConstants.ID));
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "#" + id;

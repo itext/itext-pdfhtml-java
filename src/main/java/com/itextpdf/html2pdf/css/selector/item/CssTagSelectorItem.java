@@ -45,21 +45,38 @@ package com.itextpdf.html2pdf.css.selector.item;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
+/**
+ * {@link ICssSelectorItem} implementation for tag selectors.
+ */
 public class CssTagSelectorItem implements ICssSelectorItem {
 
+    /** The tag name. */
     private String tagName;
+    
+    /** Indicates if the selector is universally valid. */
     private boolean isUniversal;
 
+    /**
+     * Creates a new <code>CssTagSelectorItem<code> instance.
+     *
+     * @param tagName the tag name
+     */
     public CssTagSelectorItem(String tagName) {
         this.tagName = tagName.toLowerCase();
         this.isUniversal = "*".equals(tagName);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+     */
     @Override
     public int getSpecificity() {
         return isUniversal ? 0 : CssSpecificityConstants.ELEMENT_SPECIFICITY;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public boolean matches(INode node) {
         if (!(node instanceof IElementNode)) {
@@ -69,6 +86,9 @@ public class CssTagSelectorItem implements ICssSelectorItem {
         return isUniversal || tagName.equals(element.name());
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return tagName;

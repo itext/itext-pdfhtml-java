@@ -46,18 +46,34 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.page.PageContextNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
+/**
+ * {@link ICssSelectorItem} implementation for page type selectors.
+ */
 public class CssPageTypeSelectorItem implements ICssSelectorItem {
+    
+    /** The page type name. */
     private String pageTypeName;
 
+    /**
+     * Creates a new <code>CssPageTypeSelectorItem<code> instance.
+     *
+     * @param pageTypeName the page type name
+     */
     public CssPageTypeSelectorItem(String pageTypeName) {
         this.pageTypeName = pageTypeName;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+     */
     @Override
     public int getSpecificity() {
         return CssSpecificityConstants.ID_SPECIFICITY;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public boolean matches(INode node) {
         if (!(node instanceof PageContextNode)) {

@@ -45,28 +45,51 @@ package com.itextpdf.html2pdf.css.selector.item;
 import com.itextpdf.html2pdf.html.node.INode;
 import java.text.MessageFormat;
 
+/**
+ * {@link ICssSelectorItem} implementation for separator selectors.
+ */
 public class CssSeparatorSelectorItem implements ICssSelectorItem {
 
+    /** The separator character. */
     private char separator;
-
+    
+    /**
+     * Creates a new <code>CssSeparatorSelectorItem<code> instance.
+     *
+     * @param separator the separator character
+     */
     public CssSeparatorSelectorItem(char separator) {
         this.separator = separator;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+     */
     @Override
     public int getSpecificity() {
         return 0;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public boolean matches(INode node) {
         throw new IllegalStateException("Separator item is not supposed to be matched against an element");
     }
 
+    /**
+     * Gets the separator character.
+     *
+     * @return the separator character
+     */
     public char getSeparator() {
         return separator;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return separator == ' ' ? " " : MessageFormat.format(" {0} ", separator);

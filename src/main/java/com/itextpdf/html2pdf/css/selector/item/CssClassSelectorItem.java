@@ -46,24 +46,42 @@ import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
+/**
+ * {@link ICssSelectorItem} implementation for class selectors.
+ */
 public class CssClassSelectorItem implements ICssSelectorItem {
 
+    /** The class name. */
     private String className;
-
+    
+    /**
+     * Creates a new <code>CssClassSelectorItem<code> instance.
+     *
+     * @param className the class name
+     */
     public CssClassSelectorItem(String className) {
         this.className = className;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+     */
     @Override
     public int getSpecificity() {
         return CssSpecificityConstants.CLASS_SPECIFICITY;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "." + className;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public boolean matches(INode node) {
         if (!(node instanceof IElementNode)) {
