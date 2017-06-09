@@ -49,19 +49,34 @@ import org.jsoup.nodes.Attributes;
 
 import java.util.Iterator;
 
+/**
+ * Implementation of the {@link IAttributes} interface; wrapper for the JSoup {@link Attributes} class.
+ */
 public class JsoupAttributes implements IAttributes {
 
+    /** The JSoup {@link Attributes} instance. */
     private Attributes attributes;
 
+    /**
+     * Creates a new <code>JsoupAttributes</code> instance.
+     *
+     * @param attributes the attributes
+     */
     public JsoupAttributes(Attributes attributes) {
         this.attributes = attributes;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IAttributes#getAttribute(java.lang.String)
+     */
     @Override
     public String getAttribute(String key) {
         return attributes.hasKey(key) ? attributes.get(key) : null;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IAttributes#setAttribute(java.lang.String, java.lang.String)
+     */
     @Override
     public void setAttribute(String key, String value) {
         if (attributes.hasKey(key)) {
@@ -70,34 +85,58 @@ public class JsoupAttributes implements IAttributes {
         attributes.put(key, value);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IAttributes#size()
+     */
     @Override
     public int size() {
         return attributes.size();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Iterable#iterator()
+     */
     @Override
     public Iterator<IAttribute> iterator() {
         return new AttributeIterator(attributes.iterator());
     }
 
+    /**
+     * Iterator to loop over {@link IAttribute} elements.
+     */
     private static class AttributeIterator implements Iterator<IAttribute> {
+        
+        /** The iterator. */
         private Iterator<Attribute> iterator;
 
+        /**
+         * Instantiates a new iterator.
+         *
+         * @param iterator the iterator
+         */
         public AttributeIterator(Iterator<Attribute> iterator) {
-
             this.iterator = iterator;
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#hasNext()
+         */
         @Override
         public boolean hasNext() {
             return iterator.hasNext();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#next()
+         */
         @Override
         public IAttribute next() {
             return new JsoupAttribute(iterator.next());
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#remove()
+         */
         public void remove() {
             throw new UnsupportedOperationException("remove");
         }

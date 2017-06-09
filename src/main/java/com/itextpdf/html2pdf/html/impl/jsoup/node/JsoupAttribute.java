@@ -45,18 +45,34 @@ package com.itextpdf.html2pdf.html.impl.jsoup.node;
 import com.itextpdf.html2pdf.html.node.IAttribute;
 import org.jsoup.nodes.Attribute;
 
+/**
+ * Implementation of the {@link IAttribute} interface; wrapper for the JSoup {@link Attribute} class.
+ */
 public class JsoupAttribute implements IAttribute {
+    
+    /** The JSoup {@link Attribute} instance. */
     private Attribute attribute;
 
+    /**
+     * Creates a new <code>JsoupAttribute</code> instance.
+     *
+     * @param attribute the attribute
+     */
     public JsoupAttribute(Attribute attribute) {
         this.attribute = attribute;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IAttribute#getKey()
+     */
     @Override
     public String getKey() {
         return attribute.getKey();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IAttribute#getValue()
+     */
     @Override
     public String getValue() {
         return attribute.getValue();

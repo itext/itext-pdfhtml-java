@@ -44,15 +44,27 @@ package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
 import com.itextpdf.html2pdf.html.node.IDataNode;
 
+/**
+ * Implementation of the {@link IDataNode} interface; wrapper for the JSoup {@link org.jsoup.nodes.DataNode} class.
+ */
 public class JsoupDataNode extends JsoupNode implements IDataNode {
 
+    /** The JSoup data node instance. */
     private org.jsoup.nodes.DataNode dataNode;
 
+    /**
+     * Creates a new <code>JsoupDataNode</code> instance.
+     *
+     * @param dataNode the data node
+     */
     public JsoupDataNode(org.jsoup.nodes.DataNode dataNode) {
         super(dataNode);
         this.dataNode = dataNode;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IDataNode#getWholeData()
+     */
     @Override
     public String getWholeData() {
         return dataNode.getWholeData();
