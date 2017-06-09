@@ -44,11 +44,23 @@ package com.itextpdf.html2pdf.html;
 
 import com.itextpdf.html2pdf.html.node.IElementNode;
 
+/**
+ * Utilities class with HTML-related functionality.
+ */
 public final class HtmlUtils {
 
+    /**
+     * Creates a new <code>HtmlUtils</code> instance.
+     */
     private HtmlUtils() {
     }
 
+    /**
+     * Checks if an {@link IElementNode} represents a style sheet link.
+     *
+     * @param headChildElement the head child element
+     * @return true, if the element node represents a style sheet link
+     */
     public static boolean isStyleSheetLink(IElementNode headChildElement) {
         return headChildElement.name().equals(TagConstants.LINK)
                 && AttributeConstants.STYLESHEET.equals(headChildElement.getAttribute(AttributeConstants.REL));

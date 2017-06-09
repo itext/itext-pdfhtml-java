@@ -42,64 +42,171 @@
  */
 package com.itextpdf.html2pdf.html;
 
+/**
+ * Class that bundles a series of attribute constants.
+ */
 public final class AttributeConstants {
+    /**
+     * Creates a new <code>AttributeConstants</code> instance.
+     */
+    private AttributeConstants() {
+    }
 
+    /** The Constant ALIGN. */
     public static final String ALIGN = "align";
+    
+    /** The Constant ALT. */
     public static final String ALT = "alt";
+    
+    /** The Constant BGCOLOR. */
     public static final String BGCOLOR = "bgcolor";
+    
+    /** The Constant BORDER. */
     public static final String BORDER = "border";
+    
+    /** The Constant CLASS. */
     public static final String CLASS = "class";
+    
+    /** The Constant COLOR. */
     public static final String COLOR = "color";
+    
+    /** The Constant COLS. */
     public static final String COLS = "cols";
+    
+    /** The Constant COLSPAN. */
     public static final String COLSPAN = "colspan";
+    
+    /** The Constant DIR. */
     public static final String DIR = "dir";
+    
+    /** The Constant FACE. */
     public static final String FACE = "face";
+    
+    /** The Constant HEIGHT. */
     public static final String HEIGHT = "height";
+    
+    /** The Constant HREF. */
     public static final String HREF = "href";
+    
+    /** The Constant ID. */
     public static final String ID = "id";
+    
+    /** The Constant LANG. */
     public static final String LANG = "lang";
+    
+    /** The Constant MEDIA. */
     public static final String MEDIA = "media";
+    
+    /** The Constant NAME. */
     public static final String NAME = "name";
+    
+    /** The Constant NOSHADE. */
     public static final String NOSHADE = "noshade";
+    
+    /** The Constant REL. */
     public static final String REL = "rel";
+    
+    /** The Constant ROWS. */
     public static final String ROWS = "rows";
+    
+    /** The Constant ROWSPAN. */
     public static final String ROWSPAN = "rowspan";
+    
+    /** The Constant SIZE. */
     public static final String SIZE = "size";
+    
+    /** The Constant SPAN. */
     public static final String SPAN = "span";
+    
+    /** The Constant SRC. */
     public static final String SRC = "src";
+    
+    /** The Constant STYLE. */
     public static final String STYLE = "style";
+    
+    /** The Constant TYPE. */
     public static final String TYPE = "type";
+    
+    /** The Constant VALIGN. */
     public static final String VALIGN = "valign";
+    
+    /** The Constant VALUE. */
     public static final String VALUE = "value";
+    
+    /** The Constant WIDTH. */
     public static final String WIDTH = "width";
+    
+    /** The Constant TITLE. */
     public static final String TITLE = "title";
 
     // attribute values
+    
+    /** The Constant _1. */
     public static final String _1 = "1";
+    
+    /** The Constant A. */
     public static final String A = "A";
+    
+    /** The Constant a. */
     public static final String a = "a";
+    
+    /** The Constant BOTTOM. */
     public static final String BOTTOM = "bottom";
+    
+    /** The Constant BUTTON. */
     public static final String BUTTON = "button";
+    
+    /** The Constant CENTER. */
     public static final String CENTER = "center";
+    
+    /** The Constant CHECKBOX. */
     public static final String CHECKBOX = "checkbox";
+    
+    /** The Constant EMAIL. */
     public static final String EMAIL = "email";
+    
+    /** The Constant I. */
     public static final String I = "I";
+    
+    /** The Constant i. */
     public static final String i = "i";
+    
+    /** The Constant LEFT. */
     public static final String LEFT = "left";
+    
+    /** The Constant LTR. */
     public static final String LTR = "ltr";
+    
+    /** The Constant MIDDLE. */
     public static final String MIDDLE = "middle";
+    
+    /** The Constant PASSWORD. */
     public static final String PASSWORD = "password";
+    
+    /** The Constant RADIO. */
     public static final String RADIO = "radio";
+    
+    /** The Constant RIGHT. */
     public static final String RIGHT = "right";
+    
+    /** The Constant RTL. */
     public static final String RTL = "rtl";
+    
+    /** The Constant STYLESHEET. */
     public static final String STYLESHEET = "stylesheet";
+    
+    /** The Constant SUBMIT. */
     public static final String SUBMIT = "submit";
+    
+    /** The Constant TEXT. */
     public static final String TEXT = "text";
+    
+    /** The Constant TOP. */
     public static final String TOP = "top";
 
     // iText custom attributes
+    
+    /** The Constant PARENT_TABLE_BORDER. */
     public static final String PARENT_TABLE_BORDER = "parenttableborder";
     
-    private AttributeConstants() {
-    }
 }

@@ -46,10 +46,27 @@ import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Interface for the HTML parsing operations that accept HTML and return a document node.
+ */
 public interface IHtmlParser {
 
+    /**
+     * Parses HTML provided as an <code>InputStream</code> and an encoding.
+     *
+     * @param htmlStream the html stream
+     * @param charset the character set
+     * @return a document node
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     IDocumentNode parse(InputStream htmlStream, String charset) throws IOException;
 
+    /**
+     * Parses HTML provided as a <code>String</code>.
+     *
+     * @param html the html string
+     * @return a document node
+     */
     IDocumentNode parse(String html);
 
 }
