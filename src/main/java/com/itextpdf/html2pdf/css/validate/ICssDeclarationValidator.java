@@ -44,8 +44,17 @@ package com.itextpdf.html2pdf.css.validate;
 
 import com.itextpdf.html2pdf.css.CssDeclaration;
 
+/**
+ * Interface for CSS declaration validators.
+ */
 public interface ICssDeclarationValidator {
 
+    /**
+     * Checks if a value is a valid CSS declaration.
+     *
+     * @param cssDeclaration the CSS declaration
+     * @return true, if the value is a valid CSS declaration
+     */
     boolean isValid(CssDeclaration cssDeclaration);
 
 }

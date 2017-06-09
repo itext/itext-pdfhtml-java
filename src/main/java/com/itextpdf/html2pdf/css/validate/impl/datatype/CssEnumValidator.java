@@ -47,6 +47,9 @@ import com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * {@link ICssDataTypeValidator} implementation for elements in an enumeration.
+ */
 public class CssEnumValidator implements ICssDataTypeValidator {
 
     private List<String> allowedValues;

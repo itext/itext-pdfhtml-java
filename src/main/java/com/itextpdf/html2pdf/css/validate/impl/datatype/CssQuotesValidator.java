@@ -45,8 +45,14 @@ package com.itextpdf.html2pdf.css.validate.impl.datatype;
 import com.itextpdf.html2pdf.css.resolve.CssQuotes;
 import com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator;
 
+/**
+ * {@link ICssDataTypeValidator} implementation for values for the CSS quotes key.
+ */
 public class CssQuotesValidator implements ICssDataTypeValidator {
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator#isValid(java.lang.String)
+     */
     @Override
     public boolean isValid(String objectString) {
         CssQuotes quotes = CssQuotes.createQuotes(objectString, false);
