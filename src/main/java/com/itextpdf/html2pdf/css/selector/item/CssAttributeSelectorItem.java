@@ -48,12 +48,26 @@ import com.itextpdf.html2pdf.html.node.INode;
 import java.text.MessageFormat;
 import java.util.regex.Pattern;
 
+// TODO: Auto-generated Javadoc
+/**
+ * {@link ICssSelectorItem} implementation for attribute selectors.
+ */
 public class CssAttributeSelectorItem implements ICssSelectorItem {
 
+    /** The property. */
     private String property;
+    
+    /** The match symbol. */
     private char matchSymbol = (char)0;
+    
+    /** The value. */
     private String value = null;
-
+    
+    /**
+     * Creates a new <code>CssAttributeSelectorItem<code> instance.
+     *
+     * @param attrSelector the attribute
+     */
     public CssAttributeSelectorItem(String attrSelector) {
         int indexOfEqual = attrSelector.indexOf('=');
         if (indexOfEqual == -1) {
@@ -74,11 +88,17 @@ public class CssAttributeSelectorItem implements ICssSelectorItem {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+     */
     @Override
     public int getSpecificity() {
         return CssSpecificityConstants.CLASS_SPECIFICITY;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public boolean matches(INode node) {
         if (!(node instanceof IElementNode)) {
@@ -112,6 +132,9 @@ public class CssAttributeSelectorItem implements ICssSelectorItem {
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         if (value == null) {

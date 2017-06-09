@@ -42,13 +42,24 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
+/**
+ * Class that bundles some CSS specificity constants.
+ */
 final class CssSpecificityConstants {
 
+    /**
+     * Creates a new <code>CssSpecificityConstants</code> instance.
+     */
     private CssSpecificityConstants() {
     }
 
+    /** The Constant ID_SPECIFICITY. */
     public static final int ID_SPECIFICITY = 1 << 20;
+    
+    /** The Constant CLASS_SPECIFICITY. */
     public static final int CLASS_SPECIFICITY = 1 << 10;
+    
+    /** The Constant ELEMENT_SPECIFICITY. */
     public static final int ELEMENT_SPECIFICITY = 1;
 
 }

@@ -46,21 +46,38 @@ import com.itextpdf.html2pdf.css.page.PageContextConstants;
 import com.itextpdf.html2pdf.css.page.PageContextNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
+/**
+ * {@link ICssSelectorItem} implementation for page pseudo classes selectors.
+ */
 public class CssPagePseudoClassSelectorItem implements ICssSelectorItem {
 
+    /** Indicates if the page pseudo class is a spread pseudo class (left or right). */
     private boolean isSpreadPseudoClass;
+    
+    /** The page pseudo class. */
     private String pagePseudoClass;
 
+    /**
+     * Creates a new <code>CssPagePseudoClassSelectorItem<code> instance.
+     *
+     * @param pagePseudoClass the page pseudo class name
+     */
     public CssPagePseudoClassSelectorItem(String pagePseudoClass) {
         this.isSpreadPseudoClass = pagePseudoClass.equals(PageContextConstants.LEFT) || pagePseudoClass.equals(PageContextConstants.RIGHT);
         this.pagePseudoClass = pagePseudoClass;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+     */
     @Override
     public int getSpecificity() {
         return isSpreadPseudoClass ? CssSpecificityConstants.ELEMENT_SPECIFICITY : CssSpecificityConstants.CLASS_SPECIFICITY;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public boolean matches(INode node) {
         if (!(node instanceof PageContextNode)) {

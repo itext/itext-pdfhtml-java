@@ -44,10 +44,24 @@ package com.itextpdf.html2pdf.css.selector.item;
 
 import com.itextpdf.html2pdf.html.node.INode;
 
+/**
+ * Interface for CSS selector items.
+ */
 public interface ICssSelectorItem {
 
+    /**
+     * Gets the specificity.
+     *
+     * @return the specificity
+     */
     int getSpecificity();
 
+    /**
+     * Checks if the selector matches an element.
+     *
+     * @param element the element
+     * @return true, if there's a match
+     */
     boolean matches(INode element);
 
 }

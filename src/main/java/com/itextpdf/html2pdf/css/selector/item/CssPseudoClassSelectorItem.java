@@ -51,13 +51,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * {@link ICssSelectorItem} implementation for pseudo class selectors.
+ */
 public class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
+    /** The pseudo class. */
     private String pseudoClass;
+    
+    /** The arguments. */
     private String arguments;
+    
+    /** The nth child A. */
     private int nthChildA;
+    
+    /** The nth child B. */
     private int nthChildB;
 
+    /**
+     * Creates a new <code>CssPseudoClassSelectorItem<code> instance.
+     *
+     * @param pseudoClass the pseudo class name
+     */
     public CssPseudoClassSelectorItem(String pseudoClass) {
         int indexOfParentheses = pseudoClass.indexOf('(');
         if (indexOfParentheses == -1) {
@@ -70,11 +85,17 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+     */
     @Override
     public int getSpecificity() {
         return CssSpecificityConstants.CLASS_SPECIFICITY;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public boolean matches(INode node) {
         if (!(node instanceof IElementNode) || node instanceof ICustomElementNode) {
@@ -93,11 +114,20 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return ":" + pseudoClass + (!arguments.isEmpty() ? "(" + arguments + ")" : "");
     }
 
+    /**
+     * Gets the all the siblings of a child node.
+     *
+     * @param child the child node
+     * @return the sibling nodes
+     */
     private List<INode> getAllChildren(INode child) {
         INode parentElement = child.parentNode();
         if (parentElement != null) {
@@ -112,6 +142,11 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
         return Collections.<INode>emptyList();
     }
 
+    /**
+     * Gets the nth child arguments.
+     *
+     * @return the nth child arguments
+     */
     private void getNthChildArguments() {
         if (arguments.matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
             if (arguments.equals("odd")) {
@@ -146,6 +181,13 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
         }
     }
 
+    /**
+     * Resolves the nth child.
+     *
+     * @param node a node
+     * @param children the children
+     * @return true, if successful
+     */
     private boolean resolveNthChild(INode node, List<INode> children) {
         if (!children.contains(node))
             return false;
