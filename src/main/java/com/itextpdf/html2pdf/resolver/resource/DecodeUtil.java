@@ -54,24 +54,41 @@ public class DecodeUtil {
     /** The default encoding ("UTF-8"). */
     static String dfltEncName = "UTF-8";
 
+    /** The default uri scheme ("file"). */
+    static String dfltUriScheme = "file";
+
     /**
-     * Decode a <code>String</code> to a <code>String</code> using the default encoding.
+     * Decode a <code>String</code> to a <code>String</code> using the default encoding and the default uri scheme.
      *
      * @param s the string to decode
      * @return the decoded string
      */
     public static String decode(String s) {
-        return decode(s, dfltEncName);
+        return decode(s, dfltUriScheme);
     }
 
     /**
-     * Decodes a <code>String</code> to a <code>String</code> using a specific encoding.
+     * Decodes a <code>String</code> to a <code>String</code> using a specific uri scheme
+     * and default encoding.
      *
      * @param s the string to decode
+     * @param scheme the uri scheme
+     * @return the decoded string
+     */
+    public static String decode(String s, String scheme) {
+        return decode(s, scheme, dfltEncName);
+    }
+
+    /**
+     * Decodes a <code>String</code> to a <code>String</code> using a specific encoding
+     * and uri string.
+     *
+     * @param s the string to decode
+     * @param scheme the uri scheme
      * @param enc the encoding
      * @return the decoded string
      */
-    public static String decode(String s, String enc) {
+    public static String decode(String s, String scheme, String enc) {
         boolean needToChange = false;
         int numChars = s.length();
         StringBuffer sb = new StringBuffer(numChars > 500 ? numChars / 2 : numChars);
@@ -122,6 +139,14 @@ public class DecodeUtil {
                         throw new Html2PdfException(Html2PdfException.UnsupportedEncodingException);
                     }
                     needToChange = true;
+                    break;
+                case '#':
+                    sb.append(c);
+                    i++;
+                    if (!"file".equals(scheme)) {
+                        sb.append(c);
+                        needToChange = true;
+                    }
                     break;
                 default:
                     sb.append(c);
