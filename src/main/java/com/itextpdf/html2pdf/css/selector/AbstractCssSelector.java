@@ -45,13 +45,26 @@ package com.itextpdf.html2pdf.css.selector;
 import com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem;
 import java.util.List;
 
+/**
+ * Abstract superclass for CSS Selectors.
+ */
 public abstract class AbstractCssSelector implements ICssSelector {
+    
+    /** The selector items. */
     protected List<ICssSelectorItem> selectorItems;
 
+    /**
+     * Creates a new <code>AbstractCssSelector</code> instance.
+     *
+     * @param selectorItems the selector items
+     */
     public AbstractCssSelector(List<ICssSelectorItem> selectorItems) {
         this.selectorItems = selectorItems;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.ICssSelector#calculateSpecificity()
+     */
     @Override
     public int calculateSpecificity() {
         int specificity = 0;
@@ -61,6 +74,9 @@ public abstract class AbstractCssSelector implements ICssSelector {
         return specificity;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

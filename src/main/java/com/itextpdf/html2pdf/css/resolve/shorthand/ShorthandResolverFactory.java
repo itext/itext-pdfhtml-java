@@ -60,7 +60,12 @@ import com.itextpdf.html2pdf.css.resolve.shorthand.impl.PaddingShorthandResolver
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A factory for creating ShorthandResolver objects.
+ */
 public class ShorthandResolverFactory {
+    
+    /** The map of shorthand resolvers. */
     private static final Map<String, IShorthandResolver> shorthandResolvers;
     static {
         shorthandResolvers = new HashMap<>();
@@ -81,6 +86,12 @@ public class ShorthandResolverFactory {
         // TODO text-decoration is a shorthand in CSS3, however it is not yet supported in any major browsers
     }
 
+    /**
+     * Gets a shorthand resolver.
+     *
+     * @param shorthandProperty the property
+     * @return the shorthand resolver
+     */
     public static IShorthandResolver getShorthandResolver(String shorthandProperty) {
         return shorthandResolvers.get(shorthandProperty);
     }

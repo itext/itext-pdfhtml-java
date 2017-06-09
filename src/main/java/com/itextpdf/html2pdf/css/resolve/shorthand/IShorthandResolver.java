@@ -45,6 +45,16 @@ package com.itextpdf.html2pdf.css.resolve.shorthand;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import java.util.List;
 
+/**
+ * Interface for shorthand resolvers.
+ */
 public interface IShorthandResolver {
+    
+    /**
+     * Resolves a shorthand expression.
+     *
+     * @param shorthandExpression the shorthand expression
+     * @return a list of CSS declaration
+     */
     List<CssDeclaration> resolveShorthand(String shorthandExpression);
 }

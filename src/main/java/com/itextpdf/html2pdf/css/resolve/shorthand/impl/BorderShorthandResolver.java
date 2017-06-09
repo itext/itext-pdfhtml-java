@@ -52,12 +52,22 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * {@link AbstractBorderShorthandResolver} implementation for borders.
+ */
 public class BorderShorthandResolver extends AbstractBorderShorthandResolver {
+    
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBorderShorthandResolver#getPrefix()
+     */
     @Override
     protected String getPrefix() {
         return CssConstants.BORDER;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBorderShorthandResolver#resolveShorthand(java.lang.String)
+     */
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
         List<CssDeclaration> preResolvedProps = super.resolveShorthand(shorthandExpression);

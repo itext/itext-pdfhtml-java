@@ -44,7 +44,14 @@ package com.itextpdf.html2pdf.css.resolve.shorthand.impl;
 
 import com.itextpdf.html2pdf.css.CssConstants;
 
+/**
+ * {@link AbstractBorderShorthandResolver} implementation for outlines.
+ */
 public class OutlineShorthandResolver extends AbstractBorderShorthandResolver {
+    
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBorderShorthandResolver#getPrefix()
+     */
     @Override
     protected String getPrefix() {
         return CssConstants.OUTLINE;

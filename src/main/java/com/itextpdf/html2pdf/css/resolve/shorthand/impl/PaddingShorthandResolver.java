@@ -44,13 +44,22 @@ package com.itextpdf.html2pdf.css.resolve.shorthand.impl;
 
 import com.itextpdf.html2pdf.css.CssConstants;
 
+/**
+ * {@link AbstractBoxShorthandResolver} implementation for paddings.
+ */
 public class PaddingShorthandResolver extends AbstractBoxShorthandResolver {
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBoxShorthandResolver#getPrefix()
+     */
     @Override
     protected String getPrefix() {
         return CssConstants.PADDING;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBoxShorthandResolver#getPostfix()
+     */
     @Override
     protected String getPostfix() {
         return "";

@@ -48,7 +48,12 @@ import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 
 import java.util.*;
 
+/**
+ * {@link IShorthandResolver} implementation for list styles.
+ */
 public class ListStyleShorthandResolver implements IShorthandResolver {
+    
+    /** The list style types (disc, decimal,...). */
     private static final Set<String> LIST_STYLE_TYPE_VALUES = new HashSet<>(Arrays.asList(
             CssConstants.DISC, CssConstants.ARMENIAN, CssConstants.CIRCLE, CssConstants.CJK_IDEOGRAPHIC,
             CssConstants.DECIMAL, CssConstants.DECIMAL_LEADING_ZERO, CssConstants.GEORGIAN, CssConstants.HEBREW,
@@ -56,10 +61,15 @@ public class ListStyleShorthandResolver implements IShorthandResolver {
             CssConstants.LOWER_LATIN, CssConstants.LOWER_ROMAN, CssConstants.NONE, CssConstants.SQUARE,
             CssConstants.UPPER_ALPHA, CssConstants.UPPER_LATIN, CssConstants.UPPER_ROMAN
     ));
+    
+    /** The list stype positions (inside, outside). */
     private static final Set<String> LIST_STYLE_POSITION_VALUES = new HashSet<>(Arrays.asList(
             CssConstants.INSIDE, CssConstants.OUTSIDE
     ));
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
+     */
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
         if (CssConstants.INITIAL.equals(shorthandExpression) || CssConstants.INHERIT.equals(shorthandExpression)) {

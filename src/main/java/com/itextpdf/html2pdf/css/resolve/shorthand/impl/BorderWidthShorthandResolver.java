@@ -44,12 +44,23 @@ package com.itextpdf.html2pdf.css.resolve.shorthand.impl;
 
 import com.itextpdf.html2pdf.css.CssConstants;
 
+// TODO: Auto-generated Javadoc
+/**
+ * {@link AbstractBoxShorthandResolver} implementation for border widths.
+ */
 public class BorderWidthShorthandResolver extends AbstractBoxShorthandResolver {
+    
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBoxShorthandResolver#getPrefix()
+     */
     @Override
     protected String getPrefix() {
         return CssConstants.BORDER;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBoxShorthandResolver#getPostfix()
+     */
     @Override
     protected String getPostfix() {
         return "-width";

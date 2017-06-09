@@ -47,12 +47,23 @@ import com.itextpdf.html2pdf.css.parse.CssPageSelectorParser;
 import com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem;
 import com.itextpdf.html2pdf.html.node.INode;
 
+/**
+ * {@link ICssSelector} implementation for CSS page selectors.
+ */
 public class CssPageSelector extends AbstractCssSelector {
 
+    /**
+     * Creates a new <code>CssPageSelector</code> instance.
+     *
+     * @param pageSelectorStr the page selector
+     */
     public CssPageSelector(String pageSelectorStr) {
         super(CssPageSelectorParser.parseSelectorItems(pageSelectorStr));
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.ICssSelector#matches(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public boolean matches(INode node) {
         if (!(node instanceof PageContextNode)) {
