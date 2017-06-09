@@ -54,13 +54,15 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class FormTest extends ExtendedITextTest {
@@ -121,6 +123,12 @@ public class FormTest extends ExtendedITextTest {
     @Test
     public void labelTest() throws IOException, InterruptedException {
         runTest("label");
+    }
+
+    @Test
+    @Ignore("DEVSIX-1316")
+    public void fieldInTablePercent() throws IOException, InterruptedException {
+        runTest("fieldInTablePercent");
     }
 
     private void runTest(String name) throws IOException, InterruptedException {

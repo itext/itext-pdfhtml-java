@@ -46,13 +46,14 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.File;
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.io.File;
-import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class ParagraphTest extends ExtendedITextTest {
@@ -113,4 +114,9 @@ public class ParagraphTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithNonBreakableSpaceTest03.pdf", sourceFolder + "cmp_paragraphWithNonBreakableSpaceTest03.pdf", destinationFolder, "diff08_"));
     }
 
+    @Test
+    public void paragraphInTablePercentTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphInTablePercentTest01.html"), new File(destinationFolder + "paragraphInTablePercentTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphInTablePercentTest01.pdf", sourceFolder + "cmp_paragraphInTablePercentTest01.pdf", destinationFolder, "diff09_"));
+    }
 }

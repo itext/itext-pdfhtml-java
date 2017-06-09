@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<style>
+table, td, tr, div, p {
+border: 1px solid black;
+}
+table {
+border-collapse: collapse;
+}
+body {
+font-family: Helvetica;
+}
+</style>
+<body>
+<p>
+During min-max-width calculations percent width should be ignored. But it should be applied during layout.
+</p>
+<table>
+<tr>
+<td>
+<p style="width: 80%">
+This paragraph's width is in percents. It's max width should be based on content.
+</p>
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td>
+<p style="width: 90px">
+This paragraph's width is absolute.
+</p>
+</td>
+</tr>
+</table>
+
+</html>
