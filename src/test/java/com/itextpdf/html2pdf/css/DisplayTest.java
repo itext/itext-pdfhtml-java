@@ -71,4 +71,10 @@ public class DisplayTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table01.pdf", sourceFolder + "cmp_display_table01.pdf", destinationFolder, "diff01_"));
     }
 
+    @Test
+    public void displayInline01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline01.html"), new File(destinationFolder + "display_inline01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline01.pdf", sourceFolder + "cmp_display_inline01.pdf", destinationFolder, "diff02_"));
+    }
+
 }
