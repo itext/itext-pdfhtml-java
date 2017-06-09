@@ -42,5 +42,8 @@
  */
 package com.itextpdf.html2pdf.html.node;
 
+/**
+ * Interface for the document type node.
+ */
 public interface IDocumentTypeNode extends INode {
 }

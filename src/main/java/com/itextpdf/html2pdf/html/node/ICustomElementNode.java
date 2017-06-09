@@ -42,6 +42,9 @@
  */
 package com.itextpdf.html2pdf.html.node;
 
-// This interface serves as a marker that this particular IElementNode is something non-standard.
+/**
+ * Interface that serves as a marker indicating that this particular
+ * <code>IElementNode</code> is something non-standard.
+ */
 public interface ICustomElementNode extends IElementNode {
 }

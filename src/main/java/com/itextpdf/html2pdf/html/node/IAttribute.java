@@ -42,8 +42,22 @@
  */
 package com.itextpdf.html2pdf.html.node;
 
+/**
+ * Interface for HTML attributes.
+ */
 public interface IAttribute {
+    
+    /**
+     * Gets the key.
+     *
+     * @return the key
+     */
     String getKey();
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     String getValue();
 }

@@ -42,6 +42,15 @@
  */
 package com.itextpdf.html2pdf.html.node;
 
+/**
+ * Interface for data nodes.
+ */
 public interface IDataNode extends INode {
+    
+    /**
+     * Gets all the data.
+     *
+     * @return the data
+     */
     String getWholeData();
 }
