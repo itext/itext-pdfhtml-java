@@ -42,8 +42,16 @@
  */
 package com.itextpdf.html2pdf.html.node;
 
+/**
+ * Interface for text nodes.
+ */
 public interface ITextNode extends INode {
 
+    /**
+     * Returns all the text.
+     *
+     * @return the text
+     */
     String wholeText();
 
 }

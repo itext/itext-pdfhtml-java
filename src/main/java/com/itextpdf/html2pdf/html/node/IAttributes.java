@@ -42,12 +42,32 @@
  */
 package com.itextpdf.html2pdf.html.node;
 
+/**
+ * Interface for a series of HTML attributes.
+ */
 public interface IAttributes extends Iterable<IAttribute> {
 
+    /**
+     * Gets the value of an attribute, given a key.
+     *
+     * @param key the key
+     * @return the attribute
+     */
     String getAttribute(String key);
 
+    /**
+     * Adds a key and a value of an attributes.
+     *
+     * @param key the key
+     * @param value the value
+     */
     void setAttribute(String key, String value);
 
+    /**
+     * Returns the number of attributes.
+     *
+     * @return the number of attributes
+     */
     int size();
 
 }
