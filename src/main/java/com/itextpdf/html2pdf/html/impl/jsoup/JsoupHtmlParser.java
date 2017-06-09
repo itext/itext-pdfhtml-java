@@ -63,10 +63,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
 
+/**
+ * Class that uses JSoup to parse HTML.
+ */
 public class JsoupHtmlParser implements IHtmlParser {
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger(JsoupHtmlParser.class);
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.IHtmlParser#parse(java.io.InputStream, java.lang.String)
+     */
     @Override
     public IDocumentNode parse(InputStream htmlStream, String charset) throws IOException {
         // Based on some brief investigations, it seems that Jsoup uses baseUri for resolving relative uri's into absolute
@@ -81,6 +88,9 @@ public class JsoupHtmlParser implements IHtmlParser {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.IHtmlParser#parse(java.lang.String)
+     */
     @Override
     public IDocumentNode parse(String html) {
         org.jsoup.nodes.Document doc = Jsoup.parse(html);
@@ -92,6 +102,12 @@ public class JsoupHtmlParser implements IHtmlParser {
         }
     }
 
+    /**
+     * Wraps JSoup nodes into pdfHTML {@link INode} classes.
+     *
+     * @param jsoupNode the JSoup node instance
+     * @return the {@link INode} instance
+     */
     private INode wrapJsoupHierarchy(org.jsoup.nodes.Node jsoupNode) {
         INode resultNode = null;
         if (jsoupNode instanceof org.jsoup.nodes.Document) {
