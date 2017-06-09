@@ -100,6 +100,9 @@ public class ResourceResolver {
      * @return PdfImageXObject on success, otherwise null.
      */
     public PdfImageXObject retrieveImage(String src) {
+        if (src == null) {
+            return null;
+        }
         if (src.contains("base64")) {
             try {
                 String fixedSrc = src.replaceAll("\\s", "");
