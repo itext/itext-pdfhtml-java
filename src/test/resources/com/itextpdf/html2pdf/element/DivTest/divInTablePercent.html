@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<style>
+table, td, tr, div {
+border: 1px solid black;
+}
+table {
+border-collapse: collapse;
+}
+body {
+font-family: Helvetica;
+}
+</style>
+<body>
+<p>
+During min-max-width calculations percent width should be ignored. But it should be applied during layout.
+</p>
+<table>
+<tr>
+<td>
+<div style="width: 80%">
+This div width is in percents. It's max width should be based on content.
+</div>
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td>
+<div style="width: 80px">
+This div width is absolute.
+</div>
+</td>
+</tr>
+</table>
+
+</html>
