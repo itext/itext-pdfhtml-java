@@ -52,9 +52,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Utilities class to get the styles of a node.
+ */
 class UserAgentCss {
 
+    /** The path to the default CSS file. */
     private static final String DEFAULT_CSS_PATH = "com/itextpdf/html2pdf/default.css";
+    
+    /** The default {@link CssStyleSheet} instance. */
     private static final CssStyleSheet defaultCss;
 
     static {
@@ -69,6 +75,12 @@ class UserAgentCss {
         }
     }
 
+    /**
+     * Gets the styles of a node.
+     *
+     * @param node the node
+     * @return a list of {@link CssDeclaration} values
+     */
     public static List<CssDeclaration> getStyles(INode node) {
         return defaultCss.getCssDeclarations(node, MediaDeviceDescription.createDefault());
     }

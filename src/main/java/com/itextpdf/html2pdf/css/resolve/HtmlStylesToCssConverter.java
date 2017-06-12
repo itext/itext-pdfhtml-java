@@ -60,10 +60,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Utilities class that converts HTML styles to CSS.
+ */
 class HtmlStylesToCssConverter {
 
+    /** Maps HTML styles to a specific converter. */
     private static final Map<String, IAttributeConverter> htmlAttributeConverters;
-
     static {
         htmlAttributeConverters = new HashMap<>();
         htmlAttributeConverters.put(AttributeConstants.ALIGN, new AlignAttributeConverter());
@@ -80,6 +83,12 @@ class HtmlStylesToCssConverter {
         htmlAttributeConverters.put(AttributeConstants.VALIGN, new VAlignAttributeConverter());
     }
 
+    /**
+     * Converts a the HTML styles of an element to a list of {@link CssDeclaration} instances.
+     *
+     * @param element the element
+     * @return the resulting list of {@link CssDeclaration} instances.
+     */
     public static List<CssDeclaration> convert(IElementNode element) {
         ArrayList<CssDeclaration> convertedHtmlStyles = new ArrayList<>();
         if (element.getAdditionalHtmlStyles() != null) {
@@ -103,15 +112,41 @@ class HtmlStylesToCssConverter {
     }
 
 
+    /**
+     * Interface for all the attribute converter classes.
+     */
     private interface IAttributeConverter {
+        
+        /**
+         * Checks if the converter is supported for a specifc element.
+         *
+         * @param elementName the element name
+         * @return true, if the converter is supported
+         */
         boolean isSupportedForElement(String elementName);
 
+        /**
+         * Converts a specific HTML style to a {@link CssDeclaration}.
+         *
+         * @param element the element
+         * @param value the value of the HTML style
+         * @return a list of {@link CssDeclaration} instances
+         */
         List<CssDeclaration> convert(IElementNode element, String value);
     }
 
 
+    /**
+     * {@IAttributeConverter} implementation for HTML border styles.
+     */
     private static class BorderAttributeConverter implements IAttributeConverter {
 
+        /**
+         * Applies borders to the tables and cells.
+         *
+         * @param node the node
+         * @param borderStyles the border styles
+         */
         private static void applyBordersToTableCells(INode node, Map<String, String> borderStyles) {
             List<INode> nodes = node.childNodes();
             for (INode childNode : nodes) {
@@ -126,11 +161,17 @@ class HtmlStylesToCssConverter {
             }
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
         @Override
         public boolean isSupportedForElement(String elementName) {
             return TagConstants.IMG.equals(elementName) || TagConstants.TABLE.equals(elementName);
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             Float width = CssUtils.parseFloat(value);
@@ -151,17 +192,28 @@ class HtmlStylesToCssConverter {
         }
     }
 
+    /**
+     * {@IAttributeConverter} implementation for HTML background color styles.
+     */
     private static class BgColorAttributeConverter implements IAttributeConverter {
+        
+        /** The supported tags. */
         private static Set<String> supportedTags = new HashSet<>(
                 Arrays.asList(TagConstants.BODY, TagConstants.COL, TagConstants.COLGROUP, TagConstants.MARQUEE,
                         TagConstants.TABLE, TagConstants.TBODY, TagConstants.TFOOT, TagConstants.TD, TagConstants.TH,
                         TagConstants.TR));
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
         @Override
         public boolean isSupportedForElement(String elementName) {
             return supportedTags.contains(elementName);
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             return Arrays.asList(new CssDeclaration(CssConstants.BACKGROUND_COLOR, value));
@@ -169,24 +221,44 @@ class HtmlStylesToCssConverter {
     }
 
 
+    /**
+     * {@IAttributeConverter} implementation for font color styles.
+     */
     private static class FontColorAttributeConverter implements IAttributeConverter {
+        
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
         @Override
         public boolean isSupportedForElement(String elementName) {
             return TagConstants.FONT.equals(elementName);
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             return Arrays.asList(new CssDeclaration(CssConstants.COLOR, value));
         }
     }
 
+    /**
+     * {@IAttributeConverter} implementation for size properties.
+     */
     private static class SizeAttributeConverter implements IAttributeConverter {
+        
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
         @Override
         public boolean isSupportedForElement(String elementName) {
             return TagConstants.FONT.equals(elementName) || TagConstants.HR.equals(elementName);
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             String cssValueEquivalent = null;
@@ -226,25 +298,44 @@ class HtmlStylesToCssConverter {
         }
     }
 
+    /**
+     * {@IAttributeConverter} implementation for HTML font face styles.
+     */
     private static class FontFaceAttributeConverter implements IAttributeConverter {
+        
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
         @Override
         public boolean isSupportedForElement(String elementName) {
             return TagConstants.FONT.equals(elementName);
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             return Arrays.asList(new CssDeclaration(CssConstants.FONT_FAMILY, value));
         }
     }
 
+    /**
+     * {@IAttributeConverter} implementation for HTML ordered list types.
+     */
     private static class TypeAttributeConverter implements IAttributeConverter {
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
         @Override
         public boolean isSupportedForElement(String elementName) {
             return TagConstants.OL.equals(elementName);
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             String cssEquivalent = null;
@@ -269,21 +360,36 @@ class HtmlStylesToCssConverter {
         }
     }
 
+    /**
+     * {@IAttributeConverter} implementation for HTML direction styles (e.g. right to left direction).
+     */
     private static class DirAttributeConverter implements IAttributeConverter {
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
         @Override
         public boolean isSupportedForElement(String elementName) {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             return Arrays.asList(new CssDeclaration(CssConstants.DIRECTION, value));
         }
     }
 
+    /**
+     * {@IAttributeConverter} implementation for HTML width values.
+     */
     private static class WidthAttributeConverter implements IAttributeConverter {
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
         @Override
         public boolean isSupportedForElement(String elementName) {
             return TagConstants.HR.equals(elementName) || TagConstants.IMG.equals(elementName)
@@ -292,6 +398,9 @@ class HtmlStylesToCssConverter {
                     || TagConstants.COL.equals(elementName);
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             String cssEquivalent = value;
@@ -302,13 +411,22 @@ class HtmlStylesToCssConverter {
         }
     }
 
+    /**
+     * {@IAttributeConverter} implementation for HTML height values.
+     */
     private static class HeightAttributeConverter implements IAttributeConverter {
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
         @Override
         public boolean isSupportedForElement(String elementName) {
             return TagConstants.IMG.equals(elementName) || TagConstants.TD.equals(elementName);
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             String cssEquivalent = value;
@@ -319,13 +437,23 @@ class HtmlStylesToCssConverter {
         }
     }
 
+    /**
+     * {@IAttributeConverter} implementation for HTML horizontal alignment styles.
+     */
     private static class AlignAttributeConverter implements IAttributeConverter {
+        
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
         @Override
         public boolean isSupportedForElement(String elementName) {
             return TagConstants.HR.equals(elementName) || TagConstants.TABLE.equals(elementName) || TagConstants.IMG.equals(elementName)
                     || TagConstants.TD.equals(elementName) || TagConstants.DIV.equals(elementName) || TagConstants.P.equals(elementName);
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             List<CssDeclaration> result = new ArrayList<CssDeclaration>(2);
@@ -367,13 +495,22 @@ class HtmlStylesToCssConverter {
         }
     }
 
+    /**
+     * {@IAttributeConverter} implementation for HTML shade styles.
+     */
     private static class NoShadeAttributeConverter implements IAttributeConverter {
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
         @Override
         public boolean isSupportedForElement(String elementName) {
             return TagConstants.HR.equals(elementName);
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             return Arrays.asList(
@@ -384,13 +521,23 @@ class HtmlStylesToCssConverter {
         }
     }
 
+    /**
+     * {@IAttributeConverter} implementation for HTML vertical alignment styles.
+     */
     private static class VAlignAttributeConverter implements IAttributeConverter {
+        
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
         @Override
         public boolean isSupportedForElement(String elementName) {
             return TagConstants.TD.equals(elementName) || TagConstants.TH.equals(elementName) 
                     || TagConstants.TR.equals(elementName);
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             return Arrays.asList(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));

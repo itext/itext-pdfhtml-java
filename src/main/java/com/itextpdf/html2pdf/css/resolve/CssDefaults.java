@@ -50,8 +50,13 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Helper class that allows you to get the default values of CSS properties.
+ */
 // TODO make internal?
 public class CssDefaults {
+    
+    /** A map with properties and their default values. */
     private static final Map<String, String> defaultValues = new HashMap<>();
 
     static {
@@ -134,6 +139,12 @@ public class CssDefaults {
         // TODO not complete
     }
 
+    /**
+     * Gets the default value of a property.
+     *
+     * @param property the property
+     * @return the default value
+     */
     public static String getDefaultValue(String property) {
         String defaultVal = defaultValues.get(property);
         if (defaultVal == null) {

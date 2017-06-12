@@ -45,8 +45,18 @@ package com.itextpdf.html2pdf.css.resolve;
 import com.itextpdf.html2pdf.html.node.INode;
 import java.util.Map;
 
+/**
+ * Interface for CSS resolvers.
+ */
 public interface ICssResolver {
 
+    /**
+     * Resolves the styles of a node.
+     *
+     * @param node the node
+     * @param context the CSS context
+     * @return the map
+     */
     Map<String, String> resolveStyles(INode node, CssContext context);
 
 }

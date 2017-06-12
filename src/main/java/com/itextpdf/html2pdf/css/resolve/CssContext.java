@@ -47,41 +47,91 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
 
+/**
+ * Class that bundles all the CSS context properties.
+ */
 public class CssContext {
-    //value in pt
+    
+    /** The root font size value in pt. */
     private float rootFontSize = FontStyleApplierUtil.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
+    
+    /** The counter manager. */
     private CssCounterManager counterManager = new CssCounterManager();
+    
+    /** Indicates if a page counter is present. */
     private boolean pagesCounterPresent = false;
+    
+    /** The quotes depth. */
     private int quotesDepth = 0;
 
+    /**
+     * Gets the root font size.
+     *
+     * @return the root font size in pt
+     */
     public float getRootFontSize() {
         return rootFontSize;
     }
 
+    /**
+     * Sets the root font size.
+     *
+     * @param fontSize the new root font size
+     */
     public void setRootFontSize(float fontSize) {
         this.rootFontSize = fontSize;
     }
 
+    /**
+     * Sets the root font size.
+     *
+     * @param fontSizeStr the new root font size
+     */
     public void setRootFontSize(String fontSizeStr) {
         this.rootFontSize = FontStyleApplierUtil.parseAbsoluteFontSize(fontSizeStr);
     }
 
+    /**
+     * Gets the counter manager.
+     *
+     * @return the counter manager
+     */
     public CssCounterManager getCounterManager() {
         return counterManager;
     }
 
+    /**
+     * Sets the presence of a page counter.
+     *
+     * @param pagesCounterPresent the new pages counter present
+     */
     public void setPagesCounterPresent(boolean pagesCounterPresent) {
         this.pagesCounterPresent = pagesCounterPresent;
     }
 
+    /**
+     * Checks if a pages counter is present.
+     *
+     * @return true, if is pages counter present
+     */
     public boolean isPagesCounterPresent() {
         return pagesCounterPresent;
     }
 
+    /**
+     * Gets the quotes depth.
+     *
+     * @return the quotes depth
+     */
     public int getQuotesDepth() {
         return quotesDepth;
     }
 
+    /**
+     * Sets the quotes depth.
+     *
+     * @param quotesDepth the new quotes depth
+     */
     public void setQuotesDepth(int quotesDepth) {
         this.quotesDepth = quotesDepth;
     }

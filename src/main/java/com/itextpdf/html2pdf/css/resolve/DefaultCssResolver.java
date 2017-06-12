@@ -85,24 +85,48 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Default implementation of the {@link ICssResolver} interface.
+ */
 public class DefaultCssResolver implements ICssResolver {
 
+    /** The CSS style sheet. */
     private CssStyleSheet cssStyleSheet;
+    
+    /** The device description. */
     private MediaDeviceDescription deviceDescription;
+    
+    /** The list of fonts. */
     private List<CssFontFaceRule> fonts = new ArrayList<>();
 
+    /**
+     * Creates a new <code>DefaultCssResolver</code> instance.
+     *
+     * @param treeRoot the root node
+     * @param mediaDeviceDescription the media device description
+     * @param resourceResolver the resource resolver
+     */
     public DefaultCssResolver(INode treeRoot, MediaDeviceDescription mediaDeviceDescription, ResourceResolver resourceResolver) {
         this.deviceDescription = mediaDeviceDescription;
         collectCssDeclarations(treeRoot, resourceResolver, null);
         collectFonts();
     }
 
+    /**
+     * Creates a new <code>DefaultCssResolver</code> instance.
+     *
+     * @param treeRoot the root node
+     * @param context the processor context
+     */
     public DefaultCssResolver(INode treeRoot, ProcessorContext context) {
         this.deviceDescription = context.getDeviceDescription();
         collectCssDeclarations(treeRoot, context.getResourceResolver(), context.getCssContext());
         collectFonts();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.ICssResolver#resolveStyles(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.resolve.CssContext)
+     */
     @Override
     public Map<String, String> resolveStyles(INode element, CssContext context) {
         List<CssDeclaration> nodeCssDeclarations = UserAgentCss.getStyles(element);
@@ -179,10 +203,22 @@ public class DefaultCssResolver implements ICssResolver {
         return elementStyles;
     }
 
+    /**
+     * Gets the list of fonts.
+     *
+     * @return the list of {@link CssFontFaceRule} instances
+     */
     public List<CssFontFaceRule> getFonts() {
         return fonts;
     }
 
+    /**
+     * Resolves a content property.
+     *
+     * @param styles the styles map
+     * @param contentContainer the content container
+     * @param context the CSS context
+     */
     private void resolveContentProperty(Map<String, String> styles, INode contentContainer, CssContext context) {
         if (contentContainer instanceof CssPseudoElementNode || contentContainer instanceof PageMarginBoxContextNode) {
             List<INode> resolvedContent = CssContentPropertyResolver.resolveContent(styles, contentContainer, context);
@@ -194,6 +230,12 @@ public class DefaultCssResolver implements ICssResolver {
         }
     }
 
+    /**
+     * Converts a list of {@link CssDeclaration} instances to a map consisting of <code>String</code> key-value pairs.
+     *
+     * @param nodeCssDeclarations the node css declarations
+     * @return the map
+     */
     private Map<String, String> cssDeclarationsToMap(List<CssDeclaration> nodeCssDeclarations) {
         Map<String, String> stylesMap = new HashMap<>();
         for (int i = 0; i < nodeCssDeclarations.size(); i++) {
@@ -211,6 +253,12 @@ public class DefaultCssResolver implements ICssResolver {
         return stylesMap;
     }
 
+    /**
+     * Adds a CSS declaration to a styles map if the CSS declaration is valid.
+     *
+     * @param stylesMap the styles map
+     * @param cssDeclaration the CSS declaration
+     */
     private void putDeclarationInMapIfValid(Map<String, String> stylesMap, CssDeclaration cssDeclaration) {
         if (CssDeclarationValidationMaster.checkDeclaration(cssDeclaration)) {
             stylesMap.put(cssDeclaration.getProperty(), cssDeclaration.getExpression());
@@ -220,6 +268,14 @@ public class DefaultCssResolver implements ICssResolver {
         }
     }
 
+    /**
+     * Collects CSS declarationss.
+     *
+     * @param rootNode the root node
+     * @param resourceResolver the resource resolver
+     * @param cssContext the CSS context
+     * @return the node (always null in this case)
+     */
     private INode collectCssDeclarations(INode rootNode, ResourceResolver resourceResolver, CssContext cssContext) {
         cssStyleSheet = new CssStyleSheet();
         LinkedList<INode> q = new LinkedList<>();
@@ -262,6 +318,12 @@ public class DefaultCssResolver implements ICssResolver {
         return null;
     }
 
+    /**
+     * Check if a pages counter is mentioned.
+     *
+     * @param cssContents the CSS contents
+     * @param cssContext the CSS context
+     */
     private void checkIfPagesCounterMentioned(String cssContents, CssContext cssContext) {
         // TODO more efficient (avoid searching in text string) and precise (e.g. skip spaces) check during the parsing.
         if (cssContents.contains("counter(pages)") || cssContents.contains("counters(pages")) {
@@ -272,6 +334,13 @@ public class DefaultCssResolver implements ICssResolver {
         }
     }
 
+    /**
+     * Wraps a {@link CssMediaRule} into the style sheet if the head child element has a media attribute.
+     *
+     * @param headChildElement the head child element
+     * @param styleSheet the style sheet
+     * @return the css style sheet
+     */
     private CssStyleSheet wrapStyleSheetInMediaQueryIfNecessary(IElementNode headChildElement, CssStyleSheet styleSheet) {
         String mediaAttribute = headChildElement.getAttribute(AttributeConstants.MEDIA);
         if (mediaAttribute != null && mediaAttribute.length() > 0) {
@@ -283,6 +352,13 @@ public class DefaultCssResolver implements ICssResolver {
         return styleSheet;
     }
 
+    /**
+     * Merge parent CSS declarations.
+     *
+     * @param styles the styles map
+     * @param cssProperty the CSS property
+     * @param parentPropValue the parent properties value
+     */
     private void mergeParentCssDeclaration(Map<String, String> styles, String cssProperty, String parentPropValue) {
         String childPropValue = styles.get(cssProperty);
         if ((childPropValue == null && CssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(childPropValue)) {
@@ -298,12 +374,20 @@ public class DefaultCssResolver implements ICssResolver {
         }
     }
 
+    /**
+     * Collects fonts from the style sheet.
+     */
     private void collectFonts() {
         for (CssStatement cssStatement: cssStyleSheet.getStatements()) {
             collectFonts(cssStatement);
         }
     }
 
+    /**
+     * Collects fonts from a {@link CssStatement}.
+     *
+     * @param cssStatement the CSS statement
+     */
     private void collectFonts(CssStatement cssStatement) {
         if (cssStatement instanceof CssFontFaceRule) {
             fonts.add((CssFontFaceRule) cssStatement);
