@@ -54,6 +54,9 @@ import com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator;
  */
 public class CssIdentifierValidator implements ICssDataTypeValidator {
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator#isValid(java.lang.String)
+     */
     @Override
     public boolean isValid(String objectString) {
         // TODO now the validation is very lenient. Make is more strict

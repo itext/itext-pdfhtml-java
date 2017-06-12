@@ -52,12 +52,21 @@ import java.util.List;
  */
 public class CssEnumValidator implements ICssDataTypeValidator {
 
+    /** The allowed values. */
     private List<String> allowedValues;
 
+    /**
+     * Creates a new <code>CssEnumValidator</code> instance.
+     *
+     * @param allowedValues the allowed values
+     */
     public CssEnumValidator(String... allowedValues) {
         this.allowedValues = Arrays.asList(allowedValues);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator#isValid(java.lang.String)
+     */
     @Override
     public boolean isValid(String objectString) {
         return allowedValues.contains(objectString);

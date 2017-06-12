@@ -55,11 +55,24 @@ import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.Property;
 
+/**
+ * Utilities class to apply backgrounds.
+ */
 public final class BackgroundApplierUtil {
 
+	/**
+	 * Creates a new <code>BackgroundApplierUtil</code> instance.
+	 */
     private BackgroundApplierUtil() {
     }
 
+    /**
+     * Applies background to an element.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
     public static void applyBackground(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         String backgroundColorStr = cssProps.get(CssConstants.BACKGROUND_COLOR);
         if (backgroundColorStr != null && !CssConstants.TRANSPARENT.equals(backgroundColorStr)) {

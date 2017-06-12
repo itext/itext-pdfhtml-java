@@ -55,16 +55,37 @@ import com.itextpdf.layout.property.Property;
 
 import java.util.Map;
 
+/**
+ * Utilities class to apply page breaks.
+ */
 public class PageBreakApplierUtil {
 
+    /**
+     * Creates a new <code>PageBreakApplierUtil</code> instance.
+     */
     private PageBreakApplierUtil() {
     }
 
+    /**
+     * Applies page break properties.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
     public static void applyPageBreakProperties(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         applyPageBreakInside(cssProps, context, element);
         applyKeepWithNext(cssProps, context, element);
     }
 
+    /**
+     * Processes a page break "before" property.
+     *
+     * @param context the processor context
+     * @param parentTagWorker the parent tag worker
+     * @param childElement the child element
+     * @param childTagWorker the child tag worker
+     */
     /* Handles left, right, always cases. Avoid is handled at different time along with other css property application */
     public static void addPageBreakElementBefore(ProcessorContext context, ITagWorker parentTagWorker, IElementNode childElement, ITagWorker childTagWorker) {
         // Applies to block-level elements
@@ -78,6 +99,14 @@ public class PageBreakApplierUtil {
         }
     }
 
+    /**
+     * Processes a page break "after" property.
+     *
+     * @param context the processor context
+     * @param parentTagWorker the parent tag worker
+     * @param childElement the child element
+     * @param childTagWorker the child tag worker
+     */
     /* Handles left, right, always cases. Avoid is handled at different time along with other css property application */
     public static void addPageBreakElementAfter(ProcessorContext context, ITagWorker parentTagWorker, IElementNode childElement, ITagWorker childTagWorker) {
         // Applies to block-level elements
@@ -91,18 +120,31 @@ public class PageBreakApplierUtil {
         }
     }
 
-    private static HtmlPageBreak createHtmlPageBreak(String pageBreakAfterVal) {
+    /**
+     * Creates an {@link HtmlPageBreak} instance.
+     *
+     * @param pageBreakVal the page break value
+     * @return the {@link HtmlPageBreak} instance
+     */
+    private static HtmlPageBreak createHtmlPageBreak(String pageBreakVal) {
         HtmlPageBreak pageBreak = null;
-        if (CssConstants.ALWAYS.equals(pageBreakAfterVal)) {
+        if (CssConstants.ALWAYS.equals(pageBreakVal)) {
             pageBreak = new HtmlPageBreak(HtmlPageBreakType.ALWAYS);
-        } else if (CssConstants.LEFT.equals(pageBreakAfterVal)) {
+        } else if (CssConstants.LEFT.equals(pageBreakVal)) {
             pageBreak = new HtmlPageBreak(HtmlPageBreakType.LEFT);
-        } else if (CssConstants.RIGHT.equals(pageBreakAfterVal)) {
+        } else if (CssConstants.RIGHT.equals(pageBreakVal)) {
             pageBreak = new HtmlPageBreak(HtmlPageBreakType.RIGHT);
         }
         return pageBreak;
     }
 
+    /**
+     * Applies a keep with next property to an element.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
     private static void applyKeepWithNext(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         String pageBreakBefore = cssProps.get(CssConstants.PAGE_BREAK_BEFORE);
         String pageBreakAfter = cssProps.get(CssConstants.PAGE_BREAK_AFTER);
@@ -114,6 +156,13 @@ public class PageBreakApplierUtil {
         }
     }
 
+    /**
+     * Applies a page break inside property.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
     private static void applyPageBreakInside(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         // TODO A potential page break location is typically under the influence of the parent element's 'page-break-inside' property,
         // the 'page-break-after' property of the preceding element, and the 'page-break-before' property of the following element.
@@ -124,27 +173,49 @@ public class PageBreakApplierUtil {
         }
     }
 
+    /**
+     * A {@link TagWorker} class for HTML page breaks.
+     */
     private static class HtmlPageBreakWorker implements ITagWorker {
+        
+        /** The {@link HtmlPageBreak} instance. */
         private HtmlPageBreak pageBreak;
 
+        /**
+         * Creates a new {@link HtmlPageBreakWorker} instance.
+         *
+         * @param pageBreak the page break
+         */
         HtmlPageBreakWorker(HtmlPageBreak pageBreak) {
             this.pageBreak = pageBreak;
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+         */
         @Override
         public void processEnd(IElementNode element, ProcessorContext context) {
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+         */
         @Override
         public boolean processContent(String content, ProcessorContext context) {
             throw new IllegalStateException();
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+         */
         @Override
         public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             throw new IllegalStateException();
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+         */
         @Override
         public IPropertyContainer getElementResult() {
             return pageBreak;

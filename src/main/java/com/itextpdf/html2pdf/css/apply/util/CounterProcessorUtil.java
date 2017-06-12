@@ -50,8 +50,18 @@ import com.itextpdf.html2pdf.html.node.INode;
 
 import java.util.Map;
 
+/**
+ * Utilities class to process counters.
+ */
 public class CounterProcessorUtil {
 
+    /**
+     * Processes counters.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param scope the scope
+     */
     public static void processCounters(Map<String, String> cssProps, CssContext context, INode scope) {
         String counterReset = cssProps.get(CssConstants.COUNTER_RESET);
         if (counterReset != null) {

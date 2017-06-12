@@ -56,13 +56,27 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
+/**
+ * Utilities class to apply a width or a height to an element.
+ */
 public final class WidthHeightApplierUtil {
 
+    /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(WidthHeightApplierUtil.class);
 
+    /**
+     * Creates a new <code>WidhtHeightApplierUtil</code> instance.
+     */
     private WidthHeightApplierUtil() {
     }
 
+    /**
+     * Applies a width or a height to an element.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
     public static void applyWidthHeight(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();

@@ -67,15 +67,26 @@ import org.slf4j.LoggerFactory;
 import java.text.MessageFormat;
 import java.util.Map;
 
+/**
+ * Utilities class to apply list styles to an element.
+ */
 public final class ListStyleApplierUtil {
 
     //private static final String HTML_SYMBOL_FONT = "Sans-serif";
 
+    /** The Constant GREEK_ALPHABET_LENGTH. */
     private static final int GREEK_ALPHABET_LENGTH = 24;
+    
+    /** The Constant GREEK_LOWERCASE. */
     private static final char[] GREEK_LOWERCASE = new char[GREEK_ALPHABET_LENGTH];
 
+    /** The Constant DISC_SYMBOL. */
     private static final String DISC_SYMBOL = "\u2022";
+    
+    /** The Constant CIRCLE_SYMBOL. */
     private static final String CIRCLE_SYMBOL = "\u25cb";
+    
+    /** The Constant SQUARE_SYMBOL. */
     private static final String SQUARE_SYMBOL = "\u25a0";
 
     static {
@@ -84,9 +95,19 @@ public final class ListStyleApplierUtil {
         }
     }
 
+    /**
+     * Creates a new <code>ListStyleApplierUtil</code> instance.
+     */
     private ListStyleApplierUtil() {
     }
 
+    /**
+     * Applies an image list style to an element.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
     public static void applyListStyleImageProperty(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         String listStyleImage = cssProps.get(CssConstants.LIST_STYLE_IMAGE);
         if (listStyleImage != null && !CssConstants.NONE.equals(listStyleImage)) {
@@ -99,6 +120,14 @@ public final class ListStyleApplierUtil {
         }
     }
 
+    /**
+     * Applies a list style to an element.
+     *
+     * @param stylesContainer the styles container
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
     public static void applyListStyleTypeProperty(IStylesContainer stylesContainer, Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
 
@@ -143,12 +172,24 @@ public final class ListStyleApplierUtil {
         }
     }
 
+    /**
+     * Applies the "disc" list style to an element.
+     *
+     * @param element the element
+     * @param em the em value
+     */
     public static void setDiscStyle(IPropertyContainer element, float em) {
         Text symbol = new Text(DISC_SYMBOL);
         element.setProperty(Property.LIST_SYMBOL, symbol);
         setListSymbolIndent(element, em);
     }
 
+    /**
+     * Sets the list symbol for a {@link List} or {@link ListItem} element.
+     *
+     * @param container the container element ({@link List} or {@link ListItem})
+     * @param text the list symbol
+     */
     private static void setListSymbol(IPropertyContainer container, Text text) {
         if (container instanceof List) {
             ((List) container).setListSymbol(text);
@@ -157,6 +198,12 @@ public final class ListStyleApplierUtil {
         }
     }
 
+    /**
+     * Sets the list symbol for a {@link List} or {@link ListItem} element.
+     *
+     * @param container the container element ({@link List} or {@link ListItem})
+     * @param listNumberingType the list numbering type
+     */
     private static void setListSymbol(IPropertyContainer container, ListNumberingType listNumberingType) {
         if (container instanceof List) {
             ((List) container).setListSymbol(listNumberingType);
@@ -165,6 +212,12 @@ public final class ListStyleApplierUtil {
         }
     }
 
+    /**
+     * Applies the "square" list style to an element.
+     *
+     * @param element the element
+     * @param em the em value
+     */
     private static void setSquareStyle(IPropertyContainer element, float em) {
         Text symbol = new Text(SQUARE_SYMBOL);
         symbol.setTextRise(1.5f * em / 12);
@@ -173,6 +226,12 @@ public final class ListStyleApplierUtil {
         setListSymbolIndent(element, em);
     }
 
+    /**
+     * Applies the "circle" list style to an element.
+     *
+     * @param element the element
+     * @param em the em value
+     */
     private static void setCircleStyle(IPropertyContainer element, float em) {
         Text symbol = new Text(CIRCLE_SYMBOL);
         symbol.setTextRise(1.5f * em / 12);
@@ -181,6 +240,12 @@ public final class ListStyleApplierUtil {
         setListSymbolIndent(element, em);
     }
 
+    /**
+     * Sets the list symbol indentation.
+     *
+     * @param element the element
+     * @param em the em value
+     */
     private static void setListSymbolIndent(IPropertyContainer element, float em) {
         if  (ListSymbolPosition.INSIDE == element.<ListSymbolPosition>getProperty(Property.LIST_SYMBOL_POSITION)) {
             element.setProperty(Property.LIST_SYMBOL_INDENT, 1.5f * em);
@@ -189,13 +254,26 @@ public final class ListStyleApplierUtil {
         }
     }
 
+    /**
+     * A factory for creating {@link HtmlAlphabetSymbol} objects.
+     */
     private static class HtmlAlphabetSymbolFactory implements IListSymbolFactory {
+        
+        /** The alphabet. */
         private final char[] alphabet;
 
+        /**
+         * Creates a new <code>HtmlAlphabetSymbolFactory</code> instance.
+         *
+         * @param alphabet the alphabet
+         */
         public HtmlAlphabetSymbolFactory(char[] alphabet) {
             this.alphabet = alphabet;
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.layout.property.IListSymbolFactory#createSymbol(int, com.itextpdf.layout.IPropertyContainer, com.itextpdf.layout.IPropertyContainer)
+         */
         @Override
         public IElement createSymbol(int index, IPropertyContainer list, IPropertyContainer listItem) {
             Object preValue = getListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_PRE_TEXT);
@@ -204,6 +282,15 @@ public final class ListStyleApplierUtil {
             return result;
         }
 
+        /**
+         * Gets the a property from a {@link ListItem}, or from the {@link List}
+         * (if the property) isn't declared for the list item.
+         *
+         * @param listItem the list item
+         * @param list the list
+         * @param propertyId the property id
+         * @return the property value
+         */
         private static Object getListItemOrListProperty(IPropertyContainer listItem, IPropertyContainer list, int propertyId) {
             return listItem.hasProperty(propertyId) ? listItem.<Object>getProperty(propertyId) : list.<Object>getProperty(propertyId);
         }

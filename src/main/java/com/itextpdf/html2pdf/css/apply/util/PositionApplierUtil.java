@@ -56,13 +56,27 @@ import org.slf4j.LoggerFactory;
 import java.text.MessageFormat;
 import java.util.Map;
 
+/**
+ * Utilities class to apply a position.
+ */
 public final class PositionApplierUtil {
 
+    /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(PositionApplierUtil.class);
 
+    /**
+     * Creates a new <code>PositionApplierUtil</code> instance.
+     */
     private PositionApplierUtil() {
     }
 
+    /**
+     * Applies a position to an element.
+     *
+     * @param cssProps the CSS properties
+     * @param context the propertiescontext
+     * @param element the element
+     */
     public static void applyPosition(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         String position = cssProps.get(CssConstants.POSITION);
         if (CssConstants.ABSOLUTE.equals(position)) {
@@ -80,6 +94,14 @@ public final class PositionApplierUtil {
         }
     }
 
+    /**
+     * Applies left, right, top, and bottom properties.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     * @param position the position
+     */
     private static void applyLeftRightTopBottom(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element, String position) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
@@ -101,6 +123,15 @@ public final class PositionApplierUtil {
         applyBottomProperty(cssProps, element, em, rem, Property.BOTTOM);
     }
 
+    /**
+     * Applies the "left" property.
+     *
+     * @param cssProps the CSS properties
+     * @param element the element
+     * @param em the em value
+     * @param rem the root em value
+     * @param layoutPropertyMapping the layout property mapping
+     */
     private static void applyLeftProperty(Map<String, String> cssProps, IPropertyContainer element, float em, float rem, int layoutPropertyMapping) {
         String left = cssProps.get(CssConstants.LEFT);
         UnitValue leftVal = CssUtils.parseLengthValueToPt(left, em, rem);
@@ -113,6 +144,15 @@ public final class PositionApplierUtil {
         }
     }
 
+    /**
+     * Applies the "right" property.
+     *
+     * @param cssProps the CSS properties
+     * @param element the element
+     * @param em the em value
+     * @param rem the root em value
+     * @param layoutPropertyMapping the layout property mapping
+     */
     private static void applyRightProperty(Map<String, String> cssProps, IPropertyContainer element, float em, float rem, int layoutPropertyMapping) {
         String right = cssProps.get(CssConstants.RIGHT);
         UnitValue rightVal = CssUtils.parseLengthValueToPt(right, em, rem);
@@ -125,6 +165,15 @@ public final class PositionApplierUtil {
         }
     }
 
+    /**
+     * Applies the "top" property.
+     *
+     * @param cssProps the CSS properties
+     * @param element the element
+     * @param em the em value
+     * @param rem the root em value
+     * @param layoutPropertyMapping the layout property mapping
+     */
     private static void applyTopProperty(Map<String, String> cssProps, IPropertyContainer element, float em, float rem, int layoutPropertyMapping) {
         String top = cssProps.get(CssConstants.TOP);
         UnitValue topVal = CssUtils.parseLengthValueToPt(top, em, rem);
@@ -137,6 +186,15 @@ public final class PositionApplierUtil {
         }
     }
 
+    /**
+     * Applies the "bottom" property.
+     *
+     * @param cssProps the CSS properties
+     * @param element the element
+     * @param em the em value
+     * @param rem the root em value
+     * @param layoutPropertyMapping the layout property mapping
+     */
     private static void applyBottomProperty(Map<String, String> cssProps, IPropertyContainer element, float em, float rem, int layoutPropertyMapping) {
         String bottom = cssProps.get(CssConstants.BOTTOM);
         UnitValue bottomVal = CssUtils.parseLengthValueToPt(bottom, em, rem);
