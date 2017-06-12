@@ -42,14 +42,26 @@
  */
 package com.itextpdf.html2pdf.css.parse.syntax;
 
+// TODO: Auto-generated Javadoc
+/**
+ * {@link IParserState} implementation for the start comment state.
+ */
 class CommentStartState implements IParserState {
 
+	/** The state machine that parses the CSS. */
     private CssParserStateController controller;
 
+    /**
+     * Creates a new <code>CommentStartState</code> instance.
+     * @param	controller	the state machine that parses the CSS
+     */
     public CommentStartState(CssParserStateController controller) {
         this.controller = controller;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.parse.syntax.IParserState#process(char)
+     */
     @Override
     public void process(char ch) {
         if (ch == '*') {

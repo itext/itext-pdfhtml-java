@@ -42,8 +42,16 @@
  */
 package com.itextpdf.html2pdf.css.parse.syntax;
 
+/**
+ * Interface for all parser state implementations.
+ */
 interface IParserState {
 
+    /**
+     * Process a character.
+     *
+     * @param ch the character
+     */
     void process(char ch);
 
 }
