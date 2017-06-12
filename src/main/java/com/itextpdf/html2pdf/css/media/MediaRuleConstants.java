@@ -42,15 +42,30 @@
  */
 package com.itextpdf.html2pdf.css.media;
 
+/**
+ * Class that bundles a series of media rule constants.
+ */
 public final class MediaRuleConstants {
 
+    /**
+     * Creates a new <code>MediaRuleConstants</code> instance.
+     */
     private MediaRuleConstants() {
     }
 
+    /** The Constant AND. */
     public static final String AND = "and";
+    
+    /** The Constant MIN. */
     public static final String MIN = "min";
+    
+    /** The Constant MAX. */
     public static final String MAX = "max";
+    
+    /** The Constant NOT. */
     public static final String NOT = "not";
+    
+    /** The Constant ONLY. */
     public static final String ONLY = "only";
 
 }

@@ -42,31 +42,37 @@
  */
 package com.itextpdf.html2pdf.css.media;
 
+/**
+ * Class that bundles all the media feature values.
+ */
 public final class MediaFeature {
 
+    /**
+     * Creates a new <code>MediaFeature</code> instance.
+     */
     private MediaFeature() {
     }
 
     /**
-     * Value: <integer>
-     * Media: visual
-     * Accepts min/max prefixes: yes
+     * Value: &lt;integer&gt;<br />
+     * Media: visual<br />
+     * Accepts min/max prefixes: yes<br />
      * Indicates the number of bits per color component of the output device. If the device is not a color device, this value is zero.
      */
     public static final String COLOR = "color";
 
     /**
-     * Value: <integer>
-     * Media: visual
-     * Accepts min/max prefixes: yes
+     * Value: &lt;integer&gt;<br />
+     * Media: visual<br />
+     * Accepts min/max prefixes: yes<br />
      * Indicates the number of entries in the color look-up table for the output device.
      */
     public static final String COLOR_INDEX = "color-index";
 
     /**
-     * Value: <ratio>
-     * Media: visual, tactile
-     * Accepts min/max prefixes: yes
+     * Value: &lt;ratio&gt;<br />
+     * Media: visual, tactile<br />
+     * Accepts min/max prefixes: yes<br />
      * Describes the aspect ratio of the targeted display area of the output device.
      * This value consists of two positive integers separated by a slash ("/") character.
      * This represents the ratio of horizontal pixels (first term) to vertical pixels (second term).
@@ -74,9 +80,9 @@ public final class MediaFeature {
     public static final String ASPECT_RATIO = "aspect-ratio";
 
     /**
-     * Value: <mq-boolean> which is an <integer> that can only have the 0 and 1 value.
-     * Media: all
-     * Accepts min/max prefixes: no
+     * Value: &lt;mq-boolean&gt; which is an &lt;integer&gt; that can only have the 0 and 1 value.<br />
+     * Media: all<br />
+     * Accepts min/max prefixes: no<br />
      * Determines whether the output device is a grid device or a bitmap device.
      * If the device is grid-based (such as a TTY terminal or a phone display with only one font),
      * the value is 1. Otherwise it is zero.
@@ -84,53 +90,53 @@ public final class MediaFeature {
     public static final String GRID = "grid";
 
     /**
-     * Value: progressive | interlace
-     * Media: tv
-     * Accepts min/max prefixes: no
+     * Value: progressive | interlace<br />
+     * Media: tv<br />
+     * Accepts min/max prefixes: no<br />
      * Describes the scanning process of television output devices.
      */
     public static final String SCAN = "scan";
 
     /**
-     * Value: landscape | portrait
-     * Media: visual
-     * Accepts min/max prefixes: no
+     * Value: landscape | portrait<br />
+     * Media: visual<br />
+     * Accepts min/max prefixes: no<br />
      * Indicates whether the viewport is in landscape (the display is wider than it is tall) or
      * portrait (the display is taller than it is wide) mode.
      */
     public static final String ORIENTATION = "orientation";
 
     /**
-     * Value: <integer>
-     * Media: visual
-     * Accepts min/max prefixes: yes
+     * Value: &lt;integer&gt;<br />
+     * Media: visual<br />
+     * Accepts min/max prefixes: yes<br />
      * Indicates the number of bits per pixel on a monochrome (greyscale) device.
      * If the device isn't monochrome, the device's value is 0.
      */
     public static final String MONOCHROME = "monochrome";
 
     /**
-     * Value: <length>
-     * Media: visual, tactile
-     * Accepts min/max prefixes: yes
+     * Value: &lt;length&gt;<br />
+     * Media: visual, tactile<br />
+     * Accepts min/max prefixes: yes<br />
      * The height media feature describes the height of the output device's rendering surface
      * (such as the height of the viewport or of the page box on a printer).
      */
     public static final String HEIGHT = "height";
 
     /**
-     * Value: <resolution>
-     * Media: bitmap
-     * Accepts min/max prefixes: yes
+     * Value: &lt;resolution&gt;<br />
+     * Media: bitmap<br />
+     * Accepts min/max prefixes: yes<br />
      * Indicates the resolution (pixel density) of the output device. The resolution may be specified in
      * either dots per inch (dpi) or dots per centimeter (dpcm).
      */
     public static final String RESOLUTION = "resolution";
 
     /**
-     * Value: <length>
-     * Media: visual, tactile
-     * Accepts min/max prefixes: yes
+     * Value: &lt;length&gt;<br />
+     * Media: visual, tactile<br />
+     * Accepts min/max prefixes: yes<br />
      * The width media feature describes the width of the rendering surface of the output device
      * (such as the width of the document window, or the width of the page box on a printer).
      */
