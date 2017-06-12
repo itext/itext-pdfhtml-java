@@ -43,38 +43,76 @@
 package com.itextpdf.html2pdf.css.page;
 
 import com.itextpdf.html2pdf.css.CssContextNode;
+import com.itextpdf.html2pdf.css.CssNestedAtRule;
 import com.itextpdf.html2pdf.html.node.INode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * {@link CssContextNode} implementation for page contexts.
+ */
 public class PageContextNode extends CssContextNode {
+    
+    /** The page type name. */
     private String pageTypeName;
+    
+    /** The page classes. */
     private List<String> pageClasses;
 
+    /**
+     * Creates a new <code>PageContextNode</code> instance.
+     */
     public PageContextNode() {
         this(null);
     }
 
+    /**
+     * Creates a new <code>PageContextNode</code> instance.
+     *
+     * @param parentNode the parent node
+     */
     public PageContextNode(INode parentNode) {
         super(parentNode);
         this.pageClasses = new ArrayList<>();
     }
 
+    /**
+     * Adds a page class.
+     *
+     * @param pageClass the page class
+     * @return the page context node
+     */
     public PageContextNode addPageClass(String pageClass) {
         this.pageClasses.add(pageClass.toLowerCase());
         return this;
     }
 
+    /**
+     * Gets the page type name.
+     *
+     * @return the page type name
+     */
     public String getPageTypeName() {
         return this.pageTypeName;
     }
 
+    /**
+     * Sets the page type name.
+     *
+     * @param pageTypeName the page type name
+     * @return the page context node
+     */
     public PageContextNode setPageTypeName(String pageTypeName) {
         this.pageTypeName = pageTypeName;
         return this;
     }
 
+    /**
+     * Gets the list of page classes.
+     *
+     * @return the page classes
+     */
     public List<String> getPageClasses() {
         return Collections.unmodifiableList(pageClasses);
     }

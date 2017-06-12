@@ -47,17 +47,32 @@ import com.itextpdf.html2pdf.html.node.ICustomElementNode;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
 
+/**
+ * {@link ICustomElementNode} implementation for a page count element node.
+ */
 public class PageCountElementNode extends JsoupElementNode implements ICustomElementNode {
 
+    /** The Constant PAGE_COUNTER_TAG. */
     public static final String PAGE_COUNTER_TAG = "_e0d00a6_page-counter";
 
+    /** Indicates if the node represents the total page count. */
     private boolean totalPageCount = false;
 
+    /**
+     * Creates a new <code>PageCountElementNode</code> instance.
+     *
+     * @param totalPageCount indicates if the node represents the total page count
+     */
     public PageCountElementNode(boolean totalPageCount) {
         super(new Element(Tag.valueOf(PAGE_COUNTER_TAG), ""));
         this.totalPageCount = totalPageCount;
     }
 
+    /**
+     * Checks if the node represents the total page count.
+     *
+     * @return true, if the node represents the total page count
+     */
     public boolean isTotalPageCount() {
         return totalPageCount;
     }
