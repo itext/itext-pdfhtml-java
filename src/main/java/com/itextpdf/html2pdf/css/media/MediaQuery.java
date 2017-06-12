@@ -45,13 +45,31 @@ package com.itextpdf.html2pdf.css.media;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class that bundles all the media query properties.
+ */
 public class MediaQuery {
 
+    /** The logical "only" value. */
     private boolean only;
+    
+    /** The logical "not" value. */
     private boolean not;
+    
+    /** The type. */
     private String type;
+    
+    /** The expressions. */
     private List<MediaExpression> expressions;
 
+    /**
+     * Creates a new <code>MediaQuery</code> instance.
+     *
+     * @param type the type
+     * @param expressions the expressions
+     * @param only logical "only" value
+     * @param not logical "not" value
+     */
     public MediaQuery(String type, List<MediaExpression> expressions, boolean only, boolean not) {
         this.type = type;
         this.expressions = expressions;
@@ -59,6 +77,12 @@ public class MediaQuery {
         this.not = not;
     }
 
+    /**
+     * Tries to match a device description with the media query.
+     *
+     * @param deviceDescription the device description
+     * @return true, if successful
+     */
     public boolean matches(MediaDeviceDescription deviceDescription) {
         boolean typeMatches = type == null || MediaType.ALL.equals(type) || Objects.equals(type, deviceDescription.getType());
 

@@ -45,11 +45,23 @@ package com.itextpdf.html2pdf.css.media;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utilities class that parses <code>String</code> values into {@link MediaQuery} or {@link MediaExpression} values.
+ */
 public final class MediaQueryParser {
 
+    /**
+     * Creates a <code>MediaQueryParse</code> instance.
+     */
     private MediaQueryParser() {
     }
 
+    /**
+     * Parses a <code>String</code> into a list of {@link MediaQuery) values.
+     *
+     * @param mediaQueriesStr the media queries in the form of a <code>String</code>
+     * @return the resulting list of {@link MediaQuery) values
+     */
     public static List<MediaQuery> parseMediaQueries(String mediaQueriesStr) {
         String[] mediaQueryStrs = mediaQueriesStr.split(",");
         List<MediaQuery> mediaQueries = new ArrayList<>();
@@ -62,6 +74,12 @@ public final class MediaQueryParser {
         return mediaQueries;
     }
 
+    /**
+     * Parses a <code>String</code> into a {@link MediaQuery) value.
+     *
+     * @param mediaQueryStr the media query in the form of a <code>String</code>
+     * @return the resulting {@link MediaQuery) value
+     */
     public static MediaQuery parseMediaQuery(String mediaQueryStr) {
         mediaQueryStr = mediaQueryStr.trim().toLowerCase();
         boolean only = false;
@@ -90,6 +108,13 @@ public final class MediaQueryParser {
         return new MediaQuery(mediaType, mediaExpressions, only, not);
     }
 
+    /**
+     * Parses a <code>String</code> into a list of {@link MediaExpression) values.
+     *
+     * @param mediaExpressionsStr the media expressions in the form of a <code>String</code>
+     * @param shallStartWithAnd indicates if the media expression shall start with "and"
+     * @return the resulting list of {@link MediaExpression) values
+     */
     private static List<MediaExpression> parseMediaExpressions(String mediaExpressionsStr, boolean shallStartWithAnd) {
         mediaExpressionsStr = mediaExpressionsStr.trim();
         boolean startsWithEnd = mediaExpressionsStr.startsWith(MediaRuleConstants.AND);
@@ -112,6 +137,12 @@ public final class MediaQueryParser {
         return expressions;
     }
 
+    /**
+     * Parses a <code>String</code> into a {@link MediaExpression) value.
+     *
+     * @param mediaExpressionStr the media expression in the form of a <code>String</code>
+     * @return the resulting {@link MediaExpression) value
+     */
     private static MediaExpression parseMediaExpression(String mediaExpressionStr) {
         mediaExpressionStr = mediaExpressionStr.trim();
         if (!mediaExpressionStr.startsWith("(") || !mediaExpressionStr.endsWith(")")) {

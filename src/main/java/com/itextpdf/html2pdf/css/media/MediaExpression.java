@@ -45,15 +45,32 @@ package com.itextpdf.html2pdf.css.media;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import java.util.Objects;
 
+/**
+ * Class that bundles all the media expression properties.
+ */
 public class MediaExpression {
 
+    /** The default font size. */
     private static final float DEFAULT_FONT_SIZE = 12;
     
+    /** Indicates if there's a "min-" prefix. */
     private boolean minPrefix;
+    
+    /** Indicates if there's a "max-" prefix. */
     private boolean maxPrefix;
+    
+    /** The feature. */
     private String feature;
+    
+    /** The value. */
     private String value;
 
+    /**
+     * Creates a new <code>MediaExpression</code> instance.
+     *
+     * @param feature the feature
+     * @param value the value
+     */
     public MediaExpression(String feature, String value) {
         this.feature = feature.trim().toLowerCase();
         if (value != null) {
@@ -72,6 +89,12 @@ public class MediaExpression {
         }
     }
 
+    /**
+     * Tries to match a {@link MediaDeviceDescription}.
+     *
+     * @param deviceDescription the device description
+     * @return true, if successful
+     */
     public boolean matches(MediaDeviceDescription deviceDescription) {
         switch (feature) {
             case MediaFeature.COLOR: {
@@ -159,6 +182,12 @@ public class MediaExpression {
         }
     }
     
+    /**
+     * Parses an absolute length.
+     *
+     * @param value the absolute length as a <code>String</code> value
+     * @return the absolute length as a <code>float</code> value
+     */
     private static float parseAbsoluteLength(String value) {
         if (CssUtils.isRelativeValue(value)) {
             // TODO here should be used default font size of the browser, it probably should be fetched from the more generic place than private class constant

@@ -42,20 +42,40 @@
  */
 package com.itextpdf.html2pdf.css.media;
 
+/**
+ * Class that bundles all the values of a media device description.
+ */
 public class MediaDeviceDescription {
 
+    /** The type. */
     private String type;
+    
+    /** The bits per component. */
     private int bitsPerComponent = 0;
+    
+    /** The color index. */
     private int colorIndex = 0;
-    // in points
+    
+    /** The width in points. */
     private float width;
-    // in points
+    
+    /** The height in points. */
     private float height;
+    
+    /** Indicates if the media device is a grid. */
     private boolean isGrid;
+    
+    /** The scan value. */
     private String scan;
+    
+    /** The orientation. */
     private String orientation;
+    
+    /** The monochrome value. */
     private int monochrome;
-    // in dpi // TODO change default units? If so, change CssUtils#parseResolution as well
+    
+    /** The resolution in DPI. */
+    // TODO change default units? If so, change CssUtils#parseResolution as well
     private float resolution;
 
     /**
@@ -66,96 +86,212 @@ public class MediaDeviceDescription {
         this.type = type;
     }
 
+    /**
+     * Creates a new <code>MediaDeviceDescription</code> instance.
+     *
+     * @param type the type
+     * @param width the width
+     * @param height the height
+     */
     public MediaDeviceDescription(String type, float width, float height) {
         this(type);
         this.width = width;
         this.height = height;
     }
 
+    /**
+     * Creates the default <code>MediaDeviceDescription</code>.
+     *
+     * @return the media device description
+     */
     public static MediaDeviceDescription createDefault() {
         return new MediaDeviceDescription(MediaType.ALL);
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Gets the bits per component.
+     *
+     * @return the bits per component
+     */
     public int getBitsPerComponent() {
         return bitsPerComponent;
     }
 
+    /**
+     * Sets the bits per component.
+     *
+     * @param bitsPerComponent the bits per component
+     * @return the media device description
+     */
     public MediaDeviceDescription setBitsPerComponent(int bitsPerComponent) {
         this.bitsPerComponent = bitsPerComponent;
         return this;
     }
 
+    /**
+     * Gets the color index.
+     *
+     * @return the color index
+     */
     public int getColorIndex() {
         return colorIndex;
     }
 
+    /**
+     * Sets the color index.
+     *
+     * @param colorIndex the color index
+     * @return the media device description
+     */
     public MediaDeviceDescription setColorIndex(int colorIndex) {
         this.colorIndex = colorIndex;
         return this;
     }
 
+    /**
+     * Gets the width in points.
+     *
+     * @return the width
+     */
     public float getWidth() {
         return width;
     }
 
+    /**
+     * Sets the width in points.
+     *
+     * @param width the width
+     * @return the media device description
+     */
     public MediaDeviceDescription setWidth(float width) {
         this.width = width;
         return this;
     }
 
+    /**
+     * Gets the height in points.
+     *
+     * @return the height
+     */
     public float getHeight() {
         return height;
     }
 
+    /**
+     * Sets the height in points.
+     *
+     * @param height the height
+     * @return the media device description
+     */
     public MediaDeviceDescription setHeight(float height) {
         this.height = height;
         return this;
     }
 
+    /**
+     * Checks if the media device is a grid.
+     *
+     * @return true, if is grid
+     */
     public boolean isGrid() {
         return isGrid;
     }
 
+    /**
+     * Sets the grid value.
+     *
+     * @param grid the grid value
+     * @return the media device description
+     */
     public MediaDeviceDescription setGrid(boolean grid) {
         isGrid = grid;
         return this;
     }
 
+    /**
+     * Gets the scan value.
+     *
+     * @return the scan value
+     */
     public String getScan() {
         return scan;
     }
 
+    /**
+     * Sets the scan value.
+     *
+     * @param scan the scan value
+     * @return the media device description
+     */
     public MediaDeviceDescription setScan(String scan) {
         this.scan = scan;
         return this;
     }
 
+    /**
+     * Gets the orientation.
+     *
+     * @return the orientation
+     */
     public String getOrientation() {
         return orientation;
     }
 
+    /**
+     * Sets the orientation.
+     *
+     * @param orientation the orientation
+     * @return the media device description
+     */
     public MediaDeviceDescription setOrientation(String orientation) {
         this.orientation = orientation;
         return this;
     }
 
+    /**
+     * Gets the monochrome value.
+     *
+     * @return the monochrome value
+     */
     public int getMonochrome() {
         return monochrome;
     }
 
+    /**
+     * Sets the monochrome value.
+     *
+     * @param monochrome the monochrome value
+     * @return the media device description
+     */
     public MediaDeviceDescription setMonochrome(int monochrome) {
         this.monochrome = monochrome;
         return this;
     }
 
+    /**
+     * Gets the resolution in DPI.
+     *
+     * @return the resolution
+     */
     public float getResolution() {
         return resolution;
     }
 
+    /**
+     * Sets the resolution in DPI.
+     *
+     * @param resolution the resolution
+     * @return the media device description
+     */
     public MediaDeviceDescription setResolution(float resolution) {
         this.resolution = resolution;
         return this;

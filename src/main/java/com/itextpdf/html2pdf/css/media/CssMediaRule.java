@@ -50,15 +50,27 @@ import com.itextpdf.html2pdf.html.node.INode;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@link CssNestedAtRule} implementation for media rules.
+ */
 public class CssMediaRule extends CssNestedAtRule {
 
+    /** The media queries. */
     private List<MediaQuery> mediaQueries;
 
+    /**
+     * Creates a <code>CssMediaRule</code>.
+     *
+     * @param ruleParameters the rule parameters
+     */
     public CssMediaRule(String ruleParameters) {
         super(CssRuleName.MEDIA, ruleParameters);
         mediaQueries = MediaQueryParser.parseMediaQueries(ruleParameters);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.CssNestedAtRule#getCssRuleSets(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.media.MediaDeviceDescription)
+     */
     @Override
     public List<CssRuleSet> getCssRuleSets(INode element, MediaDeviceDescription deviceDescription) {
         List<CssRuleSet> result = new ArrayList<>();
@@ -73,6 +85,12 @@ public class CssMediaRule extends CssNestedAtRule {
         return result;
     }
 
+    /**
+     * Tries to match a media device.
+     *
+     * @param deviceDescription the device description
+     * @return true, if successful
+     */
     public boolean matchMediaDevice(MediaDeviceDescription deviceDescription) {
         for (MediaQuery mediaQuery : mediaQueries) {
             if (mediaQuery.matches(deviceDescription)) {
