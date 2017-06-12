@@ -50,17 +50,38 @@ import org.slf4j.LoggerFactory;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
+/**
+ * Helper class to deal with quoted values in strings.
+ */
 public class CssQuotes {
+    
+    /** The empty quote value. */
     private static final String EMPTY_QUOTE = "";
 
+    /** The open quotes. */
     private ArrayList<String> openQuotes;
+    
+    /** The close quotes. */
     private ArrayList<String> closeQuotes;
 
+    /**
+     * Creates a new <code>CssQuotes</code> instance.
+     *
+     * @param openQuotes the open quotes
+     * @param closeQuotes the close quotes
+     */
     private CssQuotes(ArrayList<String> openQuotes, ArrayList<String> closeQuotes) {
         this.openQuotes = openQuotes;
         this.closeQuotes = closeQuotes;
     }
 
+    /**
+     * Creates a {@link CssQuotes} instance.
+     *
+     * @param quotesString the quotes string
+     * @param fallbackToDefault indicates whether it's OK to fall back to the default
+     * @return the resulting {@link CssQuotes} instance
+     */
     public static CssQuotes createQuotes(String quotesString, boolean fallbackToDefault) {
         boolean error = false;
         ArrayList<ArrayList<String>> quotes = new ArrayList<>(2);
@@ -91,6 +112,11 @@ public class CssQuotes {
         return fallbackToDefault ? createDefaultQuotes() : null;
     }
 
+    /**
+     * Creates the default {@link CssQuotes} instance.
+     *
+     * @return the {@link CssQuotes} instance
+     */
     public static CssQuotes createDefaultQuotes() {
         ArrayList<String> openQuotes = new ArrayList<>();
         ArrayList<String> closeQuotes = new ArrayList<>();
@@ -99,6 +125,13 @@ public class CssQuotes {
         return new CssQuotes(openQuotes, closeQuotes);
     }
 
+    /**
+     * Resolves quotes.
+     *
+     * @param value the value
+     * @param context the CSS context
+     * @return the quote string
+     */
     public String resolveQuote(String value, CssContext context) {
         int depth = context.getQuotesDepth();
         if (CssConstants.OPEN_QUOTE.equals(value)) {
@@ -117,16 +150,33 @@ public class CssQuotes {
         return null;
     }
 
+    /**
+     * Increases the quote depth.
+     *
+     * @param context the context
+     */
     private void increaseDepth(CssContext context) {
         context.setQuotesDepth(context.getQuotesDepth() + 1);
     }
 
+    /**
+     * Decreases the quote depth.
+     *
+     * @param context the context
+     */
     private void decreaseDepth(CssContext context) {
         if (context.getQuotesDepth() > 0) {
             context.setQuotesDepth(context.getQuotesDepth() - 1);
         }
     }
 
+    /**
+     * Gets the quote.
+     *
+     * @param depth the depth
+     * @param quotes the quotes
+     * @return the requested quote string
+     */
     private String getQuote(int depth, ArrayList<String> quotes) {
         if (depth >= quotes.size()) {
             return quotes.get(quotes.size() - 1);

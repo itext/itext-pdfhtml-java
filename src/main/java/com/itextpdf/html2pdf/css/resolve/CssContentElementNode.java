@@ -54,109 +54,198 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * {@link IElementNode} implementation for content nodes.
+ */
 class CssContentElementNode extends CssContextNode implements IElementNode, ICustomElementNode {
+    
+    /** The attributes. */
     private Attributes attributes;
+    
+    /** The tag name. */
     private String tagName;
 
+    /**
+     * Creates a new <code>CssContentElementNode</code> instance.
+     *
+     * @param parentNode the parent node
+     * @param pseudoElementName the pseudo element name
+     * @param attributes the attributes
+     */
     public CssContentElementNode(INode parentNode, String pseudoElementName, Map<String, String> attributes) {
         super(parentNode);
         this.tagName = CssPseudoElementUtil.createPseudoElementTagName(pseudoElementName);
         this.attributes = new Attributes(attributes);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#name()
+     */
     @Override
     public String name() {
         return tagName;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#getAttributes()
+     */
     @Override
     public IAttributes getAttributes() {
         return attributes;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#getAttribute(java.lang.String)
+     */
     @Override
     public String getAttribute(String key) {
         return attributes.getAttribute(key);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#getAdditionalHtmlStyles()
+     */
     @Override
     public List<Map<String, String>> getAdditionalHtmlStyles() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#addAdditionalHtmlStyles(java.util.Map)
+     */
     @Override
     public void addAdditionalHtmlStyles(Map<String, String> styles) {
         throw new UnsupportedOperationException("addAdditionalHtmlStyles");
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#getLang()
+     */
     @Override
     public String getLang() {
         return null;
     }
 
+    /**
+     * Simple {@link IAttributes} implementation.
+     */
     private static class Attributes implements IAttributes {
+        
+        /** The attributes. */
         private Map<String, String> attributes;
 
+        /**
+         * Creates a new <code>Attributes</code> instance.
+         *
+         * @param attributes the attributes
+         */
         public Attributes(Map<String, String> attributes) {
             this.attributes = attributes;
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.IAttributes#getAttribute(java.lang.String)
+         */
         @Override
         public String getAttribute(String key) {
             return attributes.get(key);
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.IAttributes#setAttribute(java.lang.String, java.lang.String)
+         */
         @Override
         public void setAttribute(String key, String value) {
             throw new UnsupportedOperationException("setAttribute");
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.IAttributes#size()
+         */
         @Override
         public int size() {
             return attributes.size();
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Iterable#iterator()
+         */
         @Override
         public Iterator<IAttribute> iterator() {
             return new AttributeIterator(attributes.entrySet().iterator());
         }
     }
 
+    /**
+     * Simple {@link IAttribute} implementation.
+     */
     private static class Attribute implements IAttribute {
+        
+        /** The entry. */
         private Map.Entry<String, String> entry;
 
+        /**
+         * Creates a new <code>Attribute</code> instance.
+         *
+         * @param entry the entry
+         */
         public Attribute(Map.Entry<String, String> entry) {
             this.entry = entry;
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.IAttribute#getKey()
+         */
         @Override
         public String getKey() {
             return entry.getKey();
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.IAttribute#getValue()
+         */
         @Override
         public String getValue() {
             return entry.getValue();
         }
     }
 
+    /**
+     * {@link IAttribute} iterator.
+     */
     private static class AttributeIterator implements Iterator<IAttribute> {
+        
+        /** The iterator. */
         private Iterator<Map.Entry<String, String>> iterator;
 
+        /**
+         * Creates a new <code>AttributeIterator</code> instance.
+         *
+         * @param iterator the iterator
+         */
         public AttributeIterator(Iterator<Map.Entry<String, String>> iterator) {
             this.iterator = iterator;
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#hasNext()
+         */
         @Override
         public boolean hasNext() {
             return iterator.hasNext();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#next()
+         */
         @Override
         public IAttribute next() {
             return new Attribute(iterator.next());
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#remove()
+         */
         @Override
         public void remove() {
             throw new UnsupportedOperationException("remove");

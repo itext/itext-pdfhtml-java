@@ -47,10 +47,15 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Helper class that allows you to check if a property is inheritable.
+ */
 public class CssInheritance {
 
     /**
-     * In accordance with "http://www.w3schools.com/cssref/" and "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference"
+     * Set of inheritable properties
+     * in accordance with "http://www.w3schools.com/cssref/"
+     * and "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference"
      */
     private static final Set<String> inheritableProperties = new HashSet<>(Arrays.asList(
 
@@ -124,6 +129,12 @@ public class CssInheritance {
             CssConstants.QUOTES
     ));
 
+    /**
+     * Checks if a property is inheritable.
+     *
+     * @param cssProperty the CSS property
+     * @return true, if the property is inheritable
+     */
     public static boolean isInheritable(String cssProperty) {
         return inheritableProperties.contains(cssProperty);
     }

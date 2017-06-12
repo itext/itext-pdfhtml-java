@@ -65,10 +65,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The Class CssContentPropertyResolver.
+ */
 class CssContentPropertyResolver {
 
+    /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(CssContentPropertyResolver.class);
 
+    /**
+     * Resolves content.
+     *
+     * @param styles the styles map
+     * @param contentContainer the content container
+     * @param context the CSS context
+     * @return a list of {@link iNode} instances
+     */
     static List<INode> resolveContent(Map<String, String> styles, INode contentContainer, CssContext context) {
         String contentStr = styles.get(CssConstants.CONTENT);
         List<INode> result = new ArrayList<>();
@@ -165,6 +177,12 @@ class CssContentPropertyResolver {
         return result;
     }
 
+    /**
+     * Resolves content in case of errors.
+     *
+     * @param contentStr the content
+     * @return the resulting list of {@link iNode} instances
+     */
     private static List<INode> errorFallback(String contentStr) {
         Logger logger = LoggerFactory.getLogger(CssContentPropertyResolver.class);
 
@@ -177,30 +195,55 @@ class CssContentPropertyResolver {
         return null;
     }
 
+    /**
+     * {@link iTextNode} implementation for content text.
+     */
     private static class ContentTextNode implements ITextNode {
+        
+        /** The parent. */
         private final INode parent;
+        
+        /** The content. */
         private String content;
 
+        /**
+         * Creates a new <code>ContentTextNode</code> instance.
+         *
+         * @param parent the parent
+         * @param content the content
+         */
         public ContentTextNode(INode parent, String content) {
             this.parent = parent;
             this.content = content;
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.INode#childNodes()
+         */
         @Override
         public List<INode> childNodes() {
             return Collections.<INode>emptyList();
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.INode#addChild(com.itextpdf.html2pdf.html.node.INode)
+         */
         @Override
         public void addChild(INode node) {
             throw new UnsupportedOperationException();
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.INode#parentNode()
+         */
         @Override
         public INode parentNode() {
             return parent;
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.ITextNode#wholeText()
+         */
         @Override
         public String wholeText() {
             return content;

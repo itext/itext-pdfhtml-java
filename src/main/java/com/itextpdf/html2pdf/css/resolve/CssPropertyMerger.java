@@ -48,11 +48,24 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * Utilities class to merge CSS properties.
+ */
 public final class CssPropertyMerger {
 
+    /**
+     * Creates a new <code>CssPropertyMerger</code> class.
+     */
     private CssPropertyMerger() {
     }
 
+    /**
+     * Merges text decoration.
+     *
+     * @param firstValue the first value
+     * @param secondValue the second value
+     * @return the merged value
+     */
     public static String mergeTextDecoration(String firstValue, String secondValue) {
         if (firstValue == null) {
             return secondValue;
@@ -73,6 +86,12 @@ public final class CssPropertyMerger {
         return sb.length() != 0 ? sb.toString() : CssConstants.NONE;
     }
 
+    /**
+     * Normalizes text decoration values.
+     *
+     * @param value the text decoration value
+     * @return a set of normalized decoration values
+     */
     private static Set<String> normalizeTextDecoration(String value) {
         String[] parts = value.split("\\s+");
         // LinkedHashSet to make order invariant of JVM
