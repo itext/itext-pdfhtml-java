@@ -42,14 +42,25 @@
  */
 package com.itextpdf.html2pdf.css.parse.syntax;
 
+/**
+ * {@link IParserState} implementation for the conditional group At-rule state.
+ */
 class ConditionalGroupAtRuleBlockState implements IParserState {
 
+	/** The state machine that parses the CSS. */
     private CssParserStateController controller;
 
+    /**
+     * Creates a new <code>ConditionalGroupAtRuleBlockState</code> instance.
+     * @param	controller	the state machine that parses the CSS
+     */
     public ConditionalGroupAtRuleBlockState(CssParserStateController controller) {
         this.controller = controller;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.parse.syntax.IParserState#process(char)
+     */
     @Override
     // TODO use UnknownState?
     public void process(char ch) {

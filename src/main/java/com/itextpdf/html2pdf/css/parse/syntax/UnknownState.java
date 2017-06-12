@@ -42,14 +42,26 @@
  */
 package com.itextpdf.html2pdf.css.parse.syntax;
 
+// TODO: Auto-generated Javadoc
+/**
+ * {@link IParserState} implementation for the unknown state.
+ */
 class UnknownState implements IParserState {
 
+	/** The state machine that parses the CSS. */
     private CssParserStateController controller;
 
+    /**
+     * Creates a new <code>UnknownState</code> instance.
+     * @param	controller	the state machine that parses the CSS
+     */
     public UnknownState(CssParserStateController controller) {
         this.controller = controller;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.parse.syntax.IParserState#process(char)
+     */
     @Override
     public void process(char ch) {
         if (ch == '/') {

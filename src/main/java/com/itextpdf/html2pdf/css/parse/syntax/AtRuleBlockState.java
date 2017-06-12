@@ -42,14 +42,25 @@
  */
 package com.itextpdf.html2pdf.css.parse.syntax;
 
+/**
+ * {@link IParserState} implementation for the At-rule state.
+ */
 class AtRuleBlockState implements IParserState {
 
+	/** The state machine that parses the CSS. */
     private CssParserStateController controller;
 
+    /**
+     * Creates a new <code>AtRuleBlockState</code> instance.
+     * @param	controller	the state machine that parses the CSS
+     */
     public AtRuleBlockState(CssParserStateController controller) {
         this.controller = controller;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.parse.syntax.IParserState#process(char)
+     */
     @Override
     public void process(char ch) {
         if (ch == '/') {
