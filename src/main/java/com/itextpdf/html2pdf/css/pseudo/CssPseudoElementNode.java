@@ -53,66 +53,118 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * {@link IElementNode} implementation for pseudo elements.
+ */
 public class CssPseudoElementNode extends CssContextNode implements IElementNode, ICustomElementNode {
+    
+    /** The pseudo element name. */
     private String pseudoElementName;
+    
+    /** The pseudo element tag name. */
     private String pseudoElementTagName;
 
+    /**
+     * Creates a new <code>CssPseudoElementNode</code> instance.
+     *
+     * @param parentNode the parent node
+     * @param pseudoElementName the pseudo element name
+     */
     public CssPseudoElementNode(INode parentNode, String pseudoElementName) {
         super(parentNode);
         this.pseudoElementName = pseudoElementName;
         this.pseudoElementTagName = CssPseudoElementUtil.createPseudoElementTagName(pseudoElementName);
     }
 
+    /**
+     * Gets the pseudo element name.
+     *
+     * @return the pseudo element name
+     */
     public String getPseudoElementName() {
         return pseudoElementName;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#name()
+     */
     @Override
     public String name() {
         return pseudoElementTagName;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#getAttributes()
+     */
     @Override
     public IAttributes getAttributes() {
         return new AttributesStub();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#getAttribute(java.lang.String)
+     */
     @Override
     public String getAttribute(String key) {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#getAdditionalHtmlStyles()
+     */
     @Override
     public List<Map<String, String>> getAdditionalHtmlStyles() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#addAdditionalHtmlStyles(java.util.Map)
+     */
     @Override
     public void addAdditionalHtmlStyles(Map<String, String> styles) {
         throw new UnsupportedOperationException();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IElementNode#getLang()
+     */
     @Override
     public String getLang() {
         return null;
     }
 
+    /**
+     * A simple {@link IAttributes} implementation.
+     */
     private static class AttributesStub implements IAttributes {
+        
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.IAttributes#getAttribute(java.lang.String)
+         */
         @Override
         public String getAttribute(String key) {
             return null;
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.IAttributes#setAttribute(java.lang.String, java.lang.String)
+         */
         @Override
         public void setAttribute(String key, String value) {
             throw new UnsupportedOperationException();
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.IAttributes#size()
+         */
         @Override
         public int size() {
             return 0;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Iterable#iterator()
+         */
         @Override
         public Iterator<IAttribute> iterator() {
             return Collections.<IAttribute>emptyIterator();

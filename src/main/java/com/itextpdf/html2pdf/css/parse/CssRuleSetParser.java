@@ -54,13 +54,26 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utilities class to parse CSS rule sets.
+ */
 public final class CssRuleSetParser {
 
+    /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(CssRuleSetParser.class);
 
+    /**
+     * Creates a new <code>CssRuleSetParser</code> instance.
+     */
     private CssRuleSetParser() {
     }
 
+    /**
+     * Parses property declarations.
+     *
+     * @param propertiesStr the property declarations in the form of a <code>String</code>
+     * @return the list of {@link CssDeclaration} instances
+     */
     public static List<CssDeclaration> parsePropertyDeclarations(String propertiesStr) {
         List<CssDeclaration> declarations = new ArrayList<>();
         int pos = getSemicolonPosition(propertiesStr, 0);
@@ -82,7 +95,15 @@ public final class CssRuleSetParser {
         return declarations;
     }
 
-    // Returns List because selector can be compound, like "p, div, #navbar".
+    /**
+     * Parses a rule set into a list of {@link CssRuleSet} instances.
+     * This method returns a <code>List</code> because a selector can
+     * be compound, like "p, div, #navbar".
+     *
+     * @param selectorStr the selector
+     * @param propertiesStr the properties
+     * @return the resulting list of {@link CssRuleSet} instances
+     */
     public static List<CssRuleSet> parseRuleSet(String selectorStr, String propertiesStr) {
         List<CssDeclaration> declarations = parsePropertyDeclarations(propertiesStr);
         List<CssRuleSet> ruleSets = new ArrayList<>();
@@ -110,6 +131,12 @@ public final class CssRuleSetParser {
         return ruleSets;
     }
 
+    /**
+     * Splits CSS properties into an array of <code>String</code> values.
+     *
+     * @param property the properties
+     * @return the array of property values
+     */
     private static String[] splitCssProperty(String property) {
         String[] result = new String[2];
         int position = property.indexOf(":");
@@ -123,6 +150,13 @@ public final class CssRuleSetParser {
         return result;
     }
 
+    /**
+     * Gets the semicolon position.
+     *
+     * @param propertiesStr the properties
+     * @param fromIndex the from index
+     * @return the semicolon position
+     */
     private static int getSemicolonPosition(String propertiesStr, int fromIndex) {
         int semiColonPos = propertiesStr.indexOf(";", fromIndex);
         int closedBracketPos = propertiesStr.indexOf(")", semiColonPos + 1);

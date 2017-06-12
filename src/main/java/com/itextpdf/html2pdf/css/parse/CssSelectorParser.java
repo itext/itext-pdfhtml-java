@@ -58,15 +58,13 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Utilities class to parse a CSS selector.
+ */
 public final class CssSelectorParser {
 
+    /** Set of legacy pseudo elements (first-line, first-letter, before, after). */
     private static final Set<String> legacyPseudoElements = new HashSet<>();
-
-    private static final String SELECTOR_PATTERN_STR =
-            "(\\*)|([_a-zA-Z][\\w-]*)|(\\.[_a-zA-Z][\\w-]*)|(#[_a-z][\\w-]*)|(\\[[_a-zA-Z][\\w-]*(([~^$*|])?=((\"[^\"]+\")|([^\"]+)|('[^\"]+')))?\\])|(::?[a-zA-Z-]*(\\([ \t\\+\\.#\\w-]*\\))?)|( )|(\\+)|(>)|(~)";
-
-    private static final Pattern selectorPattern = Pattern.compile(SELECTOR_PATTERN_STR);
-
     static {
         legacyPseudoElements.add("first-line");
         legacyPseudoElements.add("first-letter");
@@ -74,9 +72,25 @@ public final class CssSelectorParser {
         legacyPseudoElements.add("after");
     }
 
+    /** The pattern string for selectors. */
+    private static final String SELECTOR_PATTERN_STR =
+            "(\\*)|([_a-zA-Z][\\w-]*)|(\\.[_a-zA-Z][\\w-]*)|(#[_a-z][\\w-]*)|(\\[[_a-zA-Z][\\w-]*(([~^$*|])?=((\"[^\"]+\")|([^\"]+)|('[^\"]+')))?\\])|(::?[a-zA-Z-]*(\\([ \t\\+\\.#\\w-]*\\))?)|( )|(\\+)|(>)|(~)";
+
+    /** The pattern for selectors. */
+    private static final Pattern selectorPattern = Pattern.compile(SELECTOR_PATTERN_STR);
+
+    /**
+     * Creates a new <code>CssSelectorParser</code> instance.
+     */
     private CssSelectorParser() {
     }
 
+    /**
+     * Parses the selector items.
+     *
+     * @param selector the selectors in the form of a <code>String</code>
+     * @return the resulting list of {@link ICssSelectorItem}
+     */
     public static List<ICssSelectorItem> parseSelectorItems(String selector) {
         List<ICssSelectorItem> selectorItems = new ArrayList<>();
         Matcher itemMatcher = selectorPattern.matcher(selector);
@@ -136,6 +150,12 @@ public final class CssSelectorParser {
         return selectorItems;
     }
 
+    /**
+     * Resolves a pseudo selector.
+     *
+     * @param pseudoSelector the pseudo selector
+     * @return the {@link ICssSelectorItem} item
+     */
     private static ICssSelectorItem resolvePseudoSelector(String pseudoSelector) {
         pseudoSelector = pseudoSelector.toLowerCase();
         /*

@@ -42,17 +42,40 @@
  */
 package com.itextpdf.html2pdf.css.parse;
 
+/**
+ * Tokenizer for CSS declaration values.
+ */
 public class CssDeclarationValueTokenizer {
+    
+    /** The source string. */
     private String src;
+    
+    /** The current index. */
     private int index = -1;
+    
+    /** The quote string, either "'" or "\"". */
     private char stringQuote;
+    
+    /** Indicates if we're inside a string. */
     private boolean inString;
+    
+    /** The depth. */
     private int functionDepth = 0;
 
+    /**
+     * Creates a new <code>CssDeclarationValueTokenizer</code> instance.
+     *
+     * @param propertyValue the property value
+     */
     public CssDeclarationValueTokenizer(String propertyValue) {
         this.src = propertyValue;
     }
 
+    /**
+     * Gets the next valid token.
+     *
+     * @return the next valid token
+     */
     public Token getNextValidToken() {
         Token token = getNextToken();
         while (token != null && !token.isString() && token.getValue().trim().isEmpty()) {
@@ -75,6 +98,11 @@ public class CssDeclarationValueTokenizer {
         return token;
     }
 
+    /**
+     * Gets the next token.
+     *
+     * @return the next token
+     */
     private Token getNextToken() {
         StringBuilder buff = new StringBuilder();
         char curChar;
@@ -148,10 +176,22 @@ public class CssDeclarationValueTokenizer {
         return new Token(buff.toString(), TokenType.FUNCTION);
     }
 
+    /**
+     * Checks if a character is a hexadecimal digit.
+     *
+     * @param c the character
+     * @return true, if it's a hexadecimal digit
+     */
     private boolean isHexDigit(char c) {
         return (47 < c && c < 58) || (64 < c && c < 71) || (96 < c && c < 103);
     }
 
+    /**
+     * Processes a function token.
+     *
+     * @param token the token
+     * @param functionBuffer the function buffer
+     */
     private void processFunctionToken(Token token, StringBuilder functionBuffer) {
         if (token.isString()) {
             functionBuffer.append(stringQuote);
@@ -162,37 +202,79 @@ public class CssDeclarationValueTokenizer {
         }
     }
 
+    /**
+     * The Token class.
+     */
     public static class Token {
+        
+        /** The value. */
         private String value;
+        
+        /** The type. */
         private TokenType type;
 
+        /**
+         * Creates a new <code>Token</code> instance.
+         *
+         * @param value the value
+         * @param type the type
+         */
         public Token(String value, TokenType type) {
             this.value = value;
             this.type = type;
         }
 
+        /**
+         * Gets the value.
+         *
+         * @return the value
+         */
         public String getValue() {
             return value;
         }
 
+        /**
+         * Gets the type.
+         *
+         * @return the type
+         */
         public TokenType getType() {
             return type;
         }
 
+        /**
+         * Checks if the token is a string.
+         *
+         * @return true, if is string
+         */
         public boolean isString() {
             return type == TokenType.STRING;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return value;
         }
     }
 
+    /**
+     * Enumeration of the different token types.
+     */
     public enum TokenType {
+        
+        /** The string type. */
         STRING,
+        
+        /** The function type. */
         FUNCTION,
+        
+        /** The comma type. */
         COMMA,
+        
+        /** Unknown type. */
         UNKNOWN
     }
 }
