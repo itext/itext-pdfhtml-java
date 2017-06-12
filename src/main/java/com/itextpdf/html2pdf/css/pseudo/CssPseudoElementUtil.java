@@ -44,13 +44,30 @@ package com.itextpdf.html2pdf.css.pseudo;
 
 import com.itextpdf.html2pdf.html.node.IElementNode;
 
+/**
+ * Utilities class for pseudo elements.
+ */
 public class CssPseudoElementUtil {
+    
+    /** The prefix for pseudo elements. */
     private static final String TAG_NAME_PREFIX = "pseudo-element::";
 
+    /**
+     * Creates the pseudo element tag name.
+     *
+     * @param pseudoElementName the pseudo element name
+     * @return the tag name
+     */
     public static String createPseudoElementTagName(String pseudoElementName) {
         return TAG_NAME_PREFIX + pseudoElementName;
     }
 
+    /**
+     * Checks for before or after elements.
+     *
+     * @param node the node
+     * @return true, if successful
+     */
     public static boolean hasBeforeAfterElements(IElementNode node) {
         if (node == null || node instanceof CssPseudoElementNode || node.name().startsWith(TAG_NAME_PREFIX)) {
             return false;

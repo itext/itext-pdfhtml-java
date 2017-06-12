@@ -50,12 +50,24 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Utilities class to parse CSS page selectors.
+ */
 public final class CssPageSelectorParser {
+    
+    /** The pattern string for page selectors. */
     private static final String PAGE_SELECTOR_PATTERN_STR =
             "(^-?[_a-zA-Z][\\w-]*)|(:(?i)(left|right|first|blank))";
 
+    /** The pattern for page selectors. */
     private static final Pattern selectorPattern = Pattern.compile(PAGE_SELECTOR_PATTERN_STR);
 
+    /**
+     * Parses the selector items into a list of {@link ICssSelectorItem} instances.
+     *
+     * @param selectorItemsStr the selector items in the form of a <code>String</code>
+     * @return the resulting list of {@link ICssSelectorItem} instances
+     */
     public static List<ICssSelectorItem> parseSelectorItems(String selectorItemsStr) {
         List<ICssSelectorItem> selectorItems = new ArrayList<>();
         Matcher itemMatcher = selectorPattern.matcher(selectorItemsStr);

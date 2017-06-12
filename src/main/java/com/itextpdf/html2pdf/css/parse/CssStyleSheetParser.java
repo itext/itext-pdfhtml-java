@@ -59,12 +59,26 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Utilities class to parse a CSS style sheet.
+ */
 // TODO refactor into interface
 public final class CssStyleSheetParser {
 
+    /**
+     * Creates a new <code>CssStyleSheetParser</code>.
+     */
     private CssStyleSheetParser() {
     }
 
+    /**
+     * Parses a stream into a {@CssStyleSheet}.
+     *
+     * @param stream the stream
+     * @param baseUrl the base url
+     * @return the resulting {@CssStyleSheet}
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public static CssStyleSheet parse(InputStream stream, String baseUrl) throws IOException {
         String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
         String licenseKeyProductClassName = "com.itextpdf.licensekey.LicenseKeyProduct";
@@ -114,10 +128,24 @@ public final class CssStyleSheetParser {
         return controller.getParsingResult();
     }
 
+    /**
+     * Parses a stream into a {@CssStyleSheet}.
+     *
+     * @param stream the stream
+     * @return the resulting {@CssStyleSheet}
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public static CssStyleSheet parse(InputStream stream) throws IOException {
         return parse(stream, null);
     }
 
+    /**
+     * Parses a string into a {@CssStyleSheet}.
+     *
+     * @param data the style sheet data
+     * @param baseUrl the base url
+     * @return the resulting {@CssStyleSheet}
+     */
     public static CssStyleSheet parse(String data, String baseUrl) {
         // TODO charset? better to create parse logic based on string completely
         ByteArrayInputStream stream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
@@ -128,6 +156,12 @@ public final class CssStyleSheetParser {
         }
     }
 
+    /**
+     * Parses a string into a {@CssStyleSheet}.
+     *
+     * @param data the data
+     * @return the resulting {@CssStyleSheet}
+     */
     public static CssStyleSheet parse(String data) {
         return parse(data, null);
     }
