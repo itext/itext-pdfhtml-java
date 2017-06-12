@@ -66,12 +66,27 @@ import com.itextpdf.layout.border.SolidBorder;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 
+/**
+ * Utilities class to apply border styles.
+ */
 public class BorderStyleApplierUtil {
+    
+    /** The logger. */
     private static final Logger LOGGER = LoggerFactory.getLogger(BorderStyleApplierUtil.class);
 
+    /**
+     * Creates a new <code>BorderStyleApplierUtil</code> instance.
+     */
     private BorderStyleApplierUtil() {
     }
 
+    /**
+     * Applies borders to an element.
+     *
+     * @param cssProps the CSS properties
+     * @param context the Processor context
+     * @param element the element
+     */
     public static void applyBorders(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
@@ -94,6 +109,14 @@ public class BorderStyleApplierUtil {
         }
     }
     
+    /**
+     * Gets the array that defines the borders.
+     *
+     * @param styles the styles mapping
+     * @param em the em value
+     * @param rem the root em value
+     * @return the borders array
+     */
     public static Border[] getBordersArray(Map<String, String> styles, float em, float rem) {
         Border[] borders = new Border[4];
         Border topBorder = getCertainBorder(styles.get(CssConstants.BORDER_TOP_WIDTH),
@@ -115,6 +138,16 @@ public class BorderStyleApplierUtil {
         return borders;
     }
 
+    /**
+     * Creates a {@link Border} instance based on specific properties.
+     *
+     * @param borderWidth the border width
+     * @param borderStyle the border style
+     * @param borderColor the border color
+     * @param em the em value
+     * @param rem the root em value
+     * @return the border
+     */
     public static Border getCertainBorder(String borderWidth, String borderStyle, String borderColor, float em, float rem) {
         if (borderStyle == null || CssConstants.NONE.equals(borderStyle)) {
             return null;

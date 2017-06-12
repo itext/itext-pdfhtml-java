@@ -49,7 +49,23 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
 import java.util.Map;
 
+/**
+ * Utilities class to apply opacity.
+ */
 public class OpacityApplierUtil {
+    
+	/**
+	 * Creates a new <code>OpacityApplierUtil</code> instance.
+	 */
+	private OpacityApplierUtil() {}
+	
+    /**
+     * Applies opacity to an element.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param container the container element
+     */
     public static void applyOpacity(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer container) {
         Float opacity = CssUtils.parseFloat(cssProps.get(CssConstants.OPACITY));
         if (opacity != null) {

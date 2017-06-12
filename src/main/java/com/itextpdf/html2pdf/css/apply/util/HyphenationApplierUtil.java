@@ -53,15 +53,34 @@ import com.itextpdf.layout.property.Property;
 
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class HyphenationApplierUtil.
+ */
 public final class HyphenationApplierUtil {
 
     // TODO these are css properties actually, but it is not supported by the browsers currently
+	
+    /** The Constant HYPHENATE_BEFORE. */
     private static final int HYPHENATE_BEFORE = 2;
+    
+    /** The Constant HYPHENATE_AFTER. */
     private static final int HYPHENATE_AFTER = 3;
 
+    /**
+     * Creates a new <code>HyphenationApplierUtil</code> instance.
+     */
     private HyphenationApplierUtil() {
     }
 
+    /**
+     * Applies hyphenation to an element.
+     *
+     * @param cssProps the CSS props
+     * @param context the processor context
+     * @param stylesContainer the styles container
+     * @param element the element
+     */
     public static void applyHyphenation(Map<String, String> cssProps, ProcessorContext context, IStylesContainer stylesContainer, IPropertyContainer element) {
         String value = cssProps.get(CssConstants.HYPHENS);
         if (value == null) {

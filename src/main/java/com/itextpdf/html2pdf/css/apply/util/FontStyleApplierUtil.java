@@ -68,13 +68,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Utilities class to apply font styles.
+ */
 public final class FontStyleApplierUtil {
 
+    /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(FontStyleApplierUtil.class);
 
+    /**
+     * Creates a <code>FontStyleApplierUtil</code> instance.
+     */
     private FontStyleApplierUtil() {
     }
 
+    /**
+     * Applies font styles to an element.
+     *
+     * @param cssProps the CSS props
+     * @param context the processor context
+     * @param stylesContainer the styles container
+     * @param element the element
+     */
     public static void applyFontStyles(Map<String, String> cssProps, ProcessorContext context, IStylesContainer stylesContainer, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
@@ -207,6 +222,12 @@ public final class FontStyleApplierUtil {
 
     }
 
+    /**
+     * Parses the absolute font size.
+     *
+     * @param fontSizeValue the font size value as a <code>string</code>
+     * @return the font size value as a <code>float</code>
+     */
     public static float parseAbsoluteFontSize(String fontSizeValue) {
         if (CssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS.contains(fontSizeValue)) {
             switch (fontSizeValue) {
@@ -239,6 +260,13 @@ public final class FontStyleApplierUtil {
         return CssUtils.parseAbsoluteLength(fontSizeValue);
     }
 
+    /**
+     * Parses the relative font size.
+     *
+     * @param relativeFontSizeValue the relative font size value as a <code>String</code>
+     * @param baseValue the base value
+     * @return the relative font size value as a <code>float</code>
+     */
     public static float parseRelativeFontSize(final String relativeFontSizeValue, final float baseValue) {
         if (CssConstants.SMALLER.equals(relativeFontSizeValue)) {
             return (float)(baseValue / 1.2);

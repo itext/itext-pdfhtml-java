@@ -54,13 +54,27 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
+/**
+ * Utilities class to apply a padding.
+ */
 public final class PaddingApplierUtil {
 
+    /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(PaddingApplierUtil.class);
 
+    /**
+     * Creates a new <code>PaddingApplierUtil</code> instance.
+     */
     private PaddingApplierUtil() {
     }
 
+    /**
+     * Applies paddings to an element.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
     public static void applyPaddings(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         String paddingTop = cssProps.get(CssConstants.PADDING_TOP);
         String paddingBottom = cssProps.get(CssConstants.PADDING_BOTTOM);

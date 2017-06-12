@@ -57,13 +57,27 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
+/**
+ * Utilities class to apply margins.
+ */
 public final class MarginApplierUtil {
 
+    /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(MarginApplierUtil.class);
 
+    /**
+     * Creates a <code>MarginApplierUtil</code> instance.
+     */
     private MarginApplierUtil() {
     }
 
+    /**
+     * Applies margins to an element.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
     public static void applyMargins(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         String marginTop = cssProps.get(CssConstants.MARGIN_TOP);
         String marginBottom = cssProps.get(CssConstants.MARGIN_BOTTOM);
@@ -97,6 +111,16 @@ public final class MarginApplierUtil {
 
     }
 
+    /**
+     * Tries set margin if the value isn't "auto".
+     *
+     * @param marginProperty the margin property
+     * @param marginValue the margin value
+     * @param element the element
+     * @param em the em value
+     * @param rem the root em value
+     * @return false if the margin value was "auto"
+     */
     private static boolean trySetMarginIfNotAuto(int marginProperty, String marginValue, IPropertyContainer element, float em, float rem) {
         boolean isAuto = CssConstants.AUTO.equals(marginValue);
         if (isAuto) {
@@ -110,6 +134,14 @@ public final class MarginApplierUtil {
         return true;
     }
 
+    /**
+     * Parses the margin value.
+     *
+     * @param marginValString the margin value as a <code>String</code>
+     * @param em the em value
+     * @param rem the root em value
+     * @return the margin value as a <code>Float</code>
+     */
     private static Float parseMarginValue(String marginValString, float em, float rem) {
         UnitValue marginUnitVal = CssUtils.parseLengthValueToPt(marginValString, em, rem);
         if (marginUnitVal != null) {
