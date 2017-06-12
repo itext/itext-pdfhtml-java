@@ -43,15 +43,29 @@
 package com.itextpdf.html2pdf.css.page;
 
 import com.itextpdf.html2pdf.css.CssDeclaration;
+import com.itextpdf.html2pdf.css.CssNestedAtRule;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.selector.ICssSelector;
 import java.util.List;
 
+/**
+ * Class for a non standard {@link CssRuleSet}.
+ */
 class CssNonStandardRuleSet extends CssRuleSet {
+    
+    /**
+     * Creates a new <code>CssNonStandardRuleSet</code> instance.
+     *
+     * @param selector the selector
+     * @param declarations the declarations
+     */
     public CssNonStandardRuleSet(ICssSelector selector, List<CssDeclaration> declarations) {
         super(selector, declarations);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.CssRuleSet#toString()
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

@@ -45,9 +45,20 @@ package com.itextpdf.html2pdf.css.page;
 import com.itextpdf.html2pdf.css.CssContextNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
+/**
+ * {@link CssContextNode} implementation for page margin box contexts.
+ */
 public class PageMarginBoxContextNode extends CssContextNode {
+    
+    /** The margin box name. */
     private String marginBoxName;
 
+    /**
+     * Creates a new <code>PageMarginBoxContextNode</code> instance.
+     *
+     * @param parentNode the parent node
+     * @param marginBoxName the margin box name
+     */
     public PageMarginBoxContextNode(INode parentNode, String marginBoxName) {
         super(parentNode);
         this.marginBoxName = marginBoxName;
@@ -56,6 +67,11 @@ public class PageMarginBoxContextNode extends CssContextNode {
         }
     }
 
+    /**
+     * Gets the margin box name.
+     *
+     * @return the margin box name
+     */
     public String getMarginBoxName() {
         return marginBoxName;
     }

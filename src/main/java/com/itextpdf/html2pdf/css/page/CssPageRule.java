@@ -53,10 +53,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * {@link CssNestedAtRule} implementation for page rules.
+ */
 public class CssPageRule extends CssNestedAtRule {
 
+    /** The page selectors. */
     private List<ICssSelector> pageSelectors;
 
+    /**
+     * Creates a new <code>CssPageRule</code> instance.
+     *
+     * @param ruleParameters the rule parameters
+     */
     public CssPageRule(String ruleParameters) {
         super(CssRuleName.PAGE, ruleParameters);
         pageSelectors = new ArrayList<>();
@@ -70,6 +79,9 @@ public class CssPageRule extends CssNestedAtRule {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.CssNestedAtRule#addBodyCssDeclarations(java.util.List)
+     */
     @Override
     public void addBodyCssDeclarations(List<CssDeclaration> cssDeclarations) {
         // TODO Due to this for-loop, on toString method call for the CssPageRule instance
@@ -88,6 +100,9 @@ public class CssPageRule extends CssNestedAtRule {
         }
     }  
     
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.CssNestedAtRule#addStatementToBody(com.itextpdf.html2pdf.css.CssStatement)
+     */
     @Override
     public void addStatementToBody(CssStatement statement) {
         if (statement instanceof CssMarginRule) {
@@ -96,6 +111,9 @@ public class CssPageRule extends CssNestedAtRule {
         this.body.add(statement);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.CssNestedAtRule#addStatementsToBody(java.util.Collection)
+     */
     @Override
     public void addStatementsToBody(Collection<CssStatement> statements) {
         for (CssStatement statement : statements) {

@@ -42,9 +42,20 @@
  */
 package com.itextpdf.html2pdf.css.page;
 
+/**
+ * Class that bundles a series of page context constants.
+ */
 public class PageContextConstants {
+    
+    /** The Constant BLANK. */
     public static final String BLANK = "blank";
+    
+    /** The Constant FIRST. */
     public static final String FIRST = "first"; 
+    
+    /** The Constant LEFT. */
     public static final String LEFT = "left";
+    
+    /** The Constant RIGHT. */
     public static final String RIGHT = "right";
 }

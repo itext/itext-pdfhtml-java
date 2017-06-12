@@ -55,21 +55,46 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class that manages counters (e.g. for list symbols).
+ */
 public class CssCounterManager {
 
+    /** The Constant DISC_SYMBOL. */
     private static final String DISC_SYMBOL = "\u2022";
+    
+    /** The Constant CIRCLE_SYMBOL. */
     private static final String CIRCLE_SYMBOL = "\u25e6";
+    
+    /** The Constant SQUARE_SYMBOL. */
     private static final String SQUARE_SYMBOL = "\u25a0";
 
+    /** The Constant DEFAULT_COUNTER_VALUE. */
     private static final int DEFAULT_COUNTER_VALUE = 0;
+    
+    /** The Constant DEFAULT_INCREMENT_VALUE. */
     private static final int DEFAULT_INCREMENT_VALUE = 1;
+    
+    /** The Constant MAX_ROMAN_NUMBER. */
     private static final int MAX_ROMAN_NUMBER = 3999;
 
+    /** The counters. */
     private Map<INode, Map<String, Integer> > counters = new HashMap<>();
 
+    /**
+     * Creates a new <code>CssCounterManager</code> instance.
+     */
     public CssCounterManager() {
     }
 
+    /**
+     * Resolves a counter.
+     *
+     * @param counterName the counter name
+     * @param listSymbolType the list symbol type
+     * @param scope the scope
+     * @return the counter value as a <code>String</code>
+     */
     public String resolveCounter(String counterName, String listSymbolType, INode scope) {
         Map<String, Integer> scopeCounters = findSuitableScopeMap(scope, counterName);
         Integer counterValue = scopeCounters != null ? scopeCounters.get(counterName) : null;
@@ -110,6 +135,15 @@ public class CssCounterManager {
         }
     }
 
+    /**
+     * Resolves counters.
+     *
+     * @param counterName the counter name
+     * @param counterSeparatorStr the counter separator
+     * @param listSymbolType the list symbol type
+     * @param scope the scope
+     * @return the counters as a <code>String</code>
+     */
     public String resolveCounters(String counterName, String counterSeparatorStr, String listSymbolType, INode scope) {
         INode currentScope = scope;
         List<String> resolvedCounters = null;
@@ -137,14 +171,34 @@ public class CssCounterManager {
         }
     }
 
+    /**
+     * Resets the counter.
+     *
+     * @param counterName the counter name
+     * @param scope the scope
+     */
     public void resetCounter(String counterName, INode scope) {
         resetCounter(counterName, DEFAULT_COUNTER_VALUE, scope);
     }
 
+    /**
+     * Resets the counter.
+     *
+     * @param counterName the counter name
+     * @param value the new value
+     * @param scope the scope
+     */
     public void resetCounter(String counterName, int value, INode scope) {
         getOrCreateScopeCounterMap(scope).put(counterName, value);
     }
 
+    /**
+     * Increments the counter.
+     *
+     * @param counterName the counter name
+     * @param incrementValue the increment value
+     * @param scope the scope
+     */
     public void incrementCounter(String counterName, int incrementValue, INode scope) {
         Map<String, Integer> scopeCounters = findSuitableScopeMap(scope, counterName);
         Integer curValue = scopeCounters != null ? scopeCounters.get(counterName) : null;
@@ -158,10 +212,22 @@ public class CssCounterManager {
         scopeCounters.put(counterName, curValue + incrementValue);
     }
 
+    /**
+     * Increments the counter.
+     *
+     * @param counterName the counter name
+     * @param scope the scope
+     */
     public void incrementCounter(String counterName, INode scope) {
         incrementCounter(counterName, DEFAULT_INCREMENT_VALUE, scope);
     }
 
+    /**
+     * Gets the scope counter map (or creates it if it doesn't exist).
+     *
+     * @param scope the scope
+     * @return the or create scope counter map
+     */
     private Map<String, Integer> getOrCreateScopeCounterMap(INode scope) {
         Map<String, Integer> scopeCounters = counters.get(scope);
         if (scopeCounters == null) {
@@ -171,11 +237,25 @@ public class CssCounterManager {
         return scopeCounters;
     }
 
+    /**
+     * Searches for the suitable scope map.
+     *
+     * @param scope the scope
+     * @param counterName the counter name
+     * @return the map
+     */
     private Map<String, Integer> findSuitableScopeMap(INode scope, String counterName) {
         INode ownerScope = findCounterOwner(scope, counterName);
         return ownerScope == null ? null : counters.get(ownerScope);
     }
 
+    /**
+     * Searches for the counter owner.
+     *
+     * @param scope the scope
+     * @param counterName the counter name
+     * @return the owner node
+     */
     private INode findCounterOwner(INode scope, String counterName) {
         while (scope != null && (!counters.containsKey(scope) || !counters.get(scope).containsKey(counterName))) {
             // First, search through previous siblings
