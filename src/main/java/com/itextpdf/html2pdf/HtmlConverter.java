@@ -68,7 +68,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * The HtmlConverter is the class you will use most when converting HTML to PDF.
  * It contains a series of static methods that accept HTML as a <code>String</code>,
@@ -210,7 +209,7 @@ public class HtmlConverter {
      * will be written to a <code>PdfWriter</code>.
      *
      * @param htmlStream the <code>InputStream</code> with the source HTML
-     * @param pdfFile the <code>File</code> containing the resulting PDF
+     * @param pdfWriter the <code>PdfWriter</code> containing the resulting PDF
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
@@ -223,7 +222,7 @@ public class HtmlConverter {
      * <code>ConverterProperties</code>.
      *
      * @param htmlStream the <code>InputStream</code> with the source HTML
-     * @param pdfFile the <code>File</code> containing the resulting PDF
+     * @param pdfWriter the <code>PdfWriter</code> containing the resulting PDF
      * @param converterProperties a <code>ConverterProperties</code> instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -250,7 +249,7 @@ public class HtmlConverter {
      * will be written to a <code>PdfWriter</code>, returning a <code>Document</code> instance.
      *
      * @param htmlStream the <code>InputStream</code> with the source HTML
-     * @param pdfFile the <code>File</code> containing the resulting PDF
+     * @param pdfWriter the <code>PdfWriter</code> containing the resulting PDF
      * @return a <code>Document</code> instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
