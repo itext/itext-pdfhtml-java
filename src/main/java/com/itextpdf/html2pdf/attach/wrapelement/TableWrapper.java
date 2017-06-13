@@ -52,7 +52,6 @@ import com.itextpdf.layout.property.UnitValue;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * Wrapper for the <code>table</code> element.
  */

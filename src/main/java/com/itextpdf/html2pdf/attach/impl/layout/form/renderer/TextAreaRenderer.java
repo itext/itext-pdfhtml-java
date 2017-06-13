@@ -62,7 +62,6 @@ import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.LineRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
 
-// TODO: Auto-generated Javadoc
 /**
  * The {@link AbstractTextFieldRenderer} implementation for text area fields.
  */

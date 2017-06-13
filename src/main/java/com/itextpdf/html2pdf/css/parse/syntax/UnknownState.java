@@ -42,7 +42,6 @@
  */
 package com.itextpdf.html2pdf.css.parse.syntax;
 
-// TODO: Auto-generated Javadoc
 /**
  * {@link IParserState} implementation for the unknown state.
  */
