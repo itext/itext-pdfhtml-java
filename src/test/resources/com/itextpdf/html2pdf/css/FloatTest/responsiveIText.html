@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        /*Debug*/
+.one{
+    border: 1pt dashed red;
+}
+.two{
+    border: 1pt dashed green;
+}
+.three{
+    border: 1pt dashed blue;
+}
+.container{
+    border: 2pt solid black;
+}
+/*Actual Css*/
+p{
+    margin-bottom: 5px;
+    margin-left: 2px;
+}
+h2{
+    color:#F9C227;
+    margin: 0px;
+}
+[class*="col-"] {
+    float: left;
+}
+.container{
+    width:100%;
+}
+.container::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+.header{
+    background-color: #055587;
+    color: #F9C227;
+    margin-bottom:10px;
+    /*width:100%;*/
+}
+
+.menu ul {
+    list-style-type: none;
+    margin-right: 10px;
+    padding: 0;
+}
+.menu li {
+    padding: 8px;
+
+    margin-bottom: 7px;
+    background-color: #055587;
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+}
+.menu li:hover {
+    background-color: #0099cc;
+}
+
+.aside {
+    margin-top: 10px;
+    background-color: #055587;
+    padding-top: 0px;
+
+    color: #ffffff;
+    text-align: center;
+    font-size: 14px;
+}
+
+/*Dynamic sizing*/
+/*Mobile*/
+[class*="col-"]{
+    width: 100%;
+}
+p{
+    font-size: 24pt;
+}
+
+h1{
+    font-size: 36pt;
+}
+
+h2{
+    font-size:28pt
+}
+
+/*Tablet*/
+@media only screen and (min-width: 600px) {
+    .col-1-m {width: 25%;}
+    .col-2-m {width: 50%;}
+    .col-3-m {width:74%}
+    .col-4-m {width: 100%;}
+    p{
+        font-size: 16pt;
+    }
+
+    h1{
+        font-size: 24pt;
+    }
+
+    h2{
+        font-size:18pt
+    }
+}
+/*Desktop*/
+@media only screen and (min-width: 768px ) {
+        .col-1 {width:25%;}
+        .col-2 {width: 33.33%;}
+        .col-3 {width: 49%;}
+        .col-4 {width: 100%;}
+        p{
+            font-size: 12pt;
+        }
+        h1{
+            font-size: 20pt;
+        }
+
+        h2{
+            font-size:16pt
+        }
+}
+    </style>
+    <!-- Based on the reponsive design example found at https://www.w3schools.com/css/css_rwd_intro.asp -->
+</head>
+<body>
+<div class="header">
+    <h1>iText</h1>
+</div>
+<div class="container">
+    <div class="one col-1-m col-1 menu">
+        <ul>
+            <li>The Platform</li>
+            <li>The Library</li>
+            <li>The Company</li>
+        </ul>
+    </div>
+    <div class="two col-3-m col-3 ">
+        <h1>The Library</h1>
+        <p>long text long text long text long text long text long text long text long text long text long text long text
+            long text long text long text long text long text long text long text long text long text long text long
+            text long text long text  </p>
+    </div>
+    <div class="three col-4-m col-1">
+        <div class="aside">
+            <h2>What?</h2>
+            <p>iText is a software developer toolkit that allows users to integrate PDF functionalities within their
+                applications</p>
+            <h2>How?</h2>
+            <p>By providing you with the tools to create and manipulate a pdf in your source code</p>
+            <h2>Really?</h2>
+            <p>Yes really! </p>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="one col-1-m col-1 menu">
+        <ul>
+            <li>The Platform</li>
+            <li>The Library</li>
+            <li>The Company</li>
+        </ul>
+    </div>
+    <div class="two col-3-m col-3 ">
+        <h1>The Library</h1>
+        <p>long text long text long text long text long text long text long text long text long text long text long text
+            long text long text long text long text long text long text long text long text long text long text long
+            text long text long text long text long text long text long text long text long text long text long text long text long text long text
+            long text long text long text long text long text long text long text long text long text long text long</p>
+    </div>
+    <div class="three col-4-m col-1">
+        <div class="aside">
+            <h2>What?</h2>
+            <p>iText is a software developer toolkit that allows users to integrate PDF functionalities within their
+                applications</p>
+            <h2>How?</h2>
+            <p>By providing you with the tools to create and manipulate a pdf in your source code</p>
+            <h2>Really?</h2>
+            <p>Yes really! </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
