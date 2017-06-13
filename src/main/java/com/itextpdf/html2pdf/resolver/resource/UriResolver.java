@@ -49,6 +49,8 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Utilities class to resolve URIs.
@@ -178,8 +180,9 @@ public class UriResolver {
 
     private String getUriStringScheme(String uriString) {
         String result = null;
-        if (uriString.contains(":")) {
-            result = uriString.split(":", 1)[0];
+        Matcher matcher = Pattern.compile("^[^:]+").matcher(uriString);
+        if (matcher.find()) {
+            result = matcher.group();
         } else if (null != baseUrl) {
             try {
                 result = baseUrl.toURI().getScheme();

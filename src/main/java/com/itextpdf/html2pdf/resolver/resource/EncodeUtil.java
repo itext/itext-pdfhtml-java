@@ -53,17 +53,25 @@ import java.util.BitSet;
  * Utilities class to encode strings in a specific encoding to HTML strings.
  */
 class EncodeUtil {
-    
-    /** Set of 256 characters with the bits that don't need encoding set to on. */
+
+    /**
+     * Set of 256 characters with the bits that don't need encoding set to on.
+     */
     static BitSet dontNeedEncoding;
-    
-    /** The difference between the value a character in lower cases and the upper case character value. */
+
+    /**
+     * The difference between the value a character in lower cases and the upper case character value.
+     */
     static final int caseDiff = ('a' - 'A');
-    
-    /** The default encoding ("UTF-8"). */
+
+    /**
+     * The default encoding ("UTF-8").
+     */
     static String dfltEncName = "UTF-8";
 
-    /** The default uri scheme ("file"). */
+    /**
+     * The default uri scheme ("file").
+     */
     static String dfltUriScheme = "file";
 
     static {
@@ -106,7 +114,7 @@ class EncodeUtil {
     /**
      * Encodes a <code>String</code> in a default encoding and uri scheme to an HTML-encoded <code>String</code>.
      *
-     * @param s the original string
+     * @param s      the original string
      * @param scheme the uri scheme
      * @return the encoded string
      */
@@ -117,9 +125,9 @@ class EncodeUtil {
     /**
      * Encodes a <code>String</code> in a specific encoding and uri scheme to an HTML-encoded <code>String</code>.
      *
-     * @param s the original string
+     * @param s      the original string
      * @param scheme the uri scheme
-     * @param enc the encoding
+     * @param enc    the encoding
      * @return the encoded string
      */
     public static String encode(String s, String scheme, String enc) {
@@ -137,16 +145,19 @@ class EncodeUtil {
         } catch (IllegalCharsetNameException e) {
             throw new Html2PdfException(Html2PdfException.UnsupportedEncodingException);
         }
-
-        for (int i = 0; i < s.length(); ) {
+        int i = 0;
+        while (i < s.length()) {
             int c = (int) s.charAt(i);
-            if (dontNeedEncoding.get(c)) {
+            if (("http".equals(scheme) || "https".equals(scheme)) && '?' == s.charAt(i)) {
                 out.append((char) c);
-                i++;
-            } else if (!"file".equals(scheme) && '#' == s.charAt(i) && i+1 < s.length() && '#' == s.charAt(i+1)){
+                break;
+            } else if (("http".equals(scheme) || "https".equals(scheme)) && '#' == s.charAt(i) && i + 1 < s.length() && '#' == s.charAt(i + 1)) {
                 out.append((char) c);
                 needToChange = true;
-                i+=2;
+                i += 2;
+            } else if (dontNeedEncoding.get(c)) {
+                out.append((char) c);
+                i++;
             } else {
                 // convert to external encoding before hex conversion
                 do {
@@ -205,6 +216,10 @@ class EncodeUtil {
                 charArrayWriter.reset();
                 needToChange = true;
             }
+        }
+
+        if (needToChange && i + 1 < s.length()) {
+            out.append(s.substring(i + 1));
         }
 
         return (needToChange ? out.toString() : s);
