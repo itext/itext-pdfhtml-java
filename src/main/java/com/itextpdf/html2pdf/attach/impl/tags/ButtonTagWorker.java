@@ -51,7 +51,6 @@ import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 
-// TODO: Auto-generated Javadoc
 /**
  * TagWorker class for a button element.
  */

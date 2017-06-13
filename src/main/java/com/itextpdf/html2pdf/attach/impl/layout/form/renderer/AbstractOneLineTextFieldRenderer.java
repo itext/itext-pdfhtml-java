@@ -49,7 +49,6 @@ import com.itextpdf.layout.renderer.LineRenderer;
 
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
 * Abstract {@link BlockRenderer} for a single line of text content in a form field.
 */

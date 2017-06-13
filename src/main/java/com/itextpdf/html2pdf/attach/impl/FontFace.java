@@ -50,7 +50,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class that will examine the font as described in the CSS, and store it
  * in a form that the font provider will understand.

@@ -49,7 +49,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class to store a nested CSS at-rule
  * Nested at-rules are a subset of nested statements, which can be used

@@ -44,7 +44,6 @@ package com.itextpdf.html2pdf.css.resolve.shorthand.impl;
 
 import com.itextpdf.html2pdf.css.CssConstants;
 
-// TODO: Auto-generated Javadoc
 /**
  * {@link AbstractBoxShorthandResolver} implementation for border styles.
  */

@@ -48,7 +48,6 @@ import com.itextpdf.html2pdf.html.node.INode;
 import java.text.MessageFormat;
 import java.util.regex.Pattern;
 
-// TODO: Auto-generated Javadoc
 /**
  * {@link ICssSelectorItem} implementation for attribute selectors.
  */
