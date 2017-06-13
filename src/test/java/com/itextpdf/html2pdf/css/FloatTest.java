@@ -42,7 +42,14 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
+import com.itextpdf.html2pdf.css.media.MediaType;
+import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -53,6 +60,8 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
@@ -558,5 +567,41 @@ public class FloatTest extends ExtendedITextTest {
         String cmpFileName = sourceFolder + "cmp_" + testName + ".pdf";
         HtmlConverter.convertToPdf(new File(htmlName), new File(outFileName));
         Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, destinationFolder, diff));
+    }
+
+    @Test
+    public void responsiveIText() throws IOException, InterruptedException {
+        PageSize[] pageSizes = {
+                null,
+                new PageSize(PageSize.A3.getHeight(), PageSize.A4.getHeight()),
+                new PageSize(760,PageSize.A4.getHeight()),
+                new PageSize(PageSize.A5.getWidth(), PageSize.A4.getHeight())
+        };
+
+        String htmlSource = sourceFolder + "responsiveIText.html";
+
+        for (PageSize pageSize : pageSizes) {
+            Float pxWidth = pageSize != null ? CssUtils.parseAbsoluteLength(String.valueOf(pageSize.getWidth())) : null;
+            String outName = "responsiveIText" + (pxWidth != null ? "_" + pxWidth : "") + ".pdf";
+            PdfWriter writer = new PdfWriter(destinationFolder + outName);
+            PdfDocument pdfDoc = new PdfDocument(writer);
+            ConverterProperties converterProperties = new ConverterProperties();
+            if (pageSize != null) {
+                pdfDoc.setDefaultPageSize(pageSize);
+                MediaDeviceDescription mediaDescription = new MediaDeviceDescription(MediaType.SCREEN);
+                mediaDescription.setWidth(pxWidth);
+                converterProperties.setMediaDeviceDescription(mediaDescription);
+            }
+            HtmlConverter.convertToPdf(new FileInputStream(htmlSource), pdfDoc, converterProperties);
+            pdfDoc.close();
+        }
+
+        for (PageSize pageSize : pageSizes) {
+            Float pxWidth = pageSize != null ? CssUtils.parseAbsoluteLength(String.valueOf(pageSize.getWidth())) : null;
+            String outName = "responsiveIText" + (pxWidth != null ? "_" + pxWidth : "") + ".pdf";
+            String cmpName = "cmp_" + outName;
+
+            Assert.assertNull(new CompareTool().compareByContent(destinationFolder + outName, sourceFolder + cmpName, destinationFolder, "diffResponsive_"));
+        }
     }
 }
