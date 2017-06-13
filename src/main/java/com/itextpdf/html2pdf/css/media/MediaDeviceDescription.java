@@ -71,7 +71,7 @@ public class MediaDeviceDescription {
     /** The orientation. */
     private String orientation;
     
-    /** The monochrome value. */
+    /** The the number of bits per pixel on a monochrome (greyscale) device. */
     private int monochrome;
     
     /** The resolution in DPI. */
@@ -258,18 +258,18 @@ public class MediaDeviceDescription {
     }
 
     /**
-     * Gets the monochrome value.
+     * Gets the number of bits per pixel on a monochrome (greyscale) device.
      *
-     * @return the monochrome value
+     * @return the number of bits per pixel on a monochrome (greyscale) device
      */
     public int getMonochrome() {
         return monochrome;
     }
 
     /**
-     * Sets the monochrome value.
+     * Sets the number of bits per pixel on a monochrome (greyscale) device.
      *
-     * @param monochrome the monochrome value
+     * @param monochrome the number of bits per pixel on a monochrome (greyscale) device
      * @return the media device description
      */
     public MediaDeviceDescription setMonochrome(int monochrome) {
