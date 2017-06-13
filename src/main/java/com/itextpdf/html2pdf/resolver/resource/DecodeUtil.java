@@ -50,11 +50,15 @@ import java.io.UnsupportedEncodingException;
  * Utilities class to decode HTML strings to a strings in a specific encoding.
  */
 public class DecodeUtil {
-    
-    /** The default encoding ("UTF-8"). */
+
+    /**
+     * The default encoding ("UTF-8").
+     */
     static String dfltEncName = "UTF-8";
 
-    /** The default uri scheme ("file"). */
+    /**
+     * The default uri scheme ("file").
+     */
     static String dfltUriScheme = "file";
 
     /**
@@ -71,7 +75,7 @@ public class DecodeUtil {
      * Decodes a <code>String</code> to a <code>String</code> using a specific uri scheme
      * and default encoding.
      *
-     * @param s the string to decode
+     * @param s      the string to decode
      * @param scheme the uri scheme
      * @return the decoded string
      */
@@ -83,9 +87,9 @@ public class DecodeUtil {
      * Decodes a <code>String</code> to a <code>String</code> using a specific encoding
      * and uri string.
      *
-     * @param s the string to decode
+     * @param s      the string to decode
      * @param scheme the uri scheme
-     * @param enc the encoding
+     * @param enc    the encoding
      * @return the decoded string
      */
     public static String decode(String s, String scheme, String enc) {
@@ -102,57 +106,58 @@ public class DecodeUtil {
         byte[] bytes = null;
         while (i < numChars) {
             c = s.charAt(i);
-            switch (c) {
-                case '%':
-                    // (numChars-i)/3 is an upper bound for the number
-                    // of remaining bytes
-                    if (bytes == null)
-                        bytes = new byte[(numChars - i) / 3];
-                    int pos = 0;
+            if ('%' == c) {
+                // (numChars-i)/3 is an upper bound for the number
+                // of remaining bytes
+                if (bytes == null)
+                    bytes = new byte[(numChars - i) / 3];
+                int pos = 0;
 
-                    while (((i + 2) < numChars) &&
-                            (c == '%')) {
-                        int v;
-                        try {
-                            v = Integer.parseInt(s.substring(i + 1, i + 3), 16);
-                        } catch (NumberFormatException e) {
-                            v = -1;
-                        }
-                        if (v < 0) {
-                            i++;
-                            break;
-                        } else {
-                            bytes[pos++] = (byte) v;
-                            i += 3;
-                            if (i < numChars) {
-                                c = s.charAt(i);
-                            }
-                        }
-                    }
-
-                    if ((i < numChars) && (c == '%')) {
-                        bytes[pos++] = (byte) c;
-                    }
+                while (((i + 2) < numChars) &&
+                        (c == '%')) {
+                    int v;
                     try {
-                        sb.append(new String(bytes, 0, pos, enc));
-                    } catch (UnsupportedEncodingException e) {
-                        throw new Html2PdfException(Html2PdfException.UnsupportedEncodingException);
+                        v = Integer.parseInt(s.substring(i + 1, i + 3), 16);
+                    } catch (NumberFormatException e) {
+                        v = -1;
                     }
-                    needToChange = true;
-                    break;
-                case '#':
-                    sb.append(c);
-                    i++;
-                    if (!"file".equals(scheme)) {
+                    if (v < 0) {
+                        i++;
+                        break;
+                    } else {
+                        bytes[pos++] = (byte) v;
+                        i += 3;
+                        if (i < numChars) {
+                            c = s.charAt(i);
+                        }
+                    }
+                }
+
+                if ((i < numChars) && (c == '%')) {
+                    bytes[pos++] = (byte) c;
+                }
+                try {
+                    sb.append(new String(bytes, 0, pos, enc));
+                } catch (UnsupportedEncodingException e) {
+                    throw new Html2PdfException(Html2PdfException.UnsupportedEncodingException);
+                }
+                needToChange = true;
+            } else {
+                sb.append(c);
+                i++;
+                if ("http".equals(scheme) || "https".equals(scheme)) {
+                    if ('?' == c) {
+                        break;
+                    } else if ('#' == c) {
                         sb.append(c);
                         needToChange = true;
                     }
-                    break;
-                default:
-                    sb.append(c);
-                    i++;
-                    break;
+                }
             }
+        }
+
+        if (needToChange && i + 1 < numChars) {
+            sb.append(s.substring(i + 1));
         }
 
         return (needToChange ? sb.toString() : s);
