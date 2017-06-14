@@ -40,52 +40,28 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css;
+package com.itextpdf.html2pdf.css.apply.impl;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
-@Category(IntegrationTest.class)
-public class CssOpacityTest extends ExtendedITextTest {
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssOpacityTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/CssOpacityTest/";
-
-    @BeforeClass
-    public static void beforeClass() {
-        createOrClearDestinationFolder(destinationFolder);
-    }
-
-    @Test
-    public void innerOpacityTest() throws IOException, InterruptedException {
-        // TODO itext "overwrites" parent's opacity while in css, opacity kinda "merges"
-        // i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
-        runTest("innerOpacityTest");
-    }
-
-    @Test
-    public void nestedInSpanTest() throws IOException, InterruptedException {
-        runTest("nestedInSpanTest");
-    }
-    
-    private void runTest(String name) throws IOException, InterruptedException {
-        String htmlPath = sourceFolder + name + ".html";
-        String pdfPath = destinationFolder + name + ".pdf";
-        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-        String diffPrefix = "diff_" + name + "_";
-
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+public class HrTagCssApplier extends BlockCssApplier {
+    @Override
+    public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
+        Map<String, String> originalStyles = stylesContainer.getStyles();
+        Map<String, String> styles = new HashMap<>(originalStyles);
+        // In general, if border color is not specified, it should take the value from color CSS property.
+        // However, <hr> tag is an exception from this rule and color property does not affect the border color.
+        // This is a workaround to solve the problem of color property being taken into account for <hr> tag.
+        // Please note that this problem might as well be solved at BorderStyleApplierUtil.
+        styles.remove(CssConstants.COLOR);
+        stylesContainer.setStyles(styles);
+        super.apply(context, stylesContainer, tagWorker);
+        stylesContainer.setStyles(originalStyles);
     }
 }

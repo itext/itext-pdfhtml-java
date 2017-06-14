@@ -99,7 +99,7 @@ public abstract class AbstractBorderShorthandResolver implements IShorthandResol
                 borderWidthValue = value;
             } else if (CssConstants.BORDER_STYLE_VALUES.contains(value)) {
                 borderStyleValue = value;
-            } else if (CssUtils.isColorProperty(value)) {
+            } else if (CssUtils.isColorProperty(value) || CssConstants.INITIAL.equals(value)) {
                 borderColorValue = value;
             }
         }
@@ -107,7 +107,9 @@ public abstract class AbstractBorderShorthandResolver implements IShorthandResol
         List<CssDeclaration> resolvedDecl = new ArrayList<>();
         resolvedDecl.add(new CssDeclaration(widthPropName, borderWidthValue == null ? CssConstants.INITIAL : borderWidthValue));
         resolvedDecl.add(new CssDeclaration(stylePropName, borderStyleValue == null ? CssConstants.INITIAL : borderStyleValue));
-        resolvedDecl.add(new CssDeclaration(colorPropName, borderColorValue == null ? CssConstants.INITIAL : borderColorValue));
+        if (borderColorValue != null) {
+            resolvedDecl.add(new CssDeclaration(colorPropName, borderColorValue));
+        }
         return resolvedDecl;
     }
 }
