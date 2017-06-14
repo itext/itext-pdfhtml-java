@@ -101,7 +101,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.H5, BlockCssApplier.class);
         mapping.putMapping(TagConstants.H6, BlockCssApplier.class);
         mapping.putMapping(TagConstants.HEADER, BlockCssApplier.class);
-        mapping.putMapping(TagConstants.HR, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.HR, HrTagCssApplier.class);
         mapping.putMapping(TagConstants.HTML, HtmlTagCssApplier.class);
         mapping.putMapping(TagConstants.I, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.IMG, BlockCssApplier.class);

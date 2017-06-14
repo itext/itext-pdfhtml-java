@@ -42,11 +42,6 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.CssDefaults;
@@ -65,6 +60,10 @@ import com.itextpdf.layout.border.RidgeBorder;
 import com.itextpdf.layout.border.SolidBorder;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 /**
  * Utilities class to apply border styles.
@@ -120,19 +119,19 @@ public class BorderStyleApplierUtil {
     public static Border[] getBordersArray(Map<String, String> styles, float em, float rem) {
         Border[] borders = new Border[4];
         Border topBorder = getCertainBorder(styles.get(CssConstants.BORDER_TOP_WIDTH),
-                styles.get(CssConstants.BORDER_TOP_STYLE), styles.get(CssConstants.BORDER_TOP_COLOR), em, rem);
+                styles.get(CssConstants.BORDER_TOP_STYLE), getSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_TOP_COLOR), em, rem);
         borders[0] = topBorder;
 
         Border rightBorder = getCertainBorder(styles.get(CssConstants.BORDER_RIGHT_WIDTH),
-                styles.get(CssConstants.BORDER_RIGHT_STYLE), styles.get(CssConstants.BORDER_RIGHT_COLOR), em, rem);
+                styles.get(CssConstants.BORDER_RIGHT_STYLE), getSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_RIGHT_COLOR), em, rem);
         borders[1] = rightBorder;
         
         Border bottomBorder = getCertainBorder(styles.get(CssConstants.BORDER_BOTTOM_WIDTH),
-                styles.get(CssConstants.BORDER_BOTTOM_STYLE), styles.get(CssConstants.BORDER_BOTTOM_COLOR), em, rem);
+                styles.get(CssConstants.BORDER_BOTTOM_STYLE), getSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_BOTTOM_COLOR), em, rem);
         borders[2] = bottomBorder;
 
         Border leftBorder = getCertainBorder(styles.get(CssConstants.BORDER_LEFT_WIDTH),
-                styles.get(CssConstants.BORDER_LEFT_STYLE), styles.get(CssConstants.BORDER_LEFT_COLOR), em, rem);
+                styles.get(CssConstants.BORDER_LEFT_STYLE), getSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_LEFT_COLOR), em, rem);
         borders[3] = leftBorder;
         
         return borders;
@@ -226,4 +225,13 @@ public class BorderStyleApplierUtil {
         }
         return border;
     }
+
+    private static String getSpecificBorderColorOrDefaultColor(Map<String, String> styles, String specificBorderColorProperty) {
+        String borderColor = styles.get(specificBorderColorProperty);
+        if (borderColor == null) {
+            borderColor = styles.get(CssConstants.COLOR);
+        }
+        return borderColor;
+    }
+
 }

@@ -43,7 +43,6 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -57,35 +56,33 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class CssOpacityTest extends ExtendedITextTest {
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssOpacityTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/CssOpacityTest/";
+public class BorderTest extends ExtendedITextTest {
+
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/BorderTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/BorderTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createOrClearDestinationFolder(destinationFolder);
+        createDestinationFolder(destinationFolder);
     }
 
     @Test
-    public void innerOpacityTest() throws IOException, InterruptedException {
-        // TODO itext "overwrites" parent's opacity while in css, opacity kinda "merges"
-        // i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
-        runTest("innerOpacityTest");
+    public void border01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "border01.html"), new File(destinationFolder + "border01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "border01.pdf", sourceFolder + "cmp_border01.pdf", destinationFolder, "diff01_"));
     }
 
     @Test
-    public void nestedInSpanTest() throws IOException, InterruptedException {
-        runTest("nestedInSpanTest");
+    public void border02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "border02.html"), new File(destinationFolder + "border02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "border02.pdf", sourceFolder + "cmp_border02.pdf", destinationFolder, "diff02_"));
     }
-    
-    private void runTest(String name) throws IOException, InterruptedException {
-        String htmlPath = sourceFolder + name + ".html";
-        String pdfPath = destinationFolder + name + ".pdf";
-        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-        String diffPrefix = "diff_" + name + "_";
 
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+    @Test
+    public void border03Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "border03.html"), new File(destinationFolder + "border03.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "border03.pdf", sourceFolder + "cmp_border03.pdf", destinationFolder, "diff03_"));
     }
+
+
 }
