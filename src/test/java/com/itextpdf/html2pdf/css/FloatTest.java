@@ -355,7 +355,6 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Wrong elements drawing order")
     public void float54Test() throws IOException, InterruptedException {
         runTest("float54Test", "diff54_");
     }
