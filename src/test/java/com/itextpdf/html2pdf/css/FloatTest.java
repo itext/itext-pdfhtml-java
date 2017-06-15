@@ -53,16 +53,16 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class FloatTest extends ExtendedITextTest {
@@ -352,6 +352,12 @@ public class FloatTest extends ExtendedITextTest {
     @Test
     public void float51Test() throws IOException, InterruptedException {
         runTest("float51Test", "diff51_");
+    }
+
+    @Test
+    @Ignore("Wrong elements drawing order")
+    public void float54Test() throws IOException, InterruptedException {
+        runTest("float54Test", "diff54_");
     }
 
     @Test
