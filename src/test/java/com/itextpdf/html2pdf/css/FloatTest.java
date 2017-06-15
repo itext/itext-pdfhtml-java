@@ -586,15 +586,18 @@ public class FloatTest extends ExtendedITextTest {
         String htmlSource = sourceFolder + "responsiveIText.html";
 
         for (PageSize pageSize : pageSizes) {
-            Float pxWidth = pageSize != null ? CssUtils.parseAbsoluteLength(String.valueOf(pageSize.getWidth())) : null;
-            String outName = "responsiveIText" + (pxWidth != null ? "_" + pxWidth : "") + ".pdf";
+            Float pxWidth = null;
+            if (pageSize != null) {
+                pxWidth = CssUtils.parseAbsoluteLength(String.valueOf(pageSize.getWidth()));
+            }
+            String outName = "responsiveIText" + (pxWidth != null ? "_" + (int)(float)pxWidth : "") + ".pdf";
             PdfWriter writer = new PdfWriter(destinationFolder + outName);
             PdfDocument pdfDoc = new PdfDocument(writer);
             ConverterProperties converterProperties = new ConverterProperties();
             if (pageSize != null) {
                 pdfDoc.setDefaultPageSize(pageSize);
                 MediaDeviceDescription mediaDescription = new MediaDeviceDescription(MediaType.SCREEN);
-                mediaDescription.setWidth(pxWidth);
+                mediaDescription.setWidth((float)pxWidth);
                 converterProperties.setMediaDeviceDescription(mediaDescription);
             }
             HtmlConverter.convertToPdf(new FileInputStream(htmlSource), pdfDoc, converterProperties);
@@ -602,8 +605,11 @@ public class FloatTest extends ExtendedITextTest {
         }
 
         for (PageSize pageSize : pageSizes) {
-            Float pxWidth = pageSize != null ? CssUtils.parseAbsoluteLength(String.valueOf(pageSize.getWidth())) : null;
-            String outName = "responsiveIText" + (pxWidth != null ? "_" + pxWidth : "") + ".pdf";
+            Float pxWidth = null;
+            if (pageSize != null) {
+                pxWidth = CssUtils.parseAbsoluteLength(String.valueOf(pageSize.getWidth()));
+            }
+            String outName = "responsiveIText" + (pxWidth != null ? "_" + (int)(float)pxWidth : "") + ".pdf";
             String cmpName = "cmp_" + outName;
 
             Assert.assertNull(new CompareTool().compareByContent(destinationFolder + outName, sourceFolder + cmpName, destinationFolder, "diffResponsive_"));
