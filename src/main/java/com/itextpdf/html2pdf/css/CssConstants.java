@@ -638,6 +638,9 @@ public class CssConstants {
     /** The Constant NORMAL. */
     public static final String NORMAL = "normal";
     
+	/** The Constant NOWRAP. */
+    public static final String NOWRAP = "nowrap";
+
     /** The Constant OBLIQUE. */
     public static final String OBLIQUE = "oblique";
     

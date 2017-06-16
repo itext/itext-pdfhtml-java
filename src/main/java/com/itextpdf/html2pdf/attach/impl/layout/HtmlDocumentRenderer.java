@@ -2,7 +2,7 @@
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
-    
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-    
+
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-    
+
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-    
+
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-    
+
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,7 +36,7 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-    
+
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
@@ -52,7 +52,9 @@ import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.layout.LayoutArea;
+import com.itextpdf.layout.layout.LayoutPosition;
 import com.itextpdf.layout.layout.LayoutResult;
+import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
@@ -63,7 +65,7 @@ import java.util.List;
  * The DocumentRenderer class for HTML.
  */
 public class HtmlDocumentRenderer extends DocumentRenderer {
-    
+
     /**
      * The Constant TRIM_LAST_BLANK_PAGE.
      * In a future version, we might want to expose this value to the users,
@@ -73,10 +75,10 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
 
     /** The page context processor for the first page. */
     private PageContextProcessor firstPageProc;
-    
+
     /** The page context processor for all left pages. */
     private PageContextProcessor leftPageProc;
-    
+
     /** The page context processor for all right pages. */
     private PageContextProcessor rightPageProc;
     /**
@@ -87,22 +89,22 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
      * but a blank page will not be added.
      */
     private boolean currentPageEven = true;
-    
+
     /**
      * The waiting element, an child element is kept waiting for the
      * next element to process the "keep with previous" property.
      */
     private IRenderer waitingElement;
-    
+
     /**
      * Indicates if the first blank pages caused by a break-before-first
      * element should be trimmed.
      */
     private boolean shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = true;
-    
+
     /** Indicates if anything was added to the current area. */
     private boolean anythingAddedToCurrentArea = false;
-    
+
     /** The estimated number of pages. */
     private int estimatedNumberOfPages;
 
@@ -126,7 +128,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     public void processPageRules(INode rootNode, ICssResolver cssResolver, ProcessorContext context) {
         PageContextProperties firstPageProps = PageContextProperties.resolve(rootNode, cssResolver, context.getCssContext(),
                 PageContextConstants.FIRST, PageContextConstants.RIGHT);
-        // TODO in documents with set to rtl on root document, first page is considered as left 
+        // TODO in documents with set to rtl on root document, first page is considered as left
         PageContextProperties leftPageProps = PageContextProperties.resolve(rootNode, cssResolver, context.getCssContext(),
                 PageContextConstants.LEFT);
         PageContextProperties rightPageProps = PageContextProperties.resolve(rootNode, cssResolver, context.getCssContext(),
@@ -154,7 +156,9 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         }
         waitingElement = renderer;
 
-        if (renderer.hasProperty(Property.FLOAT)) {
+        FloatPropertyValue floatPropertyValue = renderer.<FloatPropertyValue>getProperty(Property.FLOAT);
+        Integer position = renderer.<Integer>getProperty(Property.POSITION);
+        if ((position != null && position == LayoutPosition.ABSOLUTE) || (floatPropertyValue != null && !floatPropertyValue.equals(FloatPropertyValue.NONE))) {
             waitingElement = null;
             super.addChild(renderer);
         }
@@ -283,7 +287,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         }
 
         currentPageEven = !currentPageEven;
-        
+
         nextProcessor.processNewPage(addedPage, this);
 
         float[] margins = nextProcessor.computeLayoutMargins();

@@ -95,6 +95,7 @@ public class PTagWorker implements ITagWorker {
      */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        // TODO child might be inline, however still have display:block; it behaves like a block, however p includes it in own occupied area
         IPropertyContainer element = childTagWorker.getElementResult();
         if (element instanceof ILeafElement) {
             inlineHelper.add((ILeafElement) element);
