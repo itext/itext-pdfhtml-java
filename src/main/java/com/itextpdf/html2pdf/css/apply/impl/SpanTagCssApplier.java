@@ -59,6 +59,7 @@ import com.itextpdf.html2pdf.css.apply.util.FloatApplierUtil;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
 
 import java.util.Map;
@@ -83,6 +84,17 @@ public class SpanTagCssApplier implements ICssApplier {
             for (IPropertyContainer elem : spanTagWorker.getAllElements()) {
                 if (elem instanceof Text && !elem.hasProperty(Property.OPACITY)) {
                     OpacityApplierUtil.applyOpacity(cssStyles, context, elem);
+                }
+            }
+        }
+
+        // TODO as for now spans are flattened, let's at least make kids of floating spans floating too
+        String floatVal = cssStyles.get(CssConstants.FLOAT);
+        if (floatVal != null && !CssConstants.NONE.equals(floatVal)) {
+            for (IPropertyContainer elem : spanTagWorker.getAllElements()) {
+                FloatPropertyValue kidFloatVal = elem.<FloatPropertyValue>getProperty(Property.FLOAT);
+                if (kidFloatVal == null || FloatPropertyValue.NONE.equals(kidFloatVal)) {
+                    FloatApplierUtil.applyFloating(cssStyles, context, elem);
                 }
             }
         }
