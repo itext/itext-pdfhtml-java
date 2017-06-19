@@ -135,6 +135,11 @@ public class FontFaceTest extends ExtendedITextTest {
                 Html2PdfException.FontProviderContainsZeroFonts, exception);
     }
 
+    @Test
+    public void fontFaceWoffTest01() throws IOException, InterruptedException {
+        runTest("fontFaceWoffTest01");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
