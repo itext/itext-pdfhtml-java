@@ -208,13 +208,18 @@ public final class FontStyleApplierUtil {
 
         String lineHeight = cssProps.get(CssConstants.LINE_HEIGHT);
         if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight)) {
-            UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em, rem);
             if (CssUtils.isNumericValue(lineHeight)) {
-                element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue()));
-            } else if (lineHeightValue != null && lineHeightValue.isPointValue()) {
-                element.setProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.getValue()));
-            } else if (lineHeightValue != null) {
-                element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue() / 100));
+                Float mult = CssUtils.parseFloat(lineHeight);
+                if (mult != null) {
+                    element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));
+                }
+            } else {
+                UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em, rem);
+                if (lineHeightValue != null && lineHeightValue.isPointValue()) {
+                    element.setProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.getValue()));
+                } else if (lineHeightValue != null) {
+                    element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue() / 100));
+                }
             }
         } else {
             element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, 1.2f));

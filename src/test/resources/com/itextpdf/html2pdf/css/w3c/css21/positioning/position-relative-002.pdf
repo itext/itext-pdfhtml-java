@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 164>>stream
-xœuÎ;Â0Ğ~O1JqşI‹=’/`+Šò³ëc\ Dˆvöivf:*:œcÄ	TKi²Ê„¬ Ú)¶“¶–-ºîÆèÙ9^é…á~|…Üôì†š4Aj3>y+Å^İé¤èB3IHÄX®a@.…ôƒr‰SÌÏĞ´i†êUÕ†e‰(JßX	Y‰¿²ø<]Ió•o•II€
+<</Filter/FlateDecode/Length 162>>stream
+xœuÎA‚0Ğıœâ‡•njX›èŞ¤hÃ B«^_èÂ@Œ»ÉŸ—?3ÒÑĞá¬ R˜†²e5O5íû€‡õ=ÚáÆè8Ø­‡ãnxÇÜuÏyÙöÛ×é¢´nxñVŠ½¹ÓÉĞ…F’P˜®ñz®E¥¡ô	‰©‰æçË,*şiWM•§¢(Qjµ.e!¤ZK÷•¤`H¶
 endstream
 endobj
 4 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20161228154618+03'00')/ModDate(D:20161228154618+03'00')/Producer(iText Software)/Title(CSS Test: Elements following relatively positioned elements)>>
+<</CreationDate(D:20170619171923+03'00')/ModDate(D:20170619171923+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Elements following relatively positioned elements)>>
 endobj
 6 0 obj
 <</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000379 00000 n 
-0000000695 00000 n 
-0000000424 00000 n 
-0000000246 00000 n 
+0000000377 00000 n 
+0000000769 00000 n 
+0000000422 00000 n 
+0000000244 00000 n 
 0000000015 00000 n 
-0000000607 00000 n 
+0000000681 00000 n 
 trailer
-<</ID [<7242793d10381509a874930a1452bc37><7242793d10381509a874930a1452bc37>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.2-SNAPSHOT
+<</ID [<04aed2d5796d289872af6ba8fc6af7ba><04aed2d5796d289872af6ba8fc6af7ba>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%TEST-LICE-NSE0-7.0.4-SNAPSHOT
 startxref
-746
+820
 %%EOF
