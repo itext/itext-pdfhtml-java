@@ -47,14 +47,17 @@ import com.itextpdf.html2pdf.css.CssFontFaceRule;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.UnitTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.FileInputStream;
 import java.text.MessageFormat;
 import java.util.regex.Matcher;
 
+@Category(UnitTest.class)
 public class FontFaceSrcTest extends ExtendedITextTest {
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/attacher/impl/FontFaceSrcTest/";
 
