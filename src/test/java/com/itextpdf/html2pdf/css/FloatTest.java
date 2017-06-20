@@ -480,6 +480,12 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
+    @Ignore("DEVSIX-1316")
+    public void floatImage14Test() throws IOException, InterruptedException {
+        runTest("floatImage14Test", "diffImages14_");
+    }
+
+    @Test
     public void floatInline01Test() throws IOException, InterruptedException {
         runTest("floatInline01Test", "diffImages01_");
     }
