@@ -56,14 +56,16 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class FontFaceTest extends ExtendedITextTest {
@@ -133,6 +135,12 @@ public class FontFaceTest extends ExtendedITextTest {
     @Test
     public void fontFaceWoffTest01() throws IOException, InterruptedException {
         runTest("fontFaceWoffTest01");
+    }
+
+    @Test
+    @Ignore("DEVSIX-1368: font-face alias is not recognized correctly by font selector if it is specified in quotes")
+    public void fontFaceWoffTest02() throws IOException, InterruptedException {
+        runTest("fontFaceWoffTest02");
     }
 
     private void runTest(String name) throws IOException, InterruptedException {
