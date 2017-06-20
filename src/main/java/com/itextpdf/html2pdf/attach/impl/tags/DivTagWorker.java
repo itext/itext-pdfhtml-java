@@ -49,9 +49,12 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.*;
-import com.itextpdf.layout.property.FloatPropertyValue;
-import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.element.AreaBreak;
+import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.Image;
 
 import java.util.Map;
 
@@ -114,11 +117,16 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
             }
             inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
             return true;
+        } else if (childTagWorker instanceof IDisplayAware && CssConstants.INLINE_BLOCK.equals(((IDisplayAware) childTagWorker).getDisplay()) && childTagWorker.getElementResult() instanceof IBlockElement) {
+            inlineHelper.add((IBlockElement) childTagWorker.getElementResult());
+            return true;
         } else if (childTagWorker instanceof SpanTagWorker) {
             boolean allChildrenProcessed = true;
             for (IPropertyContainer childElement : ((SpanTagWorker) childTagWorker).getAllElements()) {
                 if (childElement instanceof ILeafElement) {
                     inlineHelper.add((ILeafElement) childElement);
+                } else if (childElement instanceof IBlockElement && CssConstants.INLINE_BLOCK.equals(((SpanTagWorker) childTagWorker).getElementDisplay(childElement))) {
+                    inlineHelper.add((IBlockElement) childElement);
                 } else if (childElement instanceof IElement) {
                     allChildrenProcessed = addBlockChild((IElement) childElement) && allChildrenProcessed;
                 }
@@ -129,7 +137,7 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
                 // TODO make IFormField implement IBlockElement and add it directly to div without inline helper.
                 // TODO Requires refactoring of AbstractOneLineTextFieldRenderer (calculate baselines properly)
                 postProcessInlineGroup();
-                inlineHelper.add((ILeafElement) element);
+                inlineHelper.add((IFormField) element);
                 postProcessInlineGroup();
             } else {
                 inlineHelper.add((IFormField) element);

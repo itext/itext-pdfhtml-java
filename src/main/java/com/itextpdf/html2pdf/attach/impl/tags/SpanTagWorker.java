@@ -53,6 +53,7 @@ import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,6 +64,10 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
 
     /** The span wrapper. */
     SpanWrapper spanWrapper;
+
+    // TODO ideally, this should be refactored. For now, I don't see a beautiful way of passing this information to other workers.
+    // Also, we probably should wait a bit until the display support is more or less stable
+    private Map<IPropertyContainer, String> childrenDisplayMap = new HashMap<>();
     
     /** A list of elements belonging to the span. */
     private List<IPropertyContainer> elements;
@@ -121,8 +126,13 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
         } else if (childTagWorker instanceof SpanTagWorker) {
             flushInlineHelper();
             spanWrapper.add(((SpanTagWorker) childTagWorker).spanWrapper);
+            childrenDisplayMap.putAll(((SpanTagWorker) childTagWorker).childrenDisplayMap);
             return true;
         } else if (childTagWorker.getElementResult() instanceof IBlockElement) {
+            if (childTagWorker instanceof IDisplayAware) {
+                String display = ((IDisplayAware) childTagWorker).getDisplay();
+                childrenDisplayMap.put(childTagWorker.getElementResult(), display);
+            }
             flushInlineHelper();
             spanWrapper.add((IBlockElement) childTagWorker.getElementResult());
             return true;
@@ -163,6 +173,13 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
     @Override
     public String getDisplay() {
         return display;
+    }
+
+    /**
+     * The child shall be one from {@link #getAllElements()} list.
+     */
+    String getElementDisplay(IPropertyContainer child) {
+        return childrenDisplayMap.get(child);
     }
 
     /**
