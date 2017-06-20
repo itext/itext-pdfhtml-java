@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
@@ -77,7 +78,11 @@ public class SpanTagCssApplier implements ICssApplier {
         SpanTagWorker spanTagWorker = (SpanTagWorker) tagWorker;
         Map<String, String> cssStyles = stylesContainer.getStyles();
         for (IPropertyContainer child : spanTagWorker.getOwnLeafElements()) {
-            applyChildElementStyles(child, cssStyles, context, stylesContainer);
+            // Workaround for form fields so that SpanTagCssApplier does not apply its font-size to the child.
+            // Form fields have their own CSS applier // TODO remove when form fields are not leaf elements anymore
+            if (!(child instanceof IFormField)) {
+                applyChildElementStyles(child, cssStyles, context, stylesContainer);
+            }
         }
         VerticalAlignmentApplierUtil.applyVerticalAlignmentForInlines(cssStyles, context, stylesContainer, spanTagWorker.getAllElements());
         if (cssStyles.containsKey(CssConstants.OPACITY)) {

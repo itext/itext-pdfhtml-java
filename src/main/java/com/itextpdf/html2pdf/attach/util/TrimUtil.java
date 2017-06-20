@@ -42,11 +42,12 @@
  */
 package com.itextpdf.html2pdf.attach.util;
 
-import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.layout.LayoutPosition;
 import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,8 +68,8 @@ public final class TrimUtil {
      * @param leafElements the leaf elements
      * @return the trimmed and sanitized list
      */
-    public static List<ILeafElement> trimLeafElementsAndSanitize(List<ILeafElement> leafElements) {
-        ArrayList<ILeafElement> waitingLeaves = new ArrayList<ILeafElement>(leafElements);
+    public static List<IElement> trimLeafElementsAndSanitize(List<IElement> leafElements) {
+        ArrayList<IElement> waitingLeaves = new ArrayList<IElement>(leafElements);
 
         trimSubList(waitingLeaves, 0, waitingLeaves.size(), false);
         trimSubList(waitingLeaves, 0, waitingLeaves.size(), true);
@@ -112,10 +113,10 @@ public final class TrimUtil {
      * @param end the index where to end
      * @param last indicates where to start, if true, we start at the end
      */
-    private static void trimSubList(ArrayList<ILeafElement> list, int begin, int end, boolean last) {
+    private static void trimSubList(ArrayList<IElement> list, int begin, int end, boolean last) {
         while (end > begin) {
             int pos = last ? end - 1 : begin;
-            ILeafElement leaf = list.get(pos);
+            IElement leaf = list.get(pos);
             if (isElementFloating(leaf)) {
                 if (last) { --end; }
                 else      { ++begin; }
@@ -176,7 +177,7 @@ public final class TrimUtil {
         return pos;
     }
 
-    private static boolean isElementFloating(ILeafElement leafElement) {
+    private static boolean isElementFloating(IElement leafElement) {
         FloatPropertyValue floatPropertyValue = leafElement.<FloatPropertyValue>getProperty(Property.FLOAT);
         Integer position = leafElement.<Integer>getProperty(Property.POSITION);
         return (position == null || position != LayoutPosition.ABSOLUTE) && floatPropertyValue != null && !floatPropertyValue.equals(FloatPropertyValue.NONE);

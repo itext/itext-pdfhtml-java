@@ -105,11 +105,16 @@ public class UlOlTagWorker implements ITagWorker {
             for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
                 if (propertyContainer instanceof ILeafElement) {
                     inlineHelper.add((ILeafElement) propertyContainer);
+                } else if (propertyContainer instanceof IBlockElement && CssConstants.INLINE_BLOCK.equals(((SpanTagWorker) childTagWorker).getElementDisplay(propertyContainer))) {
+                    inlineHelper.add((IBlockElement) propertyContainer);
                 } else {
                     allChildrenProcessed = addBlockChild(propertyContainer) && allChildrenProcessed;
                 }
             }
             return allChildrenProcessed;
+        } else if (childTagWorker instanceof IDisplayAware && CssConstants.INLINE_BLOCK.equals(((IDisplayAware) childTagWorker).getDisplay()) && childTagWorker.getElementResult() instanceof IBlockElement) {
+            inlineHelper.add((IBlockElement) childTagWorker.getElementResult());
+            return true;
         } else {
             return addBlockChild(child);
         }

@@ -139,11 +139,14 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.UL, UlOlTagCssApplier.class);
         mapping.putMapping(TagConstants.VAR, SpanTagCssApplier.class);
 
+        mapping.putMapping(TagConstants.UL, CssConstants.INLINE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.LI, CssConstants.INLINE, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.LI, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
         mapping.putMapping(TagConstants.DD, CssConstants.INLINE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.DT, CssConstants.INLINE, SpanTagCssApplier.class);
 
         mapping.putMapping(TagConstants.SPAN, CssConstants.BLOCK, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.SPAN, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
         mapping.putMapping(TagConstants.A, CssConstants.BLOCK, BlockCssApplier.class);
 
         mapping.putMapping(TagConstants.DIV, CssConstants.TABLE_CELL, TdTagCssApplier.class);
