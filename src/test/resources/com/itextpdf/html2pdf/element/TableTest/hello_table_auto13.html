@@ -1,0 +1,106 @@
+<html>
+<head>
+<style>
+td {
+border: solid 1pt;
+}
+html {
+font-family: "Helvetica", "Arial", sans-serif;
+}
+</style>
+</head>
+<body>
+<p>Both percent and fixed width should be taken into account if they are on different cells in one column. Only for table with no width set</p>
+<table cellspacing="0" style="table-layout:auto">
+    <tr>
+        <td style="width:50%">Percent width cell</td>
+        <td rowspan=2 style="background: red"></td>
+    </tr>
+    <tr>
+        <td style="width:200pt">Fixed width cell</td>
+    </tr>
+</table>
+<p>Same table with cells in defferent order.</p>
+<table cellspacing="0" style="table-layout:auto">
+    <tr>
+        <td style="width:200pt">Fixed width cell</td>
+        <td rowspan=2 style="background: red"></td>
+    </tr>
+    <tr>
+        <td style="width:50%">Percent width cell</td>
+    </tr>
+</table>
+<p> It is also true for width set in colgroup...</p>
+<table cellspacing="0" style="table-layout:auto">
+    <colgroup style="width: 50%"></colgroup>
+    <tr>
+        <td style="width:200pt">Fixed width cell</td>
+        <td style="background: red"></td>
+    </tr>
+</table>
+<br/>
+<table cellspacing="0" style="table-layout:auto">
+    <colgroup style="width: 200pt"></colgroup>
+    <tr>
+        <td style="width:50%">Percent width cell</td>
+        <td style="background: red"></td>
+    </tr>
+</table>
+<p>...or cols...</p>
+<table cellspacing="0" style="table-layout:auto">
+    <col style="width: 50%"/>
+    <tr>
+        <td style="width:200pt">Fixed width cell</td>
+        <td style="background: red"></td>
+    </tr>
+</table>
+<br/>
+<table cellspacing="0" style="table-layout:auto">
+    <col style="width: 200pt"/>
+    <tr>
+        <td style="width:50%">Percent width cell</td>
+        <td style="background: red"></td>
+    </tr>
+</table>
+<p>but col overrides it's colgroup property, and only one is used for layout.</p>
+<table cellspacing="0" style="table-layout:auto">
+    <colgroup style="width: 200pt">
+        <col style="width: 50%"/>
+    </colgroup>
+    <tr>
+        <td>No width set</td>
+        <td style="background: red"></td>
+    </tr>
+</table>
+<p>Same table with percent and absolute width in different order for colgroup and col respectivly.</p>
+<table cellspacing="0" style="table-layout:auto">
+    <colgroup style="width: 50%">
+        <col style="width: 200pt"/>
+    </colgroup>
+    <tr>
+        <td>No width set</td>
+        <td style="background: red"></td>
+    </tr>
+</table>
+<p>Reference tables with set width</p>
+<table cellspacing="0" style="table-layout:auto; width: 350pt;">
+    <tr>
+        <td style="width:200pt">Fixed width cell</td>
+        <td rowspan=2 style="background: red"></td>
+    </tr>
+    <tr>
+        <td style="width:50%">Percent width cell</td>
+    </tr>
+</table>
+<br/>
+<table cellspacing="0" style="table-layout:auto; width: 450pt;">
+    <tr>
+        <td style="width:200pt">Fixed width cell</td>
+        <td rowspan=2 style="background: red"></td>
+    </tr>
+    <tr>
+        <td style="width:50%">Percent width cell</td>
+    </tr>
+</table>
+</body>
+</html>
