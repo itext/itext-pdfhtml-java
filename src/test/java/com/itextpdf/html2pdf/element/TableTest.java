@@ -52,6 +52,7 @@ import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -173,6 +174,12 @@ public class TableTest extends ExtendedITextTest {
     @Test
     public void helloTableAuto12DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_auto12");
+    }
+
+    @Test
+    @Ignore("DEVSIX-1370")
+    public void helloTableAuto13DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto13");
     }
 
     @Test
