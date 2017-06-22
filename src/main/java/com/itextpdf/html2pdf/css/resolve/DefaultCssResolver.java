@@ -363,7 +363,7 @@ public class DefaultCssResolver implements ICssResolver {
         String childPropValue = styles.get(cssProperty);
         if ((childPropValue == null && CssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(childPropValue)) {
             styles.put(cssProperty, parentPropValue);
-        } else if (CssConstants.TEXT_DECORATION.equals(cssProperty)) {
+        } else if (CssConstants.TEXT_DECORATION.equals(cssProperty) && !CssConstants.INLINE_BLOCK.equals(styles.get(CssConstants.DISPLAY))) {
             // TODO Note! This property is formally not inherited, but the browsers behave very similar to inheritance here.
                         /* Text decorations on inline boxes are drawn across the entire element,
                             going across any descendant elements without paying any attention to their presence. */
