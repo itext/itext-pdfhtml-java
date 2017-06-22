@@ -70,8 +70,12 @@ public class PreTagWorker extends DivTagWorker {
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         // It seems that browsers just skip first newline symbol, if any
-        if (!anyContentProcessed && content.startsWith("\n")) {
-            content = content.substring(1);
+        if (!anyContentProcessed) {
+            if (content.startsWith("\n")) {
+                content = content.substring(1);
+            } else if (content.startsWith("\r\n")) {
+                content = content.substring(2);
+            }
         }
         anyContentProcessed = true;
         return super.processContent(content, context);
