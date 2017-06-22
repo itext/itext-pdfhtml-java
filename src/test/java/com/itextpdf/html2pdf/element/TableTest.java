@@ -183,6 +183,16 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
+    public void helloTableAuto14DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto14");
+    }
+
+    @Test
+    public void helloTableAuto15DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto15");
+    }
+
+    @Test
     public void helloTableHeaderFooterDocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_header_footer");
     }
