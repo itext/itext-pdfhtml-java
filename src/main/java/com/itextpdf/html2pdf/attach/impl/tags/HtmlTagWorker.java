@@ -139,6 +139,9 @@ public class HtmlTagWorker implements ITagWorker {
             postProcessInlineGroup();
             document.add((AreaBreak) childTagWorker.getElementResult());
             processed = true;
+        } else if (childTagWorker instanceof BrTagWorker) {
+            inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
+            processed = true;
         } else {
             return processBlockChild(childTagWorker.getElementResult());
         }
