@@ -76,4 +76,10 @@ public class StyleTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "styleTest01.pdf", sourceFolder + "cmp_styleTest01.pdf", destinationFolder, "diff01_"));
     }
 
+    @Test
+    public void styleTest02() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "styleTest02.html"), new File(destinationFolder + "styleTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "styleTest02.pdf", sourceFolder + "cmp_styleTest02.pdf", destinationFolder, "diff02_"));
+    }
+
 }
