@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.util.OverflowApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.AreaBreak;
@@ -84,6 +85,7 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
         inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE),
                 styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM));
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
+        OverflowApplierUtil.applyOverflow(styles, div);
     }
 
     /* (non-Javadoc)
