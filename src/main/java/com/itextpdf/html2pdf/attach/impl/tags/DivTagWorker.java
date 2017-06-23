@@ -111,10 +111,6 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
         boolean processed = false;
         IPropertyContainer element = childTagWorker.getElementResult();
         if (childTagWorker instanceof BrTagWorker) {
-            if (inlineHelper.getSanitizedWaitingLeaves().size() == 1 && inlineHelper.getSanitizedWaitingLeaves().get(0) instanceof Image) {
-                // TODO This is a workaround for case of single image to set leading to 1
-                postProcessInlineGroup();
-            }
             inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
             return true;
         } else if (childTagWorker instanceof IDisplayAware && CssConstants.INLINE_BLOCK.equals(((IDisplayAware) childTagWorker).getDisplay()) && childTagWorker.getElementResult() instanceof IBlockElement) {
