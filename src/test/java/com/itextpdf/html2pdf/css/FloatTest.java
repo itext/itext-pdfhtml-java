@@ -582,6 +582,9 @@ public class FloatTest extends ExtendedITextTest {
 
     @Test
     public void responsiveIText() throws IOException, InterruptedException {
+        // TODO results to be reviewed after floating elements splitting support (DEVSIX-1267)
+        // Split floating element parent has zero height (and therefore border is not drawn around it),
+        // even though :after { clear: both} feature is applied in html.
         PageSize[] pageSizes = {
                 null,
                 new PageSize(PageSize.A3.getHeight(), PageSize.A4.getHeight()),
