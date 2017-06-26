@@ -44,8 +44,11 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.property.Property;
 
 /**
  * TagWorker class for the <code>body</code> element.
@@ -63,6 +66,15 @@ public class BodyTagWorker implements ITagWorker {
      */
     public BodyTagWorker(IElementNode element, ProcessorContext context) {
         parentTagWorker = context.getState().empty() ? null : context.getState().top();
+        if (parentTagWorker != null && parentTagWorker.getElementResult() != null) {
+            // TODO this is not in css applier because css applier is called after the elements are added to the document
+            // We need to apply font styles here specifically to set font-size to the document because this is needed for
+            // inline-blocks with fixed height when the height is smaller than the defined font size
+            float em = CssUtils.parseAbsoluteLength(element.getStyles().get(CssConstants.FONT_SIZE));
+            if (em != 0) {
+                parentTagWorker.getElementResult().setProperty(Property.FONT_SIZE, em);
+            }
+        }
     }
 
     /* (non-Javadoc)

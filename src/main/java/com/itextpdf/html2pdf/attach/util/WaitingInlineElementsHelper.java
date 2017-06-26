@@ -45,10 +45,14 @@ package com.itextpdf.html2pdf.attach.util;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.*;
-import com.itextpdf.layout.property.ClearPropertyValue;
-import com.itextpdf.layout.property.FloatPropertyValue;
-import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.ListItem;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Text;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -69,7 +73,7 @@ public class WaitingInlineElementsHelper {
     private boolean collapseSpaces;
 
     /** List of waiting leaf elements. */
-    private List<ILeafElement> waitingLeaves = new ArrayList<>();
+    private List<IElement> waitingLeaves = new ArrayList<>();
 
     /**
      * Creates a new <code>WaitingInlineElementsHelper</code> instance.
@@ -138,6 +142,10 @@ public class WaitingInlineElementsHelper {
         waitingLeaves.add(element);
     }
 
+    public void add(IBlockElement element) {
+        waitingLeaves.add(element);
+    }
+
     /**
      * Adds a collecton of leaf elements to the waiting leaves.
      *
@@ -158,8 +166,12 @@ public class WaitingInlineElementsHelper {
             if (container instanceof Document) {
                 ((Document) container).add(p);
             } else if (container instanceof Paragraph) {
-                for (ILeafElement leafElement : waitingLeaves) {
-                    ((Paragraph) container).add(leafElement);
+                for (IElement leafElement : waitingLeaves) {
+                    if (leafElement instanceof ILeafElement) {
+                        ((Paragraph) container).add((ILeafElement) leafElement);
+                    } else if (leafElement instanceof IBlockElement) {
+                        ((Paragraph) container).add((IBlockElement) leafElement);
+                    }
                 }
             } else if (container instanceof Div) {
                 ((Div) container).add(p);
@@ -191,13 +203,12 @@ public class WaitingInlineElementsHelper {
 
         if (waitingLeaves.size() > 0) {
             Paragraph p = createParagraphContainer();
-            for (ILeafElement leaf : waitingLeaves) {
-                p.add(leaf);
-            }
-            // Default leading in html is 1.2 and it is an inherited value. However, if a paragraph only contains an image,
-            // the default leading should be 1. This is the case when we create a dummy paragraph, therefore we should emulate this behavior.
-            if (p.getChildren().size() == 1 && p.getChildren().get(0) instanceof Image) {
-                p.setMultipliedLeading(1);
+            for (IElement leaf : waitingLeaves) {
+                if (leaf instanceof ILeafElement) {
+                    p.add((ILeafElement) leaf);
+                } else if (leaf instanceof IBlockElement) {
+                    p.add((IBlockElement) leaf);
+                }
             }
             return p;
         } else {
@@ -210,7 +221,7 @@ public class WaitingInlineElementsHelper {
      *
      * @return the waiting leaves
      */
-    public Collection<ILeafElement> getWaitingLeaves() {
+    public Collection<IElement> getWaitingLeaves() {
         return waitingLeaves;
     }
 
@@ -219,7 +230,7 @@ public class WaitingInlineElementsHelper {
      *
      * @return the sanitized waiting leaves
      */
-    public List<ILeafElement> getSanitizedWaitingLeaves() {
+    public List<IElement> getSanitizedWaitingLeaves() {
         if (collapseSpaces) {
             return TrimUtil.trimLeafElementsAndSanitize(waitingLeaves);
         } else {
@@ -248,9 +259,9 @@ public class WaitingInlineElementsHelper {
      *
      * @param leaves a list of leaf elements
      */
-    private static void capitalize(List<ILeafElement> leaves) {
+    private static void capitalize(List<IElement> leaves) {
         boolean previousLetter = false;
-        for (ILeafElement element : leaves) {
+        for (IElement element : leaves) {
             if (element instanceof Text) {
                 String text = ((Text) element).getText();
                 StringBuilder sb = new StringBuilder();

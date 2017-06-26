@@ -48,19 +48,23 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Paragraph;
 
 /**
  * TagWorker class for the <code>p</code> element.
  */
-public class PTagWorker implements ITagWorker {
+public class PTagWorker implements ITagWorker, IDisplayAware {
 
     /** The paragraph object. */
     private Paragraph paragraph;
     
     /** Helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
+
+    /** The display value. */
+    private String display;
 
     /**
      * Creates a new <code>PTagWorker</code> instance.
@@ -71,6 +75,7 @@ public class PTagWorker implements ITagWorker {
     public PTagWorker(IElementNode element, ProcessorContext context) {
         paragraph = new Paragraph();
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
+        display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
     /* (non-Javadoc)
@@ -100,11 +105,16 @@ public class PTagWorker implements ITagWorker {
         if (element instanceof ILeafElement) {
             inlineHelper.add((ILeafElement) element);
             return true;
+        } else if (element instanceof IBlockElement && childTagWorker instanceof IDisplayAware && CssConstants.INLINE_BLOCK.equals(((IDisplayAware) childTagWorker).getDisplay())) {
+            inlineHelper.add((IBlockElement) element);
+            return true;
         } else if (childTagWorker instanceof SpanTagWorker) {
             boolean allChildrenProcessed = true;
             for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
                 if (propertyContainer instanceof ILeafElement) {
                     inlineHelper.add((ILeafElement) propertyContainer);
+                } else if (propertyContainer instanceof IBlockElement && CssConstants.INLINE_BLOCK.equals(((SpanTagWorker) childTagWorker).getElementDisplay(propertyContainer))) {
+                    inlineHelper.add((IBlockElement) propertyContainer);
                 } else {
                     allChildrenProcessed = false;
                 }
@@ -120,5 +130,10 @@ public class PTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return paragraph;
+    }
+
+    @Override
+    public String getDisplay() {
+        return display;
     }
 }

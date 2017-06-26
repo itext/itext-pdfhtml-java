@@ -171,11 +171,14 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.UL, UlOlTagWorker.class);
         workerMapping.putMapping(TagConstants.VAR, SpanTagWorker.class);
 
+        workerMapping.putMapping(TagConstants.UL, CssConstants.INLINE, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.LI, CssConstants.INLINE, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.LI, CssConstants.INLINE_BLOCK, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.DD, CssConstants.INLINE, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.DT, CssConstants.INLINE, SpanTagWorker.class);
 
         workerMapping.putMapping(TagConstants.SPAN, CssConstants.BLOCK, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.SPAN, CssConstants.INLINE_BLOCK, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.A, CssConstants.BLOCK, ABlockTagWorker.class);
 
         workerMapping.putMapping(TagConstants.DIV, CssConstants.TABLE, DisplayTableTagWorker.class);

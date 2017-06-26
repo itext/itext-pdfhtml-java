@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingColgroupsHelper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableWrapper;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
@@ -55,7 +56,7 @@ import com.itextpdf.layout.element.Table;
 /**
  * TagWorker class for the <code>table</code> element.
  */
-public class TableTagWorker implements ITagWorker {
+public class TableTagWorker implements ITagWorker, IDisplayAware {
     
     /** The table wrapper. */
     private TableWrapper tableWrapper;
@@ -75,6 +76,9 @@ public class TableTagWorker implements ITagWorker {
     /** The colgroups helper. */
     private WaitingColgroupsHelper colgroupsHelper;
 
+    /** The display value. */
+    private String display;
+
     /**
      * Creates a new <code>TableTagWorker</code> instance.
      *
@@ -89,6 +93,7 @@ public class TableTagWorker implements ITagWorker {
         } else {
             colgroupsHelper = new WaitingColgroupsHelper(element);
         }
+        display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
     /* (non-Javadoc)
@@ -162,6 +167,11 @@ public class TableTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return table;
+    }
+
+    @Override
+    public String getDisplay() {
+        return display;
     }
 
     /**
