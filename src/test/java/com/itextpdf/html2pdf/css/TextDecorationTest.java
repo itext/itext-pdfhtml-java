@@ -47,14 +47,14 @@ import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class TextDecorationTest extends ExtendedITextTest {
@@ -94,30 +94,5 @@ public class TextDecorationTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest04.html"), new File(destinationFolder + "textDecorationTest04.pdf"));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "textDecorationTest04.html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest04.pdf", sourceFolder + "cmp_textDecorationTest04.pdf", destinationFolder, "diff04_"));
-    }
-
-    //Text decoration children with none (values should be merged, none should be ignored)
-    @Test
-    public void textDecoration05Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest05.html"), new File(destinationFolder + "textDecorationTest05.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "textDecorationTest05.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest05.pdf", sourceFolder + "cmp_textDecorationTest05.pdf", destinationFolder, "diff05_"));
-    }
-
-    //Text decoration with display:inline-block spans (values should be replaced)
-    @Test
-    @Ignore("DEVSIX-958")
-    public void textDecoration06Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest06.html"), new File(destinationFolder + "textDecorationTest06.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "textDecorationTest06.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest06.pdf", sourceFolder + "cmp_textDecorationTest06.pdf", destinationFolder, "diff06_"));
-    }
-
-    //Text decoration property should be replaced by node's style attribute.
-    @Test
-    public void textDecoration07Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest07.html"), new File(destinationFolder + "textDecorationTest07.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "textDecorationTest07.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest07.pdf", sourceFolder + "cmp_textDecorationTest07.pdf", destinationFolder, "diff07_"));
     }
 }

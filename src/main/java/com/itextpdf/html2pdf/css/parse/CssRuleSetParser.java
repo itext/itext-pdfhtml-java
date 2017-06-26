@@ -138,6 +138,9 @@ public final class CssRuleSetParser {
      * @return the array of property values
      */
     private static String[] splitCssProperty(String property) {
+        if (property.trim().isEmpty()) {
+            return null;
+        }
         String[] result = new String[2];
         int position = property.indexOf(":");
         if (position < 0) {

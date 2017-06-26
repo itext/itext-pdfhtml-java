@@ -114,6 +114,8 @@ public class TdTagWorker implements ITagWorker, IDisplayAware {
             for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
                 if (propertyContainer instanceof ILeafElement) {
                     inlineHelper.add((ILeafElement) propertyContainer);
+                } else if (propertyContainer instanceof IBlockElement && CssConstants.INLINE_BLOCK.equals(((SpanTagWorker) childTagWorker).getElementDisplay(propertyContainer))) {
+                    inlineHelper.add((IBlockElement) propertyContainer);
                 } else {
                     allChildrenProcesssed = processChild(propertyContainer) && allChildrenProcesssed;
                 }

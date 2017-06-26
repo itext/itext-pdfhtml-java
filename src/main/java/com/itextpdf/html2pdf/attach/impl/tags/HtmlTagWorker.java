@@ -67,7 +67,7 @@ public class HtmlTagWorker implements ITagWorker {
 
     /** The iText document instance. */
     private Document document;
-    
+
     /** Helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
 
@@ -82,7 +82,7 @@ public class HtmlTagWorker implements ITagWorker {
         PdfDocument pdfDocument = context.getPdfDocument();
         document = new Document(pdfDocument, pdfDocument.getDefaultPageSize(), immediateFlush);
         document.setRenderer(new HtmlDocumentRenderer(document, immediateFlush));
-        
+
         document.setProperty(Property.COLLAPSING_MARGINS, true);
         document.setFontProvider(context.getFontProvider());
         if (context.getTempFonts() != null) {
@@ -121,6 +121,8 @@ public class HtmlTagWorker implements ITagWorker {
             for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
                 if (propertyContainer instanceof ILeafElement) {
                     inlineHelper.add((ILeafElement) propertyContainer);
+                } else if (propertyContainer instanceof IBlockElement && CssConstants.INLINE_BLOCK.equals(((SpanTagWorker) childTagWorker).getElementDisplay(propertyContainer))) {
+                    inlineHelper.add((IBlockElement) propertyContainer);
                 } else {
                     allChildrenProcessed = processBlockChild(propertyContainer) && allChildrenProcessed;
                 }
@@ -138,6 +140,12 @@ public class HtmlTagWorker implements ITagWorker {
         } else if (childTagWorker.getElementResult() instanceof AreaBreak) {
             postProcessInlineGroup();
             document.add((AreaBreak) childTagWorker.getElementResult());
+            processed = true;
+        } else if (childTagWorker instanceof IDisplayAware && CssConstants.INLINE_BLOCK.equals(((IDisplayAware) childTagWorker).getDisplay()) && childTagWorker.getElementResult() instanceof IBlockElement) {
+            inlineHelper.add((IBlockElement) childTagWorker.getElementResult());
+            processed = true;
+        } else if (childTagWorker instanceof BrTagWorker) {
+            inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
             processed = true;
         } else {
             return processBlockChild(childTagWorker.getElementResult());
@@ -164,7 +172,7 @@ public class HtmlTagWorker implements ITagWorker {
     public void processPageRules(INode rootNode, ICssResolver cssResolver, ProcessorContext context) {
         ((HtmlDocumentRenderer)document.getRenderer()).processPageRules(rootNode, cssResolver, context);
     }
-    
+
     /**
      * Processes a block child.
      *
