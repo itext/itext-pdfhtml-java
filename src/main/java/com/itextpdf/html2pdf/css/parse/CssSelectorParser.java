@@ -76,7 +76,7 @@ public final class CssSelectorParser {
 
     /** The pattern string for selectors. */
     private static final String SELECTOR_PATTERN_STR =
-            "(\\*)|([_a-zA-Z][\\w-]*)|(\\.[_a-zA-Z][\\w-]*)|(#[_a-z][\\w-]*)|(\\[[_a-zA-Z][\\w-]*(([~^$*|])?=((\"[^\"]+\")|([^\"]+)|('[^\"]+')))?\\])|(::?[a-zA-Z-]*)|( )|(\\+)|(>)|(~)";
+            "(\\*)|([_a-zA-Z][\\w-]*)|(\\.[_a-zA-Z][\\w-]*)|(#[_a-z][\\w-]*)|(\\[[_a-zA-Z][\\w-]*(([~^$*|])?=((\"[^\"]+\")|([^\"]+)|('[^']+')|(\"\")|('')))?\\])|(::?[a-zA-Z-]*)|( )|(\\+)|(>)|(~)";
 
     /** The pattern for selectors. */
     private static final Pattern selectorPattern = Pattern.compile(SELECTOR_PATTERN_STR);
@@ -202,7 +202,11 @@ public final class CssSelectorParser {
         } else if (pseudoSelector.startsWith(":") && legacyPseudoElements.contains(pseudoSelector.substring(1))) {
             selectorItems.add(new CssPseudoElementSelectorItem(pseudoSelector.substring(1)));
         } else {
-            selectorItems.add(new CssPseudoClassSelectorItem(pseudoSelector.substring(1)));
+            ICssSelectorItem pseudoClassSelectorItem = CssPseudoClassSelectorItem.create(pseudoSelector.substring(1));
+            if (pseudoClassSelectorItem == null) {
+                throw new IllegalArgumentException(MessageFormatUtil.format("Invalid pseudo class selector: {0}", source));
+            }
+            selectorItems.add(pseudoClassSelectorItem);
         }
     }
 }

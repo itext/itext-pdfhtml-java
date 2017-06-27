@@ -115,16 +115,16 @@ public class CssAttributeSelectorItem implements ICssSelectorItem {
                 case (char)0:
                     return value.equals(attributeValue);
                 case '|':
-                    return attributeValue.startsWith(value) && (attributeValue.length() == value.length() || attributeValue.charAt(value.length()) == '-');
+                    return value.length() > 0 && attributeValue.startsWith(value) && (attributeValue.length() == value.length() || attributeValue.charAt(value.length()) == '-');
                 case '^':
-                    return attributeValue.startsWith(value);
+                    return value.length() > 0 && attributeValue.startsWith(value);
                 case '$':
-                    return attributeValue.endsWith(value);
+                    return value.length() > 0 && attributeValue.endsWith(value);
                 case '~':
                     String pattern = String.format("(^%s\\s+)|(\\s+%s\\s+)|(\\s+%s$)", value, value, value);
                     return Pattern.compile(pattern).matcher(attributeValue).matches();
                 case '*':
-                    return attributeValue.contains(value);
+                    return value.length() > 0 && attributeValue.contains(value);
                 default:
                     return false;
             }

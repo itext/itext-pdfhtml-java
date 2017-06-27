@@ -152,7 +152,8 @@ public class CssSelector extends AbstractCssSelector {
                     default:
                         return false;
                 }
-            } else {
+            }
+            else {
                 if (!currentItem.matches(element)) {
                     return false;
                 }

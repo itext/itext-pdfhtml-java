@@ -409,7 +409,7 @@ input {
     border: 2px inset initial;
     border-image: initial
 }
-input:not[type] {
+input:not([type]) {
     padding: 1px 0px
 }
 input[type="email"] {

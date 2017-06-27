@@ -820,6 +820,16 @@ public class CssConstants {
     /** The Constant BEFORE. */
     public static final String BEFORE = "before";
 
+    // pseudo-classes
+
+    public static final String FIRST_CHILD = "first-child";
+
+    public static final String LAST_CHILD = "last-child";
+
+    public static final String NTH_CHILD = "nth-child";
+
+    public static final String NOT = "not";
+
     // Functions
     
     /** The Constant COUNTER. */
