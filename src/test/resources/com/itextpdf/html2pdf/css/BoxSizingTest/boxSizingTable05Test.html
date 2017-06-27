@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.boxtest {
+			box-sizing: border-box;
+		}
+		.borders {
+			border: 3pt solid red;
+			padding: 10pt;
+			margin: 10pt;
+		}
+		table {
+			border-collapse: collapse;
+		}
+		td {
+			border: solid;
+			border-left: 20pt solid green;
+			border-top: 20pt solid green;
+		}
+	</style>
+</head>
+  <body>
+  <div style="width: 300pt; border: solid blue">
+	<table class="boxtest borders" style="width: 200pt; height: 200pt;"><tr>
+		<td>table aaaaa aaaaa aaaaaa aaaa aaaaaa  aaaaaa aaaaaa aaaaaa aaaaaaaa</td>
+		<td>table aaaaa aaaaa aaaaaa aaaa aaaaaa  aaaaaa aaaaaa aaaaaa aaaaaaaa</td>
+	</tr></table>
+	<table class="borders" style="width: 200pt; height: 200pt;"><tr>
+		<td>table aaaaa aaaaa aaaaaa aaaa aaaaaa  aaaaaa aaaaaa aaaaaa aaaaaaaa</td>
+		<td>table aaaaa aaaaa aaaaaa aaaa aaaaaa  aaaaaa aaaaaa aaaaaa aaaaaaaa</td>
+	</tr></table>
+  </div>
+  </body>
+</html>

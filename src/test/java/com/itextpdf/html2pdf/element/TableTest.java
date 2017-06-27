@@ -198,6 +198,16 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
+    public void helloTableAuto16DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto16");
+    }
+
+    @Test
+    public void helloTableAuto17DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto17");
+    }
+
+    @Test
     public void helloTableHeaderFooterDocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_header_footer");
     }
@@ -311,7 +321,7 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-994, DEVSIX-1174")
+    @Ignore("DEVSIX-994")
     public void tableCollapseColCellBoxSizingWidthDifference() throws IOException, InterruptedException {
         runTest("table_collapse_col_cell_box_sizing_width_difference");
     }
