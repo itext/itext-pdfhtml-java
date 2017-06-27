@@ -50,7 +50,9 @@ import com.itextpdf.html2pdf.css.selector.item.CssPseudoElementSelectorItem;
 import com.itextpdf.html2pdf.css.selector.item.CssSeparatorSelectorItem;
 import com.itextpdf.html2pdf.css.selector.item.CssTagSelectorItem;
 import com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.io.util.MessageFormatUtil;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -74,7 +76,7 @@ public final class CssSelectorParser {
 
     /** The pattern string for selectors. */
     private static final String SELECTOR_PATTERN_STR =
-            "(\\*)|([_a-zA-Z][\\w-]*)|(\\.[_a-zA-Z][\\w-]*)|(#[_a-z][\\w-]*)|(\\[[_a-zA-Z][\\w-]*(([~^$*|])?=((\"[^\"]+\")|([^\"]+)|('[^\"]+')))?\\])|(::?[a-zA-Z-]*(\\([ \t\\+\\.#\\w-]*\\))?)|( )|(\\+)|(>)|(~)";
+            "(\\*)|([_a-zA-Z][\\w-]*)|(\\.[_a-zA-Z][\\w-]*)|(#[_a-z][\\w-]*)|(\\[[_a-zA-Z][\\w-]*(([~^$*|])?=((\"[^\"]+\")|([^\"]+)|('[^\"]+')))?\\])|(::?[a-zA-Z-]*)|( )|(\\+)|(>)|(~)";
 
     /** The pattern for selectors. */
     private static final Pattern selectorPattern = Pattern.compile(SELECTOR_PATTERN_STR);
@@ -93,28 +95,32 @@ public final class CssSelectorParser {
      */
     public static List<ICssSelectorItem> parseSelectorItems(String selector) {
         List<ICssSelectorItem> selectorItems = new ArrayList<>();
-        Matcher itemMatcher = selectorPattern.matcher(selector);
+        CssSelectorParserMatch match = new CssSelectorParserMatch(selector, selectorPattern);
         boolean tagSelectorDescription = false;
-        while (itemMatcher.find()) {
-            String selectorItem = itemMatcher.group(0);
+        while (match.success()) {
+            String selectorItem = match.getValue();
             char firstChar = selectorItem.charAt(0);
             switch (firstChar) {
                 case '#':
+                    match.next();
                     selectorItems.add(new CssIdSelectorItem(selectorItem.substring(1)));
                     break;
                 case '.':
+                    match.next();
                     selectorItems.add(new CssClassSelectorItem(selectorItem.substring(1)));
                     break;
                 case '[':
+                    match.next();
                     selectorItems.add(new CssAttributeSelectorItem(selectorItem));
                     break;
                 case ':':
-                    selectorItems.add(resolvePseudoSelector(selectorItem));
+                    appendPseudoSelector(selectorItems, selectorItem, match);
                     break;
                 case ' ':
                 case '+':
                 case '>':
                 case '~':
+                    match.next();
                     if (selectorItems.size() == 0) {
                         throw new IllegalArgumentException(MessageFormatUtil.format("Invalid token detected in the start of the selector string: {0}", firstChar));
                     }
@@ -134,6 +140,7 @@ public final class CssSelectorParser {
                     }
                     break;
                 default: //and case '*':
+                    match.next();
                     if (tagSelectorDescription) {
                         throw new IllegalStateException("Invalid selector string");
                     }
@@ -151,13 +158,38 @@ public final class CssSelectorParser {
     }
 
     /**
-     * Resolves a pseudo selector.
+     * Resolves a pseudo selector, appends it to list and updates {@link CssSelectorParserMatch} in process.
      *
+     * @param selectorItems list of items to which new selector will be added to
      * @param pseudoSelector the pseudo selector
-     * @return the {@link ICssSelectorItem} item
+     * @param match the corresponding {@link CssSelectorParserMatch} that will be updated.
      */
-    private static ICssSelectorItem resolvePseudoSelector(String pseudoSelector) {
+    private static void appendPseudoSelector(List<ICssSelectorItem> selectorItems, String pseudoSelector, CssSelectorParserMatch match) {
         pseudoSelector = pseudoSelector.toLowerCase();
+        int start = match.getIndex() + pseudoSelector.length();
+        String source = match.getSource();
+        if (start < source.length() && source.charAt(start) == '(') {
+            int bracketDepth = 1;
+            int curr = start + 1;
+            while(bracketDepth > 0 && curr < source.length()) {
+                if (source.charAt(curr) == '(') {
+                    ++bracketDepth;
+                } else if (source.charAt(curr) == ')') {
+                    --bracketDepth;
+                } else if (source.charAt(curr) == '"' || source.charAt(curr) == '\'') {
+                    curr = CssUtils.findNextUnescapedChar(source, source.charAt(curr), curr + 1);
+                }
+                ++curr;
+            }
+            if (bracketDepth == 0) {
+                match.next(curr);
+                pseudoSelector += source.substring(start, curr);
+            } else {
+                match.next();
+            }
+        } else {
+            match.next();
+        }
         /*
             This :: notation is introduced by the current document in order to establish a discrimination between
             pseudo-classes and pseudo-elements.
@@ -166,12 +198,11 @@ public final class CssSelectorParser {
             This compatibility is not allowed for the new pseudo-elements introduced in this specification.
          */
         if (pseudoSelector.startsWith("::")) {
-            return new CssPseudoElementSelectorItem(pseudoSelector.substring(2));
+            selectorItems.add(new CssPseudoElementSelectorItem(pseudoSelector.substring(2)));
         } else if (pseudoSelector.startsWith(":") && legacyPseudoElements.contains(pseudoSelector.substring(1))) {
-            return new CssPseudoElementSelectorItem(pseudoSelector.substring(1));
+            selectorItems.add(new CssPseudoElementSelectorItem(pseudoSelector.substring(1)));
         } else {
-            return new CssPseudoClassSelectorItem(pseudoSelector.substring(1));
+            selectorItems.add(new CssPseudoClassSelectorItem(pseudoSelector.substring(1)));
         }
     }
-
 }
