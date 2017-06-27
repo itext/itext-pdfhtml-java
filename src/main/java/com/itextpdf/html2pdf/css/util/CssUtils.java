@@ -408,4 +408,24 @@ public class CssUtils {
     public static boolean isBase64Data(String data) {
         return data.matches("^data:([^\\s]*);base64,([^\\s]*)");
     }
+
+    /**
+     * Find the next unescaped character.
+     *
+     * @param source a source
+     * @param ch the character to look for
+     * @param startIndex where to start looking
+     * @return the position of the next unescaped character
+     */
+    public static int findNextUnescapedChar(String source, char ch, int startIndex) {
+        int symbolPos = source.indexOf(ch, startIndex);
+        if (symbolPos == -1) {
+            return -1;
+        }
+        int afterNoneEscapePos = symbolPos;
+        while (afterNoneEscapePos > 0 && source.charAt(afterNoneEscapePos - 1) == '\\') {
+            --afterNoneEscapePos;
+        }
+        return (symbolPos - afterNoneEscapePos) % 2 == 0 ? symbolPos : findNextUnescapedChar(source, ch, symbolPos + 1);
+    }
 }

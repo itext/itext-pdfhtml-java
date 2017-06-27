@@ -112,33 +112,13 @@ class CssPropertyNormalizer {
      * @return the new position in the source
      */
     private static int appendQuoteContent(StringBuilder buffer, String source, int start, char endQuoteSymbol) {
-        int end = findNextUnescapedChar(source, endQuoteSymbol, start);
+        int end = CssUtils.findNextUnescapedChar(source, endQuoteSymbol, start);
         if (end == -1) {
             end = source.length();
             LoggerFactory.getLogger(CssPropertyNormalizer.class).warn(MessageFormatUtil.format(LogMessageConstant.QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION, source));
         }
         buffer.append(source, start, end);
         return end;
-    }
-
-    /**
-     * Find the next unescaped character.
-     *
-     * @param source a source
-     * @param ch the character to look for
-     * @param startIndex where to start looking
-     * @return the position of the next unescaped character
-     */
-    private static int findNextUnescapedChar(String source, char ch, int startIndex) {
-        int symbolPos = source.indexOf(ch, startIndex);
-        if (symbolPos == -1) {
-            return -1;
-        }
-        int afterNoneEscapePos = symbolPos;
-        while (afterNoneEscapePos > 0 && source.charAt(afterNoneEscapePos - 1) == '\\') {
-            --afterNoneEscapePos;
-        }
-        return (symbolPos - afterNoneEscapePos) % 2 == 0 ? symbolPos : findNextUnescapedChar(source, ch, symbolPos + 1);
     }
 
     /**
