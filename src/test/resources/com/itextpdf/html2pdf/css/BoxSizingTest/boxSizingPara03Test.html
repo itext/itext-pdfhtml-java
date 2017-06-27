@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.boxtest {
+			box-sizing: border-box;
+		}
+		.borders {
+			border: 20pt solid green;
+			padding: 10pt;
+			margin: 10pt;
+		}
+		@page {
+			size: 400pt;
+		}
+	</style>
+</head>
+  <body>
+  <div style="width: 300pt; border: solid blue">
+	<p class="borders" style="width: 200pt; height: 100pt;"></p>
+	<p class="boxtest borders" style="width: 200pt; height: 250pt;">This box shall overflow to the next page with some text left to be written on the next page. It's height should be exactly 250pt including borders.</p>
+  </div>
+  </body>
+</html>

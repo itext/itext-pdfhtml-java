@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.boxtest {
+			box-sizing: border-box;
+		}
+		.borders {
+			display: inline-block;
+			border: 20pt solid green;
+			padding: 5pt;
+			margin: 5pt;
+		}
+	</style>
+</head>
+  <body>
+  <div style="width: 550pt; border: solid blue">
+	<div class="boxtest borders" style="width: 115pt; min-height: 200pt;">wide div aaaaaaaa aaaaaaaa aaaaaa aaaaaaaa aaaaaaaa aaaaaaaa aaaaaaaa aaaaaaaa aaaaaaaa aaaaaaaa</div>
+	<div class="boxtest borders" style="width: 115pt; min-height: 200pt;">wide div aaaaaaaa aaaaaaaa aaaaaa aaaaaaaa</div>
+	<div class="boxtest borders" style="width: 115pt; max-height: 200pt;">wide div aaaaaaaa aaaaaaaa aaaaaa aaaaaaaa</div>
+	<div class="boxtest borders" style="width: 115pt; max-height: 200pt;">wide div aaaaaaaa aaaaaaaa aaaaaa aaaaaaaa aaaaaaaa aaaaaaaa aaaaaaaa aaaaaaaa aaaaaaaa aaaaaaaa</div>
+  </div>
+  </body>
+</html>
