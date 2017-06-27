@@ -43,6 +43,9 @@
 package com.itextpdf.html2pdf.css.selector.item;
 
 
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.selector.CssSelector;
+import com.itextpdf.html2pdf.css.selector.ICssSelector;
 import com.itextpdf.html2pdf.html.node.ICustomElementNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
@@ -57,37 +60,69 @@ import java.util.List;
 public class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
     /** The pseudo class. */
-    private String pseudoClass;
+    protected String pseudoClass;
     
     /** The arguments. */
-    private String arguments;
-    
-    /** The nth child A. */
-    private int nthChildA;
-    
-    /** The nth child B. */
-    private int nthChildB;
+    protected String arguments;
+
+    private static final FirstChildSelectorItem firstChild = new FirstChildSelectorItem();
+    private static final LastChildSelectorItem lastChild = new LastChildSelectorItem();
 
     /**
      * Creates a new <code>CssPseudoClassSelectorItem<code> instance.
      *
      * @param pseudoClass the pseudo class name
+     * @deprecated not intended for public use {@link CssPseudoClassSelectorItem#create(String)} instead.
+     *             This class will be abstract and this constructor will be protected in the next major release.
      */
+    @Deprecated
     public CssPseudoClassSelectorItem(String pseudoClass) {
-        int indexOfParentheses = pseudoClass.indexOf('(');
+        this(pseudoClass, "");
+    }
+
+    protected CssPseudoClassSelectorItem(String pseudoClass, String arguments) {
+        this.pseudoClass = pseudoClass;
+        this.arguments = arguments;
+    }
+
+    public static CssPseudoClassSelectorItem create(String fullSelectorString) {
+        int indexOfParentheses = fullSelectorString.indexOf('(');
+        String pseudoClass;
+        String arguments;
         if (indexOfParentheses == -1) {
-            this.pseudoClass = pseudoClass;
-            this.arguments = "";
+            pseudoClass = fullSelectorString;
+            arguments = "";
         } else {
-            this.pseudoClass = pseudoClass.substring(0, indexOfParentheses);
-            this.arguments = pseudoClass.substring(indexOfParentheses + 1, pseudoClass.length() - 1).trim();
-            getNthChildArguments();
+            pseudoClass = fullSelectorString.substring(0, indexOfParentheses);
+            arguments = fullSelectorString.substring(indexOfParentheses + 1, fullSelectorString.length() - 1).trim();
+        }
+        return create(pseudoClass, arguments);
+    }
+
+    public static CssPseudoClassSelectorItem create(String pseudoClass, String arguments) {
+        switch (pseudoClass) {
+            case CssConstants.FIRST_CHILD:
+                return firstChild;
+            case CssConstants.LAST_CHILD:
+                return lastChild;
+            case CssConstants.NTH_CHILD:
+                return new NthChildSelectorItem(arguments);
+            case CssConstants.NOT:
+                CssSelector selector = new CssSelector(arguments);
+                for (ICssSelectorItem item : selector.getSelectorItems()) {
+                    if (item instanceof NotSelectorItem || item instanceof CssPseudoElementSelectorItem) {
+                        return null;
+                    }
+                }
+                return new NotSelectorItem(selector);
+            default:
+                return new CssPseudoClassSelectorItem(pseudoClass, arguments);
         }
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
-     */
+         * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+         */
     @Override
     public int getSpecificity() {
         return CssSpecificityConstants.CLASS_SPECIFICITY;
@@ -98,20 +133,7 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
      */
     @Override
     public boolean matches(INode node) {
-        if (!(node instanceof IElementNode) || node instanceof ICustomElementNode) {
-            return false;
-        }
-        List<INode> children = getAllChildren(node);
-        switch (pseudoClass) {
-            case "first-child":
-                return children.isEmpty() ? false : node.equals(children.get(0));
-            case "last-child":
-                return children.isEmpty() ? false : node.equals(children.get(children.size() - 1));
-            case "nth-child":
-                return children.isEmpty() ? false : resolveNthChild(node, children);
-            default:
-                return false;
-        }
+        return false;
     }
 
     /* (non-Javadoc)
@@ -122,82 +144,164 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
         return ":" + pseudoClass + (!arguments.isEmpty() ? "(" + arguments + ")" : "");
     }
 
-    /**
-     * Gets the all the siblings of a child node.
-     *
-     * @param child the child node
-     * @return the sibling nodes
-     */
-    private List<INode> getAllChildren(INode child) {
-        INode parentElement = child.parentNode();
-        if (parentElement != null) {
-            List<INode> childrenUnmodifiable = parentElement.childNodes();
-            List<INode> children = new ArrayList<INode>(childrenUnmodifiable.size());
-            for (INode iNode : childrenUnmodifiable) {
-                if (iNode instanceof IElementNode)
-                    children.add(iNode);
-            }
-            return children;
-        }
-        return Collections.<INode>emptyList();
-    }
+    private static class ChildSelectorItem extends CssPseudoClassSelectorItem {
 
-    /**
-     * Gets the nth child arguments.
-     *
-     * @return the nth child arguments
-     */
-    private void getNthChildArguments() {
-        if (arguments.matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
-            if (arguments.equals("odd")) {
-                this.nthChildA = 2;
-                this.nthChildB = 1;
-            } else if (arguments.equals("even")) {
-                this.nthChildA = 2;
-                this.nthChildB = 0;
-            } else {
-                int indexOfN = arguments.indexOf('n');
-                if (indexOfN == -1) {
-                    this.nthChildA = 0;
-                    this.nthChildB = Integer.valueOf(arguments);
-                } else {
-                    String aParticle = arguments.substring(0, indexOfN).trim();
-                    if (aParticle.isEmpty())
-                        this.nthChildA = 0;
-                    else if (aParticle.length() == 1 && !Character.isDigit(aParticle.charAt(0)))
-                        this.nthChildA = aParticle.equals("+") ? 1 : -1;
-                    else
-                        this.nthChildA = Integer.valueOf(aParticle);
-                    String bParticle = arguments.substring(indexOfN + 1).trim();
-                    if (!bParticle.isEmpty())
-                        this.nthChildB = Integer.valueOf(bParticle.charAt(0) + bParticle.substring(1).trim());
-                    else
-                        this.nthChildB = 0;
+        /**
+         * Creates a new <code>CssPseudoClassSelectorItem<code> instance.
+         *
+         * @param pseudoClass the pseudo class name
+         */
+        protected ChildSelectorItem(String pseudoClass) {
+            super(pseudoClass);
+        }
+
+        protected ChildSelectorItem(String pseudoClass, String arguments) {
+            super(pseudoClass, arguments);
+        }
+
+        /**
+         * Gets the all the siblings of a child node.
+         *
+         * @param node the child node
+         * @return the sibling nodes
+         */
+        protected List<INode> getAllSiblings(INode node) {
+            INode parentElement = node.parentNode();
+            if (parentElement != null) {
+                List<INode> childrenUnmodifiable = parentElement.childNodes();
+                List<INode> children = new ArrayList<INode>(childrenUnmodifiable.size());
+                for (INode iNode : childrenUnmodifiable) {
+                    if (iNode instanceof IElementNode)
+                        children.add(iNode);
                 }
+                return children;
             }
-        } else {
-            this.nthChildA = 0;
-            this.nthChildB = 0;
+            return Collections.<INode>emptyList();
         }
     }
 
-    /**
-     * Resolves the nth child.
-     *
-     * @param node a node
-     * @param children the children
-     * @return true, if successful
-     */
-    private boolean resolveNthChild(INode node, List<INode> children) {
-        if (!children.contains(node))
-            return false;
-        if (this.nthChildA > 0) {
-            int temp = children.indexOf(node) + 1 - this.nthChildB;
-            return temp >= 0 ? temp % this.nthChildA == 0 : false;
-        } else if (this.nthChildA < 0) {
-            int temp = children.indexOf(node) + 1 - this.nthChildB;
-            return temp <= 0 ? temp % this.nthChildA == 0 : false;
-        } else
-            return (children.indexOf(node) + 1) - this.nthChildB == 0;
+    private static class FirstChildSelectorItem extends ChildSelectorItem {
+        public FirstChildSelectorItem() {
+            super(CssConstants.FIRST_CHILD);
+        }
+
+        @Override
+        public boolean matches(INode node) {
+            if (!(node instanceof IElementNode) || node instanceof ICustomElementNode) {
+                return false;
+            }
+            List<INode> children = getAllSiblings(node);
+            return children.isEmpty() ? false : node.equals(children.get(0));
+        }
+    }
+
+    private static class LastChildSelectorItem extends ChildSelectorItem {
+        public LastChildSelectorItem() {
+            super(CssConstants.LAST_CHILD);
+        }
+
+        @Override
+        public boolean matches(INode node) {
+            if (!(node instanceof IElementNode) || node instanceof ICustomElementNode) {
+                return false;
+            }
+            List<INode> children = getAllSiblings(node);
+            return children.isEmpty() ? false : node.equals(children.get(children.size() - 1));
+        }
+    }
+
+    private static class NthChildSelectorItem extends ChildSelectorItem {
+        /** The nth child A. */
+        private int nthChildA;
+
+        /** The nth child B. */
+        private int nthChildB;
+
+        public NthChildSelectorItem(String arguments) {
+            super(CssConstants.NTH_CHILD, arguments);
+            getNthChildArguments();
+        }
+
+        @Override
+        public boolean matches(INode node) {
+            if (!(node instanceof IElementNode) || node instanceof ICustomElementNode) {
+                return false;
+            }
+            List<INode> children = getAllSiblings(node);
+            return children.isEmpty() ? false : resolveNthChild(node, children);
+        }
+
+        /**
+         * Gets the nth child arguments.
+         *
+         * @return the nth child arguments
+         */
+        private void getNthChildArguments() {
+            if (arguments.matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
+                if (arguments.equals("odd")) {
+                    this.nthChildA = 2;
+                    this.nthChildB = 1;
+                } else if (arguments.equals("even")) {
+                    this.nthChildA = 2;
+                    this.nthChildB = 0;
+                } else {
+                    int indexOfN = arguments.indexOf('n');
+                    if (indexOfN == -1) {
+                        this.nthChildA = 0;
+                        this.nthChildB = Integer.valueOf(arguments);
+                    } else {
+                        String aParticle = arguments.substring(0, indexOfN).trim();
+                        if (aParticle.isEmpty())
+                            this.nthChildA = 0;
+                        else if (aParticle.length() == 1 && !Character.isDigit(aParticle.charAt(0)))
+                            this.nthChildA = aParticle.equals("+") ? 1 : -1;
+                        else
+                            this.nthChildA = Integer.valueOf(aParticle);
+                        String bParticle = arguments.substring(indexOfN + 1).trim();
+                        if (!bParticle.isEmpty())
+                            this.nthChildB = Integer.valueOf(bParticle.charAt(0) + bParticle.substring(1).trim());
+                        else
+                            this.nthChildB = 0;
+                    }
+                }
+            } else {
+                this.nthChildA = 0;
+                this.nthChildB = 0;
+            }
+        }
+
+        /**
+         * Resolves the nth child.
+         *
+         * @param node a node
+         * @param children the children
+         * @return true, if successful
+         */
+        private boolean resolveNthChild(INode node, List<INode> children) {
+            if (!children.contains(node))
+                return false;
+            if (this.nthChildA > 0) {
+                int temp = children.indexOf(node) + 1 - this.nthChildB;
+                return temp >= 0 ? temp % this.nthChildA == 0 : false;
+            } else if (this.nthChildA < 0) {
+                int temp = children.indexOf(node) + 1 - this.nthChildB;
+                return temp <= 0 ? temp % this.nthChildA == 0 : false;
+            } else
+                return (children.indexOf(node) + 1) - this.nthChildB == 0;
+        }
+    }
+
+    private static class NotSelectorItem extends CssPseudoClassSelectorItem {
+        private ICssSelector argumentsSelector;
+
+        public NotSelectorItem(ICssSelector argumentsSelector) {
+            super(CssConstants.NOT, argumentsSelector.toString());
+            this.argumentsSelector = argumentsSelector;
+        }
+
+        @Override
+        public boolean matches(INode node) {
+            return !argumentsSelector.matches(node);
+        }
     }
 }
