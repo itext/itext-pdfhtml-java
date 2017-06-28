@@ -53,6 +53,8 @@ public final class LogMessageConstant {
     /** The Constant CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED. */
     public static final String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
 
+    public static final String DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN  = "Default value of the css property \"{0}\" is unknown.";
+
     /** The Constant ERROR_LOADING_FONT. */
     public static final String ERROR_LOADING_FONT = "Error while loading font";
 
