@@ -56,6 +56,8 @@ import java.text.MessageFormat;
  */
 public class CssUtils {
 
+    private static final String[] RELATIVE_MEASUREMENTS = new String[] {CssConstants.PERCENTAGE, CssConstants.EM, CssConstants.EX, CssConstants.REM};
+
     /**
      * Creates a new <code>CssUtils</code> instance.
      */
@@ -244,7 +246,7 @@ public class CssUtils {
             return new UnitValue(UnitValue.PERCENT, Float.parseFloat(value.substring(0, value.length() - 1)));
         } else if (isRemValue(value)) {
             return new UnitValue(UnitValue.POINT, parseRelativeValue(value, remValue));
-        } else if (value != null && (value.endsWith(CssConstants.EM) || value.endsWith(CssConstants.EX))) {
+        } else if (isRelativeValue(value)) {
             return new UnitValue(UnitValue.POINT, parseRelativeValue(value, emValue));
         }
         return null;
@@ -342,7 +344,15 @@ public class CssUtils {
      * @return boolean true if value contains an allowed metric value.
      */
     public static boolean isRelativeValue(final String value) {
-        return value != null && (value.endsWith(CssConstants.PERCENTAGE) || value.endsWith(CssConstants.EM) || value.endsWith(CssConstants.EX));
+        if (value == null) {
+            return false;
+        }
+        for (String relativePostfix : RELATIVE_MEASUREMENTS) {
+            if (value.endsWith(relativePostfix) && isNumericValue(value.substring(0, value.length() - relativePostfix.length()).trim())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -352,7 +362,7 @@ public class CssUtils {
      * @return boolean true if value contains an allowed metric value.
      */
     public static boolean isRemValue(final String value) {
-        return value != null && (value.endsWith(CssConstants.REM));
+        return value != null && value.endsWith(CssConstants.REM) && isNumericValue(value.substring(0, value.length() - CssConstants.REM.length()).trim());
     }
 
     /**
