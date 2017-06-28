@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -149,7 +150,7 @@ public class CssDefaults {
         String defaultVal = defaultValues.get(property);
         if (defaultVal == null) {
             Logger logger = LoggerFactory.getLogger(CssDefaults.class);
-            logger.error(MessageFormat.format("Default value of the css property \"{0}\" is unknown.", property));
+            logger.error(MessageFormat.format(LogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN, property));
         }
         return defaultVal;
     }
