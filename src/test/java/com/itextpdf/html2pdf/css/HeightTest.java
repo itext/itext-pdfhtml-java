@@ -72,9 +72,6 @@ public class HeightTest extends ExtendedITextTest {
         createOrClearDestinationFolder(destinationFolder);
     }
 
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
-    })
     @Test
     public void heightTest01() throws IOException, InterruptedException {
         String testName = "heightTest01";
@@ -94,9 +91,6 @@ public class HeightTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
-    })
     public void heightTest03() throws IOException, InterruptedException {
         String testName = "heightTest03";
         String diffPrefix = "diff03_";
@@ -144,9 +138,6 @@ public class HeightTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
-    })
     public void heightWithCollapsingMarginsTest01() throws IOException, InterruptedException {
         String testName = "heightWithCollapsingMarginsTest01";
         String diffPrefix = "diffMargins01_";
@@ -165,9 +156,6 @@ public class HeightTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
-    })
     // TODO DEVSIX-1047
     public void heightWithCollapsingMarginsTest04() throws IOException, InterruptedException {
         String testName = "heightWithCollapsingMarginsTest04";
@@ -178,17 +166,4 @@ public class HeightTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
     }
-
-    @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 1)
-    })
-    public void heightWithCollapsingMarginsTest05() throws IOException, InterruptedException {
-        String testName = "heightWithCollapsingMarginsTest05";
-        String diffPrefix = "diffMargins05_";
-
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
-    }
-
 }
