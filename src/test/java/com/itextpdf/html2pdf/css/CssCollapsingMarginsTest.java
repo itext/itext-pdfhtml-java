@@ -309,7 +309,6 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT))
     public void selfCollapsingTest17() throws IOException, InterruptedException {
         test("selfCollapsingTest17.html", "selfCollapsingTest17.pdf", "diff_");
     }

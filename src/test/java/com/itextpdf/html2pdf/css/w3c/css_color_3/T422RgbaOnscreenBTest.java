@@ -47,7 +47,6 @@ import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-@LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 4)})
 public class T422RgbaOnscreenBTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
