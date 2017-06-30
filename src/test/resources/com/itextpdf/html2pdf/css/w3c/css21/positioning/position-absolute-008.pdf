@@ -13,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170118115551+03'00')/ModDate(D:20170118115551+03'00')/Producer(iText Software)/Title(CSS Test: Float is computed to 'none' when element is absolutely positioned)>>
-endobj
-6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20170622133525+03'00')/ModDate(D:20170622133525+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Float is computed to 'none' when element is absolutely positioned)>>
 endobj
 7 0 obj
 <</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -28,15 +28,15 @@ xref
 0 8
 0000000000 65535 f 
 0000000375 00000 n 
-0000000800 00000 n 
+0000000876 00000 n 
 0000000420 00000 n 
 0000000233 00000 n 
 0000000015 00000 n 
-0000000619 00000 n 
-0000000707 00000 n 
+0000000788 00000 n 
+0000000695 00000 n 
 trailer
-<</ID [<5d90952b2bacf40a6a3942991524e5f4><5d90952b2bacf40a6a3942991524e5f4>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.2-SNAPSHOT
+<</ID [<0c1a2f56a1e918bce3226043d27c68b2><0c1a2f56a1e918bce3226043d27c68b2>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%TEST-LICE-NSE0-7.0.4-SNAPSHOT
 startxref
-851
+927
 %%EOF
