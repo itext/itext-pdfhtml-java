@@ -48,7 +48,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.lang.reflect.Field;
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -66,7 +66,7 @@ public class Html2PdfPropertyTest {
                 maxFieldValue = Math.max(maxFieldValue, value);
                 minFieldValue = Math.min(minFieldValue, value);
                 if (fieldValues.contains(value)) {
-                    Assert.fail(MessageFormat.format("Multiple fields with same value: {0}", value));
+                    Assert.fail(MessageFormatUtil.format("Multiple fields with same value: {0}", value));
                 }
                 fieldValues.add(value);
             }
@@ -74,11 +74,11 @@ public class Html2PdfPropertyTest {
 
         for (int i = minFieldValue; i <= maxFieldValue; i++) {
             if (!fieldValues.contains(i)) {
-                Assert.fail(MessageFormat.format("Missing value: {0}", i));
+                Assert.fail(MessageFormatUtil.format("Missing value: {0}", i));
             }
         }
 
-        System.out.println(MessageFormat.format("Max field value: {0}", maxFieldValue));
+        System.out.println(MessageFormatUtil.format("Max field value: {0}", maxFieldValue));
     }
 
 }

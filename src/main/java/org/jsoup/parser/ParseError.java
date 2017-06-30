@@ -1,6 +1,6 @@
 package org.jsoup.parser;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 
 /**
  * A Parse Error records an error in the input HTML that occurs in either the tokenisation or the tree building phase.
@@ -15,7 +15,7 @@ public class ParseError {
     }
 
     ParseError(int pos, String errorFormat, Object... args) {
-        this.errorMsg = MessageFormat.format(errorFormat, args);
+        this.errorMsg = MessageFormatUtil.format(errorFormat, args);
         this.pos = pos;
     }
 

@@ -47,7 +47,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.layout.property.UnitValue;
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.Logger;
@@ -97,7 +97,7 @@ class PageSizeParser {
                 pageSize = pageSizeBasedOnLength;
             } else {
                 Logger logger = LoggerFactory.getLogger(PageSizeParser.class);
-                logger.error(MessageFormat.format(LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
+                logger.error(MessageFormatUtil.format(LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
             }
         } else {
             Boolean landscape = null;
@@ -129,7 +129,7 @@ class PageSizeParser {
                 }
             } else {
                 Logger logger = LoggerFactory.getLogger(PageSizeParser.class);
-                logger.error(MessageFormat.format(LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
+                logger.error(MessageFormatUtil.format(LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
             }
         }
 

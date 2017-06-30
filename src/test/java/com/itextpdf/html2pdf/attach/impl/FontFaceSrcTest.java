@@ -59,7 +59,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.io.FileInputStream;
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.regex.Matcher;
 
 @Category(UnitTest.class)
@@ -91,7 +91,7 @@ public class FontFaceSrcTest extends ExtendedITextTest {
             Assert.assertTrue("Expression doesn't match pattern: " + sources[i], m.matches());
 
             String format = m.group(FontFace.FontFaceSrc.FormatGroup);
-            String source2 = MessageFormat.format("{0}({1}){2}", m.group(FontFace.FontFaceSrc.TypeGroup), m.group(FontFace.FontFaceSrc.UrlGroup), format != null ? MessageFormat.format(" format({0})", format) : "");
+            String source2 = MessageFormatUtil.format("{0}({1}){2}", m.group(FontFace.FontFaceSrc.TypeGroup), m.group(FontFace.FontFaceSrc.UrlGroup), format != null ? MessageFormatUtil.format(" format({0})", format) : "");
             String url = FontFace.FontFaceSrc.unquote(m.group(FontFace.FontFaceSrc.UrlGroup));
 
             Assert.assertTrue("Invalid url: " + url, url.startsWith(fontSrc));

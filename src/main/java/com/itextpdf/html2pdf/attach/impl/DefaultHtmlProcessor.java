@@ -79,7 +79,7 @@ import com.itextpdf.kernel.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -185,7 +185,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             if (node instanceof IElementNode) {
                 visit(node);
             } else if (node instanceof ITextNode) {
-                logger.error(MessageFormat.format(LogMessageConstant.TEXT_WAS_NOT_PROCESSED, ((ITextNode) node).wholeText()));
+                logger.error(MessageFormatUtil.format(LogMessageConstant.TEXT_WAS_NOT_PROCESSED, ((ITextNode) node).wholeText()));
             }
         }
         List<com.itextpdf.layout.element.IElement> elements = new ArrayList<>();
@@ -281,7 +281,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             ITagWorker tagWorker = context.getTagWorkerFactory().getTagWorker(element, context);
             if (tagWorker == null) {
                 if (!ignoredTags.contains(element.name())) {
-                    logger.error(MessageFormat.format(LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).name()));
+                    logger.error(MessageFormatUtil.format(LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).name()));
                 }
             } else {
                 context.getState().push(tagWorker);
@@ -306,7 +306,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(element);
                 if (cssApplier == null) {
                     if (!ignoredCssTags.contains(element.name())) {
-                        logger.error(MessageFormat.format(LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
+                        logger.error(MessageFormatUtil.format(LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
                     }
                 } else {
                     cssApplier.apply(context, element, tagWorker);
@@ -317,7 +317,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                     boolean childProcessed = context.getState().top().processTagChild(tagWorker, context);
                     PageBreakApplierUtil.addPageBreakElementAfter(context, context.getState().top(), element, tagWorker);
                     if (!childProcessed) {
-                        logger.error(MessageFormat.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
+                        logger.error(MessageFormatUtil.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
                                 context.getState().top().getClass().getName(), tagWorker.getClass().getName()));
                     }
                 } else if (tagWorker.getElementResult() != null) {
@@ -333,7 +333,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 if (!context.getState().empty()) {
                     boolean contentProcessed = context.getState().top().processContent(content, context);
                     if (!contentProcessed) {
-                        logger.error(MessageFormat.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT,
+                        logger.error(MessageFormatUtil.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT,
                                 context.getState().top().getClass().getName()));
                     }
                 } else {
@@ -362,7 +362,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                     }
                 }
                 if (!findSupportedSrc) {
-                    logger.error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace));
+                    logger.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace));
                 }
             }
         }

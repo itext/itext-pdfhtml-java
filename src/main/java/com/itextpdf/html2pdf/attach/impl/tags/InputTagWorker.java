@@ -2,7 +2,7 @@
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
-    
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-    
+
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-    
+
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-    
+
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-    
+
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,7 +36,7 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-    
+
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
@@ -57,7 +57,7 @@ import com.itextpdf.layout.element.IElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 
 /**
  * TagWorker class for the <code>input</code> element.
@@ -66,7 +66,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
 
     /** The form element. */
     private IElement formElement;
-    
+
     /** The display. */
     private String display;
 
@@ -95,7 +95,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
             formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
         } else {
             Logger logger = LoggerFactory.getLogger(InputTagWorker.class);
-            logger.error(MessageFormat.format(LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
+            logger.error(MessageFormatUtil.format(LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
         }
         if (formElement != null) {
             formElement.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
