@@ -4,7 +4,7 @@ import org.jsoup.PortUtil;
 import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Entities;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.Arrays;
 
 /**
@@ -174,7 +174,7 @@ final class Tokeniser {
             if (!found) {
                 reader.rewindToMark();
                 if (looksLegit) // named with semicolon
-                    characterReferenceError(MessageFormat.format("invalid named referenece " + PortUtil.escapedSingleBracket + "{0}" + PortUtil.escapedSingleBracket, nameRef));
+                    characterReferenceError(MessageFormatUtil.format("invalid named referenece " + PortUtil.escapedSingleBracket + "{0}" + PortUtil.escapedSingleBracket, nameRef));
                 return null;
             }
             if (inAttribute && (reader.matchesLetter() || reader.matchesDigit() || reader.matchesAny('=', '-', '_'))) {

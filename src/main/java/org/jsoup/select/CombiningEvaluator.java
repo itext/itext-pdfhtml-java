@@ -3,7 +3,7 @@ package org.jsoup.select;
 import org.jsoup.helper.StringUtil;
 import org.jsoup.nodes.Element;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,7 +29,7 @@ abstract class CombiningEvaluator extends Evaluator {
     Evaluator rightMostEvaluator() {
         return num > 0 ? evaluators.get(num - 1) : null;
     }
-    
+
     void replaceRightMostEvaluator(Evaluator replacement) {
         evaluators.set(num - 1, replacement);
     }
@@ -99,7 +99,7 @@ abstract class CombiningEvaluator extends Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(":or{0}", evaluators);
+            return MessageFormatUtil.format(":or{0}", evaluators);
         }
     }
 }

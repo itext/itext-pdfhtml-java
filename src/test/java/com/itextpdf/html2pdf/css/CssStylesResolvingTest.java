@@ -54,21 +54,22 @@ import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Category(UnitTest.class)
 public class CssStylesResolvingTest extends ExtendedITextTest {
@@ -328,7 +329,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
 
         IElementNode element = findElement(document, elementPath);
         if (element == null) {
-            Assert.fail(MessageFormat.format("Element at path \"{0}\" was not found.", elementPath));
+            Assert.fail(MessageFormatUtil.format("Element at path \"{0}\" was not found.", elementPath));
         }
         Map<String, String> elementStyles = element.getStyles();
         Set<String> expectedStylesSet = new HashSet<>(Arrays.asList(expectedStyles));

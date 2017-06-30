@@ -2,7 +2,7 @@
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
-    
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-    
+
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-    
+
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-    
+
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-    
+
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,7 +36,7 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-    
+
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
@@ -50,7 +50,7 @@ import com.itextpdf.html2pdf.css.util.CssUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,28 +62,28 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
 
     /** The Constant UNDEFINED_TYPE. */
     private static final int UNDEFINED_TYPE = -1;
-    
+
     /** The Constant BACKGROUND_COLOR_TYPE. */
     private static final int BACKGROUND_COLOR_TYPE = 0;
-    
+
     /** The Constant BACKGROUND_IMAGE_TYPE. */
     private static final int BACKGROUND_IMAGE_TYPE = 1;
-    
+
     /** The Constant BACKGROUND_POSITION_TYPE. */
     private static final int BACKGROUND_POSITION_TYPE = 2;
-    
+
     /** The Constant BACKGROUND_POSITION_OR_SIZE_TYPE. */
     private static final int BACKGROUND_POSITION_OR_SIZE_TYPE = 3; // might have the same type, but position always precedes size
-    
+
     /** The Constant BACKGROUND_REPEAT_TYPE. */
     private static final int BACKGROUND_REPEAT_TYPE = 4;
-    
+
     /** The Constant BACKGROUND_ORIGIN_OR_CLIP_TYPE. */
     private static final int BACKGROUND_ORIGIN_OR_CLIP_TYPE = 5; // have the same possible values but apparently origin values precedes clip value
-    
+
     /** The Constant BACKGROUND_CLIP_TYPE. */
     private static final int BACKGROUND_CLIP_TYPE = 6;
-    
+
     /** The Constant BACKGROUND_ATTACHMENT_TYPE. */
     private static final int BACKGROUND_ATTACHMENT_TYPE = 7;
 
@@ -188,7 +188,7 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
     private void putPropertyBasedOnType(int type, String value, String[] resolvedProps, boolean slashEncountered) {
         if (type == UNDEFINED_TYPE) {
             Logger logger = LoggerFactory.getLogger(BackgroundShorthandResolver.class);
-            logger.error(MessageFormat.format(LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES, value));
+            logger.error(MessageFormatUtil.format(LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES, value));
             return;
         }
         if (type == BACKGROUND_POSITION_OR_SIZE_TYPE && !slashEncountered) {

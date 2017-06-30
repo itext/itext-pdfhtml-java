@@ -2,7 +2,7 @@
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
-    
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-    
+
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-    
+
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-    
+
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-    
+
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,7 +36,7 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-    
+
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
@@ -64,7 +64,7 @@ import com.itextpdf.layout.property.Property;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.Map;
 
 /**
@@ -76,16 +76,16 @@ public final class ListStyleApplierUtil {
 
     /** The Constant GREEK_ALPHABET_LENGTH. */
     private static final int GREEK_ALPHABET_LENGTH = 24;
-    
+
     /** The Constant GREEK_LOWERCASE. */
     private static final char[] GREEK_LOWERCASE = new char[GREEK_ALPHABET_LENGTH];
 
     /** The Constant DISC_SYMBOL. */
     private static final String DISC_SYMBOL = "\u2022";
-    
+
     /** The Constant CIRCLE_SYMBOL. */
     private static final String CIRCLE_SYMBOL = "\u25cb";
-    
+
     /** The Constant SQUARE_SYMBOL. */
     private static final String SQUARE_SYMBOL = "\u25a0";
 
@@ -157,7 +157,7 @@ public final class ListStyleApplierUtil {
         } else {
             if (style != null) {
                 Logger logger = LoggerFactory.getLogger(ListStyleApplierUtil.class);
-                logger.error(MessageFormat.format(LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
+                logger.error(MessageFormatUtil.format(LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
             }
 
             // Fallback style
@@ -258,7 +258,7 @@ public final class ListStyleApplierUtil {
      * A factory for creating {@link HtmlAlphabetSymbol} objects.
      */
     private static class HtmlAlphabetSymbolFactory implements IListSymbolFactory {
-        
+
         /** The alphabet. */
         private final char[] alphabet;
 

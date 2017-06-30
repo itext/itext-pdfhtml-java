@@ -3,14 +3,14 @@ package org.jsoup.select;
 import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Element;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.IdentityHashMap;
 
 /**
  * CSS-like element selector, that finds elements matching a query.
- * 
+ *
  * <h2>Selector syntax</h2>
  * <p>
  * A selector is a chain of simple selectors, separated by combinators. Selectors are case insensitive (including against
@@ -68,7 +68,7 @@ import java.util.IdentityHashMap;
  * <tr><td><code>:only-of-type</code></td><td> an element that has a parent element and whose parent element has no other element children with the same expanded element name</td><td></td></tr>
  * <tr><td><code>:empty</code></td><td>elements that have no children at all</td><td></td></tr>
  * </table>
- * 
+ *
  * @author Jonathan Hedley, jonathan@hedley.net
  * @see Element#select(String)
  */
@@ -168,7 +168,7 @@ public class Selector {
 
     public static class SelectorParseException extends IllegalStateException {
         public SelectorParseException(String msg, Object... params) {
-            super(MessageFormat.format(msg, params));
+            super(MessageFormatUtil.format(msg, params));
         }
     }
 }
