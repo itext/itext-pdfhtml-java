@@ -360,6 +360,21 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
+    public void float55Test() throws IOException, InterruptedException {
+        runTest("float55Test", "diff55_");
+    }
+
+    @Test
+    public void float57Test() throws IOException, InterruptedException {
+        runTest("float57Test", "diff57_");
+    }
+
+    @Test@Ignore("DEVSIX-1372")
+    public void float58Test() throws IOException, InterruptedException {
+        runTest("float58Test", "diff58_");
+    }
+
+    @Test
     public void floatAndTables01Test() throws IOException, InterruptedException {
         runTest("floatAndTables01Test", "diffTables01_");
     }
@@ -424,7 +439,7 @@ public class FloatTest extends ExtendedITextTest {
         runTest("floatImage03Test", "diffImages03_");
     }
 
-    @Test
+    @Test@Ignore
     public void floatImage04Test() throws IOException, InterruptedException {
         // TODO word splitting logic working not entirely correctly
         runTest("floatImage04Test", "diffImages04_");
@@ -467,7 +482,7 @@ public class FloatTest extends ExtendedITextTest {
         runTest("floatImage11Test", "diffImages11_");
     }
 
-    @Test
+    @Test@Ignore
     public void floatImage12Test() throws IOException, InterruptedException {
         // TODO we don't apply leading on floats, this somewhat noticeable when huge line-height in html is used
         runTest("floatImage12Test", "diffImages12_");
