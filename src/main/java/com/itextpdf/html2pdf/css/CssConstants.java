@@ -434,6 +434,12 @@ public class CssConstants {
     /** The Constant WIDTH. */
     public static final String WIDTH = "width";
 
+    /** The Constant MAX_WIDTH. */
+    public static final String MAX_WIDTH = "max-width";
+
+    /** The Constant MIN_WIDTH. */
+    public static final String MIN_WIDTH = "min-width";
+    
     /** The Constant WORDWRAP. */
     public static final String WORDWRAP = "word-wrap";
 
