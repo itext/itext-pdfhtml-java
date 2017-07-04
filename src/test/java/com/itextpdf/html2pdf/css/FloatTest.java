@@ -425,161 +425,15 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
-    public void floatImage01Test() throws IOException, InterruptedException {
-        runTest("floatImage01Test", "diffImages01_");
-    }
-
-    @Test
-    public void floatImage02Test() throws IOException, InterruptedException {
-        runTest("floatImage02Test", "diffImages02_");
-    }
-
-    @Test
-    public void floatImage03Test() throws IOException, InterruptedException {
-        runTest("floatImage03Test", "diffImages03_");
-    }
-
-    @Test@Ignore
-    public void floatImage04Test() throws IOException, InterruptedException {
-        // TODO word splitting logic working not entirely correctly
-        runTest("floatImage04Test", "diffImages04_");
-    }
-
-    @Test
-    public void floatImage05Test() throws IOException, InterruptedException {
-        runTest("floatImage05Test", "diffImages05_");
-    }
-
-    @Test
-    public void floatImage06Test() throws IOException, InterruptedException {
-        runTest("floatImage06Test", "diffImages06_");
-    }
-
-    @Test
-    public void floatImage07Test() throws IOException, InterruptedException {
-        // TODO word splitting logic working not entirely correctly
-        runTest("floatImage07Test", "diffImages07_");
-    }
-
-    @Test
-    public void floatImage08Test() throws IOException, InterruptedException {
-        runTest("floatImage08Test", "diffImages08_");
-    }
-
-    @Test
-    public void floatImage09Test() throws IOException, InterruptedException {
-        runTest("floatImage09Test", "diffImages09_");
-    }
-
-    @Test
-    public void floatImage10Test() throws IOException, InterruptedException {
-        // TODO we don't apply leading on floats, this somewhat noticeable when huge line-height in html is used
-        runTest("floatImage10Test", "diffImages10_");
-    }
-
-    @Test
-    public void floatImage11Test() throws IOException, InterruptedException {
-        runTest("floatImage11Test", "diffImages11_");
-    }
-
-    @Test@Ignore
-    public void floatImage12Test() throws IOException, InterruptedException {
-        // TODO we don't apply leading on floats, this somewhat noticeable when huge line-height in html is used
-        runTest("floatImage12Test", "diffImages12_");
-    }
-
-    @Test
-    public void floatImage13Test() throws IOException, InterruptedException {
-        // TODO we don't apply leading on floats, this somewhat noticeable when huge line-height in html is used
-        runTest("floatImage13Test", "diffImages13_");
-    }
-
-    @Test
     @Ignore("DEVSIX-1316")
     public void floatImage14Test() throws IOException, InterruptedException {
         runTest("floatImage14Test", "diffImages14_");
     }
 
     @Test
-    public void floatInline01Test() throws IOException, InterruptedException {
-        runTest("floatInline01Test", "diffImages01_");
-    }
-
-    @Test
-    public void floatInline02Test() throws IOException, InterruptedException {
-        runTest("floatInline02Test", "diffImages02_");
-    }
-
-    @Test
-    public void floatInline03Test() throws IOException, InterruptedException {
-        runTest("floatInline03Test", "diffImages03_");
-    }
-
-    @Test
-    public void floatInline04Test() throws IOException, InterruptedException {
-        runTest("floatInline04Test", "diffImages04_");
-    }
-
-    @Test
-    public void floatInline05Test() throws IOException, InterruptedException {
-        runTest("floatInline05Test", "diffImages05_");
-    }
-
-    @Test
-    public void floatInline06Test() throws IOException, InterruptedException {
-        runTest("floatInline06Test", "diffImages06_");
-    }
-
-    @Test
-    public void floatInline07Test() throws IOException, InterruptedException {
-        runTest("floatInline07Test", "diffImages07_");
-    }
-
-    @Test
-    public void floatInline08Test() throws IOException, InterruptedException {
-        runTest("floatInline08Test", "diffImages08_");
-    }
-
-    @Test
     public void floatInline09Test() throws IOException, InterruptedException {
         // TODO DEVSIX-1269
         runTest("floatInline09Test", "diffImages09_");
-    }
-
-    @Test
-    public void floatInline10Test() throws IOException, InterruptedException {
-        runTest("floatInline10Test", "diffImages10_");
-    }
-
-    @Test
-    public void floatInline11Test() throws IOException, InterruptedException {
-        runTest("floatInline11Test", "diffImages11_");
-    }
-
-    @Test
-    public void floatInline12Test() throws IOException, InterruptedException {
-        runTest("floatInline12Test", "diffImages12_");
-    }
-
-    @Test
-    public void floatInline13Test() throws IOException, InterruptedException {
-        runTest("floatInline13Test", "diffImages13_");
-    }
-
-    @Test
-    public void floatInline14Test() throws IOException, InterruptedException {
-        runTest("floatInline14Test", "diffImages14_");
-    }
-
-    @Test
-    public void floatInline15Test() throws IOException, InterruptedException {
-        // TODO another difference concerning nested spans processing
-        runTest("floatInline15Test", "diffImages15_");
-    }
-
-    @Test
-    public void floatInline16Test() throws IOException, InterruptedException {
-        runTest("floatInline16Test", "diffImages16_");
     }
 
     @Test
@@ -597,9 +451,6 @@ public class FloatTest extends ExtendedITextTest {
 
     @Test
     public void responsiveIText() throws IOException, InterruptedException {
-        // TODO results to be reviewed after floating elements splitting support (DEVSIX-1267)
-        // Split floating element parent has zero height (and therefore border is not drawn around it),
-        // even though :after { clear: both} feature is applied in html.
         PageSize[] pageSizes = {
                 null,
                 new PageSize(PageSize.A3.getHeight(), PageSize.A4.getHeight()),
