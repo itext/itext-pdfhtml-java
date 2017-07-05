@@ -162,4 +162,22 @@ public class AbsolutePositionTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "absolutePositionTest14.pdf", sourceFolder + "cmp_absolutePositionTest14.pdf", destinationFolder, "diff14_"));
     }
 
+    @Test
+    public void absolutePosition15Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "absolutePositionTest15.html"), new File(destinationFolder + "absolutePositionTest15.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "absolutePositionTest15.pdf", sourceFolder + "cmp_absolutePositionTest15.pdf", destinationFolder, "diff15_"));
+    }
+
+    @Test
+    public void absolutePositionTest16() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "absolutePositionTest16.html"), new File(destinationFolder + "absolutePositionTest16.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "absolutePositionTest16.pdf", sourceFolder + "cmp_absolutePositionTest16.pdf", destinationFolder, "diff16_"));
+    }
+
+    @Test
+    public void absolutePositionTest17() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "absolutePositionTest17.html"), new File(destinationFolder + "absolutePositionTest17.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "absolutePositionTest17.pdf", sourceFolder + "cmp_absolutePositionTest17.pdf", destinationFolder, "diff17_"));
+    }
+
 }
