@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+		.borders {
+			border: 20pt solid green;
+			padding: 10pt;
+			margin: 20pt;
+		}
+		.newpage {
+			page-break-before: always; 
+		}
+</style>
+<body>
+<div style="position: relative; height: 400pt; width: 400pt; border: solid; margin: 20pt">
+	<div class="borders" style="position: absolute; top: 10pt; bottom: 10pt; background: lightblue; min-height: 100pt; max-height: 200pt;">absolutly positioned element content</div>
+</div>
+
+<div class="newpage" style="position: relative; height: 400pt; width: 400pt; border: solid; margin: 20pt">
+	<div class="borders" style="position: absolute; top: 10pt; bottom: 10pt; background: lightblue; min-height: 200pt; max-height: 200pt;">absolutly positioned element content</div>
+</div>
+
+<div class="newpage" style="position: relative; height: 400pt; width: 400pt; border: solid; margin: 20pt">
+	<div class="borders" style="position: absolute; top: 10pt; bottom: 10pt; background: lightblue; min-height: 200pt; max-height: 400pt;">absolutly positioned element content</div>
+</div>
+
+<div class="newpage" style="position: relative; height: 400pt; width: 400pt; border: solid; margin: 20pt">
+	<div class="borders" style="position: absolute; top: 10pt; bottom: 10pt; background: lightblue; min-height: 100pt; max-height: 400pt;">absolutly positioned element content</div>
+</div>
+
+</body>
+
+</html>
