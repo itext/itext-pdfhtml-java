@@ -152,8 +152,15 @@ public class TextPropertiesTest extends ExtendedITextTest {
     @Test
     @Ignore("DEVSIX-1319")
     public void enspEmspThinspTest01() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "enspTest01.html"), new File(destinationFolder + "enspTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "enspTest01.pdf", sourceFolder + "cmp_enspTest01.pdf", destinationFolder, "diff13_"));
+        HtmlConverter.convertToPdf(new File(sourceFolder + "enspEmspThinspTest01.html"), new File(destinationFolder + "enspEmspThinspTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "enspEmspThinspTest01.pdf", sourceFolder + "cmp_enspEmspThinspTest01.pdf", destinationFolder, "diff13_"));
+    }
+
+    @Test
+    @Ignore("DEVSIX-1319")
+    public void enspEmspThinspTest02() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "enspEmspThinspTest02.html"), new File(destinationFolder + "enspEmspThinspTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "enspEmspThinspTest02.pdf", sourceFolder + "cmp_enspEmspThinspTest02.pdf", destinationFolder, "diff14_"));
     }
 
 }
