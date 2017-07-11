@@ -81,13 +81,26 @@ public class BoxSizingTest extends ExtendedITextTest {
 
     @Test
     public void boxSizingCellTest01() throws IOException, InterruptedException {
-        // TODO height issues?
+        // TODO Result of processing of this html is different from what browsers show.
+        // Height of cells is always border-box-like at least if DOCTYPE "html" is not specified.
+        // See also boxSizingCellTest03.
         runTest("boxSizingCellTest01");
     }
 
     @Test
     public void boxSizingCellTest02() throws IOException, InterruptedException {
         runTest("boxSizingCellTest02");
+    }
+
+    @Test
+    public void boxSizingCellTest03() throws IOException, InterruptedException {
+        // This test is exactly the same as boxSizingCellTest01, except DOCTYPE "html" is used:
+        // cells height is different in browsers depending on box-sizing.
+
+        // TODO: we don't include half of the borders in height calculation when border-box is set
+        // because we apply borders on table level. However, this seems to be not very important for heights,
+        // height will only be bigger and it's not that crucial in comparison to width calculations.
+        runTest("boxSizingCellTest03");
     }
 
     @Test
@@ -157,8 +170,6 @@ public class BoxSizingTest extends ExtendedITextTest {
 
     @Test
     public void boxSizingTable04Test() throws IOException, InterruptedException {
-        // TODO table max-height is wrong when table is split (regardless of border-box)
-        // table height is nearly 270pt in result, however max-height is set to 250pt
         runTest("boxSizingTable04Test");
     }
 
