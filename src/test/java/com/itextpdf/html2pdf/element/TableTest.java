@@ -311,6 +311,12 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
+    public void tableCellHeightsExpansionTest03() throws IOException, InterruptedException {
+        // Cells max-height property should not affect layout, just like in browsers.
+        runTest("tableCellHeightsExpansion03");
+    }
+
+    @Test
     public void tableMaxHeightTest01() throws IOException, InterruptedException {
         runTest("tableMaxHeight01");
     }
