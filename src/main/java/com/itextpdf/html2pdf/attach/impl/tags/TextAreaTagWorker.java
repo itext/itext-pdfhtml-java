@@ -52,18 +52,18 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 
 /**
- * TagWorker class for the <code>textarea</code> element.
+ * TagWorker class for the {@code textarea} element.
  */
 public class TextAreaTagWorker implements ITagWorker {
 
     /** The Constant DEFAULT_TEXTAREA_NAME. */
     private static final String DEFAULT_TEXTAREA_NAME = "TextArea";
-    
+
     /** The text area. */
     private TextArea textArea;
 
     /**
-     * Creates a new <code>TextAreaTagWorker</code> instance.
+     * Creates a new {@link TextAreaTagWorker} instance.
      *
      * @param element the element
      * @param context the context

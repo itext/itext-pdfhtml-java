@@ -74,7 +74,7 @@ public class BorderStyleApplierUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(BorderStyleApplierUtil.class);
 
     /**
-     * Creates a new <code>BorderStyleApplierUtil</code> instance.
+     * Creates a new {@link BorderStyleApplierUtil} instance.
      */
     private BorderStyleApplierUtil() {
     }

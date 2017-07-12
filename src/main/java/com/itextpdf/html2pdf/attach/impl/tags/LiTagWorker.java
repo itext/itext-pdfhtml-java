@@ -60,21 +60,21 @@ import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
 
 /**
- * TagWorker class for the <code>li</code> element.
+ * TagWorker class for the {@code li} element.
  */
 public class LiTagWorker implements ITagWorker {
 
     /** The list item. */
     protected ListItem listItem;
-    
+
     /** The list. */
     protected List list;
-    
+
     /** The inline helper. */
     private WaitingInlineElementsHelper inlineHelper;
 
     /**
-     * Creates a new <code>LiTagWorker</code> instance.
+     * Creates a new {@link LiTagWorker} instance.
      *
      * @param element the element
      * @param context the context

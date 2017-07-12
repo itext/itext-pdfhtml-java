@@ -56,7 +56,7 @@ public class CssEnumValidator implements ICssDataTypeValidator {
     private List<String> allowedValues;
 
     /**
-     * Creates a new <code>CssEnumValidator</code> instance.
+     * Creates a new {@link CssEnumValidator} instance.
      *
      * @param allowedValues the allowed values
      */

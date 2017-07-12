@@ -55,7 +55,7 @@ public class CssIdSelectorItem implements ICssSelectorItem {
     private String id;
 
     /**
-     * Creates a new <code>CssIdSelectorItem<code> instance.
+     * Creates a new {@link CssIdSelectorItem} instance.
      *
      * @param id the id
      */

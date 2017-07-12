@@ -40,17 +40,19 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.parse.syntax;/**
+package com.itextpdf.html2pdf.css.parse.syntax;
+
+/**
  * {@link IParserState} implementation for the inner comment state.
  */
 class CommentInnerState implements IParserState {
 
-	/** The state machine that parses the CSS. */
+    /** The state machine that parses the CSS. */
     private CssParserStateController controller;
 
     /**
-     * Creates a new <code>CommentInnerState</code> instance.
-     * @param	controller	the state machine that parses the CSS
+     * Creates a new {@link CommentInnerState} instance.
+     * @param   controller  the state machine that parses the CSS
      */
     public CommentInnerState(CssParserStateController controller) {
         this.controller = controller;

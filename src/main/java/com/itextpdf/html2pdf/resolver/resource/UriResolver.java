@@ -42,13 +42,14 @@
  */
 package com.itextpdf.html2pdf.resolver.resource;
 
+import com.itextpdf.io.util.MessageFormatUtil;
+
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,7 +65,7 @@ public class UriResolver {
     private boolean isLocal;
 
     /**
-     * Creates a new <code>UriResolver</code> instance.
+     * Creates a new {@link UriResolver} instance.
      *
      * @param baseUri the base URI
      */

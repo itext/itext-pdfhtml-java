@@ -55,7 +55,7 @@ public class SingleTypeDeclarationValidator implements ICssDeclarationValidator 
     private ICssDataTypeValidator dataTypeValidator;
 
     /**
-     * Creates a new <code>SingleTypeDeclarationValidator</code> instance.
+     * Creates a new {@link SingleTypeDeclarationValidator} instance.
      *
      * @param dataTypeValidator the data type validator
      */

@@ -48,12 +48,12 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 
 /**
- * TagWorker class for the <code>title</code> element.
+ * TagWorker class for the {@code title} element.
  */
 public class TitleTagWorker implements ITagWorker {
 
     /**
-     * Creates a new <code>TitleTagWorker</code> instance.
+     * Creates a new {@link TitleTagWorker} instance.
      *
      * @param element the element
      * @param context the context

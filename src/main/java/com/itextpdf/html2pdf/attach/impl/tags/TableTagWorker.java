@@ -54,25 +54,25 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
 
 /**
- * TagWorker class for the <code>table</code> element.
+ * TagWorker class for the {@code table} element.
  */
 public class TableTagWorker implements ITagWorker, IDisplayAware {
-    
+
     /** The table wrapper. */
     private TableWrapper tableWrapper;
-    
+
     /** The table. */
     private Table table;
-    
+
     /** The footer. */
     private boolean footer;
-    
+
     /** The header. */
     private boolean header;
-    
+
     /** The parent tag worker. */
     private ITagWorker parentTagWorker;
-    
+
     /** The colgroups helper. */
     private WaitingColgroupsHelper colgroupsHelper;
 
@@ -80,7 +80,7 @@ public class TableTagWorker implements ITagWorker, IDisplayAware {
     private String display;
 
     /**
-     * Creates a new <code>TableTagWorker</code> instance.
+     * Creates a new {@link TableTagWorker} instance.
      *
      * @param element the element
      * @param context the context

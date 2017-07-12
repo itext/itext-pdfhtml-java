@@ -57,7 +57,7 @@ import java.util.List;
 public final class TrimUtil {
 
     /**
-     * Creates a new <code>TrimUtil</code> instance.
+     * Creates a new {@link TrimUtil} instance.
      */
     private TrimUtil() {
     }

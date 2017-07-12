@@ -57,7 +57,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -82,7 +81,7 @@ public final class CssSelectorParser {
     private static final Pattern selectorPattern = Pattern.compile(SELECTOR_PATTERN_STR);
 
     /**
-     * Creates a new <code>CssSelectorParser</code> instance.
+     * Creates a new {@link CssSelectorParser} instance.
      */
     private CssSelectorParser() {
     }
@@ -90,7 +89,7 @@ public final class CssSelectorParser {
     /**
      * Parses the selector items.
      *
-     * @param selector the selectors in the form of a <code>String</code>
+     * @param selector the selectors in the form of a {@link String}
      * @return the resulting list of {@link ICssSelectorItem}
      */
     public static List<ICssSelectorItem> parseSelectorItems(String selector) {

@@ -47,6 +47,7 @@ import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
@@ -58,7 +59,6 @@ import com.itextpdf.layout.renderer.LineRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
 import org.slf4j.LoggerFactory;
 
-import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.List;
 
 /**
@@ -67,7 +67,7 @@ import java.util.List;
 public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
 
     /**
-     * Creates a new <code>InputFieldRenderer</code> instance.
+     * Creates a new {@link InputFieldRenderer} instance.
      *
      * @param modelElement the model element
      */

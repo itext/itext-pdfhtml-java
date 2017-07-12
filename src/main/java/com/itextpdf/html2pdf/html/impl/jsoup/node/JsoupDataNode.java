@@ -53,7 +53,7 @@ public class JsoupDataNode extends JsoupNode implements IDataNode {
     private org.jsoup.nodes.DataNode dataNode;
 
     /**
-     * Creates a new <code>JsoupDataNode</code> instance.
+     * Creates a new {@link JsoupDataNode} instance.
      *
      * @param dataNode the data node
      */

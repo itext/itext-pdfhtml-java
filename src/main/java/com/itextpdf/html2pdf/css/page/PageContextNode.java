@@ -43,8 +43,8 @@
 package com.itextpdf.html2pdf.css.page;
 
 import com.itextpdf.html2pdf.css.CssContextNode;
-import com.itextpdf.html2pdf.css.CssNestedAtRule;
 import com.itextpdf.html2pdf.html.node.INode;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -61,14 +61,14 @@ public class PageContextNode extends CssContextNode {
     private List<String> pageClasses;
 
     /**
-     * Creates a new <code>PageContextNode</code> instance.
+     * Creates a new {@link PageContextNode} instance.
      */
     public PageContextNode() {
         this(null);
     }
 
     /**
-     * Creates a new <code>PageContextNode</code> instance.
+     * Creates a new {@link PageContextNode} instance.
      *
      * @param parentNode the parent node
      */

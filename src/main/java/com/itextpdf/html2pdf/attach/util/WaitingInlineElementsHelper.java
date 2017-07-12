@@ -76,7 +76,7 @@ public class WaitingInlineElementsHelper {
     private List<IElement> waitingLeaves = new ArrayList<>();
 
     /**
-     * Creates a new <code>WaitingInlineElementsHelper</code> instance.
+     * Creates a new {@link WaitingInlineElementsHelper} instance.
      *
      * @param whiteSpace we'll check if this value equals "pre" or "pre-wrap"
      * @param textTransform will define the transformation that needs to be applied to the text

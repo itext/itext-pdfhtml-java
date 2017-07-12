@@ -52,7 +52,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
 
 /**
- * TagWorker class for the <code>img</code> element.
+ * TagWorker class for the {@code img} element.
  */
 public class ImgTagWorker implements ITagWorker {
 
@@ -63,7 +63,7 @@ public class ImgTagWorker implements ITagWorker {
     private String display;
 
     /**
-     * Creates a new <code>ImgTagWorker</code> instance.
+     * Creates a new {@link ImgTagWorker} instance.
      *
      * @param element the element
      * @param context the context
@@ -137,7 +137,7 @@ public class ImgTagWorker implements ITagWorker {
         private double pxToPt = 0.75;
 
         /**
-     *   * Creates a new <code>HtmlImage</code> instance.
+     *   * Creates a new {@link HtmlImage} instance.
          *
          * @param xObject an Image XObject
          */

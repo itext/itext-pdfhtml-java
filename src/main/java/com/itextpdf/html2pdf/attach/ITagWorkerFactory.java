@@ -50,7 +50,9 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 public interface ITagWorkerFactory {
 
     /**
-     * Returns a {@link ITagWorker} instance constructed based on the passed parameters.
+     * @param tag IElementNode
+     * @param context ProcessorContext
+     * @return a {@link ITagWorker} instance constructed based on the passed parameters.
      */
     ITagWorker getTagWorker(IElementNode tag, ProcessorContext context);
 

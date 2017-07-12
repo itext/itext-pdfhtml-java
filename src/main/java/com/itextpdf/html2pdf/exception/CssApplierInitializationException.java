@@ -49,15 +49,15 @@ import com.itextpdf.io.util.MessageFormatUtil;
  */
 public class CssApplierInitializationException extends RuntimeException {
 
-	/**
-	 * Creates a new <code>CssApplierInitializationException</code> instance.
-	 *
-	 * @param message the message
-	 * @param className the class name of the CSS applier
-	 * @param tag the key
-	 */
-	public CssApplierInitializationException(String message, String className, String tag){
-        super(MessageFormatUtil.format(message,className, tag));
+    /**
+     * Creates a new {@link CssApplierInitializationException} instance.
+     *
+     * @param message   the message
+     * @param className the class name of the CSS applier
+     * @param tag       the key
+     */
+    public CssApplierInitializationException(String message, String className, String tag) {
+        super(MessageFormatUtil.format(message, className, tag));
     }
 
     /** The message template in case reflection failed. */

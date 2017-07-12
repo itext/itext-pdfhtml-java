@@ -109,9 +109,9 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     private int estimatedNumberOfPages;
 
     /**
-     * Instantiates a new <code>HtmlDocumentRenderer</code> instance.
+     * Instantiates a new {@link HtmlDocumentRenderer} instance.
      *
-     * @param document an iText <code>Document</code> instance
+     * @param document an iText {@link Document} instance
      * @param immediateFlush the immediate flush indicator
      */
     public HtmlDocumentRenderer(Document document, boolean immediateFlush) {
@@ -339,6 +339,5 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     private boolean isCurrentPageRight() {
         return !isCurrentPageLeft();
     }
-
 
 }

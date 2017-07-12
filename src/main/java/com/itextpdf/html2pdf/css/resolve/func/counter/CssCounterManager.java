@@ -82,7 +82,7 @@ public class CssCounterManager {
     private Map<INode, Map<String, Integer> > counters = new HashMap<>();
 
     /**
-     * Creates a new <code>CssCounterManager</code> instance.
+     * Creates a new {@link CssCounterManager} instance.
      */
     public CssCounterManager() {
     }
@@ -93,7 +93,7 @@ public class CssCounterManager {
      * @param counterName the counter name
      * @param listSymbolType the list symbol type
      * @param scope the scope
-     * @return the counter value as a <code>String</code>
+     * @return the counter value as a {@link String}
      */
     public String resolveCounter(String counterName, String listSymbolType, INode scope) {
         Map<String, Integer> scopeCounters = findSuitableScopeMap(scope, counterName);
@@ -142,7 +142,7 @@ public class CssCounterManager {
      * @param counterSeparatorStr the counter separator
      * @param listSymbolType the list symbol type
      * @param scope the scope
-     * @return the counters as a <code>String</code>
+     * @return the counters as a {@link String}
      */
     public String resolveCounters(String counterName, String counterSeparatorStr, String listSymbolType, INode scope) {
         INode currentScope = scope;

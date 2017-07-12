@@ -50,7 +50,7 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 public final class HtmlUtils {
 
     /**
-     * Creates a new <code>HtmlUtils</code> instance.
+     * Creates a new {@link HtmlUtils} instance.
      */
     private HtmlUtils() {
     }

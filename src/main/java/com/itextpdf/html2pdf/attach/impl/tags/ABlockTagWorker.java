@@ -57,7 +57,7 @@ import static com.itextpdf.kernel.pdf.PdfName.Link;
 public class ABlockTagWorker extends DivTagWorker {
     
     /**
-     * Creates a new <code>ABlockTagWorker</code> instance.
+     * Creates a new {@link ABlockTagWorker} instance.
      *
      * @param element the element
      * @param context the context

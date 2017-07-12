@@ -48,7 +48,7 @@ package com.itextpdf.html2pdf.css.selector.item;
 final class CssSpecificityConstants {
 
     /**
-     * Creates a new <code>CssSpecificityConstants</code> instance.
+     * Creates a new {@link CssSpecificityConstants} instance.
      */
     private CssSpecificityConstants() {
     }

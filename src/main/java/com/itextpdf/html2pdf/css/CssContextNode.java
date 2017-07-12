@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -64,7 +65,7 @@ public abstract class CssContextNode implements INode, IStylesContainer {
     private Map<String, String> styles;
 
     /**
-     * Creates a new <code>CssContextNode</code> instance.
+     * Creates a new {@link CssContextNode} instance.
      *
      * @param parentNode the parent node
      */

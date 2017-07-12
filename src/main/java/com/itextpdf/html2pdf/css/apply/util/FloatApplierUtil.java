@@ -57,7 +57,7 @@ import java.util.Map;
 public class FloatApplierUtil {
 
     /**
-     * Creates a new <code>FloatApplierUtil</code> instance.
+     * Creates a new {@link FloatApplierUtil} instance.
      */
     private FloatApplierUtil() {
     }

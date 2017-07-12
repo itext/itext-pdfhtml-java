@@ -52,7 +52,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Wrapper for the <code>span</code> element.
+ * Wrapper for the {@code span} element.
  */
 public class SpanWrapper implements IWrapElement {
 

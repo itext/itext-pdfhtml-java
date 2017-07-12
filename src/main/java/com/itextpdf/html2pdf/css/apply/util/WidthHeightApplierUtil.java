@@ -65,7 +65,7 @@ public final class WidthHeightApplierUtil {
     private static final Logger logger = LoggerFactory.getLogger(WidthHeightApplierUtil.class);
 
     /**
-     * Creates a new <code>WidhtHeightApplierUtil</code> instance.
+     * Creates a new {@link WidthHeightApplierUtil} instance.
      */
     private WidthHeightApplierUtil() {
     }

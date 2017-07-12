@@ -48,7 +48,7 @@ package com.itextpdf.html2pdf.css.media;
 public final class MediaRuleConstants {
 
     /**
-     * Creates a new <code>MediaRuleConstants</code> instance.
+     * Creates a new {@link MediaRuleConstants} instance.
      */
     private MediaRuleConstants() {
     }

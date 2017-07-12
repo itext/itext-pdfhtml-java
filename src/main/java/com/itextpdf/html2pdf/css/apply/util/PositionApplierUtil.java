@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.layout.LayoutPosition;
 import com.itextpdf.layout.property.Property;
@@ -53,7 +54,6 @@ import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.Map;
 
 /**
@@ -65,7 +65,7 @@ public final class PositionApplierUtil {
     private static final Logger logger = LoggerFactory.getLogger(PositionApplierUtil.class);
 
     /**
-     * Creates a new <code>PositionApplierUtil</code> instance.
+     * Creates a new {@link PositionApplierUtil} instance.
      */
     private PositionApplierUtil() {
     }

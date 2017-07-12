@@ -77,7 +77,7 @@ public interface ITagWorker {
     boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context);
 
     /**
-     * Gets a processed object if it can be expressed as an <code>IPropertyContainer</code> instance.
+     * Gets a processed object if it can be expressed as an {@link IPropertyContainer} instance.
      *
      * @return the same object on every call.
      *         Might return null either if result is not yet produced or if this particular

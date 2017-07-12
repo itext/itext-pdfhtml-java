@@ -49,10 +49,10 @@ import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
 import com.itextpdf.html2pdf.css.validate.CssDeclarationValidationMaster;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.io.util.MessageFormatUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -68,7 +68,7 @@ public class CssStyleSheet {
     private List<CssStatement> statements;
 
     /**
-     * Creates a new <code>CssStyleSheet</code> instance.
+     * Creates a new {@link CssStyleSheet} instance.
      */
     public CssStyleSheet() {
         statements = new ArrayList<>();

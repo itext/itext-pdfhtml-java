@@ -48,7 +48,7 @@ package com.itextpdf.html2pdf.css;
 public final class CssRuleName {
 
     /**
-     * Creates a new <code>CssRuleName</code> instance.
+     * Creates a new {@link CssRuleName} instance.
      */
     private CssRuleName() {
     }

@@ -70,13 +70,14 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.io.util.StreamUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -100,7 +101,7 @@ public class DefaultCssResolver implements ICssResolver {
     private List<CssFontFaceRule> fonts = new ArrayList<>();
 
     /**
-     * Creates a new <code>DefaultCssResolver</code> instance.
+     * Creates a new {@link DefaultCssResolver} instance.
      *
      * @param treeRoot the root node
      * @param mediaDeviceDescription the media device description
@@ -113,7 +114,7 @@ public class DefaultCssResolver implements ICssResolver {
     }
 
     /**
-     * Creates a new <code>DefaultCssResolver</code> instance.
+     * Creates a new {@link DefaultCssResolver} instance.
      *
      * @param treeRoot the root node
      * @param context the processor context
@@ -231,7 +232,7 @@ public class DefaultCssResolver implements ICssResolver {
     }
 
     /**
-     * Converts a list of {@link CssDeclaration} instances to a map consisting of <code>String</code> key-value pairs.
+     * Converts a list of {@link CssDeclaration} instances to a map consisting of {@link String} key-value pairs.
      *
      * @param nodeCssDeclarations the node css declarations
      * @return the map

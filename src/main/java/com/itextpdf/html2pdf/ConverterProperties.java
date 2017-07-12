@@ -76,16 +76,16 @@ public class ConverterProperties {
     private boolean createAcroForm = false;
 
     /**
-     * Instantiates a new ConverterProperties instance.
+     * Instantiates a new {@link ConverterProperties} instance.
      */
     public ConverterProperties() {
     }
 
     /**
-     * Instantiates a new ConverterProperties instance based on another ConverterProperties instance
+     * Instantiates a new {@link ConverterProperties} instance based on another {@link ConverterProperties} instance
      * (copy constructor).
      *
-     * @param other the other ConverterProperties instance
+     * @param other the other {@link ConverterProperties} instance
      */
     public ConverterProperties(ConverterProperties other) {
         this.mediaDeviceDescription = other.mediaDeviceDescription;

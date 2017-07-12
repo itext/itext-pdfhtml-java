@@ -53,12 +53,12 @@ import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.property.Property;
 
 /**
- * TagWorker class for the <code>a</code> element.
+ * TagWorker class for the {@code a} element.
  */
 public class ATagWorker extends SpanTagWorker {
 
     /**
-     * Creates a new <code>ATagWorker</code> instance.
+     * Creates a new {@link ATagWorker} instance.
      *
      * @param element the element
      * @param context the context
@@ -93,6 +93,5 @@ public class ATagWorker extends SpanTagWorker {
             firstElement.setProperty(Property.DESTINATION, name);
         }
     }
-
 
 }

@@ -87,7 +87,7 @@ public class MediaDeviceDescription {
     }
 
     /**
-     * Creates a new <code>MediaDeviceDescription</code> instance.
+     * Creates a new {@link MediaDeviceDescription} instance.
      *
      * @param type the type
      * @param width the width
@@ -100,7 +100,7 @@ public class MediaDeviceDescription {
     }
 
     /**
-     * Creates the default <code>MediaDeviceDescription</code>.
+     * Creates the default {@link MediaDeviceDescription}.
      *
      * @return the media device description
      */

@@ -58,7 +58,7 @@ public class CssPagePseudoClassSelectorItem implements ICssSelectorItem {
     private String pagePseudoClass;
 
     /**
-     * Creates a new <code>CssPagePseudoClassSelectorItem<code> instance.
+     * Creates a new {@link CssPagePseudoClassSelectorItem} instance.
      *
      * @param pagePseudoClass the page pseudo class name
      */

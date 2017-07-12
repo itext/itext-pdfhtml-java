@@ -58,7 +58,7 @@ import com.itextpdf.layout.property.Property;
 public class LinkHelper {
 
     /**
-     * Creates a new <code>LinkHelper</code> class.
+     * Creates a new {@link LinkHelper} class.
      */
     private LinkHelper() {
     }

@@ -59,7 +59,7 @@ public class PageCountElementNode extends JsoupElementNode implements ICustomEle
     private boolean totalPageCount = false;
 
     /**
-     * Creates a new <code>PageCountElementNode</code> instance.
+     * Creates a new {@link PageCountElementNode} instance.
      *
      * @param totalPageCount indicates if the node represents the total page count
      */

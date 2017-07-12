@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.selector.ICssSelector;
 import com.itextpdf.html2pdf.html.node.INode;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -68,7 +69,7 @@ public class CssRuleSet extends CssStatement {
     private List<CssDeclaration> importantDeclarations;
 
     /**
-     * Creates a new <code>CssRuleSet</code>.
+     * Creates a new {@link CssRuleSet}.
      *
      * @param selector the CSS selector
      * @param declarations the CSS declarations

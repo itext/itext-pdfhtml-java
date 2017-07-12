@@ -64,17 +64,17 @@ import java.util.List;
  */
 public class DisplayTableTagWorker implements ITagWorker {
 
-    /** Two-dimensional array of <code>Cell</code> objects. */
+    /** Two-dimensional array of {@link Cell} objects. */
     private List<List<Cell>> columns = new ArrayList<>();
-    
+
     /** The table. */
     private IPropertyContainer table;
-    
+
     /** The helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
 
     /**
-     * Creates a new <code>DisplayTableTagWorker</code> instance.
+     * Creates a new {@link DisplayTableTagWorker} instance.
      *
      * @param element the element
      * @param context the context

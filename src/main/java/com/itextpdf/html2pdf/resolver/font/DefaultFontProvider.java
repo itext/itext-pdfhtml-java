@@ -75,14 +75,14 @@ public class DefaultFontProvider extends FontProvider {
     };
 
     /**
-     * Creates a new <code>DefaultFontProvider</code> instance.
+     * Creates a new {@link DefaultFontProvider} instance.
      */
     public DefaultFontProvider() {
         this(true, true, false);
     }
 
     /**
-     * Creates a new <code>DefaultFontProvider</code> instance.
+     * Creates a new {@link DefaultFontProvider} instance.
      *
      * @param registerStandardPdfFonts use true if you want to register the standard Type 1 fonts (can't be embedded)
      * @param registerShippedFreeFonts use true if you want to register the shipped fonts (can be embedded)

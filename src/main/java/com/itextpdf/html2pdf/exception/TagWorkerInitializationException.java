@@ -49,19 +49,19 @@ import com.itextpdf.io.util.MessageFormatUtil;
  */
 public class TagWorkerInitializationException extends RuntimeException {
 
-	/**
-	 * Creates a <code>TagWorkerInitializationException</code> instance.
-	 *
-	 * @param message the message
-	 * @param classNames the class names
-	 * @param tag the tag
-	 */
-	public TagWorkerInitializationException(String message, String classNames, String tag) {
+    /**
+     * Creates a {@link TagWorkerInitializationException} instance.
+     *
+     * @param message    the message
+     * @param classNames the class names
+     * @param tag        the tag
+     */
+    public TagWorkerInitializationException(String message, String classNames, String tag) {
         super(MessageFormatUtil.format(message,classNames,tag));
     }
 
     /**
-	 * Creates a <code>TagWorkerInitializationException</code> instance.
+     *  Creates a {@link TagWorkerInitializationException} instance.
      *
      * @param message the message
      * @param classNames the class names
@@ -76,5 +76,5 @@ public class TagWorkerInitializationException extends RuntimeException {
     public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
 
     /**  Serial version UID. */
-	private static final long serialVersionUID = -2832848748573223220L;
+    private static final long serialVersionUID = -2832848748573223220L;
 }

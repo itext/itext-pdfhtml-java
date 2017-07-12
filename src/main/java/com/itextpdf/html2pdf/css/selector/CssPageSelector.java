@@ -53,7 +53,7 @@ import com.itextpdf.html2pdf.html.node.INode;
 public class CssPageSelector extends AbstractCssSelector {
 
     /**
-     * Creates a new <code>CssPageSelector</code> instance.
+     * Creates a new {@link CssPageSelector} instance.
      *
      * @param pageSelectorStr the page selector
      */

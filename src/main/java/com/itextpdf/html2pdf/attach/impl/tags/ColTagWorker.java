@@ -59,7 +59,7 @@ public class ColTagWorker implements ITagWorker {
     private ColWrapper col;
 
     /**
-     * Creates a new <code>ColTagWorker</code> instance.
+     * Creates a new {@link ColTagWorker} instance.
      *
      * @param element the element
      * @param context the context

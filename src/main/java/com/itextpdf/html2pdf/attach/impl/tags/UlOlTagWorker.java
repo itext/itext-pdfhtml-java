@@ -56,18 +56,18 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.Property;
 
 /**
- * TagWorker class for the <code>ul</code> and <code>ol</code> elements.
+ * TagWorker class for the {@code ul} and {@code ol} elements.
  */
 public class UlOlTagWorker implements ITagWorker {
 
     /** The list object. */
     private List list;
-    
+
     /** Helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
 
     /**
-     * Creates a new <code>UlOlTagWorker</code> instance.
+     * Creates a new {@link UlOlTagWorker} instance.
      *
      * @param element the element
      * @param context the context

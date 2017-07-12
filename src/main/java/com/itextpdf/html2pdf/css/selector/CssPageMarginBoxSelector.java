@@ -57,7 +57,7 @@ public class CssPageMarginBoxSelector implements ICssSelector {
     private ICssSelector pageSelector;
 
     /**
-     * Creates a new <code>CssPageMarginBoxSelector</code> instance.
+     * Creates a new {@link CssPageMarginBoxSelector} instance.
      *
      * @param pageMarginBoxName the page margin box name
      * @param pageSelector the page selector

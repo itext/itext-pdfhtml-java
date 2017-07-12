@@ -46,7 +46,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Class that bundles all the media types and allows you to registered valid media types in a <code>Set</code>.
+ * Class that bundles all the media types and allows you to registered valid media types in a {@link Set}.
  */
 public final class MediaType {
 
@@ -87,7 +87,7 @@ public final class MediaType {
     public static final String TV = registerMediaType("tv");
 
     /**
-     * Creates a new <code>MediaType</code> instance.
+     * Creates a new {@link MediaType} instance.
      */
     private MediaType() {
     }

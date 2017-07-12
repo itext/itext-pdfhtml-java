@@ -46,7 +46,7 @@ import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.layout.element.AbstractElement;
 
 /**
- * Implementation of the <code>AbstractElement</code> class for form fields.
+ * Implementation of the {@link AbstractElement} class for form fields.
  *
  * @param <T> the generic type of the form field (e.g. input field, button, text area)
  */
@@ -56,7 +56,7 @@ public abstract class FormField<T extends IFormField> extends AbstractElement<T>
     private String id;
 
     /**
-     * Instantiates a new <code>FormField</code> instance.
+     * Instantiates a new {@link FormField} instance.
      *
      * @param id the id
      */

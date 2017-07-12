@@ -45,15 +45,15 @@ package com.itextpdf.html2pdf.attach;
 import java.util.Stack;
 
 /**
- * State machine to push, pop, peek,... {@link ITagWorker} instances to and from the <code>Stack</code>.
+ * State machine to push, pop, peek,... {@link ITagWorker} instances to and from the {@link Stack}.
  */
 public class State {
-    
+
     /** The stack. */
     private Stack<ITagWorker> stack;
 
     /**
-     * Instantiates a new <code>State</code> instance.
+     * Instantiates a new {@link State} instance.
      */
     public State() {
         stack = new Stack<>();

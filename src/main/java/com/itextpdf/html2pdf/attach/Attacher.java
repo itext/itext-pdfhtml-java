@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
 import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.IElement;
 
 import java.util.List;
 
@@ -57,7 +58,7 @@ import java.util.List;
 public class Attacher {
 
     /**
-     * Instantiates a new <code>Attacher</code> instance.
+     * Instantiates a new {@link Attacher} instance.
      */
     private Attacher() {
     }
@@ -65,12 +66,12 @@ public class Attacher {
     /**
      * Attaches the HTML content stored in a document node to
      * an existing PDF document, using specific converter properties,
-     * and returning an iText <code>Document</code> object.
+     * and returning an iText {@link Document} object.
      *
      * @param documentNode the document node with the HTML
-     * @param pdfDocument the <code>PdfDocument</code> instance
-     * @param converterProperties the <code>ConverterProperties</code> instance
-     * @return an iText <code>Document</code> object
+     * @param pdfDocument the {@link PdfDocument} instance
+     * @param converterProperties the {@link ConverterProperties} instance
+     * @return an iText {@link Document} object
      */
     public static Document attach(IDocumentNode documentNode, PdfDocument pdfDocument, ConverterProperties converterProperties) {
         IHtmlProcessor processor = new DefaultHtmlProcessor(converterProperties);
@@ -79,11 +80,11 @@ public class Attacher {
 
     /**
      * Attaches the HTML content stored in a document node to
-     * a list of <code>IElement</code> objects.
+     * a list of {@link IElement} objects.
      *
      * @param documentNode the document node with the HTML
-     * @param converterProperties the <code>ConverterProperties</code> instance
-     * @return the list of <code>IElement</code> objects
+     * @param converterProperties the {@link ConverterProperties} instance
+     * @return the list of {@link IElement} objects
      */
     public static List<com.itextpdf.layout.element.IElement> attach(IDocumentNode documentNode, ConverterProperties converterProperties) {
         IHtmlProcessor processor = new DefaultHtmlProcessor(converterProperties);

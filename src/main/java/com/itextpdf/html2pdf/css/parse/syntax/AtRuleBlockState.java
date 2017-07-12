@@ -51,8 +51,8 @@ class AtRuleBlockState implements IParserState {
     private CssParserStateController controller;
 
     /**
-     * Creates a new <code>AtRuleBlockState</code> instance.
-     * @param	controller	the state machine that parses the CSS
+     * Creates a new {@link AtRuleBlockState} instance.
+     * @param   controller  the state machine that parses the CSS
      */
     public AtRuleBlockState(CssParserStateController controller) {
         this.controller = controller;

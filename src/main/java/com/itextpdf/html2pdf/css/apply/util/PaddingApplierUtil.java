@@ -63,7 +63,7 @@ public final class PaddingApplierUtil {
     private static final Logger logger = LoggerFactory.getLogger(PaddingApplierUtil.class);
 
     /**
-     * Creates a new <code>PaddingApplierUtil</code> instance.
+     * Creates a new {@link PaddingApplierUtil} instance.
      */
     private PaddingApplierUtil() {
     }

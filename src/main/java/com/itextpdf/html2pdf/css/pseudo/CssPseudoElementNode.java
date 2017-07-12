@@ -45,9 +45,10 @@ package com.itextpdf.html2pdf.css.pseudo;
 import com.itextpdf.html2pdf.css.CssContextNode;
 import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IAttributes;
+import com.itextpdf.html2pdf.html.node.ICustomElementNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
-import com.itextpdf.html2pdf.html.node.ICustomElementNode;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -65,7 +66,7 @@ public class CssPseudoElementNode extends CssContextNode implements IElementNode
     private String pseudoElementTagName;
 
     /**
-     * Creates a new <code>CssPseudoElementNode</code> instance.
+     * Creates a new {@link CssPseudoElementNode} instance.
      *
      * @param parentNode the parent node
      * @param pseudoElementName the pseudo element name

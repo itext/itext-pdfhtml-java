@@ -44,8 +44,8 @@ package com.itextpdf.html2pdf.css.selector.item;
 
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
-
 import com.itextpdf.io.util.MessageFormatUtil;
+
 import java.util.regex.Pattern;
 
 /**
@@ -63,7 +63,7 @@ public class CssAttributeSelectorItem implements ICssSelectorItem {
     private String value = null;
 
     /**
-     * Creates a new <code>CssAttributeSelectorItem<code> instance.
+     * Creates a new {@link CssAttributeSelectorItem} instance.
      *
      * @param attrSelector the attribute
      */

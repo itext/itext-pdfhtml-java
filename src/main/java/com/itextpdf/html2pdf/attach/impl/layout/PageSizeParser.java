@@ -45,13 +45,14 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.io.util.MessageFormatUtil;
-import java.util.HashMap;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The Class PageSizeParser.
@@ -188,7 +189,7 @@ class PageSizeParser {
     }
 
     /**
-     * Checks if a string represents thae CSS value for landscape or portrait orientation.
+     * Checks if a string represents the CSS value for landscape or portrait orientation.
      *
      * @param pageSizeChunk the string that possibly represents a landscape or portrait value
      * @return true, if the string represents a landscape or portrait value

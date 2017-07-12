@@ -49,12 +49,12 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
 
 /**
- * Tag worker class for the <code>abbr</code> element.
+ * Tag worker class for the {@code abbr} element.
  */
 public class AbbrTagWorker extends SpanTagWorker {
 
     /**
-     * Creates a new <code>AbbrTagWorker</code> instance.
+     * Creates a new {@link AbbrTagWorker} instance.
      *
      * @param tag the tag
      * @param context the context

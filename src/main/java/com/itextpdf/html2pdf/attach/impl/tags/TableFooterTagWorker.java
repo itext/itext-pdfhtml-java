@@ -49,9 +49,9 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
  * TagWorker class for the footer of a table.
  */
 public class TableFooterTagWorker extends TableTagWorker {
-    
+
     /**
-     * Creates a new <code>TableFooterTagWorker</code> instance.
+     * Creates a new {@link TableFooterTagWorker} instance.
      *
      * @param element the element
      * @param context the context

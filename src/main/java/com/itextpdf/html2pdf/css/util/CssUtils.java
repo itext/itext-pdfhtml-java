@@ -59,7 +59,7 @@ public class CssUtils {
     private static final String[] RELATIVE_MEASUREMENTS = new String[] {CssConstants.PERCENTAGE, CssConstants.EM, CssConstants.EX, CssConstants.REM};
 
     /**
-     * Creates a new <code>CssUtils</code> instance.
+     * Creates a new {@link CssUtils} instance.
      */
     private CssUtils() {
     }
@@ -147,7 +147,7 @@ public class CssUtils {
 
     /**
      * Parses a length with an allowed metric unit (px, pt, in, cm, mm, pc, q) or numeric value (e.g. 123, 1.23,
-     * .123) to pt.<br />
+     * .123) to pt.<br>
      * A numeric value (without px, pt, etc in the given length string) is considered to be in the default metric that
      * was given.
      *
@@ -208,7 +208,7 @@ public class CssUtils {
     }
 
     /**
-     * Parses an relative value based on the base value that was given, in the metric unit of the base value. <br />
+     * Parses an relative value based on the base value that was given, in the metric unit of the base value.<br>
      * (e.g. margin=10% should be based on the page width, so if an A4 is used, the margin = 0.10*595.0 = 59.5f)
      *
      * @param relativeValue in %, em or ex.
@@ -274,8 +274,8 @@ public class CssUtils {
     }
 
     /**
-     * Method used in preparation of splitting a string containing a numeric value with a metric unit (e.g. 18px, 9pt, 6cm, etc).<br /><br />
-     * Determines the position between digits and affiliated characters ('+','-','0-9' and '.') and all other characters.<br />
+     * Method used in preparation of splitting a string containing a numeric value with a metric unit (e.g. 18px, 9pt, 6cm, etc).<br><br>
+     * Determines the position between digits and affiliated characters ('+','-','0-9' and '.') and all other characters.<br>
      * e.g. string "16px" will return 2, string "0.5em" will return 3 and string '-8.5mm' will return 4.
      *
      * @param string containing a numeric value with a metric unit
@@ -376,7 +376,7 @@ public class CssUtils {
     }
 
     /**
-     * Parses <code>url("file.jpg")</code> to <code>file.jpg</code>.
+     * Parses {@code url("file.jpg")} to {@code file.jpg}.
      *
      * @param url the url attribute to parse
      * @return the parsed url. Or original url if not wrappend in url()

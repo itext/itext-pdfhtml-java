@@ -49,7 +49,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
 
 /**
- * TagWorker class for the <code>br</code> element.
+ * TagWorker class for the {@code br} element.
  */
 public class BrTagWorker implements ITagWorker {
 
@@ -57,7 +57,7 @@ public class BrTagWorker implements ITagWorker {
     private Text newLine = new Text("\n");
 
     /**
-     * Creates a new <code>BrTagWorker</code> instance.
+     * Creates a new {@link BrTagWorker} instance.
      *
      * @param element the element
      * @param context the context

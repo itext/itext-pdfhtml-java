@@ -66,17 +66,17 @@ import java.nio.charset.StandardCharsets;
 public final class CssStyleSheetParser {
 
     /**
-     * Creates a new <code>CssStyleSheetParser</code>.
+     * Creates a new {@link CssStyleSheetParser}.
      */
     private CssStyleSheetParser() {
     }
 
     /**
-     * Parses a stream into a {@CssStyleSheet}.
+     * Parses a stream into a {@link CssStyleSheet}.
      *
      * @param stream the stream
      * @param baseUrl the base url
-     * @return the resulting {@CssStyleSheet}
+     * @return the resulting {@link CssStyleSheet}
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static CssStyleSheet parse(InputStream stream, String baseUrl) throws IOException {
@@ -129,10 +129,10 @@ public final class CssStyleSheetParser {
     }
 
     /**
-     * Parses a stream into a {@CssStyleSheet}.
+     * Parses a stream into a {@link CssStyleSheet}.
      *
      * @param stream the stream
-     * @return the resulting {@CssStyleSheet}
+     * @return the resulting {@link CssStyleSheet}
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static CssStyleSheet parse(InputStream stream) throws IOException {
@@ -140,11 +140,11 @@ public final class CssStyleSheetParser {
     }
 
     /**
-     * Parses a string into a {@CssStyleSheet}.
+     * Parses a string into a {@link CssStyleSheet}.
      *
      * @param data the style sheet data
      * @param baseUrl the base url
-     * @return the resulting {@CssStyleSheet}
+     * @return the resulting {@link CssStyleSheet}
      */
     public static CssStyleSheet parse(String data, String baseUrl) {
         // TODO charset? better to create parse logic based on string completely
@@ -157,10 +157,10 @@ public final class CssStyleSheetParser {
     }
 
     /**
-     * Parses a string into a {@CssStyleSheet}.
+     * Parses a string into a {@link CssStyleSheet}.
      *
      * @param data the data
-     * @return the resulting {@CssStyleSheet}
+     * @return the resulting {@link CssStyleSheet}
      */
     public static CssStyleSheet parse(String data) {
         return parse(data, null);

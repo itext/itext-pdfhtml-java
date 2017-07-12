@@ -63,7 +63,7 @@ public class MediaQuery {
     private List<MediaExpression> expressions;
 
     /**
-     * Creates a new <code>MediaQuery</code> instance.
+     * Creates a new {@link MediaQuery} instance.
      *
      * @param type the type
      * @param expressions the expressions

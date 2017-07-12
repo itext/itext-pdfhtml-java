@@ -55,10 +55,10 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.html2pdf.html.node.ITextNode;
+import com.itextpdf.io.util.MessageFormatUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -79,7 +79,7 @@ class CssContentPropertyResolver {
      * @param styles the styles map
      * @param contentContainer the content container
      * @param context the CSS context
-     * @return a list of {@link iNode} instances
+     * @return a list of {@link INode} instances
      */
     static List<INode> resolveContent(Map<String, String> styles, INode contentContainer, CssContext context) {
         String contentStr = styles.get(CssConstants.CONTENT);
@@ -181,7 +181,7 @@ class CssContentPropertyResolver {
      * Resolves content in case of errors.
      *
      * @param contentStr the content
-     * @return the resulting list of {@link iNode} instances
+     * @return the resulting list of {@link INode} instances
      */
     private static List<INode> errorFallback(String contentStr) {
         Logger logger = LoggerFactory.getLogger(CssContentPropertyResolver.class);
@@ -196,7 +196,7 @@ class CssContentPropertyResolver {
     }
 
     /**
-     * {@link iTextNode} implementation for content text.
+     * {@link ITextNode} implementation for content text.
      */
     private static class ContentTextNode implements ITextNode {
 
@@ -207,7 +207,7 @@ class CssContentPropertyResolver {
         private String content;
 
         /**
-         * Creates a new <code>ContentTextNode</code> instance.
+         * Creates a new {@link ContentTextNode} instance.
          *
          * @param parent the parent
          * @param content the content

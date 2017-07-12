@@ -52,7 +52,7 @@ import com.itextpdf.layout.renderer.IRenderer;
 public class Button extends FormField<Button> {
 
     /**
-     * Creates a new <code>Button</code> instance.
+     * Creates a new {@link Button} instance.
      *
      * @param id the id
      */

@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
+
 import java.util.Map;
 
 /**
@@ -55,7 +56,7 @@ import java.util.Map;
 public class OpacityApplierUtil {
     
 	/**
-	 * Creates a new <code>OpacityApplierUtil</code> instance.
+	 * Creates a new {@link OpacityApplierUtil} instance.
 	 */
 	private OpacityApplierUtil() {}
 	

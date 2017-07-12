@@ -54,7 +54,7 @@ import java.util.Set;
 public final class CssPropertyMerger {
 
     /**
-     * Creates a new <code>CssPropertyMerger</code> class.
+     * Creates a new {@link CssPropertyMerger} class.
      */
     private CssPropertyMerger() {
     }

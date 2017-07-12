@@ -42,7 +42,6 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
-
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.selector.CssSelector;
 import com.itextpdf.html2pdf.css.selector.ICssSelector;
@@ -69,7 +68,7 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
     private static final LastChildSelectorItem lastChild = new LastChildSelectorItem();
 
     /**
-     * Creates a new <code>CssPseudoClassSelectorItem<code> instance.
+     * Creates a new {@link CssPseudoClassSelectorItem} instance.
      *
      * @param pseudoClass the pseudo class name
      * @deprecated not intended for public use {@link CssPseudoClassSelectorItem#create(String)} instead.
@@ -147,7 +146,7 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
     private static class ChildSelectorItem extends CssPseudoClassSelectorItem {
 
         /**
-         * Creates a new <code>CssPseudoClassSelectorItem<code> instance.
+         * Creates a new {@link CssPseudoClassSelectorItem} instance.
          *
          * @param pseudoClass the pseudo class name
          */
@@ -233,8 +232,6 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
         /**
          * Gets the nth child arguments.
-         *
-         * @return the nth child arguments
          */
         private void getNthChildArguments() {
             if (arguments.matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {

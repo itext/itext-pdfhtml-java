@@ -51,6 +51,7 @@ import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -118,7 +119,7 @@ class HtmlStylesToCssConverter {
     private interface IAttributeConverter {
         
         /**
-         * Checks if the converter is supported for a specifc element.
+         * Checks if the converter is supported for a specific element.
          *
          * @param elementName the element name
          * @return true, if the converter is supported
@@ -137,7 +138,7 @@ class HtmlStylesToCssConverter {
 
 
     /**
-     * {@IAttributeConverter} implementation for HTML border styles.
+     * {@link IAttributeConverter} implementation for HTML border styles.
      */
     private static class BorderAttributeConverter implements IAttributeConverter {
 
@@ -193,7 +194,7 @@ class HtmlStylesToCssConverter {
     }
 
     /**
-     * {@IAttributeConverter} implementation for HTML background color styles.
+     * {@link IAttributeConverter} implementation for HTML background color styles.
      */
     private static class BgColorAttributeConverter implements IAttributeConverter {
         
@@ -222,7 +223,7 @@ class HtmlStylesToCssConverter {
 
 
     /**
-     * {@IAttributeConverter} implementation for font color styles.
+     * {@link IAttributeConverter} implementation for font color styles.
      */
     private static class FontColorAttributeConverter implements IAttributeConverter {
         
@@ -244,7 +245,7 @@ class HtmlStylesToCssConverter {
     }
 
     /**
-     * {@IAttributeConverter} implementation for size properties.
+     * {@link IAttributeConverter} implementation for size properties.
      */
     private static class SizeAttributeConverter implements IAttributeConverter {
         
@@ -299,7 +300,7 @@ class HtmlStylesToCssConverter {
     }
 
     /**
-     * {@IAttributeConverter} implementation for HTML font face styles.
+     * {@link IAttributeConverter} implementation for HTML font face styles.
      */
     private static class FontFaceAttributeConverter implements IAttributeConverter {
         
@@ -321,7 +322,7 @@ class HtmlStylesToCssConverter {
     }
 
     /**
-     * {@IAttributeConverter} implementation for HTML ordered list types.
+     * {@link IAttributeConverter} implementation for HTML ordered list types.
      */
     private static class TypeAttributeConverter implements IAttributeConverter {
 
@@ -361,7 +362,7 @@ class HtmlStylesToCssConverter {
     }
 
     /**
-     * {@IAttributeConverter} implementation for HTML direction styles (e.g. right to left direction).
+     * {@link IAttributeConverter} implementation for HTML direction styles (e.g. right to left direction).
      */
     private static class DirAttributeConverter implements IAttributeConverter {
 
@@ -383,7 +384,7 @@ class HtmlStylesToCssConverter {
     }
 
     /**
-     * {@IAttributeConverter} implementation for HTML width values.
+     * {@link IAttributeConverter} implementation for HTML width values.
      */
     private static class WidthAttributeConverter implements IAttributeConverter {
 
@@ -412,7 +413,7 @@ class HtmlStylesToCssConverter {
     }
 
     /**
-     * {@IAttributeConverter} implementation for HTML height values.
+     * {@link IAttributeConverter} implementation for HTML height values.
      */
     private static class HeightAttributeConverter implements IAttributeConverter {
 
@@ -438,7 +439,7 @@ class HtmlStylesToCssConverter {
     }
 
     /**
-     * {@IAttributeConverter} implementation for HTML horizontal alignment styles.
+     * {@link IAttributeConverter} implementation for HTML horizontal alignment styles.
      */
     private static class AlignAttributeConverter implements IAttributeConverter {
         
@@ -496,7 +497,7 @@ class HtmlStylesToCssConverter {
     }
 
     /**
-     * {@IAttributeConverter} implementation for HTML shade styles.
+     * {@link IAttributeConverter} implementation for HTML shade styles.
      */
     private static class NoShadeAttributeConverter implements IAttributeConverter {
 
@@ -522,7 +523,7 @@ class HtmlStylesToCssConverter {
     }
 
     /**
-     * {@IAttributeConverter} implementation for HTML vertical alignment styles.
+     * {@link IAttributeConverter} implementation for HTML vertical alignment styles.
      */
     private static class VAlignAttributeConverter implements IAttributeConverter {
         

@@ -58,15 +58,15 @@ public class ButtonTagWorker implements ITagWorker, IDisplayAware {
 
     /** The Constant DEFAULT_BUTTON_NAME. */
     private static final String DEFAULT_BUTTON_NAME = "Button";
-    
+
     /** The button. */
     private Button button;
-    
+
     /** The display value. */
     private String display;
 
     /**
-     * Creates a new <code>ButtonTagWorker</code> instance.
+     * Creates a new {@link ButtonTagWorker} instance.
      *
      * @param element the element
      * @param context the context

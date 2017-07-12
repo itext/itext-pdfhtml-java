@@ -47,7 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 
 /**
- * TagWorker class for the <code>pre</code> element.
+ * TagWorker class for the {@code pre} element.
  */
 public class PreTagWorker extends DivTagWorker {
 
@@ -55,7 +55,7 @@ public class PreTagWorker extends DivTagWorker {
     private boolean anyContentProcessed = false;
 
     /**
-     * Creates a new <code>PreTagWorker</code> instance.
+     * Creates a new {@link PreTagWorker} instance.
      *
      * @param element the element
      * @param context the context

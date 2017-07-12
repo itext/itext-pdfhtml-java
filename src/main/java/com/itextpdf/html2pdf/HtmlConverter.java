@@ -70,11 +70,11 @@ import java.util.List;
 
 /**
  * The HtmlConverter is the class you will use most when converting HTML to PDF.
- * It contains a series of static methods that accept HTML as a <code>String</code>,
- * <code>File</code>, or <code>InputStream</code>, and convert it to PDF in the
- * form of an <code>OutputStream</code>, <code>File</code>, or a series of
- * iText elements. It's also possible to write to a <code>PdfWriter</code> or
- * <code>PdfDocument</code> instance.
+ * It contains a series of static methods that accept HTML as a {@link String},
+ * {@link File}, or {@link InputStream}, and convert it to PDF in the
+ * form of an {@link OutputStream}, {@link File}, or a series of
+ * iText elements. It's also possible to write to a {@link PdfWriter} or
+ * {@link PdfDocument} instance.
  */
 public class HtmlConverter {
 
@@ -88,11 +88,11 @@ public class HtmlConverter {
     // TODO add overloads without automatic elements flushing
 
     /**
-     * Converts a <code>String</code> containing HTML to an <code>OutputStream</code>
+     * Converts a {@link String} containing HTML to an {@link OutputStream}
      * containing PDF.
      *
-     * @param html the html in the form of a <code>String</code>
-     * @param pdfStream the PDF as an <code>OutputStream</code>
+     * @param html the html in the form of a {@link String}
+     * @param pdfStream the PDF as an {@link OutputStream}
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(String html, OutputStream pdfStream) throws IOException {
@@ -100,12 +100,12 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts a <code>String</code> containing HTML to an <code>OutputStream</code>
-     * containing PDF, using specific <code>ConverterProperties</code>.
+     * Converts a {@link String} containing HTML to an {@link OutputStream}
+     * containing PDF, using specific {@link ConverterProperties}.
      *
-     * @param html the html in the form of a <code>String</code>
-     * @param pdfStream the PDF as an <code>OutputStream</code>
-     * @param converterProperties a <code>ConverterProperties</code> instance
+     * @param html the html in the form of a {@link String}
+     * @param pdfStream the PDF as an {@link OutputStream}
+     * @param converterProperties a {@link ConverterProperties} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(String html, OutputStream pdfStream, ConverterProperties converterProperties) throws IOException {
@@ -113,11 +113,11 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts a <code>String</code> containing HTML to PDF by writing PDF content
-     * to a <code>PdfWriter</code> instance.
+     * Converts a {@link String} containing HTML to PDF by writing PDF content
+     * to a {@link PdfWriter} instance.
      *
-     * @param html the html in the form of a <code>String</code>
-     * @param pdfWriter the <code>PdfWriter</code> instance
+     * @param html the html in the form of a {@link String}
+     * @param pdfWriter the {@link PdfWriter} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(String html, PdfWriter pdfWriter) throws IOException {
@@ -125,12 +125,12 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts a <code>String</code> containing HTML to PDF by writing PDF content
-     * to a <code>PdfWriter</code> instance, using specific <code>ConverterProperties</code>.
+     * Converts a {@link String} containing HTML to PDF by writing PDF content
+     * to a {@link PdfWriter} instance, using specific {@link ConverterProperties}.
      *
-     * @param html the html in the form of a <code>String</code>
-     * @param pdfWriter the <code>PdfWriter</code> instance
-     * @param converterProperties a <code>ConverterProperties</code> instance
+     * @param html the html in the form of a {@link String}
+     * @param pdfWriter the {@link PdfWriter} instance
+     * @param converterProperties a {@link ConverterProperties} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
@@ -139,10 +139,10 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML stored in a <code>File</code> to a PDF <code>File</code>.
+     * Converts HTML stored in a {@link File} to a PDF {@link File}.
      *
-     * @param htmlFile the <code>File</code> containing the source HTML
-     * @param pdfFile the <code>File</code> containing the resulting PDF
+     * @param htmlFile the {@link File} containing the source HTML
+     * @param pdfFile the {@link File} containing the resulting PDF
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(File htmlFile, File pdfFile) throws IOException {
@@ -150,12 +150,12 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML stored in a <code>File</code> to a PDF <code>File</code>,
-     * using specific <code>ConverterProperties</code>.
+     * Converts HTML stored in a {@link File} to a PDF {@link File},
+     * using specific {@link ConverterProperties}.
      *
-     * @param htmlFile the <code>File</code> containing the source HTML
-     * @param pdfFile the <code>File</code> containing the resulting PDF
-     * @param converterProperties a <code>ConverterProperties</code> instance
+     * @param htmlFile the {@link File} containing the source HTML
+     * @param pdfFile the {@link File} containing the resulting PDF
+     * @param converterProperties a {@link ConverterProperties} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(File htmlFile, File pdfFile, ConverterProperties converterProperties) throws IOException {
@@ -168,11 +168,11 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an <code>InputStream</code> to a PDF written to
-     * an <code>OutputStream</code>.
+     * Converts HTML obtained from an {@link InputStream} to a PDF written to
+     * an {@link OutputStream}.
      *
-     * @param htmlStream the <code>InputStream</code> with the source HTML
-     * @param pdfStream the <code>OutputStream</code> for the resulting PDF
+     * @param htmlStream the {@link InputStream} with the source HTML
+     * @param pdfStream the {@link OutputStream} for the resulting PDF
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, OutputStream pdfStream) throws IOException {
@@ -180,12 +180,12 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an <code>InputStream</code> to a PDF written to
-     * an <code>OutputStream</code>.
+     * Converts HTML obtained from an {@link InputStream} to a PDF written to
+     * an {@link OutputStream}.
      *
-     * @param htmlStream the <code>InputStream</code> with the source HTML
-     * @param pdfStream the <code>OutputStream</code> for the resulting PDF
-     * @param converterProperties a <code>ConverterProperties</code> instance
+     * @param htmlStream the {@link InputStream} with the source HTML
+     * @param pdfStream the {@link OutputStream} for the resulting PDF
+     * @param converterProperties a {@link ConverterProperties} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, OutputStream pdfStream, ConverterProperties converterProperties) throws IOException {
@@ -193,11 +193,11 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an <code>InputStream</code> to objects that
-     * will be added to a <code>PdfDocument</code>.
+     * Converts HTML obtained from an {@link InputStream} to objects that
+     * will be added to a {@link PdfDocument}.
      *
-     * @param htmlStream the <code>InputStream</code> with the source HTML
-     * @param pdfDocument the <code>PdfDocument</code> instance
+     * @param htmlStream the {@link InputStream} with the source HTML
+     * @param pdfDocument the {@link PdfDocument} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfDocument pdfDocument) throws IOException {
@@ -205,11 +205,11 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an <code>InputStream</code> to content that
-     * will be written to a <code>PdfWriter</code>.
+     * Converts HTML obtained from an {@link InputStream} to content that
+     * will be written to a {@link PdfWriter}.
      *
-     * @param htmlStream the <code>InputStream</code> with the source HTML
-     * @param pdfWriter the <code>PdfWriter</code> containing the resulting PDF
+     * @param htmlStream the {@link InputStream} with the source HTML
+     * @param pdfWriter the {@link PdfWriter} containing the resulting PDF
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
@@ -217,13 +217,13 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an <code>InputStream</code> to content that
-     * will be written to a <code>PdfWriter</code>, using specific
-     * <code>ConverterProperties</code>.
+     * Converts HTML obtained from an {@link InputStream} to content that
+     * will be written to a {@link PdfWriter}, using specific
+     * {@link ConverterProperties}.
      *
-     * @param htmlStream the <code>InputStream</code> with the source HTML
-     * @param pdfWriter the <code>PdfWriter</code> containing the resulting PDF
-     * @param converterProperties a <code>ConverterProperties</code> instance
+     * @param htmlStream the {@link InputStream} with the source HTML
+     * @param pdfWriter the {@link PdfWriter} containing the resulting PDF
+     * @param converterProperties a {@link ConverterProperties} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
@@ -231,12 +231,12 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an <code>InputStream</code> to objects that
-     * will be added to a <code>PdfDocument</code>, using specific <code>ConverterProperties</code>.
+     * Converts HTML obtained from an {@link InputStream} to objects that
+     * will be added to a {@link PdfDocument}, using specific {@link ConverterProperties}.
      *
-     * @param htmlStream the <code>InputStream</code> with the source HTML
-     * @param pdfDocument the <code>PdfDocument</code> instance
-     * @param converterProperties a <code>ConverterProperties</code> instance
+     * @param htmlStream the {@link InputStream} with the source HTML
+     * @param pdfDocument the {@link PdfDocument} instance
+     * @param converterProperties a {@link ConverterProperties} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
@@ -245,12 +245,12 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an <code>InputStream</code> to content that
-     * will be written to a <code>PdfWriter</code>, returning a <code>Document</code> instance.
+     * Converts HTML obtained from an {@link InputStream} to content that
+     * will be written to a {@link PdfWriter}, returning a {@link Document} instance.
      *
-     * @param htmlStream the <code>InputStream</code> with the source HTML
-     * @param pdfWriter the <code>PdfWriter</code> containing the resulting PDF
-     * @return a <code>Document</code> instance
+     * @param htmlStream the {@link InputStream} with the source HTML
+     * @param pdfWriter the {@link PdfWriter} containing the resulting PDF
+     * @return a {@link Document} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static Document convertToDocument(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
@@ -258,14 +258,14 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an <code>InputStream</code> to content that
-     * will be written to a <code>PdfWriter</code>, using specific
-     * <code>ConverterProperties</code>, returning a <code>Document</code> instance.
+     * Converts HTML obtained from an {@link InputStream} to content that
+     * will be written to a {@link PdfWriter}, using specific
+     * {@link ConverterProperties}, returning a {@link Document} instance.
      *
      * @param htmlStream the html stream
      * @param pdfWriter the pdf writer
-     * @param converterProperties a <code>ConverterProperties</code> instance
-     * @return a <code>Document</code> instance
+     * @param converterProperties a {@link ConverterProperties} instance
+     * @return a {@link Document} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static Document convertToDocument(InputStream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
@@ -273,14 +273,14 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an <code>InputStream</code> to objects that
-     * will be added to a <code>PdfDocument</code>, using specific <code>ConverterProperties</code>,
-     * returning a <code>Document</code> instance.
+     * Converts HTML obtained from an {@link InputStream} to objects that
+     * will be added to a {@link PdfDocument}, using specific {@link ConverterProperties},
+     * returning a {@link Document} instance.
      *
-     * @param htmlStream the <code>InputStream</code> with the source HTML
-     * @param pdfDocument the <code>PdfDocument</code> instance
-     * @param converterProperties a <code>ConverterProperties</code> instance
-     * @return a <code>Document</code> instance
+     * @param htmlStream the {@link InputStream} with the source HTML
+     * @param pdfDocument the {@link PdfDocument} instance
+     * @param converterProperties a {@link ConverterProperties} instance
+     * @return a {@link Document} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static Document convertToDocument(InputStream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
@@ -330,10 +330,10 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts a <code>String</code> containing HTML to a <code>List</code> of
-     * iText objects (<code>IElement</code> instances).
+     * Converts a {@link String} containing HTML to a {@link List} of
+     * iText objects ({@link IElement} instances).
      *
-     * @param html the html in the form of a <code>String</code>
+     * @param html the html in the form of a {@link String}
      * @return a list of iText building blocks
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -343,10 +343,10 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an <code>InputStream</code> to a <code>List</code> of
-     * iText objects (<code>IElement</code> instances).
+     * Converts HTML obtained from an {@link InputStream} to a {@link List} of
+     * iText objects ({@link IElement} instances).
      *
-     * @param htmlStream the <code>InputStream</code> with the source HTML
+     * @param htmlStream the {@link InputStream} with the source HTML
      * @return a list of iText building blocks
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -355,12 +355,12 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts a <code>String</code> containing HTML to a <code>List</code> of
-     * iText objects (<code>IElement</code> instances), using specific
-     * <code>ConverterProperties</code>.
+     * Converts a {@link String} containing HTML to a {@link List} of
+     * iText objects ({@link IElement} instances), using specific
+     * {@link ConverterProperties}.
      *
-     * @param html the html in the form of a <code>String</code>
-     * @param converterProperties a <code>ConverterProperties</code> instance
+     * @param html the html in the form of a {@link String}
+     * @param converterProperties a {@link ConverterProperties} instance
      * @return a list of iText building blocks
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -370,12 +370,12 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an <code>InputStream</code> to a <code>List</code> of
-     * iText objects (<code>IElement</code> instances), using specific
-     * <code>ConverterProperties</code>.
+     * Converts HTML obtained from an {@link InputStream} to a {@link List} of
+     * iText objects ({@link IElement} instances), using specific
+     * {@link ConverterProperties}.
      *
-     * @param htmlStream the <code>InputStream</code> with the source HTML
-     * @param converterProperties a <code>ConverterProperties</code> instance
+     * @param htmlStream the {@link InputStream} with the source HTML
+     * @param converterProperties a {@link ConverterProperties} instance
      * @return a list of iText building blocks
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -422,9 +422,9 @@ public class HtmlConverter {
     }
     
     /**
-     * Detects encoding of a specific <code>InputStream</code>.
+     * Detects encoding of a specific {@link InputStream}.
      *
-     * @param in the <code>InputStream</code>
+     * @param in the {@link InputStream}
      * @return the encoding; currently always returns "UTF-8".
      */
     // TODO

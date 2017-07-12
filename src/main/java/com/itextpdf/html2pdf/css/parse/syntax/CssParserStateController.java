@@ -54,10 +54,10 @@ import com.itextpdf.html2pdf.css.parse.CssDeclarationValueTokenizer;
 import com.itextpdf.html2pdf.css.parse.CssRuleSetParser;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.resolver.resource.UriResolver;
+import com.itextpdf.io.util.MessageFormatUtil;
 import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
-import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -139,14 +139,14 @@ public final class CssParserStateController {
     private UriResolver uriResolver;
 
     /**
-     * Creates a new <code>CssParserStateController</code> instance.
+     * Creates a new {@link CssParserStateController} instance.
      */
     public CssParserStateController() {
         this("");
     }
 
     /**
-     * Creates a new <code>CssParserStateController</code> instance.
+     * Creates a new {@link CssParserStateController} instance.
      *
      * @param baseUrl the base URL
      */

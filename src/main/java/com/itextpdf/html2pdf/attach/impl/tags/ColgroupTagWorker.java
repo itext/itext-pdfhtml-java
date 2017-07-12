@@ -59,7 +59,7 @@ public class ColgroupTagWorker implements ITagWorker {
     private ColgroupWrapper colgroup;
 
     /**
-     * Creates a new <code>ColgroupTagWorker</code> instance.
+     * Creates a new {@link ColgroupTagWorker} instance.
      *
      * @param element the element
      * @param context the context

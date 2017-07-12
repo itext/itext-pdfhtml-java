@@ -86,7 +86,7 @@ class PageContextProperties {
     private List<PageMarginBoxContextNode> pageMarginBoxes;
 
     /**
-     * Instantiates a new <code>PageContextProperties</code> instance.
+     * Instantiates a new {@link PageContextProperties} instance.
      *
      * @param pageProps the page context node
      * @param pagesMarginBoxes the page margin boxes
@@ -97,13 +97,13 @@ class PageContextProperties {
     }
 
     /**
-     * Resolves a node with a <code>PageContextProperties</code> instance as result.
+     * Resolves a node with a {@link PageContextProperties} instance as result.
      *
      * @param rootNode the root node to resolve
      * @param cssResolver the CSS resolver
      * @param context the CSS context
      * @param pageClasses the page classes
-     * @return the <code>PageContextProperties</code> for a specific node
+     * @return the {@link PageContextProperties} for a specific node
      */
     public static PageContextProperties resolve(INode rootNode, ICssResolver cssResolver, CssContext context, String... pageClasses) {
         PageContextNode pageProps = getResolvedPageClassNode(rootNode, cssResolver, context, pageClasses);

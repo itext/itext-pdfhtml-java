@@ -72,7 +72,7 @@ public class JsoupElementNode extends JsoupNode implements IElementNode {
     private String lang = null;
 
     /**
-     * Creates a new <code>JsoupElementNode</code> instance.
+     * Creates a new {@link JsoupElementNode} instance.
      *
      * @param element the element
      */
@@ -106,10 +106,10 @@ public class JsoupElementNode extends JsoupNode implements IElementNode {
         return attributes.getAttribute(key);
     }
 
-	/* (non-Javadoc)
-	 * @see com.itextpdf.html2pdf.html.node.IStylesContainer#setStyles(java.util.Map)
-	 */
-	@Override
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.IStylesContainer#setStyles(java.util.Map)
+     */
+    @Override
     public void setStyles(Map<String, String> elementResolvedStyles) {
         this.elementResolvedStyles = elementResolvedStyles;
     }

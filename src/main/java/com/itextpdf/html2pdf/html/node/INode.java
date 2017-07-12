@@ -52,7 +52,7 @@ public interface INode {
     /**
      * Gets the child nodes.
      *
-     * @return a list of <code>INode</code> instances.
+     * @return a list of {@link INode} instances.
      */
     List<INode> childNodes();
 

@@ -54,11 +54,11 @@ import java.util.List;
 */
 public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextFieldRenderer {
 
-	/** The position of the base line of the text. */
+    /** The position of the base line of the text. */
     protected float baseline;
 
     /**
-     * Creates a new <code>AbstractOneLineTextFieldRenderer</code> instance.
+     * Creates a new {@link AbstractOneLineTextFieldRenderer} instance.
      *
      * @param modelElement the model element
      */

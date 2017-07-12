@@ -54,7 +54,7 @@ import com.itextpdf.html2pdf.util.TagProcessorMapping;
 class DefaultTagCssApplierMapping {
 
     /**
-     * Creates a new <code>DefaultTagCssApplierMapping</code> instance.
+     * Creates a new {@link DefaultTagCssApplierMapping} instance.
      */
     private DefaultTagCssApplierMapping() {
     }

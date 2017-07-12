@@ -45,8 +45,8 @@ package com.itextpdf.html2pdf.attach;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
-import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
+import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
@@ -105,9 +105,9 @@ public class ProcessorContext {
     private PdfDocument pdfDocument;
 
     /**
-     * Instantiates a new <code>ProcessorContext</code> instance.
+     * Instantiates a new {@link ProcessorContext} instance.
      *
-     * @param converterProperties a <code>ConverterProperties</code> instance
+     * @param converterProperties a {@link ConverterProperties} instance
      */
     public ProcessorContext(ConverterProperties converterProperties) {
         if (converterProperties == null) {

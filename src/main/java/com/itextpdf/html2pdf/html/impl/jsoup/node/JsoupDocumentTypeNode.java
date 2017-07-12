@@ -50,7 +50,7 @@ import com.itextpdf.html2pdf.html.node.IDocumentTypeNode;
 public class JsoupDocumentTypeNode extends JsoupNode implements IDocumentTypeNode {
 
     /**
-     * Creates a new <code>JsoupDocumentTypeNode</code> instance.
+     * Creates a new {@link JsoupDocumentTypeNode} instance.
      *
      * @param node the node
      */

@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css.media;
 
 import com.itextpdf.html2pdf.css.util.CssUtils;
+
 import java.util.Objects;
 
 /**
@@ -66,7 +67,7 @@ public class MediaExpression {
     private String value;
 
     /**
-     * Creates a new <code>MediaExpression</code> instance.
+     * Creates a new {@link MediaExpression} instance.
      *
      * @param feature the feature
      * @param value the value
@@ -185,8 +186,8 @@ public class MediaExpression {
     /**
      * Parses an absolute length.
      *
-     * @param value the absolute length as a <code>String</code> value
-     * @return the absolute length as a <code>float</code> value
+     * @param value the absolute length as a {@link String} value
+     * @return the absolute length as a {@code float} value
      */
     private static float parseAbsoluteLength(String value) {
         if (CssUtils.isRelativeValue(value)) {

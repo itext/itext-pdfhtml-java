@@ -94,41 +94,41 @@ import java.util.Set;
  * Context processor for specific types of pages: first, left, or right page.
  */
 class PageContextProcessor {
-    
+
     /** The page size. */
     private PageSize pageSize;
-    
+
     /** Marks for page boundaries. */
     private Set<String> marks;
-    
+
     /** The bleed value for the margin. */
     private Float bleed;
-    
+
     /** The margins. */
     private float[] margins;
-    
+
     /** The borders. */
     private Border[] borders;
-    
+
     /** The paddings. */
     private float[] paddings;
-    
+
     /** Page background simulation. */
     private Div pageBackgroundSimulation;
-    
+
     /** Page borders simulation. */
     private Div pageBordersSimulation;
 
     /** The margin box rectangles. */
     private Rectangle[] marginBoxRectangles;
-    
+
     /** The margin box elements. */
     private Div[] marginBoxElements;
 
     /**
      * Instantiates a new page context processor.
      *
-     * @param properties the page contex properties
+     * @param properties the page context properties
      * @param context the processor context
      * @param defaultPageSize the default page size
      */
@@ -310,7 +310,7 @@ class PageContextProcessor {
     }
 
     /**
-     * Draws a cross (used in the <code>drawMarks()</code> method).
+     * Draws a cross (used in the {@link #drawMarks(PdfPage)} method).
      *
      * @param canvas the canvas to draw on
      * @param x the x value
@@ -374,8 +374,8 @@ class PageContextProcessor {
     /**
      * Parses the marks.
      *
-     * @param marksStr a <code>String</code> value defining the marks
-     * @return a <code>Set</code> of mark values
+     * @param marksStr a {@link String} value defining the marks
+     * @return a {@link Set} of mark values
      */
     private static Set<String> parseMarks(String marksStr) {
         Set<String> marks = new HashSet<>();
@@ -397,7 +397,7 @@ class PageContextProcessor {
     /**
      * Parses the margins.
      *
-     * @param styles a <code>Map</code> containing the styles
+     * @param styles a {@link Map} containing the styles
      * @param em a measurement expressed in em
      * @param rem a measurement expressed in rem (root em)
      */
@@ -411,7 +411,7 @@ class PageContextProcessor {
     /**
      * Parses the paddings.
      *
-     * @param styles a <code>Map</code> containing the styles
+     * @param styles a {@link Map} containing the styles
      * @param em a measurement expressed in em
      * @param rem a measurement expressed in rem (root em)
      */
@@ -425,7 +425,7 @@ class PageContextProcessor {
     /**
      * Parses the borders.
      *
-     * @param styles a <code>Map</code> containing the styles
+     * @param styles a {@link Map} containing the styles
      * @param em a measurement expressed in em
      * @param rem a measurement expressed in rem (root em)
      */
@@ -436,7 +436,7 @@ class PageContextProcessor {
     /**
      * Creates the page simulation elements.
      *
-     * @param styles a <code>Map</code> containing the styles
+     * @param styles a {@link Map} containing the styles
      * @param context the processor context
      */
     private void createPageSimulationElements(Map<String, String> styles, ProcessorContext context) {
@@ -525,7 +525,7 @@ class PageContextProcessor {
      * Calculate margin box rectangles.
      *
      * @param resolvedPageMarginBoxes the resolved page margin boxes
-     * @return an array of <code>Rectangle</code> values
+     * @return an array of {@link Rectangle} values
      */
     private Rectangle[] calculateMarginBoxRectangles(List<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
         // TODO It's a very basic implementation for now. In future resolve rectangles based on presence of certain margin boxes,
@@ -631,7 +631,7 @@ class PageContextProcessor {
     /**
      * Parses the box props.
      *
-     * @param styles a <code>Map</code> containing the styles
+     * @param styles a {@link Map} containing the styles
      * @param em a measurement expressed in em
      * @param rem a measurement expressed in rem (root em)
      * @param defaultValue the default value
@@ -665,7 +665,6 @@ class PageContextProcessor {
     /**
      * Parses the box value.
      *
-     * @param styles a <code>Map</code> containing the styles
      * @param em a measurement expressed in em
      * @param rem a measurement expressed in rem (root em)
      * @param dimensionSize the dimension size

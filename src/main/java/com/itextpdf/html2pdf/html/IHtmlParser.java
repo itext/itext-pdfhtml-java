@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.html;
 
 import com.itextpdf.html2pdf.html.node.IDocumentNode;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -52,7 +53,7 @@ import java.io.InputStream;
 public interface IHtmlParser {
 
     /**
-     * Parses HTML provided as an <code>InputStream</code> and an encoding.
+     * Parses HTML provided as an {@code InputStream} and an encoding.
      *
      * @param htmlStream the html stream
      * @param charset the character set
@@ -62,7 +63,7 @@ public interface IHtmlParser {
     IDocumentNode parse(InputStream htmlStream, String charset) throws IOException;
 
     /**
-     * Parses HTML provided as a <code>String</code>.
+     * Parses HTML provided as a {@code String}.
      *
      * @param html the html string
      * @return a document node

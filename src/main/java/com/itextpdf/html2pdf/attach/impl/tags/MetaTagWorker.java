@@ -48,13 +48,13 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 
 /**
- * TagWorker class for the <code>meta</code> element.
+ * TagWorker class for the {@code meta} element.
  */
 public class MetaTagWorker implements ITagWorker {
 
 
     /**
-     * Creates a new <code>MetaTagWorker</code> instance.
+     * Creates a new {@link MetaTagWorker} instance.
      *
      * @param tag the tag
      * @param context the context
