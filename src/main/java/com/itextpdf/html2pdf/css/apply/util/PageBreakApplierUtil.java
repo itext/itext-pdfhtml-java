@@ -61,7 +61,7 @@ import java.util.Map;
 public class PageBreakApplierUtil {
 
     /**
-     * Creates a new <code>PageBreakApplierUtil</code> instance.
+     * Creates a new {@link PageBreakApplierUtil} instance.
      */
     private PageBreakApplierUtil() {
     }
@@ -174,7 +174,7 @@ public class PageBreakApplierUtil {
     }
 
     /**
-     * A {@link TagWorker} class for HTML page breaks.
+     * A {@code TagWorker} class for HTML page breaks.
      */
     private static class HtmlPageBreakWorker implements ITagWorker {
         

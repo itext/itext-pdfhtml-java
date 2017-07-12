@@ -62,7 +62,7 @@ public class FormFieldNameResolver {
     private final Map<String, Integer> names = new HashMap<>();
 
     /**
-     * Creates a new <code>FormFieldNameResolver</code> instance.
+     * Creates a new {@link FormFieldNameResolver} instance.
      */
     public FormFieldNameResolver() {
     }

@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.html.node.INode;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -51,9 +52,9 @@ import java.util.List;
 public abstract class CssStatement {
 
     /**
-     * Gets a list of {@link CSSRuleSet} objects.
+     * Gets a list of {@link CssRuleSet} objects.
      *
-     * @param node a node
+     * @param node              a node
      * @param deviceDescription a media device description
      * @return the css rule sets
      */

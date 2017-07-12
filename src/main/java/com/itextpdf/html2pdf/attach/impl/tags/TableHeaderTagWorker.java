@@ -49,9 +49,9 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
  * TagWorker class for the header of a table.
  */
 public class TableHeaderTagWorker extends TableTagWorker {
-    
+
     /**
-     * Creates a new <code>TableHeaderTagWorker</code> instance.
+     * Creates a new {@code TableHeaderTagWorker} instance.
      *
      * @param element the element
      * @param context the context

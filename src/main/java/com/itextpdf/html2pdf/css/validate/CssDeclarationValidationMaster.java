@@ -93,7 +93,7 @@ public class CssDeclarationValidationMaster {
     }
 
     /**
-     * Creates a new <code>CssDeclarationValidationMaster</code> instance.
+     * Creates a new {@code CssDeclarationValidationMaster} instance.
      */
     private CssDeclarationValidationMaster() {
     }

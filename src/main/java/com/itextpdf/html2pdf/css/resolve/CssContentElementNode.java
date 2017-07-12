@@ -46,9 +46,9 @@ import com.itextpdf.html2pdf.css.CssContextNode;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IAttributes;
+import com.itextpdf.html2pdf.html.node.ICustomElementNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
-import com.itextpdf.html2pdf.html.node.ICustomElementNode;
 
 import java.util.Iterator;
 import java.util.List;
@@ -66,7 +66,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
     private String tagName;
 
     /**
-     * Creates a new <code>CssContentElementNode</code> instance.
+     * Creates a new {@link CssContentElementNode} instance.
      *
      * @param parentNode the parent node
      * @param pseudoElementName the pseudo element name
@@ -135,7 +135,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
         private Map<String, String> attributes;
 
         /**
-         * Creates a new <code>Attributes</code> instance.
+         * Creates a new {@link Attributes} instance.
          *
          * @param attributes the attributes
          */
@@ -185,7 +185,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
         private Map.Entry<String, String> entry;
 
         /**
-         * Creates a new <code>Attribute</code> instance.
+         * Creates a new {@link Attribute} instance.
          *
          * @param entry the entry
          */
@@ -219,7 +219,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
         private Iterator<Map.Entry<String, String>> iterator;
 
         /**
-         * Creates a new <code>AttributeIterator</code> instance.
+         * Creates a new {@link AttributeIterator} instance.
          *
          * @param iterator the iterator
          */

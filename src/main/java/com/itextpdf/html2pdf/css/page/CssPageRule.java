@@ -49,6 +49,7 @@ import com.itextpdf.html2pdf.css.CssStatement;
 import com.itextpdf.html2pdf.css.selector.CssPageSelector;
 import com.itextpdf.html2pdf.css.selector.ICssSelector;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -62,7 +63,7 @@ public class CssPageRule extends CssNestedAtRule {
     private List<ICssSelector> pageSelectors;
 
     /**
-     * Creates a new <code>CssPageRule</code> instance.
+     * Creates a new {@link CssPageRule} instance.
      *
      * @param ruleParameters the rule parameters
      */

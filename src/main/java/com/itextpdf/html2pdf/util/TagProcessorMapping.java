@@ -58,10 +58,10 @@ public class TagProcessorMapping {
     private Map<String, Map<String, Class<?>>> mapping;
 
     /**
-     * Creates a new <code>TagProcessorMapping</code> instance.
+     * Creates a new {@link TagProcessorMapping} instance.
      */
     public TagProcessorMapping() {
-        mapping = new HashMap<String, Map<String, Class<?>>>();
+        mapping = new HashMap<>();
     }
 
     /**

@@ -43,9 +43,9 @@
 package com.itextpdf.html2pdf.css.page;
 
 import com.itextpdf.html2pdf.css.CssDeclaration;
-import com.itextpdf.html2pdf.css.CssNestedAtRule;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.selector.ICssSelector;
+
 import java.util.List;
 
 /**
@@ -54,7 +54,7 @@ import java.util.List;
 class CssNonStandardRuleSet extends CssRuleSet {
     
     /**
-     * Creates a new <code>CssNonStandardRuleSet</code> instance.
+     * Creates a new {@link CssNonStandardRuleSet} instance.
      *
      * @param selector the selector
      * @param declarations the declarations

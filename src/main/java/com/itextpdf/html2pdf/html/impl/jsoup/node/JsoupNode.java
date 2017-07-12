@@ -43,11 +43,12 @@
 package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
 import com.itextpdf.html2pdf.html.node.INode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of the {@link INode} interface; wrapper for the JSoup {@link org.jsoup.nodes.Node} class.
@@ -56,7 +57,7 @@ public class JsoupNode implements INode {
 
     /** The JSoup node instance. */
     private org.jsoup.nodes.Node node;
-    
+
     /** The child nodes. */
     private List<INode> childNodes = new ArrayList<>();
     
@@ -64,7 +65,7 @@ public class JsoupNode implements INode {
     INode parentNode;
 
     /**
-     * Creates a new <code>JsoupNode</code> instance.
+     * Creates a new {@link JsoupNode} instance.
      *
      * @param node the node
      */

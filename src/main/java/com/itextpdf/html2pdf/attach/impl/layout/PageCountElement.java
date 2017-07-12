@@ -51,7 +51,7 @@ import com.itextpdf.layout.renderer.IRenderer;
 public class PageCountElement extends Text {
 
     /**
-     * Instantiates a new <code>PageCountElement</code>.
+     * Instantiates a new {@link PageCountElement}.
      */
     public PageCountElement() {
         // Workaround to match correct font containing number glyphs

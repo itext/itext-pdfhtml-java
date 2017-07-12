@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.color.DeviceRgb;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
@@ -63,7 +64,6 @@ import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -77,7 +77,7 @@ public final class FontStyleApplierUtil {
     private static final Logger logger = LoggerFactory.getLogger(FontStyleApplierUtil.class);
 
     /**
-     * Creates a <code>FontStyleApplierUtil</code> instance.
+     * Creates a {@link FontStyleApplierUtil} instance.
      */
     private FontStyleApplierUtil() {
     }
@@ -230,8 +230,8 @@ public final class FontStyleApplierUtil {
     /**
      * Parses the absolute font size.
      *
-     * @param fontSizeValue the font size value as a <code>string</code>
-     * @return the font size value as a <code>float</code>
+     * @param fontSizeValue the font size value as a {@link String}
+     * @return the font size value as a {@code float}
      */
     public static float parseAbsoluteFontSize(String fontSizeValue) {
         if (CssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS.contains(fontSizeValue)) {
@@ -268,9 +268,9 @@ public final class FontStyleApplierUtil {
     /**
      * Parses the relative font size.
      *
-     * @param relativeFontSizeValue the relative font size value as a <code>String</code>
+     * @param relativeFontSizeValue the relative font size value as a {@link String}
      * @param baseValue the base value
-     * @return the relative font size value as a <code>float</code>
+     * @return the relative font size value as a {@link float}
      */
     public static float parseRelativeFontSize(final String relativeFontSizeValue, final float baseValue) {
         if (CssConstants.SMALLER.equals(relativeFontSizeValue)) {

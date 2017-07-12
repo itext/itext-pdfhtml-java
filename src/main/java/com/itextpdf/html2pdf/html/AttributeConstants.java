@@ -47,7 +47,7 @@ package com.itextpdf.html2pdf.html;
  */
 public final class AttributeConstants {
     /**
-     * Creates a new <code>AttributeConstants</code> instance.
+     * Creates a new {@link AttributeConstants} instance.
      */
     private AttributeConstants() {
     }

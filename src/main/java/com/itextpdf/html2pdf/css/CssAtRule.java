@@ -51,7 +51,7 @@ public abstract class CssAtRule extends CssStatement {
     protected String ruleName;
 
     /**
-     * Creates a new <code>CssAtRule</code> instance.
+     * Creates a new {@link CssAtRule} instance.
      *
      * @param ruleName the rule name
      */

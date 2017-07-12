@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssNestedAtRule;
 import com.itextpdf.html2pdf.css.selector.CssPageMarginBoxSelector;
 import com.itextpdf.html2pdf.css.selector.ICssSelector;
+
 import java.util.List;
 
 /**
@@ -57,7 +58,7 @@ public class CssMarginRule extends CssNestedAtRule {
     private List<ICssSelector> pageSelectors;
 
     /**
-     * Creates a new <code>CssMarginRule</code> instance.
+     * Creates a new {@link CssMarginRule} instance.
      *
      * @param ruleName the rule name
      * @param ruleParameters the rule parameters

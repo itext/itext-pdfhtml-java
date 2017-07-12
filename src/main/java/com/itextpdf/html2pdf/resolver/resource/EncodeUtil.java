@@ -102,7 +102,7 @@ class EncodeUtil {
     }
 
     /**
-     * Encodes a <code>String</code> in the default encoding and default uri scheme to an HTML-encoded <code>String</code>.
+     * Encodes a {@code String} in the default encoding and default uri scheme to an HTML-encoded {@code String}.
      *
      * @param s the original string
      * @return the encoded string
@@ -112,7 +112,7 @@ class EncodeUtil {
     }
 
     /**
-     * Encodes a <code>String</code> in a default encoding and uri scheme to an HTML-encoded <code>String</code>.
+     * Encodes a {@code String} in a default encoding and uri scheme to an HTML-encoded {@code String}.
      *
      * @param s      the original string
      * @param scheme the uri scheme
@@ -123,7 +123,7 @@ class EncodeUtil {
     }
 
     /**
-     * Encodes a <code>String</code> in a specific encoding and uri scheme to an HTML-encoded <code>String</code>.
+     * Encodes a {@code String} in a specific encoding and uri scheme to an HTML-encoded {@code String}.
      *
      * @param s      the original string
      * @param scheme the uri scheme

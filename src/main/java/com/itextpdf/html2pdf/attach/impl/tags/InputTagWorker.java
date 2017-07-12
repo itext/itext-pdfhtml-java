@@ -52,15 +52,14 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.itextpdf.io.util.MessageFormatUtil;
-
 /**
- * TagWorker class for the <code>input</code> element.
+ * TagWorker class for the {@code input} element.
  */
 public class InputTagWorker implements ITagWorker, IDisplayAware {
 
@@ -71,7 +70,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
     private String display;
 
     /**
-     * Creates a new <code>InputTagWorker</code> instance.
+     * Creates a new {@link InputTagWorker} instance.
      *
      * @param element the element
      * @param context the context

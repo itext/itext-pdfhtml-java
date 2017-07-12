@@ -56,7 +56,7 @@ import com.itextpdf.layout.element.ILeafElement;
 public class PageCountWorker extends SpanTagWorker {
 
     /**
-     * Creates a new <code>PageCountTagWorker</code> instance.
+     * Creates a new {@link PageCountWorker} instance.
      *
      * @param element the element
      * @param context the context

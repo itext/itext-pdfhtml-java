@@ -52,7 +52,7 @@ public interface IStylesContainer {
     /**
      * Sets the styles.
      *
-     * @param stringStringMap a <code>Map</code> with style keys and values.
+     * @param stringStringMap a {@link Map} with style keys and values.
      */
     void setStyles(Map<String, String> stringStringMap);
 

@@ -42,8 +42,6 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import java.util.Map;
-
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
@@ -55,14 +53,16 @@ import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.Property;
 
+import java.util.Map;
+
 /**
  * Utilities class to apply backgrounds.
  */
 public final class BackgroundApplierUtil {
 
-	/**
-	 * Creates a new <code>BackgroundApplierUtil</code> instance.
-	 */
+    /**
+     * Creates a new {@link BackgroundApplierUtil} instance.
+     */
     private BackgroundApplierUtil() {
     }
 

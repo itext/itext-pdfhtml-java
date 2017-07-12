@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.css.parse;
 import com.itextpdf.html2pdf.css.selector.item.CssPagePseudoClassSelectorItem;
 import com.itextpdf.html2pdf.css.selector.item.CssPageTypeSelectorItem;
 import com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -65,7 +66,7 @@ public final class CssPageSelectorParser {
     /**
      * Parses the selector items into a list of {@link ICssSelectorItem} instances.
      *
-     * @param selectorItemsStr the selector items in the form of a <code>String</code>
+     * @param selectorItemsStr the selector items in the form of a {@link String}
      * @return the resulting list of {@link ICssSelectorItem} instances
      */
     public static List<ICssSelectorItem> parseSelectorItems(String selectorItemsStr) {

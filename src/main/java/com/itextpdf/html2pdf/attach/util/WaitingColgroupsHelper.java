@@ -73,7 +73,7 @@ public class WaitingColgroupsHelper {
     private int[] shiftCol;
 
     /**
-     * Creates a new <code>WaitingColgroupsHelper</code> instance.
+     * Creates a new {@link WaitingColgroupsHelper} instance.
      *
      * @param tableElement the table element
      */

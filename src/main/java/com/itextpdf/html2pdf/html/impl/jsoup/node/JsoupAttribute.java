@@ -54,7 +54,7 @@ public class JsoupAttribute implements IAttribute {
     private Attribute attribute;
 
     /**
-     * Creates a new <code>JsoupAttribute</code> instance.
+     * Creates a new {@link JsoupAttribute} instance.
      *
      * @param attribute the attribute
      */

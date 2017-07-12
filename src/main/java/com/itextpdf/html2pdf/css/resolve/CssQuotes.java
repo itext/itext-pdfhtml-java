@@ -45,9 +45,9 @@ package com.itextpdf.html2pdf.css.resolve;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.parse.CssDeclarationValueTokenizer;
+import com.itextpdf.io.util.MessageFormatUtil;
 import org.slf4j.LoggerFactory;
 
-import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 
 /**
@@ -65,7 +65,7 @@ public class CssQuotes {
     private ArrayList<String> closeQuotes;
 
     /**
-     * Creates a new <code>CssQuotes</code> instance.
+     * Creates a new {@link CssQuotes} instance.
      *
      * @param openQuotes the open quotes
      * @param closeQuotes the close quotes

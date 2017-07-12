@@ -47,21 +47,21 @@ import com.itextpdf.html2pdf.css.page.CssMarginRule;
 import com.itextpdf.html2pdf.css.page.CssPageRule;
 
 /**
- * A factory for creating <code>CssNestedAtRule</code> objects.
+ * A factory for creating {@link CssNestedAtRule} objects.
  */
 public final class CssNestedAtRuleFactory {
 
     /**
-     * Creates a new <code>CssNestedAtRuleFactory</code> instance.
+     * Creates a new {@link CssNestedAtRuleFactory} instance.
      */
     private CssNestedAtRuleFactory() {
     }
 
     /**
-     * Creates a new <code>CssNestedAtRule</code> object.
+     * Creates a new {@link CssNestedAtRule} object.
      *
      * @param ruleDeclaration the rule declaration
-     * @return a <code>CssNestedAtRule</code> instance
+     * @return a {@link CssNestedAtRule} instance
      */
     public static CssNestedAtRule createNestedRule(String ruleDeclaration) {
         ruleDeclaration = ruleDeclaration.trim();

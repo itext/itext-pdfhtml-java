@@ -54,6 +54,7 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.property.VerticalAlignment;
+
 import java.util.List;
 import java.util.Map;
 
@@ -64,12 +65,12 @@ public class VerticalAlignmentApplierUtil {
 
     /** The Constant ASCENDER_COEFFICIENT. */
     private static final double ASCENDER_COEFFICIENT = 0.8;
-    
+
     /** The Constant DESCENDER_COEFFICIENT. */
     private static final double DESCENDER_COEFFICIENT = 0.2;
 
     /**
-     * Creates a new <code>VerticalAlignmentApplierUtil</code>.
+     * Creates a new {@link VerticalAlignmentApplierUtil}.
      */
     private VerticalAlignmentApplierUtil() {
     }
@@ -250,8 +251,8 @@ public class VerticalAlignmentApplierUtil {
      *
      * @param fontSize the font size
      * @param rootFontSize the root font size
-     * @param lineHeightStr the line height as a <code>String</code>
-     * @return the actual line height as a <code>float</code> 
+     * @param lineHeightStr the line height as a {@link String}
+     * @return the actual line height as a {@code float}
      */
     private static float getLineHeightActualValue(float fontSize, float rootFontSize, String lineHeightStr) {
         float lineHeightActualValue;

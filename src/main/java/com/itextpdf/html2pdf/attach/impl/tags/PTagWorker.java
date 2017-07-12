@@ -53,13 +53,13 @@ import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Paragraph;
 
 /**
- * TagWorker class for the <code>p</code> element.
+ * TagWorker class for the {@code p} element.
  */
 public class PTagWorker implements ITagWorker, IDisplayAware {
 
     /** The paragraph object. */
     private Paragraph paragraph;
-    
+
     /** Helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
 
@@ -67,7 +67,7 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
     private String display;
 
     /**
-     * Creates a new <code>PTagWorker</code> instance.
+     * Creates a new {@link PTagWorker} instance.
      *
      * @param element the element
      * @param context the context

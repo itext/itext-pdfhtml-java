@@ -58,7 +58,7 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
     private TagProcessorMapping defaultMapping;
 
     /**
-     * Creates a new <code>DefaultCssApplierFactory</code> instance.
+     * Creates a new {@link DefaultCssApplierFactory} instance.
      */
     public DefaultCssApplierFactory() {
         defaultMapping = DefaultTagCssApplierMapping.getDefaultCssApplierMapping();
@@ -88,7 +88,7 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
     /**
      * Gets a custom CSS applier.
      * This method needs to be overridden because the default CSS applier
-     * factory will always return <code>null</code>.
+     * factory will always return {@code null}.
      *
      * @param tag the key
      * @return the custom CSS applier

@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.io.util.MessageFormatUtil;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -63,7 +64,7 @@ public class CssNestedAtRule extends CssAtRule {
     protected List<CssStatement> body;
 
     /**
-     * Creates a <code>CssNestedAtRule</code> instance
+     * Creates a {@link CssNestedAtRule} instance
      * with an empty body.
      * @param ruleName the rule name
      * @param ruleParameters the rule parameters

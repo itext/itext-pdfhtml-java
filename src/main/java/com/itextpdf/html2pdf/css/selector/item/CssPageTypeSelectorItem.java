@@ -55,7 +55,7 @@ public class CssPageTypeSelectorItem implements ICssSelectorItem {
     private String pageTypeName;
 
     /**
-     * Creates a new <code>CssPageTypeSelectorItem<code> instance.
+     * Creates a new {@link CssPageTypeSelectorItem} instance.
      *
      * @param pageTypeName the page type name
      */

@@ -53,7 +53,7 @@ public class JsoupDocumentNode extends JsoupElementNode implements IDocumentNode
     private org.jsoup.nodes.Document document;
 
     /**
-     * Creates a new <code>JsoupDocumentNode</code> instance.
+     * Creates a new {@link JsoupDocumentNode} instance.
      *
      * @param document the document
      */

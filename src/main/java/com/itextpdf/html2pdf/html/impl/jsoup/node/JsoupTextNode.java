@@ -53,7 +53,7 @@ public class JsoupTextNode extends JsoupNode implements ITextNode {
     private org.jsoup.nodes.TextNode textNode;
 
     /**
-     * Creates a new <code>JsoupTextNode</code> instance.
+     * Creates a new {@link JsoupTextNode} instance.
      *
      * @param textNode the text node
      */
@@ -61,7 +61,6 @@ public class JsoupTextNode extends JsoupNode implements ITextNode {
         super(textNode);
         this.textNode = textNode;
     }
-
 
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.html.node.ITextNode#wholeText()

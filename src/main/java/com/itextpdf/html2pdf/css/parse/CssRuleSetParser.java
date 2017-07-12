@@ -47,10 +47,10 @@ import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.selector.CssSelector;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.io.util.MessageFormatUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +63,7 @@ public final class CssRuleSetParser {
     private static final Logger logger = LoggerFactory.getLogger(CssRuleSetParser.class);
 
     /**
-     * Creates a new <code>CssRuleSetParser</code> instance.
+     * Creates a new {@link CssRuleSetParser} instance.
      */
     private CssRuleSetParser() {
     }
@@ -71,7 +71,7 @@ public final class CssRuleSetParser {
     /**
      * Parses property declarations.
      *
-     * @param propertiesStr the property declarations in the form of a <code>String</code>
+     * @param propertiesStr the property declarations in the form of a {@link String}
      * @return the list of {@link CssDeclaration} instances
      */
     public static List<CssDeclaration> parsePropertyDeclarations(String propertiesStr) {
@@ -97,7 +97,7 @@ public final class CssRuleSetParser {
 
     /**
      * Parses a rule set into a list of {@link CssRuleSet} instances.
-     * This method returns a <code>List</code> because a selector can
+     * This method returns a {@link List} because a selector can
      * be compound, like "p, div, #navbar".
      *
      * @param selectorStr the selector
@@ -132,7 +132,7 @@ public final class CssRuleSetParser {
     }
 
     /**
-     * Splits CSS properties into an array of <code>String</code> values.
+     * Splits CSS properties into an array of {@link String} values.
      *
      * @param property the properties
      * @return the array of property values

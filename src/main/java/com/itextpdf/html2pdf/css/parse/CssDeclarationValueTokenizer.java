@@ -63,7 +63,7 @@ public class CssDeclarationValueTokenizer {
     private int functionDepth = 0;
 
     /**
-     * Creates a new <code>CssDeclarationValueTokenizer</code> instance.
+     * Creates a new {@link CssDeclarationValueTokenizer} instance.
      *
      * @param propertyValue the property value
      */
@@ -214,7 +214,7 @@ public class CssDeclarationValueTokenizer {
         private TokenType type;
 
         /**
-         * Creates a new <code>Token</code> instance.
+         * Creates a new {@link Token} instance.
          *
          * @param value the value
          * @param type the type

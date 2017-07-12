@@ -53,7 +53,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Wrapper for the <code>table</code> element.
+ * Wrapper for the {@code table} element.
  */
 public class TableWrapper implements IWrapElement {
 
@@ -247,10 +247,10 @@ public class TableWrapper implements IWrapElement {
     }
 
     /**
- 	 * Wrapper for the <code>td</code>/<code>th</code> element.
- 	 */
+     * Wrapper for the {@code td}/{@code th} element.
+     */
     private static class CellWrapper {
-        
+
         /** The column index. */
         int col;
         
@@ -258,7 +258,7 @@ public class TableWrapper implements IWrapElement {
         Cell cell;
 
         /**
-         * Creates a new <code>CellWrapper</code> instance.
+         * Creates a new {@link CellWrapper} instance.
          *
          * @param col the column index
          * @param cell the cell

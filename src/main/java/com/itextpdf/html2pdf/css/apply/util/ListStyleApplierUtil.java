@@ -49,6 +49,7 @@ import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.numbering.AlphabetNumbering;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.IPropertyContainer;
@@ -64,7 +65,6 @@ import com.itextpdf.layout.property.Property;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.Map;
 
 /**
@@ -96,7 +96,7 @@ public final class ListStyleApplierUtil {
     }
 
     /**
-     * Creates a new <code>ListStyleApplierUtil</code> instance.
+     * Creates a new {@link ListStyleApplierUtil} instance.
      */
     private ListStyleApplierUtil() {
     }
@@ -255,7 +255,7 @@ public final class ListStyleApplierUtil {
     }
 
     /**
-     * A factory for creating {@link HtmlAlphabetSymbol} objects.
+     * A factory for creating {@code HtmlAlphabetSymbol} objects.
      */
     private static class HtmlAlphabetSymbolFactory implements IListSymbolFactory {
 
@@ -263,7 +263,7 @@ public final class ListStyleApplierUtil {
         private final char[] alphabet;
 
         /**
-         * Creates a new <code>HtmlAlphabetSymbolFactory</code> instance.
+         * Creates a new {@link HtmlAlphabetSymbolFactory} instance.
          *
          * @param alphabet the alphabet
          */

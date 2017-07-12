@@ -68,7 +68,7 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
     protected PdfFont font;
 
     /**
-     * Creates a new <code>AbstractTextFieldRenderer</code> instance.
+     * Creates a new {@link AbstractTextFieldRenderer} instance.
      *
      * @param modelElement the model element
      */

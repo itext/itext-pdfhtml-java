@@ -43,8 +43,8 @@
 package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.css.CssDeclaration;
-
 import com.itextpdf.io.util.MessageFormatUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -56,17 +56,17 @@ import java.util.regex.Pattern;
  */
 class FontFace {
 
-	/** Name that will be used as the alias of the font. */
+    /** Name that will be used as the alias of the font. */
     private final String alias;
     /** A list of font face sources. */
     private final List<FontFaceSrc> sources;
 
     /**
-     * Create a <code>FontFace</code> instance from a list of
+     * Create a {@link FontFace} instance from a list of
      * CSS font attributes ("font-family" or "src").
      *
      * @param properties the font properties
-     * @return the <code>FontFace</code> instance
+     * @return the {@link FontFace} instance
      */
     public static FontFace create(List<CssDeclaration> properties) {
         String fontFamily = null;
@@ -169,12 +169,12 @@ class FontFace {
         }
 
         /**
-         * Creates a <code>FontFace</code> object by parsing a <code>String</code>
+         * Creates a {@link FontFace} object by parsing a {@link String}
          * trying to match patterns that reveal the font name, whether that font is local,
          * and which format the font is in.
          *
          * @param src a string containing information about a font
-         * @return the font in the form of a <code>FontFace</code> object
+         * @return the font in the form of a {@link FontFace} object
          */
         static FontFaceSrc create(String src) {
             Matcher m = UrlPattern.matcher(src);
@@ -187,7 +187,7 @@ class FontFace {
         }
 
         /**
-         * Parses a <code>String</code> to a font format.
+         * Parses a {@link String} to a font format.
          *
          * @param formatStr a string
          * @return a font format
@@ -213,10 +213,10 @@ class FontFace {
         }
 
         /**
-         * Removes single and double quotes at the start and the end of a <code>String</code>.
+         * Removes single and double quotes at the start and the end of a {@link String}.
          *
-         * @param quotedString a <code>String</quote> that might be between quotes
-         * @return the <code>String</code> without the quotes
+         * @param quotedString a {@link String} that might be between quotes
+         * @return the {@link String} without the quotes
          */
         static String unquote(String quotedString) {
             if (quotedString.charAt(0) == '\'' || quotedString.charAt(0) == '\"') {
@@ -226,7 +226,7 @@ class FontFace {
         }
 
         /**
-         * Instantiates a new <code>FontFaceSrc</code> insance.
+         * Instantiates a new {@link FontFaceSrc} insance.
          *
          * @param src a source path
          * @param isLocal indicates if the font is local

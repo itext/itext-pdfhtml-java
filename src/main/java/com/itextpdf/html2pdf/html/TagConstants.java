@@ -48,7 +48,7 @@ package com.itextpdf.html2pdf.html;
 public final class TagConstants {
 
     /**
-     * Creates a new <code>TagConstants</code> instance.
+     * Creates a new {@link TagConstants} instance.
      */
     private TagConstants() {
     }

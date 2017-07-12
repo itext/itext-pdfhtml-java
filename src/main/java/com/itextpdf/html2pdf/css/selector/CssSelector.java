@@ -57,7 +57,7 @@ import java.util.List;
 public class CssSelector extends AbstractCssSelector {
 
     /**
-     * Creates a new <code>CssSelector</code> instance.
+     * Creates a new {@link CssSelector} instance.
      *
      * @param selectorItems the selector items
      */
@@ -66,7 +66,7 @@ public class CssSelector extends AbstractCssSelector {
     }
 
     /**
-     * Creates a new <code>CssSelector</code> instance.
+     * Creates a new {@link CssSelector} instance.
      *
      * @param selector the selector
      */

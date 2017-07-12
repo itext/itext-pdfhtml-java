@@ -59,21 +59,21 @@ import com.itextpdf.layout.element.Image;
 import java.util.Map;
 
 /**
- * TagWorker class for the <code>div</code> element.
+ * TagWorker class for the {@code div} element.
  */
 public class DivTagWorker implements ITagWorker, IDisplayAware {
 
     /** The div element. */
     private Div div;
-    
+
     /** Helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
-    
+
     /** The display value. */
     private String display;
 
     /**
-     * Creates a new <code>DivTagWorker</code> instance.
+     * Creates a new {@link DivTagWorker} instance.
      *
      * @param element the element
      * @param context the context
@@ -192,11 +192,10 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
         return processed;
     }
 
-    
-	/**
+    /**
      * Post-processes the hanging leaves of the waiting inline elements.
      */
-	private void postProcessInlineGroup() {
+    private void postProcessInlineGroup() {
         inlineHelper.flushHangingLeaves(div);
     }
 }

@@ -54,7 +54,7 @@ public class CssSeparatorSelectorItem implements ICssSelectorItem {
     private char separator;
 
     /**
-     * Creates a new <code>CssSeparatorSelectorItem<code> instance.
+     * Creates a new {@link CssSeparatorSelectorItem} instance.
      *
      * @param separator the separator character
      */

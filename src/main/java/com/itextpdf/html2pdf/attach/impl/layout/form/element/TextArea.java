@@ -53,7 +53,7 @@ import com.itextpdf.layout.renderer.IRenderer;
 public class TextArea extends FormField<TextArea> {
 
     /**
-     * Creates a new <code>TextArea</code> instance.
+     * Creates a new {@link TextArea} instance.
      *
      * @param id the id
      */

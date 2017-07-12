@@ -61,7 +61,7 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.property.Property;
 
 /**
- * TagWorker class for the <code>html</code> element.
+ * TagWorker class for the {@code html} element.
  */
 public class HtmlTagWorker implements ITagWorker {
 
@@ -72,7 +72,7 @@ public class HtmlTagWorker implements ITagWorker {
     private WaitingInlineElementsHelper inlineHelper;
 
     /**
-     * Creates a new <code>HtmlTagWorker</code> instance.
+     * Creates a new {@link HtmlTagWorker} instance.
      *
      * @param element the element
      * @param context the context

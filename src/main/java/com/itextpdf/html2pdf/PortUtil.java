@@ -46,18 +46,18 @@ import java.io.BufferedReader;
 import java.io.Reader;
 
 /**
- * Utility class to wrap any <code>Reader</class> in a <code>BufferedReader</code>.
+ * Utility class to wrap any {@link Reader} in a {@link BufferedReader}.
  */
 public class PortUtil {
 
     /**
-     * Instantiates a <code>PortUtil</code> instance.
+     * Instantiates a {@link PortUtil} instance.
      */
     private PortUtil() {
     }
 
     /**
-     * Wraps a <code>Reader</code> instance in a <code>BufferedReader</code>.
+     * Wraps a {@link Reader} instance in a {@link BufferedReader}.
      *
      * @param inputStreamReader the original reader
      * @return the buffered reader

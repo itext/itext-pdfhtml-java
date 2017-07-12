@@ -51,6 +51,8 @@ public interface ICssApplierFactory {
 
     /**
      * Returns a {@link ICssApplier} instance constructed based on the parameters of a node.
+     * @param tag a node
+     * @return a CSS applier based on the parameters of a node
      */
     ICssApplier getCssApplier(IElementNode tag);
 

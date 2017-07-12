@@ -58,7 +58,7 @@ public class MultiTypeDeclarationValidator implements ICssDeclarationValidator {
     private List<ICssDataTypeValidator> allowedTypes;
 
     /**
-     * Creates a new <code>MultiTypeDeclarationValidator</code> instance.
+     * Creates a new {@link MultiTypeDeclarationValidator} instance.
      *
      * @param allowedTypes the allowed types
      */

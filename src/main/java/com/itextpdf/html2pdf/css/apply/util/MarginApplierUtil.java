@@ -66,7 +66,7 @@ public final class MarginApplierUtil {
     private static final Logger logger = LoggerFactory.getLogger(MarginApplierUtil.class);
 
     /**
-     * Creates a <code>MarginApplierUtil</code> instance.
+     * Creates a {@link MarginApplierUtil} instance.
      */
     private MarginApplierUtil() {
     }
@@ -137,10 +137,10 @@ public final class MarginApplierUtil {
     /**
      * Parses the margin value.
      *
-     * @param marginValString the margin value as a <code>String</code>
+     * @param marginValString the margin value as a {@link String}
      * @param em the em value
      * @param rem the root em value
-     * @return the margin value as a <code>Float</code>
+     * @return the margin value as a {@link Float}
      */
     private static Float parseMarginValue(String marginValString, float em, float rem) {
         UnitValue marginUnitVal = CssUtils.parseLengthValueToPt(marginValString, em, rem);

@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.resolver.resource;
 
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -61,14 +62,14 @@ class SimpleImageCache {
     private int capacity;
 
     /**
-     * Creates a new <code>SimpleImageCache</code> instance.
+     * Creates a new {@link SimpleImageCache} instance.
      */
     SimpleImageCache() {
         this.capacity = 100;
     }
 
     /**
-     * Creates a new <code>SimpleImageCache</code> instance.
+     * Creates a new {@link SimpleImageCache} instance.
      *
      * @param capacity the capacity
      */

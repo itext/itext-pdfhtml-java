@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.io.util.MessageFormatUtil;
 
 /**
- * A <code>CssAtRule</code> implementation.
+ * A {@link CssAtRule} implementation.
  */
 public class CssSemicolonAtRule extends CssAtRule {
 
@@ -53,7 +53,7 @@ public class CssSemicolonAtRule extends CssAtRule {
     private String ruleParams;
 
     /**
-     * Creates a new <code>CssSemicolonAtRule</code> instance.
+     * Creates a new {@link CssSemicolonAtRule} instance.
      *
      * @param ruleDeclaration the rule declaration
      */

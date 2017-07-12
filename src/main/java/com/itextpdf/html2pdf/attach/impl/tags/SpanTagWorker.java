@@ -58,7 +58,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TagWorker class for the <code>span</code> tag.
+ * TagWorker class for the {@code span} tag.
  */
 public class SpanTagWorker implements ITagWorker, IDisplayAware {
 
@@ -68,21 +68,21 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
     // TODO ideally, this should be refactored. For now, I don't see a beautiful way of passing this information to other workers.
     // Also, we probably should wait a bit until the display support is more or less stable
     private Map<IPropertyContainer, String> childrenDisplayMap = new HashMap<>();
-    
+
     /** A list of elements belonging to the span. */
     private List<IPropertyContainer> elements;
-    
+
     /** The own leaf elements. */
     private List<IPropertyContainer> ownLeafElements = new ArrayList<>();
-    
+
     /** The helper object for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
-    
+
     /** The display value. */
     private String display;
 
     /**
-     * Creates a new <code>SpanTagWorker</code> instance.
+     * Creates a new {@link SpanTagWorker} instance.
      *
      * @param element the element
      * @param context the processor context

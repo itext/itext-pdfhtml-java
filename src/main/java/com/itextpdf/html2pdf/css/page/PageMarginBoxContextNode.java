@@ -54,7 +54,7 @@ public class PageMarginBoxContextNode extends CssContextNode {
     private String marginBoxName;
 
     /**
-     * Creates a new <code>PageMarginBoxContextNode</code> instance.
+     * Creates a new {@link PageMarginBoxContextNode} instance.
      *
      * @param parentNode the parent node
      * @param marginBoxName the margin box name

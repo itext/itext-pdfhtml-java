@@ -47,12 +47,12 @@ package com.itextpdf.html2pdf.exception;
  */
 public class Html2PdfException extends RuntimeException {
 
-	/**
-	 * Creates a new <code>Html2PdfException</code> instance.
-	 *
-	 * @param message the message
-	 */
-	public Html2PdfException(String message) {
+    /**
+     * Creates a new {@link Html2PdfException} instance.
+     *
+     * @param message the message
+     */
+    public Html2PdfException(String message) {
         super(message);
     }
 
@@ -66,5 +66,5 @@ public class Html2PdfException extends RuntimeException {
     public static final String UnsupportedEncodingException = "Unsupported encoding exception.";
     
     /**  Serial version UID. */
-	private static final long serialVersionUID = -136587601709625428L;
+    private static final long serialVersionUID = -136587601709625428L;
 }

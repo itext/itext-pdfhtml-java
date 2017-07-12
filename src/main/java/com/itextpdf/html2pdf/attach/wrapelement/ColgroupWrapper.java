@@ -51,10 +51,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Wrapper for the <code>colgroup</code> element.
+ * Wrapper for the {@code colgroup} element.
  */
 public class ColgroupWrapper implements IWrapElement {
-    
+
     /** The span. */
     private int span;
     
@@ -81,7 +81,7 @@ public class ColgroupWrapper implements IWrapElement {
     private List<ColWrapper> columns = new ArrayList<>();
 
     /**
-     * Creates a new <code>ColgroupWrapper</code> instance.
+     * Creates a new {@link ColgroupWrapper} instance.
      *
      * @param span the span
      */
@@ -111,7 +111,7 @@ public class ColgroupWrapper implements IWrapElement {
      * Sets the width.
      *
      * @param width the width
-     * @return this <code>ColgroupWrapper</code> instance
+     * @return this {@link ColgroupWrapper} instance
      */
     public ColgroupWrapper setWidth(UnitValue width) {
         this.width = width;
@@ -131,7 +131,7 @@ public class ColgroupWrapper implements IWrapElement {
      * Sets the cell CSS properties.
      *
      * @param cellCssProps the cell CSS properties
-     * @return this <code>ColgroupWrapper</code> instance
+     * @return this {@link ColgroupWrapper} instance
      */
     public ColgroupWrapper setCellCssProps(Map<String, String> cellCssProps) {
         this.cellCssProps = cellCssProps;
@@ -151,7 +151,7 @@ public class ColgroupWrapper implements IWrapElement {
      * Sets the own CSS properties.
      *
      * @param ownCssProps the own CSS properties
-     * @return this <code>ColgroupWrapper</code> instance
+     * @return this {@link ColgroupWrapper} instance
      */
     public ColgroupWrapper setOwnCssProps(Map<String, String> ownCssProps) {
         this.ownCssProps = ownCssProps;
@@ -170,7 +170,7 @@ public class ColgroupWrapper implements IWrapElement {
     /**
      * Finalize the columns.
      *
-     * @return this <code>ColgroupWrapper</code> instance
+     * @return this {@link ColgroupWrapper} instance
      */
     public ColgroupWrapper finalizeCols() {
         if (indexToColMapping != null) {

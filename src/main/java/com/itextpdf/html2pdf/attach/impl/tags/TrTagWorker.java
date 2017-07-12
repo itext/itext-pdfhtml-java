@@ -50,7 +50,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 
 /**
- * TagWorker class for the <code>tr</code> element.
+ * TagWorker class for the {@code tr} element.
  */
 public class TrTagWorker implements ITagWorker {
 
@@ -61,7 +61,7 @@ public class TrTagWorker implements ITagWorker {
     private ITagWorker parentTagWorker;
 
     /**
-     * Creates a new <code>TrTagWorker</code> instance.
+     * Creates a new {@link TrTagWorker} instance.
      *
      * @param element the element
      * @param context the context

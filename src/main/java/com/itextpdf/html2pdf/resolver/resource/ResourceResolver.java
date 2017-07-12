@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.resolver.resource;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.io.codec.Base64;
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
@@ -55,7 +56,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import com.itextpdf.io.util.MessageFormatUtil;
 
 /**
  * Utilities class to resolve resources.
@@ -136,10 +136,10 @@ public class ResourceResolver {
     }
 
     /**
-     * Open an <code>InputStream</code> to a style sheet URI.
+     * Open an {@link InputStream} to a style sheet URI.
      *
      * @param uri the URI
-     * @return the <code>InputStream</code>
+     * @return the {@link InputStream}
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public InputStream retrieveStyleSheet(String uri) throws IOException {
@@ -148,7 +148,7 @@ public class ResourceResolver {
 
     /**
      * Retrieve a resource as a byte array from a source that
-     * can either be a link to a file, or a base64 encoded <code>String</code>.
+     * can either be a link to a file, or a base64 encoded {@link String}.
      *
      * @param src either link to file or base64 encoded stream.
      * @return byte[] on success, otherwise null.

@@ -42,16 +42,12 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
-import com.itextpdf.io.util.MessageFormatUtil;
-import java.util.List;
-
-import org.slf4j.LoggerFactory;
-
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.TextArea;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
@@ -61,6 +57,9 @@ import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.LineRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * The {@link AbstractTextFieldRenderer} implementation for text area fields.
@@ -68,7 +67,7 @@ import com.itextpdf.layout.renderer.ParagraphRenderer;
 public class TextAreaRenderer extends AbstractTextFieldRenderer {
 
     /**
-     * Creates a new <code>TextAreaRenderer</code> instance.
+     * Creates a new {@link TextAreaRenderer} instance.
      *
      * @param modelElement the model element
      */

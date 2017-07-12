@@ -59,7 +59,7 @@ import java.util.Map;
 public final class HyphenationApplierUtil {
 
     // TODO these are css properties actually, but it is not supported by the browsers currently
-	
+
     /** The Constant HYPHENATE_BEFORE. */
     private static final int HYPHENATE_BEFORE = 2;
     
@@ -67,7 +67,7 @@ public final class HyphenationApplierUtil {
     private static final int HYPHENATE_AFTER = 3;
 
     /**
-     * Creates a new <code>HyphenationApplierUtil</code> instance.
+     * Creates a new {@link HyphenationApplierUtil} instance.
      */
     private HyphenationApplierUtil() {
     }

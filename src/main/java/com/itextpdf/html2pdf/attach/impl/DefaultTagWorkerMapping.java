@@ -83,7 +83,7 @@ import com.itextpdf.html2pdf.util.TagProcessorMapping;
 class DefaultTagWorkerMapping {
 
     /**
-     * Instantiates a new <code>DefaultTagWorkerMapping</code> instance.
+     * Instantiates a new {@link DefaultTagWorkerMapping} instance.
      */
     private DefaultTagWorkerMapping() {
     }

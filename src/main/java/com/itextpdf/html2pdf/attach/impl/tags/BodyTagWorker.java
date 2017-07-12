@@ -51,7 +51,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
 
 /**
- * TagWorker class for the <code>body</code> element.
+ * TagWorker class for the {@code body} element.
  */
 public class BodyTagWorker implements ITagWorker {
 
@@ -59,7 +59,7 @@ public class BodyTagWorker implements ITagWorker {
     private ITagWorker parentTagWorker;
 
     /**
-     * Creates a new <code>BodyTagWorker</code> instance.
+     * Creates a new {@link BodyTagWorker} instance.
      *
      * @param element the element
      * @param context the context

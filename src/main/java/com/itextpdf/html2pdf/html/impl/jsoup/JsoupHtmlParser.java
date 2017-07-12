@@ -50,6 +50,7 @@ import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupTextNode;
 import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.io.util.MessageFormatUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.DataNode;
 import org.jsoup.nodes.Document;
@@ -61,7 +62,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import com.itextpdf.io.util.MessageFormatUtil;
 
 /**
  * Class that uses JSoup to parse HTML.

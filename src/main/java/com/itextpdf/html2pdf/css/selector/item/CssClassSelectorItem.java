@@ -55,7 +55,7 @@ public class CssClassSelectorItem implements ICssSelectorItem {
     private String className;
     
     /**
-     * Creates a new <code>CssClassSelectorItem<code> instance.
+     * Creates a new {@link CssClassSelectorItem} instance.
      *
      * @param className the class name
      */

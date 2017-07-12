@@ -69,7 +69,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
     protected IRenderer flatRenderer;
 
     /**
-     * Creates a new <code>AbstractFormFieldRenderer</code> instance.
+     * Creates a new {@link AbstractFormFieldRenderer} instance.
      *
      * @param modelElement the model element
      */

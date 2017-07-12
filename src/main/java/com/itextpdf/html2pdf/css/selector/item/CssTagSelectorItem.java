@@ -57,7 +57,7 @@ public class CssTagSelectorItem implements ICssSelectorItem {
     private boolean isUniversal;
 
     /**
-     * Creates a new <code>CssTagSelectorItem<code> instance.
+     * Creates a new {@link CssTagSelectorItem} instance.
      *
      * @param tagName the tag name
      */

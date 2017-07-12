@@ -56,7 +56,7 @@ public abstract class AbstractCssSelector implements ICssSelector {
     protected List<ICssSelectorItem> selectorItems;
 
     /**
-     * Creates a new <code>AbstractCssSelector</code> instance.
+     * Creates a new {@link AbstractCssSelector} instance.
      *
      * @param selectorItems the selector items
      */

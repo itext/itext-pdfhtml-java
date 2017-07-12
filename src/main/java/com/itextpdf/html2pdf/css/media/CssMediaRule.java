@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.css.CssRuleName;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.CssStatement;
 import com.itextpdf.html2pdf.html.node.INode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class CssMediaRule extends CssNestedAtRule {
     private List<MediaQuery> mediaQueries;
 
     /**
-     * Creates a <code>CssMediaRule</code>.
+     * Creates a {@link CssMediaRule}.
      *
      * @param ruleParameters the rule parameters
      */

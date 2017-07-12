@@ -43,12 +43,13 @@
 package com.itextpdf.html2pdf.attach.wrapelement;
 
 import com.itextpdf.layout.element.Cell;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Wrapper for the <code>tr</code> element.
+ * Wrapper for the {@code tr} element.
  */
 public class TableRowWrapper implements IWrapElement {
     

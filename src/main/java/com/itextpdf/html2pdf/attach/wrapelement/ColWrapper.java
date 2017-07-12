@@ -47,10 +47,10 @@ import com.itextpdf.layout.property.UnitValue;
 import java.util.Map;
 
 /**
- * Wrapper for the <code>col</code> element.
+ * Wrapper for the {@code col} element.
  */
 public class ColWrapper implements IWrapElement {
-    
+
     /** The span. */
     private int span;
     
@@ -63,7 +63,7 @@ public class ColWrapper implements IWrapElement {
      * and are eventually applied to &lt;td&gt; or &lt;th&gt;.
      */
     private Map<String, String> cellCssProps;
-    
+
     /**
      * The own CSS properties.
      * These properties shouldn't be applied to &lt;td&gt; or &lt;th&gt;.
@@ -71,7 +71,7 @@ public class ColWrapper implements IWrapElement {
     private Map<String, String> ownCssProps;
 
     /**
-     * Creates a new <code>ColWrapper</code> instance.
+     * Creates a new {@link ColWrapper} instance.
      *
      * @param span the span
      */
@@ -101,7 +101,7 @@ public class ColWrapper implements IWrapElement {
      * Sets the width.
      *
      * @param width the width
-     * @return this <code>ColWrapper</code> instance
+     * @return this {@link ColWrapper} instance
      */
     public ColWrapper setWidth(UnitValue width) {
         this.width = width;
@@ -121,7 +121,7 @@ public class ColWrapper implements IWrapElement {
      * Sets the cell CSS properties.
      *
      * @param cellCssProps the cell CSS properties
-     * @return this <code>ColWrapper</code> instance
+     * @return this {@link ColWrapper} instance
      */
     public ColWrapper setCellCssProps(Map<String, String> cellCssProps) {
         this.cellCssProps = cellCssProps;
@@ -141,7 +141,7 @@ public class ColWrapper implements IWrapElement {
      * Sets the own CSS properties.
      *
      * @param ownCssProps the own CSS properties
-     * @return this <code>ColWrapper</code> instance
+     * @return this {@link ColWrapper} instance
      */
     public ColWrapper setOwnCssProps(Map<String, String> ownCssProps) {
         this.ownCssProps = ownCssProps;

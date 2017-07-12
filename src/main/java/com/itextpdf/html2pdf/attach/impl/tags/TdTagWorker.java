@@ -55,21 +55,21 @@ import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 
 /**
- * TagWorker class for the <code>td</code> element.
+ * TagWorker class for the {@code td} element.
  */
 public class TdTagWorker implements ITagWorker, IDisplayAware {
 
     /** The cell. */
     private Cell cell;
-    
+
     /** The inline helper. */
     private WaitingInlineElementsHelper inlineHelper;
-    
+
     /** The display. */
     private String display;
 
     /**
-     * Creates a new <code>TdTagWorker</code> instance.
+     * Creates a new {@link TdTagWorker} instance.
      *
      * @param element the element
      * @param context the context

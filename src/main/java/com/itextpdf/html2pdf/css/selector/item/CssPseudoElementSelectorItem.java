@@ -46,7 +46,7 @@ import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
 /**
- * {@link ICssSelectorItem} implementation for pseude element selectors.
+ * {@link ICssSelectorItem} implementation for pseudo element selectors.
  */
 public class CssPseudoElementSelectorItem implements ICssSelectorItem {
 
@@ -54,7 +54,7 @@ public class CssPseudoElementSelectorItem implements ICssSelectorItem {
     private String pseudoElementName;
 
     /**
-     * Creates a new <code>CssPseudoElementSelectorItem<code> instance.
+     * Creates a new {@link CssPseudoElementSelectorItem} instance.
      *
      * @param pseudoElementName the pseudo element name
      */

@@ -62,7 +62,7 @@ public class DecodeUtil {
     static String dfltUriScheme = "file";
 
     /**
-     * Decode a <code>String</code> to a <code>String</code> using the default encoding and the default uri scheme.
+     * Decode a {@link String} to a {@link String} using the default encoding and the default uri scheme.
      *
      * @param s the string to decode
      * @return the decoded string
@@ -72,7 +72,7 @@ public class DecodeUtil {
     }
 
     /**
-     * Decodes a <code>String</code> to a <code>String</code> using a specific uri scheme
+     * Decodes a {@link String} to a {@link String} using a specific uri scheme
      * and default encoding.
      *
      * @param s      the string to decode
@@ -84,7 +84,7 @@ public class DecodeUtil {
     }
 
     /**
-     * Decodes a <code>String</code> to a <code>String</code> using a specific encoding
+     * Decodes a {@link String} to a {@link String} using a specific encoding
      * and uri string.
      *
      * @param s      the string to decode

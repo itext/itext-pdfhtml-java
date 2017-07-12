@@ -49,12 +49,12 @@ import com.itextpdf.kernel.pdf.tagutils.IAccessibleElement;
 import com.itextpdf.layout.IPropertyContainer;
 
 /**
- * TagWorker class for the <code>hr</code> element.
+ * TagWorker class for the {@code hr} element.
  */
 public class HrTagWorker extends DivTagWorker {
 
     /**
-     * Creates a new <code>HrTagWorker</code> instance.
+     * Creates a new {@link HrTagWorker} instance.
      *
      * @param element the element
      * @param context the context
