@@ -71,91 +71,64 @@ public class TextPropertiesTest extends ExtendedITextTest {
     }
 
     @Test
-    public void textAlign01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textAlignTest01.html"), new File(destinationFolder + "textAlignTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textAlignTest01.pdf", sourceFolder + "cmp_textAlignTest01.pdf", destinationFolder, "diff01_"));
+    public void textAlignTest01() throws IOException, InterruptedException {
+        runTest("textAlignTest01");
     }
 
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED)})
-    public void textDecoration01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest01.html"), new File(destinationFolder + "textDecorationTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest01.pdf", sourceFolder + "cmp_textDecorationTest01.pdf", destinationFolder, "diff02_"));
+    public void textDecorationTest01() throws IOException, InterruptedException {
+        runTest("textDecorationTest01");
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED)})
-    public void textIndent01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textIndentTest01.html"), new File(destinationFolder + "textIndentTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textIndentTest01.pdf", sourceFolder + "cmp_textIndentTest01.pdf", destinationFolder, "diff03_"));
+    public void letterSpacingTest01() throws IOException, InterruptedException {
+        runTest("letterSpacingTest01");
     }
 
     @Test
-    public void letterSpacing01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "letterSpacingTest01.html"), new File(destinationFolder + "letterSpacingTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "letterSpacingTest01.pdf", sourceFolder + "cmp_letterSpacingTest01.pdf", destinationFolder, "diff04_"));
+    public void wordSpacingTest01() throws IOException, InterruptedException {
+        runTest("wordSpacingTest01");
     }
 
     @Test
-    public void wordSpacing01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "wordSpacingTest01.html"), new File(destinationFolder + "wordSpacingTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "wordSpacingTest01.pdf", sourceFolder + "cmp_wordSpacingTest01.pdf", destinationFolder, "diff05_"));
+    public void lineHeightTest01() throws IOException, InterruptedException {
+        runTest("lineHeightTest01");
     }
 
     @Test
-    public void lineHeight01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "lineHeightTest01.html"), new File(destinationFolder + "lineHeightTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "lineHeightTest01.pdf", sourceFolder + "cmp_lineHeightTest01.pdf", destinationFolder, "diff06_"));
+    public void whiteSpaceTest01() throws IOException, InterruptedException {
+        runTest("whiteSpaceTest01");
     }
 
     @Test
-    public void direction01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "directionTest01.html"), new File(destinationFolder + "directionTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "directionTest01.pdf", sourceFolder + "cmp_directionTest01.pdf", destinationFolder, "diff07_"));
-    }
-
-    @Test
-    public void whiteSpace01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "whiteSpaceTest01.html"), new File(destinationFolder + "whiteSpaceTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "whiteSpaceTest01.pdf", sourceFolder + "cmp_whiteSpaceTest01.pdf", destinationFolder, "diff08_"));
-    }
-
-    @Test
-    public void textTransform01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textTransformTest01.html"), new File(destinationFolder + "textTransformTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textTransformTest01.pdf", sourceFolder + "cmp_textTransformTest01.pdf", destinationFolder, "diff09_"));
+    public void textTransformTest01() throws IOException, InterruptedException {
+        runTest("textTransformTest01");
     }
 
     @Test
     public void textTransform02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textTransformTest02.html"), new File(destinationFolder + "textTransformTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textTransformTest02.pdf", sourceFolder + "cmp_textTransformTest02.pdf", destinationFolder, "diff10_"));
+        runTest("textTransformTest02");
     }
 
     @Test
-    public void whiteSpace02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "whiteSpaceTest02.html"), new File(destinationFolder + "whiteSpaceTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "whiteSpaceTest02.pdf", sourceFolder + "cmp_whiteSpaceTest02.pdf", destinationFolder, "diff11_"));
+    public void whiteSpaceTest02() throws IOException, InterruptedException {
+        runTest("whiteSpaceTest02");
     }
 
     @Test
-    public void textAlign02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textAlignTest02.html"), new File(destinationFolder + "textAlignTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textAlignTest02.pdf", sourceFolder + "cmp_textAlignTest02.pdf", destinationFolder, "diff12_"));
-    }
-
-    @Test
-    @Ignore("DEVSIX-1319")
     public void enspEmspThinspTest01() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "enspEmspThinspTest01.html"), new File(destinationFolder + "enspEmspThinspTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "enspEmspThinspTest01.pdf", sourceFolder + "cmp_enspEmspThinspTest01.pdf", destinationFolder, "diff13_"));
+        runTest("enspEmspThinspTest01");
     }
 
     @Test
-    @Ignore("DEVSIX-1319")
     public void enspEmspThinspTest02() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "enspEmspThinspTest02.html"), new File(destinationFolder + "enspEmspThinspTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "enspEmspThinspTest02.pdf", sourceFolder + "cmp_enspEmspThinspTest02.pdf", destinationFolder, "diff14_"));
+        runTest("enspEmspThinspTest02");
+    }
+
+    private void runTest(String testName) throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
     }
 
 }
