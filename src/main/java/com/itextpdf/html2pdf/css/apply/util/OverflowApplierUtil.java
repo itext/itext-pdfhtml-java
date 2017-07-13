@@ -67,51 +67,25 @@ public class OverflowApplierUtil {
      * @param element  the element
      */
     public static void applyOverflow(Map<String, String> cssProps, IPropertyContainer element) {
-        String overflow = null != cssProps ? cssProps.get(CssConstants.OVERFLOW) : null;
+        String overflow = null != cssProps && CssConstants.OVERFLOW_VALUES.contains(cssProps.get(CssConstants.OVERFLOW)) ? cssProps.get(CssConstants.OVERFLOW) : null;
+        boolean breakWord = (null != cssProps && cssProps.containsKey(CssConstants.WORDWRAP) && CssConstants.BREAK_WORD.equals(cssProps.get(CssConstants.WORDWRAP)));
 
-        String overflowX = null != cssProps ? cssProps.get(CssConstants.OVERFLOW_X) : overflow;
+        String overflowX = null != cssProps && CssConstants.OVERFLOW_VALUES.contains(cssProps.get(CssConstants.OVERFLOW_X)) ? cssProps.get(CssConstants.OVERFLOW_X) : overflow;
         if (CssConstants.HIDDEN.equals(overflowX)) {
             element.setProperty(Property.OVERFLOW_X, OverflowPropertyValue.HIDDEN);
-        } else {
+        } else if (!breakWord){
             element.setProperty(Property.OVERFLOW_X, OverflowPropertyValue.VISIBLE);
+        } else {
+            element.setProperty(Property.OVERFLOW_X, OverflowPropertyValue.FIT);
         }
 
-        String overflowY = null != cssProps ? cssProps.get(CssConstants.OVERFLOW_Y) : overflow;
+        String overflowY = null != cssProps && CssConstants.OVERFLOW_VALUES.contains(cssProps.get(CssConstants.OVERFLOW_Y)) ? cssProps.get(CssConstants.OVERFLOW_Y) : overflow;
         if (CssConstants.HIDDEN.equals(overflowY)) {
             element.setProperty(Property.OVERFLOW_Y, OverflowPropertyValue.HIDDEN);
-        } else {
+        } else if (!breakWord) {
             element.setProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);
+        } else {
+            element.setProperty(Property.OVERFLOW_Y, OverflowPropertyValue.FIT);
         }
-    }
-
-    /**
-     * Applies oveflow to an element.
-     *
-     * @param container the  container
-     * @param element   the element
-     */
-    public static void applyOverflow(IPropertyContainer container, IPropertyContainer element) {
-        OverflowPropertyValue xValue = null;
-        if (null != container) {
-            xValue = container.<OverflowPropertyValue>getProperty(Property.OVERFLOW_X);
-            if (null == xValue) {
-                xValue = container.<OverflowPropertyValue>getProperty(Property.OVERFLOW);
-            }
-        }
-        element.setProperty(Property.OVERFLOW_X, null == xValue
-                ? OverflowPropertyValue.VISIBLE
-                : xValue);
-
-
-        OverflowPropertyValue yValue = null;
-        if (null != container) {
-            yValue = container.<OverflowPropertyValue>getProperty(Property.OVERFLOW_Y);
-            if (null == yValue) {
-                yValue = container.<OverflowPropertyValue>getProperty(Property.OVERFLOW);
-            }
-        }
-        element.setProperty(Property.OVERFLOW_Y, null == yValue
-                ? OverflowPropertyValue.VISIBLE
-                : yValue);
     }
 }

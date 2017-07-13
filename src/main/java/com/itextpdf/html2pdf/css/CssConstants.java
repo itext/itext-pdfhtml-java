@@ -475,7 +475,10 @@ public class CssConstants {
     
     /** The Constant BOTTOM. */
     public static final String BOTTOM = "bottom";
-    
+
+    /** The Constant BREAK_WORD. */
+    public static final String BREAK_WORD = "break-word";
+
     /** The Constant CAPITALIZE. */
     public static final String CAPITALIZE = "capitalize";
     
@@ -823,6 +826,11 @@ public class CssConstants {
             CssConstants.MEDIUM, CssConstants.XX_SMALL, CssConstants.X_SMALL, CssConstants.SMALL, CssConstants.LARGE,
             CssConstants.X_LARGE, CssConstants.XX_LARGE
     ));
+
+    /** The Constant OVERFLOW_VALUES. */
+    public static final Set<String> OVERFLOW_VALUES = new HashSet<>(
+            Arrays.asList(new String[] {VISIBLE, HIDDEN}));
+
 
     // pseudo-elements
     
