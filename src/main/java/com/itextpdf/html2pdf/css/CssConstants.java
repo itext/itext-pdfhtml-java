@@ -170,7 +170,7 @@ public class CssConstants {
     
     /** The Constant CAPTION_SIDE. */
     public static final String CAPTION_SIDE = "caption-side";
-    
+
     /** The Constant CLEAR. */
     public static final String CLEAR = "clear";
     
