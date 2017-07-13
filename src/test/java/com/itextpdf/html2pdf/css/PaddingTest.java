@@ -71,7 +71,17 @@ public class PaddingTest extends ExtendedITextTest {
     public void elementFixedWidthTest() throws IOException, InterruptedException {
         runTest("elementFixedWidthTest");
     }
-    
+
+    @Test
+    public void cellPaddingTest01() throws IOException, InterruptedException {
+        runTest("cellPaddingTest01");
+    }
+
+    @Test
+    public void cellPaddingTest02() throws IOException, InterruptedException {
+        runTest("cellPaddingTest02");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";

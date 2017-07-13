@@ -73,6 +73,7 @@ class HtmlStylesToCssConverter {
         htmlAttributeConverters.put(AttributeConstants.ALIGN, new AlignAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.BORDER, new BorderAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.BGCOLOR, new BgColorAttributeConverter());
+        htmlAttributeConverters.put(AttributeConstants.CELLPADDING, new CellPaddingAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.COLOR, new FontColorAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.DIR, new DirAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.SIZE, new SizeAttributeConverter());
@@ -187,6 +188,56 @@ class HtmlStylesToCssConverter {
                 }
                 if (width >= 0) {
                     return Arrays.asList(new CssDeclaration(CssConstants.BORDER, value + "px solid"));
+                }
+            }
+            return Collections.<CssDeclaration>emptyList();
+        }
+    }
+
+    /**
+     * {@link IAttributeConverter} implementation for table's cellpadding.
+     */
+    private static class CellPaddingAttributeConverter implements IAttributeConverter {
+
+        /**
+         * Applies paddings to the table's cells.
+         *
+         * @param node the node
+         * @param paddingStyle cellpadding
+         */
+        private static void applyPaddingsToTableCells(INode node, Map<String, String> paddingStyle) {
+            List<INode> nodes = node.childNodes();
+            for (INode childNode : nodes) {
+                if (childNode instanceof IElementNode) {
+                    IElementNode elementNode = (IElementNode) childNode;
+                    if (TagConstants.TD.equals(elementNode.name()) || TagConstants.TH.equals(elementNode.name())) {
+                        elementNode.addAdditionalHtmlStyles(paddingStyle);
+                    } else {
+                        applyPaddingsToTableCells(childNode, paddingStyle);
+                    }
+                }
+            }
+        }
+
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
+        @Override
+        public boolean isSupportedForElement(String elementName) {
+            return TagConstants.TABLE.equals(elementName);
+        }
+
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         */
+        @Override
+        public List<CssDeclaration> convert(IElementNode element, String value) {
+            Float cellPadding = CssUtils.parseFloat(value);
+            if (cellPadding != null) {
+                if (TagConstants.TABLE.equals(element.name())) {
+                    Map<String, String> styles = new HashMap<>();
+                    styles.put(CssConstants.PADDING, value + "px");
+                    applyPaddingsToTableCells(element, styles);
                 }
             }
             return Collections.<CssDeclaration>emptyList();
