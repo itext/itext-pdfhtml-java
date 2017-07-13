@@ -58,7 +58,9 @@ import com.itextpdf.layout.element.Text;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Helper class for waiting inline elements.
@@ -173,7 +175,12 @@ public class WaitingInlineElementsHelper {
     public void flushHangingLeaves(IPropertyContainer container) {
         Paragraph p = createLeavesContainer();
         if (p != null) {
-            if (container instanceof Paragraph) {
+            Map<String, String> map = new HashMap<>();
+            map.put(CssConstants.OVERFLOW, CssConstants.VISIBLE);
+            OverflowApplierUtil.applyOverflow(map, p);
+            if (container instanceof Document) {
+                ((Document) container).add(p);
+            } else if (container instanceof Paragraph) {
                 for (IElement leafElement : waitingLeaves) {
                     if (leafElement instanceof ILeafElement) {
                         ((Paragraph) container).add((ILeafElement) leafElement);
@@ -181,22 +188,16 @@ public class WaitingInlineElementsHelper {
                         ((Paragraph) container).add((IBlockElement) leafElement);
                     }
                 }
+            } else if (container instanceof Div) {
+                ((Div) container).add(p);
+            } else if (container instanceof Cell) {
+                ((Cell) container).add(p);
+            } else if (container instanceof com.itextpdf.layout.element.List) {
+                ListItem li = new ListItem();
+                li.add(p);
+                ((com.itextpdf.layout.element.List) container).add(li);
             } else {
-                // iText do not apply overflow on leaves during children visits
-                OverflowApplierUtil.applyOverflow(container, p);
-                if (container instanceof Document) {
-                    ((Document) container).add(p);
-                } else if (container instanceof Div) {
-                    ((Div) container).add(p);
-                } else if (container instanceof Cell) {
-                    ((Cell) container).add(p);
-                } else if (container instanceof com.itextpdf.layout.element.List) {
-                    ListItem li = new ListItem();
-                    li.add(p);
-                    ((com.itextpdf.layout.element.List) container).add(li);
-                } else {
-                    throw new IllegalStateException("Unable to process hanging inline content");
-                }
+                throw new IllegalStateException("Unable to process hanging inline content");
             }
             waitingLeaves.clear();
         }
