@@ -51,7 +51,6 @@ import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
-import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
@@ -308,8 +307,8 @@ public class WaitingInlineElementsHelper {
     private static String collapseConsecutiveSpaces(String s) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
-            if (Character.isWhitespace(s.charAt(i))) {
-                if (sb.length() == 0 || !Character.isWhitespace(sb.charAt(sb.length() - 1))) {
+            if (TrimUtil.isNonEmSpace(s.charAt(i))) {
+                if (sb.length() == 0 || !TrimUtil.isNonEmSpace(sb.charAt(sb.length() - 1))) {
                     sb.append(" ");
                 }
             } else {

@@ -72,7 +72,7 @@ public class TextPropertiesTest extends ExtendedITextTest {
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(destinationFolder);
     }
 
     @Test
@@ -134,6 +134,43 @@ public class TextPropertiesTest extends ExtendedITextTest {
     @Test
     public void enspEmspThinspTest02() throws IOException, InterruptedException {
         runTest("enspEmspThinspTest02");
+    }
+
+    @Test
+    public void enspEmspThinspTest03() throws IOException, InterruptedException {
+        runTest("enspEmspThinspTest03");
+    }
+
+    @Test
+    public void enspEmspThinspTest04() throws IOException, InterruptedException {
+        runTest("enspEmspThinspTest04");
+    }
+
+    @Test
+    public void enspEmspThinspTest05() throws IOException, InterruptedException {
+        runTest("enspEmspThinspTest05");
+    }
+
+    @Test
+    public void enspEmspThinspTest06() throws IOException, InterruptedException {
+        runTest("enspEmspThinspTest06");
+    }
+
+    @Test
+    public void enspEmspThinspTest07() throws IOException, InterruptedException {
+        runTest("enspEmspThinspTest07");
+    }
+
+    @Test
+    public void enspEmspThinspTest08() throws IOException, InterruptedException {
+        // TODO DEVSIX-1442
+        runTest("enspEmspThinspTest08");
+    }
+
+    @Test
+    @Ignore("DEVSIX-1442")
+    public void enspEmspThinspTest09() throws IOException, InterruptedException {
+        runTest("enspEmspThinspTest09");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {
