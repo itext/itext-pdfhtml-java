@@ -80,6 +80,11 @@ public class ATagWorker extends SpanTagWorker {
                 if (getAllElements().get(i) instanceof IBlockElement) {
                     Div simulatedDiv = new Div();
                     simulatedDiv.setRole(PdfName.Link);
+                    float[] cssTransform = (float[]) getAllElements().get(i).getProperty(Property.TRANSFORM);
+                    if (cssTransform != null) {
+                        getAllElements().get(i).deleteOwnProperty(Property.TRANSFORM);
+                        simulatedDiv.setProperty(Property.TRANSFORM, cssTransform);
+                    }
                     simulatedDiv.add((IBlockElement) getAllElements().get(i));
                     getAllElements().set(i, simulatedDiv);
                 }
