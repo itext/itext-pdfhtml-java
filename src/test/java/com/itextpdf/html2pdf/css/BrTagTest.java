@@ -43,9 +43,8 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.layout.ElementPropertyContainer;
 import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.Property;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
@@ -70,7 +69,7 @@ public class BrTagTest extends ExtendedITextTest {
     }
 
     @Test
-    public void brTagTest() throws IOException, InterruptedException {
+    public void test() throws IOException, InterruptedException {
         String input = "<html>\n" +
                 "<head><title>Test</title></head>" +
                 "<body style=\"font-family: FreeSans;\">" +
@@ -83,20 +82,21 @@ public class BrTagTest extends ExtendedITextTest {
         Map<String, Integer> fontFrequency = new HashMap<>();
         
         for (IElement e : HtmlConverter.convertToElements(input)) {
-            if (e instanceof ElementPropertyContainer) {
-                String fontName = ((ElementPropertyContainer) e).getProperty(20).toString();
-                if (!fontFrequency.containsKey(fontName))
-                    fontFrequency.put(fontName, 0);
-                fontFrequency.put(fontName, fontFrequency.get(fontName) + 1);
-            }
+            String fontName = e.<String>getProperty(Property.FONT);
+            if (!fontFrequency.containsKey(fontName))
+                fontFrequency.put(fontName, 0);
+            fontFrequency.put(fontName, fontFrequency.get(fontName) + 1);
         }
 
         // only 1 font should be used
         Assert.assertTrue(fontFrequency.size() == 1);
 
         // the font should be freesans
-        String usedFont = fontFrequency.keySet().iterator().next();
-        Assert.assertTrue(usedFont.equals("freesans"));
+        String usedFont = null;
+        for(String key : fontFrequency.keySet()) {
+            Assert.assertTrue(usedFont.equals("freesans"));
+            usedFont = key;
+        }
 
         // it should have been used for 3 elements
         Assert.assertTrue(fontFrequency.get(usedFont) == 3);
