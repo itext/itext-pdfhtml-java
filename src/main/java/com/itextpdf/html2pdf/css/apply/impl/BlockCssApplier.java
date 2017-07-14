@@ -89,11 +89,7 @@ public class BlockCssApplier implements ICssApplier {
             PositionApplierUtil.applyPosition(cssProps, context, container);
             OpacityApplierUtil.applyOpacity(cssProps, context, container);
             PageBreakApplierUtil.applyPageBreakProperties(cssProps, context, container);
-            // we've already applied overflow on block containers (divs, articles, ...).
-            // as for images, iText do not consider its overflow property value but its container's value
-            if (!(tagWorker instanceof ImgTagWorker || tagWorker instanceof DivTagWorker)) {
-                OverflowApplierUtil.applyOverflow(cssProps, container);
-            }
+            OverflowApplierUtil.applyOverflow(cssProps, container);
         }
     }
 
