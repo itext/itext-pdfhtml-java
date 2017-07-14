@@ -106,6 +106,11 @@ public class BorderStyleApplierUtil {
         if (bordersArray[3] != null) {
             element.setProperty(Property.BORDER_LEFT, bordersArray[3]);
         }
+
+        UnitValue radius = getBorderRadius(cssProps, em, rem);
+        if (null != radius) {
+            element.setProperty(Property.BORDER_RADIUS, radius);
+        }
     }
     
     /**
@@ -224,6 +229,19 @@ public class BorderStyleApplierUtil {
             }
         }
         return border;
+    }
+
+    /**
+     * Gets the array that defines the borders.
+     *
+     * @param styles the styles mapping
+     * @param em the em value
+     * @param rem the root em value
+     * @return the borders array
+     */
+    public static UnitValue getBorderRadius(Map<String, String> styles, float em, float rem) {
+        String borderRadius = styles.get(CssConstants.BORDER_RADIUS);
+        return CssUtils.parseLengthValueToPt(borderRadius, em, rem);
     }
 
     private static String getSpecificBorderColorOrDefaultColor(Map<String, String> styles, String specificBorderColorProperty) {
