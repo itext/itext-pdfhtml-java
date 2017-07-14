@@ -147,6 +147,23 @@ public class FontFaceTest extends ExtendedITextTest {
         runTest("fontFaceWoffTest02");
     }
 
+    @Test
+    @Ignore("contains ttc font")
+    public void fontFaceTtcTest() throws IOException, InterruptedException {
+        runTest("fontFaceTtcTest");
+    }
+
+    @Test
+    public void fontFaceWoff2SimpleTest() throws IOException, InterruptedException {
+        runTest("fontFaceWoff2SimpleTest");
+    }
+
+    @Test
+    @Ignore("contains ttc font")
+    public void fontFaceWoff2TtcTest() throws IOException, InterruptedException {
+        runTest("fontFaceWoff2TtcTest");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
