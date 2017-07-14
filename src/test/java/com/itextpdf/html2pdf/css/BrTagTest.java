@@ -45,6 +45,8 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.layout.ElementPropertyContainer;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -61,7 +63,7 @@ import java.util.Map;
  * The font does not get embedded, and as such, it breaks the compliancy.
  */
 @Category(IntegrationTest.class)
-public class BrTagTest {
+public class BrTagTest extends ExtendedITextTest {
 
     @BeforeClass
     public static void beforeClass() {
@@ -70,15 +72,16 @@ public class BrTagTest {
     @Test
     public void brTagTest() throws IOException, InterruptedException {
         String input = "<html>\n" +
-                "<head><title>Test</title></head>\n" +
-                "<body style=\"font-family: FreeSans;\">\n" +
-                "<h1>Test</h1>\n" +
-                "<br />\n" +
-                "<p>Hello World</p>\n" +
-                "</body>\n" +
+                "<head><title>Test</title></head>" +
+                "<body style=\"font-family: FreeSans;\">" +
+                "<h1>Test</h1>" +
+                "<br />" +
+                "<p>Hello World</p>" +
+                "</body>" +
                 "</html>";
 
         Map<String, Integer> fontFrequency = new HashMap<>();
+        
         for (IElement e : HtmlConverter.convertToElements(input)) {
             if (e instanceof ElementPropertyContainer) {
                 String fontName = ((ElementPropertyContainer) e).getProperty(20).toString();
