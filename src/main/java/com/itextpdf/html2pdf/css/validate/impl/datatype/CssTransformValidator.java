@@ -92,10 +92,16 @@ public class CssTransformValidator implements ICssDataTypeValidator {
             }
             return false;
         } else if (CssConstants.ROTATE.equals(function)) {
-            int i = args.indexOf('d');
-            if (i > 0 && args.substring(i).equals("deg")) {
+            try {
+                float value = Float.parseFloat(args);
+                if (value == 0.0f)
+                    return true;
+            } catch (NumberFormatException exc) {}
+            int deg = args.indexOf('d');
+            int rad = args.indexOf('r');
+            if (deg > 0 && args.substring(deg).equals("deg") || rad > 0 && args.substring(rad).equals("rad")) {
                 try {
-                    Double.parseDouble(args.substring(0, i));
+                    Double.parseDouble(args.substring(0, deg > 0 ? deg : rad));
                 } catch (NumberFormatException exc) {
                     return false;
                 }
@@ -108,11 +114,20 @@ public class CssTransformValidator implements ICssDataTypeValidator {
             if ((arg.length == 1 || arg.length == 2 && CssConstants.SKEW.equals(function))
                     || (arg.length == 1 && (CssConstants.SKEW_X.equals(function) || CssConstants.SKEW_Y.equals(function)))) {
                 for (int k = 0; k < arg.length; k++) {
-                    int i = arg[k].indexOf('d');
-                    if (i < 0 || !arg[k].substring(i).equals("deg"))
+                    try {
+                        float value = Float.parseFloat(arg[k]);
+                        if (value != 0.0f)
+                            return false;
+                    } catch (NumberFormatException exc) {
+                    }
+                    int deg = arg[k].indexOf('d');
+                    int rad = arg[k].indexOf('r');
+                    if (deg < 0 && rad < 0)
+                        return false;
+                    if (deg > 0 && !arg[k].substring(deg).equals("deg") && rad < 0 || (rad > 0 && !arg[k].substring(rad).equals("rad")))
                         return false;
                     try {
-                        Float.parseFloat(arg[k].trim().substring(0, i));
+                        Float.parseFloat(arg[k].trim().substring(0, rad > 0 ? rad : deg));
                     } catch (NumberFormatException exc) {
                         return false;
                     }
@@ -143,10 +158,10 @@ public class CssTransformValidator implements ICssDataTypeValidator {
             } catch (NumberFormatException exc) {
                 return false;
             }
-            return (string.substring(pos).equals(CssConstants.PT) || string.substring(pos).equals(CssConstants.IN) ||
+            return (Float.parseFloat(string.substring(0, pos)) == 0.0f || string.substring(pos).equals(CssConstants.PT) || string.substring(pos).equals(CssConstants.IN) ||
                     string.substring(pos).equals(CssConstants.CM) || string.substring(pos).equals(CssConstants.Q) ||
                     string.substring(pos).equals(CssConstants.MM) || string.substring(pos).equals(CssConstants.PC) ||
-                    string.substring(pos).equals(CssConstants.PX));
+                    string.substring(pos).equals(CssConstants.PX) || string.substring(pos).equals(CssConstants.PERCENTAGE));
         }
         return false;
     }
