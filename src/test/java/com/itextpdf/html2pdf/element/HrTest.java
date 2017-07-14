@@ -161,7 +161,6 @@ public class HrTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT))
     public void hrTest18() throws IOException, InterruptedException {
         runHrTest("18");
     }

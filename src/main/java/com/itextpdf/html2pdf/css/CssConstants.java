@@ -320,10 +320,19 @@ public class CssConstants {
     
     /** The Constant OUTLINE_WIDTH. */
     public static final String OUTLINE_WIDTH = "outline-width";
-    
+
+    /** The Constant OVERFLOW. */
+    public static final String OVERFLOW = "overflow";
+
     /** The Constant OVERFLOW_WRAP. */
     public static final String OVERFLOW_WRAP = "overflow-wrap";
-    
+
+    /** The Constant OVERFLOW_X. */
+    public static final String OVERFLOW_X = "overflow-x";
+
+    /** The Constant OVERFLOW_Y. */
+    public static final String OVERFLOW_Y = "overflow-y";
+
     /** The Constant PADDING. */
     public static final String PADDING = "padding";
     
@@ -406,8 +415,11 @@ public class CssConstants {
     public static final String VERTICAL_ALIGN = "vertical-align";
     
     /** The Constant VISIBILITY. */
+    public static final String VISIBLE = "visible";
+
+    /** The Constant VISIBILITY. */
     public static final String VISIBILITY = "visibility";
-    
+
     /** The Constant VSPACE. */
     public static final String VSPACE = "vspace";
     
@@ -463,7 +475,10 @@ public class CssConstants {
     
     /** The Constant BOTTOM. */
     public static final String BOTTOM = "bottom";
-    
+
+    /** The Constant BREAK_WORD. */
+    public static final String BREAK_WORD = "break-word";
+
     /** The Constant CAPITALIZE. */
     public static final String CAPITALIZE = "capitalize";
     
@@ -631,7 +646,7 @@ public class CssConstants {
     
     /** The Constant NO_REPEAT. */
     public static final String NO_REPEAT = "no-repeat";
-    
+
     /** The Constant NONE. */
     public static final String NONE = "none";
     
@@ -811,6 +826,11 @@ public class CssConstants {
             CssConstants.MEDIUM, CssConstants.XX_SMALL, CssConstants.X_SMALL, CssConstants.SMALL, CssConstants.LARGE,
             CssConstants.X_LARGE, CssConstants.XX_LARGE
     ));
+
+    /** The Constant OVERFLOW_VALUES. */
+    public static final Set<String> OVERFLOW_VALUES = new HashSet<>(
+            Arrays.asList(new String[] {VISIBLE, HIDDEN}));
+
 
     // pseudo-elements
     
