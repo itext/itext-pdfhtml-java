@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style type="text/css">
+			@font-face {
+				font-family: "Noto Serif CJK JP";
+				src: url("web-fonts/NotoSerifCJKjp-Regular.otf") format("OpenType");
+			}
+			@font-face {
+				font-family: "Noto Sans CJK";
+				src: url("web-fonts/NotoSansCJK-Regular.woff2") format("woff2");
+			}
+			body {
+				font-size: 20px;
+			}
+			.test, .check {
+				font-size: 50px;
+			}
+			.check {
+				font-family: "Noto Serif CJK JP", serif;
+			}
+			.test {
+				font-family: "Noto Sans CJK", sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<p>Test passes if two lines below are displayed in different fonts. First is Serif, second one is Sans-Serif</p>
+		<div class="check">教育部國字標準字體</div>
+		<div class="test">教育部國字標準字體</div>
+	</body>
+</html>

@@ -415,6 +415,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             case TrueType:
             case OpenType:
             case WOFF:
+            case WOFF2:
                 return true;
             default:
                 return false;
