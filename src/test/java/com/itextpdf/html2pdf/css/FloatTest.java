@@ -52,6 +52,8 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
@@ -359,7 +361,7 @@ public class FloatTest extends ExtendedITextTest {
         runTest("float54Test", "diff54_");
     }
 
-    @Test
+    @Test@Ignore("DEVSIX-1437")
     public void float55Test() throws IOException, InterruptedException {
         runTest("float55Test", "diff55_");
     }
@@ -372,6 +374,14 @@ public class FloatTest extends ExtendedITextTest {
     @Test@Ignore("DEVSIX-1372")
     public void float58Test() throws IOException, InterruptedException {
         runTest("float58Test", "diff58_");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 1),
+    })
+    public void float60Test() throws IOException, InterruptedException {
+        runTest("float60Test", "diff60_");
     }
 
     @Test
@@ -449,7 +459,7 @@ public class FloatTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, destinationFolder, diff));
     }
 
-    @Test
+    @Test@Ignore("DEVSIX-1437")
     public void responsiveIText() throws IOException, InterruptedException {
         PageSize[] pageSizes = {
                 null,
