@@ -411,6 +411,9 @@ public class CssConstants {
     /** The Constant TEXT_UNDERLINE_POSITION. */
     public static final String TEXT_UNDERLINE_POSITION = "text-underline-position";
 
+    /** The Constant TRANSFORM. */
+    public static final String TRANSFORM = "transform";
+
     /** The Constant UNICODE_BIDI. */
     public static final String UNICODE_BIDI = "unicode-bidi";
 
@@ -628,6 +631,9 @@ public class CssConstants {
     /** The Constant MANUAL. */
     public static final String MANUAL = "manual";
 
+    /** The Constant MATRIX. */
+    public static final String MATRIX = "matrix";
+
     /** The Constant MEDIUM. */
     public static final String MEDIUM = "medium";
 
@@ -706,11 +712,33 @@ public class CssConstants {
     /** The Constant RIGHT. */
     public static final String RIGHT = "right";
 
+    /** The Constant ROTATE. */
+    public static final String ROTATE = "rotate";
+    
     /** The Constant RTL. */
     public static final String RTL = "rtl";
 
+    /** The Constant SCALE. */
+    public static final String SCALE = "scale";
+
+    /** The Constant SCALE_X. */
+    public static final String SCALE_X = "scalex";
+
+    /** The Constant SCALE_Y. */
+    public static final String SCALE_Y = "scaley";
+    
     /** The Constant SCROLL. */
     public static final String SCROLL = "scroll";
+    
+    /** The Constant SKEW. */
+    public static final String SKEW = "skew";
+
+    /** The Constant SKEW_X. */
+    public static final String SKEW_X = "skewx";
+
+    /** The Constant SKEW_Y. */
+    public static final String SKEW_Y = "skewy";
+>>>>>>> Support 2D transform CSS properties, add test
 
     /** The Constant SMALL. */
     public static final String SMALL = "small";
@@ -763,6 +791,15 @@ public class CssConstants {
     /** The Constant TOP. */
     public static final String TOP = "top";
 
+    /** The Constant TRANSLATE. */
+    public static final String TRANSLATE = "translate";
+
+    /** The Constant TRANSLATE_X. */
+    public static final String TRANSLATE_X = "translatex";
+
+    /** The Constant TRANSLATE_Y. */
+    public static final String TRANSLATE_Y = "translatey";
+    
     /** The Constant TRANSPARENT. */
     public static final String TRANSPARENT = "transparent";
 

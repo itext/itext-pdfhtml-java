@@ -59,6 +59,7 @@ import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PageBreakApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.TransformationApplierUtil;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
 
@@ -90,6 +91,7 @@ public class BlockCssApplier implements ICssApplier {
             OpacityApplierUtil.applyOpacity(cssProps, context, container);
             PageBreakApplierUtil.applyPageBreakProperties(cssProps, context, container);
             OverflowApplierUtil.applyOverflow(cssProps, container);
+            TransformationApplierUtil.applyTransformation(cssProps, context, container);
         }
     }
 

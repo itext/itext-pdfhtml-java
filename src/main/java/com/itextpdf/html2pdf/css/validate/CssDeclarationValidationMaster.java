@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.validate.impl.datatype.CssColorValidator;
 import com.itextpdf.html2pdf.css.validate.impl.datatype.CssEnumValidator;
 import com.itextpdf.html2pdf.css.validate.impl.datatype.CssQuotesValidator;
+import com.itextpdf.html2pdf.css.validate.impl.datatype.CssTransformValidator;
 import com.itextpdf.html2pdf.css.validate.impl.declaration.MultiTypeDeclarationValidator;
 import com.itextpdf.html2pdf.css.validate.impl.declaration.SingleTypeDeclarationValidator;
 
@@ -58,7 +59,9 @@ import java.util.Map;
  */
 public class CssDeclarationValidationMaster {
 
-    /** A map containing all the CSS declaration validators. */
+    /**
+     * A map containing all the CSS declaration validators.
+     */
     private static final Map<String, ICssDeclarationValidator> DEFAULT_VALIDATORS;
 
     static {
@@ -78,7 +81,7 @@ public class CssDeclarationValidationMaster {
         DEFAULT_VALIDATORS.put(CssConstants.BORDER_RIGHT_COLOR, colorCommonValidator);
         DEFAULT_VALIDATORS.put(CssConstants.FLOAT,
                 new SingleTypeDeclarationValidator(
-                        new CssEnumValidator(CssConstants.LEFT, CssConstants.RIGHT, CssConstants.NONE, CssConstants.INHERIT, CssConstants.CENTER /*center comes from legacy*/ )));
+                        new CssEnumValidator(CssConstants.LEFT, CssConstants.RIGHT, CssConstants.NONE, CssConstants.INHERIT, CssConstants.CENTER /*center comes from legacy*/)));
         DEFAULT_VALIDATORS.put(CssConstants.PAGE_BREAK_BEFORE,
                 new SingleTypeDeclarationValidator(
                         new CssEnumValidator(CssConstants.AUTO, CssConstants.ALWAYS, CssConstants.AVOID, CssConstants.LEFT, CssConstants.RIGHT)));
@@ -88,8 +91,9 @@ public class CssDeclarationValidationMaster {
         DEFAULT_VALIDATORS.put(CssConstants.QUOTES,
                 new MultiTypeDeclarationValidator(
                         new CssEnumValidator(CssConstants.INITIAL, CssConstants.INHERIT, CssConstants.NONE),
-                        new CssQuotesValidator()
-                ));
+                        new CssQuotesValidator()));
+        DEFAULT_VALIDATORS.put(CssConstants.TRANSFORM,
+                new SingleTypeDeclarationValidator(new CssTransformValidator()));
     }
 
     /**
