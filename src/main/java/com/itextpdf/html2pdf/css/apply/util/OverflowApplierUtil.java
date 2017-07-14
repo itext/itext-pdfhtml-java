@@ -68,24 +68,19 @@ public class OverflowApplierUtil {
      */
     public static void applyOverflow(Map<String, String> cssProps, IPropertyContainer element) {
         String overflow = null != cssProps && CssConstants.OVERFLOW_VALUES.contains(cssProps.get(CssConstants.OVERFLOW)) ? cssProps.get(CssConstants.OVERFLOW) : null;
-        boolean breakWord = (null != cssProps && cssProps.containsKey(CssConstants.WORDWRAP) && CssConstants.BREAK_WORD.equals(cssProps.get(CssConstants.WORDWRAP)));
 
         String overflowX = null != cssProps && CssConstants.OVERFLOW_VALUES.contains(cssProps.get(CssConstants.OVERFLOW_X)) ? cssProps.get(CssConstants.OVERFLOW_X) : overflow;
         if (CssConstants.HIDDEN.equals(overflowX)) {
             element.setProperty(Property.OVERFLOW_X, OverflowPropertyValue.HIDDEN);
-        } else if (!breakWord){
-            element.setProperty(Property.OVERFLOW_X, OverflowPropertyValue.VISIBLE);
         } else {
-            element.setProperty(Property.OVERFLOW_X, OverflowPropertyValue.FIT);
+            element.setProperty(Property.OVERFLOW_X, OverflowPropertyValue.VISIBLE);
         }
 
         String overflowY = null != cssProps && CssConstants.OVERFLOW_VALUES.contains(cssProps.get(CssConstants.OVERFLOW_Y)) ? cssProps.get(CssConstants.OVERFLOW_Y) : overflow;
         if (CssConstants.HIDDEN.equals(overflowY)) {
             element.setProperty(Property.OVERFLOW_Y, OverflowPropertyValue.HIDDEN);
-        } else if (!breakWord) {
-            element.setProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);
         } else {
-            element.setProperty(Property.OVERFLOW_Y, OverflowPropertyValue.FIT);
+            element.setProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);
         }
     }
 }
