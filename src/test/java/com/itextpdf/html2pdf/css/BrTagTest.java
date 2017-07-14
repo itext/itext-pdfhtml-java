@@ -99,7 +99,7 @@ public class BrTagTest extends ExtendedITextTest {
         // the font should be freesans
         String usedFont = null;
         for(String key : fontFrequency.keySet()) {
-            Assert.assertTrue(usedFont.equals("freesans"));
+            Assert.assertTrue(key.equals("freesans"));
             usedFont = key;
         }
 
