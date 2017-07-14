@@ -124,6 +124,9 @@ public class AbsolutePositionTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, count = 1),
+    })
     public void absolutePosition09Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "absolutePositionTest09.html"), new File(destinationFolder + "absolutePositionTest09.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "absolutePositionTest09.pdf", sourceFolder + "cmp_absolutePositionTest09.pdf", destinationFolder, "diff09_"));

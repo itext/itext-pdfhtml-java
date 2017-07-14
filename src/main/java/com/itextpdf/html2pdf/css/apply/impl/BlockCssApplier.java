@@ -44,6 +44,8 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.ImgTagWorker;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
@@ -52,6 +54,7 @@ import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.OverflowApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PageBreakApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
@@ -86,6 +89,7 @@ public class BlockCssApplier implements ICssApplier {
             PositionApplierUtil.applyPosition(cssProps, context, container);
             OpacityApplierUtil.applyOpacity(cssProps, context, container);
             PageBreakApplierUtil.applyPageBreakProperties(cssProps, context, container);
+            OverflowApplierUtil.applyOverflow(cssProps, container);
         }
     }
 

@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.util.OverflowApplierUtil;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.AreaBreak;

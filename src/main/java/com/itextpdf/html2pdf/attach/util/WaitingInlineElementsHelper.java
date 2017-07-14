@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.util;
 
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.util.OverflowApplierUtil;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
@@ -50,35 +51,46 @@ import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Helper class for waiting inline elements.
  */
 public class WaitingInlineElementsHelper {
 
-    /** A value that defines how to transform text. */
+    /**
+     * A value that defines how to transform text.
+     */
     private String textTransform;
 
-    /** Indicates whether line breaks need to be preserved. */
+    /**
+     * Indicates whether line breaks need to be preserved.
+     */
     private boolean keepLineBreaks;
 
-    /** Indicates whether white space characters need to be collapsed. */
+    /**
+     * Indicates whether white space characters need to be collapsed.
+     */
     private boolean collapseSpaces;
 
-    /** List of waiting leaf elements. */
+    /**
+     * List of waiting leaf elements.
+     */
     private List<IElement> waitingLeaves = new ArrayList<>();
 
     /**
      * Creates a new {@link WaitingInlineElementsHelper} instance.
      *
-     * @param whiteSpace we'll check if this value equals "pre" or "pre-wrap"
+     * @param whiteSpace    we'll check if this value equals "pre" or "pre-wrap"
      * @param textTransform will define the transformation that needs to be applied to the text
      */
     public WaitingInlineElementsHelper(String whiteSpace, String textTransform) {
@@ -163,6 +175,9 @@ public class WaitingInlineElementsHelper {
     public void flushHangingLeaves(IPropertyContainer container) {
         Paragraph p = createLeavesContainer();
         if (p != null) {
+            Map<String, String> map = new HashMap<>();
+            map.put(CssConstants.OVERFLOW, CssConstants.VISIBLE);
+            OverflowApplierUtil.applyOverflow(map, p);
             if (container instanceof Document) {
                 ((Document) container).add(p);
             } else if (container instanceof Paragraph) {

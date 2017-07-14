@@ -106,7 +106,6 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test  //TODO this test could be improved, somehow.
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)})
     public void helloTableFixed6DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_fixed6");
     }
