@@ -393,12 +393,14 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 // Cache at resource resolver level only, at font level we will create font in any case.
                 // The instance of fontProgram will be collected by GC if the is no need in it.
                 byte[] bytes = context.getResourceResolver().retrieveStream(src.src);
-                FontProgram fp = FontProgramFactory.createFont(bytes, false);
-                context.addTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily);
-                return true;
+                if (bytes != null) {
+                    FontProgram fp = FontProgramFactory.createFont(bytes, false);
+                    context.addTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily);
+                    return true;
+                }
             } catch (Exception ignored) {
-                return false;
             }
+            return false;
         }
     }
 
@@ -408,7 +410,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      * @param format {@link com.itextpdf.html2pdf.attach.impl.FontFace.FontFormat}
      * @return true, if supported or unrecognized.
      */
-    // TODO Update after DEVSIX-1314
     private boolean supportedFontFormat(FontFace.FontFormat format) {
         switch (format) {
             case None:
