@@ -55,12 +55,22 @@ public class CssTransformValidator implements ICssDataTypeValidator {
      */
     @Override
     public boolean isValid(String objectString) {
+        if (CssConstants.NONE.equals(objectString))
+            return true;
+        String[] components = objectString.split("\\)");
+        for (String component : components)
+            if (!isValidComponent(component))
+                return false;
+        return true;
+    }
+
+    private boolean isValidComponent(String objectString) {
         String function, args;
         if (!CssConstants.NONE.equals(objectString)) {
-            function = objectString.substring(0, objectString.indexOf('('));
-            args = objectString.substring(objectString.indexOf('(') + 1, objectString.length() - 1);
+            function = objectString.substring(0, objectString.indexOf('(')).trim();
+            args = objectString.substring(objectString.indexOf('(') + 1);
         } else {
-            return true;
+            return false;
         }
         if (CssConstants.MATRIX.equals(function) || CssConstants.SCALE.equals(function) ||
                 CssConstants.SCALE_X.equals(function) || CssConstants.SCALE_Y.equals(function)) {
@@ -96,7 +106,8 @@ public class CssTransformValidator implements ICssDataTypeValidator {
                 float value = Float.parseFloat(args);
                 if (value == 0.0f)
                     return true;
-            } catch (NumberFormatException exc) {}
+            } catch (NumberFormatException exc) {
+            }
             int deg = args.indexOf('d');
             int rad = args.indexOf('r');
             if (deg > 0 && args.substring(deg).equals("deg") || rad > 0 && args.substring(rad).equals("rad")) {
