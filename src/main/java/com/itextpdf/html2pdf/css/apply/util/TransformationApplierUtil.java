@@ -50,6 +50,8 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
 
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 import static java.lang.Math.toRadians;
 import static java.lang.Math.cos;
@@ -72,17 +74,26 @@ public class TransformationApplierUtil {
      * @param element  the element
      */
     public static void applyTransformation(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
-        String transformationFunction, function, args;
+        String transformationFunction;
         if (cssProps.get(CssConstants.TRANSFORM) != null)
             transformationFunction = cssProps.get(CssConstants.TRANSFORM).toLowerCase();
         else
-            transformationFunction = "none";
+            return;
+        String[] components = transformationFunction.split("\\)");
+        List<String[]> multipleFunction = new ArrayList<>(components.length);
+        for (String component : components) {
+            multipleFunction.add(parseSingleFunction(component));
+        }
+        element.setProperty(Property.TRANSFORM, multipleFunction);
+    }
+
+    private static String[] parseSingleFunction(String transformationFunction) {
+        String function, args;
         if (!CssConstants.NONE.equals(transformationFunction)) {
-            function = transformationFunction.substring(0, transformationFunction.indexOf('('));
-            args = transformationFunction.substring(transformationFunction.indexOf('(') + 1, transformationFunction.length() - 1);
+            function = transformationFunction.substring(0, transformationFunction.indexOf('(')).trim();
+            args = transformationFunction.substring(transformationFunction.indexOf('(') + 1);
         } else {
-            function = transformationFunction;
-            args = "0";
+            return floatArrayToStringArray(new float[]{1, 0, 0, 1, 0, 0});
         }
         if (CssConstants.MATRIX.equals(function)) {
             String[] arg = args.split(",");
@@ -97,7 +108,7 @@ public class TransformationApplierUtil {
                     if (i == 1 || i == 2 || i == 5)
                         matrix[i] *= -1;
                 }
-                element.setProperty(Property.TRANSFORM, floatArrayToStringArray(matrix));
+                return floatArrayToStringArray(matrix);
             }
         } else if (CssConstants.TRANSLATE.equals(function)) {
             String[] arg = args.split(",");
@@ -118,7 +129,7 @@ public class TransformationApplierUtil {
                 transform[4] = xStr;
             if (yStr != null)
                 transform[5] = yStr;
-            element.setProperty(Property.TRANSFORM, transform);
+            return transform;
         } else if (CssConstants.TRANSLATE_X.equals(function)) {
             String xStr = null;
             float x = 0;
@@ -129,7 +140,7 @@ public class TransformationApplierUtil {
             String[] transform = floatArrayToStringArray(new float[]{1, 0, 0, 1, x, 0});
             if (xStr != null)
                 transform[4] = xStr;
-            element.setProperty(Property.TRANSFORM, transform);
+            return transform;
         } else if (CssConstants.TRANSLATE_Y.equals(function)) {
             String yStr = null;
             float y = 0;
@@ -140,25 +151,25 @@ public class TransformationApplierUtil {
             String[] transform = floatArrayToStringArray(new float[]{1, 0, 0, 1, 0, y});
             if (yStr != null)
                 transform[4] = yStr;
-            element.setProperty(Property.TRANSFORM, transform);
+            return transform;
         } else if (CssConstants.ROTATE.equals(function)) {
             double angleInRad = parseAngleToRadians(args);
             float cos = (float) cos(angleInRad);
             float sin = (float) sin(angleInRad);
-            element.setProperty(Property.TRANSFORM, floatArrayToStringArray(new float[]{cos, sin, -1 * sin, cos, 0, 0}));
+            return floatArrayToStringArray(new float[]{cos, sin, -1 * sin, cos, 0, 0});
         } else if (CssConstants.SKEW.equals(function)) {
             String[] arg = args.split(",");
             double xAngleInRad = parseAngleToRadians(arg[0]),
                     yAngleInRad = arg.length == 2 ? parseAngleToRadians(arg[1]) : 0.0;
             float tanX = (float) tan(xAngleInRad);
             float tanY = (float) tan(yAngleInRad);
-            element.setProperty(Property.TRANSFORM, floatArrayToStringArray(new float[]{1, tanY, tanX, 1, 0, 0}));
+            return floatArrayToStringArray(new float[]{1, tanY, tanX, 1, 0, 0});
         } else if (CssConstants.SKEW_X.equals(function)) {
             float tanX = (float) tan(parseAngleToRadians(args));
-            element.setProperty(Property.TRANSFORM, floatArrayToStringArray(new float[]{1, 0, tanX, 1, 0, 0}));
+            return floatArrayToStringArray(new float[]{1, 0, tanX, 1, 0, 0});
         } else if (CssConstants.SKEW_Y.equals(function)) {
             float tanY = (float) tan(parseAngleToRadians(args));
-            element.setProperty(Property.TRANSFORM, floatArrayToStringArray(new float[]{1, tanY, 0, 1, 0, 0}));
+            return floatArrayToStringArray(new float[]{1, tanY, 0, 1, 0, 0});
         } else if (CssConstants.SCALE.equals(function)) {
             String[] arg = args.split(",");
             float x, y;
@@ -169,14 +180,15 @@ public class TransformationApplierUtil {
                 x = Float.parseFloat(arg[0].trim());
                 y = x;
             }
-            element.setProperty(Property.TRANSFORM, floatArrayToStringArray(new float[]{x, 0, 0, y, 0, 0}));
+            return floatArrayToStringArray(new float[]{x, 0, 0, y, 0, 0});
         } else if (CssConstants.SCALE_X.equals(function)) {
             float x = Float.parseFloat(args.trim());
-            element.setProperty(Property.TRANSFORM, floatArrayToStringArray(new float[]{x, 0, 0, 1, 0, 0}));
+            return floatArrayToStringArray(new float[]{x, 0, 0, 1, 0, 0});
         } else if (CssConstants.SCALE_Y.equals(function)) {
             float y = Float.parseFloat(args.trim());
-            element.setProperty(Property.TRANSFORM, floatArrayToStringArray(new float[]{1, 0, 0, y, 0, 0}));
+            return floatArrayToStringArray(new float[]{1, 0, 0, y, 0, 0});
         }
+        return new String[6];
     }
 
     private static double parseAngleToRadians(String value){
