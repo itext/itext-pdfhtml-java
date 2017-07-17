@@ -109,7 +109,7 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
     @Override
     protected void adjustFieldLayout() {
         List<LineRenderer> flatLines = ((ParagraphRenderer) flatRenderer).getLines();
-        Rectangle flatBBox= flatRenderer.getOccupiedArea().getBBox();
+        Rectangle flatBBox = flatRenderer.getOccupiedArea().getBBox();
         updatePdfFont((ParagraphRenderer) flatRenderer);
         if (!flatLines.isEmpty() && font != null) {
             cropContentLines(flatLines, flatBBox);

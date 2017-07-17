@@ -188,7 +188,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         UnitValue width = this.<UnitValue>getProperty(Property.WIDTH);
         if (width != null) {
             if (width.isPointValue()) {
-                return width.getValue();
+                return retrieveWidth(0);
             } else {
                 LoggerFactory.getLogger(getClass()).warn(LogMessageConstant.INPUT_SUPPORTS_ONLY_POINT_WIDTH);
             }
@@ -203,8 +203,8 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         float parentWidth = layoutContext.getArea().getBBox().getWidth();
         float parentHeight = layoutContext.getArea().getBBox().getHeight();
 
-        Float maxHeight = retrieveMaxHeight();
-        Float height = retrieveHeight();
+        Float maxHeight = this.<Float>getProperty(Property.MAX_HEIGHT);
+        Float height = this.<Float>getProperty(Property.HEIGHT);
         boolean restoreMaxHeight = hasOwnProperty(Property.MAX_HEIGHT);
         boolean restoreHeight = hasOwnProperty(Property.HEIGHT);
         setProperty(Property.MAX_HEIGHT, null);
