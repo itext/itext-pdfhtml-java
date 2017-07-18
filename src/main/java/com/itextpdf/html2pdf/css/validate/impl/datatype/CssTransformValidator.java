@@ -46,7 +46,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator;
 
 /**
- * {@link ICssDataTypeValidator} implementation for .
+ * {@link ICssDataTypeValidator} implementation for css transform property .
  */
 public class CssTransformValidator implements ICssDataTypeValidator {
 
@@ -66,7 +66,7 @@ public class CssTransformValidator implements ICssDataTypeValidator {
 
     private boolean isValidComponent(String objectString) {
         String function, args;
-        if (!CssConstants.NONE.equals(objectString)) {
+        if (!CssConstants.NONE.equals(objectString) && objectString.indexOf('(') > 0) {
             function = objectString.substring(0, objectString.indexOf('(')).trim();
             args = objectString.substring(objectString.indexOf('(') + 1);
         } else {
