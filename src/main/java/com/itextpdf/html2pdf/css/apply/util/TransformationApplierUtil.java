@@ -61,7 +61,7 @@ import static java.lang.Math.tan;
 public class TransformationApplierUtil {
 
     /**
-     * Creates a new <code>TransformationApplierUtil</code> instance.
+     * Creates a new {@link TransformationApplierUtil} instance.
      */
     private TransformationApplierUtil() {
     }
