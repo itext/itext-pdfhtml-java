@@ -139,7 +139,6 @@ public class BoxSizingTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 1))
     public void boxSizingDiv04Test() throws IOException, InterruptedException {
         // TODO inner div still doesn't fit, because it's height is increased every time page split occurs by margins borders padding
         // Thus, if parent height was manually fixed to include child with fixed height and if page split occurs - child might not fit.
