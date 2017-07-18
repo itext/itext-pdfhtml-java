@@ -738,7 +738,6 @@ public class CssConstants {
 
     /** The Constant SKEW_Y. */
     public static final String SKEW_Y = "skewy";
->>>>>>> Support 2D transform CSS properties, add test
 
     /** The Constant SMALL. */
     public static final String SMALL = "small";
