@@ -844,13 +844,67 @@ public class CssConstants {
 
     // pseudo-classes
 
+    public static final String ACTIVE = "active";
+
+    public static final String CHECKED = "checked";
+
+    public static final String DISABLED = "disabled";
+
+    public static final String EMPTY = "empty";
+
+    public static final String ENABLED = "enabled";
+
     public static final String FIRST_CHILD = "first-child";
 
+    public static final String FIRST_OF_TYPE = "first-of-type";
+
+    public static final String FOCUS = "focus";
+
+    public static final String HOVER = "hover";
+
+    public static final String IN_RANGE = "in-range";
+
+    public static final String INVALID = "invalid";
+
+    public static final String LANG = "lang";
+
     public static final String LAST_CHILD = "last-child";
+
+    public static final String LAST_OF_TYPE = "last-of-type";
+
+    public static final String LINK = "link";
 
     public static final String NTH_CHILD = "nth-child";
 
     public static final String NOT = "not";
+
+    public static final String NTH_LAST_CHILD = "nth-last-child";
+
+    public static final String NTH_LAST_OF_TYPE = "nth-last-of-type";
+
+    public static final String NTH_OF_TYPE = "nth-of-type";
+
+    public static final String ONLY_OF_TYPE = "only-of-type";
+
+    public static final String ONLY_CHILD = "only-child";
+
+    public static final String OPTIONAL = "optional";
+
+    public static final String OUT_OF_RANGE = "out-of-range";
+
+    public static final String READ_ONLY = "read-only";
+
+    public static final String READ_WRITE = "read-write";
+
+    public static final String REQUIRED = "required";
+
+    public static final String ROOT = "root";
+
+    public static final String TARGET = "target";
+
+    public static final String VALID = "valid";
+
+    public static final String VISITED = "visited";
 
     // Functions
 
