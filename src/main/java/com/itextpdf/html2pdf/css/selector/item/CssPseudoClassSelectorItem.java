@@ -114,6 +114,14 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
                     }
                 }
                 return new NotSelectorItem(selector);
+            case CssConstants.LINK:
+                return new AlwaysApplySelectorItem(pseudoClass, arguments);
+            case CssConstants.ACTIVE:
+            case CssConstants.FOCUS:
+            case CssConstants.HOVER:
+            case CssConstants.TARGET:
+            case CssConstants.VISITED:
+                return new AlwaysNotApplySelectorItem(pseudoClass, arguments);
             default:
                 return new CssPseudoClassSelectorItem(pseudoClass, arguments);
         }
@@ -299,6 +307,28 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
         @Override
         public boolean matches(INode node) {
             return !argumentsSelector.matches(node);
+        }
+    }
+
+    private static class AlwaysApplySelectorItem extends CssPseudoClassSelectorItem {
+        protected AlwaysApplySelectorItem(String pseudoClass, String arguments) {
+            super(pseudoClass, arguments);
+        }
+
+        @Override
+        public boolean matches(INode node) {
+            return true;
+        }
+    }
+
+    private static class AlwaysNotApplySelectorItem extends CssPseudoClassSelectorItem {
+        protected AlwaysNotApplySelectorItem(String pseudoClass, String arguments) {
+            super(pseudoClass, arguments);
+        }
+
+        @Override
+        public boolean matches(INode node) {
+            return false;
         }
     }
 }
