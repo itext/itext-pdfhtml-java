@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css.selector.item;
 
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.parse.CssSelectorParser;
 import com.itextpdf.html2pdf.css.selector.CssSelector;
 import com.itextpdf.html2pdf.css.selector.ICssSelector;
 import com.itextpdf.html2pdf.html.node.ICustomElementNode;
@@ -146,6 +147,10 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
     @Override
     public String toString() {
         return ":" + pseudoClass + (!arguments.isEmpty() ? "(" + arguments + ")" : "");
+    }
+
+    public String getPseudoClass() {
+        return pseudoClass;
     }
 
     private static class ChildSelectorItem extends CssPseudoClassSelectorItem {
@@ -305,12 +310,18 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
         }
     }
 
-    private static class NotSelectorItem extends CssPseudoClassSelectorItem {
+    //@TODO This class was made public because we need to detect to arguments contains unsupported pseudo classes
+    //revert the changes when the task DEVSIX-1440 is done
+    public static class NotSelectorItem extends CssPseudoClassSelectorItem {
         private ICssSelector argumentsSelector;
 
         public NotSelectorItem(ICssSelector argumentsSelector) {
             super(CssConstants.NOT, argumentsSelector.toString());
             this.argumentsSelector = argumentsSelector;
+        }
+
+        public List<ICssSelectorItem> getArgumentsSelector() {
+            return CssSelectorParser.parseSelectorItems(arguments);
         }
 
         @Override
