@@ -842,6 +842,12 @@ public class CssConstants {
     /** The Constant BEFORE. */
     public static final String BEFORE = "before";
 
+    public static final String FIRST_LETTER = "first-letter";
+
+    public static final String FIRST_LINE = "first-line";
+
+    public static final String SELECTION = "selection";
+
     // pseudo-classes
 
     public static final String ACTIVE = "active";
