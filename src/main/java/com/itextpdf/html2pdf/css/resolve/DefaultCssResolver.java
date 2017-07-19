@@ -72,12 +72,10 @@ import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.io.util.StreamUtil;
-import com.itextpdf.layout.element.IElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
