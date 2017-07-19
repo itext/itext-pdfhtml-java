@@ -49,6 +49,7 @@ import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
+import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssFontFaceRule;
@@ -69,6 +70,7 @@ import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.property.Property;
 import java.lang.reflect.Array;
@@ -178,18 +180,17 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         addFontFaceFonts();
         IElementNode html = findHtmlNode(root);
         IElementNode body = findBodyNode(root);
+
         // Force resolve styles to fetch default font size etc
         html.setStyles(cssResolver.resolveStyles(html, context.getCssContext()));
-        body.setStyles(cssResolver.resolveStyles(body, context.getCssContext()));
-        for (INode node : body.childNodes()) {
-            if (node instanceof IElementNode) {
-                visit(node);
-            } else if (node instanceof ITextNode) {
-                logger.error(MessageFormatUtil.format(LogMessageConstant.TEXT_WAS_NOT_PROCESSED, ((ITextNode) node).wholeText()));
-            }
-        }
+        //body.setStyles(cssResolver.resolveStyles(body, context.getCssContext()));
+
+        // visit body
+        visit(body);
+
+        Div bodyDiv = (Div) roots.get(0);
         List<com.itextpdf.layout.element.IElement> elements = new ArrayList<>();
-        for (IPropertyContainer propertyContainer : roots) {
+        for (IPropertyContainer propertyContainer : bodyDiv.getChildren()) {
             if (propertyContainer instanceof com.itextpdf.layout.element.IElement) {
                 propertyContainer.setProperty(Property.COLLAPSING_MARGINS, true);
                 propertyContainer.setProperty(Property.FONT_PROVIDER, context.getFontProvider());
@@ -313,6 +314,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 }
 
                 if (!context.getState().empty()) {
+                    if(context.getState().top() instanceof DivTagWorker)
+                    {
+                        context.getState().top().processEnd(element, context);
+                    }
+
                     PageBreakApplierUtil.addPageBreakElementBefore(context, context.getState().top(), element, tagWorker);
                     boolean childProcessed = context.getState().top().processTagChild(tagWorker, context);
                     PageBreakApplierUtil.addPageBreakElementAfter(context, context.getState().top(), element, tagWorker);
