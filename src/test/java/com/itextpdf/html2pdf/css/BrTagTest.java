@@ -43,8 +43,11 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.layout.element.AbstractElement;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.renderer.AbstractRenderer;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -59,6 +62,7 @@ import org.junit.experimental.categories.Category;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -84,26 +88,11 @@ public class BrTagTest extends ExtendedITextTest {
                 "</body>" +
                 "</html>";
 
-        Map<String, Integer> fontFrequency = new HashMap<>();
-        
-        for (IElement e : HtmlConverter.convertToElements(input)) {
-            String fontName = e.<String>getProperty(Property.FONT);
-            if (!fontFrequency.containsKey(fontName))
-                fontFrequency.put(fontName, 0);
-            fontFrequency.put(fontName, fontFrequency.get(fontName) + 1);
-        }
-
-        // only 1 font should be used
-        Assert.assertTrue(fontFrequency.size() == 1);
-
-        // the font should be freesans
-        String usedFont = null;
-        for(String key : fontFrequency.keySet()) {
-            Assert.assertTrue(key.equals("freesans"));
-            usedFont = key;
-        }
-
-        // it should have been used for 3 elements
-        Assert.assertTrue(fontFrequency.get(usedFont) == 3);
+        List<IElement> elements = HtmlConverter.convertToElements(input);
+        Assert.assertEquals(3, elements.size());
+        Assert.assertTrue(elements.get(1) instanceof Paragraph);
+        Assert.assertEquals(1, ((Paragraph)elements.get(1)).getChildren().size());
+        IElement iElement = ((Paragraph) elements.get(1)).getChildren().get(0);
+        Assert.assertEquals("freesans", iElement.getProperty(Property.FONT));
     }
 }
