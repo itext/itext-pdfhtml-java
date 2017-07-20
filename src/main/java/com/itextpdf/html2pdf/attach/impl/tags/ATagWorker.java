@@ -51,8 +51,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.property.Property;
-
-import java.util.List;
+import com.itextpdf.layout.property.Transform;
 
 /**
  * TagWorker class for the {@code a} element.
@@ -82,7 +81,7 @@ public class ATagWorker extends SpanTagWorker {
                 if (getAllElements().get(i) instanceof IBlockElement) {
                     Div simulatedDiv = new Div();
                     simulatedDiv.setRole(PdfName.Link);
-                    List<String[]> cssTransform = getAllElements().get(i).<List<String[]>>getProperty(Property.TRANSFORM);
+                    Transform cssTransform = getAllElements().get(i).<Transform>getProperty(Property.TRANSFORM);
                     if (cssTransform != null) {
                         getAllElements().get(i).deleteOwnProperty(Property.TRANSFORM);
                         simulatedDiv.setProperty(Property.TRANSFORM, cssTransform);
