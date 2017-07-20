@@ -115,6 +115,15 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             // Content from <tr> is thrown upwards to parent, in other cases CSS is inherited anyway
             TagConstants.TR)));
 
+    /** Set of tags that might be not processed by some tag workers and that are deliberately excluded from the logging. */
+    private static final Set<String> ignoredChildTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
+            TagConstants.BODY,
+            TagConstants.LINK,
+            TagConstants.META,
+            TagConstants.SCRIPT,
+            TagConstants.TITLE // TODO implement
+            )));
+
     /** The processor context. */
     private ProcessorContext context;
 
@@ -316,7 +325,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                     PageBreakApplierUtil.addPageBreakElementBefore(context, context.getState().top(), element, tagWorker);
                     boolean childProcessed = context.getState().top().processTagChild(tagWorker, context);
                     PageBreakApplierUtil.addPageBreakElementAfter(context, context.getState().top(), element, tagWorker);
-                    if (!childProcessed) {
+                    if (!childProcessed && !ignoredChildTags.contains(element.name())) {
                         logger.error(MessageFormatUtil.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
                                 context.getState().top().getClass().getName(), tagWorker.getClass().getName()));
                     }
