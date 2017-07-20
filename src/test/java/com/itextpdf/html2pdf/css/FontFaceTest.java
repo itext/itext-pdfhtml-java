@@ -143,6 +143,71 @@ public class FontFaceTest extends ExtendedITextTest {
         runTest("fontFaceWoffTest02");
     }
 
+    @Test
+    @Ignore("contains ttc font")
+    public void fontFaceTtcTest() throws IOException, InterruptedException {
+        runTest("fontFaceTtcTest");
+    }
+
+    @Test
+    public void fontFaceWoff2SimpleTest() throws IOException, InterruptedException {
+        runTest("fontFaceWoff2SimpleTest");
+    }
+
+    @Test
+    @Ignore("contains ttc font")
+    public void fontFaceWoff2TtcTest() throws IOException, InterruptedException {
+        runTest("fontFaceWoff2TtcTest");
+    }
+
+    @Test
+    //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+    public void w3cProblemTest01() throws IOException, InterruptedException {
+        runTest("w3cProblemTest01");
+    }
+
+    @Test
+    //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
+    public void w3cProblemTest02() throws IOException, InterruptedException {
+        runTest("w3cProblemTest02");
+    }
+
+    @Test
+    //TODO: silently omitted, decompression should fail.
+    public void w3cProblemTest03() throws IOException, InterruptedException {
+        runTest("w3cProblemTest03");
+    }
+
+    @Test
+    //TODO: silently omitted, decompression should fail. Browser loads font but don't draw glyph.
+    public void w3cProblemTest04() throws IOException, InterruptedException {
+        runTest("w3cProblemTest04");
+    }
+
+    @Test
+    //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+    public void w3cProblemTest05() throws IOException, InterruptedException {
+        runTest("w3cProblemTest05");
+    }
+
+    @Test
+    //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+    public void w3cProblemTest06() throws IOException, InterruptedException {
+        runTest("w3cProblemTest06");
+    }
+
+    @Test
+    //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
+    public void w3cProblemTest07() throws IOException, InterruptedException {
+        runTest("w3cProblemTest07");
+    }
+
+    @Test
+    //TODO: browser can load font with @font-face family name different form family name stored in font metadata, but iText should have them equal in order to work.
+    public void incorrectFontNameTest() throws IOException, InterruptedException {
+        runTest("incorrectFontNameTest");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
