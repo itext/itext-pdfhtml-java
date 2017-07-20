@@ -110,7 +110,8 @@ public class TransformationApplierUtil {
                 }
                 return floatArrayToStringArray(matrix);
             }
-        } else if (CssConstants.TRANSLATE.equals(function)) {
+        }
+        if (CssConstants.TRANSLATE.equals(function)) {
             String[] arg = args.split(",");
             String xStr = null, yStr = null;
             float x = 0, y = 0;
@@ -130,7 +131,8 @@ public class TransformationApplierUtil {
             if (yStr != null)
                 transform[5] = yStr;
             return transform;
-        } else if (CssConstants.TRANSLATE_X.equals(function)) {
+        }
+        if (CssConstants.TRANSLATE_X.equals(function)) {
             String xStr = null;
             float x = 0;
             if (args.indexOf('%') > 0)
@@ -141,7 +143,8 @@ public class TransformationApplierUtil {
             if (xStr != null)
                 transform[4] = xStr;
             return transform;
-        } else if (CssConstants.TRANSLATE_Y.equals(function)) {
+        }
+        if (CssConstants.TRANSLATE_Y.equals(function)) {
             String yStr = null;
             float y = 0;
             if (args.indexOf('%') > 0)
@@ -152,25 +155,30 @@ public class TransformationApplierUtil {
             if (yStr != null)
                 transform[4] = yStr;
             return transform;
-        } else if (CssConstants.ROTATE.equals(function)) {
+        }
+        if (CssConstants.ROTATE.equals(function)) {
             double angleInRad = parseAngleToRadians(args);
             float cos = (float) cos(angleInRad);
             float sin = (float) sin(angleInRad);
             return floatArrayToStringArray(new float[]{cos, sin, -1 * sin, cos, 0, 0});
-        } else if (CssConstants.SKEW.equals(function)) {
+        }
+        if (CssConstants.SKEW.equals(function)) {
             String[] arg = args.split(",");
             double xAngleInRad = parseAngleToRadians(arg[0]),
                     yAngleInRad = arg.length == 2 ? parseAngleToRadians(arg[1]) : 0.0;
             float tanX = (float) tan(xAngleInRad);
             float tanY = (float) tan(yAngleInRad);
             return floatArrayToStringArray(new float[]{1, tanY, tanX, 1, 0, 0});
-        } else if (CssConstants.SKEW_X.equals(function)) {
+        }
+        if (CssConstants.SKEW_X.equals(function)) {
             float tanX = (float) tan(parseAngleToRadians(args));
             return floatArrayToStringArray(new float[]{1, 0, tanX, 1, 0, 0});
-        } else if (CssConstants.SKEW_Y.equals(function)) {
+        }
+        if (CssConstants.SKEW_Y.equals(function)) {
             float tanY = (float) tan(parseAngleToRadians(args));
             return floatArrayToStringArray(new float[]{1, tanY, 0, 1, 0, 0});
-        } else if (CssConstants.SCALE.equals(function)) {
+        }
+        if (CssConstants.SCALE.equals(function)) {
             String[] arg = args.split(",");
             float x, y;
             if (arg.length == 2) {
@@ -181,10 +189,12 @@ public class TransformationApplierUtil {
                 y = x;
             }
             return floatArrayToStringArray(new float[]{x, 0, 0, y, 0, 0});
-        } else if (CssConstants.SCALE_X.equals(function)) {
+        }
+        if (CssConstants.SCALE_X.equals(function)) {
             float x = Float.parseFloat(args.trim());
             return floatArrayToStringArray(new float[]{x, 0, 0, 1, 0, 0});
-        } else if (CssConstants.SCALE_Y.equals(function)) {
+        }
+        if (CssConstants.SCALE_Y.equals(function)) {
             float y = Float.parseFloat(args.trim());
             return floatArrayToStringArray(new float[]{1, 0, 0, y, 0, 0});
         }
