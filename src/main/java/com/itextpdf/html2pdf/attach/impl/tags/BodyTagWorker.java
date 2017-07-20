@@ -53,7 +53,7 @@ import com.itextpdf.layout.property.Property;
 /**
  * TagWorker class for the {@code body} element.
  */
-public class BodyTagWorker implements ITagWorker {
+public class BodyTagWorker extends DivTagWorker {
 
     /** The parent tag worker. */
     private ITagWorker parentTagWorker;
@@ -65,6 +65,7 @@ public class BodyTagWorker implements ITagWorker {
      * @param context the context
      */
     public BodyTagWorker(IElementNode element, ProcessorContext context) {
+        super(element, context);
         parentTagWorker = context.getState().empty() ? null : context.getState().top();
         if (parentTagWorker != null && parentTagWorker.getElementResult() != null) {
             // TODO this is not in css applier because css applier is called after the elements are added to the document
@@ -82,6 +83,8 @@ public class BodyTagWorker implements ITagWorker {
      */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
+        if(parentTagWorker == null)
+            super.processEnd(element, context);
     }
 
     /* (non-Javadoc)
@@ -90,7 +93,7 @@ public class BodyTagWorker implements ITagWorker {
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         if (parentTagWorker == null) {
-            return false;
+            return super.processContent(content, context);
         } else {
             return parentTagWorker.processContent(content, context);
         }
@@ -102,7 +105,7 @@ public class BodyTagWorker implements ITagWorker {
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         if (parentTagWorker == null) {
-            return false;
+            return super.processTagChild(childTagWorker, context);
         } else {
             return parentTagWorker.processTagChild(childTagWorker, context);
         }
@@ -113,6 +116,6 @@ public class BodyTagWorker implements ITagWorker {
      */
     @Override
     public IPropertyContainer getElementResult() {
-        return null;
+        return parentTagWorker == null ? super.getElementResult() : null;
     }
 }
