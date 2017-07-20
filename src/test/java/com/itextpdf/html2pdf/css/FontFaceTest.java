@@ -167,6 +167,7 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
+    @Ignore("DEVSIX-444")
     //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
     public void w3cProblemTest02() throws IOException, InterruptedException {
         runTest("w3cProblemTest02");
@@ -197,6 +198,7 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
+    @Ignore("DEVSIX-444")
     //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
     public void w3cProblemTest07() throws IOException, InterruptedException {
         runTest("w3cProblemTest07");
