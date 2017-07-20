@@ -183,7 +183,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
         // Force resolve styles to fetch default font size etc
         html.setStyles(cssResolver.resolveStyles(html, context.getCssContext()));
-        //body.setStyles(cssResolver.resolveStyles(body, context.getCssContext()));
 
         // visit body
         visit(body);
@@ -314,11 +313,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 }
 
                 if (!context.getState().empty()) {
-                    if(context.getState().top() instanceof DivTagWorker)
-                    {
-                        context.getState().top().processEnd(element, context);
-                    }
-
                     PageBreakApplierUtil.addPageBreakElementBefore(context, context.getState().top(), element, tagWorker);
                     boolean childProcessed = context.getState().top().processTagChild(tagWorker, context);
                     PageBreakApplierUtil.addPageBreakElementAfter(context, context.getState().top(), element, tagWorker);
