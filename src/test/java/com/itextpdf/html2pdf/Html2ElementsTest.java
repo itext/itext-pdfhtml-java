@@ -141,7 +141,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
     {
         String html = "<html>Lorem<span>Dolor</span><p>Ipsum</p><p>Sit</p></html>";
         List<IElement> lst = HtmlConverter.convertToElements(html);
-        Assert.assertTrue(lst.size() == 4);
+        Assert.assertTrue(lst.size() == 3);
         for(int i=0;i<lst.size();i++)
             Assert.assertTrue(lst.get(i) instanceof Paragraph);
     }
