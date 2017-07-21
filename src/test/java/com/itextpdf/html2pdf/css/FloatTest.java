@@ -495,7 +495,9 @@ public class FloatTest extends ExtendedITextTest {
                 mediaDescription.setWidth((float)pxWidth);
                 converterProperties.setMediaDeviceDescription(mediaDescription);
             }
-            HtmlConverter.convertToPdf(new FileInputStream(htmlSource), pdfDoc, converterProperties);
+            try (FileInputStream fileInputStream = new FileInputStream(htmlSource)) {
+                HtmlConverter.convertToPdf(fileInputStream, pdfDoc, converterProperties);
+            }
             pdfDoc.close();
         }
 

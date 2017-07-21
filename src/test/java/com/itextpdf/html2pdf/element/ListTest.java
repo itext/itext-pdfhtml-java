@@ -174,9 +174,11 @@ public class ListTest extends ExtendedITextTest {
     public void listToPdfaTest() throws IOException, InterruptedException {
         InputStream is = new FileInputStream(sourceFolder + "sRGB Color Space Profile.icm");
         PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "listToPdfa.pdf"), PdfAConformanceLevel.PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", is));
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "listToPdfa.html"), pdfADocument, new ConverterProperties()
-                        .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT))
-                        .setFontProvider(new DefaultFontProvider(false, true, false)));
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "listToPdfa.html")) {
+            HtmlConverter.convertToPdf(fileInputStream, pdfADocument, new ConverterProperties()
+                    .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT))
+                    .setFontProvider(new DefaultFontProvider(false, true, false)));
+        }
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listToPdfa.pdf", sourceFolder + "cmp_listToPdfa.pdf", destinationFolder, "diff99_"));
     }
 
