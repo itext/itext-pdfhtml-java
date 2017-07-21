@@ -361,7 +361,7 @@ public class FloatTest extends ExtendedITextTest {
         runTest("float54Test", "diff54_");
     }
 
-    @Test@Ignore("DEVSIX-1437")
+    @Test
     public void float55Test() throws IOException, InterruptedException {
         runTest("float55Test", "diff55_");
     }
@@ -459,7 +459,7 @@ public class FloatTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, destinationFolder, diff));
     }
 
-    @Test@Ignore("DEVSIX-1437")
+    @Test
     public void responsiveIText() throws IOException, InterruptedException {
         PageSize[] pageSizes = {
                 null,
