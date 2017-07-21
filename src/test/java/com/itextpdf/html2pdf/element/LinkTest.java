@@ -76,7 +76,9 @@ public class LinkTest extends ExtendedITextTest {
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "linkTest01.html").getPath() + "\n");
         PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "linkTest01.pdf"));
         outDoc.setTagged();
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "linkTest01.html"), outDoc);
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "linkTest01.html")) {
+            HtmlConverter.convertToPdf(fileInputStream, outDoc);
+        }
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest01.pdf", sourceFolder + "cmp_linkTest01.pdf", destinationFolder, "diff01_"));
     }
 
@@ -115,23 +117,19 @@ public class LinkTest extends ExtendedITextTest {
     public void linkTest07() throws IOException, InterruptedException {
         PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "linkTest07.pdf"));
         outDoc.setTagged();
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "linkTest07.html"), outDoc);
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "linkTest07.html")) {
+            HtmlConverter.convertToPdf(fileInputStream, outDoc);
+        }
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest07.pdf", sourceFolder + "cmp_linkTest07.pdf", destinationFolder, "diff07_"));
-    }
-
-    @Test
-    public void linkTest08() throws IOException, InterruptedException {
-        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest08.pdf"));
-        pdfDocument.setTagged();
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "linkTest08.html"), pdfDocument, new ConverterProperties().setBaseUri(sourceFolder));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest08.pdf", sourceFolder + "cmp_linkTest08.pdf", destinationFolder, "diff08_"));
     }
 
     @Test
     public void linkTest09() throws IOException, InterruptedException {
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest09.pdf"));
         pdfDocument.setTagged();
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "linkTest09.html"), pdfDocument, new ConverterProperties().setBaseUri(sourceFolder));
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "linkTest09.html")) {
+            HtmlConverter.convertToPdf(fileInputStream, pdfDocument, new ConverterProperties().setBaseUri(sourceFolder));
+        }
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest09.pdf", sourceFolder + "cmp_linkTest09.pdf", destinationFolder, "diff09_"));
     }
 }

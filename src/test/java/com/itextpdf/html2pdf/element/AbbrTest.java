@@ -96,7 +96,9 @@ public class AbbrTest extends ExtendedITextTest {
     private void runAbbrTest(String testName) throws IOException, InterruptedException {
         PdfDocument document = new PdfDocument(new PdfWriter(destinationFolder + testName + ".pdf"));
         document.setTagged();
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + testName + ".html"), document);
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + testName + ".html")) {
+            HtmlConverter.convertToPdf(fileInputStream, document);
+        }
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
     }
 }

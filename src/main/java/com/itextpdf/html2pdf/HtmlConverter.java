@@ -164,7 +164,10 @@ public class HtmlConverter {
         } else if (converterProperties.getBaseUri() == null) {
             converterProperties = new ConverterProperties(converterProperties).setBaseUri(FileUtil.getParentDirectory(htmlFile.getAbsolutePath()) + File.separator);
         }
-        convertToPdf(new FileInputStream(htmlFile.getAbsolutePath()), new FileOutputStream(pdfFile.getAbsolutePath()), converterProperties);
+        try (FileInputStream fileInputStream = new FileInputStream(htmlFile.getAbsolutePath());
+             FileOutputStream fileOutputStream = new FileOutputStream(pdfFile.getAbsolutePath())) {
+            convertToPdf(fileInputStream, fileOutputStream, converterProperties);
+        }
     }
 
     /**
