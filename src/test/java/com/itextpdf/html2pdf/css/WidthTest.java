@@ -72,6 +72,16 @@ public class WidthTest extends ExtendedITextTest {
     }
 
     @Test
+    public void maxWidthTest01() throws IOException, InterruptedException {
+        runTest("maxWidthTest01");
+    }
+
+    @Test
+    public void minWidthTest01() throws IOException, InterruptedException {
+        runTest("minWidthTest01");
+    }
+
+    @Test
     //Todo: the width for table currently set incorrect.
     public void percentMarginTest() throws IOException, InterruptedException {
         runTest("percentMarginTest");
