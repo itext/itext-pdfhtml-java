@@ -59,66 +59,94 @@ class CssPropertyNormalizer {
      * @return the normalized property
      */
     public static String normalize(String str) {
-        StringBuilder buffer = new StringBuilder();
-        int segmentStart = 0;
-        for (int i = 0; i < str.length(); ++i) {
-            if (str.charAt(i) == '\\') {
-                ++i;
-            } else if (str.charAt(i) == '\'' || str.charAt(i) == '"') {
-                appendAndFormatSegment(buffer, str, segmentStart, i + 1);
-                segmentStart = i = appendQuoteContent(buffer, str, i + 1, str.charAt(i));
-            }
-        }
-        if (segmentStart < str.length()) {
-            appendAndFormatSegment(buffer, str, segmentStart, str.length());
-        }
-        return buffer.toString();
-    }
-
-    /**
-     * Appends and formats a segment.
-     *
-     * @param buffer the current buffer
-     * @param source a source
-     * @param start where to start in the source
-     * @param end where to end in the source
-     */
-    private static void appendAndFormatSegment(StringBuilder buffer, String source, int start, int end) {
-        String[] parts = source.substring(start, end).split("\\s");
         StringBuilder sb = new StringBuilder();
-        for (String part : parts) {
-            if (part.length() > 0) {
-                if (sb.length() > 0 && !trimSpaceAfter(sb.charAt(sb.length() - 1)) && !trimSpaceBefore(part.charAt(0))) {
-                    sb.append(" ");
+        boolean isWhitespace = false;
+        int i = 0;
+        while (i < str.length()) {
+            if (str.charAt(i) == '\\') {
+                sb.append(str.charAt(i));
+                ++i;
+                if (i < str.length()) {
+                    sb.append(str.charAt(i));
+                    ++i;
                 }
-                // Do not make base64 data lowercase, function name only
-                if (part.matches("^[uU][rR][lL]\\(.+\\)") && CssUtils.isBase64Data(part.substring(4, part.length() - 1))) {
-                    sb.append(part.substring(0, 3).toLowerCase()).append(part.substring(3));
+            } else if (Character.isWhitespace(str.charAt(i))) {
+                isWhitespace = true;
+                ++i;
+            } else {
+                if (isWhitespace) {
+                    if (sb.length() > 0 && !trimSpaceAfter(sb.charAt(sb.length() - 1)) && !trimSpaceBefore(str.charAt(i))) {
+                        sb.append(" ");
+                    }
+                    isWhitespace = false;
+                }
+                if (str.charAt(i) == '\'' || str.charAt(i) == '"') {
+                    i = appendQuotedString(sb, str, i);
+                } else if ((str.charAt(i) == 'u' || str.charAt(i) == 'U') && str.substring(i).matches("^[uU][rR][lL]\\(.*?")) {
+                    sb.append(str.substring(i, i + 4).toLowerCase());
+                    i = appendUrlContent(sb, str, i + 4);
                 } else {
-                    sb.append(part.toLowerCase());
+                    sb.append(Character.toLowerCase(str.charAt(i)));
+                    ++i;
                 }
             }
         }
-        buffer.append(sb);
+        return sb.toString();
     }
 
     /**
-     * Appends quoted content.
+     * Appends quoted string.
      *
      * @param buffer the current buffer
      * @param source a source
-     * @param start where to start in the source
-     * @param endQuoteSymbol the end quote symbol
+     * @param start where to start in the source. Should point at quote symbol.
      * @return the new position in the source
      */
-    private static int appendQuoteContent(StringBuilder buffer, String source, int start, char endQuoteSymbol) {
-        int end = CssUtils.findNextUnescapedChar(source, endQuoteSymbol, start);
+    private static int appendQuotedString(StringBuilder buffer, String source, int start) {
+        char endQuoteSymbol = source.charAt(start);
+        int end = CssUtils.findNextUnescapedChar(source, endQuoteSymbol, start + 1);
         if (end == -1) {
             end = source.length();
             LoggerFactory.getLogger(CssPropertyNormalizer.class).warn(MessageFormatUtil.format(LogMessageConstant.QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION, source));
+        } else {
+            ++end;
         }
         buffer.append(source, start, end);
         return end;
+    }
+
+    /**
+     * Appends url content and end parenthesis if url is correct.
+     *
+     * @param buffer the current buffer
+     * @param source a source
+     * @param start where to start in the source. Should point at first symbol after "url(".
+     * @return the new position in the source
+     */
+    private static int appendUrlContent(StringBuilder buffer, String source, int start) {
+        while (Character.isWhitespace(source.charAt(start)) && start < source.length()) {
+            ++start;
+        }
+        if (start < source.length()) {
+            int curr = start;
+            if (source.charAt(curr) == '"' || source.charAt(curr) == '\'') {
+                curr = appendQuotedString(buffer, source, curr);
+                return curr;
+            } else {
+                curr = CssUtils.findNextUnescapedChar(source, ')', curr);
+                if (curr == -1) {
+                    LoggerFactory.getLogger(CssPropertyNormalizer.class).warn(MessageFormatUtil.format(LogMessageConstant.URL_IS_NOT_CLOSED_IN_CSS_EXPRESSION, source));
+                    return source.length();
+                } else {
+                    buffer.append(source.substring(start, curr).trim());
+                    buffer.append(')');
+                    return curr + 1;
+                }
+            }
+        } else {
+            LoggerFactory.getLogger(CssPropertyNormalizer.class).warn(MessageFormatUtil.format(LogMessageConstant.URL_IS_EMPTY_IN_CSS_EXPRESSION, source));
+            return source.length();
+        }
     }
 
     /**
