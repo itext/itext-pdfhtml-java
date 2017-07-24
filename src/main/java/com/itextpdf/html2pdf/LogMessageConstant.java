@@ -151,6 +151,10 @@ public final class LogMessageConstant {
     /** The Constant UNKNOWN_MARGIN_BOX_CHILD. */
     public static final String UNKNOWN_MARGIN_BOX_CHILD = "Unknown margin box child";
 
+    public static final String URL_IS_NOT_CLOSED_IN_CSS_EXPRESSION = "url function is not properly closed in expression:{0}";
+
+    public static final String URL_IS_EMPTY_IN_CSS_EXPRESSION = "url function is empty in expression:{0}";
+
     /** The Constant WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES. */
     public static final String WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES = "Was not able to define one of the background CSS shorthand properties: {0}";
 
