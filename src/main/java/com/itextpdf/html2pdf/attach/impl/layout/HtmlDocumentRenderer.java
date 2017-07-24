@@ -170,7 +170,9 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     @Override
     public void close() {
         if (waitingElement != null) {
-            super.addChild(waitingElement);
+            IRenderer r = this.waitingElement;
+            waitingElement = null;
+            super.addChild(r);
         }
         super.close();
         if (TRIM_LAST_BLANK_PAGE) {

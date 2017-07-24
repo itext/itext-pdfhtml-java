@@ -51,13 +51,10 @@ import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
 import com.itextpdf.layout.layout.MinMaxWidthLayoutResult;
 import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
+import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.layout.renderer.AbstractRenderer;
-import com.itextpdf.layout.renderer.BlockRenderer;
-import com.itextpdf.layout.renderer.DrawContext;
-import com.itextpdf.layout.renderer.ILeafElementRenderer;
-import com.itextpdf.layout.renderer.IRenderer;
+import com.itextpdf.layout.renderer.*;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -233,7 +230,22 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         }
 
         if (!Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT)) && (result.getStatus() != LayoutResult.FULL)) {
-            setProperty(Property.FORCED_PLACEMENT, true);
+            //@TODO investigate this tricky code a little more.
+            FloatPropertyValue floatPropertyValue = this.<FloatPropertyValue>getProperty(Property.FLOAT);
+            if (floatPropertyValue == null || floatPropertyValue == FloatPropertyValue.NONE) {
+                setProperty(Property.FORCED_PLACEMENT, true);
+            } else {
+                flatRenderer = childRenderers.get(0);
+                childRenderers.clear();
+                LayoutArea flatRendererOccupiedArea = flatRenderer.getOccupiedArea();
+                applyPaddings(flatRendererOccupiedArea.getBBox(), true);
+                applyBorderBox(flatRendererOccupiedArea.getBBox(), true);
+                applyMargins(flatRendererOccupiedArea.getBBox(), true);
+                childRenderers.add(flatRenderer);
+                adjustFieldLayout();
+                occupiedArea.setBBox(flatRenderer.getOccupiedArea().getBBox().clone());
+            }
+
             return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth(0, parentWidth));
         }
         if (!childRenderers.isEmpty()) {
@@ -265,5 +277,4 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         return new MinMaxWidthLayoutResult(LayoutResult.FULL, occupiedArea, this, null)
                 .setMinMaxWidth(new MinMaxWidth(0, parentWidth, occupiedArea.getBBox().getWidth(), occupiedArea.getBBox().getWidth()));
     }
-
 }
