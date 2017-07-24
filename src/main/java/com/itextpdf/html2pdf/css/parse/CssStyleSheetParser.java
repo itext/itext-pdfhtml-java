@@ -117,7 +117,7 @@ public final class CssStyleSheetParser {
         }
 
         CssParserStateController controller = new CssParserStateController(baseUrl);
-        Reader br = PortUtil.wrapInBufferedReader(new InputStreamReader(stream)); // TODO define charset
+        Reader br = PortUtil.wrapInBufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8)); // TODO determine charset correctly DEVSIX-1458
         char[] buffer = new char[8192];
         int length;
         while ((length = br.read(buffer, 0, buffer.length)) > 0) {
