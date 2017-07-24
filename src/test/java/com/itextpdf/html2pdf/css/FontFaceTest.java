@@ -214,6 +214,12 @@ public class FontFaceTest extends ExtendedITextTest {
         runTest("incorrectFontNameTest");
     }
 
+    @Test
+    //TODO: DEVSIX-1147
+    public void unicodeRangeTest() throws IOException, InterruptedException {
+        runTest("unicodeRangeTest");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
