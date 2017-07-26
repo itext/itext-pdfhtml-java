@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -46,18 +46,28 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * {@link AbstractBorderShorthandResolver} implementation for borders.
+ */
 public class BorderShorthandResolver extends AbstractBorderShorthandResolver {
+
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBorderShorthandResolver#getPrefix()
+     */
     @Override
     protected String getPrefix() {
         return CssConstants.BORDER;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBorderShorthandResolver#resolveShorthand(java.lang.String)
+     */
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
         List<CssDeclaration> preResolvedProps = super.resolveShorthand(shorthandExpression);
@@ -68,7 +78,7 @@ public class BorderShorthandResolver extends AbstractBorderShorthandResolver {
                 resolvedProps.addAll(shorthandResolver.resolveShorthand(prop.getExpression()));
             } else {
                 Logger logger = LoggerFactory.getLogger(BorderShorthandResolver.class);
-                logger.error(MessageFormat.format("Cannot find a shorthand resolver for the \"{0}\" property. " +
+                logger.error(MessageFormatUtil.format("Cannot find a shorthand resolver for the \"{0}\" property. " +
                         "Expected border-width, border-style or border-color properties.", prop.getProperty()));
             }
         }

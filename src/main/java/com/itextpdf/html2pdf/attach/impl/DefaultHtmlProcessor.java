@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -48,10 +48,15 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
+import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.CssFontFaceRule;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.PageBreakApplierUtil;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
+import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
@@ -59,54 +64,87 @@ import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.ITextNode;
+import com.itextpdf.io.font.FontProgram;
+import com.itextpdf.io.font.FontProgramFactory;
+import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.property.Property;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
-import java.text.MessageFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+/**
+ * The default implementation to process HTML.
+ */
 public class DefaultHtmlProcessor implements IHtmlProcessor {
 
+    /** The logger instance. */
     private static final Logger logger = LoggerFactory.getLogger(DefaultHtmlProcessor.class);
 
-    // The tags that do not map into any workers and are deliberately excluded from the logging
+    /** Set of tags that do not map to any tag worker and that are deliberately excluded from the logging. */
     private static final Set<String> ignoredTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
             TagConstants.HEAD,
             TagConstants.STYLE,
             // TODO <tbody> is not supported. Styles will be propagated anyway
             TagConstants.TBODY)));
 
-    // The tags we do not want to apply css to and therefore exclude from the logging
+    /** Set of tags to which we do not want to apply CSS to and that are deliberately excluded from the logging */
     private static final Set<String> ignoredCssTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
             TagConstants.BR,
             TagConstants.LINK,
             TagConstants.META,
             TagConstants.TITLE,
-            // Content from <tr> is thrown upwards to parent, in other cases css is inherited anyway
+            // Content from <tr> is thrown upwards to parent, in other cases CSS is inherited anyway
             TagConstants.TR)));
 
+    /** Set of tags that might be not processed by some tag workers and that are deliberately excluded from the logging. */
+    private static final Set<String> ignoredChildTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
+            TagConstants.BODY,
+            TagConstants.LINK,
+            TagConstants.META,
+            TagConstants.SCRIPT,
+            TagConstants.TITLE // TODO implement
+            )));
+
+    /** The processor context. */
     private ProcessorContext context;
+
+    /** A list of parent objects that result from parsing the HTML. */
     private List<IPropertyContainer> roots;
+
+    /** The CSS resolver. */
     private ICssResolver cssResolver;
 
+    /**
+     * Instantiates a new default html processor.
+     *
+     * @param converterProperties the converter properties
+     */
     public DefaultHtmlProcessor(ConverterProperties converterProperties) {
         this.context = new ProcessorContext(converterProperties);
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processElements(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public List<com.itextpdf.layout.element.IElement> processElements(INode root) {
         String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
@@ -147,24 +185,26 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
         context.reset();
         roots = new ArrayList<>();
-        cssResolver = new DefaultCssResolver(root, context.getDeviceDescription(), context.getResourceResolver());
+        cssResolver = new DefaultCssResolver(root, context);
+        addFontFaceFonts();
         IElementNode html = findHtmlNode(root);
         IElementNode body = findBodyNode(root);
+
         // Force resolve styles to fetch default font size etc
         html.setStyles(cssResolver.resolveStyles(html, context.getCssContext()));
-        body.setStyles(cssResolver.resolveStyles(body, context.getCssContext()));
-        for (INode node : body.childNodes()) {
-            if (node instanceof IElementNode) {
-                visit(node);
-            } else if (node instanceof ITextNode) {
-                logger.error(MessageFormat.format(LogMessageConstant.TEXT_WAS_NOT_PROCESSED, ((ITextNode) node).wholeText()));
-            }
-        }
+
+        // visit body
+        visit(body);
+
+        Div bodyDiv = (Div) roots.get(0);
         List<com.itextpdf.layout.element.IElement> elements = new ArrayList<>();
-        for (IPropertyContainer propertyContainer : roots) {
+        for (IPropertyContainer propertyContainer : bodyDiv.getChildren()) {
             if (propertyContainer instanceof com.itextpdf.layout.element.IElement) {
                 propertyContainer.setProperty(Property.COLLAPSING_MARGINS, true);
                 propertyContainer.setProperty(Property.FONT_PROVIDER, context.getFontProvider());
+                if (context.getTempFonts() != null) {
+                    propertyContainer.setProperty(Property.FONT_SET, context.getTempFonts());
+                }
                 elements.add((com.itextpdf.layout.element.IElement) propertyContainer);
             }
         }
@@ -173,6 +213,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         return elements;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processDocument(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.kernel.pdf.PdfDocument)
+     */
     @Override
     public Document processDocument(INode root, PdfDocument pdfDocument) {
         String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
@@ -212,20 +255,30 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
 
         context.reset(pdfDocument);
-        if (context.getFontProvider().getFontSet().getFonts().size() == 0) {
-            throw new Html2PdfException("Font Provider contains zero fonts. At least one font should be present");
+        if (!context.hasFonts()) {
+            throw new Html2PdfException(Html2PdfException.FontProviderContainsZeroFonts);
         }
         // TODO store html version from document type in context if necessary
         roots = new ArrayList<>();
-        cssResolver = new DefaultCssResolver(root, context.getDeviceDescription(), context.getResourceResolver());
+        cssResolver = new DefaultCssResolver(root, context);
+        addFontFaceFonts();
         root = findHtmlNode(root);
         visit(root);
         Document doc = (Document) roots.get(0);
+        // TODO more precise check if a counter was actually added to the document
+        if (context.getCssContext().isPagesCounterPresent() && doc.getRenderer() instanceof HtmlDocumentRenderer) {
+            doc.relayout();
+        }
         cssResolver = null;
         roots = null;
         return doc;
     }
 
+    /**
+     * Recursively processes a node converting HTML into PDF using tag workers.
+     *
+     * @param node the node
+     */
     private void visit(INode node) {
         if (node instanceof IElementNode) {
             IElementNode element = (IElementNode) node;
@@ -237,7 +290,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             ITagWorker tagWorker = context.getTagWorkerFactory().getTagWorker(element, context);
             if (tagWorker == null) {
                 if (!ignoredTags.contains(element.name())) {
-                    logger.error(MessageFormat.format(LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).name()));
+                    logger.error(MessageFormatUtil.format(LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).name()));
                 }
             } else {
                 context.getState().push(tagWorker);
@@ -246,29 +299,34 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 ((HtmlTagWorker) tagWorker).processPageRules(node, cssResolver, context);
             }
 
-            visitPseudoElement(node, CssConstants.BEFORE);
+            context.getOutlineHandler().addOutline(tagWorker, element, context);
+
+            visitPseudoElement(element, CssConstants.BEFORE);
             for (INode childNode : element.childNodes()) {
                 visit(childNode);
             }
-            visitPseudoElement(node, CssConstants.AFTER);
+            visitPseudoElement(element, CssConstants.AFTER);
 
             if (tagWorker != null) {
                 tagWorker.processEnd(element, context);
+                context.getOutlineHandler().addDestination(tagWorker, element);
                 context.getState().pop();
 
                 ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(element);
                 if (cssApplier == null) {
                     if (!ignoredCssTags.contains(element.name())) {
-                        logger.error(MessageFormat.format(LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
+                        logger.error(MessageFormatUtil.format(LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
                     }
                 } else {
                     cssApplier.apply(context, element, tagWorker);
                 }
 
                 if (!context.getState().empty()) {
+                    PageBreakApplierUtil.addPageBreakElementBefore(context, context.getState().top(), element, tagWorker);
                     boolean childProcessed = context.getState().top().processTagChild(tagWorker, context);
-                    if (!childProcessed) {
-                        logger.error(MessageFormat.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
+                    PageBreakApplierUtil.addPageBreakElementAfter(context, context.getState().top(), element, tagWorker);
+                    if (!childProcessed && !ignoredChildTags.contains(element.name())) {
+                        logger.error(MessageFormatUtil.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
                                 context.getState().top().getClass().getName(), tagWorker.getClass().getName()));
                     }
                 } else if (tagWorker.getElementResult() != null) {
@@ -284,7 +342,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 if (!context.getState().empty()) {
                     boolean contentProcessed = context.getState().top().processContent(content, context);
                     if (!contentProcessed) {
-                        logger.error(MessageFormat.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT,
+                        logger.error(MessageFormatUtil.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT,
                                 context.getState().top().getClass().getName()));
                     }
                 } else {
@@ -295,12 +353,104 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
     }
 
-    private void visitPseudoElement(INode node, String pseudoElementName) {
-        if (!(node instanceof CssPseudoElementNode)) {
+    /**
+     * Adds @font-face fonts to the FontProvider.
+     */
+    protected void addFontFaceFonts() {
+        //TODO Shall we add getFonts() to ICssResolver?
+        if (cssResolver instanceof DefaultCssResolver) {
+            for (CssFontFaceRule fontFace : ((DefaultCssResolver) cssResolver).getFonts()) {
+                boolean findSupportedSrc = false;
+                FontFace ff = FontFace.create(fontFace.getProperties());
+                if (ff != null) {
+                    for (FontFace.FontFaceSrc src : ff.getSources()) {
+                        if (createFont(ff.getFontFamily(), src)) {
+                            findSupportedSrc = true;
+                            break;
+                        }
+                    }
+                }
+                if (!findSupportedSrc) {
+                    logger.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace));
+                }
+            }
+        }
+    }
+
+    /**
+     * Creates a font and adds it to the context.
+     *
+     * @param fontFamily the font family
+     * @param src the source of the font
+     * @return true, if successful
+     */
+    private boolean createFont(String fontFamily, FontFace.FontFaceSrc src) {
+        if (!supportedFontFormat(src.format)) {
+            return false;
+        } else if (src.isLocal) { // to method with lazy initialization
+            Collection<FontInfo> fonts = context.getFontProvider().getFontSet().get(src.src);
+            if (fonts.size() > 0) {
+                for (FontInfo fi : fonts) {
+                    context.addTemporaryFont(fi, fontFamily);
+                }
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            try {
+                // Cache at resource resolver level only, at font level we will create font in any case.
+                // The instance of fontProgram will be collected by GC if the is no need in it.
+                byte[] bytes = context.getResourceResolver().retrieveStream(src.src);
+                if (bytes != null) {
+                    FontProgram fp = FontProgramFactory.createFont(bytes, false);
+                    context.addTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily);
+                    return true;
+                }
+            } catch (Exception ignored) {
+            }
+            return false;
+        }
+    }
+
+    /**
+     * Checks whether in general we support requested font format.
+     *
+     * @param format {@link com.itextpdf.html2pdf.attach.impl.FontFace.FontFormat}
+     * @return true, if supported or unrecognized.
+     */
+    private boolean supportedFontFormat(FontFace.FontFormat format) {
+        switch (format) {
+            case None:
+            case TrueType:
+            case OpenType:
+            case WOFF:
+            case WOFF2:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * Processes a pseudo element (before and after CSS).
+     *
+     * @param node the node
+     * @param pseudoElementName the pseudo element name
+     */
+    private void visitPseudoElement(IElementNode node, String pseudoElementName) {
+        if (CssPseudoElementUtil.hasBeforeAfterElements(node)) {
             visit(new CssPseudoElementNode(node, pseudoElementName));
         }
     }
 
+    /**
+     * Find an element in a node.
+     *
+     * @param node the node
+     * @param tagName the tag name
+     * @return the element node
+     */
     private IElementNode findElement(INode node, String tagName) {
         LinkedList<INode> q = new LinkedList<>();
         q.add(node);
@@ -319,14 +469,32 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         return null;
     }
 
+    /**
+     * Find the HTML node.
+     *
+     * @param node the node
+     * @return the i element node
+     */
     private IElementNode findHtmlNode(INode node) {
         return findElement(node, TagConstants.HTML);
     }
 
+    /**
+     * Find the BODY node.
+     *
+     * @param node the node
+     * @return the i element node
+     */
     private IElementNode findBodyNode(INode node) {
         return findElement(node, TagConstants.BODY);
     }
 
+    /**
+     * Checks if an element should be displayed.
+     *
+     * @param element the element
+     * @return true, if the element should be displayed
+     */
     private boolean isDisplayable(IElementNode element) {
         if (element != null && element.getStyles() != null && CssConstants.NONE.equals(element.getStyles().get(CssConstants.DISPLAY))) {
             return false;
@@ -338,8 +506,17 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             boolean hasStyles = element.getStyles() != null;
             String positionVal = hasStyles ? element.getStyles().get(CssConstants.POSITION) : null;
             String displayVal = hasStyles ? element.getStyles().get(CssConstants.DISPLAY) : null;
-            return element.childNodes().get(0) instanceof ITextNode && !((ITextNode) element.childNodes().get(0)).wholeText().isEmpty() 
-                    || CssConstants.ABSOLUTE.equals(positionVal) || CssConstants.FIXED.equals(positionVal)
+            boolean containsNonEmptyChildNode = false;
+            boolean containsElementNode = false;
+            for (int i = 0; i < element.childNodes().size(); i++) {
+                if (element.childNodes().get(i) instanceof ITextNode && !((ITextNode) element.childNodes().get(i)).wholeText().isEmpty()) {
+                    containsNonEmptyChildNode = true;
+                    break;
+                } else if (element.childNodes().get(i) instanceof IElementNode) {
+                    containsElementNode = true;
+                }
+            }
+            return containsElementNode || containsNonEmptyChildNode || CssConstants.ABSOLUTE.equals(positionVal) || CssConstants.FIXED.equals(positionVal)
                     || displayVal != null && !CssConstants.INLINE.equals(displayVal);
         }
         return element != null;

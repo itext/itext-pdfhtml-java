@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -47,6 +47,9 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.BoxSizingPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
@@ -54,13 +57,27 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
+/**
+ * Utilities class to apply a width or a height to an element.
+ */
 public final class WidthHeightApplierUtil {
 
+    /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(WidthHeightApplierUtil.class);
 
+    /**
+     * Creates a new {@link WidthHeightApplierUtil} instance.
+     */
     private WidthHeightApplierUtil() {
     }
 
+    /**
+     * Applies a width or a height to an element.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
     public static void applyWidthHeight(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
@@ -70,13 +87,34 @@ public final class WidthHeightApplierUtil {
             element.setProperty(Property.WIDTH, width);
         }
 
+        String minWidthVal = cssProps.get(CssConstants.MIN_WIDTH);
+        if (!CssConstants.AUTO.equals(minWidthVal) && minWidthVal != null) {
+            UnitValue minWidth = CssUtils.parseLengthValueToPt(minWidthVal, em, rem);
+            element.setProperty(Property.MIN_WIDTH, minWidth);
+        }
+
+        String maxWidthVal = cssProps.get(CssConstants.MAX_WIDTH);
+        if (!CssConstants.AUTO.equals(maxWidthVal) && maxWidthVal != null) {
+            UnitValue maxWidth = CssUtils.parseLengthValueToPt(maxWidthVal, em, rem);
+            element.setProperty(Property.MAX_WIDTH, maxWidth);
+        }
+
+        // TODO consider display css property
+        boolean applyToTable = element instanceof Table;
+        boolean applyToCell = element instanceof Cell;
+
+        UnitValue height = null;
         String heightVal = cssProps.get(CssConstants.HEIGHT);
         if (heightVal != null) {
             if (!CssConstants.AUTO.equals(heightVal)) {
-                UnitValue height = CssUtils.parseLengthValueToPt(heightVal, em, rem);
+                height = CssUtils.parseLengthValueToPt(heightVal, em, rem);
                 if (height != null) {
                     if (height.isPointValue()) {
-                        element.setProperty(Property.HEIGHT, height.getValue());
+                        // For tables, height does not have any effect. The height value will be used when
+                        // calculating effective min height value below
+                        if (!applyToTable && !applyToCell) {
+                            element.setProperty(Property.HEIGHT, height.getValue());
+                        }
                     } else {
                         logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
                     }
@@ -85,29 +123,57 @@ public final class WidthHeightApplierUtil {
         }
 
         String maxHeightVal = cssProps.get(CssConstants.MAX_HEIGHT);
+        float maxHeightToApply = 0;
         if (maxHeightVal != null) {
-            UnitValue height = CssUtils.parseLengthValueToPt(maxHeightVal, em, rem);
-            if (height != null) {
-                if (height.isPointValue()) {
-                    element.setProperty(Property.MAX_HEIGHT, height.getValue());
+            UnitValue maxHeight = CssUtils.parseLengthValueToPt(maxHeightVal, em, rem);
+            if (maxHeight != null) {
+                if (maxHeight.isPointValue()) {
+                    // For tables and cells, max height does not have any effect. See also comments below when MIN_HEIGHT is applied.
+                    if (!applyToTable && !applyToCell) {
+                        maxHeightToApply = maxHeight.getValue();
+                    }
                 } else {
                     logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 }
             }
+        }
+        if (maxHeightToApply > 0) {
+            element.setProperty(Property.MAX_HEIGHT, maxHeightToApply);
         }
 
         String minHeightVal = cssProps.get(CssConstants.MIN_HEIGHT);
+        float minHeightToApply = 0;
         if (minHeightVal != null) {
-            UnitValue height = CssUtils.parseLengthValueToPt(minHeightVal, em, rem);
-            if (height != null) {
-                if (height.isPointValue()) {
-                    element.setProperty(Property.MIN_HEIGHT, height.getValue());
+            UnitValue minHeight = CssUtils.parseLengthValueToPt(minHeightVal, em, rem);
+            if (minHeight != null) {
+                if (minHeight.isPointValue()) {
+                    // For cells, min height does not have any effect. See also comments below when MIN_HEIGHT is applied.
+                    if (!applyToCell) {
+                        minHeightToApply = minHeight.getValue();
+                    }
                 } else {
                     logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 }
             }
         }
+        // About tables:
+        // The height of a table is given by the 'height' property for the 'table' or 'inline-table' element.
+        // A value of 'auto' means that the height is the sum of the row heights plus any cell spacing or borders.
+        // Any other value is treated as a minimum height. CSS 2.1 does not define how extra space is distributed when
+        // the 'height' property causes the table to be taller than it otherwise would be.
+        // About cells:
+        // The height of a 'table-row' element's box is the maximum of the row's computed 'height', the computed 'height' of each cell in the row,
+        // and the minimum height (MIN) required by the cells. MIN depends on cell box heights and cell box alignment.
+        // In CSS 2.1, the height of a cell box is the minimum height required by the content.
+        if ((applyToTable || applyToCell) && height != null && height.isPointValue() && height.getValue() > minHeightToApply) {
+            minHeightToApply = height.getValue();
+        }
+        if (minHeightToApply > 0) {
+            element.setProperty(Property.MIN_HEIGHT, minHeightToApply);
+        }
 
+        if (CssConstants.BORDER_BOX.equals(cssProps.get(CssConstants.BOX_SIZING))) {
+            element.setProperty(Property.BOX_SIZING, BoxSizingPropertyValue.BORDER_BOX);
+        }
     }
-
 }

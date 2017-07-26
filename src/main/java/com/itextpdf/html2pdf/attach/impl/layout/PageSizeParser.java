@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -45,15 +45,21 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.layout.property.UnitValue;
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * The Class PageSizeParser.
+ */
 class PageSizeParser {
+
+    /** A Map mapping page size names to page size values. */
     private static final Map<String, PageSize> pageSizeConstants = new HashMap<>();
     static {
         pageSizeConstants.put("a5", PageSize.A5);
@@ -68,12 +74,21 @@ class PageSizeParser {
         pageSizeConstants.put("ledger", PageSize.LEDGER); // TODO may be use here TABLOID? based on w3c tests, ledger in html is interpreted as portrait-oriented page
     }
 
+    /**
+     * Fetch the page size.
+     *
+     * @param pageSizeStr the name of the page size ("a4", "letter",...)
+     * @param em the em value
+     * @param rem the root em value
+     * @param defaultPageSize the default page size
+     * @return the page size
+     */
     static PageSize fetchPageSize(String pageSizeStr, float em, float rem, PageSize defaultPageSize) {
         PageSize pageSize = defaultPageSize.clone();
         if (pageSizeStr == null || CssConstants.AUTO.equals(pageSizeStr)) {
             return pageSize;
         }
-        
+
         String[] pageSizeChunks = pageSizeStr.split(" ");
         String firstChunk = pageSizeChunks[0];
 
@@ -83,7 +98,7 @@ class PageSizeParser {
                 pageSize = pageSizeBasedOnLength;
             } else {
                 Logger logger = LoggerFactory.getLogger(PageSizeParser.class);
-                logger.error(MessageFormat.format(LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
+                logger.error(MessageFormatUtil.format(LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
             }
         } else {
             Boolean landscape = null;
@@ -104,7 +119,7 @@ class PageSizeParser {
                 }
             }
 
-            boolean b1 = pageSizeChunks.length == 1 && (namedPageSize != null || landscape != null); // TODO rename propertly?
+            boolean b1 = pageSizeChunks.length == 1 && (namedPageSize != null || landscape != null);
             boolean b2 = namedPageSize != null && landscape != null;
             if (b1 || b2) {
                 if (namedPageSize != null) {
@@ -115,13 +130,21 @@ class PageSizeParser {
                 }
             } else {
                 Logger logger = LoggerFactory.getLogger(PageSizeParser.class);
-                logger.error(MessageFormat.format(LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
+                logger.error(MessageFormatUtil.format(LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
             }
         }
 
         return pageSize;
     }
 
+    /**
+     * Parses a page length value into a page size.
+     *
+     * @param pageSizeChunks array of string values that represent the page size
+     * @param em the em value
+     * @param rem the root em value
+     * @return the page size
+     */
     private static PageSize parsePageLengthValue(String[] pageSizeChunks, float em, float rem) {
         Float width, height;
         width = tryParsePageLengthValue(pageSizeChunks[0], em, rem);
@@ -139,6 +162,14 @@ class PageSizeParser {
         return new PageSize((float) width, (float) height);
     }
 
+    /**
+     * Try to parse a page length value.
+     *
+     * @param valueChunk a string containing a value
+     * @param em the em value
+     * @param rem the root em value
+     * @return the value as a float
+     */
     private static Float tryParsePageLengthValue(String valueChunk, float em, float rem) {
         UnitValue unitValue = CssUtils.parseLengthValueToPt(valueChunk, em, rem);
         if (unitValue == null || unitValue.isPercentValue()) {
@@ -147,10 +178,22 @@ class PageSizeParser {
         return unitValue.getValue();
     }
 
+    /**
+     * Checks if a string represents length value.
+     *
+     * @param pageSizeChunk the string that possibly represents a length value
+     * @return true, if the string represents a length value
+     */
     private static boolean isLengthValue(String pageSizeChunk) {
         return CssUtils.isMetricValue(pageSizeChunk) || CssUtils.isRelativeValue(pageSizeChunk);
     }
 
+    /**
+     * Checks if a string represents the CSS value for landscape or portrait orientation.
+     *
+     * @param pageSizeChunk the string that possibly represents a landscape or portrait value
+     * @return true, if the string represents a landscape or portrait value
+     */
     private static boolean isLandscapePortraitValue(String pageSizeChunk) {
         return CssConstants.LANDSCAPE.equals(pageSizeChunk) || CssConstants.PORTRAIT.equals(pageSizeChunk);
     }

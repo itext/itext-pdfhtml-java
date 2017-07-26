@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.boxtest {
+			box-sizing: border-box;
+		}
+		.borders {
+			border: 20pt solid green;
+			margin: 10pt;
+		}
+		.newpage {
+			page-break-before: always;
+		}
+	</style>
+</head>
+  <body>
+  <div class="" style="width: 300pt; border: solid blue;">
+	<div class="borders" style="width: 100%; display: inline-block;">inline block aaaaaaaaaa aaaaaaaaaa aaaaaa  aaaaaaaaaaaa aaaaaaaaaaaaaa</div>
+  </div>
+
+  <div class="" style="width: 300pt; border: solid blue; border-right-width: 50px;">
+	<div class="borders" style="width: 100%; display: inline-block;">inline block aaaaaaaaaa aaaaaaaaaa aaaaaa  aaaaaaaaaaaa aaaaaaaaaaaaaa</div>
+  </div>
+
+  <div class="" style="width: 300pt; border: solid blue; border-right-width: 50px;">
+	<div class="borders boxtest" style="width: 100%; display: inline-block;">inline block aaaaaaaaaa aaaaaaaaaa aaaaaa  aaaaaaaaaaaa aaaaaaaaaaaaaa</div>
+  </div>
+
+  <div class="boxtest" style="width: 300pt; border: solid blue; border-right-width: 50px;">
+	<div class="borders" style="width: 100%; display: inline-block;">inline block aaaaaaaaaa aaaaaaaaaa aaaaaa  aaaaaaaaaaaa aaaaaaaaaaaaaa</div>
+  </div>
+
+  <div class="boxtest" style="width: 300pt; border: solid blue; border-right-width: 50px;">
+	<div class="borders boxtest" style="width: 100%; display: inline-block;">inline block aaaaaaaaaa aaaaaaaaaa aaaaaa  aaaaaaaaaaaa aaaaaaaaaaaaaa</div>
+  </div>
+
+
+
+
+  <div class="newpage" style="width: 300pt; border: solid blue;">
+	<div class="borders" style="width: 60%; display: inline-block;">inline block aaaaaaaaaa aaaaaaaaaa aaaaaa  aaaaaaaaaaaa aaaaaaaaaaaaaa</div>
+  </div>
+
+  <div class="" style="width: 300pt; border: solid blue; border-right-width: 50px;">
+	<div class="borders" style="width: 60%; display: inline-block;">inline block aaaaaaaaaa aaaaaaaaaa aaaaaa  aaaaaaaaaaaa aaaaaaaaaaaaaa</div>
+  </div>
+
+  <div class="" style="width: 300pt; border: solid blue; border-right-width: 50px;">
+	<div class="borders boxtest" style="width: 60%; display: inline-block;">inline block aaaaaaaaaa aaaaaaaaaa aaaaaa  aaaaaaaaaaaa aaaaaaaaaaaaaa</div>
+  </div>
+
+  <div class="boxtest" style="width: 300pt; border: solid blue; border-right-width: 50px;">
+	<div class="borders" style="width: 60%; display: inline-block;">inline block aaaaaaaaaa aaaaaaaaaa aaaaaa  aaaaaaaaaaaa aaaaaaaaaaaaaa</div>
+  </div>
+
+  <div class="boxtest" style="width: 300pt; border: solid blue; border-right-width: 50px;">
+	<div class="borders boxtest" style="width: 60%; display: inline-block;">inline block aaaaaaaaaa aaaaaaaaaa aaaaaa  aaaaaaaaaaaa aaaaaaaaaaaaaa</div>
+  </div>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -47,22 +47,38 @@ import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.*;
 
+/**
+ * Abstract {@link IShorthandResolver} implementation for borders.
+ */
 public abstract class AbstractBorderShorthandResolver implements IShorthandResolver {
 
+    /** The template for -width properties. */
     private static final String _0_WIDTH = "{0}-width";
+
+    /** The template for -style properties. */
     private static final String _0_STYLE = "{0}-style";
+
+    /** The template for -color properties. */
     private static final String _0_COLOR = "{0}-color";
 
+    /**
+     * Gets the prefix of a property.
+     *
+     * @return the prefix
+     */
     protected abstract String getPrefix();
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
+     */
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
-        String widthPropName = MessageFormat.format(_0_WIDTH, getPrefix());
-        String stylePropName = MessageFormat.format(_0_STYLE, getPrefix());
-        String colorPropName = MessageFormat.format(_0_COLOR, getPrefix());
+        String widthPropName = MessageFormatUtil.format(_0_WIDTH, getPrefix());
+        String stylePropName = MessageFormatUtil.format(_0_STYLE, getPrefix());
+        String colorPropName = MessageFormatUtil.format(_0_COLOR, getPrefix());
 
         if (CssConstants.INITIAL.equals(shorthandExpression) || CssConstants.INHERIT.equals(shorthandExpression)) {
             return Arrays.asList(
@@ -83,7 +99,7 @@ public abstract class AbstractBorderShorthandResolver implements IShorthandResol
                 borderWidthValue = value;
             } else if (CssConstants.BORDER_STYLE_VALUES.contains(value)) {
                 borderStyleValue = value;
-            } else if (CssUtils.isColorProperty(value)) {
+            } else if (CssUtils.isColorProperty(value) || CssConstants.INITIAL.equals(value)) {
                 borderColorValue = value;
             }
         }
@@ -91,7 +107,9 @@ public abstract class AbstractBorderShorthandResolver implements IShorthandResol
         List<CssDeclaration> resolvedDecl = new ArrayList<>();
         resolvedDecl.add(new CssDeclaration(widthPropName, borderWidthValue == null ? CssConstants.INITIAL : borderWidthValue));
         resolvedDecl.add(new CssDeclaration(stylePropName, borderStyleValue == null ? CssConstants.INITIAL : borderStyleValue));
-        resolvedDecl.add(new CssDeclaration(colorPropName, borderColorValue == null ? CssConstants.INITIAL : borderColorValue));
+        if (borderColorValue != null) {
+            resolvedDecl.add(new CssDeclaration(colorPropName, borderColorValue));
+        }
         return resolvedDecl;
     }
 }

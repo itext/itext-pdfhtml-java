@@ -160,6 +160,14 @@ public class CssStyleSheetParserTest extends ExtendedITextTest {
         Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
     }
 
+    @Test
+    public void test12() throws IOException {
+        String cssFile = sourceFolder + "css12.css";
+        String cmpFile = sourceFolder + "cmp_css12.css";
+        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
+        Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
+    }
+
     private String getCssFileContents(String filePath) throws IOException {
         byte[] bytes = StreamUtil.inputStreamToArray(new FileInputStream(filePath));
         String content = new String(bytes);

@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -44,28 +44,52 @@ package com.itextpdf.html2pdf.css.resolve.shorthand.impl;
 
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Abstract {@link IShorthandResolver} implementation for box definitions.
+ */
 public abstract class AbstractBoxShorthandResolver implements IShorthandResolver {
 
+    /** The template for -left properties. */
     private static final String _0_LEFT_1 = "{0}-left{1}";
+
+    /** The template for -right properties. */
     private static final String _0_RIGHT_1 = "{0}-right{1}";
+
+    /** The template for -bottom properties. */
     private static final String _0_BOTTOM_1 = "{0}-bottom{1}";
+
+    /** The template for -top properties. */
     private static final String _0_TOP_1 = "{0}-top{1}";
 
+    /**
+     * Gets the prefix of a property.
+     *
+     * @return the prefix
+     */
     protected abstract String getPrefix();
+
+    /**
+     * Gets the postfix of a property.
+     *
+     * @return the postfix
+     */
     protected abstract String getPostfix();
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
+     */
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
         String[] props = shorthandExpression.split("\\s+");
         List<CssDeclaration> resolvedDecl = new ArrayList<>();
-        String topProperty = MessageFormat.format(_0_TOP_1, getPrefix(), getPostfix());
-        String rightProperty = MessageFormat.format(_0_RIGHT_1, getPrefix(), getPostfix());
-        String bottomProperty = MessageFormat.format(_0_BOTTOM_1, getPrefix(), getPostfix());
-        String leftProperty = MessageFormat.format(_0_LEFT_1, getPrefix(), getPostfix());
+        String topProperty = MessageFormatUtil.format(_0_TOP_1, getPrefix(), getPostfix());
+        String rightProperty = MessageFormatUtil.format(_0_RIGHT_1, getPrefix(), getPostfix());
+        String bottomProperty = MessageFormatUtil.format(_0_BOTTOM_1, getPrefix(), getPostfix());
+        String leftProperty = MessageFormatUtil.format(_0_LEFT_1, getPrefix(), getPostfix());
         if (props.length == 1) {
             resolvedDecl.add(new CssDeclaration(topProperty, props[0]));
             resolvedDecl.add(new CssDeclaration(rightProperty, props[0]));

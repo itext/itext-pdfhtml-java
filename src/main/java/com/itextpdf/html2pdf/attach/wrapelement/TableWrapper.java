@@ -1,8 +1,8 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
-
+    Authors: Bruno Lowagie, Paulo Soares, et al.
+    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-
+    
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-
+    
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-
+    
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-
+    
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,7 +36,7 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-
+    
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
@@ -52,22 +52,44 @@ import com.itextpdf.layout.property.UnitValue;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Wrapper for the {@code table} element.
+ */
 public class TableWrapper implements IWrapElement {
 
+    /** The body rows of the table. */
     private List<List<CellWrapper> > rows;
+    
+    /** The header rows. */
     private List<List<CellWrapper> > headerRows;
+    
+    /** The footer rows. */
     private List<List<CellWrapper> > footerRows;
 
+    /** The current position in the body of the table (row / column). */
     private RowColHelper rowShift = new RowColHelper();
+
+    /** The current position in the header of the table (row / column). */
     private RowColHelper headerRowShift = new RowColHelper();
+
+    /** The current position in the footer of the table (row / column). */
     private RowColHelper footerRowShift = new RowColHelper();
 
+    /** The number of columns. */
     private int numberOfColumns = 0;
     
+    /**
+     * Gets the number of rows.
+     *
+     * @return the number of rows
+     */
     public int getRowsSize() {
         return rows.size();
     }
 
+    /**
+     * Adds a new body row.
+     */
     public void newRow() {
         if (rows == null) {
             rows = new ArrayList<>();
@@ -76,6 +98,9 @@ public class TableWrapper implements IWrapElement {
         rows.add(new ArrayList<CellWrapper>());
     }
 
+    /**
+     * Adds a new header row.
+     */
     public void newHeaderRow() {
         if (headerRows == null) {
             headerRows = new ArrayList<>();
@@ -84,6 +109,9 @@ public class TableWrapper implements IWrapElement {
         headerRows.add(new ArrayList<CellWrapper>());
     }
 
+    /**
+     * Adds a new footer row.
+     */
     public void newFooterRow() {
         if (footerRows == null) {
             footerRows = new ArrayList<>();
@@ -92,6 +120,11 @@ public class TableWrapper implements IWrapElement {
         footerRows.add(new ArrayList<CellWrapper>());
     }
 
+    /**
+     * Adds a new cell to the header rows.
+     *
+     * @param cell the cell
+     */
     public void addHeaderCell(Cell cell) {
         if (headerRows == null) {
             headerRows = new ArrayList<>();
@@ -102,6 +135,11 @@ public class TableWrapper implements IWrapElement {
         addCellToTable(cell, headerRows, headerRowShift);
     }
 
+    /**
+     * Adds a new cell to the footer rows.
+     *
+     * @param cell the cell
+     */
     public void addFooterCell(Cell cell) {
         if (footerRows == null) {
             footerRows = new ArrayList<>();
@@ -112,6 +150,11 @@ public class TableWrapper implements IWrapElement {
         addCellToTable(cell, footerRows, footerRowShift);
     }
 
+    /**
+     * Adds a new cell to the body rows.
+     *
+     * @param cell the cell
+     */
     public void addCell(Cell cell) {
         if (rows == null) {
             rows = new ArrayList<>();
@@ -122,6 +165,13 @@ public class TableWrapper implements IWrapElement {
         addCellToTable(cell, rows, rowShift);
     }
 
+    /**
+     * Adds a cell to a table.
+     *
+     * @param cell the cell
+     * @param table the table
+     * @param tableRowShift the applicable table row shift (current col / row position).
+     */
     private void addCellToTable(Cell cell, List<List<CellWrapper>> table, RowColHelper tableRowShift) {
         int col = tableRowShift.moveToNextEmptyCol();
         tableRowShift.updateCurrentPosition(cell.getColspan(), cell.getRowspan());
@@ -130,6 +180,12 @@ public class TableWrapper implements IWrapElement {
         numberOfColumns = Math.max(numberOfColumns, col + cell.getColspan());
     }
 
+    /**
+     * Renders all the rows to a {@link Table} object.
+     *
+     * @param colgroupsHelper the colgroups helper class
+     * @return the table
+     */
     public Table toTable(WaitingColgroupsHelper colgroupsHelper) {
         Table table;
         if (numberOfColumns > 0) {
@@ -168,6 +224,12 @@ public class TableWrapper implements IWrapElement {
         return table;
     }
 
+    /**
+     * Gets the column widths.
+     *
+     * @param colgroups the colgroups helper class
+     * @return the column widths
+     */
     private UnitValue[] getColWidths(WaitingColgroupsHelper colgroups) {
         UnitValue[] colWidths = new UnitValue[numberOfColumns];
         if (colgroups == null) {
@@ -176,18 +238,31 @@ public class TableWrapper implements IWrapElement {
             }
         } else {
             for (int i = 0; i < numberOfColumns; i++) {
-                colWidths[i] = colgroups.getColWraper(i) != null
-                        ? colgroups.getColWraper(i).getWidth()
+                colWidths[i] = colgroups.getColWrapper(i) != null
+                        ? colgroups.getColWrapper(i).getWidth()
                         : null;
             }
         }
         return colWidths;
     }
 
+    /**
+     * Wrapper for the {@code td}/{@code th} element.
+     */
     private static class CellWrapper {
+
+        /** The column index. */
         int col;
+        
+        /** The cell. */
         Cell cell;
 
+        /**
+         * Creates a new {@link CellWrapper} instance.
+         *
+         * @param col the column index
+         * @param cell the cell
+         */
         CellWrapper(int col, Cell cell) {
             this.col = col;
             this.cell = cell;

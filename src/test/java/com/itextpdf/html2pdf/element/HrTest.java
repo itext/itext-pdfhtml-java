@@ -43,8 +43,11 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -106,7 +109,6 @@ public class HrTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("contains 'after' in css")
     public void hrTest08() throws IOException, InterruptedException {
         runHrTest("08");
     }
@@ -144,25 +146,21 @@ public class HrTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("contains 'after' in css")
     public void hrTest15() throws IOException, InterruptedException {
         runHrTest("15");
     }
 
     @Test
-    @Ignore("contains 'after' in css")
     public void hrTest16() throws IOException, InterruptedException {
         runHrTest("16");
     }
 
     @Test
-    @Ignore("contains 'after' in css")
     public void hrTest17() throws IOException, InterruptedException {
         runHrTest("17");
     }
 
     @Test
-    @Ignore("contains 'before' in css")
     public void hrTest18() throws IOException, InterruptedException {
         runHrTest("18");
     }
@@ -175,6 +173,11 @@ public class HrTest extends ExtendedITextTest {
     @Test
     public void hrTest20() throws IOException, InterruptedException {
         runHrTest("20");
+    }
+
+    @Test
+    public void hrTest21() throws IOException, InterruptedException {
+        runHrTest("21");
     }
 
     private void runHrTest(String id) throws IOException, InterruptedException {

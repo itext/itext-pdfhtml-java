@@ -352,6 +352,125 @@ var {
 img[align="left"] {
     margin-right: 3px
 }
+img {
+    display: inline-block
+}
+input {
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em 0em 0em 0em;
+    font: 13.3333px arial
+}
+textarea {
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em 0em 0em 0em;
+    font: 13.3333px arial
+}
+select {
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em 0em 0em 0em;
+    font: 13.3333px arial
+}
+button {
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em 0em 0em 0em;
+    font: 13.3333px arial
+}
+input {
+    background-color: white;
+    padding: 1px;
+    border: 2px inset initial;
+    border-image: initial
+}
+input:not([type]) {
+    padding: 1px 0px
+}
+input[type="email"] {
+    padding: 1px 0px
+}
+input[type="number"] {
+    padding: 1px 0px
+}
+input[type="password"] {
+    padding: 1px 0px
+}
+input[type="tel"] {
+    padding: 1px 0px
+}
+input[type="url"] {
+    padding: 1px 0px
+}
+input[type="text"] {
+    padding: 1px 0px
+}
+input[type="radio"] {
+    margin: 3px 3px 0px 5px;
+    padding: 0px;
+    border: initial
+}
+input[type="button"] {
+    background-color: lightgrey;
+    border: 2px outset initial;
+    border-image: initial;
+    text-align: center;
+    padding: 1px 6px
+}
+input[type="submit"] {
+    background-color: lightgrey;
+    border: 2px outset initial;
+    border-image: initial;
+    text-align: center;
+    padding: 1px 6px
+}
+button {
+    background-color: lightgrey;
+    border: 2px outset initial;
+    border-image: initial;
+    text-align: center;
+    padding: 1px 6px
+}
+textarea {
+    font-family: courier;
+    background-color: white;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border-image: initial;
+    border: 1px solid rgb(169,169,169);
+    padding: 2px
+}
+legend {
+    display: block;
+    padding-left: 2px;
+    padding-right: 2px;
+    border: none
+}
 address {
     display: block
 }

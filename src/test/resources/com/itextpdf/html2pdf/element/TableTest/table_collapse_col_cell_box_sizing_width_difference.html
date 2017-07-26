@@ -1,0 +1,64 @@
+<html>
+<head>
+    <style>
+        td {
+            border: solid 20pt;
+        }
+
+        .collapse {
+            table-layout: auto;
+            border-collapse: collapse;
+            bolder: solid 20pt;
+        }
+
+        .not_collapse {
+            table-layout: auto;
+        }
+
+        html {
+            font-family: "Helvetica", "Arial", sans-serif;
+        }
+    </style>
+</head>
+<body>
+<p>This test shows difference between same width set on col and cell.</p>
+<p>The width of col in table with table-collapse includes halfs of borders</p>
+<table cellspacing="0" class="collapse">
+    <col style="width:80pt"/>
+    <tr>
+        <td>Text</td>
+    </tr>
+</table>
+</br>
+<p>The width of col in table with no table-collapse includes full borders</p>
+<table cellspacing="0" class="not_collapse">
+    <col style="width:80pt"/>
+    <tr>
+        <td>Text</td>
+    </tr>
+</table>
+<p>Cell width is based on box-sizing</p>
+<p>Cells with box-sizing: content</p>
+<table cellspacing="0" class="collapse">
+    <tr>
+        <td style="width:80pt">Text</td>
+    </tr>
+</table>
+<table cellspacing="0" class="not_collapsse">
+    <tr>
+        <td style="width:80pt">Text</td>
+    </tr>
+</table>
+<p>Cells with box-sizing: border-box</p>
+<table cellspacing="0" class="collapse">
+    <tr>
+        <td style="width:80pt; box-sizing: border-box;">Text</td>
+    </tr>
+</table>
+<table cellspacing="0" class="not_collapse">
+    <tr>
+        <td style="width:80pt; box-sizing: border-box;">Text</td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -44,91 +44,211 @@ package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.parse.CssDeclarationValueTokenizer;
+import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
+import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
+import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
+import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.html2pdf.html.node.ITextNode;
-import java.text.MessageFormat;
-import java.util.Collections;
-import java.util.List;
+import com.itextpdf.io.util.MessageFormatUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * The Class CssContentPropertyResolver.
+ */
 class CssContentPropertyResolver {
 
-    static INode resolveContent(String contentStr, INode contentContainer, CssContext context) {
+    /** The logger. */
+    private static final Logger logger = LoggerFactory.getLogger(CssContentPropertyResolver.class);
+
+    /**
+     * Resolves content.
+     *
+     * @param styles the styles map
+     * @param contentContainer the content container
+     * @param context the CSS context
+     * @return a list of {@link INode} instances
+     */
+    static List<INode> resolveContent(Map<String, String> styles, INode contentContainer, CssContext context) {
+        String contentStr = styles.get(CssConstants.CONTENT);
+        List<INode> result = new ArrayList<>();
         if (contentStr == null || CssConstants.NONE.equals(contentStr) || CssConstants.NORMAL.equals(contentStr)) {
             return null;
         }
-
-        StringBuilder content = new StringBuilder();
-        StringBuilder nonDirectContent = new StringBuilder();
-        boolean insideQuotes = false;
-        boolean insideDoubleQuotes = false;
-        for (int i = 0; i < contentStr.length(); ++i) {
-            if (contentStr.charAt(i) == '"' && (!insideQuotes || insideDoubleQuotes) 
-                    || contentStr.charAt(i) == '\'' && (!insideQuotes || !insideDoubleQuotes)) {
-                if (!insideQuotes) {
-                    // TODO in future, try to resolve if counter() or smth like that encountered
-                    if (!nonDirectContent.toString().trim().isEmpty()) {
-                        break;
-                    }
-                    nonDirectContent.setLength(0);
-                    insideDoubleQuotes = contentStr.charAt(i) == '"'; 
-                }
-                insideQuotes = !insideQuotes;
-            } else if (insideQuotes) {
-                content.append(contentStr.charAt(i));
+        CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(contentStr);
+        CssDeclarationValueTokenizer.Token token;
+        CssQuotes quotes = null;
+        while ((token = tokenizer.getNextValidToken()) != null) {
+            if (token.isString()) {
+                result.add(new ContentTextNode(contentContainer, token.getValue()));
             } else {
-                nonDirectContent.append(contentStr.charAt(i));
+                if (token.getValue().startsWith(CssConstants.COUNTERS + "(")) {
+                    String paramsStr = token.getValue().substring(CssConstants.COUNTERS.length() + 1, token.getValue().length() - 1);
+                    String[] params = paramsStr.split(",");
+                    if (params.length == 0) {
+                        return null;
+                    }
+                    // Counters are denoted by case-sensitive identifiers
+                    String counterName = params[0].trim();
+                    String counterSeparationStr = params[1].trim();
+                    counterSeparationStr = counterSeparationStr.substring(1, counterSeparationStr.length() - 1);
+                    String listStyleType = params.length > 2 ? params[2].trim() : null;
+                    CssCounterManager counterManager = context.getCounterManager();
+                    INode scope = contentContainer;
+                    if ("page".equals(counterName)) {
+                        result.add(new PageCountElementNode(false));
+                    } else if ("pages".equals(counterName)) {
+                        result.add(new PageCountElementNode(true));
+                    } else {
+                        String resolvedCounter = counterManager.resolveCounters(counterName, counterSeparationStr, listStyleType, scope);
+                        if (resolvedCounter == null) {
+                            logger.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName));
+                        } else {
+                            result.add(new ContentTextNode(scope, resolvedCounter));
+                        }
+                    }
+                } else if (token.getValue().startsWith(CssConstants.COUNTER + "(")) {
+                    String paramsStr = token.getValue().substring(CssConstants.COUNTER.length() + 1, token.getValue().length() - 1);
+                    String[] params = paramsStr.split(",");
+                    if (params.length == 0) {
+                        return null;
+                    }
+                    // Counters are denoted by case-sensitive identifiers
+                    String counterName = params[0].trim();
+                    String listStyleType = params.length > 1 ? params[1].trim() : null;
+                    CssCounterManager counterManager = context.getCounterManager();
+                    INode scope = contentContainer;
+                    if ("page".equals(counterName)) {
+                        result.add(new PageCountElementNode(false));
+                    } else if ("pages".equals(counterName)) {
+                        result.add(new PageCountElementNode(true));
+                    } else {
+                        String resolvedCounter = counterManager.resolveCounter(counterName, listStyleType, scope);
+                        if (resolvedCounter == null) {
+                            logger.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName));
+                        } else {
+                            result.add(new ContentTextNode(scope, resolvedCounter));
+                        }
+                    }
+                } else if (token.getValue().startsWith("url(")) {
+                    Map<String, String> attributes = new HashMap<>();
+                    attributes.put(AttributeConstants.SRC, CssUtils.extractUrl(token.getValue()));
+                    //TODO: probably should add user agent styles on CssContentElementNode creation, not here.
+                    attributes.put(AttributeConstants.STYLE, CssConstants.DISPLAY + ":" + CssConstants.INLINE_BLOCK);
+                    result.add(new CssContentElementNode(contentContainer, TagConstants.IMG, attributes));
+                } else if (token.getValue().startsWith("attr(") && contentContainer instanceof CssPseudoElementNode) {
+                    int endBracket = token.getValue().indexOf(')');
+                    if (endBracket > 5 ) {
+                        String attrName = token.getValue().substring(5, endBracket);
+                        if (attrName.contains("(") || attrName.contains(" ")
+                                || attrName.contains("'") || attrName.contains("\"")) {
+                            return errorFallback(contentStr);
+                        }
+                        IElementNode element = (IElementNode) contentContainer.parentNode();
+                        String value = element.getAttribute(attrName);
+                        result.add(new ContentTextNode(contentContainer, value == null ? "" : value));
+                    }
+                } else if (token.getValue().endsWith("quote") && contentContainer instanceof IStylesContainer) {
+                    if (quotes == null) {
+                        quotes = CssQuotes.createQuotes(styles.get(CssConstants.QUOTES), true);
+                    }
+                    String value = quotes.resolveQuote(token.getValue(), context);
+                    if (value == null) {
+                        return errorFallback(contentStr);
+                    }
+                    result.add(new ContentTextNode(contentContainer, value));
+                } else {
+                    return errorFallback(contentStr);
+                }
             }
         }
-        if (!nonDirectContent.toString().trim().isEmpty()) {
-            Logger logger = LoggerFactory.getLogger(CssContentPropertyResolver.class);
-            
-            int logMessageParameterMaxLength = 100;
-            if (contentStr.length() > logMessageParameterMaxLength) {
-                contentStr = contentStr.substring(0, logMessageParameterMaxLength) + ".....";
-            }
-            
-            logger.error(MessageFormat.format(LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
-            return null;
-        }
-        // TODO resolve unicode sequences. see PseudoElementsTest#collapsingMarginsBeforeAfterPseudo03
-        String resolvedContent = content.toString();
-        
-        // TODO in future, when img content values will be supported, some specific IElementNode might be returned with 
-        // correct src attribute, however this element shall not get img styles from css style sheet 
-        // and also the one that implements it should be aware of possible infinite loop (see PseudoElementsTest#imgPseudoTest02)
-        return new ContentTextNode(contentContainer, resolvedContent);
+        return result;
     }
 
+    /**
+     * Resolves content in case of errors.
+     *
+     * @param contentStr the content
+     * @return the resulting list of {@link INode} instances
+     */
+    private static List<INode> errorFallback(String contentStr) {
+        Logger logger = LoggerFactory.getLogger(CssContentPropertyResolver.class);
+
+        int logMessageParameterMaxLength = 100;
+        if (contentStr.length() > logMessageParameterMaxLength) {
+            contentStr = contentStr.substring(0, logMessageParameterMaxLength) + ".....";
+        }
+
+        logger.error(MessageFormatUtil.format(LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
+        return null;
+    }
+
+    /**
+     * {@link ITextNode} implementation for content text.
+     */
     private static class ContentTextNode implements ITextNode {
+
+        /** The parent. */
         private final INode parent;
+
+        /** The content. */
         private String content;
 
+        /**
+         * Creates a new {@link ContentTextNode} instance.
+         *
+         * @param parent the parent
+         * @param content the content
+         */
         public ContentTextNode(INode parent, String content) {
             this.parent = parent;
             this.content = content;
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.INode#childNodes()
+         */
         @Override
         public List<INode> childNodes() {
             return Collections.<INode>emptyList();
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.INode#addChild(com.itextpdf.html2pdf.html.node.INode)
+         */
         @Override
         public void addChild(INode node) {
             throw new UnsupportedOperationException();
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.INode#parentNode()
+         */
         @Override
         public INode parentNode() {
             return parent;
         }
 
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.html.node.ITextNode#wholeText()
+         */
         @Override
         public String wholeText() {
             return content;
         }
 
     }
+
 }

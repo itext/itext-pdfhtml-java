@@ -49,13 +49,14 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.io.File;
-import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class PseudoElementsTest extends ExtendedITextTest {
@@ -133,7 +134,7 @@ public class PseudoElementsTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1049")
+    //TODO: incorrect behaviour because of trimmed non-breakable space
     public void collapsingMarginsBeforeAfterPseudo03() throws IOException, InterruptedException {
         runTest("collapsingMarginsBeforeAfterPseudo03");
     }
@@ -154,22 +155,37 @@ public class PseudoElementsTest extends ExtendedITextTest {
     }
 
     @Test
-    public void nonNormalizedAfterBeforeTest() throws IOException, InterruptedException {
-        runTest("nonNormalizedAfterBeforeTest");
+    public void escapedStringTest01() throws IOException, InterruptedException {
+        runTest("escapedStringTest01");
     }
 
     @Test
-    @Ignore("DEVSIX-1049")
-    public void imgPseudoTest01() throws IOException, InterruptedException {
-        // width and height properties doesn't affect image in pseudo element
-        runTest("imgPseudoTest01");
+    public void escapedStringTest02() throws IOException, InterruptedException {
+        runTest("escapedStringTest02");
     }
 
     @Test
-    @Ignore("DEVSIX-1049")
-    public void imgPseudoTest02() throws IOException, InterruptedException {
-        runTest("imgPseudoTest02");
+    public void escapedStringTest03() throws IOException, InterruptedException {
+        runTest("escapedStringTest03");
     }
+
+    @Test
+    public void escapedStringTest04() throws IOException, InterruptedException {
+        runTest("escapedStringTest04");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 5))
+    public void attrTest01() throws IOException, InterruptedException {
+        runTest("attrTest01");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 3))
+    public void attrTest02() throws IOException, InterruptedException {
+        runTest("attrTest02");
+    }
+
 
     @Test
     public void emptyStillShownPseudoTest01() throws IOException, InterruptedException {
@@ -197,6 +213,16 @@ public class PseudoElementsTest extends ExtendedITextTest {
     @Test
     public void emptyStillShownPseudoTest05() throws IOException, InterruptedException {
         runTest("emptyStillShownPseudoTest05");
+    }
+
+    @Test
+    public void pseudoDisplayTable01Test() throws IOException, InterruptedException {
+        runTest("pseudoDisplayTable01");
+    }
+
+    @Test
+    public void pseudoDisplayTable02Test() throws IOException, InterruptedException {
+        runTest("pseudoDisplayTable02");
     }
 
     private void runTest(String name) throws IOException, InterruptedException {

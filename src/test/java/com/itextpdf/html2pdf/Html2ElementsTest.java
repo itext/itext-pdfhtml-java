@@ -48,7 +48,6 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
@@ -118,11 +117,32 @@ public class Html2ElementsTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.TEXT_WAS_NOT_PROCESSED)})
+    @LogMessages(messages = {})
     public void htmlToElementsTest05() throws IOException {
         String html = "123";
         List<IElement> lst = HtmlConverter.convertToElements(html);
-        Assert.assertTrue(lst.size() == 0);
+        Assert.assertTrue(lst.size() == 1);
     }
 
+    @Test
+    @LogMessages(messages = {})
+    public void htmlElementsTest06() throws IOException
+    {
+        String html = "<html>Lorem<p>Ipsum</p>Dolor<p>Sit</p></html>";
+        List<IElement> lst = HtmlConverter.convertToElements(html);
+        Assert.assertTrue(lst.size() == 4);
+        for(int i=0;i<lst.size();i++)
+            Assert.assertTrue(lst.get(i) instanceof Paragraph);
+    }
+
+    @Test
+    @LogMessages(messages = {})
+    public void htmlElementsTest07() throws IOException
+    {
+        String html = "<html>Lorem<span>Dolor</span><p>Ipsum</p><p>Sit</p></html>";
+        List<IElement> lst = HtmlConverter.convertToElements(html);
+        Assert.assertTrue(lst.size() == 3);
+        for(int i=0;i<lst.size();i++)
+            Assert.assertTrue(lst.get(i) instanceof Paragraph);
+    }
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <style>
+         table, th, td {
+         border: 1px solid black;
+         }
+      </style>
+   </head>
+   <body>
+      <p>In the next table the value of cell's default padding is 1px due to user agent css:</p>
+      <table>
+         <tr>
+            <td>Hello</td>
+         </tr>
+         <tr>
+            <td style="padding:0px">Hello</td>
+         </tr>
+         <tr>
+            <td style="padding:1px">Hello</td>
+         </tr>
+      </table>
+      <p>In the next table the value of table's cellpadding is 0px:</p>
+      <table cellpadding="0">
+         <tr>
+            <td>Hello</td>
+         </tr>
+         <tr>
+            <td style="padding:0px">Hello</td>
+         </tr>
+         <tr>
+            <td style="padding:1px">Hello</td>
+         </tr>
+      </table>
+   </body>
+</html>

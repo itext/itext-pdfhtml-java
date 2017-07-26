@@ -90,4 +90,10 @@ public class DivTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "divTest04.pdf", sourceFolder + "cmp_divTest04.pdf", destinationFolder, "diff04_"));
     }
 
+    @Test
+    public void divInTablePercentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "divInTablePercent.html"), new File(destinationFolder + "divInTablePercent.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "divInTablePercent.pdf", sourceFolder + "cmp_divInTablePercent.pdf", destinationFolder, "diff05_"));
+    }
+
 }

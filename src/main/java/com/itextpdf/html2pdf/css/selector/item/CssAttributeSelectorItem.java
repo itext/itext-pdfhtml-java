@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -44,16 +44,29 @@ package com.itextpdf.html2pdf.css.selector.item;
 
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.io.util.MessageFormatUtil;
 
-import java.text.MessageFormat;
 import java.util.regex.Pattern;
 
+/**
+ * {@link ICssSelectorItem} implementation for attribute selectors.
+ */
 public class CssAttributeSelectorItem implements ICssSelectorItem {
 
+    /** The property. */
     private String property;
+
+    /** The match symbol. */
     private char matchSymbol = (char)0;
+
+    /** The value. */
     private String value = null;
 
+    /**
+     * Creates a new {@link CssAttributeSelectorItem} instance.
+     *
+     * @param attrSelector the attribute
+     */
     public CssAttributeSelectorItem(String attrSelector) {
         int indexOfEqual = attrSelector.indexOf('=');
         if (indexOfEqual == -1) {
@@ -74,11 +87,17 @@ public class CssAttributeSelectorItem implements ICssSelectorItem {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+     */
     @Override
     public int getSpecificity() {
         return CssSpecificityConstants.CLASS_SPECIFICITY;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public boolean matches(INode node) {
         if (!(node instanceof IElementNode)) {
@@ -96,28 +115,31 @@ public class CssAttributeSelectorItem implements ICssSelectorItem {
                 case (char)0:
                     return value.equals(attributeValue);
                 case '|':
-                    return attributeValue.startsWith(value) && (attributeValue.length() == value.length() || attributeValue.charAt(value.length()) == '-');
+                    return value.length() > 0 && attributeValue.startsWith(value) && (attributeValue.length() == value.length() || attributeValue.charAt(value.length()) == '-');
                 case '^':
-                    return attributeValue.startsWith(value);
+                    return value.length() > 0 && attributeValue.startsWith(value);
                 case '$':
-                    return attributeValue.endsWith(value);
+                    return value.length() > 0 && attributeValue.endsWith(value);
                 case '~':
                     String pattern = String.format("(^%s\\s+)|(\\s+%s\\s+)|(\\s+%s$)", value, value, value);
                     return Pattern.compile(pattern).matcher(attributeValue).matches();
                 case '*':
-                    return attributeValue.contains(value);
+                    return value.length() > 0 && attributeValue.contains(value);
                 default:
                     return false;
             }
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         if (value == null) {
-            return MessageFormat.format("[{0}]", property);
+            return MessageFormatUtil.format("[{0}]", property);
         } else {
-            return MessageFormat.format("[{0}{1}=\"{2}\"]", property, matchSymbol == 0 ? "" : String.valueOf(matchSymbol), value);
+            return MessageFormatUtil.format("[{0}{1}=\"{2}\"]", property, matchSymbol == 0 ? "" : String.valueOf(matchSymbol), value);
         }
     }
 }

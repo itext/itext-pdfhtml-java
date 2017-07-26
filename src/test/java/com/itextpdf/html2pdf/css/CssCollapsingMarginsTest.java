@@ -147,7 +147,6 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE, count = 1)})
     public void elementTableTest() throws IOException, InterruptedException {
         // empty tables don't self-collapse in browsers
         test("elementTableTest.html", "elementTableTest.pdf", "diff_");
@@ -310,9 +309,48 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT))
     public void selfCollapsingTest17() throws IOException, InterruptedException {
         test("selfCollapsingTest17.html", "selfCollapsingTest17.pdf", "diff_");
+    }
+
+    @Test
+    public void selfCollapsingTest19() throws IOException, InterruptedException {
+        test("selfCollapsingTest19.html", "selfCollapsingTest19.pdf", "diff_");
+    }
+
+    @Test
+    public void collapsingMarginsFloatTest01() throws IOException, InterruptedException {
+        test("collapsingMarginsFloatTest01.html", "collapsingMarginsFloatTest01.pdf", "diff_");
+    }
+
+    @Test
+    public void collapsingMarginsFloatTest02() throws IOException, InterruptedException {
+        test("collapsingMarginsFloatTest02.html", "collapsingMarginsFloatTest02.pdf", "diff_");
+    }
+
+    @Test
+    public void collapsingMarginsFloatTest03() throws IOException, InterruptedException {
+        test("collapsingMarginsFloatTest03.html", "collapsingMarginsFloatTest03.pdf", "diff_");
+    }
+
+    @Test
+    public void collapsingMarginsFloatTest04() throws IOException, InterruptedException {
+        test("collapsingMarginsFloatTest04.html", "collapsingMarginsFloatTest04.pdf", "diff_");
+    }
+
+    @Test
+    public void collapsingMarginsFloatTest05() throws IOException, InterruptedException {
+        test("collapsingMarginsFloatTest05.html", "collapsingMarginsFloatTest05.pdf", "diff_");
+    }
+
+    @Test
+    public void collapsingMarginsFloatTest06() throws IOException, InterruptedException {
+        test("collapsingMarginsFloatTest06.html", "collapsingMarginsFloatTest06.pdf", "diff_");
+    }
+
+    @Test
+    public void collapsingMarginsFloatTest07() throws IOException, InterruptedException {
+        test("collapsingMarginsFloatTest07.html", "collapsingMarginsFloatTest07.pdf", "diff_");
     }
 
     private void test(String in, String out, String diff) throws IOException, InterruptedException {

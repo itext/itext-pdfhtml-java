@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<style>
+#escaped-unicode-space::before {
+content: 'string with \00ff space is omited ';
+}
+#escaped-unicode-count::before {
+content: "string with \0000fff one f is extra ";
+}
+#escaped-unicode-other::before {
+content: "string with \0ffg g is not hex digit ";
+}
+</style>
+<body>
+<div id="escaped-unicode-space">div-text</div>
+<div id="escaped-unicode-count">div-text</div>
+<div id="escaped-unicode-other">div-text</div>
+</body>
+</html>

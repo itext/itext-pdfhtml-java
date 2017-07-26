@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -43,28 +43,63 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.css.util.CssUtils;
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 
+/**
+ * Class to store a CSS declaration.
+ */
 public class CssDeclaration {
 
+    /** The property. */
     private String property;
+
+    /** The expression. */
     private String expression;
 
+    /**
+     * Instantiates a new CSS declaration.
+     *
+     * @param property the property
+     * @param expression the expression
+     */
     public CssDeclaration(String property, String expression) {
         this.property = CssUtils.normalizeCssProperty(property);
         this.expression = CssUtils.normalizeCssProperty(expression);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
-        return MessageFormat.format("{0}: {1}", property, expression);
+        return MessageFormatUtil.format("{0}: {1}", property, expression);
     }
 
+    /**
+     * Gets the property.
+     *
+     * @return the property
+     */
     public String getProperty() {
         return property;
     }
 
+    /**
+     * Gets the expression.
+     *
+     * @return the expression
+     */
     public String getExpression() {
         return expression;
     }
+
+    /**
+     * Sets the expression.
+     *
+     * @param expression the new expression
+     */
+    public void setExpression(String expression) {
+        this.expression = expression;
+    }
+
 }

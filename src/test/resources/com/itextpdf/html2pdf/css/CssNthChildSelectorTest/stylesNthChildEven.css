@@ -1,0 +1,8 @@
+p:nth-child(even){
+	color: red;
+}
+
+span {
+	font-size: 24px;
+	text-align: center; 
+}

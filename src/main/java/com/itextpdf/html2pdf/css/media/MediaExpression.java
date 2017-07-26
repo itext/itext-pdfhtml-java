@@ -1,8 +1,8 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
-
+    Authors: Bruno Lowagie, Paulo Soares, et al.
+    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-
+    
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-
+    
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-
+    
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-
+    
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,24 +36,42 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-
+    
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
 package com.itextpdf.html2pdf.css.media;
 
 import com.itextpdf.html2pdf.css.util.CssUtils;
+
 import java.util.Objects;
 
+/**
+ * Class that bundles all the media expression properties.
+ */
 public class MediaExpression {
 
+    /** The default font size. */
     private static final float DEFAULT_FONT_SIZE = 12;
     
+    /** Indicates if there's a "min-" prefix. */
     private boolean minPrefix;
+    
+    /** Indicates if there's a "max-" prefix. */
     private boolean maxPrefix;
+    
+    /** The feature. */
     private String feature;
+    
+    /** The value. */
     private String value;
 
+    /**
+     * Creates a new {@link MediaExpression} instance.
+     *
+     * @param feature the feature
+     * @param value the value
+     */
     public MediaExpression(String feature, String value) {
         this.feature = feature.trim().toLowerCase();
         if (value != null) {
@@ -72,6 +90,12 @@ public class MediaExpression {
         }
     }
 
+    /**
+     * Tries to match a {@link MediaDeviceDescription}.
+     *
+     * @param deviceDescription the device description
+     * @return true, if successful
+     */
     public boolean matches(MediaDeviceDescription deviceDescription) {
         switch (feature) {
             case MediaFeature.COLOR: {
@@ -159,6 +183,12 @@ public class MediaExpression {
         }
     }
     
+    /**
+     * Parses an absolute length.
+     *
+     * @param value the absolute length as a {@link String} value
+     * @return the absolute length as a {@code float} value
+     */
     private static float parseAbsoluteLength(String value) {
         if (CssUtils.isRelativeValue(value)) {
             // TODO here should be used default font size of the browser, it probably should be fetched from the more generic place than private class constant

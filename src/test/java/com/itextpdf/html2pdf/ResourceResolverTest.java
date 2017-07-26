@@ -70,60 +70,30 @@ public class ResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    public void resourceResolverTest01() throws IOException, InterruptedException {
-        String baseUri = sourceFolder + "resourceResolverTest01.html";
-        String outPdf = destinationFolder + "resourceResolverTest01.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceResolverTest01.pdf";
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest01.html"), new FileOutputStream(outPdf), new ConverterProperties().setBaseUri(baseUri));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff01_"));
-    }
-
-    @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI),
-            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE)})
-    public void resourceResolverTest02() throws IOException, InterruptedException {
-        String baseUri = "/folderInDiskRoot";
-        String outPdf = destinationFolder + "resourceResolverTest02.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceResolverTest02.pdf";
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest01.html"), new FileOutputStream(outPdf), new ConverterProperties().setBaseUri(baseUri));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff02_"));
-    }
-
-    @Test
     public void resourceResolverTest03() throws IOException, InterruptedException {
         String baseUri = sourceFolder + "res";
         String outPdf = destinationFolder + "resourceResolverTest03.pdf";
         String cmpPdf = sourceFolder + "cmp_resourceResolverTest03.pdf";
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest03.html"), new FileOutputStream(outPdf), new ConverterProperties().setBaseUri(baseUri));
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest03.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff03_"));
     }
-
     @Test
-    public void resourceResolverTest04() throws IOException, InterruptedException {
-        String invalidBaseUri = Paths.get("").toAbsolutePath().toString() + "/src/test/resources/com/itextpdf/html2pdf/ResourceResolverTest/" + "res";
-        String outPdf = destinationFolder + "resourceResolverTest04.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceResolverTest04.pdf";
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest03.html"), new FileOutputStream(outPdf), new ConverterProperties().setBaseUri(invalidBaseUri));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff04_"));
+    public void resourceResolverTest07() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceResolverTest07.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest07.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceResolverTest07.html"), new File(outPdf));
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff07_"));
     }
 
     @Test
-    public void resourceResolverTest05() throws IOException, InterruptedException {
-        // It is important to put a trailing slash in the end: if you specify base URI via absolute URI string,
-        // you need to follow URI standards, in which a path without trailing slash is referring to a file.
-        String baseUri = Paths.get("").toUri() + "src/test/resources/com/itextpdf/html2pdf/ResourceResolverTest/res/";
-        String outPdf = destinationFolder + "resourceResolverTest05.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceResolverTest05.pdf";
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "resourceResolverTest03.html"), new FileOutputStream(outPdf), new ConverterProperties().setBaseUri(baseUri));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff05_"));
-    }
-
-    @Test
-    public void resourceResolverTest06() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourceResolverTest06.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceResolverTest06.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceResolverTest01.html"), new File(outPdf));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff06_"));
+    public void resourceResolverTest08() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceResolverTest08.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest08.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceResolverTest08.html"), new File(outPdf));
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff08_"));
     }
 
     // TODO test with absolute http links for resources?

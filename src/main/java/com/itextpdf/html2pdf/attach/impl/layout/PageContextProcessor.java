@@ -1,8 +1,8 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
-
+    Authors: Bruno Lowagie, Paulo Soares, et al.
+    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-
+    
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-
+    
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-
+    
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-
+    
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,13 +36,16 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-
+    
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssRuleName;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
@@ -51,48 +54,96 @@ import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
+import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.ITextNode;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
+import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.kernel.pdf.canvas.CanvasArtifact;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Canvas;
+import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.layout.LayoutArea;
+import com.itextpdf.layout.layout.LayoutContext;
+import com.itextpdf.layout.layout.LayoutResult;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.renderer.DocumentRenderer;
+import com.itextpdf.layout.renderer.DrawContext;
+import com.itextpdf.layout.renderer.IRenderer;
+import org.jsoup.nodes.Element;
+import org.jsoup.parser.Tag;
+import org.slf4j.LoggerFactory;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Context processor for specific types of pages: first, left, or right page.
+ */
 class PageContextProcessor {
+
+    /** The page size. */
     private PageSize pageSize;
+
+    /** Marks for page boundaries. */
     private Set<String> marks;
+
+    /** The bleed value for the margin. */
     private Float bleed;
+
+    /** The margins. */
     private float[] margins;
+
+    /** The borders. */
     private Border[] borders;
+
+    /** The paddings. */
     private float[] paddings;
+
+    /** Page background simulation. */
     private Div pageBackgroundSimulation;
+
+    /** Page borders simulation. */
     private Div pageBordersSimulation;
 
+    /** The margin box rectangles. */
     private Rectangle[] marginBoxRectangles;
+
+    /** The margin box elements. */
     private Div[] marginBoxElements;
 
+    /**
+     * Instantiates a new page context processor.
+     *
+     * @param properties the page context properties
+     * @param context the processor context
+     * @param defaultPageSize the default page size
+     */
     PageContextProcessor(PageContextProperties properties, ProcessorContext context, PageSize defaultPageSize) {
         Map<String, String> styles = properties.getResolvedPageContextNode().getStyles();
         float em = CssUtils.parseAbsoluteLength(styles.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
-        
+
         pageSize = PageSizeParser.fetchPageSize(styles.get(CssConstants.SIZE), em, rem, defaultPageSize);
-        
+
         UnitValue bleedValue = CssUtils.parseLengthValueToPt(styles.get(CssConstants.BLEED), em, rem);
         if (bleedValue != null && bleedValue.isPointValue()) {
             bleed = bleedValue.getValue();
         }
-        
+
         marks = parseMarks(styles.get(CssConstants.MARKS));
 
         parseMargins(styles, em, rem);
@@ -102,10 +153,20 @@ class PageContextProcessor {
         createMarginBoxesElements(properties.getResolvedPageMarginBoxes(), context);
     }
 
+    /**
+     * Gets the page size.
+     *
+     * @return the page size
+     */
     PageSize getPageSize() {
         return pageSize;
     }
-    
+
+    /**
+     * Compute layout margins.
+     *
+     * @return the float values of the margins
+     */
     float[] computeLayoutMargins() {
         float[] layoutMargins = Arrays.copyOf(margins, margins.length);
         for (int i = 0; i < borders.length; ++i) {
@@ -118,13 +179,25 @@ class PageContextProcessor {
         return layoutMargins;
     }
 
-    void processNewPage(PdfPage page) {
+    /**
+     * Processes a new page by setting the bleed value, adding marks, drawing
+     * page backgrounds and borders, and margin boxes (if necessary).
+     *
+     * @param page the page to process
+     * @param documentRenderer the document renderer
+     */
+    void processNewPage(PdfPage page, DocumentRenderer documentRenderer) {
         setBleed(page);
         drawMarks(page);
         drawPageBackgroundAndBorders(page);
-        drawMarginBoxes(page);
+        drawMarginBoxes(page, documentRenderer);
     }
 
+    /**
+     * Sets the bleed value for a page.
+     *
+     * @param page the new bleed
+     */
     private void setBleed(PdfPage page) {
         if (bleed == null && !marks.isEmpty()) {
             bleed = 6f;
@@ -141,11 +214,17 @@ class PageContextProcessor {
         }
     }
 
+    /**
+     * Sets the different page boundaries and draws printer marks on the page
+     * (if necessary).
+     *
+     * @param page the page
+     */
     private void drawMarks(PdfPage page) {
         if (marks.isEmpty()) {
             return;
         }
-        
+
         float horizontalIndent = 48;
         float verticalIndent = 57;
 
@@ -153,18 +232,21 @@ class PageContextProcessor {
         mediaBox.increaseHeight(verticalIndent * 2);
         mediaBox.setWidth(mediaBox.getWidth() + horizontalIndent * 2);
         page.setMediaBox(mediaBox);
-        
+
         Rectangle bleedBox = page.getBleedBox();
         bleedBox.moveUp(verticalIndent);
         bleedBox.moveRight(horizontalIndent);
         page.setBleedBox(bleedBox);
-        
+
         Rectangle trimBox = page.getTrimBox();
         trimBox.moveUp(verticalIndent);
         trimBox.moveRight(horizontalIndent);
         page.setTrimBox(trimBox);
-        
+
         PdfCanvas canvas = new PdfCanvas(page);
+        if (page.getDocument().isTagged()) {
+            canvas.openTag(new CanvasArtifact());
+        }
         if (marks.contains(CssConstants.CROP)) {
             float cropLineLength = 24;
             float verticalCropStartIndent = verticalIndent - cropLineLength;
@@ -172,29 +254,29 @@ class PageContextProcessor {
             canvas
                     .saveState()
                     .setLineWidth(0.1f)
-                    
+
                     .moveTo(trimBox.getLeft(), verticalCropStartIndent)
                     .lineTo(trimBox.getLeft(), verticalIndent)
                     .moveTo(horizontalCropStartIndent, trimBox.getTop())
                     .lineTo(horizontalIndent, trimBox.getTop())
-                    
+
                     .moveTo(trimBox.getRight(), verticalCropStartIndent)
                     .lineTo(trimBox.getRight(), verticalIndent)
                     .moveTo(mediaBox.getWidth() - horizontalCropStartIndent, trimBox.getTop())
                     .lineTo(mediaBox.getWidth() - horizontalIndent, trimBox.getTop())
-                    
-                    
+
+
                     .moveTo(trimBox.getLeft(), mediaBox.getHeight() - verticalCropStartIndent)
                     .lineTo(trimBox.getLeft(), mediaBox.getHeight() - verticalIndent)
                     .moveTo(mediaBox.getWidth() - horizontalCropStartIndent, trimBox.getBottom())
                     .lineTo(mediaBox.getWidth() - horizontalIndent, trimBox.getBottom())
-                    
-                    
+
+
                     .moveTo(trimBox.getRight(), mediaBox.getHeight() - verticalCropStartIndent)
                     .lineTo(trimBox.getRight(), mediaBox.getHeight() - verticalIndent)
                     .moveTo(horizontalCropStartIndent, trimBox.getBottom())
                     .lineTo(horizontalIndent, trimBox.getBottom())
-                    
+
                     .stroke()
                     .restoreState();
         }
@@ -203,15 +285,15 @@ class PageContextProcessor {
             float verCrossCenterIndent = horizontalIndent - 12;
             float x, y;
             canvas.saveState().setLineWidth(0.1f);
-            
+
             x = mediaBox.getWidth() / 2;
             y = mediaBox.getHeight() - horCrossCenterIndent;
             drawCross(canvas, x, y, true);
-            
+
             x = mediaBox.getWidth() / 2;
             y = horCrossCenterIndent;
             drawCross(canvas, x, y, true);
-            
+
             x = verCrossCenterIndent;
             y = mediaBox.getHeight() / 2;
             drawCross(canvas, x, y, false);
@@ -219,11 +301,22 @@ class PageContextProcessor {
             x = mediaBox.getWidth() - verCrossCenterIndent;
             y = mediaBox.getHeight() / 2;
             drawCross(canvas, x, y, false);
-            
+
             canvas.restoreState();
+        }
+        if (page.getDocument().isTagged()) {
+            canvas.closeTag();
         }
     }
 
+    /**
+     * Draws a cross (used in the {@link #drawMarks(PdfPage)} method).
+     *
+     * @param canvas the canvas to draw on
+     * @param x the x value
+     * @param y the y value
+     * @param horizontalCross true if horizontal
+     */
     private void drawCross(PdfCanvas canvas, float x, float y, boolean horizontalCross) {
         float xLineHalf;
         float yLineHalf;
@@ -241,10 +334,15 @@ class PageContextProcessor {
                 .moveTo(x, y - yLineHalf)
                 .lineTo(x, y + yLineHalf);
         canvas.circle(x, y, circleR);
-        
+
         canvas.stroke();
     }
 
+    /**
+     * Draws page background and borders.
+     *
+     * @param page the page
+     */
     private void drawPageBackgroundAndBorders(PdfPage page) {
         Canvas canvas = new Canvas(new PdfCanvas(page), page.getDocument(), page.getBleedBox());
         canvas.add(pageBackgroundSimulation);
@@ -254,16 +352,31 @@ class PageContextProcessor {
         canvas.close();
     }
 
-    private void drawMarginBoxes(PdfPage page) {
+    /**
+     * Draws margin boxes.
+     *
+     * @param page the page
+     * @param documentRenderer the document renderer
+     */
+    private void drawMarginBoxes(PdfPage page, DocumentRenderer documentRenderer) {
         for (int i = 0; i < 16; ++i) {
             if (marginBoxElements[i] != null) {
-                Canvas canvas = new Canvas(new PdfCanvas(page), page.getDocument(), marginBoxRectangles[i]);
-                canvas.add(marginBoxElements[i]);
-                canvas.close();
+                Div curBoxElement = marginBoxElements[i];
+                IRenderer renderer = curBoxElement.createRendererSubTree();
+                renderer.setParent(documentRenderer);
+                LayoutResult result = renderer.layout(new LayoutContext(new LayoutArea(page.getDocument().getPageNumber(page), marginBoxRectangles[i])));
+                IRenderer rendererToDraw = result.getStatus() == LayoutResult.FULL ? renderer : result.getSplitRenderer();
+                rendererToDraw.setParent(documentRenderer).draw(new DrawContext(page.getDocument(), new PdfCanvas(page)));
             }
         }
     }
 
+    /**
+     * Parses the marks.
+     *
+     * @param marksStr a {@link String} value defining the marks
+     * @return a {@link Set} of mark values
+     */
     private static Set<String> parseMarks(String marksStr) {
         Set<String> marks = new HashSet<>();
         if (marksStr == null) {
@@ -281,6 +394,13 @@ class PageContextProcessor {
         return marks;
     }
 
+    /**
+     * Parses the margins.
+     *
+     * @param styles a {@link Map} containing the styles
+     * @param em a measurement expressed in em
+     * @param rem a measurement expressed in rem (root em)
+     */
     private void parseMargins(Map<String, String> styles, float em, float rem) {
         float defaultMargin = 36;
         PageSize pageSize = getPageSize();
@@ -288,6 +408,13 @@ class PageContextProcessor {
                 CssConstants.MARGIN_TOP, CssConstants.MARGIN_RIGHT, CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT);
     }
 
+    /**
+     * Parses the paddings.
+     *
+     * @param styles a {@link Map} containing the styles
+     * @param em a measurement expressed in em
+     * @param rem a measurement expressed in rem (root em)
+     */
     private void parsePaddings(Map<String, String> styles, float em, float rem) {
         float defaultPadding = 0;
         PageSize pageSize = getPageSize();
@@ -295,14 +422,27 @@ class PageContextProcessor {
                 CssConstants.PADDING_TOP, CssConstants.PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT);
     }
 
+    /**
+     * Parses the borders.
+     *
+     * @param styles a {@link Map} containing the styles
+     * @param em a measurement expressed in em
+     * @param rem a measurement expressed in rem (root em)
+     */
     private void parseBorders(Map<String, String> styles, float em, float rem) {
         borders = BorderStyleApplierUtil.getBordersArray(styles, em, rem);
     }
 
+    /**
+     * Creates the page simulation elements.
+     *
+     * @param styles a {@link Map} containing the styles
+     * @param context the processor context
+     */
     private void createPageSimulationElements(Map<String, String> styles, ProcessorContext context) {
         pageBackgroundSimulation = new Div().setFillAvailableArea(true);
         BackgroundApplierUtil.applyBackground(styles, context, pageBackgroundSimulation);
-        
+
         pageBordersSimulation = new Div().setFillAvailableArea(true);
         pageBordersSimulation.setMargins(margins[0], margins[1], margins[2], margins[3]);
         pageBordersSimulation.setBorderTop(borders[0]);
@@ -311,16 +451,22 @@ class PageContextProcessor {
         pageBordersSimulation.setBorderLeft(borders[3]);
     }
 
+    /**
+     * Creates the margin boxes elements.
+     *
+     * @param resolvedPageMarginBoxes the resolved page margin boxes
+     * @param context the processor context
+     */
     private void createMarginBoxesElements(List<PageMarginBoxContextNode> resolvedPageMarginBoxes, ProcessorContext context) {
         marginBoxRectangles = calculateMarginBoxRectangles(resolvedPageMarginBoxes);
         marginBoxElements = new Div[16];
-        for (PageMarginBoxContextNode marginBoxProps : resolvedPageMarginBoxes) {
-            int marginBoxInd = mapMarginBoxNameToIndex(marginBoxProps.getMarginBoxName());
+        for (PageMarginBoxContextNode marginBoxContentNode : resolvedPageMarginBoxes) {
+            int marginBoxInd = mapMarginBoxNameToIndex(marginBoxContentNode.getMarginBoxName());
             Div marginBox = new Div();
             marginBoxElements[marginBoxInd] = marginBox;
-            Map<String, String> boxStyles = marginBoxProps.getStyles();
+            Map<String, String> boxStyles = marginBoxContentNode.getStyles();
             BackgroundApplierUtil.applyBackground(boxStyles, context, marginBox);
-            FontStyleApplierUtil.applyFontStyles(boxStyles, context, marginBoxProps, marginBox);
+            FontStyleApplierUtil.applyFontStyles(boxStyles, context, marginBoxContentNode, marginBox);
             BorderStyleApplierUtil.applyBorders(boxStyles, context, marginBox);
             VerticalAlignmentApplierUtil.applyVerticalAlignmentForCells(boxStyles, context, marginBox);
 
@@ -334,22 +480,55 @@ class PageContextProcessor {
             marginBox.setMargins(boxMargins[0], boxMargins[1], boxMargins[2], boxMargins[3]);
             marginBox.setPaddings(boxPaddings[0], boxPaddings[1], boxPaddings[2], boxPaddings[3]);
             marginBox.setProperty(Property.FONT_PROVIDER, context.getFontProvider());
+            marginBox.setProperty(Property.FONT_SET, context.getTempFonts());
             marginBox.setFillAvailableArea(true);
 
-            if (marginBoxProps.childNodes().isEmpty()) {
+            if (marginBoxContentNode.childNodes().isEmpty()) {
                 // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
                 throw new IllegalStateException();
             }
-            // TODO process possible images in future
-            if (marginBoxProps.childNodes().get(0) instanceof ITextNode) {
-                String text = ((ITextNode) marginBoxProps.childNodes().get(0)).wholeText();
-                marginBox.add(new Paragraph(text).setMargin(0));
+
+            // TODO it would be great to reuse DefaultHtmlProcessor, but it seems there is no convenient way of doing so, and maybe it would be an overkill
+            IElementNode dummyMarginBoxNode = new JsoupElementNode(new Element(Tag.valueOf(TagConstants.DIV), ""));
+            DivTagWorker marginBoxWorker = new DivTagWorker(dummyMarginBoxNode, context);
+            for (int i = 0; i < marginBoxContentNode.childNodes().size(); i++) {
+                INode childNode = marginBoxContentNode.childNodes().get(i);
+                if (childNode instanceof ITextNode) {
+                    String text = ((ITextNode) marginBoxContentNode.childNodes().get(i)).wholeText();
+                    marginBoxWorker.processContent(text, context);
+                } else if (childNode instanceof IElementNode) {
+                    ITagWorker childTagWorker = context.getTagWorkerFactory().getTagWorker((IElementNode) childNode, context);
+                    if (childTagWorker != null) {
+                        childTagWorker.processEnd((IElementNode) childNode, context);
+                        marginBoxWorker.processTagChild(childTagWorker, context);
+                    }
+                }  else {
+                    LoggerFactory.getLogger(getClass()).error(LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
+                }
             }
+            marginBoxWorker.processEnd(dummyMarginBoxNode, context);
+            IPropertyContainer workerResult = marginBoxWorker.getElementResult();
+            if (workerResult instanceof Div) {
+                for (IElement child : ((Div) workerResult).getChildren()) {
+                    if (child instanceof IBlockElement) {
+                        marginBox.add((IBlockElement) child);
+                    } else if (child instanceof Image) {
+                        marginBox.add((Image) child);
+                    }
+                }
+            }
+            marginBox.setRole(PdfName.Artifact);
         }
     }
 
+    /**
+     * Calculate margin box rectangles.
+     *
+     * @param resolvedPageMarginBoxes the resolved page margin boxes
+     * @return an array of {@link Rectangle} values
+     */
     private Rectangle[] calculateMarginBoxRectangles(List<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
-        // TODO It's a very basic implementation for now. In future resolve rectangles based on presence of certain margin boxes, 
+        // TODO It's a very basic implementation for now. In future resolve rectangles based on presence of certain margin boxes,
         //      also height and width properties should be taken into account.
         float topMargin = margins[0];
         float rightMargin = margins[1];
@@ -383,6 +562,12 @@ class PageContextProcessor {
         return hardcodedBoxRectangles;
     }
 
+    /**
+     * Calculate containing block sizes for margin box.
+     *
+     * @param marginBoxInd the margin box index
+     * @return the corresponding rectangle
+     */
     private Rectangle calculateContainingBlockSizesForMarginBox(int marginBoxInd) {
         if (marginBoxInd == 0 || marginBoxInd == 4 || marginBoxInd == 8 || marginBoxInd == 12) {
             return marginBoxRectangles[marginBoxInd];
@@ -399,6 +584,12 @@ class PageContextProcessor {
         }
     }
 
+    /**
+     * Maps a margin box name to an index.
+     *
+     * @param marginBoxName the margin box name
+     * @return the index corresponding with the margin box name
+     */
     private int mapMarginBoxNameToIndex(String marginBoxName) {
         switch (marginBoxName) {
             case CssRuleName.TOP_LEFT_CORNER:
@@ -437,7 +628,21 @@ class PageContextProcessor {
         return -1;
     }
 
-    private float[] parseBoxProps(Map<String, String> styles, float em, float rem, float defaultValue, Rectangle containingBlock, 
+    /**
+     * Parses the box props.
+     *
+     * @param styles a {@link Map} containing the styles
+     * @param em a measurement expressed in em
+     * @param rem a measurement expressed in rem (root em)
+     * @param defaultValue the default value
+     * @param containingBlock the containing block
+     * @param topPropName the top prop name
+     * @param rightPropName the right prop name
+     * @param bottomPropName the bottom prop name
+     * @param leftPropName the left prop name
+     * @return an array with a top, right, bottom, and top float value
+     */
+    private float[] parseBoxProps(Map<String, String> styles, float em, float rem, float defaultValue, Rectangle containingBlock,
                                   String topPropName, String rightPropName, String bottomPropName, String leftPropName) {
         String topStr = styles.get(topPropName);
         String rightStr = styles.get(rightPropName);
@@ -456,7 +661,15 @@ class PageContextProcessor {
                 left != null ? (float)left : defaultValue
         };
     }
-    
+
+    /**
+     * Parses the box value.
+     *
+     * @param em a measurement expressed in em
+     * @param rem a measurement expressed in rem (root em)
+     * @param dimensionSize the dimension size
+     * @return a float value
+     */
     private static Float parseBoxValue(String valString, float em, float rem, float dimensionSize) {
         UnitValue marginUnitVal = CssUtils.parseLengthValueToPt(valString, em, rem);
         if (marginUnitVal != null) {
@@ -467,7 +680,7 @@ class PageContextProcessor {
                 return marginUnitVal.getValue() * dimensionSize / 100;
             }
         }
-        
+
         return null;
     }
 }

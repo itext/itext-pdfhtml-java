@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -42,37 +42,36 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.kernel.pdf.PdfName;
+import com.itextpdf.kernel.pdf.tagutils.IAccessibleElement;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.Div;
 
-public class HrTagWorker implements ITagWorker{
+/**
+ * TagWorker class for the {@code hr} element.
+ */
+public class HrTagWorker extends DivTagWorker {
 
-    Div div = new Div();
-
+    /**
+     * Creates a new {@link HrTagWorker} instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public HrTagWorker(IElementNode element, ProcessorContext context) {
-        div.setRole(PdfName.Artifact);
+        super(element, context);
     }
 
-    @Override
-    public void processEnd(IElementNode element, ProcessorContext context) {
-    }
-
-    @Override
-    public boolean processContent(String content, ProcessorContext context) {
-        return false;
-    }
-
-    @Override
-    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        return false;
-    }
-
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+     */
     @Override
     public IPropertyContainer getElementResult() {
-        return div;
+        IPropertyContainer elementResult = super.getElementResult();
+        if (elementResult instanceof IAccessibleElement) {
+            ((IAccessibleElement) elementResult).setRole(PdfName.Artifact);
+        }
+        return elementResult;
     }
 }

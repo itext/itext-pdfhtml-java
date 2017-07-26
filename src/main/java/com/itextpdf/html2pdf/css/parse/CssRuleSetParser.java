@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -43,34 +43,78 @@
 package com.itextpdf.html2pdf.css.parse;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.selector.CssSelector;
+import com.itextpdf.html2pdf.css.selector.item.CssPseudoClassSelectorItem;
+import com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem;
 import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.io.util.MessageFormatUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Arrays;
 
+/**
+ * Utilities class to parse CSS rule sets.
+ */
 public final class CssRuleSetParser {
 
+    /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(CssRuleSetParser.class);
 
+    private static final Set<String> unsupportedPseudoClasses = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+            CssConstants.CHECKED,
+            CssConstants.DISABLED,
+            CssConstants.EMPTY,
+            CssConstants.ENABLED,
+            CssConstants.FIRST_OF_TYPE,
+            CssConstants.IN_RANGE,
+            CssConstants.INVALID,
+            CssConstants.LANG,
+            CssConstants.LAST_OF_TYPE,
+            CssConstants.NTH_LAST_CHILD,
+            CssConstants.NTH_LAST_OF_TYPE,
+            CssConstants.NTH_OF_TYPE,
+            CssConstants.ONLY_OF_TYPE,
+            CssConstants.ONLY_CHILD,
+            CssConstants.OPTIONAL,
+            CssConstants.OUT_OF_RANGE,
+            CssConstants.READ_ONLY,
+            CssConstants.READ_WRITE,
+            CssConstants.REQUIRED,
+            CssConstants.ROOT,
+            CssConstants.VALID
+    )));
+
+    /**
+     * Creates a new {@link CssRuleSetParser} instance.
+     */
     private CssRuleSetParser() {
     }
 
+    /**
+     * Parses property declarations.
+     *
+     * @param propertiesStr the property declarations in the form of a {@link String}
+     * @return the list of {@link CssDeclaration} instances
+     */
     public static List<CssDeclaration> parsePropertyDeclarations(String propertiesStr) {
         List<CssDeclaration> declarations = new ArrayList<>();
-        int pos = getSemicolonPosition(propertiesStr);
+        int pos = getSemicolonPosition(propertiesStr, 0);
         while (pos != -1) {
             String[] propertySplit = splitCssProperty(propertiesStr.substring(0, pos));
             if (propertySplit != null) {
                 declarations.add(new CssDeclaration(propertySplit[0], propertySplit[1]));
             }
             propertiesStr = propertiesStr.substring(pos + 1);
-            pos = getSemicolonPosition(propertiesStr);
+            pos = getSemicolonPosition(propertiesStr, 0);
         }
         if (!propertiesStr.replaceAll("[\\n\\r\\t ]", "").isEmpty()) {
             String[] propertySplit = splitCssProperty(propertiesStr);
@@ -82,7 +126,15 @@ public final class CssRuleSetParser {
         return declarations;
     }
 
-    // Returns List because selector can be compound, like "p, div, #navbar".
+    /**
+     * Parses a rule set into a list of {@link CssRuleSet} instances.
+     * This method returns a {@link List} because a selector can
+     * be compound, like "p, div, #navbar".
+     *
+     * @param selectorStr the selector
+     * @param propertiesStr the properties
+     * @return the resulting list of {@link CssRuleSet} instances
+     */
     public static List<CssRuleSet> parseRuleSet(String selectorStr, String propertiesStr) {
         List<CssDeclaration> declarations = parsePropertyDeclarations(propertiesStr);
         List<CssRuleSet> ruleSets = new ArrayList<>();
@@ -96,8 +148,13 @@ public final class CssRuleSetParser {
         }
         for (String currentSelectorStr : selectors) {
             try {
-                CssSelector selector = new CssSelector(currentSelectorStr);
-                ruleSets.add(new CssRuleSet(selector, declarations));
+                //@TODO These changes were made because we need to detect if selector contains unsupported pseudo classes
+                //revert the changes when the task DEVSIX-1440 is done
+                List<ICssSelectorItem> selectorItems = CssSelectorParser.parseSelectorItems(currentSelectorStr);
+                if (!selectorItemsContainsUnsupportedPseudoClasses(selectorItems)) {
+                    CssSelector selector = new CssSelector(selectorItems);
+                    ruleSets.add(new CssRuleSet(selector, declarations));
+                }
             } catch (Exception exc) {
                 logger.error(LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, exc);
                 //if any separated selector has errors, all others become invalid.
@@ -110,11 +167,20 @@ public final class CssRuleSetParser {
         return ruleSets;
     }
 
+    /**
+     * Splits CSS properties into an array of {@link String} values.
+     *
+     * @param property the properties
+     * @return the array of property values
+     */
     private static String[] splitCssProperty(String property) {
+        if (property.trim().isEmpty()) {
+            return null;
+        }
         String[] result = new String[2];
         int position = property.indexOf(":");
         if (position < 0) {
-            logger.error(MessageFormat.format(LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, property.trim()));
+            logger.error(MessageFormatUtil.format(LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, property.trim()));
             return null;
         }
         result[0] = property.substring(0, position);
@@ -123,18 +189,42 @@ public final class CssRuleSetParser {
         return result;
     }
 
-    private static int getSemicolonPosition(String propertiesStr) {
-        int semiColonPos = propertiesStr.indexOf(";");
-        int openedBracketPos = propertiesStr.indexOf("(");
-        int closedBracketPos = propertiesStr.indexOf(")");
+    /**
+     * Gets the semicolon position.
+     *
+     * @param propertiesStr the properties
+     * @param fromIndex the from index
+     * @return the semicolon position
+     */
+    private static int getSemicolonPosition(String propertiesStr, int fromIndex) {
+        int semiColonPos = propertiesStr.indexOf(";", fromIndex);
+        int closedBracketPos = propertiesStr.indexOf(")", semiColonPos + 1);
+        int openedBracketPos = propertiesStr.indexOf("(", fromIndex);
+        if (semiColonPos != -1 && openedBracketPos < semiColonPos && closedBracketPos > 0) {
+            int nextOpenedBracketPos = openedBracketPos;
+            do {
+                openedBracketPos = nextOpenedBracketPos;
+                nextOpenedBracketPos = propertiesStr.indexOf("(", openedBracketPos + 1);
+            } while (nextOpenedBracketPos < closedBracketPos && nextOpenedBracketPos > 0);
+        }
         if (semiColonPos != -1 && semiColonPos > openedBracketPos && semiColonPos < closedBracketPos) {
-            int pos = getSemicolonPosition(propertiesStr.substring(semiColonPos + 1)) + 1;
-            if (pos > 0) {
-                semiColonPos += getSemicolonPosition(propertiesStr.substring(semiColonPos + 1)) + 1;
-            } else {
-                semiColonPos = -1;
-            }
+            return getSemicolonPosition(propertiesStr, closedBracketPos + 1);
         }
         return semiColonPos;
+    }
+
+    private static boolean selectorItemsContainsUnsupportedPseudoClasses(List<ICssSelectorItem> selectorItems) {
+        for (ICssSelectorItem selectorItem : selectorItems) {
+            if (selectorItem instanceof CssPseudoClassSelectorItem) {
+                if (unsupportedPseudoClasses.contains(((CssPseudoClassSelectorItem) selectorItem).getPseudoClass())) {
+                    return true;
+                }
+                if (selectorItem instanceof CssPseudoClassSelectorItem.NotSelectorItem) {
+                    return selectorItemsContainsUnsupportedPseudoClasses(((CssPseudoClassSelectorItem.NotSelectorItem) selectorItem).getArgumentsSelector());
+                }
+            }
+        }
+
+        return false;
     }
 }

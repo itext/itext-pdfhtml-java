@@ -207,4 +207,11 @@ public class UriResolverTest extends ExtendedITextTest {
         Assert.assertEquals(singleSlashRootPath + "test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("/folder2/innerTest2").toExternalForm());
         Assert.assertEquals(singleSlashRootPath + "test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("//folder2/innerTest2").toExternalForm());
     }
+
+    @Test
+    public void uriResolverTest17() throws MalformedURLException {
+        String absolutePathRoot = "file:///" + Paths.get("").toAbsolutePath().getRoot().toString().replace('\\', '/').replaceFirst("^/", "");
+        String absoluteBaseUri = absolutePathRoot + "test/fol ders/wi@th/diffe#rent/$characters/index.html\t\t\t\t\t\t";
+        UriResolver resolver = new UriResolver(absoluteBaseUri);
+    }
 }

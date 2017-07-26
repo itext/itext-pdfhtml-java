@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -42,28 +42,59 @@
  */
 package com.itextpdf.html2pdf.resolver.resource;
 
+import com.itextpdf.io.util.MessageFormatUtil;
+
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.MessageFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-class UriResolver {
+/**
+ * Utilities class to resolve URIs.
+ */
+public class UriResolver {
 
+    /** The base url. */
     private URL baseUrl;
+
+    /** Indicates if the Uri refers to a local resource. */
     private boolean isLocal;
 
-    UriResolver(String baseUri) {
+    /**
+     * Creates a new {@link UriResolver} instance.
+     *
+     * @param baseUri the base URI
+     */
+    public UriResolver(String baseUri) {
         resolveBaseUrlOrPath(baseUri);
     }
 
-    String getBaseUri() {
+    /**
+     * Gets the base URI.
+     *
+     * @return the base uri
+     */
+    public String getBaseUri() {
         return baseUrl.toExternalForm();
     }
 
-    URL resolveAgainstBaseUri(String uriString) throws MalformedURLException {
+    /**
+     * Resolve a given URI against the base URI.
+     *
+     * @param uriString the given URI
+     * @return the resolved URI
+     * @throws MalformedURLException the malformed URL exception
+     */
+    public URL resolveAgainstBaseUri(String uriString) throws MalformedURLException {
         URL resolvedUrl = null;
+        uriString = uriString.trim();
+        // decode and then encode uri string in order to process unsafe characters correctly
+        String scheme = getUriStringScheme(uriString);
+        uriString = EncodeUtil.encode(DecodeUtil.decode(uriString, scheme), scheme);
         if (isLocal) {
             // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
             // resources around the file system even if on web page the path started with '\'
@@ -88,7 +119,15 @@ class UriResolver {
         return resolvedUrl;
     }
 
+    /**
+     * Resolves the base URI to an URL or path.
+     *
+     * @param base the base URI
+     */
     private void resolveBaseUrlOrPath(String base) {
+        base = base.trim();
+        String scheme = getUriStringScheme(base);
+        base = EncodeUtil.encode(DecodeUtil.decode(base, scheme), scheme);
         baseUrl = baseUriAsUrl(base);
         if (baseUrl == null) {
             baseUrl = uriAsFileUrl(base);
@@ -96,10 +135,16 @@ class UriResolver {
 
         if (baseUrl == null) {
             // TODO Html2PdfException?
-            throw new IllegalArgumentException(MessageFormat.format("Invalid base URI: {0}", base));
+            throw new IllegalArgumentException(MessageFormatUtil.format("Invalid base URI: {0}", base));
         }
     }
 
+    /**
+     * Resolves a base URI as an URL.
+     *
+     * @param baseUriString the base URI
+     * @return the URL, or null if not successful
+     */
     private URL baseUriAsUrl(String baseUriString) {
         URL baseAsUrl = null;
         try {
@@ -116,8 +161,14 @@ class UriResolver {
         return baseAsUrl;
     }
 
+    /**
+     * Resolves a base URI as a file URL.
+     *
+     * @param baseUriString the base URI
+     * @return the file URL
+     */
     private URL uriAsFileUrl(String baseUriString) {
-        URL baseAsFileUrl= null;
+        URL baseAsFileUrl = null;
         try {
             Path path = Paths.get(baseUriString);
             baseAsFileUrl = path.toAbsolutePath().normalize().toUri().toURL();
@@ -126,6 +177,20 @@ class UriResolver {
         }
 
         return baseAsFileUrl;
+    }
+
+    private String getUriStringScheme(String uriString) {
+        String result = null;
+        Matcher matcher = Pattern.compile("^[^:]+").matcher(uriString);
+        if (matcher.find()) {
+            result = matcher.group();
+        } else if (null != baseUrl) {
+            try {
+                result = baseUrl.toURI().getScheme();
+            } catch (URISyntaxException e) {
+            }
+        }
+        return result;
     }
 
 }

@@ -1,0 +1,8 @@
+p:nth-child(4){
+	color: maroon;
+}
+
+span {
+	font-size: 24px;
+	text-align: center; 
+}

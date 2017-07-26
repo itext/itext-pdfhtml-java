@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -48,11 +48,9 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
-import com.itextpdf.io.font.FontConstants;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.kernel.numbering.AlphabetNumbering;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IElement;
@@ -60,21 +58,56 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.property.IListSymbolFactory;
 import com.itextpdf.layout.property.ListNumberingType;
 import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.Map;
 
+/**
+ * Utilities class to apply list styles to an element.
+ */
 public final class ListStyleApplierUtil {
 
+    //private static final String HTML_SYMBOL_FONT = "Sans-serif";
+
+    /** The Constant GREEK_ALPHABET_LENGTH. */
+    private static final int GREEK_ALPHABET_LENGTH = 24;
+
+    /** The Constant GREEK_LOWERCASE. */
+    private static final char[] GREEK_LOWERCASE = new char[GREEK_ALPHABET_LENGTH];
+
+    /** The Constant DISC_SYMBOL. */
+    private static final String DISC_SYMBOL = "\u2022";
+
+    /** The Constant CIRCLE_SYMBOL. */
+    private static final String CIRCLE_SYMBOL = "\u25cb";
+
+    /** The Constant SQUARE_SYMBOL. */
+    private static final String SQUARE_SYMBOL = "\u25a0";
+
+    static {
+        for (int i = 0; i < GREEK_ALPHABET_LENGTH; i++) {
+            GREEK_LOWERCASE[i] = (char) (945 + i + (i > 16 ? 1 : 0));
+        }
+    }
+
+    /**
+     * Creates a new {@link ListStyleApplierUtil} instance.
+     */
     private ListStyleApplierUtil() {
     }
 
+    /**
+     * Applies an image list style to an element.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
     public static void applyListStyleImageProperty(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         String listStyleImage = cssProps.get(CssConstants.LIST_STYLE_IMAGE);
         if (listStyleImage != null && !CssConstants.NONE.equals(listStyleImage)) {
@@ -87,7 +120,14 @@ public final class ListStyleApplierUtil {
         }
     }
 
-    //TODO problems with Pdf/A conversion. Avoid ZapfDingBats, Symbol font DEVSIX-917
+    /**
+     * Applies a list style to an element.
+     *
+     * @param stylesContainer the styles container
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
     public static void applyListStyleTypeProperty(IStylesContainer stylesContainer, Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
 
@@ -111,13 +151,13 @@ public final class ListStyleApplierUtil {
         } else if (CssConstants.LOWER_ROMAN.equals(style)) {
             setListSymbol(element, ListNumberingType.ROMAN_LOWER);
         } else if (CssConstants.LOWER_GREEK.equals(style)) {
-            setListSymbol(element, ListNumberingType.GREEK_LOWER);
+            element.setProperty(Property.LIST_SYMBOL, new HtmlAlphabetSymbolFactory(GREEK_LOWERCASE));
         } else if (CssConstants.NONE.equals(style)) {
             setListSymbol(element, new Text(""));
         } else {
             if (style != null) {
                 Logger logger = LoggerFactory.getLogger(ListStyleApplierUtil.class);
-                logger.error(MessageFormat.format(LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
+                logger.error(MessageFormatUtil.format(LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
             }
 
             // Fallback style
@@ -132,6 +172,24 @@ public final class ListStyleApplierUtil {
         }
     }
 
+    /**
+     * Applies the "disc" list style to an element.
+     *
+     * @param element the element
+     * @param em the em value
+     */
+    public static void setDiscStyle(IPropertyContainer element, float em) {
+        Text symbol = new Text(DISC_SYMBOL);
+        element.setProperty(Property.LIST_SYMBOL, symbol);
+        setListSymbolIndent(element, em);
+    }
+
+    /**
+     * Sets the list symbol for a {@link List} or {@link ListItem} element.
+     *
+     * @param container the container element ({@link List} or {@link ListItem})
+     * @param text the list symbol
+     */
     private static void setListSymbol(IPropertyContainer container, Text text) {
         if (container instanceof List) {
             ((List) container).setListSymbol(text);
@@ -140,6 +198,12 @@ public final class ListStyleApplierUtil {
         }
     }
 
+    /**
+     * Sets the list symbol for a {@link List} or {@link ListItem} element.
+     *
+     * @param container the container element ({@link List} or {@link ListItem})
+     * @param listNumberingType the list numbering type
+     */
     private static void setListSymbol(IPropertyContainer container, ListNumberingType listNumberingType) {
         if (container instanceof List) {
             ((List) container).setListSymbol(listNumberingType);
@@ -148,30 +212,40 @@ public final class ListStyleApplierUtil {
         }
     }
 
-    private static void setDiscStyle(IPropertyContainer element, float em) {
-        Text symbol = new Text(String.valueOf(((char)108))).setFont(createZapfDingBatsSafe());
-        symbol.setTextRise(1.5f);
-        symbol.setFontSize(4.5f);
-        element.setProperty(Property.LIST_SYMBOL, symbol);
-        setListSymbolIndent(element, em);
-    }
-
+    /**
+     * Applies the "square" list style to an element.
+     *
+     * @param element the element
+     * @param em the em value
+     */
     private static void setSquareStyle(IPropertyContainer element, float em) {
-        Text symbol = new Text(String.valueOf(((char)110))).setFont(createZapfDingBatsSafe());
-        symbol.setTextRise(1.5f);
-        symbol.setFontSize(4.5f);
+        Text symbol = new Text(SQUARE_SYMBOL);
+        symbol.setTextRise(1.5f * em / 12);
+        symbol.setFontSize(4.5f * em / 12);
         element.setProperty(Property.LIST_SYMBOL, symbol);
         setListSymbolIndent(element, em);
     }
 
+    /**
+     * Applies the "circle" list style to an element.
+     *
+     * @param element the element
+     * @param em the em value
+     */
     private static void setCircleStyle(IPropertyContainer element, float em) {
-        Text symbol = new Text(String.valueOf(((char)109))).setFont(createZapfDingBatsSafe());
-        symbol.setTextRise(1.5f);
-        symbol.setFontSize(4.5f);
+        Text symbol = new Text(CIRCLE_SYMBOL);
+        symbol.setTextRise(1.5f * em / 12);
+        symbol.setFontSize(4.5f * em / 12);
         element.setProperty(Property.LIST_SYMBOL, symbol);
         setListSymbolIndent(element, em);
     }
 
+    /**
+     * Sets the list symbol indentation.
+     *
+     * @param element the element
+     * @param em the em value
+     */
     private static void setListSymbolIndent(IPropertyContainer element, float em) {
         if  (ListSymbolPosition.INSIDE == element.<ListSymbolPosition>getProperty(Property.LIST_SYMBOL_POSITION)) {
             element.setProperty(Property.LIST_SYMBOL_INDENT, 1.5f * em);
@@ -180,14 +254,45 @@ public final class ListStyleApplierUtil {
         }
     }
 
-    private static PdfFont createZapfDingBatsSafe() {
-        try {
-            return PdfFontFactory.createFont(FontConstants.ZAPFDINGBATS);
-        } catch (IOException exc) {
-            Logger logger = LoggerFactory.getLogger(ListStyleApplierUtil.class);
-            logger.error("Unable to create ZapfDingBats font", exc);
-            return null;
+    /**
+     * A factory for creating {@code HtmlAlphabetSymbol} objects.
+     */
+    private static class HtmlAlphabetSymbolFactory implements IListSymbolFactory {
+
+        /** The alphabet. */
+        private final char[] alphabet;
+
+        /**
+         * Creates a new {@link HtmlAlphabetSymbolFactory} instance.
+         *
+         * @param alphabet the alphabet
+         */
+        public HtmlAlphabetSymbolFactory(char[] alphabet) {
+            this.alphabet = alphabet;
+        }
+
+        /* (non-Javadoc)
+         * @see com.itextpdf.layout.property.IListSymbolFactory#createSymbol(int, com.itextpdf.layout.IPropertyContainer, com.itextpdf.layout.IPropertyContainer)
+         */
+        @Override
+        public IElement createSymbol(int index, IPropertyContainer list, IPropertyContainer listItem) {
+            Object preValue = getListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_PRE_TEXT);
+            Object postValue = getListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_POST_TEXT);
+            Text result = new Text(preValue + AlphabetNumbering.toAlphabetNumber(index, alphabet) + postValue);
+            return result;
+        }
+
+        /**
+         * Gets the a property from a {@link ListItem}, or from the {@link List}
+         * (if the property) isn't declared for the list item.
+         *
+         * @param listItem the list item
+         * @param list the list
+         * @param propertyId the property id
+         * @return the property value
+         */
+        private static Object getListItemOrListProperty(IPropertyContainer listItem, IPropertyContainer list, int propertyId) {
+            return listItem.hasProperty(propertyId) ? listItem.<Object>getProperty(propertyId) : list.<Object>getProperty(propertyId);
         }
     }
-
 }

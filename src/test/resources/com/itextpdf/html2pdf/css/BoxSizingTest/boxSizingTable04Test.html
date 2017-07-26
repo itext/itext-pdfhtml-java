@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.boxtest {
+			box-sizing: border-box;
+		}
+		.borders {
+			border: 20pt solid green;
+			padding: 10pt;
+			margin: 10pt;
+		}
+		table {
+			border-collapse: collapse;
+		}
+		td {
+			border: solid;
+		}
+		@page {
+			size: 400pt;
+		}
+	</style>
+</head>
+  <body>
+  <div style="width: 300pt; border: solid blue">
+	<p class="borders" style="width: 200pt; height: 100pt;"></p>
+	<table class="boxtest borders" style="width: 200pt; height: 250pt;"><tr>
+		<td>This box shall overflow to the next page with some text left to be written on the next page. It's height might be bigger than 250pt due to max-height not being forced for table cells.</td>
+		<td>This box shall overflow to the next page with some text left to be written on the next page. It's height might be bigger than 250pt due to max-height not being forced for table cells.</td>
+	</tr></table>
+  </div>
+  </body>
+</html>
+

@@ -70,7 +70,6 @@ public class QTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 2))
     public void q01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "qTest01.html"), new File(destinationFolder + "qTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "qTest01.pdf", sourceFolder + "cmp_qTest01.pdf", destinationFolder, "diff01_"));

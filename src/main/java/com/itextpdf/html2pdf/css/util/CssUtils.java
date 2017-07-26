@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -49,17 +49,37 @@ import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 
+/**
+ * Utilities class for CSS operations.
+ */
 public class CssUtils {
 
+    private static final String[] RELATIVE_MEASUREMENTS = new String[] {CssConstants.PERCENTAGE, CssConstants.EM, CssConstants.EX, CssConstants.REM};
+
+    /**
+     * Creates a new {@link CssUtils} instance.
+     */
     private CssUtils() {
     }
 
+    /**
+     * Normalizes a CSS property.
+     *
+     * @param str the property
+     * @return the normalized property
+     */
     public static String normalizeCssProperty(String str) {
         return str == null ? null : CssPropertyNormalizer.normalize(str);
     }
 
+    /**
+     * Removes double spaces and trims a string.
+     *
+     * @param str the string
+     * @return the string without the unnecessary spaces
+     */
     public static String removeDoubleSpacesAndTrim(String str) {
         String[] parts = str.split("\\s");
         StringBuilder sb = new StringBuilder();
@@ -74,6 +94,12 @@ public class CssUtils {
         return sb.toString();
     }
 
+    /**
+     * Parses an integer without throwing an exception if something goes wrong.
+     *
+     * @param str a string that might be an integer value
+     * @return the integer value, or null if something went wrong
+     */
     public static Integer parseInteger(String str) {
         if (str == null) {
             return null;
@@ -85,6 +111,12 @@ public class CssUtils {
         }
     }
 
+    /**
+     * Parses a float without throwing an exception if something goes wrong.
+     *
+     * @param str a string that might be a float value
+     * @return the float value, or null if something went wrong
+     */
     public static Float parseFloat(String str) {
         if (str == null) {
             return null;
@@ -96,6 +128,12 @@ public class CssUtils {
         }
     }
 
+    /**
+     * Parses an aspect ratio into an array with two integers.
+     *
+     * @param str a string that might contain two integer values
+     * @return the aspect ratio as an array of two integer values
+     */
     public static int[] parseAspectRatio(String str) {
         int indexOfSlash = str.indexOf('/');
         try {
@@ -109,7 +147,7 @@ public class CssUtils {
 
     /**
      * Parses a length with an allowed metric unit (px, pt, in, cm, mm, pc, q) or numeric value (e.g. 123, 1.23,
-     * .123) to pt.<br />
+     * .123) to pt.<br>
      * A numeric value (without px, pt, etc in the given length string) is considered to be in the default metric that
      * was given.
      *
@@ -124,7 +162,7 @@ public class CssUtils {
             return 0f;
         float f = Float.parseFloat(length.substring(0, pos));
         String unit = length.substring(pos);
-        
+
         //points
         if (unit.startsWith(CssConstants.PT) || unit.equals("") && defaultMetric.equals(CssConstants.PT)) {
             return f;
@@ -153,18 +191,24 @@ public class CssUtils {
         else if (unit.startsWith(CssConstants.PX) || (unit.equals("") && defaultMetric.equals(CssConstants.PX))) {
             return f * 0.75f;
         }
-        
+
         Logger logger = LoggerFactory.getLogger(CssUtils.class);
-        logger.error(MessageFormat.format(LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, unit.equals("") ? defaultMetric : unit));
+        logger.error(MessageFormatUtil.format(LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, unit.equals("") ? defaultMetric : unit));
         return f;
     }
 
+    /**
+     * Parses the absolute length.
+     *
+     * @param length the length as a string
+     * @return the length as a float
+     */
     public static float parseAbsoluteLength(String length) {
         return parseAbsoluteLength(length, CssConstants.PX);
     }
 
     /**
-     * Parses an relative value based on the base value that was given, in the metric unit of the base value. <br />
+     * Parses an relative value based on the base value that was given, in the metric unit of the base value.<br>
      * (e.g. margin=10% should be based on the page width, so if an A4 is used, the margin = 0.10*595.0 = 59.5f)
      *
      * @param relativeValue in %, em or ex.
@@ -187,6 +231,14 @@ public class CssUtils {
         return (float)f;
     }
 
+    /**
+     * Parses the length value to pt.
+     *
+     * @param value the value
+     * @param emValue the em value
+     * @param remValue the root em value
+     * @return the unit value
+     */
     public static UnitValue parseLengthValueToPt(final String value, final float emValue, final float remValue) {
         if (isMetricValue(value) || isNumericValue(value)) {
             return new UnitValue(UnitValue.POINT, parseAbsoluteLength(value));
@@ -194,17 +246,17 @@ public class CssUtils {
             return new UnitValue(UnitValue.PERCENT, Float.parseFloat(value.substring(0, value.length() - 1)));
         } else if (isRemValue(value)) {
             return new UnitValue(UnitValue.POINT, parseRelativeValue(value, remValue));
-        } else if (value != null && (value.endsWith(CssConstants.EM) || value.endsWith(CssConstants.EX))) {
+        } else if (isRelativeValue(value)) {
             return new UnitValue(UnitValue.POINT, parseRelativeValue(value, emValue));
         }
         return null;
     }
 
     /**
-     * Returns value in dpi (currently)
+     * Parses the resolution.
      *
-     * @param resolutionStr
-     * @return
+     * @param resolutionStr the resolution as a string
+     * @return a value in dpi (currently)
      */
     // TODO change default units? If so, change MediaDeviceDescription#resolutoin as well
     public static float parseResolution(String resolutionStr) {
@@ -222,8 +274,8 @@ public class CssUtils {
     }
 
     /**
-     * Method used in preparation of splitting a string containing a numeric value with a metric unit (e.g. 18px, 9pt, 6cm, etc).<br /><br />
-     * Determines the position between digits and affiliated characters ('+','-','0-9' and '.') and all other characters.<br />
+     * Method used in preparation of splitting a string containing a numeric value with a metric unit (e.g. 18px, 9pt, 6cm, etc).<br><br>
+     * Determines the position between digits and affiliated characters ('+','-','0-9' and '.') and all other characters.<br>
      * e.g. string "16px" will return 2, string "0.5em" will return 3 and string '-8.5mm' will return 4.
      *
      * @param string containing a numeric value with a metric unit
@@ -246,16 +298,28 @@ public class CssUtils {
         return pos;
     }
 
+    /**
+     * Checks if a value is a color property.
+     *
+     * @param value the value
+     * @return true, if the value contains a color property
+     */
     public static boolean isColorProperty(String value) {
         return value.contains("rgb(") || value.contains("rgba(") || value.contains("#")
                 || WebColors.NAMES.containsKey(value.toLowerCase()) || CssConstants.TRANSPARENT.equals(value);
     }
 
+    /**
+     * Parses the RGBA color.
+     *
+     * @param colorValue the color value
+     * @return an RGBA value expressed as an array with four float values
+     */
     public static float[] parseRgbaColor(String colorValue) {
         float[] rgbaColor = WebColors.getRGBAColor(colorValue);
         if (rgbaColor == null) {
             Logger logger = LoggerFactory.getLogger(CssUtils.class);
-            logger.error(MessageFormat.format(com.itextpdf.io.LogMessageConstant.COLOR_NOT_PARSED, colorValue));
+            logger.error(MessageFormatUtil.format(com.itextpdf.io.LogMessageConstant.COLOR_NOT_PARSED, colorValue));
             rgbaColor = new float[]{0, 0, 0, 1};
         }
         return rgbaColor;
@@ -280,7 +344,15 @@ public class CssUtils {
      * @return boolean true if value contains an allowed metric value.
      */
     public static boolean isRelativeValue(final String value) {
-        return value != null && (value.endsWith(CssConstants.PERCENTAGE) || value.endsWith(CssConstants.EM) || value.endsWith(CssConstants.EX));
+        if (value == null) {
+            return false;
+        }
+        for (String relativePostfix : RELATIVE_MEASUREMENTS) {
+            if (value.endsWith(relativePostfix) && isNumericValue(value.substring(0, value.length() - relativePostfix.length()).trim())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -290,7 +362,7 @@ public class CssUtils {
      * @return boolean true if value contains an allowed metric value.
      */
     public static boolean isRemValue(final String value) {
-        return value != null && (value.endsWith(CssConstants.REM));
+        return value != null && value.endsWith(CssConstants.REM) && isNumericValue(value.substring(0, value.length() - CssConstants.REM.length()).trim());
     }
 
     /**
@@ -304,7 +376,7 @@ public class CssUtils {
     }
 
     /**
-     * Parses <code>url("file.jpg")</code> to <code>file.jpg</code>.
+     * Parses {@code url("file.jpg")} to {@code file.jpg}.
      *
      * @param url the url attribute to parse
      * @return the parsed url. Or original url if not wrappend in url()
@@ -325,5 +397,35 @@ public class CssUtils {
             str = url;
         }
         return str;
+    }
+
+    /**
+     * Checks if a data is base 64 encoded.
+     *
+     * @param data the data
+     * @return true, if the data is base 64 encoded
+     */
+    public static boolean isBase64Data(String data) {
+        return data.matches("^data:([^\\s]*);base64,([^\\s]*)");
+    }
+
+    /**
+     * Find the next unescaped character.
+     *
+     * @param source a source
+     * @param ch the character to look for
+     * @param startIndex where to start looking
+     * @return the position of the next unescaped character
+     */
+    public static int findNextUnescapedChar(String source, char ch, int startIndex) {
+        int symbolPos = source.indexOf(ch, startIndex);
+        if (symbolPos == -1) {
+            return -1;
+        }
+        int afterNoneEscapePos = symbolPos;
+        while (afterNoneEscapePos > 0 && source.charAt(afterNoneEscapePos - 1) == '\\') {
+            --afterNoneEscapePos;
+        }
+        return (symbolPos - afterNoneEscapePos) % 2 == 0 ? symbolPos : findNextUnescapedChar(source, ch, symbolPos + 1);
     }
 }
