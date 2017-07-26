@@ -42,7 +42,11 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -58,6 +62,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
@@ -73,7 +78,12 @@ public class LinkTest extends ExtendedITextTest {
 
     @Test
     public void linkTest01() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "linkTest01.html"), new File(destinationFolder + "linkTest01.pdf"));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "linkTest01.html").getPath() + "\n");
+        PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "linkTest01.pdf"));
+        outDoc.setTagged();
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "linkTest01.html")) {
+            HtmlConverter.convertToPdf(fileInputStream, outDoc);
+        }
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest01.pdf", sourceFolder + "cmp_linkTest01.pdf", destinationFolder, "diff01_"));
     }
 
@@ -108,4 +118,23 @@ public class LinkTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest06.pdf", sourceFolder + "cmp_linkTest06.pdf", destinationFolder, "diff06_"));
     }
 
+    @Test
+    public void linkTest07() throws IOException, InterruptedException {
+        PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "linkTest07.pdf"));
+        outDoc.setTagged();
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "linkTest07.html")) {
+            HtmlConverter.convertToPdf(fileInputStream, outDoc);
+        }
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest07.pdf", sourceFolder + "cmp_linkTest07.pdf", destinationFolder, "diff07_"));
+    }
+
+    @Test
+    public void linkTest09() throws IOException, InterruptedException {
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest09.pdf"));
+        pdfDocument.setTagged();
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "linkTest09.html")) {
+            HtmlConverter.convertToPdf(fileInputStream, pdfDocument, new ConverterProperties().setBaseUri(sourceFolder));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest09.pdf", sourceFolder + "cmp_linkTest09.pdf", destinationFolder, "diff09_"));
+    }
 }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<style>
+#attr::before {
+content: attr(custom-attr);
+}
+#attr-with-string::before {
+content: "string and attr: " attr(custom-attr)  ' after string ';
+}
+#attr-no-space::before {
+content: "string and attr: "attr(custom-attr)' after string ';
+}
+#no-attr::before {
+content: attr(wrong-name) " no error string ";
+}
+#attr-double-quotes::before {
+content: attr("custom-attr") " no error string ";
+}
+#attr-single-quotes::before {
+content: attr('custom-attr') " no error string ";
+}
+#attr-space-in-name::before {
+content: attr(space in name) " no error string ";
+}
+#attr-bracet-in-name::before {
+content: attr(bracet(inname) " no error string ";
+}
+#attr-space-in-name-quotes::before {
+content: attr("space in name") " no error string ";
+}
+</style>
+<body>
+<div custom-attr="blabla" id="attr">div-text</div>
+<div custom-attr="blabla" id="attr-with-string">div-text</div>
+<div custom-attr="blabla" id="attr-no-space">div-text</div>
+<div custom-attr="blabla" id="no-attr">div-text</div>
+<div custom-attr="blabla" id="attr-double-quotes">div-text</div>
+<div custom-attr="blabla" id="attr-single-quotes">div-text</div>
+<div custom-attr="blabla" id="attr-space-in-name">div-text</div>
+<div custom-attr="blabla" id="attr-bracet-in-name">div-text</div>
+<div custom-attr="blabla" id="attr-space-in-name-quotes">div-text</div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -49,29 +49,40 @@ import com.itextpdf.html2pdf.css.util.CssUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.*;
 
+/**
+ * {@link IShorthandResolver} implementation for fonts.
+ */
 public class FontShorthandResolver implements IShorthandResolver {
+
+    /** Unsupported shorthand values. */
     private static final Set<String> UNSUPPORTED_VALUES_OF_FONT_SHORTHAND = new HashSet<>(Arrays.asList(
             CssConstants.CAPTION, CssConstants.ICON, CssConstants.MENU, CssConstants.MESSAGE_BOX,
             CssConstants.SMALL_CAPTION, CssConstants.STATUS_BAR
     ));
 
+    /** Font weight values. */
     private static final Set<String> FONT_WEIGHT_NOT_DEFAULT_VALUES = new HashSet<>(Arrays.asList(
             CssConstants.BOLD, CssConstants.BOLDER, CssConstants.LIGHTER,
             "100", "200", "300", "400", "500", "600", "700", "800", "900"
     ));
+
+    /** Font size values. */
     private static final Set<String> FONT_SIZE_VALUES = new HashSet<>(Arrays.asList(
             CssConstants.MEDIUM, CssConstants.XX_SMALL, CssConstants.X_SMALL, CssConstants.SMALL, CssConstants.LARGE,
             CssConstants.X_LARGE, CssConstants.XX_LARGE, CssConstants.SMALLER, CssConstants.LARGER
     ));
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
+     */
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
         if (UNSUPPORTED_VALUES_OF_FONT_SHORTHAND.contains(shorthandExpression)) {
             Logger logger = LoggerFactory.getLogger(FontShorthandResolver.class);
-            logger.error(MessageFormat.format("The \"{0}\" value of CSS shorthand property \"font\" is not supported", shorthandExpression));
+            logger.error(MessageFormatUtil.format("The \"{0}\" value of CSS shorthand property \"font\" is not supported", shorthandExpression));
         }
         if (CssConstants.INITIAL.equals(shorthandExpression) || CssConstants.INHERIT.equals(shorthandExpression)) {
             return Arrays.asList(
@@ -123,6 +134,12 @@ public class FontShorthandResolver implements IShorthandResolver {
         return cssDeclarations;
     }
 
+    /**
+     * Gets the font properties.
+     *
+     * @param shorthandExpression the shorthand expression
+     * @return the font properties
+     */
     private List<String> getFontProperties(String shorthandExpression) {
         boolean doubleQuotesAreSpotted = false;
         boolean singleQuoteIsSpotted = false;

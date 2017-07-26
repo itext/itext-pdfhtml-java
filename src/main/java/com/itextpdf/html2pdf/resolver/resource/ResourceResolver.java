@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -45,18 +45,28 @@ package com.itextpdf.html2pdf.resolver.resource;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.io.codec.Base64;
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.io.util.StreamUtil;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.MessageFormat;
 
+/**
+ * Utilities class to resolve resources.
+ */
 // TODO handle <base href=".."> tag?
 public class ResourceResolver {
+
+    /** The {@link UriResolver} instance. */
     private UriResolver uriResolver;
+
+    /** The {@link SimpleImageCache} instance. */
     // TODO provide a way to configure capacity, manually reset or disable the image cache?
     private SimpleImageCache imageCache;
 
@@ -83,7 +93,16 @@ public class ResourceResolver {
         this.imageCache = new SimpleImageCache();
     }
 
+    /**
+     * Retrieve {@link PdfImageXObject}.
+     *
+     * @param src either link to file or base64 encoded stream.
+     * @return PdfImageXObject on success, otherwise null.
+     */
     public PdfImageXObject retrieveImage(String src) {
+        if (src == null) {
+            return null;
+        }
         if (src.contains("base64")) {
             try {
                 String fixedSrc = src.replaceAll("\\s", "");
@@ -95,12 +114,13 @@ public class ResourceResolver {
                 }
 
                 return imageXObject;
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
 
         try {
             URL url = uriResolver.resolveAgainstBaseUri(src);
+            url = UrlUtil.getFinalURL(url);
             String imageResolvedSrc = url.toExternalForm();
             PdfImageXObject imageXObject = imageCache.getImage(imageResolvedSrc);
             if (imageXObject == null) {
@@ -110,15 +130,62 @@ public class ResourceResolver {
             return imageXObject;
         } catch (Exception e) {
             Logger logger = LoggerFactory.getLogger(ResourceResolver.class);
-            logger.error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, uriResolver.getBaseUri(), src), e);
+            logger.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, uriResolver.getBaseUri(), src), e);
             return null;
         }
     }
 
+    /**
+     * Open an {@link InputStream} to a style sheet URI.
+     *
+     * @param uri the URI
+     * @return the {@link InputStream}
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public InputStream retrieveStyleSheet(String uri) throws IOException {
         return uriResolver.resolveAgainstBaseUri(uri).openStream();
     }
-    
+
+    /**
+     * Retrieve a resource as a byte array from a source that
+     * can either be a link to a file, or a base64 encoded {@link String}.
+     *
+     * @param src either link to file or base64 encoded stream.
+     * @return byte[] on success, otherwise null.
+     */
+    public byte[] retrieveStream(String src) {
+        if (src.contains("base64")) {
+            try {
+                String fixedSrc = src.replaceAll("\\s", "");
+                fixedSrc = fixedSrc.substring(fixedSrc.indexOf("base64") + 7);
+                return Base64.decode(fixedSrc);
+            } catch (Exception ignored) {
+            }
+        }
+
+        try {
+            return StreamUtil.inputStreamToArray(uriResolver.resolveAgainstBaseUri(src).openStream());
+        } catch (Exception e) {
+            Logger logger = LoggerFactory.getLogger(ResourceResolver.class);
+            logger.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, uriResolver.getBaseUri(), src), e);
+            return null;
+        }
+    }
+
+    /**
+     * Resolves a given URI against the base URI.
+     *
+     * @param uri the uri
+     * @return the url
+     * @throws MalformedURLException the malformed URL exception
+     */
+    public URL resolveAgainstBaseUri(String uri) throws MalformedURLException {
+        return uriResolver.resolveAgainstBaseUri(uri);
+    }
+
+    /**
+     * Resets the simple image cache.
+     */
     public void resetCache() {
         imageCache.reset();
     }

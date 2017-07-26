@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -42,30 +42,313 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
-
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.parse.CssSelectorParser;
+import com.itextpdf.html2pdf.css.selector.CssSelector;
+import com.itextpdf.html2pdf.css.selector.ICssSelector;
+import com.itextpdf.html2pdf.html.node.ICustomElementNode;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
-// TODO now this is just a stub implementation
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * {@link ICssSelectorItem} implementation for pseudo class selectors.
+ */
 public class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
-    private String pseudoClass;
+    /** The pseudo class. */
+    protected String pseudoClass;
 
+    /** The arguments. */
+    protected String arguments;
+
+    /**
+     * Creates a new {@link CssPseudoClassSelectorItem} instance.
+     *
+     * @param pseudoClass the pseudo class name
+     * @deprecated not intended for public use {@link CssPseudoClassSelectorItem#create(String)} instead.
+     *             This class will be abstract and this constructor will be protected in the next major release.
+     */
+    @Deprecated
     public CssPseudoClassSelectorItem(String pseudoClass) {
-        this.pseudoClass = pseudoClass;
+        this(pseudoClass, "");
     }
 
+    protected CssPseudoClassSelectorItem(String pseudoClass, String arguments) {
+        this.pseudoClass = pseudoClass;
+        this.arguments = arguments;
+    }
+
+    public static CssPseudoClassSelectorItem create(String fullSelectorString) {
+        int indexOfParentheses = fullSelectorString.indexOf('(');
+        String pseudoClass;
+        String arguments;
+        if (indexOfParentheses == -1) {
+            pseudoClass = fullSelectorString;
+            arguments = "";
+        } else {
+            pseudoClass = fullSelectorString.substring(0, indexOfParentheses);
+            arguments = fullSelectorString.substring(indexOfParentheses + 1, fullSelectorString.length() - 1).trim();
+        }
+        return create(pseudoClass, arguments);
+    }
+
+    public static CssPseudoClassSelectorItem create(String pseudoClass, String arguments) {
+        switch (pseudoClass) {
+            case CssConstants.FIRST_CHILD:
+                return FirstChildSelectorItem.getInstance();
+            case CssConstants.LAST_CHILD:
+                return LastChildSelectorItem.getInstance();
+            case CssConstants.NTH_CHILD:
+                return new NthChildSelectorItem(arguments);
+            case CssConstants.NOT:
+                CssSelector selector = new CssSelector(arguments);
+                for (ICssSelectorItem item : selector.getSelectorItems()) {
+                    if (item instanceof NotSelectorItem || item instanceof CssPseudoElementSelectorItem) {
+                        return null;
+                    }
+                }
+                return new NotSelectorItem(selector);
+            case CssConstants.LINK:
+                return new AlwaysApplySelectorItem(pseudoClass, arguments);
+            case CssConstants.ACTIVE:
+            case CssConstants.FOCUS:
+            case CssConstants.HOVER:
+            case CssConstants.TARGET:
+            case CssConstants.VISITED:
+                return new AlwaysNotApplySelectorItem(pseudoClass, arguments);
+            default:
+                return new CssPseudoClassSelectorItem(pseudoClass, arguments);
+        }
+    }
+
+    /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+         */
     @Override
     public int getSpecificity() {
         return CssSpecificityConstants.CLASS_SPECIFICITY;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+     */
     @Override
     public boolean matches(INode node) {
-        return false; // TODO
+        return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
-        return ":" + pseudoClass;
+        return ":" + pseudoClass + (!arguments.isEmpty() ? "(" + arguments + ")" : "");
+    }
+
+    public String getPseudoClass() {
+        return pseudoClass;
+    }
+
+    private static class ChildSelectorItem extends CssPseudoClassSelectorItem {
+
+        /**
+         * Creates a new {@link CssPseudoClassSelectorItem} instance.
+         *
+         * @param pseudoClass the pseudo class name
+         */
+        protected ChildSelectorItem(String pseudoClass) {
+            super(pseudoClass);
+        }
+
+        protected ChildSelectorItem(String pseudoClass, String arguments) {
+            super(pseudoClass, arguments);
+        }
+
+        /**
+         * Gets the all the siblings of a child node.
+         *
+         * @param node the child node
+         * @return the sibling nodes
+         */
+        protected List<INode> getAllSiblings(INode node) {
+            INode parentElement = node.parentNode();
+            if (parentElement != null) {
+                List<INode> childrenUnmodifiable = parentElement.childNodes();
+                List<INode> children = new ArrayList<INode>(childrenUnmodifiable.size());
+                for (INode iNode : childrenUnmodifiable) {
+                    if (iNode instanceof IElementNode)
+                        children.add(iNode);
+                }
+                return children;
+            }
+            return Collections.<INode>emptyList();
+        }
+    }
+
+    private static class FirstChildSelectorItem extends ChildSelectorItem {
+        private static final FirstChildSelectorItem instance = new FirstChildSelectorItem();
+
+        private FirstChildSelectorItem() {
+            super(CssConstants.FIRST_CHILD);
+        }
+
+        public static FirstChildSelectorItem getInstance() {
+            return instance;
+        }
+
+        @Override
+        public boolean matches(INode node) {
+            if (!(node instanceof IElementNode) || node instanceof ICustomElementNode) {
+                return false;
+            }
+            List<INode> children = getAllSiblings(node);
+            return !children.isEmpty() && node.equals(children.get(0));
+        }
+    }
+
+    private static class LastChildSelectorItem extends ChildSelectorItem {
+        private static final LastChildSelectorItem instance = new LastChildSelectorItem();
+
+        private LastChildSelectorItem() {
+            super(CssConstants.LAST_CHILD);
+        }
+
+        public static LastChildSelectorItem getInstance() {
+            return instance;
+        }
+
+        @Override
+        public boolean matches(INode node) {
+            if (!(node instanceof IElementNode) || node instanceof ICustomElementNode) {
+                return false;
+            }
+            List<INode> children = getAllSiblings(node);
+            return !children.isEmpty() && node.equals(children.get(children.size() - 1));
+        }
+    }
+
+    private static class NthChildSelectorItem extends ChildSelectorItem {
+        /** The nth child A. */
+        private int nthChildA;
+
+        /** The nth child B. */
+        private int nthChildB;
+
+        public NthChildSelectorItem(String arguments) {
+            super(CssConstants.NTH_CHILD, arguments);
+            getNthChildArguments();
+        }
+
+        @Override
+        public boolean matches(INode node) {
+            if (!(node instanceof IElementNode) || node instanceof ICustomElementNode) {
+                return false;
+            }
+            List<INode> children = getAllSiblings(node);
+            return !children.isEmpty() && resolveNthChild(node, children);
+        }
+
+        /**
+         * Gets the nth child arguments.
+         */
+        private void getNthChildArguments() {
+            if (arguments.matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
+                if (arguments.equals("odd")) {
+                    this.nthChildA = 2;
+                    this.nthChildB = 1;
+                } else if (arguments.equals("even")) {
+                    this.nthChildA = 2;
+                    this.nthChildB = 0;
+                } else {
+                    int indexOfN = arguments.indexOf('n');
+                    if (indexOfN == -1) {
+                        this.nthChildA = 0;
+                        this.nthChildB = Integer.valueOf(arguments);
+                    } else {
+                        String aParticle = arguments.substring(0, indexOfN).trim();
+                        if (aParticle.isEmpty())
+                            this.nthChildA = 0;
+                        else if (aParticle.length() == 1 && !Character.isDigit(aParticle.charAt(0)))
+                            this.nthChildA = aParticle.equals("+") ? 1 : -1;
+                        else
+                            this.nthChildA = Integer.valueOf(aParticle);
+                        String bParticle = arguments.substring(indexOfN + 1).trim();
+                        if (!bParticle.isEmpty())
+                            this.nthChildB = Integer.valueOf(bParticle.charAt(0) + bParticle.substring(1).trim());
+                        else
+                            this.nthChildB = 0;
+                    }
+                }
+            } else {
+                this.nthChildA = 0;
+                this.nthChildB = 0;
+            }
+        }
+
+        /**
+         * Resolves the nth child.
+         *
+         * @param node a node
+         * @param children the children
+         * @return true, if successful
+         */
+        private boolean resolveNthChild(INode node, List<INode> children) {
+            if (!children.contains(node))
+                return false;
+            if (this.nthChildA > 0) {
+                int temp = children.indexOf(node) + 1 - this.nthChildB;
+                return temp >= 0 && temp % this.nthChildA == 0;
+            } else if (this.nthChildA < 0) {
+                int temp = children.indexOf(node) + 1 - this.nthChildB;
+                return temp <= 0 && temp % this.nthChildA == 0;
+            } else
+                return (children.indexOf(node) + 1) - this.nthChildB == 0;
+        }
+    }
+
+    //@TODO This class was made public because we need to detect to arguments contains unsupported pseudo classes
+    //revert the changes when the task DEVSIX-1440 is done
+    public static class NotSelectorItem extends CssPseudoClassSelectorItem {
+        private ICssSelector argumentsSelector;
+
+        public NotSelectorItem(ICssSelector argumentsSelector) {
+            super(CssConstants.NOT, argumentsSelector.toString());
+            this.argumentsSelector = argumentsSelector;
+        }
+
+        public List<ICssSelectorItem> getArgumentsSelector() {
+            return CssSelectorParser.parseSelectorItems(arguments);
+        }
+
+        @Override
+        public boolean matches(INode node) {
+            return !argumentsSelector.matches(node);
+        }
+    }
+
+    private static class AlwaysApplySelectorItem extends CssPseudoClassSelectorItem {
+        protected AlwaysApplySelectorItem(String pseudoClass, String arguments) {
+            super(pseudoClass, arguments);
+        }
+
+        @Override
+        public boolean matches(INode node) {
+            return true;
+        }
+    }
+
+    private static class AlwaysNotApplySelectorItem extends CssPseudoClassSelectorItem {
+        protected AlwaysNotApplySelectorItem(String pseudoClass, String arguments) {
+            super(pseudoClass, arguments);
+        }
+
+        @Override
+        public boolean matches(INode node) {
+            return false;
+        }
     }
 }

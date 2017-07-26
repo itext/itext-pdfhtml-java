@@ -1,8 +1,8 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
-
+    Authors: Bruno Lowagie, Paulo Soares, et al.
+    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-
+    
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-
+    
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-
+    
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-
+    
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,39 +36,60 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-
+    
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.kernel.geom.Rectangle;
-import com.itextpdf.kernel.pdf.PdfArray;
-import com.itextpdf.kernel.pdf.action.PdfAction;
-import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
+import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.Transform;
 
+/**
+ * TagWorker class for the {@code a} element.
+ */
 public class ATagWorker extends SpanTagWorker {
 
-    private IElementNode element;
-
+    /**
+     * Creates a new {@link ATagWorker} instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public ATagWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
-        this.element = element;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+     */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         super.processEnd(element, context);
 
         String url = element.getAttribute(AttributeConstants.HREF);
         if (url != null) {
-            for (IPropertyContainer childElement : getAllElements()) {
-                childElement.setProperty(Property.LINK_ANNOTATION, createLinkAnnotation(url));
+            for (int i = 0; i < getAllElements().size(); i++) {
+                if (getAllElements().get(i) instanceof IBlockElement) {
+                    Div simulatedDiv = new Div();
+                    simulatedDiv.setRole(PdfName.Link);
+                    Transform cssTransform = getAllElements().get(i).<Transform>getProperty(Property.TRANSFORM);
+                    if (cssTransform != null) {
+                        getAllElements().get(i).deleteOwnProperty(Property.TRANSFORM);
+                        simulatedDiv.setProperty(Property.TRANSFORM, cssTransform);
+                    }
+                    simulatedDiv.add((IBlockElement) getAllElements().get(i));
+                    getAllElements().set(i, simulatedDiv);
+                }
+                LinkHelper.applyLinkAnnotation(getAllElements().get(i), url);
             }
         }
 
@@ -79,15 +100,4 @@ public class ATagWorker extends SpanTagWorker {
         }
     }
 
-    private PdfLinkAnnotation createLinkAnnotation(String url) {
-        PdfLinkAnnotation linkAnnotation;
-        if (url.startsWith("#")) {
-            String name = url.substring(1);
-            linkAnnotation = new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createGoTo(name));
-        } else {
-            linkAnnotation = new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createURI(url));
-        }
-        linkAnnotation.setBorder(new PdfArray(new float[]{0, 0, 0}));
-        return linkAnnotation;
-    }
 }

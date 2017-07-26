@@ -45,10 +45,17 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import com.itextpdf.html2pdf.Html2PdfProductInfo;
+import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
 import java.io.File;
 import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -80,17 +87,12 @@ public class HorizontalAlignmentTest extends ExtendedITextTest {
         // TODO result is somewhat different from what browsers render; see TODO in HtmlStylesToCssConverter.AlignAttributeConverter
         runTest("alignAttribute04");
     }
-    
+
     @Test
     public void marginsAutoBlocks() throws IOException, InterruptedException {
         runTest("marginsAutoBlocks");
     }
-    
-    @Test
-    public void marginsAutoImages() throws IOException, InterruptedException {
-        runTest("marginsAutoImages");
-    }
-    
+
     @Test
     public void marginsAutoInlines() throws IOException, InterruptedException {
         runTest("marginsAutoInlines");

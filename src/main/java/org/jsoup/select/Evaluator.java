@@ -9,7 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.nodes.XmlDeclaration;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -49,7 +49,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format("{0}", tagName);
+            return MessageFormatUtil.format("{0}", tagName);
         }
     }
 
@@ -70,7 +70,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format("#{0}", id);
+            return MessageFormatUtil.format("#{0}", id);
         }
 
     }
@@ -92,7 +92,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(".{0}", className);
+            return MessageFormatUtil.format(".{0}", className);
         }
 
     }
@@ -114,7 +114,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format("[{0}]", key);
+            return MessageFormatUtil.format("[{0}]", key);
         }
 
     }
@@ -141,7 +141,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format("[^{0}]", keyPrefix);
+            return MessageFormatUtil.format("[^{0}]", keyPrefix);
         }
 
     }
@@ -161,7 +161,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format("[{0}={1}]", key, value);
+            return MessageFormatUtil.format("[{0}={1}]", key, value);
         }
 
     }
@@ -181,7 +181,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format("[{0}!={1}]", key, value);
+            return MessageFormatUtil.format("[{0}!={1}]", key, value);
         }
 
     }
@@ -201,7 +201,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format("[{0}^={1}]", key, value);
+            return MessageFormatUtil.format("[{0}^={1}]", key, value);
         }
 
     }
@@ -221,7 +221,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format("[{0}$={1}]", key, value);
+            return MessageFormatUtil.format("[{0}$={1}]", key, value);
         }
 
     }
@@ -241,7 +241,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format("[{0}*={1}]", key, value);
+            return MessageFormatUtil.format("[{0}*={1}]", key, value);
         }
 
     }
@@ -265,7 +265,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format("[{0}~={1}]", key, pattern.toString());
+            return MessageFormatUtil.format("[{0}~={1}]", key, pattern.toString());
         }
 
     }
@@ -321,7 +321,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(":lt({0})", index);
+            return MessageFormatUtil.format(":lt({0})", index);
         }
 
     }
@@ -341,7 +341,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(":gt({0})", index);
+            return MessageFormatUtil.format(":gt({0})", index);
         }
 
     }
@@ -361,11 +361,11 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(":eq({0})", index);
+            return MessageFormatUtil.format(":eq({0})", index);
         }
 
     }
-    
+
     /**
      * Evaluator for matching the last sibling (css :last-child)
      */
@@ -375,13 +375,13 @@ public abstract class Evaluator {
 			final Element p = element.parent();
 			return p != null && !(p instanceof Document) && element.elementSiblingIndex() == p.children().size()-1;
 		}
-    	
+
 		@Override
 		public String toString() {
 			return ":last-child";
 		}
     }
-    
+
     public static final class IsFirstOfType extends IsNthOfType {
 		public IsFirstOfType() {
 			super(0,1);
@@ -391,7 +391,7 @@ public abstract class Evaluator {
 			return ":first-of-type";
 		}
     }
-    
+
     public static final class IsLastOfType extends IsNthLastOfType {
 		public IsLastOfType() {
 			super(0,1);
@@ -402,10 +402,10 @@ public abstract class Evaluator {
 		}
     }
 
-    
+
     public static abstract class CssNthEvaluator extends Evaluator {
     	protected final int a, b;
-    	
+
     	public CssNthEvaluator(int a, int b) {
     		this.a = a;
     		this.b = b;
@@ -413,35 +413,35 @@ public abstract class Evaluator {
     	public CssNthEvaluator(int b) {
     		this(0,b);
     	}
-    	
+
     	@Override
     	public boolean matches(Element root, Element element) {
     		final Element p = element.parent();
     		if (p == null || (p instanceof Document)) return false;
-    		
+
     		final int pos = calculatePosition(root, element);
     		if (a == 0) return pos == b;
-    		
+
     		return (pos-b)*a >= 0 && (pos-b)%a==0;
     	}
-    	
+
 		@Override
 		public String toString() {
 			if (a == 0)
-				return MessageFormat.format(":{0}({1})",getPseudoClass(), b);
+				return MessageFormatUtil.format(":{0}({1})",getPseudoClass(), b);
 			if (b == 0)
-				return MessageFormat.format(":{0}({1}n)",getPseudoClass(), a);
-			return MessageFormat.format(":{0}({1}n{2" + PortUtil.signedNumberFormat +"})", getPseudoClass(),a, b);
+				return MessageFormatUtil.format(":{0}({1}n)",getPseudoClass(), a);
+			return MessageFormatUtil.format(":{0}({1}n{2" + PortUtil.signedNumberFormat +"})", getPseudoClass(),a, b);
 		}
-    	
+
 		protected abstract String getPseudoClass();
 		protected abstract int calculatePosition(Element root, Element element);
     }
-    
-    
+
+
     /**
      * css-compatible Evaluator for :eq (css :nth-child)
-     * 
+     *
      * @see IndexEquals
      */
     public static final class IsNthChild extends CssNthEvaluator {
@@ -454,15 +454,15 @@ public abstract class Evaluator {
 			return element.elementSiblingIndex()+1;
 		}
 
-		
+
 		protected String getPseudoClass() {
 			return "nth-child";
 		}
     }
-    
+
     /**
      * css pseudo class :nth-last-child)
-     * 
+     *
      * @see IndexEquals
      */
     public static final class IsNthLastChild extends CssNthEvaluator {
@@ -474,16 +474,16 @@ public abstract class Evaluator {
         protected int calculatePosition(Element root, Element element) {
         	return element.parent().children().size() - element.elementSiblingIndex();
         }
-        
+
 		@Override
 		protected String getPseudoClass() {
 			return "nth-last-child";
 		}
     }
-    
+
     /**
      * css pseudo class nth-of-type
-     * 
+     *
      */
     public static class IsNthOfType extends CssNthEvaluator {
     	public IsNthOfType(int a, int b) {
@@ -505,13 +505,13 @@ public abstract class Evaluator {
 			return "nth-of-type";
 		}
     }
-    
+
     public static class IsNthLastOfType extends CssNthEvaluator {
 
 		public IsNthLastOfType(int a, int b) {
 			super(a, b);
 		}
-		
+
 		@Override
 		protected int calculatePosition(Element root, Element element) {
 			int pos = 0;
@@ -537,13 +537,13 @@ public abstract class Evaluator {
     		final Element p = element.parent();
     		return p != null && !(p instanceof Document) && element.elementSiblingIndex() == 0;
     	}
-    	
+
     	@Override
     	public String toString() {
     		return ":first-child";
     	}
     }
-    
+
     /**
      * css3 pseudo-class :root
      * @see <a href="http://www.w3.org/TR/selectors/#root-pseudo">:root selector</a>
@@ -578,7 +578,7 @@ public abstract class Evaluator {
 		public boolean matches(Element root, Element element) {
 			final Element p = element.parent();
 			if (p==null || p instanceof Document) return false;
-			
+
 			int pos = 0;
         	Elements family = p.children();
             for (Element el : family) {
@@ -637,7 +637,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(":contains({0}", searchText);
+            return MessageFormatUtil.format(":contains({0}", searchText);
         }
     }
 
@@ -658,7 +658,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(":containsOwn({0}", searchText);
+            return MessageFormatUtil.format(":containsOwn({0}", searchText);
         }
     }
 
@@ -679,7 +679,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(":matches({0}", pattern);
+            return MessageFormatUtil.format(":matches({0}", pattern);
         }
     }
 
@@ -700,7 +700,7 @@ public abstract class Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(":matchesOwn({0}", pattern);
+            return MessageFormatUtil.format(":matchesOwn({0}", pattern);
         }
     }
 }

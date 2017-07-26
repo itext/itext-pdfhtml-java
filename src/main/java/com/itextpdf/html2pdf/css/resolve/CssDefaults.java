@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -42,16 +42,22 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Helper class that allows you to get the default values of CSS properties.
+ */
 // TODO make internal?
 public class CssDefaults {
+
+    /** A map with properties and their default values. */
     private static final Map<String, String> defaultValues = new HashMap<>();
 
     static {
@@ -68,10 +74,10 @@ public class CssDefaults {
         defaultValues.put(CssConstants.BACKGROUND_ORIGIN, CssConstants.PADDING_BOX);
         defaultValues.put(CssConstants.BACKGROUND_SIZE, CssConstants.AUTO);
 
-        defaultValues.put(CssConstants.BORDER_BOTTOM_COLOR, "black"); // TODO specified as " The current color of the element ", might be better to put null here?
-        defaultValues.put(CssConstants.BORDER_LEFT_COLOR, "black");
-        defaultValues.put(CssConstants.BORDER_RIGHT_COLOR, "black");
-        defaultValues.put(CssConstants.BORDER_TOP_COLOR, "black");
+        defaultValues.put(CssConstants.BORDER_BOTTOM_COLOR, CssConstants.TRANSPARENT);
+        defaultValues.put(CssConstants.BORDER_LEFT_COLOR, CssConstants.TRANSPARENT);
+        defaultValues.put(CssConstants.BORDER_RIGHT_COLOR, CssConstants.TRANSPARENT);
+        defaultValues.put(CssConstants.BORDER_TOP_COLOR, CssConstants.TRANSPARENT);
         defaultValues.put(CssConstants.BORDER_BOTTOM_STYLE, CssConstants.NONE);
         defaultValues.put(CssConstants.BORDER_LEFT_STYLE, CssConstants.NONE);
         defaultValues.put(CssConstants.BORDER_RIGHT_STYLE, CssConstants.NONE);
@@ -81,6 +87,7 @@ public class CssDefaults {
         defaultValues.put(CssConstants.BORDER_RIGHT_WIDTH, CssConstants.MEDIUM);
         defaultValues.put(CssConstants.BORDER_TOP_WIDTH, CssConstants.MEDIUM);
         defaultValues.put(CssConstants.BORDER_WIDTH, CssConstants.MEDIUM);
+        defaultValues.put(CssConstants.BORDER_IMAGE, CssConstants.NONE);
 
         defaultValues.put(CssConstants.BORDER_RADIUS, "0");
         defaultValues.put(CssConstants.BOX_SHADOW, CssConstants.NONE);
@@ -102,7 +109,7 @@ public class CssDefaults {
         defaultValues.put(CssConstants.MARGIN_LEFT, "0");
         defaultValues.put(CssConstants.MARGIN_RIGHT, "0");
         defaultValues.put(CssConstants.MARGIN_TOP, "0");
-        
+
         defaultValues.put(CssConstants.MIN_HEIGHT, "0");
 
         defaultValues.put(CssConstants.OUTLINE_COLOR, CssConstants.INVERT);
@@ -113,7 +120,14 @@ public class CssDefaults {
         defaultValues.put(CssConstants.PADDING_LEFT, "0");
         defaultValues.put(CssConstants.PADDING_RIGHT, "0");
         defaultValues.put(CssConstants.PADDING_TOP, "0");
+
+        defaultValues.put(CssConstants.PAGE_BREAK_AFTER, CssConstants.AUTO);
+        defaultValues.put(CssConstants.PAGE_BREAK_BEFORE, CssConstants.AUTO);
+        defaultValues.put(CssConstants.PAGE_BREAK_INSIDE, CssConstants.AUTO);
+
         defaultValues.put(CssConstants.POSITION, CssConstants.STATIC);
+
+        defaultValues.put(CssConstants.QUOTES, "\"\\00ab\" \"\\00bb\"");
 
         defaultValues.put(CssConstants.TEXT_ALIGN, CssConstants.START);
         defaultValues.put(CssConstants.TEXT_DECORATION, CssConstants.NONE);
@@ -126,11 +140,17 @@ public class CssDefaults {
         // TODO not complete
     }
 
+    /**
+     * Gets the default value of a property.
+     *
+     * @param property the property
+     * @return the default value
+     */
     public static String getDefaultValue(String property) {
         String defaultVal = defaultValues.get(property);
         if (defaultVal == null) {
             Logger logger = LoggerFactory.getLogger(CssDefaults.class);
-            logger.error(MessageFormat.format("Default value of the css property \"{0}\" is unknown.", property));
+            logger.error(MessageFormatUtil.format(LogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN, property));
         }
         return defaultVal;
     }

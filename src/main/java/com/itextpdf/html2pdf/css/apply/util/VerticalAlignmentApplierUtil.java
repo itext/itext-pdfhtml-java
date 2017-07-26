@@ -1,8 +1,8 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
-
+    Authors: Bruno Lowagie, Paulo Soares, et al.
+    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-
+    
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-
+    
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-
+    
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-
+    
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,7 +36,7 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-
+    
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
@@ -54,17 +54,34 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.property.VerticalAlignment;
+
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Utilities class to apply vertical alignment values.
+ */
 public class VerticalAlignmentApplierUtil {
 
+    /** The Constant ASCENDER_COEFFICIENT. */
     private static final double ASCENDER_COEFFICIENT = 0.8;
+
+    /** The Constant DESCENDER_COEFFICIENT. */
     private static final double DESCENDER_COEFFICIENT = 0.2;
 
+    /**
+     * Creates a new {@link VerticalAlignmentApplierUtil}.
+     */
     private VerticalAlignmentApplierUtil() {
     }
 
+    /**
+     * Applies vertical alignment to cells.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
     public static void applyVerticalAlignmentForCells(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         String vAlignVal = cssProps.get(CssConstants.VERTICAL_ALIGN);
         if (vAlignVal != null) {
@@ -80,6 +97,14 @@ public class VerticalAlignmentApplierUtil {
         }
     }
 
+    /**
+     * Apply vertical alignment to inline elements.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param stylesContainer the styles container
+     * @param childElements the child elements
+     */
     public static void applyVerticalAlignmentForInlines(Map<String, String> cssProps, ProcessorContext context, IStylesContainer stylesContainer, List<IPropertyContainer> childElements) {
         String vAlignVal = cssProps.get(CssConstants.VERTICAL_ALIGN);
         if (vAlignVal != null) {
@@ -130,6 +155,13 @@ public class VerticalAlignmentApplierUtil {
         }
     }
 
+    /**
+     * Calculates the text rise value for &lt;sup&gt; and &lt;sub&gt; tags.
+     *
+     * @param stylesContainer the styles container
+     * @param vAlignVal the vertical alignment value
+     * @return the calculated text rise
+     */
     private static float calcTextRiseForSupSub(IStylesContainer stylesContainer, String vAlignVal) {
         float parentFontSize = getParentFontSize(stylesContainer);
         String superscriptPosition = "33%";
@@ -138,6 +170,12 @@ public class VerticalAlignmentApplierUtil {
         return CssUtils.parseRelativeValue(relativeValue, parentFontSize);
     }
 
+    /**
+     * Calculates the text rise for middle alignment.
+     *
+     * @param stylesContainer the styles container
+     * @return the calculated text rise
+     */
     private static float calcTextRiseForMiddle(IStylesContainer stylesContainer) {
         String ownFontSizeStr = stylesContainer.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssUtils.parseAbsoluteLength(ownFontSizeStr);
@@ -150,6 +188,13 @@ public class VerticalAlignmentApplierUtil {
         return xHeight - elementMidPoint;
     }
 
+    /**
+     * Calculates the text rise for top alignment.
+     *
+     * @param stylesContainer the styles container
+     * @param rootFontSize the root font size
+     * @return the calculated text rise
+     */
     private static float calcTextRiseForTextTop(IStylesContainer stylesContainer, float rootFontSize) {
         String ownFontSizeStr = stylesContainer.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssUtils.parseAbsoluteLength(ownFontSizeStr);
@@ -163,6 +208,13 @@ public class VerticalAlignmentApplierUtil {
         return parentTextTop - elementTopEdge;
     }
 
+    /**
+     * Calculates the text rise for bottom alignment.
+     *
+     * @param stylesContainer the styles container
+     * @param rootFontSize the root font size
+     * @return the calculated text rise
+     */
     private static float calcTextRiseForTextBottom(IStylesContainer stylesContainer, float rootFontSize) {
         String ownFontSizeStr = stylesContainer.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssUtils.parseAbsoluteLength(ownFontSizeStr);
@@ -176,6 +228,14 @@ public class VerticalAlignmentApplierUtil {
         return elementBottomEdge - parentTextBottom;
     }
 
+    /**
+     * Calculates text rise for percentage value text rise.
+     *
+     * @param stylesContainer the styles container
+     * @param rootFontSize the root font size
+     * @param vAlignVal the vertical alignment value
+     * @return the calculated text rise
+     */
     private static float calcTextRiseForPercentageValue(IStylesContainer stylesContainer, float rootFontSize, String vAlignVal) {
         String ownFontSizeStr = stylesContainer.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssUtils.parseAbsoluteLength(ownFontSizeStr);
@@ -186,6 +246,14 @@ public class VerticalAlignmentApplierUtil {
     }
 
 
+    /**
+     * Gets the actual value of the line height.
+     *
+     * @param fontSize the font size
+     * @param rootFontSize the root font size
+     * @param lineHeightStr the line height as a {@link String}
+     * @return the actual line height as a {@code float}
+     */
     private static float getLineHeightActualValue(float fontSize, float rootFontSize, String lineHeightStr) {
         float lineHeightActualValue;
         if (lineHeightStr != null) {
@@ -203,6 +271,12 @@ public class VerticalAlignmentApplierUtil {
         return lineHeightActualValue;
     }
 
+    /**
+     * Gets the parent font size.
+     *
+     * @param stylesContainer the styles container
+     * @return the parent font size
+     */
     private static float getParentFontSize(IStylesContainer stylesContainer) {
         float parentFontSize;
         if (stylesContainer instanceof INode && ((IElementNode)stylesContainer).parentNode() instanceof IStylesContainer) {

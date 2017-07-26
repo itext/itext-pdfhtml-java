@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.media.MediaType;
+import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -63,7 +64,6 @@ import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -150,11 +150,35 @@ public class ListTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Conversion to Pdf/A for lists not supported. DEVSIX-917")
+    public void listTest14() throws IOException, InterruptedException {
+        runTest("listTest14");
+    }
+
+    @Test
+    public void listTest15() throws IOException, InterruptedException {
+        runTest("listTest15");
+    }
+
+    @Test
+    public void listTest16() throws IOException, InterruptedException {
+        runTest("listTest16");
+    }
+
+    @Test
+    public void listTest17() throws IOException, InterruptedException {
+        runTest("listTest17");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, count = 32)})
     public void listToPdfaTest() throws IOException, InterruptedException {
         InputStream is = new FileInputStream(sourceFolder + "sRGB Color Space Profile.icm");
         PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "listToPdfa.pdf"), PdfAConformanceLevel.PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", is));
-        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "listToPdfa.html"), pdfADocument, new ConverterProperties().setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "listToPdfa.html")) {
+            HtmlConverter.convertToPdf(fileInputStream, pdfADocument, new ConverterProperties()
+                    .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT))
+                    .setFontProvider(new DefaultFontProvider(false, true, false)));
+        }
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listToPdfa.pdf", sourceFolder + "cmp_listToPdfa.pdf", destinationFolder, "diff99_"));
     }
 

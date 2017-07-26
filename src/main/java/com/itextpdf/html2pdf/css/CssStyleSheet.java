@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -49,33 +49,53 @@ import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
 import com.itextpdf.html2pdf.css.validate.CssDeclarationValidationMaster;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.io.util.MessageFormatUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class that stores all the CSS statements, and thus acts as a CSS style sheet.
+ */
 public class CssStyleSheet {
 
+    /** The list of CSS statements. */
     private List<CssStatement> statements;
 
+    /**
+     * Creates a new {@link CssStyleSheet} instance.
+     */
     public CssStyleSheet() {
         statements = new ArrayList<>();
     }
 
+    /**
+     * Adds a CSS statement to the style sheet.
+     *
+     * @param statement the CSS statement
+     */
     public void addStatement(CssStatement statement) {
         statements.add(statement);
     }
 
+    /**
+     * Append another CSS style sheet to this one.
+     *
+     * @param anotherCssStyleSheet the other CSS style sheet
+     */
     // TODO move this functionality to the parser (parse into)
     public void appendCssStyleSheet(CssStyleSheet anotherCssStyleSheet) {
         statements.addAll(anotherCssStyleSheet.statements);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -88,10 +108,22 @@ public class CssStyleSheet {
         return sb.toString();
     }
 
+    /**
+     * Gets the CSS statements of this style sheet.
+     *
+     * @return the CSS statements
+     */
     public List<CssStatement> getStatements() {
         return Collections.unmodifiableList(statements);
     }
 
+    /**
+     * Gets the CSS declarations.
+     *
+     * @param node the node
+     * @param deviceDescription the media device description
+     * @return the CSS declarations
+     */
     public List<CssDeclaration> getCssDeclarations(INode node, MediaDeviceDescription deviceDescription) {
         List<CssRuleSet> ruleSets = getCssRuleSets(node, deviceDescription);
         Map<String, CssDeclaration> declarations = new LinkedHashMap<>();
@@ -104,6 +136,12 @@ public class CssStyleSheet {
         return new ArrayList<>(declarations.values());
     }
 
+    /**
+     * Populates the CSS declarations map.
+     *
+     * @param declarations the declarations
+     * @param map the map
+     */
     private static void populateDeclarationsMap(List<CssDeclaration> declarations, Map<String, CssDeclaration> map) {
         for (CssDeclaration declaration : declarations) {
             IShorthandResolver shorthandResolver = ShorthandResolverFactory.getShorthandResolver(declaration.getProperty());
@@ -118,6 +156,13 @@ public class CssStyleSheet {
         }
     }
 
+    /**
+     * Gets the CSS rule sets.
+     *
+     * @param node the node
+     * @param deviceDescription the device description
+     * @return the css rule sets
+     */
     private List<CssRuleSet> getCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
         List<CssRuleSet> ruleSets = new ArrayList<>();
         for (CssStatement statement : statements) {
@@ -127,12 +172,18 @@ public class CssStyleSheet {
         return ruleSets;
     }
 
+    /**
+     * Puts a declaration in a styles map if the declaration is valid.
+     *
+     * @param stylesMap the styles map
+     * @param cssDeclaration the css declaration
+     */
     private static void putDeclarationInMapIfValid(Map<String, CssDeclaration> stylesMap, CssDeclaration cssDeclaration) {
         if (CssDeclarationValidationMaster.checkDeclaration(cssDeclaration)) {
             stylesMap.put(cssDeclaration.getProperty(), cssDeclaration);
         } else {
             Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
-            logger.warn(MessageFormat.format(LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, cssDeclaration));
+            logger.warn(MessageFormatUtil.format(LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, cssDeclaration));
         }
     }
 

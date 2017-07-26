@@ -54,7 +54,6 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -111,7 +110,6 @@ public class TextDecorationTest extends ExtendedITextTest {
 
     //Text decoration with display:inline-block spans (values should be replaced)
     @Test
-    @Ignore("DEVSIX-958")
     public void textDecoration06Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest06.html"), new File(destinationFolder + "textDecorationTest06.pdf"));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "textDecorationTest06.html").getPath() + "\n");

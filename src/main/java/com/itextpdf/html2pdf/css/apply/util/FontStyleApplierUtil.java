@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.color.DeviceRgb;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
@@ -63,18 +64,32 @@ import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Utilities class to apply font styles.
+ */
 public final class FontStyleApplierUtil {
 
+    /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(FontStyleApplierUtil.class);
 
+    /**
+     * Creates a {@link FontStyleApplierUtil} instance.
+     */
     private FontStyleApplierUtil() {
     }
 
+    /**
+     * Applies font styles to an element.
+     *
+     * @param cssProps the CSS props
+     * @param context the processor context
+     * @param stylesContainer the styles container
+     * @param element the element
+     */
     public static void applyFontStyles(Map<String, String> cssProps, ProcessorContext context, IStylesContainer stylesContainer, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
@@ -130,6 +145,9 @@ public final class FontStyleApplierUtil {
             element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.RIGHT);
         } else if (CssConstants.CENTER.equals(align)) {
             element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.CENTER);
+        } else if (CssConstants.JUSTIFY.equals(align)) {
+            element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.JUSTIFIED);
+            element.setProperty(Property.SPACING_RATIO, 1f);
         }
 
         String textDecorationProp = cssProps.get(CssConstants.TEXT_DECORATION);
@@ -161,13 +179,13 @@ public final class FontStyleApplierUtil {
                 if (textIndentValue.isPointValue()) {
                     element.setProperty(Property.FIRST_LINE_INDENT, textIndentValue.getValue());
                 } else {
-                    logger.error(MessageFormat.format(LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.TEXT_INDENT));
+                    logger.error(MessageFormatUtil.format(LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.TEXT_INDENT));
                 }
             }
         }
 
         String letterSpacing = cssProps.get(CssConstants.LETTER_SPACING);
-        if (letterSpacing != null) {
+        if (letterSpacing != null && !letterSpacing.equals(CssConstants.NORMAL)) {
             UnitValue letterSpacingValue = CssUtils.parseLengthValueToPt(letterSpacing, em, rem);
             if (letterSpacingValue.isPointValue()) {
                 element.setProperty(Property.CHARACTER_SPACING, letterSpacingValue.getValue());
@@ -190,13 +208,18 @@ public final class FontStyleApplierUtil {
 
         String lineHeight = cssProps.get(CssConstants.LINE_HEIGHT);
         if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight)) {
-            UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em, rem);
             if (CssUtils.isNumericValue(lineHeight)) {
-                element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue()));
-            } else if (lineHeightValue != null && lineHeightValue.isPointValue()) {
-                element.setProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.getValue()));
-            } else if (lineHeightValue != null) {
-                element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue() / 100));
+                Float mult = CssUtils.parseFloat(lineHeight);
+                if (mult != null) {
+                    element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));
+                }
+            } else {
+                UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em, rem);
+                if (lineHeightValue != null && lineHeightValue.isPointValue()) {
+                    element.setProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.getValue()));
+                } else if (lineHeightValue != null) {
+                    element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue() / 100));
+                }
             }
         } else {
             element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, 1.2f));
@@ -204,6 +227,12 @@ public final class FontStyleApplierUtil {
 
     }
 
+    /**
+     * Parses the absolute font size.
+     *
+     * @param fontSizeValue the font size value as a {@link String}
+     * @return the font size value as a {@code float}
+     */
     public static float parseAbsoluteFontSize(String fontSizeValue) {
         if (CssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS.contains(fontSizeValue)) {
             switch (fontSizeValue) {
@@ -236,6 +265,13 @@ public final class FontStyleApplierUtil {
         return CssUtils.parseAbsoluteLength(fontSizeValue);
     }
 
+    /**
+     * Parses the relative font size.
+     *
+     * @param relativeFontSizeValue the relative font size value as a {@link String}
+     * @param baseValue the base value
+     * @return the relative font size value as a {@link float}
+     */
     public static float parseRelativeFontSize(final String relativeFontSizeValue, final float baseValue) {
         if (CssConstants.SMALLER.equals(relativeFontSizeValue)) {
             return (float)(baseValue / 1.2);
@@ -244,5 +280,5 @@ public final class FontStyleApplierUtil {
         }
         return CssUtils.parseRelativeValue(relativeFontSizeValue, baseValue);
     }
-    
+
 }

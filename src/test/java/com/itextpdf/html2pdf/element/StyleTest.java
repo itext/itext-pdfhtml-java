@@ -53,6 +53,7 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -74,6 +75,13 @@ public class StyleTest extends ExtendedITextTest {
     public void styleTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "styleTest01.html"), new File(destinationFolder + "styleTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "styleTest01.pdf", sourceFolder + "cmp_styleTest01.pdf", destinationFolder, "diff01_"));
+    }
+
+    @Ignore("DEVSIX-1374")
+    @Test
+    public void styleTest02() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "styleTest02.html"), new File(destinationFolder + "styleTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "styleTest02.pdf", sourceFolder + "cmp_styleTest02.pdf", destinationFolder, "diff02_"));
     }
 
 }

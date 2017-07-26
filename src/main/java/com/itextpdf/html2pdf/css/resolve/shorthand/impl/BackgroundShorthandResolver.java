@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -50,28 +50,50 @@ import com.itextpdf.html2pdf.css.util.CssUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * {@link IShorthandResolver} implementation for backgrounds.
+ */
 public class BackgroundShorthandResolver implements IShorthandResolver {
 
-
+    /** The Constant UNDEFINED_TYPE. */
     private static final int UNDEFINED_TYPE = -1;
+
+    /** The Constant BACKGROUND_COLOR_TYPE. */
     private static final int BACKGROUND_COLOR_TYPE = 0;
+
+    /** The Constant BACKGROUND_IMAGE_TYPE. */
     private static final int BACKGROUND_IMAGE_TYPE = 1;
+
+    /** The Constant BACKGROUND_POSITION_TYPE. */
     private static final int BACKGROUND_POSITION_TYPE = 2;
+
+    /** The Constant BACKGROUND_POSITION_OR_SIZE_TYPE. */
     private static final int BACKGROUND_POSITION_OR_SIZE_TYPE = 3; // might have the same type, but position always precedes size
+
+    /** The Constant BACKGROUND_REPEAT_TYPE. */
     private static final int BACKGROUND_REPEAT_TYPE = 4;
+
+    /** The Constant BACKGROUND_ORIGIN_OR_CLIP_TYPE. */
     private static final int BACKGROUND_ORIGIN_OR_CLIP_TYPE = 5; // have the same possible values but apparently origin values precedes clip value
+
+    /** The Constant BACKGROUND_CLIP_TYPE. */
     private static final int BACKGROUND_CLIP_TYPE = 6;
+
+    /** The Constant BACKGROUND_ATTACHMENT_TYPE. */
     private static final int BACKGROUND_ATTACHMENT_TYPE = 7;
 
     // With CSS3, you can apply multiple backgrounds to elements. These are layered atop one another
     // with the first background you provide on top and the last background listed in the back. Only
     // the last background can include a background color.
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
+     */
     @Override
     public List<CssDeclaration> resolveShorthand(String shorthandExpression) {
         if (CssConstants.INITIAL.equals(shorthandExpression) || CssConstants.INHERIT.equals(shorthandExpression)) {
@@ -128,6 +150,12 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
         return cssDeclarations;
     }
 
+    /**
+     * Resolves the property type.
+     *
+     * @param value the value
+     * @return the property type value
+     */
     private int resolvePropertyType(String value) {
         if (value.contains("url(") || CssConstants.NONE.equals(value)) {
             return BACKGROUND_IMAGE_TYPE;
@@ -149,10 +177,18 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
         return UNDEFINED_TYPE;
     }
 
+    /**
+     * Registers a property based on its type.
+     *
+     * @param type the property type
+     * @param value the property value
+     * @param resolvedProps the resolved properties
+     * @param slashEncountered indicates whether a slash was encountered
+     */
     private void putPropertyBasedOnType(int type, String value, String[] resolvedProps, boolean slashEncountered) {
         if (type == UNDEFINED_TYPE) {
             Logger logger = LoggerFactory.getLogger(BackgroundShorthandResolver.class);
-            logger.error(MessageFormat.format(LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES, value));
+            logger.error(MessageFormatUtil.format(LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES, value));
             return;
         }
         if (type == BACKGROUND_POSITION_OR_SIZE_TYPE && !slashEncountered) {
@@ -170,6 +206,12 @@ public class BackgroundShorthandResolver implements IShorthandResolver {
         }
     }
 
+    /**
+     * Splits multiple backgrounds.
+     *
+     * @param shorthandExpression the shorthand expression
+     * @return the list of backgrounds
+     */
     private List<String> splitMultipleBackgrounds(String shorthandExpression) {
         List<String> commaSeparatedExpressions = new ArrayList<>();
         boolean isInsideParentheses = false; // in order to avoid split inside rgb/rgba color definition

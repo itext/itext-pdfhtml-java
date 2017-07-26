@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -42,14 +42,39 @@
  */
 package com.itextpdf.html2pdf.exception;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 
+/**
+ * Runtime exception that gets thrown if a tag worker can't be initialized.
+ */
 public class TagWorkerInitializationException extends RuntimeException {
+
+    /**
+     * Creates a {@link TagWorkerInitializationException} instance.
+     *
+     * @param message    the message
+     * @param classNames the class names
+     * @param tag        the tag
+     */
     public TagWorkerInitializationException(String message, String classNames, String tag) {
-        super(MessageFormat.format(message,classNames,tag));
+        super(MessageFormatUtil.format(message,classNames,tag));
     }
 
+    /**
+     *  Creates a {@link TagWorkerInitializationException} instance.
+     *
+     * @param message the message
+     * @param classNames the class names
+     * @param tag the tag
+     * @param cause the cause
+     */
+    public TagWorkerInitializationException(String message, String classNames, String tag, Throwable cause) {
+        super(MessageFormatUtil.format(message,classNames,tag), cause);
+    }
+
+    /** Template for the error message in case a tag worker couldn't be instantiated. */
     public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
 
-
+    /**  Serial version UID. */
+    private static final long serialVersionUID = -2832848748573223220L;
 }

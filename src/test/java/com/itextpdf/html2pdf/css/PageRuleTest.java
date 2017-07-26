@@ -54,12 +54,13 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.io.File;
-import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class PageRuleTest extends ExtendedITextTest {
@@ -133,7 +134,7 @@ public class PageRuleTest extends ExtendedITextTest {
     }
     
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 6))
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 3))
     public void marginBoxTest01() throws IOException, InterruptedException {
         runTest("marginBoxTest01");
     }

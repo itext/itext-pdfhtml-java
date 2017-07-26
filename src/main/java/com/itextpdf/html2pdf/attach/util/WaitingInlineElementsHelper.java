@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -43,34 +43,66 @@
 package com.itextpdf.html2pdf.attach.util;
 
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.util.OverflowApplierUtil;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
-import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+/**
+ * Helper class for waiting inline elements.
+ */
 public class WaitingInlineElementsHelper {
 
+    /**
+     * A value that defines how to transform text.
+     */
     private String textTransform;
+
+    /**
+     * Indicates whether line breaks need to be preserved.
+     */
     private boolean keepLineBreaks;
+
+    /**
+     * Indicates whether white space characters need to be collapsed.
+     */
     private boolean collapseSpaces;
 
+    /**
+     * List of waiting leaf elements.
+     */
+    private List<IElement> waitingLeaves = new ArrayList<>();
+
+    /**
+     * Creates a new {@link WaitingInlineElementsHelper} instance.
+     *
+     * @param whiteSpace    we'll check if this value equals "pre" or "pre-wrap"
+     * @param textTransform will define the transformation that needs to be applied to the text
+     */
     public WaitingInlineElementsHelper(String whiteSpace, String textTransform) {
         keepLineBreaks = CssConstants.PRE.equals(whiteSpace) || CssConstants.PRE_WRAP.equals(whiteSpace) || CssConstants.PRE_LINE.equals(whiteSpace);
         collapseSpaces = !(CssConstants.PRE.equals(whiteSpace) || CssConstants.PRE_WRAP.equals(whiteSpace));
         this.textTransform = textTransform;
     }
 
-    private List<ILeafElement> waitingLeaves = new ArrayList<>();
-
+    /**
+     * Adds text to the waiting leaves.
+     *
+     * @param text the text
+     */
     public void add(String text) {
         if (!keepLineBreaks && collapseSpaces) {
             text = collapseConsecutiveSpaces(text);
@@ -86,6 +118,21 @@ public class WaitingInlineElementsHelper {
                 }
             }
             text = sb.toString();
+        } else { // false == collapseSpaces
+            // prohibit trimming first and last spaces
+            StringBuilder sb = new StringBuilder(text.length());
+            sb.append('\u200d');
+            for (int i = 0; i < text.length(); i++) {
+                sb.append(text.charAt(i));
+                if ('\n' == text.charAt(i) ||
+                        ('\r' == text.charAt(i) && i + 1 < text.length() && '\n' != text.charAt(i + 1))) {
+                    sb.append('\u200d');
+                }
+            }
+            if ('\u200d' == sb.charAt(sb.length() - 1)) {
+                sb.delete(sb.length() - 1, sb.length());
+            }
+            text = sb.toString();
         }
 
         if (CssConstants.UPPERCASE.equals(textTransform)) {
@@ -97,22 +144,48 @@ public class WaitingInlineElementsHelper {
         waitingLeaves.add(new Text(text));
     }
 
+    /**
+     * Adds a leaf element to the waiting leaves.
+     *
+     * @param element the element
+     */
     public void add(ILeafElement element) {
         waitingLeaves.add(element);
     }
 
+    public void add(IBlockElement element) {
+        waitingLeaves.add(element);
+    }
+
+    /**
+     * Adds a collecton of leaf elements to the waiting leaves.
+     *
+     * @param collection the collection
+     */
     public void addAll(Collection<ILeafElement> collection) {
         waitingLeaves.addAll(collection);
     }
 
+    /**
+     * Flush hanging leaves.
+     *
+     * @param container a container element
+     */
     public void flushHangingLeaves(IPropertyContainer container) {
         Paragraph p = createLeavesContainer();
         if (p != null) {
+            Map<String, String> map = new HashMap<>();
+            map.put(CssConstants.OVERFLOW, CssConstants.VISIBLE);
+            OverflowApplierUtil.applyOverflow(map, p);
             if (container instanceof Document) {
                 ((Document) container).add(p);
             } else if (container instanceof Paragraph) {
-                for (ILeafElement leafElement : waitingLeaves) {
-                    ((Paragraph) container).add(leafElement);
+                for (IElement leafElement : waitingLeaves) {
+                    if (leafElement instanceof ILeafElement) {
+                        ((Paragraph) container).add((ILeafElement) leafElement);
+                    } else if (leafElement instanceof IBlockElement) {
+                        ((Paragraph) container).add((IBlockElement) leafElement);
+                    }
                 }
             } else if (container instanceof Div) {
                 ((Div) container).add(p);
@@ -129,6 +202,11 @@ public class WaitingInlineElementsHelper {
         }
     }
 
+    /**
+     * Creates the leaves container.
+     *
+     * @return a paragraph
+     */
     public Paragraph createLeavesContainer() {
         if (collapseSpaces) {
             waitingLeaves = TrimUtil.trimLeafElementsAndSanitize(waitingLeaves);
@@ -139,13 +217,12 @@ public class WaitingInlineElementsHelper {
 
         if (waitingLeaves.size() > 0) {
             Paragraph p = createParagraphContainer();
-            for (ILeafElement leaf : waitingLeaves) {
-                p.add(leaf);
-            }
-            // Default leading in html is 1.2 and it is an inherited value. However, if a paragraph only contains an image,
-            // the default leading should be 1. This is the case when we create a dummy paragraph, therefore we should emulate this behavior.
-            if (p.getChildren().size() == 1 && p.getChildren().get(0) instanceof Image) {
-                p.setMultipliedLeading(1);
+            for (IElement leaf : waitingLeaves) {
+                if (leaf instanceof ILeafElement) {
+                    p.add((ILeafElement) leaf);
+                } else if (leaf instanceof IBlockElement) {
+                    p.add((IBlockElement) leaf);
+                }
             }
             return p;
         } else {
@@ -153,21 +230,52 @@ public class WaitingInlineElementsHelper {
         }
     }
 
-    public Collection<ILeafElement> getWaitingLeaves() {
+    /**
+     * Gets the waiting leaves.
+     *
+     * @return the waiting leaves
+     */
+    public Collection<IElement> getWaitingLeaves() {
         return waitingLeaves;
     }
 
+    /**
+     * Gets the sanitized waiting leaves.
+     *
+     * @return the sanitized waiting leaves
+     */
+    public List<IElement> getSanitizedWaitingLeaves() {
+        if (collapseSpaces) {
+            return TrimUtil.trimLeafElementsAndSanitize(waitingLeaves);
+        } else {
+            return waitingLeaves;
+        }
+    }
+
+    /**
+     * Clears the waiting leaves.
+     */
     public void clearWaitingLeaves() {
         waitingLeaves.clear();
     }
 
+    /**
+     * Creates a paragraph container.
+     *
+     * @return the paragraph container
+     */
     public Paragraph createParagraphContainer() {
         return new Paragraph().setMargin(0);
     }
 
-    private static void capitalize(List<ILeafElement> leaves) {
+    /**
+     * Capitalizes a series of leaf elements.
+     *
+     * @param leaves a list of leaf elements
+     */
+    private static void capitalize(List<IElement> leaves) {
         boolean previousLetter = false;
-        for (ILeafElement element : leaves) {
+        for (IElement element : leaves) {
             if (element instanceof Text) {
                 String text = ((Text) element).getText();
                 StringBuilder sb = new StringBuilder();
@@ -190,11 +298,17 @@ public class WaitingInlineElementsHelper {
         }
     }
 
+    /**
+     * Collapses consecutive spaces.
+     *
+     * @param s a string
+     * @return the string with the consecutive spaces collapsed
+     */
     private static String collapseConsecutiveSpaces(String s) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
-            if (Character.isWhitespace(s.charAt(i))) {
-                if (sb.length() == 0 || !Character.isWhitespace(sb.charAt(sb.length() - 1))) {
+            if (TrimUtil.isNonEmSpace(s.charAt(i))) {
+                if (sb.length() == 0 || !TrimUtil.isNonEmSpace(sb.charAt(sb.length() - 1))) {
                     sb.append(" ");
                 }
             } else {

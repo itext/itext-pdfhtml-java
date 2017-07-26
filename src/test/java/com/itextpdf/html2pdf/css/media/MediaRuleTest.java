@@ -210,7 +210,6 @@ public class MediaRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.TEXT_WAS_NOT_PROCESSED, count = 10)})
     public void test07() throws IOException {
         String htmlFileName = sourceFolder + "html07.html";
         byte[] bytes = StreamUtil.inputStreamToArray(new FileInputStream(htmlFileName));

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<style>
+table, td, tr {
+border: 1px solid black;
+}
+table {
+border-collapse: collapse;
+}
+body {
+font-family: Helvetica;
+}
+</style>
+<body>
+<p>
+During min-max-width calculations percent width should be ignored. But it should be applied during layout.
+Min-max-width of input field should be based on it's size attribute. For button it is based on content.
+</p>
+<table>
+<tr>
+<td>
+The input field should be on next line
+<input style="width:90%" value="input">
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td>
+The button should be on next line
+<input style="width:90%" value="button" type="button">
+</td>
+</tr>
+</table>
+
+</html>

@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -42,19 +42,31 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 
+/**
+ * A {@link CssAtRule} implementation.
+ */
 public class CssSemicolonAtRule extends CssAtRule {
 
+    /** The rule parameters. */
     private String ruleParams;
 
+    /**
+     * Creates a new {@link CssSemicolonAtRule} instance.
+     *
+     * @param ruleDeclaration the rule declaration
+     */
     public CssSemicolonAtRule(String ruleDeclaration) {
         super(CssNestedAtRuleFactory.extractRuleNameFromDeclaration(ruleDeclaration.trim()));
         this.ruleParams = ruleDeclaration.trim().substring(ruleName.length()).trim();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
-        return MessageFormat.format("@{0} {1};", ruleName, ruleParams);
+        return MessageFormatUtil.format("@{0} {1};", ruleName, ruleParams);
     }
 }

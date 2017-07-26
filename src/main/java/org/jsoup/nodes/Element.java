@@ -12,7 +12,7 @@ import org.jsoup.select.NodeVisitor;
 import org.jsoup.select.Selector;
 
 import java.io.IOException;
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -27,9 +27,9 @@ import java.util.regex.PatternSyntaxException;
 /**
  * A HTML element consists of a tag name, attributes, and child nodes (including text nodes and
  * other elements).
- * 
+ *
  * From an Element, you can extract data, traverse the node graph, and manipulate the HTML.
- * 
+ *
  * @author Jonathan Hedley, jonathan@hedley.net
  */
 public class Element extends Node {
@@ -39,7 +39,7 @@ public class Element extends Node {
 
     /**
      * Create a new, standalone Element. (Standalone in that is has no parent.)
-     * 
+     *
      * @param tag tag of this element
      * @param baseUri the base URI
      * @param attributes initial attributes
@@ -48,14 +48,14 @@ public class Element extends Node {
      */
     public Element(Tag tag, String baseUri, Attributes attributes) {
         super(baseUri, attributes);
-        
-        Validate.notNull(tag);    
+
+        Validate.notNull(tag);
         this.tag = tag;
     }
-    
+
     /**
      * Create a new Element from a tag and a base URI.
-     * 
+     *
      * @param tag element tag
      * @param baseUri the base URI of this element. It is acceptable for the base URI to be an empty
      *            string, but not null.
@@ -72,7 +72,7 @@ public class Element extends Node {
 
     /**
      * Get the name of the tag for this element. E.g. {@code div}
-     * 
+     *
      * @return the tag name
      */
     public String tagName() {
@@ -94,17 +94,17 @@ public class Element extends Node {
 
     /**
      * Get the Tag for this element.
-     * 
+     *
      * @return the tag object
      */
     public Tag tag() {
         return tag;
     }
-    
+
     /**
      * Test if this element is a block-level element. (E.g. {@code <div> == true} or an inline element
      * {@code <p> == false}).
-     * 
+     *
      * @return true if block, false if not (and thus inline)
      */
     public boolean isBlock() {
@@ -113,7 +113,7 @@ public class Element extends Node {
 
     /**
      * Get the {@code id} attribute of this element.
-     * 
+     *
      * @return The id attribute, if present, or an empty string if not.
      */
     public String id() {
@@ -123,22 +123,22 @@ public class Element extends Node {
     /**
      * Set an attribute value on this element. If this element already has an attribute with the
      * key, its value is updated; otherwise, a new attribute is added.
-     * 
+     *
      * @return this element
      */
     public Element attr(String attributeKey, String attributeValue) {
         super.attr(attributeKey, attributeValue);
         return this;
     }
-    
+
     /**
      * Set a boolean attribute value on this element. Setting to <code>true</code> sets the attribute value to "" and
      * marks the attribute as boolean so no value is written out. Setting to <code>false</code> removes the attribute
      * with the same key if it exists.
-     * 
+     *
      * @param attributeKey the attribute key
      * @param attributeValue the attribute value
-     * 
+     *
      * @return this element
      */
     public Element attr(String attributeKey, boolean attributeValue) {
@@ -192,7 +192,7 @@ public class Element extends Node {
      * Note that an element can have both mixed Nodes and Elements as children. This method inspects
      * a filtered list of children that are elements, and the index is based on that filtered list.
      * </p>
-     * 
+     *
      * @param index the index number of the element to retrieve
      * @return the child element, if it exists, otherwise throws an {@code IndexOutOfBoundsException}
      * @see #childNode(int)
@@ -277,7 +277,7 @@ public class Element extends Node {
      * <p>
      * See the query syntax documentation in {@link org.jsoup.select.Selector}.
      * </p>
-     * 
+     *
      * @param cssQuery a {@link Selector} CSS-like query
      * @return elements that match the query (empty if none match)
      * @see org.jsoup.select.Selector
@@ -286,10 +286,10 @@ public class Element extends Node {
     public Elements select(String cssQuery) {
         return Selector.select(cssQuery, this);
     }
-    
+
     /**
      * Add a node child node to this element.
-     * 
+     *
      * @param child node to add.
      * @return this element, so that you can add more child nodes or elements.
      */
@@ -306,13 +306,13 @@ public class Element extends Node {
 
     /**
      * Add a node to the start of this element's children.
-     * 
+     *
      * @param child node to add.
      * @return this element, so that you can add more child nodes or elements.
      */
     public Element prependChild(Node child) {
         Validate.notNull(child);
-        
+
         addChildren(0, child);
         return this;
     }
@@ -338,10 +338,10 @@ public class Element extends Node {
         addChildren(index, nodeArray);
         return this;
     }
-    
+
     /**
      * Create a new element by tag name, and add it as the last child.
-     * 
+     *
      * @param tagName the name of the tag (e.g. {@code div}).
      * @return the new element, to allow you to add content to it, e.g.:
      *  {@code parent.appendElement("h1").attr("id", "header").text("Welcome");}
@@ -351,10 +351,10 @@ public class Element extends Node {
         appendChild(child);
         return child;
     }
-    
+
     /**
      * Create a new element by tag name, and add it as the first child.
-     * 
+     *
      * @param tagName the name of the tag (e.g. {@code div}).
      * @return the new element, to allow you to add content to it, e.g.:
      *  {@code parent.prependElement("h1").attr("id", "header").text("Welcome");}
@@ -364,10 +364,10 @@ public class Element extends Node {
         prependChild(child);
         return child;
     }
-    
+
     /**
      * Create and append a new TextNode to this element.
-     * 
+     *
      * @param text the unencoded text to add
      * @return this element
      */
@@ -377,10 +377,10 @@ public class Element extends Node {
         appendChild(node);
         return this;
     }
-    
+
     /**
      * Create and prepend a new TextNode to this element.
-     * 
+     *
      * @param text the unencoded text to add
      * @return this element
      */
@@ -390,7 +390,7 @@ public class Element extends Node {
         prependChild(node);
         return this;
     }
-    
+
     /**
      * Add inner HTML to this element. The supplied HTML will be parsed, and each node appended to the end of the children.
      * @param html HTML to add inside this element, after the existing HTML
@@ -404,7 +404,7 @@ public class Element extends Node {
         addChildren(nodes.toArray(new Node[nodes.size()]));
         return this;
     }
-    
+
     /**
      * Add inner HTML into this element. The supplied HTML will be parsed, and each node prepended to the start of the element's children.
      * @param html HTML to add inside this element, before the existing HTML
@@ -413,7 +413,7 @@ public class Element extends Node {
      */
     public Element prepend(String html) {
         Validate.notNull(html);
-        
+
         List<Node> nodes = Parser.parseFragment(html, this, baseUri());
         addChildren(0, nodes.toArray(new Node[nodes.size()]));
         return this;
@@ -511,7 +511,7 @@ public class Element extends Node {
 
         selector.insert(0, " > ");
         if (parent().select(selector.toString()).size() > 1)
-            selector.append(MessageFormat.format(
+            selector.append(MessageFormatUtil.format(
                 ":nth-child({0})", elementSiblingIndex() + 1));
 
         return parent().cssSelector() + selector.toString();
@@ -535,7 +535,7 @@ public class Element extends Node {
     }
 
     /**
-     * Gets the next sibling element of this element. E.g., if a {@code div} contains two {@code p}s, 
+     * Gets the next sibling element of this element. E.g., if a {@code div} contains two {@code p}s,
      * the {@code nextElementSibling} of the first {@code p} is the second {@code p}.
      * <p>
      * This is similar to {@link #nextSibling()}, but specifically finds only Elements
@@ -573,14 +573,14 @@ public class Element extends Node {
 
     /**
      * Gets the first element sibling of this element.
-     * @return the first sibling that is an element (aka the parent's first element child) 
+     * @return the first sibling that is an element (aka the parent's first element child)
      */
     public Element firstElementSibling() {
         // todo: should firstSibling() exclude this?
         List<Element> siblings = parent().children();
         return siblings.size() > 1 ? siblings.get(0) : null;
     }
-    
+
     /**
      * Get the list index of this element in its element sibling list. I.e. if this is the first element
      * sibling, returns 0.
@@ -588,18 +588,18 @@ public class Element extends Node {
      */
     public int elementSiblingIndex() {
        if (parent() == null) return 0;
-       return indexInList(this, parent().children()); 
+       return indexInList(this, parent().children());
     }
 
     /**
      * Gets the last element sibling of this element
-     * @return the last sibling that is an element (aka the parent's last element child) 
+     * @return the last sibling that is an element (aka the parent's last element child)
      */
     public Element lastElementSibling() {
         List<Element> siblings = parent().children();
         return siblings.size() > 1 ? siblings.get(siblings.size() - 1) : null;
     }
-    
+
     private static <E extends Element> int indexInList(Element search, List<E> elements) {
         Validate.notNull(search);
         Validate.notNull(elements);
@@ -637,7 +637,7 @@ public class Element extends Node {
      */
     public Element getElementById(String id) {
         Validate.notEmpty(id);
-        
+
         Elements elements = Collector.collect(new Evaluator.Id(id), this);
         if (elements.size() > 0)
             return elements.get(0);
@@ -650,7 +650,7 @@ public class Element extends Node {
      * <p>
      * Elements can have multiple classes (e.g. {@code <div class="header round first">}. This method
      * checks each class, so you can find the above with {@code el.getElementsByClass("header");}.
-     * 
+     *
      * @param className the name of the class to search for.
      * @return elements with the supplied class name, empty if none
      * @see #hasClass(String)
@@ -690,7 +690,7 @@ public class Element extends Node {
 
     /**
      * Find elements that have an attribute with the specific value. Case insensitive.
-     * 
+     *
      * @param key name of the attribute
      * @param value value of the attribute
      * @return elements that have this attribute with this value, empty if none
@@ -701,7 +701,7 @@ public class Element extends Node {
 
     /**
      * Find elements that either do not have this attribute, or have it with a different value. Case insensitive.
-     * 
+     *
      * @param key name of the attribute
      * @param value value of the attribute
      * @return elements that do not have a matching attribute
@@ -712,7 +712,7 @@ public class Element extends Node {
 
     /**
      * Find elements that have attributes that start with the value prefix. Case insensitive.
-     * 
+     *
      * @param key name of the attribute
      * @param valuePrefix start of attribute value
      * @return elements that have attributes that start with the value prefix
@@ -723,7 +723,7 @@ public class Element extends Node {
 
     /**
      * Find elements that have attributes that end with the value suffix. Case insensitive.
-     * 
+     *
      * @param key name of the attribute
      * @param valueSuffix end of the attribute value
      * @return elements that have attributes that end with the value suffix
@@ -734,7 +734,7 @@ public class Element extends Node {
 
     /**
      * Find elements that have attributes whose value contains the match string. Case insensitive.
-     * 
+     *
      * @param key name of the attribute
      * @param match substring of value to search for
      * @return elements that have attributes containing this text
@@ -742,7 +742,7 @@ public class Element extends Node {
     public Elements getElementsByAttributeValueContaining(String key, String match) {
         return Collector.collect(new Evaluator.AttributeWithValueContaining(key, match), this);
     }
-    
+
     /**
      * Find elements that have attributes whose values match the supplied regular expression.
      * @param key name of the attribute
@@ -751,9 +751,9 @@ public class Element extends Node {
      */
     public Elements getElementsByAttributeValueMatching(String key, Pattern pattern) {
         return Collector.collect(new Evaluator.AttributeWithValueMatching(key, pattern), this);
-        
+
     }
-    
+
     /**
      * Find elements that have attributes whose values match the supplied regular expression.
      * @param key name of the attribute
@@ -769,7 +769,7 @@ public class Element extends Node {
         }
         return getElementsByAttributeValueMatching(key, pattern);
     }
-    
+
     /**
      * Find elements whose sibling index is less than the supplied index.
      * @param index 0-based index
@@ -778,7 +778,7 @@ public class Element extends Node {
     public Elements getElementsByIndexLessThan(int index) {
         return Collector.collect(new Evaluator.IndexLessThan(index), this);
     }
-    
+
     /**
      * Find elements whose sibling index is greater than the supplied index.
      * @param index 0-based index
@@ -787,7 +787,7 @@ public class Element extends Node {
     public Elements getElementsByIndexGreaterThan(int index) {
         return Collector.collect(new Evaluator.IndexGreaterThan(index), this);
     }
-    
+
     /**
      * Find elements whose sibling index is equal to the supplied index.
      * @param index 0-based index
@@ -796,7 +796,7 @@ public class Element extends Node {
     public Elements getElementsByIndexEquals(int index) {
         return Collector.collect(new Evaluator.IndexEquals(index), this);
     }
-    
+
     /**
      * Find elements that contain the specified string. The search is case insensitive. The text may appear directly
      * in the element, or in any of its descendants.
@@ -807,7 +807,7 @@ public class Element extends Node {
     public Elements getElementsContainingText(String searchText) {
         return Collector.collect(new Evaluator.ContainsText(searchText), this);
     }
-    
+
     /**
      * Find elements that directly contain the specified string. The search is case insensitive. The text must appear directly
      * in the element, not in any of its descendants.
@@ -818,7 +818,7 @@ public class Element extends Node {
     public Elements getElementsContainingOwnText(String searchText) {
         return Collector.collect(new Evaluator.ContainsOwnText(searchText), this);
     }
-    
+
     /**
      * Find elements whose text matches the supplied regular expression.
      * @param pattern regular expression to match text against
@@ -828,7 +828,7 @@ public class Element extends Node {
     public Elements getElementsMatchingText(Pattern pattern) {
         return Collector.collect(new Evaluator.Matches(pattern), this);
     }
-    
+
     /**
      * Find elements whose text matches the supplied regular expression.
      * @param regex regular expression to match text against. You can use <a href="http://java.sun.com/docs/books/tutorial/essential/regex/pattern.html#embedded">embedded flags</a> (such as (?i) and (?m) to control regex options.
@@ -844,7 +844,7 @@ public class Element extends Node {
         }
         return getElementsMatchingText(pattern);
     }
-    
+
     /**
      * Find elements whose own text matches the supplied regular expression.
      * @param pattern regular expression to match text against
@@ -854,7 +854,7 @@ public class Element extends Node {
     public Elements getElementsMatchingOwnText(Pattern pattern) {
         return Collector.collect(new Evaluator.MatchesOwn(pattern), this);
     }
-    
+
     /**
      * Find elements whose text matches the supplied regular expression.
      * @param regex regular expression to match text against. You can use <a href="http://java.sun.com/docs/books/tutorial/essential/regex/pattern.html#embedded">embedded flags</a> (such as (?i) and (?m) to control regex options.
@@ -870,10 +870,10 @@ public class Element extends Node {
         }
         return getElementsMatchingOwnText(pattern);
     }
-    
+
     /**
      * Find all elements under this element (including self, and children of children).
-     * 
+     *
      * @return all elements
      */
     public Elements getAllElements() {
@@ -1017,7 +1017,7 @@ public class Element extends Node {
             }
         }
         return sb.toString();
-    }   
+    }
 
     /**
      * Gets the literal value of this element's "class" attribute, which may include multiple class names, space
@@ -1127,7 +1127,7 @@ public class Element extends Node {
 
         return this;
     }
-    
+
     /**
      * Get the value of a form element (input, textarea, etc).
      * @return the value of the form element, or empty string if not set.
@@ -1138,7 +1138,7 @@ public class Element extends Node {
         else
             return attr("value");
     }
-    
+
     /**
      * Set the value of a form element (input, textarea, etc).
      * @param value value to set
@@ -1190,7 +1190,7 @@ public class Element extends Node {
     /**
      * Retrieves the element's inner HTML. E.g. on a {@code <div>} with one empty {@code <p>}, would return
      * {@code <p></p>}. (Whereas {@link #outerHtml()} would return {@code <div><p></p></div>}.)
-     * 
+     *
      * @return String of HTML.
      * @see #outerHtml()
      */
@@ -1210,7 +1210,7 @@ public class Element extends Node {
 
         return appendable;
     }
-    
+
     /**
      * Set this element's inner HTML. Clears the existing HTML first.
      * @param html HTML to parse and set into this element

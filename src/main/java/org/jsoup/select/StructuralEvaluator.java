@@ -1,6 +1,6 @@
 package org.jsoup.select;
 
-import java.text.MessageFormat;
+import com.itextpdf.io.util.MessageFormatUtil;
 
 import org.jsoup.nodes.Element;
 
@@ -31,7 +31,7 @@ abstract class StructuralEvaluator extends Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(":has({0})", evaluator);
+            return MessageFormatUtil.format(":has({0})", evaluator);
         }
     }
 
@@ -46,7 +46,7 @@ abstract class StructuralEvaluator extends Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(":not{0}", evaluator);
+            return MessageFormatUtil.format(":not{0}", evaluator);
         }
     }
 
@@ -72,7 +72,7 @@ abstract class StructuralEvaluator extends Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(":parent{0}", evaluator);
+            return MessageFormatUtil.format(":parent{0}", evaluator);
         }
     }
 
@@ -91,7 +91,7 @@ abstract class StructuralEvaluator extends Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(":ImmediateParent{0}", evaluator);
+            return MessageFormatUtil.format(":ImmediateParent{0}", evaluator);
         }
     }
 
@@ -117,7 +117,7 @@ abstract class StructuralEvaluator extends Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(":prev*{0}", evaluator);
+            return MessageFormatUtil.format(":prev*{0}", evaluator);
         }
     }
 
@@ -136,7 +136,7 @@ abstract class StructuralEvaluator extends Evaluator {
 
         @Override
         public String toString() {
-            return MessageFormat.format(":prev{0}", evaluator);
+            return MessageFormatUtil.format(":prev{0}", evaluator);
         }
     }
 }

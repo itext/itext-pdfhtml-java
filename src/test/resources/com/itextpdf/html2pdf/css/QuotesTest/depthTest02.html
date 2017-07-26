@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html {
+quotes: "+1" "-1" "+2" "-2" "+3" "-3"
+}
+div::before {
+content: open-quote" one open quotes of " attr(id) 
+}
+div::after {
+content: close-quote close-quote" two close quote of " attr(id)
+}
+#big::before {
+content: open-quote open-quote open-quote open-quote open-quote
+}
+#big::after {
+content: close-quote close-quote close-quote close-quote close-quote
+}
+</style>
+</head>
+<body>
+<p>If depth is bigger then specified quotes last qoutes are used. Thero depth closse quote is empty string.</p>
+<div id="big">
+big div
+</div>
+<div id="parent">
+This is a first level div.
+<div id="child-one">
+This is a second level div.
+<div id="deep-child">
+This is third level div.
+</div>
+</div>
+<div id="child-two">
+This is a another second level div.
+<div>
+</div>
+</body>
+</html>

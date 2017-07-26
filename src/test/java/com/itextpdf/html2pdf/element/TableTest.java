@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import java.lang.reflect.Array;
@@ -57,6 +57,7 @@ import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -78,9 +79,45 @@ public class TableTest extends ExtendedITextTest {
     public void helloTableDocumentTest() throws IOException, InterruptedException {
         runTest("hello_table");
     }
+
     @Test
-    public void helloTableFixedDocumentTest() throws IOException, InterruptedException {
-        runTest("hello_table_fixed");
+    public void helloTableFixed1DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_fixed1");
+    }
+
+    @Test
+    public void helloTableFixed2DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_fixed2");
+    }
+
+    @Test
+    public void helloTableFixed3DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_fixed3");
+    }
+
+    @Test
+    public void helloTableFixed4DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_fixed4");
+    }
+
+    @Test
+    public void helloTableFixed5DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_fixed5");
+    }
+
+    @Test  //TODO this test could be improved, somehow.
+    public void helloTableFixed6DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_fixed6");
+    }
+
+    @Test
+    public void helloTableFixed7DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_fixed7");
+    }
+
+    @Test
+    public void helloTableFixed8DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_fixed8");
     }
 
     @Test
@@ -96,6 +133,77 @@ public class TableTest extends ExtendedITextTest {
     @Test
     public void helloTableAuto3DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_auto3");
+    }
+
+    @Test
+    public void helloTableAuto4DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto4");
+    }
+
+    @Test //TODO this test should be improved, incorrect widths. Each cell shall have its max width.
+    public void helloTableAuto5DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto5");
+    }
+
+    @Test
+    public void helloTableAuto6DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto6");
+    }
+
+    @Test
+    public void helloTableAuto7DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto7");
+    }
+
+    @Test
+    public void helloTableAuto8DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto8");
+    }
+
+    @Test
+    public void helloTableAuto9DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto9");
+    }
+
+    @Test //TODO this test should be improved, incorrect widths.
+    public void helloTableAuto10DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto10");
+    }
+
+    @Test
+    public void helloTableAuto11DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto11");
+    }
+
+    @Test
+    public void helloTableAuto12DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto12");
+    }
+
+    @Test
+    @Ignore("DEVSIX-1370")
+    public void helloTableAuto13DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto13");
+    }
+
+    @Test
+    public void helloTableAuto14DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto14");
+    }
+
+    @Test
+    public void helloTableAuto15DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto15");
+    }
+
+    @Test
+    public void helloTableAuto16DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto16");
+    }
+
+    @Test
+    public void helloTableAuto17DocumentTest() throws IOException, InterruptedException {
+        runTest("hello_table_auto17");
     }
 
     @Test
@@ -139,7 +247,6 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.UNEXPECTED_BEHAVIOUR_DURING_TABLE_ROW_COLLAPSING, count = 2)})
     public void textInTableAndRowTest() throws IOException, InterruptedException {
         runTest("textInTableAndRow");
     }
@@ -182,6 +289,51 @@ public class TableTest extends ExtendedITextTest {
     @Test
     public void tableBorderAttributeTest06() throws IOException, InterruptedException {
         runTest("tableBorderAttributeTest06");
+    }
+
+    @Test
+    // TODO this test currently does not work like in browsers. Cell heights are treated in a very special way in browsers,
+    // but they are considered when deciding whether to expand the table.
+    // Due to the mechanism layout currently works, we do not pass heights from html to layout for cells because otherwise
+    // the content would be clipped if it does not fit, whereas the cell height should be expanted in html in this case.
+    // This is the reason why we do not know on layout level if a height was set to an html cell.
+    // There is a possibility to work around this problem by extending from TableRenderer for case of thml tables.
+    // but this problem seems really not that important and a very narrow use case for now.
+    // For related ticket, see DEVSIX-1072
+    public void tableCellHeightsExpansionTest01() throws IOException, InterruptedException {
+        runTest("tableCellHeightsExpansion01");
+    }
+
+    @Test
+    public void tableCellHeightsExpansionTest02() throws IOException, InterruptedException {
+        runTest("tableCellHeightsExpansion02");
+    }
+
+    @Test
+    public void tableCellHeightsExpansionTest03() throws IOException, InterruptedException {
+        // Cells max-height property should not affect layout, just like in browsers.
+        runTest("tableCellHeightsExpansion03");
+    }
+
+    @Test
+    public void tableMaxHeightTest01() throws IOException, InterruptedException {
+        runTest("tableMaxHeight01");
+    }
+
+    @Test
+    public void tableMaxHeightTest02() throws IOException, InterruptedException {
+        runTest("tableMaxHeight02");
+    }
+
+    @Test
+    @Ignore("DEVSIX-994")
+    public void tableCollapseColCellBoxSizingWidthDifference() throws IOException, InterruptedException {
+        runTest("table_collapse_col_cell_box_sizing_width_difference");
+    }
+
+    @Test
+    public void colspanInHeaderFooterTest() throws IOException, InterruptedException {
+        runTest("table_header_footer_colspan");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {

@@ -43,14 +43,18 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import com.itextpdf.html2pdf.Html2PdfProductInfo;
+import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
 import java.io.File;
 import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -68,9 +72,6 @@ public class HeightTest extends ExtendedITextTest {
         createOrClearDestinationFolder(destinationFolder);
     }
 
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
-    })
     @Test
     public void heightTest01() throws IOException, InterruptedException {
         String testName = "heightTest01";
@@ -88,11 +89,8 @@ public class HeightTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
     }
-    
+
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
-    })
     public void heightTest03() throws IOException, InterruptedException {
         String testName = "heightTest03";
         String diffPrefix = "diff03_";
@@ -131,9 +129,15 @@ public class HeightTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
-    })
+    public void heightTest07() throws IOException, InterruptedException {
+        String testName = "heightTest07";
+        String diffPrefix = "diff07_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
+    @Test
     public void heightWithCollapsingMarginsTest01() throws IOException, InterruptedException {
         String testName = "heightWithCollapsingMarginsTest01";
         String diffPrefix = "diffMargins01_";
@@ -152,30 +156,14 @@ public class HeightTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
-    })
     // TODO DEVSIX-1047
     public void heightWithCollapsingMarginsTest04() throws IOException, InterruptedException {
         String testName = "heightWithCollapsingMarginsTest04";
         String diffPrefix = "diffMargins04_";
 
         // second paragraph should not be drawn in pdf, as it doesn't fit with it's margins
-        
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
-    }
-
-    @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 1)
-    })
-    public void heightWithCollapsingMarginsTest05() throws IOException, InterruptedException {
-        String testName = "heightWithCollapsingMarginsTest05";
-        String diffPrefix = "diffMargins05_";
 
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
     }
-
 }

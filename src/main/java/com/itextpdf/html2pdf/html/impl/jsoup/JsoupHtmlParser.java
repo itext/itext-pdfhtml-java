@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -50,6 +50,7 @@ import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupTextNode;
 import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.io.util.MessageFormatUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.DataNode;
 import org.jsoup.nodes.Document;
@@ -61,12 +62,18 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.MessageFormat;
 
+/**
+ * Class that uses JSoup to parse HTML.
+ */
 public class JsoupHtmlParser implements IHtmlParser {
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger(JsoupHtmlParser.class);
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.IHtmlParser#parse(java.io.InputStream, java.lang.String)
+     */
     @Override
     public IDocumentNode parse(InputStream htmlStream, String charset) throws IOException {
         // Based on some brief investigations, it seems that Jsoup uses baseUri for resolving relative uri's into absolute
@@ -81,6 +88,9 @@ public class JsoupHtmlParser implements IHtmlParser {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.IHtmlParser#parse(java.lang.String)
+     */
     @Override
     public IDocumentNode parse(String html) {
         org.jsoup.nodes.Document doc = Jsoup.parse(html);
@@ -92,6 +102,12 @@ public class JsoupHtmlParser implements IHtmlParser {
         }
     }
 
+    /**
+     * Wraps JSoup nodes into pdfHTML {@link INode} classes.
+     *
+     * @param jsoupNode the JSoup node instance
+     * @return the {@link INode} instance
+     */
     private INode wrapJsoupHierarchy(org.jsoup.nodes.Node jsoupNode) {
         INode resultNode = null;
         if (jsoupNode instanceof org.jsoup.nodes.Document) {
@@ -106,7 +122,7 @@ public class JsoupHtmlParser implements IHtmlParser {
             resultNode = new JsoupDocumentTypeNode((DocumentType) jsoupNode);
         } else if (jsoupNode instanceof org.jsoup.nodes.Comment) {
         } else {
-            logger.error(MessageFormat.format("Could not map node type: {0}", jsoupNode.getClass()));
+            logger.error(MessageFormatUtil.format("Could not map node type: {0}", jsoupNode.getClass()));
         }
 
         for (org.jsoup.nodes.Node node : jsoupNode.childNodes()) {
