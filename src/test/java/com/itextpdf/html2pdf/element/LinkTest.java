@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -100,7 +101,6 @@ public class LinkTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-936")
     public void linkTest04() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "linkTest04.html"), new File(destinationFolder + "linkTest04.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest04.pdf", sourceFolder + "cmp_linkTest04.pdf", destinationFolder, "diff04_"));

@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.attach;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
+import com.itextpdf.html2pdf.attach.impl.LinkContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
@@ -100,7 +101,10 @@ public class ProcessorContext {
     
     /** The CSS context. */
     private CssContext cssContext;
-    
+
+    /** The link context */
+    private LinkContext linkContext;
+
     /** The PDF document. */
     private PdfDocument pdfDocument;
 
@@ -148,6 +152,7 @@ public class ProcessorContext {
         resourceResolver = new ResourceResolver(baseUri);
 
         cssContext = new CssContext();
+        linkContext = new LinkContext();
 
         createAcroForm = converterProperties.isCreateAcroForm();
         formFieldNameResolver = new FormFieldNameResolver();
@@ -244,6 +249,15 @@ public class ProcessorContext {
     }
 
     /**
+     * Gets the link context.
+     *
+     * @return the link context
+     */
+    public LinkContext getLinkContext() {
+        return linkContext;
+    }
+
+    /**
      * Checks if is an AcroForm needs to be created.
      *
      * @return true, an AcroForm should be created
@@ -313,6 +327,7 @@ public class ProcessorContext {
         this.state = new State();
         this.resourceResolver.resetCache();
         this.cssContext = new CssContext();
+        this.linkContext = new LinkContext();
         this.formFieldNameResolver.reset();
         //Reset font provider. PdfFonts shall be reseted.
         this.fontProvider = new FontProvider(this.fontProvider.getFontSet());
