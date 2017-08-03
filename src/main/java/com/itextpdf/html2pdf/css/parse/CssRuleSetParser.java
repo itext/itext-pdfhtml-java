@@ -107,21 +107,30 @@ public final class CssRuleSetParser {
      */
     public static List<CssDeclaration> parsePropertyDeclarations(String propertiesStr) {
         List<CssDeclaration> declarations = new ArrayList<>();
-        int pos = getSemicolonPosition(propertiesStr, 0);
-        while (pos != -1) {
-            String[] propertySplit = splitCssProperty(propertiesStr.substring(0, pos));
-            if (propertySplit != null) {
-                declarations.add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+        int openedCommentPos = propertiesStr.indexOf("/*", 0);
+        if (openedCommentPos != -1) {
+            declarations.addAll(parsePropertyDeclarations(propertiesStr.substring(0, openedCommentPos)));
+            int closedCommentPos = propertiesStr.indexOf("*/", openedCommentPos);
+            if (closedCommentPos != -1) {
+                declarations.addAll(parsePropertyDeclarations(propertiesStr.substring(closedCommentPos + 2, propertiesStr.length())));
             }
-            propertiesStr = propertiesStr.substring(pos + 1);
-            pos = getSemicolonPosition(propertiesStr, 0);
-        }
-        if (!propertiesStr.replaceAll("[\\n\\r\\t ]", "").isEmpty()) {
-            String[] propertySplit = splitCssProperty(propertiesStr);
-            if (propertySplit != null) {
-                declarations.add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+        } else {
+            int pos = getSemicolonPosition(propertiesStr, 0);
+            while (pos != -1) {
+                String[] propertySplit = splitCssProperty(propertiesStr.substring(0, pos));
+                if (propertySplit != null) {
+                    declarations.add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+                }
+                propertiesStr = propertiesStr.substring(pos + 1);
+                pos = getSemicolonPosition(propertiesStr, 0);
             }
-            return declarations;
+            if (!propertiesStr.replaceAll("[\\n\\r\\t ]", "").isEmpty()) {
+                String[] propertySplit = splitCssProperty(propertiesStr);
+                if (propertySplit != null) {
+                    declarations.add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+                }
+                return declarations;
+            }
         }
         return declarations;
     }
