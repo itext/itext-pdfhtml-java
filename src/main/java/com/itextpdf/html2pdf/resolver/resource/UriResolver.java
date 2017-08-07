@@ -179,6 +179,11 @@ public class UriResolver {
         return baseAsFileUrl;
     }
 
+    /**
+     * Get the scheme component of this URI.
+     * @param uriString
+     * @return
+     */
     private String getUriStringScheme(String uriString) {
         String result = null;
         Matcher matcher = Pattern.compile("^[^:]+").matcher(uriString);

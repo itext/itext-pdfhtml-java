@@ -78,7 +78,7 @@ public final class TrimUtil {
      * @param leafElements the leaf elements
      * @return the trimmed and sanitized list
      */
-    public static List<IElement> trimLeafElementsAndSanitize(List<IElement> leafElements) {
+    static List<IElement> trimLeafElementsAndSanitize(List<IElement> leafElements) {
         ArrayList<IElement> waitingLeaves = new ArrayList<IElement>(leafElements);
 
         trimSubList(waitingLeaves, 0, waitingLeaves.size(), false);

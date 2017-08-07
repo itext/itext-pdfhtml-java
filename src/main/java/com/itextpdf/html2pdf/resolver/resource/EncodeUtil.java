@@ -57,22 +57,22 @@ class EncodeUtil {
     /**
      * Set of 256 characters with the bits that don't need encoding set to on.
      */
-    static BitSet dontNeedEncoding;
+    private static BitSet dontNeedEncoding;
 
     /**
      * The difference between the value a character in lower cases and the upper case character value.
      */
-    static final int caseDiff = ('a' - 'A');
+    private static final int caseDiff = ('a' - 'A');
 
     /**
      * The default encoding ("UTF-8").
      */
-    static String dfltEncName = "UTF-8";
+    private static String dfltEncName = "UTF-8";
 
     /**
      * The default uri scheme ("file").
      */
-    static String dfltUriScheme = "file";
+    private static String dfltUriScheme = "file";
 
     static {
         dontNeedEncoding = new BitSet(256);

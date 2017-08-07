@@ -131,7 +131,7 @@ public class ImgTagWorker implements ITagWorker {
 
         /**
          * In iText, we use user unit for the image sizes (and by default
-         * one user unit = one points), whereas images are usually measured
+         * one user unit = one point), whereas images are usually measured
          * in pixels.
          */
         private double pxToPt = 0.75;

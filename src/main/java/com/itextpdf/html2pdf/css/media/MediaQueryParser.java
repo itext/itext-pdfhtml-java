@@ -62,7 +62,7 @@ public final class MediaQueryParser {
      * @param mediaQueriesStr the media queries in the form of a {@link String}
      * @return the resulting {@link List} of {@link MediaQuery} values
      */
-    public static List<MediaQuery> parseMediaQueries(String mediaQueriesStr) {
+    static List<MediaQuery> parseMediaQueries(String mediaQueriesStr) {
         String[] mediaQueryStrs = mediaQueriesStr.split(",");
         List<MediaQuery> mediaQueries = new ArrayList<>();
         for (String mediaQueryStr : mediaQueryStrs) {
@@ -80,7 +80,7 @@ public final class MediaQueryParser {
      * @param mediaQueryStr the media query in the form of a {@link String}
      * @return the resulting {@link MediaQuery} value
      */
-    public static MediaQuery parseMediaQuery(String mediaQueryStr) {
+    static MediaQuery parseMediaQuery(String mediaQueryStr) {
         mediaQueryStr = mediaQueryStr.trim().toLowerCase();
         boolean only = false;
         boolean not = false;
@@ -112,7 +112,7 @@ public final class MediaQueryParser {
      * Parses a {@link String} into a list of {@link MediaExpression} values.
      *
      * @param mediaExpressionsStr the media expressions in the form of a {@link String}
-     * @param shallStartWithAnd indicates if the media expression shall start with "and"
+     * @param shallStartWithAnd   indicates if the media expression shall start with "and"
      * @return the resulting list of {@link MediaExpression} values
      */
     private static List<MediaExpression> parseMediaExpressions(String mediaExpressionsStr, boolean shallStartWithAnd) {

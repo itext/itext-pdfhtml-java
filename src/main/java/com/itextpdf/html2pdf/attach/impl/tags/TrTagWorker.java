@@ -54,10 +54,14 @@ import com.itextpdf.layout.element.Cell;
  */
 public class TrTagWorker implements ITagWorker {
 
-    /** The row wrapper. */
+    /**
+     * The row wrapper.
+     */
     private TableRowWrapper rowWrapper;
-    
-    /** The parent tag worker. */
+
+    /**
+     * The parent tag worker.
+     */
     private ITagWorker parentTagWorker;
 
     /**
@@ -116,7 +120,7 @@ public class TrTagWorker implements ITagWorker {
      *
      * @return the table row wrapper
      */
-    public TableRowWrapper getTableRowWrapper() {
+    TableRowWrapper getTableRowWrapper() {
         return rowWrapper;
     }
 }

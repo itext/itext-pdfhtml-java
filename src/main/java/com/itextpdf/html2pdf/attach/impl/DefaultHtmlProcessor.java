@@ -361,7 +361,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     /**
      * Adds @font-face fonts to the FontProvider.
      */
-    protected void addFontFaceFonts() {
+    private void addFontFaceFonts() {
         //TODO Shall we add getFonts() to ICssResolver?
         if (cssResolver instanceof DefaultCssResolver) {
             for (CssFontFaceRule fontFace : ((DefaultCssResolver) cssResolver).getFonts()) {

@@ -207,7 +207,7 @@ public class WaitingInlineElementsHelper {
      *
      * @return a paragraph
      */
-    public Paragraph createLeavesContainer() {
+    private Paragraph createLeavesContainer() {
         if (collapseSpaces) {
             waitingLeaves = TrimUtil.trimLeafElementsAndSanitize(waitingLeaves);
         }

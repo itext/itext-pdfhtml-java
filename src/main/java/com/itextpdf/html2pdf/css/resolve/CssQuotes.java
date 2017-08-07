@@ -55,19 +55,25 @@ import java.util.ArrayList;
  */
 public class CssQuotes {
 
-    /** The empty quote value. */
+    /**
+     * The empty quote value.
+     */
     private static final String EMPTY_QUOTE = "";
 
-    /** The open quotes. */
+    /**
+     * The open quotes.
+     */
     private ArrayList<String> openQuotes;
 
-    /** The close quotes. */
+    /**
+     * The close quotes.
+     */
     private ArrayList<String> closeQuotes;
 
     /**
      * Creates a new {@link CssQuotes} instance.
      *
-     * @param openQuotes the open quotes
+     * @param openQuotes  the open quotes
      * @param closeQuotes the close quotes
      */
     private CssQuotes(ArrayList<String> openQuotes, ArrayList<String> closeQuotes) {
@@ -78,7 +84,7 @@ public class CssQuotes {
     /**
      * Creates a {@link CssQuotes} instance.
      *
-     * @param quotesString the quotes string
+     * @param quotesString      the quotes string
      * @param fallbackToDefault indicates whether it's OK to fall back to the default
      * @return the resulting {@link CssQuotes} instance
      */
@@ -128,11 +134,11 @@ public class CssQuotes {
     /**
      * Resolves quotes.
      *
-     * @param value the value
+     * @param value   the value
      * @param context the CSS context
      * @return the quote string
      */
-    public String resolveQuote(String value, CssContext context) {
+    String resolveQuote(String value, CssContext context) {
         int depth = context.getQuotesDepth();
         if (CssConstants.OPEN_QUOTE.equals(value)) {
             increaseDepth(context);
@@ -173,7 +179,7 @@ public class CssQuotes {
     /**
      * Gets the quote.
      *
-     * @param depth the depth
+     * @param depth  the depth
      * @param quotes the quotes
      * @return the requested quote string
      */
