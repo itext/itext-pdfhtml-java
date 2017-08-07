@@ -59,10 +59,14 @@ import java.util.List;
  */
 public class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
-    /** The pseudo class. */
-    protected String pseudoClass;
+    /**
+     * The pseudo class.
+     */
+    private String pseudoClass;
 
-    /** The arguments. */
+    /**
+     * The arguments.
+     */
     protected String arguments;
 
     /**
@@ -70,7 +74,7 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
      *
      * @param pseudoClass the pseudo class name
      * @deprecated not intended for public use {@link CssPseudoClassSelectorItem#create(String)} instead.
-     *             This class will be abstract and this constructor will be protected in the next major release.
+     * This class will be abstract and this constructor will be protected in the next major release.
      */
     @Deprecated
     public CssPseudoClassSelectorItem(String pseudoClass) {
@@ -160,11 +164,11 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
          *
          * @param pseudoClass the pseudo class name
          */
-        protected ChildSelectorItem(String pseudoClass) {
+        ChildSelectorItem(String pseudoClass) {
             super(pseudoClass);
         }
 
-        protected ChildSelectorItem(String pseudoClass, String arguments) {
+        ChildSelectorItem(String pseudoClass, String arguments) {
             super(pseudoClass, arguments);
         }
 
@@ -174,7 +178,7 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
          * @param node the child node
          * @return the sibling nodes
          */
-        protected List<INode> getAllSiblings(INode node) {
+        List<INode> getAllSiblings(INode node) {
             INode parentElement = node.parentNode();
             if (parentElement != null) {
                 List<INode> childrenUnmodifiable = parentElement.childNodes();
@@ -232,13 +236,17 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
     }
 
     private static class NthChildSelectorItem extends ChildSelectorItem {
-        /** The nth child A. */
+        /**
+         * The nth child A.
+         */
         private int nthChildA;
 
-        /** The nth child B. */
+        /**
+         * The nth child B.
+         */
         private int nthChildB;
 
-        public NthChildSelectorItem(String arguments) {
+        NthChildSelectorItem(String arguments) {
             super(CssConstants.NTH_CHILD, arguments);
             getNthChildArguments();
         }
@@ -292,7 +300,7 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
         /**
          * Resolves the nth child.
          *
-         * @param node a node
+         * @param node     a node
          * @param children the children
          * @return true, if successful
          */
@@ -315,7 +323,7 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
     public static class NotSelectorItem extends CssPseudoClassSelectorItem {
         private ICssSelector argumentsSelector;
 
-        public NotSelectorItem(ICssSelector argumentsSelector) {
+        NotSelectorItem(ICssSelector argumentsSelector) {
             super(CssConstants.NOT, argumentsSelector.toString());
             this.argumentsSelector = argumentsSelector;
         }
@@ -331,7 +339,7 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
     }
 
     private static class AlwaysApplySelectorItem extends CssPseudoClassSelectorItem {
-        protected AlwaysApplySelectorItem(String pseudoClass, String arguments) {
+        AlwaysApplySelectorItem(String pseudoClass, String arguments) {
             super(pseudoClass, arguments);
         }
 
@@ -342,7 +350,7 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
     }
 
     private static class AlwaysNotApplySelectorItem extends CssPseudoClassSelectorItem {
-        protected AlwaysNotApplySelectorItem(String pseudoClass, String arguments) {
+        AlwaysNotApplySelectorItem(String pseudoClass, String arguments) {
             super(pseudoClass, arguments);
         }
 

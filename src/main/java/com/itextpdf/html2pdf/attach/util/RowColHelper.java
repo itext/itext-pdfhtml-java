@@ -109,7 +109,7 @@ public class RowColHelper {
      * @param col the column index
      * @return true, if successful
      */
-    public boolean canPutCell(int col) {
+    private boolean canPutCell(int col) {
         ensureRowIsStarted();
         if (col >= lastEmptyRow.size()) {
             return true;

@@ -238,8 +238,7 @@ public class DefaultCssResolver implements ICssResolver {
      */
     private Map<String, String> cssDeclarationsToMap(List<CssDeclaration> nodeCssDeclarations) {
         Map<String, String> stylesMap = new HashMap<>();
-        for (int i = 0; i < nodeCssDeclarations.size(); i++) {
-            CssDeclaration cssDeclaration = nodeCssDeclarations.get(i);
+        for (CssDeclaration cssDeclaration : nodeCssDeclarations) {
             IShorthandResolver shorthandResolver = ShorthandResolverFactory.getShorthandResolver(cssDeclaration.getProperty());
             if (shorthandResolver == null) {
                 putDeclarationInMapIfValid(stylesMap, cssDeclaration);

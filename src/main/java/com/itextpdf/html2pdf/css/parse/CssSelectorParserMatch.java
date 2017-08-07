@@ -54,32 +54,66 @@ class CssSelectorParserMatch {
     private Matcher matcher;
     private String source;
 
+    /**
+     * Construct a new CssSelectorParserMatch
+     *
+     * @param source  the text being matched
+     * @param pattern the pattern against which the text is being matched
+     */
     public CssSelectorParserMatch(String source, Pattern pattern) {
         this.source = source;
         this.matcher = pattern.matcher(source);
         next();
     }
 
+    /**
+     * Get the index at which the last match started
+     *
+     * @return
+     */
     public int getIndex() {
         return matcher.start();
     }
 
+    /**
+     * Get the text of the last match
+     *
+     * @return
+     */
     public String getValue() {
         return matcher.group(0);
     }
 
+    /**
+     * Get the source text being matched
+     *
+     * @return
+     */
     public String getSource() {
         return source;
     }
 
+    /**
+     * Return whether or not the match was successful
+     *
+     * @return
+     */
     public boolean success() {
         return success;
     }
 
+    /**
+     * Attempt to match the pattern against the next piece of the source text
+     */
     public void next() {
         success = matcher.find();
     }
 
+    /**
+     * Get the index at which the next match of the pattern takes place
+     *
+     * @param startIndex the index at which to start matching the pattern
+     */
     public void next(int startIndex) {
         success = matcher.find(startIndex);
     }

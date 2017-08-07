@@ -125,7 +125,8 @@ public class TransformationApplierUtil {
         }
         if (CssConstants.TRANSLATE_X.equals(function)) {
             boolean xPoint = args.indexOf('%') < 0;
-            float x = xPoint ? CssUtils.parseAbsoluteLength(args.trim()) : Float.parseFloat(args.trim().substring(0, args.indexOf('%')));;
+            float x = xPoint ? CssUtils.parseAbsoluteLength(args.trim()) : Float.parseFloat(args.trim().substring(0, args.indexOf('%')));
+            ;
             return getSingleTransformTranslate(1, 0, 0, 1, x, 0, xPoint, true);
         }
         if (CssConstants.TRANSLATE_Y.equals(function)) {
@@ -178,24 +179,60 @@ public class TransformationApplierUtil {
         return new Transform.SingleTransform();
     }
 
-    private static double parseAngleToRadians(String value){
+    /**
+     * Convert an angle (presented as radians or degrees) to radians
+     *
+     * @param value the angle (as a CSS string)
+     * @return
+     */
+    private static double parseAngleToRadians(String value) {
         if (value.indexOf('d') < 0)
             return 0.0;
         if (value.indexOf('r') > 0)
-           return -1 * Double.parseDouble(value.trim().substring(0, value.indexOf('r')));
+            return -1 * Double.parseDouble(value.trim().substring(0, value.indexOf('r')));
         return toRadians(-1 * Double.parseDouble(value.trim().substring(0, value.indexOf('d'))));
     }
 
+    /**
+     * Apply a linear transformation, using a transformation matrix
+     *
+     * @param a      element [0,0] of the transformation matrix
+     * @param b      element [0,1] of the transformation matrix
+     * @param c      element [1,0] of the transformation matrix
+     * @param d      element [1,1] of the transformation matrix
+     * @param tx     translation on x-axis
+     * @param ty     translation on y-axis
+     * @param xPoint
+     * @param yPoint
+     * @return
+     */
     private static Transform.SingleTransform getSingleTransformTranslate(float a, float b, float c, float d, float tx, float ty, boolean xPoint, boolean yPoint) {
         return new Transform.SingleTransform(a, b, c, d,
                 new UnitValue(xPoint ? UnitValue.POINT : UnitValue.PERCENT, tx), new UnitValue(yPoint ? UnitValue.POINT : UnitValue.PERCENT, ty));
     }
 
+    /**
+     * Apply a linear transformation using a transformation matrix
+     *
+     * @param a  element [0,0] of the transformation matrix
+     * @param b  element [0,1] of the transformation matrix
+     * @param c  element [1,0] of the transformation matrix
+     * @param d  element [1,1] of the transformation matrix
+     * @param tx translation on x-axis
+     * @param ty translation on y-axis
+     * @return
+     */
     private static Transform.SingleTransform getSingleTransform(float a, float b, float c, float d, float tx, float ty) {
         return new Transform.SingleTransform(a, b, c, d,
                 new UnitValue(UnitValue.POINT, tx), new UnitValue(UnitValue.POINT, ty));
     }
 
+    /**
+     * Apply a linear transformation using a transformation matrix
+     *
+     * @param floats the transformation matrix (flattened) as array
+     * @return
+     */
     private static Transform.SingleTransform getSingleTransform(float floats[]) {
         return new Transform.SingleTransform(floats[0], floats[1], floats[2], floats[3],
                 new UnitValue(UnitValue.POINT, floats[4]), new UnitValue(UnitValue.POINT, floats[5]));

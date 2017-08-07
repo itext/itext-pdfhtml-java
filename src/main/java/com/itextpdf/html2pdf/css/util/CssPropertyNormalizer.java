@@ -58,7 +58,7 @@ class CssPropertyNormalizer {
      * @param str the property
      * @return the normalized property
      */
-    public static String normalize(String str) {
+    static String normalize(String str) {
         StringBuilder sb = new StringBuilder();
         boolean isWhitespace = false;
         int i = 0;
@@ -99,7 +99,7 @@ class CssPropertyNormalizer {
      *
      * @param buffer the current buffer
      * @param source a source
-     * @param start where to start in the source. Should point at quote symbol.
+     * @param start  where to start in the source. Should point at quote symbol.
      * @return the new position in the source
      */
     private static int appendQuotedString(StringBuilder buffer, String source, int start) {
@@ -120,7 +120,7 @@ class CssPropertyNormalizer {
      *
      * @param buffer the current buffer
      * @param source a source
-     * @param start where to start in the source. Should point at first symbol after "url(".
+     * @param start  where to start in the source. Should point at first symbol after "url(".
      * @return the new position in the source
      */
     private static int appendUrlContent(StringBuilder buffer, String source, int start) {

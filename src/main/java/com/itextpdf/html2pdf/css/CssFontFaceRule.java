@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.io.util.MessageFormatUtil;
+
 import java.util.List;
 
 /**
@@ -50,7 +51,9 @@ import java.util.List;
  */
 public class CssFontFaceRule extends CssNestedAtRule {
 
-    /** Properties in the form of a list of CSS declarations. */
+    /**
+     * Properties in the form of a list of CSS declarations.
+     */
     private List<CssDeclaration> properties;
 
     /**
@@ -58,7 +61,7 @@ public class CssFontFaceRule extends CssNestedAtRule {
      *
      * @param ruleParameters the rule parameters
      */
-    protected CssFontFaceRule(String ruleParameters) {
+    public CssFontFaceRule(String ruleParameters) {
         super(CssRuleName.FONT_FACE, ruleParameters);
     }
 

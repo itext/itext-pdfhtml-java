@@ -62,7 +62,9 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractFormFieldRenderer extends BlockRenderer implements ILeafElementRenderer {
 
-    /** The flat renderer. */
+    /**
+     * The flat renderer.
+     */
     protected IRenderer flatRenderer;
 
     /**
@@ -70,7 +72,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
      *
      * @param modelElement the model element
      */
-    protected AbstractFormFieldRenderer(IFormField modelElement) {
+    AbstractFormFieldRenderer(IFormField modelElement) {
         super(modelElement);
     }
 
@@ -128,6 +130,9 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         drawContext.getCanvas().restoreState();
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.layout.renderer.BlockRenderer#getMinMaxWidth(float)
+     */
     @Override
     protected MinMaxWidth getMinMaxWidth(float availableWidth) {
         MinMaxWidthLayoutResult result = (MinMaxWidthLayoutResult) layout(new LayoutContext(new LayoutArea(1, new Rectangle(availableWidth, AbstractRenderer.INF))), true);
@@ -165,7 +170,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
     /**
      * Checks if the renderer fits a certain width and height.
      *
-     * @param availableWidth the available width
+     * @param availableWidth  the available width
      * @param availableHeight the available height
      * @return true, if the renderer fits
      */

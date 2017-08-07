@@ -49,7 +49,9 @@ import com.itextpdf.layout.element.AreaBreak;
  */
 public class HtmlPageBreak extends AreaBreak {
 
-    /** The {@link HtmlPageBreakType}. */
+    /**
+     * The {@link HtmlPageBreakType}.
+     */
     HtmlPageBreakType breakType;
 
     /**
@@ -66,7 +68,7 @@ public class HtmlPageBreak extends AreaBreak {
      *
      * @return the page break type
      */
-    public HtmlPageBreakType getBreakType() {
+    HtmlPageBreakType getBreakType() {
         return breakType;
     }
 }

@@ -55,6 +55,8 @@ import java.util.Stack;
  * Doing so enables us to drastically trim the amount of PdfDestinations that will end up being included in the document.
  * For performance reasons it was decided to scan the DOM tree only once and store the result in a separate object
  * (this object) in the ProcessorContext.
+ * <p>
+ * This class is not reusable and a new instance shall be created for every new conversion process.
  */
 public class LinkContext {
 
@@ -63,6 +65,9 @@ public class LinkContext {
      */
     private Set<String> linkDestinations = new HashSet<>();
 
+    /**
+     * Construct an (empty) LinkContext
+     */
     public LinkContext() {
     }
 
@@ -70,7 +75,7 @@ public class LinkContext {
      * Scan the DOM tree for all (internal) link targets
      *
      * @param root the DOM tree root node
-     * @return
+     * @return this LinkContext
      */
     public LinkContext scanForIds(INode root) {
         // clear previous
@@ -96,14 +101,14 @@ public class LinkContext {
             }
         }
 
-        // return
         return this;
     }
 
     /**
      * Returns whether a given (internal) link destination is used by at least one href element in the document
-     * @param linkDestination
-     * @return
+     *
+     * @param linkDestination link destination
+     * @return whether a given (internal) link destination is used by at least one href element in the document
      */
     public boolean isUsedLinkDestination(String linkDestination) {
         return linkDestinations.contains(linkDestination);

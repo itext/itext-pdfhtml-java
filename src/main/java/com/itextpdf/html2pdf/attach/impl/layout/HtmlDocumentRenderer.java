@@ -213,7 +213,6 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         AreaBreak areaBreak = overflowResult != null ? overflowResult.getAreaBreak() : null;
         if (areaBreak instanceof HtmlPageBreak) {
             HtmlPageBreakType htmlPageBreakType = ((HtmlPageBreak) areaBreak).getBreakType();
-
             if (shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement && currentArea != null &&
                     overflowResult.getStatus() == LayoutResult.NOTHING && currentArea.isEmptyArea() && currentArea.getPageNumber() == 1) {
                 // Remove blank page that was added just to have area for elements to layout on.
