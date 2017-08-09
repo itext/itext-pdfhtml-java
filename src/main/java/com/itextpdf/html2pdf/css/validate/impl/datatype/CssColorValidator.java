@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.css.validate.impl.datatype;
 
 import com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator;
-import com.itextpdf.kernel.color.WebColors;
+import com.itextpdf.kernel.colors.WebColors;
 
 /**
  * {@link ICssDataTypeValidator} implementation for colors.

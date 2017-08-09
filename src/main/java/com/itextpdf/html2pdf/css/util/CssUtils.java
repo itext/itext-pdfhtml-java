@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.css.util;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.kernel.color.WebColors;
+import com.itextpdf.kernel.colors.WebColors;
 import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
