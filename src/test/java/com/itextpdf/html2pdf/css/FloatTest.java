@@ -390,6 +390,12 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
+    @Ignore("DEVSIX-1470")
+    public void float62Test() throws IOException, InterruptedException {
+        runTest("float62Test", "diff62_");
+    }
+
+    @Test
     public void floatAndTables01Test() throws IOException, InterruptedException {
         runTest("floatAndTables01Test", "diffTables01_");
     }
