@@ -209,9 +209,21 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    //TODO: browser can load font with @font-face family name different form family name stored in font metadata, but iText should have them equal in order to work.
-    public void incorrectFontNameTest() throws IOException, InterruptedException {
-        runTest("incorrectFontNameTest");
+    //TODO: DEVSIX-1519
+    public void incorrectFontNameTest01() throws IOException, InterruptedException {
+        runTest("incorrectFontNameTest01");
+    }
+
+    @Test
+    //TODO: DEVSIX-1519
+    public void incorrectFontNameTest02() throws IOException, InterruptedException {
+        runTest("incorrectFontNameTest02");
+    }
+
+    @Test
+    //Checks that font used in previous two files is correct
+    public void incorrectFontNameTest03() throws IOException, InterruptedException {
+        runTest("incorrectFontNameTest03");
     }
 
     @Test
