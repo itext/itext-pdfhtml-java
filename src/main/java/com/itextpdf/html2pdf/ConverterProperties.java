@@ -75,6 +75,9 @@ public class ConverterProperties {
     /** Indicates whether an AcroForm should be created. */
     private boolean createAcroForm = false;
 
+    /** Character set used in conversion of input streams */
+    private String charset;
+
     /**
      * Instantiates a new {@link ConverterProperties} instance.
      */
@@ -95,6 +98,7 @@ public class ConverterProperties {
         this.baseUri = other.baseUri;
         this.createAcroForm = other.createAcroForm;
         this.outlineHandler = other.outlineHandler;
+        this.charset = other.charset;
     }
 
     /**
@@ -234,6 +238,26 @@ public class ConverterProperties {
      */
     public ConverterProperties setOutlineHandler(OutlineHandler outlineHandler) {
         this.outlineHandler = outlineHandler;
+        return this;
+    }
+
+    /**
+     * Gets the encoding charset.
+     *
+     * @return the charset
+     */
+    public String getCharset() {
+        return charset;
+    }
+
+    /**
+     * Sets the encoding charset.
+     *
+     * @param charset the charset
+     * @return the ConverterProperties instance
+     */
+    public ConverterProperties setCharset(String charset) {
+        this.charset = charset;
         return this;
     }
 }
