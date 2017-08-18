@@ -44,7 +44,10 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.kernel.pdf.PdfDocumentInfo;
+import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.layout.IPropertyContainer;
 
 /**
@@ -67,7 +70,23 @@ public class MetaTagWorker implements ITagWorker {
      */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-
+    	String name = element.getAttribute(AttributeConstants.NAME);
+    	String content = element.getAttribute(AttributeConstants.CONTENT);
+    	if (name!=null && content!=null) {
+    		PdfDocumentInfo info = context.getPdfDocument().getDocumentInfo();
+    		if (name.equalsIgnoreCase(PdfName.Author.getValue())) {
+    			info.setAuthor(content);
+    		}
+    		else if (name.equalsIgnoreCase(PdfName.Keywords.getValue())) {
+    			info.setKeywords(content);
+    		}
+    		else if (name.equalsIgnoreCase("description")) {
+    			info.setSubject(content);
+    		}
+    		else if (name.equalsIgnoreCase("application-name")) {
+    			info.setCreator(content);
+    		}
+    	}
     }
 
     /* (non-Javadoc)

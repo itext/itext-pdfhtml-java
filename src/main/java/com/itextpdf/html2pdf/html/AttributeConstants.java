@@ -78,6 +78,9 @@ public final class AttributeConstants {
     
     /** The Constant COLSPAN. */
     public static final String COLSPAN = "colspan";
+
+    /** The Constant CONTENT. */
+    public static final String CONTENT = "content";
     
     /** The Constant DIR. */
     public static final String DIR = "dir";
