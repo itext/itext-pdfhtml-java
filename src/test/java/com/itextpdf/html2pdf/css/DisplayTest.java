@@ -56,6 +56,7 @@ import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -77,6 +78,13 @@ public class DisplayTest extends ExtendedITextTest {
     public void displayTable01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "display_table01.html"), new File(destinationFolder + "display_table01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table01.pdf", sourceFolder + "cmp_display_table01.pdf", destinationFolder, "diff01_"));
+    }
+
+    @Test
+    @Ignore("DEVSIX-1522")
+    public void displayTable02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table02.html"), new File(destinationFolder + "display_table02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table02.pdf", sourceFolder + "cmp_display_table02.pdf", destinationFolder, "diff02_"));
     }
 
     @Test
