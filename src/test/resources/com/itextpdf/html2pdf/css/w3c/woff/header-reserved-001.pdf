@@ -13,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170619113613-03'00')/ModDate(D:20170619113613-03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(WOFF Test: Header Reserved Invalid Value)>>
+<</CreationDate(D:20170823115605+03'00')/ModDate(D:20170823115605+03'00')/Producer(iText® 7.0.5-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(WOFF Test: Header Reserved Invalid Value)>>
 endobj
 6 0 obj
 <</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -22,7 +22,7 @@ endobj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
 endobj
 7 0 obj
-<</A 8 0 R/Border[0 0 0]/P 4 0 R/Rect[36 772.68 101.87 789.34]/Subtype/Link>>
+<</A 8 0 R/Border[0 0 0]/F 4/P 4 0 R/Rect[36 772.68 101.87 789.34]/Subtype/Link>>
 endobj
 8 0 obj
 <</IsMap false/S/URI/Type/Action/URI(../../FontsToInstall)>>
@@ -37,10 +37,10 @@ xref
 0000000015 00000 n 
 0000000798 00000 n 
 0000000937 00000 n 
-0000001030 00000 n 
+0000001034 00000 n 
 trailer
-<</ID [<ab41e9c69c0a2530de0328871610c154><ab41e9c69c0a2530de0328871610c154>]/Info 3 0 R/Root 1 0 R/Size 9>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<835b181f80b25825872ff0bf81a7da44><835b181f80b25825872ff0bf81a7da44>]/Info 3 0 R/Root 1 0 R/Size 9>>
+%TEST-LICE-NSE0-7.0.5-SNAPSHOT
 startxref
-1106
+1110
 %%EOF
