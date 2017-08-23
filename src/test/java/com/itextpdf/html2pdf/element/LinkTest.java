@@ -44,22 +44,28 @@ package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.pdfa.PdfAConformanceException;
+import com.itextpdf.pdfa.PdfADocument;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class LinkTest extends ExtendedITextTest {
@@ -132,4 +138,18 @@ public class LinkTest extends ExtendedITextTest {
         }
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest09.pdf", sourceFolder + "cmp_linkTest09.pdf", destinationFolder, "diff09_"));
     }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = PdfAConformanceException.CatalogShallContainLangEntry)})
+    public void linkTest10ToPdfa() throws IOException, InterruptedException {
+        InputStream is = new FileInputStream(sourceFolder + "sRGB Color Space Profile.icm");
+        PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "linkTest10.pdf"), PdfAConformanceLevel.PDF_A_2A, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", is));
+        pdfADocument.setTagged();
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "linkTest10.html")) {
+            HtmlConverter.convertToPdf(fileInputStream, pdfADocument);
+        }
+
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest10.pdf", sourceFolder + "cmp_linkTest10.pdf", destinationFolder, "diff10_"));
+    }
+
 }

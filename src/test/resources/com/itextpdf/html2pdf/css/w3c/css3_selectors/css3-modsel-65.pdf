@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170718141754+03'00')/ModDate(D:20170718141754+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(NEGATED :focus pseudo-class)>>
+<</CreationDate(D:20170823115550+03'00')/ModDate(D:20170823115550+03'00')/Producer(iText® 7.0.5-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(NEGATED :focus pseudo-class)>>
 endobj
 6 0 obj
 <</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -21,13 +21,13 @@ endobj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
 endobj
 7 0 obj
-<</A 10 0 R/Border[0 0 0]/P 4 0 R/Rect[184.07 779.35 226.75 792.67]/Subtype/Link>>
+<</A 10 0 R/Border[0 0 0]/F 4/P 4 0 R/Rect[184.07 779.35 226.75 792.67]/Subtype/Link>>
 endobj
 8 0 obj
-<</A 11 0 R/Border[0 0 0]/P 4 0 R/Rect[314.8 779.35 345.48 792.67]/Subtype/Link>>
+<</A 11 0 R/Border[0 0 0]/F 4/P 4 0 R/Rect[314.8 779.35 345.48 792.67]/Subtype/Link>>
 endobj
 9 0 obj
-<</A 12 0 R/Border[0 0 0]/P 4 0 R/Rect[456.22 779.35 484.9 792.67]/Subtype/Link>>
+<</A 12 0 R/Border[0 0 0]/F 4/P 4 0 R/Rect[456.22 779.35 484.9 792.67]/Subtype/Link>>
 endobj
 10 0 obj
 <</D(foo)/S/GoTo/Type/Action>>
@@ -48,14 +48,14 @@ xref
 0000000015 00000 n 
 0000000733 00000 n 
 0000000872 00000 n 
-0000000970 00000 n 
-0000001067 00000 n 
-0000001164 00000 n 
-0000001211 00000 n 
-0000001258 00000 n 
+0000000974 00000 n 
+0000001075 00000 n 
+0000001176 00000 n 
+0000001223 00000 n 
+0000001270 00000 n 
 trailer
-<</ID [<2e0e5e714f75409f7716a0e192741840><2e0e5e714f75409f7716a0e192741840>]/Info 3 0 R/Root 1 0 R/Size 13>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<a56f410fdc6bcc3074cd4e947af20497><a56f410fdc6bcc3074cd4e947af20497>]/Info 3 0 R/Root 1 0 R/Size 13>>
+%TEST-LICE-NSE0-7.0.5-SNAPSHOT
 startxref
-1305
+1317
 %%EOF

@@ -50,6 +50,7 @@ import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfArray;
 import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.kernel.pdf.action.PdfAction;
+import com.itextpdf.kernel.pdf.annot.PdfAnnotation;
 import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
 import com.itextpdf.kernel.pdf.tagutils.IAccessibleElement;
 import com.itextpdf.layout.IPropertyContainer;
@@ -78,9 +79,9 @@ public class LinkHelper {
             PdfLinkAnnotation linkAnnotation;
             if (url.startsWith("#")) {
                 String name = url.substring(1);
-                linkAnnotation = new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createGoTo(name));
+                linkAnnotation = (PdfLinkAnnotation) new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createGoTo(name)).setFlags(PdfAnnotation.PRINT);
             } else {
-                linkAnnotation = new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createURI(url));
+                linkAnnotation = (PdfLinkAnnotation) new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createURI(url)).setFlags(PdfAnnotation.PRINT);
             }
             linkAnnotation.setBorder(new PdfArray(new float[]{0, 0, 0}));
             container.setProperty(Property.LINK_ANNOTATION, linkAnnotation);
