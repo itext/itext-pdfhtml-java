@@ -73,7 +73,9 @@ public class MetaTagWorker implements ITagWorker {
         String name = element.getAttribute(AttributeConstants.NAME);
         if (null != name) {
             String content = element.getAttribute(AttributeConstants.CONTENT);
-            if (null != content) {
+            // although iText do not visit head during processing html to elements
+            // meta tag can by accident be presented in body section and that shouldn't cause NPE
+            if (null != content && null != context.getPdfDocument()) {
                 PdfDocumentInfo info = context.getPdfDocument().getDocumentInfo();
                 if (AttributeConstants.AUTHOR.equals(name)) {
                     info.setAuthor(content);
