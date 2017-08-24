@@ -79,11 +79,13 @@ public class MetaTest extends ExtendedITextTest {
     }
 
     @Test
+    // In this test we also check that it's not possible to override description name content
+    // (which iText converts to pdf's Subject content) with Subject name content
     public void meta02Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "metaTest02.html"), new File(destinationFolder + "metaTest02.pdf"));
         PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(destinationFolder + "metaTest02.pdf")).getDocumentInfo();
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "metaTest02.pdf", sourceFolder + "cmp_metaTest02.pdf", destinationFolder, "diff02_"));
-        Assert.assertTrue(pdfDocInfo.getPdfObject().size() == 8);
+        Assert.assertTrue(pdfDocInfo.getPdfObject().size() == 9);
     }
 
     @Test

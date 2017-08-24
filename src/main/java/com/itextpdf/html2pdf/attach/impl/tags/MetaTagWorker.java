@@ -72,6 +72,7 @@ public class MetaTagWorker implements ITagWorker {
         // Note that charset and http-equiv attributes are processed on DataUtil#parseByteData(ByteBuffer, String, String, Parser) level.
         String name = element.getAttribute(AttributeConstants.NAME);
         if (null != name) {
+            name = name.toLowerCase();
             String content = element.getAttribute(AttributeConstants.CONTENT);
             // although iText do not visit head during processing html to elements
             // meta tag can by accident be presented in body section and that shouldn't cause NPE
