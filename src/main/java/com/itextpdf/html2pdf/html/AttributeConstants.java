@@ -57,7 +57,13 @@ public final class AttributeConstants {
     
     /** The Constant ALT. */
     public static final String ALT = "alt";
-    
+
+    /** The Constant APPLICATION_NAME. */
+    public static final String APPLICATION_NAME = "application-name";
+
+    /** The Constant AUTHOR. */
+    public static final String AUTHOR = "author";
+
     /** The Constant BGCOLOR. */
     public static final String BGCOLOR = "bgcolor";
     
@@ -81,7 +87,10 @@ public final class AttributeConstants {
 
     /** The Constant CONTENT. */
     public static final String CONTENT = "content";
-    
+
+    /** The Constant DESCRIPTION. */
+    public static final String DESCRIPTION = "description";
+
     /** The Constant DIR. */
     public static final String DIR = "dir";
     
@@ -96,7 +105,10 @@ public final class AttributeConstants {
     
     /** The Constant ID. */
     public static final String ID = "id";
-    
+
+    /** The Constant KEYWORDS. */
+    public static final String KEYWORDS = "keywords";
+
     /** The Constant LANG. */
     public static final String LANG = "lang";
     
