@@ -43,6 +43,10 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfDocumentInfo;
+import com.itextpdf.kernel.pdf.PdfName;
+import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.utils.CompareTool;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -51,14 +55,13 @@ import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class MetaTest extends ExtendedITextTest {
@@ -74,7 +77,22 @@ public class MetaTest extends ExtendedITextTest {
     @Test
     public void meta01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "metaTest01.html"), new File(destinationFolder + "metaTest01.pdf"));
+        PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(destinationFolder + "metaTest01.pdf")).getDocumentInfo();
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "metaTest01.pdf", sourceFolder + "cmp_metaTest01.pdf", destinationFolder, "diff01_"));
-        //TODO add checks for meta tag.
+        Assert.assertTrue(pdfDocInfo.getPdfObject().containsKey(new PdfName("test")));
+    }
+
+    @Test
+    public void meta02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "metaTest02.html"), new File(destinationFolder + "metaTest02.pdf"));
+        PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(destinationFolder + "metaTest02.pdf")).getDocumentInfo();
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "metaTest02.pdf", sourceFolder + "cmp_metaTest02.pdf", destinationFolder, "diff02_"));
+        Assert.assertTrue(pdfDocInfo.getPdfObject().size() == 8);
+    }
+
+    @Test
+    public void meta03Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "metaTest03.html"), new File(destinationFolder + "metaTest03.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "metaTest03.pdf", sourceFolder + "cmp_metaTest03.pdf", destinationFolder, "diff03_"));
     }
 }
