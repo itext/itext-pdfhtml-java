@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.css.CssDeclaration;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.io.util.MessageFormatUtil;
 
 import java.util.ArrayList;
@@ -87,7 +88,7 @@ class FontFace {
 
         List<FontFaceSrc> sources = new ArrayList<>();
         // ttc collection are supported via url(Arial.ttc#1), url(Arial.ttc#2), etc.
-        for (String src : srcs.split(",")) {
+        for (String src : splitSourcesSequence(srcs)) {
             //local|url("ideal-sans-serif.woff")( format("woff"))?
             FontFaceSrc source = FontFaceSrc.create(src.trim());
             if (source != null) {
@@ -100,6 +101,37 @@ class FontFace {
         } else {
             return null;
         }
+    }
+
+    // NOTE: If src property is written in incorrect format (for example, contains token url(<url_content>)<some_nonsense>),
+    // then browser ignores it altogether and doesn't load font at all, even if there are valid tokens.
+    // iText will still process all split tokens and can possibly load this font in case it contains some correct urls.
+    public static String[] splitSourcesSequence(String src) {
+        List<String> list = new ArrayList<>();
+        int indexToStart = 0;
+        while (indexToStart < src.length()) {
+            int indexToCut;
+            int indexUnescapedOpeningQuoteMark = Math.min(CssUtils.findNextUnescapedChar(src, '\'', indexToStart) >= 0 ?
+                            CssUtils.findNextUnescapedChar(src, '\'', indexToStart) : Integer.MAX_VALUE,
+                    CssUtils.findNextUnescapedChar(src, '"', indexToStart)  >= 0
+                            ? CssUtils.findNextUnescapedChar(src, '"', indexToStart) : Integer.MAX_VALUE);
+            int indexUnescapedBracket = CssUtils.findNextUnescapedChar(src, ')', indexToStart);
+            if (indexUnescapedOpeningQuoteMark < indexUnescapedBracket) {
+                indexToCut = CssUtils.findNextUnescapedChar(src, src.charAt(indexUnescapedOpeningQuoteMark), indexUnescapedOpeningQuoteMark + 1);
+                if (indexToCut == -1)
+                    indexToCut = src.length();
+            }
+            else
+                indexToCut = indexUnescapedBracket;
+            while (indexToCut < src.length() && src.charAt(indexToCut) != ',') {
+                indexToCut++;
+            }
+            list.add(src.substring(indexToStart, indexToCut).trim());
+            indexToStart = ++indexToCut;
+        }
+        String[] result = new String[list.size()];
+        list.toArray(result);
+        return result;
     }
 
     /**
@@ -226,7 +258,7 @@ class FontFace {
         }
 
         /**
-         * Instantiates a new {@link FontFaceSrc} insance.
+         * Instantiates a new {@link FontFaceSrc} instance.
          *
          * @param src a source path
          * @param isLocal indicates if the font is local
