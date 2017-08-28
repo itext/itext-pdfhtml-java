@@ -45,6 +45,8 @@ package com.itextpdf.html2pdf.element;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -59,6 +61,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
@@ -105,6 +108,14 @@ public class HTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hTest05.html"), new File(destinationFolder + "hTest05.pdf"),
                 new ConverterProperties().setOutlineHandler(OutlineHandler.createStandardHandler()));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest05.pdf", sourceFolder + "cmp_hTest05.pdf", destinationFolder, "diff05_"));
+    }
+
+    @Test
+    public void hTagRoleTest() throws IOException, InterruptedException {
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "hTest06.pdf"));
+        pdfDocument.setTagged();
+        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "hTest06.html"), pdfDocument, new ConverterProperties());
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest06.pdf", sourceFolder + "cmp_hTest06.pdf", destinationFolder, "diff06_"));
     }
 
 }
