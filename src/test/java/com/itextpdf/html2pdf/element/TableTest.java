@@ -42,22 +42,23 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.io.File;
-import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class TableTest extends ExtendedITextTest {
@@ -248,7 +249,7 @@ public class TableTest extends ExtendedITextTest {
 
     @Test
     public void thTagTest() throws IOException, InterruptedException {
-        runTest("thTag");
+        runTest("thTag", true);
     }
 
     @Test
@@ -332,7 +333,15 @@ public class TableTest extends ExtendedITextTest {
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        runTest(testName, false);
+    }
+
+    private void runTest(String testName, boolean tagged) throws IOException, InterruptedException {
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + testName + ".pdf"));
+        if (tagged) {
+            pdfDocument.setTagged();
+        }
+        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + testName + ".html"), pdfDocument, new ConverterProperties().setBaseUri(sourceFolder));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + testName + ".html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
     }
