@@ -46,16 +46,20 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.experimental.categories.Category;
-
-import java.io.File;
-import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public abstract class MediaPrintTest extends ExtendedITextTest {
@@ -75,16 +79,24 @@ public abstract class MediaPrintTest extends ExtendedITextTest {
     }
 
     protected void runTest(String testName) throws IOException, InterruptedException {
+        runTest(testName, false);
+    }
+
+    protected void runTest(String testName, boolean tagged) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + testName + ".html";
         String mediaPrintPdfPath = sourceFolder + "print_" + testName + ".pdf";
         String outPdfPath = destinationFolder + testName + ".pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + testName + ".pdf";
         String diff = "diff_" + testName + "_";
-        ConverterProperties properties = new ConverterProperties().setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT));
+        ConverterProperties properties = new ConverterProperties().setBaseUri(sourceFolder).setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT));
         FontProvider fontProvider = new DefaultFontProvider(true, false, false);
         fontProvider.addDirectory(baseSourceFolder + "fonts/");
         properties.setFontProvider(fontProvider);
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath), properties);
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outPdfPath));
+        if (tagged) {
+            pdfDocument.setTagged();
+        }
+        HtmlConverter.convertToPdf(new FileInputStream(htmlPath), pdfDocument, properties);
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));
         Assert.assertTrue(new File(mediaPrintPdfPath).exists());
