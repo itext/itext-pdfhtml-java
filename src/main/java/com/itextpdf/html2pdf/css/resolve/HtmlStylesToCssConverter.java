@@ -455,8 +455,9 @@ class HtmlStylesToCssConverter {
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
-            String cssEquivalent = value;
-            if (!value.endsWith(CssConstants.PERCENTAGE)) {
+            // Trim semicolons at the end because they seem to not affect the value in browsers
+            String cssEquivalent = value.replaceAll(";+$", "");
+            if (!CssUtils.isMetricValue(cssEquivalent) && !cssEquivalent.endsWith(CssConstants.PERCENTAGE)) {
                 cssEquivalent += CssConstants.PX;
             }
             return Arrays.asList(new CssDeclaration(CssConstants.WIDTH, cssEquivalent));
@@ -481,8 +482,9 @@ class HtmlStylesToCssConverter {
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
-            String cssEquivalent = value;
-            if (!value.endsWith(CssConstants.PERCENTAGE)) {
+            // Trim semicolons at the end because they seem to not affect the value in browsers
+            String cssEquivalent = value.replaceAll(";+$", "");
+            if (!CssUtils.isMetricValue(cssEquivalent) && !cssEquivalent.endsWith(CssConstants.PERCENTAGE)) {
                 cssEquivalent += CssConstants.PX;
             }
             return Arrays.asList(new CssDeclaration(CssConstants.HEIGHT, cssEquivalent));
