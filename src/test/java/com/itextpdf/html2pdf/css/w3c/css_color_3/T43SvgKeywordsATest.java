@@ -47,7 +47,7 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES, count = 6),
+        @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES, count = 5),
 })
 
 public class T43SvgKeywordsATest extends W3CCssTest {
