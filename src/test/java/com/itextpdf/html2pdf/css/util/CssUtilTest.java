@@ -55,17 +55,17 @@ public class CssUtilTest extends ExtendedITextTest {
 
     @Test
     public void validateMetricValue() {
-        assertEquals(true, CssUtils.isMetricValue("px"));
-        assertEquals(true, CssUtils.isMetricValue("in"));
-        assertEquals(true, CssUtils.isMetricValue("cm"));
-        assertEquals(true, CssUtils.isMetricValue("mm"));
-        assertEquals(true, CssUtils.isMetricValue("pc"));
-        assertEquals(false, CssUtils.isMetricValue("em"));
-        assertEquals(false, CssUtils.isMetricValue("rem"));
-        assertEquals(false,CssUtils.isMetricValue("ex"));
-        assertEquals(true, CssUtils.isMetricValue("pt"));
-        assertEquals(false, CssUtils.isMetricValue("inch"));
-        assertEquals(false, CssUtils.isMetricValue("m"));
+        assertEquals(true, CssUtils.isMetricValue("1px"));
+        assertEquals(true, CssUtils.isMetricValue("1in"));
+        assertEquals(true, CssUtils.isMetricValue("1cm"));
+        assertEquals(true, CssUtils.isMetricValue("1mm"));
+        assertEquals(true, CssUtils.isMetricValue("1pc"));
+        assertEquals(false, CssUtils.isMetricValue("1em"));
+        assertEquals(false, CssUtils.isMetricValue("1rem"));
+        assertEquals(false,CssUtils.isMetricValue("1ex"));
+        assertEquals(true, CssUtils.isMetricValue("1pt"));
+        assertEquals(false, CssUtils.isMetricValue("1inch"));
+        assertEquals(false, CssUtils.isMetricValue("+1m"));
     }
 
     @Test
