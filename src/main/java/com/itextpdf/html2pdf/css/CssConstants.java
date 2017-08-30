@@ -378,6 +378,9 @@ public class CssConstants {
     /** The Constant TABLE_CELL. */
     public static final String TABLE_CELL = "table-cell";
 
+    /** The Constant TABLE_ROW. */
+    public static final String TABLE_ROW = "table-row";
+
     /** The Constant TABLE_LAYOUT. */
     public static final String TABLE_LAYOUT = "table-layout";
 
