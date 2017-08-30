@@ -186,9 +186,9 @@ public class UriResolver {
      */
     private String getUriStringScheme(String uriString) {
         String result = null;
-        Matcher matcher = Pattern.compile("^[^:]+").matcher(uriString);
+        Matcher matcher = Pattern.compile("^[a-zA-Z]([a-zA-Z]|\\d|\\+|-|\\.)*:").matcher(uriString);
         if (matcher.find()) {
-            result = matcher.group();
+            result = matcher.group().substring(0, matcher.group().indexOf(':'));
         } else if (null != baseUrl) {
             try {
                 result = baseUrl.toURI().getScheme();
