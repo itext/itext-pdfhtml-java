@@ -169,11 +169,11 @@ public class DisplayTableRowTagWorker implements ITagWorker {
         if (displayTableCell) {
             if (waitingCell != cell) {
                 flushWaitingCell();
-            }
-            if (!cell.isEmpty()) {
                 rowWrapper.addCell(cell);
+            } else if (!cell.isEmpty()) {
+                rowWrapper.addCell(cell);
+                waitingCell = null;
             }
-            waitingCell = null;
         } else {
             flushInlineElementsToWaitingCell();
             waitingCell.add(cell);
