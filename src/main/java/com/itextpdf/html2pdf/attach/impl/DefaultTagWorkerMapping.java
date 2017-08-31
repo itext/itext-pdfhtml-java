@@ -180,7 +180,9 @@ class DefaultTagWorkerMapping {
 
         workerMapping.putMapping(TagConstants.SPAN, CssConstants.BLOCK, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.SPAN, CssConstants.INLINE_BLOCK, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.SPAN, CssConstants.TABLE_CELL, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.A, CssConstants.BLOCK, ABlockTagWorker.class);
+        workerMapping.putMapping(TagConstants.A, CssConstants.TABLE_CELL, ABlockTagWorker.class);
 
         workerMapping.putMapping(TagConstants.DIV, CssConstants.TABLE, DisplayTableTagWorker.class);
         workerMapping.putMapping(TagConstants.DIV, CssConstants.TABLE_ROW, DisplayTableRowTagWorker.class);

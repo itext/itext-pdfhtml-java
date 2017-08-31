@@ -83,7 +83,7 @@ public class DisplayTableTagWorker implements ITagWorker {
     /**
      * The flag which indicates whether.
      */
-    private boolean currentRowIsFinished = true;
+    private boolean currentRowIsFinished = false;
 
     /**
      * Creates a new {@link DisplayTableTagWorker} instance.
@@ -125,7 +125,7 @@ public class DisplayTableTagWorker implements ITagWorker {
             tableWrapper.newRow();
         }
         if (childTagWorker instanceof DisplayTableRowTagWorker) {
-            flushWaitingCell(false);
+            flushWaitingCell();
             if (!currentRowIsFinished) {
                 tableWrapper.newRow();
             }
@@ -146,8 +146,9 @@ public class DisplayTableTagWorker implements ITagWorker {
             currentRowIsFinished = false;
             return true;
         } else if (childTagWorker instanceof SpanTagWorker) {
+            // the previous one
             if (displayTableCell) {
-                flushInlineElements();
+                flushWaitingCell();
             }
             boolean allChildrenProcessed = true;
             for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
@@ -157,10 +158,11 @@ public class DisplayTableTagWorker implements ITagWorker {
                     allChildrenProcessed = false;
                 }
             }
+            // the current one
             if (displayTableCell) {
-                flushWaitingCell(true);
+                flushWaitingCell();
             }
-            currentRowIsFinished = false; // TODO
+            currentRowIsFinished = false;
             return allChildrenProcessed;
         }
         return false;
@@ -180,48 +182,37 @@ public class DisplayTableTagWorker implements ITagWorker {
      * @param cell the cell
      */
     private void processCell(Cell cell, boolean displayTableCell) {
-        flushInlineElements();
         if (displayTableCell) {
             if (waitingCell != cell) {
                 flushWaitingCell();
             }
-            tableWrapper.addCell(cell);
+            if (!cell.isEmpty()) {
+                tableWrapper.addCell(cell);
+            }
             waitingCell = null;
         } else {
-            if (null == waitingCell) {
-                waitingCell = createWrapperCell();
-            }
+            flushInlineElementsToWaitingCell();
             waitingCell.add(cell);
         }
     }
 
     /**
-     * Flushes the waiting inline elements.
+     * Flushes inline elements to the waiting cell.
      */
-    private void flushInlineElements() {
-        if (inlineHelper.getSanitizedWaitingLeaves().size() > 0) {
-            flushWaitingCell(true);
+    private void flushInlineElementsToWaitingCell() {
+        if (null == waitingCell) {
+            waitingCell = createWrapperCell();
         }
+        inlineHelper.flushHangingLeaves(waitingCell);
     }
+
 
     /**
      * Flushes the waiting cell.
      */
     private void flushWaitingCell() {
-        flushWaitingCell(false);
-    }
-
-    /**
-     * Flushes the waiting cell.
-     *
-     * @param createCellIfNotExist the flag which indicates whether new cell wrapper should be created or not
-     */
-    private void flushWaitingCell(boolean createCellIfNotExist) {
-        if (null == waitingCell && createCellIfNotExist) {
-            waitingCell = createWrapperCell();
-        }
+        flushInlineElementsToWaitingCell();
         if (null != waitingCell) {
-            inlineHelper.flushHangingLeaves(waitingCell);
             processCell(waitingCell, true);
         }
     }
