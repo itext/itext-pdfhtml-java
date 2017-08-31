@@ -90,6 +90,7 @@ public class DisplayTableRowTagWorker implements ITagWorker {
      */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
+        flushInlineElementsToWaitingCell();
         if (null != waitingCell) {
             processCell(waitingCell, true);
         }
@@ -104,7 +105,7 @@ public class DisplayTableRowTagWorker implements ITagWorker {
         return true;
     }
 
-    /* (non-Javadoc)
+    /* (non-JavadDioc)
      * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
      */
     @Override
@@ -120,7 +121,7 @@ public class DisplayTableRowTagWorker implements ITagWorker {
             return true;
         } else if (childTagWorker instanceof SpanTagWorker) {
             if (displayTableCell) {
-                flushInlineElements();
+                flushWaitingCell();
             }
             boolean allChildrenProcessed = true;
             for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
@@ -131,9 +132,7 @@ public class DisplayTableRowTagWorker implements ITagWorker {
                 }
             }
             if (displayTableCell) {
-                Cell cell = createWrapperCell();
-                inlineHelper.flushHangingLeaves(cell);
-                processCell(cell, true);
+                flushWaitingCell();
             }
             return allChildrenProcessed;
         }
@@ -167,49 +166,38 @@ public class DisplayTableRowTagWorker implements ITagWorker {
      * @param cell the cell
      */
     private void processCell(Cell cell, boolean displayTableCell) {
-        flushInlineElements();
         if (displayTableCell) {
             if (waitingCell != cell) {
                 flushWaitingCell();
             }
-            rowWrapper.addCell(cell);
+            if (!cell.isEmpty()) {
+                rowWrapper.addCell(cell);
+            }
             waitingCell = null;
         } else {
-            if (null == waitingCell) {
-                waitingCell = createWrapperCell();
-            }
+            flushInlineElementsToWaitingCell();
             waitingCell.add(cell);
         }
     }
 
     /**
+     * Flushes inline elements to the waiting cell.
+     */
+    private void flushInlineElementsToWaitingCell() {
+        if (null == waitingCell) {
+            waitingCell = createWrapperCell();
+        }
+        inlineHelper.flushHangingLeaves(waitingCell);
+    }
+
+
+    /**
      * Flushes the waiting cell.
      */
     private void flushWaitingCell() {
-        flushWaitingCell(false);
-    }
-
-    /**
-     * Flushes the waiting cell.
-     *
-     * @param createCellIfNotExist the flag which indicates whether new cell wrapper should be created or not
-     */
-    private void flushWaitingCell(boolean createCellIfNotExist) {
-        if (null == waitingCell && createCellIfNotExist) {
-            waitingCell = createWrapperCell();
-        }
+        flushInlineElementsToWaitingCell();
         if (null != waitingCell) {
-            inlineHelper.flushHangingLeaves(waitingCell);
             processCell(waitingCell, true);
-        }
-    }
-
-    /**
-     * Flushes the waiting inline elements.
-     */
-    private void flushInlineElements() {
-        if (inlineHelper.getSanitizedWaitingLeaves().size() > 0) {
-            flushWaitingCell(true);
         }
     }
 
