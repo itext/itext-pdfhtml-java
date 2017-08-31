@@ -100,9 +100,7 @@ public class DisplayTableTagWorker implements ITagWorker {
      */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        if (null != waitingCell) {
-            processCell(waitingCell, true);
-        }
+        flushWaitingCell();
         table = tableWrapper.toTable(null);
     }
 

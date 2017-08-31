@@ -1,9 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 111>>stream
-xœŒË
-1ïı}ÔKÌCvõ*è]˜ˆ8ÑÁMfÅß7KCQ‡¢+N‚İ%0DJA8¢K‰rÇFÔÎÙLSáòÔ¦œŒ™V¿¹ûMßŸŸÛÊgÁëÚc={ç#Çè|èdS”ıÕ`b
+<</Filter/FlateDecode/Length 108>>stream
+xœŒ±
+1û÷¯Ô&^6rj+h/ìDÜè‰ Éøûæ˜fŠa*ŠÍ92
+µ Üí%¤D½a¥æ3?ÙİœSáü°fœœ™^¿¹ûÕ^ï_Xë'ÅÚ}‡m„ûSØ¥'›Y
 endstream
 endobj
 4 0 obj
@@ -13,7 +14,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170724102040+03'00')/ModDate(D:20170724102040+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Max-width applied to elements with 'display' set to 'table-cell')>>
+<</CreationDate(D:20170831092417-03'00')/ModDate(D:20170831092417-03'00')/Producer(iText® 7.0.5-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Max-width applied to elements with 'display' set to 'table-cell')/assert(The 'max-width' property applies to elements with 'display' set to 'table-cell'.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,15 +25,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000326 00000 n 
-0000000733 00000 n 
-0000000371 00000 n 
-0000000193 00000 n 
+0000000323 00000 n 
+0000000827 00000 n 
+0000000368 00000 n 
+0000000190 00000 n 
 0000000015 00000 n 
-0000000645 00000 n 
+0000000739 00000 n 
 trailer
-<</ID [<b7dfd34b9df118062d9b15dd8dd77983><b7dfd34b9df118062d9b15dd8dd77983>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<1610d8feda210f3b3e0414364eef8005><1610d8feda210f3b3e0414364eef8005>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%TEST-LICE-NSE0-7.0.5-SNAPSHOT
 startxref
-784
+878
 %%EOF

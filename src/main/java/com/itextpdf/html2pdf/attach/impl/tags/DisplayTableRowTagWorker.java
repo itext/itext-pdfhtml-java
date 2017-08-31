@@ -90,10 +90,7 @@ public class DisplayTableRowTagWorker implements ITagWorker {
      */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        flushInlineElementsToWaitingCell();
-        if (null != waitingCell) {
-            processCell(waitingCell, true);
-        }
+        flushWaitingCell();
     }
 
     /* (non-Javadoc)
