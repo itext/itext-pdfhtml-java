@@ -344,4 +344,8 @@ public class ProcessorContext {
         reset();
         this.pdfDocument = pdfDocument;
     }
+
+    public String getBaseUri(){
+        return baseUri;
+    }
 }

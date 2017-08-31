@@ -46,12 +46,16 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.resolver.resource.UriResolver;
 import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.Transform;
+
+import java.net.MalformedURLException;
+
 
 /**
  * TagWorker class for the {@code a} element.
@@ -77,6 +81,14 @@ public class ATagWorker extends SpanTagWorker {
 
         String url = element.getAttribute(AttributeConstants.HREF);
         if (url != null) {
+            if (context.getBaseUri() != null && !url.startsWith("#")) {
+                String base = context.getBaseUri();
+                try {
+                    if (!new UriResolver(base).resolveAgainstBaseUri(url).toString().startsWith("file:") &&
+                            !url.startsWith(new UriResolver(base).resolveAgainstBaseUri(url).getProtocol()))
+                        url = new UriResolver(base).resolveAgainstBaseUri(url).toString();
+                } catch (MalformedURLException exception) {}
+            }
             for (int i = 0; i < getAllElements().size(); i++) {
                 if (getAllElements().get(i) instanceof IBlockElement) {
                     Div simulatedDiv = new Div();
