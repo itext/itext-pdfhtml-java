@@ -1,9 +1,8 @@
 %PDF-1.7
 %‚„œ”
 5 0 obj
-<</Filter/FlateDecode/Length 124>>stream
-xú}Œ±
-¬0F·˝>≈?ÍicgAw·æ@⁄‹`4ÉÈ≠Ô/*u≤N•#”Ó‹°Î¡â¨«aËçµ‡H]™¢»	ÀUfAV§\äDå%Lwh}ÜYÃñotb∫P˝oÓù±Ó”-÷+Ãøølj1ÁWÏ¿9e
+<</Filter/FlateDecode/Length 157>>stream
+xúçŒ=Ç@‡~NÒJmVˆG¿÷D{ìΩ¿≥än!ªxÅD)îÑÃSº|Û::Z⁄ù%§Çı§s•Z√6¥±úz<]Jú–zÙ7éå6¡¡∑!pÉ*∏˙Å‘Ω\d±µw:Y∫PG∆â◊…”ô»Ükÿ»‰ßƒœ◊Ω⁄L_›?®Pk†15C’B£¸`÷4íÂ™≠Ä∆F3‘|°7 ŒTÛ
 endstream
 endobj
 4 0 obj
@@ -13,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170724102751+03'00')/ModDate(D:20170724102751+03'00')/Producer(iTextÆ 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Width applied to elements with 'display' set to 'table-row')>>
+<</CreationDate(D:20170831084246-03'00')/ModDate(D:20170831084246-03'00')/Producer(iTextÆ 7.0.5-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Width applied to elements with 'display' set to 'table-row')/assert(The 'width' property does not apply to elements with 'display' set to 'table-row'.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000339 00000 n 
-0000000741 00000 n 
-0000000384 00000 n 
-0000000206 00000 n 
+0000000372 00000 n 
+0000000873 00000 n 
+0000000417 00000 n 
+0000000239 00000 n 
 0000000015 00000 n 
-0000000653 00000 n 
+0000000785 00000 n 
 trailer
-<</ID [<e42de5dae77e04c513938720f9cde131><e42de5dae77e04c513938720f9cde131>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<6634dae67dae99122b78c17e2891fa72><6634dae67dae99122b78c17e2891fa72>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%TEST-LICE-NSE0-7.0.5-SNAPSHOT
 startxref
-792
+924
 %%EOF
