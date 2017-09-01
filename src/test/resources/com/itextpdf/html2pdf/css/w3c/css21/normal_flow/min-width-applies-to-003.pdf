@@ -2,7 +2,7 @@
 %âãÏÓ
 5 0 obj
 <</Filter/FlateDecode/Length 127>>stream
-xœ]Î±Â0Ğİ_q#,!vÚV$Ø‘üHM @ãş¿¤y}wç™öJ›#ƒš)D[q!@GZi²Ï³Y2LË5•„É°Ö”N4ÒòMsïÛ†û%ÿş·Æ;qƒ´Ş5”áë•Ëû©(â|•u©ëj%åJ^Æ+7
+xœ]Î»Â0Ğİ_qGXL4¥+RÙ‘üHu Ğ&ı‘ò"dç^{¦£Ğîda$’h½‡´Í¦KÎš1F,7MŠ1c+wê…Î4Òî›¶M`ÓÔ'’ÿşwÍv[W{®¨…)“®ëS¡Û³)ò½I)ñœV+
 endstream
 endobj
 4 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170724102750+03'00')/ModDate(D:20170724102750+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Min-width applied to elements with 'display' set to 'table-footer-group')>>
+<</CreationDate(D:20170831084939-03'00')/ModDate(D:20170831084939-03'00')/Producer(iText® 7.0.5-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Min-width applied to elements with 'display' set to 'table-footer-group')/assert(The 'min-width' property does not apply to elements with 'display' set to 'table-footer-group'.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -27,15 +27,15 @@ xref
 0 8
 0000000000 65535 f 
 0000000351 00000 n 
-0000000859 00000 n 
+0000000971 00000 n 
 0000000396 00000 n 
 0000000209 00000 n 
 0000000015 00000 n 
-0000000678 00000 n 
-0000000766 00000 n 
+0000000790 00000 n 
+0000000878 00000 n 
 trailer
-<</ID [<2a334a8fe164eae166fac847fb1435a3><2a334a8fe164eae166fac847fb1435a3>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<4444016617f5dc3984a3469514886404><4444016617f5dc3984a3469514886404>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%TEST-LICE-NSE0-7.0.5-SNAPSHOT
 startxref
-910
+1022
 %%EOF

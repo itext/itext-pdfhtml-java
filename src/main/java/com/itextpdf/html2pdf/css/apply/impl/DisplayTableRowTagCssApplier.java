@@ -1,8 +1,8 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
-
+    Authors: Bruno Lowagie, Paulo Soares, et al.
+    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-
+    
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-
+    
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-
+    
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-
+    
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,24 +36,52 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-
+    
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.w3c.css21.normal_flow;
+package com.itextpdf.html2pdf.css.apply.impl;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.tags.DisplayTableRowTagWorker;
+import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.property.Property;
 
-@LogMessages(messages = {
-        @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES),
-})
-public class MinWidthAppliesTo007Test extends W3CCssTest {
-    // NOTE iText sets cellWidth on cell renderer after cell layout.
-    // It causes applied min-width to be overwritten and thus results are wrong.
+import java.util.Map;
+
+/**
+ * {@link ICssApplier} implementation for table rows.
+ */
+public class DisplayTableRowTagCssApplier extends BlockCssApplier {
+
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.apply.impl.BlockCssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
+     */
     @Override
-    protected String getHtmlFileName() {
-        return "min-width-applies-to-007.xht";
+    public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
+        Map<String, String> cssProps = stylesContainer.getStyles();
+        super.apply(context, stylesContainer, tagWorker);
+        TableRowWrapper rowWrapper = ((DisplayTableRowTagWorker) tagWorker).getTableRowWrapper();
+        for (Cell cell : rowWrapper.getCells()) {
+            if (!cell.hasProperty(Property.BACKGROUND)) {
+                BackgroundApplierUtil.applyBackground(cssProps, context, cell);
+            }
+            if (!cell.hasProperty(Property.OPACITY)) {
+                OpacityApplierUtil.applyOpacity(cssProps, context, cell);
+            }
+            // TODO DEVSIX-1554
+//            if (!cell.hasProperty(Property.POSITION)) {
+//                PositionApplierUtil.applyPosition(cssProps, context, cell);
+//            }
+//            if (!cell.hasProperty(Property.TRANSFORM)) {
+//                TransformationApplierUtil.applyTransformation(cssProps, context, cell);
+//            }
+        }
     }
 }
