@@ -58,6 +58,8 @@ import java.lang.reflect.Constructor;
  */
 public class DefaultTagWorkerFactory implements ITagWorkerFactory {
 
+    private static final ITagWorkerFactory INSTANCE = new DefaultTagWorkerFactory();
+
     /** The default mapping. */
     private TagProcessorMapping defaultMapping;
 
@@ -66,6 +68,14 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
      */
     public DefaultTagWorkerFactory() {
         this.defaultMapping = DefaultTagWorkerMapping.getDefaultTagWorkerMapping();
+    }
+
+    /**
+     * Gets {@link ITagWorkerFactory} instance.
+     * @return default instance that is used if custom tag workers are not configured
+     */
+    public static ITagWorkerFactory getInstance() {
+        return INSTANCE;
     }
 
     /* (non-Javadoc)
@@ -125,4 +135,5 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
     public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
         return null;
     }
+
 }

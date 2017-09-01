@@ -47,6 +47,8 @@ package com.itextpdf.html2pdf.css.media;
  */
 public class MediaDeviceDescription {
 
+    private static final MediaDeviceDescription DEFAULT = createDefault();
+
     /** The type. */
     private String type;
     
@@ -106,6 +108,16 @@ public class MediaDeviceDescription {
      */
     public static MediaDeviceDescription createDefault() {
         return new MediaDeviceDescription(MediaType.ALL);
+    }
+
+    /**
+     * Gets default {@link MediaDeviceDescription} instance.
+     * Do not modify any fields of the returned media device description because it may lead
+     * to unpredictable results. Use {@link #createDefault()} if you want to modify device description.
+     * @return the default media device description
+     */
+    public static MediaDeviceDescription getDefault() {
+        return DEFAULT;
     }
 
     /**
