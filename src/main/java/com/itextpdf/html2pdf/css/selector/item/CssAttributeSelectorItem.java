@@ -121,7 +121,7 @@ public class CssAttributeSelectorItem implements ICssSelectorItem {
                 case '$':
                     return value.length() > 0 && attributeValue.endsWith(value);
                 case '~':
-                    String pattern = String.format("(^%s\\s+)|(\\s+%s\\s+)|(\\s+%s$)", value, value, value);
+                    String pattern = MessageFormatUtil.format("(^{0}\\s+)|(\\s+{1}\\s+)|(\\s+{2}$)", value, value, value);
                     return Pattern.compile(pattern).matcher(attributeValue).matches();
                 case '*':
                     return value.length() > 0 && attributeValue.contains(value);
