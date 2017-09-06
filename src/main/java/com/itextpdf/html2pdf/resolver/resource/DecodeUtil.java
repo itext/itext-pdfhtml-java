@@ -49,6 +49,7 @@ import java.io.UnsupportedEncodingException;
 /**
  * Utilities class to decode HTML strings to a strings in a specific encoding.
  */
+@Deprecated
 public class DecodeUtil {
 
     /**
