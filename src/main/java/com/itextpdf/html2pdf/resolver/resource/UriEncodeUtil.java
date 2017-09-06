@@ -1,8 +1,8 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: Bruno Lowagie, Paulo Soares, et al.
-    
+    Authors: iText Software.
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-    
+
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-    
+
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-    
+
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-    
+
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,11 +36,12 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-    
+
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
 package com.itextpdf.html2pdf.resolver.resource;
+
 
 import com.itextpdf.html2pdf.exception.Html2PdfException;
 
@@ -49,15 +50,12 @@ import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
 import java.util.BitSet;
 
-/**
- * Utilities class to encode strings in a specific encoding to HTML strings.
- */
-class EncodeUtil {
+public class UriEncodeUtil {
 
     /**
      * Set of 256 characters with the bits that don't need encoding set to on.
      */
-    private static BitSet dontNeedEncoding;
+    private static BitSet unreservedAndReserved;
 
     /**
      * The difference between the value a character in lower cases and the upper case character value.
@@ -75,30 +73,42 @@ class EncodeUtil {
     private static String dfltUriScheme = "file";
 
     static {
-        dontNeedEncoding = new BitSet(256);
+        unreservedAndReserved = new BitSet(256);
         int i;
         for (i = 'a'; i <= 'z'; i++) {
-            dontNeedEncoding.set(i);
+            unreservedAndReserved.set(i);
         }
         for (i = 'A'; i <= 'Z'; i++) {
-            dontNeedEncoding.set(i);
+            unreservedAndReserved.set(i);
         }
         for (i = '0'; i <= '9'; i++) {
-            dontNeedEncoding.set(i);
+            unreservedAndReserved.set(i);
         }
 
-        dontNeedEncoding.set('-');
-        dontNeedEncoding.set('_');
-        dontNeedEncoding.set('.');
-        dontNeedEncoding.set(':');
-        dontNeedEncoding.set('*');
-        dontNeedEncoding.set('/');
-        dontNeedEncoding.set('?');
-        dontNeedEncoding.set('"');
-        dontNeedEncoding.set('<');
-        dontNeedEncoding.set('>');
-        dontNeedEncoding.set('|');
-        dontNeedEncoding.set('\\');
+        unreservedAndReserved.set('-');
+        unreservedAndReserved.set('_');
+        unreservedAndReserved.set('.');
+        unreservedAndReserved.set('~');
+
+        unreservedAndReserved.set(':');
+        unreservedAndReserved.set('/');
+        unreservedAndReserved.set('?');
+        unreservedAndReserved.set('#');
+        unreservedAndReserved.set('[');
+        unreservedAndReserved.set(']');
+        unreservedAndReserved.set('@');
+        unreservedAndReserved.set('!');
+        unreservedAndReserved.set('$');
+        unreservedAndReserved.set('&');
+        unreservedAndReserved.set('\'');
+        unreservedAndReserved.set('\\');
+        unreservedAndReserved.set('(');
+        unreservedAndReserved.set(')');
+        unreservedAndReserved.set('*');
+        unreservedAndReserved.set('+');
+        unreservedAndReserved.set(',');
+        unreservedAndReserved.set(';');
+        unreservedAndReserved.set('=');
     }
 
     /**
@@ -148,14 +158,27 @@ class EncodeUtil {
         int i = 0;
         while (i < s.length()) {
             int c = (int) s.charAt(i);
-            if (("http".equals(scheme) || "https".equals(scheme)) && '?' == s.charAt(i)) {
-                out.append((char) c);
-                break;
-            } else if (("http".equals(scheme) || "https".equals(scheme)) && '#' == s.charAt(i) && i + 1 < s.length() && '#' == s.charAt(i + 1)) {
-                out.append((char) c);
+            if ('\\' == c) {
+                out.append('/');
                 needToChange = true;
-                i += 2;
-            } else if (dontNeedEncoding.get(c)) {
+                i++;
+            } else if ('%' == c) {
+                int v = -1;
+                if (i + 2 < s.length()) {
+                    try {
+                        v = Integer.parseInt(s.substring(i + 1, i + 3), 16);
+                    } catch (NumberFormatException e) {
+                        v = -1;
+                    }
+                    if (v != -1)
+                        out.append((char) c);
+                }
+                if (v < 0) {
+                    needToChange = true;
+                    out.append("%25");
+                }
+                i++;
+            } else if (unreservedAndReserved.get(c)) {
                 out.append((char) c);
                 i++;
             } else {
@@ -193,7 +216,7 @@ class EncodeUtil {
                         }
                     }
                     i++;
-                } while (i < s.length() && !dontNeedEncoding.get((c = (int) s.charAt(i))));
+                } while (i < s.length() && !unreservedAndReserved.get((c = (int) s.charAt(i))));
 
                 charArrayWriter.flush();
                 String str = new String(charArrayWriter.toCharArray());

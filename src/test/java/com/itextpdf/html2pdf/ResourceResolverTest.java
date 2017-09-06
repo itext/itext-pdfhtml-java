@@ -89,11 +89,11 @@ public class ResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    public void resourceResolverTest08() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourceResolverTest08.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceResolverTest08.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceResolverTest08.html"), new File(outPdf));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff08_"));
+    public void resourceResolverTest09() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceResolverTest09.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest09.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceResolverTest09.html"), new File(outPdf));
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff09_"));
     }
 
     // TODO test with absolute http links for resources?
