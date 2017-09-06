@@ -62,7 +62,7 @@ public class UriResolver {
     private URL baseUrl;
 
     /** Indicates if the Uri refers to a local resource. */
-    private boolean isLocal;
+    private boolean isLocalBaseUri;
 
     /**
      * Creates a new {@link UriResolver} instance.
@@ -95,7 +95,7 @@ public class UriResolver {
         // decode and then encode uri string in order to process unsafe characters correctly
         String scheme = getUriStringScheme(uriString);
         uriString = UriEncodeUtil.encode(uriString, scheme);
-        if (isLocal) {
+        if (isLocalBaseUri) {
             // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
             // resources around the file system even if on web page the path started with '\'
             uriString = uriString.replaceFirst("/*\\\\*", "");
@@ -153,7 +153,7 @@ public class UriResolver {
                 baseAsUrl = baseUri.toURL();
 
                 if ("file".equals(baseUri.getScheme())) {
-                    isLocal = true;
+                    isLocalBaseUri = true;
                 }
             }
         } catch (Exception ignored) {
@@ -172,7 +172,7 @@ public class UriResolver {
         try {
             Path path = Paths.get(baseUriString);
             baseAsFileUrl = path.toAbsolutePath().normalize().toUri().toURL();
-            isLocal = true;
+            isLocalBaseUri = true;
         } catch (Exception ignored) {
         }
 
