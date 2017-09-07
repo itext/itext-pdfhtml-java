@@ -113,6 +113,7 @@ public class DecodeUtil {
                 if (bytes == null)
                     bytes = new byte[(numChars - i) / 3];
                 int pos = 0;
+                boolean incrementLater = !(i + 2 < numChars);
 
                 while (((i + 2) < numChars) &&
                         (c == '%')) {
@@ -137,6 +138,8 @@ public class DecodeUtil {
                 if ((i < numChars) && (c == '%')) {
                     bytes[pos++] = (byte) c;
                 }
+                if (incrementLater)
+                    i++;
                 try {
                     sb.append(new String(bytes, 0, pos, enc));
                 } catch (UnsupportedEncodingException e) {
