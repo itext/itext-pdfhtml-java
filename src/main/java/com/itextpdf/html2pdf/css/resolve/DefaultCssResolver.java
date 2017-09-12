@@ -70,6 +70,7 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
+import com.itextpdf.io.util.DecimalFormatUtil;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.io.util.StreamUtil;
 import org.slf4j.Logger;
@@ -175,7 +176,8 @@ public class DefaultCssResolver implements ICssResolver {
                 }
             }
             float absoluteFontSize = FontStyleApplierUtil.parseRelativeFontSize(elementFontSize, baseFontSize);
-            elementStyles.put(CssConstants.FONT_SIZE, Float.toString(absoluteFontSize) + CssConstants.PT);
+            // Format to 4 decimal places to prevent differences between Java and C#
+            elementStyles.put(CssConstants.FONT_SIZE, DecimalFormatUtil.formatNumber(absoluteFontSize, "0.####") + CssConstants.PT);
         } else {
             elementStyles.put(CssConstants.FONT_SIZE, Float.toString(FontStyleApplierUtil.parseAbsoluteFontSize(elementFontSize)) + CssConstants.PT);
         }
