@@ -332,6 +332,7 @@ public class ProcessorContext {
         //Reset font provider. PdfFonts shall be reseted.
         this.fontProvider = new FontProvider(this.fontProvider.getFontSet());
         this.tempFonts = null;
+        this.outlineHandler.reset();
     }
 
     /**
