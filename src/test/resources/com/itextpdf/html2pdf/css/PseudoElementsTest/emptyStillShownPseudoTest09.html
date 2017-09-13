@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+
+        .pseudo-border:after, .pseudo-border:before {
+            background: pink;
+            border: 10px solid red;
+            content: '';
+        }
+
+        .pseudo-margin:after, .pseudo-margin:before {
+            background: pink;
+            margin: 10px;
+            content: '';
+        }
+
+        .pseudo-padding:after, .pseudo-padding:before {
+            background: pink;
+            padding: 10px;
+            content: '';
+        }
+
+        .pseudo-border-padding:after, .pseudo-border-padding:before {
+            background: pink;
+            border: 10px solid red;
+            padding: 10px;
+            content: '';
+        }
+
+        .pseudo-margin-padding:after, .pseudo-margin-padding:before {
+            background: pink;
+            margin: 10px;
+            padding: 10px;
+            content: '';
+        }
+
+        .pseudo-margin-border:after, .pseudo-margin-border:before {
+            background: pink;
+            margin: 10px;
+            border: 10px solid red;
+            content: '';
+        }
+
+        .pseudo-margin-border-padding:after, .pseudo-margin-border-padding:before {
+            background: pink;
+            margin: 10px;
+            padding: 10px;
+            border: 10px solid red;
+            content: '';
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <br>
+    <br>
+    <br>
+    <br>
+    Begin<i class="pseudo-padding">Paddings only</i>End
+    <br>
+    <br>
+    <br>
+    <br>
+    Begin<i class="pseudo-margin">Margins only</i>End
+    <br>
+    <br>
+    <br>
+    <br>
+    Begin<i class="pseudo-border">Borders only</i>End
+    <br>
+    <br>
+    <br>
+    <br>
+    Begin<i class="pseudo-margin-padding">Paddings and margins</i>End
+    <br>
+    <br>
+    <br>
+    <br>
+    Begin<i class="pseudo-border-padding">Paddings and borders</i>End
+    <br>
+    <br>
+    <br>
+    <br>
+    Begin<i class="pseudo-margin-border">Borders and margins</i>End
+    <br>
+    <br>
+    <br>
+    <br>
+    Begin<i class="pseudo-margin-border-padding">Paddings and borders and margins</i>End
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+</body>
+</html>		
