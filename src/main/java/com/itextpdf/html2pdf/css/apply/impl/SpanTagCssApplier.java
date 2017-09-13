@@ -54,6 +54,7 @@ import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FloatApplierUtil;
@@ -124,6 +125,7 @@ public class SpanTagCssApplier implements ICssApplier {
         MarginApplierUtil.applyMargins(css, context, element);
         PositionApplierUtil.applyPosition(css, context, element);
         FloatApplierUtil.applyFloating(css, context, element);
+        PaddingApplierUtil.applyPaddings(css, context, element);
     }
 
 }

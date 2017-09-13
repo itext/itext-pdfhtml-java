@@ -49,14 +49,14 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class PseudoElementsTest extends ExtendedITextTest {
@@ -213,6 +213,32 @@ public class PseudoElementsTest extends ExtendedITextTest {
     @Test
     public void emptyStillShownPseudoTest05() throws IOException, InterruptedException {
         runTest("emptyStillShownPseudoTest05");
+    }
+
+    @Test
+    public void emptyStillShownPseudoTest06() throws IOException, InterruptedException {
+        runTest("emptyStillShownPseudoTest06");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES),
+    })
+    public void emptyStillShownPseudoTest07() throws IOException, InterruptedException {
+        runTest("emptyStillShownPseudoTest07");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES),
+    })
+    public void emptyStillShownPseudoTest08() throws IOException, InterruptedException {
+        runTest("emptyStillShownPseudoTest08");
+    }
+
+    @Test
+    public void emptyStillShownPseudoTest09() throws IOException, InterruptedException {
+        runTest("emptyStillShownPseudoTest09");
     }
 
     @Test

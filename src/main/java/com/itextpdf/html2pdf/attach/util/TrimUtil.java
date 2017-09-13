@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.attach.util;
 
+import com.itextpdf.io.util.NumberUtil;
+import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.layout.LayoutPosition;
@@ -146,7 +148,9 @@ public final class TrimUtil {
                 Text text = (Text) leaf;
                 trimTextElement(text, last);
                 if (text.getText().length() == 0) {
-                    list.remove(pos);
+                    if (hasZeroWidth(text)) {
+                        list.remove(pos);
+                    }
                     end--;
                     continue;
                 }
@@ -201,5 +205,15 @@ public final class TrimUtil {
         FloatPropertyValue floatPropertyValue = leafElement.<FloatPropertyValue>getProperty(Property.FLOAT);
         Integer position = leafElement.<Integer>getProperty(Property.POSITION);
         return (position == null || position != LayoutPosition.ABSOLUTE) && floatPropertyValue != null && !floatPropertyValue.equals(FloatPropertyValue.NONE);
+    }
+
+    private static boolean hasZeroWidth(IElement leafElement) {
+        return
+                (null == leafElement.<Border>getProperty(Property.BORDER_RIGHT) || 0 == ((Border) leafElement.<Border>getProperty(Property.BORDER_RIGHT)).getWidth()) &&
+                (null == leafElement.<Border>getProperty(Property.BORDER_LEFT) || 0 == ((Border) leafElement.<Border>getProperty(Property.BORDER_LEFT)).getWidth()) &&
+                (null == leafElement.<Object>getProperty(Property.PADDING_RIGHT) || 0 == (float) NumberUtil.asFloat(leafElement.<Object>getProperty(Property.PADDING_RIGHT))) &&
+                (null == leafElement.<Object>getProperty(Property.PADDING_LEFT) || 0 == (float) NumberUtil.asFloat(leafElement.<Object>getProperty(Property.PADDING_LEFT))) &&
+                (null == leafElement.<Object>getProperty(Property.MARGIN_RIGHT) || 0 == (float) NumberUtil.asFloat(leafElement.<Object>getProperty(Property.MARGIN_RIGHT))) &&
+                (null == leafElement.<Object>getProperty(Property.MARGIN_LEFT) || 0 == (float) NumberUtil.asFloat(leafElement.<Object>getProperty(Property.MARGIN_LEFT)));
     }
 }

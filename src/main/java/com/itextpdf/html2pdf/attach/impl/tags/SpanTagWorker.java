@@ -99,6 +99,9 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
+        if (inlineHelper.getWaitingLeaves().isEmpty() && spanWrapper.getElements().isEmpty()) {
+            inlineHelper.add("");
+        }
         flushInlineHelper();
         elements = spanWrapper.getElements();
     }
