@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
+import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 
@@ -83,7 +84,7 @@ public class CssTagSelectorItem implements ICssSelectorItem {
             return false;
         }
         IElementNode element = (IElementNode) node;
-        return isUniversal || tagName.equals(element.name());
+        return isUniversal && !(node instanceof CssPseudoElementNode) || tagName.equals(element.name());
     }
 
     /* (non-Javadoc)
