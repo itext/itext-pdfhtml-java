@@ -67,11 +67,6 @@ class UriEncodeUtil {
      */
     private static String dfltEncName = "UTF-8";
 
-    /**
-     * The default uri scheme ("file").
-     */
-    private static String dfltUriScheme = "file";
-
     static {
         unreservedAndReserved = new BitSet(256);
         int i;
@@ -118,29 +113,17 @@ class UriEncodeUtil {
      * @return the encoded string
      */
     public static String encode(String s) {
-        return encode(s, dfltUriScheme);
-    }
-
-    /**
-     * Encodes a {@code String} in a default encoding and uri scheme to an HTML-encoded {@code String}.
-     *
-     * @param s      the original string
-     * @param scheme the uri scheme
-     * @return the encoded string
-     */
-    public static String encode(String s, String scheme) {
-        return encode(s, scheme, dfltEncName);
+        return encode(s, dfltEncName);
     }
 
     /**
      * Encodes a {@code String} in a specific encoding and uri scheme to an HTML-encoded {@code String}.
      *
      * @param s      the original string
-     * @param scheme the uri scheme
      * @param enc    the encoding
      * @return the encoded string
      */
-    public static String encode(String s, String scheme, String enc) {
+    public static String encode(String s, String enc) {
         boolean needToChange = false;
         StringBuffer out = new StringBuffer(s.length());
         Charset charset;
@@ -170,7 +153,7 @@ class UriEncodeUtil {
                     } catch (NumberFormatException e) {
                         v = -1;
                     }
-                    if (v != -1)
+                    if (v >= 0)
                         out.append((char) c);
                 }
                 if (v < 0) {
@@ -240,11 +223,6 @@ class UriEncodeUtil {
                 needToChange = true;
             }
         }
-
-        if (needToChange && i + 1 < s.length()) {
-            out.append(s.substring(i + 1));
-        }
-
         return (needToChange ? out.toString() : s);
     }
 }
