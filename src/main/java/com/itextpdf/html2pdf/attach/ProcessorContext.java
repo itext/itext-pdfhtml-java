@@ -345,6 +345,11 @@ public class ProcessorContext {
         this.pdfDocument = pdfDocument;
     }
 
+    /**
+     * Gets the baseURI: the URI which has been set manually or the directory of the html file in case when baseURI hasn't been set manually.
+     *
+     * @return the baseUri
+     */
     public String getBaseUri(){
         return baseUri;
     }
