@@ -94,7 +94,7 @@ public class UriResolver {
         uriString = uriString.trim();
         // decode and then encode uri string in order to process unsafe characters correctly
         String scheme = getUriStringScheme(uriString);
-        uriString = UriEncodeUtil.encode(uriString, scheme);
+        uriString = UriEncodeUtil.encode(uriString);
         if (isLocalBaseUri) {
             // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
             // resources around the file system even if on web page the path started with '\'
@@ -127,7 +127,7 @@ public class UriResolver {
     private void resolveBaseUrlOrPath(String base) {
         base = base.trim();
         String scheme = getUriStringScheme(base);
-        base = UriEncodeUtil.encode(base, scheme);
+        base = UriEncodeUtil.encode(base);
         baseUrl = baseUriAsUrl(base);
         if (baseUrl == null) {
             baseUrl = uriAsFileUrl(base);
