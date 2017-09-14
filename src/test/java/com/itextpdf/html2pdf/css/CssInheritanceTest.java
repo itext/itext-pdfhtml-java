@@ -40,15 +40,39 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.w3c.css_ui_3;
+package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
+
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-@Ignore("DEVSIX-1578")
-public class Outline008Test extends W3CCssTest {
-    @Override
-    protected String getHtmlFileName() {
-        return "outline-008.html";
+import java.io.File;
+import java.io.IOException;
+
+@Category(IntegrationTest.class)
+public class CssInheritanceTest extends ExtendedITextTest {
+
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssInheritanceTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/CssInheritanceTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+        createDestinationFolder(destinationFolder);
+    }
+
+    @Ignore("DEVSIX-1578")
+    @Test
+    public void cssInheritanceTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "cssInheritance01.html"), new File(destinationFolder + "cssInheritance01.pdf"));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssInheritance01.html").getPath() + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssInheritance01.pdf", sourceFolder + "cmp_cssInheritance01.pdf", destinationFolder, "diff01_"));
     }
 }
