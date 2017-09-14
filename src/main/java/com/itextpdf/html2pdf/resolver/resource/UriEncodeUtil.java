@@ -50,7 +50,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
 import java.util.BitSet;
 
-public class UriEncodeUtil {
+class UriEncodeUtil {
 
     /**
      * Set of 256 characters with the bits that don't need encoding set to on.
