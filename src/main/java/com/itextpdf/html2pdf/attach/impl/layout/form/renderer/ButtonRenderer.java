@@ -135,11 +135,11 @@ public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
         applyPaddings(area, true);
         PdfPage page = doc.getPage(occupiedArea.getPageNumber());
         PdfButtonFormField button = PdfFormField.createPushButton(doc, area, name, value, font, fontSize);
-        applyDefaultFieldProperties(button);
         Background background = this.<Background>getProperty(Property.BACKGROUND);
         if (background != null && background.getColor() != null) {
             button.setBackgroundColor(background.getColor());
         }
+        applyDefaultFieldProperties(button);
         PdfAcroForm.getAcroForm(doc, true).addField(button, page);
     }
 

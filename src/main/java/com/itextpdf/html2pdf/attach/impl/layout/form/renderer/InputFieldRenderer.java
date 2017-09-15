@@ -153,12 +153,12 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
             value = "";
         }
         PdfFormField inputField = PdfFormField.createText(doc, area, name, value, font, fontSize);
-        applyDefaultFieldProperties(inputField);
         if (password) {
             inputField.setFieldFlag(PdfFormField.FF_PASSWORD, true);
         } else {
             inputField.setDefaultValue(new PdfString(value));
         }
+        applyDefaultFieldProperties(inputField);
         PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
     }
 
