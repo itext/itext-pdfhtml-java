@@ -46,7 +46,7 @@ import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.geom.Rectangle;
-import com.itextpdf.kernel.pdf.PdfName;
+import com.itextpdf.kernel.pdf.annot.PdfAnnotation;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.Leading;
 import com.itextpdf.layout.property.Property;
@@ -124,7 +124,7 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
      * @param inputField the input field
      */
     void applyDefaultFieldProperties(PdfFormField inputField) {
-        inputField.getWidgets().get(0).setHighlightMode(PdfName.N);
+        inputField.getWidgets().get(0).setHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
         inputField.setBorderWidth(0);
         TransparentColor color = getPropertyAsTransparentColor(Property.FONT_COLOR);
         if (color != null) {
