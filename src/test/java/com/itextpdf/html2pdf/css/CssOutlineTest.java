@@ -106,4 +106,11 @@ public class CssOutlineTest extends ExtendedITextTest {
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssOutline04.html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssOutline04.pdf", sourceFolder + "cmp_cssOutline04.pdf", destinationFolder, "diff04_"));
     }
+
+    @Test
+    public void CssOutlineTest05() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "cssOutline05.html"), new File(destinationFolder + "cssOutline05.pdf"));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssOutline05.html").getPath() + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssOutline05.pdf", sourceFolder + "cmp_cssOutline05.pdf", destinationFolder, "diff05_"));
+    }
 }
