@@ -59,7 +59,7 @@ public final class LogMessageConstant {
     public static final String ERROR_LOADING_FONT = "Error while loading font";
 
     /** The Constant ERROR_PARSING_CSS_SELECTOR. */
-    public static final String ERROR_PARSING_CSS_SELECTOR = "Error while parsing css selector";
+    public static final String ERROR_PARSING_CSS_SELECTOR = "Error while parsing css selector: {0}";
 
     /** The Constant ERROR_RESOLVING_PARENT_STYLES. */
     public static final String ERROR_RESOLVING_PARENT_STYLES = "Element parent styles are not resolved. Styles for current element might be incorrect.";
