@@ -167,7 +167,7 @@ public final class CssRuleSetParser {
                     ruleSets.add(new CssRuleSet(selector, declarations));
                 }
             } catch (Exception exc) {
-                logger.error(LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, exc);
+                logger.error(MessageFormatUtil.format(LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, currentSelectorStr), exc);
                 //if any separated selector has errors, all others become invalid.
                 //in this case we just clear map, it is the easies way to support this.
                 declarations.clear();
