@@ -169,6 +169,9 @@ public class TableTagWorker implements ITagWorker, IDisplayAware {
         return table;
     }
 
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.tags.IDisplayAware#getDisplay()
+     */
     @Override
     public String getDisplay() {
         return display;

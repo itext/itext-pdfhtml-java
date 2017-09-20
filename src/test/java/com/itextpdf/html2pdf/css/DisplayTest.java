@@ -44,18 +44,23 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.io.File;
-import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class DisplayTest extends ExtendedITextTest {
@@ -74,6 +79,62 @@ public class DisplayTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table01.pdf", sourceFolder + "cmp_display_table01.pdf", destinationFolder, "diff01_"));
     }
 
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE),
+            @LogMessage(messageTemplate = LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)
+    })
+    public void displayTable02Test() throws IOException, InterruptedException {
+        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + "display_table02.pdf"));
+        pdfDoc.setDefaultPageSize(new PageSize(1500, 842));
+        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "display_table02.html"), pdfDoc);
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table02.pdf", sourceFolder + "cmp_display_table02.pdf", destinationFolder, "diff20_"));
+    }
+
+    @Test
+    public void displayTable03Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table03.html"), new File(destinationFolder + "display_table03.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table03.pdf", sourceFolder + "cmp_display_table03.pdf", destinationFolder, "diff21_"));
+    }
+
+    @Test
+    public void displayTable04Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table04.html"), new File(destinationFolder + "display_table04.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table04.pdf", sourceFolder + "cmp_display_table04.pdf", destinationFolder, "diff22_"));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE),
+            @LogMessage(messageTemplate = LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)
+    })
+    public void displayTable05Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table05.html"), new File(destinationFolder + "display_table05.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table05.pdf", sourceFolder + "cmp_display_table05.pdf", destinationFolder, "diff23_"));
+    }
+
+    @Test
+    public void displayTable06Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table06.html"), new File(destinationFolder + "display_table06.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table06.pdf", sourceFolder + "cmp_display_table06.pdf", destinationFolder, "diff24_"));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE),
+            @LogMessage(messageTemplate = LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH),
+            @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1)
+    })
+    public void displayTable07Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table07.html"), new File(destinationFolder + "display_table07.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table07.pdf", sourceFolder + "cmp_display_table07.pdf", destinationFolder, "diff24_"));
+    }
+
+    @Test
+    public void displayTable08Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table08.html"), new File(destinationFolder + "display_table08.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table08.pdf", sourceFolder + "cmp_display_table08.pdf", destinationFolder, "diff25_"));
+    }
     @Test
     public void displayInline01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline01.html"), new File(destinationFolder + "display_inline01.pdf"));

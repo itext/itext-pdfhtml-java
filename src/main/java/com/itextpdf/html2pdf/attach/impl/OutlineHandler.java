@@ -47,7 +47,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.PdfOutline;
 import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.kernel.pdf.navigation.PdfDestination;
@@ -56,9 +56,10 @@ import com.itextpdf.layout.property.Property;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.itextpdf.io.util.MessageFormatUtil;
-
-import java.util.*;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * A {@link OutlineHandler} handles creating outlines for tags.
@@ -155,6 +156,16 @@ public class OutlineHandler {
      */
     public boolean hasTagPriorityMapping(String tagName) {
         return tagPrioritiesMapping.containsKey(tagName);
+    }
+
+    /**
+     * Resets the current state so that this {@link OutlineHandler} is ready to process new document
+     */
+    public void reset() {
+        currentOutline = null;
+        destinationsInProcess.clear();
+        levelsInProcess.clear();
+        uniqueIDs.clear();
     }
 
     /**

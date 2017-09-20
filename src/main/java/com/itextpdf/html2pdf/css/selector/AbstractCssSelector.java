@@ -53,7 +53,7 @@ import java.util.List;
 public abstract class AbstractCssSelector implements ICssSelector {
     
     /** The selector items. */
-    protected List<ICssSelectorItem> selectorItems;
+    List<ICssSelectorItem> selectorItems;
 
     /**
      * Creates a new {@link AbstractCssSelector} instance.

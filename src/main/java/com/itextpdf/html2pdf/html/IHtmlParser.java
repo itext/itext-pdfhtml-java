@@ -56,7 +56,7 @@ public interface IHtmlParser {
      * Parses HTML provided as an {@code InputStream} and an encoding.
      *
      * @param htmlStream the html stream
-     * @param charset the character set
+     * @param charset the character set. If {@code null} then parser should detect encoding from stream.
      * @return a document node
      * @throws IOException Signals that an I/O exception has occurred.
      */

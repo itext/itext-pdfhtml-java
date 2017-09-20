@@ -69,7 +69,7 @@ public class SupportedColColgroupPropertiesUtil {
             CssConstants.BACKGROUND_CLIP, CssConstants.BACKGROUND_ATTACHMENT));
 
     /** These properties don't need to be transferred from &lt;colgroup&gt; to &lt;col&gt;. */
-    /*TODO Note: visibility doesn't work on "chrome" or "safari" and though it technically work on "firefox" and "edge" the results differ,
+    /*TODO Note: visibility doesn't work on "chrome" or "safari" and though it technically works on "firefox" and "edge" the results differ,
       with "edge" surprisingly giving the closest result to expected one.
       The supported values are 'collapse' and 'visible'. The expected behaviour for 'collapse' is not to render those cols
       (the table layout should change ann the width should be diminished), and to clip cells that are spaned to none-collapsed one.

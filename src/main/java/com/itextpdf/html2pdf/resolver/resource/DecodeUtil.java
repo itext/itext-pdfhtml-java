@@ -54,12 +54,12 @@ public class DecodeUtil {
     /**
      * The default encoding ("UTF-8").
      */
-    static String dfltEncName = "UTF-8";
+    private static String dfltEncName = "UTF-8";
 
     /**
      * The default uri scheme ("file").
      */
-    static String dfltUriScheme = "file";
+    private static String dfltUriScheme = "file";
 
     /**
      * Decode a {@link String} to a {@link String} using the default encoding and the default uri scheme.

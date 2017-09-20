@@ -167,7 +167,7 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-444")
+    @Ignore("DEVSIX-1520")
     //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
     public void w3cProblemTest02() throws IOException, InterruptedException {
         runTest("w3cProblemTest02");
@@ -198,16 +198,28 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-444")
+    @Ignore("DEVSIX-1520")
     //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
     public void w3cProblemTest07() throws IOException, InterruptedException {
         runTest("w3cProblemTest07");
     }
 
     @Test
-    //TODO: browser can load font with @font-face family name different form family name stored in font metadata, but iText should have them equal in order to work.
-    public void incorrectFontNameTest() throws IOException, InterruptedException {
-        runTest("incorrectFontNameTest");
+    //TODO: DEVSIX-1519
+    public void incorrectFontNameTest01() throws IOException, InterruptedException {
+        runTest("incorrectFontNameTest01");
+    }
+
+    @Test
+    //TODO: DEVSIX-1519
+    public void incorrectFontNameTest02() throws IOException, InterruptedException {
+        runTest("incorrectFontNameTest02");
+    }
+
+    @Test
+    //Checks that font used in previous two files is correct
+    public void incorrectFontNameTest03() throws IOException, InterruptedException {
+        runTest("incorrectFontNameTest03");
     }
 
     private void runTest(String name) throws IOException, InterruptedException {

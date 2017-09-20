@@ -50,11 +50,13 @@ import com.itextpdf.layout.renderer.LineRenderer;
 import java.util.List;
 
 /**
-* Abstract {@link BlockRenderer} for a single line of text content in a form field.
-*/
+ * Abstract {@link BlockRenderer} for a single line of text content in a form field.
+ */
 public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextFieldRenderer {
 
-    /** The position of the base line of the text. */
+    /**
+     * The position of the base line of the text.
+     */
     protected float baseline;
 
     /**
@@ -62,7 +64,7 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
      *
      * @param modelElement the model element
      */
-    protected AbstractOneLineTextFieldRenderer(IFormField modelElement) {
+    AbstractOneLineTextFieldRenderer(IFormField modelElement) {
         super(modelElement);
     }
 
@@ -86,9 +88,9 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
      * Crops the content lines.
      *
      * @param lines a list of lines
-     * @param bBox the bounding box
+     * @param bBox  the bounding box
      */
-    protected void cropContentLines(List<LineRenderer> lines, Rectangle bBox) {
+    void cropContentLines(List<LineRenderer> lines, Rectangle bBox) {
         adjustNumberOfContentLines(lines, bBox, 1);
         updateParagraphHeight();
         baseline = lines.get(0).getYLine();
@@ -97,7 +99,7 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
     /**
      * Updates the paragraph height.
      */
-    protected void updateParagraphHeight() {
+    private void updateParagraphHeight() {
         overrideHeightProperties();
         Float height = retrieveHeight();
         Float minHeight = retrieveMinHeight();
@@ -115,7 +117,7 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
     /**
      * Sets the content height.
      *
-     * @param bBox the bounding box
+     * @param bBox   the bounding box
      * @param height the height
      */
     private void setContentHeight(Rectangle bBox, float height) {

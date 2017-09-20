@@ -121,7 +121,7 @@ public class ProcessorContext {
 
         deviceDescription = converterProperties.getMediaDeviceDescription();
         if (deviceDescription == null) {
-            deviceDescription = MediaDeviceDescription.createDefault();
+            deviceDescription = MediaDeviceDescription.getDefault();
         }
 
         fontProvider = converterProperties.getFontProvider();
@@ -131,12 +131,12 @@ public class ProcessorContext {
 
         tagWorkerFactory = converterProperties.getTagWorkerFactory();
         if (tagWorkerFactory == null) {
-            tagWorkerFactory = new DefaultTagWorkerFactory();
+            tagWorkerFactory = DefaultTagWorkerFactory.getInstance();
         }
 
         cssApplierFactory = converterProperties.getCssApplierFactory();
         if (cssApplierFactory == null) {
-            cssApplierFactory = new DefaultCssApplierFactory();
+            cssApplierFactory = DefaultCssApplierFactory.getInstance();
         }
 
         baseUri = converterProperties.getBaseUri();
@@ -332,6 +332,7 @@ public class ProcessorContext {
         //Reset font provider. PdfFonts shall be reseted.
         this.fontProvider = new FontProvider(this.fontProvider.getFontSet());
         this.tempFonts = null;
+        this.outlineHandler.reset();
     }
 
     /**

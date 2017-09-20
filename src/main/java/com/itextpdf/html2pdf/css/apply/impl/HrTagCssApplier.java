@@ -45,12 +45,20 @@ package com.itextpdf.html2pdf.css.apply.impl;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * {@link ICssApplier} implementation for hr elements.
+ */
 public class HrTagCssApplier extends BlockCssApplier {
+
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
+     */
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
         Map<String, String> originalStyles = stylesContainer.getStyles();

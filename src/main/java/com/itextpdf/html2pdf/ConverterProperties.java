@@ -75,6 +75,9 @@ public class ConverterProperties {
     /** Indicates whether an AcroForm should be created. */
     private boolean createAcroForm = false;
 
+    /** Character set used in conversion of input streams */
+    private String charset;
+
     /**
      * Instantiates a new {@link ConverterProperties} instance.
      */
@@ -95,6 +98,7 @@ public class ConverterProperties {
         this.baseUri = other.baseUri;
         this.createAcroForm = other.createAcroForm;
         this.outlineHandler = other.outlineHandler;
+        this.charset = other.charset;
     }
 
     /**
@@ -127,7 +131,9 @@ public class ConverterProperties {
     }
 
     /**
-     * Sets the font provider.
+     * Sets the font provider. Please note that {@link FontProvider} instances cannot be reused across several documents
+     * and thus as soon as you set this property, this {@link ConverterProperties} instance becomes only useful for a single
+     * HTML conversion.
      *
      * @param fontProvider the font provider
      * @return the ConverterProperties instance
@@ -227,13 +233,35 @@ public class ConverterProperties {
     }
 
     /**
-     * Sets the outline handler.
+     * Sets the outline handler. Please note that {@link OutlineHandler} is not thread safe, thus
+     * as soon as you have set this property, this {@link ConverterProperties} instance cannot be used in converting multiple
+     * HTMLs simultaneously.
      *
      * @param outlineHandler the outline handler
      * @return the ConverterProperties instance
      */
     public ConverterProperties setOutlineHandler(OutlineHandler outlineHandler) {
         this.outlineHandler = outlineHandler;
+        return this;
+    }
+
+    /**
+     * Gets the encoding charset.
+     *
+     * @return the charset
+     */
+    public String getCharset() {
+        return charset;
+    }
+
+    /**
+     * Sets the encoding charset.
+     *
+     * @param charset the charset
+     * @return the ConverterProperties instance
+     */
+    public ConverterProperties setCharset(String charset) {
+        this.charset = charset;
         return this;
     }
 }

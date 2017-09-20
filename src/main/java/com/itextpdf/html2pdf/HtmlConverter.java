@@ -84,7 +84,6 @@ public class HtmlConverter {
     private HtmlConverter() {
     }
 
-    // TODO add overloads with Charset provided
     // TODO add overloads without automatic elements flushing
 
     /**
@@ -134,8 +133,21 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
-        InputStream stream = new ByteArrayInputStream(html.getBytes());
-        convertToPdf(stream, pdfWriter, converterProperties);
+        convertToPdf(html, new PdfDocument(pdfWriter), converterProperties);
+    }
+
+    /**
+     * Converts HTML obtained from an {@link InputStream} to objects that
+     * will be added to a {@link PdfDocument}, using specific {@link ConverterProperties}.
+     *
+     * @param html the html in the form of a {@link String}
+     * @param pdfDocument the {@link PdfDocument} instance
+     * @param converterProperties a {@link ConverterProperties} instance
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    public static void convertToPdf(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
+        Document document = convertToDocument(html, pdfDocument, converterProperties);
+        document.close();
     }
 
     /**
@@ -251,6 +263,19 @@ public class HtmlConverter {
      * Converts HTML obtained from an {@link InputStream} to content that
      * will be written to a {@link PdfWriter}, returning a {@link Document} instance.
      *
+     * @param html the html in the form of a {@link String}
+     * @param pdfWriter the {@link PdfWriter} containing the resulting PDF
+     * @return a {@link Document} instance
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    public static Document convertToDocument(String html, PdfWriter pdfWriter) throws IOException {
+        return convertToDocument(html, pdfWriter, null);
+    }
+
+    /**
+     * Converts HTML obtained from an {@link InputStream} to content that
+     * will be written to a {@link PdfWriter}, returning a {@link Document} instance.
+     *
      * @param htmlStream the {@link InputStream} with the source HTML
      * @param pdfWriter the {@link PdfWriter} containing the resulting PDF
      * @return a {@link Document} instance
@@ -258,6 +283,21 @@ public class HtmlConverter {
      */
     public static Document convertToDocument(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
         return convertToDocument(htmlStream, pdfWriter, null);
+    }
+
+    /**
+     * Converts HTML obtained from an {@link InputStream} to content that
+     * will be written to a {@link PdfWriter}, using specific
+     * {@link ConverterProperties}, returning a {@link Document} instance.
+     *
+     * @param html the html in the form of a {@link String}
+     * @param pdfWriter the pdf writer
+     * @param converterProperties a {@link ConverterProperties} instance
+     * @return a {@link Document} instance
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    public static Document convertToDocument(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
+        return convertToDocument(html, new PdfDocument(pdfWriter), converterProperties);
     }
 
     /**
@@ -273,6 +313,62 @@ public class HtmlConverter {
      */
     public static Document convertToDocument(InputStream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
         return convertToDocument(htmlStream, new PdfDocument(pdfWriter), converterProperties);
+    }
+
+    /**
+     * Converts HTML obtained from an {@link InputStream} to objects that
+     * will be added to a {@link PdfDocument}, using specific {@link ConverterProperties},
+     * returning a {@link Document} instance.
+     *
+     * @param html the html in the form of a {@link String}
+     * @param pdfDocument the {@link PdfDocument} instance
+     * @param converterProperties a {@link ConverterProperties} instance
+     * @return a {@link Document} instance
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    public static Document convertToDocument(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
+        String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
+        String licenseKeyProductClassName = "com.itextpdf.licensekey.LicenseKeyProduct";
+        String licenseKeyFeatureClassName = "com.itextpdf.licensekey.LicenseKeyProductFeature";
+        String checkLicenseKeyMethodName = "scheduledCheck";
+
+        try {
+            Class licenseKeyClass = Class.forName(licenseKeyClassName);
+            Class licenseKeyProductClass = Class.forName(licenseKeyProductClassName);
+            Class licenseKeyProductFeatureClass = Class.forName(licenseKeyFeatureClassName);
+
+            Object licenseKeyProductFeatureArray = Array.newInstance(licenseKeyProductFeatureClass, 0);
+
+            Class[] params = new Class[] {
+                    String.class,
+                    Integer.TYPE,
+                    Integer.TYPE,
+                    licenseKeyProductFeatureArray.getClass()
+            };
+
+            Constructor licenseKeyProductConstructor = licenseKeyProductClass.getConstructor(params);
+
+            Object licenseKeyProductObject = licenseKeyProductConstructor.newInstance(
+                    Html2PdfProductInfo.PRODUCT_NAME,
+                    Html2PdfProductInfo.MAJOR_VERSION,
+                    Html2PdfProductInfo.MINOR_VERSION,
+                    licenseKeyProductFeatureArray
+            );
+
+            Method method = licenseKeyClass.getMethod(checkLicenseKeyMethodName, licenseKeyProductClass);
+            method.invoke(null, licenseKeyProductObject);
+        } catch (Exception e) {
+            if ( ! Version.isAGPLVersion() ) {
+                throw new RuntimeException(e.getCause());
+            }
+        }
+
+        if (pdfDocument.getReader() != null) {
+            throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
+        }
+        IHtmlParser parser = new JsoupHtmlParser();
+        IDocumentNode doc = parser.parse(html);
+        return Attacher.attach(doc, pdfDocument, converterProperties);
     }
 
     /**
@@ -327,8 +423,7 @@ public class HtmlConverter {
             throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
         }
         IHtmlParser parser = new JsoupHtmlParser();
-        String detectedCharset = detectEncoding(htmlStream);
-        IDocumentNode doc = parser.parse(htmlStream, detectedCharset);
+        IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
         return Attacher.attach(doc, pdfDocument, converterProperties);
     }
 
@@ -341,8 +436,7 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static List<IElement> convertToElements(String html) throws IOException {
-        InputStream stream = new ByteArrayInputStream(html.getBytes());
-        return convertToElements(stream, null);
+        return convertToElements(html, null);
     }
 
     /**
@@ -368,8 +462,45 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static List<IElement> convertToElements(String html, ConverterProperties converterProperties) throws IOException {
-        ByteArrayInputStream stream = new ByteArrayInputStream(html.getBytes());
-        return convertToElements(stream, converterProperties);
+        String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
+        String licenseKeyProductClassName = "com.itextpdf.licensekey.LicenseKeyProduct";
+        String licenseKeyFeatureClassName = "com.itextpdf.licensekey.LicenseKeyProductFeature";
+        String checkLicenseKeyMethodName = "scheduledCheck";
+
+        try {
+            Class licenseKeyClass = Class.forName(licenseKeyClassName);
+            Class licenseKeyProductClass = Class.forName(licenseKeyProductClassName);
+            Class licenseKeyProductFeatureClass = Class.forName(licenseKeyFeatureClassName);
+
+            Object licenseKeyProductFeatureArray = Array.newInstance(licenseKeyProductFeatureClass, 0);
+
+            Class[] params = new Class[] {
+                    String.class,
+                    Integer.TYPE,
+                    Integer.TYPE,
+                    licenseKeyProductFeatureArray.getClass()
+            };
+
+            Constructor licenseKeyProductConstructor = licenseKeyProductClass.getConstructor(params);
+
+            Object licenseKeyProductObject = licenseKeyProductConstructor.newInstance(
+                    Html2PdfProductInfo.PRODUCT_NAME,
+                    Html2PdfProductInfo.MAJOR_VERSION,
+                    Html2PdfProductInfo.MINOR_VERSION,
+                    licenseKeyProductFeatureArray
+            );
+
+            Method method = licenseKeyClass.getMethod(checkLicenseKeyMethodName, licenseKeyProductClass);
+            method.invoke(null, licenseKeyProductObject);
+        } catch (Exception e) {
+            if ( ! Version.isAGPLVersion() ) {
+                throw new RuntimeException(e.getCause());
+            }
+        }
+
+        IHtmlParser parser = new JsoupHtmlParser();
+        IDocumentNode doc = parser.parse(html);
+        return Attacher.attach(doc, converterProperties);
     }
 
     /**
@@ -420,19 +551,7 @@ public class HtmlConverter {
         }
 
         IHtmlParser parser = new JsoupHtmlParser();
-        IDocumentNode doc = parser.parse(htmlStream, detectEncoding(htmlStream));
+        IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
         return Attacher.attach(doc, converterProperties);
     }
-    
-    /**
-     * Detects encoding of a specific {@link InputStream}.
-     *
-     * @param in the {@link InputStream}
-     * @return the encoding; currently always returns "UTF-8".
-     */
-    // TODO
-    private static String detectEncoding(final InputStream in) {
-        return "UTF-8";
-    }
-
 }

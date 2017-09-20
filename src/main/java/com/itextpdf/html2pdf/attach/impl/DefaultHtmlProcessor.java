@@ -49,7 +49,6 @@ import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
-import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
 import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
@@ -361,7 +360,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     /**
      * Adds @font-face fonts to the FontProvider.
      */
-    protected void addFontFaceFonts() {
+    private void addFontFaceFonts() {
         //TODO Shall we add getFonts() to ICssResolver?
         if (cssResolver instanceof DefaultCssResolver) {
             for (CssFontFaceRule fontFace : ((DefaultCssResolver) cssResolver).getFonts()) {
@@ -514,7 +513,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             boolean containsNonEmptyChildNode = false;
             boolean containsElementNode = false;
             for (int i = 0; i < element.childNodes().size(); i++) {
-                if (element.childNodes().get(i) instanceof ITextNode && !((ITextNode) element.childNodes().get(i)).wholeText().isEmpty()) {
+                if (element.childNodes().get(i) instanceof ITextNode) {
                     containsNonEmptyChildNode = true;
                     break;
                 } else if (element.childNodes().get(i) instanceof IElementNode) {

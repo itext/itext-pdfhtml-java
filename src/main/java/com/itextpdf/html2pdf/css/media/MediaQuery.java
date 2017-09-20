@@ -50,27 +50,35 @@ import java.util.Objects;
  */
 public class MediaQuery {
 
-    /** The logical "only" value. */
+    /**
+     * The logical "only" value.
+     */
     private boolean only;
-    
-    /** The logical "not" value. */
+
+    /**
+     * The logical "not" value.
+     */
     private boolean not;
-    
-    /** The type. */
+
+    /**
+     * The type.
+     */
     private String type;
-    
-    /** The expressions. */
+
+    /**
+     * The expressions.
+     */
     private List<MediaExpression> expressions;
 
     /**
      * Creates a new {@link MediaQuery} instance.
      *
-     * @param type the type
+     * @param type        the type
      * @param expressions the expressions
-     * @param only logical "only" value
-     * @param not logical "not" value
+     * @param only        logical "only" value
+     * @param not         logical "not" value
      */
-    public MediaQuery(String type, List<MediaExpression> expressions, boolean only, boolean not) {
+    MediaQuery(String type, List<MediaExpression> expressions, boolean only, boolean not) {
         this.type = type;
         this.expressions = expressions;
         this.only = only;

@@ -45,33 +45,45 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
+import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
+import com.itextpdf.html2pdf.attach.wrapelement.TableWrapper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.UnitValue;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * TagWorker class for a table element.
  */
 public class DisplayTableTagWorker implements ITagWorker {
 
-    /** Two-dimensional array of {@link Cell} objects. */
-    private List<List<Cell>> columns = new ArrayList<>();
-
-    /** The table. */
+    /**
+     * The table.
+     */
     private IPropertyContainer table;
 
-    /** The helper class for waiting inline elements. */
+    /**
+     * The table wrapper.
+     */
+    private TableWrapper tableWrapper = new TableWrapper();
+
+    /**
+     * The helper class for waiting inline elements.
+     */
     private WaitingInlineElementsHelper inlineHelper;
+
+    /**
+     * The cell waiting for flushing.
+     */
+    private Cell waitingCell = null;
+
+    /**
+     * The flag which indicates whether.
+     */
+    private boolean currentRowIsFinished = false;
 
     /**
      * Creates a new {@link DisplayTableTagWorker} instance.
@@ -80,7 +92,6 @@ public class DisplayTableTagWorker implements ITagWorker {
      * @param context the context
      */
     public DisplayTableTagWorker(IElementNode element, ProcessorContext context) {
-        columns.add(new ArrayList<Cell>());
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
@@ -89,30 +100,8 @@ public class DisplayTableTagWorker implements ITagWorker {
      */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        flushInlineElements();
-        int maxRowSize = 0;
-        for (int i = 0; i < columns.size(); i++) {
-            maxRowSize = Math.max(maxRowSize, columns.get(i).size());
-        }
-        if (maxRowSize == 0) {
-            // Workaround because there are problems with empty table
-            table = new Div();
-        } else {
-            float[] columnsWidths = new float[columns.size()];
-            for (int i = 0; i < columnsWidths.length; i++) {
-                columnsWidths[i] = -1;
-            }
-            table = new Table(UnitValue.createPointArray(columnsWidths));
-            for (int i = 0; i < maxRowSize; i++) {
-                for (int j = 0; j < columns.size(); j++) {
-                    Cell cell = i < columns.get(j).size() ? columns.get(j).get(i) : null;
-                    if (cell == null) {
-                        cell = createWrapperCell();
-                    }
-                    ((Table)table).addCell(cell);
-                }
-            }
-        }
+        flushWaitingCell();
+        table = tableWrapper.toTable(null);
     }
 
     /* (non-Javadoc)
@@ -130,17 +119,34 @@ public class DisplayTableTagWorker implements ITagWorker {
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         boolean displayTableCell = childTagWorker instanceof IDisplayAware && CssConstants.TABLE_CELL.equals(((IDisplayAware) childTagWorker).getDisplay());
-        if (childTagWorker.getElementResult() instanceof IBlockElement) {
+        if (currentRowIsFinished) {
+            tableWrapper.newRow();
+        }
+        if (childTagWorker instanceof DisplayTableRowTagWorker) {
+            flushWaitingCell();
+            if (!currentRowIsFinished) {
+                tableWrapper.newRow();
+            }
+            TableRowWrapper wrapper = ((DisplayTableRowTagWorker) childTagWorker).getTableRowWrapper();
+            for (Cell cell : wrapper.getCells()) {
+                tableWrapper.addCell(cell);
+            }
+            currentRowIsFinished = true;
+            return true;
+        } else if (childTagWorker.getElementResult() instanceof IBlockElement) {
             IBlockElement childResult = (IBlockElement) childTagWorker.getElementResult();
-            Cell curCell = childResult instanceof Cell ? (Cell)childResult : createWrapperCell().add(childResult);
+            Cell curCell = childResult instanceof Cell ? (Cell) childResult : createWrapperCell().add(childResult);
             processCell(curCell, displayTableCell);
+            currentRowIsFinished = false;
             return true;
         } else if (childTagWorker.getElementResult() instanceof ILeafElement) {
             inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
+            currentRowIsFinished = false;
             return true;
         } else if (childTagWorker instanceof SpanTagWorker) {
+            // the previous one
             if (displayTableCell) {
-                flushInlineElements();
+                flushWaitingCell();
             }
             boolean allChildrenProcessed = true;
             for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
@@ -150,11 +156,11 @@ public class DisplayTableTagWorker implements ITagWorker {
                     allChildrenProcessed = false;
                 }
             }
+            // the current one
             if (displayTableCell) {
-                Cell cell = createWrapperCell();
-                inlineHelper.flushHangingLeaves(cell);
-                processCell(cell, displayTableCell);
+                flushWaitingCell();
             }
+            currentRowIsFinished = false;
             return allChildrenProcessed;
         }
         return false;
@@ -172,31 +178,40 @@ public class DisplayTableTagWorker implements ITagWorker {
      * Processes a cell.
      *
      * @param cell the cell
-     * @param displayTableCell
      */
     private void processCell(Cell cell, boolean displayTableCell) {
-        flushInlineElements();
         if (displayTableCell) {
-            List<Cell> curCol = new ArrayList<>();
-            curCol.add(cell);
-            if (columns.get(columns.size() - 1).size() == 0) {
-                columns.remove(columns.size() - 1);
+            if (waitingCell != cell) {
+                flushWaitingCell();
+                tableWrapper.addCell(cell);
+            } else if (!cell.isEmpty()) {
+                tableWrapper.addCell(cell);
+                waitingCell = null;
             }
-            columns.add(curCol);
-            columns.add(new ArrayList<Cell>());
         } else {
-            columns.get(columns.size() - 1).add(cell);
+            flushInlineElementsToWaitingCell();
+            waitingCell.add(cell);
         }
     }
 
     /**
-     * Flushes the waiting inline elements.
+     * Flushes inline elements to the waiting cell.
      */
-    private void flushInlineElements() {
-        if (inlineHelper.getSanitizedWaitingLeaves().size() > 0) {
-            Cell waitingLavesCell = createWrapperCell();
-            inlineHelper.flushHangingLeaves(waitingLavesCell);
-            processCell(waitingLavesCell, false);
+    private void flushInlineElementsToWaitingCell() {
+        if (null == waitingCell) {
+            waitingCell = createWrapperCell();
+        }
+        inlineHelper.flushHangingLeaves(waitingCell);
+    }
+
+
+    /**
+     * Flushes the waiting cell.
+     */
+    private void flushWaitingCell() {
+        flushInlineElementsToWaitingCell();
+        if (null != waitingCell) {
+            processCell(waitingCell, true);
         }
     }
 

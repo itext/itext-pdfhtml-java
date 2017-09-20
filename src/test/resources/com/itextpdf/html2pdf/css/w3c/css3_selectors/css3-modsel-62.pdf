@@ -13,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170718182123+03'00')/ModDate(D:20170718182123+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(NEGATED :visited pseudo-class)>>
+<</CreationDate(D:20170823115547+03'00')/ModDate(D:20170823115547+03'00')/Producer(iText® 7.0.5-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(NEGATED :visited pseudo-class)>>
 endobj
 6 0 obj
 <</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -22,7 +22,7 @@ endobj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
 endobj
 7 0 obj
-<</A 8 0 R/Border[0 0 0]/P 4 0 R/Rect[36 791.35 276.79 804.67]/Subtype/Link>>
+<</A 8 0 R/Border[0 0 0]/F 4/P 4 0 R/Rect[36 791.35 276.79 804.67]/Subtype/Link>>
 endobj
 8 0 obj
 <</IsMap false/S/URI/Type/Action/URI(http://unvisited.example.org/css3-modsel-62/)>>
@@ -37,10 +37,10 @@ xref
 0000000015 00000 n 
 0000000678 00000 n 
 0000000817 00000 n 
-0000000910 00000 n 
+0000000914 00000 n 
 trailer
-<</ID [<b6d70fbebb446f0b2d1c91e73d1ab466><b6d70fbebb446f0b2d1c91e73d1ab466>]/Info 3 0 R/Root 1 0 R/Size 9>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<2e07c8fd4b53a50c058cbea640640e80><2e07c8fd4b53a50c058cbea640640e80>]/Info 3 0 R/Root 1 0 R/Size 9>>
+%TEST-LICE-NSE0-7.0.5-SNAPSHOT
 startxref
-1010
+1014
 %%EOF

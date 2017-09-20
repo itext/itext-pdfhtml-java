@@ -47,14 +47,17 @@ package com.itextpdf.html2pdf.css.parse.syntax;
  */
 class AtRuleBlockState implements IParserState {
 
-	/** The state machine that parses the CSS. */
+    /**
+     * The state machine that parses the CSS.
+     */
     private CssParserStateController controller;
 
     /**
      * Creates a new {@link AtRuleBlockState} instance.
-     * @param   controller  the state machine that parses the CSS
+     *
+     * @param controller the state machine that parses the CSS
      */
-    public AtRuleBlockState(CssParserStateController controller) {
+    AtRuleBlockState(CssParserStateController controller) {
         this.controller = controller;
     }
 

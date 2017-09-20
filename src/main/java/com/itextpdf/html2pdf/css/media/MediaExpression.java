@@ -51,28 +51,38 @@ import java.util.Objects;
  */
 public class MediaExpression {
 
-    /** The default font size. */
+    /**
+     * The default font size.
+     */
     private static final float DEFAULT_FONT_SIZE = 12;
-    
-    /** Indicates if there's a "min-" prefix. */
+
+    /**
+     * Indicates if there's a "min-" prefix.
+     */
     private boolean minPrefix;
-    
-    /** Indicates if there's a "max-" prefix. */
+
+    /**
+     * Indicates if there's a "max-" prefix.
+     */
     private boolean maxPrefix;
-    
-    /** The feature. */
+
+    /**
+     * The feature.
+     */
     private String feature;
-    
-    /** The value. */
+
+    /**
+     * The value.
+     */
     private String value;
 
     /**
      * Creates a new {@link MediaExpression} instance.
      *
      * @param feature the feature
-     * @param value the value
+     * @param value   the value
      */
-    public MediaExpression(String feature, String value) {
+    MediaExpression(String feature, String value) {
         this.feature = feature.trim().toLowerCase();
         if (value != null) {
             this.value = value.trim().toLowerCase();
@@ -182,7 +192,7 @@ public class MediaExpression {
                 return false;
         }
     }
-    
+
     /**
      * Parses an absolute length.
      *

@@ -42,20 +42,24 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssFontFaceRule;
 import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.UnitTest;
+
+import java.io.FileInputStream;
+import java.util.regex.Matcher;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.io.FileInputStream;
-import com.itextpdf.io.util.MessageFormatUtil;
-import java.util.regex.Matcher;
 
 @Category(UnitTest.class)
 public class FontFaceSrcTest extends ExtendedITextTest {
@@ -119,6 +123,30 @@ public class FontFaceSrcTest extends ExtendedITextTest {
                     break;
             }
 
+        }
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION)})
+    public void parseBase64SrcTest() throws Exception {
+        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(sourceFolder + "srcs2.css"));
+        CssFontFaceRule fontFaceRule = (CssFontFaceRule)styleSheet.getStatements().get(0);
+        CssDeclaration src = fontFaceRule.getProperties().get(0);
+
+        Assert.assertEquals("src expected", "src", src.getProperty());
+
+        String[] sources = FontFace.splitSourcesSequence(src.getExpression());
+
+        Assert.assertEquals("8 sources expected", 8, sources.length);
+
+        for (int i = 0; i < 6; i++) {
+            Matcher m = FontFace.FontFaceSrc.UrlPattern.matcher(sources[i]);
+            Assert.assertTrue("Expression doesn't match pattern: " + sources[i], m.matches());
+        }
+
+        for (int i = 6; i < sources.length; i++) {
+            Matcher m = FontFace.FontFaceSrc.UrlPattern.matcher(sources[i]);
+            Assert.assertFalse("Expression matches pattern (though it shouldn't!): " + sources[i], m.matches());
         }
     }
 }

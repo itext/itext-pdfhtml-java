@@ -54,6 +54,8 @@ import com.itextpdf.html2pdf.util.TagProcessorMapping;
  */
 public class DefaultCssApplierFactory implements ICssApplierFactory {
 
+    private static final ICssApplierFactory INSTANCE = new DefaultCssApplierFactory();
+
     /** The default mapping of CSS keywords and CSS appliers. */
     private TagProcessorMapping defaultMapping;
 
@@ -62,6 +64,14 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
      */
     public DefaultCssApplierFactory() {
         defaultMapping = DefaultTagCssApplierMapping.getDefaultCssApplierMapping();
+    }
+
+    /**
+     * Gets {@link DefaultCssApplierFactory} instance.
+     * @return default instance that is used if custom css appliers are not configured
+     */
+    public static ICssApplierFactory getInstance() {
+        return INSTANCE;
     }
 
     /* (non-Javadoc)
