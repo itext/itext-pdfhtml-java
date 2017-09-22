@@ -181,6 +181,7 @@ public class UriResolver {
 
     /**
      * Get the scheme component of this URI.
+     *
      * @param uriString
      * @return
      */
@@ -198,4 +199,12 @@ public class UriResolver {
         return result;
     }
 
+    /**
+     * Check if baseURI is local
+     *
+     * @return true if baseURI is local, otherwise false
+     */
+    public boolean isLocalBaseUri() {
+        return isLocalBaseUri;
+    }
 }

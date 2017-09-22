@@ -78,13 +78,16 @@ public class ABlockTagWorker extends DivTagWorker {
 
         String url = element.getAttribute(AttributeConstants.HREF);
         if (url != null) {
-            if (context.getBaseUri() != null && !url.startsWith("#")) {
-                String base = context.getBaseUri();
-                try {
-                    String resolvedUri = new UriResolver(base).resolveAgainstBaseUri(url).toString();
-                    if (!resolvedUri.startsWith("file:"))
-                        url = resolvedUri;
-                } catch (MalformedURLException exception) {}
+            String base = context.getBaseUri();
+            if (base != null) {
+                UriResolver uriResolver = new UriResolver(base);
+                if (!(url.startsWith("#") && uriResolver.isLocalBaseUri()))
+                    try {
+                        String resolvedUri = uriResolver.resolveAgainstBaseUri(url).toString();
+                        if (!resolvedUri.startsWith("file:"))
+                            url = resolvedUri;
+                    } catch (MalformedURLException exception) {
+                    }
             }
             ((Div) getElementResult()).setRole(Link);
             LinkHelper.applyLinkAnnotation(getElementResult(), url);
