@@ -299,6 +299,9 @@ public final class TagConstants {
     /** The Constant TR. */
     public static final String TR = "tr";
 
+    /** The Constant TT. */
+    public static final String TT = "tt";
+
     /** The Constant U. */
     public static final String U = "u";
 

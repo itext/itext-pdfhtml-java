@@ -170,6 +170,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.TIME, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.TITLE, TitleTagWorker.class);
         workerMapping.putMapping(TagConstants.TR, TrTagWorker.class);
+        workerMapping.putMapping(TagConstants.TT, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.U, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.UL, UlOlTagWorker.class);
         workerMapping.putMapping(TagConstants.VAR, SpanTagWorker.class);

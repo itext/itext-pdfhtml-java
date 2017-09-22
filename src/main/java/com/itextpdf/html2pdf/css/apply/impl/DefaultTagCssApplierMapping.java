@@ -135,6 +135,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.THEAD, BlockCssApplier.class);
         mapping.putMapping(TagConstants.TIME, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.TR, TrTagCssApplier.class);
+        mapping.putMapping(TagConstants.TT, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.U, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.UL, UlOlTagCssApplier.class);
         mapping.putMapping(TagConstants.VAR, SpanTagCssApplier.class);
