@@ -48,6 +48,8 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * Utilities class to decode HTML strings to a strings in a specific encoding.
+ *
+ * @deprecated Will be removed in iText 7.1
  */
 @Deprecated
 public class DecodeUtil {
