@@ -100,7 +100,6 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
      * Updates the paragraph height.
      */
     private void updateParagraphHeight() {
-        overrideHeightProperties();
         Float height = retrieveHeight();
         Float minHeight = retrieveMinHeight();
         Float maxHeight = retrieveMaxHeight();

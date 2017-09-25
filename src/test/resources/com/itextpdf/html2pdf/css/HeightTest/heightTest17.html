@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Relative Height and tables</title>
+    <style>
+        .container{
+            height: 200pt;
+            border: 1pt solid black;
+        }
+        table{
+            border: 1pt solid grey;
+        }
+        td,th{
+            border: 1pt dashed black;
+        }
+        .relH{
+            height: 50%;
+            border: 1pt solid green;
+        }
+        .relMinH{
+            min-height:80%;
+            border: 1pt solid red;
+        }
+        .relMaxH{
+            max-height: 30%;
+            border: 1pt solid blue;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Table contained in div with relative height declarations</h1>
+<h2>Relative height at 50%</h2>
+<div class="container">
+    <div class="relH">
+        <table>
+            <tr>
+                <th>Header 1</th>
+                <th>Header 2</th>
+            </tr>
+            <tr>
+                <td>Data 1,1</td>
+                <td>Data 1,2</td>
+            </tr>
+            <tr>
+                <td>Data 2,1</td>
+                <td>Data 2,2</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<h2>Relative min height at 80%</h2>
+<div class="container">
+    <div class="relMinH">
+        <table>
+            <tr>
+                <th>Header 1</th>
+                <th>Header 2</th>
+            </tr>
+            <tr>
+                <td>Data 1,1</td>
+                <td>Data 1,2</td>
+            </tr>
+            <tr>
+                <td>Data 2,1</td>
+                <td>Data 2,2</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<h2>Relative max height at 30%</h2>
+<div class="container">
+    <div class="relMaxH">
+        <table>
+            <tr>
+                <th>Header 1</th>
+                <th>Header 2</th>
+            </tr>
+            <tr>
+                <td>Data 1,1</td>
+                <td>Data 1,2</td>
+            </tr>
+            <tr>
+                <td>Data 2,1</td>
+                <td>Data 2,2</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<h1>Table has height declarations</h1>
+<h2>Table has 50% height declaration</h2>
+<div class="container">
+    <table class="relH">
+        <tr>
+            <th>Header 1</th>
+            <th>Header 2</th>
+        </tr>
+        <tr>
+            <td>Data 1,1</td>
+            <td>Data 1,2</td>
+        </tr>
+        <tr>
+            <td>Data 2,1</td>
+            <td>Data 2,2</td>
+        </tr>
+    </table>
+</div>
+<h2>Table has 80% min-height declaration</h2>
+<div class="container">
+    <table class="relMinH">
+        <tr>
+            <th>Header 1</th>
+            <th>Header 2</th>
+        </tr>
+        <tr>
+            <td>Data 1,1</td>
+            <td>Data 1,2</td>
+        </tr>
+        <tr>
+            <td>Data 2,1</td>
+            <td>Data 2,2</td>
+        </tr>
+    </table>
+</div>
+<h2>Table has 30% max-height declaration</h2>
+<div class="container">
+    <table class="relMaxH">
+        <tr>
+            <th>Header 1</th>
+            <th>Header 2</th>
+        </tr>
+        <tr>
+            <td>Data 1,1</td>
+            <td>Data 1,2</td>
+        </tr>
+        <tr>
+            <td>Data 2,1</td>
+            <td>Data 2,2</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

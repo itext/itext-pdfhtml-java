@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cascading min-height declarations</title>
+    <style>
+        .container{
+            height:2000px;
+            border:1pt solid black;
+        }
+        .nestedDoll{
+            min-height:50%;
+            border: 1pt dashed red;
+        }
+    </style>
+</head>
+<body>
+<h2>Three deep</h2>
+<div class="container">
+    <div class="nestedDoll">
+        <div class="nestedDoll">
+            Hello :D
+        </div>
+    </div>
+</div>
+<h2>Four deep</h2>
+<div class="container">
+    <div class="nestedDoll">
+        <div class="nestedDoll">
+            <div class="nestedDoll">
+                Hello :D
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>Four deep, break at second container</h2>
+<div class="container">
+    <div class>
+        <div class="nestedDoll">
+            <div class="nestedDoll">
+                Hello :D
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

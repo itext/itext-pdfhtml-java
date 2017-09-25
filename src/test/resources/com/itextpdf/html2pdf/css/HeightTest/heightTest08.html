@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Relative height testing</title>
+    <style>
+        .border{
+            border: 1pt solid black;
+        }
+        .abs200{
+            height:200pt;
+
+        }
+        .relHeight80{
+            height: 80%;
+            margin:5pt;
+            border: 1pt dashed blue;
+        }
+        .relHeight10{
+            height: 10%;
+            margin:5pt;
+            border: 1pt dashed green;
+        }
+        .relHeight140{
+            height: 140%;
+            margin:5pt;
+            border: 1pt dashed green;
+        }
+        .relHeight20{
+            height: 20%;
+            margin:5pt;
+            border: 1pt dashed green;
+        }
+
+
+        .absMax200{
+            max-height:200pt;
+        }
+
+        .absMin200{
+            min-height:200pt;
+        }
+
+        .relHeight80{
+            height: 80%;
+            margin:5pt;
+            border: 1pt dashed blue;
+        }
+        .relHeight10{
+            height: 10%;
+            margin:5pt;
+            border: 1pt dashed green;
+        }
+
+        .relMax50{
+            max-height:50%;
+            border: 1pt dotted red;
+        }
+
+        .relMax25{
+            max-height:25%;
+            border: 1pt dotted blue;
+        }
+
+        .relMin25{
+            min-height:25%;
+            border: 1pt dashed blue;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <h2>Parent has fixed height</h2>
+    <div>
+        <h3>One fitting Element</h3>
+        <div class="abs200 border">
+            <div class="relHeight80">
+                80%
+            </div>
+        </div>
+        <h3>Two fitting elements</h3>
+        <div class="abs200 border">
+            <div class="relHeight80">
+                80%
+            </div>
+            <div class="relHeight10">
+                10%
+            </div>
+        </div>
+        <h3>One element that does not fit</h3>
+        <div class="abs200 border">
+            <div class="relHeight140">
+                140%
+            </div>
+        </div>
+        <h3>Two elements that do not fit both</h3>
+        <div class="abs200 border">
+            <div class="relHeight80">
+                80%
+            </div>
+            <div class="relHeight80">
+                80%
+            </div>
+        </div>
+    </div>
+    <h2>Parent does not have fixed height</h2>
+    <div>
+
+        <h3>One fitting Element</h3>
+        <div class="border">
+            <div class="relHeight80">
+                80%
+            </div>
+        </div>
+        <h3>Two fitting elements</h3>
+        <div class="border">
+            <div class="relHeight80">
+                80%
+            </div>
+            <div class="relHeight10">
+                10%
+            </div>
+        </div>
+        <h3>One element that does not fit</h3>
+        <div class="border">
+            <div class="relHeight140">
+                140%
+            </div>
+        </div>
+        <h3>Two elements that do not fit both</h3>
+        <div class="border">
+            <div class="relHeight80">
+                80%
+            </div>
+            <div class="relHeight80">
+                80%
+            </div>
+        </div>
+    </div>
+    <h2>Parent's Parent has fixed height but Parent does not</h2>
+    <div>
+        <h3>One fitting Element</h3>
+        <div class="abs200 border">
+            <div>
+                <div class="relHeight80">
+                    80%
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2>Parent's Parent has fixed height and Parent has relative height</h2>
+    <div>
+        <h3>One fitting Element</h3>
+        <div class="abs200 border">
+            <div class="relHeight80">
+                <div class="relHeight20">
+                    20% inside 80%
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="border absMax200">
+    <div class="relMax25">
+        Parent max at 200pt, 25% max-height for child div
+    </div>
+</div>
+<h2>Additional scenarios</h2>
+<div class="border absMin200">
+    <div class="relMax25">
+        <p>Parent min at 200pt, 25% max-height for child div</p>
+        <p>Filler</p>
+        <p>SPAM</p>
+        <p>Allot</p>
+    </div>
+</div>
+
+<div class="border abs200">
+    <div class="relMax25">
+        <p>Parent at 200pt, 25% max-height for child div</p>
+        <p>Filler</p>
+        <p>SPAM</p>
+        <p>Allot</p>
+    </div>
+    <div>
+        <p>test</p>
+        <p>test</p>
+    </div>
+</div>
+
+<div class="border absMin200">
+    <div class="relMin25">
+        Parent min at 200pt, 25% min-height for child div
+    </div>
+</div>
+
+<div class="border abs200">
+    <div class="relMin25">
+        Parent  at 200pt, 25% min-height for child div
+    </div>
+    <div>
+        test
+    </div>
+</div>
+
+
+</body>
+</html>
