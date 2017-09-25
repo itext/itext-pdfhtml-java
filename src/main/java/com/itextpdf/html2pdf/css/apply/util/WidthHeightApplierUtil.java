@@ -42,7 +42,6 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
@@ -62,7 +61,9 @@ import java.util.Map;
  */
 public final class WidthHeightApplierUtil {
 
-    /** The logger. */
+    /**
+     * The logger.
+     */
     private static final Logger logger = LoggerFactory.getLogger(WidthHeightApplierUtil.class);
 
     /**
@@ -75,8 +76,8 @@ public final class WidthHeightApplierUtil {
      * Applies a width or a height to an element.
      *
      * @param cssProps the CSS properties
-     * @param context the processor context
-     * @param element the element
+     * @param context  the processor context
+     * @param element  the element
      */
     public static void applyWidthHeight(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
@@ -109,14 +110,10 @@ public final class WidthHeightApplierUtil {
             if (!CssConstants.AUTO.equals(heightVal)) {
                 height = CssUtils.parseLengthValueToPt(heightVal, em, rem);
                 if (height != null) {
-                    if (height.isPointValue()) {
-                        // For tables, height does not have any effect. The height value will be used when
-                        // calculating effective min height value below
-                        if (!applyToTable && !applyToCell) {
-                            element.setProperty(Property.HEIGHT, height.getValue());
-                        }
-                    } else {
-                        logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    // For tables, height does not have any effect. The height value will be used when
+                    // calculating effective min height value below
+                    if (!applyToTable && !applyToCell) {
+                        element.setProperty(Property.HEIGHT, height);
                     }
                 }
             }
@@ -124,38 +121,33 @@ public final class WidthHeightApplierUtil {
 
         String maxHeightVal = cssProps.get(CssConstants.MAX_HEIGHT);
         float maxHeightToApply = 0;
+        UnitValue maxHeight = new UnitValue(UnitValue.POINT, 0);
         if (maxHeightVal != null) {
-            UnitValue maxHeight = CssUtils.parseLengthValueToPt(maxHeightVal, em, rem);
+            maxHeight = CssUtils.parseLengthValueToPt(maxHeightVal, em, rem);
             if (maxHeight != null) {
-                if (maxHeight.isPointValue()) {
-                    // For tables and cells, max height does not have any effect. See also comments below when MIN_HEIGHT is applied.
-                    if (!applyToTable && !applyToCell) {
-                        maxHeightToApply = maxHeight.getValue();
-                    }
-                } else {
-                    logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                // For tables and cells, max height does not have any effect. See also comments below when MIN_HEIGHT is applied.
+                if (!applyToTable && !applyToCell) {
+                    maxHeightToApply = maxHeight.getValue();
                 }
             }
         }
         if (maxHeightToApply > 0) {
-            element.setProperty(Property.MAX_HEIGHT, maxHeightToApply);
+            element.setProperty(Property.MAX_HEIGHT, maxHeight);
         }
 
         String minHeightVal = cssProps.get(CssConstants.MIN_HEIGHT);
         float minHeightToApply = 0;
+        UnitValue minHeight = new UnitValue(UnitValue.POINT, 0);
         if (minHeightVal != null) {
-            UnitValue minHeight = CssUtils.parseLengthValueToPt(minHeightVal, em, rem);
+            minHeight = CssUtils.parseLengthValueToPt(minHeightVal, em, rem);
             if (minHeight != null) {
-                if (minHeight.isPointValue()) {
-                    // For cells, min height does not have any effect. See also comments below when MIN_HEIGHT is applied.
-                    if (!applyToCell) {
-                        minHeightToApply = minHeight.getValue();
-                    }
-                } else {
-                    logger.error(LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                // For cells, min height does not have any effect. See also comments below when MIN_HEIGHT is applied.
+                if (!applyToCell) {
+                    minHeightToApply = minHeight.getValue();
                 }
             }
         }
+
         // About tables:
         // The height of a table is given by the 'height' property for the 'table' or 'inline-table' element.
         // A value of 'auto' means that the height is the sum of the row heights plus any cell spacing or borders.
@@ -165,11 +157,15 @@ public final class WidthHeightApplierUtil {
         // The height of a 'table-row' element's box is the maximum of the row's computed 'height', the computed 'height' of each cell in the row,
         // and the minimum height (MIN) required by the cells. MIN depends on cell box heights and cell box alignment.
         // In CSS 2.1, the height of a cell box is the minimum height required by the content.
-        if ((applyToTable || applyToCell) && height != null && height.isPointValue() && height.getValue() > minHeightToApply) {
+        if ((applyToTable || applyToCell) && height != null && height.getValue() > minHeightToApply) {
             minHeightToApply = height.getValue();
-        }
-        if (minHeightToApply > 0) {
-            element.setProperty(Property.MIN_HEIGHT, minHeightToApply);
+            if (minHeightToApply > 0) {
+                element.setProperty(Property.MIN_HEIGHT, height);
+            }
+        } else {
+            if (minHeightToApply > 0) {
+                element.setProperty(Property.MIN_HEIGHT, minHeight);
+            }
         }
 
         if (CssConstants.BORDER_BOX.equals(cssProps.get(CssConstants.BOX_SIZING))) {

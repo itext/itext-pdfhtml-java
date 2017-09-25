@@ -132,6 +132,96 @@ public class HeightTest extends ExtendedITextTest {
     }
 
     @Test
+    public void heightTest08() throws IOException, InterruptedException {
+        String testName = "heightTest08";
+        String diffPrefix = "diff08_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
+    @Test
+    public void heightTest09() throws IOException, InterruptedException {
+        String testName = "heightTest09";
+        String diffPrefix = "diff09_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
+    @Test
+    public void heightTest10() throws IOException, InterruptedException {
+        String testName = "heightTest10";
+        String diffPrefix = "diff10_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
+    @Test
+    public void heightTest11() throws IOException, InterruptedException {
+        String testName = "heightTest11";
+        String diffPrefix = "diff11_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
+    @Test
+    public void heightTest12() throws IOException, InterruptedException {
+        String testName = "heightTest12";
+        String diffPrefix = "diff12_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+    
+    @Test
+    public void heightTest13() throws IOException, InterruptedException{
+        String testName = "heightTest13";
+        String diffPrefix = "diff13_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
+    @Test
+    public void heightTest14() throws IOException, InterruptedException{
+        String testName = "heightTest14";
+        String diffPrefix = "diff14_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
+    @Test
+    public void heightTest15() throws IOException, InterruptedException{
+        String testName = "heightTest15";
+        String diffPrefix = "diff15_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
+    @Test
+    public void heightTest16() throws IOException, InterruptedException{
+        String testName = "heightTest16";
+        String diffPrefix = "diff16_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
+    @Test
+    public void heightTest17() throws IOException, InterruptedException{
+        String testName = "heightTest17";
+        String diffPrefix = "diff17_";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+    }
+
+    @Test
     public void heightWithCollapsingMarginsTest01() throws IOException, InterruptedException {
         String testName = "heightWithCollapsingMarginsTest01";
         String diffPrefix = "diffMargins01_";
@@ -150,7 +240,6 @@ public class HeightTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO DEVSIX-1047
     public void heightWithCollapsingMarginsTest04() throws IOException, InterruptedException {
         String testName = "heightWithCollapsingMarginsTest04";
         String diffPrefix = "diffMargins04_";

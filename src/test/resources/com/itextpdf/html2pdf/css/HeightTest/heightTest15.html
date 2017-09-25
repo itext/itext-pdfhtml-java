@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cascading height declarations</title>
+    <style>
+        .container{
+            height:500px;
+            border:1pt solid black;
+        }
+        .nestedDoll{
+            max-height:20%;
+
+        }
+        .red{
+            border: 1pt dashed red;
+        }
+        .blue{
+            border: 1pt dashed blue;
+        }
+        .green{
+            border: 1pt dashed green
+        }
+    </style>
+</head>
+<body>
+<h2>Three deep</h2>
+<div class="container">
+    <div class="nestedDoll red">
+        <div class="nestedDoll blue">
+           <p>Hello :D</p>
+            <p>Bloat</p>
+            <p>Bloat</p>
+            <p>Bloat</p>
+            <p>Bloat</p>
+            <p>Bloat</p>
+            <p>Bloat</p>
+        </div>
+    </div>
+</div>
+<h2>Four deep</h2>
+<div class="container">
+    <div class="nestedDoll red">
+        <div class="nestedDoll blue">
+            <div class="nestedDoll green">
+                <p>Hello :D</p>
+                <p>Bloat</p>
+                <p>Bloat</p>
+                <p>Bloat</p>
+                <p>Bloat</p>
+                <p>Bloat</p>
+                <p>Bloat</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>Four deep, break at second container</h2>
+<div class="container">
+    <div class="red">
+        <div class="nestedDoll blue">
+            <div class="nestedDoll green">
+                <p>Hello :D</p>
+                <p>Bloat</p>
+                <p>Bloat</p>
+                <p>Bloat</p>
+                <p>Bloat</p>
+                <p>Bloat</p>
+                <p>Bloat</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

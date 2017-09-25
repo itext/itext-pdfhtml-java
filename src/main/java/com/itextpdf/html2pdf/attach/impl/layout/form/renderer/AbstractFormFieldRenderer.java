@@ -205,8 +205,8 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         float parentWidth = layoutContext.getArea().getBBox().getWidth();
         float parentHeight = layoutContext.getArea().getBBox().getHeight();
 
-        Float maxHeight = this.<Float>getProperty(Property.MAX_HEIGHT);
-        Float height = this.<Float>getProperty(Property.HEIGHT);
+        UnitValue maxHeight = this.<UnitValue>getProperty(Property.MAX_HEIGHT);
+        UnitValue height = this.<UnitValue>getProperty(Property.HEIGHT);
         boolean restoreMaxHeight = hasOwnProperty(Property.MAX_HEIGHT);
         boolean restoreHeight = hasOwnProperty(Property.HEIGHT);
         setProperty(Property.MAX_HEIGHT, null);
