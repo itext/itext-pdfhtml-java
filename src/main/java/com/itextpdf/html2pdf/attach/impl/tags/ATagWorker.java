@@ -86,7 +86,9 @@ public class ATagWorker extends SpanTagWorker {
                 UriResolver uriResolver = new UriResolver(base);
                 if (!(url.startsWith("#") && uriResolver.isLocalBaseUri()))
                     try {
-                        String resolvedUri = uriResolver.resolveAgainstBaseUri(url).toString();
+                        String resolvedUri = uriResolver.resolveAgainstBaseUri(url).toExternalForm();
+                        if (!url.endsWith("/") && resolvedUri.endsWith("/"))
+                            resolvedUri = resolvedUri.substring(0, resolvedUri.length() - 1);
                         if (!resolvedUri.startsWith("file:"))
                             url = resolvedUri;
                     } catch (MalformedURLException exception) {
