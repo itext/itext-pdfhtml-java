@@ -94,6 +94,9 @@ public class ProcessorContext {
     /** The outline handler. */
     private OutlineHandler outlineHandler;
 
+    /** Indicates whether the document should be opened in immediate flush or not **/
+    private boolean immediateFlush;
+
     // Variable fields
     
     /** The state. */
@@ -156,6 +159,7 @@ public class ProcessorContext {
 
         createAcroForm = converterProperties.isCreateAcroForm();
         formFieldNameResolver = new FormFieldNameResolver();
+        immediateFlush = converterProperties.isImmediateFlush();
     }
 
     /**
@@ -353,4 +357,14 @@ public class ProcessorContext {
     public String getBaseUri(){
         return baseUri;
     }
+
+
+    /**
+     * Checks if immediateFlush is set
+     * @return true if immediateFlush is set, false if not.
+     */
+    public boolean isImmediateFlush(){
+        return immediateFlush;
+    }
+
 }
