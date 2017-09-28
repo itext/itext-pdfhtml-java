@@ -278,6 +278,10 @@ public class ConverterProperties {
 
     /**
      * set the immediate flush property of the layout document
+     * This is used for convertToDocument methods and will be overwritten to
+     * false if a page-counter declaration is present in the CSS of the HTML being
+     * converted.
+     * Has no effect when used in conjunction with convertToPdf or convertToElements
      * @param immediateFlush the immediate flush value
      * @return the ConverterProperties
      */
