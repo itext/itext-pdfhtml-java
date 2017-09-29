@@ -139,6 +139,7 @@ class UriEncodeUtil {
             throw new Html2PdfException(Html2PdfException.UnsupportedEncodingException);
         }
         int i = 0;
+        boolean firstHash = true;
         while (i < s.length()) {
             int c = (int) s.charAt(i);
             if ('\\' == c) {
@@ -161,6 +162,17 @@ class UriEncodeUtil {
                     // which means percent sign should be encoded itself. %25 code stands for percent sign.
                     needToChange = true;
                     out.append("%25");
+                }
+                i++;
+            } else if ('#' == c) {
+                // we want only the first hash to be left without percent encoding because C# encodes this way
+                if (firstHash) {
+                    out.append((char) c);
+                    firstHash = false;
+                }
+                else {
+                    out.append("%23");
+                    needToChange = true;
                 }
                 i++;
             } else if (unreservedAndReserved.get(c)) {
