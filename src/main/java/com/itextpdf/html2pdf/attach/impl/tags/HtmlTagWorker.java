@@ -78,11 +78,10 @@ public class HtmlTagWorker implements ITagWorker {
      * @param context the context
      */
     public HtmlTagWorker(IElementNode element, ProcessorContext context) {
-        boolean immediateFlush = !context.getCssContext().isPagesCounterPresent();
+        boolean immediateFlush = context.isImmediateFlush() && !context.getCssContext().isPagesCounterPresent();
         PdfDocument pdfDocument = context.getPdfDocument();
         document = new Document(pdfDocument, pdfDocument.getDefaultPageSize(), immediateFlush);
         document.setRenderer(new HtmlDocumentRenderer(document, immediateFlush));
-
         document.setProperty(Property.COLLAPSING_MARGINS, true);
         document.setFontProvider(context.getFontProvider());
         if (context.getTempFonts() != null) {
