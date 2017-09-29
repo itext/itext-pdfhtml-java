@@ -534,7 +534,7 @@ class PageContextProcessor {
         float rightMargin = margins[1];
         float bottomMargin = margins[2];
         float leftMargin = margins[3];
-        Rectangle withoutMargins = pageSize.clone().<Rectangle>applyMargins(topMargin, rightMargin, bottomMargin, leftMargin, false);
+        Rectangle withoutMargins = pageSize.clone().applyMargins(topMargin, rightMargin, bottomMargin, leftMargin, false);
         float topBottomMarginWidth = withoutMargins.getWidth() / 3;
         float leftRightMarginHeight = withoutMargins.getHeight() / 3;
         Rectangle[] hardcodedBoxRectangles = new Rectangle[] {
@@ -572,7 +572,7 @@ class PageContextProcessor {
         if (marginBoxInd == 0 || marginBoxInd == 4 || marginBoxInd == 8 || marginBoxInd == 12) {
             return marginBoxRectangles[marginBoxInd];
         }
-        Rectangle withoutMargins = pageSize.clone().<Rectangle>applyMargins(margins[0], margins[1], margins[2], margins[3], false);
+        Rectangle withoutMargins = pageSize.clone().applyMargins(margins[0], margins[1], margins[2], margins[3], false);
         if (marginBoxInd < 4) {
             return new Rectangle(withoutMargins.getWidth(), margins[0]);
         } else if (marginBoxInd < 8) {
