@@ -78,6 +78,9 @@ public class ConverterProperties {
     /** Character set used in conversion of input streams */
     private String charset;
 
+    /** Indicates whether the document should be opened in immediate flush or not **/
+    private boolean immediateFlush = true;
+
     /**
      * Instantiates a new {@link ConverterProperties} instance.
      */
@@ -262,6 +265,28 @@ public class ConverterProperties {
      */
     public ConverterProperties setCharset(String charset) {
         this.charset = charset;
+        return this;
+    }
+
+    /**
+     * Checks if immediateFlush is set
+     * @return true if immediateFlush is set, false if not.
+     */
+    public boolean isImmediateFlush(){
+        return immediateFlush;
+    }
+
+    /**
+     * set the immediate flush property of the layout document
+     * This is used for convertToDocument methods and will be overwritten to
+     * false if a page-counter declaration is present in the CSS of the HTML being
+     * converted.
+     * Has no effect when used in conjunction with convertToPdf or convertToElements
+     * @param immediateFlush the immediate flush value
+     * @return the ConverterProperties
+     */
+    public ConverterProperties setImmediateFlush(boolean immediateFlush){
+        this.immediateFlush = immediateFlush;
         return this;
     }
 }
