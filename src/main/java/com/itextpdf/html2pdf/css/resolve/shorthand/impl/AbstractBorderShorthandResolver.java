@@ -97,7 +97,7 @@ public abstract class AbstractBorderShorthandResolver implements IShorthandResol
             if (CssConstants.BORDER_WIDTH_VALUES.contains(value) || CssUtils.isNumericValue(value)
                     || CssUtils.isMetricValue(value) || CssUtils.isRelativeValue(value)) {
                 borderWidthValue = value;
-            } else if (CssConstants.BORDER_STYLE_VALUES.contains(value)) {
+            } else if (CssConstants.BORDER_STYLE_VALUES.contains(value) || value.equals(CssConstants.AUTO)) { // AUTO property value is needed for outline property only
                 borderStyleValue = value;
             } else if (CssUtils.isColorProperty(value) || CssConstants.INITIAL.equals(value)) {
                 borderColorValue = value;
