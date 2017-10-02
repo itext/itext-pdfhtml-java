@@ -119,7 +119,7 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
             baseline = flatBBox.getTop();
             flatBBox.setY(baseline).setHeight(0);
         }
-        flatBBox.setWidth(getContentWidth().floatValue());
+        flatBBox.setWidth((float) getContentWidth());
     }
 
     /* (non-Javadoc)

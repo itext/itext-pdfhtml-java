@@ -141,7 +141,7 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
             flatBBox.setHeight(0);
         }
-        flatBBox.setWidth(getContentWidth().floatValue());
+        flatBBox.setWidth((float) getContentWidth());
     }
 
     /* (non-Javadoc)

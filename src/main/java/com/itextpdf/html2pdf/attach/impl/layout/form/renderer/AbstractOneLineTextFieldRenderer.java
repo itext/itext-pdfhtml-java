@@ -105,12 +105,12 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
         Float minHeight = retrieveMinHeight();
         Float maxHeight = retrieveMaxHeight();
         Rectangle flatBBox = flatRenderer.getOccupiedArea().getBBox();
-        if (height != null && height.floatValue() > 0) {
-            setContentHeight(flatBBox, height.floatValue());
-        } else if (minHeight != null && minHeight.floatValue() > flatBBox.getHeight()) {
-            setContentHeight(flatBBox, minHeight.floatValue());
-        } else if (maxHeight != null && maxHeight.floatValue() > 0 && maxHeight.floatValue() < flatBBox.getHeight()) {
-            setContentHeight(flatBBox, maxHeight.floatValue());
+        if (height != null && (float) height > 0) {
+            setContentHeight(flatBBox, (float) height);
+        } else if (minHeight != null && (float) minHeight > flatBBox.getHeight()) {
+            setContentHeight(flatBBox, (float) minHeight);
+        } else if (maxHeight != null && (float) maxHeight > 0 && (float) maxHeight < flatBBox.getHeight()) {
+            setContentHeight(flatBBox, (float) maxHeight);
         }
     }
 
