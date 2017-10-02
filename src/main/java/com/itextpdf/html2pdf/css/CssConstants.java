@@ -318,6 +318,9 @@ public class CssConstants {
     /** The Constant OUTLINE_COLOR. */
     public static final String OUTLINE_COLOR = "outline-color";
 
+    /** The Constant OUTLINE_OFFSET. */
+    public static final String OUTLINE_OFFSET = "outline-offset";
+
     /** The Constant OUTLINE_STYLE. */
     public static final String OUTLINE_STYLE = "outline-style";
 
