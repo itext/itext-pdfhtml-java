@@ -47,7 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.CssDefaults;
 import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.kernel.color.Color;
+import com.itextpdf.kernel.color.ColorConstants;
 import com.itextpdf.kernel.color.DeviceRgb;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.border.Border;
@@ -149,7 +149,7 @@ public class OutlineApplierUtil {
         outlineWidthValue = unitValue.getValue();
         Border outline = null;
         if (outlineWidthValue > 0) {
-            DeviceRgb color = (DeviceRgb) Color.BLACK;
+            DeviceRgb color = (DeviceRgb) ColorConstants.BLACK;
             float opacity = 1f;
             if (outlineColor != null) {
                 if (!CssConstants.TRANSPARENT.equals(outlineColor)) {
