@@ -228,6 +228,9 @@ public final class AttributeConstants {
     /** The Constant TOP. */
     public static final String TOP = "top";
 
+    /**The Constant start*/
+    public static final String START = "start";
+
     // iText custom attributes
 
     /** The Constant PARENT_TABLE_BORDER. */
