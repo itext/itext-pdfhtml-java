@@ -80,7 +80,7 @@ public class AbsolutePositionTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Absolute position for elements that break across pages is not supported")
+    @Ignore("DEVSIX-1616: Absolute position for elements that break across pages is not supported")
     public void absolutePosition02Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "absolutePositionTest02.html"), new File(destinationFolder + "absolutePositionTest02.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "absolutePositionTest02.pdf", sourceFolder + "cmp_absolutePositionTest02.pdf", destinationFolder, "diff02_"));
