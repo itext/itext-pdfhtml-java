@@ -85,7 +85,6 @@ public class VerticalAlignmentTest {
     }
     
     @Test
-    @Ignore("Vertical alignment for inline images is not supported yet.")
     public void verticalAlignmentTest05() throws IOException, InterruptedException {
         runTest("verticalAlignmentTest05");
     }
