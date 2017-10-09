@@ -261,7 +261,10 @@ public class CssConstants {
     /** The Constant HEIGHT. */
     public static final String HEIGHT = "height";
 
-    /** The Constant HSPACE. */
+    /** The Constant HSPACE.
+     * @deprecated Use {@link com.itextpdf.html2pdf.html.AttributeConstants#HSPACE} instead. Will be removed in 7.1.
+     */
+    @Deprecated
     public static final String HSPACE = "hspace";
 
     /** The Constant HYPHENS. */
@@ -431,7 +434,9 @@ public class CssConstants {
     /** The Constant VISIBILITY. */
     public static final String VISIBILITY = "visibility";
 
-    /** The Constant VSPACE. */
+    /** The Constant VSPACE.
+      * @deprecated Use {@link com.itextpdf.html2pdf.html.AttributeConstants#VSPACE} instead. Will be removed in 7.1.
+      */
     public static final String VSPACE = "vspace";
 
     /** The Constant WHITE_SPACE. */
@@ -445,7 +450,7 @@ public class CssConstants {
 
     /** The Constant MIN_WIDTH. */
     public static final String MIN_WIDTH = "min-width";
-    
+
     /** The Constant WORDWRAP. */
     public static final String WORDWRAP = "word-wrap";
 
@@ -726,7 +731,7 @@ public class CssConstants {
 
     /** The Constant ROTATE. */
     public static final String ROTATE = "rotate";
-    
+
     /** The Constant RTL. */
     public static final String RTL = "rtl";
 
@@ -738,10 +743,10 @@ public class CssConstants {
 
     /** The Constant SCALE_Y. */
     public static final String SCALE_Y = "scaley";
-    
+
     /** The Constant SCROLL. */
     public static final String SCROLL = "scroll";
-    
+
     /** The Constant SKEW. */
     public static final String SKEW = "skew";
 
@@ -810,7 +815,7 @@ public class CssConstants {
 
     /** The Constant TRANSLATE_Y. */
     public static final String TRANSLATE_Y = "translatey";
-    
+
     /** The Constant TRANSPARENT. */
     public static final String TRANSPARENT = "transparent";
 
