@@ -145,6 +145,9 @@ public class HrTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI),
+    })
     public void hrTest14() throws IOException, InterruptedException {
         //gradient function is not supported in iText
         runHrTest("14");
