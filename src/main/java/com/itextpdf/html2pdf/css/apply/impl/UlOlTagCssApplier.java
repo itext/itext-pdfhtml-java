@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.property.ListSymbolPosition;
@@ -81,8 +82,8 @@ public class UlOlTagCssApplier extends BlockCssApplier {
 
         //For an ordered list, check and potentially retrieve the start property
         if(css.get(CssConstants.START) != null){
-            int startValue = Integer.parseInt(css.get(CssConstants.START));
-            list.setItemStartIndex(startValue);
+            Integer startValue = CssUtils.parseInteger(css.get(CssConstants.START));
+            if(startValue != null) list.setItemStartIndex(startValue);
         }
 
         super.apply(context, stylesContainer, tagWorker);
