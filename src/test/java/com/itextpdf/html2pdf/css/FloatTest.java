@@ -148,8 +148,9 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("In this test css property overflow: hidden is ignored by iText. This leads to invalid results. Perhaps, one day it will be fixed")
     public void float14Test() throws IOException, InterruptedException {
+        //NOTE: in this test overflow property creates new block-context and element is floating in this block context
+        //the block-context based floating is unsupported in iText
         runTest("float14Test", "diff14_");
     }
 

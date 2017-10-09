@@ -109,7 +109,6 @@ public class HeightTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("little fixed parent height of kid with lots of content results in empty page")
     public void heightTest05() throws IOException, InterruptedException {
         String testName = "heightTest05";
         String diffPrefix = "diff05_";

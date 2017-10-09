@@ -139,14 +139,14 @@ public class HrTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("contains 'box-shadow' in css")
     public void hrTest13() throws IOException, InterruptedException {
+        //box-shadow property is not supported in iText
         runHrTest("13");
     }
 
     @Test
-    @Ignore("contains 'gradient' in css in 'background-image'")
     public void hrTest14() throws IOException, InterruptedException {
+        //gradient function is not supported in iText
         runHrTest("14");
     }
 
