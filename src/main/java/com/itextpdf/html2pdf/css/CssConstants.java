@@ -54,7 +54,10 @@ public class CssConstants {
 
     // properties
 
-    /** The Constant ALIGN. */
+    /** The Constant ALIGN.
+     * @deprecated Use {@link com.itextpdf.html2pdf.html.AttributeConstants#ALIGN} instead. Will be removed in 7.1.
+     */
+    @Deprecated
     public static final String ALIGN = "align";
 
     /** The Constant BACKGROUND. */
@@ -381,12 +384,6 @@ public class CssConstants {
     /** The Constant TAB_SIZE. */
     public static final String TAB_SIZE = "tab-size";
 
-    /** The Constant TABLE_CELL. */
-    public static final String TABLE_CELL = "table-cell";
-
-    /** The Constant TABLE_ROW. */
-    public static final String TABLE_ROW = "table-row";
-
     /** The Constant TABLE_LAYOUT. */
     public static final String TABLE_LAYOUT = "table-layout";
 
@@ -437,6 +434,7 @@ public class CssConstants {
     /** The Constant VSPACE.
       * @deprecated Use {@link com.itextpdf.html2pdf.html.AttributeConstants#VSPACE} instead. Will be removed in 7.1.
       */
+    @Deprecated
     public static final String VSPACE = "vspace";
 
     /** The Constant WHITE_SPACE. */
@@ -791,6 +789,12 @@ public class CssConstants {
 
     /** The Constant TABLE. */
     public static final String TABLE = "table";
+
+    /** The Constant TABLE_CELL. */
+    public static final String TABLE_CELL = "table-cell";
+
+    /** The Constant TABLE_ROW. */
+    public static final String TABLE_ROW = "table-row";
 
     /** The Constant TEXT_BOTTOM. */
     public static final String TEXT_BOTTOM = "text-bottom";
