@@ -80,12 +80,6 @@ public class UlOlTagCssApplier extends BlockCssApplier {
         ListStyleApplierUtil.applyListStyleTypeProperty(stylesContainer, css, context, list);
         ListStyleApplierUtil.applyListStyleImageProperty(css, context, list);
 
-        //For an ordered list, check and potentially retrieve the start property
-        if(css.get(CssConstants.START) != null){
-            Integer startValue = CssUtils.parseInteger(css.get(CssConstants.START));
-            if(startValue != null) list.setItemStartIndex(startValue);
-        }
-
         super.apply(context, stylesContainer, tagWorker);
     }
 

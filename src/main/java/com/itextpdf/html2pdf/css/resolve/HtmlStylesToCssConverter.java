@@ -86,7 +86,6 @@ class HtmlStylesToCssConverter {
         htmlAttributeConverters.put(AttributeConstants.WIDTH, new WidthAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.HEIGHT, new HeightAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.VALIGN, new VAlignAttributeConverter());
-        htmlAttributeConverters.put(AttributeConstants.START, new StartAttributeConverter());
     }
 
     /**
@@ -601,27 +600,6 @@ class HtmlStylesToCssConverter {
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
             return Arrays.asList(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
-        }
-    }
-
-    /**
-     * {@link IAttributeConverter} implementation for HTML ordered list start attirbute.
-     */
-    private static class StartAttributeConverter implements IAttributeConverter {
-        /* (non-Javadoc)
-        * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
-        */
-        @Override
-        public boolean isSupportedForElement(String elementName) {
-            return TagConstants.OL.equals(elementName);
-        }
-
-        /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
-         */
-        @Override
-        public List<CssDeclaration> convert(IElementNode element, String value) {
-            return Arrays.asList(new CssDeclaration(CssConstants.START, value));
         }
     }
 }

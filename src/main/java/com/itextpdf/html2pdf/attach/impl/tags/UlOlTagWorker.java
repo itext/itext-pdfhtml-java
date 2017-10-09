@@ -46,6 +46,8 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
@@ -74,6 +76,11 @@ public class UlOlTagWorker implements ITagWorker {
      */
     public UlOlTagWorker(IElementNode element, ProcessorContext context) {
         list = new List().setListSymbol("");
+        //In the case of an ordered list, see if the start attribute can be found
+        if(element.getAttribute(AttributeConstants.START) != null){
+            Integer startValue = CssUtils.parseInteger(element.getAttribute(AttributeConstants.START));
+            if(startValue != null) list.setItemStartIndex(startValue);
+        }
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
