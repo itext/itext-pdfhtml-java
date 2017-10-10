@@ -86,7 +86,7 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
      */
     IRenderer createParagraphRenderer(String defaultValue) {
         if (defaultValue.trim().isEmpty()) {
-            // TODO: change to 'defaultValue = "\u00A0"' after trimming of non-breakable spaces is fixed;
+            // TODO DEVSIX-1491: change to 'defaultValue = "\u00A0"' after trimming of non-breakable spaces is fixed;
             defaultValue = "\u00B7";
         }
         Paragraph paragraph = new Paragraph(defaultValue).setMargin(0);
