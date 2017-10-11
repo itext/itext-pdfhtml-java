@@ -46,7 +46,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.CssDefaults;
 import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.borders.Border;
@@ -184,7 +184,7 @@ public class BorderStyleApplierUtil {
         borderWidthValue = unitValue.getValue();
         Border border = null;
         if (borderWidthValue > 0) {
-            DeviceRgb color = (DeviceRgb) Color.BLACK;
+            DeviceRgb color = (DeviceRgb) ColorConstants.BLACK;
             float opacity = 1f;
             if (borderColor != null) {
                 if (!CssConstants.TRANSPARENT.equals(borderColor)) {

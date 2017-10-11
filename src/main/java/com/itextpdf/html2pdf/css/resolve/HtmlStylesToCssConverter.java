@@ -66,8 +66,11 @@ import java.util.Set;
  */
 class HtmlStylesToCssConverter {
 
-    /** Maps HTML styles to a specific converter. */
+    /**
+     * Maps HTML styles to a specific converter.
+     */
     private static final Map<String, IAttributeConverter> htmlAttributeConverters;
+
     static {
         htmlAttributeConverters = new HashMap<>();
         htmlAttributeConverters.put(AttributeConstants.ALIGN, new AlignAttributeConverter());
@@ -95,7 +98,7 @@ class HtmlStylesToCssConverter {
         ArrayList<CssDeclaration> convertedHtmlStyles = new ArrayList<>();
         if (element.getAdditionalHtmlStyles() != null) {
             HashMap<String, String> additionalStyles = new HashMap<>();
-            for(Map<String, String> styles : element.getAdditionalHtmlStyles()) {
+            for (Map<String, String> styles : element.getAdditionalHtmlStyles()) {
                 additionalStyles.putAll(styles);
             }
             convertedHtmlStyles.ensureCapacity(convertedHtmlStyles.size() + additionalStyles.size());
@@ -118,7 +121,7 @@ class HtmlStylesToCssConverter {
      * Interface for all the attribute converter classes.
      */
     private interface IAttributeConverter {
-        
+
         /**
          * Checks if the converter is supported for a specific element.
          *
@@ -131,7 +134,7 @@ class HtmlStylesToCssConverter {
          * Converts a specific HTML style to a {@link CssDeclaration}.
          *
          * @param element the element
-         * @param value the value of the HTML style
+         * @param value   the value of the HTML style
          * @return a list of {@link CssDeclaration} instances
          */
         List<CssDeclaration> convert(IElementNode element, String value);
@@ -146,7 +149,7 @@ class HtmlStylesToCssConverter {
         /**
          * Applies borders to the tables and cells.
          *
-         * @param node the node
+         * @param node         the node
          * @param borderStyles the border styles
          */
         private static void applyBordersToTableCells(INode node, Map<String, String> borderStyles) {
@@ -202,7 +205,7 @@ class HtmlStylesToCssConverter {
         /**
          * Applies paddings to the table's cells.
          *
-         * @param node the node
+         * @param node         the node
          * @param paddingStyle cellpadding
          */
         private static void applyPaddingsToTableCells(INode node, Map<String, String> paddingStyle) {
@@ -248,8 +251,10 @@ class HtmlStylesToCssConverter {
      * {@link IAttributeConverter} implementation for HTML background color styles.
      */
     private static class BgColorAttributeConverter implements IAttributeConverter {
-        
-        /** The supported tags. */
+
+        /**
+         * The supported tags.
+         */
         private static Set<String> supportedTags = new HashSet<>(
                 Arrays.asList(TagConstants.BODY, TagConstants.COL, TagConstants.COLGROUP, TagConstants.MARQUEE,
                         TagConstants.TABLE, TagConstants.TBODY, TagConstants.TFOOT, TagConstants.TD, TagConstants.TH,
@@ -277,7 +282,7 @@ class HtmlStylesToCssConverter {
      * {@link IAttributeConverter} implementation for font color styles.
      */
     private static class FontColorAttributeConverter implements IAttributeConverter {
-        
+
         /* (non-Javadoc)
          * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
          */
@@ -299,7 +304,7 @@ class HtmlStylesToCssConverter {
      * {@link IAttributeConverter} implementation for size properties.
      */
     private static class SizeAttributeConverter implements IAttributeConverter {
-        
+
         /* (non-Javadoc)
          * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
          */
@@ -354,7 +359,7 @@ class HtmlStylesToCssConverter {
      * {@link IAttributeConverter} implementation for HTML font face styles.
      */
     private static class FontFaceAttributeConverter implements IAttributeConverter {
-        
+
         /* (non-Javadoc)
          * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
          */
@@ -495,7 +500,7 @@ class HtmlStylesToCssConverter {
      * {@link IAttributeConverter} implementation for HTML horizontal alignment styles.
      */
     private static class AlignAttributeConverter implements IAttributeConverter {
-        
+
         /* (non-Javadoc)
          * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
          */
@@ -579,13 +584,13 @@ class HtmlStylesToCssConverter {
      * {@link IAttributeConverter} implementation for HTML vertical alignment styles.
      */
     private static class VAlignAttributeConverter implements IAttributeConverter {
-        
+
         /* (non-Javadoc)
          * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
          */
         @Override
         public boolean isSupportedForElement(String elementName) {
-            return TagConstants.TD.equals(elementName) || TagConstants.TH.equals(elementName) 
+            return TagConstants.TD.equals(elementName) || TagConstants.TH.equals(elementName)
                     || TagConstants.TR.equals(elementName);
         }
 

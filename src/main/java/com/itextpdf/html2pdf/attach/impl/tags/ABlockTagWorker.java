@@ -46,8 +46,11 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.resolver.resource.UriResolver;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.property.Property;
+
+import java.net.MalformedURLException;
 
 import static com.itextpdf.kernel.pdf.PdfName.Link;
 
@@ -75,6 +78,19 @@ public class ABlockTagWorker extends DivTagWorker {
 
         String url = element.getAttribute(AttributeConstants.HREF);
         if (url != null) {
+            String base = context.getBaseUri();
+            if (base != null) {
+                UriResolver uriResolver = new UriResolver(base);
+                if (!(url.startsWith("#") && uriResolver.isLocalBaseUri()))
+                    try {
+                        String resolvedUri = uriResolver.resolveAgainstBaseUri(url).toExternalForm();
+                        if (!url.endsWith("/") && resolvedUri.endsWith("/"))
+                            resolvedUri = resolvedUri.substring(0, resolvedUri.length() - 1);
+                        if (!resolvedUri.startsWith("file:"))
+                            url = resolvedUri;
+                    } catch (MalformedURLException exception) {
+                    }
+            }
             ((Div) getElementResult()).setRole(Link);
             LinkHelper.applyLinkAnnotation(getElementResult(), url);
         }

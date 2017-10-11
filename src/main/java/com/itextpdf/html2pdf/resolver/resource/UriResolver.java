@@ -62,7 +62,7 @@ public class UriResolver {
     private URL baseUrl;
 
     /** Indicates if the Uri refers to a local resource. */
-    private boolean isLocal;
+    private boolean isLocalBaseUri;
 
     /**
      * Creates a new {@link UriResolver} instance.
@@ -94,8 +94,8 @@ public class UriResolver {
         uriString = uriString.trim();
         // decode and then encode uri string in order to process unsafe characters correctly
         String scheme = getUriStringScheme(uriString);
-        uriString = EncodeUtil.encode(DecodeUtil.decode(uriString, scheme), scheme);
-        if (isLocal) {
+        uriString = UriEncodeUtil.encode(uriString);
+        if (isLocalBaseUri) {
             // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
             // resources around the file system even if on web page the path started with '\'
             uriString = uriString.replaceFirst("/*\\\\*", "");
@@ -127,7 +127,7 @@ public class UriResolver {
     private void resolveBaseUrlOrPath(String base) {
         base = base.trim();
         String scheme = getUriStringScheme(base);
-        base = EncodeUtil.encode(DecodeUtil.decode(base, scheme), scheme);
+        base = UriEncodeUtil.encode(base);
         baseUrl = baseUriAsUrl(base);
         if (baseUrl == null) {
             baseUrl = uriAsFileUrl(base);
@@ -153,7 +153,7 @@ public class UriResolver {
                 baseAsUrl = baseUri.toURL();
 
                 if ("file".equals(baseUri.getScheme())) {
-                    isLocal = true;
+                    isLocalBaseUri = true;
                 }
             }
         } catch (Exception ignored) {
@@ -172,7 +172,7 @@ public class UriResolver {
         try {
             Path path = Paths.get(baseUriString);
             baseAsFileUrl = path.toAbsolutePath().normalize().toUri().toURL();
-            isLocal = true;
+            isLocalBaseUri = true;
         } catch (Exception ignored) {
         }
 
@@ -181,14 +181,15 @@ public class UriResolver {
 
     /**
      * Get the scheme component of this URI.
+     *
      * @param uriString
      * @return
      */
     private String getUriStringScheme(String uriString) {
         String result = null;
-        Matcher matcher = Pattern.compile("^[^:]+").matcher(uriString);
+        Matcher matcher = Pattern.compile("^[a-zA-Z]([a-zA-Z]|\\d|\\+|-|\\.)*:").matcher(uriString);
         if (matcher.find()) {
-            result = matcher.group();
+            result = matcher.group().substring(0, matcher.group().indexOf(':'));
         } else if (null != baseUrl) {
             try {
                 result = baseUrl.toURI().getScheme();
@@ -198,4 +199,12 @@ public class UriResolver {
         return result;
     }
 
+    /**
+     * Check if baseURI is local
+     *
+     * @return true if baseURI is local, otherwise false
+     */
+    public boolean isLocalBaseUri() {
+        return isLocalBaseUri;
+    }
 }

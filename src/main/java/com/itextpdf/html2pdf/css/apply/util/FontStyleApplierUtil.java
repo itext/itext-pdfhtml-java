@@ -50,6 +50,7 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
 import com.itextpdf.layout.IPropertyContainer;
@@ -116,7 +117,7 @@ public final class FontStyleApplierUtil {
                 float opacity = rgbaColor[3];
                 transparentColor = new TransparentColor(color, opacity);
             } else {
-                transparentColor = new TransparentColor(Color.BLACK, 0f);
+                transparentColor = new TransparentColor(ColorConstants.BLACK, 0f);
             }
             element.setProperty(Property.FONT_COLOR, transparentColor);
         }

@@ -46,12 +46,16 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.resolver.resource.UriResolver;
 import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.Transform;
+
+import java.net.MalformedURLException;
+
 
 /**
  * TagWorker class for the {@code a} element.
@@ -77,6 +81,19 @@ public class ATagWorker extends SpanTagWorker {
 
         String url = element.getAttribute(AttributeConstants.HREF);
         if (url != null) {
+            String base = context.getBaseUri();
+            if (base != null) {
+                UriResolver uriResolver = new UriResolver(base);
+                if (!(url.startsWith("#") && uriResolver.isLocalBaseUri()))
+                    try {
+                        String resolvedUri = uriResolver.resolveAgainstBaseUri(url).toExternalForm();
+                        if (!url.endsWith("/") && resolvedUri.endsWith("/"))
+                            resolvedUri = resolvedUri.substring(0, resolvedUri.length() - 1);
+                        if (!resolvedUri.startsWith("file:"))
+                            url = resolvedUri;
+                    } catch (MalformedURLException exception) {
+                    }
+            }
             for (int i = 0; i < getAllElements().size(); i++) {
                 if (getAllElements().get(i) instanceof IBlockElement) {
                     Div simulatedDiv = new Div();
@@ -99,5 +116,4 @@ public class ATagWorker extends SpanTagWorker {
             firstElement.setProperty(Property.DESTINATION, name);
         }
     }
-
 }
