@@ -79,7 +79,7 @@ public class UlOlTagWorker implements ITagWorker {
         //In the case of an ordered list, see if the start attribute can be found
         if(element.getAttribute(AttributeConstants.START) != null){
             Integer startValue = CssUtils.parseInteger(element.getAttribute(AttributeConstants.START));
-            if(startValue != null) list.setItemStartIndex(startValue);
+            if(startValue != null) list.setItemStartIndex((int)startValue);
         }
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
