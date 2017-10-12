@@ -138,7 +138,6 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1368: font-face alias is not recognized correctly by font selector if it is specified in quotes")
     public void fontFaceWoffTest02() throws IOException, InterruptedException {
         runTest("fontFaceWoffTest02");
     }
@@ -187,9 +186,11 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.FONT_SUBSET_ISSUE)})
     //TODO: silently omitted, decompression should fail. Browser loads font but don't draw glyph.
     //See HeaderFlavor002Test in io for decompression details
     public void w3cProblemTest04() throws IOException, InterruptedException {
+        //NOTE, iText fails on subsetting as expected.
         runTest("w3cProblemTest04");
     }
 
