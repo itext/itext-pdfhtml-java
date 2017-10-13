@@ -171,7 +171,7 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1520, DEVSIX-1612")
+    @Ignore("DEVSIX-1612")
     //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
     //See DirectoryTableOrder002Test in io for decompression details
     public void w3cProblemTest02() throws IOException, InterruptedException {
@@ -209,7 +209,7 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1520, DEVSIX-1612")
+    @Ignore("DEVSIX-1612")
     //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
     //See ValidationOff012Test in io for decompression details
     public void w3cProblemTest07() throws IOException, InterruptedException {
