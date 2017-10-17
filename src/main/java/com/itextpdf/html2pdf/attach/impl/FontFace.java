@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.attach.impl;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.layout.font.FontFamilySplitter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +75,7 @@ class FontFace {
         String srcs = null;
         for(CssDeclaration descriptor: properties) {
             if ("font-family".equals(descriptor.getProperty())) {
-                fontFamily = descriptor.getExpression();
+                fontFamily = FontFamilySplitter.removeQuotes(descriptor.getExpression());
             } else if ("src".equals(descriptor.getProperty())) {
                 srcs = descriptor.getExpression();
             }

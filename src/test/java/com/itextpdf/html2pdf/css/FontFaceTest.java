@@ -138,7 +138,6 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1368: font-face alias is not recognized correctly by font selector if it is specified in quotes")
     public void fontFaceWoffTest02() throws IOException, InterruptedException {
         runTest("fontFaceWoffTest02");
     }
@@ -172,7 +171,7 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1520, DEVSIX-1612")
+    @Ignore("DEVSIX-1612")
     //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
     //See DirectoryTableOrder002Test in io for decompression details
     public void w3cProblemTest02() throws IOException, InterruptedException {
@@ -187,9 +186,11 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.FONT_SUBSET_ISSUE)})
     //TODO: silently omitted, decompression should fail. Browser loads font but don't draw glyph.
     //See HeaderFlavor002Test in io for decompression details
     public void w3cProblemTest04() throws IOException, InterruptedException {
+        //NOTE, iText fails on subsetting as expected.
         runTest("w3cProblemTest04");
     }
 
@@ -208,7 +209,7 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1520, DEVSIX-1612")
+    @Ignore("DEVSIX-1612")
     //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
     //See ValidationOff012Test in io for decompression details
     public void w3cProblemTest07() throws IOException, InterruptedException {
