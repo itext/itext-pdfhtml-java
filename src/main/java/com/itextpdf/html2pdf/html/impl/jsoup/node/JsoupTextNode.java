@@ -43,21 +43,22 @@
 package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
 import com.itextpdf.html2pdf.html.node.ITextNode;
+import com.itextpdf.html2pdf.jsoup.nodes.TextNode;
 
 /**
- * Implementation of the {@link ITextNode} interface; wrapper for the JSoup {@link org.jsoup.nodes.TextNode} class.
+ * Implementation of the {@link ITextNode} interface; wrapper for the JSoup {@link TextNode} class.
  */
 public class JsoupTextNode extends JsoupNode implements ITextNode {
 
     /** The text node. */
-    private org.jsoup.nodes.TextNode textNode;
+    private TextNode textNode;
 
     /**
      * Creates a new {@link JsoupTextNode} instance.
      *
      * @param textNode the text node
      */
-    public JsoupTextNode(org.jsoup.nodes.TextNode textNode) {
+    public JsoupTextNode(TextNode textNode) {
         super(textNode);
         this.textNode = textNode;
     }

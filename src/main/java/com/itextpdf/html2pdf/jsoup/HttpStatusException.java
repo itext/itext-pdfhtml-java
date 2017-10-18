@@ -1,8 +1,8 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
-    Authors: Bruno Lowagie, Paulo Soares, et al.
-    
+    Authors: iText Software.
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-    
+
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-    
+
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-    
+
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-    
+
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,27 +36,37 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-    
+
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.html.impl.jsoup.node;
+package com.itextpdf.html2pdf.jsoup;
 
-import com.itextpdf.html2pdf.html.node.IDocumentTypeNode;
-import com.itextpdf.html2pdf.jsoup.nodes.DocumentType;
+import java.io.IOException;
 
 /**
- * Implementation of the {@link IDocumentTypeNode} interface; wrapper for the JSoup {@link DocumentType} class.
+ * Signals that a HTTP request resulted in a not OK HTTP response.
  */
-public class JsoupDocumentTypeNode extends JsoupNode implements IDocumentTypeNode {
+public class HttpStatusException extends IOException {
+    private int statusCode;
+    private String url;
 
-    /**
-     * Creates a new {@link JsoupDocumentTypeNode} instance.
-     *
-     * @param node the node
-     */
-    public JsoupDocumentTypeNode(DocumentType node) {
-        super(node);
+    public HttpStatusException(String message, int statusCode, String url) {
+        super(message);
+        this.statusCode = statusCode;
+        this.url = url;
     }
 
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ". Status=" + statusCode + ", URL=" + url;
+    }
 }

@@ -44,8 +44,8 @@ package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
 import com.itextpdf.html2pdf.html.node.IAttribute;
 import com.itextpdf.html2pdf.html.node.IAttributes;
-import org.jsoup.nodes.Attribute;
-import org.jsoup.nodes.Attributes;
+import com.itextpdf.html2pdf.jsoup.nodes.Attribute;
+import com.itextpdf.html2pdf.jsoup.nodes.Attributes;
 
 import java.util.Iterator;
 

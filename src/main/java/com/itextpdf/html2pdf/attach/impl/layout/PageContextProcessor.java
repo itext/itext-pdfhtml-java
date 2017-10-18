@@ -80,8 +80,8 @@ import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
-import org.jsoup.nodes.Element;
-import org.jsoup.parser.Tag;
+import com.itextpdf.html2pdf.jsoup.nodes.Element;
+import com.itextpdf.html2pdf.jsoup.parser.Tag;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
