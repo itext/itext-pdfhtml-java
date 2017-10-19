@@ -103,7 +103,7 @@ public abstract class TreeBuilder {
         if (currentToken == start) { // don't recycle an in-use token
             return process(new Token.StartTag().name(name));
         }
-        return process(start.reset().name(name));
+        return process(((Token.Tag)start.reset()).name(name));
     }
 
     public boolean processStartTag(String name, Attributes attrs) {
@@ -119,7 +119,7 @@ public abstract class TreeBuilder {
         if (currentToken == end) { // don't recycle an in-use token
             return process(new Token.EndTag().name(name));
         }
-        return process(end.reset().name(name));
+        return process(((Token.Tag)end.reset()).name(name));
     }
 
 

@@ -413,7 +413,7 @@ public abstract class Evaluator {
     public static final class IsLastChild extends Evaluator {
 		@Override
 		public boolean matches(Element root, Element element) {
-			final Element p = element.parent();
+			final Element p = (Element) element.parent();
 			return p != null && !(p instanceof Document) && element.elementSiblingIndex() == p.children().size()-1;
 		}
 
@@ -457,7 +457,7 @@ public abstract class Evaluator {
 
     	@Override
     	public boolean matches(Element root, Element element) {
-    		final Element p = element.parent();
+    		final Element p = (Element) element.parent();
     		if (p == null || (p instanceof Document)) return false;
 
     		final int pos = calculatePosition(root, element);
@@ -513,7 +513,7 @@ public abstract class Evaluator {
 
         @Override
         protected int calculatePosition(Element root, Element element) {
-        	return element.parent().children().size() - element.elementSiblingIndex();
+        	return ((Element) element.parent()).children().size() - element.elementSiblingIndex();
         }
 
 		@Override
@@ -533,7 +533,7 @@ public abstract class Evaluator {
 
 		protected int calculatePosition(Element root, Element element) {
 			int pos = 0;
-        	Elements family = element.parent().children();
+        	Elements family = ((Element) element.parent()).children();
             for (Element el : family) {
                 if (el.tag().equals(element.tag())) pos++;
                 if (el == element) break;
@@ -556,7 +556,7 @@ public abstract class Evaluator {
 		@Override
 		protected int calculatePosition(Element root, Element element) {
 			int pos = 0;
-        	Elements family = element.parent().children();
+        	Elements family = ((Element) element.parent()).children();
         	for (int i = element.elementSiblingIndex(); i < family.size(); i++) {
         		if (family.get(i).tag().equals(element.tag())) pos++;
         	}
@@ -575,7 +575,7 @@ public abstract class Evaluator {
     public static final class IsFirstChild extends Evaluator {
     	@Override
     	public boolean matches(Element root, Element element) {
-    		final Element p = element.parent();
+    		final Element p = (Element) element.parent();
     		return p != null && !(p instanceof Document) && element.elementSiblingIndex() == 0;
     	}
 
@@ -605,7 +605,7 @@ public abstract class Evaluator {
     public static final class IsOnlyChild extends Evaluator {
 		@Override
 		public boolean matches(Element root, Element element) {
-			final Element p = element.parent();
+			final Element p = (Element) element.parent();
 			return p!=null && !(p instanceof Document) && element.siblingElements().size() == 0;
 		}
     	@Override
@@ -617,7 +617,7 @@ public abstract class Evaluator {
     public static final class IsOnlyOfType extends Evaluator {
 		@Override
 		public boolean matches(Element root, Element element) {
-			final Element p = element.parent();
+			final Element p = (Element) element.parent();
 			if (p==null || p instanceof Document) return false;
 
 			int pos = 0;

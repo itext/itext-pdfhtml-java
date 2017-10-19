@@ -216,7 +216,7 @@ public class HtmlTreeBuilder extends TreeBuilder {
             Element el = insertEmpty(startTag);
             stack.add(el);
             tokeniser.transition(TokeniserState.Data); // handles <script />, otherwise needs breakout steps from script data
-            tokeniser.emit(emptyEnd.reset().name(el.tagName()));  // ensure we get out of whatever state we are in. emitted for yielded processing
+            tokeniser.emit(((Token.Tag)emptyEnd.reset()).name(el.tagName()));  // ensure we get out of whatever state we are in. emitted for yielded processing
             return el;
         }
         
@@ -717,7 +717,7 @@ public class HtmlTreeBuilder extends TreeBuilder {
         boolean isLastTableParent = false;
         if (lastTable != null) {
             if (lastTable.parent() != null) {
-                fosterParent = lastTable.parent();
+                fosterParent = (Element) lastTable.parent();
                 isLastTableParent = true;
             } else
                 fosterParent = aboveOnStack(lastTable);

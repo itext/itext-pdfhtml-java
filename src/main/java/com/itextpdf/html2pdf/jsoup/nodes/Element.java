@@ -168,7 +168,7 @@ public class Element extends Node {
      *
      * @return this element
      */
-    public Element attr(String attributeKey, String attributeValue) {
+    public Node attr(String attributeKey, String attributeValue) {
         super.attr(attributeKey, attributeValue);
         return this;
     }
@@ -206,8 +206,8 @@ public class Element extends Node {
     }
 
     @Override
-    public final Element parent() {
-        return (Element) parentNode;
+    public final Node parent() {
+        return parentNode;
     }
 
     /**
@@ -221,7 +221,7 @@ public class Element extends Node {
     }
 
     private static void accumulateParents(Element el, Elements parents) {
-        Element parent = el.parent();
+        Element parent = (Element) el.parent();
         if (parent != null && !parent.tagName().equals("#root")) {
             parents.add(parent);
             accumulateParents(parent, parents);
@@ -469,8 +469,8 @@ public class Element extends Node {
      * @see #after(String)
      */
     @Override
-    public Element before(String html) {
-        return (Element) super.before(html);
+    public Node before(String html) {
+        return super.before(html);
     }
 
     /**
@@ -480,8 +480,8 @@ public class Element extends Node {
      * @see #after(Node)
      */
     @Override
-    public Element before(Node node) {
-        return (Element) super.before(node);
+    public Node before(Node node) {
+        return super.before(node);
     }
 
     /**
@@ -492,7 +492,7 @@ public class Element extends Node {
      * @see #before(String)
      */
     @Override
-    public Element after(String html) {
+    public Node after(String html) {
         return (Element) super.after(html);
     }
 
@@ -503,7 +503,7 @@ public class Element extends Node {
      * @see #before(Node)
      */
     @Override
-    public Element after(Node node) {
+    public Node after(Node node) {
         return (Element) super.after(node);
     }
 
@@ -523,8 +523,8 @@ public class Element extends Node {
      * @return this element, for chaining.
      */
     @Override
-    public Element wrap(String html) {
-        return (Element) super.wrap(html);
+    public Node wrap(String html) {
+        return super.wrap(html);
     }
 
     /**
@@ -552,11 +552,11 @@ public class Element extends Node {
             return selector.toString();
 
         selector.insert(0, " > ");
-        if (parent().select(selector.toString()).size() > 1)
+        if (((Element) parent()).select(selector.toString()).size() > 1)
             selector.append(MessageFormatUtil.format(
                 ":nth-child({0})", elementSiblingIndex() + 1));
 
-        return parent().cssSelector() + selector.toString();
+        return ((Element) parent()).cssSelector() + selector.toString();
     }
 
     /**
@@ -568,7 +568,7 @@ public class Element extends Node {
         if (parentNode == null)
             return new Elements(0);
 
-        List<Element> elements = parent().children();
+        List<Element> elements = ((Element) parent()).children();
         Elements siblings = new Elements(elements.size() - 1);
         for (Element el: elements)
             if (el != this)
@@ -587,7 +587,7 @@ public class Element extends Node {
      */
     public Element nextElementSibling() {
         if (parentNode == null) return null;
-        List<Element> siblings = parent().children();
+        List<Element> siblings = ((Element) parent()).children();
         int index = indexInList(this, siblings);
         Validate.isTrue(index >= 0);
         //Validate.notNull(index);
@@ -604,7 +604,7 @@ public class Element extends Node {
      */
     public Element previousElementSibling() {
         if (parentNode == null) return null;
-        List<Element> siblings = parent().children();
+        List<Element> siblings = ((Element) parent()).children();
         int index = indexInList(this, siblings);
         Validate.isTrue(index >= 0);
         if (index > 0)
@@ -619,7 +619,7 @@ public class Element extends Node {
      */
     public Element firstElementSibling() {
         // todo: should firstSibling() exclude this?
-        List<Element> siblings = parent().children();
+        List<Element> siblings = ((Element) parent()).children();
         return siblings.size() > 1 ? siblings.get(0) : null;
     }
 
@@ -630,7 +630,7 @@ public class Element extends Node {
      */
     public int elementSiblingIndex() {
        if (parent() == null) return 0;
-       return indexInList(this, parent().children());
+       return indexInList(this, ((Element) parent()).children());
     }
 
     /**
@@ -638,7 +638,7 @@ public class Element extends Node {
      * @return the last sibling that is an element (aka the parent's last element child)
      */
     public Element lastElementSibling() {
-        List<Element> siblings = parent().children();
+        List<Element> siblings = ((Element) parent()).children();
         return siblings.size() > 1 ? siblings.get(siblings.size() - 1) : null;
     }
 
@@ -1000,7 +1000,7 @@ public class Element extends Node {
         if (node != null && node instanceof Element) {
             Element element = (Element) node;
             return element.tag.preserveWhitespace() ||
-                element.parent() != null && element.parent().tag.preserveWhitespace();
+                element.parent() != null && ((Element) element.parent()).tag.preserveWhitespace();
         }
         return false;
     }
@@ -1195,7 +1195,7 @@ public class Element extends Node {
     }
 
     void outerHtmlHead(Appendable accum, int depth, Document.OutputSettings out) throws IOException {
-        if (out.prettyPrint() && (tag.formatAsBlock() || (parent() != null && parent().tag().formatAsBlock()) || out.outline())) {
+        if (out.prettyPrint() && (tag.formatAsBlock() || (parent() != null && ((Element) parent()).tag().formatAsBlock()) || out.outline())) {
             if (accum instanceof StringBuilder) {
                 if (((StringBuilder) accum).length() > 0)
                     indent(accum, depth, out);

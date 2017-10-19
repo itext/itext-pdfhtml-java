@@ -232,7 +232,7 @@ final class Tokeniser {
     }
 
     Token.Tag createTagPending(boolean start) {
-        tagPending = start ? startPending.reset() : endPending.reset();
+        tagPending = (Token.Tag) (start ? startPending.reset() : endPending.reset());
         return tagPending;
     }
 

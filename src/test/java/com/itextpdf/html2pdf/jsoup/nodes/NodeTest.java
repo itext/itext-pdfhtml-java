@@ -319,7 +319,7 @@ public class NodeTest {
         Element el = doc.select("div").first();
         assertTrue(el.hasClass("foo"));
 
-        Element elClone = doc.clone().select("div").first();
+        Element elClone = ((Document) doc.clone()).select("div").first();
         assertTrue(elClone.hasClass("foo"));
         assertTrue(elClone.text().equals("Text"));
 

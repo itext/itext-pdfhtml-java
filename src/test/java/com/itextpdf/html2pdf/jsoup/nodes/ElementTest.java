@@ -346,7 +346,7 @@ public class ElementTest {
         Document doc = Jsoup.parse("<div id=1><p>Hello</p></div>");
         Element div = doc.getElementById("1");
         div.appendElement("p").text("there");
-        div.appendElement("P").attr("class", "second").text("now");
+        ((Element) div.appendElement("P").attr("class", "second")).text("now");
         assertEquals("<html><head></head><body><div id=\"1\"><p>Hello</p><p>there</p><p class=\"second\">now</p></div></body></html>",
                 TextUtil.stripNewlines(doc.html()));
 
@@ -475,7 +475,7 @@ public class ElementTest {
         p.wrap("<div class='head'></div>");
         assertEquals("<div><div class=\"head\"><p>Hello</p></div><p>There</p></div>", TextUtil.stripNewlines(doc.body().html()));
 
-        Element ret = p.wrap("<div><div class=foo></div><p>What?</p></div>");
+        Element ret = (Element) p.wrap("<div><div class=foo></div><p>What?</p></div>");
         assertEquals("<div><div class=\"head\"><div><div class=\"foo\"><p>Hello</p></div><p>What?</p></div></div><p>There</p></div>",
                 TextUtil.stripNewlines(doc.body().html()));
 

@@ -254,7 +254,7 @@ public class HtmlParserTest {
         assertEquals(0, ol.size());
         Elements lis = doc.select("li");
         assertEquals(2, lis.size());
-        assertEquals("body", lis.first().parent().tagName());
+        assertEquals("body", ((Element) lis.first().parent()).tagName());
 
         // no fiddling with non-implicit lists
         String h2 = "<ol><li><p>Point the first<li><p>Point the second";
@@ -424,8 +424,8 @@ public class HtmlParserTest {
         // per the spec, dt and dd are inline, but in practise are block
         String h = "<dl><dt><div id=1>Term</div></dt><dd><div id=2>Def</div></dd></dl>";
         Document doc = Jsoup.parse(h);
-        assertEquals("dt", doc.select("#1").first().parent().tagName());
-        assertEquals("dd", doc.select("#2").first().parent().tagName());
+        assertEquals("dt", ((Element) doc.select("#1").first().parent()).tagName());
+        assertEquals("dd", ((Element) doc.select("#2").first().parent()).tagName());
         assertEquals("<dl><dt><div id=\"1\">Term</div></dt><dd><div id=\"2\">Def</div></dd></dl>", TextUtil.stripNewlines(doc.body().html()));
     }
 

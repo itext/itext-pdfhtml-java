@@ -119,7 +119,7 @@ abstract class Token {
         Attributes attributes; // start tags get attributes on construction. End tags get attributes on first new attribute (but only for parser convenience, not used).
 
         @Override
-        Tag reset() {
+        Token reset() {
             tagName = null;
             pendingAttributeName = null;
             reset(pendingAttributeValue);
@@ -238,7 +238,7 @@ abstract class Token {
         }
 
         @Override
-        Tag reset() {
+        Token reset() {
             super.reset();
             attributes = new Attributes();
             // todo - would prefer these to be null, but need to check Element assertions
