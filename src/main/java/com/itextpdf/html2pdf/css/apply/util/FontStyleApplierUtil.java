@@ -271,7 +271,7 @@ public final class FontStyleApplierUtil {
      *
      * @param relativeFontSizeValue the relative font size value as a {@link String}
      * @param baseValue the base value
-     * @return the relative font size value as a {@link float}
+     * @return the relative font size value as a {@code float}
      */
     public static float parseRelativeFontSize(final String relativeFontSizeValue, final float baseValue) {
         if (CssConstants.SMALLER.equals(relativeFontSizeValue)) {
