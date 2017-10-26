@@ -218,7 +218,7 @@ public class ParseTest {
 
     public static File getFile(String resourceName) {
         try {
-            File file = new File(ParseTest.class.getResource("/org/jsoup" + resourceName).toURI());
+            File file = new File(ParseTest.class.getResource("/com/itextpdf/html2pdf/jsoup" + resourceName).toURI());
             return file;
         } catch (URISyntaxException e) {
             throw new IllegalStateException(e);
