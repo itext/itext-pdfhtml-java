@@ -72,11 +72,15 @@ public class StyleTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "styleTest01.pdf", sourceFolder + "cmp_styleTest01.pdf", destinationFolder, "diff01_"));
     }
 
-    @Ignore("DEVSIX-1374")
     @Test
     public void styleTest02() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "styleTest02.html"), new File(destinationFolder + "styleTest02.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "styleTest02.pdf", sourceFolder + "cmp_styleTest02.pdf", destinationFolder, "diff02_"));
     }
 
+    @Test
+    public void styleTest03() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "styleTest03.html"), new File(destinationFolder + "styleTest03.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "styleTest03.pdf", sourceFolder + "cmp_styleTest03.pdf", destinationFolder, "diff03_"));
+    }
 }

@@ -47,15 +47,17 @@ package com.itextpdf.html2pdf.css;
  */
 public abstract class CssAtRule extends CssStatement {
 
-    /** The rule name. */
-    protected String ruleName;
+    /**
+     * The rule name.
+     */
+    String ruleName;
 
     /**
      * Creates a new {@link CssAtRule} instance.
      *
      * @param ruleName the rule name
      */
-    protected CssAtRule(String ruleName) {
+    CssAtRule(String ruleName) {
         this.ruleName = ruleName;
     }
 

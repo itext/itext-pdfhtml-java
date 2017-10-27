@@ -54,7 +54,10 @@ public class CssConstants {
 
     // properties
 
-    /** The Constant ALIGN. */
+    /** The Constant ALIGN.
+     * @deprecated Use {@link com.itextpdf.html2pdf.html.AttributeConstants#ALIGN} instead. Will be removed in 7.1.
+     */
+    @Deprecated
     public static final String ALIGN = "align";
 
     /** The Constant BACKGROUND. */
@@ -261,7 +264,10 @@ public class CssConstants {
     /** The Constant HEIGHT. */
     public static final String HEIGHT = "height";
 
-    /** The Constant HSPACE. */
+    /** The Constant HSPACE.
+     * @deprecated Use {@link com.itextpdf.html2pdf.html.AttributeConstants#HSPACE} instead. Will be removed in 7.1.
+     */
+    @Deprecated
     public static final String HSPACE = "hspace";
 
     /** The Constant HYPHENS. */
@@ -317,6 +323,9 @@ public class CssConstants {
 
     /** The Constant OUTLINE_COLOR. */
     public static final String OUTLINE_COLOR = "outline-color";
+
+    /** The Constant OUTLINE_OFFSET. */
+    public static final String OUTLINE_OFFSET = "outline-offset";
 
     /** The Constant OUTLINE_STYLE. */
     public static final String OUTLINE_STYLE = "outline-style";
@@ -375,9 +384,6 @@ public class CssConstants {
     /** The Constant TAB_SIZE. */
     public static final String TAB_SIZE = "tab-size";
 
-    /** The Constant TABLE_CELL. */
-    public static final String TABLE_CELL = "table-cell";
-
     /** The Constant TABLE_LAYOUT. */
     public static final String TABLE_LAYOUT = "table-layout";
 
@@ -425,7 +431,10 @@ public class CssConstants {
     /** The Constant VISIBILITY. */
     public static final String VISIBILITY = "visibility";
 
-    /** The Constant VSPACE. */
+    /** The Constant VSPACE.
+      * @deprecated Use {@link com.itextpdf.html2pdf.html.AttributeConstants#VSPACE} instead. Will be removed in 7.1.
+      */
+    @Deprecated
     public static final String VSPACE = "vspace";
 
     /** The Constant WHITE_SPACE. */
@@ -439,7 +448,7 @@ public class CssConstants {
 
     /** The Constant MIN_WIDTH. */
     public static final String MIN_WIDTH = "min-width";
-    
+
     /** The Constant WORDWRAP. */
     public static final String WORDWRAP = "word-wrap";
 
@@ -720,7 +729,7 @@ public class CssConstants {
 
     /** The Constant ROTATE. */
     public static final String ROTATE = "rotate";
-    
+
     /** The Constant RTL. */
     public static final String RTL = "rtl";
 
@@ -732,10 +741,10 @@ public class CssConstants {
 
     /** The Constant SCALE_Y. */
     public static final String SCALE_Y = "scaley";
-    
+
     /** The Constant SCROLL. */
     public static final String SCROLL = "scroll";
-    
+
     /** The Constant SKEW. */
     public static final String SKEW = "skew";
 
@@ -781,6 +790,12 @@ public class CssConstants {
     /** The Constant TABLE. */
     public static final String TABLE = "table";
 
+    /** The Constant TABLE_CELL. */
+    public static final String TABLE_CELL = "table-cell";
+
+    /** The Constant TABLE_ROW. */
+    public static final String TABLE_ROW = "table-row";
+
     /** The Constant TEXT_BOTTOM. */
     public static final String TEXT_BOTTOM = "text-bottom";
 
@@ -804,7 +819,7 @@ public class CssConstants {
 
     /** The Constant TRANSLATE_Y. */
     public static final String TRANSLATE_Y = "translatey";
-    
+
     /** The Constant TRANSPARENT. */
     public static final String TRANSPARENT = "transparent";
 
@@ -884,74 +899,108 @@ public class CssConstants {
     /** The Constant BEFORE. */
     public static final String BEFORE = "before";
 
+    /** The Constant FIRST_LETTER. */
     public static final String FIRST_LETTER = "first-letter";
 
+    /** The Constant FIRST_LINE. */
     public static final String FIRST_LINE = "first-line";
 
+    /** The Constant SELECTION. */
     public static final String SELECTION = "selection";
 
     // pseudo-classes
 
+    /** The Constant ACTIVE. */
     public static final String ACTIVE = "active";
 
+    /** The Constant CHECKED. */
     public static final String CHECKED = "checked";
 
+    /** The Constant DISABLED. */
     public static final String DISABLED = "disabled";
 
+    /** The Constant EMPTY. */
     public static final String EMPTY = "empty";
 
+    /** The Constant ENABLED. */
     public static final String ENABLED = "enabled";
 
+    /** The Constant FIRST_CHILD. */
     public static final String FIRST_CHILD = "first-child";
 
+    /** The Constant FIRST_OF_TYPE. */
     public static final String FIRST_OF_TYPE = "first-of-type";
 
+    /** The Constant FOCUS. */
     public static final String FOCUS = "focus";
 
+    /** The Constant HOVER. */
     public static final String HOVER = "hover";
 
+    /** The Constant IN_RANGE. */
     public static final String IN_RANGE = "in-range";
 
+    /** The Constant INVALID. */
     public static final String INVALID = "invalid";
 
+    /** The Constant LANG. */
     public static final String LANG = "lang";
 
+    /** The Constant LAST_CHILD. */
     public static final String LAST_CHILD = "last-child";
 
+    /** The Constant LAST_OF_TYPE. */
     public static final String LAST_OF_TYPE = "last-of-type";
 
+    /** The Constant LINK. */
     public static final String LINK = "link";
 
+    /** The Constant NTH_CHILD. */
     public static final String NTH_CHILD = "nth-child";
 
+    /** The Constant NOT. */
     public static final String NOT = "not";
 
+    /** The Constant NTH_LAST_CHILD. */
     public static final String NTH_LAST_CHILD = "nth-last-child";
 
+    /** The Constant NTH_LAST_OF_TYPE. */
     public static final String NTH_LAST_OF_TYPE = "nth-last-of-type";
 
+    /** The Constant NTH_OF_TYPE. */
     public static final String NTH_OF_TYPE = "nth-of-type";
 
+    /** The Constant ONLY_OF_TYPE. */
     public static final String ONLY_OF_TYPE = "only-of-type";
 
+    /** The Constant ONLY_CHILD. */
     public static final String ONLY_CHILD = "only-child";
 
+    /** The Constant OPTIONAL. */
     public static final String OPTIONAL = "optional";
 
+    /** The Constant OUT_OF_RANGE. */
     public static final String OUT_OF_RANGE = "out-of-range";
 
+    /** The Constant READ_ONLY. */
     public static final String READ_ONLY = "read-only";
 
+    /** The Constant READ_WRITE. */
     public static final String READ_WRITE = "read-write";
 
+    /** The Constant REQUIRED. */
     public static final String REQUIRED = "required";
 
+    /** The Constant ROOT. */
     public static final String ROOT = "root";
 
+    /** The Constant TARGET. */
     public static final String TARGET = "target";
 
+    /** The Constant VALID. */
     public static final String VALID = "valid";
 
+    /** The Constant VISITED. */
     public static final String VISITED = "visited";
 
     // Functions

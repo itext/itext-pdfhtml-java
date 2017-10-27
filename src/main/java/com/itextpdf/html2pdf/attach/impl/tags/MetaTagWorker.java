@@ -44,7 +44,9 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.kernel.pdf.PdfDocumentInfo;
 import com.itextpdf.layout.IPropertyContainer;
 
 /**
@@ -56,7 +58,7 @@ public class MetaTagWorker implements ITagWorker {
     /**
      * Creates a new {@link MetaTagWorker} instance.
      *
-     * @param tag the tag
+     * @param tag     the tag
      * @param context the context
      */
     public MetaTagWorker(IElementNode tag, ProcessorContext context) {
@@ -67,7 +69,28 @@ public class MetaTagWorker implements ITagWorker {
      */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-
+        // Note that charset and http-equiv attributes are processed on DataUtil#parseByteData(ByteBuffer, String, String, Parser) level.
+        String name = element.getAttribute(AttributeConstants.NAME);
+        if (null != name) {
+            name = name.toLowerCase();
+            String content = element.getAttribute(AttributeConstants.CONTENT);
+            // although iText do not visit head during processing html to elements
+            // meta tag can by accident be presented in body section and that shouldn't cause NPE
+            if (null != content && null != context.getPdfDocument()) {
+                PdfDocumentInfo info = context.getPdfDocument().getDocumentInfo();
+                if (AttributeConstants.AUTHOR.equals(name)) {
+                    info.setAuthor(content);
+                } else if (AttributeConstants.APPLICATION_NAME.equals(name)) {
+                    info.setCreator(content);
+                } else if (AttributeConstants.KEYWORDS.equals(name)) {
+                    info.setKeywords(content);
+                } else if (AttributeConstants.DESCRIPTION.equals(name)) {
+                    info.setSubject(content);
+                } else {
+                    info.setMoreInfo(name, content);
+                }
+            }
+        }
     }
 
     /* (non-Javadoc)
@@ -75,7 +98,6 @@ public class MetaTagWorker implements ITagWorker {
      */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
-        //TODO add keywords to document.
         return false;
     }
 

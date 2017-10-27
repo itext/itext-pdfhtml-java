@@ -66,7 +66,7 @@ public final class CssPropertyMerger {
      * @param secondValue the second value
      * @return the merged value
      */
-    public static String mergeTextDecoration(String firstValue, String secondValue) {
+    static String mergeTextDecoration(String firstValue, String secondValue) {
         if (firstValue == null) {
             return secondValue;
         } else if (secondValue == null) {

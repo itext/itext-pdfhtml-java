@@ -13,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170619112537-03'00')/ModDate(D:20170619112537-03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(WOFF Test: Header Total SFNT Size Too Short)>>
+<</CreationDate(D:20170823115608+03'00')/ModDate(D:20170823115608+03'00')/Producer(iText® 7.0.5-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(WOFF Test: Header Total SFNT Size Too Short)>>
 endobj
 6 0 obj
 <</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -22,7 +22,7 @@ endobj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
 endobj
 7 0 obj
-<</A 8 0 R/Border[0 0 0]/P 4 0 R/Rect[36 772.68 101.87 789.34]/Subtype/Link>>
+<</A 8 0 R/Border[0 0 0]/F 4/P 4 0 R/Rect[36 772.68 101.87 789.34]/Subtype/Link>>
 endobj
 8 0 obj
 <</IsMap false/S/URI/Type/Action/URI(../../FontsToInstall)>>
@@ -37,10 +37,10 @@ xref
 0000000015 00000 n 
 0000000801 00000 n 
 0000000940 00000 n 
-0000001033 00000 n 
+0000001037 00000 n 
 trailer
-<</ID [<7b6fc03d8480fbe64cc2e3a9a256f902><7b6fc03d8480fbe64cc2e3a9a256f902>]/Info 3 0 R/Root 1 0 R/Size 9>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<40e4d9c30d8474c3dd12c180fd2608fd><40e4d9c30d8474c3dd12c180fd2608fd>]/Info 3 0 R/Root 1 0 R/Size 9>>
+%TEST-LICE-NSE0-7.0.5-SNAPSHOT
 startxref
-1109
+1113
 %%EOF

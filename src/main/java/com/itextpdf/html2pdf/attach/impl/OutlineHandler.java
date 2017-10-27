@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.PdfOutline;
 import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.kernel.pdf.navigation.PdfDestination;
@@ -55,7 +56,6 @@ import com.itextpdf.layout.property.Property;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -63,27 +63,39 @@ import java.util.Map;
 
 /**
  * A {@link OutlineHandler} handles creating outlines for tags.
- *
+ * <p>
  * This class is not reusable and a new instance shall be created for every new conversion process.
  */
 public class OutlineHandler {
 
-    /** The Constant DESTINATION_PREFIX. */
+    /**
+     * The Constant DESTINATION_PREFIX.
+     */
     private static final String DESTINATION_PREFIX = "pdfHTML-iText-outline-";
 
-    /** The current outline. */
+    /**
+     * The current outline.
+     */
     private PdfOutline currentOutline;
 
-    /** The destinations in process. */
+    /**
+     * The destinations in process.
+     */
     private Deque<String> destinationsInProcess = new LinkedList<String>();
 
-    /** The levels in process. */
+    /**
+     * The levels in process.
+     */
     private Deque<Integer> levelsInProcess = new LinkedList<Integer>();
 
-    /** The tag priorities mapping. */
+    /**
+     * The tag priorities mapping.
+     */
     private Map<String, Integer> tagPrioritiesMapping = new HashMap<String, Integer>();
 
-    /** The unique IDs. */
+    /**
+     * The unique IDs.
+     */
     private Map<String, Integer> uniqueIDs = new HashMap<String, Integer>();
 
 
@@ -106,7 +118,7 @@ public class OutlineHandler {
     /**
      * Put tag priority mapping.
      *
-     * @param tagName the tag name
+     * @param tagName  the tag name
      * @param priority the priority
      * @return the outline handler
      */
@@ -147,11 +159,21 @@ public class OutlineHandler {
     }
 
     /**
+     * Resets the current state so that this {@link OutlineHandler} is ready to process new document
+     */
+    public void reset() {
+        currentOutline = null;
+        destinationsInProcess.clear();
+        levelsInProcess.clear();
+        uniqueIDs.clear();
+    }
+
+    /**
      * Adds the outline.
      *
      * @param tagWorker the tag worker
-     * @param element the element
-     * @param context the processor context
+     * @param element   the element
+     * @param context   the processor context
      * @return the outline handler
      */
     OutlineHandler addOutline(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
@@ -186,7 +208,7 @@ public class OutlineHandler {
      * Adds the destination.
      *
      * @param tagWorker the tag worker
-     * @param element the element
+     * @param element   the element
      * @return the outline handler
      */
     OutlineHandler addDestination(ITagWorker tagWorker, IElementNode element) {

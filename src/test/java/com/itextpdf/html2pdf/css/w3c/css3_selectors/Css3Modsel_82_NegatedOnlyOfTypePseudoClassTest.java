@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.css.w3c.css3_selectors;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import org.junit.Ignore;
 
-@Ignore("DEVSIX-1388")
+@Ignore("DEVSIX-1440")
 public class Css3Modsel_82_NegatedOnlyOfTypePseudoClassTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

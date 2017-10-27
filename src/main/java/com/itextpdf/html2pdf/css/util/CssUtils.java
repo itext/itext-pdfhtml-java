@@ -56,6 +56,7 @@ import com.itextpdf.io.util.MessageFormatUtil;
  */
 public class CssUtils {
 
+    private static final String[] METRIC_MEASUREMENTS = new String[] {CssConstants.PX, CssConstants.IN, CssConstants.CM, CssConstants.MM, CssConstants.PC, CssConstants.PT};
     private static final String[] RELATIVE_MEASUREMENTS = new String[] {CssConstants.PERCENTAGE, CssConstants.EM, CssConstants.EX, CssConstants.REM};
 
     /**
@@ -332,9 +333,15 @@ public class CssUtils {
      * @return boolean true if value contains an allowed metric value.
      */
     public static boolean isMetricValue(final String value) {
-        // TODO make it check if it is a number + metric ending
-        return value != null && (value.endsWith(CssConstants.PX) || value.endsWith(CssConstants.IN) || value.endsWith(CssConstants.CM)
-                || value.endsWith(CssConstants.MM) || value.endsWith(CssConstants.PC) || value.endsWith(CssConstants.PT));
+        if (value == null) {
+            return false;
+        }
+        for (String metricPostfix : METRIC_MEASUREMENTS) {
+            if (value.endsWith(metricPostfix) && isNumericValue(value.substring(0, value.length() - metricPostfix.length()).trim())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -372,7 +379,7 @@ public class CssUtils {
      * @return boolean true if value contains an allowed metric value.
      */
     public static boolean isNumericValue(final String value) {
-        return value != null && (value.matches("^-?\\d\\d*\\.\\d*$") || value.matches("^-?\\d\\d*$") || value.matches("^-?\\.\\d\\d*$"));
+        return value != null && (value.matches("^[-+]?\\d\\d*\\.\\d*$") || value.matches("^[-+]?\\d\\d*$") || value.matches("^[-+]?\\.\\d\\d*$"));
     }
 
     /**

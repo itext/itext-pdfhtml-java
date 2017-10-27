@@ -145,4 +145,11 @@ public class Html2ElementsTest extends ExtendedITextTest {
         for(int i=0;i<lst.size();i++)
             Assert.assertTrue(lst.get(i) instanceof Paragraph);
     }
+
+    @Test
+    // this test checks whether iText fails to process meta tag inside body section or not
+    public void htmlToElementsTest08() throws IOException {
+        String html = "<html><p>Hello world!</p><meta name=\"author\" content=\"Bruno\"><table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table><p>Hello world!</p></html>";
+        HtmlConverter.convertToElements(html);
+    }
 }

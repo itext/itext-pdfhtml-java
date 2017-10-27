@@ -50,11 +50,13 @@ import com.itextpdf.layout.renderer.LineRenderer;
 import java.util.List;
 
 /**
-* Abstract {@link BlockRenderer} for a single line of text content in a form field.
-*/
+ * Abstract {@link BlockRenderer} for a single line of text content in a form field.
+ */
 public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextFieldRenderer {
 
-    /** The position of the base line of the text. */
+    /**
+     * The position of the base line of the text.
+     */
     protected float baseline;
 
     /**
@@ -62,7 +64,7 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
      *
      * @param modelElement the model element
      */
-    protected AbstractOneLineTextFieldRenderer(IFormField modelElement) {
+    AbstractOneLineTextFieldRenderer(IFormField modelElement) {
         super(modelElement);
     }
 
@@ -86,9 +88,9 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
      * Crops the content lines.
      *
      * @param lines a list of lines
-     * @param bBox the bounding box
+     * @param bBox  the bounding box
      */
-    protected void cropContentLines(List<LineRenderer> lines, Rectangle bBox) {
+    void cropContentLines(List<LineRenderer> lines, Rectangle bBox) {
         adjustNumberOfContentLines(lines, bBox, 1);
         updateParagraphHeight();
         baseline = lines.get(0).getYLine();
@@ -97,25 +99,24 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
     /**
      * Updates the paragraph height.
      */
-    protected void updateParagraphHeight() {
-        overrideHeightProperties();
+    private void updateParagraphHeight() {
         Float height = retrieveHeight();
         Float minHeight = retrieveMinHeight();
         Float maxHeight = retrieveMaxHeight();
         Rectangle flatBBox = flatRenderer.getOccupiedArea().getBBox();
-        if (height != null && height.floatValue() > 0) {
-            setContentHeight(flatBBox, height.floatValue());
-        } else if (minHeight != null && minHeight.floatValue() > flatBBox.getHeight()) {
-            setContentHeight(flatBBox, minHeight.floatValue());
-        } else if (maxHeight != null && maxHeight.floatValue() > 0 && maxHeight.floatValue() < flatBBox.getHeight()) {
-            setContentHeight(flatBBox, maxHeight.floatValue());
+        if (height != null && (float) height > 0) {
+            setContentHeight(flatBBox, (float) height);
+        } else if (minHeight != null && (float) minHeight > flatBBox.getHeight()) {
+            setContentHeight(flatBBox, (float) minHeight);
+        } else if (maxHeight != null && (float) maxHeight > 0 && (float) maxHeight < flatBBox.getHeight()) {
+            setContentHeight(flatBBox, (float) maxHeight);
         }
     }
 
     /**
      * Sets the content height.
      *
-     * @param bBox the bounding box
+     * @param bBox   the bounding box
      * @param height the height
      */
     private void setContentHeight(Rectangle bBox, float height) {

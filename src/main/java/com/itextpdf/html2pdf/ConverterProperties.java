@@ -75,6 +75,12 @@ public class ConverterProperties {
     /** Indicates whether an AcroForm should be created. */
     private boolean createAcroForm = false;
 
+    /** Character set used in conversion of input streams */
+    private String charset;
+
+    /** Indicates whether the document should be opened in immediate flush or not **/
+    private boolean immediateFlush = true;
+
     /**
      * Instantiates a new {@link ConverterProperties} instance.
      */
@@ -95,6 +101,7 @@ public class ConverterProperties {
         this.baseUri = other.baseUri;
         this.createAcroForm = other.createAcroForm;
         this.outlineHandler = other.outlineHandler;
+        this.charset = other.charset;
     }
 
     /**
@@ -127,7 +134,9 @@ public class ConverterProperties {
     }
 
     /**
-     * Sets the font provider.
+     * Sets the font provider. Please note that {@link FontProvider} instances cannot be reused across several documents
+     * and thus as soon as you set this property, this {@link ConverterProperties} instance becomes only useful for a single
+     * HTML conversion.
      *
      * @param fontProvider the font provider
      * @return the ConverterProperties instance
@@ -227,13 +236,57 @@ public class ConverterProperties {
     }
 
     /**
-     * Sets the outline handler.
+     * Sets the outline handler. Please note that {@link OutlineHandler} is not thread safe, thus
+     * as soon as you have set this property, this {@link ConverterProperties} instance cannot be used in converting multiple
+     * HTMLs simultaneously.
      *
      * @param outlineHandler the outline handler
      * @return the ConverterProperties instance
      */
     public ConverterProperties setOutlineHandler(OutlineHandler outlineHandler) {
         this.outlineHandler = outlineHandler;
+        return this;
+    }
+
+    /**
+     * Gets the encoding charset.
+     *
+     * @return the charset
+     */
+    public String getCharset() {
+        return charset;
+    }
+
+    /**
+     * Sets the encoding charset.
+     *
+     * @param charset the charset
+     * @return the ConverterProperties instance
+     */
+    public ConverterProperties setCharset(String charset) {
+        this.charset = charset;
+        return this;
+    }
+
+    /**
+     * Checks if immediateFlush is set
+     * @return true if immediateFlush is set, false if not.
+     */
+    public boolean isImmediateFlush(){
+        return immediateFlush;
+    }
+
+    /**
+     * set the immediate flush property of the layout document
+     * This is used for convertToDocument methods and will be overwritten to
+     * false if a page-counter declaration is present in the CSS of the HTML being
+     * converted.
+     * Has no effect when used in conjunction with convertToPdf or convertToElements
+     * @param immediateFlush the immediate flush value
+     * @return the ConverterProperties
+     */
+    public ConverterProperties setImmediateFlush(boolean immediateFlush){
+        this.immediateFlush = immediateFlush;
         return this;
     }
 }

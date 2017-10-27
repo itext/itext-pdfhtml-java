@@ -141,7 +141,7 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
             flatBBox.setHeight(0);
         }
-        flatBBox.setWidth(getContentWidth().floatValue());
+        flatBBox.setWidth((float) getContentWidth());
     }
 
     /* (non-Javadoc)
@@ -165,9 +165,9 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
         PdfPage page = doc.getPage(occupiedArea.getPageNumber());
         PdfFormField inputField = PdfFormField.createText(doc, area, name, value, font, fontSize);
-        applyDefaultFieldProperties(inputField);
         inputField.setFieldFlag(PdfFormField.FF_MULTILINE, true);
         inputField.setDefaultValue(new PdfString(getDefaultValue()));
+        applyDefaultFieldProperties(inputField);
         PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
     }
 

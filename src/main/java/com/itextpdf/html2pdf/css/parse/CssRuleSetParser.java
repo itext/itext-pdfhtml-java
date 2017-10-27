@@ -66,7 +66,9 @@ import java.util.Arrays;
  */
 public final class CssRuleSetParser {
 
-    /** The logger. */
+    /**
+     * The logger.
+     */
     private static final Logger logger = LoggerFactory.getLogger(CssRuleSetParser.class);
 
     private static final Set<String> unsupportedPseudoClasses = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
@@ -107,21 +109,30 @@ public final class CssRuleSetParser {
      */
     public static List<CssDeclaration> parsePropertyDeclarations(String propertiesStr) {
         List<CssDeclaration> declarations = new ArrayList<>();
-        int pos = getSemicolonPosition(propertiesStr, 0);
-        while (pos != -1) {
-            String[] propertySplit = splitCssProperty(propertiesStr.substring(0, pos));
-            if (propertySplit != null) {
-                declarations.add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+        int openedCommentPos = propertiesStr.indexOf("/*", 0);
+        if (openedCommentPos != -1) {
+            declarations.addAll(parsePropertyDeclarations(propertiesStr.substring(0, openedCommentPos)));
+            int closedCommentPos = propertiesStr.indexOf("*/", openedCommentPos);
+            if (closedCommentPos != -1) {
+                declarations.addAll(parsePropertyDeclarations(propertiesStr.substring(closedCommentPos + 2, propertiesStr.length())));
             }
-            propertiesStr = propertiesStr.substring(pos + 1);
-            pos = getSemicolonPosition(propertiesStr, 0);
-        }
-        if (!propertiesStr.replaceAll("[\\n\\r\\t ]", "").isEmpty()) {
-            String[] propertySplit = splitCssProperty(propertiesStr);
-            if (propertySplit != null) {
-                declarations.add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+        } else {
+            int pos = getSemicolonPosition(propertiesStr, 0);
+            while (pos != -1) {
+                String[] propertySplit = splitCssProperty(propertiesStr.substring(0, pos));
+                if (propertySplit != null) {
+                    declarations.add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+                }
+                propertiesStr = propertiesStr.substring(pos + 1);
+                pos = getSemicolonPosition(propertiesStr, 0);
             }
-            return declarations;
+            if (!propertiesStr.replaceAll("[\\n\\r\\t ]", "").isEmpty()) {
+                String[] propertySplit = splitCssProperty(propertiesStr);
+                if (propertySplit != null) {
+                    declarations.add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+                }
+                return declarations;
+            }
         }
         return declarations;
     }
@@ -131,7 +142,7 @@ public final class CssRuleSetParser {
      * This method returns a {@link List} because a selector can
      * be compound, like "p, div, #navbar".
      *
-     * @param selectorStr the selector
+     * @param selectorStr   the selector
      * @param propertiesStr the properties
      * @return the resulting list of {@link CssRuleSet} instances
      */
@@ -156,7 +167,7 @@ public final class CssRuleSetParser {
                     ruleSets.add(new CssRuleSet(selector, declarations));
                 }
             } catch (Exception exc) {
-                logger.error(LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, exc);
+                logger.error(MessageFormatUtil.format(LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, currentSelectorStr), exc);
                 //if any separated selector has errors, all others become invalid.
                 //in this case we just clear map, it is the easies way to support this.
                 declarations.clear();
@@ -193,7 +204,7 @@ public final class CssRuleSetParser {
      * Gets the semicolon position.
      *
      * @param propertiesStr the properties
-     * @param fromIndex the from index
+     * @param fromIndex     the from index
      * @return the semicolon position
      */
     private static int getSemicolonPosition(String propertiesStr, int fromIndex) {
@@ -213,6 +224,12 @@ public final class CssRuleSetParser {
         return semiColonPos;
     }
 
+    /**
+     * Return whether or not the selector items contain unsupported pseudoclasses
+     *
+     * @param selectorItems
+     * @return
+     */
     private static boolean selectorItemsContainsUnsupportedPseudoClasses(List<ICssSelectorItem> selectorItems) {
         for (ICssSelectorItem selectorItem : selectorItems) {
             if (selectorItem instanceof CssPseudoClassSelectorItem) {

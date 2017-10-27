@@ -42,10 +42,15 @@
  */
 package com.itextpdf.html2pdf.attach.util;
 
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfArray;
 import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.kernel.pdf.action.PdfAction;
+import com.itextpdf.kernel.pdf.annot.PdfAnnotation;
 import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
 import com.itextpdf.kernel.pdf.tagutils.IAccessibleElement;
 import com.itextpdf.layout.IPropertyContainer;
@@ -67,22 +72,49 @@ public class LinkHelper {
      * Applies a link annotation.
      *
      * @param container the containing object
-     * @param url the destination
+     * @param url       the destination
      */
     public static void applyLinkAnnotation(IPropertyContainer container, String url) {
         if (container != null) {
             PdfLinkAnnotation linkAnnotation;
             if (url.startsWith("#")) {
                 String name = url.substring(1);
-                linkAnnotation = new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createGoTo(name));
+                linkAnnotation = (PdfLinkAnnotation) new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createGoTo(name)).setFlags(PdfAnnotation.PRINT);
             } else {
-                linkAnnotation = new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createURI(url));
+                linkAnnotation = (PdfLinkAnnotation) new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createURI(url)).setFlags(PdfAnnotation.PRINT);
             }
             linkAnnotation.setBorder(new PdfArray(new float[]{0, 0, 0}));
             container.setProperty(Property.LINK_ANNOTATION, linkAnnotation);
             if (container instanceof ILeafElement && container instanceof IAccessibleElement) {
-                    ((IAccessibleElement) container).setRole(PdfName.Link);
+                ((IAccessibleElement) container).setRole(PdfName.Link);
             }
+        }
+    }
+
+    /**
+     * Creates a destination
+     *
+     * @param tagWorker the tagworker that is building the (iText) element
+     * @param element   the (HTML) element being converted
+     * @param context   the Processor context
+     */
+    public static void createDestination(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
+        if (element.getAttribute(AttributeConstants.ID) == null)
+            return;
+
+        if (tagWorker == null)
+            return;
+
+        IPropertyContainer propertyContainer = tagWorker.getElementResult();
+        if (propertyContainer == null)
+            return;
+
+        // get id
+        String id = element.getAttribute(AttributeConstants.ID);
+
+        // set property
+        if (context.getLinkContext().isUsedLinkDestination(id)) {
+            propertyContainer.setProperty(Property.DESTINATION, id);
         }
     }
 }

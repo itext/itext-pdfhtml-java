@@ -138,13 +138,14 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1368: font-face alias is not recognized correctly by font selector if it is specified in quotes")
     public void fontFaceWoffTest02() throws IOException, InterruptedException {
         runTest("fontFaceWoffTest02");
     }
 
     @Test
-    @Ignore("contains ttc font")
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_FONT)
+    })
     public void fontFaceTtcTest() throws IOException, InterruptedException {
         runTest("fontFaceTtcTest");
     }
@@ -155,59 +156,82 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("contains ttc font")
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_FONT)
+    })
     public void fontFaceWoff2TtcTest() throws IOException, InterruptedException {
         runTest("fontFaceWoff2TtcTest");
     }
 
     @Test
     //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+    //See BlocksMetadataPadding001Test in io for decompression details
     public void w3cProblemTest01() throws IOException, InterruptedException {
         runTest("w3cProblemTest01");
     }
 
     @Test
-    @Ignore("DEVSIX-444")
+    @Ignore("DEVSIX-1612")
     //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
+    //See DirectoryTableOrder002Test in io for decompression details
     public void w3cProblemTest02() throws IOException, InterruptedException {
         runTest("w3cProblemTest02");
     }
 
     @Test
     //TODO: silently omitted, decompression should fail.
+    //See HeaderFlavor001Test in io for decompression details
     public void w3cProblemTest03() throws IOException, InterruptedException {
         runTest("w3cProblemTest03");
     }
 
     @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.FONT_SUBSET_ISSUE)})
     //TODO: silently omitted, decompression should fail. Browser loads font but don't draw glyph.
+    //See HeaderFlavor002Test in io for decompression details
     public void w3cProblemTest04() throws IOException, InterruptedException {
+        //NOTE, iText fails on subsetting as expected.
         runTest("w3cProblemTest04");
     }
 
     @Test
     //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+    //See HeaderReserved001Test in io for decompression details
     public void w3cProblemTest05() throws IOException, InterruptedException {
         runTest("w3cProblemTest05");
     }
 
     @Test
     //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+    //See TabledataHmtxTransform003Test in io for decompression details
     public void w3cProblemTest06() throws IOException, InterruptedException {
         runTest("w3cProblemTest06");
     }
 
     @Test
-    @Ignore("DEVSIX-444")
+    @Ignore("DEVSIX-1612")
     //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
+    //See ValidationOff012Test in io for decompression details
     public void w3cProblemTest07() throws IOException, InterruptedException {
         runTest("w3cProblemTest07");
     }
 
     @Test
-    //TODO: browser can load font with @font-face family name different form family name stored in font metadata, but iText should have them equal in order to work.
-    public void incorrectFontNameTest() throws IOException, InterruptedException {
-        runTest("incorrectFontNameTest");
+    //TODO: DEVSIX-1519
+    public void incorrectFontNameTest01() throws IOException, InterruptedException {
+        runTest("incorrectFontNameTest01");
+    }
+
+    @Test
+    //TODO: DEVSIX-1519
+    public void incorrectFontNameTest02() throws IOException, InterruptedException {
+        runTest("incorrectFontNameTest02");
+    }
+
+    @Test
+    //Checks that font used in previous two files is correct
+    public void incorrectFontNameTest03() throws IOException, InterruptedException {
+        runTest("incorrectFontNameTest03");
     }
 
     private void runTest(String name) throws IOException, InterruptedException {

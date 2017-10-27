@@ -49,8 +49,10 @@ import org.jsoup.nodes.Attribute;
  * Implementation of the {@link IAttribute} interface; wrapper for the JSoup {@link Attribute} class.
  */
 public class JsoupAttribute implements IAttribute {
-    
-    /** The JSoup {@link Attribute} instance. */
+
+    /**
+     * The JSoup {@link Attribute} instance.
+     */
     private Attribute attribute;
 
     /**

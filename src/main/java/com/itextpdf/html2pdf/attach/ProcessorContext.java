@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.attach;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
+import com.itextpdf.html2pdf.attach.impl.LinkContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
@@ -93,6 +94,9 @@ public class ProcessorContext {
     /** The outline handler. */
     private OutlineHandler outlineHandler;
 
+    /** Indicates whether the document should be opened in immediate flush or not **/
+    private boolean immediateFlush;
+
     // Variable fields
     
     /** The state. */
@@ -100,7 +104,10 @@ public class ProcessorContext {
     
     /** The CSS context. */
     private CssContext cssContext;
-    
+
+    /** The link context */
+    private LinkContext linkContext;
+
     /** The PDF document. */
     private PdfDocument pdfDocument;
 
@@ -117,7 +124,7 @@ public class ProcessorContext {
 
         deviceDescription = converterProperties.getMediaDeviceDescription();
         if (deviceDescription == null) {
-            deviceDescription = MediaDeviceDescription.createDefault();
+            deviceDescription = MediaDeviceDescription.getDefault();
         }
 
         fontProvider = converterProperties.getFontProvider();
@@ -127,12 +134,12 @@ public class ProcessorContext {
 
         tagWorkerFactory = converterProperties.getTagWorkerFactory();
         if (tagWorkerFactory == null) {
-            tagWorkerFactory = new DefaultTagWorkerFactory();
+            tagWorkerFactory = DefaultTagWorkerFactory.getInstance();
         }
 
         cssApplierFactory = converterProperties.getCssApplierFactory();
         if (cssApplierFactory == null) {
-            cssApplierFactory = new DefaultCssApplierFactory();
+            cssApplierFactory = DefaultCssApplierFactory.getInstance();
         }
 
         baseUri = converterProperties.getBaseUri();
@@ -148,9 +155,11 @@ public class ProcessorContext {
         resourceResolver = new ResourceResolver(baseUri);
 
         cssContext = new CssContext();
+        linkContext = new LinkContext();
 
         createAcroForm = converterProperties.isCreateAcroForm();
         formFieldNameResolver = new FormFieldNameResolver();
+        immediateFlush = converterProperties.isImmediateFlush();
     }
 
     /**
@@ -244,6 +253,15 @@ public class ProcessorContext {
     }
 
     /**
+     * Gets the link context.
+     *
+     * @return the link context
+     */
+    public LinkContext getLinkContext() {
+        return linkContext;
+    }
+
+    /**
      * Checks if is an AcroForm needs to be created.
      *
      * @return true, an AcroForm should be created
@@ -313,10 +331,12 @@ public class ProcessorContext {
         this.state = new State();
         this.resourceResolver.resetCache();
         this.cssContext = new CssContext();
+        this.linkContext = new LinkContext();
         this.formFieldNameResolver.reset();
         //Reset font provider. PdfFonts shall be reseted.
         this.fontProvider = new FontProvider(this.fontProvider.getFontSet());
         this.tempFonts = null;
+        this.outlineHandler.reset();
     }
 
     /**
@@ -328,4 +348,23 @@ public class ProcessorContext {
         reset();
         this.pdfDocument = pdfDocument;
     }
+
+    /**
+     * Gets the baseURI: the URI which has been set manually or the directory of the html file in case when baseURI hasn't been set manually.
+     *
+     * @return the baseUri
+     */
+    public String getBaseUri(){
+        return baseUri;
+    }
+
+
+    /**
+     * Checks if immediateFlush is set
+     * @return true if immediateFlush is set, false if not.
+     */
+    public boolean isImmediateFlush(){
+        return immediateFlush;
+    }
+
 }

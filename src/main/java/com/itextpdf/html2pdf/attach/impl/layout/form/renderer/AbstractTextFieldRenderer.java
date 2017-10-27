@@ -46,7 +46,7 @@ import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.geom.Rectangle;
-import com.itextpdf.kernel.pdf.PdfName;
+import com.itextpdf.kernel.pdf.annot.PdfAnnotation;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.Leading;
 import com.itextpdf.layout.property.Property;
@@ -60,11 +60,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* Abstract {@link BlockRenderer} for form fields with text content.
-*/
+ * Abstract {@link BlockRenderer} for form fields with text content.
+ */
 public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRenderer {
 
-    /** The font to be used for the text. */
+    /**
+     * The font to be used for the text.
+     */
     protected PdfFont font;
 
     /**
@@ -72,7 +74,7 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
      *
      * @param modelElement the model element
      */
-    protected AbstractTextFieldRenderer(IFormField modelElement) {
+    AbstractTextFieldRenderer(IFormField modelElement) {
         super(modelElement);
     }
 
@@ -82,9 +84,9 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
      * @param defaultValue the default value
      * @return the renderer
      */
-    protected IRenderer createParagraphRenderer(String defaultValue) {
+    IRenderer createParagraphRenderer(String defaultValue) {
         if (defaultValue.trim().isEmpty()) {
-            // TODO: change to 'defaultValue = "\u00A0"' after trimming of non-breakable spaces is fixed;
+            // TODO DEVSIX-1491: change to 'defaultValue = "\u00A0"' after trimming of non-breakable spaces is fixed;
             defaultValue = "\u00B7";
         }
         Paragraph paragraph = new Paragraph(defaultValue).setMargin(0);
@@ -98,11 +100,11 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
     /**
      * Adjust number of content lines.
      *
-     * @param lines the lines that need to be rendered
-     * @param bBox the bounding box
+     * @param lines       the lines that need to be rendered
+     * @param bBox        the bounding box
      * @param linesNumber the number of lines
      */
-    protected void adjustNumberOfContentLines(List<LineRenderer> lines, Rectangle bBox, int linesNumber) {
+    void adjustNumberOfContentLines(List<LineRenderer> lines, Rectangle bBox, int linesNumber) {
         float averageLineHeight = bBox.getHeight() / lines.size();
         if (lines.size() != linesNumber) {
             float actualHeight = averageLineHeight * linesNumber;
@@ -121,8 +123,8 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
      *
      * @param inputField the input field
      */
-    protected void applyDefaultFieldProperties(PdfFormField inputField) {
-        inputField.getWidgets().get(0).setHighlightMode(PdfName.N);
+    void applyDefaultFieldProperties(PdfFormField inputField) {
+        inputField.getWidgets().get(0).setHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
         inputField.setBorderWidth(0);
         TransparentColor color = getPropertyAsTransparentColor(Property.FONT_COLOR);
         if (color != null) {
@@ -135,7 +137,7 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
      *
      * @param renderer the renderer
      */
-    protected void updatePdfFont(ParagraphRenderer renderer) {
+    void updatePdfFont(ParagraphRenderer renderer) {
         Object retrievedFont;
         if (renderer != null) {
             List<LineRenderer> lines = renderer.getLines();

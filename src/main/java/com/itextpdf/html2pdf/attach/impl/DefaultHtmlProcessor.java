@@ -49,8 +49,8 @@ import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
-import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
+import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssFontFaceRule;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
@@ -186,6 +186,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         context.reset();
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context);
+        context.getLinkContext().scanForIds(root);
         addFontFaceFonts();
         IElementNode html = findHtmlNode(root);
         IElementNode body = findBodyNode(root);
@@ -261,8 +262,10 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         // TODO store html version from document type in context if necessary
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context);
+        context.getLinkContext().scanForIds(root);
         addFontFaceFonts();
         root = findHtmlNode(root);
+
         visit(root);
         Document doc = (Document) roots.get(0);
         // TODO more precise check if a counter was actually added to the document
@@ -309,6 +312,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
             if (tagWorker != null) {
                 tagWorker.processEnd(element, context);
+                LinkHelper.createDestination(tagWorker, element, context);
                 context.getOutlineHandler().addDestination(tagWorker, element);
                 context.getState().pop();
 
@@ -356,7 +360,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     /**
      * Adds @font-face fonts to the FontProvider.
      */
-    protected void addFontFaceFonts() {
+    private void addFontFaceFonts() {
         //TODO Shall we add getFonts() to ICssResolver?
         if (cssResolver instanceof DefaultCssResolver) {
             for (CssFontFaceRule fontFace : ((DefaultCssResolver) cssResolver).getFonts()) {
@@ -509,7 +513,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             boolean containsNonEmptyChildNode = false;
             boolean containsElementNode = false;
             for (int i = 0; i < element.childNodes().size(); i++) {
-                if (element.childNodes().get(i) instanceof ITextNode && !((ITextNode) element.childNodes().get(i)).wholeText().isEmpty()) {
+                if (element.childNodes().get(i) instanceof ITextNode) {
                     containsNonEmptyChildNode = true;
                     break;
                 } else if (element.childNodes().get(i) instanceof IElementNode) {

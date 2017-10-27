@@ -48,18 +48,21 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * Utilities class to decode HTML strings to a strings in a specific encoding.
+ *
+ * @deprecated Will be removed in iText 7.1
  */
+@Deprecated
 public class DecodeUtil {
 
     /**
      * The default encoding ("UTF-8").
      */
-    static String dfltEncName = "UTF-8";
+    private static String dfltEncName = "UTF-8";
 
     /**
      * The default uri scheme ("file").
      */
-    static String dfltUriScheme = "file";
+    private static String dfltUriScheme = "file";
 
     /**
      * Decode a {@link String} to a {@link String} using the default encoding and the default uri scheme.
@@ -112,6 +115,7 @@ public class DecodeUtil {
                 if (bytes == null)
                     bytes = new byte[(numChars - i) / 3];
                 int pos = 0;
+                boolean incrementLater = !(i + 2 < numChars);
 
                 while (((i + 2) < numChars) &&
                         (c == '%')) {
@@ -136,6 +140,8 @@ public class DecodeUtil {
                 if ((i < numChars) && (c == '%')) {
                     bytes[pos++] = (byte) c;
                 }
+                if (incrementLater)
+                    i++;
                 try {
                     sb.append(new String(bytes, 0, pos, enc));
                 } catch (UnsupportedEncodingException e) {

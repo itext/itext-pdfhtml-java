@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang=en>
+  <meta charset=utf-8>
+  <title>CSS-UI test: computed values ouf outline-width</title>
+  <link rel="author" title="Florian Rivoal" href="http://florian.rivoal.net">
+  <meta name=flags content="">
+  <meta name=assert content="outline-offset values compute to absolute lengths">
+  <link rel="match" href="../reference/ref-filled-green-100px-square.xht">
+  <link rel=help href="https://drafts.csswg.org/css-ui-3/#outline-props">
+<style>
+body > div {
+  width: 100px;
+  height: 100px;
+  font-size: 10px;
+  border: solid 1em red;
+}
+div > div {
+  width: 10px;
+  height: 10px;
+  border: solid black;
+  border-width: inherit;
+  font-size: 5px;
+}
+</style>
+
+  <p>Test passes if there is a filled green square and <strong>no red</strong>.</p>
+<div><div></div></div>

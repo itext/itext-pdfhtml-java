@@ -89,11 +89,33 @@ public class ResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    public void resourceResolverTest08() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourceResolverTest08.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceResolverTest08.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceResolverTest08.html"), new File(outPdf));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff08_"));
+    public void resourceResolverTest09() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceResolverTest09.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest09.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceResolverTest09.html"), new File(outPdf));
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff09_"));
+    }
+
+    @Test
+    public void resourceResolverTest10() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceResolverTest10.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest10.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest10.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri("%homepath%"));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff10_"));
+    }
+
+    @Test
+    public void resourceResolverTest11() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceResolverTest11.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest11.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest11.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri("https://en.wikipedia.org/wiki/Welsh_Corgi"));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff11_"));
     }
 
     // TODO test with absolute http links for resources?

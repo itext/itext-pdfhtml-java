@@ -135,6 +135,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.THEAD, BlockCssApplier.class);
         mapping.putMapping(TagConstants.TIME, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.TR, TrTagCssApplier.class);
+        mapping.putMapping(TagConstants.TT, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.U, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.UL, UlOlTagCssApplier.class);
         mapping.putMapping(TagConstants.VAR, SpanTagCssApplier.class);
@@ -148,8 +149,10 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.SPAN, CssConstants.BLOCK, BlockCssApplier.class);
         mapping.putMapping(TagConstants.SPAN, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
         mapping.putMapping(TagConstants.A, CssConstants.BLOCK, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.A, CssConstants.TABLE_CELL, BlockCssApplier.class);
 
         mapping.putMapping(TagConstants.DIV, CssConstants.TABLE_CELL, TdTagCssApplier.class);
+        mapping.putMapping(TagConstants.DIV, CssConstants.TABLE_ROW, DisplayTableRowTagCssApplier.class);
 
         // pseudo elements mapping
         String beforePseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.BEFORE);

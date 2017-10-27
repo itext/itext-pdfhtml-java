@@ -54,6 +54,8 @@ import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.OutlineApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FloatApplierUtil;
@@ -119,11 +121,13 @@ public class SpanTagCssApplier implements ICssApplier {
         BackgroundApplierUtil.applyBackground(css, context, element);
         //TODO: Border-applying currently doesn't work in html way for spans inside other spans.
         BorderStyleApplierUtil.applyBorders(css, context, element);
+        OutlineApplierUtil.applyOutlines(css, context, element);
         HyphenationApplierUtil.applyHyphenation(css, context, stylesContainer, element);
         //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
         MarginApplierUtil.applyMargins(css, context, element);
         PositionApplierUtil.applyPosition(css, context, element);
         FloatApplierUtil.applyFloating(css, context, element);
+        PaddingApplierUtil.applyPaddings(css, context, element);
     }
 
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .table {
+            display: table;
+            background-color: red;
+            width: 500px;
+            height: 500px;
+            overflow-x: auto;
+            overflow-y: auto;
+        }
+
+        .table-row {
+            display: table-row;
+            background-color: green;
+            width: 4000px;
+            height: 50px;
+            border: 5px solid yellow;
+            overflow-x: auto;
+            overflow-y: auto;
+            font-style:italic;
+        }
+
+        .table-cell {
+            display: table-cell;
+            background-color: blue;
+            border: 50px solid pink;
+            overflow-x: auto;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+<div class="table">
+    Hi! I'm inline element just inside a table!
+    <div class="table-row">
+        I'm inline before div
+        <div class="table-cell">Div as table cell</div>
+        I'm inline before p
+        <p class="table-cell">Paragraph as table cell</p>
+        I'm inline before a
+        <a class="table-cell">A as <p>Am i procesed?</p>table cell</a>
+    </div>
+    <div class="table-row">
+        I'm inline before div
+        <div>Div not as table cell</div>
+        I'm inline before p
+        <p>Paragraph not as table cell</p>
+        I'm inline before a
+        <a>A not as <p>Am i procesed?</p>table cell</a>
+    </div>
+
+</div>
+
+</body>
+</html>

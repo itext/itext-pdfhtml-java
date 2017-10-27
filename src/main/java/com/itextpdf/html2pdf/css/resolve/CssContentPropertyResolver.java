@@ -212,7 +212,7 @@ class CssContentPropertyResolver {
          * @param parent the parent
          * @param content the content
          */
-        public ContentTextNode(INode parent, String content) {
+        ContentTextNode(INode parent, String content) {
             this.parent = parent;
             this.content = content;
         }

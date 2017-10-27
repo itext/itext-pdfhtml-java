@@ -54,7 +54,9 @@ import java.util.Iterator;
  */
 public class JsoupAttributes implements IAttributes {
 
-    /** The JSoup {@link Attributes} instance. */
+    /**
+     * The JSoup {@link Attributes} instance.
+     */
     private Attributes attributes;
 
     /**
@@ -105,8 +107,10 @@ public class JsoupAttributes implements IAttributes {
      * Iterator to loop over {@link IAttribute} elements.
      */
     private static class AttributeIterator implements Iterator<IAttribute> {
-        
-        /** The iterator. */
+
+        /**
+         * The iterator.
+         */
         private Iterator<Attribute> iterator;
 
         /**

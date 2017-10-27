@@ -60,7 +60,7 @@ public abstract class FormField<T extends IFormField> extends AbstractElement<T>
      *
      * @param id the id
      */
-    protected FormField(String id) {
+    FormField(String id) {
         if (id == null || id.contains(".")) {
             throw new IllegalArgumentException("id should not contain '.'");
         }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+
+        .pseudo1:after {
+            background: pink;
+            border: 10px solid red;
+            content: '                ';
+        }
+
+        .pseudo1:before {
+            background: #808080;
+            border: 10px solid black;
+            content: '        ';
+        }
+
+        .pseudo1 {
+            background: blue;
+            border: 10px solid green;
+            border-left: 50px solid brown;
+        }
+
+        .pseudo {
+            background: blue;
+            border-left: 10px solid black;
+            border-right: 10px solid red;
+            border-top: 10px solid green;
+            border-bottom: 10px solid yellow;
+        }
+
+        .pseudo2:after {
+            background: pink;
+            border: 10px solid red;
+            content: '                ';
+        }
+
+        .pseudo2:before {
+            background: #808080;
+            border: 10px solid black;
+            content: '        ';
+        }
+
+
+    </style>
+</head>
+<body>
+<div><b class="pseudo1">a</b></div>
+<br>
+<br>
+<br>
+<br>
+
+<div><b class="pseudo1"></b></div>
+<br>
+<br>
+<br>
+<br>
+
+<div><b class="pseudo1"><i class="pseudo"></i></b></div>
+<br>
+<br>
+<br>
+<br>
+
+<div><b class="pseudo1">a<i class="pseudo">b</i>c</b></div>
+<br>
+<br>
+<br>
+<br>
+
+<div><b class="pseudo1"><i class="pseudo2"></i></b></div>
+<br>
+<br>
+<br>
+<br>
+
+<div><b class="pseudo1">a<i class="pseudo2">b</i>c</b></div>
+<br>
+<br>
+<br>
+<br>
+
+<div>
+    <div class="pseudo2">Hello</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container{
+            border: 1pt solid black;
+        }
+        .abs{
+            height: 100pt;
+        }
+        .relMin{
+            min-height: 50%;
+            border: 1pt dashed blue;
+        }
+        .relMax{
+            max-height:10%;
+            border: 1pt dashed green;
+        }
+    </style>
+</head>
+<body>
+<div class = "container">
+    <div class="abs relMin">
+        Height is declared in points (100), min-height relative (50%). Parent has no set height values
+    </div>
+
+    <div class="abs relMax">
+        Height is declared in points (100), max-height relative (10%). Parent has no set height values
+    </div>
+</div>
+</body>
+</html>
