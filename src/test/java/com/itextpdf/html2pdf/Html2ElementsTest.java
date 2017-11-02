@@ -47,6 +47,7 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -77,7 +78,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
         Assert.assertTrue(lst.get(0) instanceof Paragraph);
         Paragraph p = (Paragraph) lst.get(0);
         Assert.assertEquals("Hello world!", ((Text)p.getChildren().get(0)).getText());
-        Assert.assertEquals(12f, (float)(Object)p.<Float>getProperty(Property.FONT_SIZE), 1e-10);
+        Assert.assertEquals(12f, p.<UnitValue>getProperty(Property.FONT_SIZE).getValue(), 1e-10);
     }
 
     @Test
@@ -89,7 +90,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
         Table t = (Table) lst.get(0);
         Assert.assertEquals(2, t.getNumberOfRows());
         Assert.assertEquals("123", ((Text)(((Paragraph)t.getCell(0, 0).getChildren().get(0)).getChildren().get(0))).getText());
-        Assert.assertEquals(24f, (float)(Object)t.<Float>getProperty(Property.FONT_SIZE), 1e-10);
+        Assert.assertEquals(24f, t.<UnitValue>getProperty(Property.FONT_SIZE).getValue(), 1e-10);
     }
 
     @Test

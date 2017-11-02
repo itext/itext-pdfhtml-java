@@ -53,10 +53,12 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.LineRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
@@ -160,11 +162,15 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         font.setSubset(false);
         String value = getDefaultValue();
         String name = getModelId();
-        float fontSize = (float) this.getPropertyAsFloat(Property.FONT_SIZE);
+        UnitValue fontSize = (UnitValue) this.getPropertyAsUnitValue(Property.FONT_SIZE);
+        if (!fontSize.isPointValue()) {
+            Logger logger = LoggerFactory.getLogger(TextAreaRenderer.class);
+            logger.error(MessageFormatUtil.format(com.itextpdf.io.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property.FONT_SIZE));
+        }
         PdfDocument doc = drawContext.getDocument();
         Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
         PdfPage page = doc.getPage(occupiedArea.getPageNumber());
-        PdfFormField inputField = PdfFormField.createText(doc, area, name, value, font, fontSize);
+        PdfFormField inputField = PdfFormField.createText(doc, area, name, value, font, fontSize.getValue());
         inputField.setFieldFlag(PdfFormField.FF_MULTILINE, true);
         inputField.setDefaultValue(new PdfString(getDefaultValue()));
         applyDefaultFieldProperties(inputField);
@@ -178,9 +184,13 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
     protected Float getContentWidth() {
         Float width = super.getContentWidth();
         if (width == null) {
-            float fontSize = (float) this.getPropertyAsFloat(Property.FONT_SIZE);
+            UnitValue fontSize = (UnitValue) this.getPropertyAsUnitValue(Property.FONT_SIZE);
+            if (!fontSize.isPointValue()) {
+                Logger logger = LoggerFactory.getLogger(TextAreaRenderer.class);
+                logger.error(MessageFormatUtil.format(com.itextpdf.io.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property.FONT_SIZE));
+            }
             int cols = getCols();
-            return fontSize * (cols * 0.5f + 2) + 2;
+            return fontSize.getValue() * (cols * 0.5f + 2) + 2;
         }
         return width;
     }

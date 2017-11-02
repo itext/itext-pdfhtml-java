@@ -49,6 +49,7 @@ import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.UnitValue;
 
 /**
  * TagWorker class for the {@code body} element.
@@ -73,7 +74,7 @@ public class BodyTagWorker extends DivTagWorker {
             // inline-blocks with fixed height when the height is smaller than the defined font size
             float em = CssUtils.parseAbsoluteLength(element.getStyles().get(CssConstants.FONT_SIZE));
             if (em != 0) {
-                parentTagWorker.getElementResult().setProperty(Property.FONT_SIZE, em);
+                parentTagWorker.getElementResult().setProperty(Property.FONT_SIZE, UnitValue.createPointValue(em));
             }
         }
     }

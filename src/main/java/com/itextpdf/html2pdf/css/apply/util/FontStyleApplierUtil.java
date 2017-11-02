@@ -95,7 +95,7 @@ public final class FontStyleApplierUtil {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
         if (em != 0) {
-            element.setProperty(Property.FONT_SIZE, em);
+            element.setProperty(Property.FONT_SIZE, UnitValue.createPointValue(em));
         }
 
         if (cssProps.get(CssConstants.FONT_FAMILY) != null) {

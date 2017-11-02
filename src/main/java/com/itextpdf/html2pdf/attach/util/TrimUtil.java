@@ -49,6 +49,7 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.layout.LayoutPosition;
 import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.UnitValue;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -211,9 +212,10 @@ public final class TrimUtil {
         return
                 (null == leafElement.<Border>getProperty(Property.BORDER_RIGHT) || 0 == ((Border) leafElement.<Border>getProperty(Property.BORDER_RIGHT)).getWidth()) &&
                 (null == leafElement.<Border>getProperty(Property.BORDER_LEFT) || 0 == ((Border) leafElement.<Border>getProperty(Property.BORDER_LEFT)).getWidth()) &&
-                (null == leafElement.<Object>getProperty(Property.PADDING_RIGHT) || 0 == (float) NumberUtil.asFloat(leafElement.<Object>getProperty(Property.PADDING_RIGHT))) &&
-                (null == leafElement.<Object>getProperty(Property.PADDING_LEFT) || 0 == (float) NumberUtil.asFloat(leafElement.<Object>getProperty(Property.PADDING_LEFT))) &&
-                (null == leafElement.<Object>getProperty(Property.MARGIN_RIGHT) || 0 == (float) NumberUtil.asFloat(leafElement.<Object>getProperty(Property.MARGIN_RIGHT))) &&
-                (null == leafElement.<Object>getProperty(Property.MARGIN_LEFT) || 0 == (float) NumberUtil.asFloat(leafElement.<Object>getProperty(Property.MARGIN_LEFT)));
+                 // Note that iText parses padding and float values to points so the next unit values are always point values
+                (null == leafElement.<UnitValue>getProperty(Property.PADDING_RIGHT) || 0 == leafElement.<UnitValue>getProperty(Property.PADDING_RIGHT).getValue()) &&
+                (null == leafElement.<UnitValue>getProperty(Property.PADDING_LEFT) || 0 == leafElement.<UnitValue>getProperty(Property.PADDING_LEFT).getValue()) &&
+                (null == leafElement.<UnitValue>getProperty(Property.MARGIN_RIGHT) || 0 == leafElement.<UnitValue>getProperty(Property.MARGIN_RIGHT).getValue()) &&
+                (null == leafElement.<UnitValue>getProperty(Property.MARGIN_LEFT) || 0 == leafElement.<UnitValue>getProperty(Property.MARGIN_LEFT).getValue());
     }
 }

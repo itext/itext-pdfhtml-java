@@ -129,7 +129,7 @@ public final class MarginApplierUtil {
         
         Float marginVal = parseMarginValue(marginValue, em, rem);
         if (marginVal != null) {
-            element.setProperty(marginProperty, marginVal);
+            element.setProperty(marginProperty, UnitValue.createPointValue((float) marginVal));
         }
         return true;
     }

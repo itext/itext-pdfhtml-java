@@ -233,7 +233,11 @@ public class CssUtils {
     }
 
     /**
-     * Parses the length value to pt.
+     * Convenience method for parsing a value to pt. Possible values are: <ul>
+     * 	<li>a numeric value in pixels (e.g. 123, 1.23, .123),</li>
+     * 	<li>a value with a metric unit (px, in, cm, mm, pc or pt) attached to it,</li>
+     * 	<li>or a value with a relative value (%, em, ex).</li>
+     * </ul>
      *
      * @param value the value
      * @param emValue the em value
