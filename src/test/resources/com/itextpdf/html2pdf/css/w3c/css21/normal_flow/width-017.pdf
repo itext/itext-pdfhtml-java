@@ -1,9 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 163>>stream
-xœ]Í‚0„ïûsÔKmËÿÕDï&}*E’E}}-5¦˜İÃÎfæËŒ´W´;
-	ÕP’£(%K¨š6Ê¸wíœqèHœ­¾ôpãCOŸW«Ÿsk°U7:(:ÑhòK“g":=¼ºznÿ#¿"céª‹¬~¦«ï™W)ãÅ²“¡fí¼D.*o‚¨„6d£;˜lœ°íIA;
+<</Filter/FlateDecode/Length 164>>stream
+xœ]±Â0DwÅ°„ÆAmº"Á”4¥@*Ñ¦ÀïCH)²Ÿõîtm­v’aZR%*ÍBI˜†Æ…	7‚8·`¼=^†»ß¯Î>¦Îai.´5´§!¥ñ7Y‰z–lïğ<7S÷ïù5`]G8óˆ-g<Å¢e­„^£â¸££vNÈB£”:"}u…OŞìNÏş“ö\§A­
 endstream
 endobj
 4 0 obj
@@ -13,13 +12,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170724102043+03'00')/ModDate(D:20170724102043+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Width using points with a nominal value, 72pt)>>
-endobj
-6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20171109123827+03'00')/ModDate(D:20171109123827+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Width using points with a nominal value, 72pt)/assert(The 'width' property sets a nominal length value in points.)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +26,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000387 00000 n 
-0000000868 00000 n 
-0000000432 00000 n 
-0000000245 00000 n 
+0000000388 00000 n 
+0000000921 00000 n 
+0000000433 00000 n 
+0000000246 00000 n 
 0000000015 00000 n 
-0000000687 00000 n 
-0000000775 00000 n 
+0000000831 00000 n 
+0000000738 00000 n 
 trailer
-<</ID [<081a23f79d3ce3eb30543652f478bba9><081a23f79d3ce3eb30543652f478bba9>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<d9a5428c1b77ef950f803590b77ae4cf><d9a5428c1b77ef950f803590b77ae4cf>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.0-SNAPSHOT
 startxref
-919
+972
 %%EOF

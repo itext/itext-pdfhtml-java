@@ -2,7 +2,8 @@
 %âãÏÓ
 5 0 obj
 <</Filter/FlateDecode/Length 211>>stream
-xœ•Ž»RÃ0EûýŠ[B³èá•œ– Ô1ÊH!†<°%&¿ÆUèöîÌ9÷ötèâZC„Yß¶!ÑYÈ¥â5–’ºê:]AÄrw/(ý[üøººÆyx¦«@·ÔOF33ìY#ž†œwHûZsúË}/i„›æ˜Ãr?¤<ðaq Å¢ôÂAáî†,–GA"iYàÅ³2Ø’¶ö'nèþD‰¶#$,“CàZ5†ÿÆbçÓŽÏUs:]"þ«x;Þó¢‰Še
+xœ•Ž»N1EûùŠ[B3ø‘ñ:-Pî…#;ÉBìÚ(¿Ë.°¢
+ÝÜ‘Î¹·£ë@W·Ú ¬É:4Þ°Õ‰.B.o±”\Ð®Q·¹Ïh"V»xxEéÞãççÔÖ-.ÃÝº§n4šÉh¬g;—FlúœHÇZsú‹ý1Š—~ÎauìSîyFXœHA±(½tPx¸£'‹Ë3„ ‘x4âØ/°'míoÜÑã™mHØŽójÿ1Å®ñãŽ¯US:_"Íwñ~¸§E#ÿDDey
 endstream
 endobj
 4 0 obj
@@ -12,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170914145320+03'00')/ModDate(D:20170914145320+03'00')/Producer(iText® 7.0.5-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Basic User Interface Test: outline-style - dotted \(basic\))/assert(Test checks that the outline style is dotted when outline-style set dotted)/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20171109122401+03'00')/ModDate(D:20171109122401+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Basic User Interface Test: outline-style - dotted \(basic\))/assert(Test checks that the outline style is dotted when outline-style set dotted)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,15 +28,15 @@ xref
 0 8
 0000000000 65535 f 
 0000000435 00000 n 
-0000001015 00000 n 
+0000000991 00000 n 
 0000000480 00000 n 
 0000000293 00000 n 
 0000000015 00000 n 
-0000000834 00000 n 
-0000000922 00000 n 
+0000000901 00000 n 
+0000000808 00000 n 
 trailer
-<</ID [<0a26d3f4f200058f363ecc7b7f8ff685><0a26d3f4f200058f363ecc7b7f8ff685>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.5-SNAPSHOT
+<</ID [<d800e649c513bf9cb4c008fb61ecd4a6><d800e649c513bf9cb4c008fb61ecd4a6>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.0-SNAPSHOT
 startxref
-1066
+1042
 %%EOF

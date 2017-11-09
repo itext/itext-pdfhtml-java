@@ -1,10 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 137>>stream
-xœeÍ½
-Â0…áı»Š3êóS]İ…Ü@j¿”HiMÒ"Ş½Zè$œí}àd:{:\”†d,ÜQcà;Úy®3¡V®Hí°0j^Ba¤Š.¾ÏÃ-ÓaÄTÂØoDìıƒ.n”IA
-Û8i!Qúß=5Bj¸u…)®N~»Ú„ÖâK.5
+<</Filter/FlateDecode/Length 138>>stream
+xœeÍ±
+Â0…áı>Åu‰IŒI»
+ºyÔŞ”JiMÒ"¾½Vè$œíÿà$:{:\”†t´p••ƒoiç¹Ìx†R¸ h†…QÒ2£/hûÌ÷yx£áaz!Œ˜r»ˆ½ĞÅÓ)Ha“¹[lm„9Áéu™)şœüvµ	­ÿÄy.L
 endstream
 endobj
 4 0 obj
@@ -14,10 +14,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20161229120256+03'00')/ModDate(D:20161229120256+03'00')/Producer(iText Software)/Title(CSS Test: Relative positioning with top)>>
+<</CreationDate(D:20171109123955+03'00')/ModDate(D:20171109123955+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Relative positioning with top)/assert(Relatively positioned element dimensions are not changed with top applied.)/flags()>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -25,15 +25,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000352 00000 n 
-0000000648 00000 n 
-0000000397 00000 n 
-0000000219 00000 n 
+0000000353 00000 n 
+0000000792 00000 n 
+0000000398 00000 n 
+0000000220 00000 n 
 0000000015 00000 n 
-0000000560 00000 n 
+0000000702 00000 n 
 trailer
-<</ID [<ca083a1ba57476f4a1166681cefeb5cb><ca083a1ba57476f4a1166681cefeb5cb>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.2-SNAPSHOT
+<</ID [<453ac87b3d47c94ce6340d17acc96bb1><453ac87b3d47c94ce6340d17acc96bb1>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.0-SNAPSHOT
 startxref
-699
+843
 %%EOF

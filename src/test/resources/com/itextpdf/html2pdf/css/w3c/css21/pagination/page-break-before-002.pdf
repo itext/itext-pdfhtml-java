@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 164>>stream
-xœuË‚0E÷ıŠ»ÔM¥T·&º7éEÊcšèß[&ÄÄÍ¬î9szq0bsRP1L)t‚t¿•ZÃbe*?2Öæ&FœE?ñ¨(’Q¼„ZÇ¿ã¯]©L&ÙrŒœ`ÑÙ+!ÈŞaK¦\Õ#šº%¸LO–ÿ”Ÿà4•z7)ô•óMnp…¿MÛ¼Â¡éU:Ï_hßêÂF¶
+<</Filter/FlateDecode/Length 163>>stream
+xœuA‚0E÷=Å_ê¦¦”XÙšèŞ¤(2ˆŠÊ4ÑÛ[&ÄÄÍ¬ş{ó±·bsTPl-ô¦È¥V°•XÙ†áGÆÚŞÄÁŠ“& ›BK-™Îóïö+WJÉb·£$8ôîB(¹;\ÍÀÍuD{í¾Ó“å?å§×iò¹7qL)wl|l+ôÁWñœ4]ûJ‡¦WIê#÷q¡}ºîF
 endstream
 endobj
 4 0 obj
@@ -12,13 +12,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170609111204+03'00')/ModDate(D:20170609111204+03'00')/Producer(iText® 7.0.3-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: page-break-before inline elements)>>
-endobj
-6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20171109123926+03'00')/ModDate(D:20171109123926+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: page-break-before inline elements)/assert(The 'page-break-before' property applies to block-level elements only.)/flags(paged)>>
 endobj
 7 0 obj
 <</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -26,16 +26,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000388 00000 n 
-0000000857 00000 n 
-0000000433 00000 n 
-0000000246 00000 n 
+0000000387 00000 n 
+0000000924 00000 n 
+0000000432 00000 n 
+0000000245 00000 n 
 0000000015 00000 n 
-0000000676 00000 n 
-0000000764 00000 n 
+0000000834 00000 n 
+0000000741 00000 n 
 trailer
-<</ID [<0ed27ecd51703e0195936658023582aa><0ed27ecd51703e0195936658023582aa>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.3-SNAPSHOT
+<</ID [<69f1cb275eaaa883575c34365b7431c9><69f1cb275eaaa883575c34365b7431c9>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.0-SNAPSHOT
 startxref
-908
+975
 %%EOF

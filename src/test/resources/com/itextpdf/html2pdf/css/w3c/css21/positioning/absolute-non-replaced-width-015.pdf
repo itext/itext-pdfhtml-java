@@ -1,9 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 286>>stream
-xœ}ÁnÃ Dï|ÅÓ5`À¾Vjï•øjãØ-Á58ªÚ¯¯‰SÒ(‚#vßÌLèI¡Ç„‚ê +ŠÕ¢2a†O‚	0t ¡¬5-¼Ù£0µ70xPïèY¡W4­0z†QZã’¦À~ôÃÏèfmí74ÆÍÆ›öz}ËÂLHºƒCk@;èGkÇ¯%‰n>À›fÖnoãO»$Äİ¿XiG!0+OÌ¹7÷[È
-‹*İp#ÜIMÇ¹NFˆÇï“˜ƒ,+Ìô"í"KKû"ŠÛŞ2ërdùcò:aòZ®œÌàÊü&õŒ9¬	6è’-c&"3ïn”Ï‘›}V7ÁçÆ ‰@B¢,şJ¯7§¡_|é§2
+<</Filter/FlateDecode/Length 278>>stream
+xœ}ÁnÃ Dï|ÅÓC|­ÔŞ+ñÔ^Çn®ÁQÕ~}:¥íğfv Oš<¾0`tC„µçT0Ğ5Ùh#|˜0@×€¦³kx³g„0œGè<èwò¬É+¿Àø¶¤"åµ½ï¾{7k¿ B7¢Çúö÷ZElÓ¿Ğ¹ĞÕÆAÛ[ÛN-LuÕhÜÁÆI[-Îµ"wóg·¸¨””Éîzø§‰âTªÔNçâñ"-@íö”•p"\ò«´“ÜM¢¤2Š˜½¾UjkrdùeeÂ,J¹p²€›ğ»Ôæ´4X¡S·Œ™ˆ,¼¹³|\ã³u||²d,ÆI%âTñzœM?¬KM
 endstream
 endobj
 4 0 obj
@@ -13,13 +12,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170628174715+03'00')/ModDate(D:20170628174715+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Solved for 'width' when absolutely positioned non-replaced elements has 'left' and 'right' not set to 'auto')>>
+<</CreationDate(D:20171109123940+03'00')/ModDate(D:20171109123940+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Solved for 'width' when absolutely positioned non-replaced elements has 'left' and 'right' not set to 'auto')/assert(When 'width' is 'auto' and 'left' and 'right' are not 'auto' element solves for 'width'.)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +26,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000510 00000 n 
-0000001054 00000 n 
-0000000555 00000 n 
-0000000368 00000 n 
+0000000502 00000 n 
+0000001127 00000 n 
+0000000547 00000 n 
+0000000360 00000 n 
 0000000015 00000 n 
-0000000966 00000 n 
-0000000873 00000 n 
+0000001037 00000 n 
+0000000944 00000 n 
 trailer
-<</ID [<0724db0d42f0abf2a393e8ad73f24076><0724db0d42f0abf2a393e8ad73f24076>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<a0ad13a9ac30c3c16f988ea14d56c702><a0ad13a9ac30c3c16f988ea14d56c702>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.0-SNAPSHOT
 startxref
-1105
+1178
 %%EOF

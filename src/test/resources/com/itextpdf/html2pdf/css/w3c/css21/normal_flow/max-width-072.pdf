@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 166>>stream
-xœ]AÂ E÷œâ/uƒe0mÙšèŞ„`K[•[ˆ^ß"Æ ™ÍÌä½Ÿ?±f›ƒ€ èÉUM\Jè–­´õwã½õ8w œœi®˜mÌ­wËw0‹0X¬õ…í5;²)Ò'JâU‡z3Z<Ïmşo	ª¹¹Ã3´@œ¹]KµåA¨h©Åº_BĞ‚‘1JÄÃ%7ÛärÃ½Ó^Œ¡B
+<</Filter/FlateDecode/Length 167>>stream
+xœ]AÂ E÷sŠYêa0´lMtoÂ°¥­J-D¯ocĞÌffòŞÏŸ`g`s(MRaU“M+ãBÄ»Á<wHxò¶¹âìšho½_¾ƒ}8ŒƒÃµ¹ÀŞÀ¦HŸ@’Š)*Cƒ>Ïmşo	.˜®J‡(Ç4sŸº*-Y½EÍ±¢¥t¿„ uBÆ|hŸİbÏ/ÿN{tBË
 endstream
 endobj
 4 0 obj
@@ -12,13 +12,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170724102040+03'00')/ModDate(D:20170724102040+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Max-width using 'em' units with a nominal value, 6em)>>
-endobj
-6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20171109123654+03'00')/ModDate(D:20171109123654+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-width using 'em' units with a nominal value, 6em)/assert(The 'max-width' property sets a nominal length value in 'em' units.)/flags(ahem)>>
 endobj
 7 0 obj
 <</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -26,16 +26,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000390 00000 n 
-0000000878 00000 n 
-0000000435 00000 n 
-0000000248 00000 n 
+0000000391 00000 n 
+0000000943 00000 n 
+0000000436 00000 n 
+0000000249 00000 n 
 0000000015 00000 n 
-0000000697 00000 n 
-0000000785 00000 n 
+0000000853 00000 n 
+0000000760 00000 n 
 trailer
-<</ID [<0f7c4a565e0599afe463db94f3c8847a><0f7c4a565e0599afe463db94f3c8847a>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<9f0706f4b5828bf45ef7f6bc2167c3c7><9f0706f4b5828bf45ef7f6bc2167c3c7>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.0-SNAPSHOT
 startxref
-929
+994
 %%EOF

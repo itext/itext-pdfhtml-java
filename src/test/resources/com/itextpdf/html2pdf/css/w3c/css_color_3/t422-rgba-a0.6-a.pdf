@@ -2,10 +2,7 @@
 %âãÏÓ
 5 0 obj
 <</Filter/FlateDecode/Length 148>>stream
-xœ­Í;‚0àýþŠ3ÂR,ÅÇl¢Î&YŠ\
-¤Ú@ëëß‹$ÆÁÕÜœéž“o ­¦l/!sè†Ô
-ëM.”‚®i!
-|2ZJtÛD~D„Ö_]Š[F0gÆÉ;?¢LÌô45Ã7°£y–)L˜[®»ð´pþ.RÝÓNÓ‘†_}YUÌ:Þ7¹Ù!HØðßTþÆ_ÿ/I…
+xœ­Í;‚0àýþŠ3ÂR¤ˆ0›¨³IG–b/¯Th}ý{‘Ä8¸š›3Ýsò´U”ìS¤ª¡lƒ¢”¢, ­ÄŸL-Eªë=?|ç®Ö f„Žáõ™qrÖM¨"=?µa¸í¤ŸUí—–í/</¬»‹X´St¤ñWÏs‘ÉEÇûf79ø­ÿ‹¯kwã¯ÿ6ÀI
 endstream
 endobj
 4 0 obj
@@ -15,10 +12,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170109105236-03'00')/ModDate(D:20170109105236-03'00')/Producer(iText Software)/Title(CSS Test: rgba\(\) colors)>>
+<</CreationDate(D:20171109122319+03'00')/ModDate(D:20171109122319+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: rgba\(\) colors)/assert(Opacity of 0.6 makes text partially opaque.  Colors are in sRGB color space \(may test\).)/flags()>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -30,15 +27,15 @@ xref
 0 8
 0000000000 65535 f 
 0000000387 00000 n 
-0000000669 00000 n 
+0000000827 00000 n 
 0000000432 00000 n 
 0000000230 00000 n 
 0000000015 00000 n 
-0000000581 00000 n 
-0000000720 00000 n 
+0000000737 00000 n 
+0000000878 00000 n 
 trailer
-<</ID [<4704bc4e30e1343741eb7945952e755c><4704bc4e30e1343741eb7945952e755c>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.2-SNAPSHOT
+<</ID [<767a6508e4b5af08d8f739900397a933><767a6508e4b5af08d8f739900397a933>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.0-SNAPSHOT
 startxref
-747
+905
 %%EOF

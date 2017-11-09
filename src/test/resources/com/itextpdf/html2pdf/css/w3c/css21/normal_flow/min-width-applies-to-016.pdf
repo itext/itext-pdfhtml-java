@@ -1,9 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 146>>stream
-xœ]Ë
-Â0÷÷+ÎR71›¶[A÷B~ ›)­MêÿÛ¢HÎîÃLtrt¸((ÉXÔÆÀÚ9.3¾.Hó3#xÄÔ÷ĞeæezúåğCÀŞİéìèJÓÛ«?^İ*qüq#2‡şÛ¡¡Ì–TBŠJªÖB"wk´]üR£®Öe¦¸p/­¨5Œ
+<</Filter/FlateDecode/Length 147>>stream
+xœ]A
+Â0D÷ÿ³ÔML~mÚlİ¹@ ?µRªMêımQ¡³›ÇãMtòt¸†OTY4-«ÊÀGÚy)3¡)èæ›dA_úaˆ.‹Œ(Ó+,G#öşNgOWš>^şzÙ²²fëÈÿù_;§¸İòjƒjhUkã,4r·F[§U{DS¯ËBiáŞ¬ˆ5—
 endstream
 endobj
 4 0 obj
@@ -13,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170724102042+03'00')/ModDate(D:20170724102042+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Min-Width applied to none)>>
-endobj
-6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20171109123816+03'00')/ModDate(D:20171109123816+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Min-Width applied to none)/assert(Min-Width can be declared onto 'display: none' elements but since 'display: none' declaration on an element does not generate a CSS box, then it won't have a rendering effect nor a visual formatting repercussion.)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +27,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000370 00000 n 
-0000000831 00000 n 
-0000000415 00000 n 
-0000000228 00000 n 
+0000000371 00000 n 
+0000001037 00000 n 
+0000000416 00000 n 
+0000000229 00000 n 
 0000000015 00000 n 
-0000000650 00000 n 
-0000000738 00000 n 
+0000000947 00000 n 
+0000000854 00000 n 
 trailer
-<</ID [<f89717b3b7e74d5ff35433ca6c4b0914><f89717b3b7e74d5ff35433ca6c4b0914>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<bafcdebaf1a57bbe6f0ef8a0f9fc9243><bafcdebaf1a57bbe6f0ef8a0f9fc9243>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.0-SNAPSHOT
 startxref
-882
+1088
 %%EOF

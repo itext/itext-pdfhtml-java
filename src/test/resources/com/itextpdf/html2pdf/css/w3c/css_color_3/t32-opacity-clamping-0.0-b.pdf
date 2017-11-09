@@ -2,7 +2,7 @@
 %‚„œ”
 5 0 obj
 <</Filter/FlateDecode/Length 165>>stream
-xúùÕΩÇ0¿Ò˝û‚F]€+_´â∫iLÓ$T¿ëçæΩ≈ê0(ÉLΩÙ.økÅ`´Piî3pÑq¢â%áÖîïCW6˜:«ÃbWZlÆı;˚ÏQπ*´˚øw∑Sai)ÿ°Ö`ÁŒO_Ö–õ±·ÜÃ˛ }j¿GoıÑ®#ÚœëãQö'≥D3!∆+‚tñNàFìQˇäoB{â
+xúùŒøÇ@ΩO—Qó¬ÓéŸD›4&}	'BDrhÙÌC¬†≤5mÛ˚æ6¡N°bîDm¬îXîVRî}—‹ÎSá]·∞π÷/Ï‹≥√GÈÀ¥6˝°ˇªùsGk©`+pÇÇΩWò˚~˙J–ö"û>‹s8 5‚ì7ä<#≤%kâ—åÜƒjëˇçe2À:Í1÷§˛Ó¯Dlâ
 endstream
 endobj
 4 0 obj
@@ -12,10 +12,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170109085923-03'00')/ModDate(D:20170109085923-03'00')/Producer(iText Software)/Title(CSS Test: opacity)>>
+<</CreationDate(D:20171109122311+03'00')/ModDate(D:20171109122311+03'00')/Producer(iTextÆ 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: opacity)/assert(Opacity values less than 0.0 are clamped to 0.0)/flags()>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -39,19 +39,19 @@ xref
 0 12
 0000000000 65535 f 
 0000000446 00000 n 
-0000000720 00000 n 
+0000000836 00000 n 
 0000000491 00000 n 
 0000000247 00000 n 
 0000000015 00000 n 
-0000000632 00000 n 
-0000000771 00000 n 
-0000000801 00000 n 
-0000000837 00000 n 
-0000000873 00000 n 
-0000000908 00000 n 
+0000000746 00000 n 
+0000000887 00000 n 
+0000000917 00000 n 
+0000000953 00000 n 
+0000000989 00000 n 
+0000001024 00000 n 
 trailer
-<</ID [<82209cf3d71f7a92db2e8358f0f24937><82209cf3d71f7a92db2e8358f0f24937>]/Info 3 0 R/Root 1 0 R/Size 12>>
-%TEST-LICE-NSE0-7.0.2-SNAPSHOT
+<</ID [<027d09588ead47f2c801c171b29684d8><027d09588ead47f2c801c171b29684d8>]/Info 3 0 R/Root 1 0 R/Size 12>>
+%iText-7.1.0-SNAPSHOT
 startxref
-953
+1069
 %%EOF

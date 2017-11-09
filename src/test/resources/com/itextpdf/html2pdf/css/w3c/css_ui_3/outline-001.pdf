@@ -1,9 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 228>>stream
+<</Filter/FlateDecode/Length 229>>stream
 xœ…ÁnÃ †ï~
-·Ã¤öZ©»Oâ"Åé2‘´öı%[hÔnÂƒ>Ûÿ{oï„¤ĞvP¬·JTÚ^,‡›8`ßáå“=c°Á®w[<zæÃtmb¡[|µ_p°ğSæª™«v$6wìñ„ÛµşwµT•zQH	e<ş˜Æ5‘,Ö:…gènŠXZÒÎd&¬¥IºNñ—NßxÄ·9w@ÆäKòè'_>¸ÇÄ…’‰Ò,Äyô¾ìû™1C±˜+ÌXáË¾ÿØ3ÜmTnZÒË®	øóÅ|n
+·Zhr´İ'ñ‘â´™HÚ@öşƒ’*^ÔnÂƒ¾ßöov
+•F×ÁŞâ±Òb¯Ğµğâ(Îxmb¤ˆ}‡ó™a±Á®÷Z<¢ãôİ¤B3¶øê¾àİÁ'L…«®¶ZXÅÙãµ[ı½]×BW\/˜T¡L'œr»¶–¢:àÑäİM‘êÂHUÛ¢3ÉZš¬;˜éÌ7@z[rJ¥‚5å’wtÏ×ş1q¥¢4+qi}ƒç¾O‘3°Á<[ÆÏ}ÿYÏğk">)§s×ü{ì}6
 endstream
 endobj
 4 0 obj
@@ -13,13 +14,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170914145315+03'00')/ModDate(D:20170914145315+03'00')/Producer(iText® 7.0.5-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Basic User Interface Test: outline - create outline likes border property)/assert(Test checks that the outline property creates outlines around visual objects and makes them stand out)/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20171109122357+03'00')/ModDate(D:20171109122357+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Basic User Interface Test: outline - create outline likes border property)/assert(Test checks that the outline property creates outlines around visual objects and makes them stand out)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +28,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000452 00000 n 
-0000001073 00000 n 
-0000000497 00000 n 
-0000000310 00000 n 
+0000000453 00000 n 
+0000001050 00000 n 
+0000000498 00000 n 
+0000000311 00000 n 
 0000000015 00000 n 
-0000000892 00000 n 
-0000000980 00000 n 
+0000000960 00000 n 
+0000000867 00000 n 
 trailer
-<</ID [<a0ed9ddc2c016ce8dd3bbcb35169ea15><a0ed9ddc2c016ce8dd3bbcb35169ea15>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.5-SNAPSHOT
+<</ID [<abf511c4bce1118ce298b6d884fe9630><abf511c4bce1118ce298b6d884fe9630>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.0-SNAPSHOT
 startxref
-1124
+1101
 %%EOF

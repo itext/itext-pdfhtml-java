@@ -1,11 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 160>>stream
-xœmË
-Â0E÷ów©›˜GMãVĞ½ˆtÚ*ZmÒúıÆŠRD˜İœs¸=m=­ö
-JÃ×d,J§…1ğ-<§÷'œj-ãx¡«p‹¡k©CÌï6<x–şL;Oêßeı)+'œ™×S¸2Z>5íğ+}ç¸,­ç’˜¡
-±y­¶›BHrºÈTO„‚¶(¥Ídæ”tÁ'=?£
+<</Filter/FlateDecode/Length 162>>stream
+xœmË‚0E÷ıŠ»ÔMí[ØšèŞ¤?PÃ@5ŠÒ‚ßoAcˆ1™İœsr{¶sls
+®aÚÀ–Šk	W³•£4àáS¢„sƒ!N×‘à»÷è»–úÑÇüşI3°v¶wìÈúwY}ÊªÔ\Ùe=ù!Ğ¹Ã¯ô³ÍRµ”øˆí´ÚTš—¬š.kfBBpSXa2™9)Ê¿àŠ?¤
 endstream
 endobj
 4 0 obj
@@ -15,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170616102633+03'00')/ModDate(D:20170616102633+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Inline-block non-replaced elements' margin box is used for the height of the line box)>>
-endobj
-6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20171109123615+03'00')/ModDate(D:20171109123615+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Inline-block non-replaced elements' margin box is used for the height of the line box)/assert(Inline-block non-replaced elements use the margin box for sizing the height of the line box.)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -29,16 +27,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000384 00000 n 
-0000000905 00000 n 
-0000000429 00000 n 
-0000000242 00000 n 
+0000000386 00000 n 
+0000000992 00000 n 
+0000000431 00000 n 
+0000000244 00000 n 
 0000000015 00000 n 
-0000000724 00000 n 
-0000000812 00000 n 
+0000000902 00000 n 
+0000000809 00000 n 
 trailer
-<</ID [<d107d6ffb80e0ee46a96f26cf7493b48><d107d6ffb80e0ee46a96f26cf7493b48>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<6e526d7eb8f533293c9f39f9099b805b><6e526d7eb8f533293c9f39f9099b805b>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.0-SNAPSHOT
 startxref
-956
+1043
 %%EOF

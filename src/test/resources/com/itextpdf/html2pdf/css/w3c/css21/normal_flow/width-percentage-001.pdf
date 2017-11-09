@@ -1,8 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 160>>stream
-xœeÎ¹Â0Ğ~¿bJhŒÈ1-ôHş£lØ	ü>!Š@ÚnßŒ¦£§ÕNAiø’ŒEî´0¾ …çÔãRâ„¦D_3§Ú—ÚŠ‘º!Äñ]‡O`é´õ´§îÕ¬?ÍÊ	gæí)œ÷¦èëßÌwË„róŒ˜Q		…X=GÛu&¤F>]d*'¡ …ÍriGùvZÿ¹?	
+<</Filter/FlateDecode/Length 161>>stream
+xœeÎÁ‚0Ğû~ÅõRé–´õj¢w“ş@4ŠÒ‚ş¾€ÄMö¶o&ÓÒÎÑæ !®$¥a,%á
+Z¹:<|J!á\¢«N×>À7îÑ7U@j{‡wíŸakw¡½£#µŸf›Ù*ÁfÙü-àu.ºú7ó]“[¡y™š!ƒD¬ÆÑz«„Íax¼¨œ„D&tn2=ÈÙ±üso|ô?
 endstream
 endobj
 4 0 obj
@@ -12,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170724102044+03'00')/ModDate(D:20170724102044+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Calculating percentage based width off of the parent container)>>
-endobj
-6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20171109123915+03'00')/ModDate(D:20171109123915+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Calculating percentage based width off of the parent container)/assert(Percentage is calculated with respect to the width of the generated boxes containing block.)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -26,16 +27,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000384 00000 n 
-0000000882 00000 n 
-0000000429 00000 n 
-0000000242 00000 n 
+0000000385 00000 n 
+0000000967 00000 n 
+0000000430 00000 n 
+0000000243 00000 n 
 0000000015 00000 n 
-0000000701 00000 n 
-0000000789 00000 n 
+0000000877 00000 n 
+0000000784 00000 n 
 trailer
-<</ID [<333aecd7972bf723bbd70dfdfebb4862><333aecd7972bf723bbd70dfdfebb4862>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<ef06f510ac54eeb844253e274511ea56><ef06f510ac54eeb844253e274511ea56>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.0-SNAPSHOT
 startxref
-933
+1018
 %%EOF

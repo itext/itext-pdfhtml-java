@@ -1,9 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 197>>stream
-xœ¥»Â0EwÅa	uBSX‘`GÊTªE¥ĞşŸ”gÛ”±|t|–Vfk¸’ŒE¶ĞÊ¸‚&NÂç<	¨J\öâU@²ªk)°ó"B{Íc#o
-LİÖ¶Ô>¼úéÕKVó»9ÁK1æß9ôB±éóª‡2’xü®‹k£9ÑÈÒîz¡òNÄ¾J^Ú—ûÑ™jUMÌŒÌÚNRß÷½‡ØOŞg¸Ñ?ÅŸ¥GCş÷öÿá‹ö&³yf
+<</Filter/FlateDecode/Length 199>>stream
+xœ¥±‚0†÷{ŠÔ¥ÒVİMú$ˆA”Vßß"ÁAÓ½Ü—ïşkG{C»£„T0%…IªD(a
+ÚvÜsçØ¡.ñ8³eÔ9Êºi¸@e™[¸î™ûFŞØš¨¼jô*­„–sw{ƒåbÍO9T–	•Îy1C%lÕÇÕY ÒIÜ_ËT¾	ßq 3=pI(|_¥"Œp]TIésé¸—4ïı§÷ûÉ;†[ùSüYz5äïü¾h_a¥y¹
 endstream
 endobj
 4 0 obj
@@ -13,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170914145318+03'00')/ModDate(D:20170914145318+03'00')/Producer(iText® 7.0.5-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS-UI test: outline-offset width negative values)/assert(Negative values on outline-offset must cause the outline to shrink into the border box.)/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20171109122359+03'00')/ModDate(D:20171109122359+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS-UI test: outline-offset width negative values)/assert(Negative values on outline-offset must cause the outline to shrink into the border box.)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +27,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000421 00000 n 
-0000001000 00000 n 
-0000000466 00000 n 
-0000000279 00000 n 
+0000000423 00000 n 
+0000000978 00000 n 
+0000000468 00000 n 
+0000000281 00000 n 
 0000000015 00000 n 
-0000000819 00000 n 
-0000000907 00000 n 
+0000000888 00000 n 
+0000000795 00000 n 
 trailer
-<</ID [<b0af2c415bf65da10e158b3eff6e8b8c><b0af2c415bf65da10e158b3eff6e8b8c>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.5-SNAPSHOT
+<</ID [<80c37b0eceea7a73e6ad0dbec5bfc9d5><80c37b0eceea7a73e6ad0dbec5bfc9d5>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.0-SNAPSHOT
 startxref
-1051
+1029
 %%EOF

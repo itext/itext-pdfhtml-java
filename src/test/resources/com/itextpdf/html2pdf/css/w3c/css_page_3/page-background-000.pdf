@@ -1,8 +1,11 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 300>>stream
-xœ’ÑnÂ …ïyŠs7—,°­x»d»_Â ş¶İh«´ºøö£¸ªm\âÍŸœB¿óAØ3Á5$úés& .SèDÁÛ²O¶E¿*SÁ)2µä)*–$	WCt!f1ÎeŒ2ÑqóoÿuSòu!+©nÉJŠ{Eûä3ª4òŸä„|#û·1!Óã‹&gò›a¯RÁl/8¹àz³a3S”-v6'T‡¶ÃŠ°näiƒÕ	6¬8Bî‰êgóÅfèç»ù,$×I¯ìú;÷Í¡Şp˜‚pÍ ²+È‡¢jç¨#w:w¶U¤:å:‹Õ_Ğx8²GjÑÔ®÷n+ëÚÎ—;4[üeGa†ƒ=V’-¹Ö×_Ö]olë§.<a».ø…ğl±k
+<</Filter/FlateDecode/Length 295>>stream
+xœ’İnƒ †Ï¹Š÷l]²0 Zíé’í|	7@Û¯j‡Ú"íÒ»âìé’|Éò</Ä<‡D?]ÁÒeŠ<QpÄ¶ì“â¢èwe*x–b¡–<EÍ’$ájŒ6ÄEŒs£LòøñoÏÚ)ùu!+©nÉJŠG¢IÇäU5FòoÉ	ùïj<~	y¬1½ş½hRc ¿iöú!!ôö‚“9ŸgĞ6ÓeÕao
+B}ì<V„u{"G¬Î0aÇ
+GÔ`eÖ_…kÍ†C—ô¬wl†~¾ë¿EBñ\EÑõ8¨ò%¹ ª÷–<Ùóàì–c—´–Ì‰ºiÒ<ãj5mcûŞ]m¬Eç]µG»ÅwYy
+3\l¸ªñ}Ó<ùğOšuÉ/ú·§š
 endstream
 endobj
 4 0 obj
@@ -12,10 +15,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170126134810-03'00')/ModDate(D:20170126134810-03'00')/Producer(iText Software)/Title(CSS Test: Page Box Background Coverage)>>
+<</CreationDate(D:20171109122347+03'00')/ModDate(D:20171109122347+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Page Box Background Coverage)/assert(The page background covers the entire page box, including the page margins.)/flags(paged)>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -23,15 +26,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000515 00000 n 
-0000000810 00000 n 
-0000000560 00000 n 
-0000000382 00000 n 
+0000000510 00000 n 
+0000000954 00000 n 
+0000000555 00000 n 
+0000000377 00000 n 
 0000000015 00000 n 
-0000000722 00000 n 
+0000000864 00000 n 
 trailer
-<</ID [<1d743a872c172f27ffc64544c009473b><1d743a872c172f27ffc64544c009473b>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.2-SNAPSHOT
+<</ID [<a9ebefce382204e81950ab970fc3f1dd><a9ebefce382204e81950ab970fc3f1dd>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.0-SNAPSHOT
 startxref
-861
+1005
 %%EOF

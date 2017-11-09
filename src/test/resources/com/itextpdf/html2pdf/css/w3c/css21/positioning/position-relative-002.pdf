@@ -1,8 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 162>>stream
-xœuÎA‚0Ğıœâ‡•njX›èŞ¤hÃ B«^_èÂ@Œ»ÉŸ—?3ÒÑĞá¬ R˜†²e5O5íû€‡õ=ÚáÆè8Ø­‡ãnxÇÜuÏyÙöÛ×é¢´nxñVŠ½¹ÓÉĞ…F’P˜®ñz®E¥¡ô	‰©‰æçË,*şiWM•§¢(Qjµ.e!¤ZK÷•¤`H¶
+<</Filter/FlateDecode/Length 163>>stream
+xœuÏÍ
+Â0àû>ÅĞ“^bÓ¤?^½y„nµRZÛD}}K±Š×Ùav¤¡ÍABf0©e•‰\ÃÔ´2ì®Ö{öh„3£ãxBb´»ás×İæcÛ3l_/¤‹ÒºáÎK)ÖæB{CG)E
+‰éèB(È|ND‰©‰äg§Ò"İÆö£iÁ´J¡Ì3Q½>Â_©¿¤{Ë'M{IH
 endstream
 endobj
 4 0 obj
@@ -12,10 +14,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170619171923+03'00')/ModDate(D:20170619171923+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Elements following relatively positioned elements)>>
+<</CreationDate(D:20171109123950+03'00')/ModDate(D:20171109123950+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Elements following relatively positioned elements)/assert(Element following relatively positioned element show up in normal flow as if the relatively positioned element were not offset.)/flags()>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -23,15 +25,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000377 00000 n 
-0000000769 00000 n 
-0000000422 00000 n 
-0000000244 00000 n 
+0000000378 00000 n 
+0000000890 00000 n 
+0000000423 00000 n 
+0000000245 00000 n 
 0000000015 00000 n 
-0000000681 00000 n 
+0000000800 00000 n 
 trailer
-<</ID [<04aed2d5796d289872af6ba8fc6af7ba><04aed2d5796d289872af6ba8fc6af7ba>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<597800c1cb3dc4ce8e4cd9389ba4b3fe><597800c1cb3dc4ce8e4cd9389ba4b3fe>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.0-SNAPSHOT
 startxref
-820
+941
 %%EOF
