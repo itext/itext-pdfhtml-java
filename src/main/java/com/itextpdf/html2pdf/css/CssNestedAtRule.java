@@ -142,4 +142,9 @@ public class CssNestedAtRule extends CssAtRule {
         sb.append("\n}");
         return sb.toString();
     }
+
+    public String getRuleParameters() {
+        return ruleParameters;
+    }
+
 }
