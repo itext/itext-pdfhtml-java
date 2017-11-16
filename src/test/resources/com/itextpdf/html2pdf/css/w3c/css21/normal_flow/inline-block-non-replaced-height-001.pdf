@@ -1,9 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 162>>stream
-xœmË‚0E÷ıŠ»ÔMí[ØšèŞ¤?PÃ@5ŠÒ‚ßoAcˆ1™İœsr{¶sls
-®aÚÀ–Šk	W³•£4àáS¢„sƒ!N×‘à»÷è»–úÑÇüşI3°v¶wìÈúwY}ÊªÔ\Ùe=ù!Ğ¹Ã¯ô³ÍRµ”øˆí´ÚTš—¬š.kfBBpSXa2™9)Ê¿àŠ?¤
+<</Filter/FlateDecode/Length 161>>stream
+xœmÎAÂ Ğ=§˜¥n(nMtoÂ0ı-­ZÏo[i“¿ûo&Ó²½g›£„Tğ+¬SÜYø’­<åÏ3e\*t‘p¾õ„Ğ”x¤ĞÔ„Üö!ï^4µ¿²ƒg'Ö~šÕ·Y¹‚+;oÏáNˆt©c·ıæh½ñHõ¸Úì4×[X5^"VMBBp£­0ƒœî/| —?¿
 endstream
 endobj
 4 0 obj
@@ -13,13 +12,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123615+03'00')/ModDate(D:20171109123615+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Inline-block non-replaced element with 'margin-top', margin-bottom' set to 'auto' and 'height' relying on the descendants)/assert(If 'height' is 'auto' on an inline-block non-replaced element then the 'height' depends on the descendants.)/flags()>>
-endobj
-7 0 obj
-<</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20171116193658+03'00')/ModDate(D:20171116193658+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Inline-block non-replaced element with 'margin-top', margin-bottom' set to 'auto' and 'height' relying on the descendants)/assert(If 'height' is 'auto' on an inline-block non-replaced element then the 'height' depends on the descendants.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+7 0 obj
+<</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +26,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000386 00000 n 
-0000001043 00000 n 
-0000000431 00000 n 
-0000000244 00000 n 
+0000000385 00000 n 
+0000001038 00000 n 
+0000000430 00000 n 
+0000000243 00000 n 
 0000000015 00000 n 
-0000000953 00000 n 
-0000000860 00000 n 
+0000000859 00000 n 
+0000000949 00000 n 
 trailer
-<</ID [<4f21a0e706251de347e95211ebc7bab7><4f21a0e706251de347e95211ebc7bab7>]/Info 3 0 R/Root 1 0 R/Size 8>>
+<</ID [<8b49860e43a5173a7412273c985fda85><8b49860e43a5173a7412273c985fda85>]/Info 3 0 R/Root 1 0 R/Size 8>>
 %iText-7.1.0-SNAPSHOT
 startxref
-1094
+1089
 %%EOF

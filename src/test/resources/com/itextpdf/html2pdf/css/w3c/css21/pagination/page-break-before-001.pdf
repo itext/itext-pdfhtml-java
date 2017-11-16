@@ -2,8 +2,8 @@
 %âãÏÓ
 5 0 obj
 <</Filter/FlateDecode/Length 162>>stream
-xœuŽA‚0E÷=Å_ê¦¦ÔlMtoÒ
-ešèí­AbâfVÿ½y£8±;+¨¦ú€4ßK­`J±15yB&ÆÖÜÅÉˆ‹g ù¹–:Y3½ãßí"WJÉ<[Q,{#žì¶bòàº™Ð6=ÁU`z²ü§üô¦™L—ÞÈ1ÅÜ©v¡-1xW†kÔôí+š_E©<„•öºqF‹
+xœuŽA‚0E÷sŠ¿ÔM0b·&º7éŠ¢"…2Môö– 	1q3«ÿÞ¼žö†VÇI
+SQ¶E®7j—Ã”´05{Æ#‚¥¹ÑÁÐ‰ú	H?€ÎT–Î™ÖÉïö+OÖZi=£`XtöÂ(<Û;l%ì!õu@sm®‚ðSÔ?åØ›ë1aêœpÌjšwe8GMÛ¼âáéU”º ]˜iß×LF²
 endstream
 endobj
 4 0 obj
@@ -13,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123925+03'00')/ModDate(D:20171109123925+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: page-break-before :auto)/assert(The 'auto' value of the 'page-break-before' property neither forces nor forbids a page break before the box.)/flags(paged)>>
-endobj
-7 0 obj
-<</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20171116194428+03'00')/ModDate(D:20171116194428+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: page-break-before :auto)/assert(The 'auto' value of the 'page-break-before' property neither forces nor forbids a page break before the box.)/flags(paged)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+7 0 obj
+<</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -28,15 +28,15 @@ xref
 0 8
 0000000000 65535 f 
 0000000386 00000 n 
-0000000951 00000 n 
+0000000947 00000 n 
 0000000431 00000 n 
 0000000244 00000 n 
 0000000015 00000 n 
-0000000861 00000 n 
 0000000768 00000 n 
+0000000858 00000 n 
 trailer
-<</ID [<3bb7c06a04d21ea0744cbfa560e12f0d><3bb7c06a04d21ea0744cbfa560e12f0d>]/Info 3 0 R/Root 1 0 R/Size 8>>
+<</ID [<d88c8aa6336f9ffa6c0087134e90ddb6><d88c8aa6336f9ffa6c0087134e90ddb6>]/Info 3 0 R/Root 1 0 R/Size 8>>
 %iText-7.1.0-SNAPSHOT
 startxref
-1002
+998
 %%EOF

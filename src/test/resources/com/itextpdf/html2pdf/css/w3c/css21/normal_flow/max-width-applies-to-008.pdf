@@ -1,9 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 136>>stream
+<</Filter/FlateDecode/Length 134>>stream
 xœuÎË
-Â0„áıyŠYê&’SMÛ¥‚î…¼@ ')Ñ$õı½K\ÏÇÏdÚXZì44ÃjÚU£a=Í¬ÔW«TÄ€ñ(E+Bñ8‘„š¯î>¸ä1·'ÚZÚS~uùİeÃÊèi;QÄÿúÏî{ÅİÔ«ôqyÕ¨vùdë/»|¢5“
+Â0„áıyŠYê&’´MëRA÷Ây@N4RZ“Ô÷÷.Rp=?“hË´ÚkhTY´Q]ö´`).®)ˆÓI² 8„Ø÷âqÌ"Jººûà%ŸiÇt ôêšw×X£¬şm#²ø¹ÿü0ëfæÕ?ú¸ÜÔªªŸlóe7‰ñ5ª
 endstream
 endobj
 4 0 obj
@@ -13,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123715+03'00')/ModDate(D:20171109123715+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-width applied to elements with 'display' set to 'inline')/assert(The 'max-width' property does not apply to elements with 'display' set to 'inline'.)/flags(ahem)>>
-endobj
-7 0 obj
-<</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20171116193818+03'00')/ModDate(D:20171116193818+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-width applied to elements with 'display' set to 'inline')/assert(The 'max-width' property does not apply to elements with 'display' set to 'inline'.)/flags(ahem)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+7 0 obj
+<</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +27,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000360 00000 n 
-0000000936 00000 n 
-0000000405 00000 n 
-0000000218 00000 n 
+0000000358 00000 n 
+0000000930 00000 n 
+0000000403 00000 n 
+0000000216 00000 n 
 0000000015 00000 n 
-0000000846 00000 n 
-0000000753 00000 n 
+0000000751 00000 n 
+0000000841 00000 n 
 trailer
-<</ID [<231a9ff76835f2ec58ad0a1fcae5ec6b><231a9ff76835f2ec58ad0a1fcae5ec6b>]/Info 3 0 R/Root 1 0 R/Size 8>>
+<</ID [<88ec55be58e74bef2c4e3537b4a49bd5><88ec55be58e74bef2c4e3537b4a49bd5>]/Info 3 0 R/Root 1 0 R/Size 8>>
 %iText-7.1.0-SNAPSHOT
 startxref
-987
+981
 %%EOF

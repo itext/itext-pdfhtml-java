@@ -1,9 +1,12 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 147>>stream
-xœ]A
-Â0D÷ÿ³ÔML~mÚlİ¹@ ?µRªMêımQ¡³›ÇãMtòt¸†OTY4-«ÊÀGÚy)3¡)èæ›dA_úaˆ.‹Œ(Ó+,G#öşNgOWš>^şzÙ²²fëÈÿù_;§¸İòjƒjhUkã,4r·F[§U{DS¯ËBiáŞ¬ˆ5—
+<</Filter/FlateDecode/Length 145>>stream
+xœ]Ë
+Â0÷÷+ÎR71‰&m¶‚î…ü@ 7µRªIêÿ[_P
+gw†a2=íÎ
+JÃ'Ú[4­miã¹Nx„Z¹¢O˜®\}E@ê‡#ºÂ<¢æg˜0FlıN.”¿^ıój«…UK÷xGá¸æÿÚ™/¨„F*g!Qºw´uJšÏ
+Sš¹º5¯
 endstream
 endobj
 4 0 obj
@@ -13,13 +16,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123720+03'00')/ModDate(D:20171109123720+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-Width applied to none)/assert(Max-Width can be declared onto 'display: none' elements but since 'display: none' declaration on an element does not generate a CSS box, then it won't have a rendering effect nor a visual formatting repercussion.)/flags()>>
-endobj
-7 0 obj
-<</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20171116193820+03'00')/ModDate(D:20171116193820+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-Width applied to none)/assert(Max-Width can be declared onto 'display: none' elements but since 'display: none' declaration on an element does not generate a CSS box, then it won't have a rendering effect nor a visual formatting repercussion.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+7 0 obj
+<</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +30,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000371 00000 n 
-0000001037 00000 n 
-0000000416 00000 n 
-0000000229 00000 n 
+0000000369 00000 n 
+0000001031 00000 n 
+0000000414 00000 n 
+0000000227 00000 n 
 0000000015 00000 n 
-0000000947 00000 n 
-0000000854 00000 n 
+0000000852 00000 n 
+0000000942 00000 n 
 trailer
-<</ID [<afadb94775d64a0c852a9e02093bf1b6><afadb94775d64a0c852a9e02093bf1b6>]/Info 3 0 R/Root 1 0 R/Size 8>>
+<</ID [<0f1f725dc29a79a83d8eb77ff4bb8d26><0f1f725dc29a79a83d8eb77ff4bb8d26>]/Info 3 0 R/Root 1 0 R/Size 8>>
 %iText-7.1.0-SNAPSHOT
 startxref
-1088
+1082
 %%EOF
