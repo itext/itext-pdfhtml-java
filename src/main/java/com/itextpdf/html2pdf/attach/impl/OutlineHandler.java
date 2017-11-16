@@ -178,7 +178,7 @@ public class OutlineHandler {
      */
     OutlineHandler addOutline(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
         String tagName = element.name();
-        if (null != tagWorker && hasTagPriorityMapping(tagName)) {
+        if (null != tagWorker && hasTagPriorityMapping(tagName) && context.getPdfDocument() != null) {
             int level = (int) getTagPriorityMapping(tagName);
             if (null == currentOutline) {
                 currentOutline = context.getPdfDocument().getOutlines(false);
@@ -213,7 +213,7 @@ public class OutlineHandler {
      */
     OutlineHandler addDestination(ITagWorker tagWorker, IElementNode element) {
         String tagName = element.name();
-        if (null != tagWorker && hasTagPriorityMapping(tagName)) {
+        if (null != tagWorker && hasTagPriorityMapping(tagName) && destinationsInProcess.size()>0) {
             String content = destinationsInProcess.pop();
             if (tagWorker.getElementResult() instanceof IElement) {
                 tagWorker.getElementResult().setProperty(Property.DESTINATION, content);
