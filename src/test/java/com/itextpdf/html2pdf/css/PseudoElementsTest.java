@@ -43,19 +43,16 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.io.File;
-import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class PseudoElementsTest extends ExtendedITextTest {
@@ -133,12 +130,6 @@ public class PseudoElementsTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1049")
-    public void collapsingMarginsBeforeAfterPseudo03() throws IOException, InterruptedException {
-        runTest("collapsingMarginsBeforeAfterPseudo03");
-    }
-
-    @Test
     public void collapsingMarginsBeforeAfterPseudo04() throws IOException, InterruptedException {
         runTest("collapsingMarginsBeforeAfterPseudo04");
     }
@@ -151,24 +142,6 @@ public class PseudoElementsTest extends ExtendedITextTest {
     @Test
     public void collapsingMarginsBeforeAfterPseudo06() throws IOException, InterruptedException {
         runTest("collapsingMarginsBeforeAfterPseudo06");
-    }
-
-    @Test
-    public void nonNormalizedAfterBeforeTest() throws IOException, InterruptedException {
-        runTest("nonNormalizedAfterBeforeTest");
-    }
-
-    @Test
-    @Ignore("DEVSIX-1049")
-    public void imgPseudoTest01() throws IOException, InterruptedException {
-        // width and height properties doesn't affect image in pseudo element
-        runTest("imgPseudoTest01");
-    }
-
-    @Test
-    @Ignore("DEVSIX-1049")
-    public void imgPseudoTest02() throws IOException, InterruptedException {
-        runTest("imgPseudoTest02");
     }
 
     @Test

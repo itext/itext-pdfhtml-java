@@ -49,13 +49,13 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.io.File;
-import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class HeightTest extends ExtendedITextTest {
@@ -111,26 +111,6 @@ public class HeightTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("little fixed parent height of kid with lots of content results in empty page")
-    public void heightTest05() throws IOException, InterruptedException {
-        String testName = "heightTest05";
-        String diffPrefix = "diff05_";
-
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
-    }
-
-    @Test
-    @Ignore("DEVSIX-1007")
-    public void heightTest06() throws IOException, InterruptedException {
-        String testName = "heightTest06";
-        String diffPrefix = "diff06_";
-
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
-    }
-
-    @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)
     })
@@ -162,18 +142,6 @@ public class HeightTest extends ExtendedITextTest {
 
         // second paragraph should not be drawn in pdf, as it doesn't fit with it's margins
         
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
-    }
-
-    @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 1)
-    })
-    public void heightWithCollapsingMarginsTest05() throws IOException, InterruptedException {
-        String testName = "heightWithCollapsingMarginsTest05";
-        String diffPrefix = "diffMargins05_";
-
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
     }

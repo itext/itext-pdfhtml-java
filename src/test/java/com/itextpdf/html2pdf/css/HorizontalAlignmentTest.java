@@ -47,12 +47,13 @@ import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.io.File;
-import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class HorizontalAlignmentTest extends ExtendedITextTest {
@@ -84,11 +85,6 @@ public class HorizontalAlignmentTest extends ExtendedITextTest {
     @Test
     public void marginsAutoBlocks() throws IOException, InterruptedException {
         runTest("marginsAutoBlocks");
-    }
-    
-    @Test
-    public void marginsAutoImages() throws IOException, InterruptedException {
-        runTest("marginsAutoImages");
     }
     
     @Test
