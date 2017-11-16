@@ -48,7 +48,6 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -66,35 +65,10 @@ public class OverflowTest extends ExtendedITextTest {
         createDestinationFolder(destinationFolder);
     }
 
-    @Ignore
-    @Test
-    public void overflowTest01() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "overflowTest01.html"), new File(destinationFolder + "overflowTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "overflowTest01.pdf", sourceFolder + "cmp_overflowTest01.pdf", destinationFolder, "diff01_"));
-    }
-
-    @Test
-    public void overflowTest02() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "overflowTest02.html"), new File(destinationFolder + "overflowTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "overflowTest02.pdf", sourceFolder + "cmp_overflowTest02.pdf", destinationFolder, "diff02_"));
-    }
-
-    @Test
-    public void overflowTest03() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "overflowTest03.html"), new File(destinationFolder + "overflowTest03.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "overflowTest03.pdf", sourceFolder + "cmp_overflowTest03.pdf", destinationFolder, "diff03_"));
-    }
-
     @Test
     public void overflowTest04() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "overflowTest04.html"), new File(destinationFolder + "overflowTest04.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "overflowTest04.pdf", sourceFolder + "cmp_overflowTest04.pdf", destinationFolder, "diff04_"));
-    }
-
-    @Test
-    public void overflowTest05() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "overflowTest05.html"), new File(destinationFolder + "overflowTest05.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "overflowTest05.pdf", sourceFolder + "cmp_overflowTest05.pdf", destinationFolder, "diff05_"));
     }
 
     @Test
