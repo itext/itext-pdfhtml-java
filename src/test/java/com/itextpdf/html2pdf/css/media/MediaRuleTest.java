@@ -57,6 +57,7 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -215,9 +216,9 @@ public class MediaRuleTest extends ExtendedITextTest {
         List<IElement> printElements = HtmlConverter.convertToElements(html, new ConverterProperties().setMediaDeviceDescription(printDevice).setBaseUri(sourceFolder));
         List<IElement> screenElements = HtmlConverter.convertToElements(html, new ConverterProperties().setMediaDeviceDescription(screenDevice).setBaseUri(sourceFolder));
 
-        Assert.assertEquals(12f, (Float) printElements.get(0).<Float>getProperty(Property.FONT_SIZE), 1e-10f);
+        Assert.assertEquals(12f, printElements.get(0).<UnitValue>getProperty(Property.FONT_SIZE).getValue(), 1e-10f);
 
-        Assert.assertEquals(20f, (Float) screenElements.get(0).<Float>getProperty(Property.FONT_SIZE), 1e-10f);
+        Assert.assertEquals(20f, screenElements.get(0).<UnitValue>getProperty(Property.FONT_SIZE).getValue(), 1e-10f);
     }
 
 

@@ -66,6 +66,8 @@ public class BrTagWorker implements ITagWorker {
      * @param context the context
      */
     public BrTagWorker(IElementNode element, ProcessorContext context) {
+        //There is no mappings for BR element in DefaultTagCssApplierMapping,
+        // because only font-family should be applied to <br /> element.
         String fontFamily = element.getStyles().get(CssConstants.FONT_FAMILY);
         newLine.setFont(fontFamily);
     }

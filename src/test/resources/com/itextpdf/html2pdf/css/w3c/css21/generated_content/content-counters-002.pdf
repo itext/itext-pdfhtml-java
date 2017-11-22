@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 278>>stream
-xœ•ÓMNÃ0à½Oá%l™ñß¤K$Ø#å‘šÒ€[·$¨pŞ—ZT@•†…åÍó§'{¼5·¹¹'Kl›…qÑ&a8g›¹¹j–]”œË®_?ÚqWlî×İ`‡eyÍs›Ky¶×Í“¹kÌƒÙ~I|”˜=*9×ÚÍæ¥¼õ«vìòûïc§\ÒvœZíª›]:s(<œÿÌï±¿ô	ÉŸgÿ´?%¡JJ52„TjŒ ¯TS‚ˆJ³R­uP©u×J•*AÅ*–ˆ ~/bİÍGx§e€’Îõ„ eƒëÆ‹BD­Ny‰Õ}ÅÁéFŒ$"igŒ¦/ì£ÊåŠ´Sv›éå¦í´ÿXßè…Ú
+<</Filter/FlateDecode/Length 258>>stream
+xœ•“MNÃ0F÷>Å,éfğŒÿâ.‘ÊÉˆÔ”Üº%A…ƒô¾´@Pj4,²{~úœ'ïÕ]R·÷ÄVÊxc -ÕMZ7°*9—C»}„şP ·Û¦ƒn]^ór)Ï0KOj‘ÔƒÚ™øÛÄdĞØK[½Û½”·vS÷M~ÿ}lÀ'ŞF@ZÑÕ›f~íÌy´shø“?âñhÚKôÏøtzN8=a%rz;'œÁ#‹œ!Á	gÔèEÎhPú?I;‘’´ôæDQ˜ˆ˜ÅÈa$2^\‰l%ÌDÄÈ³0y'/‚ÌYi©1’´T´âRç§l"?€ğïGú Í8
 endstream
 endobj
 4 0 obj
@@ -12,13 +12,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170315180213+03'00')/ModDate(D:20170315180213+03'00')/Producer(iText® 7.0.3-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: content: counters\(c, ".", disc\))>>
-endobj
-7 0 obj
-<</BaseFont/Helvetica-Oblique/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20171116193656+03'00')/ModDate(D:20171116193656+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: content: counters\(c, ".", disc\))>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+7 0 obj
+<</BaseFont/Times-Italic/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -26,16 +26,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000502 00000 n 
-0000000974 00000 n 
-0000000547 00000 n 
-0000000360 00000 n 
+0000000482 00000 n 
+0000000925 00000 n 
+0000000527 00000 n 
+0000000340 00000 n 
 0000000015 00000 n 
-0000000886 00000 n 
-0000000790 00000 n 
+0000000744 00000 n 
+0000000834 00000 n 
 trailer
-<</ID [<1cee674e91a63946e5c46ec411f2246c><1cee674e91a63946e5c46ec411f2246c>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.3-SNAPSHOT
+<</ID [<70066a820689968e5cb6c7a880849bc9><70066a820689968e5cb6c7a880849bc9>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.0-SNAPSHOT
 startxref
-1025
+976
 %%EOF

@@ -43,21 +43,22 @@
 package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
 import com.itextpdf.html2pdf.html.node.IDocumentNode;
+import com.itextpdf.html2pdf.jsoup.nodes.Document;
 
 /**
- * Implementation of the {@link IDocumentNode} interface; wrapper for the JSoup {@link org.jsoup.nodes.Document} class.
+ * Implementation of the {@link IDocumentNode} interface; wrapper for the JSoup {@link Document} class.
  */
 public class JsoupDocumentNode extends JsoupElementNode implements IDocumentNode {
 
     /** The JSoup document instance. */
-    private org.jsoup.nodes.Document document;
+    private Document document;
 
     /**
      * Creates a new {@link JsoupDocumentNode} instance.
      *
      * @param document the document
      */
-    public JsoupDocumentNode(org.jsoup.nodes.Document document) {
+    public JsoupDocumentNode(Document document) {
         super(document);
         this.document = document;
     }
@@ -67,7 +68,7 @@ public class JsoupDocumentNode extends JsoupElementNode implements IDocumentNode
      *
      * @return the document
      */
-    public org.jsoup.nodes.Document getDocument() {
+    public Document getDocument() {
         return document;
     }
 

@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.parse.CssSelectorParser;
 import com.itextpdf.html2pdf.css.selector.CssSelector;
@@ -49,15 +50,20 @@ import com.itextpdf.html2pdf.css.selector.ICssSelector;
 import com.itextpdf.html2pdf.html.node.ICustomElementNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.io.util.MessageFormatUtil;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * {@link ICssSelectorItem} implementation for pseudo class selectors.
  */
-public class CssPseudoClassSelectorItem implements ICssSelectorItem {
+public abstract class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
     /**
      * The pseudo class.
@@ -73,11 +79,8 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
      * Creates a new {@link CssPseudoClassSelectorItem} instance.
      *
      * @param pseudoClass the pseudo class name
-     * @deprecated not intended for public use {@link CssPseudoClassSelectorItem#create(String)} instead.
-     * This class will be abstract and this constructor will be protected in the next major release.
      */
-    @Deprecated
-    public CssPseudoClassSelectorItem(String pseudoClass) {
+    protected CssPseudoClassSelectorItem(String pseudoClass) {
         this(pseudoClass, "");
     }
 
@@ -124,8 +127,30 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
             case CssConstants.TARGET:
             case CssConstants.VISITED:
                 return new AlwaysNotApplySelectorItem(pseudoClass, arguments);
+            //Still unsupported, should be addressed in DEVSIX-1440
+            //case CssConstants.CHECKED:
+            //case CssConstants.DISABLED:
+            //case CssConstants.EMPTY:
+            //case CssConstants.ENABLED:
+            //case CssConstants.FIRST_OF_TYPE:
+            //case CssConstants.IN_RANGE:
+            //case CssConstants.INVALID:
+            //case CssConstants.LANG:
+            //case CssConstants.LAST_OF_TYPE:
+            //case CssConstants.NTH_LAST_CHILD:
+            //case CssConstants.NTH_LAST_OF_TYPE:
+            //case CssConstants.NTH_OF_TYPE:
+            //case CssConstants.ONLY_OF_TYPE:
+            //case CssConstants.ONLY_CHILD:
+            //case CssConstants.OPTIONAL:
+            //case CssConstants.OUT_OF_RANGE:
+            //case CssConstants.READ_ONLY:
+            //case CssConstants.READ_WRITE:
+            //case CssConstants.REQUIRED:
+            //case CssConstants.ROOT:
+            //case CssConstants.VALID:
             default:
-                return new CssPseudoClassSelectorItem(pseudoClass, arguments);
+                return null;
         }
     }
 
@@ -318,9 +343,7 @@ public class CssPseudoClassSelectorItem implements ICssSelectorItem {
         }
     }
 
-    //@TODO This class was made public because we need to detect to arguments contains unsupported pseudo classes
-    //revert the changes when the task DEVSIX-1440 is done
-    public static class NotSelectorItem extends CssPseudoClassSelectorItem {
+    private static class NotSelectorItem extends CssPseudoClassSelectorItem {
         private ICssSelector argumentsSelector;
 
         NotSelectorItem(ICssSelector argumentsSelector) {

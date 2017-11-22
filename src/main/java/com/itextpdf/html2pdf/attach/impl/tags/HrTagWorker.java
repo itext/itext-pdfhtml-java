@@ -44,8 +44,8 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.kernel.pdf.PdfName;
-import com.itextpdf.kernel.pdf.tagutils.IAccessibleElement;
+import com.itextpdf.kernel.pdf.tagging.StandardRoles;
+import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.layout.IPropertyContainer;
 
 /**
@@ -70,7 +70,7 @@ public class HrTagWorker extends DivTagWorker {
     public IPropertyContainer getElementResult() {
         IPropertyContainer elementResult = super.getElementResult();
         if (elementResult instanceof IAccessibleElement) {
-            ((IAccessibleElement) elementResult).setRole(PdfName.Artifact);
+            ((IAccessibleElement) elementResult).getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
         }
         return elementResult;
     }

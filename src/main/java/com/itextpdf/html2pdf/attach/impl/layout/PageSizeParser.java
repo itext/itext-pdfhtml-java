@@ -84,7 +84,7 @@ class PageSizeParser {
      * @return the page size
      */
     static PageSize fetchPageSize(String pageSizeStr, float em, float rem, PageSize defaultPageSize) {
-        PageSize pageSize = defaultPageSize.clone();
+        PageSize pageSize = (PageSize) defaultPageSize.clone();
         if (pageSizeStr == null || CssConstants.AUTO.equals(pageSizeStr)) {
             return pageSize;
         }

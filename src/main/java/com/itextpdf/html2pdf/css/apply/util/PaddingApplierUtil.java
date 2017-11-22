@@ -90,7 +90,7 @@ public final class PaddingApplierUtil {
 
         if (marginTopVal != null) {
             if (marginTopVal.isPointValue()) {
-                element.setProperty(Property.PADDING_TOP, marginTopVal.getValue());
+                element.setProperty(Property.PADDING_TOP, marginTopVal);
             } else {
                 logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
@@ -98,7 +98,7 @@ public final class PaddingApplierUtil {
 
         if (marginBottomVal != null) {
             if (marginBottomVal.isPointValue()) {
-                element.setProperty(Property.PADDING_BOTTOM, marginBottomVal.getValue());
+                element.setProperty(Property.PADDING_BOTTOM, marginBottomVal);
             } else {
                 logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
@@ -106,7 +106,7 @@ public final class PaddingApplierUtil {
 
         if (marginLeftVal != null) {
             if (marginLeftVal.isPointValue()) {
-                element.setProperty(Property.PADDING_LEFT, marginLeftVal.getValue());
+                element.setProperty(Property.PADDING_LEFT, marginLeftVal);
             } else {
                 logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
@@ -114,7 +114,7 @@ public final class PaddingApplierUtil {
 
         if (marginRightVal != null) {
             if (marginRightVal.isPointValue()) {
-                element.setProperty(Property.PADDING_RIGHT, marginRightVal.getValue());
+                element.setProperty(Property.PADDING_RIGHT, marginRightVal);
             } else {
                 logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }

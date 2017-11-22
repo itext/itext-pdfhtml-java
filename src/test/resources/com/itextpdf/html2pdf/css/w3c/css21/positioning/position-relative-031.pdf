@@ -1,9 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 142>>stream
-xœÎ½
-Â0Åñı>Å¡“.1_Më*Ø]¸/ğ+µÚ&ƒ/t*HĞùğûsf:1:cÁ=¹€¦µÊ9ğ•v,)ãS’„¡G¾	jTİ0²€å+ÄEğœÖ)Å‡`&Q{¾Ó™éBów½öÊùµ¾é $¶ JÀx¯B³EøCY­UhKªøÎ­ôÏ‡î Y¨
+<</Filter/FlateDecode/Length 136>>stream
+xœÎ±
+Â0…áı>Å¡“.Ñ¤Æ¶«`wá¾@À[ŒÄj›>¾Ğ© ßÏ™èÄ´ë-¬TÑ´Î´øJ–\ğ
+9KFPnª)É–w©fÁs\¦‚G1[¾Ó™éBÓwİ{S»¥¾ê@İ^°»ø‡t^#ê/çİ¯cıŠWî
 endstream
 endobj
 4 0 obj
@@ -13,10 +14,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20161229122003+03'00')/ModDate(D:20161229122003+03'00')/Producer(iText Software)/Title(CSS Test: Relatively positioned elements with auto positioning with an inline element before, anonymous boxes, and inline boxes after)>>
+<</CreationDate(D:20171109124001+03'00')/ModDate(D:20171109124001+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Relatively positioned elements with auto positioning with an inline element before, anonymous boxes, and inline boxes after)/assert(Relatively positioned element with auto positioning render as though they were positioned in flow.)/flags()>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -24,15 +25,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000357 00000 n 
-0000000747 00000 n 
-0000000402 00000 n 
-0000000224 00000 n 
+0000000351 00000 n 
+0000000908 00000 n 
+0000000396 00000 n 
+0000000218 00000 n 
 0000000015 00000 n 
-0000000659 00000 n 
+0000000818 00000 n 
 trailer
-<</ID [<5012d5023822d5d71950b1bc30c7858a><5012d5023822d5d71950b1bc30c7858a>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.2-SNAPSHOT
+<</ID [<278f0503337255af14f43ce584670d84><278f0503337255af14f43ce584670d84>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.0-SNAPSHOT
 startxref
-798
+959
 %%EOF

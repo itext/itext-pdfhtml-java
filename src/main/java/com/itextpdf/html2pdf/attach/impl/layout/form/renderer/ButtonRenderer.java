@@ -54,10 +54,13 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.LineRenderer;
+import com.itextpdf.layout.renderer.ListItemRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
@@ -129,12 +132,16 @@ public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
     protected void applyAcroField(DrawContext drawContext) {
         String value = getDefaultValue();
         String name = getModelId();
-        float fontSize = (float) this.getPropertyAsFloat(Property.FONT_SIZE);
+        UnitValue fontSize = (UnitValue) this.getPropertyAsUnitValue(Property.FONT_SIZE);
+        if (!fontSize.isPointValue()) {
+            Logger logger = LoggerFactory.getLogger(ButtonRenderer.class);
+            logger.error(MessageFormatUtil.format(com.itextpdf.io.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property.FONT_SIZE));
+        }
         PdfDocument doc = drawContext.getDocument();
         Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
         applyPaddings(area, true);
         PdfPage page = doc.getPage(occupiedArea.getPageNumber());
-        PdfButtonFormField button = PdfFormField.createPushButton(doc, area, name, value, font, fontSize);
+        PdfButtonFormField button = PdfFormField.createPushButton(doc, area, name, value, font, fontSize.getValue());
         Background background = this.<Background>getProperty(Property.BACKGROUND);
         if (background != null && background.getColor() != null) {
             button.setBackgroundColor(background.getColor());

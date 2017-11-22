@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
 import com.itextpdf.html2pdf.html.node.IAttribute;
-import org.jsoup.nodes.Attribute;
+import com.itextpdf.html2pdf.jsoup.nodes.Attribute;
 
 /**
  * Implementation of the {@link IAttribute} interface; wrapper for the JSoup {@link Attribute} class.

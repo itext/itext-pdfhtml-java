@@ -49,9 +49,9 @@ import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.io.util.MessageFormatUtil;
-import com.itextpdf.kernel.color.Color;
-import com.itextpdf.kernel.color.ColorConstants;
-import com.itextpdf.kernel.color.DeviceRgb;
+import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.BaseDirection;
@@ -95,7 +95,7 @@ public final class FontStyleApplierUtil {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
         if (em != 0) {
-            element.setProperty(Property.FONT_SIZE, em);
+            element.setProperty(Property.FONT_SIZE, UnitValue.createPointValue(em));
         }
 
         if (cssProps.get(CssConstants.FONT_FAMILY) != null) {

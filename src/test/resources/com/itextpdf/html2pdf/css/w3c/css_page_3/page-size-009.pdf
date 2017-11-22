@@ -1,12 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 249>>stream
-xœmAOÃ0…ïùï¸I0Zµ=#mG¤wI›´	dm—˜øõ¸4ë
-BQ¬Ûïs|f	¦ã[Æ³9İãIQşHG²LH–“Ì²Eå±Ü°v^!®ÆÈà7Æäş»ùÂg
-Å!ÿŠq•Ë¿Œh<­>»^`-fÀ“`şÑÌÖ4Û¥)„b›çN«VûûÑ~i…ã†sÛá^Øî¸Eïá¤§:9P´#ä‡´NVNß!z×}t0šşİ)Tƒ·”R Dådı†ª¿P·0’ø´*ô
-jª¦\§(o´mM˜
-<•İV¼²½ M¾dOtË
+<</Filter/FlateDecode/Length 248>>stream
+xœmAOÃ0…ïùï¸I0Vµ=#Ä)Ç]Ò&mYÚ¥&~=.Íº‚PëÅöûŸX†é„ñ¼@A÷ÈxVV?Ò‘¬2’Õ$ó|QE*·ì…Vˆ‹11ø•1¹ã®Cş£ğ™B1AÈ¿b\ä2ä/#«Ï®X`Ë€ğ Øİ¿‡hgë>ßU%„b›çN«N‡ÛÑ~i…Ã†sëq/­?lÑ8¨Aíù!­“µÓ7ˆ†ŞMï£ö£éßB­1K)IÔN6o¨û3uË#‰€O«¢Aß¢¤¦ÆhÊyEy£mgâTàûTÙmÅ+{´É7j–tÔ
 endstream
 endobj
 4 0 obj
@@ -16,10 +12,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170119132407-03'00')/ModDate(D:20170119132407-03'00')/Producer(iText Software)/Title(CSS Test: @page size Ledger)>>
+<</CreationDate(D:20171109122356+03'00')/ModDate(D:20171109122356+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: @page size Ledger)/assert(The 'ledger' value of the 'size' property specifies that the page box's width be 11in and its height 17in.)/flags(paged)>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000466 00000 n 
-0000000750 00000 n 
-0000000511 00000 n 
-0000000331 00000 n 
+0000000465 00000 n 
+0000000929 00000 n 
+0000000510 00000 n 
+0000000330 00000 n 
 0000000015 00000 n 
-0000000662 00000 n 
+0000000839 00000 n 
 trailer
-<</ID [<f290bb5de2ad8b3efe2b6364eb5c53f9><f290bb5de2ad8b3efe2b6364eb5c53f9>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.2-SNAPSHOT
+<</ID [<1949c323f69d28143346dd34e3c4eccb><1949c323f69d28143346dd34e3c4eccb>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.0-SNAPSHOT
 startxref
-801
+980
 %%EOF

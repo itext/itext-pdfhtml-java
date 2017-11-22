@@ -1,9 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 151>>stream
-xœ}Ë
-Â0D÷÷+f©›Ø$öµt/ä¹©•Òš¤ş¿©ŠT2³›ÃaíNRÁxÒêF	­am§7›'ôó…#£O°ğı0°C™G¤p·y°£ÃÖ\éhèLáåUo¯j¥Ø¹Ç	‘İ/ÿù¡!õš+T¢È‰İr·ÊæB¡.—F&ÿ$ò.ÊB¶Õ_îD<x
+<</Filter/FlateDecode/Length 150>>stream
+xœ}A
+Â0D÷ÿ³ÔMl¢IÛ­ {!ä§FJµI½¿±*”.df7ÇŒt´´;KHhoP7J45¬§å<ááræŒ0]91b†Cˆ}Ï]bÇ§+ƒ<¶öF'K?^õõ*£„‘K÷pGb¿æ?T«W¼X UIêŞwM+ÅA£›˜ÂL”]èJ¶æ/÷V'<¢
 endstream
 endobj
 4 0 obj
@@ -13,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170118115006+03'00')/ModDate(D:20170118115006+03'00')/Producer(iText Software)/Title(CSS Test: Absolute positions impact on later siblings)>>
+<</CreationDate(D:20171116194448+03'00')/ModDate(D:20171116194448+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Absolute positions impact on later siblings)/assert(Absolute positioned elements do not impact later siblings.)/flags()>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 7 0 obj
-<</BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +27,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000375 00000 n 
-0000000778 00000 n 
-0000000420 00000 n 
-0000000233 00000 n 
+0000000374 00000 n 
+0000000900 00000 n 
+0000000419 00000 n 
+0000000232 00000 n 
 0000000015 00000 n 
-0000000597 00000 n 
-0000000685 00000 n 
+0000000721 00000 n 
+0000000811 00000 n 
 trailer
-<</ID [<19af4e414f7710f9fba3aca95390fa94><19af4e414f7710f9fba3aca95390fa94>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%TEST-LICE-NSE0-7.0.2-SNAPSHOT
+<</ID [<4a3f4427c93a6738afc8fa611dbdf960><4a3f4427c93a6738afc8fa611dbdf960>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.0-SNAPSHOT
 startxref
-829
+951
 %%EOF

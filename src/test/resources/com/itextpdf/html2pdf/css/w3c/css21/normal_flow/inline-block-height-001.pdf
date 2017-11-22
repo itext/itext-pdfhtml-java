@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 110>>stream
-xœuÎ±ƒ0Ðý¾âFºBÖJe¯äO(TbƒöÿE`äÍç§ó¥J«!wT®_XÇ”¢¨14J’×ÞXðtÔC(	}:.s3úeY¦øÊÇßÿá3^~&m‹—Šwäø§ßÙ}ËøZ*
+<</Filter/FlateDecode/Length 108>>stream
+xœ}Ž±ƒ0Cw…GXŽ;	Y‘Úé>¡P‰ÚÿW#ÖòfûÉÞ TéÕr¤r#D¦ÔI¦µÊ`bÜg,˜°at4O+}9z¹“!Ñ_(fQ¡+Ÿ?ßÚW<üé£ÄsŠWÈñ&KhoV~°V)®
 endstream
 endobj
 4 0 obj
@@ -12,10 +12,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170616104947+03'00')/ModDate(D:20170616104947+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Test for height:auto on inline-block)>>
+<</CreationDate(D:20171109123613+03'00')/ModDate(D:20171109123613+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Test for height:auto on inline-block)/flags()>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -23,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000325 00000 n 
-0000000704 00000 n 
-0000000370 00000 n 
-0000000192 00000 n 
+0000000323 00000 n 
+0000000686 00000 n 
+0000000368 00000 n 
+0000000190 00000 n 
 0000000015 00000 n 
-0000000616 00000 n 
+0000000596 00000 n 
 trailer
-<</ID [<9cb5284e198e044cc0bdd5bc480dbc40><9cb5284e198e044cc0bdd5bc480dbc40>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<ccf62e3252d1c8418afd11bd013cdbc9><ccf62e3252d1c8418afd11bd013cdbc9>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.0-SNAPSHOT
 startxref
-755
+737
 %%EOF

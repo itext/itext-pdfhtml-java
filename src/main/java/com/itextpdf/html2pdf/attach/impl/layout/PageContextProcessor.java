@@ -2,7 +2,7 @@
     This file is part of the iText (R) project.
     Copyright (c) 1998-2017 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
-    
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-    
+
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-    
+
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-    
+
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-    
+
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,7 +36,7 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-    
+
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
@@ -61,13 +61,13 @@ import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.ITextNode;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
-import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.canvas.CanvasArtifact;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
@@ -80,8 +80,8 @@ import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
-import org.jsoup.nodes.Element;
-import org.jsoup.parser.Tag;
+import com.itextpdf.html2pdf.jsoup.nodes.Element;
+import com.itextpdf.html2pdf.jsoup.parser.Tag;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
@@ -517,7 +517,7 @@ class PageContextProcessor {
                     }
                 }
             }
-            marginBox.setRole(PdfName.Artifact);
+            marginBox.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
         }
     }
 
@@ -534,7 +534,7 @@ class PageContextProcessor {
         float rightMargin = margins[1];
         float bottomMargin = margins[2];
         float leftMargin = margins[3];
-        Rectangle withoutMargins = pageSize.clone().<Rectangle>applyMargins(topMargin, rightMargin, bottomMargin, leftMargin, false);
+        Rectangle withoutMargins = pageSize.clone().applyMargins(topMargin, rightMargin, bottomMargin, leftMargin, false);
         float topBottomMarginWidth = withoutMargins.getWidth() / 3;
         float leftRightMarginHeight = withoutMargins.getHeight() / 3;
         Rectangle[] hardcodedBoxRectangles = new Rectangle[] {
@@ -572,7 +572,7 @@ class PageContextProcessor {
         if (marginBoxInd == 0 || marginBoxInd == 4 || marginBoxInd == 8 || marginBoxInd == 12) {
             return marginBoxRectangles[marginBoxInd];
         }
-        Rectangle withoutMargins = pageSize.clone().<Rectangle>applyMargins(margins[0], margins[1], margins[2], margins[3], false);
+        Rectangle withoutMargins = pageSize.clone().applyMargins(margins[0], margins[1], margins[2], margins[3], false);
         if (marginBoxInd < 4) {
             return new Rectangle(withoutMargins.getWidth(), margins[0]);
         } else if (marginBoxInd < 8) {

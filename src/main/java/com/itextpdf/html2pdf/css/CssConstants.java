@@ -54,12 +54,6 @@ public class CssConstants {
 
     // properties
 
-    /** The Constant ALIGN.
-     * @deprecated Use {@link com.itextpdf.html2pdf.html.AttributeConstants#ALIGN} instead. Will be removed in 7.1.
-     */
-    @Deprecated
-    public static final String ALIGN = "align";
-
     /** The Constant BACKGROUND. */
     public static final String BACKGROUND = "background";
 
@@ -264,12 +258,6 @@ public class CssConstants {
     /** The Constant HEIGHT. */
     public static final String HEIGHT = "height";
 
-    /** The Constant HSPACE.
-     * @deprecated Use {@link com.itextpdf.html2pdf.html.AttributeConstants#HSPACE} instead. Will be removed in 7.1.
-     */
-    @Deprecated
-    public static final String HSPACE = "hspace";
-
     /** The Constant HYPHENS. */
     public static final String HYPHENS = "hyphens";
 
@@ -430,12 +418,6 @@ public class CssConstants {
 
     /** The Constant VISIBILITY. */
     public static final String VISIBILITY = "visibility";
-
-    /** The Constant VSPACE.
-      * @deprecated Use {@link com.itextpdf.html2pdf.html.AttributeConstants#VSPACE} instead. Will be removed in 7.1.
-      */
-    @Deprecated
-    public static final String VSPACE = "vspace";
 
     /** The Constant WHITE_SPACE. */
     public static final String WHITE_SPACE = "white-space";
