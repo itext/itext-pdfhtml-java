@@ -322,6 +322,11 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
+    public void multipleRowsInHeade01() throws IOException, InterruptedException {
+        runTest("multipleRowsInHeader01");
+    }
+
+    @Test
     @Ignore("DEVSIX-994")
     public void tableCollapseColCellBoxSizingWidthDifference() throws IOException, InterruptedException {
         runTest("table_collapse_col_cell_box_sizing_width_difference");

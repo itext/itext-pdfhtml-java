@@ -195,16 +195,22 @@ public class TableWrapper implements IWrapElement {
             table = new Table(1);
         }
         if (headerRows != null) {
-            for (List<CellWrapper> headerRow : headerRows) {
-                for (CellWrapper headerCell : headerRow) {
-                    table.addHeaderCell(headerCell.cell);
+            for (int i = 0; i < headerRows.size(); i++) {
+                for (int j = 0; j < headerRows.get(i).size(); j++) {
+                    table.addHeaderCell(headerRows.get(i).get(j).cell);
+                }
+                if (i != headerRows.size() - 1) {
+                    table.getHeader().startNewRow();
                 }
             }
         }
         if (footerRows != null) {
-            for (List<CellWrapper> footerRow : footerRows) {
-                for (CellWrapper footerCell : footerRow) {
-                    table.addFooterCell(footerCell.cell);
+            for (int i = 0; i < footerRows.size(); i++) {
+                for (int j = 0; j < footerRows.get(i).size(); j++) {
+                    table.addFooterCell(footerRows.get(i).get(j).cell);
+                }
+                if (i != footerRows.size() - 1) {
+                    table.getFooter().startNewRow();
                 }
             }
         }
