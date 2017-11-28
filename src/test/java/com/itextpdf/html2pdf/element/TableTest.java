@@ -322,7 +322,7 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    public void multipleRowsInHeade01() throws IOException, InterruptedException {
+    public void multipleRowsInHeader01() throws IOException, InterruptedException {
         runTest("multipleRowsInHeader01");
     }
 
