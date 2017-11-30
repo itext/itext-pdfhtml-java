@@ -46,14 +46,13 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class InputTest extends ExtendedITextTest {
@@ -68,20 +67,28 @@ public class InputTest extends ExtendedITextTest {
 
     @Test
     public void input01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "inputTest01.html"), new File(destinationFolder + "inputTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "inputTest01.pdf", sourceFolder + "cmp_inputTest01.pdf", destinationFolder, "diff01_"));
+        runTest("inputTest01");
     }
 
     @Test
     public void input02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "inputTest02.html"), new File(destinationFolder + "inputTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "inputTest02.pdf", sourceFolder + "cmp_inputTest02.pdf", destinationFolder, "diff02_"));
+        runTest("inputTest02");
     }
 
     @Test
     public void input03Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "inputTest03.html"), new File(destinationFolder + "inputTest03.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "inputTest03.pdf", sourceFolder + "cmp_inputTest03.pdf", destinationFolder, "diff03_"));
+        runTest("inputTest03");
     }
+
+    @Test
+    public void input04Test() throws IOException, InterruptedException {
+        runTest("inputTest04");
+    }
+
+    private void runTest(String testName) throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+    }
+
 
 }

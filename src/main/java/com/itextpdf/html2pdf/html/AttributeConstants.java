@@ -124,6 +124,9 @@ public final class AttributeConstants {
     /** The Constant NOSHADE. */
     public static final String NOSHADE = "noshade";
 
+    /** The Constant NUMBER. */
+    public static final String NUMBER = "number";
+
     /** The Constant REL. */
     public static final String REL = "rel";
 
