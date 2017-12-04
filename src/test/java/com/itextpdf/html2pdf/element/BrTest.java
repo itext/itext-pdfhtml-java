@@ -72,4 +72,10 @@ public class BrTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brTest01.pdf", sourceFolder + "cmp_brTest01.pdf", destinationFolder, "diff01_"));
     }
 
+    @Test
+    public void br02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "brTest02.html"), new File(destinationFolder + "brTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brTest02.pdf", sourceFolder + "cmp_brTest02.pdf", destinationFolder, "diff02_"));
+    }
+
 }

@@ -2,7 +2,7 @@
 %âãÏÓ
 5 0 obj
 <</Filter/FlateDecode/Length 114>>stream
-xœÌ1Â0Fáİ§øGº„&)-¬H°#ù¡u Ğ¡µ#ÎO«·~z+]™wÀ™bá\Œà‰,V±$31”ŒúCÂO´–1ÍxÎiüÂª–E\Ãº1=h¥{úÚı¥sm€?aP¡¼‰?Ö 4
+xœÌ1Â0Fáİ§øGX	mSV¤²#ù¡8Ú¡µ£ª·~z+İ˜NwÀ™.b\Á/:°XÅ’ÌÄP2êGTP	›h-cšñœÓ8Áª–EÜ‘¿40=h¥3öô½»kãš¾EP¡ü?Ùİ D
 endstream
 endobj
 4 0 obj
@@ -12,10 +12,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170724102042+03'00')/ModDate(D:20170724102042+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Min-width using 'em' units with a minimum plus one value, 1em)>>
+<</CreationDate(D:20171109123752+03'00')/ModDate(D:20171109123752+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Min-width using 'em' units with a minimum plus one value, 1em)/assert(The 'min-width' property sets a minimum plus one length value in 'em' units.)/flags(ahem)>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -24,14 +24,14 @@ xref
 0 7
 0000000000 65535 f 
 0000000329 00000 n 
-0000000733 00000 n 
+0000000806 00000 n 
 0000000374 00000 n 
 0000000196 00000 n 
 0000000015 00000 n 
-0000000645 00000 n 
+0000000716 00000 n 
 trailer
-<</ID [<0924e517ccdb8d047888978a4e846686><0924e517ccdb8d047888978a4e846686>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<8a9a0b64c134edbd679b1a34f6d5739d><8a9a0b64c134edbd679b1a34f6d5739d>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.0-SNAPSHOT
 startxref
-784
+857
 %%EOF

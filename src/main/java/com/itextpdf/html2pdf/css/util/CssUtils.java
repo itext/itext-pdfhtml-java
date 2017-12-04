@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.css.util;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.kernel.color.WebColors;
+import com.itextpdf.kernel.colors.WebColors;
 import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -233,7 +233,11 @@ public class CssUtils {
     }
 
     /**
-     * Parses the length value to pt.
+     * Convenience method for parsing a value to pt. Possible values are: <ul>
+     * 	<li>a numeric value in pixels (e.g. 123, 1.23, .123),</li>
+     * 	<li>a value with a metric unit (px, in, cm, mm, pc or pt) attached to it,</li>
+     * 	<li>or a value with a relative value (%, em, ex).</li>
+     * </ul>
      *
      * @param value the value
      * @param emValue the em value

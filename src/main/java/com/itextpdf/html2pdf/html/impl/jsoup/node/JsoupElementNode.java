@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IAttributes;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.jsoup.nodes.Element;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,7 @@ import java.util.Map;
 public class JsoupElementNode extends JsoupNode implements IElementNode {
 
     /** The JSoup element. */
-    private org.jsoup.nodes.Element element;
+    private Element element;
     
     /** The attributes. */
     private IAttributes attributes;
@@ -76,7 +77,7 @@ public class JsoupElementNode extends JsoupNode implements IElementNode {
      *
      * @param element the element
      */
-    public JsoupElementNode(org.jsoup.nodes.Element element) {
+    public JsoupElementNode(Element element) {
         super(element);
         this.element = element;
         this.attributes = new JsoupAttributes(element.attributes());

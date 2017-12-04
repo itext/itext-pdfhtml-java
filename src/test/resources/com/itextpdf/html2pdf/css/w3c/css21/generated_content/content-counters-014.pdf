@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 287>>stream
-xœ“»N1E{Å”¤üÚµ—.Ý¼hüHÙ%V´Aù}DrqåæèÈöÌ½ˆY¥!ì…©ÁyÆ@Ø‰‡pèa‡!ÞŽç7¸Þ"Çs?ÂxˆŸÃ†Op%f|ýèŸ&á]´A¼ˆË_eeÑØå§XUßÐ,é±ö©uÆ±Î£ÔEV¯0¿ëœc•ÌaV«¤E—j,«3–·jz—Mµ-[‡Æ—y+‰N§ÞŽ…ëMSæuI½Kn–m‚jjtÙ7¬8X«f½ZK”ÙŠ­YØÐÔÊ–A[“z7,L°¦ÌK•pÙ–mY˜:¡T™—Ja«Ôûü_Óé}tü6¨—”9eAi)eIYQÖ”e÷Ò/åTù"
+<</Filter/FlateDecode/Length 275>>stream
+xœÓÍj1†á}®â,ëæÔüL2é.êŒÝr‚cÕN2o¿§…‚FNÉâÛ=¼„À9‹IÏ­© î„¶àj…µƒ¸OqßÁ.õ}ºNïp¹&è§n€aŸ¾ú-ô)}À…Ì°ùì^Fñ(š(ÞÄù1YU¨Õo2`à`eQë[¬ô™8á¬óEÉZÝ÷¦”c‰Ö5åØd4àŒÅÊ /{«T.£[Ü5þ¡Û²ØÖ?ª¨ëdFÎYìé«²®7¸à°’ô¿uQWI—Ñ€KkÖ”uµÍhÀ‹+…Þ•uÉÜÓ€k;:³²¬ó˜]ÙëG®=:ûwä@'I›Òf´†ÖÒæ´mI[ÑÖpý´tø\
 endstream
 endobj
 4 0 obj
@@ -12,10 +12,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170315180623+03'00')/ModDate(D:20170315180623+03'00')/Producer(iText® 7.0.3-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: content: counters\(c, ".", upper-alpha\))>>
+<</CreationDate(D:20171109123557+03'00')/ModDate(D:20171109123557+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: content: counters\(c, ".", upper-alpha\))>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -23,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000502 00000 n 
-0000000885 00000 n 
-0000000547 00000 n 
-0000000369 00000 n 
+0000000490 00000 n 
+0000000849 00000 n 
+0000000535 00000 n 
+0000000357 00000 n 
 0000000015 00000 n 
-0000000797 00000 n 
+0000000759 00000 n 
 trailer
-<</ID [<87bbba0a4f6d6a16de50d4663abe6151><87bbba0a4f6d6a16de50d4663abe6151>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.3-SNAPSHOT
+<</ID [<4a20b4bf34b40bf39ed78cfeb059d6c1><4a20b4bf34b40bf39ed78cfeb059d6c1>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.0-SNAPSHOT
 startxref
-936
+900
 %%EOF

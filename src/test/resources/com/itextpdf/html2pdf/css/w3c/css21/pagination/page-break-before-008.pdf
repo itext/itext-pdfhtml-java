@@ -1,49 +1,52 @@
 %PDF-1.7
 %âãÏÓ
-5 0 obj
-<</Filter/FlateDecode/Length 192>>stream
-xœmË‚0E÷ıŠYjb¨@ÙšèÖ˜ôFÅĞòhú÷–—­ÆÌæNfî¹3-ñ¡¯îB(æo@(JU•EãY°iv&GÒZ÷lí	cN„„Å¶)6âf2‹>ë2|qœÆ‰û¡Y€°‡ÛW¤5B¶œ¬÷!ğó0NCRàY$¨¼C”+ĞW‰O
-¥F™#ˆ»Ò5fe‡¹®^pÂª~˜åRA-Ñ[òÙqóÂW
-endstream
-endobj
-4 0 obj
-<</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
-endobj
 8 0 obj
-<</Filter/FlateDecode/Length 196>>stream
-xœmK‚0„ïû+ö¨	Aåj¢w“&‰, ±¥@}ü|ËË¢1½Ìîd¾Ù6àaÿÚB†ÌÛ¢€(Ju3*5*6*ŒgÁ&¯€#46=‡ÆxÂ˜ë!a±FŠ­øƒ™Â¢ïú€Ì_œÅ°¨û¡Y€°‡Û¯,Ëª²ã°9øèÈ‹ÁN7‘ç°:U$Qµ©)w°ªŸô ÖA]]:ìÈlå™PÜ;™R”µ˜icêZa]RÒK£ÊJr×ü
-{n*ßc[
+<</Filter/FlateDecode/Length 191>>stream
+xœmË‚0E÷ıŠYjbwËÖD·Æ¤?€0(
+”õï-/[™ÍÌÜsg:âÂPòBÌ¡&QDGUi•hkÄ‹`ó¬ 'Ò÷bšì”1'Œfe±i&Š‰øƒ™Íõõé¾8VcÅıĞ 6‡›W,¤5Avœlx>ğb'¾Ã(ğœ¬úL"Š¨+‚À§‚…B‘!Ô÷^AÚ¶˜JÈK‰™ª^pÆªyèå²‡F ³æ7²ç:æûMWi
 endstream
 endobj
 7 0 obj
-<</Contents 8 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
+<</Contents 8 0 R/MediaBox[0 0 595 842]/Parent 6 0 R/Resources<</Font<</F1 9 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
+endobj
+11 0 obj
+<</Filter/FlateDecode/Length 196>>stream
+xœmIÂ0…ïùsT(µ{Ó« w!à9Øé"6MÛ¸ü|ÓÍD‘\ŞÌã}oÒÆ×—$¤@½Çé¤nZeZ%Z…É*èâäD:“^Cs<¥Ôâ…ÒÄ3ÅTüÁ,áfìú€ô_k°ê~hĞ˜ÃÍW,¤]5CöŒì>ø°b²³À¥)°œlÎ
+}-æTíØ; ªz€õV\šû €K‰¼®´‰ Z	m1I/’—ènÙ•˜®|@M[`
+endstream
+endobj
+10 0 obj
+<</Contents 11 0 R/MediaBox[0 0 595 842]/Parent 6 0 R/Resources<</Font<</F1 9 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
 endobj
 1 0 obj
-<</Pages 2 0 R/Type/Catalog>>
+<</Pages 6 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170201155837+03'00')/ModDate(D:20170201155838+03'00')/Producer(iText Software)/Title(CSS Test: page-break-before paged media)>>
+<</CreationDate(D:20171109123929+03'00')/ModDate(D:20171109123929+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: page-break-before paged media)/assert(The 'page-break-before' property applies to paged media only)/flags(paged)>>
+endobj
+9 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
-endobj
-2 0 obj
-<</Count 2/Kids[4 0 R 7 0 R]/Type/Pages>>
+<</Count 2/Kids[7 0 R 10 0 R]/Type/Pages>>
 endobj
 xref
-0 9
-0000000000 65535 f 
-0000000803 00000 n 
-0000001099 00000 n 
-0000000848 00000 n 
-0000000274 00000 n 
+0 12
+0000000004 65535 f 
+0000000805 00000 n 
+0000000005 00001 f 
+0000000850 00000 n 
+0000000002 00001 f 
+0000000000 00001 f 
+0000001235 00000 n 
+0000000273 00000 n 
 0000000015 00000 n 
-0000001011 00000 n 
+0000001145 00000 n 
 0000000670 00000 n 
-0000000407 00000 n 
+0000000406 00000 n 
 trailer
-<</ID [<1c0e5dca85facecfc85d89cb7e0f2bb0><1c0e5dca85facecfc85d89cb7e0f2bb0>]/Info 3 0 R/Root 1 0 R/Size 9>>
-%TEST-LICE-NSE0-7.0.2-SNAPSHOT
+<</ID [<b0bf01b50f4cba3e40b1462a3fafeb79><b0bf01b50f4cba3e40b1462a3fafeb79>]/Info 3 0 R/Root 1 0 R/Size 12>>
+%iText-7.1.0-SNAPSHOT
 startxref
-1156
+1293
 %%EOF

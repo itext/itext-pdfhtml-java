@@ -50,13 +50,10 @@ import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupTextNode;
 import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.html2pdf.jsoup.nodes.*;
 import com.itextpdf.io.util.MessageFormatUtil;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.DataNode;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.DocumentType;
-import org.jsoup.nodes.Element;
-import org.jsoup.nodes.TextNode;
+import com.itextpdf.html2pdf.jsoup.Jsoup;
+import com.itextpdf.html2pdf.jsoup.nodes.DocumentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,7 +76,7 @@ public class JsoupHtmlParser implements IHtmlParser {
         // Based on some brief investigations, it seems that Jsoup uses baseUri for resolving relative uri's into absolute
         // on user demand. We perform such resolving in ResourceResolver class, therefore it is not needed here.
         String baseUri = "";
-        org.jsoup.nodes.Document doc = Jsoup.parse(htmlStream, charset, baseUri);
+        Document doc = Jsoup.parse(htmlStream, charset, baseUri);
         INode result = wrapJsoupHierarchy(doc);
         if (result instanceof IDocumentNode) {
             return (IDocumentNode) result;
@@ -93,7 +90,7 @@ public class JsoupHtmlParser implements IHtmlParser {
      */
     @Override
     public IDocumentNode parse(String html) {
-        org.jsoup.nodes.Document doc = Jsoup.parse(html);
+        Document doc = Jsoup.parse(html);
         INode result = wrapJsoupHierarchy(doc);
         if (result instanceof IDocumentNode) {
             return (IDocumentNode) result;
@@ -108,24 +105,24 @@ public class JsoupHtmlParser implements IHtmlParser {
      * @param jsoupNode the JSoup node instance
      * @return the {@link INode} instance
      */
-    private INode wrapJsoupHierarchy(org.jsoup.nodes.Node jsoupNode) {
+    private INode wrapJsoupHierarchy(Node jsoupNode) {
         INode resultNode = null;
-        if (jsoupNode instanceof org.jsoup.nodes.Document) {
+        if (jsoupNode instanceof Document) {
             resultNode = new JsoupDocumentNode((Document) jsoupNode) ;
-        } else if (jsoupNode instanceof org.jsoup.nodes.TextNode) {
+        } else if (jsoupNode instanceof TextNode) {
             resultNode = new JsoupTextNode((TextNode) jsoupNode);
-        } else if (jsoupNode instanceof org.jsoup.nodes.Element) {
+        } else if (jsoupNode instanceof Element) {
             resultNode = new JsoupElementNode((Element) jsoupNode);
-        } else if (jsoupNode instanceof org.jsoup.nodes.DataNode) {
+        } else if (jsoupNode instanceof DataNode) {
             resultNode = new JsoupDataNode((DataNode) jsoupNode);
-        } else if (jsoupNode instanceof org.jsoup.nodes.DocumentType) {
+        } else if (jsoupNode instanceof DocumentType) {
             resultNode = new JsoupDocumentTypeNode((DocumentType) jsoupNode);
-        } else if (jsoupNode instanceof org.jsoup.nodes.Comment) {
+        } else if (jsoupNode instanceof Comment) {
         } else {
             logger.error(MessageFormatUtil.format("Could not map node type: {0}", jsoupNode.getClass()));
         }
 
-        for (org.jsoup.nodes.Node node : jsoupNode.childNodes()) {
+        for (Node node : jsoupNode.childNodes()) {
             INode childNode = wrapJsoupHierarchy(node);
             if (childNode != null) {
                 resultNode.addChild(childNode);

@@ -1,8 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 120>>stream
-xœ­Ì±‚0àıâa9Û^)e5‘İäÀPAc0L||İ™Œ¾íËtT:ôÖA¯$mt,ÈÀÂ`©Òé¶bKïëô|=\Æ%¥™k½ÓIéLy5Å—ˆ\à/ÿG¡‹,±DÔ–®Dä{ûsô3Érç
+<</Filter/FlateDecode/Length 118>>stream
+xœ­ÎM
+Â@Ğ}Nñ-í&NR'éZĞ}!'­"Jï\	sÇ›é´?DWjŞ)w(A°Œ´‹é¶b+Ÿëôz?\
+Æ¥”'7q§SPOó/”3·ZRg·PJ¬R2W¶#;d–ÿG_4ÇrŞ
 endstream
 endobj
 4 0 obj
@@ -12,10 +14,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170109105236-03'00')/ModDate(D:20170109105236-03'00')/Producer(iText Software)/Title(CSS Test: whitespace in rgba\(\) values)>>
+<</CreationDate(D:20171109122324+03'00')/ModDate(D:20171109122324+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: whitespace in rgba\(\) values)/assert(Test that whitespace is allowed within rgba\(\) functions.)/flags()>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -23,15 +25,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000335 00000 n 
-0000000631 00000 n 
-0000000380 00000 n 
-0000000202 00000 n 
+0000000333 00000 n 
+0000000756 00000 n 
+0000000378 00000 n 
+0000000200 00000 n 
 0000000015 00000 n 
-0000000543 00000 n 
+0000000666 00000 n 
 trailer
-<</ID [<2c1373e38065cce75cd420fe2280c851><2c1373e38065cce75cd420fe2280c851>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.2-SNAPSHOT
+<</ID [<29e96d20e6aa8bd14be72fd60d2b2255><29e96d20e6aa8bd14be72fd60d2b2255>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.0-SNAPSHOT
 startxref
-682
+807
 %%EOF

@@ -88,7 +88,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: helvetica");
+                "font-family: times-roman");
     }
 
     @Test
@@ -100,7 +100,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: helvetica");
+                "font-family: times-roman");
     }
 
     @Test
@@ -112,37 +112,37 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: helvetica");
+                "font-family: times-roman");
     }
 
     @Test
     public void stylesInheritanceTest01() throws IOException {
         test("stylesInheritanceTest01.html", "html body p span",
-                "color: blue", "text-align: center", "font-style: italic", "font-size: 11.25pt", "font-family: helvetica");
+                "color: blue", "text-align: center", "font-style: italic", "font-size: 11.25pt", "font-family: times-roman");
     }
 
     @Test
     public void stylesInheritanceTest02() throws IOException {
         test("stylesInheritanceTest02.html", "html body p span",
-                "color: black", "text-align: center", "font-style: italic", "font-size: 11.25pt", "font-family: helvetica");
+                "color: black", "text-align: center", "font-style: italic", "font-size: 11.25pt", "font-family: times-roman");
     }
 
     @Test
     public void stylesInheritanceTest03() throws IOException {
         test("stylesInheritanceTest03.html", "html body p span",
-                "color: green", "font-size: 12.0pt", "font-family: helvetica");
+                "color: green", "font-size: 12.0pt", "font-family: times-roman");
     }
 
     @Test
     public void stylesInheritanceTest04() throws IOException {
         test("stylesInheritanceTest04.html", "html body p span",
-                "color: blue", "font-size: 12.0pt", "font-family: helvetica");
+                "color: blue", "font-size: 12.0pt", "font-family: times-roman");
     }
 
     @Test
     public void stylesInheritanceTest05() throws IOException {
         test("stylesInheritanceTest05.html", "html body p span",
-                "color: black", "font-size: 12.0pt", "font-family: helvetica");
+                "color: black", "font-size: 12.0pt", "font-family: times-roman");
     }
 
     @Test
@@ -151,7 +151,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 20px",
                 "margin-right: 0",
                 "background-color: yellow",
-                "font-size: 12.0pt", "font-family: helvetica");
+                "font-size: 12.0pt", "font-family: times-roman");
     }
 
     @Test
@@ -160,7 +160,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 0",
                 "padding-top: 10px",
                 "background-color: yellow",
-                "font-size: 12.0pt", "font-family: helvetica");
+                "font-size: 12.0pt", "font-family: times-roman");
     }
 
     @Test
@@ -184,7 +184,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: helvetica");
+                "font-family: times-roman");
     }
 
     @Test
@@ -197,7 +197,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: helvetica");
+                "font-family: times-roman");
     }
 
     @Test
@@ -210,7 +210,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: helvetica");
+                "font-family: times-roman");
     }
 
     @Test
@@ -223,7 +223,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: helvetica");
+                "font-family: times-roman");
     }
 
     @Test
@@ -236,7 +236,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: helvetica");
+                "font-family: times-roman");
     }
 
     @Test
@@ -251,7 +251,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-top: 0",
                 "text-indent: 0",
                 "display: table",
-                "font-family: helvetica");
+                "font-family: times-roman");
     }
 
     @Test
@@ -262,7 +262,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "text-indent: 0",
                 "vertical-align: middle",
                 "display: table-row",
-                "font-family: helvetica");
+                "font-family: times-roman");
     }
 
     @Test
@@ -283,7 +283,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "text-align: center",
                 "display: block",
                 "font-size: 12.0pt",
-                "font-family: helvetica");
+                "font-family: times-roman");
     }
 
     @Test
@@ -302,7 +302,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 10%",
                 "margin-top: 10%",
                 "display: block",
-                "font-family: helvetica");
+                "font-family: times-roman");
     }
 
     private void resolveStylesForTree(INode node, ICssResolver cssResolver, CssContext context) {

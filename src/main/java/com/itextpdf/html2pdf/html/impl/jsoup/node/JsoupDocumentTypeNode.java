@@ -43,9 +43,10 @@
 package com.itextpdf.html2pdf.html.impl.jsoup.node;
 
 import com.itextpdf.html2pdf.html.node.IDocumentTypeNode;
+import com.itextpdf.html2pdf.jsoup.nodes.DocumentType;
 
 /**
- * Implementation of the {@link IDocumentTypeNode} interface; wrapper for the JSoup {@link org.jsoup.nodes.DocumentType} class.
+ * Implementation of the {@link IDocumentTypeNode} interface; wrapper for the JSoup {@link DocumentType} class.
  */
 public class JsoupDocumentTypeNode extends JsoupNode implements IDocumentTypeNode {
 
@@ -54,7 +55,7 @@ public class JsoupDocumentTypeNode extends JsoupNode implements IDocumentTypeNod
      *
      * @param node the node
      */
-    public JsoupDocumentTypeNode(org.jsoup.nodes.DocumentType node) {
+    public JsoupDocumentTypeNode(DocumentType node) {
         super(node);
     }
 

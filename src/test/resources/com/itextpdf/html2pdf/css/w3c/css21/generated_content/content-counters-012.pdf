@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 280>>stream
-xœ“»N1Eû|…KhL^3ÉP"A”vŞ6ZÍ¢ı},D±	2Jq•æèÈŠ¯/â%ˆ§7JC˜„iÁyÆ@ÄCXF˜RŒé¶g¸ŞÄõ<p,é+SÚáJÌÑÏa¯A¼‹Ë_ecÑØe=6[ÏK¶(unıàX§ÑUIIM.=ql§QÚ*k× ñ¹uàX¥HÛVi•"o—{G6ä­ûe´*÷N,l=º¦ÎKË•Å¼3·ä­œ—Ö[Œ»°¬'m]Á-X[9XK‹®«òjéQ%ÛXXK¬Wk‹ÊæÚ…­,`ŞkÚ¢½ñ¿;7éù½s «¤œ(e¤L”™²PVÊFÙá^úÿŠşš
+<</Filter/FlateDecode/Length 274>>stream
+xœÓËJ1Ğ}¾¢–º)“J'é¸t/äâô»ã„¡Gæ÷-A#‘,îîpõ¸ˆ§ ^(‚0	mÁõ„½ƒ0ˆ»°Œ0å”òm=Ïp½eHëy<àXòG å¼Ã•ÍßÇÇû°‰ç ^Ååo¥1¨é«2b¬ÁÎ£ıe¡&2â[ÍZ‹¾ojµ¾O5Ûk´]Skoq¨Y%%z×T«¤.hÄ±Š•CKm½$qªbMèM[¯68W±‘HmKSF4âRÅ–çĞVë$¶V-?5n­7¸U±çÓÕm½Ş4â^Ã¤:¤¶1sHÿ=ºöèì÷£¿%çÄ8#gâÌœ…³r6Î?K? <ÿ
 endstream
 endobj
 4 0 obj
@@ -12,10 +12,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170315180622+03'00')/ModDate(D:20170315180622+03'00')/Producer(iText® 7.0.3-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: content: counters\(c, ".", lower-alpha\))>>
+<</CreationDate(D:20171109123555+03'00')/ModDate(D:20171109123555+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: content: counters\(c, ".", lower-alpha\))>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -23,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000495 00000 n 
-0000000878 00000 n 
-0000000540 00000 n 
-0000000362 00000 n 
+0000000489 00000 n 
+0000000848 00000 n 
+0000000534 00000 n 
+0000000356 00000 n 
 0000000015 00000 n 
-0000000790 00000 n 
+0000000758 00000 n 
 trailer
-<</ID [<26fd839c77d8575c21f5b2afd8839f37><26fd839c77d8575c21f5b2afd8839f37>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.3-SNAPSHOT
+<</ID [<a961b85c41906dbb1f8e294871ea1ff2><a961b85c41906dbb1f8e294871ea1ff2>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.0-SNAPSHOT
 startxref
-929
+899
 %%EOF

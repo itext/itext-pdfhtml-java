@@ -51,6 +51,7 @@ import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
 import com.itextpdf.layout.layout.MinMaxWidthLayoutResult;
 import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
+import com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils;
 import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
@@ -134,9 +135,9 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
      * @see com.itextpdf.layout.renderer.BlockRenderer#getMinMaxWidth(float)
      */
     @Override
-    protected MinMaxWidth getMinMaxWidth(float availableWidth) {
-        MinMaxWidthLayoutResult result = (MinMaxWidthLayoutResult) layout(new LayoutContext(new LayoutArea(1, new Rectangle(availableWidth, AbstractRenderer.INF))), true);
-        return result.getNotNullMinMaxWidth(availableWidth);
+    protected MinMaxWidth getMinMaxWidth() {
+        MinMaxWidthLayoutResult result = (MinMaxWidthLayoutResult) layout(new LayoutContext(new LayoutArea(1, new Rectangle(MinMaxWidthUtils.getInfWidth(), AbstractRenderer.INF))), true);
+        return result.getMinMaxWidth();
     }
 
     /**
@@ -251,7 +252,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
                 occupiedArea.setBBox(flatRenderer.getOccupiedArea().getBBox().clone());
             }
 
-            return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth(0, parentWidth));
+            return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth());
         }
         if (!childRenderers.isEmpty()) {
             flatRenderer = childRenderers.get(0);
@@ -271,15 +272,15 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
             if (!minMaxWidth) {
                 setProperty(Property.FORCED_PLACEMENT, true);
                 occupiedArea.getBBox().setWidth(0).setHeight(0);
-                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth(0, parentWidth));
+                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth());
             } else {
-                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth(occupiedArea.getBBox().getWidth(), occupiedArea.getBBox().getWidth()));
+                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth(occupiedArea.getBBox().getWidth(), occupiedArea.getBBox().getWidth(), 0));
             }
         }
         if (result.getStatus() != LayoutResult.FULL || !isRendererFit(parentWidth, parentHeight)) {
             LoggerFactory.getLogger(getClass()).warn(LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
         }
         return new MinMaxWidthLayoutResult(LayoutResult.FULL, occupiedArea, this, null)
-                .setMinMaxWidth(new MinMaxWidth(0, parentWidth, occupiedArea.getBBox().getWidth(), occupiedArea.getBBox().getWidth()));
+                .setMinMaxWidth(new MinMaxWidth(occupiedArea.getBBox().getWidth(), occupiedArea.getBBox().getWidth(), 0));
     }
 }

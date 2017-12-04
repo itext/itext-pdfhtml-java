@@ -149,7 +149,7 @@ public class SpecificityCalculationTest extends ExtendedITextTest {
 
     @Test
     public void test19() {
-        Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY * 2, getSpecificity(".class_name:lang(it)"));
+        Assert.assertEquals(CssSpecificityConstants.CLASS_SPECIFICITY * 2, getSpecificity(".class_name:hover"));
     }
 
     @Test

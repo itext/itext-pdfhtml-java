@@ -2,7 +2,8 @@
 %âãÏÓ
 5 0 obj
 <</Filter/FlateDecode/Length 137>>stream
-xœÊ±‚0„áşbK-DHÖíÉs‘HDÉ…÷78»İÿ-t1t¼5hŒ'İ¢;«JkG;Ã’ñµ",yäÄbd‡!ÚÇYV[‚])o›&NÖ2>3BDöù0n@‚ãjo^t5t§…jlKOjk´ı©ªºÿ“/âê‹.'
+xœÊ±‚0„áşbK-Œ€Ø:£½3y`.‰(¹ğş&³ÛıßJWMÇ{ºvtêĞzhK;Í’ğ3",ğiâÈğçC`‹1˜çY7“ƒYl.g·¾|vé0 Ş²Úë7İ4=h¥
+eñE]…îÒªöŒ¾)L.‹?ïÎ.7
 endstream
 endobj
 4 0 obj
@@ -12,10 +13,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170724102044+03'00')/ModDate(D:20170724102044+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Width applied to elements with 'display' set to 'list-item')>>
+<</CreationDate(D:20171109123910+03'00')/ModDate(D:20171109123910+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Width applied to elements with 'display' set to 'list-item')/assert(The 'width' property applies to elements with 'display' set to 'list-item'.)/flags()>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -24,14 +25,14 @@ xref
 0 7
 0000000000 65535 f 
 0000000352 00000 n 
-0000000754 00000 n 
+0000000822 00000 n 
 0000000397 00000 n 
 0000000219 00000 n 
 0000000015 00000 n 
-0000000666 00000 n 
+0000000732 00000 n 
 trailer
-<</ID [<cb6b267788d09c19799f7a9c45fd7549><cb6b267788d09c19799f7a9c45fd7549>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<d1e52eb658106c2d2cdb738b259e448b><d1e52eb658106c2d2cdb738b259e448b>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.0-SNAPSHOT
 startxref
-805
+873
 %%EOF

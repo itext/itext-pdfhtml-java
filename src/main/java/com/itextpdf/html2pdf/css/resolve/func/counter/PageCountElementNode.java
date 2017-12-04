@@ -44,8 +44,8 @@ package com.itextpdf.html2pdf.css.resolve.func.counter;
 
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.html2pdf.html.node.ICustomElementNode;
-import org.jsoup.nodes.Element;
-import org.jsoup.parser.Tag;
+import com.itextpdf.html2pdf.jsoup.nodes.Element;
+import com.itextpdf.html2pdf.jsoup.parser.Tag;
 
 /**
  * {@link ICustomElementNode} implementation for a page count element node.

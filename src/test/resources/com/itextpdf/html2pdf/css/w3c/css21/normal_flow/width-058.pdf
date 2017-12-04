@@ -1,8 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 110>>stream
-xœŒ1Â0û}Å–Ğ˜ÄF	´HĞ#İ9ƒÁEìÿ‡ ™r4'ÁîÒ³÷”„0p<xeÂFÔÎÑL9qyjSfcdÊ¥èÄ[‰÷7­~bS·•Î‚+*:®´Çú{×y›"ıŠ/| G
+<</Filter/FlateDecode/Length 111>>stream
+xœŒ±‚0ûûŠWJ%"ÁÖé¹pÑH
+“ƒÿ—Ìn¹³™Lç±EkÁ®=Ü`ÍàÀXtÃÏ«Š"l)‚¨ğ1%Y0%?¯Ğ¼û"¦á/=™^”é‚Jy×_ïLwƒ³Õ"âéW
 endstream
 endobj
 4 0 obj
@@ -12,10 +13,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170724102043+03'00')/ModDate(D:20170724102043+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Width using inches with a minimum plus one value, 1in)>>
+<</CreationDate(D:20171109123843+03'00')/ModDate(D:20171109123843+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Width using inches with a minimum plus one value, 1in)/assert(The 'width' property sets a minimum plus one length value in inches.)/flags()>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -23,15 +24,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000325 00000 n 
-0000000721 00000 n 
-0000000370 00000 n 
-0000000192 00000 n 
+0000000326 00000 n 
+0000000783 00000 n 
+0000000371 00000 n 
+0000000193 00000 n 
 0000000015 00000 n 
-0000000633 00000 n 
+0000000693 00000 n 
 trailer
-<</ID [<b935ec1ea4572c3d7c0280d273ee5123><b935ec1ea4572c3d7c0280d273ee5123>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<cfd91a3bb3375daa286c8044164e38c1><cfd91a3bb3375daa286c8044164e38c1>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.0-SNAPSHOT
 startxref
-772
+834
 %%EOF

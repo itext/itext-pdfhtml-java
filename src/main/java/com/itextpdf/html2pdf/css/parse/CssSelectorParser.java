@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.parse;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.selector.item.CssAttributeSelectorItem;
 import com.itextpdf.html2pdf.css.selector.item.CssClassSelectorItem;
 import com.itextpdf.html2pdf.css.selector.item.CssIdSelectorItem;
@@ -203,7 +204,7 @@ public final class CssSelectorParser {
         } else {
             ICssSelectorItem pseudoClassSelectorItem = CssPseudoClassSelectorItem.create(pseudoSelector.substring(1));
             if (pseudoClassSelectorItem == null) {
-                throw new IllegalArgumentException(MessageFormatUtil.format("Invalid pseudo class selector: {0}", source));
+                throw new IllegalArgumentException(MessageFormatUtil.format(LogMessageConstant.UNSUPPORTED_PSEUDO_CSS_SELECTOR, pseudoSelector));
             }
             selectorItems.add(pseudoClassSelectorItem);
         }

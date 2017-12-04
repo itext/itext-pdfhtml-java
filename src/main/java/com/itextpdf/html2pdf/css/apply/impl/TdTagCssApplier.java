@@ -51,7 +51,7 @@ import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.property.Property;
 import java.util.Map;
 

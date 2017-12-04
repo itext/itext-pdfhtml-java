@@ -1,8 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 131>>stream
-xœMÍ½‚0†áı\Å·¡ƒ5ı˜Mt797PÂAk°X[ôöÄùÍ›'Ñ‘iÖĞ<­Ñ´FYîiÃ’>gÉÊMçG'/t2N„(W_Â{M>ö4ûeBµ3Ú5®µµk*µå;˜.”ÕuX\ç”ş¹Óº|Õ,Ù
+<</Filter/FlateDecode/Length 132>>stream
+xœMÍ±
+Â0Fáı>Å¿U#I“&³ »Hé­VÚÔ˜T__Zœ‡/ÑÉÓñ"!|Ouë”p¾£ç\ğ9sÆĞ£Üq™Z~¡åqş`Èˆ|exo)Äœ–0¢Ì¨Jj«]İh[‰½ĞÙÓ•Òª*%Ìêj#Œû¹Ó¶|Û>,ì
 endstream
 endobj
 4 0 obj
@@ -12,10 +13,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170316105558+03'00')/ModDate(D:20170316105558+03'00')/Producer(iText® 7.0.3-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Counter-increment with an identifier and a number set to the minimum plus one value, ident -2147483647)>>
+<</CreationDate(D:20171109123600+03'00')/ModDate(D:20171109123600+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Counter-increment with an identifier and a number set to the minimum plus one value, ident -2147483647)/assert(The 'counter-increment' property with an identifier and an integer value equivalent to the minimum plus one value.)/flags(32bit may)>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -23,15 +24,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000346 00000 n 
-0000000791 00000 n 
-0000000391 00000 n 
-0000000213 00000 n 
+0000000347 00000 n 
+0000000908 00000 n 
+0000000392 00000 n 
+0000000214 00000 n 
 0000000015 00000 n 
-0000000703 00000 n 
+0000000818 00000 n 
 trailer
-<</ID [<cd31c70937a8ea90d21b0a249418fd73><cd31c70937a8ea90d21b0a249418fd73>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.3-SNAPSHOT
+<</ID [<f4b45b949ba17e4db4e194877da97c37><f4b45b949ba17e4db4e194877da97c37>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.0-SNAPSHOT
 startxref
-842
+959
 %%EOF

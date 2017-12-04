@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 235>>stream
-xœ}ÍnÃ „ïû{l/”ìk¥ö^‰ 5vÜØ&Òç/v"Ü¨£Y¾¸À«†—w†Œ£î@HT5'B náIÛñlB°‡ãÑâçxM›ù:õŞ]çİõ£9‡ÕtŞÌ}²o­G7ßn¸İ„&û¡?FCkyÖßğ¦á.ÀY)*‘¢ïAÔ„PIA”Â	£™“æd‘’PäÒx;×Åd÷ˆ^â6¼lX—uCüoÚ¾Ìwät¯µ%¤Æ;|&Ë2ñnÚ?ºø,iWâF¦‰È2&k—UÕº¼]Ç~*®|
+<</Filter/FlateDecode/Length 234>>stream
+xœ}ÁnÃ Dïû{l.ÆøZ©½GâH·¶I€ôûKì4ÅN”ˆÑoNğ¦áõƒ!ã¨ØJ,'ªD]Ã‹¶!âÑ„`vÆƒÅ}N›ùün½;5ºë{sÓĞy3¶iì|m=ºq¾ábtšdö]{ˆºÚ²Ñ_ğ®a'`H‰%•HÑ·°U„XJA8Àı—}’œ\”$¢HòÒ÷vV¹±y„^ÀnlYñŒ-UEªâ>jUä×FøÔuÅÎä¢ÈCvV]|C³,0ciÂ±ÈS42!¦åíäúÖÎyH
 endstream
 endobj
 4 0 obj
@@ -12,10 +12,10 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20170622152157+03'00')/ModDate(D:20170622152157+03'00')/Producer(iText® 7.0.4-SNAPSHOT ©2000-2017 iText Group NV \(iText Software Group; licensed version\))/Title(CSS Test: Overflow set to 'visible')>>
+<</CreationDate(D:20171109124002+03'00')/ModDate(D:20171109124002+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Overflow set to 'visible')/assert(The 'overflow' property set to 'visible' properly shows all content that extends beyond the containing element.)/flags()>>
 endobj
 6 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -23,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000450 00000 n 
-0000000818 00000 n 
-0000000495 00000 n 
-0000000317 00000 n 
+0000000449 00000 n 
+0000000921 00000 n 
+0000000494 00000 n 
+0000000316 00000 n 
 0000000015 00000 n 
-0000000730 00000 n 
+0000000831 00000 n 
 trailer
-<</ID [<c779f7ac806e78bcc3e964ae310591c2><c779f7ac806e78bcc3e964ae310591c2>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%TEST-LICE-NSE0-7.0.4-SNAPSHOT
+<</ID [<bbe093697215cc91cba109fe22afd5e2><bbe093697215cc91cba109fe22afd5e2>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.0-SNAPSHOT
 startxref
-869
+972
 %%EOF

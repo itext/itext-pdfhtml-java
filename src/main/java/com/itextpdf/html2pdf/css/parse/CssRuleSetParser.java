@@ -47,8 +47,6 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.CssRuleSet;
 import com.itextpdf.html2pdf.css.selector.CssSelector;
-import com.itextpdf.html2pdf.css.selector.item.CssPseudoClassSelectorItem;
-import com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.io.util.MessageFormatUtil;
 import org.slf4j.Logger;
@@ -56,10 +54,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Arrays;
 
 /**
  * Utilities class to parse CSS rule sets.
@@ -70,30 +64,6 @@ public final class CssRuleSetParser {
      * The logger.
      */
     private static final Logger logger = LoggerFactory.getLogger(CssRuleSetParser.class);
-
-    private static final Set<String> unsupportedPseudoClasses = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-            CssConstants.CHECKED,
-            CssConstants.DISABLED,
-            CssConstants.EMPTY,
-            CssConstants.ENABLED,
-            CssConstants.FIRST_OF_TYPE,
-            CssConstants.IN_RANGE,
-            CssConstants.INVALID,
-            CssConstants.LANG,
-            CssConstants.LAST_OF_TYPE,
-            CssConstants.NTH_LAST_CHILD,
-            CssConstants.NTH_LAST_OF_TYPE,
-            CssConstants.NTH_OF_TYPE,
-            CssConstants.ONLY_OF_TYPE,
-            CssConstants.ONLY_CHILD,
-            CssConstants.OPTIONAL,
-            CssConstants.OUT_OF_RANGE,
-            CssConstants.READ_ONLY,
-            CssConstants.READ_WRITE,
-            CssConstants.REQUIRED,
-            CssConstants.ROOT,
-            CssConstants.VALID
-    )));
 
     /**
      * Creates a new {@link CssRuleSetParser} instance.
@@ -159,13 +129,7 @@ public final class CssRuleSetParser {
         }
         for (String currentSelectorStr : selectors) {
             try {
-                //@TODO These changes were made because we need to detect if selector contains unsupported pseudo classes
-                //revert the changes when the task DEVSIX-1440 is done
-                List<ICssSelectorItem> selectorItems = CssSelectorParser.parseSelectorItems(currentSelectorStr);
-                if (!selectorItemsContainsUnsupportedPseudoClasses(selectorItems)) {
-                    CssSelector selector = new CssSelector(selectorItems);
-                    ruleSets.add(new CssRuleSet(selector, declarations));
-                }
+                ruleSets.add(new CssRuleSet( new CssSelector(currentSelectorStr), declarations));
             } catch (Exception exc) {
                 logger.error(MessageFormatUtil.format(LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, currentSelectorStr), exc);
                 //if any separated selector has errors, all others become invalid.
@@ -222,26 +186,5 @@ public final class CssRuleSetParser {
             return getSemicolonPosition(propertiesStr, closedBracketPos + 1);
         }
         return semiColonPos;
-    }
-
-    /**
-     * Return whether or not the selector items contain unsupported pseudoclasses
-     *
-     * @param selectorItems
-     * @return
-     */
-    private static boolean selectorItemsContainsUnsupportedPseudoClasses(List<ICssSelectorItem> selectorItems) {
-        for (ICssSelectorItem selectorItem : selectorItems) {
-            if (selectorItem instanceof CssPseudoClassSelectorItem) {
-                if (unsupportedPseudoClasses.contains(((CssPseudoClassSelectorItem) selectorItem).getPseudoClass())) {
-                    return true;
-                }
-                if (selectorItem instanceof CssPseudoClassSelectorItem.NotSelectorItem) {
-                    return selectorItemsContainsUnsupportedPseudoClasses(((CssPseudoClassSelectorItem.NotSelectorItem) selectorItem).getArgumentsSelector());
-                }
-            }
-        }
-
-        return false;
     }
 }
