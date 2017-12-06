@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BackgroundShorthandResol
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderBottomShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderColorShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderLeftShorthandResolver;
+import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderRadiusShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderRightShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderShorthandResolver;
 import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderStyleShorthandResolver;
@@ -74,6 +75,7 @@ public class ShorthandResolverFactory {
         shorthandResolvers.put(CssConstants.BORDER_BOTTOM, new BorderBottomShorthandResolver());
         shorthandResolvers.put(CssConstants.BORDER_COLOR, new BorderColorShorthandResolver());
         shorthandResolvers.put(CssConstants.BORDER_LEFT, new BorderLeftShorthandResolver());
+        shorthandResolvers.put(CssConstants.BORDER_RADIUS, new BorderRadiusShorthandResolver());
         shorthandResolvers.put(CssConstants.BORDER_RIGHT, new BorderRightShorthandResolver());
         shorthandResolvers.put(CssConstants.BORDER_STYLE, new BorderStyleShorthandResolver());
         shorthandResolvers.put(CssConstants.BORDER_TOP, new BorderTopShorthandResolver());
