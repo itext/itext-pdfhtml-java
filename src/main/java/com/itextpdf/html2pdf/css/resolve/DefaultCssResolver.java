@@ -76,6 +76,7 @@ import com.itextpdf.io.util.StreamUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.text.html.CSS;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -157,7 +158,7 @@ public class DefaultCssResolver implements ICssResolver {
 
             if (parentStyles != null) {
                 for (Map.Entry<String, String> entry : parentStyles.entrySet()) {
-                    mergeParentCssDeclaration(elementStyles, entry.getKey(), entry.getValue());
+                    mergeParentCssDeclaration(elementStyles, entry.getKey(), entry.getValue(), parentStyles.get(CssConstants.FONT_SIZE));
                 }
                 parentFontSizeStr = parentStyles.get(CssConstants.FONT_SIZE);
             }
@@ -360,10 +361,16 @@ public class DefaultCssResolver implements ICssResolver {
      * @param cssProperty the CSS property
      * @param parentPropValue the parent properties value
      */
-    private void mergeParentCssDeclaration(Map<String, String> styles, String cssProperty, String parentPropValue) {
+    private void mergeParentCssDeclaration(Map<String, String> styles, String cssProperty, String parentPropValue, String parentFontSize) {
         String childPropValue = styles.get(cssProperty);
         if ((childPropValue == null && CssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(childPropValue)) {
-            styles.put(cssProperty, parentPropValue);
+            if (CssUtils.isRelativeValue(parentPropValue) && !CssUtils.isRemValue(parentPropValue)) {
+                int pos = CssUtils.determinePositionBetweenValueAndUnit(parentFontSize);
+                float fontSize = Float.parseFloat(parentFontSize.substring(0, pos));
+                float resolvedRelativeValue = CssUtils.parseRelativeValue(parentPropValue, fontSize);
+                styles.put(cssProperty, String.valueOf(resolvedRelativeValue) + parentFontSize.substring(pos, parentFontSize.length()));
+            } else
+                styles.put(cssProperty, parentPropValue);
         } else if (CssConstants.TEXT_DECORATION.equals(cssProperty) && !CssConstants.INLINE_BLOCK.equals(styles.get(CssConstants.DISPLAY))) {
             // TODO Note! This property is formally not inherited, but the browsers behave very similar to inheritance here.
                         /* Text decorations on inline boxes are drawn across the entire element,
