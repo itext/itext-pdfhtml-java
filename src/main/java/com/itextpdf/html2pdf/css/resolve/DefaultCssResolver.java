@@ -76,7 +76,6 @@ import com.itextpdf.io.util.StreamUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.text.html.CSS;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -158,7 +157,7 @@ public class DefaultCssResolver implements ICssResolver {
 
             if (parentStyles != null) {
                 for (Map.Entry<String, String> entry : parentStyles.entrySet()) {
-                    mergeParentCssDeclaration(elementStyles, entry.getKey(), entry.getValue(), parentStyles.get(CssConstants.FONT_SIZE));
+                    mergeParentCssDeclaration(elementStyles, entry.getKey(), entry.getValue(), parentStyles);
                 }
                 parentFontSizeStr = parentStyles.get(CssConstants.FONT_SIZE);
             }
@@ -361,14 +360,21 @@ public class DefaultCssResolver implements ICssResolver {
      * @param cssProperty the CSS property
      * @param parentPropValue the parent properties value
      */
-    private void mergeParentCssDeclaration(Map<String, String> styles, String cssProperty, String parentPropValue, String parentFontSize) {
+    private void mergeParentCssDeclaration(Map<String, String> styles, String cssProperty, String parentPropValue, Map<String, String> parentStyles) {
         String childPropValue = styles.get(cssProperty);
         if ((childPropValue == null && CssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(childPropValue)) {
             if (CssUtils.isRelativeValue(parentPropValue) && !CssUtils.isRemValue(parentPropValue)) {
-                int pos = CssUtils.determinePositionBetweenValueAndUnit(parentFontSize);
-                float fontSize = Float.parseFloat(parentFontSize.substring(0, pos));
-                float resolvedRelativeValue = CssUtils.parseRelativeValue(parentPropValue, fontSize);
-                styles.put(cssProperty, String.valueOf(resolvedRelativeValue) + parentFontSize.substring(pos, parentFontSize.length()));
+              if (parentPropValue != null && (!parentPropValue.endsWith(CssConstants.PERCENTAGE) ||
+                    parentPropValue.endsWith(CssConstants.PERCENTAGE) && (CssConstants.FONT_SIZE.equals(cssProperty) ||
+                            CssConstants.VERTICAL_ALIGN.equals(cssProperty) || CssConstants.LINE_HEIGHT.equals(cssProperty)))) {
+                  // todo existing solution requires correct resolving of VERTICAL_ALIGN
+                  String parentFontSize = parentStyles.get(CssConstants.FONT_SIZE);
+                  int pos = CssUtils.determinePositionBetweenValueAndUnit(parentFontSize);
+                  float fontSize = Float.parseFloat(parentFontSize.substring(0, pos));
+                  float resolvedRelativeValue = CssUtils.parseRelativeValue(parentPropValue, fontSize);
+                  styles.put(cssProperty, String.valueOf(resolvedRelativeValue) + parentFontSize.substring(pos, parentFontSize.length()));
+              } else
+                  styles.put(cssProperty, parentPropValue);
             } else
                 styles.put(cssProperty, parentPropValue);
         } else if (CssConstants.TEXT_DECORATION.equals(cssProperty) && !CssConstants.INLINE_BLOCK.equals(styles.get(CssConstants.DISPLAY))) {

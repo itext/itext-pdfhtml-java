@@ -95,7 +95,7 @@ public class CssInheritanceTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssInheritance03.pdf", sourceFolder + "cmp_cssInheritance03.pdf", destinationFolder, "diff03_"));
     }
 
-    //% value inherited
+    //% value inherited, font-size dependent
     @Test
     public void cssInheritanceTest04() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "cssInheritance04.html"), new File(destinationFolder + "cssInheritance04.pdf"));
@@ -103,12 +103,20 @@ public class CssInheritanceTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssInheritance04.pdf", sourceFolder + "cmp_cssInheritance04.pdf", destinationFolder, "diff04_"));
     }
 
-    //% value inherited wrong in this test. Requires more work on resolving %
+    //% value inherited, layout dependent
     @Test
     public void cssInheritanceTest05() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "cssInheritance05.html"), new File(destinationFolder + "cssInheritance05.pdf"));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssInheritance05.html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssInheritance05.pdf", sourceFolder + "cmp_cssInheritance05.pdf", destinationFolder, "diff05_"));
+    }
+
+    //smaller value inherited
+    @Test
+    public void cssInheritanceTest06() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "cssInheritance06.html"), new File(destinationFolder + "cssInheritance06.pdf"));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssInheritance06.html").getPath() + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssInheritance06.pdf", sourceFolder + "cmp_cssInheritance06.pdf", destinationFolder, "diff06_"));
     }
 
 }
