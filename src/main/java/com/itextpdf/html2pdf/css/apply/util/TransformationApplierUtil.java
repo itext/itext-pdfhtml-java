@@ -183,7 +183,6 @@ public class TransformationApplierUtil {
      * Convert an angle (presented as radians or degrees) to radians
      *
      * @param value the angle (as a CSS string)
-     * @return
      */
     private static double parseAngleToRadians(String value) {
         if (value.indexOf('d') < 0)
@@ -202,9 +201,6 @@ public class TransformationApplierUtil {
      * @param d      element [1,1] of the transformation matrix
      * @param tx     translation on x-axis
      * @param ty     translation on y-axis
-     * @param xPoint
-     * @param yPoint
-     * @return
      */
     private static Transform.SingleTransform getSingleTransformTranslate(float a, float b, float c, float d, float tx, float ty, boolean xPoint, boolean yPoint) {
         return new Transform.SingleTransform(a, b, c, d,
@@ -220,7 +216,6 @@ public class TransformationApplierUtil {
      * @param d  element [1,1] of the transformation matrix
      * @param tx translation on x-axis
      * @param ty translation on y-axis
-     * @return
      */
     private static Transform.SingleTransform getSingleTransform(float a, float b, float c, float d, float tx, float ty) {
         return new Transform.SingleTransform(a, b, c, d,
@@ -231,7 +226,6 @@ public class TransformationApplierUtil {
      * Apply a linear transformation using a transformation matrix
      *
      * @param floats the transformation matrix (flattened) as array
-     * @return
      */
     private static Transform.SingleTransform getSingleTransform(float floats[]) {
         return new Transform.SingleTransform(floats[0], floats[1], floats[2], floats[3],

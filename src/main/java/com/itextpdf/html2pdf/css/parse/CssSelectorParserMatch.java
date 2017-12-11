@@ -68,8 +68,6 @@ class CssSelectorParserMatch {
 
     /**
      * Get the index at which the last match started
-     *
-     * @return
      */
     public int getIndex() {
         return matcher.start();
@@ -77,8 +75,6 @@ class CssSelectorParserMatch {
 
     /**
      * Get the text of the last match
-     *
-     * @return
      */
     public String getValue() {
         return matcher.group(0);
@@ -86,8 +82,6 @@ class CssSelectorParserMatch {
 
     /**
      * Get the source text being matched
-     *
-     * @return
      */
     public String getSource() {
         return source;
@@ -95,8 +89,6 @@ class CssSelectorParserMatch {
 
     /**
      * Return whether or not the match was successful
-     *
-     * @return
      */
     public boolean success() {
         return success;
