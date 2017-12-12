@@ -286,7 +286,7 @@ public class CssUtils {
      * @param string containing a numeric value with a metric unit
      * @return int position between the numeric value and unit or 0 if string is null or string started with a non-numeric value.
      */
-    public static int determinePositionBetweenValueAndUnit(String string) {
+    private static int determinePositionBetweenValueAndUnit(String string) {
         if (string == null)
             return 0;
         int pos = 0;

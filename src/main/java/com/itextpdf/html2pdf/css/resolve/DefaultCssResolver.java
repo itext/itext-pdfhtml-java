@@ -363,18 +363,17 @@ public class DefaultCssResolver implements ICssResolver {
     private void mergeParentCssDeclaration(Map<String, String> styles, String cssProperty, String parentPropValue, Map<String, String> parentStyles) {
         String childPropValue = styles.get(cssProperty);
         if ((childPropValue == null && CssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(childPropValue)) {
-            if (CssUtils.isRelativeValue(parentPropValue) && !CssUtils.isRemValue(parentPropValue)) {
-              if (parentPropValue != null && (!parentPropValue.endsWith(CssConstants.PERCENTAGE) ||
-                    parentPropValue.endsWith(CssConstants.PERCENTAGE) && (CssConstants.FONT_SIZE.equals(cssProperty) ||
-                            CssConstants.VERTICAL_ALIGN.equals(cssProperty) || CssConstants.LINE_HEIGHT.equals(cssProperty)))) {
-                  // todo existing solution requires correct resolving of VERTICAL_ALIGN
-                  String parentFontSize = parentStyles.get(CssConstants.FONT_SIZE);
-                  int pos = CssUtils.determinePositionBetweenValueAndUnit(parentFontSize);
-                  float fontSize = Float.parseFloat(parentFontSize.substring(0, pos));
-                  float resolvedRelativeValue = CssUtils.parseRelativeValue(parentPropValue, fontSize);
-                  styles.put(cssProperty, String.valueOf(resolvedRelativeValue) + parentFontSize.substring(pos, parentFontSize.length()));
-              } else
-                  styles.put(cssProperty, parentPropValue);
+            List<String> fontSizeDependentPercentage = new ArrayList<String>(3);
+            fontSizeDependentPercentage.add(CssConstants.FONT_SIZE);
+            fontSizeDependentPercentage.add(CssConstants.VERTICAL_ALIGN);
+            fontSizeDependentPercentage.add(CssConstants.LINE_HEIGHT);
+            if (valueIsOfMeasurement(parentPropValue, CssConstants.EM) || valueIsOfMeasurement(parentPropValue, CssConstants.EX) ||
+                    valueIsOfMeasurement(parentPropValue, CssConstants.PERCENTAGE) && fontSizeDependentPercentage.contains(cssProperty)) {
+                // todo existing solution requires correct resolving of VERTICAL_ALIGN
+                float absoluteParentFontSize = CssUtils.parseAbsoluteLength(parentStyles.get(CssConstants.FONT_SIZE));
+                // Format to 4 decimal places to prevent differences between Java and C#
+                styles.put(cssProperty, DecimalFormatUtil.formatNumber(CssUtils.parseRelativeValue(parentPropValue, absoluteParentFontSize),
+                        "0.####") + CssConstants.PT);
             } else
                 styles.put(cssProperty, parentPropValue);
         } else if (CssConstants.TEXT_DECORATION.equals(cssProperty) && !CssConstants.INLINE_BLOCK.equals(styles.get(CssConstants.DISPLAY))) {
@@ -386,6 +385,14 @@ public class DefaultCssResolver implements ICssResolver {
             // See TextDecorationTest#textDecoration01Test
             styles.put(cssProperty, CssPropertyMerger.mergeTextDecoration(childPropValue, parentPropValue));
         }
+    }
+
+    private static boolean valueIsOfMeasurement(String value, String measurement) {
+        if (value == null)
+            return false;
+        if (value.endsWith(measurement) && CssUtils.isNumericValue(value.substring(0, value.length() - measurement.length()).trim()))
+            return true;
+        return false;
     }
 
     /**
