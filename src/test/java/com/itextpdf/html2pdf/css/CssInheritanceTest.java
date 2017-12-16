@@ -118,5 +118,4 @@ public class CssInheritanceTest extends ExtendedITextTest {
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssInheritance06.html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssInheritance06.pdf", sourceFolder + "cmp_cssInheritance06.pdf", destinationFolder, "diff06_"));
     }
-
 }

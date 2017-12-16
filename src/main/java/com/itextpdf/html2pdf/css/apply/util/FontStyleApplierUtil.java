@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import com.itextpdf.io.util.DecimalFormatUtil;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.ColorConstants;
@@ -208,7 +209,10 @@ public final class FontStyleApplierUtil {
         }
 
         String lineHeight = cssProps.get(CssConstants.LINE_HEIGHT);
-        if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight)) {
+        // specification does not give auto as a possible lineHeight value
+        // nevertheless some browsers compute it as normal so we apply the same behaviour.
+        // What's more, it's basically the same thing as if lineHeight is not set in the first place
+        if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight) && !CssConstants.AUTO.equals(lineHeight)) {
             if (CssUtils.isNumericValue(lineHeight)) {
                 Float mult = CssUtils.parseFloat(lineHeight);
                 if (mult != null) {
@@ -224,6 +228,12 @@ public final class FontStyleApplierUtil {
             }
         } else {
             element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, 1.2f));
+            // the following rewriting of LINE_HEIGHT property of the element
+            // is required for further calculations of VERTICAL_ALIGN property (if applied) in {@link VerticalAlignmentApplierUtil}
+            float absoluteParentFontSize = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+            // Format to 4 decimal places to prevent differences between Java and C#
+            cssProps.put(CssConstants.LINE_HEIGHT, DecimalFormatUtil.
+                    formatNumber(CssUtils.parseRelativeValue("1.2em", absoluteParentFontSize),"0.####") + CssConstants.PT);
         }
 
     }
