@@ -365,11 +365,9 @@ public class DefaultCssResolver implements ICssResolver {
         if ((childPropValue == null && CssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(childPropValue)) {
             List<String> fontSizeDependentPercentage = new ArrayList<String>(3);
             fontSizeDependentPercentage.add(CssConstants.FONT_SIZE);
-            fontSizeDependentPercentage.add(CssConstants.VERTICAL_ALIGN);
             fontSizeDependentPercentage.add(CssConstants.LINE_HEIGHT);
             if (valueIsOfMeasurement(parentPropValue, CssConstants.EM) || valueIsOfMeasurement(parentPropValue, CssConstants.EX) ||
                     valueIsOfMeasurement(parentPropValue, CssConstants.PERCENTAGE) && fontSizeDependentPercentage.contains(cssProperty)) {
-                // todo existing solution requires correct resolving of VERTICAL_ALIGN
                 float absoluteParentFontSize = CssUtils.parseAbsoluteLength(parentStyles.get(CssConstants.FONT_SIZE));
                 // Format to 4 decimal places to prevent differences between Java and C#
                 styles.put(cssProperty, DecimalFormatUtil.formatNumber(CssUtils.parseRelativeValue(parentPropValue, absoluteParentFontSize),
