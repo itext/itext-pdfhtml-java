@@ -10,6 +10,7 @@ import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -77,6 +78,24 @@ public class FloatAndAlignmentTest extends ExtendedITextTest {
         //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
         //TODO: update after DEVSIX-1437 fix (Fix edge cases for floats splitting)
         runTest("blocksInsideParagraph", "diffInside01_");
+    }
+
+    @Test
+    @Ignore("DEVSIX-1732")
+    public void inlineBlocksInsideParagraph() throws IOException, InterruptedException {
+        runTest("inlineBlocksInsideParagraph", "diffInlineInside01_");
+    }
+
+    @Test
+    @Ignore("DEVSIX-1732: floating element shall not be moved along with text when text alignment is applied.")
+    public void inlineFloatsWithTextAlignmentTest01() throws IOException, InterruptedException {
+        runTest("inlineFloatsWithTextAlignmentTest01", "diffInlineFloat01_");
+    }
+
+    @Test
+    @Ignore("DEVSIX-1732: justification is broken when floating element is inline along with text.")
+    public void inlineFloatsWithTextAlignmentTest02() throws IOException, InterruptedException {
+        runTest("inlineFloatsWithTextAlignmentTest02", "diffInlineFloat02_");
     }
 
     private void runTest(String testName, String diff) throws IOException, InterruptedException {
