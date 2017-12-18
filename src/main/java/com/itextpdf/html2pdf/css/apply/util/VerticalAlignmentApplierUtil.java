@@ -257,13 +257,17 @@ public class VerticalAlignmentApplierUtil {
     private static float getLineHeightActualValue(float fontSize, float rootFontSize, String lineHeightStr) {
         float lineHeightActualValue;
         if (lineHeightStr != null) {
-            UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeightStr, fontSize, rootFontSize);
-            if (CssUtils.isNumericValue(lineHeightStr)) {
-                lineHeightActualValue = fontSize * lineHeightValue.getValue();
-            } else if (lineHeightValue.isPointValue()) {
-                lineHeightActualValue = lineHeightValue.getValue();
+            if (CssConstants.NORMAL.equals(lineHeightStr) || CssConstants.AUTO.equals(lineHeightStr)) {
+                lineHeightActualValue = (float) (fontSize * 1.2);
             } else {
-                lineHeightActualValue = fontSize * lineHeightValue.getValue() / 100;
+                UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeightStr, fontSize, rootFontSize);
+                if (CssUtils.isNumericValue(lineHeightStr)) {
+                    lineHeightActualValue = fontSize * lineHeightValue.getValue();
+                } else if (lineHeightValue.isPointValue()) {
+                    lineHeightActualValue = lineHeightValue.getValue();
+                } else {
+                    lineHeightActualValue = fontSize * lineHeightValue.getValue() / 100;
+                }
             }
         } else {
             lineHeightActualValue = (float) (fontSize * 1.2);
