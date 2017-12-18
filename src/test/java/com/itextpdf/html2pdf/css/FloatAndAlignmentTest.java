@@ -29,54 +29,54 @@ public class FloatAndAlignmentTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
-    public void SingleBlockSingleParagraphRight() throws IOException, InterruptedException {
+    public void singleBlockSingleParagraphRight() throws IOException, InterruptedException {
         /* this test shows different combinations of float values blocks and  paragraph align RIGHT within div container
         */
         //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
         //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
-        runTest("SingleBlockSingleParagraphRight", "diffRight01_");
+        runTest("singleBlockSingleParagraphRight", "diffRight01_");
     }
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
-    public void SingleBlockSingleParagraphLeft() throws IOException, InterruptedException {
+    public void singleBlockSingleParagraphLeft() throws IOException, InterruptedException {
         //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
         //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
-        runTest("SingleBlockSingleParagraphLeft", "diffLeft01_");
+        runTest("singleBlockSingleParagraphLeft", "diffLeft01_");
     }
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
-    public void SingleBlockSingleParagraphJustify() throws IOException, InterruptedException {
+    public void singleBlockSingleParagraphJustify() throws IOException, InterruptedException {
         //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
         //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
-        runTest("SingleBlockSingleParagraphJustify", "diffJust01_");
+        runTest("singleBlockSingleParagraphJustify", "diffJust01_");
     }
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
-    public void SingleBlockSingleParagraphCenter() throws IOException, InterruptedException {
+    public void singleBlockSingleParagraphCenter() throws IOException, InterruptedException {
         //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
         //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
-        runTest("SingleBlockSingleParagraphCenter", "diffCent01_");
+        runTest("singleBlockSingleParagraphCenter", "diffCent01_");
     }
 
     @Test
-    public void SeveralBlocksSingleParagraph() throws IOException, InterruptedException {
+    public void severalBlocksSingleParagraph() throws IOException, InterruptedException {
         /* this test shows different combinations of 3 float values blocks and 1 paragraph aligns within div container
         */
         //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
-        runTest("SeveralBlocksSingleParagraph", "diffSev01_");
+        runTest("severalBlocksSingleParagraph", "diffSev01_");
     }
 
     @Test
-    public void BlocksInsideParagraph() throws IOException, InterruptedException {
+    public void blocksInsideParagraph() throws IOException, InterruptedException {
         /* this test shows different combinations of 3 float values blocks and 1 paragraph aligns within div container
         * now it points not only incorrect alignment vs float positioning, but also incorrect float area
         */
         //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
         //TODO: update after DEVSIX-1437 fix (Fix edge cases for floats splitting)
-        runTest("BlocksInsideParagraph", "diffInside01_");
+        runTest("blocksInsideParagraph", "diffInside01_");
     }
 
     private void runTest(String testName, String diff) throws IOException, InterruptedException {
