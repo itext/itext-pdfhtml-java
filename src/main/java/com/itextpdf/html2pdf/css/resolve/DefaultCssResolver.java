@@ -91,21 +91,34 @@ import java.util.Set;
  */
 public class DefaultCssResolver implements ICssResolver {
 
-    /** The CSS style sheet. */
+    /**
+     * The CSS style sheet.
+     */
     private CssStyleSheet cssStyleSheet;
 
-    /** The device description. */
+    /**
+     * The device description.
+     */
     private MediaDeviceDescription deviceDescription;
 
-    /** The list of fonts. */
+    /**
+     * The list of fonts.
+     */
     private List<CssFontFaceRule> fonts = new ArrayList<>();
+
+    private static final List<String> fontSizeDependentPercentage = new ArrayList<String>(2);
+
+    static {
+        fontSizeDependentPercentage.add(CssConstants.FONT_SIZE);
+        fontSizeDependentPercentage.add(CssConstants.LINE_HEIGHT);
+    }
 
     /**
      * Creates a new {@link DefaultCssResolver} instance.
      *
-     * @param treeRoot the root node
+     * @param treeRoot               the root node
      * @param mediaDeviceDescription the media device description
-     * @param resourceResolver the resource resolver
+     * @param resourceResolver       the resource resolver
      */
     public DefaultCssResolver(INode treeRoot, MediaDeviceDescription mediaDeviceDescription, ResourceResolver resourceResolver) {
         this.deviceDescription = mediaDeviceDescription;
@@ -117,7 +130,7 @@ public class DefaultCssResolver implements ICssResolver {
      * Creates a new {@link DefaultCssResolver} instance.
      *
      * @param treeRoot the root node
-     * @param context the processor context
+     * @param context  the processor context
      */
     public DefaultCssResolver(INode treeRoot, ProcessorContext context) {
         this.deviceDescription = context.getDeviceDescription();
@@ -137,7 +150,7 @@ public class DefaultCssResolver implements ICssResolver {
         nodeCssDeclarations.addAll(cssStyleSheet.getCssDeclarations(element, deviceDescription));
 
         if (element instanceof IElementNode) {
-            String styleAttribute = ((IElementNode)element).getAttribute(AttributeConstants.STYLE);
+            String styleAttribute = ((IElementNode) element).getAttribute(AttributeConstants.STYLE);
             if (styleAttribute != null) {
                 nodeCssDeclarations.addAll(CssRuleSetParser.parsePropertyDeclarations(styleAttribute));
             }
@@ -183,7 +196,7 @@ public class DefaultCssResolver implements ICssResolver {
         }
 
         // Update root font size
-        if (element instanceof IElementNode && TagConstants.HTML.equals(((IElementNode)element).name())) {
+        if (element instanceof IElementNode && TagConstants.HTML.equals(((IElementNode) element).name())) {
             context.setRootFontSize(elementStyles.get(CssConstants.FONT_SIZE));
         }
 
@@ -217,9 +230,9 @@ public class DefaultCssResolver implements ICssResolver {
     /**
      * Resolves a content property.
      *
-     * @param styles the styles map
+     * @param styles           the styles map
      * @param contentContainer the content container
-     * @param context the CSS context
+     * @param context          the CSS context
      */
     private void resolveContentProperty(Map<String, String> styles, INode contentContainer, CssContext context) {
         if (contentContainer instanceof CssPseudoElementNode || contentContainer instanceof PageMarginBoxContextNode) {
@@ -257,7 +270,7 @@ public class DefaultCssResolver implements ICssResolver {
     /**
      * Adds a CSS declaration to a styles map if the CSS declaration is valid.
      *
-     * @param stylesMap the styles map
+     * @param stylesMap      the styles map
      * @param cssDeclaration the CSS declaration
      */
     private void putDeclarationInMapIfValid(Map<String, String> stylesMap, CssDeclaration cssDeclaration) {
@@ -272,9 +285,9 @@ public class DefaultCssResolver implements ICssResolver {
     /**
      * Collects CSS declarationss.
      *
-     * @param rootNode the root node
+     * @param rootNode         the root node
      * @param resourceResolver the resource resolver
-     * @param cssContext the CSS context
+     * @param cssContext       the CSS context
      * @return the node (always null in this case)
      */
     private INode collectCssDeclarations(INode rootNode, ResourceResolver resourceResolver, CssContext cssContext) {
@@ -323,7 +336,7 @@ public class DefaultCssResolver implements ICssResolver {
      * Check if a pages counter is mentioned.
      *
      * @param cssContents the CSS contents
-     * @param cssContext the CSS context
+     * @param cssContext  the CSS context
      */
     private void checkIfPagesCounterMentioned(String cssContents, CssContext cssContext) {
         // TODO more efficient (avoid searching in text string) and precise (e.g. skip spaces) check during the parsing.
@@ -339,7 +352,7 @@ public class DefaultCssResolver implements ICssResolver {
      * Wraps a {@link CssMediaRule} into the style sheet if the head child element has a media attribute.
      *
      * @param headChildElement the head child element
-     * @param styleSheet the style sheet
+     * @param styleSheet       the style sheet
      * @return the css style sheet
      */
     private CssStyleSheet wrapStyleSheetInMediaQueryIfNecessary(IElementNode headChildElement, CssStyleSheet styleSheet) {
@@ -356,16 +369,13 @@ public class DefaultCssResolver implements ICssResolver {
     /**
      * Merge parent CSS declarations.
      *
-     * @param styles the styles map
-     * @param cssProperty the CSS property
+     * @param styles          the styles map
+     * @param cssProperty     the CSS property
      * @param parentPropValue the parent properties value
      */
     private void mergeParentCssDeclaration(Map<String, String> styles, String cssProperty, String parentPropValue, Map<String, String> parentStyles) {
         String childPropValue = styles.get(cssProperty);
         if ((childPropValue == null && CssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(childPropValue)) {
-            List<String> fontSizeDependentPercentage = new ArrayList<String>(3);
-            fontSizeDependentPercentage.add(CssConstants.FONT_SIZE);
-            fontSizeDependentPercentage.add(CssConstants.LINE_HEIGHT);
             if (valueIsOfMeasurement(parentPropValue, CssConstants.EM) || valueIsOfMeasurement(parentPropValue, CssConstants.EX) ||
                     valueIsOfMeasurement(parentPropValue, CssConstants.PERCENTAGE) && fontSizeDependentPercentage.contains(cssProperty)) {
                 float absoluteParentFontSize = CssUtils.parseAbsoluteLength(parentStyles.get(CssConstants.FONT_SIZE));
@@ -397,7 +407,7 @@ public class DefaultCssResolver implements ICssResolver {
      * Collects fonts from the style sheet.
      */
     private void collectFonts() {
-        for (CssStatement cssStatement: cssStyleSheet.getStatements()) {
+        for (CssStatement cssStatement : cssStyleSheet.getStatements()) {
             collectFonts(cssStatement);
         }
     }
@@ -411,10 +421,9 @@ public class DefaultCssResolver implements ICssResolver {
         if (cssStatement instanceof CssFontFaceRule) {
             fonts.add((CssFontFaceRule) cssStatement);
         } else if (cssStatement instanceof CssMediaRule && ((CssMediaRule) cssStatement).matchMediaDevice(deviceDescription)) {
-            for (CssStatement cssSubStatement: ((CssMediaRule)cssStatement).getStatements()) {
+            for (CssStatement cssSubStatement : ((CssMediaRule) cssStatement).getStatements()) {
                 collectFonts(cssSubStatement);
             }
         }
     }
-
 }
