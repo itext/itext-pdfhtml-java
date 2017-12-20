@@ -51,6 +51,7 @@ import com.itextpdf.html2pdf.css.CssRuleName;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.OutlineApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.css.util.CssUtils;
@@ -59,6 +60,7 @@ import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.html.node.ITextNode;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfPage;
@@ -75,6 +77,7 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.layout.LayoutArea;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
+import com.itextpdf.layout.property.OverflowPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.DocumentRenderer;
@@ -82,6 +85,7 @@ import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.html2pdf.jsoup.nodes.Element;
 import com.itextpdf.html2pdf.jsoup.parser.Tag;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
@@ -366,7 +370,14 @@ class PageContextProcessor {
                 renderer.setParent(documentRenderer);
                 LayoutResult result = renderer.layout(new LayoutContext(new LayoutArea(page.getDocument().getPageNumber(page), marginBoxRectangles[i])));
                 IRenderer rendererToDraw = result.getStatus() == LayoutResult.FULL ? renderer : result.getSplitRenderer();
-                rendererToDraw.setParent(documentRenderer).draw(new DrawContext(page.getDocument(), new PdfCanvas(page)));
+                if (rendererToDraw != null) {
+                    rendererToDraw.setParent(documentRenderer).draw(new DrawContext(page.getDocument(), new PdfCanvas(page)));
+                } else {
+                    // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
+                    // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
+                    Logger logger = LoggerFactory.getLogger(PageContextProcessor.class);
+                    logger.error(MessageFormatUtil.format(LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN, PageContextProperties.pageMarginBoxNames.get(i)));
+                }
             }
         }
     }
@@ -470,6 +481,24 @@ class PageContextProcessor {
             BorderStyleApplierUtil.applyBorders(boxStyles, context, marginBox);
             VerticalAlignmentApplierUtil.applyVerticalAlignmentForCells(boxStyles, context, marginBox);
 
+            // Set overflow to HIDDEN if it's not explicitly set in css in order to avoid overlapping with page content.
+            String overflow = CssConstants.OVERFLOW_VALUES.contains(boxStyles.get(CssConstants.OVERFLOW)) ? boxStyles.get(CssConstants.OVERFLOW) : null;
+            String overflowX = CssConstants.OVERFLOW_VALUES.contains(boxStyles.get(CssConstants.OVERFLOW_X)) ? boxStyles.get(CssConstants.OVERFLOW_X) : overflow;
+            if (overflowX == null || CssConstants.HIDDEN.equals(overflowX)) {
+                marginBox.setProperty(Property.OVERFLOW_X, OverflowPropertyValue.HIDDEN);
+            } else {
+                marginBox.setProperty(Property.OVERFLOW_X, OverflowPropertyValue.VISIBLE);
+            }
+            String overflowY = CssConstants.OVERFLOW_VALUES.contains(boxStyles.get(CssConstants.OVERFLOW_Y)) ? boxStyles.get(CssConstants.OVERFLOW_Y) : overflow;
+            if (overflowY == null || CssConstants.HIDDEN.equals(overflowY)) {
+                marginBox.setProperty(Property.OVERFLOW_Y, OverflowPropertyValue.HIDDEN);
+            } else {
+                marginBox.setProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);
+            }
+
+            // TODO outlines are currently not supported for page margin boxes, because of the outlines handling specificity (they are handled on renderer's parent level)
+            OutlineApplierUtil.applyOutlines(boxStyles, context, marginBox);
+
             float em = CssUtils.parseAbsoluteLength(boxStyles.get(CssConstants.FONT_SIZE));
             float rem = context.getCssContext().getRootFontSize();
             float[] boxMargins = parseBoxProps(boxStyles, em, rem, 0, calculateContainingBlockSizesForMarginBox(marginBoxInd),
@@ -481,7 +510,14 @@ class PageContextProcessor {
             marginBox.setPaddings(boxPaddings[0], boxPaddings[1], boxPaddings[2], boxPaddings[3]);
             marginBox.setProperty(Property.FONT_PROVIDER, context.getFontProvider());
             marginBox.setProperty(Property.FONT_SET, context.getTempFonts());
-            marginBox.setFillAvailableArea(true);
+
+            float[] boxBorders = getBordersWidth(marginBox);
+            float marginBorderPaddingWidth = boxMargins[1] + boxMargins[3] + boxBorders[1] + boxBorders[3] + boxPaddings[1] + boxPaddings[3];
+            float marginBorderPaddingHeight = boxMargins[0] + boxMargins[2] + boxBorders[0] + boxBorders[2] + boxPaddings[0] + boxPaddings[2];
+
+            // TODO DEVSIX-1050: improve width/height calculation according to "5.3. Computing Page-margin Box Dimensions", take into account height and width properties
+            marginBox.setWidth(marginBoxRectangles[marginBoxInd].getWidth() - marginBorderPaddingWidth);
+            marginBox.setHeight(marginBoxRectangles[marginBoxInd].getHeight() - marginBorderPaddingHeight);
 
             if (marginBoxContentNode.childNodes().isEmpty()) {
                 // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
@@ -682,5 +718,35 @@ class PageContextProcessor {
         }
 
         return null;
+    }
+
+    private static float[] getBordersWidth(IPropertyContainer container) {
+        Border border = container.<Border>getProperty(Property.BORDER);
+        Border topBorder = container.<Border>getProperty(Property.BORDER_TOP);
+        Border rightBorder = container.<Border>getProperty(Property.BORDER_RIGHT);
+        Border bottomBorder = container.<Border>getProperty(Property.BORDER_BOTTOM);
+        Border leftBorder = container.<Border>getProperty(Property.BORDER_LEFT);
+
+        Border[] borders = {topBorder, rightBorder, bottomBorder, leftBorder};
+
+        if (!container.hasProperty(Property.BORDER_TOP)) {
+            borders[0] = border;
+        }
+        if (!container.hasProperty(Property.BORDER_RIGHT)) {
+            borders[1] = border;
+        }
+        if (!container.hasProperty(Property.BORDER_BOTTOM)) {
+            borders[2] = border;
+        }
+        if (!container.hasProperty(Property.BORDER_LEFT)) {
+            borders[3] = border;
+        }
+
+        return new float[] {
+                borders[0] != null ? borders[0].getWidth() : 0,
+                borders[1] != null ? borders[1].getWidth() : 0,
+                borders[2] != null ? borders[2].getWidth() : 0,
+                borders[3] != null ? borders[3].getWidth() : 0,
+        };
     }
 }

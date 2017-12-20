@@ -72,69 +72,69 @@ public class PageRuleTest extends ExtendedITextTest {
     public void marksCropCrossPageRuleTest() throws IOException, InterruptedException {
         runTest("marksCropCrossPageRuleTest");
     }
-    
+
     @Test
     public void marksCropPageRuleTest() throws IOException, InterruptedException {
         runTest("marksCropPageRuleTest");
     }
-    
+
     @Test
     public void marksCrossPageRuleTest() throws IOException, InterruptedException {
         runTest("marksCrossPageRuleTest");
     }
-    
+
     @Test
     public void marksInvalidPageRuleTest() throws IOException, InterruptedException {
         runTest("marksInvalidPageRuleTest");
     }
-    
+
     @Test
     public void marksNonePageRuleTest() throws IOException, InterruptedException {
         runTest("marksNonePageRuleTest");
     }
-    
+
     @Test
     public void paddingPageRuleTest() throws IOException, InterruptedException {
         runTest("paddingPageRuleTest");
     }
-    
+
     @Test
     public void compoundSizePageRuleTest() throws IOException, InterruptedException {
         runTest("compoundSizePageRuleTest");
     }
-    
+
     @Test
     public void bleedPageRuleTest() throws IOException, InterruptedException {
-        runTest("bleedPageRuleTest");    
+        runTest("bleedPageRuleTest");
     }
-    
+
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, count = 3))
     public void invalidCompoundSizePageRuleTest() throws IOException, InterruptedException {
         runTest("invalidCompoundSizePageRuleTest");
     }
-    
+
     @Test
     public void notAllMarginsPageRuleTest() throws IOException, InterruptedException {
         runTest("notAllMarginsPageRuleTest");
     }
-    
+
     @Test
     public void firstLeftRightPageRuleTest() throws IOException, InterruptedException {
         runTest("firstLeftRightPageRuleTest");
     }
-    
+
     @Test
     public void marksBleedPageRuleTest() throws IOException, InterruptedException {
         runTest("marksBleedPageRuleTest");
     }
-    
+
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 3))
     public void marginBoxTest01() throws IOException, InterruptedException {
         runTest("marginBoxTest01");
     }
-    
+
     @Test
     public void marginBoxTest02() throws IOException, InterruptedException {
         runTest("marginBoxTest02");
@@ -149,6 +149,39 @@ public class PageRuleTest extends ExtendedITextTest {
     public void marginBoxTest04() throws IOException, InterruptedException {
         runTest("marginBoxTest04");
     }
+
+    @Test
+    public void bigImageOnPageMarginTest01() throws IOException, InterruptedException {
+        runTest("bigImageOnPageMarginTest01");
+    }
+
+    @Test
+    public void bigImageOnPageMarginTest02() throws IOException, InterruptedException {
+        runTest("bigImageOnPageMarginTest02");
+    }
+
+    @Test
+    public void bigTextOnPageMarginTest01() throws IOException, InterruptedException {
+        runTest("bigTextOnPageMarginTest01");
+    }
+
+    @Test
+    public void bigTextOnPageMarginTest02() throws IOException, InterruptedException {
+        runTest("bigTextOnPageMarginTest02");
+    }
+
+    @Test
+    public void marginBoxOverflowPropertyTest01() throws IOException, InterruptedException {
+        runTest("marginBoxOverflowPropertyTest01");
+    }
+
+    @Test
+    public void marginBoxOutlinePropertyTest01() throws IOException, InterruptedException {
+        // TODO Outlines are currently not supported for page margin boxes, because of the outlines handling specificity (they are handled on renderer's parent level).
+        //      See com.itextpdf.html2pdf.attach.impl.layout.PageContextProcessor.
+        runTest("marginBoxOutlinePropertyTest01");
+    }
+
 
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";

@@ -68,25 +68,31 @@ public class OverflowTest extends ExtendedITextTest {
 
     @Test
     public void overflowTest04() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "overflowTest04.html"), new File(destinationFolder + "overflowTest04.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "overflowTest04.pdf", sourceFolder + "cmp_overflowTest04.pdf", destinationFolder, "diff04_"));
+        runTest("overflowTest04", "diff04_");
     }
 
     @Test
     public void overflowTest06() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "overflowTest06.html"), new File(destinationFolder + "overflowTest06.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "overflowTest06.pdf", sourceFolder + "cmp_overflowTest06.pdf", destinationFolder, "diff06_"));
+        runTest("overflowTest06", "diff06_");
     }
 
     @Test
     public void overflowTest07() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "overflowTest07.html"), new File(destinationFolder + "overflowTest07.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "overflowTest07.pdf", sourceFolder + "cmp_overflowTest07.pdf", destinationFolder, "diff07_"));
+        runTest("overflowTest07", "diff07_");
     }
 
     @Test
-    public void overflowTest08() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "overflowTest08.html"), new File(destinationFolder + "overflowTest08.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "overflowTest08.pdf", sourceFolder + "cmp_overflowTest08.pdf", destinationFolder, "diff08_"));
+    public void overflowAndAlignment01() throws IOException, InterruptedException {
+        runTest("overflowAndAlignment01", "diffAlign01_");
+    }
+
+    @Test
+    public void overflowAndAlignment02() throws IOException, InterruptedException {
+        runTest("overflowAndAlignment02", "diffAlign02_");
+    }
+
+    public void runTest(String testName, String diff) throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diff));
     }
 }
