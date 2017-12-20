@@ -243,13 +243,13 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
             } else {
                 flatRenderer = childRenderers.get(0);
                 childRenderers.clear();
-                LayoutArea flatRendererOccupiedArea = flatRenderer.getOccupiedArea();
-                applyPaddings(flatRendererOccupiedArea.getBBox(), true);
-                applyBorderBox(flatRendererOccupiedArea.getBBox(), true);
-                applyMargins(flatRendererOccupiedArea.getBBox(), true);
                 childRenderers.add(flatRenderer);
                 adjustFieldLayout();
-                occupiedArea.setBBox(flatRenderer.getOccupiedArea().getBBox().clone());
+                Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
+                occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
+                applyPaddings(occupiedArea.getBBox(), true);
+                applyBorderBox(occupiedArea.getBBox(), true);
+                applyMargins(occupiedArea.getBBox(), true);
             }
 
             return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth());

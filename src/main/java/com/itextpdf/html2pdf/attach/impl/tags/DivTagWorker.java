@@ -134,10 +134,10 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
                 // TODO make IFormField implement IBlockElement and add it directly to div without inline helper.
                 // TODO Requires refactoring of AbstractOneLineTextFieldRenderer (calculate baselines properly)
                 postProcessInlineGroup();
-                inlineHelper.add((IFormField) element);
+                inlineHelper.add((ILeafElement) element);
                 postProcessInlineGroup();
             } else {
-                inlineHelper.add((IFormField) element);
+                inlineHelper.add((ILeafElement) element);
             }
             processed = true;
         } else if (element instanceof AreaBreak) {

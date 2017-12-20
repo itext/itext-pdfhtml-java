@@ -133,7 +133,7 @@ public class HtmlTagWorker implements ITagWorker {
                 inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
                 postProcessInlineGroup();
             } else {
-                inlineHelper.add((IFormField) childTagWorker.getElementResult());
+                inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
             }
             processed = true;
         } else if (childTagWorker.getElementResult() instanceof AreaBreak) {
