@@ -48,6 +48,8 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.BorderCollapsePropertyValue;
 import com.itextpdf.layout.property.Property;
 
 /**
@@ -62,11 +64,16 @@ public class TableTagCssApplier extends BlockCssApplier {
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker worker) {
         super.apply(context, stylesContainer, worker);
 
-        IPropertyContainer table = worker.getElementResult();
+        Table table = (Table) worker.getElementResult();
         if (table != null) {
             String tableLayout = stylesContainer.getStyles().get(CssConstants.TABLE_LAYOUT);
             if (tableLayout != null) {
                 table.setProperty(Property.TABLE_LAYOUT, tableLayout);
+            }
+            String borderCollapse = stylesContainer.getStyles().get(CssConstants.BORDER_COLLAPSE);
+            // BorderCollapsePropertyValue.COLLAPSE is default in iText
+            if (null == borderCollapse || CssConstants.SEPARATE.equals(borderCollapse)) {
+                table.setBorderCollapse(BorderCollapsePropertyValue.SEPARATE);
             }
         }
     }

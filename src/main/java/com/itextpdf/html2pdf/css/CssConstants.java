@@ -511,6 +511,9 @@ public class CssConstants {
     /** The Constant CLOSE_QUOTE. */
     public static final String CLOSE_QUOTE = "close-quote";
 
+    /** The Constant COLLAPSE. */
+    public static final String COLLAPSE = "collapse";
+
     /** The Constant CONTAIN. */
     public static final String CONTAIN = "contain";
 
@@ -738,6 +741,9 @@ public class CssConstants {
 
     /** The Constant SCROLL. */
     public static final String SCROLL = "scroll";
+
+    /** The Constant SEPARATE. */
+    public static final String SEPARATE = "separate";
 
     /** The Constant SKEW. */
     public static final String SKEW = "skew";

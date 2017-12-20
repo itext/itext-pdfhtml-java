@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -77,6 +78,12 @@ public class DisplayTest extends ExtendedITextTest {
     public void displayTable01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "display_table01.html"), new File(destinationFolder + "display_table01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table01.pdf", sourceFolder + "cmp_display_table01.pdf", destinationFolder, "diff01_"));
+    }
+
+    @Test
+    public void displayTable01ATest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table01A.html"), new File(destinationFolder + "display_table01A.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table01A.pdf", sourceFolder + "cmp_display_table01A.pdf", destinationFolder, "diff01A_"));
     }
 
     @Test

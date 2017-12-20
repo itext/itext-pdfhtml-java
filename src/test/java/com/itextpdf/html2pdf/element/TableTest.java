@@ -327,7 +327,6 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-994")
     public void tableCollapseColCellBoxSizingWidthDifference() throws IOException, InterruptedException {
         runTest("table_collapse_col_cell_box_sizing_width_difference");
     }
@@ -335,6 +334,11 @@ public class TableTest extends ExtendedITextTest {
     @Test
     public void colspanInHeaderFooterTest() throws IOException, InterruptedException {
         runTest("table_header_footer_colspan");
+    }
+
+    @Test
+    public void separateBorder01() throws IOException, InterruptedException {
+        runTest("separateBorder01");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {
