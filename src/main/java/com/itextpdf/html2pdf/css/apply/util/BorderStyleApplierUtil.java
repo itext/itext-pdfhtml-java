@@ -57,6 +57,7 @@ import com.itextpdf.layout.borders.GrooveBorder;
 import com.itextpdf.layout.borders.InsetBorder;
 import com.itextpdf.layout.borders.OutsetBorder;
 import com.itextpdf.layout.borders.RidgeBorder;
+import com.itextpdf.layout.borders.RoundDotsBorder;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.property.BorderRadius;
 import com.itextpdf.layout.property.Property;
@@ -221,7 +222,7 @@ public class BorderStyleApplierUtil {
                     border = new DashedBorder(color, borderWidthValue, opacity);
                     break;
                 case CssConstants.DOTTED:
-                    border = new DottedBorder(color, borderWidthValue, opacity);
+                    border = new RoundDotsBorder(color, borderWidthValue, opacity);
                     break;
                 case CssConstants.DOUBLE:
                     border = new DoubleBorder(color, borderWidthValue, opacity);

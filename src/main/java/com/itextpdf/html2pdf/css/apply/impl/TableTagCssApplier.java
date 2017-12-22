@@ -47,7 +47,6 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
-import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.BorderCollapsePropertyValue;
 import com.itextpdf.layout.property.Property;
@@ -71,7 +70,7 @@ public class TableTagCssApplier extends BlockCssApplier {
                 table.setProperty(Property.TABLE_LAYOUT, tableLayout);
             }
             String borderCollapse = stylesContainer.getStyles().get(CssConstants.BORDER_COLLAPSE);
-            // BorderCollapsePropertyValue.COLLAPSE is default in iText
+            // BorderCollapsePropertyValue.COLLAPSE is default in iText layout
             if (null == borderCollapse || CssConstants.SEPARATE.equals(borderCollapse)) {
                 table.setBorderCollapse(BorderCollapsePropertyValue.SEPARATE);
             }
