@@ -103,20 +103,12 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         return (int) modelElement.<Integer>getDefaultProperty(Html2PdfProperty.FORM_FIELD_ROWS);
     }
 
-    /* (non-Javadoc)
-     * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getAscent()
-     */
     @Override
-    public float getAscent() {
-        return occupiedArea.getBBox().getHeight();
-    }
-
-    /* (non-Javadoc)
-     * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getDescent()
-     */
-    @Override
-    public float getDescent() {
-        return 0;
+    protected Float getLastYLineRecursively() {
+        if (occupiedArea != null && occupiedArea.getBBox() != null) {
+            return occupiedArea.getBBox().getBottom();
+        }
+        return null;
     }
 
     /* (non-Javadoc)

@@ -131,6 +131,18 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         drawContext.getCanvas().restoreState();
     }
 
+    @Override
+    public float getAscent() {
+        Float baseline = getLastYLineRecursively();
+        return baseline != null ? occupiedArea.getBBox().getTop() - (float) baseline : occupiedArea.getBBox().getHeight();
+    }
+
+    @Override
+    public float getDescent() {
+        Float baseline = getLastYLineRecursively();
+        return baseline != null ? occupiedArea.getBBox().getBottom() - (float) baseline : 0;
+    }
+
     /* (non-Javadoc)
      * @see com.itextpdf.layout.renderer.BlockRenderer#getMinMaxWidth(float)
      */

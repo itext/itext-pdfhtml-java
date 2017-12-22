@@ -57,7 +57,7 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
 
     /**
      * The position of the base line of the text.
-     * @deprecated will be private in 7.2
+     * @deprecated use {@link #getLastYLineRecursively()} instead. Will be removed in 7.2
      */
     protected float baseline;
 
@@ -76,26 +76,6 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
         baseline += dyUp;
     }
 
-    /* (non-Javadoc)
-     * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getAscent()
-     */
-    @Override
-    public float getAscent() {
-        return occupiedArea.getBBox().getTop() - baseline;
-    }
-
-    /* (non-Javadoc)
-     * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getDescent()
-     */
-    @Override
-    public float getDescent() {
-        return occupiedArea.getBBox().getBottom() - baseline;
-    }
-
-    void setBaseline(float baseline) {
-        this.baseline = baseline;
-    }
-
     /**
      * Crops the content lines.
      *
@@ -105,7 +85,7 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
     void cropContentLines(List<LineRenderer> lines, Rectangle bBox) {
         adjustNumberOfContentLines(lines, bBox, 1);
         updateParagraphHeight();
-        setBaseline(lines.get(0).getYLine());
+        this.baseline = lines.get(0).getYLine();
     }
 
     /**

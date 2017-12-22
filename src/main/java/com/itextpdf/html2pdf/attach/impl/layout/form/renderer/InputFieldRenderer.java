@@ -119,7 +119,7 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
         } else {
             LoggerFactory.getLogger(getClass()).error(MessageFormatUtil.format(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "text input"));
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
-            setBaseline(flatBBox.getTop());
+            baseline = flatBBox.getTop();
             flatBBox.setY(flatBBox.getTop()).setHeight(0);
         }
         flatBBox.setWidth((float) getContentWidth());
