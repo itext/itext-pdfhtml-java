@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+textarea {
+	width: 110px;
+    margin: 0px;
+    border: 2px solid black;
+}
+div {
+	border: 2px solid blue;
+    margin: 10px;
+}
+body {
+	border: 2px solid green;
+    margin: 5px;
+    padding: 5px;
+}
+</style>
+</head>
+<body>
+<p>All textareas have width: 110px, rows=4, margin: 0px; border: 2px solid black</p>
+I'm body.
+<textarea style="display: block" rows=4>
+I'm textarea with display: block
+</textarea>
+<div>
+I'm div
+<textarea style="display: inline" rows=4>
+I'm textarea with display: inline
+</textarea>
+</div>
+<div>
+I'm div
+<textarea rows=4>
+I'm textarea with default display
+</textarea>
+</div>
+<div>
+I'm div
+<textarea style="display: inline-block" rows=4>
+I'm textarea with display: inline-block
+</textarea>
+</div>
+<div>
+I'm div
+<textarea style="display: block" rows=4>
+I'm textarea with display: block
+</textarea>
+</div>
+</body>
