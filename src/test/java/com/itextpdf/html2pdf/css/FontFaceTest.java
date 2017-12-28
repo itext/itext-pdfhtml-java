@@ -56,16 +56,15 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class FontFaceTest extends ExtendedITextTest {
@@ -105,6 +104,11 @@ public class FontFaceTest extends ExtendedITextTest {
     @Test
     public void droidSerifLocalWithMediaRuleFontTest2() throws IOException, InterruptedException {
         runTest("droidSerifLocalWithMediaRuleFontTest2");
+    }
+
+    @Test
+    public void fontSelectorTest01() throws IOException, InterruptedException {
+        runTest("fontSelectorTest01");
     }
 
     @Test
@@ -217,13 +221,14 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    //TODO: DEVSIX-1519
     public void incorrectFontNameTest01() throws IOException, InterruptedException {
         runTest("incorrectFontNameTest01");
     }
 
     @Test
-    //TODO: DEVSIX-1519
+    // The result of te test is FAIL. However we consider it to be correct.
+    // Although the font-family specified by the paragraph's class doesn't match the one of fontface,
+    // font's full name contains specified font-family and iText takes it into account.
     public void incorrectFontNameTest02() throws IOException, InterruptedException {
         runTest("incorrectFontNameTest02");
     }
@@ -232,6 +237,11 @@ public class FontFaceTest extends ExtendedITextTest {
     //Checks that font used in previous two files is correct
     public void incorrectFontNameTest03() throws IOException, InterruptedException {
         runTest("incorrectFontNameTest03");
+    }
+
+    @Test
+    public void incorrectFontNameTest04() throws IOException, InterruptedException {
+        runTest("incorrectFontNameTest04");
     }
 
     private void runTest(String name) throws IOException, InterruptedException {
