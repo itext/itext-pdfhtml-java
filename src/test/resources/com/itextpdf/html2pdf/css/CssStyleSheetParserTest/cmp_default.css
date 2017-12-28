@@ -439,6 +439,7 @@ input[type="button"] {
     background-color: lightgrey;
     border: 2px outset initial;
     border-image: initial;
+    box-sizing: border-box;
     text-align: center;
     padding: 1px 6px
 }
@@ -446,6 +447,7 @@ input[type="submit"] {
     background-color: lightgrey;
     border: 2px outset initial;
     border-image: initial;
+    box-sizing: border-box;
     text-align: center;
     padding: 1px 6px
 }
@@ -453,6 +455,7 @@ button {
     background-color: lightgrey;
     border: 2px outset initial;
     border-image: initial;
+    box-sizing: border-box;
     text-align: center;
     padding: 1px 6px
 }

@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.TextArea;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
@@ -54,13 +55,15 @@ import com.itextpdf.layout.IPropertyContainer;
 /**
  * TagWorker class for the {@code textarea} element.
  */
-public class TextAreaTagWorker implements ITagWorker {
+public class TextAreaTagWorker implements ITagWorker, IDisplayAware {
 
     /** The Constant DEFAULT_TEXTAREA_NAME. */
     private static final String DEFAULT_TEXTAREA_NAME = "TextArea";
 
     /** The text area. */
     private TextArea textArea;
+
+    private String display;
 
     /**
      * Creates a new {@link TextAreaTagWorker} instance.
@@ -80,6 +83,7 @@ public class TextAreaTagWorker implements ITagWorker {
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_ROWS, rows);
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_COLS, cols);
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
+        display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
     /* (non-Javadoc)
@@ -117,5 +121,10 @@ public class TextAreaTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return textArea;
+    }
+
+    @Override
+    public String getDisplay() {
+        return display;
     }
 }

@@ -128,8 +128,7 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         updatePdfFont((ParagraphRenderer) flatRenderer);
         Rectangle flatBBox = flatRenderer.getOccupiedArea().getBBox();
         if (!flatLines.isEmpty() && font != null) {
-            int rows = getRows();
-            adjustNumberOfContentLines(flatLines, flatBBox, rows);
+            cropContentLines(flatLines, flatBBox);
         } else {
             LoggerFactory.getLogger(getClass()).error(MessageFormatUtil.format(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "text area"));
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
@@ -185,5 +184,22 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
             return fontSize.getValue() * (cols * 0.5f + 2) + 2;
         }
         return width;
+    }
+
+    private void cropContentLines(List<LineRenderer> lines, Rectangle bBox) {
+        Float height = retrieveHeight();
+        Float minHeight = retrieveMinHeight();
+        Float maxHeight = retrieveMaxHeight();
+        int rowsAttribute = getRows();
+        float rowsHeight = getHeightRowsBased(lines, bBox, rowsAttribute);
+        if (height != null && (float) height > 0) {
+            adjustNumberOfContentLines(lines, bBox, (float) height);
+        } else if (minHeight != null && (float) minHeight > rowsHeight) {
+            adjustNumberOfContentLines(lines, bBox, (float) minHeight);
+        } else if (maxHeight != null && (float) maxHeight > 0 && (float) maxHeight < rowsHeight) {
+            adjustNumberOfContentLines(lines, bBox, (float) maxHeight);
+        } else {
+            adjustNumberOfContentLines(lines, bBox, rowsAttribute);
+        }
     }
 }

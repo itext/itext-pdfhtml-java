@@ -101,20 +101,26 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
      *
      * @param lines       the lines that need to be rendered
      * @param bBox        the bounding box
-     * @param linesNumber the number of lines
+     * @param rows the desired number of lines
      */
-    void adjustNumberOfContentLines(List<LineRenderer> lines, Rectangle bBox, int linesNumber) {
+    void adjustNumberOfContentLines(List<LineRenderer> lines, Rectangle bBox, int rows) {
+        if (lines.size() != rows) {
+            float rowsHeight = getHeightRowsBased(lines, bBox, rows);
+            adjustNumberOfContentLines(lines, bBox, rows, rowsHeight);
+        }
+    }
+
+    /**
+     * Adjust number of content lines.
+     *
+     * @param lines       the lines that need to be rendered
+     * @param bBox        the bounding box
+     * @param height      the desired height of content
+     */
+    void adjustNumberOfContentLines(List<LineRenderer> lines, Rectangle bBox, float height) {
         float averageLineHeight = bBox.getHeight() / lines.size();
-        if (lines.size() != linesNumber) {
-            float actualHeight = averageLineHeight * linesNumber;
-            bBox.moveUp(bBox.getHeight() - actualHeight);
-            bBox.setHeight(actualHeight);
-        }
-        if (lines.size() > linesNumber) {
-            List<LineRenderer> subList = new ArrayList<>(lines.subList(0, linesNumber));
-            lines.clear();
-            lines.addAll(subList);
-        }
+        int visibleLinesNumber = (int) Math.ceil(height / averageLineHeight);
+        adjustNumberOfContentLines(lines, bBox, visibleLinesNumber, height);
     }
 
     /**
@@ -129,6 +135,11 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
         if (color != null) {
             inputField.setColor(color.getColor());
         }
+    }
+
+    float getHeightRowsBased(List<LineRenderer> lines, Rectangle bBox, int rows) {
+        float averageLineHeight = bBox.getHeight() / lines.size();
+        return averageLineHeight * rows;
     }
 
     /**
@@ -155,6 +166,16 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
         retrievedFont = renderer.<PdfFont>getProperty(Property.FONT);
         if (retrievedFont instanceof PdfFont) {
             font = (PdfFont) retrievedFont;
+        }
+    }
+
+    private static void adjustNumberOfContentLines(List<LineRenderer> lines, Rectangle bBox, int linesNumber, float height) {
+        bBox.moveUp(bBox.getHeight() - height);
+        bBox.setHeight(height);
+        if (lines.size() > linesNumber) {
+            List<LineRenderer> subList = new ArrayList<>(lines.subList(0, linesNumber));
+            lines.clear();
+            lines.addAll(subList);
         }
     }
 }
