@@ -109,7 +109,10 @@ public class TdTagWorker implements ITagWorker, IDisplayAware {
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         boolean processed = false;
-        if (childTagWorker instanceof SpanTagWorker) {
+        if (childTagWorker instanceof IDisplayAware && CssConstants.INLINE_BLOCK.equals(((IDisplayAware) childTagWorker).getDisplay()) && childTagWorker.getElementResult() instanceof IBlockElement) {
+            inlineHelper.add((IBlockElement) childTagWorker.getElementResult());
+            processed = true;
+        } else if (childTagWorker instanceof SpanTagWorker) {
             boolean allChildrenProcesssed = true;
             for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
                 if (propertyContainer instanceof ILeafElement) {

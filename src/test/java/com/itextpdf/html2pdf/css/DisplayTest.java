@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.kernel.geom.PageSize;
@@ -244,4 +245,20 @@ public class DisplayTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block17.pdf", sourceFolder + "cmp_display_inline-block17.pdf", destinationFolder, "diff19_"));
     }
 
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 7))
+    public void inlineBlockInsideTableCellTest() throws IOException, InterruptedException {
+
+        // IO setup
+        PdfWriter writer = new PdfWriter(new File(destinationFolder + "inlineBlockInsideTableCellTest.pdf"));
+        PdfDocument pdfDocument = new PdfDocument(writer);
+        pdfDocument.setDefaultPageSize(new PageSize(1000f, 1450f));
+
+        // properties
+        ConverterProperties props = new ConverterProperties();
+        props.setBaseUri(sourceFolder);
+
+        HtmlConverter.convertToPdf(new FileInputStream(new File(sourceFolder + "inlineBlockInsideTableCellTest.html")), pdfDocument, props);
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "inlineBlockInsideTableCellTest.pdf", sourceFolder + "cmp_inlineBlockInsideTableCell.pdf", destinationFolder, "diffinlineBlockInsideTableCellTest_"));
+    }
 }
