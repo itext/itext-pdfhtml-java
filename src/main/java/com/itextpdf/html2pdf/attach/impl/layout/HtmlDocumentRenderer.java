@@ -46,6 +46,9 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.page.PageContextConstants;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
 import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.kernel.events.Event;
+import com.itextpdf.kernel.events.IEventHandler;
+import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
@@ -58,7 +61,6 @@ import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
-
 import java.util.List;
 
 /**
@@ -81,14 +83,16 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
 
     /** The page context processor for all right pages. */
     private PageContextProcessor rightPageProc;
+
     /**
-     * Indicates if the current page is even.
-     * Important: this number may differ from the result you get checking
-     * if the number of pages in the document is even or not, because
-     * the first page break-before might change right page to left (in ltr cases),
+     * Indicates if even pages are considered as left or right.
+     * Important: this value might differ depending on page progression direction,
+     * as well as because the first page break-before might change right page to left (in ltr cases),
      * but a blank page will not be added.
      */
-    private boolean currentPageEven = true;
+    private boolean evenPagesAreLeft = true;
+
+    private PageMarginBoxesDrawingHandler handler;
 
     /**
      * The waiting element, an child element is kept waiting for the
@@ -111,7 +115,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     /**
      * Instantiates a new {@link HtmlDocumentRenderer} instance.
      *
-     * @param document an iText {@link Document} instance
+     * @param document       an iText {@link Document} instance
      * @param immediateFlush the immediate flush indicator
      */
     public HtmlDocumentRenderer(Document document, boolean immediateFlush) {
@@ -121,9 +125,9 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     /**
      * Processes the page rules.
      *
-     * @param rootNode the root node
+     * @param rootNode    the root node
      * @param cssResolver the CSS resolver
-     * @param context the processor context
+     * @param context     the processor context
      */
     public void processPageRules(INode rootNode, ICssResolver cssResolver, ProcessorContext context) {
         PageContextProperties firstPageProps = PageContextProperties.resolve(rootNode, cssResolver, context.getCssContext(),
@@ -135,9 +139,13 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
                 PageContextConstants.RIGHT);
 
         PageSize defaultPageSize = document.getPdfDocument().getDefaultPageSize();
-        firstPageProc = new PageContextProcessor(firstPageProps, context, defaultPageSize);
-        leftPageProc = new PageContextProcessor(leftPageProps, context, defaultPageSize);
-        rightPageProc = new PageContextProcessor(rightPageProps, context, defaultPageSize);
+        float[] defaultPageMargins = {document.getTopMargin(), document.getRightMargin(), document.getBottomMargin(), document.getRightMargin()};
+        firstPageProc = new PageContextProcessor(firstPageProps, context, defaultPageSize, defaultPageMargins);
+        leftPageProc = new PageContextProcessor(leftPageProps, context, defaultPageSize, defaultPageMargins);
+        rightPageProc = new PageContextProcessor(rightPageProps, context, defaultPageSize, defaultPageMargins);
+
+        handler = new HtmlDocumentRenderer.PageMarginBoxesDrawingHandler().setHtmlDocumentRenderer(this);
+        document.getPdfDocument().addEventHandler(PdfDocumentEvent.END_PAGE, handler);
     }
 
     /* (non-Javadoc)
@@ -150,8 +158,10 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
                 waitingElement.setProperty(Property.KEEP_WITH_NEXT, true);
             }
             super.addChild(waitingElement);
-            // After we have added any child, we should not trim first pages because of break before element, even if the added child had zero height
-            shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
+            if (!(waitingElement instanceof RunningElement.RunningElementRenderer)) {
+                // After we have added any child, we should not trim first pages because of break before element, even if the added child had zero height
+                shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
+            }
             waitingElement = null;
         }
         waitingElement = renderer;
@@ -185,6 +195,13 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
                 }
             }
         }
+        document.getPdfDocument().removeEventHandler(PdfDocumentEvent.END_PAGE, handler);
+        for (int i = 1; i <= document.getPdfDocument().getNumberOfPages(); ++i) {
+            PdfPage page = document.getPdfDocument().getPage(i);
+            if (!page.isFlushed()) {
+                handler.processPage(document.getPdfDocument(), i);
+            }
+        }
     }
 
     /* (non-Javadoc)
@@ -198,10 +215,13 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
             waitingElement = null;
         }
         HtmlDocumentRenderer relayoutRenderer = new HtmlDocumentRenderer(document, immediateFlush);
-        relayoutRenderer.firstPageProc = firstPageProc;
-        relayoutRenderer.leftPageProc = leftPageProc;
-        relayoutRenderer.rightPageProc = rightPageProc;
+        PageSize defaultPageSize = document.getPdfDocument().getDefaultPageSize();
+        float[] defaultPageMargins = {document.getTopMargin(), document.getRightMargin(), document.getBottomMargin(), document.getRightMargin()};
+        relayoutRenderer.firstPageProc = firstPageProc.reset(defaultPageSize, defaultPageMargins);
+        relayoutRenderer.leftPageProc = leftPageProc.reset(defaultPageSize, defaultPageMargins);
+        relayoutRenderer.rightPageProc = rightPageProc.reset(defaultPageSize, defaultPageMargins);
         relayoutRenderer.estimatedNumberOfPages = currentPageNumber;
+        relayoutRenderer.handler = handler.setHtmlDocumentRenderer(relayoutRenderer);
         return relayoutRenderer;
     }
 
@@ -223,8 +243,8 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
                 currentArea = null;
                 shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
 
-                if (HtmlPageBreakType.LEFT.equals(htmlPageBreakType) && isCurrentPageLeft() || HtmlPageBreakType.RIGHT.equals(htmlPageBreakType) && isCurrentPageRight()){
-                    currentPageEven = !currentPageEven; // hack to change the "evenness" of the first page without adding an unnecessary blank page
+                if (HtmlPageBreakType.LEFT.equals(htmlPageBreakType) && !isPageLeft(1) || HtmlPageBreakType.RIGHT.equals(htmlPageBreakType) && !isPageRight(1)) {
+                    evenPagesAreLeft = !evenPagesAreLeft; // hack to change the "evenness" of the first page without adding an unnecessary blank page
                 }
             }
 
@@ -239,25 +259,26 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
                 return nextArea;
             } else if (HtmlPageBreakType.LEFT.equals(htmlPageBreakType)) {
                 LayoutArea nextArea = currentArea;
-                if (anythingAddedToCurrentArea || !isCurrentPageLeft() || currentArea == null) {
+                if (anythingAddedToCurrentArea || currentArea == null || !isPageLeft(currentPageNumber)) {
                     do {
                         nextArea = super.updateCurrentArea(overflowResult);
-                    } while (!isCurrentPageLeft());
+                    } while (!isPageLeft(currentPageNumber));
                 }
                 anythingAddedToCurrentArea = false;
                 return nextArea;
             } else if (HtmlPageBreakType.RIGHT.equals(htmlPageBreakType)) {
                 LayoutArea nextArea = currentArea;
-                if (anythingAddedToCurrentArea || !isCurrentPageRight() || currentArea == null) {
+                if (anythingAddedToCurrentArea || currentArea == null || !isPageRight(currentPageNumber)) {
                     do {
                         nextArea = super.updateCurrentArea(overflowResult);
-                    } while (!isCurrentPageRight());
+                    } while (!isPageRight(currentPageNumber));
                 }
                 anythingAddedToCurrentArea = false;
                 return nextArea;
             }
         }
         anythingAddedToCurrentArea = false;
+
         return super.updateCurrentArea(overflowResult);
     }
 
@@ -280,19 +301,20 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         PdfPage addedPage;
 
         int numberOfPages = document.getPdfDocument().getNumberOfPages();
-        PageContextProcessor nextProcessor = getNextPageProcessor(numberOfPages == 0);
+        PageContextProcessor nextProcessor = getPageProcessor(numberOfPages + 1);
         if (customPageSize != null) {
             addedPage = document.getPdfDocument().addNewPage(customPageSize);
         } else {
             addedPage = document.getPdfDocument().addNewPage(nextProcessor.getPageSize());
         }
 
-        currentPageEven = !currentPageEven;
-
-        nextProcessor.processNewPage(addedPage, this);
+        nextProcessor.processNewPage(addedPage);
 
         float[] margins = nextProcessor.computeLayoutMargins();
-        document.setMargins(margins[0], margins[1], margins[2], margins[3]);
+        setProperty(Property.MARGIN_TOP, margins[0]);
+        setProperty(Property.MARGIN_RIGHT, margins[1]);
+        setProperty(Property.MARGIN_BOTTOM, margins[2]);
+        setProperty(Property.MARGIN_LEFT, margins[3]);
         return new PageSize(addedPage.getTrimBox());
     }
 
@@ -303,7 +325,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
      */
     int getEstimatedNumberOfPages() {
         return estimatedNumberOfPages;
-	}
+    }
 
     /**
      * Gets the next page processor.
@@ -311,11 +333,11 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
      * @param firstPage the first page
      * @return the next page processor
      */
-    private PageContextProcessor getNextPageProcessor(boolean firstPage) {
+    private PageContextProcessor getPageProcessor(int pageNum) {
         // If first page, but break-before: left for ltr is present, we should use left page instead of first
-        if (firstPage && currentPageEven) {
+        if (pageNum == 1 && evenPagesAreLeft) {
             return firstPageProc;
-        } else if (isCurrentPageRight()) {
+        } else if (isPageLeft(pageNum)) {
             return leftPageProc;
         } else {
             return rightPageProc;
@@ -327,9 +349,10 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
      *
      * @return true, if is current page left
      */
-    private boolean isCurrentPageLeft() {
+    private boolean isPageLeft(int pageNum) {
         // TODO rtl
-        return currentPageEven;
+        boolean pageIsEven = pageNum % 2 == 0;
+        return evenPagesAreLeft == pageIsEven;
     }
 
     /**
@@ -337,8 +360,31 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
      *
      * @return true, if is current page right
      */
-    private boolean isCurrentPageRight() {
-        return !isCurrentPageLeft();
+    private boolean isPageRight(int pageNum) {
+        return !isPageLeft(pageNum);
     }
 
+    private static class PageMarginBoxesDrawingHandler implements IEventHandler {
+        private HtmlDocumentRenderer htmlDocumentRenderer;
+
+        PageMarginBoxesDrawingHandler setHtmlDocumentRenderer(HtmlDocumentRenderer htmlDocumentRenderer) {
+            this.htmlDocumentRenderer = htmlDocumentRenderer;
+            return this;
+        }
+
+        @Override
+        public void handleEvent(Event event) {
+            if (event instanceof PdfDocumentEvent) {
+                PdfPage page = ((PdfDocumentEvent) event).getPage();
+                PdfDocument pdfDoc = ((PdfDocumentEvent) event).getDocument();
+                int pageNumber = pdfDoc.getPageNumber(page);
+                processPage(pdfDoc, pageNumber);
+            }
+        }
+
+        void processPage(PdfDocument pdfDoc, int pageNumber) {
+            PageContextProcessor pageProcessor = htmlDocumentRenderer.getPageProcessor(pageNumber);
+            pageProcessor.processPageEnd(pageNumber, pdfDoc, htmlDocumentRenderer);
+        }
+    }
 }

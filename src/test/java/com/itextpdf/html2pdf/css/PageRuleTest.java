@@ -46,19 +46,21 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
+import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
+import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PageMarginBoxWorker;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.impl.PageMarginBoxCssApplier;
 import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
+import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
-import com.itextpdf.kernel.geom.Rectangle;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
@@ -66,11 +68,13 @@ import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -178,7 +182,7 @@ public class PageRuleTest extends ExtendedITextTest {
 
     @Test
     public void bigImageOnPageMarginTest03() throws IOException, InterruptedException {
-        runTest("bigImageOnPageMarginTest03", new PageMarginBoxImagesTagWorkerFactory(), null);
+        runTest("bigImageOnPageMarginTest03", new ConverterProperties().setTagWorkerFactory(new PageMarginBoxImagesTagWorkerFactory()));
     }
 
     private static class PageMarginBoxImagesTagWorkerFactory extends DefaultTagWorkerFactory {
@@ -224,7 +228,7 @@ public class PageRuleTest extends ExtendedITextTest {
 
     @Test
     public void marginBoxOverflowPropertyTest02() throws IOException, InterruptedException {
-        runTest("marginBoxOverflowPropertyTest02", null, new PageMarginsOverflowCssApplierFactory());
+        runTest("marginBoxOverflowPropertyTest02", new ConverterProperties().setCssApplierFactory(new PageMarginsOverflowCssApplierFactory()));
     }
 
     private static class PageMarginsOverflowCssApplierFactory extends DefaultCssApplierFactory {
@@ -255,26 +259,349 @@ public class PageRuleTest extends ExtendedITextTest {
         runTest("marginBoxOutlinePropertyTest01");
     }
 
-
-    private void runTest(String name) throws IOException, InterruptedException {
-        runTest(name, null, null);
+    @Test
+    public void marginBoxRunningTest01() throws IOException, InterruptedException {
+        runTest("marginBoxRunningTest01");
     }
 
-    private void runTest(String name, ITagWorkerFactory customTagWorkerFactory, ICssApplierFactory customCssApplierFactory) throws IOException, InterruptedException {
+    @Test
+    public void marginBoxRunningTest02() throws IOException, InterruptedException {
+        runTest("marginBoxRunningTest02");
+    }
+
+    @Test
+    public void marginBoxRunningTest03() throws IOException, InterruptedException {
+        runTest("marginBoxRunningTest03");
+    }
+
+    @Test
+    public void marginBoxRunningTest04() throws IOException, InterruptedException {
+        // TODO This tests shows wrong result, because running element name is custom-ident which shall be case sensitive, while iText treats it as case-insensitive.
+        runTest("marginBoxRunningTest04");
+    }
+
+    @Test
+    public void marginBoxRunningTest05() throws IOException, InterruptedException {
+        runTest("marginBoxRunningTest05");
+    }
+
+    @Test
+    public void marginBoxRunningTest06() throws IOException, InterruptedException {
+        runTest("marginBoxRunningTest06");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID))
+    public void marginBoxRunningTest07() throws IOException, InterruptedException {
+        runTest("marginBoxRunningTest07");
+    }
+
+    @Test
+    public void marginBoxRunningOverrideTest01() throws IOException, InterruptedException {
+        runTest("marginBoxRunningOverrideTest01");
+    }
+
+    @Test
+    public void marginBoxRunningOverrideTest02() throws IOException, InterruptedException {
+        runTest("marginBoxRunningOverrideTest02");
+    }
+
+    @Test
+    public void marginBoxRunningOverrideTest03() throws IOException, InterruptedException {
+        runTest("marginBoxRunningOverrideTest03");
+    }
+
+    @Test
+    public void marginBoxRunningOverrideTest04() throws IOException, InterruptedException {
+        runTest("marginBoxRunningOverrideTest04");
+    }
+
+    @Test
+    public void marginBoxRunningOverrideTest05() throws IOException, InterruptedException {
+        runTest("marginBoxRunningOverrideTest05");
+    }
+
+    @Test
+    public void marginBoxRunningOverrideTest06() throws IOException, InterruptedException {
+        runTest("marginBoxRunningOverrideTest06");
+    }
+
+    @Test
+    public void marginBoxRunningOverrideTest07() throws IOException, InterruptedException {
+        runTest("marginBoxRunningOverrideTest07");
+    }
+
+    @Test
+    public void marginBoxRunningOverrideTest08() throws IOException, InterruptedException {
+        runTest("marginBoxRunningOverrideTest08");
+    }
+
+    @Test
+    public void marginBoxRunningImg01() throws IOException, InterruptedException {
+        runTest("marginBoxRunningImg01");
+    }
+
+    @Test
+    public void marginBoxRunningImg02() throws IOException, InterruptedException {
+        runTest("marginBoxRunningImg02");
+    }
+
+    @Test
+    public void marginBoxRunningTable01() throws IOException, InterruptedException {
+        runTest("marginBoxRunningTable01");
+    }
+
+    @Test
+    public void marginBoxRunningLink01() throws IOException, InterruptedException {
+        runTest("marginBoxRunningLink01");
+    }
+
+    @Test
+    public void marginBoxRunningLink02() throws IOException, InterruptedException {
+        runTest("marginBoxRunningLink02");
+    }
+
+    @Test
+    public void marginBoxRunningLink03() throws IOException, InterruptedException {
+        runTest("marginBoxRunningLink03");
+    }
+
+    @Test
+    public void marginBoxRunningElements01() throws IOException, InterruptedException {
+        runTest("marginBoxRunningElements01");
+    }
+
+    @Test
+    public void marginBoxRunningElements02() throws IOException, InterruptedException {
+        runTest("marginBoxRunningElements02");
+    }
+
+    @Test
+    public void marginBoxRunningParent01() throws IOException, InterruptedException {
+        runTest("marginBoxRunningParent01");
+    }
+
+    @Test
+    @Ignore
+    public void marginBoxRunningParent02() throws IOException, InterruptedException {
+        runTest("marginBoxRunningParent02");
+    }
+
+    @Test
+    public void marginBoxRunningParent03() throws IOException, InterruptedException {
+        runTest("marginBoxRunningParent03");
+    }
+
+    @Test
+    public void marginBoxRunningParent04() throws IOException, InterruptedException {
+        runTest("marginBoxRunningParent04");
+    }
+
+    @Test
+    public void marginBoxRunningParent05() throws IOException, InterruptedException {
+        runTest("marginBoxRunningParent05");
+    }
+
+    @Test
+    public void marginBoxRunningParent06() throws IOException, InterruptedException {
+        runTest("marginBoxRunningParent06");
+    }
+
+    @Test
+    @Ignore
+    public void marginBoxRunningParent07() throws IOException, InterruptedException {
+        runTest("marginBoxRunningParent07");
+    }
+
+    @Test
+    public void marginBoxRunningParent08() throws IOException, InterruptedException {
+        // TODO try make running element not separate content on two lines. make running dummy inline block?
+        runTest("marginBoxRunningParent08");
+    }
+
+    @Test
+    public void marginBoxRunningPageBreak01() throws IOException, InterruptedException {
+        runTest("marginBoxRunningPageBreak01");
+    }
+
+    @Test
+    public void marginBoxRunningPageBreak02() throws IOException, InterruptedException {
+        runTest("marginBoxRunningPageBreak02");
+    }
+
+    @Test
+    public void marginBoxRunningPageBreak03() throws IOException, InterruptedException {
+        runTest("marginBoxRunningPageBreak03");
+    }
+
+    @Test
+    public void marginBoxRunningPageBreakAvoid01() throws IOException, InterruptedException {
+        runTest("marginBoxRunningPageBreakAvoid01");
+    }
+
+    @Test
+    public void marginBoxRunningOutlines01() throws IOException, InterruptedException {
+        runTest("marginBoxRunningOutlines01", new ConverterProperties().setOutlineHandler(OutlineHandler.createStandardHandler()));
+    }
+
+    @Test
+    public void marginBoxRunningOutlines02() throws IOException, InterruptedException {
+        runTest("marginBoxRunningOutlines02", new ConverterProperties().setOutlineHandler(OutlineHandler.createStandardHandler()));
+    }
+
+    @Test
+    public void marginBoxRunningQuotes01() throws IOException, InterruptedException {
+        runTest("marginBoxRunningQuotes01");
+    }
+
+    @Test
+    public void marginBoxRunningQuotes02() throws IOException, InterruptedException {
+        runTest("marginBoxRunningQuotes02");
+    }
+
+    @Test
+    public void marginBoxRunningQuotes03() throws IOException, InterruptedException {
+        runTest("marginBoxRunningQuotes03");
+    }
+
+    @Test
+    public void marginBoxRunningQuotes04() throws IOException, InterruptedException {
+        runTest("marginBoxRunningQuotes04");
+    }
+
+    @Test
+    public void marginBoxRunningNoImmediateFlush01() throws IOException, InterruptedException {
+        String name = "marginBoxRunningNoImmediateFlush01";
+        String htmlPath = sourceFolder + name + ".html";
+        String pdfPath = destinationFolder + name + ".pdf";
+
+        ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
+        Document doc = HtmlConverter.convertToDocument(new FileInputStream(htmlPath), new PdfWriter(pdfPath), converterProperties);
+        doc.close();
+        compareResult(name);
+    }
+
+    @Test
+    public void marginBoxRunningNoImmediateFlush02() throws IOException, InterruptedException {
+        String name = "marginBoxRunningNoImmediateFlush02";
+        String htmlPath = sourceFolder + name + ".html";
+        String pdfPath = destinationFolder + name + ".pdf";
+
+        ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
+        Document doc = HtmlConverter.convertToDocument(new FileInputStream(htmlPath), new PdfWriter(pdfPath), converterProperties);
+        doc.setMargins(120f, 120f, 120f, 120f);
+        doc.relayout();
+        doc.relayout(); // relayouting second time in order to fix total number of pages
+        doc.close();
+        compareResult(name);
+    }
+
+    @Test
+    public void marginBoxRunningNoImmediateFlush03() throws IOException, InterruptedException {
+        String name = "marginBoxRunningNoImmediateFlush03";
+        String htmlPath = sourceFolder + name + ".html";
+        String pdfPath = destinationFolder + name + ".pdf";
+
+        ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
+        Document doc = HtmlConverter.convertToDocument(new FileInputStream(htmlPath), new PdfWriter(pdfPath), converterProperties);
+
+        // TODO This is kinda a workaround, because calling document.close() would close the whole document,
+        // which would forbid any further operations with it, however in html2pdf some things are waiting for document to be closed and finished:
+        // - adding last waiting element (connected with keep_with_previous functionality);
+        // - drawing margin boxes for the last page.
+        doc.getRenderer().close();
+
+        int pagesNum = doc.getPdfDocument().getNumberOfPages();
+        Assert.assertTrue(pagesNum > 1);
+        for (int i = pagesNum, k = 1; i > 0 ; --i) {
+            doc.getPdfDocument().movePage(pagesNum, k++);
+        }
+        doc.getPdfDocument().close(); // closing PdfDocument directly, in order to avoid second call for document renderer closing
+        compareResult(name);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, count = 4))
+    public void marginBoxRunningNoImmediateFlush04() throws IOException, InterruptedException {
+        String name = "marginBoxRunningNoImmediateFlush04";
+        String htmlPath = sourceFolder + name + ".html";
+        String pdfPath = destinationFolder + name + ".pdf";
+
+        ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
+        Document doc = HtmlConverter.convertToDocument(new FileInputStream(htmlPath), new PdfWriter(pdfPath), converterProperties);
+        doc.flush();
+        for (int i = 1; i <= doc.getPdfDocument().getNumberOfPages(); ++i) {
+            doc.getPdfDocument().getPage(i).flush();
+        }
+        doc.relayout();
+        doc.close();
+        compareResult(name);
+    }
+
+
+    @Test
+    public void marginBoxRunningNoImmediateFlush05() throws IOException, InterruptedException {
+        String name = "marginBoxRunningNoImmediateFlush05";
+        String htmlPath = sourceFolder + name + ".html";
+        String pdfPath = destinationFolder + name + ".pdf";
+
+        ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
+        converterProperties.setTagWorkerFactory(new CustomFlushingTagWorkerFactory());
+        HtmlConverter.convertToPdf(new FileInputStream(htmlPath), new PdfWriter(pdfPath), converterProperties);
+        compareResult(name);
+    }
+
+    private static class CustomFlushingTagWorkerFactory extends DefaultTagWorkerFactory {
+        @Override
+        public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
+            if (tag.name().equals(TagConstants.HTML)) {
+                return new CustomFlushingHtmlTagWorker(tag, context);
+            }
+            return super.getCustomTagWorker(tag, context);
+        }
+    }
+
+    private static class CustomFlushingHtmlTagWorker extends HtmlTagWorker {
+        public CustomFlushingHtmlTagWorker(IElementNode tag, ProcessorContext context) {
+            super(tag, context);
+        }
+
+        @Override
+        public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+            Document document = (Document) getElementResult();
+            if (document.getPdfDocument().getNumberOfPages() % 3 == 0) {
+                document.flush();
+                for (int i = 1; i < document.getPdfDocument().getNumberOfPages(); ++i) {
+                    document.getPdfDocument().getPage(i).flush();
+                }
+            }
+            return super.processTagChild(childTagWorker, context);
+        }
+    }
+
+
+    private void runTest(String name) throws IOException, InterruptedException {
+        runTest(name, null);
+    }
+
+    private void runTest(String name, ConverterProperties converterProperties) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
         String diffPrefix = "diff_" + name + "_";
 
-        ConverterProperties converterProperties = new ConverterProperties();
-        if (customTagWorkerFactory != null) {
-            converterProperties.setTagWorkerFactory(customTagWorkerFactory);
-        }
-        if (customCssApplierFactory != null) {
-            converterProperties.setCssApplierFactory(customCssApplierFactory);
+        if (converterProperties == null) {
+            converterProperties = new ConverterProperties();
         }
 
         HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath), converterProperties);
+        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+    }
+
+    private void compareResult(String name) throws InterruptedException, IOException {
+        String pdfPath = destinationFolder + name + ".pdf";
+        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+        String diffPrefix = "diff_" + name + "_";
         Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
     }
 }

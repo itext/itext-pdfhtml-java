@@ -1,0 +1,21 @@
+<html>
+<head>
+	<style type="text/css">
+		#page-header {
+			position: running(header);
+		}
+		.showRunningAttempt::after {
+			content: element(header);
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<p id="page-header">Running element content.</p>
+	</div>
+	<div id="page-content" class="showRunningAttempt">
+		<p>Page 1.</p>
+	</div>
+</body>
+</html>

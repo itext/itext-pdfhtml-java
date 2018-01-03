@@ -1,0 +1,57 @@
+<html>
+<head>
+	<style type="text/css" media="all">
+		@page {
+			size: A4 landscape;
+			margin: 1.0in;
+			border: thin solid black;
+			padding: 1em;
+			
+			@bottom-center {
+				content: element(footer);
+			}
+			
+			@top-center {
+				content: element(header);
+			}
+		}
+			
+		#page-header {
+			display: block;
+			position: running(header);
+		}
+		
+		#page-footer {
+			display: block;
+			position: running(footer);
+		}
+		
+		.page-number:before {
+			content: counter(page); 
+		}
+		
+		.page-count:before {
+			content: counter(pages);  
+		}
+	</style>
+</head>
+
+<body>
+	<div id="page-header">
+		<p>Header text</p>
+	</div>
+	
+	<div id="page-footer">
+		<p>Footer text</p>
+		<p>Page <span class="page-number"/> of <span class="page-count"/></p>
+	</div>
+
+	<div id="page-content">
+		<p>Page 1.</p>
+		
+		<p style="page-break-after:always;"/>
+		
+		<p>Page 2.</p>
+	</div>
+</body>
+</html>

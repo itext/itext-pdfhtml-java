@@ -1,0 +1,221 @@
+<html>
+<head>
+	<style type="text/css">
+		@page {
+			size: A4 landscape;
+			margin: 1.0in;
+			border: thin solid black;
+			padding: 1em;
+			
+			@bottom-center {
+				content: element(footer);
+			}
+			
+			@top-center {
+				content: element(header);
+			}
+
+			@top-left-corner {
+				content: element(topleftcorner);
+			}
+			@top-left {
+				content: element(topleft);
+			}
+			@top-right {
+				content: element(topright);
+			}
+			@top-right-corner {
+				content: element(toprightcorner);
+			}
+			
+			@bottom-right-corner {
+				content: element(bottomrightcorner);
+			}
+			@bottom-right {
+				content: element(bottomright);
+			}
+			@bottom-left {
+				content: element(bottomleft);
+			}
+			@bottom-left-corner {
+				content: element(bottomleftcorner);
+			}
+			
+			@right-top {
+				content: element(righttop);
+			}
+			@right-middle {
+				content: element(rightmiddle);
+			}
+			@right-bottom {
+				content: element(rightbottom);
+			}
+			@left-top {
+				content: element(lefttop);
+			}
+			@left-middle {
+				content: element(leftmiddle);
+			}
+			@left-bottom {
+				content: element(leftbottom);
+			}
+		}
+			
+		#page-header {
+			display: block;
+			position: running(header);
+		}
+		
+		#page-footer {
+			display: block;
+			position: running(footer);
+		}
+		
+		.page-number:before {
+			content: counter(page); 
+		}
+		
+		.page-count:before {
+			content: counter(pages);  
+		}
+
+
+
+		.top-left-corner {
+			position: running(topleftcorner);
+		}
+		.top-left {
+			position: running(topleft);
+		}
+		.top-center {
+			position: running(topcenter);
+		}
+		.top-right {
+			position: running(topright);
+		}
+		.top-right-corner {
+			position: running(toprightcorner);
+		}
+		
+		.bottom-right-corner {
+			position: running(bottomrightcorner);
+		}
+		.bottom-right {
+			position: running(bottomright);
+		}
+		.bottom-center {
+			position: running(bottomcenter);
+		}
+		.bottom-left {
+			position: running(bottomleft);
+		}
+		.bottom-left-corner {
+			position: running(bottomleftcorner);
+		}
+	
+		.right-top {
+			position: running(righttop);
+		}
+		.right-middle {
+			position: running(rightmiddle);
+		}
+		.right-bottom {
+			position: running(rightbottom);
+		}
+		.left-top {
+			position: running(lefttop);
+		}
+		.left-middle {
+			position: running(leftmiddle);
+		}
+		.left-bottom {
+			position: running(leftbottom);
+		}
+	</style>
+</head>
+
+<body>
+	<div id="page-header">
+		<p>Header text</p>
+	</div>
+	
+	<div id="page-footer">
+		<p>Footer text</p>
+		<p>Page <span class="page-number"/> of <span class="page-count"/></p>
+	</div>
+
+	<div id="page-content">
+		<div>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce elementum quis libero eget dignissim. In commodo leo non congue rhoncus. Duis sit amet egestas enim, non pulvinar lectus. Nunc bibendum ut dolor vitae consequat. Aenean at sem vel eros ornare vulputate. Etiam quis ligula diam. Suspendisse porttitor odio sed nisl tempus sodales. Etiam eros dui, posuere quis placerat sit amet, accumsan vel diam. In id ipsum id lacus auctor porttitor.
+
+			Sed in suscipit lectus, non blandit diam. Etiam tortor lectus, mattis eu mollis sit amet, aliquam eu mauris. Morbi mollis est eu felis congue, sed posuere enim gravida. Phasellus mattis ipsum id commodo interdum. Curabitur aliquam ligula non ante fermentum euismod. Vivamus sed leo a dui commodo hendrerit et vel leo. Nullam convallis enim a nisl vulputate, non varius diam consectetur.
+
+			Integer metus tortor, laoreet et bibendum at, bibendum sit amet tellus. Praesent et tempus ex. Pellentesque ut tincidunt leo. Nam sagittis vel augue quis molestie. Cras quis interdum odio. Phasellus ultricies elit eget diam facilisis luctus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque metus odio, eleifend eu vulputate in, placerat ac orci. Praesent hendrerit semper nisl, vitae accumsan est consequat nec.
+			<div class="bottom-right-corner">Hello <span style="color: crimson">running!</span></div>
+			<div>Hello <span style="color: crimson">running!</span></div>
+
+			Praesent vitae mauris lobortis, semper odio quis, vulputate tellus. Nam eu nisi sed sapien fringilla pharetra. Sed luctus, mauris sit amet suscipit volutpat, metus nulla consectetur massa, ac iaculis dui mauris ac augue. Curabitur semper suscipit lectus, ut bibendum velit ornare a. Curabitur facilisis dui enim, ac sodales elit cursus id. Nulla luctus iaculis purus, volutpat mattis nisl imperdiet at. Etiam quis tincidunt ante. Proin finibus aliquam eros commodo eleifend. Curabitur condimentum eu ex et sollicitudin. Curabitur a tristique odio. Mauris et nunc ex. Aliquam dignissim est rutrum efficitur bibendum. Etiam bibendum tincidunt erat a mattis. Sed suscipit hendrerit luctus. Suspendisse ultricies gravida felis, a interdum orci mollis sit amet.
+			<div class="top-right">Hello <span style="color: green">running!</span></div>
+			<div>Hello <span style="color: green">running!</span></div>
+
+			Vivamus ante tortor, malesuada in tincidunt et, ornare a tortor. Vestibulum nec blandit odio. Vestibulum consectetur tellus quis sem gravida, nec vestibulum libero fermentum. Pellentesque felis sapien, suscipit vel molestie et, fringilla et urna. Donec tempor aliquet varius. Praesent dui metus, venenatis vel commodo vitae, sagittis eu tortor. Nunc eget velit ut felis vestibulum convallis consectetur nec sem. Pellentesque ac facilisis libero, vitae scelerisque nisi. Donec vestibulum, massa placerat mattis laoreet, nulla velit pharetra ex, tincidunt placerat purus nibh in ligula. Proin vel feugiat magna, sit amet ornare augue. Curabitur finibus est metus, sed faucibus lacus hendrerit quis. Nam a venenatis ante. Curabitur dignissim pharetra mauris, at ornare justo facilisis eu. Aenean efficitur lorem vel ipsum ullamcorper varius nec ullamcorper felis. Etiam sed sagittis augue, sit amet euismod quam. Donec scelerisque ullamcorper egestas.
+		</div>
+		<div>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce elementum quis libero eget dignissim. In commodo leo non congue rhoncus. Duis sit amet egestas enim, non pulvinar lectus. Nunc bibendum ut dolor vitae consequat. Aenean at sem vel eros ornare vulputate. Etiam quis ligula diam. Suspendisse porttitor odio sed nisl tempus sodales. Etiam eros dui, posuere quis placerat sit amet, accumsan vel diam. In id ipsum id lacus auctor porttitor.
+			<div class="right-middle">Hello <span style="color: tomato">running!</span></div>
+			<div>Hello <span style="color: tomato">running!</span></div>
+
+			Sed in suscipit lectus, non blandit diam. Etiam tortor lectus, mattis eu mollis sit amet, aliquam eu mauris. Morbi mollis est eu felis congue, sed posuere enim gravida. Phasellus mattis ipsum id commodo interdum. Curabitur aliquam ligula non ante fermentum euismod. Vivamus sed leo a dui commodo hendrerit et vel leo. Nullam convallis enim a nisl vulputate, non varius diam consectetur.
+			<div class="left-middle">Hello <span style="color: salmon">running!</span></div>
+			<div>Hello <span style="color: salmon">running!</span></div>
+
+			Integer metus tortor, laoreet et bibendum at, bibendum sit amet tellus. Praesent et tempus ex. Pellentesque ut tincidunt leo. Nam sagittis vel augue quis molestie. Cras quis interdum odio. Phasellus ultricies elit eget diam facilisis luctus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque metus odio, eleifend eu vulputate in, placerat ac orci. Praesent hendrerit semper nisl, vitae accumsan est consequat nec.
+			<div class="left-top">Hello <span style="color: greenyellow">running!</span></div>
+			<div>Hello <span style="color: greenyellow">running!</span></div>
+
+			Praesent vitae mauris lobortis, semper odio quis, vulputate tellus. Nam eu nisi sed sapien fringilla pharetra. Sed luctus, mauris sit amet suscipit volutpat, metus nulla consectetur massa, ac iaculis dui mauris ac augue. Curabitur semper suscipit lectus, ut bibendum velit ornare a. Curabitur facilisis dui enim, ac sodales elit cursus id. Nulla luctus iaculis purus, volutpat mattis nisl imperdiet at. Etiam quis tincidunt ante. Proin finibus aliquam eros commodo eleifend. Curabitur condimentum eu ex et sollicitudin. Curabitur a tristique odio. Mauris et nunc ex. Aliquam dignissim est rutrum efficitur bibendum. Etiam bibendum tincidunt erat a mattis. Sed suscipit hendrerit luctus. Suspendisse ultricies gravida felis, a interdum orci mollis sit amet.
+			<div class="top-right-corner">Hello <span style="color: yellow">running!</span></div>
+			<div>Hello <span style="color: yellow">running!</span></div>
+
+			Vivamus ante tortor, malesuada in tincidunt et, ornare a tortor. Vestibulum nec blandit odio. Vestibulum consectetur tellus quis sem gravida, nec vestibulum libero fermentum. Pellentesque felis sapien, suscipit vel molestie et, fringilla et urna. Donec tempor aliquet varius. Praesent dui metus, venenatis vel commodo vitae, sagittis eu tortor. Nunc eget velit ut felis vestibulum convallis consectetur nec sem. Pellentesque ac facilisis libero, vitae scelerisque nisi. Donec vestibulum, massa placerat mattis laoreet, nulla velit pharetra ex, tincidunt placerat purus nibh in ligula. Proin vel feugiat magna, sit amet ornare augue. Curabitur finibus est metus, sed faucibus lacus hendrerit quis. Nam a venenatis ante. Curabitur dignissim pharetra mauris, at ornare justo facilisis eu. Aenean efficitur lorem vel ipsum ullamcorper varius nec ullamcorper felis. Etiam sed sagittis augue, sit amet euismod quam. Donec scelerisque ullamcorper egestas.
+		</div>
+		<div>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce elementum quis libero eget dignissim. In commodo leo non congue rhoncus. Duis sit amet egestas enim, non pulvinar lectus. Nunc bibendum ut dolor vitae consequat. Aenean at sem vel eros ornare vulputate. Etiam quis ligula diam. Suspendisse porttitor odio sed nisl tempus sodales. Etiam eros dui, posuere quis placerat sit amet, accumsan vel diam. In id ipsum id lacus auctor porttitor.
+			<div class="left-bottom">Hello <span style="color: maroon">running!</span></div>
+			<div>Hello <span style="color: maroon">running!</span></div>
+
+			Sed in suscipit lectus, non blandit diam. Etiam tortor lectus, mattis eu mollis sit amet, aliquam eu mauris. Morbi mollis est eu felis congue, sed posuere enim gravida. Phasellus mattis ipsum id commodo interdum. Curabitur aliquam ligula non ante fermentum euismod. Vivamus sed leo a dui commodo hendrerit et vel leo. Nullam convallis enim a nisl vulputate, non varius diam consectetur.
+
+			Integer metus tortor, laoreet et bibendum at, bibendum sit amet tellus. Praesent et tempus ex. Pellentesque ut tincidunt leo. Nam sagittis vel augue quis molestie. Cras quis interdum odio. Phasellus ultricies elit eget diam facilisis luctus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque metus odio, eleifend eu vulputate in, placerat ac orci. Praesent hendrerit semper nisl, vitae accumsan est consequat nec.
+			<div class="bottom-right">Hello <span style="color: cornsilk">running!</span></div>
+			<div>Hello <span style="color: cornsilk">running!</span></div>
+			<div class="right-bottom">Hello <span style="color: steelblue">running!</span></div>
+			<div>Hello <span style="color: steelblue">running!</span></div>
+
+			Praesent vitae mauris lobortis, semper odio quis, vulputate tellus. Nam eu nisi sed sapien fringilla pharetra. Sed luctus, mauris sit amet suscipit volutpat, metus nulla consectetur massa, ac iaculis dui mauris ac augue. Curabitur semper suscipit lectus, ut bibendum velit ornare a. Curabitur facilisis dui enim, ac sodales elit cursus id. Nulla luctus iaculis purus, volutpat mattis nisl imperdiet at. Etiam quis tincidunt ante. Proin finibus aliquam eros commodo eleifend. Curabitur condimentum eu ex et sollicitudin. Curabitur a tristique odio. Mauris et nunc ex. Aliquam dignissim est rutrum efficitur bibendum. Etiam bibendum tincidunt erat a mattis. Sed suscipit hendrerit luctus. Suspendisse ultricies gravida felis, a interdum orci mollis sit amet.
+			<div class="top-left">Hello <span style="color: blue">running!</span></div>
+			<div>Hello <span style="color: blue">running!</span></div>
+
+			Vivamus ante tortor, malesuada in tincidunt et, ornare a tortor. Vestibulum nec blandit odio. Vestibulum consectetur tellus quis sem gravida, nec vestibulum libero fermentum. Pellentesque felis sapien, suscipit vel molestie et, fringilla et urna. Donec tempor aliquet varius. Praesent dui metus, venenatis vel commodo vitae, sagittis eu tortor. Nunc eget velit ut felis vestibulum convallis consectetur nec sem. Pellentesque ac facilisis libero, vitae scelerisque nisi. Donec vestibulum, massa placerat mattis laoreet, nulla velit pharetra ex, tincidunt placerat purus nibh in ligula. Proin vel feugiat magna, sit amet ornare augue. Curabitur finibus est metus, sed faucibus lacus hendrerit quis. Nam a venenatis ante. Curabitur dignissim pharetra mauris, at ornare justo facilisis eu. Aenean efficitur lorem vel ipsum ullamcorper varius nec ullamcorper felis. Etiam sed sagittis augue, sit amet euismod quam. Donec scelerisque ullamcorper egestas.
+		</div>
+		<div>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce elementum quis libero eget dignissim. In commodo leo non congue rhoncus. Duis sit amet egestas enim, non pulvinar lectus. Nunc bibendum ut dolor vitae consequat. Aenean at sem vel eros ornare vulputate. Etiam quis ligula diam. Suspendisse porttitor odio sed nisl tempus sodales. Etiam eros dui, posuere quis placerat sit amet, accumsan vel diam. In id ipsum id lacus auctor porttitor.
+			<div class="top-left-corner">Hello <span style="color: red">running!</span></div>
+			<div>Hello <span style="color: red">running!</span></div>
+
+			Sed in suscipit lectus, non blandit diam. Etiam tortor lectus, mattis eu mollis sit amet, aliquam eu mauris. Morbi mollis est eu felis congue, sed posuere enim gravida. Phasellus mattis ipsum id commodo interdum. Curabitur aliquam ligula non ante fermentum euismod. Vivamus sed leo a dui commodo hendrerit et vel leo. Nullam convallis enim a nisl vulputate, non varius diam consectetur.
+			<div class="bottom-left">Hello <span style="color: gray">running!</span></div>
+			<div>Hello <span style="color: gray">running!</span></div>
+
+			Integer metus tortor, laoreet et bibendum at, bibendum sit amet tellus. Praesent et tempus ex. Pellentesque ut tincidunt leo. Nam sagittis vel augue quis molestie. Cras quis interdum odio. Phasellus ultricies elit eget diam facilisis luctus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque metus odio, eleifend eu vulputate in, placerat ac orci. Praesent hendrerit semper nisl, vitae accumsan est consequat nec.
+
+			Praesent vitae mauris lobortis, semper odio quis, vulputate tellus. Nam eu nisi sed sapien fringilla pharetra. Sed luctus, mauris sit amet suscipit volutpat, metus nulla consectetur massa, ac iaculis dui mauris ac augue. Curabitur semper suscipit lectus, ut bibendum velit ornare a. Curabitur facilisis dui enim, ac sodales elit cursus id. Nulla luctus iaculis purus, volutpat mattis nisl imperdiet at. Etiam quis tincidunt ante. Proin finibus aliquam eros commodo eleifend. Curabitur condimentum eu ex et sollicitudin. Curabitur a tristique odio. Mauris et nunc ex. Aliquam dignissim est rutrum efficitur bibendum. Etiam bibendum tincidunt erat a mattis. Sed suscipit hendrerit luctus. Suspendisse ultricies gravida felis, a interdum orci mollis sit amet.
+			<div class="right-top">Hello <span style="color: wheat">running!</span></div>
+			<div>Hello <span style="color: wheat">running!</span></div>
+
+			Vivamus ante tortor, malesuada in tincidunt et, ornare a tortor. Vestibulum nec blandit odio. Vestibulum consectetur tellus quis sem gravida, nec vestibulum libero fermentum. Pellentesque felis sapien, suscipit vel molestie et, fringilla et urna. Donec tempor aliquet varius. Praesent dui metus, venenatis vel commodo vitae, sagittis eu tortor. Nunc eget velit ut felis vestibulum convallis consectetur nec sem. Pellentesque ac facilisis libero, vitae scelerisque nisi. Donec vestibulum, massa placerat mattis laoreet, nulla velit pharetra ex, tincidunt placerat purus nibh in ligula. Proin vel feugiat magna, sit amet ornare augue. Curabitur finibus est metus, sed faucibus lacus hendrerit quis. Nam a venenatis ante. Curabitur dignissim pharetra mauris, at ornare justo facilisis eu. Aenean efficitur lorem vel ipsum ullamcorper varius nec ullamcorper felis. Etiam sed sagittis augue, sit amet euismod quam. Donec scelerisque ullamcorper egestas.
+		</div>
+		
+	</div>
+</body>
+</html>

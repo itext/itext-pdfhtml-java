@@ -550,6 +550,12 @@ public class CssConstants {
     /** The Constant DOUBLE. */
     public static final String DOUBLE = "double";
 
+    /** The Constant FIRST. */
+    public static final String FIRST = "first";
+
+    /** The Constant FIRST_EXCEPT. */
+    public static final String FIRST_EXCEPT = "first-except";
+
     /** The Constant FIXED. */
     public static final String FIXED = "fixed";
 
@@ -612,6 +618,9 @@ public class CssConstants {
 
     /** The Constant LARGER. */
     public static final String LARGER = "larger";
+
+    /** The Constant LAST. */
+    public static final String LAST = "last";
 
     /** The Constant LEFT. */
     public static final String LEFT = "left";
@@ -1013,6 +1022,12 @@ public class CssConstants {
 
     /** The Constant COUNTERS. */
     public static final String COUNTERS = "counters";
+
+    /** The Constant RUNNING. */
+    public static final String ELEMENT = "element";
+
+    /** The Constant RUNNING. */
+    public static final String RUNNING = "running";
 
     // units of measurement
 

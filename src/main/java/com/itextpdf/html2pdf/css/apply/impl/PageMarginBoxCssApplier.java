@@ -42,7 +42,7 @@ public class PageMarginBoxCssApplier implements ICssApplier {
      * @param leftPropName the left prop name
      * @return an array with a top, right, bottom, and top float value
      */
-    public static float[] parseBoxProps(Map<String, String> styles, float em, float rem, float defaultValue, Rectangle containingBlock,
+    public static float[] parseBoxProps(Map<String, String> styles, float em, float rem, float[] defaultValues, Rectangle containingBlock,
                                         String topPropName, String rightPropName, String bottomPropName, String leftPropName) {
         String topStr = styles.get(topPropName);
         String rightStr = styles.get(rightPropName);
@@ -55,10 +55,10 @@ public class PageMarginBoxCssApplier implements ICssApplier {
         Float left = parseBoxValue(leftStr, em, rem, containingBlock.getWidth());
 
         return new float[] {
-                top != null ? (float)top : defaultValue,
-                right != null ? (float)right : defaultValue,
-                bottom != null ? (float)bottom : defaultValue,
-                left != null ? (float)left : defaultValue
+                top != null ? (float)top : defaultValues[0],
+                right != null ? (float)right : defaultValues[1],
+                bottom != null ? (float)bottom : defaultValues[2],
+                left != null ? (float)left : defaultValues[3]
         };
     }
 
@@ -103,9 +103,9 @@ public class PageMarginBoxCssApplier implements ICssApplier {
 
         float em = CssUtils.parseAbsoluteLength(boxStyles.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
-        float[] boxMargins = parseBoxProps(boxStyles, em, rem, 0, pageMarginBoxContextNode.getContainingBlockForMarginBox(),
+        float[] boxMargins = parseBoxProps(boxStyles, em, rem, new float[]{0,0,0,0}, pageMarginBoxContextNode.getContainingBlockForMarginBox(),
                 CssConstants.MARGIN_TOP, CssConstants.MARGIN_RIGHT, CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT);
-        float[] boxPaddings = parseBoxProps(boxStyles, em, rem, 0, pageMarginBoxContextNode.getContainingBlockForMarginBox(),
+        float[] boxPaddings = parseBoxProps(boxStyles, em, rem, new float[]{0,0,0,0}, pageMarginBoxContextNode.getContainingBlockForMarginBox(),
                 CssConstants.PADDING_TOP, CssConstants.PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT);
 
         setUnitPointValueProperties(marginBox, new int[]{Property.MARGIN_TOP, Property.MARGIN_RIGHT, Property.MARGIN_BOTTOM, Property.MARGIN_LEFT}, boxMargins);
