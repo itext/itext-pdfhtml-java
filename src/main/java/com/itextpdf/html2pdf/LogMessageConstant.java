@@ -49,24 +49,17 @@ public final class LogMessageConstant {
 
     /** The Constant CONTENT_PROPERTY_INVALID. */
     public static final String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
-
     /** The Constant CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED. */
     public static final String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
-
     public static final String DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN = "Default value of the css property \"{0}\" is unknown.";
-
     /** The Constant ERROR_LOADING_FONT. */
     public static final String ERROR_LOADING_FONT = "Error while loading font";
-
     /** The Constant ERROR_PARSING_CSS_SELECTOR. */
     public static final String ERROR_PARSING_CSS_SELECTOR = "Error while parsing css selector: {0}";
-
     /** The Constant ERROR_RESOLVING_PARENT_STYLES. */
     public static final String ERROR_RESOLVING_PARENT_STYLES = "Element parent styles are not resolved. Styles for current element might be incorrect.";
-
     /** The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD. */
     public static final String ERROR_WHILE_LAYOUT_OF_FORM_FIELD = "Cannot layout form field field. It won't be displayed";
-
     /** The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE. */
     public static final String ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE = "Error during layout of form filed with type {0}.";
     /** The Constant HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED. */
@@ -77,13 +70,10 @@ public final class LogMessageConstant {
     public static final String INPUT_SUPPORTS_ONLY_POINT_WIDTH = "Input field supports only point width";
     /** The Constant INPUT_TYPE_IS_NOT_SUPPORTED. */
     public static final String INPUT_TYPE_IS_NOT_SUPPORTED = "Input type {0} is not supported";
-
     /** The Constant INVALID_CSS_PROPERTY_DECLARATION. */
     public static final String INVALID_CSS_PROPERTY_DECLARATION = "Invalid css property declaration: {0}";
-
     /** The Constant MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED. */
     public static final String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
-
     /** The Constant NOT_SUPPORTED_LIST_STYLE_TYPE. */
     public static final String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
     /** The Constant NO_CONSUMER_FOUND_FOR_CONTENT. */
@@ -94,10 +84,10 @@ public final class LogMessageConstant {
     public static final String NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG = "Tag worker does not produce IPropertyContainer for \"{0}\" tag. An outline for \"{0}\" tag will not be created.";
     /** The Constant NO_WORKER_FOUND_FOR_TAG. */
     public static final String NO_WORKER_FOUND_FOR_TAG = "No worker found for tag {0}";
-
     /** The Constant PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED. */
     public static final String PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED = "Padding value in percents not supported";
     public static final String PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN = "Page margin box {0} content cannot be drawn.";
+    public static final String PAGE_MARGIN_BOX_SOME_PROPERTIES_NOT_PROCESSED = "Page margin box margin, padding, height and width properties are not processed. Passed styles container shall be of PageMarginBoxContextNode type.";
     /** The Constant PAGE_SIZE_VALUE_IS_INVALID. */
     public static final String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
     /** The Constant QUOTES_PROPERTY_INVALID. */

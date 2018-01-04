@@ -42,9 +42,24 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
+import com.itextpdf.html2pdf.attach.impl.tags.PageMarginBoxWorker;
+import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
+import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
+import com.itextpdf.html2pdf.css.apply.impl.PageMarginBoxCssApplier;
+import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
+import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -52,6 +67,7 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -161,6 +177,37 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
+    public void bigImageOnPageMarginTest03() throws IOException, InterruptedException {
+        runTest("bigImageOnPageMarginTest03", new PageMarginBoxImagesTagWorkerFactory(), null);
+    }
+
+    private static class PageMarginBoxImagesTagWorkerFactory extends DefaultTagWorkerFactory {
+        @Override
+        public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
+            if (tag.name().equals(PageMarginBoxContextNode.PAGE_MARGIN_BOX_TAG)) {
+                return new PageMarginBoxImagesWorker(tag, context);
+            }
+            return super.getCustomTagWorker(tag, context);
+        }
+    }
+
+    private static class PageMarginBoxImagesWorker extends PageMarginBoxWorker {
+        public PageMarginBoxImagesWorker(IElementNode element, ProcessorContext context) {
+            super(element, context);
+        }
+
+        @Override
+        public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+            if (childTagWorker.getElementResult() instanceof Image) {
+                // TODO Since iText 7.2 release it is ("it will be" for now, see PageMarginBoxDummyElement class) possible
+                // to get current page margin box name and dimensions from the "element" IElementNode passed to the constructor of this tag worker.
+                ((Image) childTagWorker.getElementResult()).setAutoScale(true);
+            }
+            return super.processTagChild(childTagWorker, context);
+        }
+    }
+
+    @Test
     public void bigTextOnPageMarginTest01() throws IOException, InterruptedException {
         runTest("bigTextOnPageMarginTest01");
     }
@@ -176,6 +223,32 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
+    public void marginBoxOverflowPropertyTest02() throws IOException, InterruptedException {
+        runTest("marginBoxOverflowPropertyTest02", null, new PageMarginsOverflowCssApplierFactory());
+    }
+
+    private static class PageMarginsOverflowCssApplierFactory extends DefaultCssApplierFactory {
+        @Override
+        public ICssApplier getCustomCssApplier(IElementNode tag) {
+            if (PageMarginBoxContextNode.PAGE_MARGIN_BOX_TAG.equals(tag.name())) {
+                return new CustomOverflowPageMarginBoxCssApplier();
+            }
+            return super.getCustomCssApplier(tag);
+        }
+    }
+
+    private static class CustomOverflowPageMarginBoxCssApplier extends PageMarginBoxCssApplier {
+        @Override
+        public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
+            Map<String, String> styles = stylesContainer.getStyles();
+            if (styles.get(CssConstants.OVERFLOW) == null) {
+                styles.put(CssConstants.OVERFLOW, CssConstants.VISIBLE);
+            }
+            super.apply(context, stylesContainer, tagWorker);
+        }
+    }
+
+    @Test
     public void marginBoxOutlinePropertyTest01() throws IOException, InterruptedException {
         // TODO Outlines are currently not supported for page margin boxes, because of the outlines handling specificity (they are handled on renderer's parent level).
         //      See com.itextpdf.html2pdf.attach.impl.layout.PageContextProcessor.
@@ -184,12 +257,24 @@ public class PageRuleTest extends ExtendedITextTest {
 
 
     private void runTest(String name) throws IOException, InterruptedException {
+        runTest(name, null, null);
+    }
+
+    private void runTest(String name, ITagWorkerFactory customTagWorkerFactory, ICssApplierFactory customCssApplierFactory) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
         String diffPrefix = "diff_" + name + "_";
 
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
+        ConverterProperties converterProperties = new ConverterProperties();
+        if (customTagWorkerFactory != null) {
+            converterProperties.setTagWorkerFactory(customTagWorkerFactory);
+        }
+        if (customCssApplierFactory != null) {
+            converterProperties.setCssApplierFactory(customCssApplierFactory);
+        }
+
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath), converterProperties);
         Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
     }
 }
