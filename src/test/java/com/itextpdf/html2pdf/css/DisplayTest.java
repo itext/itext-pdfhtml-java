@@ -53,15 +53,14 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class DisplayTest extends ExtendedITextTest {
@@ -258,7 +257,7 @@ public class DisplayTest extends ExtendedITextTest {
         ConverterProperties props = new ConverterProperties();
         props.setBaseUri(sourceFolder);
 
-        HtmlConverter.convertToPdf(new FileInputStream(new File(sourceFolder + "inlineBlockInsideTableCellTest.html")), pdfDocument, props);
+        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "inlineBlockInsideTableCellTest.html"), pdfDocument, props);
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "inlineBlockInsideTableCellTest.pdf", sourceFolder + "cmp_inlineBlockInsideTableCell.pdf", destinationFolder, "diffinlineBlockInsideTableCellTest_"));
     }
 }
