@@ -244,6 +244,12 @@ public class FontFaceTest extends ExtendedITextTest {
         runTest("incorrectFontNameTest04");
     }
 
+    @Test
+    @Ignore("DEVSIX-1759")
+    public void fontFamilyTest01() throws IOException, InterruptedException {
+        runTest("fontFamilyTest01");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
