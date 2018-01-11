@@ -102,7 +102,88 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
      */
     @Override
     public LayoutResult layout(LayoutContext layoutContext) {
-        return layout(layoutContext, false);
+        childRenderers.clear();
+        flatRenderer = null;
+
+        float parentWidth = layoutContext.getArea().getBBox().getWidth();
+        float parentHeight = layoutContext.getArea().getBBox().getHeight();
+
+        UnitValue minHeight = this.<UnitValue>getProperty(Property.MIN_HEIGHT);
+        UnitValue maxHeight = this.<UnitValue>getProperty(Property.MAX_HEIGHT);
+        UnitValue height = this.<UnitValue>getProperty(Property.HEIGHT);
+        boolean restoreMinHeight = hasOwnProperty(Property.MIN_HEIGHT);
+        boolean restoreMaxHeight = hasOwnProperty(Property.MAX_HEIGHT);
+        boolean restoreHeight = hasOwnProperty(Property.HEIGHT);
+        setProperty(Property.MIN_HEIGHT, null);
+        setProperty(Property.MAX_HEIGHT, null);
+        setProperty(Property.HEIGHT, null);
+
+        IRenderer renderer = createFlatRenderer();
+        addChild(renderer);
+
+        Rectangle bBox = layoutContext.getArea().getBBox().clone().moveDown(INF - parentHeight).setHeight(INF);
+        layoutContext.getArea().setBBox(bBox);
+        LayoutResult result = super.layout(layoutContext);
+
+        if (restoreMinHeight) {
+            setProperty(Property.MIN_HEIGHT, minHeight);
+        } else {
+            deleteOwnProperty(Property.MIN_HEIGHT);
+        }
+        if (restoreMaxHeight) {
+            setProperty(Property.MAX_HEIGHT, maxHeight);
+        } else {
+            deleteOwnProperty(Property.MAX_HEIGHT);
+        }
+        if (restoreHeight) {
+            setProperty(Property.HEIGHT, height);
+        } else {
+            deleteOwnProperty(Property.HEIGHT);
+        }
+
+        if (!Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT)) && (result.getStatus() != LayoutResult.FULL)) {
+            //@TODO investigate this tricky code a little more.
+            FloatPropertyValue floatPropertyValue = this.<FloatPropertyValue>getProperty(Property.FLOAT);
+            if (floatPropertyValue == null || floatPropertyValue == FloatPropertyValue.NONE) {
+                setProperty(Property.FORCED_PLACEMENT, true);
+            } else {
+                flatRenderer = childRenderers.get(0);
+                childRenderers.clear();
+                childRenderers.add(flatRenderer);
+                adjustFieldLayout(layoutContext);
+                Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
+                occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
+                applyPaddings(occupiedArea.getBBox(), true);
+                applyBorderBox(occupiedArea.getBBox(), true);
+                applyMargins(occupiedArea.getBBox(), true);
+            }
+
+            return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth());
+        }
+        if (!childRenderers.isEmpty()) {
+            flatRenderer = childRenderers.get(0);
+            childRenderers.clear();
+            childRenderers.add(flatRenderer);
+            adjustFieldLayout(layoutContext);
+            Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
+            occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
+            applyPaddings(occupiedArea.getBBox(), true);
+            applyBorderBox(occupiedArea.getBBox(), true);
+            applyMargins(occupiedArea.getBBox(), true);
+        } else {
+            LoggerFactory.getLogger(getClass()).error(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD);
+            occupiedArea.getBBox().setWidth(0).setHeight(0);
+        }
+        if (!Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT)) && !isRendererFit(parentWidth, parentHeight)) {
+            setProperty(Property.FORCED_PLACEMENT, true);
+            occupiedArea.getBBox().setWidth(0).setHeight(0);
+            return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth());
+        }
+        if (result.getStatus() != LayoutResult.FULL || !isRendererFit(parentWidth, parentHeight)) {
+            LoggerFactory.getLogger(getClass()).warn(LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
+        }
+        return new MinMaxWidthLayoutResult(LayoutResult.FULL, occupiedArea, this, null)
+                .setMinMaxWidth(new MinMaxWidth(occupiedArea.getBBox().getWidth(), occupiedArea.getBBox().getWidth(), 0));
     }
 
     /* (non-Javadoc)
@@ -148,14 +229,46 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
      */
     @Override
     protected MinMaxWidth getMinMaxWidth() {
-        MinMaxWidthLayoutResult result = (MinMaxWidthLayoutResult) layout(new LayoutContext(new LayoutArea(1, new Rectangle(MinMaxWidthUtils.getInfWidth(), AbstractRenderer.INF))), true);
-        return result.getMinMaxWidth();
+        childRenderers.clear();
+        flatRenderer = null;
+
+        UnitValue maxHeight = this.<UnitValue>getProperty(Property.MAX_HEIGHT);
+        UnitValue height = this.<UnitValue>getProperty(Property.HEIGHT);
+        boolean restoreMaxHeight = hasOwnProperty(Property.MAX_HEIGHT);
+        boolean restoreHeight = hasOwnProperty(Property.HEIGHT);
+        setProperty(Property.MAX_HEIGHT, null);
+        setProperty(Property.HEIGHT, null);
+
+        IRenderer renderer = createFlatRenderer();
+        addChild(renderer);
+
+        MinMaxWidth minMaxWidth = super.getMinMaxWidth();
+
+        if (restoreMaxHeight) {
+            setProperty(Property.MAX_HEIGHT, maxHeight);
+        } else {
+            deleteOwnProperty(Property.MAX_HEIGHT);
+        }
+        if (restoreHeight) {
+            setProperty(Property.HEIGHT, height);
+        } else {
+            deleteOwnProperty(Property.HEIGHT);
+        }
+
+        return minMaxWidth;
     }
 
     /**
      * Adjusts the field layout.
+     * @deprecated Will be removed in 3.0.0, override {@link #adjustFieldLayout(LayoutContext)} instead.
      */
+    @Deprecated
     protected abstract void adjustFieldLayout();
+
+    //NOTE: should be abstract in 3.0.0
+    protected void adjustFieldLayout(LayoutContext layoutContext) {
+        adjustFieldLayout();
+    }
 
     /**
      * Creates the flat renderer instance.
@@ -198,101 +311,20 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
      * Gets the content width.
      *
      * @return the content width
+     * @deprecated will be removed in 3.0.0. Use {@link #retrieveWidth(float)}} instead.
      */
+    @Deprecated
     protected Float getContentWidth() {
-        UnitValue width = this.<UnitValue>getProperty(Property.WIDTH);
-        if (width != null) {
-            if (width.isPointValue()) {
-                return retrieveWidth(0);
-            } else {
-                LoggerFactory.getLogger(getClass()).warn(LogMessageConstant.INPUT_SUPPORTS_ONLY_POINT_WIDTH);
-            }
-        }
-        return null;
+        return super.retrieveWidth(0);
     }
 
-    private LayoutResult layout(LayoutContext layoutContext, boolean minMaxWidth) {
-        childRenderers.clear();
-        flatRenderer = null;
-
-        float parentWidth = layoutContext.getArea().getBBox().getWidth();
-        float parentHeight = layoutContext.getArea().getBBox().getHeight();
-
-        UnitValue maxHeight = this.<UnitValue>getProperty(Property.MAX_HEIGHT);
-        UnitValue height = this.<UnitValue>getProperty(Property.HEIGHT);
-        boolean restoreMaxHeight = hasOwnProperty(Property.MAX_HEIGHT);
-        boolean restoreHeight = hasOwnProperty(Property.HEIGHT);
-        setProperty(Property.MAX_HEIGHT, null);
-        setProperty(Property.HEIGHT, null);
-
-        IRenderer renderer = createFlatRenderer();
-        Float width = getContentWidth();
-        if (width != null) {
-            renderer.setProperty(Property.WIDTH, new UnitValue(UnitValue.POINT, (float) width));
+    //NOTE: should be removed in 3.0.0
+    @Override
+    protected Float retrieveWidth(float parentBoxWidth) {
+        UnitValue width = super.<UnitValue>getProperty(Property.WIDTH);
+        if (width != null && width.isPointValue()) {
+            return getContentWidth();
         }
-        addChild(renderer);
-
-        Rectangle bBox = layoutContext.getArea().getBBox().clone().moveDown(INF - parentHeight).setHeight(INF);
-        layoutContext.getArea().setBBox(bBox);
-        LayoutResult result = super.layout(layoutContext);
-
-        if (restoreMaxHeight) {
-            setProperty(Property.MAX_HEIGHT, maxHeight);
-        } else {
-            deleteOwnProperty(Property.MAX_HEIGHT);
-        }
-        if (restoreHeight) {
-            setProperty(Property.HEIGHT, height);
-        } else {
-            deleteOwnProperty(Property.HEIGHT);
-        }
-
-        if (!Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT)) && (result.getStatus() != LayoutResult.FULL)) {
-            //@TODO investigate this tricky code a little more.
-            FloatPropertyValue floatPropertyValue = this.<FloatPropertyValue>getProperty(Property.FLOAT);
-            if (floatPropertyValue == null || floatPropertyValue == FloatPropertyValue.NONE) {
-                setProperty(Property.FORCED_PLACEMENT, true);
-            } else {
-                flatRenderer = childRenderers.get(0);
-                childRenderers.clear();
-                childRenderers.add(flatRenderer);
-                adjustFieldLayout();
-                Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
-                occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
-                applyPaddings(occupiedArea.getBBox(), true);
-                applyBorderBox(occupiedArea.getBBox(), true);
-                applyMargins(occupiedArea.getBBox(), true);
-            }
-
-            return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth());
-        }
-        if (!childRenderers.isEmpty()) {
-            flatRenderer = childRenderers.get(0);
-            childRenderers.clear();
-            childRenderers.add(flatRenderer);
-            adjustFieldLayout();
-            Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
-            occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
-            applyPaddings(occupiedArea.getBBox(), true);
-            applyBorderBox(occupiedArea.getBBox(), true);
-            applyMargins(occupiedArea.getBBox(), true);
-        } else {
-            LoggerFactory.getLogger(getClass()).error(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD);
-            occupiedArea.getBBox().setWidth(0).setHeight(0);
-        }
-        if (!Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT)) && !isRendererFit(parentWidth, parentHeight)) {
-            if (!minMaxWidth) {
-                setProperty(Property.FORCED_PLACEMENT, true);
-                occupiedArea.getBBox().setWidth(0).setHeight(0);
-                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth());
-            } else {
-                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth(occupiedArea.getBBox().getWidth(), occupiedArea.getBBox().getWidth(), 0));
-            }
-        }
-        if (result.getStatus() != LayoutResult.FULL || !isRendererFit(parentWidth, parentHeight)) {
-            LoggerFactory.getLogger(getClass()).warn(LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
-        }
-        return new MinMaxWidthLayoutResult(LayoutResult.FULL, occupiedArea, this, null)
-                .setMinMaxWidth(new MinMaxWidth(occupiedArea.getBBox().getWidth(), occupiedArea.getBBox().getWidth(), 0));
+        return super.retrieveWidth(parentBoxWidth);
     }
 }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div, form, input, span {
+border: 4px solid black;
+box-sizing: border-box;
+margin: 0px;
+padding: 0px;
+}
+.container {
+display: block;
+width: 400px;
+border-color: blue;
+padding: 2px;
+}
+.table {
+display: table;
+border-collapse: separate;
+margin: 2px;
+}
+.first-cell {
+display: table-cell;
+border-color: green;
+width: 1%;
+}
+.second-cell {
+display: table-cell;
+border-color: red;
+width: 100%;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+ Test to illustrate different elements as table cell. The width of first cell is 1%, the width of second cell is 100%, by default first cell is span, and second is input
+<div class="table">
+  <span  class="first-cell">1%</span>
+  <input class="second-cell"/>
+</div>
+
+<div class="table">
+  <div   class="first-cell">div</div>
+  <input class="second-cell"/>
+</div>
+
+<div class="table">
+  <span class="first-cell">1%</span>
+  <div  class="second-cell">div</div>
+</div>
+
+<div class="table">
+  <div class="first-cell">1%</div>
+  <div class="second-cell">div</div>
+</div>
+
+</div>
+</body>
+</html>

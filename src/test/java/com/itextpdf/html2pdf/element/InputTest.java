@@ -95,6 +95,11 @@ public class InputTest extends ExtendedITextTest {
         runTest("blockHeightTest");
     }
 
+    @Test
+    public void smallPercentWidthTest() throws IOException, InterruptedException {
+        runTest("smallPercentWidth");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String outPdfPath = destinationFolder + name + ".pdf";

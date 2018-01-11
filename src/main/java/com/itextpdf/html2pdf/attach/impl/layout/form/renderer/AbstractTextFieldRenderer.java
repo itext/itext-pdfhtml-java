@@ -48,6 +48,7 @@ import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.annot.PdfAnnotation;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.BoxSizingPropertyValue;
 import com.itextpdf.layout.property.Leading;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.TransparentColor;
@@ -167,6 +168,17 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
         if (retrievedFont instanceof PdfFont) {
             font = (PdfFont) retrievedFont;
         }
+    }
+
+    //The width based on cols of textarea and size of input doesn't affected by box sizing, so we emulate it here
+    float updateHtmlColsSizeBasedWidth(float width) {
+        if (BoxSizingPropertyValue.BORDER_BOX.equals(this.<BoxSizingPropertyValue>getProperty(Property.BOX_SIZING))) {
+            Rectangle dummy = new Rectangle(width, 0);
+            applyBorderBox(dummy, true);
+            applyPaddings(dummy, true);
+            return dummy.getWidth();
+        }
+        return width;
     }
 
     private static void adjustNumberOfContentLines(List<LineRenderer> lines, Rectangle bBox, int linesNumber, float height) {

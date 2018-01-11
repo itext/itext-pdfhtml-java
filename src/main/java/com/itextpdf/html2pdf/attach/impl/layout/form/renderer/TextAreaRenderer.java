@@ -52,6 +52,8 @@ import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfString;
+import com.itextpdf.layout.layout.LayoutContext;
+import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.DrawContext;
@@ -119,11 +121,16 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         return new TextAreaRenderer((TextArea) getModelElement());
     }
 
+    @Override
+    protected void adjustFieldLayout() {
+        throw new RuntimeException("adjustFieldLayout() is deprecated and shouldn't be used. Override adjustFieldLayout(LayoutContext) instead");
+    }
+
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
      */
     @Override
-    protected void adjustFieldLayout() {
+    protected void adjustFieldLayout(LayoutContext layoutContext) {
         List<LineRenderer> flatLines = ((ParagraphRenderer) flatRenderer).getLines();
         updatePdfFont((ParagraphRenderer) flatRenderer);
         Rectangle flatBBox = flatRenderer.getOccupiedArea().getBBox();
@@ -134,7 +141,7 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
             flatBBox.setHeight(0);
         }
-        flatBBox.setWidth((float) getContentWidth());
+        flatBBox.setWidth((float) retrieveWidth(layoutContext.getArea().getBBox().getWidth()));
     }
 
     /* (non-Javadoc)
@@ -168,22 +175,39 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
     }
 
-    /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#getContentWidth()
-     */
     @Override
-    protected Float getContentWidth() {
-        Float width = super.getContentWidth();
-        if (width == null) {
-            UnitValue fontSize = (UnitValue) this.getPropertyAsUnitValue(Property.FONT_SIZE);
-            if (!fontSize.isPointValue()) {
-                Logger logger = LoggerFactory.getLogger(TextAreaRenderer.class);
-                logger.error(MessageFormatUtil.format(com.itextpdf.io.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property.FONT_SIZE));
+    public <T1> T1 getProperty(int key) {
+        if (key == Property.WIDTH) {
+            T1 width = super.<T1>getProperty(Property.WIDTH);
+            if (width == null) {
+                UnitValue fontSize = (UnitValue) this.getPropertyAsUnitValue(Property.FONT_SIZE);
+                if (!fontSize.isPointValue()) {
+                    Logger logger = LoggerFactory.getLogger(TextAreaRenderer.class);
+                    logger.error(MessageFormatUtil.format(com.itextpdf.io.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property.FONT_SIZE));
+                }
+                int cols = getCols();
+                return (T1) UnitValue.createPointValue(updateHtmlColsSizeBasedWidth(fontSize.getValue() * (cols * 0.5f + 2) + 2));
             }
-            int cols = getCols();
-            return fontSize.getValue() * (cols * 0.5f + 2) + 2;
+            return width;
         }
-        return width;
+        return super.<T1>getProperty(key);
+    }
+
+    @Override
+    protected boolean setMinMaxWidthBasedOnFixedWidth(MinMaxWidth minMaxWidth) {
+        if (!hasAbsoluteUnitValue(Property.WIDTH)) {
+            UnitValue width = this.<UnitValue>getProperty(Property.WIDTH);
+            boolean restoreWidth = hasOwnProperty(Property.WIDTH);
+            setProperty(Property.WIDTH, null);
+            boolean result = super.setMinMaxWidthBasedOnFixedWidth(minMaxWidth);
+            if (restoreWidth) {
+                setProperty(Property.WIDTH, width);
+            } else {
+                deleteOwnProperty(Property.WIDTH);
+            }
+            return result;
+        }
+        return super.setMinMaxWidthBasedOnFixedWidth(minMaxWidth);
     }
 
     private void cropContentLines(List<LineRenderer> lines, Rectangle bBox) {
