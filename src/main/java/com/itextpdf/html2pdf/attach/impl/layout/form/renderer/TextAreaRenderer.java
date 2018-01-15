@@ -186,7 +186,7 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
                     logger.error(MessageFormatUtil.format(com.itextpdf.io.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property.FONT_SIZE));
                 }
                 int cols = getCols();
-                return (T1) UnitValue.createPointValue(updateHtmlColsSizeBasedWidth(fontSize.getValue() * (cols * 0.5f + 2) + 2));
+                return (T1) (Object) UnitValue.createPointValue(updateHtmlColsSizeBasedWidth(fontSize.getValue() * (cols * 0.5f + 2) + 2));
             }
             return width;
         }
