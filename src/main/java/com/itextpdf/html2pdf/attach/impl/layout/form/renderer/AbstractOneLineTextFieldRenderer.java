@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.layout.renderer.BlockRenderer;
+import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.LineRenderer;
 
 import java.util.List;
@@ -56,6 +57,7 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
 
     /**
      * The position of the base line of the text.
+     * @deprecated use {@link #getLastYLineRecursively()} instead. Will be removed in 3.0.0
      */
     protected float baseline;
 
@@ -68,20 +70,10 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
         super(modelElement);
     }
 
-    /* (non-Javadoc)
-     * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getAscent()
-     */
     @Override
-    public float getAscent() {
-        return occupiedArea.getBBox().getTop() - baseline;
-    }
-
-    /* (non-Javadoc)
-     * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getDescent()
-     */
-    @Override
-    public float getDescent() {
-        return occupiedArea.getBBox().getBottom() - baseline;
+    public void move(float dxRight, float dyUp) {
+        super.move(dxRight, dyUp);
+        baseline += dyUp;
     }
 
     /**
@@ -93,7 +85,7 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
     void cropContentLines(List<LineRenderer> lines, Rectangle bBox) {
         adjustNumberOfContentLines(lines, bBox, 1);
         updateParagraphHeight();
-        baseline = lines.get(0).getYLine();
+        this.baseline = lines.get(0).getYLine();
     }
 
     /**
@@ -103,25 +95,27 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
         Float height = retrieveHeight();
         Float minHeight = retrieveMinHeight();
         Float maxHeight = retrieveMaxHeight();
-        Rectangle flatBBox = flatRenderer.getOccupiedArea().getBBox();
+        float originalHeight = flatRenderer.getOccupiedArea().getBBox().getHeight();
         if (height != null && (float) height > 0) {
-            setContentHeight(flatBBox, (float) height);
-        } else if (minHeight != null && (float) minHeight > flatBBox.getHeight()) {
-            setContentHeight(flatBBox, (float) minHeight);
-        } else if (maxHeight != null && (float) maxHeight > 0 && (float) maxHeight < flatBBox.getHeight()) {
-            setContentHeight(flatBBox, (float) maxHeight);
+            setContentHeight(flatRenderer, (float) height);
+        } else if (minHeight != null && (float) minHeight > originalHeight) {
+            setContentHeight(flatRenderer, (float) minHeight);
+        } else if (maxHeight != null && (float) maxHeight > 0 && (float) maxHeight < originalHeight) {
+            setContentHeight(flatRenderer, (float) maxHeight);
         }
     }
 
     /**
      * Sets the content height.
      *
-     * @param bBox   the bounding box
-     * @param height the height
+     * @param flatRenderer  the flat renderer
+     * @param height        the height
      */
-    private void setContentHeight(Rectangle bBox, float height) {
+    private void setContentHeight(IRenderer flatRenderer, float height) {
+        Rectangle bBox = flatRenderer.getOccupiedArea().getBBox();
         float dy = (height - bBox.getHeight()) / 2;
         bBox.moveDown(dy);
         bBox.setHeight(height);
+        flatRenderer.move(0, -dy);
     }
 }

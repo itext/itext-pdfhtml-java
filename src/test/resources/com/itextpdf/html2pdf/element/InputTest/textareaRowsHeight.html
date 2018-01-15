@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+textarea {
+    width: 120px;
+    margin: 5px;
+    border: 2px solid black;
+    display: inline-block;
+}
+div {
+    border: 2px solid blue;
+    margin: 5px;
+    padding: 5px;
+}
+</style>
+</head>
+<body>
+<p>All textareas have display: inline-block; width: 120px, margin: 5px; border: 2px solid black and rows=10 (roughly 150px)</p>
+<div>
+<textarea rows=10>
+I'm textarea with no height
+</textarea>
+<textarea rows=10 style="height: 200px">
+I'm textarea with height bigger than row-based height
+</textarea>
+<textarea rows=10 style="height: 100px">
+I'm textarea with height smaller than row-based height
+</textarea>
+</div>
+<div>
+<textarea rows=10>
+I'm textarea with no min-height
+</textarea>
+<textarea rows=10 style="min-height: 200px">
+I'm textarea with min-height bigger than row-based height
+</textarea>
+<textarea rows=10 style="min-height: 100px">
+I'm textarea with min-height smaller than row-based height
+</textarea>
+</div>
+<div>
+<textarea rows=10>
+I'm textarea with no max-height
+</textarea>
+<textarea rows=10 style="max-height: 200px">
+I'm textarea with max-height bigger than row-based height
+</textarea>
+<textarea rows=10 style="max-height: 100px">
+I'm textarea with max-height smaller than row-based height
+</textarea>
+</div>
+</body>

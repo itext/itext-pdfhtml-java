@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -85,10 +86,28 @@ public class InputTest extends ExtendedITextTest {
         runTest("inputTest04");
     }
 
-    private void runTest(String testName) throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+    public void textareaRowsHeightTest() throws IOException, InterruptedException {
+        runTest("textareaRowsHeight");
     }
 
+    @Test
+    public void blockHeightTest() throws IOException, InterruptedException {
+        runTest("blockHeightTest");
+    }
 
+    @Test
+    public void smallPercentWidthTest() throws IOException, InterruptedException {
+        runTest("smallPercentWidth");
+    }
+
+    private void runTest(String name) throws IOException, InterruptedException {
+        String htmlPath = sourceFolder + name + ".html";
+        String outPdfPath = destinationFolder + name + ".pdf";
+        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+        String diff = "diff_" + name + "_";
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath));
+        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));
+    }
 }

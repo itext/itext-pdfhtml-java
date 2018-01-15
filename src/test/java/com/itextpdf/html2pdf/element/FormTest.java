@@ -132,6 +132,16 @@ public class FormTest extends ExtendedITextTest {
         runTest("fieldInTablePercent");
     }
 
+    @Test
+    public void inputDisplayTest() throws IOException, InterruptedException {
+        runTest("inputDisplay");
+    }
+
+    @Test
+    public void textareaDisplayTest() throws IOException, InterruptedException {
+        runTest("textareaDisplay");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String outPdfPath = destinationFolder + name + ".pdf";

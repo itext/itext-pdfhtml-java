@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+div, form, input, span {
+border: 4px solid black;
+box-sizing: border-box;
+margin: 0px;
+padding: 0px;
+}
+.container {
+display: block;
+width: 600px;
+border-color: blue;
+padding: 2px;
+margin: 2px;
+}
+.table {
+display: inline-table;
+border-collapse: collapse;
+margin: 2px;
+}
+.big-cell {
+display: table-cell;
+border-color: red;
+width: 100%;
+}
+.small-cell {
+display: table-cell;
+border-color: yellow;
+width: auto;
+}
+.inline-block {
+display: inline-block;
+padding: 1px;
+margin: 2px;
+border-color: green;
+}
+.middle {
+vertical-align: middle;
+}
+</style>
+</head>
+
+<body>
+Test to illustrate alignment of inline-elements (including inline table)
+
+<div class="container">
+<div class="inline-block">
+  <div class="table">
+    <div class="big-cell">I'm cell in table</div>
+  </div>
+</div>
+<div class="inline-block">I'm inline block</div>
+</div>
+
+<div class="container">
+<div class="table">
+  <div class="big-cell">I'm cell in table</div>
+</div>
+<div class="inline-block">I'm inline block</div>
+</div>
+
+<div class="container">
+<div class="inline-block middle">
+  <div class="table">
+    <div class="small-cell">1</div>
+    <input class="big-cell"/>
+    <div class="small-cell">2</div>
+  </div>
+</div>
+<button class="inline-block middle">button</button>
+</div>
+
+</body>
+</html>

@@ -135,6 +135,32 @@ public class DisplayTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "display_table08.html"), new File(destinationFolder + "display_table08.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table08.pdf", sourceFolder + "cmp_display_table08.pdf", destinationFolder, "diff25_"));
     }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH),
+            @LogMessage(messageTemplate = LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100),
+    })
+    public void displayTable09Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table09.html"), new File(destinationFolder + "display_table09.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table09.pdf", sourceFolder + "cmp_display_table09.pdf", destinationFolder, "diff26_"));
+    }
+
+    @Test
+    public void displayTable10Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table10.html"), new File(destinationFolder + "display_table10.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table10.pdf", sourceFolder + "cmp_display_table10.pdf", destinationFolder, "diff27_"));
+    }
+
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH),
+    })
+    @Test
+    public void displayTable11Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table11.html"), new File(destinationFolder + "display_table11.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table11.pdf", sourceFolder + "cmp_display_table11.pdf", destinationFolder, "diff28_"));
+    }
+
     @Test
     public void displayInline01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline01.html"), new File(destinationFolder + "display_inline01.pdf"));

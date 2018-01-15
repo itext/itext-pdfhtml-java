@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+div, label, input, span {
+border: 4px solid black;
+box-sizing: border-box;
+margin: 0px;
+padding: 0px;
+}
+.container {
+display: block;
+width: 600px;
+border-color: blue;
+padding: 2px;
+}
+.table {
+display: inline-table;
+border-collapse: separate;
+margin: 2px;
+margin-right: 40px;
+}
+.first-cell {
+display: table-cell;
+border-color: green;
+width: auto;
+}
+.second-cell {
+display: table-cell;
+border-color: red;
+float: left;
+width: 100%;
+}
+.inline-block {
+display: inline-block;
+padding: 1px;
+margin: 2px;
+border-color: green;
+}
+.middle {
+vertical-align: middle;
+}
+.absolute {
+position: absolute;
+margin: 2px;
+top: 2px;
+right: 2px;
+display: block;
+width: 34px;
+height: 34px;
+line-height: 34px;
+}
+.relative {
+position: relative;
+}
+</style>
+</head>
+
+<body>
+<div class="container relative">
+<label class="inline-block middle">label; span-input cells; span</label>
+<div class="table middle">
+  <span  class="first-cell">1%</span>
+  <input class="second-cell"/>
+</div>
+<span class="absolute">A</span>
+</div>
+
+<div class="container relative">
+<div class="inline-block middle">div only</div>
+<div class="table middle">
+  <div class="first-cell">1%</div>
+  <div class="second-cell">I'm div not an input</div>
+</div>
+<div class="absolute">A</div>
+</div>
+
+</body>
+</html>
