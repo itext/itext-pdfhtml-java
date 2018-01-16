@@ -278,6 +278,12 @@ public class DisplayTest extends ExtendedITextTest {
     }
 
     @Test
+    public void displayInlineBlock18Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block18.html"), new File(destinationFolder + "display_inline-block18.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block18.pdf", sourceFolder + "cmp_display_inline-block18.pdf", destinationFolder, "diff20_"));
+    }
+
+    @Test
     @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 7))
     public void inlineBlockInsideTableCellTest() throws IOException, InterruptedException {
 

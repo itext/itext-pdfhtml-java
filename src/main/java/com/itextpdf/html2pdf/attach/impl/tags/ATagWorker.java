@@ -104,6 +104,10 @@ public class ATagWorker extends SpanTagWorker {
                         simulatedDiv.setProperty(Property.TRANSFORM, cssTransform);
                     }
                     simulatedDiv.add((IBlockElement) getAllElements().get(i));
+                    String display = childrenDisplayMap.remove(getAllElements().get(i));
+                    if (display != null) {
+                        childrenDisplayMap.put(simulatedDiv, display);
+                    }
                     getAllElements().set(i, simulatedDiv);
                 }
                 LinkHelper.applyLinkAnnotation(getAllElements().get(i), url);
