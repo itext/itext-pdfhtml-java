@@ -123,6 +123,26 @@ public class BorderTest extends ExtendedITextTest {
         runTest("border10");
     }
 
+    @Test
+    public void border3DTest01() throws IOException, InterruptedException {
+        runTest("border3DTest01");
+    }
+
+    @Test
+    public void border3DTest02() throws IOException, InterruptedException {
+        runTest("border3DTest02");
+    }
+
+    @Test
+    public void borderTransparencyTest01() throws IOException, InterruptedException {
+        runTest("borderTransparencyTest01");
+    }
+
+    @Test
+    public void borderTransparencyTest02() throws IOException, InterruptedException {
+        runTest("borderTransparencyTest02");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";

@@ -52,6 +52,7 @@ import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.Transform;
 
@@ -97,7 +98,7 @@ public class ATagWorker extends SpanTagWorker {
             }
             for (int i = 0; i < getAllElements().size(); i++) {
                 if (getAllElements().get(i) instanceof RunningElement) {
-                    continue; // TODO floating elements will in the same way be wrapped and therefore not trimmed correctly: test it
+                    continue;
                 }
                 if (getAllElements().get(i) instanceof IBlockElement) {
                     Div simulatedDiv = new Div();
@@ -106,6 +107,11 @@ public class ATagWorker extends SpanTagWorker {
                     if (cssTransform != null) {
                         getAllElements().get(i).deleteOwnProperty(Property.TRANSFORM);
                         simulatedDiv.setProperty(Property.TRANSFORM, cssTransform);
+                    }
+                    FloatPropertyValue floatPropVal = getAllElements().get(i).<FloatPropertyValue>getProperty(Property.FLOAT);
+                    if (floatPropVal != null) {
+                        getAllElements().get(i).deleteOwnProperty(Property.FLOAT);
+                        simulatedDiv.setProperty(Property.FLOAT, floatPropVal);
                     }
                     simulatedDiv.add((IBlockElement) getAllElements().get(i));
                     String display = childrenDisplayMap.remove(getAllElements().get(i));
