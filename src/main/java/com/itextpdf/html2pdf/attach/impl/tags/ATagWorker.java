@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.RunningElement;
 import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
@@ -95,6 +96,9 @@ public class ATagWorker extends SpanTagWorker {
                     }
             }
             for (int i = 0; i < getAllElements().size(); i++) {
+                if (getAllElements().get(i) instanceof RunningElement) {
+                    continue; // TODO floating elements will in the same way be wrapped and therefore not trimmed correctly: test it
+                }
                 if (getAllElements().get(i) instanceof IBlockElement) {
                     Div simulatedDiv = new Div();
                     simulatedDiv.getAccessibilityProperties().setRole(StandardRoles.LINK);

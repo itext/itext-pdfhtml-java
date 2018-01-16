@@ -61,6 +61,7 @@ import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
+import com.itextpdf.layout.renderer.ParagraphRenderer;
 import java.util.List;
 
 /**
@@ -158,7 +159,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
                 waitingElement.setProperty(Property.KEEP_WITH_NEXT, true);
             }
             super.addChild(waitingElement);
-            if (!(waitingElement instanceof RunningElement.RunningElementRenderer)) {
+            if (!isRunningElementsOnly(waitingElement)) {
                 // After we have added any child, we should not trim first pages because of break before element, even if the added child had zero height
                 shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
             }
@@ -362,6 +363,18 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
      */
     private boolean isPageRight(int pageNum) {
         return !isPageLeft(pageNum);
+    }
+
+    private static boolean isRunningElementsOnly(IRenderer waitingElement) {
+        boolean res;
+        if (res = waitingElement instanceof ParagraphRenderer && !waitingElement.getChildRenderers().isEmpty()) {
+            List<IRenderer> childRenderers = waitingElement.getChildRenderers();
+            int i = 0;
+            while (res && i < childRenderers.size()) {
+                res = childRenderers.get(i++) instanceof RunningElement.RunningElementRenderer;
+            }
+        }
+        return res;
     }
 
     private static class PageMarginBoxesDrawingHandler implements IEventHandler {

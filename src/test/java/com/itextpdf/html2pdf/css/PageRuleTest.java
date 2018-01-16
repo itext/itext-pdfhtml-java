@@ -297,6 +297,11 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
+    public void marginBoxRunningTest08() throws IOException, InterruptedException {
+        runTest("marginBoxRunningTest08");
+    }
+
+    @Test
     public void marginBoxRunningOverrideTest01() throws IOException, InterruptedException {
         runTest("marginBoxRunningOverrideTest01");
     }
@@ -382,7 +387,6 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore
     public void marginBoxRunningParent02() throws IOException, InterruptedException {
         runTest("marginBoxRunningParent02");
     }
@@ -408,14 +412,12 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore
     public void marginBoxRunningParent07() throws IOException, InterruptedException {
         runTest("marginBoxRunningParent07");
     }
 
     @Test
     public void marginBoxRunningParent08() throws IOException, InterruptedException {
-        // TODO try make running element not separate content on two lines. make running dummy inline block?
         runTest("marginBoxRunningParent08");
     }
 
