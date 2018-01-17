@@ -158,6 +158,12 @@ public class DefaultCssResolver implements ICssResolver {
 
         Map<String, String> elementStyles = cssDeclarationsToMap(nodeCssDeclarations);
 
+        if (CssConstants.CURRENTCOLOR.equals(elementStyles.get(CssConstants.COLOR))) {
+            // css-color-3/#currentcolor:
+            // If the ‘currentColor’ keyword is set on the ‘color’ property itself, it is treated as ‘color: inherit’.
+            elementStyles.put(CssConstants.COLOR, CssConstants.INHERIT);
+        }
+
         String parentFontSizeStr = null;
         if (element.parentNode() instanceof IStylesContainer) {
             IStylesContainer parentNode = (IStylesContainer) element.parentNode();

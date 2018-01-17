@@ -43,8 +43,11 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
@@ -68,21 +71,65 @@ public class BorderTest extends ExtendedITextTest {
 
     @Test
     public void border01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "border01.html"), new File(destinationFolder + "border01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "border01.pdf", sourceFolder + "cmp_border01.pdf", destinationFolder, "diff01_"));
+        runTest("border01");
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 4))
     public void border02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "border02.html"), new File(destinationFolder + "border02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "border02.pdf", sourceFolder + "cmp_border02.pdf", destinationFolder, "diff02_"));
+        runTest("border02");
     }
 
     @Test
     public void border03Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "border03.html"), new File(destinationFolder + "border03.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "border03.pdf", sourceFolder + "cmp_border03.pdf", destinationFolder, "diff03_"));
+        runTest("border03");
     }
 
+    @Test
+    public void border04Test() throws IOException, InterruptedException {
+        runTest("border04");
+    }
 
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+    public void border05Test() throws IOException, InterruptedException {
+        runTest("border05");
+    }
+
+    @Test
+    public void border06Test() throws IOException, InterruptedException {
+        runTest("border06");
+    }
+
+    @Test
+    public void border07Test() throws IOException, InterruptedException {
+        runTest("border07");
+    }
+
+    @Test
+    public void border08Test() throws IOException, InterruptedException {
+        runTest("border08");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+    public void border09Test() throws IOException, InterruptedException {
+        runTest("border09");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+    public void border10Test() throws IOException, InterruptedException {
+        runTest("border10");
+    }
+
+    private void runTest(String name) throws IOException, InterruptedException {
+        String htmlPath = sourceFolder + name + ".html";
+        String pdfPath = destinationFolder + name + ".pdf";
+        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+        String diffPrefix = "diff_" + name + "_";
+
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
+        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+    }
 }

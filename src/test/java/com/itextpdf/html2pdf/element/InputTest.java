@@ -116,6 +116,14 @@ public class InputTest extends ExtendedITextTest {
     }
 
     @Test
+    public void input07Test() throws IOException, InterruptedException {
+        // TODO DEVSIX-1777: if not explicitly specified, <input> border default value should be different from the one
+        // specified in user agent css. Also user agent css should not specify default color
+        // and should use 'initial' instead.
+        runTest("inputTest07");
+    }
+
+    @Test
     public void textareaRowsHeightTest() throws IOException, InterruptedException {
         runTest("textareaRowsHeight");
     }

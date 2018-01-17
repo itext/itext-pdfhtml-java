@@ -407,7 +407,7 @@ button {
 input {
     background-color: white;
     padding: 1px;
-    border: 2px inset initial;
+    border: 2px inset black;
     border-image: initial
 }
 input:not([type]) {
@@ -438,7 +438,7 @@ input[type="radio"] {
 }
 input[type="button"] {
     background-color: lightgrey;
-    border: 2px outset initial;
+    border: 2px outset black;
     border-image: initial;
     box-sizing: border-box;
     text-align: center;
@@ -446,7 +446,7 @@ input[type="button"] {
 }
 input[type="submit"] {
     background-color: lightgrey;
-    border: 2px outset initial;
+    border: 2px outset black;
     border-image: initial;
     box-sizing: border-box;
     text-align: center;
@@ -454,7 +454,7 @@ input[type="submit"] {
 }
 button {
     background-color: lightgrey;
-    border: 2px outset initial;
+    border: 2px outset black;
     border-image: initial;
     box-sizing: border-box;
     text-align: center;

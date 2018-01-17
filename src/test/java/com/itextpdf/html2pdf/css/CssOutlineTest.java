@@ -71,28 +71,28 @@ public class CssOutlineTest extends ExtendedITextTest {
     }
 
     @Test
-    public void CssOutlineTest01() throws IOException, InterruptedException {
+    public void cssOutlineTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "cssOutline01.html"), new File(destinationFolder + "cssOutline01.pdf"));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssOutline01.html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssOutline01.pdf", sourceFolder + "cmp_cssOutline01.pdf", destinationFolder, "diff01_"));
     }
 
     @Test
-    public void CssOutlineTest02() throws IOException, InterruptedException {
+    public void cssOutlineTest02() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "cssOutline02.html"), new File(destinationFolder + "cssOutline02.pdf"));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssOutline02.html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssOutline02.pdf", sourceFolder + "cmp_cssOutline02.pdf", destinationFolder, "diff02_"));
     }
 
     @Test
-    public void CssOutlineTest03() throws IOException, InterruptedException {
+    public void cssOutlineTest03() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "cssOutline03.html"), new File(destinationFolder + "cssOutline03.pdf"));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssOutline03.html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssOutline03.pdf", sourceFolder + "cmp_cssOutline03.pdf", destinationFolder, "diff03_"));
     }
 
     @Test
-    public void CssOutlineTest04() throws IOException, InterruptedException {
+    public void cssOutlineTest04() throws IOException, InterruptedException {
         PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "cssOutline04.pdf"));
         outDoc.setTagged();
         try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "cssOutline04.html")) {
@@ -103,7 +103,7 @@ public class CssOutlineTest extends ExtendedITextTest {
     }
 
     @Test
-    public void CssOutlineTest05() throws IOException, InterruptedException {
+    public void cssOutlineTest05() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "cssOutline05.html"), new File(destinationFolder + "cssOutline05.pdf"));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssOutline05.html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssOutline05.pdf", sourceFolder + "cmp_cssOutline05.pdf", destinationFolder, "diff05_"));

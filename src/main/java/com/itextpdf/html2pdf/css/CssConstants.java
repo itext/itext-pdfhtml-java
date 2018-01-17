@@ -529,6 +529,9 @@ public class CssConstants {
     /** The Constant CROSS. */
     public static final String CROSS = "cross";
 
+    /** The Constant CURRENTCOLOR. */
+    public static final String CURRENTCOLOR = "currentcolor";
+
     /** The Constant DASHED. */
     public static final String DASHED = "dashed";
 

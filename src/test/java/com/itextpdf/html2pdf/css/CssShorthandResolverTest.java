@@ -278,7 +278,11 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-top-style: groove",
                 "border-right-style: groove",
                 "border-bottom-style: groove",
-                "border-left-style: groove"
+                "border-left-style: groove",
+                "border-bottom-color: initial",
+                "border-left-color: initial",
+                "border-right-color: initial",
+                "border-top-color: initial"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
@@ -322,7 +326,11 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-top-style: dashed",
                 "border-right-style: dashed",
                 "border-bottom-style: dashed",
-                "border-left-style: dashed"
+                "border-left-style: dashed",
+                "border-bottom-color: initial",
+                "border-left-color: initial",
+                "border-right-color: initial",
+                "border-top-color: initial"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);
@@ -366,7 +374,11 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
                 "border-top-style: dashed",
                 "border-right-style: dashed",
                 "border-bottom-style: dashed",
-                "border-left-style: dashed"
+                "border-left-style: dashed",
+                "border-bottom-color: initial",
+                "border-left-color: initial",
+                "border-right-color: initial",
+                "border-top-color: initial"
         ));
 
         IShorthandResolver resolver = ShorthandResolverFactory.getShorthandResolver(CssConstants.BORDER);

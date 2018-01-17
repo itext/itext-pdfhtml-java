@@ -252,7 +252,11 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "text-indent: 0",
                 "display: table",
                 "border-spacing: 2px",
-                "font-family: times-roman");
+                "font-family: times-roman",
+                "border-bottom-color: currentcolor",
+                "border-left-color: currentcolor",
+                "border-right-color: currentcolor",
+                "border-top-color: currentcolor");
     }
 
     @Test

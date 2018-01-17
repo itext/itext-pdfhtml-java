@@ -331,7 +331,7 @@ input, textarea, select, button {
 input {
     background-color: white;
     padding: 1px;
-    border: 2px inset initial;
+    border: 2px inset black;
     border-image: initial;
 }
 
@@ -347,7 +347,7 @@ input[type="radio"] {
 
 input[type="button"], input[type="submit"], button {
     background-color: lightgrey;
-    border: 2px outset initial;
+    border: 2px outset black;
     border-image: initial;
     box-sizing: border-box;
     text-align: center;
@@ -411,52 +411,52 @@ CAPTION         { display: table-caption }
         text-align: right;
         vertical-align: middle;
     }
-    
+
     @top-left {
         text-align: left;
         vertical-align: middle;
     }
-    
+
     @top-center {
         text-align: center;
         vertical-align: middle;
     }
-    
+
     @top-right {
         text-align: right;
         vertical-align: middle;
     }
-    
+
     @top-right-corner {
         text-align: left;
         vertical-align: middle;
     }
-    
+
     @left-top {
         text-align: center;
         vertical-align: top;
     }
-    
+
     @left-middle {
         text-align: center;
         vertical-align: middle;
     }
-    
+
     @left-bottom {
         text-align: center;
         vertical-align: bottom;
     }
-    
+
     @right-top {
         text-align: center;
         vertical-align: top;
     }
-    
+
     @right-middle {
         text-align: center;
         vertical-align: middle;
     }
-    
+
     @right-bottom {
         text-align: center;
         vertical-align: bottom;
@@ -466,22 +466,22 @@ CAPTION         { display: table-caption }
         text-align: right;
         vertical-align: middle;
     }
-    
+
     @bottom-left {
         text-align: left;
         vertical-align: middle;
     }
-    
+
     @bottom-center {
         text-align: center;
         vertical-align: middle;
     }
-    
+
     @bottom-right {
         text-align: right;
         vertical-align: middle;
     }
-    
+
     @bottom-right-corner {
         text-align: left;
         vertical-align: middle;
