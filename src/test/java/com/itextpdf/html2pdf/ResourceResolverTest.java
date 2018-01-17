@@ -49,6 +49,7 @@ import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -116,6 +117,60 @@ public class ResourceResolverTest extends ExtendedITextTest {
             HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri("https://en.wikipedia.org/wiki/Welsh_Corgi"));
         }
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff11_"));
+    }
+
+    @Test
+    @Ignore("DEVSIX-1668")
+    public void resourceResolverTest12() throws IOException, InterruptedException {
+        String baseUri = sourceFolder + "path with spaces";
+
+        String outPdf = destinationFolder + "resourceResolverTest12.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest12.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest12.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff12_"));
+    }
+
+    @Test
+    public void resourceResolverTest13() throws IOException, InterruptedException {
+        String baseUri = sourceFolder;
+
+        String outPdf = destinationFolder + "resourceResolverTest13.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest13.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest13.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff13_"));
+    }
+
+    @Test
+    @Ignore("DEVSIX-1668")
+    public void resourceResolverTest14() throws IOException, InterruptedException {
+        String baseUri = sourceFolder + "path%20with%20spaces";
+
+        String outPdf = destinationFolder + "resourceResolverTest14.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest14.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest12.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff14_"));
+    }
+
+    @Test
+    public void resourceResolverTest15() throws IOException, InterruptedException {
+        String baseUri = sourceFolder;
+
+        String outPdf = destinationFolder + "resourceResolverTest15.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest15.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest15.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff15_"));
     }
 
     // TODO test with absolute http links for resources?

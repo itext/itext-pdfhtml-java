@@ -69,7 +69,10 @@ public class CssRuleSet extends CssStatement {
     private List<CssDeclaration> importantDeclarations;
 
     /**
-     * Creates a new {@link CssRuleSet}.
+     * Creates a new {@link CssRuleSet} from selector and raw list of declarations.
+     * The declarations are split into normal and important under the hood.
+     * To construct the {@link CssRuleSet} instance from normal and important declarations, see
+     * {@link #CssRuleSet(ICssSelector, List, List)}
      *
      * @param selector the CSS selector
      * @param declarations the CSS declarations
@@ -78,7 +81,13 @@ public class CssRuleSet extends CssStatement {
         this.selector = selector;
         this.normalDeclarations = new ArrayList<>();
         this.importantDeclarations = new ArrayList<>();
-        splitDeclarationsIntoNormalAndImportant(declarations);
+        splitDeclarationsIntoNormalAndImportant(declarations, normalDeclarations, importantDeclarations);
+    }
+
+    public CssRuleSet(ICssSelector selector, List<CssDeclaration> normalDeclarations, List<CssDeclaration> importantDeclarations) {
+        this.selector = selector;
+        this.normalDeclarations = normalDeclarations;
+        this.importantDeclarations = importantDeclarations;
     }
 
     /* (non-Javadoc)
@@ -151,7 +160,7 @@ public class CssRuleSet extends CssStatement {
      *
      * @param declarations the declarations
      */
-    private void splitDeclarationsIntoNormalAndImportant(List<CssDeclaration> declarations) {
+    private static void splitDeclarationsIntoNormalAndImportant(List<CssDeclaration> declarations, List<CssDeclaration> normalDeclarations, List<CssDeclaration> importantDeclarations) {
         for (CssDeclaration declaration : declarations) {
             int exclIndex = declaration.getExpression().indexOf('!');
             if (exclIndex > 0 && importantMatcher.matcher(declaration.getExpression()).matches()) {

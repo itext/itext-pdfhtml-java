@@ -46,14 +46,13 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class BorderRadiusTest extends ExtendedITextTest {
@@ -102,4 +101,45 @@ public class BorderRadiusTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest06.pdf", sourceFolder + "cmp_borderRadiusTest06.pdf", destinationFolder, "diff06_"));
     }
 
+    @Test
+    public void borderRadius07Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest07.html"), new File(destinationFolder + "borderRadiusTest07.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest07.pdf", sourceFolder + "cmp_borderRadiusTest07.pdf", destinationFolder, "diff07_"));
+    }
+
+    @Test
+    public void borderRadius08Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest08.html"), new File(destinationFolder + "borderRadiusTest08.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest08.pdf", sourceFolder + "cmp_borderRadiusTest08.pdf", destinationFolder, "diff08_"));
+    }
+
+    @Test
+    public void borderRadius09Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest09.html"), new File(destinationFolder + "borderRadiusTest09.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest09.pdf", sourceFolder + "cmp_borderRadiusTest09.pdf", destinationFolder, "diff09_"));
+    }
+
+    @Test
+    public void borderRadius10Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest10.html"), new File(destinationFolder + "borderRadiusTest10.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest10.pdf", sourceFolder + "cmp_borderRadiusTest10.pdf", destinationFolder, "diff10_"));
+    }
+
+    @Test
+    public void borderRadius11Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest11.html"), new File(destinationFolder + "borderRadiusTest11.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest11.pdf", sourceFolder + "cmp_borderRadiusTest11.pdf", destinationFolder, "diff11_"));
+    }
+
+    @Test
+    public void borderRadius12Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest12.html"), new File(destinationFolder + "borderRadiusTest12.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest12.pdf", sourceFolder + "cmp_borderRadiusTest12.pdf", destinationFolder, "diff12_"));
+    }
+
+    @Test
+    public void borderRadius13Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest13.html"), new File(destinationFolder + "borderRadiusTest13.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest13.pdf", sourceFolder + "cmp_borderRadiusTest13.pdf", destinationFolder, "diff13_"));
+    }
 }

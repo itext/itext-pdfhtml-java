@@ -327,6 +327,26 @@ public class CssUtils {
     }
 
     /**
+     * Parses the border radius of specific corner.
+     *
+     * @param specificBorderRadius string that defines the border radius of specific corner.
+     * @param emValue the em value
+     * @param remValue the root em value
+     * @return an array of {@link UnitValue UnitValues} that define horizontal and vertical border radius values
+     */
+    public static UnitValue[] parseSpecificCornerBorderRadius(String specificBorderRadius, final float emValue, final float remValue) {
+        if (null == specificBorderRadius) {
+            return null;
+        }
+        UnitValue[] cornerRadii = new UnitValue[2];
+        String[] props = specificBorderRadius.split("\\s+");
+        cornerRadii[0] = parseLengthValueToPt(props[0], emValue, remValue);
+        cornerRadii[1] = 2 == props.length ? parseLengthValueToPt(props[1], emValue, remValue) : cornerRadii[0];
+
+        return cornerRadii;
+    }
+
+    /**
      * Checks whether a string contains an allowed metric unit in HTML/CSS; px, in, cm, mm, pc or pt.
      *
      * @param value the string that needs to be checked.
