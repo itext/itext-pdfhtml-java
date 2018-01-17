@@ -42,7 +42,6 @@
  */
 package com.itextpdf.html2pdf.css.selector.item;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.parse.CssSelectorParser;
 import com.itextpdf.html2pdf.css.selector.CssSelector;
@@ -50,15 +49,9 @@ import com.itextpdf.html2pdf.css.selector.ICssSelector;
 import com.itextpdf.html2pdf.html.node.ICustomElementNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.INode;
-import com.itextpdf.io.util.MessageFormatUtil;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * {@link ICssSelectorItem} implementation for pseudo class selectors.
@@ -66,14 +59,13 @@ import java.util.Set;
 public abstract class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
     /**
-     * The pseudo class.
-     */
-    private String pseudoClass;
-
-    /**
      * The arguments.
      */
     protected String arguments;
+    /**
+     * The pseudo class.
+     */
+    private String pseudoClass;
 
     /**
      * Creates a new {@link CssPseudoClassSelectorItem} instance.

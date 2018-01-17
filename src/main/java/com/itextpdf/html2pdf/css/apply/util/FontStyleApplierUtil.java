@@ -208,7 +208,10 @@ public final class FontStyleApplierUtil {
         }
 
         String lineHeight = cssProps.get(CssConstants.LINE_HEIGHT);
-        if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight)) {
+        // specification does not give auto as a possible lineHeight value
+        // nevertheless some browsers compute it as normal so we apply the same behaviour.
+        // What's more, it's basically the same thing as if lineHeight is not set in the first place
+        if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight) && !CssConstants.AUTO.equals(lineHeight)) {
             if (CssUtils.isNumericValue(lineHeight)) {
                 Float mult = CssUtils.parseFloat(lineHeight);
                 if (mult != null) {
@@ -225,7 +228,6 @@ public final class FontStyleApplierUtil {
         } else {
             element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, 1.2f));
         }
-
     }
 
     /**

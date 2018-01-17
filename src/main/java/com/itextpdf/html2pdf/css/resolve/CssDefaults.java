@@ -90,6 +90,11 @@ public class CssDefaults {
         defaultValues.put(CssConstants.BORDER_IMAGE, CssConstants.NONE);
 
         defaultValues.put(CssConstants.BORDER_RADIUS, "0");
+        defaultValues.put(CssConstants.BORDER_BOTTOM_LEFT_RADIUS, "0");
+        defaultValues.put(CssConstants.BORDER_BOTTOM_RIGHT_RADIUS, "0");
+        defaultValues.put(CssConstants.BORDER_TOP_LEFT_RADIUS, "0");
+        defaultValues.put(CssConstants.BORDER_TOP_RIGHT_RADIUS, "0");
+
         defaultValues.put(CssConstants.BOX_SHADOW, CssConstants.NONE);
 
         defaultValues.put(CssConstants.FLOAT, CssConstants.NONE);

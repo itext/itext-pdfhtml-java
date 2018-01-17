@@ -44,13 +44,15 @@ package com.itextpdf.html2pdf.css;
 
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -68,11 +70,52 @@ public class CssInheritanceTest extends ExtendedITextTest {
         createDestinationFolder(destinationFolder);
     }
 
-    @Ignore("DEVSIX-1578")
+    //em value inherited
     @Test
     public void cssInheritanceTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "cssInheritance01.html"), new File(destinationFolder + "cssInheritance01.pdf"));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssInheritance01.html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssInheritance01.pdf", sourceFolder + "cmp_cssInheritance01.pdf", destinationFolder, "diff01_"));
+    }
+
+    //ex value inherited
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN)})
+    @Test
+    public void cssInheritanceTest02() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "cssInheritance02.html"), new File(destinationFolder + "cssInheritance02.pdf"));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssInheritance02.html").getPath() + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssInheritance02.pdf", sourceFolder + "cmp_cssInheritance02.pdf", destinationFolder, "diff02_"));
+    }
+
+    //rem value inherited, shorthand
+    @Test
+    public void cssInheritanceTest03() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "cssInheritance03.html"), new File(destinationFolder + "cssInheritance03.pdf"));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssInheritance03.html").getPath() + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssInheritance03.pdf", sourceFolder + "cmp_cssInheritance03.pdf", destinationFolder, "diff03_"));
+    }
+
+    //% value inherited, font-size dependent
+    @Test
+    public void cssInheritanceTest04() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "cssInheritance04.html"), new File(destinationFolder + "cssInheritance04.pdf"));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssInheritance04.html").getPath() + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssInheritance04.pdf", sourceFolder + "cmp_cssInheritance04.pdf", destinationFolder, "diff04_"));
+    }
+
+    //% value inherited, layout dependent
+    @Test
+    public void cssInheritanceTest05() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "cssInheritance05.html"), new File(destinationFolder + "cssInheritance05.pdf"));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssInheritance05.html").getPath() + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssInheritance05.pdf", sourceFolder + "cmp_cssInheritance05.pdf", destinationFolder, "diff05_"));
+    }
+
+    //smaller value inherited
+    @Test
+    public void cssInheritanceTest06() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "cssInheritance06.html"), new File(destinationFolder + "cssInheritance06.pdf"));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssInheritance06.html").getPath() + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssInheritance06.pdf", sourceFolder + "cmp_cssInheritance06.pdf", destinationFolder, "diff06_"));
     }
 }

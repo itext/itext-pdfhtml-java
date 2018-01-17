@@ -181,9 +181,6 @@ public class UriResolver {
 
     /**
      * Get the scheme component of this URI.
-     *
-     * @param uriString
-     * @return
      */
     private String getUriStringScheme(String uriString) {
         String result = null;
@@ -193,7 +190,7 @@ public class UriResolver {
         } else if (null != baseUrl) {
             try {
                 result = baseUrl.toURI().getScheme();
-            } catch (URISyntaxException e) {
+            } catch (URISyntaxException ignored) {
             }
         }
         return result;

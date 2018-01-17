@@ -97,6 +97,16 @@ public class TextPropertiesTest extends ExtendedITextTest {
     }
 
     @Test
+    public void lineHeightTest02() throws IOException, InterruptedException {
+        runTest("lineHeightTest02");
+    }
+
+    @Test
+    public void lineHeightTest03() throws IOException, InterruptedException {
+        runTest("lineHeightTest03");
+    }
+
+    @Test
     public void whiteSpaceTest01() throws IOException, InterruptedException {
         runTest("whiteSpaceTest01");
     }

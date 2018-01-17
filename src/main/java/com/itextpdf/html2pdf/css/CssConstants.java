@@ -96,6 +96,12 @@ public class CssConstants {
     /** The Constant BORDER_BOTTOM_COLOR. */
     public static final String BORDER_BOTTOM_COLOR = "border-bottom-color";
 
+    /** The Constant BORDER_BOTTOM_LEFT_RADIUS. */
+    public static final String BORDER_BOTTOM_LEFT_RADIUS= "border-bottom-left-radius";
+
+    /** The Constant BORDER_BOTTOM_RIGHT_RADIUS. */
+    public static final String BORDER_BOTTOM_RIGHT_RADIUS= "border-bottom-right-radius";
+
     /** The Constant BORDER_BOTTOM_STYLE. */
     public static final String BORDER_BOTTOM_STYLE = "border-bottom-style";
 
@@ -149,6 +155,12 @@ public class CssConstants {
 
     /** The Constant BORDER_TOP_COLOR. */
     public static final String BORDER_TOP_COLOR = "border-top-color";
+
+    /** The Constant BORDER_TOP_LEFT_RADIUS. */
+    public static final String BORDER_TOP_LEFT_RADIUS= "border-top-left-radius";
+
+    /** The Constant BORDER_TOP_RIGHT_RADIUS. */
+    public static final String BORDER_TOP_RIGHT_RADIUS= "border-top-right-radius";
 
     /** The Constant BORDER_TOP_STYLE. */
     public static final String BORDER_TOP_STYLE = "border-top-style";
