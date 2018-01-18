@@ -251,6 +251,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-top: 0",
                 "text-indent: 0",
                 "display: table",
+                "border-spacing: 2px",
                 "font-family: times-roman");
     }
 
@@ -262,6 +263,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "text-indent: 0",
                 "vertical-align: middle",
                 "display: table-row",
+                "border-spacing: 2px",
                 "font-family: times-roman");
     }
 

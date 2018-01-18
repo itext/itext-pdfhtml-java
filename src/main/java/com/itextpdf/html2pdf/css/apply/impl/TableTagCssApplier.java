@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.BorderCollapsePropertyValue;
@@ -55,7 +56,7 @@ import com.itextpdf.layout.property.Property;
  * {@link ICssApplier} implementation for table elements.
  */
 public class TableTagCssApplier extends BlockCssApplier {
-    
+
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.css.apply.impl.BlockCssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
      */
@@ -73,6 +74,17 @@ public class TableTagCssApplier extends BlockCssApplier {
             // BorderCollapsePropertyValue.COLLAPSE is default in iText layout
             if (null == borderCollapse || CssConstants.SEPARATE.equals(borderCollapse)) {
                 table.setBorderCollapse(BorderCollapsePropertyValue.SEPARATE);
+            }
+            String borderSpacing = stylesContainer.getStyles().get(CssConstants.BORDER_SPACING);
+            if (null != borderSpacing) {
+                String[] props = borderSpacing.split("\\s+");
+                if (1 == props.length) {
+                    table.setHorizontalBorderSpacing(CssUtils.parseAbsoluteLength(props[0]));
+                    table.setVerticalBorderSpacing(CssUtils.parseAbsoluteLength(props[0]));
+                } else if (2 == props.length) {
+                    table.setHorizontalBorderSpacing(CssUtils.parseAbsoluteLength(props[0]));
+                    table.setVerticalBorderSpacing(CssUtils.parseAbsoluteLength(props[1]));
+                }
             }
         }
     }

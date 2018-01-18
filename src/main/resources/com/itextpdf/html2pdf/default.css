@@ -101,6 +101,7 @@ table {
     margin-left: 0;
     margin-right: 0;
     text-indent: 0;
+    border-spacing: 2px;
 }
 caption {
     text-align: center;

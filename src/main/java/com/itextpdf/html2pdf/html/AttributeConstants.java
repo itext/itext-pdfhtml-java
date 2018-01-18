@@ -76,6 +76,9 @@ public final class AttributeConstants {
     /** The Constant CLASS. */
     public static final String CELLPADDING = "cellpadding";
 
+    /** The Constant CLASS. */
+    public static final String CELLSPACING = "cellspacing";
+
     /** The Constant COLOR. */
     public static final String COLOR = "color";
 
