@@ -54,10 +54,12 @@ import com.itextpdf.html2pdf.attach.impl.tags.PageMarginBoxWorker;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.impl.PageMarginBoxCssApplier;
+import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
@@ -472,6 +474,18 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
+    public void mediaAppliedToRunningElementsProperties() throws IOException, InterruptedException {
+        MediaDeviceDescription printMediaDevice = new MediaDeviceDescription("print");
+        ConverterProperties converterProperties = new ConverterProperties().setMediaDeviceDescription(printMediaDevice);
+        runTest("mediaAppliedToRunningElementsProperties", converterProperties);
+    }
+
+    @Test
+    public void mediaNotAppliedToRunningElementsProperties() throws IOException, InterruptedException {
+        runTest("mediaNotAppliedToRunningElementsProperties");
+    }
+
+    @Test
     public void marginBoxRunningNoImmediateFlush01() throws IOException, InterruptedException {
         String name = "marginBoxRunningNoImmediateFlush01";
         String htmlPath = sourceFolder + name + ".html";
@@ -591,6 +605,8 @@ public class PageRuleTest extends ExtendedITextTest {
         String pdfPath = destinationFolder + name + ".pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
         String diffPrefix = "diff_" + name + "_";
+
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
 
         if (converterProperties == null) {
             converterProperties = new ConverterProperties();
