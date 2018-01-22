@@ -60,10 +60,13 @@ import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -74,11 +77,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.xml.parsers.ParserConfigurationException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.xml.sax.SAXException;
 
 @Category(IntegrationTest.class)
 public class PageRuleTest extends ExtendedITextTest {
@@ -486,6 +490,50 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
+    public void marginBoxTaggedTest01() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        runTest("marginBoxTaggedTest01", null, true);
+    }
+
+    @Test
+    public void marginBoxTaggedTest02() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        runTest("marginBoxTaggedTest02", null, true);
+    }
+
+    @Test
+    public void marginBoxTaggedTest03() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        runTest("marginBoxTaggedTest03", new ConverterProperties().setTagWorkerFactory(new TaggedPageMarginBoxTagWorkerFactory()), true);
+    }
+
+    @Test
+    public void marginBoxTaggedTest04() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        runTest("marginBoxTaggedTest04", new ConverterProperties().setTagWorkerFactory(new TaggedPageMarginBoxTagWorkerFactory()), true);
+    }
+
+    private static class TaggedPageMarginBoxTagWorkerFactory extends DefaultTagWorkerFactory {
+        @Override
+        public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
+            if (tag.name().equals(PageMarginBoxContextNode.PAGE_MARGIN_BOX_TAG)) {
+                return new TaggedPageMarginBoxWorker(tag, context);
+            }
+            return super.getCustomTagWorker(tag, context);
+        }
+    }
+
+    private static class TaggedPageMarginBoxWorker extends PageMarginBoxWorker {
+        public TaggedPageMarginBoxWorker(IElementNode element, ProcessorContext context) {
+            super(element, context);
+        }
+
+        @Override
+        public void processEnd(IElementNode element, ProcessorContext context) {
+            super.processEnd(element, context);
+
+            if (getElementResult() instanceof IAccessibleElement) {
+                ((IAccessibleElement)getElementResult()).getAccessibilityProperties().setRole(StandardRoles.DIV);
+            }
+        }
+    }
+    @Test
     public void marginBoxRunningNoImmediateFlush01() throws IOException, InterruptedException {
         String name = "marginBoxRunningNoImmediateFlush01";
         String htmlPath = sourceFolder + name + ".html";
@@ -529,7 +577,8 @@ public class PageRuleTest extends ExtendedITextTest {
 
         int pagesNum = doc.getPdfDocument().getNumberOfPages();
         Assert.assertTrue(pagesNum > 1);
-        for (int i = pagesNum, k = 1; i > 0 ; --i) {
+        int k = 1;
+        for (int i = pagesNum; i > 0 ; --i) {
             doc.getPdfDocument().movePage(pagesNum, k++);
         }
         doc.getPdfDocument().close(); // closing PdfDocument directly, in order to avoid second call for document renderer closing
@@ -601,19 +650,42 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     private void runTest(String name, ConverterProperties converterProperties) throws IOException, InterruptedException {
+        try {
+            runTest(name, converterProperties, false);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+
+    private void runTest(String name, ConverterProperties converterProperties, boolean isTagged) throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
         String diffPrefix = "diff_" + name + "_";
+
+        File outFile = new File(pdfPath);
 
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
 
         if (converterProperties == null) {
             converterProperties = new ConverterProperties();
         }
+        if (converterProperties.getBaseUri() == null) {
+            converterProperties.setBaseUri(new File(htmlPath).getAbsolutePath());
+        }
 
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath), converterProperties);
-        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
+
+        if (isTagged) {
+            pdfDocument.setTagged();
+        }
+
+        HtmlConverter.convertToPdf(new FileInputStream(htmlPath), pdfDocument, converterProperties);
+        CompareTool compareTool = new CompareTool();
+        if (isTagged) {
+            compareTool.compareTagStructures(pdfPath, cmpPdfPath);
+        }
+        Assert.assertNull(compareTool.compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
     }
 
     private void compareResult(String name) throws InterruptedException, IOException {

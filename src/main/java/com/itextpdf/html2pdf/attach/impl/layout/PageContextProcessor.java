@@ -64,6 +64,8 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.canvas.CanvasArtifact;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.kernel.pdf.tagging.StandardRoles;
+import com.itextpdf.kernel.pdf.tagutils.TagTreePointer;
 import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Div;
@@ -71,20 +73,21 @@ import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.layout.LayoutArea;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
+import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.AreaBreakRenderer;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.itextpdf.layout.tagging.LayoutTaggingHelper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Context processor for specific types of pages: first, left, or right page.
@@ -121,9 +124,9 @@ class PageContextProcessor {
     /**
      * Instantiates a new page context processor.
      *
-     * @param properties the page context properties
-     * @param context the processor context
-     * @param defaultPageSize the default page size
+     * @param properties         the page context properties
+     * @param context            the processor context
+     * @param defaultPageSize    the default page size
      * @param defaultPageMargins the default page margins
      */
     PageContextProcessor(PageContextProperties properties, ProcessorContext context, PageSize defaultPageSize, float[] defaultPageMargins) {
@@ -135,7 +138,8 @@ class PageContextProcessor {
     /**
      * Re-initializes page context processor based on default current page size and page margins
      * and on properties from css page at-rules. Css properties priority is higher than default document values.
-     * @param defaultPageSize current default page size to be used if it is not defined in css
+     *
+     * @param defaultPageSize    current default page size to be used if it is not defined in css
      * @param defaultPageMargins current default page margins to be used if they are not defined in css
      * @return this {@link PageContextProcessor} instance
      */
@@ -192,8 +196,8 @@ class PageContextProcessor {
     /**
      * Finalizes page processing by drawing margins if necessary.
      *
-     * @param pageNum the page to process
-     * @param pdfDocument the {@link PdfDocument} to which content is written
+     * @param pageNum          the page to process
+     * @param pdfDocument      the {@link PdfDocument} to which content is written
      * @param documentRenderer the document renderer
      */
     void processPageEnd(int pageNum, PdfDocument pdfDocument, DocumentRenderer documentRenderer) {
@@ -223,12 +227,12 @@ class PageContextProcessor {
         }
         if (bleed != null) {
             Rectangle box = page.getMediaBox();
-            box.increaseHeight((float)bleed * 2);
-            box.setWidth(box.getWidth() + (float)bleed * 2);
+            box.increaseHeight((float) bleed * 2);
+            box.setWidth(box.getWidth() + (float) bleed * 2);
             page.setMediaBox(box).setBleedBox(box);
             Rectangle trimBox = page.getTrimBox();
-            trimBox.moveUp((float)bleed);
-            trimBox.moveRight((float)bleed);
+            trimBox.moveUp((float) bleed);
+            trimBox.moveRight((float) bleed);
             page.setTrimBox(trimBox);
         }
     }
@@ -331,9 +335,9 @@ class PageContextProcessor {
     /**
      * Draws a cross (used in the {@link #drawMarks(PdfPage)} method).
      *
-     * @param canvas the canvas to draw on
-     * @param x the x value
-     * @param y the y value
+     * @param canvas          the canvas to draw on
+     * @param x               the x value
+     * @param y               the y value
      * @param horizontalCross true if horizontal
      */
     private void drawCross(PdfCanvas canvas, float x, float y, boolean horizontalCross) {
@@ -364,9 +368,11 @@ class PageContextProcessor {
      */
     private void drawPageBackgroundAndBorders(PdfPage page) {
         Canvas canvas = new Canvas(new PdfCanvas(page), page.getDocument(), page.getBleedBox());
+        canvas.enableAutoTagging(page);
         canvas.add(pageBackgroundSimulation);
         canvas.close();
         canvas = new Canvas(new PdfCanvas(page), page.getDocument(), page.getTrimBox());
+        canvas.enableAutoTagging(page);
         canvas.add(pageBordersSimulation);
         canvas.close();
     }
@@ -374,8 +380,8 @@ class PageContextProcessor {
     /**
      * Draws margin boxes.
      *
-     * @param pageNumber the page
-     * @param pdfDocument the {@link PdfDocument} to which content is written
+     * @param pageNumber       the page
+     * @param pdfDocument      the {@link PdfDocument} to which content is written
      * @param documentRenderer the document renderer
      */
     private void drawMarginBoxes(int pageNumber, PdfDocument pdfDocument, DocumentRenderer documentRenderer) {
@@ -389,10 +395,30 @@ class PageContextProcessor {
             IRenderer renderer = curBoxElement.createRendererSubTree();
             removeAreaBreaks(renderer);
             renderer.setParent(documentRenderer);
+            boolean isTagged = pdfDocument.isTagged();
+            if (isTagged) {
+                LayoutTaggingHelper taggingHelper = renderer.<LayoutTaggingHelper>getProperty(Property.TAGGING_HELPER);
+                LayoutTaggingHelper.addTreeHints(taggingHelper, renderer);
+            }
             LayoutResult result = renderer.layout(new LayoutContext(new LayoutArea(pageNumber, marginBoxContentNode.getPageMarginBoxRectangle())));
             IRenderer rendererToDraw = result.getStatus() == LayoutResult.FULL ? renderer : result.getSplitRenderer();
             if (rendererToDraw != null) {
-                rendererToDraw.setParent(documentRenderer).draw(new DrawContext(page.getDocument(), new PdfCanvas(page)));
+                TagTreePointer tagPointer = null, backupPointer = null;
+                PdfPage backupPage = null;
+                if (isTagged) {
+                    tagPointer = pdfDocument.getTagStructureContext().getAutoTaggingPointer();
+                    backupPage = tagPointer.getCurrentPage();
+                    backupPointer = new TagTreePointer(tagPointer);
+                    tagPointer.moveToRoot();
+                    tagPointer.setPageForTagging(page);
+                }
+
+                rendererToDraw.setParent(documentRenderer).draw(new DrawContext(page.getDocument(), new PdfCanvas(page), isTagged));
+
+                if (isTagged) {
+                    tagPointer.setPageForTagging(backupPage);
+                    tagPointer.moveToPointer(backupPointer);
+                }
             } else {
                 // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
                 // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
@@ -429,8 +455,8 @@ class PageContextProcessor {
      * Parses the margins.
      *
      * @param styles a {@link Map} containing the styles
-     * @param em a measurement expressed in em
-     * @param rem a measurement expressed in rem (root em)
+     * @param em     a measurement expressed in em
+     * @param rem    a measurement expressed in rem (root em)
      */
     private void parseMargins(Map<String, String> styles, float em, float rem, float[] defaultMarginValues) {
         PageSize pageSize = getPageSize();
@@ -442,13 +468,13 @@ class PageContextProcessor {
      * Parses the paddings.
      *
      * @param styles a {@link Map} containing the styles
-     * @param em a measurement expressed in em
-     * @param rem a measurement expressed in rem (root em)
+     * @param em     a measurement expressed in em
+     * @param rem    a measurement expressed in rem (root em)
      */
     private void parsePaddings(Map<String, String> styles, float em, float rem) {
         float defaultPadding = 0;
         PageSize pageSize = getPageSize();
-        paddings = PageMarginBoxCssApplier.parseBoxProps(styles, em, rem, new float[] {defaultPadding, defaultPadding, defaultPadding, defaultPadding},
+        paddings = PageMarginBoxCssApplier.parseBoxProps(styles, em, rem, new float[]{defaultPadding, defaultPadding, defaultPadding, defaultPadding},
                 pageSize, CssConstants.PADDING_TOP, CssConstants.PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT);
     }
 
@@ -456,8 +482,8 @@ class PageContextProcessor {
      * Parses the borders.
      *
      * @param styles a {@link Map} containing the styles
-     * @param em a measurement expressed in em
-     * @param rem a measurement expressed in rem (root em)
+     * @param em     a measurement expressed in em
+     * @param rem    a measurement expressed in rem (root em)
      */
     private void parseBorders(Map<String, String> styles, float em, float rem) {
         borders = BorderStyleApplierUtil.getBordersArray(styles, em, rem);
@@ -466,12 +492,13 @@ class PageContextProcessor {
     /**
      * Creates the page simulation elements.
      *
-     * @param styles a {@link Map} containing the styles
+     * @param styles  a {@link Map} containing the styles
      * @param context the processor context
      */
     private void createPageSimulationElements(Map<String, String> styles, ProcessorContext context) {
         pageBackgroundSimulation = new Div().setFillAvailableArea(true);
         BackgroundApplierUtil.applyBackground(styles, context, pageBackgroundSimulation);
+        pageBackgroundSimulation.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
 
         pageBordersSimulation = new Div().setFillAvailableArea(true);
         pageBordersSimulation.setMargins(margins[0], margins[1], margins[2], margins[3]);
@@ -479,6 +506,7 @@ class PageContextProcessor {
         pageBordersSimulation.setBorderRight(borders[1]);
         pageBordersSimulation.setBorderBottom(borders[2]);
         pageBordersSimulation.setBorderLeft(borders[3]);
+        pageBordersSimulation.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
     }
 
     /**
@@ -497,8 +525,8 @@ class PageContextProcessor {
             int marginBoxInd = mapMarginBoxNameToIndex(marginBoxContentNode.getMarginBoxName());
             marginBoxContentNode.setPageMarginBoxRectangle(marginBoxRectangles[marginBoxInd]);
             marginBoxContentNode.setContainingBlockForMarginBox(calculateContainingBlockSizesForMarginBox(marginBoxInd, marginBoxRectangles[marginBoxInd]));
-		}
-	}
+        }
+    }
 
     private IElement processMarginBoxContent(PageMarginBoxContextNode marginBoxContentNode, int pageNumber, ProcessorContext context) {
         IElementNode dummyMarginBoxNode = new PageMarginBoxDummyElement();
@@ -554,7 +582,7 @@ class PageContextProcessor {
         Rectangle withoutMargins = pageSize.clone().applyMargins(topMargin, rightMargin, bottomMargin, leftMargin, false);
         float topBottomMarginWidth = withoutMargins.getWidth() / 3;
         float leftRightMarginHeight = withoutMargins.getHeight() / 3;
-        Rectangle[] hardcodedBoxRectangles = new Rectangle[] {
+        Rectangle[] hardcodedBoxRectangles = new Rectangle[]{
                 new Rectangle(0, withoutMargins.getTop(), leftMargin, topMargin),
                 new Rectangle(rightMargin, withoutMargins.getTop(), topBottomMarginWidth, topMargin),
                 new Rectangle(rightMargin + topBottomMarginWidth, withoutMargins.getTop(), topBottomMarginWidth, topMargin),
@@ -582,7 +610,7 @@ class PageContextProcessor {
     /**
      * Calculate containing block sizes for margin box.
      *
-     * @param marginBoxInd the margin box index
+     * @param marginBoxInd           the margin box index
      * @param pageMarginBoxRectangle a {@link Rectangle} defining dimensions of the page margin box corresponding to the given index
      * @return the corresponding rectangle
      */
@@ -648,6 +676,7 @@ class PageContextProcessor {
 
     /**
      * Gets rid of all page breaks that might have occurred inside page margin boxes because of the running elements.
+     *
      * @param renderer root renderer of renderers subtree
      */
     private static void removeAreaBreaks(IRenderer renderer) {
