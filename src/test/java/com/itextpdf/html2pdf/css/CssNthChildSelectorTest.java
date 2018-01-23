@@ -40,7 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.css.parse;
+package com.itextpdf.html2pdf.css;
 
 
 import com.itextpdf.html2pdf.HtmlConverter;
@@ -60,7 +60,7 @@ import org.junit.experimental.categories.Category;
 @Category(IntegrationTest.class)
 public class CssNthChildSelectorTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssNthChildSelectorTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/CssNthChildSelectorTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/CssNthChildSelectorTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -69,41 +69,49 @@ public class CssNthChildSelectorTest extends ExtendedITextTest {
 
     @Test
     public void nthChildEvenTest() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourseNthChildEvenTest.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourseNthChildEvenTest.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourseNthChildEvenTest.html"), new File(outPdf));
+        String outPdf = destinationFolder + "resourceNthChildEvenTest.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceNthChildEvenTest.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceNthChildEvenTest.html"), new File(outPdf));
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffNthChildEven_"));
     }
 
     @Test
     public void nthChildExpressionTest() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourseNthChildExpressionTest.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourseNthChildExpressionTest.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourseNthChildExpressionTest.html"), new File(outPdf));
+        String outPdf = destinationFolder + "resourceNthChildExpressionTest.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceNthChildExpressionTest.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceNthChildExpressionTest.html"), new File(outPdf));
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffNthChildExpression_"));
     }
 
     @Test
+    public void nthOfTypeNegativeExpressionTest() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceNthOfTypeNegativeExpressionTest.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceNthOfTypeNegativeExpressionTest.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceNthOfTypeNegativeExpressionTest.html"), new File(outPdf));
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffNthOfTypeNegativeExpression_"));
+    }
+
+    @Test
     public void nthChildIntegerTest() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourseNthChildIntegerTest.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourseNthChildIntegerTest.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourseNthChildIntegerTest.html"), new File(outPdf));
+        String outPdf = destinationFolder + "resourceNthChildIntegerTest.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceNthChildIntegerTest.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceNthChildIntegerTest.html"), new File(outPdf));
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffNthChildInteger_"));
     }
 
     @Test
     public void firstChildTest() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourseFirstChildTest.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourseFirstChildTest.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourseFirstChildTest.html"), new File(outPdf));
+        String outPdf = destinationFolder + "resourceFirstChildTest.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceFirstChildTest.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceFirstChildTest.html"), new File(outPdf));
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffFirstChild_"));
     }
 
     @Test
     public void lastChildTest() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourseLastChildTest.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourseLastChildTest.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourseLastChildTest.html"), new File(outPdf));
+        String outPdf = destinationFolder + "resourceLastChildTest.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceLastChildTest.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceLastChildTest.html"), new File(outPdf));
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffLastChild_"));
     }
 }

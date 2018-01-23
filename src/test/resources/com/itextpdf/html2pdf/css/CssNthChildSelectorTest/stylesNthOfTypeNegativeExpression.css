@@ -1,0 +1,21 @@
+p:nth-child(-3n + 1){
+	color: red;
+}
+
+p:nth-child(-3n - 1){
+	color: blue;
+}
+
+p:nth-child(-3n){
+	background: maroon;
+}
+
+
+p:nth-child(-n+5){
+	background: violet;
+}
+
+span {
+	font-size: 24px;
+	text-align: center; 
+}
