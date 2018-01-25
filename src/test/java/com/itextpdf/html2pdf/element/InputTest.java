@@ -44,12 +44,15 @@ package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -96,6 +99,23 @@ public class InputTest extends ExtendedITextTest {
         runTest("inputTest05");
     }
 
+    @Test
+    @LogMessages(ignore = true, messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, count = 4),
+    })
+    public void input06Test() throws IOException, InterruptedException {
+        String htmlPath = sourceFolder + "inputTest06.html";
+        String outPdfPath = destinationFolder + "inputTest06.pdf";
+        String cmpPdfPath = sourceFolder + "cmp_" + "inputTest06.pdf";
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+
+        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outPdfPath));
+        pdfDoc.setDefaultPageSize(PageSize.A8);
+        HtmlConverter.convertToPdf(new FileInputStream(htmlPath), pdfDoc, new ConverterProperties().setCreateAcroForm(true));
+        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, "diff_inputTest06_"));
+    }
+
+    @Test
     public void textareaRowsHeightTest() throws IOException, InterruptedException {
         runTest("textareaRowsHeight");
     }
