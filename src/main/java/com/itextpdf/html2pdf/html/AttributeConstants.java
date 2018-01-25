@@ -192,6 +192,9 @@ public final class AttributeConstants {
     /** The Constant CHECKBOX. */
     public static final String CHECKBOX = "checkbox";
 
+    /** The Constant CHECKED. */
+    public static final String CHECKED = "checked";
+
     /** The Constant EMAIL. */
     public static final String EMAIL = "email";
 

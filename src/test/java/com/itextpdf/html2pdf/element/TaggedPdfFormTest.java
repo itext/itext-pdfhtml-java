@@ -52,7 +52,6 @@ public class TaggedPdfFormTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("InputTagWorker ERROR Input type checkbox is not supported")
     public void simpleCheckboxTagged() throws IOException, InterruptedException {
         runTest("simpleCheckboxTagged");
     }

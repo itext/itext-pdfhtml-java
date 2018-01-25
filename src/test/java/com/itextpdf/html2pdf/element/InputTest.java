@@ -42,8 +42,12 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -53,6 +57,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
@@ -84,6 +89,11 @@ public class InputTest extends ExtendedITextTest {
     @Test
     public void input04Test() throws IOException, InterruptedException {
         runTest("inputTest04");
+    }
+
+    @Test
+    public void input05Test() throws IOException, InterruptedException {
+        runTest("inputTest05");
     }
 
     public void textareaRowsHeightTest() throws IOException, InterruptedException {

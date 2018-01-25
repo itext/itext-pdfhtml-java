@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.CheckBox;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
@@ -92,6 +93,12 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
         } else if (AttributeConstants.SUBMIT.equals(inputType) || AttributeConstants.BUTTON.equals(inputType)) {
             formElement = new Button(name);
             formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
+        } else if (AttributeConstants.CHECKBOX.equals(inputType)) {
+            formElement = new CheckBox(name);
+            String checked = element.getAttribute(AttributeConstants.CHECKED);
+            if (null != checked) {
+                formElement.setProperty(Html2PdfProperty.FORM_FIELD_CHECKED, checked); // has attribute == is checked
+            }
         } else {
             Logger logger = LoggerFactory.getLogger(InputTagWorker.class);
             logger.error(MessageFormatUtil.format(LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));

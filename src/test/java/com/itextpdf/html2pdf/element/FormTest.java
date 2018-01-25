@@ -142,6 +142,11 @@ public class FormTest extends ExtendedITextTest {
         runTest("textareaDisplay");
     }
 
+    @Test
+    public void checkbox1Test() throws IOException, InterruptedException {
+        runTest("checkbox1");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String outPdfPath = destinationFolder + name + ".pdf";

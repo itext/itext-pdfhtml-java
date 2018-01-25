@@ -354,6 +354,17 @@ input[type="button"], input[type="submit"], button {
     padding: 1px 6px;
 }
 
+input[type="checkbox"] {
+    margin: 3px 3px 3px 4px;
+    box-sizing: border-box;
+}
+
+input[type="radio"], input[type="checkbox"] {
+    margin: 3px 0.5ex;
+    padding: initial;
+    border: initial;
+}
+
 textarea {
     font-family: Courier;
     background-color: white;
