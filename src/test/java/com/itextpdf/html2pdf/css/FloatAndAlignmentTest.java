@@ -76,7 +76,6 @@ public class FloatAndAlignmentTest extends ExtendedITextTest {
         * now it points not only incorrect alignment vs float positioning, but also incorrect float area
         */
         //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
-        //TODO: update after DEVSIX-1437 fix (Fix edge cases for floats splitting)
         runTest("blocksInsideParagraph", "diffInside01_");
     }
 

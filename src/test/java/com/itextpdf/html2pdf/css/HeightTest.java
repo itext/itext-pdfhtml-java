@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -72,8 +73,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest01";
         String diffPrefix = "diff01_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -81,8 +81,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest02";
         String diffPrefix = "diff02_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -90,8 +89,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest03";
         String diffPrefix = "diff03_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -99,8 +97,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest04";
         String diffPrefix = "diff04_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -108,8 +105,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest05";
         String diffPrefix = "diff05_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -118,8 +114,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest06";
         String diffPrefix = "diff06_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -127,8 +122,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest07";
         String diffPrefix = "diff07_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -136,8 +130,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest08";
         String diffPrefix = "diff08_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -145,8 +138,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest09";
         String diffPrefix = "diff09_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -154,8 +146,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest10";
         String diffPrefix = "diff10_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -163,8 +154,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest11";
         String diffPrefix = "diff11_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -172,17 +162,15 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest12";
         String diffPrefix = "diff12_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
-    
+
     @Test
     public void heightTest13() throws IOException, InterruptedException{
         String testName = "heightTest13";
         String diffPrefix = "diff13_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -190,8 +178,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest14";
         String diffPrefix = "diff14_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -199,8 +186,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest15";
         String diffPrefix = "diff15_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -208,8 +194,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest16";
         String diffPrefix = "diff16_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -217,8 +202,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightTest17";
         String diffPrefix = "diff17_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -226,8 +210,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightWithCollapsingMarginsTest01";
         String diffPrefix = "diffMargins01_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -235,8 +218,7 @@ public class HeightTest extends ExtendedITextTest {
         String testName = "heightWithCollapsingMarginsTest03";
         String diffPrefix = "diffMargins03_";
 
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        runTest(testName, diffPrefix);
     }
 
     @Test
@@ -246,7 +228,12 @@ public class HeightTest extends ExtendedITextTest {
 
         // second paragraph should not be drawn in pdf, as it doesn't fit with it's margins
 
+        runTest(testName, diffPrefix);
+    }
+
+    public void runTest(String testName, String diffPrefix) throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + testName + ".html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
     }
 }
