@@ -121,7 +121,7 @@ public class CheckBoxRenderer extends AbstractOneLineTextFieldRenderer {
      * @return the default value of the checkbox field
      */
     public boolean isBoxChecked() {
-        return null != getProperty(Html2PdfProperty.FORM_FIELD_CHECKED);
+        return null != this.<Object>getProperty(Html2PdfProperty.FORM_FIELD_CHECKED);
     }
 
 
