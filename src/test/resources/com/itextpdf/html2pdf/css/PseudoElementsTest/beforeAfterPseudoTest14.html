@@ -1,0 +1,18 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <style type="text/css">
+            span::before
+            {
+                content: 'page ' counter(page);
+            }
+            span::after
+            {
+                content: ' of 'counter(pages);
+            }
+        </style>
+    </head>
+    <body>
+        <span style="color: red;"></span>
+    </body>
+</html>

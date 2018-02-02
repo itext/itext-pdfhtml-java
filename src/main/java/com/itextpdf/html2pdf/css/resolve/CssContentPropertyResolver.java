@@ -109,10 +109,10 @@ class CssContentPropertyResolver {
                     String listStyleType = params.length > 2 ? params[2].trim() : null;
                     CssCounterManager counterManager = context.getCounterManager();
                     INode scope = contentContainer;
-                    if ("page".equals(counterName)) {
-                        result.add(new PageCountElementNode(false));
-                    } else if ("pages".equals(counterName)) {
-                        result.add(new PageCountElementNode(true));
+                    if (CssConstants.PAGE.equals(counterName)) {
+                        result.add(new PageCountElementNode(false, contentContainer));
+                    } else if (CssConstants.PAGES.equals(counterName)) {
+                        result.add(new PageCountElementNode(true, contentContainer));
                     } else {
                         String resolvedCounter = counterManager.resolveCounters(counterName, counterSeparationStr, listStyleType, scope);
                         if (resolvedCounter == null) {
@@ -132,10 +132,10 @@ class CssContentPropertyResolver {
                     String listStyleType = params.length > 1 ? params[1].trim() : null;
                     CssCounterManager counterManager = context.getCounterManager();
                     INode scope = contentContainer;
-                    if ("page".equals(counterName)) {
-                        result.add(new PageCountElementNode(false));
-                    } else if ("pages".equals(counterName)) {
-                        result.add(new PageCountElementNode(true));
+                    if (CssConstants.PAGE.equals(counterName)) {
+                        result.add(new PageCountElementNode(false, contentContainer));
+                    } else if (CssConstants.PAGES.equals(counterName)) {
+                        result.add(new PageCountElementNode(true, contentContainer));
                     } else {
                         String resolvedCounter = counterManager.resolveCounter(counterName, listStyleType, scope);
                         if (resolvedCounter == null) {

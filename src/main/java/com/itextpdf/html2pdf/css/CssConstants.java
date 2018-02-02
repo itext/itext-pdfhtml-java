@@ -706,6 +706,12 @@ public class CssConstants {
     /** The Constant PADDING_BOX. */
     public static final String PADDING_BOX = "padding-box";
 
+    /** The Constant PAGE. */
+    public static final String PAGE = "page";
+
+    /** The Constant PAGES. */
+    public static final String PAGES = "pages";
+
     /** The Constant PORTRAIT. */
     public static final String PORTRAIT = "portrait";
 
