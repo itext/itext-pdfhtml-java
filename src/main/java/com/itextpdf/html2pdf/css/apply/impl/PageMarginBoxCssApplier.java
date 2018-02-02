@@ -19,9 +19,10 @@ import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.property.OverflowPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 /**
  * {@link ICssApplier} implementation for page margin box containers.
@@ -34,7 +35,7 @@ public class PageMarginBoxCssApplier implements ICssApplier {
      * @param styles a {@link Map} containing the styles
      * @param em a measurement expressed in em
      * @param rem a measurement expressed in rem (root em)
-     * @param defaultValue the default value
+     * @param defaultValues the default values
      * @param containingBlock the containing block
      * @param topPropName the top prop name
      * @param rightPropName the right prop name
