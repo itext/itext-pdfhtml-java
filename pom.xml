@@ -19,7 +19,7 @@
 
   <properties>
     <itext.version>${project.parent.version}</itext.version>
-    <javadoc.version>2.10.4</javadoc.version>
+    <javadoc.version>3.0.0</javadoc.version>
   </properties>
 
   <repositories>
