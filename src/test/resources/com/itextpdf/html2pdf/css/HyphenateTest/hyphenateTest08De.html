@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<style>
+div {
+  font: 14px;
+  font-family: Times New Roman;
+}
+div.layout {
+    margin: auto;
+}
+div.none {
+   hyphens: none;
+   margin-right: 180px;
+   margin-left: 20px;
+   float: left;
+}
+div.manual {
+   hyphens: manual;
+   margin-right: 50px;
+   margin-left: 20px;
+   margin-bottom: 20px;
+   float: left;
+}
+div.auto {
+   hyphens: auto;
+   margin-right: 50px;
+   margin-left: 20px;
+   margin-bottom: 20px;
+   float: left;
+}
+div.inherit {
+   hyphens: inherit;
+   margin-right: 100px;
+   margin-left: 20px;
+   float: left;
+}
+div.initial {
+   hyphens: initial;
+   margin-right: 20px;
+   margin-left: 20px;
+   float: left;
+}
+div.unset {
+   hyphens: unset;
+   margin-right: 20px;
+   margin-left: 20px;
+   float: left;
+}
+
+</style>
+</head>
+<body>
+<div class="layout">
+    <div class="none" style="width: 53px; background: green">
+        None Deutsch&shy;land ist ein Bundes&shy;staat in Mittel&shy;europa. Er besteht aus 16 Ländern und ist als
+        freiheit&shy;lich-demokra&shy;tischer und sozialer Rechts&shy;staat verfasst.
+    </div>
+    <div class="manual" style="width: 53px; background: purple;">
+        Manual Deutsch&shy;land ist ein Bundes&shy;staat in Mittel&shy;europa. Er besteht aus 16 Ländern und ist als
+        freiheit&shy;lich-demokra&shy;tischer und sozialer Rechts&shy;staat verfasst.
+    </div>
+    <div class="auto" style="width: 53px; background: red">
+        Auto Deutschland ist ein Bundesstaat in Mitteleuropa. Er besteht aus 16 Ländern und ist als
+        freiheitlich-demokratischer und sozialer Rechtsstaat verfasst.
+    </div>
+    <div class="unset" style="width: 53px; background: blue">
+        Unset Deutsch&shy;land ist ein Bundes&shy;staat in Mittel&shy;europa. Er besteht aus 16 Ländern und ist als
+        freiheit&shy;lich-demokra&shy;tischer und sozialer Rechts&shy;staat verfasst.
+    </div>
+</div>
+<div class="layout" style="hyphens: none;">
+    <div class="inherit" style="width: 53px; background: grey">
+        Inherit None Deutsch&shy;land ist ein Bundes&shy;staat in Mittel&shy;europa. Er besteht aus 16 Ländern und ist als
+        freiheit&shy;lich-demokra&shy;tischer und sozialer Rechts&shy;staat verfasst.
+    </div>
+    <div class="initial" style="width: 53px; background: yellow;">
+        Initial None Deutsch&shy;land ist ein Bundes&shy;staat in Mittel&shy;europa. Er besteht aus 16 Ländern und ist als
+        freiheit&shy;lich-demokra&shy;tischer und sozialer Rechts&shy;staat verfasst.
+    </div>
+    <div class="unset" style="width: 53px; background: blue">
+        Unset None Deutsch&shy;land ist ein Bundes&shy;staat in Mittel&shy;europa. Er besteht aus 16 Ländern und ist als
+        freiheit&shy;lich-demokra&shy;tischer und sozialer Rechts&shy;staat verfasst.
+    </div>
+</div>
+</body>
+</html>
