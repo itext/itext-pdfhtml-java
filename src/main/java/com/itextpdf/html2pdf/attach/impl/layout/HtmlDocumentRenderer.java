@@ -158,12 +158,13 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
             if (Boolean.TRUE.equals(renderer.<Boolean>getProperty(Html2PdfProperty.KEEP_WITH_PREVIOUS))) {
                 waitingElement.setProperty(Property.KEEP_WITH_NEXT, true);
             }
-            super.addChild(waitingElement);
-            if (!isRunningElementsOnly(waitingElement)) {
+            IRenderer element = waitingElement;
+            waitingElement = null;
+            super.addChild(element);
+            if (!isRunningElementsOnly(element)) {
                 // After we have added any child, we should not trim first pages because of break before element, even if the added child had zero height
                 shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
             }
-            waitingElement = null;
         }
         waitingElement = renderer;
 
