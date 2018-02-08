@@ -114,4 +114,13 @@ public class CssNthOfTypeSelectorTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "resourceLastOfTypeTest.html"), new File(outPdf));
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffLastOfType_"));
     }
+
+    @Test
+    public void notLastOfTypeTest() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceNotLastOfTypeTest.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceNotLastOfTypeTest.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceNotLastOfTypeTest.html"), new File(outPdf));
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffNotLastOfType_"));
+    }
+
 }

@@ -114,4 +114,12 @@ public class CssNthChildSelectorTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "resourceLastChildTest.html"), new File(outPdf));
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffLastChild_"));
     }
+
+    @Test
+    public void notExpressionChildTest() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceNotExpressionChildTest.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceNotExpressionChildTest.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceNotExpressionChildTest.html"), new File(outPdf));
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffNotExpChild_"));
+    }
 }
