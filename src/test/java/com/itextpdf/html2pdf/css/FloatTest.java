@@ -145,8 +145,6 @@ public class FloatTest extends ExtendedITextTest {
 
     @Test
     public void float14Test() throws IOException, InterruptedException {
-        //NOTE: in this test overflow property creates new block-context and element is floating in this block context
-        //the block-context based floating is unsupported in iText
         runTest("float14Test", "diff14_");
     }
 

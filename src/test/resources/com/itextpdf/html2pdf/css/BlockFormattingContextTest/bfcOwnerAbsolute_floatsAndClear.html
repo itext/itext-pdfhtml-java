@@ -1,0 +1,49 @@
+<html>
+<head>
+<style>
+.bfcOwner {
+	width: 30%;
+	background: lightgray;
+}
+</style>
+</head>
+<body>
+<div style="width: 400pt; border: solid 2pt; position: relative;">
+	
+	<div style="background: black; color: white;">
+		Floats (except red float) shall be contained inside gray area, cleared element shall not take into account red floating element.
+	</div>
+
+	<div style="float: left; background: red; color: white; width: 50%; height: 200pt;">
+		Floating element.
+	</div>
+
+	<div class="bfcOwner" style="position: absolute; left: 30pt; top: 50pt;">
+		<div style="float: left; width: 50%; border: dashed 1pt;">Inner float left.</div>
+		<p style=" clear: both; border: solid 1pt; margin: 0;">clear: both;</p>
+		<div style="float: right; width: 50%; border: dashed 1pt;">Inner float right.</div>
+	</div>
+
+	<div style="clear: both; border: solid 3pt;">clearfix</div>
+</div>
+
+<div style="width: 400pt; border: solid 2pt; position: relative; margin-top: 10pt">
+	
+	<div style="background: black; color: white;">
+		Floats (except red float) shall be contained inside gray area, cleared element shall not take into account red floating element.
+	</div>
+
+	<div style="float: left; border: solid red 2pt; color: black; width: 50%; height: 200pt;">
+		Floating element.
+	</div>
+
+	<div class="bfcOwner" style="position: absolute; left: 30pt; top: 50pt;">
+		<div style="float: left; width: 50%; border: dashed 1pt;">Inner float left.</div>
+		<p style=" clear: both; border: solid 1pt; margin: 0;">clear: both;</p>
+		<div style="float: right; width: 50%; border: dashed 1pt;">Inner float right.</div>
+	</div>
+
+	<div style="clear: both; border: solid 3pt;">clearfix</div>
+</div>
+</body>
+</html>

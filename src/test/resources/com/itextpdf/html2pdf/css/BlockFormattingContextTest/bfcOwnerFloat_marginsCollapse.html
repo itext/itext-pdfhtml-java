@@ -1,0 +1,39 @@
+<html>
+<head>
+<style>
+.bfcOwner {
+	width: 30%;
+	background: lightgray;
+}
+</style>
+</head>
+<body>
+<div style="width: 400pt; border: solid 2pt;  position: relative;">
+	
+	<div style="margin: 0pt; background: black; color: white;">
+		Space between red block and this black block shall be 50pt.
+	</div>
+
+	<div class="bfcOwner" style="margin: 20pt 0; float: left;">
+		<div style="margin: 30pt 0; height: 100pt; width: 100pt; background: red;">Inner block with margins 30pt. It's parent (which is BFC owner) has margins 20pt.</div>
+	</div>
+
+	<div style="background: lightblue; height: 50pt;">This blue block height is 50pt.</div>
+</div>
+
+<div style="clear: both; margin: 5pt; border-top: solid 2pt;"></div>
+
+<div style="width: 400pt; border: solid 2pt;  position: relative;">
+	
+	<div style="margin: 0pt; background: black; color: white;">
+		Space between red and blue blocks shall be 50pt (the same space shall be between red block and the current one).
+	</div>
+
+	<div class="bfcOwner" style="margin: 20pt 0; float: left;">
+		<div style="margin: 30pt 0; height: 100pt; width: 100pt; background: red;">Inner block with margins 30pt. It's parent (which is BFC owner) has margins 20pt.</div>
+	</div>
+
+	<div style="background: lightblue; height: 50pt; clear: both;">This blue block height is 50pt.</div>
+</div>
+</body>
+</html>
