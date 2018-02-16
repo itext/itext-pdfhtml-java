@@ -312,16 +312,12 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1268")
     public void float44Test() throws IOException, InterruptedException {
-        // TODO DEVSIX-1268
         runTest("float44Test", "diff44_");
     }
 
     @Test
-    @Ignore("DEVSIX-1268")
     public void float45Test() throws IOException, InterruptedException {
-        // TODO DEVSIX-1268
         runTest("float45Test", "diff45_");
     }
 
