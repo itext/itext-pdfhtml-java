@@ -296,6 +296,36 @@ public class DisplayTest extends ExtendedITextTest {
     }
 
     @Test
+    public void displayInlineBlockYLineTest01() throws IOException, InterruptedException {
+        runTest("displayInlineBlockYLineTest01");
+    }
+
+    @Test
+    public void displayInlineBlockYLineTest02() throws IOException, InterruptedException {
+        runTest("displayInlineBlockYLineTest02");
+    }
+
+    @Test
+    public void displayInlineBlockYLineTest03() throws IOException, InterruptedException {
+        runTest("displayInlineBlockYLineTest03");
+    }
+
+    @Test
+    public void displayInlineBlockYLineTest04() throws IOException, InterruptedException {
+        runTest("displayInlineBlockYLineTest04");
+    }
+
+    @Test
+    public void displayInlineBlockYLineTest05() throws IOException, InterruptedException {
+        runTest("displayInlineBlockYLineTest05");
+    }
+
+    @Test
+    public void displayInlineBlockYLineTest06() throws IOException, InterruptedException {
+        runTest("displayInlineBlockYLineTest06");
+    }
+
+    @Test
     @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 7))
     public void inlineBlockInsideTableCellTest() throws IOException, InterruptedException {
 
@@ -310,5 +340,10 @@ public class DisplayTest extends ExtendedITextTest {
 
         HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "inlineBlockInsideTableCellTest.html"), pdfDocument, props);
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "inlineBlockInsideTableCellTest.pdf", sourceFolder + "cmp_inlineBlockInsideTableCell.pdf", destinationFolder, "diffinlineBlockInsideTableCellTest_"));
+    }
+
+    private void runTest(String testName) throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_"));
     }
 }
