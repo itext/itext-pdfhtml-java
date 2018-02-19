@@ -90,6 +90,8 @@ public abstract class CssPseudoClassSelectorItem implements ICssSelectorItem {
 
     public static CssPseudoClassSelectorItem create(String pseudoClass, String arguments) {
         switch (pseudoClass) {
+            case CssConstants.EMPTY:
+                return CssPseudoClassEmptySelectorItem.getInstance();
             case CssConstants.FIRST_CHILD:
                 return CssPseudoClassFirstChildSelectorItem.getInstance();
             case CssConstants.FIRST_OF_TYPE:
@@ -123,7 +125,6 @@ public abstract class CssPseudoClassSelectorItem implements ICssSelectorItem {
             //Still unsupported, should be addressed in DEVSIX-1440
             //case CssConstants.CHECKED:
             //case CssConstants.DISABLED:
-            //case CssConstants.EMPTY:
             //case CssConstants.ENABLED:
             //case CssConstants.IN_RANGE:
             //case CssConstants.INVALID:
