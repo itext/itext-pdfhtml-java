@@ -1,0 +1,91 @@
+<html>
+ <head>
+  <style type="text/css">
+      div {
+        margin: 10px 0;
+      }
+
+      .a:hover {
+        background-color: green;
+      }
+      .b:not(:hover) {
+        background-color: yellow;
+      }
+
+      .c:focus {
+        border: solid 3px yellow;
+      }
+      .d:not(:focus) {
+        border: solid 3px red;
+      }      
+
+      .e:active {
+        border: solid 3px red;
+      }
+      .f:not(:active) {
+        border: dashed 3px red;
+      }      
+      
+      .g:link {
+        border: solid 3px red;
+      }
+      .h:not(:link) {
+        border: solid 10px red;
+      }      
+
+      .i:visited {
+        color: red;
+      }
+      .j:not(:visited) {
+        color: white;
+      }    
+
+      .k:target {
+        font-size: 12pt;
+      }
+      .l:not(:target) {
+        font-size: 16pt;
+      }      
+  </style>
+ </head>
+ <body>
+  <div style="background-color: cyan; border: solid 2px;">
+    <div>
+      <p class="a">simple text</p>
+      <p class="b">simple text</p>
+    </div>
+    <div>
+      <input class="c" type="text" value="heyheyhey">
+      <input class="d" type="text" value="heyheyhey">  
+    </div>
+    <div style="font-size: 26px; margin-left: 10px;">
+      <p>
+        <a class="e" href="https://www.example.com">link</a>
+      </p>
+      <p>
+        <a class="f" href="https://www.example.com">link</a>
+      </p>
+    </div>
+    <div style="font-size: 26px; margin-left: 10px;">
+      <p>
+        <a class="g" href="https://www.example.com">also link</a>
+      </p>
+      <p>
+        <a class="h" href="https://www.example.com">also link</a>
+      </p>
+    </div>
+    <div style="font-size: 26px; margin-left: 10px;">
+      <p>
+        <a class="i" href="https://www.example.com">another link</a>
+      </p>
+      <p>
+        <a class="j" href="https://www.example.com">another link</a>
+      </p>
+    </div>
+    <div>
+      <p class="k">targeted p</p>
+      <p class="l">targeted p</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -110,6 +110,8 @@ public abstract class CssPseudoClassSelectorItem implements ICssSelectorItem {
                     }
                 }
                 return new CssPseudoClassNotSelectorItem(selector);
+            case CssConstants.ROOT:
+                return CssPseudoClassRootSelectorItem.getInstance();
             case CssConstants.LINK:
                 return new AlwaysApplySelectorItem(pseudoClass, arguments);
             case CssConstants.ACTIVE:
@@ -135,7 +137,6 @@ public abstract class CssPseudoClassSelectorItem implements ICssSelectorItem {
             //case CssConstants.READ_ONLY:
             //case CssConstants.READ_WRITE:
             //case CssConstants.REQUIRED:
-            //case CssConstants.ROOT:
             //case CssConstants.VALID:
             default:
                 return null;
