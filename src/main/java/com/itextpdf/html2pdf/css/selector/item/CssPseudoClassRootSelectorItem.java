@@ -20,7 +20,7 @@ class CssPseudoClassRootSelectorItem extends CssPseudoClassSelectorItem {
 
     @Override
     public boolean matches(INode node) {
-        if (!(node instanceof IElementNode) || node instanceof ICustomElementNode) {
+        if (!(node instanceof IElementNode) || node instanceof ICustomElementNode || node instanceof IDocumentNode) {
             return false;
         }
         return node.parentNode() instanceof IDocumentNode;
