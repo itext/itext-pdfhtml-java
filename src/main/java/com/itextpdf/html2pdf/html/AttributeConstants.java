@@ -139,6 +139,9 @@ public final class AttributeConstants {
     /** The Constant ROWSPAN. */
     public static final String ROWSPAN = "rowspan";
 
+    /** The Constant SCOPE. */
+    public static final String SCOPE = "scope";
+
     /** The Constant SIZE. */
     public static final String SIZE = "size";
 
@@ -195,6 +198,12 @@ public final class AttributeConstants {
     /** The Constant CHECKED. */
     public static final String CHECKED = "checked";
 
+    /** The Constant COL. */
+    public static final String COL = "col";
+
+    /** The Constant COLGROUP. */
+    public static final String COLGROUP = "colgroup";
+
     /** The Constant EMAIL. */
     public static final String EMAIL = "email";
 
@@ -221,6 +230,12 @@ public final class AttributeConstants {
 
     /** The Constant RIGHT. */
     public static final String RIGHT = "right";
+
+    /** The Constant ROW. */
+    public static final String ROW = "row";
+
+    /** The Constant ROWGROUP. */
+    public static final String ROWGROUP = "rowgroup";
 
     /** The Constant RTL. */
     public static final String RTL = "rtl";

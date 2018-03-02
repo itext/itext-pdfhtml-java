@@ -76,6 +76,8 @@ public final class LogMessageConstant {
     public static final String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
     /** The Constant NOT_SUPPORTED_LIST_STYLE_TYPE. */
     public static final String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
+    /** The Constant NOT_SUPPORTED_TH_SCOPE_TYPE. */
+    public static final String NOT_SUPPORTED_TH_SCOPE_TYPE = "Not supported th scope type: {0}. Document may not be compliant with PDF/UA standards.";
     /** The Constant NO_CONSUMER_FOUND_FOR_CONTENT. */
     public static final String NO_CONSUMER_FOUND_FOR_CONTENT = "No consumer found for content";
     /** The Constant NO_CSS_APPLIER_FOUND_FOR_TAG. */
