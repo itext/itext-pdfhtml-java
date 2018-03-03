@@ -138,6 +138,16 @@ public class InputTest extends ExtendedITextTest {
         runTest("smallPercentWidth");
     }
 
+    @Test
+    public void button01Test() throws IOException, InterruptedException {
+        runTest("buttonTest01");
+    }
+
+    @Test
+    public void button02Test() throws IOException, InterruptedException {
+        runTest("buttonTest02");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String outPdfPath = destinationFolder + name + ".pdf";

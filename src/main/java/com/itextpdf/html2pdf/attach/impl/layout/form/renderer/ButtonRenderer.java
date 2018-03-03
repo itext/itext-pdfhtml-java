@@ -59,7 +59,6 @@ import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.LineRenderer;
-import com.itextpdf.layout.renderer.ListItemRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,8 +66,10 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- * The {@link AbstractOneLineTextFieldRenderer} implementation for buttons.
+ * The {@link AbstractOneLineTextFieldRenderer} implementation for buttons with no kids.
+ * @deprecated Will be renamed to {@code InputButtonRenderer} in next major release.
  */
+@Deprecated
 public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
 
     /** Indicates of the content was split. */

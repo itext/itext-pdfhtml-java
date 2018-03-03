@@ -147,6 +147,24 @@ public class FormTest extends ExtendedITextTest {
         runTest("checkbox1");
     }
 
+    @Test
+    public void buttonWithChildrenTest() throws IOException, InterruptedException {
+        runTest("buttonWithChildren");
+    }
+
+    @Test
+    public void buttonSplit01Test() throws IOException, InterruptedException {
+        runTest("buttonSplit01");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
+    })
+    public void buttonSplit02Test() throws IOException, InterruptedException {
+        runTest("buttonSplit02");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String outPdfPath = destinationFolder + name + ".pdf";
