@@ -148,6 +148,11 @@ public class InputTest extends ExtendedITextTest {
         runTest("buttonTest02");
     }
 
+    @Test
+    public void buttonWithDisplayBlockTest() throws IOException, InterruptedException {
+        runTest("buttonWithDisplayBlock");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String outPdfPath = destinationFolder + name + ".pdf";

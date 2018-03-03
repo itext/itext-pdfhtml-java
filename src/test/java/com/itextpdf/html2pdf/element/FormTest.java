@@ -165,6 +165,14 @@ public class FormTest extends ExtendedITextTest {
         runTest("buttonSplit02");
     }
 
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
+    })
+    public void buttonSplit03Test() throws IOException, InterruptedException {
+        runTest("buttonSplit03");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String outPdfPath = destinationFolder + name + ".pdf";
