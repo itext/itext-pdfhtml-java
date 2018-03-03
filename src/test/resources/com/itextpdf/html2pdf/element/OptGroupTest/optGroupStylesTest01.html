@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.test {
+			background-color: cyan;
+			border: solid red 5px;
+			margin: 10px;
+			padding: 5px;
+
+			font-size: 18px;
+		}
+		.testOpt {
+			background-color: blue;
+			color: white;
+			border: solid green 5px;
+			margin: 10px;
+			padding: 5px;
+
+			font-size: 36px;
+		}
+	</style>
+</head>
+<body>
+<div style="border: solid 2px;">
+	<select class="test" name="options1">
+	  <option value="value1">Value 1</option> 
+	  <optgroup class="testOpt" label="Group 1">
+	  	<option value="value2" selected="">Value 2</option>
+	  </optgroup>
+	  <option class="testOpt" value="value3">Value 3</option>
+	</select>
+
+	<select class="test" name="options2" size="4">
+	  <option value="value1">Value 1</option> 
+	  <optgroup class="testOpt" label="Group 1">
+	  	<option value="value2">Value 2</option>
+	  </optgroup>
+	  <option value="value3">Value 3</option>
+</select>
+</div>
+
+</body>
+</html>

@@ -116,12 +116,15 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.MARK, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.NAV, BlockCssApplier.class);
         mapping.putMapping(TagConstants.OL, UlOlTagCssApplier.class);
+        mapping.putMapping(TagConstants.OPTGROUP, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.OPTION, BlockCssApplier.class);
         mapping.putMapping(TagConstants.P, BlockCssApplier.class);
         mapping.putMapping(TagConstants.PRE, BlockCssApplier.class);
         mapping.putMapping(TagConstants.Q, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.S, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SAMP, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SECTION, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.SELECT, BlockCssApplier.class);
         mapping.putMapping(TagConstants.SMALL, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SPAN, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.STRIKE, SpanTagCssApplier.class);

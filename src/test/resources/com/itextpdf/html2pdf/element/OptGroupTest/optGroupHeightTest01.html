@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		optgroup {
+			border: 0.5px solid;
+		}
+		.fixedHeightSmall {
+			height: 8px; 
+		}
+		.fixedHeightLarge {
+			height: 200px; 
+		}
+	</style>
+</head>
+<body>
+
+<select name="options" size="6" style="height: 500px;">
+	<optgroup label="Group 1" class="fixedHeightLarge">
+		<option value="value1">Value 1</option> 
+  		<option value="value2">Value 2</option>
+	</optgroup>
+	<optgroup label="Group 2" class="fixedHeightSmall">
+		<option value="value3">Value 3</option>
+  		<option value="value4">Value 4</option>		
+	</optgroup>
+	<option>Value 5</option>
+	<option>Value 6</option>
+</select>
+
+</body>
+</html>

@@ -366,6 +366,33 @@ input[type="checkbox"] {
     box-sizing: border-box;
 }
 
+select {
+    box-sizing: border-box;
+    white-space: pre;
+    color: black;
+    background-color: white;
+    overflow: hidden; /* based on browser behaviour, rather than user agent css */
+    border: 1px solid rgb(169, 169, 169);
+}
+
+optgroup {
+    line-height: initial;
+    font-weight: bold; /* TODO should be `bolder`, which is not implemented yet. */
+    display: block;
+}
+
+option {
+    font-weight: normal;
+    display: block;
+    white-space: pre;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+}
+
+optgroup option:before {
+    content: "    ";
+}
+
 textarea {
     font-family: Courier;
     background-color: white;

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.test {
+			width: 400px;
+			background-color: cyan;
+			border: solid red 5px;
+			margin: 10px;
+			padding: 5px;
+
+			font-size: 18px;
+			text-align: right;
+		}
+	</style>
+</head>
+<body>
+<div style="border: solid 2px; text-align: right;">
+	<select class="test" name="options1">
+	  <option value="value1">Value 1</option> 
+	  <option value="value2">Value 2</option>
+	  <option value="value3">Value 3</option>
+	</select>
+
+	<select class="test" name="options2" multiple="">
+	  <option value="value1">Value 1</option> 
+	  <option value="value2">Value 2</option>
+	  <option value="value3">Value 3</option>
+</select>
+</div>
+
+<select style="width: 400px;" name="options2" multiple="">
+  <option value="value1">Value 1</option> 
+  <option value="value2" style="text-align: right;">Value 2</option>
+  <option value="value3" style="text-align: center;">Value 3</option>
+</select>
+
+</body>
+</html>

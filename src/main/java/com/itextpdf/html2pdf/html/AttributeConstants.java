@@ -115,11 +115,17 @@ public final class AttributeConstants {
     /** The Constant KEYWORDS. */
     public static final String KEYWORDS = "keywords";
 
+    /** The Constant LABEL. */
+    public static final String LABEL = "label";
+
     /** The Constant LANG. */
     public static final String LANG = "lang";
 
     /** The Constant MEDIA. */
     public static final String MEDIA = "media";
+
+    /** The Constant MULTIPLE. */
+    public static final String MULTIPLE = "multiple";
 
     /** The Constant NAME. */
     public static final String NAME = "name";
@@ -141,6 +147,9 @@ public final class AttributeConstants {
 
     /** The Constant SCOPE. */
     public static final String SCOPE = "scope";
+
+    /** The Constant SELECTED. */
+    public static final String SELECTED = "selected";
 
     /** The Constant SIZE. */
     public static final String SIZE = "size";

@@ -224,6 +224,12 @@ public final class TagConstants {
     /** The Constant OL. */
     public static final String OL = "ol";
 
+    /** The Constant OPTION. */
+    public static final String OPTGROUP = "optgroup";
+
+    /** The Constant OPTION. */
+    public static final String OPTION = "option";
+
     /** The Constant P. */
     public static final String P = "p";
 

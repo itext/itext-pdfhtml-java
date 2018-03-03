@@ -475,6 +475,29 @@ input[type="checkbox"] {
     margin: 3px 3px 3px 4px;
     box-sizing: border-box
 }
+select {
+    box-sizing: border-box;
+    white-space: pre;
+    color: black;
+    background-color: white;
+    overflow: hidden;
+    border: 1px solid rgb(169,169,169)
+}
+optgroup {
+    line-height: initial;
+    font-weight: bold;
+    display: block
+}
+option {
+    font-weight: normal;
+    display: block;
+    white-space: pre;
+    min-height: 1.2em;
+    padding: 0px 2px 1px
+}
+optgroup option::before {
+    content: "    "
+}
 textarea {
     font-family: courier;
     background-color: white;

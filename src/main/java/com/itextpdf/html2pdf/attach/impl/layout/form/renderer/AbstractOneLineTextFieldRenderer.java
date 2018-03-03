@@ -59,6 +59,7 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
      * The position of the base line of the text.
      * @deprecated use {@link #getLastYLineRecursively()} instead. Will be removed in 3.0.0
      */
+    @Deprecated
     protected float baseline;
 
     /**
