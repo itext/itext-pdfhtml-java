@@ -1,0 +1,20 @@
+<html lang="ru">
+ <head>
+  <style type="text/css">
+      :root {
+          border: solid black 3px;
+          background: red;
+      }
+
+      :not(:root){
+          background: green;
+      }
+
+</style>
+ </head>
+ <body style="border: inherit; background:inherit;">
+  <div style="border: inherit; background:inherit;">This is a div with background and border inherited from from body.
+  And body inherits it from :root. It should have red background and black border</div>
+  <div>This is a div without styles - should be :not(:root) - with green background and without border.</div>
+</body>
+</html>

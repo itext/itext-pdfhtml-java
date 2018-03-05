@@ -1,24 +1,23 @@
-package com.itextpdf.html2pdf.css.selector.item;
+package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-@Category(IntegrationTest.class)
-public class NonStandardNodesMatchingTest extends ExtendedITextTest {
+import java.io.File;
+import java.io.IOException;
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/selector/item/NonStandardNodesMatchingTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/selector/item/NonStandardNodesMatchingTest/";
+@Category(IntegrationTest.class)
+public class CssEmptySelectorTest extends ExtendedITextTest {
+
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssEmptySelectorTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/CssEmptySelectorTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -26,18 +25,8 @@ public class NonStandardNodesMatchingTest extends ExtendedITextTest {
     }
 
     @Test
-    public void pseudoElementMatchingTest01() throws IOException, InterruptedException {
-        runTest("pseudoElementMatchingTest01", "diffPseudo01_");
-    }
-
-    @Test
-    public void pseudoElementMatchingTest02() throws IOException, InterruptedException {
-        runTest("pseudoElementMatchingTest02", "diffPseudo02_");
-    }
-
-    @Test
-    public void documentNodeMatchingTest01() throws IOException, InterruptedException {
-        runTest("documentNodeMatchingTest01", "diffDocument01_");
+    public void cssEmptyNotEmptyNestedNodesTest() throws IOException, InterruptedException {
+        runTest("cssEmptyNotEmptyNestedNodesTest", "diff01_");
     }
 
     private void runTest(String testName, String diff) throws IOException, InterruptedException {

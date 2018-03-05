@@ -5,8 +5,10 @@ import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
 import java.io.File;
 import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,6 +28,12 @@ public class CssRootSelectorTest extends ExtendedITextTest {
     public void rootSelectorTest01() throws IOException, InterruptedException {
         runTest("rootSelectorTest01", "diffRoot01_");
     }
+
+    @Test
+    public void rootAndNotRootTest() throws IOException, InterruptedException {
+        runTest("rootAndNotRootTest", "diffRoot02_");
+    }
+
 
     private void runTest(String testName, String diff) throws IOException, InterruptedException {
         String htmlName = sourceFolder + testName + ".html";
