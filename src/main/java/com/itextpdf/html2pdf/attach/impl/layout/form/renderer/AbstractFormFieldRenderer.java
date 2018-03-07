@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.Radio;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
@@ -129,11 +130,13 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
                 childRenderers.clear();
                 childRenderers.add(flatRenderer);
                 adjustFieldLayout(layoutContext);
-                Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
-                occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
-                applyPaddings(occupiedArea.getBBox(), true);
-                applyBorderBox(occupiedArea.getBBox(), true);
-                applyMargins(occupiedArea.getBBox(), true);
+                if (isLayoutBasedOnFlatRenderer()) {
+                    Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
+                    occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
+                    applyPaddings(occupiedArea.getBBox(), true);
+                    applyBorderBox(occupiedArea.getBBox(), true);
+                    applyMargins(occupiedArea.getBBox(), true);
+                }
             }
 
             return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth());
@@ -143,14 +146,20 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
             childRenderers.clear();
             childRenderers.add(flatRenderer);
             adjustFieldLayout(layoutContext);
-            Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
-            occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
-            applyPaddings(occupiedArea.getBBox(), true);
-            applyBorderBox(occupiedArea.getBBox(), true);
-            applyMargins(occupiedArea.getBBox(), true);
+            if (isLayoutBasedOnFlatRenderer()) {
+                Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
+                occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
+                applyPaddings(occupiedArea.getBBox(), true);
+                applyBorderBox(occupiedArea.getBBox(), true);
+                applyMargins(occupiedArea.getBBox(), true);
+            }
         } else {
             LoggerFactory.getLogger(getClass()).error(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD);
             occupiedArea.getBBox().setWidth(0).setHeight(0);
+        }
+        if (!Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT)) && !isRendererFit(parentWidth, parentHeight)) {
+            occupiedArea.getBBox().setWidth(0).setHeight(0);
+            return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth());
         }
         if (result.getStatus() != LayoutResult.FULL || !isRendererFit(parentWidth, parentHeight)) {
             LoggerFactory.getLogger(getClass()).warn(LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
@@ -279,5 +288,9 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
             return getContentWidth();
         }
         return super.retrieveWidth(parentBoxWidth);
+    }
+
+    protected boolean isLayoutBasedOnFlatRenderer() {
+        return true;
     }
 }

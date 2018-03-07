@@ -63,7 +63,6 @@ public class TaggedPdfFormTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("InputTagWorker ERROR Input type radio is not supported")
     public void simpleRadioFormTagged() throws IOException, InterruptedException {
         runTest("simpleRadioFormTagged");
     }

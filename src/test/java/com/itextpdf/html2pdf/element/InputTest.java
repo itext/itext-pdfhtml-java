@@ -124,6 +124,21 @@ public class InputTest extends ExtendedITextTest {
     }
 
     @Test
+    public void input08Test() throws IOException, InterruptedException {
+        runTest("inputTest08");
+    }
+
+    @Test
+    public void input09Test() throws IOException, InterruptedException {
+        runTest("inputTest09");
+    }
+
+    @Test
+    public void input10Test() throws IOException, InterruptedException {
+        runTest("inputTest10");
+    }
+
+    @Test
     public void textareaRowsHeightTest() throws IOException, InterruptedException {
         runTest("textareaRowsHeight");
     }

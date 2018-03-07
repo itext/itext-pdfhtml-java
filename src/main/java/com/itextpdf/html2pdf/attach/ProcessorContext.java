@@ -52,6 +52,7 @@ import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.html2pdf.resolver.form.FormFieldNameResolver;
+import com.itextpdf.html2pdf.resolver.form.RadioCheckResolver;
 import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -90,6 +91,9 @@ public class ProcessorContext {
 
     /** The form field name resolver. */
     private FormFieldNameResolver formFieldNameResolver;
+
+    /** The radio check resolver. */
+    private RadioCheckResolver radioCheckResolver;
 
     /** The outline handler. */
     private OutlineHandler outlineHandler;
@@ -159,6 +163,7 @@ public class ProcessorContext {
 
         createAcroForm = converterProperties.isCreateAcroForm();
         formFieldNameResolver = new FormFieldNameResolver();
+        radioCheckResolver = new RadioCheckResolver();
         immediateFlush = converterProperties.isImmediateFlush();
     }
 
@@ -278,6 +283,16 @@ public class ProcessorContext {
     public FormFieldNameResolver getFormFieldNameResolver() {
         return formFieldNameResolver;
     }
+
+    /**
+     * Gets the radio check resolver.
+     *
+     * @return the radio check resolver
+     */
+    public RadioCheckResolver getRadioCheckResolver() {
+        return radioCheckResolver;
+    }
+
 
     /**
      * Gets the outline handler.

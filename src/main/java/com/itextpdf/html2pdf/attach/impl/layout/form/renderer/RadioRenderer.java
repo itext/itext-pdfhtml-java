@@ -47,40 +47,44 @@ import com.itextpdf.forms.fields.PdfButtonFormField;
 import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.forms.util.DrawingUtil;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.CheckBox;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.Radio;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.layout.LayoutContext;
+import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.property.VerticalAlignment;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
 
-import java.nio.charset.StandardCharsets;
 
 /**
- * The {@link AbstractOneLineTextFieldRenderer} implementation for checkboxes.
+ * The {@link AbstractOneLineTextFieldRenderer} implementation for radio buttons.
  */
-public class CheckBoxRenderer extends AbstractFormFieldRenderer {
+public class RadioRenderer extends AbstractFormFieldRenderer {
 
-    private static final Color DEFAULT_BORDER_COLOR = ColorConstants.DARK_GRAY;
-    private static final Color DEFAULT_BACKGROUND_COLOR = ColorConstants.WHITE;
-    private static final float DEFAULT_BORDER_WIDTH = 0.75f; // 1px
+    private static final Color DEFAULT_CHECKED_COLOR = ColorConstants.BLACK;
+    private static final Color DEFAULT_COLOR = ColorConstants.LIGHT_GRAY;
     private static final float DEFAULT_SIZE = 8.25f; // 11px
+    private static final HorizontalAlignment DEFAULT_HORIZONTAL_ALIGNMENT = HorizontalAlignment.CENTER;
+    private static final VerticalAlignment DEFAULT_VERTICAL_ALIGNMENT = VerticalAlignment.MIDDLE;
 
     /**
-     * Creates a new {@link CheckBoxRenderer} instance.
+     * Creates a new {@link RadioRenderer} instance.
      *
      * @param modelElement the model element
      */
-    public CheckBoxRenderer(CheckBox modelElement) {
+    public RadioRenderer(Radio modelElement) {
         super(modelElement);
+        setProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.MIDDLE);
     }
 
     /* (non-Javadoc)
@@ -88,16 +92,21 @@ public class CheckBoxRenderer extends AbstractFormFieldRenderer {
      */
     @Override
     public IRenderer getNextRenderer() {
-        return new CheckBoxRenderer((CheckBox) modelElement);
+        return new RadioRenderer((Radio) modelElement);
     }
 
     @Override
     protected IRenderer createFlatRenderer() {
+        UnitValue heightUV = getPropertyAsUnitValue(Property.HEIGHT);
+        UnitValue widthUV = getPropertyAsUnitValue(Property.WIDTH);
+        float height = null == heightUV ? DEFAULT_SIZE : heightUV.getValue();
+        float width = null == widthUV ? DEFAULT_SIZE : widthUV.getValue();
+        float size = Math.min(height, width);
         Paragraph paragraph = new Paragraph()
-                .setWidth(DEFAULT_SIZE)
-                .setHeight(DEFAULT_SIZE)
-                .setBorder(new SolidBorder(DEFAULT_BORDER_COLOR, DEFAULT_BORDER_WIDTH))
-                .setBackgroundColor(DEFAULT_BACKGROUND_COLOR);
+                .setWidth(size)
+                .setHeight(size)
+                .setHorizontalAlignment(DEFAULT_HORIZONTAL_ALIGNMENT)
+                .setVerticalAlignment(DEFAULT_VERTICAL_ALIGNMENT);
         return new FlatParagraphRenderer(paragraph);
     }
 
@@ -115,26 +124,33 @@ public class CheckBoxRenderer extends AbstractFormFieldRenderer {
     }
 
     /**
-     * Defines whether the box is checked or not.
+     * Defines whether the radio is checked or not.
      *
-     * @return the default value of the checkbox field
+     * @return the default value of the radio field
      */
     public boolean isBoxChecked() {
         return null != this.<Object>getProperty(Html2PdfProperty.FORM_FIELD_CHECKED);
     }
-
 
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#applyAcroField(com.itextpdf.layout.renderer.DrawContext)
      */
     @Override
     protected void applyAcroField(DrawContext drawContext) {
-        String name = getModelId();
         PdfDocument doc = drawContext.getDocument();
         Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
         PdfPage page = doc.getPage(occupiedArea.getPageNumber());
-        PdfButtonFormField checkBox = PdfFormField.createCheckBox(doc, area, name, isBoxChecked() ? "Yes" : "Off");
-        PdfAcroForm.getAcroForm(doc, true).addField(checkBox, page);
+        String groupName = this.<String>getProperty(Html2PdfProperty.FORM_FIELD_VALUE);
+        PdfButtonFormField radioGroup = (PdfButtonFormField) PdfAcroForm.getAcroForm(doc, true).getField(groupName);
+        if (null == radioGroup) {
+            radioGroup = PdfFormField.createRadioGroup(doc, groupName, "on");
+        }
+        if (isBoxChecked()) {
+            radioGroup.setValue(getModelId());
+        }
+        PdfButtonFormField field = (PdfButtonFormField) PdfFormField.createRadioButton(doc, area, radioGroup, getModelId());
+        field.setCheckType(PdfFormField.TYPE_CIRCLE);
+        PdfAcroForm.getAcroForm(doc, true).addField(radioGroup, page);
     }
 
     @Override
@@ -150,15 +166,17 @@ public class CheckBoxRenderer extends AbstractFormFieldRenderer {
 
         @Override
         public void drawChildren(DrawContext drawContext) {
+            PdfCanvas canvas = drawContext.getCanvas();
+            Rectangle rectangle = flatRenderer.getOccupiedArea().getBBox();
+            float radius = (float) Math.min(rectangle.getWidth(), rectangle.getHeight()) / 2;
+            canvas.saveState();
+            canvas.setFillColor(DEFAULT_COLOR);
+            DrawingUtil.drawCircle(canvas, rectangle.getLeft() + radius, rectangle.getBottom() + radius, radius);
             if (isBoxChecked()) {
-                PdfCanvas canvas = drawContext.getCanvas();
-                Rectangle rectangle = getInnerAreaBBox();
-                canvas.saveState();
-                canvas.setFillColor(ColorConstants.BLACK);
-                DrawingUtil.drawPdfACheck(canvas, rectangle.getWidth(), rectangle.getHeight(), rectangle.getLeft(), rectangle.getBottom());
-                canvas.restoreState();
+                canvas.setFillColor(DEFAULT_CHECKED_COLOR);
+                DrawingUtil.drawCircle(canvas, rectangle.getLeft() + radius, rectangle.getBottom() + radius, radius / 2);
             }
+            canvas.restoreState();
         }
     }
 }
-

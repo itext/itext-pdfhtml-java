@@ -173,6 +173,16 @@ public class FormTest extends ExtendedITextTest {
         runTest("buttonSplit03");
     }
 
+    @Test
+    public void radiobox1Test() throws IOException, InterruptedException {
+        runTest("radiobox1");
+    }
+
+    @Test
+    public void radiobox2Test() throws IOException, InterruptedException {
+        runTest("radiobox2");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String outPdfPath = destinationFolder + name + ".pdf";
