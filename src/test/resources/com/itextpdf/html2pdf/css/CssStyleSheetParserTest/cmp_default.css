@@ -460,10 +460,6 @@ button {
     text-align: center;
     padding: 1px 6px
 }
-input[type="checkbox"] {
-    margin: 3px 3px 3px 4px;
-    box-sizing: border-box
-}
 input[type="radio"] {
     margin: 3px 0.5ex;
     padding: initial;
@@ -473,6 +469,10 @@ input[type="checkbox"] {
     margin: 3px 0.5ex;
     padding: initial;
     border: initial
+}
+input[type="checkbox"] {
+    margin: 3px 3px 3px 4px;
+    box-sizing: border-box
 }
 textarea {
     font-family: courier;
