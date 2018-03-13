@@ -330,10 +330,10 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     }
 
     /**
-     * Gets the next page processor.
+     * Gets a page processor for the page.
      *
-     * @param firstPage the first page
-     * @return the next page processor
+     * @param pageNum the number of the page for which the {@link PageContextProcessor} shall be obtained
+     * @return a page processor
      */
     private PageContextProcessor getPageProcessor(int pageNum) {
         // If first page, but break-before: left for ltr is present, we should use left page instead of first
