@@ -45,7 +45,6 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.Radio;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;

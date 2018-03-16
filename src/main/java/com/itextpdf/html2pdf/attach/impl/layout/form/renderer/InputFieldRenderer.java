@@ -195,19 +195,26 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
 
     @Override
     protected boolean setMinMaxWidthBasedOnFixedWidth(MinMaxWidth minMaxWidth) {
-        if (!hasAbsoluteUnitValue(Property.WIDTH)) {
-            UnitValue width = this.<UnitValue>getProperty(Property.WIDTH);
+        boolean result = false;
+        if (hasRelativeUnitValue(Property.WIDTH)) {
+            UnitValue widthUV = this.<UnitValue>getProperty(Property.WIDTH);
             boolean restoreWidth = hasOwnProperty(Property.WIDTH);
             setProperty(Property.WIDTH, null);
-            boolean result = super.setMinMaxWidthBasedOnFixedWidth(minMaxWidth);
+            Float width = retrieveWidth(0);
+            if (width != null) {
+                // the field can be shrinked if necessary so only max width is set here
+                minMaxWidth.setChildrenMaxWidth((float) width);
+                result = true;
+            }
             if (restoreWidth) {
-                setProperty(Property.WIDTH, width);
+                setProperty(Property.WIDTH, widthUV);
             } else {
                 deleteOwnProperty(Property.WIDTH);
             }
-            return result;
+        } else {
+            result = super.setMinMaxWidthBasedOnFixedWidth(minMaxWidth);
         }
-        return super.setMinMaxWidthBasedOnFixedWidth(minMaxWidth);
+        return result;
     }
 
     /**
