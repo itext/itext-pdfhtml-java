@@ -1,10 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 127>>stream
-xœŒÁ
-Â0ïûï¨—h+Ú½û[²M"i“ôïm/ÃÀÀ|èÎtz6hZğH—º¾5}¶t`*²qE²Ç´Ö’³JA˜k°
-+úÃ¾ìuTŸÖh1(ÎæfŒ%MX¶˜Å)ÔnH3$Fì‹jü¦Ó‹ş‘]+‘
+<</Filter/FlateDecode/Length 152>>stream
+xœN»
+Ã0ÛıÛÅÍƒÔ™í^ğ\ğÅvIbÇN ıû:C÷ÂI$¤[E%{ü¬h¯(×5-”ªXŒâ)Ö?S7-.u=Õ7²WĞFœ´ó‘ÙDÑaŞóŠ‘)Á/ÙÁ&ş`o	íøÈ.ì“ÁÀe¸óÆflÅŒdl
+…4M8*²<ë—¸ëòËQ@:ı
 endstream
 endobj
 4 0 obj
@@ -14,7 +14,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109122349+03'00')/ModDate(D:20171109122349+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: @page margin shorthand using ems)/assert(A margin expressed in ems uses the page context's font.)/flags(paged)>>
+<</CreationDate(D:20180406142857+03'00')/ModDate(D:20180406142857+03'00')/Producer(iText® 7.1.2-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: @page margin shorthand using ems)/assert(A margin expressed in ems uses the page context's font.)/flags(paged)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -25,15 +25,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000342 00000 n 
-0000000770 00000 n 
-0000000387 00000 n 
-0000000209 00000 n 
+0000000367 00000 n 
+0000000795 00000 n 
+0000000412 00000 n 
+0000000234 00000 n 
 0000000015 00000 n 
-0000000680 00000 n 
+0000000705 00000 n 
 trailer
-<</ID [<ddb7ddc07fe095850b5916dc67c355d2><ddb7ddc07fe095850b5916dc67c355d2>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<978f488c8eae7625147aa7700c9cef8e><978f488c8eae7625147aa7700c9cef8e>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.2-SNAPSHOT
 startxref
-821
+846
 %%EOF

@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.BodyHtmlStylesContainer;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
@@ -58,8 +59,6 @@ import java.util.Map;
 /**
  * {@link ICssApplier} implementation for Body elements.
  */
-//TODO apply background property.
-//DEVSIX-940
 public class BodyTagCssApplier implements ICssApplier {
 
     /* (non-Javadoc)
@@ -71,7 +70,7 @@ public class BodyTagCssApplier implements ICssApplier {
         BodyHtmlStylesContainer styleProperty = new BodyHtmlStylesContainer();
         IPropertyContainer container = tagWorker.getElementResult();
         if (container != null) {
-//            BackgroundApplierUtil.applyBackground(cssProps, context, styleProperty);
+            BackgroundApplierUtil.applyBackground(cssProps, context, styleProperty);
             MarginApplierUtil.applyMargins(cssProps, context, styleProperty);
             PaddingApplierUtil.applyPaddings(cssProps, context, styleProperty);
             BorderStyleApplierUtil.applyBorders(cssProps, context, styleProperty);

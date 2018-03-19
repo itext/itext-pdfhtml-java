@@ -2,6 +2,8 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.borders.Border;
+import com.itextpdf.layout.property.Background;
+import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 
@@ -93,15 +95,15 @@ public class BodyHtmlStylesContainer implements IPropertyContainer {
      * This method is needed to check if we need to draw a simulated {@link com.itextpdf.layout.element.Div} element,
      * i.e. to perform any drawing at all.
      *
-     * @return true if there is at least one Border present in the container
+     * @return true if there is at least one {@link Border} or a {@link Background} or a {@link BackgroundImage} present in the container
      */
-    public boolean hasBordersToDraw() {
+    public boolean hasContentToDraw() {
         Border[] borders = getBodyHtmlBorders();
         for (int i = 0; i < 4; i++) {
             if (borders[i] != null && borders[i].getWidth() != 0)
                 return true;
         }
-        return false;
+        return this.<Background>getOwnProperty(Property.BACKGROUND) != null || this.<BackgroundImage>getOwnProperty(Property.BACKGROUND_IMAGE) != null;
     }
 
     /**
@@ -114,7 +116,7 @@ public class BodyHtmlStylesContainer implements IPropertyContainer {
         for (int i = 0; i < 4; i++)
             if (totalWidth[i] > 0)
                 return true;
-        return false;
+        return this.<Background>getOwnProperty(Property.BACKGROUND) != null || this.<BackgroundImage>getOwnProperty(Property.BACKGROUND_IMAGE) != null;
     }
 
     /**
