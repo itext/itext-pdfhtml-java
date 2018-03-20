@@ -671,7 +671,7 @@ public class PageRuleTest extends ExtendedITextTest {
             converterProperties = new ConverterProperties();
         }
         if (converterProperties.getBaseUri() == null) {
-            converterProperties.setBaseUri(new File(htmlPath).getAbsolutePath());
+            converterProperties.setBaseUri(UrlUtil.getFileUriString(htmlPath));
         }
 
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));

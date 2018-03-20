@@ -49,7 +49,6 @@ import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -57,7 +56,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Paths;
 
 @Category(IntegrationTest.class)
 public class ResourceResolverTest extends ExtendedITextTest {
@@ -87,6 +85,38 @@ public class ResourceResolverTest extends ExtendedITextTest {
         String cmpPdf = sourceFolder + "cmp_resourceResolverTest07.pdf";
         HtmlConverter.convertToPdf(new File(sourceFolder + "resourceResolverTest07.html"), new File(outPdf));
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff07_"));
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
+    public void resourceResolverTest07A() throws IOException, InterruptedException {
+        String baseUri = sourceFolder + "%23r%e%2525s@o%25urces/";
+
+        String outPdf = destinationFolder + "resourceResolverTest07A.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest07A.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest07A.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff07A_"));
+    }
+
+    @Test
+    public void resourceResolverTest07B() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceResolverTest07B.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest07B.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "#r%e%25s@o%urces/resourceResolverTest07B.html"), new File(outPdf));
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff07B_"));
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
+    public void resourceResolverTest07C() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceResolverTest07C.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest07C.pdf";
+        HtmlConverter.convertToPdf(new File(sourceFolder + "#r%e%25s@o%urces/resourceResolverTest07C.html"), new File(outPdf),
+                new ConverterProperties().setBaseUri(sourceFolder + "#r%e%25s@o%urces/.."));
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff07C_"));
     }
 
     @Test
@@ -120,17 +150,88 @@ public class ResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1668")
-    public void resourceResolverTest12() throws IOException, InterruptedException {
-        String baseUri = sourceFolder + "path with spaces";
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
+    public void resourceResolverTest12A() throws IOException, InterruptedException {
+        String baseUri = sourceFolder + "path%with%spaces/";
 
-        String outPdf = destinationFolder + "resourceResolverTest12.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceResolverTest12.pdf";
-        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest12.html");
+        String outPdf = destinationFolder + "resourceResolverTest12A.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest12A.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest12A.html");
              FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
             HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
         }
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff12_"));
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff12A_"));
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
+    public void resourceResolverTest12B() throws IOException, InterruptedException {
+        String baseUri = sourceFolder + "path%25with%25spaces/";
+
+        String outPdf = destinationFolder + "resourceResolverTest12B.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest12B.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest12B.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff12B_"));
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
+    public void resourceResolverTest12C() throws IOException, InterruptedException {
+        String baseUri = sourceFolder + "path%2525with%2525spaces/";
+
+        String outPdf = destinationFolder + "resourceResolverTest12C.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest12C.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest12C.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff12C_"));
+    }
+
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
+    public void resourceResolverTest12D() throws IOException, InterruptedException {
+        String baseUri = sourceFolder + "path with spaces/";
+
+        String outPdf = destinationFolder + "resourceResolverTest12D.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest12D.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest12D.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff12D_"));
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
+    public void resourceResolverTest12E() throws IOException, InterruptedException {
+        String baseUri = sourceFolder + "path%20with%20spaces/";
+
+        String outPdf = destinationFolder + "resourceResolverTest12E.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest12E.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest12E.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff12E_"));
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
+    public void resourceResolverTest12F() throws IOException, InterruptedException {
+        String baseUri = sourceFolder + "path%2520with%2520spaces/";
+
+        String outPdf = destinationFolder + "resourceResolverTest12F.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest12F.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest12F.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff12F_"));
     }
 
     @Test
@@ -147,20 +248,6 @@ public class ResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1668")
-    public void resourceResolverTest14() throws IOException, InterruptedException {
-        String baseUri = sourceFolder + "path%20with%20spaces";
-
-        String outPdf = destinationFolder + "resourceResolverTest14.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceResolverTest14.pdf";
-        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest12.html");
-             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
-            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
-        }
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff14_"));
-    }
-
-    @Test
     public void resourceResolverTest15() throws IOException, InterruptedException {
         String baseUri = sourceFolder;
 
@@ -171,6 +258,62 @@ public class ResourceResolverTest extends ExtendedITextTest {
             HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
         }
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff15_"));
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
+    public void resourceResolverTest16A() throws IOException, InterruptedException {
+        String baseUri = sourceFolder + "path/with/spaces/";
+
+        String outPdf = destinationFolder + "resourceResolverTest16A.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest16A.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest16A.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff16A_"));
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
+    public void resourceResolverTest16B() throws IOException, InterruptedException {
+        String baseUri = sourceFolder + "path%2Fwith%2Fspaces/";
+
+        String outPdf = destinationFolder + "resourceResolverTest16B.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest16B.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest16B.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff16B_"));
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
+    public void resourceResolverTest16C() throws IOException, InterruptedException {
+        String baseUri = sourceFolder + "path%252Fwith%252Fspaces/";
+
+        String outPdf = destinationFolder + "resourceResolverTest16C.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest16C.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest16C.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff16C_"));
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
+    public void resourceResolverTest16D() throws IOException, InterruptedException {
+        String baseUri = sourceFolder + "path%25252Fwith%25252Fspaces/";
+
+        String outPdf = destinationFolder + "resourceResolverTest16D.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest16D.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest16D.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff16D_"));
     }
 
     // TODO test with absolute http links for resources?
