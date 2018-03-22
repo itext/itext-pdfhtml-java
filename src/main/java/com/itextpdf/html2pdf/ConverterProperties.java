@@ -80,6 +80,12 @@ public class ConverterProperties {
 
     /** Indicates whether the document should be opened in immediate flush or not **/
     private boolean immediateFlush = true;
+    
+    /** Indicates whether the bold font should be simulated or not **/
+    private boolean boldSimulation = false;
+    
+    /** Indicates whether the italic font should be simulated or not **/
+    private boolean italicSimulation = false;
 
     /**
      * Instantiates a new {@link ConverterProperties} instance.
@@ -289,4 +295,44 @@ public class ConverterProperties {
         this.immediateFlush = immediateFlush;
         return this;
     }
+
+    /**
+     * Checks if boldSimulation is set
+     * @return true if boldSimulation is set, false if not.
+     */
+	public boolean isBoldSimulation() {
+		return boldSimulation;
+	}
+
+	 /**
+     * Sets the bold font simulation.
+     *
+     * @param boldSimulation the boldSimulation
+     * @return the ConverterProperties instance
+     */
+	public ConverterProperties setBoldSimulation(boolean boldSimulation) {
+		this.boldSimulation = boldSimulation;
+		return this;
+	}
+	
+    /**
+     * Checks if italicSimulation is set
+     * @return true if italicSimulation is set, false if not.
+     */
+	public boolean isItalicSimulation() {
+		return italicSimulation;
+	}
+
+	 /**
+     * Sets the italic font simulation.
+     *
+     * @param italicSimulation the italicSimulation
+     * @return the ConverterProperties instance
+     */
+	public ConverterProperties setItalicSimulation(boolean italicSimulation) {
+		this.italicSimulation = italicSimulation;
+		return this;
+	}
+    
+    
 }

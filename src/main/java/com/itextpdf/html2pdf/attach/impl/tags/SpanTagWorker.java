@@ -80,6 +80,9 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
 
     /** The display value. */
     private String display;
+    
+    /** The element node */
+    private IElementNode node;
 
     /**
      * Creates a new {@link SpanTagWorker} instance.
@@ -88,6 +91,7 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
      * @param context the processor context
      */
     public SpanTagWorker(IElementNode element, ProcessorContext context) {
+    	this.node = element;
         spanWrapper = new SpanWrapper();
         Map<String, String> styles = element.getStyles();
         inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE), styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM));
@@ -193,5 +197,15 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
         ownLeafElements.addAll(inlineHelper.getWaitingLeaves());
         inlineHelper.clearWaitingLeaves();
     }
+
+    /**
+     * Get the root element.
+     * @return the {@link IElementNode}
+     */
+	public IElementNode getNode() {
+		return node;
+	}
+    
+    
 
 }

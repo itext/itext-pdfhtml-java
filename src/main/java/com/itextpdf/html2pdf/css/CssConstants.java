@@ -398,7 +398,10 @@ public class CssConstants {
 
     /** The Constant TEXT_DECORATION. */
     public static final String TEXT_DECORATION = "text-decoration";
-
+    
+    /** The Constant TEXT_DECORATION_LINE. */
+    public static final String TEXT_DECORATION_LINE = "text-decoration-line";
+    
     /** The Constant TEXT_INDENT. */
     public static final String TEXT_INDENT = "text-indent";
 

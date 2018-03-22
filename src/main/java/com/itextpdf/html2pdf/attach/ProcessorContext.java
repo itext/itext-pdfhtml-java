@@ -96,6 +96,12 @@ public class ProcessorContext {
 
     /** Indicates whether the document should be opened in immediate flush or not **/
     private boolean immediateFlush;
+    
+    /** Indicates whether the bold font should be simulated or not **/
+    private boolean boldSimulation;
+    
+    /** Indicates whether the italic font should be simulated or not **/
+    private boolean italicSimulation;
 
     // Variable fields
 
@@ -160,6 +166,8 @@ public class ProcessorContext {
         createAcroForm = converterProperties.isCreateAcroForm();
         formFieldNameResolver = new FormFieldNameResolver();
         immediateFlush = converterProperties.isImmediateFlush();
+        boldSimulation = converterProperties.isBoldSimulation();
+        italicSimulation = converterProperties.isItalicSimulation();
     }
 
     /**
@@ -287,8 +295,24 @@ public class ProcessorContext {
     public OutlineHandler getOutlineHandler() {
         return outlineHandler;
     }
+    
+    /**
+     * Checks if boldSimulation is set
+     * @return true if boldSimulation is set, false if not.
+     */
+    public boolean isBoldSimulation() {
+		return boldSimulation;
+	}
 
     /**
+     * Checks if italicSimulation is set
+     * @return true if italicSimulation is set, false if not.
+     */
+	public boolean isItalicSimulation() {
+		return italicSimulation;
+	}
+
+	/**
      * Add temporary font from @font-face.
      *
      * @param fontInfo the font info
