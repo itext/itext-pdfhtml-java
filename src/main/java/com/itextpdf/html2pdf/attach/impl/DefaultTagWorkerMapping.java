@@ -201,6 +201,8 @@ class DefaultTagWorkerMapping {
         String afterPseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.AFTER);
         workerMapping.putMapping(beforePseudoElemName, SpanTagWorker.class);
         workerMapping.putMapping(afterPseudoElemName, SpanTagWorker.class);
+        workerMapping.putMapping(beforePseudoElemName, CssConstants.INLINE_BLOCK, DivTagWorker.class);
+        workerMapping.putMapping(afterPseudoElemName, CssConstants.INLINE_BLOCK, DivTagWorker.class);
         workerMapping.putMapping(beforePseudoElemName, CssConstants.BLOCK, DivTagWorker.class);
         workerMapping.putMapping(afterPseudoElemName, CssConstants.BLOCK, DivTagWorker.class);
         // For now behaving like display:block in display:table case is sufficient

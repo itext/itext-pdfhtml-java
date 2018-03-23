@@ -162,6 +162,8 @@ class DefaultTagCssApplierMapping {
         String afterPseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.AFTER);
         mapping.putMapping(beforePseudoElemName, SpanTagCssApplier.class);
         mapping.putMapping(afterPseudoElemName, SpanTagCssApplier.class);
+        mapping.putMapping(beforePseudoElemName, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
+        mapping.putMapping(afterPseudoElemName, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
         mapping.putMapping(beforePseudoElemName, CssConstants.BLOCK, BlockCssApplier.class);
         mapping.putMapping(afterPseudoElemName, CssConstants.BLOCK, BlockCssApplier.class);
         // For now behaving like display:block in display:table case is sufficient
