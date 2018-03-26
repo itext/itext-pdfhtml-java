@@ -74,7 +74,7 @@ public class ThTagWorker extends TdTagWorker {
         IPropertyContainer elementResult = super.getElementResult();
         if (elementResult instanceof IAccessibleElement) {
             ((IAccessibleElement) elementResult).getAccessibilityProperties().setRole(StandardRoles.TH);
-            if (context.getPdfDocument().isTagged()) {
+            if (context.getPdfDocument() == null || context.getPdfDocument().isTagged()) {
                 String scope = element.getAttribute(AttributeConstants.SCOPE);
                 AccessibilityProperties properties = ((IAccessibleElement) elementResult).getAccessibilityProperties();
                 PdfDictionary attributes = new PdfDictionary();
