@@ -72,7 +72,6 @@ public class HtmlTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-941")
     public void html01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest01.html"), new File(destinationFolder + "htmlTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest01.pdf", sourceFolder + "cmp_htmlTest01.pdf", destinationFolder, "diff01_"));
@@ -85,4 +84,22 @@ public class HtmlTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest02.pdf", sourceFolder + "cmp_htmlTest02.pdf", destinationFolder, "diff02_"));
     }
 
+    @Test
+    public void html03Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest03.html"), new File(destinationFolder + "htmlTest03.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest03.pdf", sourceFolder + "cmp_htmlTest03.pdf", destinationFolder, "diff03_"));
+    }
+
+    // this test is both for html and body
+    @Test
+    public void html04Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest04.html"), new File(destinationFolder + "htmlTest04.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest04.pdf", sourceFolder + "cmp_htmlTest04.pdf", destinationFolder, "diff04_"));
+    }
+
+    @Test
+    public void html05Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest05.html"), new File(destinationFolder + "htmlTest05.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest05.pdf", sourceFolder + "cmp_htmlTest05.pdf", destinationFolder, "diff05_"));
+    }
 }

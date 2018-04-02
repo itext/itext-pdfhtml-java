@@ -42,11 +42,12 @@ i {
     font-style: italic
 }
 html {
-    font-size: 12pt
+    font-size: 12pt;
+    display: block
 }
 body {
-    margin: 10%;
-    font-size: 12pt
+    font-size: 12pt;
+    display: block
 }
 p {
     margin: 1em 0

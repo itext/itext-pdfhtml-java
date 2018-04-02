@@ -303,10 +303,6 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
         test("htmlStylesConvertingTest10.html", "html body",
                 "background-color: yellow",
                 "font-size: 12.0pt",
-                "margin-bottom: 10%",
-                "margin-left: 10%",
-                "margin-right: 10%",
-                "margin-top: 10%",
                 "display: block",
                 "font-family: times-roman");
     }

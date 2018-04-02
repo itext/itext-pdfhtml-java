@@ -76,4 +76,10 @@ public class Html2PdfProperty {
 
     /** The Constant FORM_FIELD_CHECKED. */
     public static final int FORM_FIELD_CHECKED = PROPERTY_START + 9;
+
+    /** The Constant BODY_STYLING. */
+    public static final int BODY_STYLING = PROPERTY_START + 10;
+
+    /** The Constant HTML_STYLING. */
+    public static final int HTML_STYLING = PROPERTY_START + 11;
 }

@@ -28,10 +28,11 @@ i {
 }
 html {
     font-size: 12pt;
+    display: block;
 }
 body {
-    margin: 10%;
     font-size: 12pt;
+    display: block;
 }
 p, dl, multicol {
     margin: 1em 0;

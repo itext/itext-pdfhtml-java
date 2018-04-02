@@ -52,8 +52,13 @@ import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.kernel.pdf.tagging.StandardRoles;
+import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.AreaBreak;
+import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.layout.LayoutArea;
 import com.itextpdf.layout.layout.LayoutPosition;
 import com.itextpdf.layout.layout.LayoutResult;
@@ -63,6 +68,7 @@ import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The DocumentRenderer class for HTML.
@@ -311,13 +317,44 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         }
 
         nextProcessor.processNewPage(addedPage);
-
         float[] margins = nextProcessor.computeLayoutMargins();
-        setProperty(Property.MARGIN_TOP, margins[0]);
-        setProperty(Property.MARGIN_RIGHT, margins[1]);
-        setProperty(Property.MARGIN_BOTTOM, margins[2]);
-        setProperty(Property.MARGIN_LEFT, margins[3]);
+        float[] htmlStylesWidth = applyHtmlBodyMarginsBorders(addedPage, margins, false);
+        float[] simulatedMarginForBody = new float[4];
+        for (int i = 0; i < 4; i++)
+            simulatedMarginForBody[i] = margins[i] + htmlStylesWidth[i];
+        float[] bodyStylesWidth = applyHtmlBodyMarginsBorders(addedPage, simulatedMarginForBody, true);
+
+        setProperty(Property.MARGIN_TOP, margins[0] + htmlStylesWidth[0] + bodyStylesWidth[0]);
+        setProperty(Property.MARGIN_RIGHT, margins[1] + htmlStylesWidth[1] + bodyStylesWidth[1]);
+        setProperty(Property.MARGIN_BOTTOM, margins[2] + htmlStylesWidth[2] + bodyStylesWidth[2]);
+        setProperty(Property.MARGIN_LEFT, margins[3] + htmlStylesWidth[3] + bodyStylesWidth[3]);
+
         return new PageSize(addedPage.getTrimBox());
+    }
+
+    private float[] applyHtmlBodyMarginsBorders(PdfPage page, float[] defaultMargins, boolean body) {
+        int htmlOrBodyStylingProperty = body ? Html2PdfProperty.BODY_STYLING : Html2PdfProperty.HTML_STYLING;
+        BodyHtmlStylesContainer styles = ((IPropertyContainer) document).<BodyHtmlStylesContainer>getProperty(htmlOrBodyStylingProperty);
+        if (styles == null)
+            return new float[4];
+
+        if (styles.hasBordersToDraw()) {
+            Div pageBordersSimulation;
+            pageBordersSimulation = new Div().setFillAvailableArea(true);
+
+            for (Map.Entry<Integer, Object> entry : styles.properties.entrySet()) {
+                pageBordersSimulation.setProperty(entry.getKey(), entry.getValue());
+            }
+
+            pageBordersSimulation.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
+
+            Canvas canvas = new Canvas(new PdfCanvas(page), page.getDocument(), page.getTrimBox()
+                    .applyMargins(defaultMargins[0], defaultMargins[1], defaultMargins[2], defaultMargins[3], false));
+            canvas.enableAutoTagging(page);
+            canvas.add(pageBordersSimulation);
+            canvas.close();
+        }
+        return styles.getTotalWidth();
     }
 
     /**

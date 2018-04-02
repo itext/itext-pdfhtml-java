@@ -117,6 +117,6 @@ public class BodyTagWorker extends DivTagWorker {
      */
     @Override
     public IPropertyContainer getElementResult() {
-        return parentTagWorker == null ? super.getElementResult() : null;
+        return parentTagWorker == null ? super.getElementResult() : parentTagWorker.getElementResult();
     }
 }

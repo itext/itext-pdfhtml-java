@@ -96,10 +96,14 @@ public class BodyTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-941")
     public void body05Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest05.html"), new File(destinationFolder + "bodyTest05.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest05.pdf", sourceFolder + "cmp_bodyTest05.pdf", destinationFolder, "diff05_"));
     }
 
+    @Test
+    public void body06Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest06.html"), new File(destinationFolder + "bodyTest06.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest06.pdf", sourceFolder + "cmp_bodyTest06.pdf", destinationFolder, "diff06_"));
+    }
 }

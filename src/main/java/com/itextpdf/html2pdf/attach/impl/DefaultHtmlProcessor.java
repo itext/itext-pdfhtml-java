@@ -306,6 +306,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             context.getOutlineHandler().addOutline(tagWorker, element, context);
 
             visitPseudoElement(element, CssConstants.BEFORE);
+            if (element.name().equals(TagConstants.BODY) || element.name().equals(TagConstants.HTML))
+                runApplier(element, tagWorker);
             for (INode childNode : element.childNodes()) {
                 visit(childNode);
             }
@@ -317,15 +319,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 context.getOutlineHandler().addDestination(tagWorker, element);
                 context.getState().pop();
 
-                ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(element);
-                if (cssApplier == null) {
-                    if (!ignoredCssTags.contains(element.name())) {
-                        logger.error(MessageFormatUtil.format(LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
-                    }
-                } else {
-                    cssApplier.apply(context, element, tagWorker);
-                }
-
+                if (!element.name().equals(TagConstants.BODY) && !element.name().equals(TagConstants.HTML))
+                    runApplier(element, tagWorker);
                 if (!context.getState().empty()) {
                     PageBreakApplierUtil.addPageBreakElementBefore(context, context.getState().top(), element, tagWorker);
                     tagWorker = processRunningElement(tagWorker, element, context);
@@ -356,6 +351,17 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 }
 
             }
+        }
+    }
+
+    private void runApplier(IElementNode element, ITagWorker tagWorker) {
+        ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(element);
+        if (cssApplier == null) {
+            if (!ignoredCssTags.contains(element.name())) {
+                logger.error(MessageFormatUtil.format(LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
+            }
+        } else {
+            cssApplier.apply(context, element, tagWorker);
         }
     }
 
