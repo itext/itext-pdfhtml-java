@@ -2,6 +2,7 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.AbstractSelectField;
+import com.itextpdf.io.font.otf.GlyphLine;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.layout.layout.LayoutArea;
 import com.itextpdf.layout.layout.LayoutContext;
@@ -12,6 +13,7 @@ import com.itextpdf.layout.renderer.BlockRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
+import com.itextpdf.layout.splitting.ISplitCharacters;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,7 @@ public abstract class AbstractSelectFieldRenderer extends BlockRenderer {
     public AbstractSelectFieldRenderer(AbstractSelectField modelElement) {
         super(modelElement);
         addChild(createFlatRenderer());
+        setProperty(Property.SPLIT_CHARACTERS, new NoSplitCharacters());
     }
 
     @Override
@@ -136,18 +139,11 @@ public abstract class AbstractSelectFieldRenderer extends BlockRenderer {
         return child.hasProperty(Html2PdfProperty.FORM_FIELD_SELECTED);
     }
 
-    static void replaceParagraphRenderers(IRenderer rendererSubTree) {
-        // TODO does inf width messes up the layout?
+    private static class NoSplitCharacters implements ISplitCharacters {
 
-        // TODO may be better run it in constructor
-        for (int i = 0; i < rendererSubTree.getChildRenderers().size(); ++i) {
-            IRenderer renderer = rendererSubTree.getChildRenderers().get(i);
-            if (renderer instanceof ParagraphRenderer) {
-                // TODO may be better to introduce intermediate parent
-                InfiniteWidthParagraphRenderer newRenderer = new InfiniteWidthParagraphRenderer((ParagraphRenderer) renderer);
-                rendererSubTree.getChildRenderers().set(i, newRenderer);
-            }
-            replaceParagraphRenderers(renderer);
+        @Override
+        public boolean isSplitCharacter(GlyphLine text, int glyphPos) {
+            return false;
         }
     }
 }

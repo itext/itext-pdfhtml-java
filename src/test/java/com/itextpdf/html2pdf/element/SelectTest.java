@@ -72,6 +72,7 @@ public class SelectTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, count = 1))
     public void selectBasicTest10() throws IOException, InterruptedException {
         runTest("selectBasicTest10");
     }
@@ -98,7 +99,6 @@ public class SelectTest extends ExtendedITextTest {
 
     @Test
     public void selectStylesTest02() throws IOException, InterruptedException {
-        // TODO content with text-align not left is mvoed outside the page area
         runTest("selectStylesTest02");
     }
 
@@ -115,11 +115,14 @@ public class SelectTest extends ExtendedITextTest {
 
     @Test
     public void selectWidthTest03() throws IOException, InterruptedException {
+        // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
         runTest("selectWidthTest03");
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, count = 1))
     public void selectWidthTest04() throws IOException, InterruptedException {
+        // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
         runTest("selectWidthTest04");
     }
 
@@ -140,6 +143,7 @@ public class SelectTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH))
     public void selectMinMaxWidthCalculationTest01() throws IOException, InterruptedException {
         runTest("selectMinMaxWidthCalculationTest01");
     }

@@ -89,7 +89,6 @@ public class SelectFieldComboBoxRenderer extends AbstractSelectFieldRenderer {
         }
 
         IRenderer rendererSubTree = pseudoContainer.createRendererSubTree();
-        replaceParagraphRenderers(rendererSubTree);
 
         return rendererSubTree;
     }

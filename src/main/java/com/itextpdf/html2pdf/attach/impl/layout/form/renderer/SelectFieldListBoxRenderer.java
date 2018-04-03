@@ -100,7 +100,6 @@ public class SelectFieldListBoxRenderer extends AbstractSelectFieldRenderer {
             rendererSubTree = optionsContainer.createRendererSubTree();
         } else {
             rendererSubTree = optionsContainer.createRendererSubTree();
-            replaceParagraphRenderers(rendererSubTree);
 
             List<IRenderer> selectedOptions = getSelectedOptions(rendererSubTree);
             for (IRenderer selectedOption : selectedOptions) {

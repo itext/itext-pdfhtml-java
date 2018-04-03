@@ -65,6 +65,7 @@ public class OptGroupTest extends ExtendedITextTest {
 
     @Test
     public void optGroupWidthTest01() throws IOException, InterruptedException {
+        // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
         runTest("optGroupWidthTest01");
     }
 
@@ -75,6 +76,7 @@ public class OptGroupTest extends ExtendedITextTest {
 
     @Test
     public void optGroupOverflowTest02() throws IOException, InterruptedException {
+        // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
         runTest("optGroupOverflowTest02");
     }
 
