@@ -49,6 +49,9 @@ import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -351,6 +354,16 @@ public class TableTest extends ExtendedITextTest {
         runTest("thTagScopeTagged", true);
     }
 
+    @Test
+    public void thScopeTaggedDifferentTablesTest() throws IOException, InterruptedException {
+        runConvertToElements("thTagScopeTaggedDifferentTables", true);
+    }
+
+    @Test
+    public void thScopeNotTaggedDifferentTablesTest() throws IOException, InterruptedException {
+        runConvertToElements("thTagScopeNotTaggedDifferentTables", false);
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         runTest(testName, false);
     }
@@ -363,6 +376,26 @@ public class TableTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + testName + ".html"), pdfDocument, new ConverterProperties().setBaseUri(sourceFolder));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + testName + ".html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+    }
+
+    private void runConvertToElements(String testName, boolean tagged) throws IOException, InterruptedException {
+        FileInputStream source = new FileInputStream(sourceFolder + testName + ".html");
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + testName + ".pdf"));
+        if (tagged) {
+            pdfDocument.setTagged();
+        }
+        Document layoutDocument = new Document(pdfDocument);
+        ConverterProperties props = new ConverterProperties();
+
+        for (IElement element : HtmlConverter.convertToElements(source, props)) {
+            if (element instanceof IBlockElement)
+                layoutDocument.add((IBlockElement) element);
+        }
+        layoutDocument.close();
+        pdfDocument.close();
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
+                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff01_"));
+
     }
 
 }
