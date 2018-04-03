@@ -231,6 +231,24 @@ public class HeightTest extends ExtendedITextTest {
         runTest(testName, diffPrefix);
     }
 
+    @Test
+    public void heightLargerThanMinHeight01() throws IOException, InterruptedException {
+        // TODO DEVSIX-1895: height differs from the browser rendering due to incorrect resolving of max-height/height properties
+        String testName = "heightLargerThanMinHeight01";
+        String diffPrefix = "diffLargerMin01_";
+
+        runTest(testName, diffPrefix);
+    }
+
+    @Test
+    public void heightLesserThanMaxHeight01() throws IOException, InterruptedException {
+        // TODO DEVSIX-1895: height differs from the browser rendering due to incorrect resolving of max-height/height properties
+        String testName = "heightLesserThanMaxHeight01";
+        String diffPrefix = "diffLessMax01_";
+
+        runTest(testName, diffPrefix);
+    }
+
     public void runTest(String testName, String diffPrefix) throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + testName + ".html").getPath() + "\n");
