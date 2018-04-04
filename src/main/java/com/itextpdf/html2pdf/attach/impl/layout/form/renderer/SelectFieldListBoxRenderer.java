@@ -46,11 +46,10 @@ public class SelectFieldListBoxRenderer extends AbstractSelectFieldRenderer {
         // options container is the only kid of the select field renderer by design
         IRenderer optionsContainer = childRenderers.size() == 1 ? childRenderers.get(0) : null;
 
-        if (layoutResult.getStatus() != LayoutResult.FULL || optionsContainer == null || optionsContainer.getOccupiedArea() == null) {
+        if (!isFlatten() || layoutResult.getStatus() != LayoutResult.FULL || optionsContainer == null || optionsContainer.getOccupiedArea() == null) {
             return layoutResult;
         }
 
-        // TODO only if flatten
         if (isOverflowProperty(OverflowPropertyValue.HIDDEN, this, Property.OVERFLOW_Y)) {
             List<IRenderer> selectedOptions = getSelectedOptions(this);
             IRenderer firstSelectedOption;
@@ -132,7 +131,7 @@ public class SelectFieldListBoxRenderer extends AbstractSelectFieldRenderer {
 
     @Override
     protected void applyAcroField(DrawContext drawContext) {
-        // TODO
+        // TODO DEVSIX-1901
     }
 
     private float getCalculatedHeight(IRenderer flatRenderer) {

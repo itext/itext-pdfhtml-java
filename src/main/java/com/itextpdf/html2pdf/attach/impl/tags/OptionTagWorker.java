@@ -63,7 +63,7 @@ public class OptionTagWorker extends DivTagWorker {
 
     @Override
     public boolean processContent(String content, ProcessorContext context) {
-        content = content.trim(); // TODO white-space:pre is overridden in chrome in user agent css for list-boxes, we don't do this for now
+        content = content.trim(); // white-space:pre is overridden in chrome in user agent css for list-boxes, we don't do this for now
         if (labelAttrVal != null) {
             if (!labelReplacedContent) {
                 labelReplacedContent = true;
@@ -73,7 +73,7 @@ public class OptionTagWorker extends DivTagWorker {
             super.processContent(content, context);
         }
         if (!fakedContent) {
-            actualOptionTextContent.append(content); // TODO spaces are not collapsed according to white-space property in here
+            actualOptionTextContent.append(content); // TODO DEVSIX-1901: spaces are not collapsed according to white-space property in here
         }
         return true;
     }

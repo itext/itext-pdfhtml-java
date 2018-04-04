@@ -47,6 +47,8 @@ package com.itextpdf.html2pdf;
  */
 public final class LogMessageConstant {
 
+    /** The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT. */
+    public static final String ACROFORM_NOT_SUPPORTED_FOR_SELECT = "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will be flattened instead.";
     /** The Constant CONTENT_PROPERTY_INVALID. */
     public static final String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
     /** The Constant CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED. */

@@ -60,7 +60,7 @@ public class SelectFieldComboBoxRenderer extends AbstractSelectFieldRenderer {
 
     @Override
     protected void applyAcroField(DrawContext drawContext) {
-        // TODO
+        // TODO DEVSIX-1901
     }
 
     private IRenderer createFlatRenderer(boolean addAllOptionsToChildren) {

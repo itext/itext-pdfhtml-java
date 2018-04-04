@@ -1,7 +1,9 @@
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.AbstractSelectField;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.io.font.otf.GlyphLine;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.layout.layout.LayoutArea;
@@ -16,6 +18,8 @@ import com.itextpdf.layout.renderer.ParagraphRenderer;
 import com.itextpdf.layout.splitting.ISplitCharacters;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Abstract {@link BlockRenderer} for select form fields.
@@ -31,6 +35,12 @@ public abstract class AbstractSelectFieldRenderer extends BlockRenderer {
         super(modelElement);
         addChild(createFlatRenderer());
         setProperty(Property.SPLIT_CHARACTERS, new NoSplitCharacters());
+        if (!isFlatten()) {
+            // TODO DEVSIX-1901
+            Logger logger = LoggerFactory.getLogger(AbstractSelectFieldRenderer.class);
+            logger.warn(LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT);
+            setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, Boolean.TRUE);
+        }
     }
 
     @Override
@@ -86,17 +96,34 @@ public abstract class AbstractSelectFieldRenderer extends BlockRenderer {
 
     @Override
     public void drawChildren(DrawContext drawContext) {
-        if (true) {// TODO isFlatten
+        if (isFlatten()) {
             super.drawChildren(drawContext);
         } else {
             applyAcroField(drawContext);
         }
-
     }
 
     protected abstract IRenderer createFlatRenderer();
 
     protected abstract void applyAcroField(DrawContext drawContext);
+
+    /**
+     * Checks if form fields need to be flattened.
+     *
+     * @return true, if fields need to be flattened
+     */
+    protected boolean isFlatten() {
+        return (boolean) getPropertyAsBoolean(Html2PdfProperty.FORM_FIELD_FLATTEN);
+    }
+
+    /**
+     * Gets the model id.
+     *
+     * @return the model id
+     */
+    protected String getModelId() {
+        return ((IFormField) getModelElement()).getId();
+    }
 
     protected float getFinalSelectFieldHeight(float availableHeight, float actualHeight, boolean isClippedHeight) {
         boolean isForcedPlacement = Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT));

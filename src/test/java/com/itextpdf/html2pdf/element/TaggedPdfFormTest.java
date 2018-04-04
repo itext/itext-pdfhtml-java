@@ -57,12 +57,25 @@ public class TaggedPdfFormTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DefaultHtmlProcessor ERROR No worker found for tag select")
+    @Ignore("DEVSIX-1901")
     public void simpleSelectTagged() throws IOException, InterruptedException {
         runTest("simpleSelectTagged");
     }
 
     @Test
+    @Ignore("DEVSIX-1901")
+    public void listBoxSelectTagged() throws IOException, InterruptedException {
+        runTest("listBoxSelectTagged");
+    }
+
+    @Test
+    @Ignore("DEVSIX-1901")
+    public void listBoxOptGroupSelectTagged() throws IOException, InterruptedException {
+        runTest("listBoxOptGroupSelectTagged");
+    }
+
+    @Test
+    @Ignore("DEVSIX-1901")
     public void simpleRadioFormTagged() throws IOException, InterruptedException {
         runTest("simpleRadioFormTagged");
     }
