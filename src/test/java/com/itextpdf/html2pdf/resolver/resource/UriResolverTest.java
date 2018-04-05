@@ -61,7 +61,19 @@ public class UriResolverTest extends ExtendedITextTest {
 
     @Test
     public void uriResolverTest01() throws MalformedURLException {
-        String absolutePathRoot = "file://" + Paths.get("").toAbsolutePath().getRoot().toString().replace('\\', '/').replaceFirst("^/", "");
+        String absolutePathRoot = Paths.get("").toAbsolutePath().getRoot().toUri().toURL().toExternalForm().replace('\\', '/').replaceFirst("^/", "");
+        String absoluteBaseUri = absolutePathRoot + "test/folder/index.html";
+        UriResolver resolver = new UriResolver(absoluteBaseUri);
+        Assert.assertEquals(absolutePathRoot + "test/folder/index.html", resolver.getBaseUri());
+        Assert.assertEquals(absolutePathRoot + "test/folder/innerTest", resolver.resolveAgainstBaseUri("innerTest").toExternalForm());
+        Assert.assertEquals(absolutePathRoot + "test/folder2/innerTest2", resolver.resolveAgainstBaseUri("../folder2/innerTest2").toExternalForm());
+        Assert.assertEquals(absolutePathRoot + "test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("/folder2/innerTest2").toExternalForm());
+        Assert.assertEquals(absolutePathRoot + "test/folder/folder2/innerTest2", resolver.resolveAgainstBaseUri("//folder2/innerTest2").toExternalForm());
+    }
+
+    @Test
+    public void uriResolverTest01A() throws MalformedURLException {
+        String absolutePathRoot = Paths.get("").toAbsolutePath().toUri().toURL().toExternalForm().replace('\\', '/').replaceFirst("^/", "");
         String absoluteBaseUri = absolutePathRoot + "test/folder/index.html";
         UriResolver resolver = new UriResolver(absoluteBaseUri);
         Assert.assertEquals(absolutePathRoot + "test/folder/index.html", resolver.getBaseUri());
