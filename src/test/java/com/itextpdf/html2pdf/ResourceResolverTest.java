@@ -49,6 +49,7 @@ import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -79,6 +80,7 @@ public class ResourceResolverTest extends ExtendedITextTest {
         }
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff03_"));
     }
+
     @Test
     public void resourceResolverTest07() throws IOException, InterruptedException {
         String outPdf = destinationFolder + "resourceResolverTest07.pdf";
@@ -314,6 +316,19 @@ public class ResourceResolverTest extends ExtendedITextTest {
             HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
         }
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff16D_"));
+    }
+
+    @Test
+    @Ignore("The path to the image shall be changed to reference some available shared file in order to run the test correctly.")
+    public void resourceResolverTest17() throws IOException, InterruptedException {
+        String baseUri = sourceFolder;
+        String outPdf = destinationFolder + "resourceResolverTest17.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest17.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest17.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff17_"));
     }
 
     // TODO test with absolute http links for resources?
