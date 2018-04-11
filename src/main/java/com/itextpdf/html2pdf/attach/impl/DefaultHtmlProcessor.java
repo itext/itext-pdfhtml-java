@@ -50,8 +50,10 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
 import com.itextpdf.html2pdf.attach.impl.layout.RunningElementContainer;
-import com.itextpdf.html2pdf.attach.impl.tags.RunningElementTagWorker;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
 import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.InputTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.RunningElementTagWorker;
 import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssFontFaceRule;
@@ -69,20 +71,20 @@ import com.itextpdf.html2pdf.html.node.ITextNode;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
+import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.kernel.Version;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.property.Property;
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import com.itextpdf.kernel.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.itextpdf.io.util.MessageFormatUtil;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -97,17 +99,23 @@ import java.util.Set;
  */
 public class DefaultHtmlProcessor implements IHtmlProcessor {
 
-    /** The logger instance. */
+    /**
+     * The logger instance.
+     */
     private static final Logger logger = LoggerFactory.getLogger(DefaultHtmlProcessor.class);
 
-    /** Set of tags that do not map to any tag worker and that are deliberately excluded from the logging. */
+    /**
+     * Set of tags that do not map to any tag worker and that are deliberately excluded from the logging.
+     */
     private static final Set<String> ignoredTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
             TagConstants.HEAD,
             TagConstants.STYLE,
             // TODO <tbody> is not supported. Styles will be propagated anyway
             TagConstants.TBODY)));
 
-    /** Set of tags to which we do not want to apply CSS to and that are deliberately excluded from the logging */
+    /**
+     * Set of tags to which we do not want to apply CSS to and that are deliberately excluded from the logging
+     */
     private static final Set<String> ignoredCssTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
             TagConstants.BR,
             TagConstants.LINK,
@@ -116,22 +124,30 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             // Content from <tr> is thrown upwards to parent, in other cases CSS is inherited anyway
             TagConstants.TR)));
 
-    /** Set of tags that might be not processed by some tag workers and that are deliberately excluded from the logging. */
+    /**
+     * Set of tags that might be not processed by some tag workers and that are deliberately excluded from the logging.
+     */
     private static final Set<String> ignoredChildTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
             TagConstants.BODY,
             TagConstants.LINK,
             TagConstants.META,
             TagConstants.SCRIPT,
             TagConstants.TITLE // TODO implement
-            )));
+    )));
 
-    /** The processor context. */
+    /**
+     * The processor context.
+     */
     private ProcessorContext context;
 
-    /** A list of parent objects that result from parsing the HTML. */
+    /**
+     * A list of parent objects that result from parsing the HTML.
+     */
     private List<IPropertyContainer> roots;
 
-    /** The CSS resolver. */
+    /**
+     * The CSS resolver.
+     */
     private ICssResolver cssResolver;
 
     /**
@@ -160,7 +176,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
             Object licenseKeyProductFeatureArray = Array.newInstance(licenseKeyProductFeatureClass, 0);
 
-            Class[] params = new Class[] {
+            Class[] params = new Class[]{
                     String.class,
                     Integer.TYPE,
                     Integer.TYPE,
@@ -179,7 +195,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             Method method = licenseKeyClass.getMethod(checkLicenseKeyMethodName, licenseKeyProductClass);
             method.invoke(null, licenseKeyProductObject);
         } catch (Exception e) {
-            if ( ! Version.isAGPLVersion() ) {
+            if (!Version.isAGPLVersion()) {
                 throw new RuntimeException(e.getCause());
             }
         }
@@ -232,7 +248,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
             Object licenseKeyProductFeatureArray = Array.newInstance(licenseKeyProductFeatureClass, 0);
 
-            Class[] params = new Class[] {
+            Class[] params = new Class[]{
                     String.class,
                     Integer.TYPE,
                     Integer.TYPE,
@@ -251,7 +267,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             Method method = licenseKeyClass.getMethod(checkLicenseKeyMethodName, licenseKeyProductClass);
             method.invoke(null, licenseKeyProductObject);
         } catch (Exception e) {
-            if ( ! Version.isAGPLVersion() ) {
+            if (!Version.isAGPLVersion()) {
                 throw new RuntimeException(e.getCause());
             }
         }
@@ -305,13 +321,15 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
             context.getOutlineHandler().addOutline(tagWorker, element, context);
 
-            visitPseudoElement(element, CssConstants.BEFORE);
+
+            visitPseudoElement(element, tagWorker, CssConstants.BEFORE);
+            visitPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER);
             if (element.name().equals(TagConstants.BODY) || element.name().equals(TagConstants.HTML))
                 runApplier(element, tagWorker);
             for (INode childNode : element.childNodes()) {
                 visit(childNode);
             }
-            visitPseudoElement(element, CssConstants.AFTER);
+            visitPseudoElement(element, tagWorker, CssConstants.AFTER);
 
             if (tagWorker != null) {
                 tagWorker.processEnd(element, context);
@@ -430,7 +448,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      * Creates a font and adds it to the context.
      *
      * @param fontFamily the font family
-     * @param src the source of the font
+     * @param src        the source of the font
      * @return true, if successful
      */
     private boolean createFont(String fontFamily, FontFace.FontFaceSrc src) {
@@ -484,19 +502,35 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     /**
      * Processes a pseudo element (before and after CSS).
      *
-     * @param node the node
+     * @param node              the node
      * @param pseudoElementName the pseudo element name
      */
-    private void visitPseudoElement(IElementNode node, String pseudoElementName) {
-        if (CssPseudoElementUtil.hasBeforeAfterElements(node)) {
-            visit(new CssPseudoElementNode(node, pseudoElementName));
+    private void visitPseudoElement(IElementNode node, ITagWorker tagWorker, String pseudoElementName) {
+        switch (pseudoElementName) {
+            case CssConstants.BEFORE:
+            case CssConstants.AFTER:
+                if (!CssPseudoElementUtil.hasBeforeAfterElements(node)) {
+                    return;
+                }
+                break;
+            case CssConstants.PLACEHOLDER:
+                if (!TagConstants.INPUT.equals(node.name())
+                        || null == tagWorker
+                        || !(tagWorker.getElementResult() instanceof InputField)
+                        || null == ((InputField) tagWorker.getElementResult()).getPlaceholder()) {
+                    return;
+                }
+                break;
+            default:
+                return;
         }
+        visit(new CssPseudoElementNode(node, pseudoElementName));
     }
 
     /**
      * Find an element in a node.
      *
-     * @param node the node
+     * @param node    the node
      * @param tagName the tag name
      * @return the element node
      */
@@ -548,6 +582,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         if (element != null && element.getStyles() != null && CssConstants.NONE.equals(element.getStyles().get(CssConstants.DISPLAY))) {
             return false;
         }
+        if (isPlaceholder(element)) {
+            return true;
+        }
         if (element instanceof CssPseudoElementNode) {
             if (element.childNodes().isEmpty()) {
                 return false;
@@ -571,4 +608,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         return element != null;
     }
 
+    private boolean isPlaceholder(IElementNode element) {
+        return element instanceof CssPseudoElementNode && CssConstants.PLACEHOLDER.equals(((CssPseudoElementNode) element).getPseudoElementName());
+    }
 }

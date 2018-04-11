@@ -56,16 +56,24 @@ import java.util.regex.Pattern;
  */
 public class CssRuleSet extends CssStatement {
 
-    /** Pattern to match "important" in a rule declaration. */
+    /**
+     * Pattern to match "important" in a rule declaration.
+     */
     private static final Pattern importantMatcher = Pattern.compile(".*!\\s*important$");
 
-    /** The CSS selector. */
+    /**
+     * The CSS selector.
+     */
     private ICssSelector selector;
-    
-    /** The normal CSS declarations. */
+
+    /**
+     * The normal CSS declarations.
+     */
     private List<CssDeclaration> normalDeclarations;
-    
-    /** The important CSS declarations. */
+
+    /**
+     * The important CSS declarations.
+     */
     private List<CssDeclaration> importantDeclarations;
 
     /**
@@ -74,7 +82,7 @@ public class CssRuleSet extends CssStatement {
      * To construct the {@link CssRuleSet} instance from normal and important declarations, see
      * {@link #CssRuleSet(ICssSelector, List, List)}
      *
-     * @param selector the CSS selector
+     * @param selector     the CSS selector
      * @param declarations the CSS declarations
      */
     public CssRuleSet(ICssSelector selector, List<CssDeclaration> declarations) {

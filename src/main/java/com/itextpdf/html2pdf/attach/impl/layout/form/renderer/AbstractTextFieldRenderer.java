@@ -49,7 +49,6 @@ import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.annot.PdfAnnotation;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.BoxSizingPropertyValue;
-import com.itextpdf.layout.property.Leading;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.renderer.BlockRenderer;
@@ -96,9 +95,9 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
     /**
      * Adjust number of content lines.
      *
-     * @param lines       the lines that need to be rendered
-     * @param bBox        the bounding box
-     * @param rows the desired number of lines
+     * @param lines the lines that need to be rendered
+     * @param bBox  the bounding box
+     * @param rows  the desired number of lines
      */
     void adjustNumberOfContentLines(List<LineRenderer> lines, Rectangle bBox, int rows) {
         if (lines.size() != rows) {
@@ -110,9 +109,9 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
     /**
      * Adjust number of content lines.
      *
-     * @param lines       the lines that need to be rendered
-     * @param bBox        the bounding box
-     * @param height      the desired height of content
+     * @param lines  the lines that need to be rendered
+     * @param bBox   the bounding box
+     * @param height the desired height of content
      */
     void adjustNumberOfContentLines(List<LineRenderer> lines, Rectangle bBox, float height) {
         float averageLineHeight = bBox.getHeight() / lines.size();

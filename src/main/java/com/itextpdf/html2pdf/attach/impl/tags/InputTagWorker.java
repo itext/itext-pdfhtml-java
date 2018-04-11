@@ -54,10 +54,10 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.html2pdf.resolver.form.RadioCheckResolver;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.element.Paragraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,7 +91,23 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
                 || AttributeConstants.PASSWORD.equals(inputType) || AttributeConstants.NUMBER.equals(inputType)) {
             Integer size = CssUtils.parseInteger(element.getAttribute(AttributeConstants.SIZE));
             formElement = new InputField(name);
-            formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, preprocessInputValue(value, inputType));
+            value = preprocessInputValue(value, inputType);
+            // process placeholder instead
+            String placeholder = element.getAttribute(AttributeConstants.PLACEHOLDER);
+            if (null != placeholder) {
+                Paragraph paragraph;
+                if (placeholder.isEmpty()) {
+                    paragraph = new Paragraph();
+                } else {
+                    if (placeholder.trim().isEmpty()) {
+                        paragraph = new Paragraph("\u00A0");
+                    } else {
+                        paragraph = new Paragraph(placeholder);
+                    }
+                }
+                ((InputField) formElement).setPlaceholder(paragraph.setMargin(0));
+            }
+            formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
             formElement.setProperty(Html2PdfProperty.FORM_FIELD_SIZE, size);
             if (AttributeConstants.PASSWORD.equals(inputType)) {
                 formElement.setProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG, true);
@@ -153,7 +169,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        return false;
+        return childTagWorker instanceof PlaceholderTagWorker && null != ((InputField) formElement).getPlaceholder();
     }
 
     /* (non-Javadoc)

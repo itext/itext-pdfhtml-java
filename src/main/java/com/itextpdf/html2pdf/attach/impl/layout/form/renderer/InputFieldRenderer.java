@@ -108,6 +108,16 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
     }
 
     @Override
+    IRenderer createParagraphRenderer(String defaultValue) {
+        if (defaultValue.isEmpty()) {
+            if (null != ((InputField) modelElement).getPlaceholder() && !((InputField) modelElement).getPlaceholder().isEmpty()) {
+                return ((InputField) modelElement).getPlaceholder().createRendererSubTree();
+            }
+        }
+        return super.createParagraphRenderer(defaultValue);
+    }
+
+    @Override
     protected void adjustFieldLayout() {
         throw new RuntimeException("adjustFieldLayout() is deprecated and shouldn't be used. Override adjustFieldLayout(LayoutContext) instead");
     }

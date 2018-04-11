@@ -48,8 +48,10 @@ import com.itextpdf.html2pdf.html.node.IElementNode;
  * Utilities class for pseudo elements.
  */
 public class CssPseudoElementUtil {
-    
-    /** The prefix for pseudo elements. */
+
+    /**
+     * The prefix for pseudo elements.
+     */
     private static final String TAG_NAME_PREFIX = "pseudo-element::";
 
     /**

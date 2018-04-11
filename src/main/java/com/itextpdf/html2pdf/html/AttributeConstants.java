@@ -136,6 +136,9 @@ public final class AttributeConstants {
     /** The Constant NUMBER. */
     public static final String NUMBER = "number";
 
+    /** The Constant PLACEHOLDER. */
+    public static final String PLACEHOLDER = "placeholder";
+
     /** The Constant REL. */
     public static final String REL = "rel";
 

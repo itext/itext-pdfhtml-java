@@ -115,7 +115,7 @@ public class SpanTagCssApplier implements ICssApplier {
      * @param context the processor context
      * @param stylesContainer the styles container
      */
-    private void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context, IStylesContainer stylesContainer) {
+    protected void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context, IStylesContainer stylesContainer) {
         FontStyleApplierUtil.applyFontStyles(css, context, stylesContainer, element);
         //TODO: Background-applying currently doesn't work in html way for spans inside other spans.
         BackgroundApplierUtil.applyBackground(css, context, element);

@@ -66,6 +66,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.OptionTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PageCountWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PageMarginBoxWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.PlaceholderTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PreTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.SelectTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
@@ -182,6 +183,9 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.U, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.UL, UlOlTagWorker.class);
         workerMapping.putMapping(TagConstants.VAR, SpanTagWorker.class);
+
+        String placeholderPseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.PLACEHOLDER);
+        workerMapping.putMapping(placeholderPseudoElemName, PlaceholderTagWorker.class);
 
         workerMapping.putMapping(TagConstants.UL, CssConstants.INLINE, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.LI, CssConstants.INLINE, SpanTagWorker.class);

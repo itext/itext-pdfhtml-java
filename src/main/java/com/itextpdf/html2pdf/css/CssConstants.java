@@ -1000,6 +1000,9 @@ public class CssConstants {
     /** The Constant OUT_OF_RANGE. */
     public static final String OUT_OF_RANGE = "out-of-range";
 
+    /** The Constant PLACEHOLDER. */
+    public static final String PLACEHOLDER = "placeholder";
+
     /** The Constant READ_ONLY. */
     public static final String READ_ONLY = "read-only";
 
