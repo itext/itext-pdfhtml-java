@@ -48,6 +48,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.regex.Matcher;
@@ -93,7 +94,6 @@ public class UriResolver {
         URL resolvedUrl = null;
         uriString = uriString.trim();
         // decode and then encode uri string in order to process unsafe characters correctly
-        String scheme = getUriStringScheme(uriString);
         uriString = UriEncodeUtil.encode(uriString);
         if (isLocalBaseUri) {
             // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
@@ -120,15 +120,22 @@ public class UriResolver {
     }
 
     /**
+     * Check if baseURI is local
+     *
+     * @return true if baseURI is local, otherwise false
+     */
+    public boolean isLocalBaseUri() {
+        return isLocalBaseUri;
+    }
+
+    /**
      * Resolves the base URI to an URL or path.
      *
      * @param base the base URI
      */
     private void resolveBaseUrlOrPath(String base) {
         base = base.trim();
-        String scheme = getUriStringScheme(base);
-        base = UriEncodeUtil.encode(base);
-        baseUrl = baseUriAsUrl(base);
+        baseUrl = baseUriAsUrl(UriEncodeUtil.encode(base));
         if (baseUrl == null) {
             baseUrl = uriAsFileUrl(base);
         }
@@ -171,7 +178,14 @@ public class UriResolver {
         URL baseAsFileUrl = null;
         try {
             Path path = Paths.get(baseUriString);
-            baseAsFileUrl = path.toAbsolutePath().normalize().toUri().toURL();
+            if (isPathRooted(path, baseUriString)) {
+                String str = "file:///" + encode(path, path.toAbsolutePath().normalize().toString());
+                baseAsFileUrl = new URI(str).toURL();
+            } else {
+                String str = encode(path, baseUriString);
+                URL base = Paths.get("").toUri().toURL();
+                baseAsFileUrl = new URL(base, str);
+            }
             isLocalBaseUri = true;
         } catch (Exception ignored) {
         }
@@ -199,12 +213,17 @@ public class UriResolver {
         return result;
     }
 
-    /**
-     * Check if baseURI is local
-     *
-     * @return true if baseURI is local, otherwise false
-     */
-    public boolean isLocalBaseUri() {
-        return isLocalBaseUri;
+    private String encode(Path path, String str) {
+        str = str.replace("\\", "/");
+        str = UriEncodeUtil.encode(str);
+        if (Files.isDirectory(path) && !str.endsWith("/")) {
+            str += "/";
+        }
+        str = str.replaceFirst("/*\\\\*", "");
+        return str;
+    }
+
+    private boolean isPathRooted(Path path, String str) {
+        return path.isAbsolute() || str.startsWith("/");
     }
 }

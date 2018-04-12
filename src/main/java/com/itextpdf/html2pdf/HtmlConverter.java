@@ -66,6 +66,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -172,9 +173,9 @@ public class HtmlConverter {
      */
     public static void convertToPdf(File htmlFile, File pdfFile, ConverterProperties converterProperties) throws IOException {
         if (converterProperties == null) {
-            converterProperties = new ConverterProperties().setBaseUri(FileUtil.getParentDirectory(htmlFile.getAbsolutePath()) + File.separator);
+            converterProperties = new ConverterProperties().setBaseUri(Paths.get(FileUtil.getParentDirectory(htmlFile.getAbsolutePath())).toUri().toURL().toExternalForm() + File.separator);
         } else if (converterProperties.getBaseUri() == null) {
-            converterProperties = new ConverterProperties(converterProperties).setBaseUri(FileUtil.getParentDirectory(htmlFile.getAbsolutePath()) + File.separator);
+            converterProperties = new ConverterProperties(converterProperties).setBaseUri(Paths.get(FileUtil.getParentDirectory(htmlFile.getAbsolutePath())).toUri().toURL().toExternalForm() + File.separator);
         }
         try (FileInputStream fileInputStream = new FileInputStream(htmlFile.getAbsolutePath());
              FileOutputStream fileOutputStream = new FileOutputStream(pdfFile.getAbsolutePath())) {
