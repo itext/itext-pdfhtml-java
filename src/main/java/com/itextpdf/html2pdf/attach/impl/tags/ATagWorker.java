@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.RunningElement;
 import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
@@ -51,6 +52,7 @@ import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.Transform;
 
@@ -95,6 +97,9 @@ public class ATagWorker extends SpanTagWorker {
                     }
             }
             for (int i = 0; i < getAllElements().size(); i++) {
+                if (getAllElements().get(i) instanceof RunningElement) {
+                    continue;
+                }
                 if (getAllElements().get(i) instanceof IBlockElement) {
                     Div simulatedDiv = new Div();
                     simulatedDiv.getAccessibilityProperties().setRole(StandardRoles.LINK);
@@ -103,7 +108,16 @@ public class ATagWorker extends SpanTagWorker {
                         getAllElements().get(i).deleteOwnProperty(Property.TRANSFORM);
                         simulatedDiv.setProperty(Property.TRANSFORM, cssTransform);
                     }
+                    FloatPropertyValue floatPropVal = getAllElements().get(i).<FloatPropertyValue>getProperty(Property.FLOAT);
+                    if (floatPropVal != null) {
+                        getAllElements().get(i).deleteOwnProperty(Property.FLOAT);
+                        simulatedDiv.setProperty(Property.FLOAT, floatPropVal);
+                    }
                     simulatedDiv.add((IBlockElement) getAllElements().get(i));
+                    String display = childrenDisplayMap.remove(getAllElements().get(i));
+                    if (display != null) {
+                        childrenDisplayMap.put(simulatedDiv, display);
+                    }
                     getAllElements().set(i, simulatedDiv);
                 }
                 LinkHelper.applyLinkAnnotation(getAllElements().get(i), url);

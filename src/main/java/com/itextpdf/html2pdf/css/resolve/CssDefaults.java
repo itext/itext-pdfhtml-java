@@ -54,14 +54,13 @@ import java.util.Map;
 /**
  * Helper class that allows you to get the default values of CSS properties.
  */
-// TODO make internal?
 public class CssDefaults {
 
     /** A map with properties and their default values. */
     private static final Map<String, String> defaultValues = new HashMap<>();
 
     static {
-        defaultValues.put(CssConstants.COLOR, "black"); // TODO not specified, varies from browser to browser
+        defaultValues.put(CssConstants.COLOR, "black"); // not specified, varies from browser to browser
         defaultValues.put(CssConstants.OPACITY, "1");
 
         defaultValues.put(CssConstants.BACKGROUND_ATTACHMENT, CssConstants.SCROLL);
@@ -74,10 +73,10 @@ public class CssDefaults {
         defaultValues.put(CssConstants.BACKGROUND_ORIGIN, CssConstants.PADDING_BOX);
         defaultValues.put(CssConstants.BACKGROUND_SIZE, CssConstants.AUTO);
 
-        defaultValues.put(CssConstants.BORDER_BOTTOM_COLOR, CssConstants.TRANSPARENT);
-        defaultValues.put(CssConstants.BORDER_LEFT_COLOR, CssConstants.TRANSPARENT);
-        defaultValues.put(CssConstants.BORDER_RIGHT_COLOR, CssConstants.TRANSPARENT);
-        defaultValues.put(CssConstants.BORDER_TOP_COLOR, CssConstants.TRANSPARENT);
+        defaultValues.put(CssConstants.BORDER_BOTTOM_COLOR, CssConstants.CURRENTCOLOR);
+        defaultValues.put(CssConstants.BORDER_LEFT_COLOR, CssConstants.CURRENTCOLOR);
+        defaultValues.put(CssConstants.BORDER_RIGHT_COLOR, CssConstants.CURRENTCOLOR);
+        defaultValues.put(CssConstants.BORDER_TOP_COLOR, CssConstants.CURRENTCOLOR);
         defaultValues.put(CssConstants.BORDER_BOTTOM_STYLE, CssConstants.NONE);
         defaultValues.put(CssConstants.BORDER_LEFT_STYLE, CssConstants.NONE);
         defaultValues.put(CssConstants.BORDER_RIGHT_STYLE, CssConstants.NONE);
@@ -117,7 +116,7 @@ public class CssDefaults {
 
         defaultValues.put(CssConstants.MIN_HEIGHT, "0");
 
-        defaultValues.put(CssConstants.OUTLINE_COLOR, CssConstants.INVERT);
+        defaultValues.put(CssConstants.OUTLINE_COLOR, CssConstants.CURRENTCOLOR);
         defaultValues.put(CssConstants.OUTLINE_STYLE, CssConstants.NONE);
         defaultValues.put(CssConstants.OUTLINE_WIDTH, CssConstants.MEDIUM);
 

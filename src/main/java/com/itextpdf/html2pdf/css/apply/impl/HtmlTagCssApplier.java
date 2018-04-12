@@ -44,21 +44,39 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.BodyHtmlStylesContainer;
+import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import com.itextpdf.layout.IPropertyContainer;
+
+import java.util.Map;
 
 /**
  * {@link ICssApplier} implementation for Html elements.
  */
+//TODO apply background property.
+//DEVSIX-940
 public class HtmlTagCssApplier implements ICssApplier {
 
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
      */
-    // TODO apply borders. DEVSIX-941
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
-
+        Map<String, String> cssProps = stylesContainer.getStyles();
+        BodyHtmlStylesContainer styleProperty = new BodyHtmlStylesContainer();
+        IPropertyContainer container = tagWorker.getElementResult();
+        if (container != null) {
+//            BackgroundApplierUtil.applyBackground(cssProps, context, styleProperty);
+            MarginApplierUtil.applyMargins(cssProps, context, styleProperty);
+            PaddingApplierUtil.applyPaddings(cssProps, context, styleProperty);
+            BorderStyleApplierUtil.applyBorders(cssProps, context, styleProperty);
+            if (styleProperty.hasStylesToApply())
+                container.setProperty(Html2PdfProperty.HTML_STYLING, styleProperty);
+        }
     }
-
 }

@@ -116,12 +116,15 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.MARK, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.NAV, BlockCssApplier.class);
         mapping.putMapping(TagConstants.OL, UlOlTagCssApplier.class);
+        mapping.putMapping(TagConstants.OPTGROUP, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.OPTION, BlockCssApplier.class);
         mapping.putMapping(TagConstants.P, BlockCssApplier.class);
         mapping.putMapping(TagConstants.PRE, BlockCssApplier.class);
         mapping.putMapping(TagConstants.Q, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.S, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SAMP, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SECTION, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.SELECT, BlockCssApplier.class);
         mapping.putMapping(TagConstants.SMALL, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SPAN, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.STRIKE, SpanTagCssApplier.class);
@@ -149,9 +152,11 @@ class DefaultTagCssApplierMapping {
 
         mapping.putMapping(TagConstants.SPAN, CssConstants.BLOCK, BlockCssApplier.class);
         mapping.putMapping(TagConstants.SPAN, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.A, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
         mapping.putMapping(TagConstants.A, CssConstants.BLOCK, BlockCssApplier.class);
         mapping.putMapping(TagConstants.A, CssConstants.TABLE_CELL, BlockCssApplier.class);
 
+        mapping.putMapping(TagConstants.DIV, CssConstants.TABLE, TableTagCssApplier.class);
         mapping.putMapping(TagConstants.DIV, CssConstants.TABLE_CELL, TdTagCssApplier.class);
         mapping.putMapping(TagConstants.DIV, CssConstants.TABLE_ROW, DisplayTableRowTagCssApplier.class);
 
@@ -160,6 +165,8 @@ class DefaultTagCssApplierMapping {
         String afterPseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.AFTER);
         mapping.putMapping(beforePseudoElemName, SpanTagCssApplier.class);
         mapping.putMapping(afterPseudoElemName, SpanTagCssApplier.class);
+        mapping.putMapping(beforePseudoElemName, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
+        mapping.putMapping(afterPseudoElemName, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
         mapping.putMapping(beforePseudoElemName, CssConstants.BLOCK, BlockCssApplier.class);
         mapping.putMapping(afterPseudoElemName, CssConstants.BLOCK, BlockCssApplier.class);
         // For now behaving like display:block in display:table case is sufficient

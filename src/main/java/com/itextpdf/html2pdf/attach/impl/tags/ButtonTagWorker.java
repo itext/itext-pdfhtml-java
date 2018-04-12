@@ -46,24 +46,35 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
-import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.ButtonContainer;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.property.Property;
 
 /**
  * TagWorker class for a button element.
  */
-public class ButtonTagWorker implements ITagWorker, IDisplayAware {
+public class ButtonTagWorker extends DivTagWorker {
 
     /** The Constant DEFAULT_BUTTON_NAME. */
     private static final String DEFAULT_BUTTON_NAME = "Button";
 
     /** The button. */
-    private Button button;
+    private IFormField formField;
 
-    /** The display value. */
-    private String display;
+    private StringBuilder fallbackContent = new StringBuilder();
+
+    private String name;
+
+    private boolean flatten;
+
+    private boolean hasChildren = false;
 
     /**
      * Creates a new {@link ButtonTagWorker} instance.
@@ -72,29 +83,13 @@ public class ButtonTagWorker implements ITagWorker, IDisplayAware {
      * @param context the context
      */
     public ButtonTagWorker(IElementNode element, ProcessorContext context) {
+        super(element, context);
         String name = element.getAttribute(AttributeConstants.ID);
         if (name == null) {
             name = DEFAULT_BUTTON_NAME;
         }
-        name = context.getFormFieldNameResolver().resolveFormName(name);
-        button = new Button(name);
-        button.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
-        display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
-    }
-
-    /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
-     */
-    @Override
-    public void processEnd(IElementNode element, ProcessorContext context) {
-    }
-
-    /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.attach.impl.tags.IDisplayAware#getDisplay()
-     */
-    @Override
-    public String getDisplay() {
-        return display;
+        this.name = context.getFormFieldNameResolver().resolveFormName(name);
+        flatten = !context.isCreateAcroForm();
     }
 
     /* (non-Javadoc)
@@ -102,8 +97,8 @@ public class ButtonTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public boolean processContent(String content, ProcessorContext context) {
-        button.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, content);
-        return true;
+        fallbackContent.append(content);
+        return super.processContent(content, context);
     }
 
     /* (non-Javadoc)
@@ -111,7 +106,8 @@ public class ButtonTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        return false;
+        hasChildren = true;
+        return super.processTagChild(childTagWorker, context);
     }
 
     /* (non-Javadoc)
@@ -119,7 +115,26 @@ public class ButtonTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public IPropertyContainer getElementResult() {
-        return button;
+        if (formField == null) {
+            if (hasChildren) {
+                ButtonContainer button = new ButtonContainer(name);
+                Div div = (Div) super.getElementResult();
+                for (IElement element : div.getChildren()) {
+                    if (element instanceof IBlockElement) {
+                        button.add((IBlockElement) element);
+                    } else if (element instanceof Image) {
+                        button.add((Image) element);
+                    }
+                }
+                div.getChildren().clear();
+                formField = button;
+            } else {
+                Button inputButton = new Button(name);
+                inputButton.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, fallbackContent.toString().trim());
+                formField = inputButton;
+            }
+        }
+        formField.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, flatten);
+        return formField;
     }
-
 }

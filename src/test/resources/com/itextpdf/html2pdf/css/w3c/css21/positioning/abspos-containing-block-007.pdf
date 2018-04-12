@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 132>>stream
-xœ};Â0Dû=Å”ĞÛñ‡´HĞ#í²†P@bçşÂ–øHÑL9ïif2hÉWêj½í£FJt¦™L»SXpj›Ø;µà4´òÚôºñ–²`º”"cÂr“,¶|§#ÿdö-3Î¨àW„g½1üãŸ/&ºu\}É¢Ñ3æ
+<</Filter/FlateDecode/Length 196>>stream
+xœ}ÎA‚0Ğıœb–º©L…nMtoÒ˜P#*”ûÇB)EbH7“tŞŸßaâ^w"Â\6é8=!Ë‰t“ÓÖPÁÚèƒò~Xó^ÈŸ şÇªOxïìÌEĞşk¥ƒiçÎ!&=¼…¹@É] ™6g÷ÇQW>™+rÔ%¸Ã,KHI_`§íñsµÖX¬+ìï¦3X[ÜëœtLãS'Éd¶øz»åš‡2<UÛœÍòZ+e”
 endstream
 endobj
 4 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171116194443+03'00')/ModDate(D:20171116194443+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Containing block for absolute positioning)>>
+<</CreationDate(D:20180328153902+03'00')/ModDate(D:20180328153902+03'00')/Producer(iText® 7.1.2-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: Containing block for absolute positioning)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -26,16 +26,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000356 00000 n 
-0000000805 00000 n 
-0000000401 00000 n 
-0000000214 00000 n 
+0000000420 00000 n 
+0000000869 00000 n 
+0000000465 00000 n 
+0000000278 00000 n 
 0000000015 00000 n 
-0000000626 00000 n 
-0000000716 00000 n 
+0000000690 00000 n 
+0000000780 00000 n 
 trailer
-<</ID [<0f1745371675d2db20da14c2268c9e3e><0f1745371675d2db20da14c2268c9e3e>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<c80c945031bbdcf052e30404fa4f8813><c80c945031bbdcf052e30404fa4f8813>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.2-SNAPSHOT
 startxref
-856
+920
 %%EOF

@@ -1,0 +1,24 @@
+<html>
+ <head>
+  <style type="text/css">
+      div:first-child p {
+          background: #c5972e;
+      }
+
+      :not(:empty) :not(:empty) :not(:empty) :not(:empty) {
+          border: red solid 3px;
+      }
+</style>
+ </head>
+ <body>
+  <div>
+      <p>
+          This is test of pseudo-class applied to not last element in composite selector.
+      </p>
+
+     <div>
+          Only leaf elements in this HTML shall have red border. In total there shall be only two red borders in document. Parent div shall not have any border.
+      </div>
+  </div>
+</body>
+</html>

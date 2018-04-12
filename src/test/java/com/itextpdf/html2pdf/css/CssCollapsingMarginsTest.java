@@ -353,6 +353,18 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
         test("collapsingMarginsFloatTest07.html", "collapsingMarginsFloatTest07.pdf", "diff_");
     }
 
+    @Test
+    public void collapsingMarginsFloatTest08() throws IOException, InterruptedException {
+        // TODO DEVSIX-1820: on floats positioning collapsing margins of parent and first child is not taken into account
+        test("collapsingMarginsFloatTest08.html", "collapsingMarginsFloatTest08.pdf", "diff_");
+    }
+
+    @Test
+    public void collapsingMarginsFloatTest09() throws IOException, InterruptedException {
+        // TODO DEVSIX-1820: on floats positioning collapsing margins of parent and first child is not taken into account
+        test("collapsingMarginsFloatTest09.html", "collapsingMarginsFloatTest09.pdf", "diff_");
+    }
+
     private void test(String in, String out, String diff) throws IOException, InterruptedException {
         String outPdf = destinationFolder + out;
         String cmpPdf = sourceFolder + "cmp_" + out;

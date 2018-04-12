@@ -44,8 +44,12 @@ package com.itextpdf.html2pdf.css.resolve.func.counter;
 
 import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.html2pdf.html.node.ICustomElementNode;
+import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.html2pdf.jsoup.nodes.Element;
 import com.itextpdf.html2pdf.jsoup.parser.Tag;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * {@link ICustomElementNode} implementation for a page count element node.
@@ -55,6 +59,9 @@ public class PageCountElementNode extends JsoupElementNode implements ICustomEle
     /** The Constant PAGE_COUNTER_TAG. */
     public static final String PAGE_COUNTER_TAG = "_e0d00a6_page-counter";
 
+    /** The parent. */
+    private final INode parent;
+
     /** Indicates if the node represents the total page count. */
     private boolean totalPageCount = false;
 
@@ -62,10 +69,41 @@ public class PageCountElementNode extends JsoupElementNode implements ICustomEle
      * Creates a new {@link PageCountElementNode} instance.
      *
      * @param totalPageCount indicates if the node represents the total page count
+     * @deprecated Will be removed in 3.0. Use {@link #PageCountElementNode(boolean, INode)} instead
      */
+    @Deprecated
     public PageCountElementNode(boolean totalPageCount) {
+        this(totalPageCount, null);
+    }
+
+    public PageCountElementNode(boolean totalPageCount, INode parent) {
         super(new Element(Tag.valueOf(PAGE_COUNTER_TAG), ""));
         this.totalPageCount = totalPageCount;
+        this.parent = parent;
+    }
+
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.INode#childNodes()
+     */
+    @Override
+    public List<INode> childNodes() {
+        return Collections.<INode>emptyList();
+    }
+
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.INode#addChild(com.itextpdf.html2pdf.html.node.INode)
+     */
+    @Override
+    public void addChild(INode node) {
+        throw new UnsupportedOperationException();
+    }
+
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.html.node.INode#parentNode()
+     */
+    @Override
+    public INode parentNode() {
+        return parent;
     }
 
     /**

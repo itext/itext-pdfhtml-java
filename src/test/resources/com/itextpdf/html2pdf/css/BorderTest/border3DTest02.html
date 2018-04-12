@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		div {
+			margin: 10px 0;
+		}
+	</style>
+</head>
+<body style="color: red;">
+	<p>
+		For all and every div element in this document 'red' is set as a value of 'color' property. However in Chrome (but not in Mozilla and Edge) 3D borders don't use 'currentColor' as according to spec, Chrome shows them in shades of gray, probably to enhance the "3D" effect. Still if specific color values are explicitly specified (not 'initial' value), these colors are applied.
+	</p>
+	<div style="border: ridge green 10px;">
+		<div style="border: solid 10px;">
+			Solid border.
+		</div>
+		<div style="border: dashed 10px;">
+			Dashed border.
+		</div>
+		<div style="border: inset 10px maroon;">
+			Inset border.
+		</div>
+		<div style="border: outset 10px; border-color: inherit;">
+			Outset border.
+		</div>
+		<div style="border-style: groove; border-width: 10px; border-color: initial;">
+			Groove border.
+		</div>
+		<div style="border-style: ridge; border-width: 10px; border-color: blue;">
+			Ridge border.
+		</div>
+		<div style="border-style: ridge; border-width: 10px; border-color: currentColor;">
+			Ridge border again with 'currentColor' set as a border-color.
+		</div>
+	</div>
+</body>
+
+</html>

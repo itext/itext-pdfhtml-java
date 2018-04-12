@@ -511,6 +511,9 @@ public class CssConstants {
     /** The Constant CLOSE_QUOTE. */
     public static final String CLOSE_QUOTE = "close-quote";
 
+    /** The Constant COLLAPSE. */
+    public static final String COLLAPSE = "collapse";
+
     /** The Constant CONTAIN. */
     public static final String CONTAIN = "contain";
 
@@ -525,6 +528,9 @@ public class CssConstants {
 
     /** The Constant CROSS. */
     public static final String CROSS = "cross";
+
+    /** The Constant CURRENTCOLOR. */
+    public static final String CURRENTCOLOR = "currentcolor";
 
     /** The Constant DASHED. */
     public static final String DASHED = "dashed";
@@ -543,6 +549,12 @@ public class CssConstants {
 
     /** The Constant DOUBLE. */
     public static final String DOUBLE = "double";
+
+    /** The Constant FIRST. */
+    public static final String FIRST = "first";
+
+    /** The Constant FIRST_EXCEPT. */
+    public static final String FIRST_EXCEPT = "first-except";
 
     /** The Constant FIXED. */
     public static final String FIXED = "fixed";
@@ -606,6 +618,9 @@ public class CssConstants {
 
     /** The Constant LARGER. */
     public static final String LARGER = "larger";
+
+    /** The Constant LAST. */
+    public static final String LAST = "last";
 
     /** The Constant LEFT. */
     public static final String LEFT = "left";
@@ -691,6 +706,12 @@ public class CssConstants {
     /** The Constant PADDING_BOX. */
     public static final String PADDING_BOX = "padding-box";
 
+    /** The Constant PAGE. */
+    public static final String PAGE = "page";
+
+    /** The Constant PAGES. */
+    public static final String PAGES = "pages";
+
     /** The Constant PORTRAIT. */
     public static final String PORTRAIT = "portrait";
 
@@ -738,6 +759,9 @@ public class CssConstants {
 
     /** The Constant SCROLL. */
     public static final String SCROLL = "scroll";
+
+    /** The Constant SEPARATE. */
+    public static final String SEPARATE = "separate";
 
     /** The Constant SKEW. */
     public static final String SKEW = "skew";
@@ -1004,6 +1028,12 @@ public class CssConstants {
 
     /** The Constant COUNTERS. */
     public static final String COUNTERS = "counters";
+
+    /** The Constant RUNNING. */
+    public static final String ELEMENT = "element";
+
+    /** The Constant RUNNING. */
+    public static final String RUNNING = "running";
 
     // units of measurement
 

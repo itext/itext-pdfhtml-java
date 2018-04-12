@@ -1,0 +1,12 @@
+p:nth-of-type(4){
+	color: maroon;
+}
+
+span:nth-of-type(4){
+	color: maroon;
+}
+
+span {
+	font-size: 24px;
+	text-align: center; 
+}

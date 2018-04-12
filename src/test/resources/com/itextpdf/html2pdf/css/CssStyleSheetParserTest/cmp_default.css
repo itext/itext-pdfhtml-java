@@ -42,11 +42,12 @@ i {
     font-style: italic
 }
 html {
-    font-size: 12pt
+    font-size: 12pt;
+    display: block
 }
 body {
-    margin: 10%;
-    font-size: 12pt
+    font-size: 12pt;
+    display: block
 }
 p {
     margin: 1em 0
@@ -132,7 +133,8 @@ table {
     margin-top: 0;
     margin-left: 0;
     margin-right: 0;
-    text-indent: 0
+    text-indent: 0;
+    border-spacing: 2px
 }
 caption {
     text-align: center;
@@ -406,7 +408,7 @@ button {
 input {
     background-color: white;
     padding: 1px;
-    border: 2px inset initial;
+    border: 2px inset black;
     border-image: initial
 }
 input:not([type]) {
@@ -437,24 +439,64 @@ input[type="radio"] {
 }
 input[type="button"] {
     background-color: lightgrey;
-    border: 2px outset initial;
+    border: 2px outset black;
     border-image: initial;
+    box-sizing: border-box;
     text-align: center;
     padding: 1px 6px
 }
 input[type="submit"] {
     background-color: lightgrey;
-    border: 2px outset initial;
+    border: 2px outset black;
     border-image: initial;
+    box-sizing: border-box;
     text-align: center;
     padding: 1px 6px
 }
 button {
     background-color: lightgrey;
-    border: 2px outset initial;
+    border: 2px outset black;
     border-image: initial;
+    box-sizing: border-box;
     text-align: center;
     padding: 1px 6px
+}
+input[type="radio"] {
+    margin: 3px 0.5ex;
+    padding: initial;
+    border: initial
+}
+input[type="checkbox"] {
+    margin: 3px 0.5ex;
+    padding: initial;
+    border: initial
+}
+input[type="checkbox"] {
+    margin: 3px 3px 3px 4px;
+    box-sizing: border-box
+}
+select {
+    box-sizing: border-box;
+    white-space: pre;
+    color: black;
+    background-color: white;
+    overflow: hidden;
+    border: 1px solid rgb(169,169,169)
+}
+optgroup {
+    line-height: initial;
+    font-weight: bold;
+    display: block
+}
+option {
+    font-weight: normal;
+    display: block;
+    white-space: pre;
+    min-height: 1.2em;
+    padding: 0px 2px 1px
+}
+optgroup option::before {
+    content: "    "
 }
 textarea {
     font-family: courier;

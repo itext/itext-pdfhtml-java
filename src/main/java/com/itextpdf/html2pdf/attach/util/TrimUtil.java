@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.util;
 
-import com.itextpdf.io.util.NumberUtil;
+import com.itextpdf.html2pdf.attach.impl.layout.RunningElement;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Text;
@@ -140,7 +140,7 @@ public final class TrimUtil {
         while (end > begin) {
             int pos = last ? end - 1 : begin;
             IElement leaf = list.get(pos);
-            if (isElementFloating(leaf)) {
+            if (isElementFloating(leaf) || leaf instanceof RunningElement) {
                 if (last) { --end; }
                 else      { ++begin; }
                 continue;

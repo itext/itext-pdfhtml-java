@@ -1,0 +1,44 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="stylesNotExpressionChild.css"/>
+</head>
+<body>
+<div>
+    <span>Select paragraphs by expression:
+        p:not(:first-child):not(:last-child){
+	color: red;}
+    </span>
+</div>
+<div>
+    <p> 1st </p>
+    <p> 2nd </p>
+    <p> 3rd </p>
+    <p> 4th </p>
+    <p> 5th </p>
+    <p> 6th </p>
+    <p> 7th </p>
+    <div>
+    <p> 1st inside</p>
+    <p> 2nd inside</p>
+    <p> 3rd inside</p>
+    <p> 4th inside</p>
+    <p> 5th inside</p>
+    <p> 6th inside</p>
+    <p> 7th inside (last p)</p>
+    </div>
+    <p> 8th </p>
+    <div>
+        <span> first inside but not p </span>
+        <p> 1st p inside</p>
+        <p> 2nd inside</p>
+        <p> 3rd inside</p>
+        <p> 4th inside</p>
+        <p> 5th inside</p>
+        <p> 6th inside</p>
+        <p> 7th inside (last p)</p>
+        <span> last inside but not p </span>
+    </div>
+    <p> last p </p>
+</div>
+</body>
+</html>

@@ -48,12 +48,14 @@ import com.itextpdf.html2pdf.attach.impl.layout.PageCountElement;
 import com.itextpdf.html2pdf.attach.impl.layout.PageCountType;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.IPropertyContainer;
 
 /**
  * TagWorker class for the page count.
  */
 public class PageCountWorker extends SpanTagWorker {
+
+    private IPropertyContainer pageCountElement;
 
     /**
      * Creates a new {@link PageCountWorker} instance.
@@ -63,6 +65,10 @@ public class PageCountWorker extends SpanTagWorker {
      */
     public PageCountWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
+
+        boolean totalPageCount = element instanceof PageCountElementNode && ((PageCountElementNode) element).isTotalPageCount();
+        pageCountElement = new PageCountElement();
+        pageCountElement.setProperty(Html2PdfProperty.PAGE_COUNT_TYPE, totalPageCount ? PageCountType.TOTAL_PAGE_COUNT : PageCountType.CURRENT_PAGE_NUMBER);
     }
 
     /* (non-Javadoc)
@@ -70,11 +76,12 @@ public class PageCountWorker extends SpanTagWorker {
      */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        boolean totalPageCount = element instanceof PageCountElementNode && ((PageCountElementNode) element).isTotalPageCount();
-        ILeafElement pageCountElement = new PageCountElement();
-        pageCountElement.setProperty(Html2PdfProperty.PAGE_COUNT_TYPE, totalPageCount ? PageCountType.TOTAL_PAGE_COUNT : PageCountType.CURRENT_PAGE_NUMBER);
-        spanWrapper.add(pageCountElement);
+        super.processTagChild(this, context);
         super.processEnd(element, context);
     }
 
+    @Override
+    public IPropertyContainer getElementResult() {
+        return pageCountElement;
+    }
 }

@@ -1,0 +1,18 @@
+<html>
+ <head>
+  <style type="text/css">
+      *:not(:root) {
+          border: solid black 3px;
+      }
+
+      .t1:before {
+          content: 'Black border shall not be applied to this pseudo-element with cyan background.';
+          display: block;
+          background: cyan;
+      }
+</style>
+ </head>
+ <body>
+  <div class="t1">This is div with pseudo-element ::before.</div>
+</body>
+</html>

@@ -43,8 +43,11 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
@@ -65,7 +68,7 @@ public class WidthTest extends ExtendedITextTest {
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
-    
+
     @Test
     public void percentTest() throws IOException, InterruptedException {
         runTest("percentTest");
@@ -91,13 +94,30 @@ public class WidthTest extends ExtendedITextTest {
     public void percentMarginTest() throws IOException, InterruptedException {
         runTest("percentMarginTest");
     }
-    
+
+    @Test
+    public void relativeInlineBlockWidthWithTextIndentTest01() throws IOException, InterruptedException {
+        runTest("relativeInlineBlockWidthWithTextIndentTest01");
+    }
+
+    @Test
+    public void relativeInlineBlockWidthWithTextIndentTest02() throws IOException, InterruptedException {
+        // TODO DEVSIX-1823: inline blocks with relative widths (width:100%) do not wrap to the next line
+        runTest("relativeInlineBlockWidthWithTextIndentTest02");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, count = 2))
+    public void relativeInlineBlockWidthWithTextIndentTest03() throws IOException, InterruptedException {
+        runTest("relativeInlineBlockWidthWithTextIndentTest03");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
         String diffPrefix = "diff_" + name + "_";
-        
+
         HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
         Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
     }

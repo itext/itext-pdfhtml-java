@@ -49,6 +49,8 @@ import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
+import com.itextpdf.html2pdf.attach.impl.layout.RunningElementContainer;
+import com.itextpdf.html2pdf.attach.impl.tags.RunningElementTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
 import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
@@ -76,7 +78,6 @@ import com.itextpdf.layout.property.Property;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -305,6 +306,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             context.getOutlineHandler().addOutline(tagWorker, element, context);
 
             visitPseudoElement(element, CssConstants.BEFORE);
+            if (element.name().equals(TagConstants.BODY) || element.name().equals(TagConstants.HTML))
+                runApplier(element, tagWorker);
             for (INode childNode : element.childNodes()) {
                 visit(childNode);
             }
@@ -316,17 +319,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 context.getOutlineHandler().addDestination(tagWorker, element);
                 context.getState().pop();
 
-                ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(element);
-                if (cssApplier == null) {
-                    if (!ignoredCssTags.contains(element.name())) {
-                        logger.error(MessageFormatUtil.format(LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
-                    }
-                } else {
-                    cssApplier.apply(context, element, tagWorker);
-                }
-
+                if (!element.name().equals(TagConstants.BODY) && !element.name().equals(TagConstants.HTML))
+                    runApplier(element, tagWorker);
                 if (!context.getState().empty()) {
                     PageBreakApplierUtil.addPageBreakElementBefore(context, context.getState().top(), element, tagWorker);
+                    tagWorker = processRunningElement(tagWorker, element, context);
                     boolean childProcessed = context.getState().top().processTagChild(tagWorker, context);
                     PageBreakApplierUtil.addPageBreakElementAfter(context, context.getState().top(), element, tagWorker);
                     if (!childProcessed && !ignoredChildTags.contains(element.name())) {
@@ -355,6 +352,54 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
             }
         }
+    }
+
+    private void runApplier(IElementNode element, ITagWorker tagWorker) {
+        ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(element);
+        if (cssApplier == null) {
+            if (!ignoredCssTags.contains(element.name())) {
+                logger.error(MessageFormatUtil.format(LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
+            }
+        } else {
+            cssApplier.apply(context, element, tagWorker);
+        }
+    }
+
+    private ITagWorker processRunningElement(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
+        String runningPrefix = CssConstants.RUNNING + "(";
+        String positionVal;
+        int endBracketInd;
+        if (element.getStyles() == null
+                || (positionVal = element.getStyles().get(CssConstants.POSITION)) == null
+                || !positionVal.startsWith(runningPrefix)
+                // closing bracket should be there and there should be at least one symbol between brackets
+                || (endBracketInd = positionVal.indexOf(")")) <= runningPrefix.length()) {
+            return tagWorker;
+        }
+
+        String runningElemName = positionVal.substring(runningPrefix.length(), endBracketInd).trim();
+        if (runningElemName.isEmpty()) {
+            return tagWorker;
+        }
+
+        // TODO For now the whole ITagWorker of the running element is preserved inside RunningElementContainer
+        // for the sake of future processing in page margin box. This is somewhat a workaround and storing
+        // tag workers might be easily seen as something undesirable, however at least for now it seems to be
+        // most suitable solution because:
+        // - in any case, processing of the whole running element with it's children should be done in
+        //   "normal flow", i.e. in DefaultHtmlProcessor, based on the spec that says that element should be
+        //   processed as it was still in the same position in DOM, but visually as if "display: none" was set.
+        // - the whole process would need to be repeated in PageContextProcessor again, so it's a double work;
+        //   also currently there is still no convenient way for unifying the processing here and in
+        //   PageContextProcessor, currently only running elements require processing of the whole hierarchy of
+        //   children outside of the default DOM processing and also it's unclear whether this code would be suitable
+        //   for the simplified approach of processing all other children of page margin boxes.
+        // - ITagWorker is only publicly passed to the constructor, but there is no exposed way to get it out of
+        //   RunningElementContainer, so it would be fairly easy to change this approach in future if needed.
+        RunningElementContainer runningElementContainer = new RunningElementContainer(element, tagWorker);
+        context.getCssContext().getRunningManager().addRunningElement(runningElemName, runningElementContainer);
+
+        return new RunningElementTagWorker(runningElementContainer);
     }
 
     /**

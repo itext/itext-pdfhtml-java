@@ -1,0 +1,71 @@
+<html>
+<head>
+    <style type="text/css">
+      :not(:empty) :not(:empty) :not(:empty) :not(:empty) :not(:empty){
+          border: green solid 3px;
+      }
+
+      :not(:empty) :not(:empty) :not(:empty) :not(:empty){
+          border: red solid 3px;
+      }
+
+      :not(:empty) :not(:empty) :not(:empty){
+          border: yellow solid 3px;
+      }
+
+      :not(:empty) :not(:empty) :not(:empty) :empty{
+          border: black solid 3px;
+          background:purple;
+      }
+
+      :not(:empty) :not(:empty) :empty{
+          border: grey solid 1px;
+          background:pink;
+      }
+
+
+    </style>
+</head>
+<body>
+<span style="display: inline-block; height: 25px; width: 15px"><!-- This is an :empty span --></span>
+<p style="display: inline-block; height: 25px; width: 15px"><!-- This is an :empty span --></p>
+<div>
+    <p>
+        2 small rectangles (span and p) above the page should be pink
+        Current PARAGRAPH p not-empty, should be red. The next p will be empty and purple.
+        <span style="display: inline-block; height: 25px; width: 15px"><!-- This is an :empty span --></span>
+    </p>
+    <p style="display: inline-block; height: 25px; width: 15px"><!-- This is an :empty span --></p>
+    <span style="display: inline-block; height: 25px; width: 115px"><!-- This is an another :empty span --></span>
+
+    <span>
+          Not-empty SPAN, should be red
+      </span>
+
+    <span style="display: inline-block; height: 15px; width: 25px;"><!-- This is an :empty span --></span>
+    <div>
+        Not-empty div, should be red
+        <div style="display: block; height: 15px; width: 25px;"><!-- This is an :empty div --></div>
+    </div>
+</div>
+
+<div>
+    Not-empty div, should be yellow. A Div below contains non-breaking space and should be also yellow
+</div>
+
+<div><!-- This empty div will NOT be :empty, should be yellow -->&nbsp;</div>
+
+<table style="width:100%">
+    <tr>
+        <th><!-- This empty th will  be :empty --></th>
+        <th>Empty Table header should be purple</th>
+        <th>:not(:empty) table headers should be green</th>
+    </tr>
+    <tr>
+        <td>Empty Table cell should be purple</td>
+        <td><!-- This empty td will  be :empty --></td>
+        <td>not(:empty) table cells should be green</td>
+    </tr>
+</table>
+</body>
+</html>

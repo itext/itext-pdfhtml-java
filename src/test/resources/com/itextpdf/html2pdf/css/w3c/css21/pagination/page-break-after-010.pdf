@@ -1,9 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 153>>stream
-xœ»‚@DûûSjbVvay´&Ú›lBr|ìò¸$ú÷‚ÕdÎœbF2Ú(cå±ŠRè,R6ƒÍU‘`b*ÉÓ•F:9:^4´k)Ñ*µÈl¡Š®¡]Ù±Ç0õ^¸9@º~†ğ,+
-Írã	Â‹¡º¯%´‹‹(¸áù#ÿïê»y[ø ¨õ«òOµw:»õÇ@‘1_
+<</Filter/FlateDecode/Length 151>>stream
+xœŠÉ‚0E÷ï+îRSi¡[İ›4aòZ†G¢/¸:¹ç‘NmàZJ´J-2[¨"†khWvì1L½n®Ÿ!<ËªB³ÜxF‚0Áb¨îë-Â"Ã"
+®cxşÈÿÁ»únİ5£~Uş©öîAgGWÉh£ŒA–Ç*J¡³HÙ6WE‚‰©$¿V?a!1_
 endstream
 endobj
 4 0 obj
@@ -47,7 +47,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171222105617-03'00')/ModDate(D:20171222105617-03'00')/Producer(iText® 7.1.1-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: page-break-after: left)/assert(The 'left' value of the 'page-break-after' property forces one or two page breaks before the box so that the page after the break is formatted as a left page)/flags(paged)>>
+<</CreationDate(D:20180118111930-03'00')/ModDate(D:20180118111930-03'00')/Producer(iText® 7.1.2-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: page-break-after: left)/assert(The 'left' value of the 'page-break-after' property forces one or two page breaks before the box so that the page after the break is formatted as a left page)/flags(paged)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -58,23 +58,23 @@ endobj
 xref
 0 15
 0000000000 65535 f 
-0000001617 00000 n 
-0000002137 00000 n 
-0000001662 00000 n 
-0000000235 00000 n 
+0000001615 00000 n 
+0000002135 00000 n 
+0000001660 00000 n 
+0000000233 00000 n 
 0000000015 00000 n 
-0000002047 00000 n 
-0000000552 00000 n 
-0000000368 00000 n 
-0000000870 00000 n 
-0000000685 00000 n 
-0000001162 00000 n 
-0000001004 00000 n 
-0000001482 00000 n 
-0000001297 00000 n 
+0000002045 00000 n 
+0000000550 00000 n 
+0000000366 00000 n 
+0000000868 00000 n 
+0000000683 00000 n 
+0000001160 00000 n 
+0000001002 00000 n 
+0000001480 00000 n 
+0000001295 00000 n 
 trailer
-<</ID [<06751f91ed9eadf567c70b913c62cb4e><06751f91ed9eadf567c70b913c62cb4e>]/Info 3 0 R/Root 1 0 R/Size 15>>
-%iText-7.1.1-SNAPSHOT
+<</ID [<791663a94f73973fc320c8e73e063651><791663a94f73973fc320c8e73e063651>]/Info 3 0 R/Root 1 0 R/Size 15>>
+%iText-7.1.2-SNAPSHOT
 startxref
-2214
+2212
 %%EOF

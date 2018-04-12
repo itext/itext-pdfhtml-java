@@ -62,7 +62,7 @@ class PageContextProperties {
     /**
      * List containing possible names for page margin boxes.
      */
-    static final List<String> pageMarginBoxNames = Arrays.asList(
+    private static final List<String> pageMarginBoxNames = Arrays.asList(
             CssRuleName.TOP_LEFT_CORNER,
             CssRuleName.TOP_LEFT,
             CssRuleName.TOP_CENTER,

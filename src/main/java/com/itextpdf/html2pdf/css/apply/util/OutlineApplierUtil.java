@@ -199,7 +199,7 @@ public class OutlineApplierUtil {
 
     private static String getSpecificOutlineColorOrDefaultColor(Map<String, String> styles, String specificOutlineColorProperty) {
         String outlineColor = styles.get(specificOutlineColorProperty);
-        if (outlineColor == null || outlineColor.equals("currentcolor")) {
+        if (outlineColor == null || CssConstants.CURRENTCOLOR.equals(outlineColor)) {
             outlineColor = styles.get(CssConstants.COLOR);
         } else if (CssConstants.INVERT.equals(outlineColor)) {
             LOGGER.warn("Invert color for outline is not supported");

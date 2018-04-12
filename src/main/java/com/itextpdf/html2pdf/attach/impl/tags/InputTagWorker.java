@@ -47,11 +47,14 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.CheckBox;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.Radio;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.resolver.form.RadioCheckResolver;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IElement;
@@ -63,10 +66,14 @@ import org.slf4j.LoggerFactory;
  */
 public class InputTagWorker implements ITagWorker, IDisplayAware {
 
-    /** The form element. */
+    /**
+     * The form element.
+     */
     private IElement formElement;
 
-    /** The display. */
+    /**
+     * The display.
+     */
     private String display;
 
     /**
@@ -92,6 +99,21 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
         } else if (AttributeConstants.SUBMIT.equals(inputType) || AttributeConstants.BUTTON.equals(inputType)) {
             formElement = new Button(name);
             formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
+        } else if (AttributeConstants.CHECKBOX.equals(inputType)) {
+            formElement = new CheckBox(name);
+            String checked = element.getAttribute(AttributeConstants.CHECKED);
+            if (null != checked) {
+                formElement.setProperty(Html2PdfProperty.FORM_FIELD_CHECKED, checked); // has attribute == is checked
+            }
+        } else if (AttributeConstants.RADIO.equals(inputType)) {
+            formElement = new Radio(name);
+            String radioGroupName = element.getAttribute(AttributeConstants.NAME);
+            formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, radioGroupName);
+            String checked = element.getAttribute(AttributeConstants.CHECKED);
+            if (null != checked) {
+                context.getRadioCheckResolver().checkField(radioGroupName, (Radio) formElement);
+                formElement.setProperty(Html2PdfProperty.FORM_FIELD_CHECKED, checked); // has attribute == is checked
+            }
         } else {
             Logger logger = LoggerFactory.getLogger(InputTagWorker.class);
             logger.error(MessageFormatUtil.format(LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));

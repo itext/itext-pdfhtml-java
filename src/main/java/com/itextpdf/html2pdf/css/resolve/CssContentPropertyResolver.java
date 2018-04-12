@@ -43,7 +43,9 @@
 package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.css.page.PageMarginRunningElementNode;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.css.parse.CssDeclarationValueTokenizer;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
@@ -98,7 +100,7 @@ class CssContentPropertyResolver {
                     String paramsStr = token.getValue().substring(CssConstants.COUNTERS.length() + 1, token.getValue().length() - 1);
                     String[] params = paramsStr.split(",");
                     if (params.length == 0) {
-                        return null;
+                        return errorFallback(contentStr);
                     }
                     // Counters are denoted by case-sensitive identifiers
                     String counterName = params[0].trim();
@@ -107,10 +109,10 @@ class CssContentPropertyResolver {
                     String listStyleType = params.length > 2 ? params[2].trim() : null;
                     CssCounterManager counterManager = context.getCounterManager();
                     INode scope = contentContainer;
-                    if ("page".equals(counterName)) {
-                        result.add(new PageCountElementNode(false));
-                    } else if ("pages".equals(counterName)) {
-                        result.add(new PageCountElementNode(true));
+                    if (CssConstants.PAGE.equals(counterName)) {
+                        result.add(new PageCountElementNode(false, contentContainer));
+                    } else if (CssConstants.PAGES.equals(counterName)) {
+                        result.add(new PageCountElementNode(true, contentContainer));
                     } else {
                         String resolvedCounter = counterManager.resolveCounters(counterName, counterSeparationStr, listStyleType, scope);
                         if (resolvedCounter == null) {
@@ -123,17 +125,17 @@ class CssContentPropertyResolver {
                     String paramsStr = token.getValue().substring(CssConstants.COUNTER.length() + 1, token.getValue().length() - 1);
                     String[] params = paramsStr.split(",");
                     if (params.length == 0) {
-                        return null;
+                        return errorFallback(contentStr);
                     }
                     // Counters are denoted by case-sensitive identifiers
                     String counterName = params[0].trim();
                     String listStyleType = params.length > 1 ? params[1].trim() : null;
                     CssCounterManager counterManager = context.getCounterManager();
                     INode scope = contentContainer;
-                    if ("page".equals(counterName)) {
-                        result.add(new PageCountElementNode(false));
-                    } else if ("pages".equals(counterName)) {
-                        result.add(new PageCountElementNode(true));
+                    if (CssConstants.PAGE.equals(counterName)) {
+                        result.add(new PageCountElementNode(false, contentContainer));
+                    } else if (CssConstants.PAGES.equals(counterName)) {
+                        result.add(new PageCountElementNode(true, contentContainer));
                     } else {
                         String resolvedCounter = counterManager.resolveCounter(counterName, listStyleType, scope);
                         if (resolvedCounter == null) {
@@ -169,6 +171,19 @@ class CssContentPropertyResolver {
                         return errorFallback(contentStr);
                     }
                     result.add(new ContentTextNode(contentContainer, value));
+                } else if (token.getValue().startsWith(CssConstants.ELEMENT + "(") && contentContainer instanceof PageMarginBoxContextNode) {
+                    String paramsStr = token.getValue().substring(CssConstants.ELEMENT.length() + 1, token.getValue().length() - 1);
+                    String[] params = paramsStr.split(",");
+                    if (params.length == 0) {
+                        return errorFallback(contentStr);
+                    }
+                    String name = params[0].trim();
+                    String runningElementOccurrence = null;
+                    if (params.length > 1) {
+                        runningElementOccurrence = params[1].trim();
+                    }
+
+                    result.add(new PageMarginRunningElementNode(name, runningElementOccurrence));
                 } else {
                     return errorFallback(contentStr);
                 }

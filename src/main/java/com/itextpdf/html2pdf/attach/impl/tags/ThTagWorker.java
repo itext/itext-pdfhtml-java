@@ -42,11 +42,20 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.kernel.pdf.PdfDictionary;
+import com.itextpdf.kernel.pdf.PdfName;
+import com.itextpdf.kernel.pdf.tagging.PdfStructureAttributes;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
+import com.itextpdf.kernel.pdf.tagutils.AccessibilityProperties;
 import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.layout.IPropertyContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ThTagWorker extends TdTagWorker {
     /**
@@ -65,6 +74,25 @@ public class ThTagWorker extends TdTagWorker {
         IPropertyContainer elementResult = super.getElementResult();
         if (elementResult instanceof IAccessibleElement) {
             ((IAccessibleElement) elementResult).getAccessibilityProperties().setRole(StandardRoles.TH);
+            if (context.getPdfDocument() == null || context.getPdfDocument().isTagged()) {
+                String scope = element.getAttribute(AttributeConstants.SCOPE);
+                AccessibilityProperties properties = ((IAccessibleElement) elementResult).getAccessibilityProperties();
+                PdfDictionary attributes = new PdfDictionary();
+                attributes.put(PdfName.O, PdfName.Table);
+                if (scope != null && (scope.equalsIgnoreCase(AttributeConstants.ROW) || scope.equalsIgnoreCase(AttributeConstants.ROWGROUP))) {
+                    attributes.put(PdfName.Scope, PdfName.Row);
+                    properties.addAttributes(new PdfStructureAttributes(attributes));
+                } else if (scope != null && (scope.equalsIgnoreCase(AttributeConstants.COL) || scope.equalsIgnoreCase(AttributeConstants.COLGROUP))) {
+                    attributes.put(PdfName.Scope, PdfName.Column);
+                    properties.addAttributes(new PdfStructureAttributes(attributes));
+                } else {
+                    Logger logger = LoggerFactory.getLogger(ThTagWorker.class);
+                    logger.warn(MessageFormatUtil.format(LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, scope));
+                }
+
+            }
+
         }
     }
+
 }

@@ -1,0 +1,36 @@
+<html>
+<head>
+	<style type="text/css">
+		@page {
+			size: A4 landscape;
+			margin: 1.0in;
+			border: thin solid black;
+			padding: 1em;
+			
+			@top-left {
+				content: element(header);
+			}
+		}
+			
+		#page-header {
+			position: running(header);
+		}
+		table {
+			border-collapse: collapse;
+		}
+		td, th {
+			border: solid 1px;
+		}
+	</style>
+</head>
+
+<body>
+	<table id="page-header">
+		<tr><td>cell 1</td><td>cell 2</td></tr>
+		<tr><td>cell 3</td><td>cell 4</td></tr>
+	</table>
+	<div id="page-content">
+		<p>Page 1.</p>
+	</div>
+</body>
+</html>

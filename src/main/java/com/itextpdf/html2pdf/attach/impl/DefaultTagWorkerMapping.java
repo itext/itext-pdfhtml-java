@@ -61,10 +61,13 @@ import com.itextpdf.html2pdf.attach.impl.tags.InputTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.LiTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.LinkTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.MetaTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.OptGroupTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.OptionTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PageCountWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PageMarginBoxWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PreTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.SelectTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TableFooterTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TableHeaderTagWorker;
@@ -151,12 +154,15 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.META, MetaTagWorker.class);
         workerMapping.putMapping(TagConstants.NAV, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.OL, UlOlTagWorker.class);
+        workerMapping.putMapping(TagConstants.OPTGROUP, OptGroupTagWorker.class);
+        workerMapping.putMapping(TagConstants.OPTION, OptionTagWorker.class);
         workerMapping.putMapping(TagConstants.P, PTagWorker.class);
         workerMapping.putMapping(TagConstants.PRE, PreTagWorker.class);
         workerMapping.putMapping(TagConstants.Q, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.S, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.SAMP, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.SECTION, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.SELECT, SelectTagWorker.class);
         workerMapping.putMapping(TagConstants.SMALL, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.SPAN, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.STRIKE, SpanTagWorker.class);
@@ -186,6 +192,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.SPAN, CssConstants.BLOCK, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.SPAN, CssConstants.INLINE_BLOCK, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.A, CssConstants.BLOCK, ABlockTagWorker.class);
+        workerMapping.putMapping(TagConstants.A, CssConstants.INLINE_BLOCK, ABlockTagWorker.class);
         workerMapping.putMapping(TagConstants.A, CssConstants.TABLE_CELL, ABlockTagWorker.class);
 
         workerMapping.putMapping(TagConstants.DIV, CssConstants.TABLE, DisplayTableTagWorker.class);
@@ -200,6 +207,8 @@ class DefaultTagWorkerMapping {
         String afterPseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.AFTER);
         workerMapping.putMapping(beforePseudoElemName, SpanTagWorker.class);
         workerMapping.putMapping(afterPseudoElemName, SpanTagWorker.class);
+        workerMapping.putMapping(beforePseudoElemName, CssConstants.INLINE_BLOCK, DivTagWorker.class);
+        workerMapping.putMapping(afterPseudoElemName, CssConstants.INLINE_BLOCK, DivTagWorker.class);
         workerMapping.putMapping(beforePseudoElemName, CssConstants.BLOCK, DivTagWorker.class);
         workerMapping.putMapping(afterPseudoElemName, CssConstants.BLOCK, DivTagWorker.class);
         // For now behaving like display:block in display:table case is sufficient

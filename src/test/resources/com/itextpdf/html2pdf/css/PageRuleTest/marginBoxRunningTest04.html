@@ -1,0 +1,68 @@
+<html>
+<head>
+	<style type="text/css" media="all">
+		@page {
+			size: A4 landscape;
+			margin: 1.0in;
+			border: thin solid black;
+			padding: 1em;
+			
+			@bottom-center {
+				content: element(Footer);
+			}
+			
+			@top-center {
+				content: element(otherHeaderName);
+			}
+			
+			@top-left {
+				content: element(noncapitalizedheader);
+			}
+		}
+			
+		#page-header {
+			display: block;
+			position: running(header);
+		}
+		
+		#page-footer {
+			display: block;
+			position: running(footer);
+		}
+		
+		#page-header-capitalized {
+			display: block;
+			position: running(nonCapitalizedHeader);
+		}
+		
+		.page-number:before {
+			content: counter(page); 
+		}
+		
+		.page-count:before {
+			content: counter(pages);  
+		}
+	</style>
+</head>
+
+<body>
+	<div id="page-header">
+		<p>Header text. If you see this - test has <span style="color: red;">FAILED</span>.</p>
+	</div>
+	<div id="page-header-capitalized">
+		<p>Another header text. If you see this - test has <span style="color: red;">FAILED</span>.</p>
+	</div>
+	
+	<div id="page-footer">
+		<p>Footer text. If you see this - test has <span style="color: red;">FAILED</span>.</p>
+	</div>
+
+	<div id="page-content">
+		<p>Header/Footer running elements are expected to be not shown due to wrong running element names in page margin boxes.</p>
+		
+		<p style="page-break-after:always;"/>
+		
+		<p>Page 2.</p>
+	</div>
+</body>
+</html>

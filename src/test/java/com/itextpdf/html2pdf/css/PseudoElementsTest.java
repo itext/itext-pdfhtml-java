@@ -49,14 +49,13 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class PseudoElementsTest extends ExtendedITextTest {
@@ -121,6 +120,11 @@ public class PseudoElementsTest extends ExtendedITextTest {
     @Test
     public void beforeAfterPseudoTest13() throws IOException, InterruptedException {
         runTest("beforeAfterPseudoTest13");
+    }
+
+    @Test
+    public void beforeAfterPseudoTest14() throws IOException, InterruptedException {
+        runTest("beforeAfterPseudoTest14");
     }
 
     @Test

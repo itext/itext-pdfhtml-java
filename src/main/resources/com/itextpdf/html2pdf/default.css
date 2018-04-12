@@ -28,10 +28,11 @@ i {
 }
 html {
     font-size: 12pt;
+    display: block;
 }
 body {
-    margin: 10%;
     font-size: 12pt;
+    display: block;
 }
 p, dl, multicol {
     margin: 1em 0;
@@ -101,6 +102,7 @@ table {
     margin-left: 0;
     margin-right: 0;
     text-indent: 0;
+    border-spacing: 2px;
 }
 caption {
     text-align: center;
@@ -330,7 +332,7 @@ input, textarea, select, button {
 input {
     background-color: white;
     padding: 1px;
-    border: 2px inset initial;
+    border: 2px inset black;
     border-image: initial;
 }
 
@@ -346,10 +348,49 @@ input[type="radio"] {
 
 input[type="button"], input[type="submit"], button {
     background-color: lightgrey;
-    border: 2px outset initial;
+    border: 2px outset black;
     border-image: initial;
+    box-sizing: border-box;
     text-align: center;
     padding: 1px 6px;
+}
+
+input[type="radio"], input[type="checkbox"] {
+    margin: 3px 0.5ex;
+    padding: initial;
+    border: initial;
+}
+
+input[type="checkbox"] {
+    margin: 3px 3px 3px 4px;
+    box-sizing: border-box;
+}
+
+select {
+    box-sizing: border-box;
+    white-space: pre;
+    color: black;
+    background-color: white;
+    overflow: hidden; /* based on browser behaviour, rather than user agent css */
+    border: 1px solid rgb(169, 169, 169);
+}
+
+optgroup {
+    line-height: initial;
+    font-weight: bold; /* TODO should be `bolder`, which is not implemented yet. */
+    display: block;
+}
+
+option {
+    font-weight: normal;
+    display: block;
+    white-space: pre;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+}
+
+optgroup option:before {
+    content: "    ";
 }
 
 textarea {
@@ -398,52 +439,52 @@ CAPTION         { display: table-caption }
         text-align: right;
         vertical-align: middle;
     }
-    
+
     @top-left {
         text-align: left;
         vertical-align: middle;
     }
-    
+
     @top-center {
         text-align: center;
         vertical-align: middle;
     }
-    
+
     @top-right {
         text-align: right;
         vertical-align: middle;
     }
-    
+
     @top-right-corner {
         text-align: left;
         vertical-align: middle;
     }
-    
+
     @left-top {
         text-align: center;
         vertical-align: top;
     }
-    
+
     @left-middle {
         text-align: center;
         vertical-align: middle;
     }
-    
+
     @left-bottom {
         text-align: center;
         vertical-align: bottom;
     }
-    
+
     @right-top {
         text-align: center;
         vertical-align: top;
     }
-    
+
     @right-middle {
         text-align: center;
         vertical-align: middle;
     }
-    
+
     @right-bottom {
         text-align: center;
         vertical-align: bottom;
@@ -453,22 +494,22 @@ CAPTION         { display: table-caption }
         text-align: right;
         vertical-align: middle;
     }
-    
+
     @bottom-left {
         text-align: left;
         vertical-align: middle;
     }
-    
+
     @bottom-center {
         text-align: center;
         vertical-align: middle;
     }
-    
+
     @bottom-right {
         text-align: right;
         vertical-align: middle;
     }
-    
+
     @bottom-right-corner {
         text-align: left;
         vertical-align: middle;

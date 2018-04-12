@@ -77,6 +77,7 @@ class HtmlStylesToCssConverter {
         htmlAttributeConverters.put(AttributeConstants.BORDER, new BorderAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.BGCOLOR, new BgColorAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.CELLPADDING, new CellPaddingAttributeConverter());
+        htmlAttributeConverters.put(AttributeConstants.CELLSPACING, new CellSpacingAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.COLOR, new FontColorAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.DIR, new DirAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.SIZE, new SizeAttributeConverter());
@@ -244,6 +245,28 @@ class HtmlStylesToCssConverter {
                 }
             }
             return Collections.<CssDeclaration>emptyList();
+        }
+    }
+
+    /**
+     * {@link IAttributeConverter} implementation for table's cellspacing.
+     */
+    private static class CellSpacingAttributeConverter implements IAttributeConverter {
+
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
+        @Override
+        public boolean isSupportedForElement(String elementName) {
+            return TagConstants.TABLE.equals(elementName);
+        }
+
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         */
+        @Override
+        public List<CssDeclaration> convert(IElementNode element, String value) {
+            return Arrays.asList(new CssDeclaration(CssConstants.BORDER_SPACING, value));
         }
     }
 

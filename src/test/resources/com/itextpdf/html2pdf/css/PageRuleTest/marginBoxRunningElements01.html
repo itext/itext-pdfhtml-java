@@ -1,0 +1,43 @@
+<html>
+<head>
+	<style type="text/css">
+		@page {
+			size: A4;
+			margin-top: 3.0in;
+			border: thin solid black;
+			padding: 1em;
+			
+			@top-center {
+				content: element(header);
+			}
+		}
+			
+		#page-header {
+			position: running(header);
+		}
+		table {
+			border-collapse: collapse;
+		}
+		td, th {
+			border: solid 1px;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<div id="page-header">
+			Here is an example of <span style="font-weight: bold">not</span> that simple
+			<img src="itis.jpg" style="width: 50pt; height: 50pt">
+			<table style="display: inline-block">
+				<tr><td>cell 1</td><td>cell 2</td></tr>
+				<tr><td>cell 3</td><td>cell 4</td></tr>
+			</table>
+			page margin content.
+		</div>
+	<div id="page-content">
+		<p>Page 1.</p>
+		<p style="page-break-before: always;">Page 2.</p>
+	</div>
+</body>
+</html>

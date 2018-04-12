@@ -47,6 +47,8 @@ package com.itextpdf.html2pdf;
  */
 public final class LogMessageConstant {
 
+    /** The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT. */
+    public static final String ACROFORM_NOT_SUPPORTED_FOR_SELECT = "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will be flattened instead.";
     /** The Constant CONTENT_PROPERTY_INVALID. */
     public static final String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
     /** The Constant CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED. */
@@ -76,6 +78,8 @@ public final class LogMessageConstant {
     public static final String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
     /** The Constant NOT_SUPPORTED_LIST_STYLE_TYPE. */
     public static final String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
+    /** The Constant NOT_SUPPORTED_TH_SCOPE_TYPE. */
+    public static final String NOT_SUPPORTED_TH_SCOPE_TYPE = "Not supported th scope type: {0}. Document may not be compliant with PDF/UA standards.";
     /** The Constant NO_CONSUMER_FOUND_FOR_CONTENT. */
     public static final String NO_CONSUMER_FOUND_FOR_CONTENT = "No consumer found for content";
     /** The Constant NO_CSS_APPLIER_FOUND_FOR_TAG. */

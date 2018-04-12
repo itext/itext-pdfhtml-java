@@ -88,4 +88,22 @@ public class HyphenateTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hyphenateTest05.html"), new File(destinationFolder + "hyphenateTest05.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hyphenateTest05.pdf", sourceFolder + "cmp_hyphenateTest05.pdf", destinationFolder, "diff05_"));
     }
+
+    @Test
+    public void test06() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hyphenateTest06.html"), new File(destinationFolder + "hyphenateTest06.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hyphenateTest06.pdf", sourceFolder + "cmp_hyphenateTest06.pdf", destinationFolder, "diff06_"));
+    }
+
+    @Test
+    public void test07Ru() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hyphenateTest07Ru.html"), new File(destinationFolder + "hyphenateTest07Ru.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hyphenateTest07Ru.pdf", sourceFolder + "cmp_hyphenateTest07Ru.pdf", destinationFolder, "diff07Ru_"));
+    }
+
+    @Test
+    public void test08De() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hyphenateTest08De.html"), new File(destinationFolder + "hyphenateTest08De.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hyphenateTest08De.pdf", sourceFolder + "cmp_hyphenateTest08De.pdf", destinationFolder, "diff08De_"));
+    }
 }

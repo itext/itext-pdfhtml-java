@@ -142,4 +142,33 @@ public class BorderRadiusTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest13.html"), new File(destinationFolder + "borderRadiusTest13.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest13.pdf", sourceFolder + "cmp_borderRadiusTest13.pdf", destinationFolder, "diff13_"));
     }
+
+    @Test
+    // TODO DEVSIX-1911
+    public void borderRadius14Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest14.html"), new File(destinationFolder + "borderRadiusTest14.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest14.pdf", sourceFolder + "cmp_borderRadiusTest14.pdf", destinationFolder, "diff14_"));
+    }
+
+    @Test
+    // TODO DEVSIX-1911
+    public void borderRadius15Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest15.html"), new File(destinationFolder + "borderRadiusTest15.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest15.pdf", sourceFolder + "cmp_borderRadiusTest15.pdf", destinationFolder, "diff15_"));
+    }
+
+    @Test
+    // TODO DEVSIX-1911
+    public void borderRadius16Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest16.html"), new File(destinationFolder + "borderRadiusTest16.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest16.pdf", sourceFolder + "cmp_borderRadiusTest16.pdf", destinationFolder, "diff16_"));
+    }
+
+    @Test
+    // TODO DEVSIX-1911
+    public void borderRadius17Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest17.html"), new File(destinationFolder + "borderRadiusTest17.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest17.pdf", sourceFolder + "cmp_borderRadiusTest17.pdf", destinationFolder, "diff17_"));
+    }
+
 }

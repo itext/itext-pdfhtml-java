@@ -127,14 +127,8 @@ public class HtmlTagWorker implements ITagWorker {
                 }
             }
             processed = allChildrenProcessed;
-        }  else if (childTagWorker.getElementResult() instanceof IFormField) {
-            if (childTagWorker instanceof IDisplayAware && CssConstants.BLOCK.equals(((IDisplayAware) childTagWorker).getDisplay())) {
-                postProcessInlineGroup();
-                inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
-                postProcessInlineGroup();
-            } else {
-                inlineHelper.add((IFormField) childTagWorker.getElementResult());
-            }
+        } else if (childTagWorker.getElementResult() instanceof IFormField && !(childTagWorker instanceof IDisplayAware && CssConstants.BLOCK.equals(((IDisplayAware) childTagWorker).getDisplay()))) {
+            inlineHelper.add((IBlockElement) childTagWorker.getElementResult());
             processed = true;
         } else if (childTagWorker.getElementResult() instanceof AreaBreak) {
             postProcessInlineGroup();

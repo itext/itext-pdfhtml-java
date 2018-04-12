@@ -49,15 +49,14 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class TextPropertiesTest extends ExtendedITextTest {
@@ -171,6 +170,12 @@ public class TextPropertiesTest extends ExtendedITextTest {
     @Ignore("DEVSIX-1442")
     public void enspEmspThinspTest09() throws IOException, InterruptedException {
         runTest("enspEmspThinspTest09");
+    }
+
+    @Test
+    @Ignore("DEVSIX-1851")
+    public void wordCharSpacingJustifiedTest01() throws IOException, InterruptedException {
+        runTest("wordCharSpacingJustifiedTest01");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {

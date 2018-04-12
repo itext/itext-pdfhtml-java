@@ -42,11 +42,16 @@
  */
 package com.itextpdf.html2pdf.css.resolve.shorthand.impl;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.CssDeclaration;
 import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.io.util.MessageFormatUtil;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Abstract {@link IShorthandResolver} implementation for box definitions.
@@ -95,21 +100,30 @@ public abstract class AbstractBoxShorthandResolver implements IShorthandResolver
             resolvedDecl.add(new CssDeclaration(rightProperty, props[0]));
             resolvedDecl.add(new CssDeclaration(bottomProperty, props[0]));
             resolvedDecl.add(new CssDeclaration(leftProperty, props[0]));
-        } else if (props.length == 2) {
-            resolvedDecl.add(new CssDeclaration(topProperty, props[0]));
-            resolvedDecl.add(new CssDeclaration(rightProperty, props[1]));
-            resolvedDecl.add(new CssDeclaration(bottomProperty, props[0]));
-            resolvedDecl.add(new CssDeclaration(leftProperty, props[1]));
-        } else if (props.length == 3) {
-            resolvedDecl.add(new CssDeclaration(topProperty, props[0]));
-            resolvedDecl.add(new CssDeclaration(rightProperty, props[1]));
-            resolvedDecl.add(new CssDeclaration(bottomProperty, props[2]));
-            resolvedDecl.add(new CssDeclaration(leftProperty, props[1]));
-        } else if (props.length == 4) {
-            resolvedDecl.add(new CssDeclaration(topProperty, props[0]));
-            resolvedDecl.add(new CssDeclaration(rightProperty, props[1]));
-            resolvedDecl.add(new CssDeclaration(bottomProperty, props[2]));
-            resolvedDecl.add(new CssDeclaration(leftProperty, props[3]));
+        } else {
+            for (String prop : props) {
+                if (CssConstants.INHERIT.equals(prop) || CssConstants.INITIAL.equals(prop)) {
+                    Logger logger = LoggerFactory.getLogger(AbstractBoxShorthandResolver.class);
+                    logger.warn(MessageFormatUtil.format(LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, shorthandExpression));
+                    return Collections.<CssDeclaration>emptyList();
+                }
+            }
+            if (props.length == 2) {
+                resolvedDecl.add(new CssDeclaration(topProperty, props[0]));
+                resolvedDecl.add(new CssDeclaration(rightProperty, props[1]));
+                resolvedDecl.add(new CssDeclaration(bottomProperty, props[0]));
+                resolvedDecl.add(new CssDeclaration(leftProperty, props[1]));
+            } else if (props.length == 3) {
+                resolvedDecl.add(new CssDeclaration(topProperty, props[0]));
+                resolvedDecl.add(new CssDeclaration(rightProperty, props[1]));
+                resolvedDecl.add(new CssDeclaration(bottomProperty, props[2]));
+                resolvedDecl.add(new CssDeclaration(leftProperty, props[1]));
+            } else if (props.length == 4) {
+                resolvedDecl.add(new CssDeclaration(topProperty, props[0]));
+                resolvedDecl.add(new CssDeclaration(rightProperty, props[1]));
+                resolvedDecl.add(new CssDeclaration(bottomProperty, props[2]));
+                resolvedDecl.add(new CssDeclaration(leftProperty, props[3]));
+            }
         }
         return resolvedDecl;
     }

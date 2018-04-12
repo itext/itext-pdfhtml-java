@@ -251,7 +251,12 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-top: 0",
                 "text-indent: 0",
                 "display: table",
-                "font-family: times-roman");
+                "border-spacing: 2px",
+                "font-family: times-roman",
+                "border-bottom-color: currentcolor",
+                "border-left-color: currentcolor",
+                "border-right-color: currentcolor",
+                "border-top-color: currentcolor");
     }
 
     @Test
@@ -262,6 +267,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "text-indent: 0",
                 "vertical-align: middle",
                 "display: table-row",
+                "border-spacing: 2px",
                 "font-family: times-roman");
     }
 
@@ -297,10 +303,6 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
         test("htmlStylesConvertingTest10.html", "html body",
                 "background-color: yellow",
                 "font-size: 12.0pt",
-                "margin-bottom: 10%",
-                "margin-left: 10%",
-                "margin-right: 10%",
-                "margin-top: 10%",
                 "display: block",
                 "font-family: times-roman");
     }

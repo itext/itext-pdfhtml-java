@@ -1,0 +1,21 @@
+p:nth-of-type(-3n + 1){
+	color: red;
+}
+
+p:nth-of-type(-3n - 1){
+	color: blue;
+}
+
+p:nth-of-type(-3n){
+	background: maroon;
+}
+
+
+p:nth-of-type(-n+5){
+	background: violet;
+}
+
+span {
+	font-size: 24px;
+	text-align: center; 
+}

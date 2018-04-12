@@ -42,8 +42,10 @@
  */
 package com.itextpdf.html2pdf.attach.util;
 
+import com.itextpdf.html2pdf.attach.impl.layout.RunningElement;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.util.OverflowApplierUtil;
+import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
@@ -54,7 +56,6 @@ import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -217,12 +218,21 @@ public class WaitingInlineElementsHelper {
 
         if (waitingLeaves.size() > 0) {
             Paragraph p = createParagraphContainer();
+            boolean runningElementsOnly = true;
             for (IElement leaf : waitingLeaves) {
                 if (leaf instanceof ILeafElement) {
+                    runningElementsOnly = false;
                     p.add((ILeafElement) leaf);
                 } else if (leaf instanceof IBlockElement) {
+                    runningElementsOnly = runningElementsOnly && leaf instanceof RunningElement;
                     p.add((IBlockElement) leaf);
                 }
+            }
+            if (runningElementsOnly) {
+                // TODO this might be avoided in future if we will come up with removing of completely empty
+                // (both in terms of content and possible properties like background and borders) tags from
+                // logical structure of resultant PDF documents
+                p.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
             }
             return p;
         } else {

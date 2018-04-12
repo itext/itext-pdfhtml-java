@@ -42,9 +42,17 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -52,6 +60,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
@@ -85,10 +94,88 @@ public class InputTest extends ExtendedITextTest {
         runTest("inputTest04");
     }
 
-    private void runTest(String testName) throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+    @Test
+    public void input05Test() throws IOException, InterruptedException {
+        runTest("inputTest05");
     }
 
+    @Test
+    @LogMessages(ignore = true, messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, count = 4),
+    })
+    public void input06Test() throws IOException, InterruptedException {
+        String htmlPath = sourceFolder + "inputTest06.html";
+        String outPdfPath = destinationFolder + "inputTest06.pdf";
+        String cmpPdfPath = sourceFolder + "cmp_" + "inputTest06.pdf";
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
 
+        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outPdfPath));
+        pdfDoc.setDefaultPageSize(PageSize.A8);
+        HtmlConverter.convertToPdf(new FileInputStream(htmlPath), pdfDoc, new ConverterProperties().setCreateAcroForm(true));
+        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, "diff_inputTest06_"));
+    }
+
+    @Test
+    public void input07Test() throws IOException, InterruptedException {
+        // TODO DEVSIX-1777: if not explicitly specified, <input> border default value should be different from the one
+        // specified in user agent css. Also user agent css should not specify default color
+        // and should use 'initial' instead.
+        runTest("inputTest07");
+    }
+
+    @Test
+    public void input08Test() throws IOException, InterruptedException {
+        runTest("inputTest08");
+    }
+
+    @Test
+    public void input09Test() throws IOException, InterruptedException {
+        runTest("inputTest09");
+    }
+
+    @Test
+    public void input10Test() throws IOException, InterruptedException {
+        runTest("inputTest10");
+    }
+
+    @Test
+    public void textareaRowsHeightTest() throws IOException, InterruptedException {
+        runTest("textareaRowsHeight");
+    }
+
+    @Test
+    public void blockHeightTest() throws IOException, InterruptedException {
+        runTest("blockHeightTest");
+    }
+
+    @Test
+    public void smallPercentWidthTest() throws IOException, InterruptedException {
+        runTest("smallPercentWidth");
+    }
+
+    @Test
+    public void button01Test() throws IOException, InterruptedException {
+        runTest("buttonTest01");
+    }
+
+    @Test
+    public void button02Test() throws IOException, InterruptedException {
+        runTest("buttonTest02");
+    }
+
+    @Test
+    public void buttonWithDisplayBlockTest() throws IOException, InterruptedException {
+        runTest("buttonWithDisplayBlock");
+    }
+
+    private void runTest(String name) throws IOException, InterruptedException {
+        String htmlPath = sourceFolder + name + ".html";
+        String outPdfPath = destinationFolder + name + ".pdf";
+        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+        String diff = "diff_" + name + "_";
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath));
+        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));
+    }
 }

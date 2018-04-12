@@ -76,6 +76,9 @@ public final class AttributeConstants {
     /** The Constant CLASS. */
     public static final String CELLPADDING = "cellpadding";
 
+    /** The Constant CLASS. */
+    public static final String CELLSPACING = "cellspacing";
+
     /** The Constant COLOR. */
     public static final String COLOR = "color";
 
@@ -112,11 +115,17 @@ public final class AttributeConstants {
     /** The Constant KEYWORDS. */
     public static final String KEYWORDS = "keywords";
 
+    /** The Constant LABEL. */
+    public static final String LABEL = "label";
+
     /** The Constant LANG. */
     public static final String LANG = "lang";
 
     /** The Constant MEDIA. */
     public static final String MEDIA = "media";
+
+    /** The Constant MULTIPLE. */
+    public static final String MULTIPLE = "multiple";
 
     /** The Constant NAME. */
     public static final String NAME = "name";
@@ -135,6 +144,12 @@ public final class AttributeConstants {
 
     /** The Constant ROWSPAN. */
     public static final String ROWSPAN = "rowspan";
+
+    /** The Constant SCOPE. */
+    public static final String SCOPE = "scope";
+
+    /** The Constant SELECTED. */
+    public static final String SELECTED = "selected";
 
     /** The Constant SIZE. */
     public static final String SIZE = "size";
@@ -189,6 +204,15 @@ public final class AttributeConstants {
     /** The Constant CHECKBOX. */
     public static final String CHECKBOX = "checkbox";
 
+    /** The Constant CHECKED. */
+    public static final String CHECKED = "checked";
+
+    /** The Constant COL. */
+    public static final String COL = "col";
+
+    /** The Constant COLGROUP. */
+    public static final String COLGROUP = "colgroup";
+
     /** The Constant EMAIL. */
     public static final String EMAIL = "email";
 
@@ -215,6 +239,12 @@ public final class AttributeConstants {
 
     /** The Constant RIGHT. */
     public static final String RIGHT = "right";
+
+    /** The Constant ROW. */
+    public static final String ROW = "row";
+
+    /** The Constant ROWGROUP. */
+    public static final String ROWGROUP = "rowgroup";
 
     /** The Constant RTL. */
     public static final String RTL = "rtl";

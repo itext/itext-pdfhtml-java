@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+select{
+  padding: 5px;
+  color: green;
+}
+select option { color: black; }
+select option:first-child{
+  color: red;
+}
+html {
+font-family:Helvetica, sans-serif;
+}
+
+    </style>
+</head>
+<body>
+<select size="4">
+    <option value="Value1">Value1 outside</option>
+    <option value="Value2">Value2 outside</option>
+    <option value="Value3">Value3 outside</option>
+</select>
+<form>
+    <select multiple="">
+        <option value="Value1.1">Item1 inside</option>
+        <option value="Value1.2">Item2 inside</option>
+        <option value="Value1.3">Item3 inside</option>
+    </select>
+</form>
+</body>
+</html>

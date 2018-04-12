@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>CSS: 15 simple tests of :empty</title>
+  <link rel="author" title="Ian Hickson" href="mailto:ian@hixie.ch"/>
+  <link rel="help" href="https://drafts.csswg.org/selectors-3/#empty-pseudo"/>
+  <link rel="help" href="https://drafts.csswg.org/selectors-4/#the-empty-pseudo"/>
+  <link rel="match" href="selectors-empty-001-ref.xml"/>
+  <meta name="flags" content="nonHTML"/>
+  <style type="text/css">
+   section, section * {
+    display: block;
+   }
+   section > * {
+    border: solid thick red;
+    height: 1em;
+    padding: 4px;
+    margin: 4px;
+    color: black;
+   }
+   section[type=positive] > :empty, section[type=negative] > :not(:empty) {
+    border: solid thick lime;
+   }
+  </style>
+ </head>
+ <body>
+  <p>Below there should be fifteen big green boxes and no red.</p>
+  <section type="positive">
+    <img src="support/60x60-green.png"/>
+    <div></div>
+    <div><!-- --></div>
+    <div><?testfour?></div>
+    <div title="data"></div>
+  </section>
+  <section type="negative">
+    <div><div> </div></div>
+    <div>green!</div>
+    <div>&gt;&lt;</div>
+    <div>&#x2603;</div>
+    <div><img src="support/60x60-green.png"/></div>
+    <div> </div>
+    <div> <!-- --></div>
+    <div> <?testfour?></div>
+    <div><!-- --> </div>
+    <div><?testfour?> </div>
+  </section>
+ </body>
+</html>

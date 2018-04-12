@@ -52,13 +52,13 @@ import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.LineRenderer;
-import com.itextpdf.layout.renderer.ListItemRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,8 +66,10 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- * The {@link AbstractOneLineTextFieldRenderer} implementation for buttons.
+ * The {@link AbstractOneLineTextFieldRenderer} implementation for buttons with no kids.
+ * @deprecated Will be renamed to {@code InputButtonRenderer} in next major release.
  */
+@Deprecated
 public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
 
     /** Indicates of the content was split. */
@@ -90,11 +92,16 @@ public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
         return new ButtonRenderer((Button) modelElement);
     }
 
+    @Override
+    protected void adjustFieldLayout() {
+        throw new RuntimeException("adjustFieldLayout() is deprecated and shouldn't be used. Override adjustFieldLayout(LayoutContext) instead");
+    }
+
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
      */
     @Override
-    protected void adjustFieldLayout() {
+    protected void adjustFieldLayout(LayoutContext layoutContext) {
         List<LineRenderer> flatLines = ((ParagraphRenderer) flatRenderer).getLines();
         Rectangle flatBBox = flatRenderer.getOccupiedArea().getBBox();
         updatePdfFont((ParagraphRenderer) flatRenderer);
@@ -103,7 +110,7 @@ public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
                 isSplit = true;
             }
             cropContentLines(flatLines, flatBBox);
-            Float width = getContentWidth();
+            Float width = retrieveWidth(layoutContext.getArea().getBBox().getWidth());
             if (width == null) {
                 LineRenderer drawnLine = flatLines.get(0);
                 drawnLine.move(flatBBox.getX() - drawnLine.getOccupiedArea().getBBox().getX(), 0);
@@ -113,7 +120,7 @@ public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
             LoggerFactory.getLogger(getClass()).error(MessageFormatUtil.format(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "button"));
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
             baseline = flatBBox.getTop();
-            flatBBox.setY(baseline).setHeight(0);
+            flatBBox.setY(flatBBox.getTop()).setHeight(0);
         }
     }
 
