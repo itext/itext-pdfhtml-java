@@ -121,4 +121,10 @@ public class HtmlTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest08.html"), new File(destinationFolder + "htmlTest08.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest08.pdf", sourceFolder + "cmp_htmlTest08.pdf", destinationFolder, "diff08_"));
     }
+
+    @Test
+    public void html09Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest09.html"), new File(destinationFolder + "htmlTest09.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest09.pdf", sourceFolder + "cmp_htmlTest09.pdf", destinationFolder, "diff09_"));
+    }
 }

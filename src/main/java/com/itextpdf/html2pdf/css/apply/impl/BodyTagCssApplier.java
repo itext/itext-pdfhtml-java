@@ -49,6 +49,7 @@ import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.html.node.IStylesContainer;
@@ -76,6 +77,7 @@ public class BodyTagCssApplier implements ICssApplier {
             BorderStyleApplierUtil.applyBorders(cssProps, context, styleProperty);
             if (styleProperty.hasStylesToApply())
                 container.setProperty(Html2PdfProperty.BODY_STYLING, styleProperty);
+            FontStyleApplierUtil.applyFontStyles(cssProps, context, stylesContainer, container);
         }
     }
 }
