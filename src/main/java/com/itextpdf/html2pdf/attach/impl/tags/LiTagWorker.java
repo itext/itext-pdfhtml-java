@@ -54,6 +54,7 @@ import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
+import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
@@ -64,13 +65,19 @@ import com.itextpdf.styledxmlparser.node.IElementNode;
  */
 public class LiTagWorker implements ITagWorker {
 
-    /** The list item. */
+    /**
+     * The list item.
+     */
     protected ListItem listItem;
 
-    /** The list. */
+    /**
+     * The list.
+     */
     protected List list;
 
-    /** The inline helper. */
+    /**
+     * The inline helper.
+     */
     private WaitingInlineElementsHelper inlineHelper;
 
     /**
@@ -117,7 +124,11 @@ public class LiTagWorker implements ITagWorker {
      */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        if (childTagWorker instanceof SpanTagWorker) {
+        IPropertyContainer element = childTagWorker.getElementResult();
+        if (element instanceof ILeafElement) {
+            inlineHelper.add((ILeafElement) element);
+            return true;
+        } else if (childTagWorker instanceof SpanTagWorker) {
             boolean allChildrenProcessed = true;
             for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
                 if (propertyContainer instanceof ILeafElement) {

@@ -91,4 +91,10 @@ public class BrTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "brTest03.html"), pdfDoc, new ConverterProperties());
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brTest03.pdf", sourceFolder + "cmp_brTest03.pdf", destinationFolder, "diff03_"));
     }
+
+    @Test
+    public void brInsideDifferentTagsTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "brInsideDifferentTagsTest01.html"), new File(destinationFolder + "brInsideDifferentTagsTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brInsideDifferentTagsTest01.pdf", sourceFolder + "cmp_brInsideDifferentTagsTest01.pdf", destinationFolder, "diff04_"));
+    }
 }

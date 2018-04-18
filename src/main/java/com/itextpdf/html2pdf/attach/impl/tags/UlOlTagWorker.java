@@ -46,14 +46,15 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
@@ -62,10 +63,14 @@ import com.itextpdf.styledxmlparser.node.IElementNode;
  */
 public class UlOlTagWorker implements ITagWorker {
 
-    /** The list object. */
+    /**
+     * The list object.
+     */
     private List list;
 
-    /** Helper class for waiting inline elements. */
+    /**
+     * Helper class for waiting inline elements.
+     */
     private WaitingInlineElementsHelper inlineHelper;
 
     /**
@@ -77,9 +82,9 @@ public class UlOlTagWorker implements ITagWorker {
     public UlOlTagWorker(IElementNode element, ProcessorContext context) {
         list = new List().setListSymbol("");
         //In the case of an ordered list, see if the start attribute can be found
-        if(element.getAttribute(AttributeConstants.START) != null){
+        if (element.getAttribute(AttributeConstants.START) != null) {
             Integer startValue = CssUtils.parseInteger(element.getAttribute(AttributeConstants.START));
-            if(startValue != null) list.setItemStartIndex((int)startValue);
+            if (startValue != null) list.setItemStartIndex((int) startValue);
         }
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
@@ -107,7 +112,10 @@ public class UlOlTagWorker implements ITagWorker {
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         IPropertyContainer child = childTagWorker.getElementResult();
-        if (childTagWorker instanceof SpanTagWorker) {
+        if (child instanceof ILeafElement) {
+            inlineHelper.add((ILeafElement) child);
+            return true;
+        } else if (childTagWorker instanceof SpanTagWorker) {
             boolean allChildrenProcessed = true;
             for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
                 if (propertyContainer instanceof ILeafElement) {
