@@ -616,6 +616,21 @@ public class PageRuleTest extends ExtendedITextTest {
         compareResult(name);
     }
 
+    @Test
+    public void marginBoxMultilineTest01() throws IOException, InterruptedException {
+        runTest("marginBoxMultilineTest01");
+    }
+
+    @Test
+    public void marginBoxMultilineTest02() throws IOException, InterruptedException {
+        runTest("marginBoxMultilineTest02");
+    }
+
+    @Test
+    public void marginBoxMultilineTest03() throws IOException, InterruptedException {
+        runTest("marginBoxMultilineTest03");
+    }
+
     private static class CustomFlushingTagWorkerFactory extends DefaultTagWorkerFactory {
         @Override
         public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {

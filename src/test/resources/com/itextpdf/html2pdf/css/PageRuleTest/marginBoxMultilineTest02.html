@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+	@page {
+		font-size: 8pt;
+		white-space: pre;
+		@top-left {
+			background-color: #ccc;
+			border: solid 1pt;
+			content: "Header mulitline attempt \r is it a new line?";
+		}
+		@top-center {
+			background-color: #ccc;
+			border: solid 1pt;
+			content: "Header mulitline attempt \r\n is it a new line?";
+		}
+		@top-right {
+			background-color: #ccc;
+			border: solid 1pt;
+			content: "Header mulitline attempt \n is it a new line?";
+		}
+		@bottom-left {
+			background-color: #ccc;
+			border: solid 1pt;
+			content: "Footer mulitline attempt \000a is it a new line?";
+		}
+		@bottom-center {
+			background-color: #ccc;
+			border: solid 1pt;
+			content: "Footer mulitline attempt \a is it a new line?";
+		}
+		@bottom-right {
+			background-color: #ccc;
+			border: solid 1pt;
+			content: "Footer mulitline attempt \u000a is it a new line?";
+		}
+	}
+</style>
+</head>
+<body>
+<div style="background-color: yellow;">
+Only @bottom-center and @bottom-left margin boxes are expected to contain multiline content.
+All margin boxes has white-space property set to `pre`.
+</div>
+</body>
+</html>

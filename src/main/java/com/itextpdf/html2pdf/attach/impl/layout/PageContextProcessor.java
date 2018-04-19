@@ -530,6 +530,7 @@ class PageContextProcessor {
 
     private IElement processMarginBoxContent(PageMarginBoxContextNode marginBoxContentNode, int pageNumber, ProcessorContext context) {
         IElementNode dummyMarginBoxNode = new PageMarginBoxDummyElement();
+        dummyMarginBoxNode.setStyles(marginBoxContentNode.getStyles());
         ITagWorker marginBoxWorker = context.getTagWorkerFactory().getTagWorker(dummyMarginBoxNode, context);
         for (int i = 0; i < marginBoxContentNode.childNodes().size(); i++) {
             INode childNode = marginBoxContentNode.childNodes().get(i);

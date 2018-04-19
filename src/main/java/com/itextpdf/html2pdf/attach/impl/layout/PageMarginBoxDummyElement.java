@@ -16,6 +16,9 @@ import java.util.Map;
 @Deprecated
 class PageMarginBoxDummyElement implements IElementNode, ICustomElementNode {
 
+    /** The resolved styles. */
+    private Map<String, String> elementResolvedStyles;
+
     @Override
     public String name() {
         return PageMarginBoxContextNode.PAGE_MARGIN_BOX_TAG;
@@ -63,11 +66,11 @@ class PageMarginBoxDummyElement implements IElementNode, ICustomElementNode {
 
     @Override
     public void setStyles(Map<String, String> stringStringMap) {
-        throw new UnsupportedOperationException();
+        elementResolvedStyles = stringStringMap;
     }
 
     @Override
     public Map<String, String> getStyles() {
-        return Collections.<String,String>emptyMap();
+        return elementResolvedStyles == null ? Collections.<String,String>emptyMap() : elementResolvedStyles;
     }
 }
