@@ -175,6 +175,11 @@ public class PseudoElementsTest extends ExtendedITextTest {
     }
 
     @Test
+    public void escapedStringTest05() throws IOException, InterruptedException {
+        runTest("escapedStringTest05");
+    }
+
+    @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 5))
     public void attrTest01() throws IOException, InterruptedException {
         runTest("attrTest01");

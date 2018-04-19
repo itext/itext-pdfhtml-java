@@ -150,7 +150,23 @@ public class PageRuleTest extends ExtendedITextTest {
         runTest("marginBoxTest04");
     }
 
-    private void runTest(String name) throws IOException, InterruptedException {
+
+    @Test
+    public void marginBoxMultilineTest01() throws IOException, InterruptedException {
+        runTest("marginBoxMultilineTest01");
+    }
+
+    @Test
+    public void marginBoxMultilineTest02() throws IOException, InterruptedException {
+        runTest("marginBoxMultilineTest02");
+    }
+
+    @Test
+    public void marginBoxMultilineTest03() throws IOException, InterruptedException {
+        runTest("marginBoxMultilineTest03");
+    }
+    
+	private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
