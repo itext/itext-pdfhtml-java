@@ -487,6 +487,12 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
+    // TODO fix cmp file after DEVSIX-1933
+    public void floatImageTableTest() throws IOException, InterruptedException {
+        runTest("floatImageTableTest", "diffFloatImageTableTest_");
+    }
+
+    @Test
     //TODO Test file to be updated in DEVSIX-2231
     public void newPageFloatTest() throws IOException, InterruptedException {
         runTest("newPageFloatTest", "diff_newPageFloat_");
