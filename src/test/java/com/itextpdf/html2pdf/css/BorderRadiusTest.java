@@ -171,4 +171,11 @@ public class BorderRadiusTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest17.pdf", sourceFolder + "cmp_borderRadiusTest17.pdf", destinationFolder, "diff17_"));
     }
 
+    @Test
+    public void borderRadiusInlineElementTest01() throws IOException, InterruptedException {
+        // TODO DEVSIX-1935
+        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusInlineElementTest01.html"), new File(destinationFolder + "borderRadiusInlineElementTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusInlineElementTest01.pdf", sourceFolder + "cmp_borderRadiusInlineElementTest01.pdf", destinationFolder, "diffInline01_"));
+    }
+
 }
