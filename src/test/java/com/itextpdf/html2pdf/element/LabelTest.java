@@ -72,4 +72,16 @@ public class LabelTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelTest01.pdf", sourceFolder + "cmp_labelTest01.pdf", destinationFolder, "diff01_"));
     }
 
+    @Test
+    public void labelDisplayBlock01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "labelDisplayBlockTest01.html"), new File(destinationFolder + "labelDisplayBlockTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelDisplayBlockTest01.pdf", sourceFolder + "cmp_labelDisplayBlockTest01.pdf", destinationFolder, "diffBlock01_"));
+    }
+
+    @Test
+    public void labelDisplayBlock02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "labelDisplayBlockTest02.html"), new File(destinationFolder + "labelDisplayBlockTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelDisplayBlockTest02.pdf", sourceFolder + "cmp_labelDisplayBlockTest02.pdf", destinationFolder, "diffBlock02_"));
+    }
+
 }
