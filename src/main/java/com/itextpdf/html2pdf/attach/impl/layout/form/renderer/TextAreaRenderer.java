@@ -152,6 +152,16 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         return createParagraphRenderer(getDefaultValue());
     }
 
+    @Override
+    IRenderer createParagraphRenderer(String defaultValue) {
+        if (defaultValue.isEmpty()) {
+            if (null != ((TextArea) modelElement).getPlaceholder() && !((TextArea) modelElement).getPlaceholder().isEmpty()) {
+                return ((TextArea) modelElement).getPlaceholder().createRendererSubTree();
+            }
+        }
+        return super.createParagraphRenderer(defaultValue);
+    }
+
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#applyAcroField(com.itextpdf.layout.renderer.DrawContext)
      */

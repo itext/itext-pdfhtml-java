@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.IPlaceholderable;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
@@ -64,9 +64,12 @@ public class PlaceholderCssApplier implements ICssApplier {
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
         Map<String, String> cssStyles = stylesContainer.getStyles();
         IStylesContainer parentToBeProcessed = (IStylesContainer) ((CssPseudoElementNode) stylesContainer).parentNode();
-        IPropertyContainer element = ((InputField) context.getState().top().getElementResult()).getPlaceholder();
-        FontStyleApplierUtil.applyFontStyles(cssStyles, context, parentToBeProcessed, element);
-        BackgroundApplierUtil.applyBackground(cssStyles, context, element);
-        OpacityApplierUtil.applyOpacity(cssStyles, context, element);
+        IPropertyContainer elementResult = context.getState().top().getElementResult();
+        if (elementResult instanceof IPlaceholderable) {
+            IPropertyContainer element = ((IPlaceholderable) elementResult).getPlaceholder();
+            FontStyleApplierUtil.applyFontStyles(cssStyles, context, parentToBeProcessed, element);
+            BackgroundApplierUtil.applyBackground(cssStyles, context, element);
+            OpacityApplierUtil.applyOpacity(cssStyles, context, element);
+        }
     }
 }

@@ -50,9 +50,8 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
 import com.itextpdf.html2pdf.attach.impl.layout.RunningElementContainer;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.IPlaceholderable;
 import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
-import com.itextpdf.html2pdf.attach.impl.tags.InputTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.RunningElementTagWorker;
 import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
@@ -514,10 +513,10 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 }
                 break;
             case CssConstants.PLACEHOLDER:
-                if (!TagConstants.INPUT.equals(node.name())
-                        || null == tagWorker
-                        || !(tagWorker.getElementResult() instanceof InputField)
-                        || null == ((InputField) tagWorker.getElementResult()).getPlaceholder()) {
+                if (!(TagConstants.INPUT.equals(node.name()) || TagConstants.TEXTAREA.equals(node.name())) || // TODO DEVSIX-1944: Resolve the issue and remove the line
+                        null == tagWorker
+                        || !(tagWorker.getElementResult() instanceof IPlaceholderable)
+                        || null == ((IPlaceholderable)tagWorker.getElementResult()).getPlaceholder()) {
                     return;
                 }
                 break;

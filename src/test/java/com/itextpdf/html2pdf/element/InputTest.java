@@ -186,6 +186,11 @@ public class InputTest extends ExtendedITextTest {
     }
 
     @Test
+    public void placeholderTest02A() throws IOException, InterruptedException {
+        runTest("placeholderTest02A");
+    }
+
+    @Test
     public void placeholderTest03() throws IOException, InterruptedException {
         runTest("placeholderTest03");
     }
@@ -224,6 +229,11 @@ public class InputTest extends ExtendedITextTest {
         doc.close();
 
         Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, "diff_placeholderTest05_"));
+    }
+
+    @Test
+    public void placeholderTest05A() throws IOException, InterruptedException {
+        runTest("placeholderTest05A");
     }
 
     private void runTest(String name) throws IOException, InterruptedException {
