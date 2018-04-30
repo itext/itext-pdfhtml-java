@@ -56,16 +56,14 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-
-import java.io.FileInputStream;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class TableTest extends ExtendedITextTest {
@@ -368,6 +366,11 @@ public class TableTest extends ExtendedITextTest {
     // TODO DEVSIX-2092
     public void plainTextTest() throws IOException, InterruptedException {
         runConvertToElements("plainTextTest", false);
+    }
+
+    @Test
+    public void tableCellMinWidthRightAlignmentTest() throws IOException, InterruptedException {
+        runConvertToElements("tableCellMinWidthRightAlignmentTest", false);
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {

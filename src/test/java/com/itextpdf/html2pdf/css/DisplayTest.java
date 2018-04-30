@@ -115,6 +115,14 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)
+    })
+    public void displayTable05aTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("display_table05a", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void displayTable06Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("display_table06", sourceFolder, destinationFolder);
     }
