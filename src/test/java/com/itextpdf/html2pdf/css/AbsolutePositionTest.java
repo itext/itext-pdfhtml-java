@@ -159,4 +159,10 @@ public class AbsolutePositionTest extends ExtendedHtmlConversionITextTest {
     public void absolutePositionTest18() throws IOException, InterruptedException {
         convertToPdfAndCompare("absolutePositionTest18", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void absPosNoTopBottomTest01() throws IOException, InterruptedException {
+        // TODO DEVSIX-1950
+        convertToPdfAndCompare("absPosNoTopBottomTest01", sourceFolder, destinationFolder);
+    }
 }
