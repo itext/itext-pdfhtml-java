@@ -467,7 +467,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             try {
                 // Cache at resource resolver level only, at font level we will create font in any case.
                 // The instance of fontProgram will be collected by GC if the is no need in it.
-                byte[] bytes = context.getResourceResolver().retrieveStream(src.src);
+                byte[] bytes = context.getResourceResolver().retrieveBytesFromResource(src.src);
                 if (bytes != null) {
                     FontProgram fp = FontProgramFactory.createFont(bytes, false);
                     context.addTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily);

@@ -94,6 +94,9 @@ public final class AttributeConstants {
     /** The Constant DESCRIPTION. */
     public static final String DESCRIPTION = "description";
 
+    /** The Constant DATA*/
+    public static final String DATA ="data";
+
     /** The Constant DIR. */
     public static final String DIR = "dir";
 
@@ -271,5 +274,10 @@ public final class AttributeConstants {
 
     /** The Constant PARENT_TABLE_BORDER. */
     public static final String PARENT_TABLE_BORDER = "parenttableborder";
+
+    public final class ObjectTypes{
+
+        public static final String SVGIMAGE="image/svg+xml";
+    }
 
 }

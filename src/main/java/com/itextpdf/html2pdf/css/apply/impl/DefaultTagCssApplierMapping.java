@@ -115,6 +115,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.MAIN, BlockCssApplier.class);
         mapping.putMapping(TagConstants.MARK, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.NAV, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.OBJECT, BlockCssApplier.class);
         mapping.putMapping(TagConstants.OL, UlOlTagCssApplier.class);
         mapping.putMapping(TagConstants.OPTGROUP, BlockCssApplier.class);
         mapping.putMapping(TagConstants.OPTION, BlockCssApplier.class);

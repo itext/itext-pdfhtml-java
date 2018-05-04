@@ -106,6 +106,8 @@ public final class LogMessageConstant {
     public static final String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
     /** The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE. */
     public static final String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
+    /** The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG*/
+    public static final String UNABLE_TO_PROCESS_IMAGE_AS_SVG="Unable to process image found at {0} as an SVG";
     /** The Constant UNABLE_TO_RESOLVE_COUNTER. */
     public static final String UNABLE_TO_RESOLVE_COUNTER = "Unable to resolve counter \"{0}\"";
     /** The Constant UNABLE_TO_RESOLVE_FONT. */
@@ -131,7 +133,8 @@ public final class LogMessageConstant {
     public static final String WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT = "Worker of type {0} unable to process it's text content";
     /** The Constant WORKER_UNABLE_TO_PROCESS_OTHER_WORKER. */
     public static final String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
-
+    /** The Constant PDF_DOCUMENT_NOT_PRESENT */
+    public static final String PDF_DOCUMENT_NOT_PRESENT = "PdfDocument is not present";
     /**
      * Instantiates a new log message constant.
      */

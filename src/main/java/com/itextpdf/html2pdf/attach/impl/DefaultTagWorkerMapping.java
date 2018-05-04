@@ -61,6 +61,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.InputTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.LiTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.LinkTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.MetaTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.ObjectTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.OptGroupTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.OptionTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PTagWorker;
@@ -154,6 +155,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.MARK, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.META, MetaTagWorker.class);
         workerMapping.putMapping(TagConstants.NAV, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.OBJECT, ObjectTagWorker.class);
         workerMapping.putMapping(TagConstants.OL, UlOlTagWorker.class);
         workerMapping.putMapping(TagConstants.OPTGROUP, OptGroupTagWorker.class);
         workerMapping.putMapping(TagConstants.OPTION, OptionTagWorker.class);

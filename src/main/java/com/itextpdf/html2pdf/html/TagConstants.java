@@ -221,6 +221,9 @@ public final class TagConstants {
     /** The Constant NAV. */
     public static final String NAV = "nav";
 
+    /** The Constant OBJECT */
+    public static final String OBJECT = "object";
+
     /** The Constant OL. */
     public static final String OL = "ol";
 
