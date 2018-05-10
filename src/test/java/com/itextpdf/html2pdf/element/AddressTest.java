@@ -42,21 +42,17 @@
  */
 package com.itextpdf.html2pdf.element;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class AddressTest extends ExtendedITextTest {
+public class AddressTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/AddressTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/AddressTest/";
@@ -68,8 +64,7 @@ public class AddressTest extends ExtendedITextTest {
 
     @Test
     public void address01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "addressTest01.html"), new File(destinationFolder + "addressTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "addressTest01.pdf", sourceFolder + "cmp_addressTest01.pdf", destinationFolder, "diff01_"));
+        convertToPdfAndCompare("addressTest01", sourceFolder, destinationFolder);
     }
 
 }

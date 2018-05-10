@@ -43,22 +43,17 @@
 package com.itextpdf.html2pdf.element;
 
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class ColColgroupTest extends ExtendedITextTest {
+public class ColColgroupTest extends ExtendedHtmlConversionITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/ColColgroupTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/ColColgroupTest/";
 
@@ -69,58 +64,42 @@ public class ColColgroupTest extends ExtendedITextTest {
 
     @Test
     public void simpleBackgroundTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "simpleBackgroundTest.html"), new File(destinationFolder + "simpleBackgroundTest.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "simpleBackgroundTest.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "simpleBackgroundTest.pdf", sourceFolder + "cmp_simpleBackgroundTest.pdf", destinationFolder, "diff_simpleBackgroundTest_"));
+        convertToPdfAndCompare("simpleBackgroundTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void simpleTdColspanTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "simpleTdColspanTest.html"), new File(destinationFolder + "simpleTdColspanTest.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "simpleTdColspanTest.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "simpleTdColspanTest.pdf", sourceFolder + "cmp_simpleTdColspanTest.pdf", destinationFolder, "diff_simpleTdColspanTest_"));
+        convertToPdfAndCompare("simpleTdColspanTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void simpleTdRowspanTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "simpleTdRowspanTest.html"), new File(destinationFolder + "simpleTdRowspanTest.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "simpleTdRowspanTest.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "simpleTdRowspanTest.pdf", sourceFolder + "cmp_simpleTdRowspanTest.pdf", destinationFolder, "diff_simpleTdRowspanTest_"));
+        convertToPdfAndCompare("simpleTdRowspanTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void simpleTdColspanRowspanTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "simpleTdColspanRowspanTest.html"), new File(destinationFolder + "simpleTdColspanRowspanTest.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "simpleTdColspanRowspanTest.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "simpleTdColspanRowspanTest.pdf", sourceFolder + "cmp_simpleTdColspanRowspanTest.pdf", destinationFolder, "diff_simpleTdColspanRowspanTest_"));
+        convertToPdfAndCompare("simpleTdColspanRowspanTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void complexColspanRowspanTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "complexColspanRowspanTest.html"), new File(destinationFolder + "complexColspanRowspanTest.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "complexColspanRowspanTest.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "complexColspanRowspanTest.pdf", sourceFolder + "cmp_complexColspanRowspanTest.pdf", destinationFolder, "diff_complexColspanRowspanTest_"));
+        convertToPdfAndCompare("complexColspanRowspanTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void simpleWidthTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "simpleWidthTest.html"), new File(destinationFolder + "simpleWidthTest.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "simpleWidthTest.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "simpleWidthTest.pdf", sourceFolder + "cmp_simpleWidthTest.pdf", destinationFolder, "diff_simpleWidthTest_"));
+        convertToPdfAndCompare("simpleWidthTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void widthColOverridedTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "widthColOverridedTest.html"), new File(destinationFolder + "widthColOverridedTest.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "widthColOverridedTest.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "widthColOverridedTest.pdf", sourceFolder + "cmp_widthColOverridedTest.pdf", destinationFolder, "diff_widthColOverridedTest_"));
+        convertToPdfAndCompare("widthColOverridedTest", sourceFolder, destinationFolder);
     }
 
     @Test
     //In this test we use FireFox behavior that treat <colgroup> and <col> tags equally and don't override colgroup's width value with smaller one in case of width set on <td>
     public void widthColgroupOverridedTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "widthColgroupOverridedTest.html"), new File(destinationFolder + "widthColgroupOverridedTest.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "widthColgroupOverridedTest.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "widthColgroupOverridedTest.pdf", sourceFolder + "cmp_widthColgroupOverridedTest.pdf", destinationFolder, "diff_widthColgroupOverridedTest_"));
+        convertToPdfAndCompare("widthColgroupOverridedTest", sourceFolder, destinationFolder);
     }
 }

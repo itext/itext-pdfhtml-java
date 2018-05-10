@@ -42,22 +42,17 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class HorizontalAlignmentTest extends ExtendedITextTest {
+public class HorizontalAlignmentTest extends ExtendedHtmlConversionITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/HorizontalAlignment/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/HorizontalAlignment/";
 
@@ -69,33 +64,27 @@ public class HorizontalAlignmentTest extends ExtendedITextTest {
     @Test
     public void alignAttribute01() throws IOException, InterruptedException {
         // TODO result is somewhat different from what browsers render; see TODO in HtmlStylesToCssConverter.AlignAttributeConverter
-        runTest("alignAttribute01");
+        convertToPdfAndCompare("alignAttribute01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void alignAttribute03() throws IOException, InterruptedException {
-        runTest("alignAttribute03");
+        convertToPdfAndCompare("alignAttribute03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void alignAttribute04() throws IOException, InterruptedException {
         // TODO result is somewhat different from what browsers render; see TODO in HtmlStylesToCssConverter.AlignAttributeConverter
-        runTest("alignAttribute04");
+        convertToPdfAndCompare("alignAttribute04", sourceFolder, destinationFolder);
     }
 
     @Test
     public void marginsAutoBlocks() throws IOException, InterruptedException {
-        runTest("marginsAutoBlocks");
+        convertToPdfAndCompare("marginsAutoBlocks", sourceFolder, destinationFolder);
     }
 
     @Test
     public void marginsAutoInlines() throws IOException, InterruptedException {
-        runTest("marginsAutoInlines");
-    }
-
-    private void runTest(String testName) throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + testName + ".html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName + "_"));
+        convertToPdfAndCompare("marginsAutoInlines", sourceFolder, destinationFolder);
     }
 }

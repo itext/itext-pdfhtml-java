@@ -42,25 +42,17 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 
 @Category(IntegrationTest.class)
-public class CssOutlineTest extends ExtendedITextTest {
+public class CssOutlineTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssOutlineTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/CssOutlineTest/";
@@ -72,40 +64,26 @@ public class CssOutlineTest extends ExtendedITextTest {
 
     @Test
     public void cssOutlineTest01() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "cssOutline01.html"), new File(destinationFolder + "cssOutline01.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssOutline01.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssOutline01.pdf", sourceFolder + "cmp_cssOutline01.pdf", destinationFolder, "diff01_"));
+        convertToPdfAndCompare("cssOutline01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void cssOutlineTest02() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "cssOutline02.html"), new File(destinationFolder + "cssOutline02.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssOutline02.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssOutline02.pdf", sourceFolder + "cmp_cssOutline02.pdf", destinationFolder, "diff02_"));
+        convertToPdfAndCompare("cssOutline02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void cssOutlineTest03() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "cssOutline03.html"), new File(destinationFolder + "cssOutline03.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssOutline03.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssOutline03.pdf", sourceFolder + "cmp_cssOutline03.pdf", destinationFolder, "diff03_"));
+        convertToPdfAndCompare("cssOutline03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void cssOutlineTest04() throws IOException, InterruptedException {
-        PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "cssOutline04.pdf"));
-        outDoc.setTagged();
-        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "cssOutline04.html")) {
-            HtmlConverter.convertToPdf(fileInputStream, outDoc);
-        }
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssOutline04.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssOutline04.pdf", sourceFolder + "cmp_cssOutline04.pdf", destinationFolder, "diff04_"));
+        convertToPdfAndCompare("cssOutline04", sourceFolder, destinationFolder, true);
     }
 
     @Test
     public void cssOutlineTest05() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "cssOutline05.html"), new File(destinationFolder + "cssOutline05.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "cssOutline05.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "cssOutline05.pdf", sourceFolder + "cmp_cssOutline05.pdf", destinationFolder, "diff05_"));
+        convertToPdfAndCompare("cssOutline05", sourceFolder, destinationFolder);
     }
 }

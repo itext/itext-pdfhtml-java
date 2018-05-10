@@ -42,22 +42,17 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class CssOpacityTest extends ExtendedITextTest {
+public class CssOpacityTest extends ExtendedHtmlConversionITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssOpacityTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/CssOpacityTest/";
 
@@ -70,22 +65,11 @@ public class CssOpacityTest extends ExtendedITextTest {
     public void innerOpacityTest() throws IOException, InterruptedException {
         // TODO itext "overwrites" parent's opacity while in css, opacity kinda "merges"
         // i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
-        runTest("innerOpacityTest");
+        convertToPdfAndCompare("innerOpacityTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void nestedInSpanTest() throws IOException, InterruptedException {
-        runTest("nestedInSpanTest");
-    }
-    
-    private void runTest(String name) throws IOException, InterruptedException {
-        String htmlPath = sourceFolder + name + ".html";
-        String pdfPath = destinationFolder + name + ".pdf";
-        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-        String diffPrefix = "diff_" + name + "_";
-
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+        convertToPdfAndCompare("nestedInSpanTest", sourceFolder, destinationFolder);
     }
 }

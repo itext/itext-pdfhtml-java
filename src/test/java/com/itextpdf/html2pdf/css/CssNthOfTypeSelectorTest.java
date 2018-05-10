@@ -43,22 +43,18 @@
 package com.itextpdf.html2pdf.css;
 
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 
 @Category(IntegrationTest.class)
-public class CssNthOfTypeSelectorTest extends ExtendedITextTest {
+public class CssNthOfTypeSelectorTest extends ExtendedHtmlConversionITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssNthOfTypeSelectorTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/CssNthOfTypeSelectorTest/";
 
@@ -69,58 +65,36 @@ public class CssNthOfTypeSelectorTest extends ExtendedITextTest {
 
     @Test
     public void nthOfTypeEvenTest() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourceNthOfTypeEvenTest.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceNthOfTypeEvenTest.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceNthOfTypeEvenTest.html"), new File(outPdf));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffNthOfTypeEven_"));
+        convertToPdfAndCompare("resourceNthOfTypeEvenTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void nthOfTypeExpressionTest() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourceNthOfTypeExpressionTest.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceNthOfTypeExpressionTest.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceNthOfTypeExpressionTest.html"), new File(outPdf));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffNthOfTypeExpression_"));
+        convertToPdfAndCompare("resourceNthOfTypeExpressionTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void nthOfTypeNegativeExpressionTest() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourceNthOfTypeNegativeExpressionTest.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceNthOfTypeNegativeExpressionTest.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceNthOfTypeNegativeExpressionTest.html"), new File(outPdf));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffNthOfTypeNegativeExpression_"));
+        convertToPdfAndCompare("resourceNthOfTypeNegativeExpressionTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void nthOfTypeIntegerTest() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourceNthOfTypeIntegerTest.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceNthOfTypeIntegerTest.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceNthOfTypeIntegerTest.html"), new File(outPdf));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffNthOfTypeInteger_"));
+        convertToPdfAndCompare("resourceNthOfTypeIntegerTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void firstOfTypeTest() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourceFirstOfTypeTest.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceFirstOfTypeTest.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceFirstOfTypeTest.html"), new File(outPdf));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffFirstOfType_"));
+        convertToPdfAndCompare("resourceFirstOfTypeTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void lastOfTypeTest() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourceLastOfTypeTest.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceLastOfTypeTest.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceLastOfTypeTest.html"), new File(outPdf));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffLastOfType_"));
+        convertToPdfAndCompare("resourceLastOfTypeTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void notLastOfTypeTest() throws IOException, InterruptedException {
-        String outPdf = destinationFolder + "resourceNotLastOfTypeTest.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceNotLastOfTypeTest.pdf";
-        HtmlConverter.convertToPdf(new File(sourceFolder + "resourceNotLastOfTypeTest.html"), new File(outPdf));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffNotLastOfType_"));
+        convertToPdfAndCompare("resourceNotLastOfTypeTest", sourceFolder, destinationFolder);
     }
-
 }

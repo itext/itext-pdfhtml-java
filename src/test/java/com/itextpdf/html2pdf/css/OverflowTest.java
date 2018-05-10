@@ -42,21 +42,17 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class OverflowTest extends ExtendedITextTest {
+public class OverflowTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/OverflowTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/OverflowTest/";
@@ -68,31 +64,26 @@ public class OverflowTest extends ExtendedITextTest {
 
     @Test
     public void overflowTest04() throws IOException, InterruptedException {
-        runTest("overflowTest04", "diff04_");
+        convertToPdfAndCompare("overflowTest04", sourceFolder, destinationFolder);
     }
 
     @Test
     public void overflowTest06() throws IOException, InterruptedException {
-        runTest("overflowTest06", "diff06_");
+        convertToPdfAndCompare("overflowTest06", sourceFolder, destinationFolder);
     }
 
     @Test
     public void overflowTest07() throws IOException, InterruptedException {
-        runTest("overflowTest07", "diff07_");
+        convertToPdfAndCompare("overflowTest07", sourceFolder, destinationFolder);
     }
 
     @Test
     public void overflowAndAlignment01() throws IOException, InterruptedException {
-        runTest("overflowAndAlignment01", "diffAlign01_");
+        convertToPdfAndCompare("overflowAndAlignment01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void overflowAndAlignment02() throws IOException, InterruptedException {
-        runTest("overflowAndAlignment02", "diffAlign02_");
-    }
-
-    public void runTest(String testName, String diff) throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, diff));
+        convertToPdfAndCompare("overflowAndAlignment02", sourceFolder, destinationFolder);
     }
 }

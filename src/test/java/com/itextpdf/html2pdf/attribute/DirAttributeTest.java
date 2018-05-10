@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.attribute;
 
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
@@ -56,7 +57,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class DirAttributeTest extends ExtendedITextTest {
+public class DirAttributeTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/attribute/DirAttributeTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/attribute/DirAttributeTest/";
@@ -68,14 +69,10 @@ public class DirAttributeTest extends ExtendedITextTest {
 
     @Test
     public void rtlDir01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "rtlDirTest01.html"), new File(destinationFolder + "rtlDirTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "rtlDirTest01.pdf", sourceFolder + "cmp_rtlDirTest01.pdf", destinationFolder, "diff01_"));
-    }
+        convertToPdfAndCompare("rtlDirTest01", sourceFolder, destinationFolder);}
 
     @Test
     public void rtlDir02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "rtlDirTest02.html"), new File(destinationFolder + "rtlDirTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "rtlDirTest02.pdf", sourceFolder + "cmp_rtlDirTest02.pdf", destinationFolder, "diff02_"));
-    }
+        convertToPdfAndCompare("rtlDirTest02", sourceFolder, destinationFolder);}
 
 }

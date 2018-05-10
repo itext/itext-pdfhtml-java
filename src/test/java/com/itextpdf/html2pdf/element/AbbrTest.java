@@ -42,23 +42,17 @@
  */
 package com.itextpdf.html2pdf.element;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class AbbrTest extends ExtendedITextTest {
+public class AbbrTest extends ExtendedHtmlConversionITextTest {
 
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/AbbrTest/";
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/AbbrTest/";
@@ -70,35 +64,26 @@ public class AbbrTest extends ExtendedITextTest {
 
     @Test
     public void abbrTest01() throws IOException, InterruptedException {
-        runAbbrTest("abbrTest01");
+        convertToPdfAndCompare("abbrTest01", sourceFolder, destinationFolder, true);
     }
 
     @Test
     public void abbrTest02() throws IOException, InterruptedException {
-        runAbbrTest("abbrTest02");
+        convertToPdfAndCompare("abbrTest02", sourceFolder, destinationFolder, true);
     }
 
     @Test
     public void abbrTest03() throws IOException, InterruptedException {
-        runAbbrTest("abbrTest03");
+        convertToPdfAndCompare("abbrTest03", sourceFolder, destinationFolder, true);
     }
 
     @Test
     public void abbrTest04() throws IOException, InterruptedException {
-        runAbbrTest("abbrTest04");
+        convertToPdfAndCompare("abbrTest04", sourceFolder, destinationFolder, true);
     }
 
     @Test
     public void abbrTest05() throws IOException, InterruptedException {
-        runAbbrTest("abbrTest05");
-    }
-
-    private void runAbbrTest(String testName) throws IOException, InterruptedException {
-        PdfDocument document = new PdfDocument(new PdfWriter(destinationFolder + testName + ".pdf"));
-        document.setTagged();
-        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + testName + ".html")) {
-            HtmlConverter.convertToPdf(fileInputStream, document);
-        }
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+        convertToPdfAndCompare("abbrTest05", sourceFolder, destinationFolder, true);
     }
 }

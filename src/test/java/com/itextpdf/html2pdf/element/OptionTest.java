@@ -1,19 +1,16 @@
 package com.itextpdf.html2pdf.element;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import java.io.File;
+
 import java.io.IOException;
-import org.junit.Assert;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class OptionTest extends ExtendedITextTest {
+public class OptionTest extends ExtendedHtmlConversionITextTest {
 
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/OptionTest/";
     private static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/OptionTest/";
@@ -25,73 +22,62 @@ public class OptionTest extends ExtendedITextTest {
 
     @Test
     public void optionBasicTest01() throws IOException, InterruptedException {
-        runTest("optionBasicTest01");
+        convertToPdfAndCompare("optionBasicTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void optionBasicTest02() throws IOException, InterruptedException {
-        runTest("optionBasicTest02");
+        convertToPdfAndCompare("optionBasicTest02", sourceFolder, destinationFolder);
     }
 
 
     @Test
     public void optionEmptyTest01() throws IOException, InterruptedException {
-        runTest("optionEmptyTest01");
+        convertToPdfAndCompare("optionEmptyTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void optionLabelValueTest01() throws IOException, InterruptedException {
-        runTest("optionLabelValueTest01");
+        convertToPdfAndCompare("optionLabelValueTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void optionStylesTest01() throws IOException, InterruptedException {
-        runTest("optionStylesTest01");
+        convertToPdfAndCompare("optionStylesTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void optionStylesTest02() throws IOException, InterruptedException {
-        runTest("optionStylesTest02");
+        convertToPdfAndCompare("optionStylesTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void optionHeightTest01() throws IOException, InterruptedException {
-        runTest("optionHeightTest01");
+        convertToPdfAndCompare("optionHeightTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void optionWidthTest01() throws IOException, InterruptedException {
-        runTest("optionWidthTest01");
+        convertToPdfAndCompare("optionWidthTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void optionOverflowTest01() throws IOException, InterruptedException {
-        runTest("optionOverflowTest01");
+        convertToPdfAndCompare("optionOverflowTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void optionOverflowTest02() throws IOException, InterruptedException {
-        runTest("optionOverflowTest02");
+        convertToPdfAndCompare("optionOverflowTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void optionPseudoTest01() throws IOException, InterruptedException {
-        runTest("optionPseudoTest01");
+        convertToPdfAndCompare("optionPseudoTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void optionPseudoTest02() throws IOException, InterruptedException {
-        runTest("optionPseudoTest02");
-    }
-
-    private void runTest(String name) throws IOException, InterruptedException {
-        String htmlPath = sourceFolder + name + ".html";
-        String outPdfPath = destinationFolder + name + ".pdf";
-        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-        String diff = "diff_" + name + "_";
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
-
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath));
-        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));
+        convertToPdfAndCompare("optionPseudoTest02", sourceFolder, destinationFolder);
     }
 }

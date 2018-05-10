@@ -42,24 +42,20 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.io.LogMessageConstant;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class BoxSizingTest extends ExtendedITextTest {
+public class BoxSizingTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/BoxSizingTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/BoxSizingTest/";
@@ -71,12 +67,12 @@ public class BoxSizingTest extends ExtendedITextTest {
 
     @Test
     public void boxSizingCellContentTest01() throws IOException, InterruptedException {
-        runTest("boxSizingCellContentTest01");
+        convertToPdfAndCompare("boxSizingCellContentTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingCellContentTest02() throws IOException, InterruptedException {
-        runTest("boxSizingCellContentTest02");
+        convertToPdfAndCompare("boxSizingCellContentTest02", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -84,12 +80,12 @@ public class BoxSizingTest extends ExtendedITextTest {
         // TODO Result of processing of this html is different from what browsers show.
         // Height of cells is always border-box-like at least if DOCTYPE "html" is not specified.
         // See also boxSizingCellTest03.
-        runTest("boxSizingCellTest01");
+        convertToPdfAndCompare("boxSizingCellTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingCellTest02() throws IOException, InterruptedException {
-        runTest("boxSizingCellTest02");
+        convertToPdfAndCompare("boxSizingCellTest02", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -100,132 +96,124 @@ public class BoxSizingTest extends ExtendedITextTest {
         // TODO: we don't include half of the borders in height calculation when border-box is set
         // because we apply borders on table level. However, this seems to be not very important for heights,
         // height will only be bigger and it's not that crucial in comparison to width calculations.
-        runTest("boxSizingCellTest03");
+        convertToPdfAndCompare("boxSizingCellTest03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingFloat01Test() throws IOException, InterruptedException {
-        runTest("boxSizingFloat01Test");
+        convertToPdfAndCompare("boxSizingFloat01Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingFloat02Test() throws IOException, InterruptedException {
-        runTest("boxSizingFloat02Test");
+        convertToPdfAndCompare("boxSizingFloat02Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingRelativeWidth01Test() throws IOException, InterruptedException {
-        runTest("boxSizingRelativeWidth01Test");
+        convertToPdfAndCompare("boxSizingRelativeWidth01Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingRelativeWidth02Test() throws IOException, InterruptedException {
-        runTest("boxSizingRelativeWidth02Test");
+        convertToPdfAndCompare("boxSizingRelativeWidth02Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingRelativeWidth03Test() throws IOException, InterruptedException {
-        runTest("boxSizingRelativeWidth03Test");
+        convertToPdfAndCompare("boxSizingRelativeWidth03Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingDiv01Test() throws IOException, InterruptedException {
-        runTest("boxSizingDiv01Test");
+        convertToPdfAndCompare("boxSizingDiv01Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingDiv03Test() throws IOException, InterruptedException {
-        runTest("boxSizingDiv03Test");
+        convertToPdfAndCompare("boxSizingDiv03Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingDiv04Test() throws IOException, InterruptedException {
         // TODO inner div still doesn't fit, because it's height is increased every time page split occurs by margins borders padding
         // Thus, if parent height was manually fixed to include child with fixed height and if page split occurs - child might not fit.
-        runTest("boxSizingDiv04Test");
+        convertToPdfAndCompare("boxSizingDiv04Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingPara01Test() throws IOException, InterruptedException {
-        runTest("boxSizingPara01Test");
+        convertToPdfAndCompare("boxSizingPara01Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingPara03Test() throws IOException, InterruptedException {
-        runTest("boxSizingPara03Test");
+        convertToPdfAndCompare("boxSizingPara03Test", sourceFolder, destinationFolder);
     }
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 2))
     public void boxSizingTable01Test() throws IOException, InterruptedException {
-        runTest("boxSizingTable01Test");
+        convertToPdfAndCompare("boxSizingTable01Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingTable02Test() throws IOException, InterruptedException {
-        runTest("boxSizingTable02Test");
+        convertToPdfAndCompare("boxSizingTable02Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingTable04Test() throws IOException, InterruptedException {
-        runTest("boxSizingTable04Test");
+        convertToPdfAndCompare("boxSizingTable04Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingTable05Test() throws IOException, InterruptedException {
-        runTest("boxSizingTable05Test");
+        convertToPdfAndCompare("boxSizingTable05Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingTable06Test() throws IOException, InterruptedException {
-        runTest("boxSizingTable06Test");
+        convertToPdfAndCompare("boxSizingTable06Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingMinMaxHeight01Test() throws IOException, InterruptedException {
-        runTest("boxSizingMinMaxHeight01Test");
+        convertToPdfAndCompare("boxSizingMinMaxHeight01Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingInlineBlock01Test() throws IOException, InterruptedException {
-        runTest("boxSizingInlineBlock01Test");
+        convertToPdfAndCompare("boxSizingInlineBlock01Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingInlineBlock02Test() throws IOException, InterruptedException {
-        runTest("boxSizingInlineBlock02Test");
+        convertToPdfAndCompare("boxSizingInlineBlock02Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingFormTest01() throws IOException, InterruptedException {
-        runTest("boxSizingFormTest01");
+        convertToPdfAndCompare("boxSizingFormTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingFormTest02() throws IOException, InterruptedException {
-        runTest("boxSizingFormTest02"); // TODO we don't apply height to textarea yet
+        convertToPdfAndCompare("boxSizingFormTest02", sourceFolder, destinationFolder); // TODO we don't apply height to textarea yet
     }
 
     @Test
     public void boxSizingFormTest03() throws IOException, InterruptedException {
-        runTest("boxSizingFormTest03"); // TODO at least in chrome, borders of buttons are always included to width and height (just as with border-box)
+        convertToPdfAndCompare("boxSizingFormTest03", sourceFolder, destinationFolder); // TODO at least in chrome, borders of buttons are always included to width and height (just as with border-box)
     }
 
     @Test
     public void boxSizingLiTest01() throws IOException, InterruptedException {
-        runTest("boxSizingLiTest01");
+        convertToPdfAndCompare("boxSizingLiTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingLiTest02() throws IOException, InterruptedException {
-        runTest("boxSizingLiTest02");
-    }
-
-    private void runTest(String testName) throws IOException, InterruptedException {
-        String htmlName = sourceFolder + testName + ".html";
-        String outFileName = destinationFolder + testName + ".pdf";
-        String cmpFileName = sourceFolder + "cmp_" + testName + ".pdf";
-        HtmlConverter.convertToPdf(new File(htmlName), new File(outFileName));
-        Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, destinationFolder, "diff_" + testName + "_"));
+        convertToPdfAndCompare("boxSizingLiTest02", sourceFolder, destinationFolder);
     }
 }

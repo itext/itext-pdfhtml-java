@@ -42,21 +42,17 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class FontSizeTest extends ExtendedITextTest {
+public class FontSizeTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/FontSizeTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/FontSizeTest/";
@@ -69,26 +65,19 @@ public class FontSizeTest extends ExtendedITextTest {
     //TODO: Note that in case of font-size < 100% in browsers line-height stays the same as in 100%. We don't do it for now.
     @Test
     public void fontSize01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "fontSizeTest01.html"), new File(destinationFolder + "fontSizeTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "fontSizeTest01.pdf", sourceFolder + "cmp_fontSizeTest01.pdf", destinationFolder, "diff01_"));
-    }
+        convertToPdfAndCompare("fontSizeTest01", sourceFolder, destinationFolder);}
 
     @Test
     public void fontSize02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "fontSizeTest02.html"), new File(destinationFolder + "fontSizeTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "fontSizeTest02.pdf", sourceFolder + "cmp_fontSizeTest02.pdf", destinationFolder, "diff02_"));
-    }
+        convertToPdfAndCompare("fontSizeTest02", sourceFolder, destinationFolder);}
 
     @Test
     public void fontAbsoluteKeywords() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "fontAbsoluteKeywords.html"), new File(destinationFolder + "fontAbsoluteKeywords.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "fontAbsoluteKeywords.pdf", sourceFolder + "cmp_fontAbsoluteKeywords.pdf", destinationFolder, "diff03_"));
+        convertToPdfAndCompare("fontAbsoluteKeywords", sourceFolder, destinationFolder);
     }
 
     @Test
     public void fontRelativeKeywords() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "fontRelativeKeywords.html"), new File(destinationFolder + "fontRelativeKeywords.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "fontRelativeKeywords.pdf", sourceFolder + "cmp_fontRelativeKeywords.pdf", destinationFolder, "diff04_"));
+        convertToPdfAndCompare("fontRelativeKeywords", sourceFolder, destinationFolder);
     }
-
 }
