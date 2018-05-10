@@ -17,7 +17,7 @@
   font-family: 'Droid Serif';
   font-weight: 300;
   font-style: normal;
-  src: url('web-fonts/Amaranth-Regular.woff') format('opentype');
+  src: url('../../fonts/Amaranth-Regular.woff') format('opentype');
 }
 
 @font-face {
