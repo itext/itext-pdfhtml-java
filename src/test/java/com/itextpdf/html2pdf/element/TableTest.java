@@ -292,6 +292,17 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, count = 2))
+    public void theadTagTest() throws IOException, InterruptedException {
+        runTest("theadTagTest", true);
+    }
+
+    @Test
+    public void tfootTagTest() throws IOException, InterruptedException {
+        runTest("tfootTagTest", true);
+    }
+
+    @Test
     public void brInTdTest() throws IOException, InterruptedException {
         runTest("brInTd");
     }
