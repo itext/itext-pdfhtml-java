@@ -106,4 +106,11 @@ public class HyphenateTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hyphenateTest08De.html"), new File(destinationFolder + "hyphenateTest08De.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hyphenateTest08De.pdf", sourceFolder + "cmp_hyphenateTest08De.pdf", destinationFolder, "diff08De_"));
     }
+
+    @Test
+    // TODO DEVSIX-1438: Support word-break
+    public void test09NonBreakingHyphen() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hyphenateTest09NonBreakingHyphen.html"), new File(destinationFolder + "hyphenateTest09NonBreakingHyphen.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hyphenateTest09NonBreakingHyphen.pdf", sourceFolder + "cmp_hyphenateTest09NonBreakingHyphen.pdf", destinationFolder, "diff09NonBreakingHyphen_"));
+    }
 }
