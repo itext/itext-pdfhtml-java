@@ -6,6 +6,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
@@ -58,7 +59,7 @@ public class ObjectTagWorker implements ITagWorker {
                 } catch (SvgProcessingException spe) {
                     LOGGER.error(spe.getMessage());
                 } catch(IOException ie){
-                    LOGGER.error(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI,context.getBaseUri(),element.getAttribute(AttributeConstants.DATA));
+                    LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI,context.getBaseUri(),element.getAttribute(AttributeConstants.DATA)));
                 }
             }
         }

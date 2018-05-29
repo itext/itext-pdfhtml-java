@@ -108,9 +108,9 @@ public class ImgTagWorker implements ITagWorker {
                     try {
                         processAsSvg(resourceStream, context);
                     } catch (SvgProcessingException spe) {
-                        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, src));
+                        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, context.getBaseUri(), src));
                     } catch(IOException ioe){
-                        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI),context.getBaseUri(),src);
+                        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI,context.getBaseUri(),src));
                     }
                 }
             }
