@@ -88,9 +88,7 @@ public class PageBreakApplierUtil {
      */
     /* Handles left, right, always cases. Avoid is handled at different time along with other css property application */
     public static void addPageBreakElementBefore(ProcessorContext context, ITagWorker parentTagWorker, IElementNode childElement, ITagWorker childTagWorker) {
-        // Applies to block-level elements
-        if (CssConstants.BLOCK.equals(childElement.getStyles().get(CssConstants.DISPLAY)) ||
-                childElement.getStyles().get(CssConstants.DISPLAY) == null && childTagWorker.getElementResult() instanceof IBlockElement) {
+        if (isEligibleForBreakBeforeAfter(parentTagWorker, childElement, childTagWorker)) {
             String pageBreakBeforeVal = childElement.getStyles().get(CssConstants.PAGE_BREAK_BEFORE);
             HtmlPageBreak breakBefore = createHtmlPageBreak(pageBreakBeforeVal);
             if (breakBefore != null) {
@@ -109,15 +107,21 @@ public class PageBreakApplierUtil {
      */
     /* Handles left, right, always cases. Avoid is handled at different time along with other css property application */
     public static void addPageBreakElementAfter(ProcessorContext context, ITagWorker parentTagWorker, IElementNode childElement, ITagWorker childTagWorker) {
-        // Applies to block-level elements
-        if (CssConstants.BLOCK.equals(childElement.getStyles().get(CssConstants.DISPLAY)) ||
-                childElement.getStyles().get(CssConstants.DISPLAY) == null && childTagWorker.getElementResult() instanceof IBlockElement) {
+        if (isEligibleForBreakBeforeAfter(parentTagWorker, childElement, childTagWorker)) {
             String pageBreakAfterVal = childElement.getStyles().get(CssConstants.PAGE_BREAK_AFTER);
             HtmlPageBreak breakAfter = createHtmlPageBreak(pageBreakAfterVal);
             if (breakAfter != null) {
                 parentTagWorker.processTagChild(new HtmlPageBreakWorker(breakAfter), context);
             }
         }
+    }
+
+    private static boolean isEligibleForBreakBeforeAfter(ITagWorker parentTagWorker, IElementNode childElement, ITagWorker childTagWorker) {
+        // Applies to block-level elements as per spec
+        String childElementDisplay = childElement.getStyles().get(CssConstants.DISPLAY);
+        return CssConstants.BLOCK.equals(childElementDisplay) ||
+                CssConstants.TABLE.equals(childElementDisplay) ||
+                childElementDisplay == null && childTagWorker.getElementResult() instanceof IBlockElement;
     }
 
     /**

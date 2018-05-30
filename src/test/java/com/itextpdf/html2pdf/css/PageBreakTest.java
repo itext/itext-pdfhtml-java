@@ -48,16 +48,14 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.media.MediaType;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class PageBreakTest extends ExtendedHtmlConversionITextTest {
@@ -113,6 +111,16 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void pageBreakBeforeAfter02Test() throws IOException, InterruptedException {
         runTest("page-break-before-after02");
+    }
+
+    @Test
+    public void pageBreakAfterTable01Test() throws IOException, InterruptedException {
+        runTest("page-break-after-table01");
+    }
+
+    @Test
+    public void pageBreakBeforeTable01Test() throws IOException, InterruptedException {
+        runTest("page-break-before-table01");
     }
 
     private void runTest(String name) throws IOException, InterruptedException {
