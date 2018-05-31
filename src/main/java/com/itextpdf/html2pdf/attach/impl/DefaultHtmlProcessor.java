@@ -62,6 +62,7 @@ import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.css.resolve.ICssResolver;
+import com.itextpdf.html2pdf.events.PdfHtmlEvent;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.node.IElementNode;
@@ -72,6 +73,7 @@ import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.Version;
+import com.itextpdf.kernel.counter.EventCounterHandler;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
@@ -227,6 +229,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
         cssResolver = null;
         roots = null;
+        EventCounterHandler.getInstance().onEvent(PdfHtmlEvent.CONVERT, getClass());
         return elements;
     }
 
@@ -290,6 +293,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
         cssResolver = null;
         roots = null;
+        EventCounterHandler.getInstance().onEvent(PdfHtmlEvent.CONVERT, getClass());
         return doc;
     }
 
