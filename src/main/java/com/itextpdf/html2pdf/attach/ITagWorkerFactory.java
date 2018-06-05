@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach;
 
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
  * {@link ITagWorkerFactory} interface is used for instantiating new {@link ITagWorker} objects.

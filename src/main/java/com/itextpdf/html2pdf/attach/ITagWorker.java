@@ -42,8 +42,8 @@
  */
 package com.itextpdf.html2pdf.attach;
 
-import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
  * Interface for all the tag worker implementations.

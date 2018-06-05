@@ -47,8 +47,8 @@ import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.PageCountElement;
 import com.itextpdf.html2pdf.attach.impl.layout.PageCountType;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
-import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
  * TagWorker class for the page count.

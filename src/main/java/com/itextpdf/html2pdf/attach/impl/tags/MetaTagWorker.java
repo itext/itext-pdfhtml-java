@@ -44,10 +44,10 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.kernel.pdf.PdfDocumentInfo;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
  * TagWorker class for the {@code meta} element.

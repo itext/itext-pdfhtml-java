@@ -47,7 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.tags.ColTagWorker;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.SupportedColColgroupPropertiesUtil;
-import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import java.util.Map;
 
 /**

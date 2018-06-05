@@ -10,15 +10,15 @@ import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OutlineApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
-import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
-import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.property.OverflowPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

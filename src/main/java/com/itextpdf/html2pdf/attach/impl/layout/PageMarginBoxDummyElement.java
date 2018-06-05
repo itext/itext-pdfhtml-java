@@ -1,10 +1,10 @@
 package com.itextpdf.html2pdf.attach.impl.layout;
 
-import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
-import com.itextpdf.html2pdf.html.node.IAttributes;
-import com.itextpdf.html2pdf.html.node.ICustomElementNode;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
+import com.itextpdf.styledxmlparser.node.IAttributes;
+import com.itextpdf.styledxmlparser.node.ICustomElementNode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.INode;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

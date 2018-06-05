@@ -1,13 +1,13 @@
 package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.tagging.IAccessibleElement;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
  * TagWorker class for the page margin box.

@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.css.apply;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
 /**
  * Interface to be implemented by all types of CSS appliers.

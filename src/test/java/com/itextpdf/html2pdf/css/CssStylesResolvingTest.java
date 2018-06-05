@@ -42,19 +42,19 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
-import com.itextpdf.html2pdf.css.resolve.ICssResolver;
-import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.html2pdf.html.IHtmlParser;
 import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
-import com.itextpdf.html2pdf.html.node.IDocumentNode;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.html2pdf.html.node.INode;
-import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.styledxmlparser.IXmlParser;
+import com.itextpdf.styledxmlparser.css.ICssResolver;
+import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.node.IDocumentNode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.INode;
+import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
+import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 
@@ -323,7 +323,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
 
     private void test(String fileName, String elementPath, String... expectedStyles) throws IOException {
         String filePath = sourceFolder + fileName;
-        IHtmlParser parser = new JsoupHtmlParser();
+        IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode document = parser.parse(new FileInputStream(filePath), "UTF-8");
         ICssResolver cssResolver = new DefaultCssResolver(document, MediaDeviceDescription.createDefault(), new ResourceResolver(""));
         CssContext context = new CssContext();

@@ -45,9 +45,6 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.Attacher;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
-import com.itextpdf.html2pdf.html.IHtmlParser;
-import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
-import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.io.util.FileUtil;
 import com.itextpdf.kernel.counter.event.IMetaInfo;
 import com.itextpdf.kernel.pdf.DocumentProperties;
@@ -59,6 +56,9 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import com.itextpdf.kernel.Version;
+import com.itextpdf.styledxmlparser.IXmlParser;
+import com.itextpdf.styledxmlparser.node.IDocumentNode;
+import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -367,7 +367,7 @@ public class HtmlConverter {
         if (pdfDocument.getReader() != null) {
             throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
         }
-        IHtmlParser parser = new JsoupHtmlParser();
+        IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(html);
         return Attacher.attach(doc, pdfDocument, converterProperties);
     }
@@ -423,7 +423,7 @@ public class HtmlConverter {
         if (pdfDocument.getReader() != null) {
             throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
         }
-        IHtmlParser parser = new JsoupHtmlParser();
+        IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
         return Attacher.attach(doc, pdfDocument, converterProperties);
     }
@@ -499,7 +499,7 @@ public class HtmlConverter {
             }
         }
 
-        IHtmlParser parser = new JsoupHtmlParser();
+        IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(html);
         return Attacher.attach(doc, converterProperties);
     }
@@ -551,7 +551,7 @@ public class HtmlConverter {
             }
         }
 
-        IHtmlParser parser = new JsoupHtmlParser();
+        IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
         return Attacher.attach(doc, converterProperties);
     }

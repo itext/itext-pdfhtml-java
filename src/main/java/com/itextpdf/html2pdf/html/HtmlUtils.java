@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.html;
 
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
  * Utilities class with HTML-related functionality.

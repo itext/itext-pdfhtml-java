@@ -81,11 +81,11 @@ import com.itextpdf.html2pdf.attach.impl.tags.TitleTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.UlOlTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
-import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
+import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
+import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementUtil;
 
 /**
  * Contains the actual mapping of the {@link DefaultTagWorkerFactory}.

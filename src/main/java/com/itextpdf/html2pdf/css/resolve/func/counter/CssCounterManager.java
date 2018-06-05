@@ -43,12 +43,12 @@
 package com.itextpdf.html2pdf.css.resolve.func.counter;
 
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.kernel.numbering.ArmenianNumbering;
 import com.itextpdf.kernel.numbering.EnglishAlphabetNumbering;
 import com.itextpdf.kernel.numbering.GeorgianNumbering;
 import com.itextpdf.kernel.numbering.GreekAlphabetNumbering;
 import com.itextpdf.kernel.numbering.RomanNumbering;
+import com.itextpdf.styledxmlparser.node.INode;
 
 import java.util.ArrayList;
 import java.util.HashMap;

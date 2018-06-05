@@ -1,7 +1,7 @@
 package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
  * A wrapper for the running elements taken out of the normal flow.

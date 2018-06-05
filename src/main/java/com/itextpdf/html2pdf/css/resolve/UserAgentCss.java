@@ -42,13 +42,14 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
-import com.itextpdf.html2pdf.css.CssDeclaration;
-import com.itextpdf.html2pdf.css.CssStyleSheet;
-import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
-import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
-import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.io.util.ResourceUtil;
 import java.util.List;
+
+import com.itextpdf.styledxmlparser.css.CssDeclaration;
+import com.itextpdf.styledxmlparser.css.CssStyleSheet;
+import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
+import com.itextpdf.styledxmlparser.css.parse.CssStyleSheetParser;
+import com.itextpdf.styledxmlparser.node.INode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

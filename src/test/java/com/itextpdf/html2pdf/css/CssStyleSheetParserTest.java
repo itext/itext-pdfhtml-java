@@ -42,9 +42,10 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
 import com.itextpdf.io.util.ResourceUtil;
 import com.itextpdf.io.util.StreamUtil;
+import com.itextpdf.styledxmlparser.css.CssStyleSheet;
+import com.itextpdf.styledxmlparser.css.parse.CssStyleSheetParser;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 

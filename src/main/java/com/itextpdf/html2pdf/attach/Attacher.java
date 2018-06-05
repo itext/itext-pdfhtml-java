@@ -44,10 +44,10 @@ package com.itextpdf.html2pdf.attach;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
-import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.styledxmlparser.node.IDocumentNode;
 
 import java.util.List;
 

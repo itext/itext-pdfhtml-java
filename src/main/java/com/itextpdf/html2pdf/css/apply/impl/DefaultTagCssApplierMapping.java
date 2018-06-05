@@ -43,11 +43,11 @@
 package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
-import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
+import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
+import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementUtil;
 
 /**
  * Class that contains the default mapping between CSS keys and CSS appliers.

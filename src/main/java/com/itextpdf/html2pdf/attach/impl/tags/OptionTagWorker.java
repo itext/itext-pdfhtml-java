@@ -4,9 +4,9 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupTextNode;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.html2pdf.jsoup.nodes.TextNode;
+import com.itextpdf.styledxmlparser.jsoup.nodes.TextNode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupTextNode;
 
 /**
  * TagWorker class for the {@code option} element.

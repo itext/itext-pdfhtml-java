@@ -44,8 +44,8 @@ package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
 
 import java.util.Arrays;
 import java.util.HashMap;

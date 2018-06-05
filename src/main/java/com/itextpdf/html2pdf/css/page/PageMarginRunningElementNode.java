@@ -1,6 +1,7 @@
 package com.itextpdf.html2pdf.css.page;
 
-import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.styledxmlparser.node.INode;
+
 import java.util.List;
 
 /**

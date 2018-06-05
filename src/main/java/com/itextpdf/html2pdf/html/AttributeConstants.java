@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,10 +42,12 @@
  */
 package com.itextpdf.html2pdf.html;
 
+import com.itextpdf.styledxmlparser.CommonAttributeConstants;
+
 /**
  * Class that bundles a series of attribute constants.
  */
-public final class AttributeConstants {
+public final class AttributeConstants extends CommonAttributeConstants {
     /**
      * Creates a new {@link AttributeConstants} instance.
      */
@@ -71,9 +73,6 @@ public final class AttributeConstants {
     public static final String BORDER = "border";
 
     /** The Constant CLASS. */
-    public static final String CLASS = "class";
-
-    /** The Constant CLASS. */
     public static final String CELLPADDING = "cellpadding";
 
     /** The Constant CLASS. */
@@ -81,6 +80,12 @@ public final class AttributeConstants {
 
     /** The Constant COLOR. */
     public static final String COLOR = "color";
+
+    /** The Constant COLS. */
+    public static final String COL = "col";
+
+    /** The Constant COLS. */
+    public static final String COLGROUP = "colgroup";
 
     /** The Constant COLS. */
     public static final String COLS = "cols";
@@ -91,11 +96,11 @@ public final class AttributeConstants {
     /** The Constant CONTENT. */
     public static final String CONTENT = "content";
 
+    /** The Constant DATA */
+    public static final String DATA = "data";
+
     /** The Constant DESCRIPTION. */
     public static final String DESCRIPTION = "description";
-
-    /** The Constant DATA*/
-    public static final String DATA ="data";
 
     /** The Constant DIR. */
     public static final String DIR = "dir";
@@ -121,9 +126,6 @@ public final class AttributeConstants {
     /** The Constant LABEL. */
     public static final String LABEL = "label";
 
-    /** The Constant LANG. */
-    public static final String LANG = "lang";
-
     /** The Constant MEDIA. */
     public static final String MEDIA = "media";
 
@@ -139,11 +141,11 @@ public final class AttributeConstants {
     /** The Constant NUMBER. */
     public static final String NUMBER = "number";
 
-    /** The Constant PLACEHOLDER. */
-    public static final String PLACEHOLDER = "placeholder";
+    /** The Constant ROWS. */
+    public static final String ROW = "row";
 
-    /** The Constant REL. */
-    public static final String REL = "rel";
+    /** The Constant ROWS. */
+    public static final String ROWGROUP = "rowgroup";
 
     /** The Constant ROWS. */
     public static final String ROWS = "rows";
@@ -213,12 +215,6 @@ public final class AttributeConstants {
     /** The Constant CHECKED. */
     public static final String CHECKED = "checked";
 
-    /** The Constant COL. */
-    public static final String COL = "col";
-
-    /** The Constant COLGROUP. */
-    public static final String COLGROUP = "colgroup";
-
     /** The Constant EMAIL. */
     public static final String EMAIL = "email";
 
@@ -246,17 +242,8 @@ public final class AttributeConstants {
     /** The Constant RIGHT. */
     public static final String RIGHT = "right";
 
-    /** The Constant ROW. */
-    public static final String ROW = "row";
-
-    /** The Constant ROWGROUP. */
-    public static final String ROWGROUP = "rowgroup";
-
     /** The Constant RTL. */
     public static final String RTL = "rtl";
-
-    /** The Constant STYLESHEET. */
-    public static final String STYLESHEET = "stylesheet";
 
     /** The Constant SUBMIT. */
     public static final String SUBMIT = "submit";
@@ -270,14 +257,11 @@ public final class AttributeConstants {
     /**The Constant start*/
     public static final String START = "start";
 
+    public static final String PLACEHOLDER = "placeholder";
+
     // iText custom attributes
-
-    /** The Constant PARENT_TABLE_BORDER. */
-    public static final String PARENT_TABLE_BORDER = "parenttableborder";
-
-    public final class ObjectTypes{
-
-        public static final String SVGIMAGE="image/svg+xml";
+    public static final class ObjectTypes{
+        public static final String SVGIMAGE = "image/svg+xml";
     }
 
 }

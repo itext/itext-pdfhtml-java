@@ -42,8 +42,7 @@
  */
 package com.itextpdf.html2pdf.resolver.form;
 
-import com.itextpdf.html2pdf.css.util.CssUtils;
-
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import java.util.HashMap;
 import java.util.Map;
 

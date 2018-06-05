@@ -43,10 +43,9 @@
 package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 
 public class HTagWorker extends DivTagWorker {
 

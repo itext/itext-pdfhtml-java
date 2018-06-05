@@ -42,10 +42,10 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
-import com.itextpdf.html2pdf.css.CssDeclaration;
-import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.layout.font.FontFamilySplitter;
+import com.itextpdf.styledxmlparser.css.CssDeclaration;
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
 
 import java.util.ArrayList;
 import java.util.List;

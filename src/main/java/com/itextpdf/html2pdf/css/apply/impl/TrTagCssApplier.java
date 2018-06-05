@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.css.apply.impl;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
 /**
  * {@link ICssApplier} implementation for Tr elements.

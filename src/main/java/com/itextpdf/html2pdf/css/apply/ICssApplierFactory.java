@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply;
 
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
  * {@link ICssApplierFactory} interface is used for instantiating new {@link ICssApplier} objects.

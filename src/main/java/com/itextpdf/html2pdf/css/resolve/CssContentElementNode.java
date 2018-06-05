@@ -42,13 +42,9 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
-import com.itextpdf.html2pdf.css.CssContextNode;
-import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
-import com.itextpdf.html2pdf.html.node.IAttribute;
-import com.itextpdf.html2pdf.html.node.IAttributes;
-import com.itextpdf.html2pdf.html.node.ICustomElementNode;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.styledxmlparser.css.CssContextNode;
+import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementUtil;
+import com.itextpdf.styledxmlparser.node.*;
 
 import java.util.Iterator;
 import java.util.List;
@@ -57,7 +53,7 @@ import java.util.Map;
 /**
  * {@link IElementNode} implementation for content nodes.
  */
-class CssContentElementNode extends CssContextNode implements IElementNode, ICustomElementNode {
+public class CssContentElementNode extends CssContextNode implements IElementNode, ICustomElementNode {
     
     /** The attributes. */
     private Attributes attributes;
@@ -79,7 +75,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.html.node.IElementNode#name()
+     * @see com.itextpdf.styledxmlparser.html.node.IElementNode#name()
      */
     @Override
     public String name() {
@@ -87,7 +83,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.html.node.IElementNode#getAttributes()
+     * @see com.itextpdf.styledxmlparser.html.node.IElementNode#getAttributes()
      */
     @Override
     public IAttributes getAttributes() {
@@ -95,7 +91,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.html.node.IElementNode#getAttribute(java.lang.String)
+     * @see com.itextpdf.styledxmlparser.html.node.IElementNode#getAttribute(java.lang.String)
      */
     @Override
     public String getAttribute(String key) {
@@ -103,7 +99,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.html.node.IElementNode#getAdditionalHtmlStyles()
+     * @see com.itextpdf.styledxmlparser.html.node.IElementNode#getAdditionalHtmlStyles()
      */
     @Override
     public List<Map<String, String>> getAdditionalHtmlStyles() {
@@ -111,7 +107,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.html.node.IElementNode#addAdditionalHtmlStyles(java.util.Map)
+     * @see com.itextpdf.styledxmlparser.html.node.IElementNode#addAdditionalHtmlStyles(java.util.Map)
      */
     @Override
     public void addAdditionalHtmlStyles(Map<String, String> styles) {
@@ -119,7 +115,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
     }
 
     /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.html.node.IElementNode#getLang()
+     * @see com.itextpdf.styledxmlparser.html.node.IElementNode#getLang()
      */
     @Override
     public String getLang() {
@@ -144,7 +140,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.html.node.IAttributes#getAttribute(java.lang.String)
+         * @see com.itextpdf.styledxmlparser.html.node.IAttributes#getAttribute(java.lang.String)
          */
         @Override
         public String getAttribute(String key) {
@@ -152,7 +148,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.html.node.IAttributes#setAttribute(java.lang.String, java.lang.String)
+         * @see com.itextpdf.styledxmlparser.html.node.IAttributes#setAttribute(java.lang.String, java.lang.String)
          */
         @Override
         public void setAttribute(String key, String value) {
@@ -160,7 +156,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.html.node.IAttributes#size()
+         * @see com.itextpdf.styledxmlparser.html.node.IAttributes#size()
          */
         @Override
         public int size() {
@@ -194,7 +190,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.html.node.IAttribute#getKey()
+         * @see com.itextpdf.styledxmlparser.html.node.IAttribute#getKey()
          */
         @Override
         public String getKey() {
@@ -202,7 +198,7 @@ class CssContentElementNode extends CssContextNode implements IElementNode, ICus
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.html.node.IAttribute#getValue()
+         * @see com.itextpdf.styledxmlparser.html.node.IAttribute#getValue()
          */
         @Override
         public String getValue() {

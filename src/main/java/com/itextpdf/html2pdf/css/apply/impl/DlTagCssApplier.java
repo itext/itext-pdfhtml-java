@@ -46,8 +46,8 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
-import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
 /**
  * {@link ICssApplier} implementation for Dl elements.

@@ -42,12 +42,12 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
-import com.itextpdf.html2pdf.css.CssDeclaration;
-import com.itextpdf.html2pdf.css.CssFontFaceRule;
-import com.itextpdf.html2pdf.css.CssStyleSheet;
-import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
 import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.styledxmlparser.LogMessageConstant;
+import com.itextpdf.styledxmlparser.css.CssDeclaration;
+import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
+import com.itextpdf.styledxmlparser.css.CssStyleSheet;
+import com.itextpdf.styledxmlparser.css.parse.CssStyleSheetParser;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;

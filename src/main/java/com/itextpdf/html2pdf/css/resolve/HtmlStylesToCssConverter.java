@@ -42,15 +42,15 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
-import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.CssDeclaration;
-import com.itextpdf.html2pdf.css.resolve.shorthand.impl.BorderShorthandResolver;
-import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.html2pdf.html.node.IAttribute;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.html2pdf.html.node.INode;
+import com.itextpdf.styledxmlparser.css.CssDeclaration;
+import com.itextpdf.styledxmlparser.css.resolve.shorthand.impl.BorderShorthandResolver;
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.node.IAttribute;
+import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.INode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -176,7 +176,7 @@ class HtmlStylesToCssConverter {
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
@@ -232,7 +232,7 @@ class HtmlStylesToCssConverter {
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
@@ -262,7 +262,7 @@ class HtmlStylesToCssConverter {
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
@@ -292,7 +292,7 @@ class HtmlStylesToCssConverter {
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
@@ -315,7 +315,7 @@ class HtmlStylesToCssConverter {
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
@@ -337,7 +337,7 @@ class HtmlStylesToCssConverter {
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
@@ -392,7 +392,7 @@ class HtmlStylesToCssConverter {
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
@@ -414,7 +414,7 @@ class HtmlStylesToCssConverter {
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
@@ -454,7 +454,7 @@ class HtmlStylesToCssConverter {
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
@@ -479,7 +479,7 @@ class HtmlStylesToCssConverter {
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
@@ -506,7 +506,7 @@ class HtmlStylesToCssConverter {
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
@@ -534,7 +534,7 @@ class HtmlStylesToCssConverter {
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
@@ -591,7 +591,7 @@ class HtmlStylesToCssConverter {
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
@@ -618,7 +618,7 @@ class HtmlStylesToCssConverter {
         }
 
         /* (non-Javadoc)
-         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {

@@ -42,8 +42,9 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
-import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
+import com.itextpdf.styledxmlparser.css.CssDeclaration;
+import com.itextpdf.styledxmlparser.css.resolve.shorthand.IShorthandResolver;
+import com.itextpdf.styledxmlparser.css.resolve.shorthand.ShorthandResolverFactory;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;

@@ -42,10 +42,10 @@
  */
 package com.itextpdf.html2pdf.attach;
 
-import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.styledxmlparser.node.INode;
 
 import java.util.List;
 

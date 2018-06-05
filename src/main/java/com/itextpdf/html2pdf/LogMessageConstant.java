@@ -96,8 +96,6 @@ public final class LogMessageConstant {
     public static final String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
     /** The Constant QUOTES_PROPERTY_INVALID. */
     public static final String QUOTES_PROPERTY_INVALID = "Quote property \"{0}\" is invalid. It should contain even number of <string> values.";
-    /** The Constant QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION. */
-    public static final String QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION = "The quote is not closed in css expression: {0}";
     /** The Constant RULE_IS_NOT_SUPPORTED. */
     public static final String RULE_IS_NOT_SUPPORTED = "The rule @{0} is unsupported. All selectors in this rule will be ignored.";
     /** The Constant TEXT_DECORATION_BLINK_NOT_SUPPORTED. */
@@ -114,21 +112,12 @@ public final class LogMessageConstant {
     public static final String UNABLE_TO_RESOLVE_FONT = "Unable to resolve font: {0}. The default one will be used instead";
     /** The Constant UNABLE_TO_RETRIEVE_FONT. */
     public static final String UNABLE_TO_RETRIEVE_FONT = "Unable to retrieve font:\n {0}";
-    /** The Constant UNABLE_TO_RETRIEVE_IMAGE_FROM_BASE64_SOURCE. */
-    public static final String UNABLE_TO_RETRIEVE_IMAGE_FROM_BASE64_SOURCE = "Unable to retrieve image from given base64 source string";
     /** The Constant UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI. */
     public static final String UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI = "Unable to retrieve image with given base URI ({0}) and image source path ({1})";
     /** The Constant UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI. */
     public static final String UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI = "Unable to retrieve stream with given base URI ({0}) and source path ({1})";
-    /** The Constant UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED. */
-    public static final String UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED = "Unknown absolute metric length parsed \"{0}\".";
     /** The Constant UNKNOWN_MARGIN_BOX_CHILD. */
     public static final String UNKNOWN_MARGIN_BOX_CHILD = "Unknown margin box child";
-    public static final String UNSUPPORTED_PSEUDO_CSS_SELECTOR = "Unsupported pseudo css selector: {0}";
-    public static final String URL_IS_EMPTY_IN_CSS_EXPRESSION = "url function is empty in expression:{0}";
-    public static final String URL_IS_NOT_CLOSED_IN_CSS_EXPRESSION = "url function is not properly closed in expression:{0}";
-    /** The Constant WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES. */
-    public static final String WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES = "Was not able to define one of the background CSS shorthand properties: {0}";
     /** The Constant WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT. */
     public static final String WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT = "Worker of type {0} unable to process it's text content";
     /** The Constant WORKER_UNABLE_TO_PROCESS_OTHER_WORKER. */

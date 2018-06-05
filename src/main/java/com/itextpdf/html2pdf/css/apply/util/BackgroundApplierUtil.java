@@ -44,7 +44,6 @@ package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
@@ -52,6 +51,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
 
 import java.util.Map;
 

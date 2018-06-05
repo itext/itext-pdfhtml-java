@@ -49,9 +49,9 @@ import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
-import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
-import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
+import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
 import java.util.Map;
 

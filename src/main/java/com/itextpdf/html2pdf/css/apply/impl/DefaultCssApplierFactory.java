@@ -46,8 +46,8 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.exception.CssApplierInitializationException;
-import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
  * A factory for creating {@link ICssApplier} objects.
