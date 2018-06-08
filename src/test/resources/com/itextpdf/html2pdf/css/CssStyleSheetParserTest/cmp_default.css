@@ -474,6 +474,9 @@ input[type="checkbox"] {
     margin: 3px 3px 3px 4px;
     box-sizing: border-box
 }
+::placeholder {
+    color: darkgray
+}
 select {
     box-sizing: border-box;
     white-space: pre;

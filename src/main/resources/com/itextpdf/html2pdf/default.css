@@ -365,6 +365,10 @@ input[type="checkbox"] {
     box-sizing: border-box;
 }
 
+::placeholder {
+    color: darkgray;
+}
+
 select {
     box-sizing: border-box;
     white-space: pre;
