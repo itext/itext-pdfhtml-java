@@ -122,32 +122,38 @@ public class BorderRadiusTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void borderRadius12ATest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderRadiusTest12A", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void borderRadius13Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("borderRadiusTest13", sourceFolder, destinationFolder);
     }
 
     @Test
-    // TODO DEVSIX-1911
     public void borderRadius14Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("borderRadiusTest14", sourceFolder, destinationFolder);
     }
 
     @Test
-    // TODO DEVSIX-1911
     public void borderRadius15Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("borderRadiusTest15", sourceFolder, destinationFolder);
     }
 
     @Test
-    // TODO DEVSIX-1911
     public void borderRadius16Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("borderRadiusTest16", sourceFolder, destinationFolder);
     }
 
     @Test
-    // TODO DEVSIX-1911
     public void borderRadius17Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("borderRadiusTest17", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void borderRadius18Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderRadiusTest18", sourceFolder, destinationFolder);
     }
 
     @Test
