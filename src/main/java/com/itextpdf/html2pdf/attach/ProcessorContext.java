@@ -55,6 +55,7 @@ import com.itextpdf.html2pdf.resolver.form.FormFieldNameResolver;
 import com.itextpdf.html2pdf.resolver.form.RadioCheckResolver;
 import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.io.font.FontProgram;
+import com.itextpdf.kernel.counter.event.IMetaInfo;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.FontProvider;
@@ -115,6 +116,9 @@ public class ProcessorContext {
     /** The PDF document. */
     private PdfDocument pdfDocument;
 
+    /** The Processor meta info */
+    private IMetaInfo metaInfo;
+
     /**
      * Instantiates a new {@link ProcessorContext} instance.
      *
@@ -165,6 +169,7 @@ public class ProcessorContext {
         formFieldNameResolver = new FormFieldNameResolver();
         radioCheckResolver = new RadioCheckResolver();
         immediateFlush = converterProperties.isImmediateFlush();
+        metaInfo = converterProperties.getEventCountingMetaInfo();
     }
 
     /**
@@ -380,5 +385,15 @@ public class ProcessorContext {
      */
     public boolean isImmediateFlush(){
         return immediateFlush;
+    }
+
+    /**
+     * Gets html meta info. This meta info will be passed with to {@link com.itextpdf.kernel.counter.EventCounter}
+     * with {@link com.itextpdf.html2pdf.events.PdfHtmlEvent} and can be used to determine event origin.
+     *
+     * @return html meta info
+     */
+    public IMetaInfo getEventCountingMetaInfo() {
+        return metaInfo;
     }
 }

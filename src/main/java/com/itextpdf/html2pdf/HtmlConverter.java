@@ -49,6 +49,8 @@ import com.itextpdf.html2pdf.html.IHtmlParser;
 import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
 import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.io.util.FileUtil;
+import com.itextpdf.kernel.counter.event.IMetaInfo;
+import com.itextpdf.kernel.pdf.DocumentProperties;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -132,7 +134,7 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
-        convertToPdf(html, new PdfDocument(pdfWriter), converterProperties);
+        convertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())), converterProperties);
     }
 
     /**
@@ -227,7 +229,7 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
-        convertToPdf(htmlStream, new PdfDocument(pdfWriter));
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())));
     }
 
     /**
@@ -241,7 +243,7 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
-        convertToPdf(htmlStream, new PdfDocument(pdfWriter), converterProperties);
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())), converterProperties);
     }
 
     /**
@@ -552,5 +554,10 @@ public class HtmlConverter {
         IHtmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
         return Attacher.attach(doc, converterProperties);
+    }
+
+    private static class HtmlMetaInfo implements IMetaInfo {
+
+        private static final long serialVersionUID = -295587336698550627L;
     }
 }

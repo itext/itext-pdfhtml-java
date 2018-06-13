@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
+import com.itextpdf.kernel.counter.event.IMetaInfo;
 import com.itextpdf.layout.font.FontProvider;
 
 /**
@@ -81,6 +82,9 @@ public class ConverterProperties {
     /** Indicates whether the document should be opened in immediate flush or not **/
     private boolean immediateFlush = true;
 
+    /** Meta info that will be added to the events thrown by html2Pdf */
+    private IMetaInfo metaInfo;
+
     /**
      * Instantiates a new {@link ConverterProperties} instance.
      */
@@ -102,6 +106,7 @@ public class ConverterProperties {
         this.createAcroForm = other.createAcroForm;
         this.outlineHandler = other.outlineHandler;
         this.charset = other.charset;
+        this.metaInfo = other.metaInfo;
     }
 
     /**
@@ -287,6 +292,28 @@ public class ConverterProperties {
      */
     public ConverterProperties setImmediateFlush(boolean immediateFlush){
         this.immediateFlush = immediateFlush;
+        return this;
+    }
+
+    /**
+     * Gets html meta info. This meta info will be passed with to {@link com.itextpdf.kernel.counter.EventCounter}
+     * with {@link com.itextpdf.html2pdf.events.PdfHtmlEvent} and can be used to determine event origin.
+     *
+     * @return converter's {@link IMetaInfo}
+     */
+    public IMetaInfo getEventCountingMetaInfo() {
+        return metaInfo;
+    }
+
+    /**
+     * Sets html meta info. This meta info will be passed with to {@link com.itextpdf.kernel.counter.EventCounter}
+     * with {@link com.itextpdf.html2pdf.events.PdfHtmlEvent} and can be used to determine event origin.
+     *
+     * @param metaInfo meta info to set
+     * @return this {@link ConverterProperties} instance
+     */
+    public ConverterProperties setEventCountingMetaInfo(IMetaInfo metaInfo) {
+        this.metaInfo = metaInfo;
         return this;
     }
 }

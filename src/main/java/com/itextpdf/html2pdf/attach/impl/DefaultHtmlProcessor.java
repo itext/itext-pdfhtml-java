@@ -229,7 +229,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
         cssResolver = null;
         roots = null;
-        EventCounterHandler.getInstance().onEvent(PdfHtmlEvent.CONVERT, getClass());
+        EventCounterHandler.getInstance().onEvent(PdfHtmlEvent.CONVERT, context.getEventCountingMetaInfo(), getClass());
         return elements;
     }
 
@@ -293,7 +293,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
         cssResolver = null;
         roots = null;
-        EventCounterHandler.getInstance().onEvent(PdfHtmlEvent.CONVERT, getClass());
+        EventCounterHandler.getInstance().onEvent(PdfHtmlEvent.CONVERT, context.getEventCountingMetaInfo(), getClass());
         return doc;
     }
 
