@@ -166,4 +166,15 @@ public class BorderRadiusTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("borderRadiusInlineElementTest01", sourceFolder, destinationFolder);
     }
 
+    @Test
+    public void borderRadiusInlineSpanElementTest01() throws IOException, InterruptedException {
+        //TODO: update after DEVSIX-2018, DEVSIX-1191 closing
+        convertToPdfAndCompare("borderRadiusInlineSpanElementTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void borderRadiusInlineDivElementTest01() throws IOException, InterruptedException {
+        //TODO: update after DEVSIX-2018, DEVSIX-1191 closing
+        convertToPdfAndCompare("borderRadiusInlineDivElementTest01", sourceFolder, destinationFolder);
+    }
 }
