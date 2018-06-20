@@ -47,18 +47,26 @@ import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
 import com.itextpdf.html2pdf.css.media.MediaType;
+import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.rules.ExpectedException;
 
 import java.io.File;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class PageBreakTest extends ExtendedHtmlConversionITextTest {
+
+    @Rule
+    public ExpectedException junitExpectedException = ExpectedException.none();    //Member of testing class. Add if it isn't there.
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/PageBreakTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/PageBreakTest/";
@@ -121,6 +129,14 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void pageBreakBeforeTable01Test() throws IOException, InterruptedException {
         runTest("page-break-before-table01");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT)})
+    /* Test will fail after fix in DEVSIX-2024 */
+    public void pageBreakInConstrainedDivTest() throws IOException, InterruptedException {
+        junitExpectedException.expect(UnsupportedOperationException.class);
+        runTest("pageBreakInConstrainedDivTest");
     }
 
     private void runTest(String name) throws IOException, InterruptedException {
