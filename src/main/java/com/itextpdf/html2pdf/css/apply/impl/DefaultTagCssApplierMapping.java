@@ -132,6 +132,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.STRONG, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SUB, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SUP, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.SVG, BlockCssApplier.class);
         mapping.putMapping(TagConstants.TABLE, TableTagCssApplier.class);
         mapping.putMapping(TagConstants.TEXTAREA, BlockCssApplier.class);
         mapping.putMapping(TagConstants.TD, TdTagCssApplier.class);

@@ -71,6 +71,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.PlaceholderTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PreTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.SelectTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.SvgTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TableFooterTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TableHeaderTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TableTagWorker;
@@ -172,6 +173,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.STRONG, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.SUB, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.SUP, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.SVG, SvgTagWorker.class);
         workerMapping.putMapping(TagConstants.TABLE, TableTagWorker.class);
         workerMapping.putMapping(TagConstants.TD, TdTagWorker.class);
         workerMapping.putMapping(TagConstants.TEXTAREA, TextAreaTagWorker.class);
@@ -223,7 +225,6 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(beforePseudoElemName, CssConstants.TABLE, DivTagWorker.class);
         workerMapping.putMapping(afterPseudoElemName, CssConstants.TABLE, DivTagWorker.class);
         workerMapping.putMapping(CssPseudoElementUtil.createPseudoElementTagName(TagConstants.IMG), ImgTagWorker.class);
-
 
         // custom elements mapping, implementation-specific
         workerMapping.putMapping(PageCountElementNode.PAGE_COUNTER_TAG, PageCountWorker.class);

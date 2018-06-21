@@ -330,7 +330,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             if (element.name().equals(TagConstants.BODY) || element.name().equals(TagConstants.HTML))
                 runApplier(element, tagWorker);
             for (INode childNode : element.childNodes()) {
-                visit(childNode);
+                if(!context.isProcessingInlineSvg()) {
+                    visit(childNode);
+                }
             }
             visitPseudoElement(element, tagWorker, CssConstants.AFTER);
 

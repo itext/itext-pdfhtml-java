@@ -119,6 +119,9 @@ public class ProcessorContext {
     /** The Processor meta info */
     private IMetaInfo metaInfo;
 
+    /** Internal state variable to keep track of whether the processor is currently inside an inlineSvg*/
+    private boolean processingInlineSvg;
+
     /**
      * Instantiates a new {@link ProcessorContext} instance.
      *
@@ -170,6 +173,7 @@ public class ProcessorContext {
         radioCheckResolver = new RadioCheckResolver();
         immediateFlush = converterProperties.isImmediateFlush();
         metaInfo = converterProperties.getEventCountingMetaInfo();
+        processingInlineSvg = false;
     }
 
     /**
@@ -357,6 +361,7 @@ public class ProcessorContext {
         this.fontProvider = new FontProvider(this.fontProvider.getFontSet());
         this.tempFonts = null;
         this.outlineHandler.reset();
+        this.processingInlineSvg = false;
     }
 
     /**
@@ -395,5 +400,27 @@ public class ProcessorContext {
      */
     public IMetaInfo getEventCountingMetaInfo() {
         return metaInfo;
+    }
+
+    /**
+     * Check if the processor is currently processing an inline svg
+     * @return True if the processor is processing an inline Svg, false otherwise.
+     */
+    public boolean isProcessingInlineSvg() {
+        return processingInlineSvg;
+    }
+
+    /**
+     * Set the processor to processing Inline Svg state
+     */
+    public void startProcessingInlineSvg(){
+        processingInlineSvg = true;
+    }
+
+    /**
+     * End the processing Svg State
+     */
+    public void endProcessingInlineSvg(){
+        processingInlineSvg = false;
     }
 }

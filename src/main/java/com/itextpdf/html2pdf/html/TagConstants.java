@@ -245,6 +245,9 @@ public final class TagConstants {
     /** The Constant S. */
     public static final String S = "s";
 
+    /** The Constant SVG. */
+    public static final String SVG = "svg";
+
     /** The Constant SAMP. */
     public static final String SAMP = "samp";
 

@@ -7,6 +7,7 @@ import com.itextpdf.html2pdf.util.SvgProcessingUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.svg.exceptions.SvgProcessingException;
 import com.itextpdf.svg.processors.ISvgProcessor;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
@@ -36,9 +37,8 @@ public class SvgTagWorker implements ITagWorker{
         svgImage = null;
         try{
             ISvgProcessor proc = new DefaultSvgProcessor();
-            //TODO(blocked by DEVSIX-1955, RND-982): uncomment and register in the mapping
-            //processingResult = proc.process((INode) element);
-            processingResult = null;
+            processingResult = proc.process((INode) element);
+            context.startProcessingInlineSvg();
         }catch(SvgProcessingException pe){
             LOGGER.error(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG,pe);
         }
@@ -49,6 +49,7 @@ public class SvgTagWorker implements ITagWorker{
         if(context.getPdfDocument() != null && processingResult != null){
             SvgProcessingUtil util = new SvgProcessingUtil();
             svgImage = util.createImageFromProcessingResult(processingResult,context.getPdfDocument());
+            context.endProcessingInlineSvg();
         }
     }
 

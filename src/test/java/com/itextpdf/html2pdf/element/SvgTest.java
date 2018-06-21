@@ -9,12 +9,16 @@ import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.rules.ExpectedException;
 
 import java.io.File;
 import java.io.IOException;
+
+import static com.itextpdf.html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT;
+import static com.itextpdf.html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI;
 
 @Category(IntegrationTest.class)
 public class SvgTest extends ExtendedITextTest {
@@ -22,18 +26,47 @@ public class SvgTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/SvgTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/SvgTest/";
 
+    @Rule
+    public ExpectedException junitExpectedException = ExpectedException.none();
+
     @BeforeClass
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
 
-    @Ignore("RND-982")
     @Test
     public void InlineSvgTest() throws IOException, InterruptedException {
-        String name = "inline";
+        String name = "inline_svg";
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name+".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name +".pdf", sourceFolder + "cmp_" + name+".pdf", destinationFolder, "diff_"+name+"_"));
+    }
+
+    @Test
+    public void InlineNestedSvgTest() throws IOException, InterruptedException {
+        String name = "inline_nested_svg";
         HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name+".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name +".pdf", sourceFolder + "cmp_" + name+".pdf", destinationFolder, "diff_"+name+"_"));
 
+    }
+
+    @Test
+    @LogMessages(messages = {
+            // TODO RND-883 external font loading in SVG
+            @LogMessage(messageTemplate = UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, count = 2),
+            @LogMessage(messageTemplate = UNABLE_TO_RETRIEVE_FONT)
+    })
+    public void InlineSvgExternalFontRelativeTest() throws IOException, InterruptedException {
+        String name = "inline_svg_external_font_relative";
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name+".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name +".pdf", sourceFolder + "cmp_" + name+".pdf", destinationFolder, "diff_"+name+"_"));
+    }
+
+    @Test
+    public void InlineSvgExternalFontUrlTest() throws IOException, InterruptedException {
+        // TODO RND-883 external font loading in SVG
+        String name = "inline_svg_external_font_url";
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name+".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name +".pdf", sourceFolder + "cmp_" + name+".pdf", destinationFolder, "diff_"+name+"_"));
     }
 
     @Test
