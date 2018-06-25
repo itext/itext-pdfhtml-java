@@ -69,6 +69,7 @@ import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
 import com.itextpdf.styledxmlparser.css.resolve.CssInheritance;
 import com.itextpdf.styledxmlparser.css.resolve.CssPropertyMerger;
+import com.itextpdf.styledxmlparser.css.resolve.IStyleInheritance;
 import com.itextpdf.styledxmlparser.css.resolve.shorthand.IShorthandResolver;
 import com.itextpdf.styledxmlparser.css.resolve.shorthand.ShorthandResolverFactory;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
@@ -106,6 +107,11 @@ public class DefaultCssResolver implements ICssResolver {
      * The device description.
      */
     private MediaDeviceDescription deviceDescription;
+
+    /**
+     * Css inheritance checker
+     */
+    private IStyleInheritance cssInheritance = new CssInheritance();
 
     /**
      * The list of fonts.
@@ -403,7 +409,7 @@ public class DefaultCssResolver implements ICssResolver {
      */
     private void mergeParentCssDeclaration(Map<String, String> styles, String cssProperty, String parentPropValue, Map<String, String> parentStyles) {
         String childPropValue = styles.get(cssProperty);
-        if ((childPropValue == null && CssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(childPropValue)) {
+        if ((childPropValue == null && cssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(childPropValue)) {
             if (valueIsOfMeasurement(parentPropValue, CssConstants.EM) || valueIsOfMeasurement(parentPropValue, CssConstants.EX) ||
                     valueIsOfMeasurement(parentPropValue, CssConstants.PERCENTAGE) && fontSizeDependentPercentage.contains(cssProperty)) {
                 float absoluteParentFontSize = CssUtils.parseAbsoluteLength(parentStyles.get(CssConstants.FONT_SIZE));
