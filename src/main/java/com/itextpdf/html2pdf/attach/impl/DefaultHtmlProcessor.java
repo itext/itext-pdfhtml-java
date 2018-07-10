@@ -72,11 +72,14 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.font.FontInfo;
+import com.itextpdf.layout.font.Range;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.styledxmlparser.css.CssDeclaration;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
 import com.itextpdf.styledxmlparser.css.ICssResolver;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementUtil;
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.ITextNode;
@@ -330,7 +333,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             if (element.name().equals(TagConstants.BODY) || element.name().equals(TagConstants.HTML))
                 runApplier(element, tagWorker);
             for (INode childNode : element.childNodes()) {
-                if(!context.isProcessingInlineSvg()) {
+                if (!context.isProcessingInlineSvg()) {
                     visit(childNode);
                 }
             }
@@ -433,10 +436,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         if (cssResolver instanceof DefaultCssResolver) {
             for (CssFontFaceRule fontFace : ((DefaultCssResolver) cssResolver).getFonts()) {
                 boolean findSupportedSrc = false;
-                FontFace ff = FontFace.create(fontFace.getProperties());
+                List<CssDeclaration> declarations = fontFace.getProperties();
+                FontFace ff = FontFace.create(declarations);
                 if (ff != null) {
                     for (FontFace.FontFaceSrc src : ff.getSources()) {
-                        if (createFont(ff.getFontFamily(), src)) {
+                        if (createFont(ff.getFontFamily(), src, resolveUnicodeRange(declarations))) {
                             findSupportedSrc = true;
                             break;
                         }
@@ -449,14 +453,25 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
     }
 
+    private Range resolveUnicodeRange(List<CssDeclaration> declarations) {
+        Range range = null;
+        for (CssDeclaration descriptor : declarations) {
+            if ("unicode-range".equals(descriptor.getProperty())) {
+                range = CssUtils.parseUnicodeRange(descriptor.getExpression());
+            }
+        }
+        return range;
+    }
+
     /**
      * Creates a font and adds it to the context.
      *
-     * @param fontFamily the font family
-     * @param src        the source of the font
+     * @param fontFamily   the font family
+     * @param src          the source of the font
+     * @param unicodeRange the unicode range
      * @return true, if successful
      */
-    private boolean createFont(String fontFamily, FontFace.FontFaceSrc src) {
+    private boolean createFont(String fontFamily, FontFace.FontFaceSrc src, Range unicodeRange) {
         if (!supportedFontFormat(src.format)) {
             return false;
         } else if (src.isLocal) { // to method with lazy initialization
@@ -476,7 +491,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 byte[] bytes = context.getResourceResolver().retrieveBytesFromResource(src.src);
                 if (bytes != null) {
                     FontProgram fp = FontProgramFactory.createFont(bytes, false);
-                    context.addTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily);
+                    context.addTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily, unicodeRange);
                     return true;
                 }
             } catch (Exception ignored) {
@@ -522,7 +537,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 if (!(TagConstants.INPUT.equals(node.name()) || TagConstants.TEXTAREA.equals(node.name())) || // TODO DEVSIX-1944: Resolve the issue and remove the line
                         null == tagWorker
                         || !(tagWorker.getElementResult() instanceof IPlaceholderable)
-                        || null == ((IPlaceholderable)tagWorker.getElementResult()).getPlaceholder()) {
+                        || null == ((IPlaceholderable) tagWorker.getElementResult()).getPlaceholder()) {
                     return;
                 }
                 break;

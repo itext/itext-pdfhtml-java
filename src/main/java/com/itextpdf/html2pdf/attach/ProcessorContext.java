@@ -44,8 +44,8 @@ package com.itextpdf.html2pdf.attach;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
-import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.attach.impl.LinkContext;
+import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.resolve.CssContext;
@@ -58,6 +58,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.font.FontSet;
+import com.itextpdf.layout.font.Range;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 
@@ -66,60 +67,96 @@ import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
  */
 public class ProcessorContext {
 
-    /** The font provider. */
+    /**
+     * The font provider.
+     */
     private FontProvider fontProvider;
 
-    /** Temporary set of fonts used in the PDF. */
+    /**
+     * Temporary set of fonts used in the PDF.
+     */
     private FontSet tempFonts;
 
-    /** The resource resolver. */
+    /**
+     * The resource resolver.
+     */
     private ResourceResolver resourceResolver;
 
-    /** The device description. */
+    /**
+     * The device description.
+     */
     private MediaDeviceDescription deviceDescription;
 
-    /** The tag worker factory. */
+    /**
+     * The tag worker factory.
+     */
     private ITagWorkerFactory tagWorkerFactory;
 
-    /** The CSS applier factory. */
+    /**
+     * The CSS applier factory.
+     */
     private ICssApplierFactory cssApplierFactory;
 
-    /** The base URI. */
+    /**
+     * The base URI.
+     */
     private String baseUri;
 
-    /** Indicates whether an AcroForm needs to be created. */
+    /**
+     * Indicates whether an AcroForm needs to be created.
+     */
     private boolean createAcroForm;
 
-    /** The form field name resolver. */
+    /**
+     * The form field name resolver.
+     */
     private FormFieldNameResolver formFieldNameResolver;
 
-    /** The radio check resolver. */
+    /**
+     * The radio check resolver.
+     */
     private RadioCheckResolver radioCheckResolver;
 
-    /** The outline handler. */
+    /**
+     * The outline handler.
+     */
     private OutlineHandler outlineHandler;
 
-    /** Indicates whether the document should be opened in immediate flush or not **/
+    /**
+     * Indicates whether the document should be opened in immediate flush or not
+     **/
     private boolean immediateFlush;
 
     // Variable fields
 
-    /** The state. */
+    /**
+     * The state.
+     */
     private State state;
 
-    /** The CSS context. */
+    /**
+     * The CSS context.
+     */
     private CssContext cssContext;
 
-    /** The link context */
+    /**
+     * The link context
+     */
     private LinkContext linkContext;
 
-    /** The PDF document. */
+    /**
+     * The PDF document.
+     */
     private PdfDocument pdfDocument;
 
-    /** The Processor meta info */
+    /**
+     * The Processor meta info
+     */
     private IMetaInfo metaInfo;
 
-    /** Internal state variable to keep track of whether the processor is currently inside an inlineSvg*/
+    /**
+     * Internal state variable to keep track of whether the processor is currently inside an inlineSvg
+     */
     private boolean processingInlineSvg;
 
     /**
@@ -316,10 +353,12 @@ public class ProcessorContext {
      * Add temporary font from @font-face.
      *
      * @param fontInfo the font info
-     * @param alias the alias
+     * @param alias    the alias
      */
     public void addTemporaryFont(FontInfo fontInfo, String alias) {
-        if (tempFonts == null) tempFonts = new FontSet();
+        if (tempFonts == null) {
+            tempFonts = new FontSet();
+        }
         tempFonts.addFont(fontInfo, alias);
     }
 
@@ -327,12 +366,29 @@ public class ProcessorContext {
      * Add temporary font from @font-face.
      *
      * @param fontProgram the font program
-     * @param encoding the encoding
-     * @param alias the alias
+     * @param encoding    the encoding
+     * @param alias       the alias
      */
     public void addTemporaryFont(FontProgram fontProgram, String encoding, String alias) {
-        if (tempFonts == null) tempFonts = new FontSet();
+        if (tempFonts == null) {
+            tempFonts = new FontSet();
+        }
         tempFonts.addFont(fontProgram, encoding, alias);
+    }
+
+    /**
+     * Add temporary font from @font-face.
+     *
+     * @param fontProgram  the font program
+     * @param encoding     the encoding
+     * @param alias        the alias
+     * @param unicodeRange the unicode range
+     */
+    public void addTemporaryFont(FontProgram fontProgram, String encoding, String alias, Range unicodeRange) {
+        if (tempFonts == null) {
+            tempFonts = new FontSet();
+        }
+        tempFonts.addFont(fontProgram, encoding, alias, unicodeRange);
     }
 
     /**
@@ -379,16 +435,17 @@ public class ProcessorContext {
      *
      * @return the baseUri
      */
-    public String getBaseUri(){
+    public String getBaseUri() {
         return baseUri;
     }
 
 
     /**
      * Checks if immediateFlush is set
+     *
      * @return true if immediateFlush is set, false if not.
      */
-    public boolean isImmediateFlush(){
+    public boolean isImmediateFlush() {
         return immediateFlush;
     }
 
