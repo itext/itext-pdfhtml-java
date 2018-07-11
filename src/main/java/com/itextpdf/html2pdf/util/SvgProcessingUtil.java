@@ -19,12 +19,6 @@ import org.slf4j.LoggerFactory;
  */
 public class SvgProcessingUtil {
 
-
-    /**
-     * The logger.
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SvgProcessingUtil.class);
-
     /**
      * Create an {@code Image} layout object tied to the passed {@code PdfDocument} using the SVG processing result.
      * @param result Processing result containing the SVG information
@@ -38,7 +32,7 @@ public class SvgProcessingUtil {
         PdfFormXObject pdfForm = new PdfFormXObject(new Rectangle(0, 0, width, height));
         PdfCanvas canvas = new PdfCanvas(pdfForm, pdfDocument);
 
-        SvgDrawContext context = new SvgDrawContext();
+        SvgDrawContext context = new SvgDrawContext(null, result.getFontProvider());
         context.addNamedObjects(result.getNamedObjects());
         context.pushCanvas(canvas);
 
@@ -48,6 +42,4 @@ public class SvgProcessingUtil {
 
         return new Image(pdfForm);
     }
-
-
 }

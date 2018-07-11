@@ -37,47 +37,42 @@ public class SvgTest extends ExtendedITextTest {
     @Test
     public void InlineSvgTest() throws IOException, InterruptedException {
         String name = "inline_svg";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name+".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name +".pdf", sourceFolder + "cmp_" + name+".pdf", destinationFolder, "diff_"+name+"_"));
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
     }
 
     @Test
     public void InlineNestedSvgTest() throws IOException, InterruptedException {
         String name = "inline_nested_svg";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name+".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name +".pdf", sourceFolder + "cmp_" + name+".pdf", destinationFolder, "diff_"+name+"_"));
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
 
     }
 
     @Test
-    @LogMessages(messages = {
-            // TODO RND-883 external font loading in SVG
-            @LogMessage(messageTemplate = UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, count = 2),
-            @LogMessage(messageTemplate = UNABLE_TO_RETRIEVE_FONT)
-    })
     public void InlineSvgExternalFontRelativeTest() throws IOException, InterruptedException {
         String name = "inline_svg_external_font_relative";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name+".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name +".pdf", sourceFolder + "cmp_" + name+".pdf", destinationFolder, "diff_"+name+"_"));
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
     }
 
     @Test
     public void InlineSvgExternalFontUrlTest() throws IOException, InterruptedException {
-        // TODO RND-883 external font loading in SVG
+        // TODO RND-1042 external font loading in SVG via @import
         String name = "inline_svg_external_font_url";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name+".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name +".pdf", sourceFolder + "cmp_" + name+".pdf", destinationFolder, "diff_"+name+"_"));
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
     }
 
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.ERROR_PARSING_COULD_NOT_MAP_NODE),
-            @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES,count=4),
+            @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 4),
     })
     public void externalImageSuccessTest() throws IOException, InterruptedException {
         String name = "external_img";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name+".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name +".pdf", sourceFolder + "cmp_" + name+".pdf", destinationFolder, "diff_"+name+"_"));
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
 
     }
 
@@ -88,20 +83,20 @@ public class SvgTest extends ExtendedITextTest {
     })
     public void externalImageNonExistentRefTest() throws IOException, InterruptedException {
         String name = "external_img_nonExistentRef";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name+".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name +".pdf", sourceFolder + "cmp_" + name+".pdf", destinationFolder, "diff_"+name+"_"));
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
 
     }
 
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.ERROR_PARSING_COULD_NOT_MAP_NODE),
-            @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES,count=4),
+            @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 4),
     })
     public void externalObjectSuccessTest() throws IOException, InterruptedException {
         String name = "external_object";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name+".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name +".pdf", sourceFolder + "cmp_" + name+".pdf", destinationFolder, "diff_"+name+"_"));
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
     }
 
     @Test
@@ -111,7 +106,7 @@ public class SvgTest extends ExtendedITextTest {
     })
     public void externalObjectNonExistentRefTest() throws IOException, InterruptedException {
         String name = "external_objectNonExistentRef";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name+".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name +".pdf", sourceFolder + "cmp_" + name+".pdf", destinationFolder, "diff_"+name+"_"));
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
     }
 }

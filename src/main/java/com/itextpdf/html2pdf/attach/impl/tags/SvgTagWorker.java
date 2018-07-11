@@ -9,23 +9,17 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.svg.exceptions.SvgProcessingException;
-import com.itextpdf.svg.processors.ISvgProcessor;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.processors.impl.DefaultSvgProcessor;
-import org.slf4j.Logger;
+import com.itextpdf.svg.processors.impl.SvgConverterProperties;
 import org.slf4j.LoggerFactory;
 
 /**
  * TagWorker class for the {@code svg} element.
  */
-public class SvgTagWorker implements ITagWorker{
-    Image svgImage;
-    ISvgProcessorResult processingResult;
-
-    /**
-     * The logger.
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(ObjectTagWorker.class);
+public class SvgTagWorker implements ITagWorker {
+    private Image svgImage;
+    private ISvgProcessorResult processingResult;
 
     /**
      * Creates a new {@link SvgTagWorker} instance.
@@ -35,20 +29,21 @@ public class SvgTagWorker implements ITagWorker{
      */
     public SvgTagWorker(IElementNode element, ProcessorContext context) {
         svgImage = null;
-        try{
-            ISvgProcessor proc = new DefaultSvgProcessor();
-            processingResult = proc.process((INode) element);
+        try {
+            SvgConverterProperties props = new SvgConverterProperties().setBaseUri(context.getBaseUri());
+            processingResult = new DefaultSvgProcessor().process((INode) element, props);
             context.startProcessingInlineSvg();
-        }catch(SvgProcessingException pe){
-            LOGGER.error(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG,pe);
+        } catch (SvgProcessingException pe) {
+            LoggerFactory.getLogger(SvgTagWorker.class)
+                    .error(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, pe);
         }
     }
 
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        if(context.getPdfDocument() != null && processingResult != null){
+        if (context.getPdfDocument() != null && processingResult != null) {
             SvgProcessingUtil util = new SvgProcessingUtil();
-            svgImage = util.createImageFromProcessingResult(processingResult,context.getPdfDocument());
+            svgImage = util.createImageFromProcessingResult(processingResult, context.getPdfDocument());
             context.endProcessingInlineSvg();
         }
     }
