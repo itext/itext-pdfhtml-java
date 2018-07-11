@@ -307,17 +307,6 @@ public class DefaultCssResolver implements ICssResolver {
         }
     }
 
-    @Override
-    public void collectCssDeclarations(INode rootNode, ResourceResolver resourceResolver, AbstractCssContext cssContext) {
-        if (cssContext instanceof CssContext) {
-            collectCssDeclarations(rootNode, resourceResolver, (CssContext) cssContext);
-        }
-        else {
-            throw new Html2PdfException("custom AbstractCssContext implementations are not supported yet");
-        }
-    }
-
-
     /**
      * Collects CSS declarationss.
      *
