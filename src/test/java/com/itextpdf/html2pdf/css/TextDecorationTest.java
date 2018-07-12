@@ -69,7 +69,7 @@ public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void textDecoration02Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationTest01", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationTest02", sourceFolder, destinationFolder);
     }
 
     @Test
