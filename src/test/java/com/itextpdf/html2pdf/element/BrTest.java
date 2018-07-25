@@ -93,6 +93,7 @@ public class BrTest extends ExtendedITextTest {
     }
 
     @Test
+    // TODO DEVSIX-2092
     public void brInsideDifferentTagsTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "brInsideDifferentTagsTest01.html"), new File(destinationFolder + "brInsideDifferentTagsTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brInsideDifferentTagsTest01.pdf", sourceFolder + "cmp_brInsideDifferentTagsTest01.pdf", destinationFolder, "diff04_"));

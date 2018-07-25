@@ -364,6 +364,12 @@ public class TableTest extends ExtendedITextTest {
         runConvertToElements("thTagScopeNotTaggedDifferentTables", false);
     }
 
+    @Test
+    // TODO DEVSIX-2092
+    public void plainTextTest() throws IOException, InterruptedException {
+        runConvertToElements("plainTextTest", false);
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         runTest(testName, false);
     }
