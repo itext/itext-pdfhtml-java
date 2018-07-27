@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+	.green {
+		color: green;
+	}
+	.red {
+		color: red;
+	}
+	.pseudoElementsWhiteSpacePre :before {
+		white-space: pre;
+	}
+
+	.crNewLinePseudo:before {
+		background-color: #ccc;	
+		border: solid 1pt;
+		content: "Mulitline attempt \r is it a new line?";
+	}
+	.crlfNewLinePseudo:before {
+		background-color: #ccc;	
+		border: solid 1pt;
+		content: "Mulitline attempt \r\n is it a new line?";
+	}
+	.lfNewLinePseudo:before {
+		background-color: #ccc;	
+		border: solid 1pt;
+		content: "Mulitline attempt \n is it a new line?";
+	}
+	.encodedPaddedNewLinePseudo:before {
+		background-color: #ccc;	
+		border: solid 1pt;
+		content: "Mulitline attempt \000a is it a new line?";
+	}
+	.encodedNewLinePseudo:before {
+		background-color: #ccc;	
+		border: solid 1pt;
+		content: "Mulitline attempt \a is it a new line?";
+	}
+	.wronglyEncodedNewLinePseudo:before {
+		background-color: #ccc;	
+		border: solid 1pt;
+		content: "Mulitline attempt \u000a is it a new line?";
+	}
+</style>
+</head>
+<body>
+	<div style="border: solid 3px">
+		<div class="crNewLinePseudo">
+			crNewLinePseudo test: <span class="red">no new line is expected</span>
+		</div>
+		<div class="crlfNewLinePseudo">
+			crlfNewLinePseudo test: <span class="red">no new line is expected</span>
+		</div>
+		<div class="lfNewLinePseudo">
+			lfNewLinePseudo test: <span class="red">no new line is expected</span>
+		</div>
+		<div class="encodedPaddedNewLinePseudo">
+			encodedPaddedNewLinePseudo test: <span class="red">no new line is expected</span>
+		</div>
+		<div class="encodedNewLinePseudo">
+			encodedNewLinePseudo test: <span class="red">no new line is expected</span>
+		</div>
+		<div class="wronglyEncodedNewLinePseudo">
+			wronglyEncodedNewLinePseudo test: <span class="red">no new line is expected</span>
+		</div>
+	</div>
+
+	<div class="pseudoElementsWhiteSpacePre" style="border: solid 3px">
+		<div class="crNewLinePseudo">
+			crNewLinePseudo test: <span class="red">no new line is expected</span>
+		</div>
+		<div class="crlfNewLinePseudo">
+			crlfNewLinePseudo test: <span class="red">no new line is expected</span>
+		</div>
+		<div class="lfNewLinePseudo">
+			lfNewLinePseudo test: <span class="red">no new line is expected</span>
+		</div>
+		<div class="encodedPaddedNewLinePseudo">
+			encodedPaddedNewLinePseudo test: <span class="green">new line is expected</span>
+		</div>
+		<div class="encodedNewLinePseudo">
+			encodedNewLinePseudo test: <span class="green">new line is expected</span>
+		</div>
+		<div class="wronglyEncodedNewLinePseudo">
+			wronglyEncodedNewLinePseudo test: <span class="red">no new line is expected</span>
+		</div>
+	</div>
+</body>
+</html>

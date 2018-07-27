@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -150,7 +150,23 @@ public class PageRuleTest extends ExtendedITextTest {
         runTest("marginBoxTest04");
     }
 
-    private void runTest(String name) throws IOException, InterruptedException {
+
+    @Test
+    public void marginBoxMultilineTest01() throws IOException, InterruptedException {
+        runTest("marginBoxMultilineTest01");
+    }
+
+    @Test
+    public void marginBoxMultilineTest02() throws IOException, InterruptedException {
+        runTest("marginBoxMultilineTest02");
+    }
+
+    @Test
+    public void marginBoxMultilineTest03() throws IOException, InterruptedException {
+        runTest("marginBoxMultilineTest03");
+    }
+    
+	private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
