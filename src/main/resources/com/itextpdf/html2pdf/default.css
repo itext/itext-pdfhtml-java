@@ -31,7 +31,6 @@ html {
     display: block;
 }
 body {
-    font-size: 12pt;
     display: block;
 }
 p, dl, multicol {
@@ -364,6 +363,10 @@ input[type="radio"], input[type="checkbox"] {
 input[type="checkbox"] {
     margin: 3px 3px 3px 4px;
     box-sizing: border-box;
+}
+
+::placeholder {
+    color: darkgray;
 }
 
 select {

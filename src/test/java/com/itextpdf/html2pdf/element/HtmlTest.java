@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -56,7 +56,6 @@ import java.io.IOException;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -101,5 +100,31 @@ public class HtmlTest extends ExtendedITextTest {
     public void html05Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest05.html"), new File(destinationFolder + "htmlTest05.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest05.pdf", sourceFolder + "cmp_htmlTest05.pdf", destinationFolder, "diff05_"));
+    }
+
+    // this test is both for html and body
+    @Test
+    public void html06Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest06.html"), new File(destinationFolder + "htmlTest06.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest06.pdf", sourceFolder + "cmp_htmlTest06.pdf", destinationFolder, "diff06_"));
+    }
+
+    // this test is both for html and body
+    @Test
+    public void html07Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest07.html"), new File(destinationFolder + "htmlTest07.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest07.pdf", sourceFolder + "cmp_htmlTest07.pdf", destinationFolder, "diff07_"));
+    }
+
+    @Test
+    public void html08Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest08.html"), new File(destinationFolder + "htmlTest08.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest08.pdf", sourceFolder + "cmp_htmlTest08.pdf", destinationFolder, "diff08_"));
+    }
+
+    @Test
+    public void html09Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest09.html"), new File(destinationFolder + "htmlTest09.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest09.pdf", sourceFolder + "cmp_htmlTest09.pdf", destinationFolder, "diff09_"));
     }
 }

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -52,7 +52,6 @@ import java.io.IOException;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -68,28 +67,24 @@ public class BodyTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-940")
     public void body01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest01.html"), new File(destinationFolder + "bodyTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest01.pdf", sourceFolder + "cmp_bodyTest01.pdf", destinationFolder, "diff01_"));
     }
 
     @Test
-    @Ignore("DEVSIX-940")
     public void body02Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest02.html"), new File(destinationFolder + "bodyTest02.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest02.pdf", sourceFolder + "cmp_bodyTest02.pdf", destinationFolder, "diff02_"));
     }
 
     @Test
-    @Ignore("DEVSIX-940")
     public void body03Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest03.html"), new File(destinationFolder + "bodyTest03.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest03.pdf", sourceFolder + "cmp_bodyTest03.pdf", destinationFolder, "diff03_"));
     }
 
     @Test
-    @Ignore("DEVSIX-940")
     public void body04Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest04.html"), new File(destinationFolder + "bodyTest04.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest04.pdf", sourceFolder + "cmp_bodyTest04.pdf", destinationFolder, "diff04_"));
@@ -105,5 +100,26 @@ public class BodyTest extends ExtendedITextTest {
     public void body06Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest06.html"), new File(destinationFolder + "bodyTest06.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest06.pdf", sourceFolder + "cmp_bodyTest06.pdf", destinationFolder, "diff06_"));
+    }
+
+    // this test is both for html and body
+    @Test
+    public void body07Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest07.html"), new File(destinationFolder + "bodyTest07.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest07.pdf", sourceFolder + "cmp_bodyTest07.pdf", destinationFolder, "diff07_"));
+    }
+
+    // this test is both for html and body
+    @Test
+    public void body08Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest08.html"), new File(destinationFolder + "bodyTest08.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest08.pdf", sourceFolder + "cmp_bodyTest08.pdf", destinationFolder, "diff08_"));
+    }
+
+    // this test is both for html and body
+    @Test
+    public void body09Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest09.html"), new File(destinationFolder + "bodyTest09.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest09.pdf", sourceFolder + "cmp_bodyTest09.pdf", destinationFolder, "diff09_"));
     }
 }

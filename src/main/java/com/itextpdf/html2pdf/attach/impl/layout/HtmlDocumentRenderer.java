@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -43,9 +43,6 @@
 package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.css.page.PageContextConstants;
-import com.itextpdf.html2pdf.css.resolve.ICssResolver;
-import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.kernel.events.Event;
 import com.itextpdf.kernel.events.IEventHandler;
 import com.itextpdf.kernel.events.PdfDocumentEvent;
@@ -62,11 +59,18 @@ import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.layout.LayoutArea;
 import com.itextpdf.layout.layout.LayoutPosition;
 import com.itextpdf.layout.layout.LayoutResult;
+import com.itextpdf.layout.property.Background;
+import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
+import com.itextpdf.styledxmlparser.css.ICssResolver;
+import com.itextpdf.styledxmlparser.css.page.PageContextConstants;
+import com.itextpdf.styledxmlparser.node.INode;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -318,43 +322,58 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
 
         nextProcessor.processNewPage(addedPage);
         float[] margins = nextProcessor.computeLayoutMargins();
-        float[] htmlStylesWidth = applyHtmlBodyMarginsBorders(addedPage, margins, false);
-        float[] simulatedMarginForBody = new float[4];
-        for (int i = 0; i < 4; i++)
-            simulatedMarginForBody[i] = margins[i] + htmlStylesWidth[i];
-        float[] bodyStylesWidth = applyHtmlBodyMarginsBorders(addedPage, simulatedMarginForBody, true);
-
-        setProperty(Property.MARGIN_TOP, margins[0] + htmlStylesWidth[0] + bodyStylesWidth[0]);
-        setProperty(Property.MARGIN_RIGHT, margins[1] + htmlStylesWidth[1] + bodyStylesWidth[1]);
-        setProperty(Property.MARGIN_BOTTOM, margins[2] + htmlStylesWidth[2] + bodyStylesWidth[2]);
-        setProperty(Property.MARGIN_LEFT, margins[3] + htmlStylesWidth[3] + bodyStylesWidth[3]);
+        applyHtmlBodyStyles(addedPage, margins);
+        setProperty(Property.MARGIN_TOP, margins[0]);
+        setProperty(Property.MARGIN_RIGHT, margins[1]);
+        setProperty(Property.MARGIN_BOTTOM, margins[2]);
+        setProperty(Property.MARGIN_LEFT, margins[3]);
 
         return new PageSize(addedPage.getTrimBox());
     }
 
-    private float[] applyHtmlBodyMarginsBorders(PdfPage page, float[] defaultMargins, boolean body) {
-        int htmlOrBodyStylingProperty = body ? Html2PdfProperty.BODY_STYLING : Html2PdfProperty.HTML_STYLING;
-        BodyHtmlStylesContainer styles = ((IPropertyContainer) document).<BodyHtmlStylesContainer>getProperty(htmlOrBodyStylingProperty);
-        if (styles == null)
-            return new float[4];
-
-        if (styles.hasBordersToDraw()) {
-            Div pageBordersSimulation;
-            pageBordersSimulation = new Div().setFillAvailableArea(true);
-
-            for (Map.Entry<Integer, Object> entry : styles.properties.entrySet()) {
-                pageBordersSimulation.setProperty(entry.getKey(), entry.getValue());
+    private void applyHtmlBodyStyles(PdfPage page, float[] defaultMargins) {
+        BodyHtmlStylesContainer[] styles = new BodyHtmlStylesContainer[2];
+        styles[0] = ((IPropertyContainer) document).<BodyHtmlStylesContainer>getProperty(Html2PdfProperty.HTML_STYLING);
+        styles[1] = ((IPropertyContainer) document).<BodyHtmlStylesContainer>getProperty(Html2PdfProperty.BODY_STYLING);
+        int firstBackground = applyFirstBackground(page, defaultMargins, styles);
+        for (int i = 0; i < 2; i++)
+            if (styles[i] != null) {
+                if (styles[i].hasContentToDraw())
+                    drawSimulatedDiv(page, styles[i].properties, defaultMargins, firstBackground != i);
+                for (int j = 0; j < 4; j++)
+                    defaultMargins[j] += styles[i].getTotalWidth()[j];
             }
+    }
 
-            pageBordersSimulation.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
-
-            Canvas canvas = new Canvas(new PdfCanvas(page), page.getDocument(), page.getTrimBox()
-                    .applyMargins(defaultMargins[0], defaultMargins[1], defaultMargins[2], defaultMargins[3], false));
-            canvas.enableAutoTagging(page);
-            canvas.add(pageBordersSimulation);
-            canvas.close();
+    private int applyFirstBackground(PdfPage page, float[] defaultMargins, BodyHtmlStylesContainer[] styles) {
+        int firstBackground = -1;
+        if (styles[0] != null && (styles[0].<Background>getOwnProperty(Property.BACKGROUND) != null || styles[0].<BackgroundImage>getOwnProperty(Property.BACKGROUND_IMAGE) != null))
+            firstBackground = 0;
+        else if (styles[1] != null && (styles[1].<Background>getOwnProperty(Property.BACKGROUND) != null || styles[1].<BackgroundImage>getOwnProperty(Property.BACKGROUND_IMAGE) != null))
+            firstBackground = 1;
+        if (firstBackground != -1) {
+            HashMap<Integer, Object> background = new HashMap<>();
+            background.put(Property.BACKGROUND, styles[firstBackground].<Background>getProperty(Property.BACKGROUND));
+            background.put(Property.BACKGROUND_IMAGE, styles[firstBackground].<BackgroundImage>getProperty(Property.BACKGROUND_IMAGE));
+            drawSimulatedDiv(page, background, defaultMargins, true);
         }
-        return styles.getTotalWidth();
+        return firstBackground;
+    }
+
+    private void drawSimulatedDiv(PdfPage page, Map<Integer, Object> styles, float[] margins, boolean drawBackground) {
+        Div pageBordersSimulation;
+        pageBordersSimulation = new Div().setFillAvailableArea(true);
+        for (Map.Entry<Integer, Object> entry : styles.entrySet()) {
+            if ((entry.getKey() == Property.BACKGROUND || entry.getKey() == Property.BACKGROUND_IMAGE) && !drawBackground)
+                continue;
+            pageBordersSimulation.setProperty(entry.getKey(), entry.getValue());
+        }
+        pageBordersSimulation.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
+        Canvas canvas = new Canvas(new PdfCanvas(page), page.getDocument(), page.getTrimBox()
+                .applyMargins(margins[0], margins[1], margins[2], margins[3], false));
+        canvas.enableAutoTagging(page);
+        canvas.add(pageBordersSimulation);
+        canvas.close();
     }
 
     /**

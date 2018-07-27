@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -43,15 +43,17 @@
 package com.itextpdf.html2pdf.css.resolve;
 
 
-import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.page.CssRunningManager;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
+import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
 
 /**
  * Class that bundles all the CSS context properties.
  */
-public class CssContext {
+public class CssContext extends AbstractCssContext {
 
     /** The root font size value in pt. */
     private float rootFontSize = FontStyleApplierUtil.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
@@ -61,9 +63,6 @@ public class CssContext {
 
     /** Indicates if a page counter is present. */
     private boolean pagesCounterPresent = false;
-
-    /** The quotes depth. */
-    private int quotesDepth = 0;
 
     /** The running elements manager. */
     private CssRunningManager runningManager = new CssRunningManager();
@@ -120,24 +119,6 @@ public class CssContext {
      */
     public boolean isPagesCounterPresent() {
         return pagesCounterPresent;
-    }
-
-    /**
-     * Gets the quotes depth.
-     *
-     * @return the quotes depth
-     */
-    public int getQuotesDepth() {
-        return quotesDepth;
-    }
-
-    /**
-     * Sets the quotes depth.
-     *
-     * @param quotesDepth the new quotes depth
-     */
-    public void setQuotesDepth(int quotesDepth) {
-        this.quotesDepth = quotesDepth;
     }
 
     public CssRunningManager getRunningManager() {

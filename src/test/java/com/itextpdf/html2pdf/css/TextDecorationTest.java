@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,22 +42,17 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class TextDecorationTest extends ExtendedITextTest {
+public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/TextDecorationTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/TextDecorationTest/";
@@ -69,30 +64,22 @@ public class TextDecorationTest extends ExtendedITextTest {
 
     @Test
     public void textDecoration01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest01.html"), new File(destinationFolder + "textDecorationTest01.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "textDecorationTest01.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest01.pdf", sourceFolder + "cmp_textDecorationTest01.pdf", destinationFolder, "diff01_"));
+        convertToPdfAndCompare("textDecorationTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void textDecoration02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest02.html"), new File(destinationFolder + "textDecorationTest02.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "textDecorationTest02.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest02.pdf", sourceFolder + "cmp_textDecorationTest02.pdf", destinationFolder, "diff02_"));
+        convertToPdfAndCompare("textDecorationTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void textDecoration03Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest03.html"), new File(destinationFolder + "textDecorationTest03.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "textDecorationTest03.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest03.pdf", sourceFolder + "cmp_textDecorationTest03.pdf", destinationFolder, "diff03_"));
+        convertToPdfAndCompare("textDecorationTest03", sourceFolder, destinationFolder);
     }
 
     //Text decoration property is in defaults.css for a[href], should be replaced by css.
     @Test
     public void textDecoration04Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest04.html"), new File(destinationFolder + "textDecorationTest04.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "textDecorationTest04.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest04.pdf", sourceFolder + "cmp_textDecorationTest04.pdf", destinationFolder, "diff04_"));
+        convertToPdfAndCompare("textDecorationTest04", sourceFolder, destinationFolder);
     }
 }

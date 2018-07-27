@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,24 +42,20 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.LogMessageConstant;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import java.io.File;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
-public class TextPropertiesTest extends ExtendedITextTest {
+public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/TextPropertiesTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/TextPropertiesTest/";
@@ -71,116 +67,110 @@ public class TextPropertiesTest extends ExtendedITextTest {
 
     @Test
     public void textAlignTest01() throws IOException, InterruptedException {
-        runTest("textAlignTest01");
+        convertToPdfAndCompare("textAlignTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED)})
     public void textDecorationTest01() throws IOException, InterruptedException {
-        runTest("textDecorationTest01");
+        convertToPdfAndCompare("textDecorationTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void letterSpacingTest01() throws IOException, InterruptedException {
-        runTest("letterSpacingTest01");
+        convertToPdfAndCompare("letterSpacingTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void wordSpacingTest01() throws IOException, InterruptedException {
-        runTest("wordSpacingTest01");
+        convertToPdfAndCompare("wordSpacingTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void lineHeightTest01() throws IOException, InterruptedException {
-        runTest("lineHeightTest01");
+        convertToPdfAndCompare("lineHeightTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void lineHeightTest02() throws IOException, InterruptedException {
-        runTest("lineHeightTest02");
+        convertToPdfAndCompare("lineHeightTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void lineHeightTest03() throws IOException, InterruptedException {
-        runTest("lineHeightTest03");
+        convertToPdfAndCompare("lineHeightTest03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void whiteSpaceTest01() throws IOException, InterruptedException {
-        runTest("whiteSpaceTest01");
+        convertToPdfAndCompare("whiteSpaceTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void textTransformTest01() throws IOException, InterruptedException {
-        runTest("textTransformTest01");
+        convertToPdfAndCompare("textTransformTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void textTransform02Test() throws IOException, InterruptedException {
-        runTest("textTransformTest02");
+        convertToPdfAndCompare("textTransformTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void whiteSpaceTest02() throws IOException, InterruptedException {
-        runTest("whiteSpaceTest02");
+        convertToPdfAndCompare("whiteSpaceTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void enspEmspThinspTest01() throws IOException, InterruptedException {
-        runTest("enspEmspThinspTest01");
+        convertToPdfAndCompare("enspEmspThinspTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void enspEmspThinspTest02() throws IOException, InterruptedException {
-        runTest("enspEmspThinspTest02");
+        convertToPdfAndCompare("enspEmspThinspTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void enspEmspThinspTest03() throws IOException, InterruptedException {
-        runTest("enspEmspThinspTest03");
+        convertToPdfAndCompare("enspEmspThinspTest03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void enspEmspThinspTest04() throws IOException, InterruptedException {
-        runTest("enspEmspThinspTest04");
+        convertToPdfAndCompare("enspEmspThinspTest04", sourceFolder, destinationFolder);
     }
 
     @Test
     public void enspEmspThinspTest05() throws IOException, InterruptedException {
-        runTest("enspEmspThinspTest05");
+        convertToPdfAndCompare("enspEmspThinspTest05", sourceFolder, destinationFolder);
     }
 
     @Test
     public void enspEmspThinspTest06() throws IOException, InterruptedException {
-        runTest("enspEmspThinspTest06");
+        convertToPdfAndCompare("enspEmspThinspTest06", sourceFolder, destinationFolder);
     }
 
     @Test
     public void enspEmspThinspTest07() throws IOException, InterruptedException {
-        runTest("enspEmspThinspTest07");
+        convertToPdfAndCompare("enspEmspThinspTest07", sourceFolder, destinationFolder);
     }
 
     @Test
     public void enspEmspThinspTest08() throws IOException, InterruptedException {
         // TODO DEVSIX-1442
-        runTest("enspEmspThinspTest08");
+        convertToPdfAndCompare("enspEmspThinspTest08", sourceFolder, destinationFolder);
     }
 
     @Test
     @Ignore("DEVSIX-1442")
     public void enspEmspThinspTest09() throws IOException, InterruptedException {
-        runTest("enspEmspThinspTest09");
+        convertToPdfAndCompare("enspEmspThinspTest09", sourceFolder, destinationFolder);
     }
 
     @Test
     @Ignore("DEVSIX-1851")
     public void wordCharSpacingJustifiedTest01() throws IOException, InterruptedException {
-        runTest("wordCharSpacingJustifiedTest01");
+        convertToPdfAndCompare("wordCharSpacingJustifiedTest01", sourceFolder, destinationFolder);
     }
-
-    private void runTest(String testName) throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
-    }
-
 }

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -150,6 +150,16 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
     @Override
     protected IRenderer createFlatRenderer() {
         return createParagraphRenderer(getDefaultValue());
+    }
+
+    @Override
+    IRenderer createParagraphRenderer(String defaultValue) {
+        if (defaultValue.isEmpty()) {
+            if (null != ((TextArea) modelElement).getPlaceholder() && !((TextArea) modelElement).getPlaceholder().isEmpty()) {
+                return ((TextArea) modelElement).getPlaceholder().createRendererSubTree();
+            }
+        }
+        return super.createParagraphRenderer(defaultValue);
     }
 
     /* (non-Javadoc)

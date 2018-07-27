@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,24 +42,46 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.html.node.IElementNode;
+import com.itextpdf.html2pdf.util.SvgProcessingUtil;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
+import com.itextpdf.svg.converter.SvgConverter;
+import com.itextpdf.svg.exceptions.SvgProcessingException;
+import com.itextpdf.svg.processors.ISvgProcessorResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * TagWorker class for the {@code img} element.
  */
 public class ImgTagWorker implements ITagWorker {
 
-    /** The image. */
-    private HtmlImage image;
 
-    /** The display value. */
+    /**
+     * The logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(ObjectTagWorker.class);
+
+    /**
+     * The image.
+     */
+    private Image image;
+
+    /**
+     * The display value.
+     */
     private String display;
 
     /**
@@ -69,19 +91,56 @@ public class ImgTagWorker implements ITagWorker {
      * @param context the context
      */
     public ImgTagWorker(IElementNode element, ProcessorContext context) {
-        PdfImageXObject imageXObject = context.getResourceResolver().retrieveImage(element.getAttribute(AttributeConstants.SRC));
-        if (imageXObject != null) {
-            image = new HtmlImage(imageXObject);
-            String altText = element.getAttribute(AttributeConstants.ALT);
-            if (altText != null) {
-                image.setAltText(altText);
+        String src = element.getAttribute(AttributeConstants.SRC);
+        if (src != null) {
+            if (src.contains(ResourceResolver.BASE64IDENTIFIER) || context.getResourceResolver().isImageTypeSupportedByImageDataFactory(src)) {
+                processAsImage(src, element, context);
+            } else {
+                byte[] resourceBytes = context.getResourceResolver().retrieveBytesFromResource(src);
+                if (resourceBytes != null) {
+                    InputStream resourceStream = context.getResourceResolver().retrieveResourceAsInputStream(src);
+                    //Try with svg
+                    try {
+                        processAsSvg(resourceStream, context);
+                    } catch (SvgProcessingException spe) {
+                        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, context.getBaseUri(), src));
+                    } catch(IOException ioe){
+                        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI,context.getBaseUri(),src));
+                    }
+                }
             }
+        } else
+        {
+            LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI,context.getBaseUri(),src));
+
         }
+
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
-        // TODO this is a workaround for now to that image is not added as inline
+        // TODO this is a workaround for now Imgto that image is not added as inline
         if (element.getStyles() != null && CssConstants.ABSOLUTE.equals(element.getStyles().get(CssConstants.POSITION))) {
             display = CssConstants.BLOCK;
         }
+
+        String altText = element.getAttribute(AttributeConstants.ALT);
+        if (altText != null && image != null) {
+            image.getAccessibilityProperties().setAlternateDescription(altText);
+        }
+    }
+
+    private void processAsSvg(InputStream stream, ProcessorContext context) throws IOException {
+        SvgProcessingUtil processingUtil = new SvgProcessingUtil();
+        ISvgProcessorResult res = SvgConverter.parseAndProcess(stream);
+        if (context.getPdfDocument() != null) {
+            image = processingUtil.createImageFromProcessingResult(res, context.getPdfDocument());
+        }
+    }
+
+    private void processAsImage(String src, IElementNode element, ProcessorContext context) {
+        PdfImageXObject imageXObject = context.getResourceResolver().retrieveImage(src);
+        if (imageXObject != null) {
+            image = new HtmlImage(imageXObject);
+        }
+
     }
 
     /* (non-Javadoc)
@@ -137,7 +196,7 @@ public class ImgTagWorker implements ITagWorker {
         private double pxToPt = 0.75;
 
         /**
-     *   * Creates a new {@link HtmlImage} instance.
+         * * Creates a new {@link HtmlImage} instance.
          *
          * @param xObject an Image XObject
          */
@@ -161,13 +220,6 @@ public class ImgTagWorker implements ITagWorker {
             return (float) (xObject.getHeight() * pxToPt);
         }
 
-        /**
-         * Sets the alt text for the image.
-         *
-         * @param altText the new alt text
-         */
-        void setAltText(String altText) {
-            getAccessibilityProperties().setAlternateDescription(altText);
-        }
     }
+
 }

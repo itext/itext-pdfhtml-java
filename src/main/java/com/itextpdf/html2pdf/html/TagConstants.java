@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -221,6 +221,9 @@ public final class TagConstants {
     /** The Constant NAV. */
     public static final String NAV = "nav";
 
+    /** The Constant OBJECT */
+    public static final String OBJECT = "object";
+
     /** The Constant OL. */
     public static final String OL = "ol";
 
@@ -241,6 +244,9 @@ public final class TagConstants {
 
     /** The Constant S. */
     public static final String S = "s";
+
+    /** The Constant SVG. */
+    public static final String SVG = "svg";
 
     /** The Constant SAMP. */
     public static final String SAMP = "samp";

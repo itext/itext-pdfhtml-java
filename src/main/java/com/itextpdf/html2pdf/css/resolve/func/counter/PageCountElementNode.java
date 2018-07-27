@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -42,12 +42,12 @@
  */
 package com.itextpdf.html2pdf.css.resolve.func.counter;
 
-import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
-import com.itextpdf.html2pdf.html.node.ICustomElementNode;
-import com.itextpdf.html2pdf.html.node.INode;
-import com.itextpdf.html2pdf.jsoup.nodes.Element;
-import com.itextpdf.html2pdf.jsoup.parser.Tag;
 
+import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
+import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
+import com.itextpdf.styledxmlparser.node.ICustomElementNode;
+import com.itextpdf.styledxmlparser.node.INode;
+import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
 import java.util.Collections;
 import java.util.List;
 

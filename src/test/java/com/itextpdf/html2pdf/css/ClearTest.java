@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,22 +42,18 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class ClearTest extends ExtendedITextTest {
+public class ClearTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/ClearTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/ClearTest/";
@@ -69,68 +65,50 @@ public class ClearTest extends ExtendedITextTest {
 
     @Test
     public void clear02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "clear02Test.html"), new File(destinationFolder + "clear02Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear02Test.pdf", sourceFolder + "cmp_clear02Test.pdf", destinationFolder, "diff02_"));
+        convertToPdfAndCompare("clear02Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void clear03Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "clear03Test.html"), new File(destinationFolder + "clear03Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear03Test.pdf", sourceFolder + "cmp_clear03Test.pdf", destinationFolder, "diff03_"));
+        convertToPdfAndCompare("clear03Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void clear04Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "clear04Test.html"), new File(destinationFolder + "clear04Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear04Test.pdf", sourceFolder + "cmp_clear04Test.pdf", destinationFolder, "diff04_"));
+        convertToPdfAndCompare("clear04Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void clear06Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "clear06Test.html"), new File(destinationFolder + "clear06Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear06Test.pdf", sourceFolder + "cmp_clear06Test.pdf", destinationFolder, "diff06_"));
+        convertToPdfAndCompare("clear06Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void clear07Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "clear07Test.html"), new File(destinationFolder + "clear07Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear07Test.pdf", sourceFolder + "cmp_clear07Test.pdf", destinationFolder, "diff07_"));
+        convertToPdfAndCompare("clear07Test", sourceFolder, destinationFolder);
     }
 
     @Test
     @Ignore("DEVSIX-1269")
     public void clear08Test() throws IOException, InterruptedException {
         // TODO behaving differently from browser in some cases of selfcollapsing margins
-        HtmlConverter.convertToPdf(new File(sourceFolder + "clear08Test.html"), new File(destinationFolder + "clear08Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear08Test.pdf", sourceFolder + "cmp_clear08Test.pdf", destinationFolder, "diff08_"));
+        convertToPdfAndCompare("clear08Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void clear09Test() throws IOException, InterruptedException {
         // TODO behaving differently from browser in some cases of selfcollapsing margins
-        HtmlConverter.convertToPdf(new File(sourceFolder + "clear09Test.html"), new File(destinationFolder + "clear09Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear09Test.pdf", sourceFolder + "cmp_clear09Test.pdf", destinationFolder, "diff09_"));
+        convertToPdfAndCompare("clear09Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void clear10Test() throws IOException, InterruptedException {
         // TODO behaving differently from browser in some cases of selfcollapsing margins
-        HtmlConverter.convertToPdf(new File(sourceFolder + "clear10Test.html"), new File(destinationFolder + "clear10Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear10Test.pdf", sourceFolder + "cmp_clear10Test.pdf", destinationFolder, "dif10_"));
+        convertToPdfAndCompare("clear10Test", sourceFolder, destinationFolder);
     }
 
     @Test
     public void clear11Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "clear11Test.html"), new File(destinationFolder + "clear11Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "clear11Test.pdf", sourceFolder + "cmp_clear11Test.pdf", destinationFolder, "dif11_"));
+        convertToPdfAndCompare("clear11Test", sourceFolder, destinationFolder);
     }
-
-    private void runTest(String testName, String diff) throws IOException, InterruptedException {
-        String htmlName = sourceFolder + testName + ".html";
-        String outFileName = destinationFolder + testName + ".pdf";
-        String cmpFileName = sourceFolder + "cmp_" + testName + ".pdf";
-        HtmlConverter.convertToPdf(new File(htmlName), new File(outFileName));
-        Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, destinationFolder, diff));
-    }
-
 }

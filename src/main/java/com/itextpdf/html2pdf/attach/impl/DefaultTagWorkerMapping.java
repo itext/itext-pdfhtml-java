@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -61,14 +61,17 @@ import com.itextpdf.html2pdf.attach.impl.tags.InputTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.LiTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.LinkTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.MetaTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.ObjectTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.OptGroupTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.OptionTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PageCountWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PageMarginBoxWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.PlaceholderTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.PreTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.SelectTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.SvgTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TableFooterTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TableHeaderTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TableTagWorker;
@@ -79,11 +82,11 @@ import com.itextpdf.html2pdf.attach.impl.tags.TitleTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.TrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.UlOlTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
-import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
+import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
+import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementUtil;
 
 /**
  * Contains the actual mapping of the {@link DefaultTagWorkerFactory}.
@@ -153,6 +156,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.MARK, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.META, MetaTagWorker.class);
         workerMapping.putMapping(TagConstants.NAV, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.OBJECT, ObjectTagWorker.class);
         workerMapping.putMapping(TagConstants.OL, UlOlTagWorker.class);
         workerMapping.putMapping(TagConstants.OPTGROUP, OptGroupTagWorker.class);
         workerMapping.putMapping(TagConstants.OPTION, OptionTagWorker.class);
@@ -169,6 +173,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.STRONG, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.SUB, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.SUP, SpanTagWorker.class);
+        workerMapping.putMapping(TagConstants.SVG, SvgTagWorker.class);
         workerMapping.putMapping(TagConstants.TABLE, TableTagWorker.class);
         workerMapping.putMapping(TagConstants.TD, TdTagWorker.class);
         workerMapping.putMapping(TagConstants.TEXTAREA, TextAreaTagWorker.class);
@@ -183,6 +188,9 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.UL, UlOlTagWorker.class);
         workerMapping.putMapping(TagConstants.VAR, SpanTagWorker.class);
 
+        String placeholderPseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.PLACEHOLDER);
+        workerMapping.putMapping(placeholderPseudoElemName, PlaceholderTagWorker.class);
+
         workerMapping.putMapping(TagConstants.UL, CssConstants.INLINE, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.LI, CssConstants.INLINE, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.LI, CssConstants.INLINE_BLOCK, DivTagWorker.class);
@@ -194,6 +202,8 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.A, CssConstants.BLOCK, ABlockTagWorker.class);
         workerMapping.putMapping(TagConstants.A, CssConstants.INLINE_BLOCK, ABlockTagWorker.class);
         workerMapping.putMapping(TagConstants.A, CssConstants.TABLE_CELL, ABlockTagWorker.class);
+
+        workerMapping.putMapping(TagConstants.LABEL, CssConstants.BLOCK, DivTagWorker.class);
 
         workerMapping.putMapping(TagConstants.DIV, CssConstants.TABLE, DisplayTableTagWorker.class);
         workerMapping.putMapping(TagConstants.DIV, CssConstants.TABLE_ROW, DisplayTableRowTagWorker.class);
@@ -215,7 +225,6 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(beforePseudoElemName, CssConstants.TABLE, DivTagWorker.class);
         workerMapping.putMapping(afterPseudoElemName, CssConstants.TABLE, DivTagWorker.class);
         workerMapping.putMapping(CssPseudoElementUtil.createPseudoElementTagName(TagConstants.IMG), ImgTagWorker.class);
-
 
         // custom elements mapping, implementation-specific
         workerMapping.putMapping(PageCountElementNode.PAGE_COUNTER_TAG, PageCountWorker.class);

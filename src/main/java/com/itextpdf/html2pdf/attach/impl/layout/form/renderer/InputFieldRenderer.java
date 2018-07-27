@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -105,6 +105,16 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
     public boolean isPassword() {
         Boolean password = getPropertyAsBoolean(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG);
         return password != null ? (boolean) password : (boolean) modelElement.<Boolean>getDefaultProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG);
+    }
+
+    @Override
+    IRenderer createParagraphRenderer(String defaultValue) {
+        if (defaultValue.isEmpty()) {
+            if (null != ((InputField) modelElement).getPlaceholder() && !((InputField) modelElement).getPlaceholder().isEmpty()) {
+                return ((InputField) modelElement).getPlaceholder().createRendererSubTree();
+            }
+        }
+        return super.createParagraphRenderer(defaultValue);
     }
 
     @Override

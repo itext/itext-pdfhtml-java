@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -44,23 +44,22 @@ package com.itextpdf.html2pdf.css.media;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
-import com.itextpdf.html2pdf.css.CssDeclaration;
-import com.itextpdf.html2pdf.css.CssStyleSheet;
-import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
-import com.itextpdf.html2pdf.html.IHtmlParser;
-import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
-import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupDocumentNode;
-import com.itextpdf.html2pdf.html.impl.jsoup.node.JsoupElementNode;
-import com.itextpdf.html2pdf.html.node.IDocumentNode;
-import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.styledxmlparser.IXmlParser;
+import com.itextpdf.styledxmlparser.css.CssDeclaration;
+import com.itextpdf.styledxmlparser.css.CssStyleSheet;
+import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
+import com.itextpdf.styledxmlparser.css.media.MediaType;
+import com.itextpdf.styledxmlparser.css.parse.CssStyleSheetParser;
+import com.itextpdf.styledxmlparser.node.IDocumentNode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
+import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupDocumentNode;
+import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.UnitTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -84,7 +83,7 @@ public class MediaRuleTest extends ExtendedITextTest {
     public void test01() throws IOException {
         String htmlFileName = sourceFolder + "html01.html";
         String cssFileName = sourceFolder + "css01.css";
-        IHtmlParser htmlParser = new JsoupHtmlParser();
+        IXmlParser htmlParser = new JsoupHtmlParser();
         IDocumentNode document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
         MediaDeviceDescription deviceDescription = new MediaDeviceDescription(MediaType.PRINT);
@@ -100,7 +99,7 @@ public class MediaRuleTest extends ExtendedITextTest {
     public void test02() throws IOException {
         String htmlFileName = sourceFolder + "html02.html";
         String cssFileName = sourceFolder + "css02.css";
-        IHtmlParser htmlParser = new JsoupHtmlParser();
+        IXmlParser htmlParser = new JsoupHtmlParser();
         IDocumentNode document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
         IElementNode element = new JsoupElementNode(((JsoupDocumentNode)document).getDocument().getElementsByTag("p").first());
@@ -124,7 +123,7 @@ public class MediaRuleTest extends ExtendedITextTest {
     public void test03() throws IOException {
         String htmlFileName = sourceFolder + "html03.html";
         String cssFileName = sourceFolder + "css03.css";
-        IHtmlParser htmlParser = new JsoupHtmlParser();
+        IXmlParser htmlParser = new JsoupHtmlParser();
         IDocumentNode document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
         MediaDeviceDescription deviceDescription = new MediaDeviceDescription(MediaType.PRINT);
@@ -139,7 +138,7 @@ public class MediaRuleTest extends ExtendedITextTest {
     public void test04() throws IOException {
         String htmlFileName = sourceFolder + "html04.html";
         String cssFileName = sourceFolder + "css04.css";
-        IHtmlParser htmlParser = new JsoupHtmlParser();
+        IXmlParser htmlParser = new JsoupHtmlParser();
         IDocumentNode document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
 
@@ -156,7 +155,7 @@ public class MediaRuleTest extends ExtendedITextTest {
     public void test05() throws IOException {
         String htmlFileName = sourceFolder + "html05.html";
         String cssFileName = sourceFolder + "css05.css";
-        IHtmlParser htmlParser = new JsoupHtmlParser();
+        IXmlParser htmlParser = new JsoupHtmlParser();
         IDocumentNode document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
         IElementNode element = new JsoupElementNode(((JsoupDocumentNode)document).getDocument().getElementsByTag("p").first());
@@ -180,7 +179,7 @@ public class MediaRuleTest extends ExtendedITextTest {
     public void test06() throws IOException {
         String htmlFileName = sourceFolder + "html06.html";
         String cssFileName = sourceFolder + "css06.css";
-        IHtmlParser htmlParser = new JsoupHtmlParser();
+        IXmlParser htmlParser = new JsoupHtmlParser();
         IDocumentNode document = htmlParser.parse(new FileInputStream(htmlFileName), "UTF-8");
         CssStyleSheet css = CssStyleSheetParser.parse(new FileInputStream(cssFileName));
         IElementNode element = new JsoupElementNode(((JsoupDocumentNode)document).getDocument().getElementsByTag("p").first());

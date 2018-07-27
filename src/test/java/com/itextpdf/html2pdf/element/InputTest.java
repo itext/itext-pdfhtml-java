@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -45,11 +45,17 @@ package com.itextpdf.html2pdf.element;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
 import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -62,6 +68,7 @@ import org.junit.experimental.categories.Category;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
 @Category(IntegrationTest.class)
 public class InputTest extends ExtendedITextTest {
@@ -166,6 +173,67 @@ public class InputTest extends ExtendedITextTest {
     @Test
     public void buttonWithDisplayBlockTest() throws IOException, InterruptedException {
         runTest("buttonWithDisplayBlock");
+    }
+
+    @Test
+    public void placeholderTest01() throws IOException, InterruptedException {
+        runTest("placeholderTest01");
+    }
+
+    @Test
+    public void placeholderTest02() throws IOException, InterruptedException {
+        runTest("placeholderTest02");
+    }
+
+    @Test
+    public void placeholderTest02A() throws IOException, InterruptedException {
+        runTest("placeholderTest02A");
+    }
+
+    @Test
+    public void placeholderTest03() throws IOException, InterruptedException {
+        runTest("placeholderTest03");
+    }
+
+    @Test
+    @LogMessages(ignore = true, messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, count = 3),
+            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 3),
+    })
+    public void placeholderTest04() throws IOException, InterruptedException {
+        runTest("placeholderTest04");
+    }
+
+    @Test
+    public void placeholderTest05() throws IOException, InterruptedException {
+        String htmlPath = sourceFolder + "placeholderTest05.html";
+        String outPdfPath = destinationFolder + "placeholderTest05.pdf";
+        String cmpPdfPath = sourceFolder + "cmp_" + "placeholderTest05.pdf";
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+
+        List<IElement> elements = HtmlConverter.convertToElements(new FileInputStream(htmlPath));
+        Paragraph placeholderToBeSet = new Paragraph("bazinga").setBackgroundColor(ColorConstants.RED).setFontColor(ColorConstants.YELLOW);
+        List<IElement> children = ((Paragraph) elements.get(0)).getChildren();
+        for (IElement child : children) {
+            if (child instanceof InputField) {
+                ((InputField) child).setPlaceholder(placeholderToBeSet);
+            }
+        }
+        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outPdfPath));
+        Document doc = new Document(pdfDoc);
+        for (IElement child : elements) {
+            if (child instanceof IBlockElement) {
+                doc.add((IBlockElement) child);
+            }
+        }
+        doc.close();
+
+        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, "diff_placeholderTest05_"));
+    }
+
+    @Test
+    public void placeholderTest05A() throws IOException, InterruptedException {
+        runTest("placeholderTest05A");
     }
 
     private void runTest(String name) throws IOException, InterruptedException {

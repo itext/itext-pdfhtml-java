@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -48,10 +48,10 @@ import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreak;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreakType;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 
 import java.util.Map;
 
@@ -88,9 +88,7 @@ public class PageBreakApplierUtil {
      */
     /* Handles left, right, always cases. Avoid is handled at different time along with other css property application */
     public static void addPageBreakElementBefore(ProcessorContext context, ITagWorker parentTagWorker, IElementNode childElement, ITagWorker childTagWorker) {
-        // Applies to block-level elements
-        if (CssConstants.BLOCK.equals(childElement.getStyles().get(CssConstants.DISPLAY)) ||
-                childElement.getStyles().get(CssConstants.DISPLAY) == null && childTagWorker.getElementResult() instanceof IBlockElement) {
+        if (isEligibleForBreakBeforeAfter(parentTagWorker, childElement, childTagWorker)) {
             String pageBreakBeforeVal = childElement.getStyles().get(CssConstants.PAGE_BREAK_BEFORE);
             HtmlPageBreak breakBefore = createHtmlPageBreak(pageBreakBeforeVal);
             if (breakBefore != null) {
@@ -109,15 +107,21 @@ public class PageBreakApplierUtil {
      */
     /* Handles left, right, always cases. Avoid is handled at different time along with other css property application */
     public static void addPageBreakElementAfter(ProcessorContext context, ITagWorker parentTagWorker, IElementNode childElement, ITagWorker childTagWorker) {
-        // Applies to block-level elements
-        if (CssConstants.BLOCK.equals(childElement.getStyles().get(CssConstants.DISPLAY)) ||
-                childElement.getStyles().get(CssConstants.DISPLAY) == null && childTagWorker.getElementResult() instanceof IBlockElement) {
+        if (isEligibleForBreakBeforeAfter(parentTagWorker, childElement, childTagWorker)) {
             String pageBreakAfterVal = childElement.getStyles().get(CssConstants.PAGE_BREAK_AFTER);
             HtmlPageBreak breakAfter = createHtmlPageBreak(pageBreakAfterVal);
             if (breakAfter != null) {
                 parentTagWorker.processTagChild(new HtmlPageBreakWorker(breakAfter), context);
             }
         }
+    }
+
+    private static boolean isEligibleForBreakBeforeAfter(ITagWorker parentTagWorker, IElementNode childElement, ITagWorker childTagWorker) {
+        // Applies to block-level elements as per spec
+        String childElementDisplay = childElement.getStyles().get(CssConstants.DISPLAY);
+        return CssConstants.BLOCK.equals(childElementDisplay) ||
+                CssConstants.TABLE.equals(childElementDisplay) ||
+                childElementDisplay == null && childTagWorker.getElementResult() instanceof IBlockElement;
     }
 
     /**

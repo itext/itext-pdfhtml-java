@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.css.apply;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
 /**
  * Interface to be implemented by all types of CSS appliers.

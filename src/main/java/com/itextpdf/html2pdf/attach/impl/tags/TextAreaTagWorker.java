@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -46,21 +46,26 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.TextArea;
-import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
  * TagWorker class for the {@code textarea} element.
  */
 public class TextAreaTagWorker implements ITagWorker, IDisplayAware {
 
-    /** The Constant DEFAULT_TEXTAREA_NAME. */
+    /**
+     * The Constant DEFAULT_TEXTAREA_NAME.
+     */
     private static final String DEFAULT_TEXTAREA_NAME = "TextArea";
 
-    /** The text area. */
+    /**
+     * The text area.
+     */
     private TextArea textArea;
 
     private String display;
@@ -83,6 +88,20 @@ public class TextAreaTagWorker implements ITagWorker, IDisplayAware {
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_ROWS, rows);
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_COLS, cols);
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
+        String placeholder = element.getAttribute(AttributeConstants.PLACEHOLDER);
+        if (null != placeholder) {
+            Paragraph paragraph;
+            if (placeholder.isEmpty()) {
+                paragraph = new Paragraph();
+            } else {
+                if (placeholder.trim().isEmpty()) {
+                    paragraph = new Paragraph("\u00A0");
+                } else {
+                    paragraph = new Paragraph(placeholder);
+                }
+            }
+            textArea.setPlaceholder(paragraph.setMargin(0));
+        }
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
@@ -112,7 +131,7 @@ public class TextAreaTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        return false;
+        return childTagWorker instanceof PlaceholderTagWorker && null != textArea.getPlaceholder();
     }
 
     /* (non-Javadoc)

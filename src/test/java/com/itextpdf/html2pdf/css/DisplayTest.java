@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -43,14 +43,13 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -64,7 +63,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
-public class DisplayTest extends ExtendedITextTest {
+public class DisplayTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/DisplayTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/DisplayTest/";
@@ -76,14 +75,12 @@ public class DisplayTest extends ExtendedITextTest {
 
     @Test
     public void displayTable01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table01.html"), new File(destinationFolder + "display_table01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table01.pdf", sourceFolder + "cmp_display_table01.pdf", destinationFolder, "diff01_"));
+        convertToPdfAndCompare("display_table01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayTable01ATest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table01A.html"), new File(destinationFolder + "display_table01A.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table01A.pdf", sourceFolder + "cmp_display_table01A.pdf", destinationFolder, "diff01A_"));
+        convertToPdfAndCompare("display_table01A", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -100,14 +97,12 @@ public class DisplayTest extends ExtendedITextTest {
 
     @Test
     public void displayTable03Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table03.html"), new File(destinationFolder + "display_table03.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table03.pdf", sourceFolder + "cmp_display_table03.pdf", destinationFolder, "diff21_"));
+        convertToPdfAndCompare("display_table03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayTable04Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table04.html"), new File(destinationFolder + "display_table04.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table04.pdf", sourceFolder + "cmp_display_table04.pdf", destinationFolder, "diff22_"));
+        convertToPdfAndCompare("display_table04", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -116,14 +111,12 @@ public class DisplayTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)
     })
     public void displayTable05Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table05.html"), new File(destinationFolder + "display_table05.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table05.pdf", sourceFolder + "cmp_display_table05.pdf", destinationFolder, "diff23_"));
+        convertToPdfAndCompare("display_table05", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayTable06Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table06.html"), new File(destinationFolder + "display_table06.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table06.pdf", sourceFolder + "cmp_display_table06.pdf", destinationFolder, "diff24_"));
+        convertToPdfAndCompare("display_table06", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -133,14 +126,12 @@ public class DisplayTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1)
     })
     public void displayTable07Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table07.html"), new File(destinationFolder + "display_table07.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table07.pdf", sourceFolder + "cmp_display_table07.pdf", destinationFolder, "diff24_"));
+        convertToPdfAndCompare("display_table07", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayTable08Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table08.html"), new File(destinationFolder + "display_table08.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table08.pdf", sourceFolder + "cmp_display_table08.pdf", destinationFolder, "diff25_"));
+        convertToPdfAndCompare("display_table08", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -149,14 +140,12 @@ public class DisplayTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100),
     })
     public void displayTable09Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table09.html"), new File(destinationFolder + "display_table09.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table09.pdf", sourceFolder + "cmp_display_table09.pdf", destinationFolder, "diff26_"));
+        convertToPdfAndCompare("display_table09", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayTable10Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table10.html"), new File(destinationFolder + "display_table10.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table10.pdf", sourceFolder + "cmp_display_table10.pdf", destinationFolder, "diff27_"));
+        convertToPdfAndCompare("display_table10", sourceFolder, destinationFolder);
     }
 
     @LogMessages(messages = {
@@ -164,165 +153,143 @@ public class DisplayTest extends ExtendedITextTest {
     })
     @Test
     public void displayTable11Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_table11.html"), new File(destinationFolder + "display_table11.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_table11.pdf", sourceFolder + "cmp_display_table11.pdf", destinationFolder, "diff28_"));
+        convertToPdfAndCompare("display_table11", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInline01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline01.html"), new File(destinationFolder + "display_inline01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline01.pdf", sourceFolder + "cmp_display_inline01.pdf", destinationFolder, "diff02_"));
+        convertToPdfAndCompare("display_inline01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block01.html"), new File(destinationFolder + "display_inline-block01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block01.pdf", sourceFolder + "cmp_display_inline-block01.pdf", destinationFolder, "diff03_"));
+        convertToPdfAndCompare("display_inline-block01", sourceFolder, destinationFolder);
     }
 
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED)})
     public void displayInlineBlock02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block02.html"), new File(destinationFolder + "display_inline-block02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block02.pdf", sourceFolder + "cmp_display_inline-block02.pdf", destinationFolder, "diff04_"));
+        convertToPdfAndCompare("display_inline-block02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock03Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block03.html"), new File(destinationFolder + "display_inline-block03.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block03.pdf", sourceFolder + "cmp_display_inline-block03.pdf", destinationFolder, "diff05_"));
+        convertToPdfAndCompare("display_inline-block03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock04Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block04.html"), new File(destinationFolder + "display_inline-block04.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block04.pdf", sourceFolder + "cmp_display_inline-block04.pdf", destinationFolder, "diff06_"));
+        convertToPdfAndCompare("display_inline-block04", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock05Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block05.html"), new File(destinationFolder + "display_inline-block05.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block05.pdf", sourceFolder + "cmp_display_inline-block05.pdf", destinationFolder, "diff07_"));
+        convertToPdfAndCompare("display_inline-block05", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock06Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block06.html"), new File(destinationFolder + "display_inline-block06.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block06.pdf", sourceFolder + "cmp_display_inline-block06.pdf", destinationFolder, "diff08_"));
+        convertToPdfAndCompare("display_inline-block06", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock07Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block07.html"), new File(destinationFolder + "display_inline-block07.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block07.pdf", sourceFolder + "cmp_display_inline-block07.pdf", destinationFolder, "diff09_"));
+        convertToPdfAndCompare("display_inline-block07", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock08Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block08.html"), new File(destinationFolder + "display_inline-block08.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block08.pdf", sourceFolder + "cmp_display_inline-block08.pdf", destinationFolder, "diff10_"));
+        convertToPdfAndCompare("display_inline-block08", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock09Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block09.html"), new File(destinationFolder + "display_inline-block09.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block09.pdf", sourceFolder + "cmp_display_inline-block09.pdf", destinationFolder, "diff11_"));
+        convertToPdfAndCompare("display_inline-block09", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock10Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block10.html"), new File(destinationFolder + "display_inline-block10.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block10.pdf", sourceFolder + "cmp_display_inline-block10.pdf", destinationFolder, "diff12_"));
+        convertToPdfAndCompare("display_inline-block10", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock11Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block11.html"), new File(destinationFolder + "display_inline-block11.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block11.pdf", sourceFolder + "cmp_display_inline-block11.pdf", destinationFolder, "diff13_"));
+        convertToPdfAndCompare("display_inline-block11", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock12Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block12.html"), new File(destinationFolder + "display_inline-block12.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block12.pdf", sourceFolder + "cmp_display_inline-block12.pdf", destinationFolder, "diff14_"));
+        convertToPdfAndCompare("display_inline-block12", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock13Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block13.html"), new File(destinationFolder + "display_inline-block13.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block13.pdf", sourceFolder + "cmp_display_inline-block13.pdf", destinationFolder, "diff15_"));
+        convertToPdfAndCompare("display_inline-block13", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock14Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block14.html"), new File(destinationFolder + "display_inline-block14.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block14.pdf", sourceFolder + "cmp_display_inline-block14.pdf", destinationFolder, "diff16_"));
+        convertToPdfAndCompare("display_inline-block14", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock15Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block15.html"), new File(destinationFolder + "display_inline-block15.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block15.pdf", sourceFolder + "cmp_display_inline-block15.pdf", destinationFolder, "diff17_"));
+        convertToPdfAndCompare("display_inline-block15", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock16Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block16.html"), new File(destinationFolder + "display_inline-block16.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block16.pdf", sourceFolder + "cmp_display_inline-block16.pdf", destinationFolder, "diff18_"));
+        convertToPdfAndCompare("display_inline-block16", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock17Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block17.html"), new File(destinationFolder + "display_inline-block17.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block17.pdf", sourceFolder + "cmp_display_inline-block17.pdf", destinationFolder, "diff19_"));
+        convertToPdfAndCompare("display_inline-block17", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlock18Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block18.html"), new File(destinationFolder + "display_inline-block18.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block18.pdf", sourceFolder + "cmp_display_inline-block18.pdf", destinationFolder, "diff20_"));
+        convertToPdfAndCompare("display_inline-block18", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlockJustified01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block_justified01.html"), new File(destinationFolder + "display_inline-block_justified01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block_justified01.pdf", sourceFolder + "cmp_display_inline-block_justified01.pdf", destinationFolder, "diff21_"));
+        convertToPdfAndCompare("display_inline-block_justified01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlockJustified02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "display_inline-block_justified02.html"), new File(destinationFolder + "display_inline-block_justified02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "display_inline-block_justified02.pdf", sourceFolder + "cmp_display_inline-block_justified02.pdf", destinationFolder, "diff22_"));
+        convertToPdfAndCompare("display_inline-block_justified02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlockYLineTest01() throws IOException, InterruptedException {
-        runTest("displayInlineBlockYLineTest01");
+        convertToPdfAndCompare("displayInlineBlockYLineTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlockYLineTest02() throws IOException, InterruptedException {
-        runTest("displayInlineBlockYLineTest02");
+        convertToPdfAndCompare("displayInlineBlockYLineTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlockYLineTest03() throws IOException, InterruptedException {
-        runTest("displayInlineBlockYLineTest03");
+        convertToPdfAndCompare("displayInlineBlockYLineTest03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlockYLineTest04() throws IOException, InterruptedException {
-        runTest("displayInlineBlockYLineTest04");
+        convertToPdfAndCompare("displayInlineBlockYLineTest04", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlockYLineTest05() throws IOException, InterruptedException {
-        runTest("displayInlineBlockYLineTest05");
+        convertToPdfAndCompare("displayInlineBlockYLineTest05", sourceFolder, destinationFolder);
     }
 
     @Test
     public void displayInlineBlockYLineTest06() throws IOException, InterruptedException {
-        runTest("displayInlineBlockYLineTest06");
+        convertToPdfAndCompare("displayInlineBlockYLineTest06", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -340,10 +307,5 @@ public class DisplayTest extends ExtendedITextTest {
 
         HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "inlineBlockInsideTableCellTest.html"), pdfDocument, props);
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "inlineBlockInsideTableCellTest.pdf", sourceFolder + "cmp_inlineBlockInsideTableCell.pdf", destinationFolder, "diffinlineBlockInsideTableCellTest_"));
-    }
-
-    private void runTest(String testName) throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_"));
     }
 }

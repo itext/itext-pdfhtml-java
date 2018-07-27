@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,22 +42,17 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class PaddingTest extends ExtendedITextTest {
+public class PaddingTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/PaddingTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/PaddingTest/";
@@ -66,31 +61,19 @@ public class PaddingTest extends ExtendedITextTest {
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
-    
+
     @Test
     public void elementFixedWidthTest() throws IOException, InterruptedException {
-        runTest("elementFixedWidthTest");
+        convertToPdfAndCompare("elementFixedWidthTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void cellPaddingTest01() throws IOException, InterruptedException {
-        runTest("cellPaddingTest01");
+        convertToPdfAndCompare("cellPaddingTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void cellPaddingTest02() throws IOException, InterruptedException {
-        runTest("cellPaddingTest02");
+        convertToPdfAndCompare("cellPaddingTest02", sourceFolder, destinationFolder);
     }
-
-    private void runTest(String name) throws IOException, InterruptedException {
-        String htmlPath = sourceFolder + name + ".html";
-        String pdfPath = destinationFolder + name + ".pdf";
-        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-        String diffPrefix = "diff_" + name + "_";
-        
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
-    }
-
 }

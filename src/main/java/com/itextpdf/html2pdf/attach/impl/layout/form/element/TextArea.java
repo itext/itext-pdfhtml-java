@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -44,13 +44,19 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.element;
 
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.renderer.TextAreaRenderer;
+import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.renderer.IRenderer;
 
-/** 
+/**
  * Extension of the {@link FormField} class representing a button so that
  * a {@link TextAreaRenderer} is used instead of the default renderer for fields.
  */
-public class TextArea extends FormField<TextArea> {
+public class TextArea extends FormField<TextArea> implements IPlaceholderable {
+
+    /**
+     * The placeholder paragraph.
+     */
+    private Paragraph placeholder;
 
     /**
      * Creates a new {@link TextArea} instance.
@@ -74,6 +80,20 @@ public class TextArea extends FormField<TextArea> {
             default:
                 return super.<T1>getDefaultProperty(property);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Paragraph getPlaceholder() {
+        return placeholder;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setPlaceholder(Paragraph placeholder) {
+        this.placeholder = placeholder;
     }
 
     /* (non-Javadoc)

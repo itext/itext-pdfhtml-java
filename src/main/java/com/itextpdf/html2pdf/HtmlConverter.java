@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -45,10 +45,9 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.Attacher;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
-import com.itextpdf.html2pdf.html.IHtmlParser;
-import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
-import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.io.util.FileUtil;
+import com.itextpdf.kernel.counter.event.IMetaInfo;
+import com.itextpdf.kernel.pdf.DocumentProperties;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -57,6 +56,9 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import com.itextpdf.kernel.Version;
+import com.itextpdf.styledxmlparser.IXmlParser;
+import com.itextpdf.styledxmlparser.node.IDocumentNode;
+import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -132,7 +134,7 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
-        convertToPdf(html, new PdfDocument(pdfWriter), converterProperties);
+        convertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())), converterProperties);
     }
 
     /**
@@ -227,7 +229,7 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
-        convertToPdf(htmlStream, new PdfDocument(pdfWriter));
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())));
     }
 
     /**
@@ -241,7 +243,7 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
-        convertToPdf(htmlStream, new PdfDocument(pdfWriter), converterProperties);
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())), converterProperties);
     }
 
     /**
@@ -365,7 +367,7 @@ public class HtmlConverter {
         if (pdfDocument.getReader() != null) {
             throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
         }
-        IHtmlParser parser = new JsoupHtmlParser();
+        IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(html);
         return Attacher.attach(doc, pdfDocument, converterProperties);
     }
@@ -421,7 +423,7 @@ public class HtmlConverter {
         if (pdfDocument.getReader() != null) {
             throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
         }
-        IHtmlParser parser = new JsoupHtmlParser();
+        IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
         return Attacher.attach(doc, pdfDocument, converterProperties);
     }
@@ -497,7 +499,7 @@ public class HtmlConverter {
             }
         }
 
-        IHtmlParser parser = new JsoupHtmlParser();
+        IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(html);
         return Attacher.attach(doc, converterProperties);
     }
@@ -549,8 +551,13 @@ public class HtmlConverter {
             }
         }
 
-        IHtmlParser parser = new JsoupHtmlParser();
+        IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
         return Attacher.attach(doc, converterProperties);
+    }
+
+    private static class HtmlMetaInfo implements IMetaInfo {
+
+        private static final long serialVersionUID = -295587336698550627L;
     }
 }
