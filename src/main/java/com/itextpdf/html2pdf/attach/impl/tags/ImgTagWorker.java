@@ -72,7 +72,7 @@ public class ImgTagWorker implements ITagWorker {
     /**
      * The logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(ObjectTagWorker.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ImgTagWorker.class);
 
     /**
      * The image.
