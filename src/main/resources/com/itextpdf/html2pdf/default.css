@@ -1,5 +1,5 @@
 html {
-    font-family: Times-Roman;
+    font-family: times;
 }
 
 pre, tt, code, kbd, samp {
@@ -325,7 +325,9 @@ input, textarea, select, button {
     display: inline-block;
     text-align: start;
     margin: 0em 0em 0em 0em;
-    font: 13.3333px Arial;
+    font-size: 13.3333px;
+    font-family: Arial, Helvetica;
+    font-weight: normal;
 }
 
 input {
