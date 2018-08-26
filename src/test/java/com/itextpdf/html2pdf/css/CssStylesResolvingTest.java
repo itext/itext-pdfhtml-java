@@ -88,7 +88,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: times-roman");
+                "font-family: times");
     }
 
     @Test
@@ -100,7 +100,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: times-roman");
+                "font-family: times");
     }
 
     @Test
@@ -112,37 +112,37 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: times-roman");
+                "font-family: times");
     }
 
     @Test
     public void stylesInheritanceTest01() throws IOException {
         test("stylesInheritanceTest01.html", "html body p span",
-                "color: blue", "text-align: center", "font-style: italic", "font-size: 11.25pt", "font-family: times-roman");
+                "color: blue", "text-align: center", "font-style: italic", "font-size: 11.25pt", "font-family: times");
     }
 
     @Test
     public void stylesInheritanceTest02() throws IOException {
         test("stylesInheritanceTest02.html", "html body p span",
-                "color: black", "text-align: center", "font-style: italic", "font-size: 11.25pt", "font-family: times-roman");
+                "color: black", "text-align: center", "font-style: italic", "font-size: 11.25pt", "font-family: times");
     }
 
     @Test
     public void stylesInheritanceTest03() throws IOException {
         test("stylesInheritanceTest03.html", "html body p span",
-                "color: green", "font-size: 12.0pt", "font-family: times-roman");
+                "color: green", "font-size: 12.0pt", "font-family: times");
     }
 
     @Test
     public void stylesInheritanceTest04() throws IOException {
         test("stylesInheritanceTest04.html", "html body p span",
-                "color: blue", "font-size: 12.0pt", "font-family: times-roman");
+                "color: blue", "font-size: 12.0pt", "font-family: times");
     }
 
     @Test
     public void stylesInheritanceTest05() throws IOException {
         test("stylesInheritanceTest05.html", "html body p span",
-                "color: black", "font-size: 12.0pt", "font-family: times-roman");
+                "color: black", "font-size: 12.0pt", "font-family: times");
     }
 
     @Test
@@ -151,7 +151,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 20px",
                 "margin-right: 0",
                 "background-color: yellow",
-                "font-size: 12.0pt", "font-family: times-roman");
+                "font-size: 12.0pt", "font-family: times");
     }
 
     @Test
@@ -160,7 +160,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-left: 0",
                 "padding-top: 10px",
                 "background-color: yellow",
-                "font-size: 12.0pt", "font-family: times-roman");
+                "font-size: 12.0pt", "font-family: times");
     }
 
     @Test
@@ -184,7 +184,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: times-roman");
+                "font-family: times");
     }
 
     @Test
@@ -197,7 +197,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: times-roman");
+                "font-family: times");
     }
 
     @Test
@@ -210,7 +210,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: times-roman");
+                "font-family: times");
     }
 
     @Test
@@ -223,7 +223,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: times-roman");
+                "font-family: times");
     }
 
     @Test
@@ -236,7 +236,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "margin-right: 0",
                 "margin-top: 1em",
                 "display: block",
-                "font-family: times-roman");
+                "font-family: times");
     }
 
     @Test
@@ -252,7 +252,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "text-indent: 0",
                 "display: table",
                 "border-spacing: 2px",
-                "font-family: times-roman",
+                "font-family: times",
                 "border-bottom-color: currentcolor",
                 "border-left-color: currentcolor",
                 "border-right-color: currentcolor",
@@ -268,7 +268,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "vertical-align: middle",
                 "display: table-row",
                 "border-spacing: 2px",
-                "font-family: times-roman");
+                "font-family: times");
     }
 
     @Test
@@ -289,7 +289,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "text-align: center",
                 "display: block",
                 "font-size: 12.0pt",
-                "font-family: times-roman");
+                "font-family: times");
     }
 
     @Test
@@ -304,7 +304,7 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
                 "background-color: yellow",
                 "font-size: 12.0pt",
                 "display: block",
-                "font-family: times-roman");
+                "font-family: times");
     }
 
     private void resolveStylesForTree(INode node, ICssResolver cssResolver, CssContext context) {
