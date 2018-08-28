@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'Droid Serif';
+  font-weight: 900;
+  font-style: normal;
+  src: url('web-fonts/droid-serif-regular.ttf') format('truetype'),
+       url('web-fonts/droid-serif-invalid.ttf') format('opentype')/* test invalid font */;
+}
+
+@font-face {
+  font-family: 'Droid Serif';
+  font-weight: 100;
+  font-style: normal;
+  src: url('web-fonts/droid-serif-bold.ttf') format('opentype');
+}
+
+p {
+  font-size: 24pt;
+}
