@@ -173,9 +173,11 @@ public class HtmlConverter {
      */
     public static void convertToPdf(File htmlFile, File pdfFile, ConverterProperties converterProperties) throws IOException {
         if (converterProperties == null) {
-            converterProperties = new ConverterProperties().setBaseUri(Paths.get(FileUtil.getParentDirectory(htmlFile.getAbsolutePath())).toUri().toURL().toExternalForm() + File.separator);
+            String baseUri = FileUtil.getParentDirectory(htmlFile);
+            converterProperties = new ConverterProperties().setBaseUri(baseUri);
         } else if (converterProperties.getBaseUri() == null) {
-            converterProperties = new ConverterProperties(converterProperties).setBaseUri(Paths.get(FileUtil.getParentDirectory(htmlFile.getAbsolutePath())).toUri().toURL().toExternalForm() + File.separator);
+            String baseUri = FileUtil.getParentDirectory(htmlFile);
+            converterProperties = new ConverterProperties(converterProperties).setBaseUri(baseUri);
         }
         try (FileInputStream fileInputStream = new FileInputStream(htmlFile.getAbsolutePath());
              FileOutputStream fileOutputStream = new FileOutputStream(pdfFile.getAbsolutePath())) {
