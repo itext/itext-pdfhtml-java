@@ -95,4 +95,32 @@ public class TextDecorationTest extends ExtendedITextTest {
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "textDecorationTest04.html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest04.pdf", sourceFolder + "cmp_textDecorationTest04.pdf", destinationFolder, "diff04_"));
     }
+
+    @Test
+    public void textDecoration05Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest05.html"), new File(destinationFolder + "textDecorationTest05.pdf"));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "textDecorationTest05.html").getPath() + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest05.pdf", sourceFolder + "cmp_textDecorationTest05.pdf", destinationFolder, "diff05_"));
+    }
+
+    @Test
+    public void textDecoration06Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest06.html"), new File(destinationFolder + "textDecorationTest06.pdf"));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "textDecorationTest06.html").getPath() + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest06.pdf", sourceFolder + "cmp_textDecorationTest06.pdf", destinationFolder, "diff06_"));
+    }
+
+    @Test
+    public void textDecoration07Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest07.html"), new File(destinationFolder + "textDecorationTest07.pdf"));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "textDecorationTest07.html").getPath() + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest07.pdf", sourceFolder + "cmp_textDecorationTest07.pdf", destinationFolder, "diff07_"));
+    }
+
+    @Test
+    public void textDecoration08Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest08.html"), new File(destinationFolder + "textDecorationTest08.pdf"));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "textDecorationTest08.html").getPath() + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "textDecorationTest08.pdf", sourceFolder + "cmp_textDecorationTest08.pdf", destinationFolder, "diff08_"));
+    }
 }
