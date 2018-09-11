@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.element;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.styledxmlparser.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.svg.exceptions.SvgLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -151,4 +152,37 @@ public class SvgTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
     }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_WIDTH),
+            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_HEIGHT),
+    })
+    public void SvgWithoutDimensionsTest() throws IOException, InterruptedException {
+        String name = "svg_without_dimensions";
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+    }
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_WIDTH),
+            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_HEIGHT),
+    })
+    public void SvgWithoutDimensionsWithViewboxTest() throws IOException, InterruptedException {
+        String name = "svg_without_dimensions_with_viewbox";
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_WIDTH, count = 2),
+            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_HEIGHT, count = 2),
+    })
+    public void SvgWithoutDimensionsImageAndObjectRef() throws IOException, InterruptedException {
+        String name = "SvgWithoutDimensionsImageAndObjectRef";
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+    }
+
 }

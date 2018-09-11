@@ -49,6 +49,7 @@ import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.renderers.ISvgNodeRenderer;
 import com.itextpdf.svg.renderers.SvgDrawContext;
@@ -69,8 +70,10 @@ public class SvgProcessingUtil {
      */
     public Image createImageFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument){
         ISvgNodeRenderer topSvgRenderer = result.getRootRenderer();
-        float width = CssUtils.parseAbsoluteLength(topSvgRenderer.getAttribute(AttributeConstants.WIDTH));
-        float height = CssUtils.parseAbsoluteLength(topSvgRenderer.getAttribute(AttributeConstants.HEIGHT));
+        float width, height;
+        float[] wh = SvgConverter.extractWidthAndHeight(topSvgRenderer);
+        width = wh[0];
+        height=wh[1];
         PdfFormXObject pdfForm = new PdfFormXObject(new Rectangle(0, 0, width, height));
         PdfCanvas canvas = new PdfCanvas(pdfForm, pdfDocument);
 
