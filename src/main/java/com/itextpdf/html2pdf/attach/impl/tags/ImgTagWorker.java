@@ -46,22 +46,24 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
-import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.exceptions.SvgProcessingException;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.itextpdf.svg.processors.impl.SvgConverterProperties;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * TagWorker class for the {@code img} element.
@@ -129,7 +131,11 @@ public class ImgTagWorker implements ITagWorker {
 
     private void processAsSvg(InputStream stream, ProcessorContext context) throws IOException {
         SvgProcessingUtil processingUtil = new SvgProcessingUtil();
-        ISvgProcessorResult res = SvgConverter.parseAndProcess(stream);
+        SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
+        svgConverterProperties.setBaseUri(context.getBaseUri())
+                .setFontProvider(context.getFontProvider())
+                .setMediaDeviceDescription(context.getDeviceDescription());
+        ISvgProcessorResult res = SvgConverter.parseAndProcess(stream, svgConverterProperties);
         if (context.getPdfDocument() != null) {
             image = processingUtil.createImageFromProcessingResult(res, context.getPdfDocument());
         }
