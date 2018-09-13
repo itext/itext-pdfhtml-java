@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.css.apply.impl;
 
+import java.util.Map;
+
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
@@ -50,34 +52,36 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.FloatApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OutlineApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.FloatApplierUtil;
+import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
-
-import java.util.Map;
 
 /**
  * {@link ICssApplier} implementation for Span elements.
  */
 public class SpanTagCssApplier implements ICssApplier {
 
+	private SpanTagWorker spanTagWorker;
+	
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
      */
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
-        SpanTagWorker spanTagWorker = (SpanTagWorker) tagWorker;
+        this.spanTagWorker = (SpanTagWorker) tagWorker;
         Map<String, String> cssStyles = stylesContainer.getStyles();
         for (IPropertyContainer child : spanTagWorker.getOwnLeafElements()) {
             // Workaround for form fields so that SpanTagCssApplier does not apply its font-size to the child.
@@ -116,6 +120,22 @@ public class SpanTagCssApplier implements ICssApplier {
      * @param stylesContainer the styles container
      */
     protected void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context, IStylesContainer stylesContainer) {
+    	
+    	IElementNode tag = this.spanTagWorker.getNode();
+    	
+    	if (tag.name().equalsIgnoreCase(TagConstants.B) || css.get(CssConstants.FONT_WEIGHT) != null) {
+    		if (context.isBoldSimulation()) {
+        		element.setProperty(Property.BOLD_SIMULATION, Boolean.TRUE);
+        	}
+		}
+    	else if (tag.name().equalsIgnoreCase(TagConstants.I) || 
+				(css.get(CssConstants.FONT_STYLE) != null &&
+						css.get(CssConstants.FONT_STYLE).equalsIgnoreCase(CssConstants.ITALIC))) {
+    		if (context.isItalicSimulation()) {
+        		element.setProperty(Property.ITALIC_SIMULATION, Boolean.TRUE);
+        	}
+		}
+    	
         FontStyleApplierUtil.applyFontStyles(css, context, stylesContainer, element);
         //TODO DEVSIX-2118: Background-applying currently doesn't work in html way for spans inside other spans.
         BackgroundApplierUtil.applyBackground(css, context, element);

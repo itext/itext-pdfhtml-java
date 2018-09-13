@@ -82,6 +82,12 @@ public class ConverterProperties {
 
     /** Indicates whether the document should be opened in immediate flush or not **/
     private boolean immediateFlush = true;
+    
+    /** Indicates whether the bold font should be simulated or not **/
+    private boolean boldSimulation = false;
+    
+    /** Indicates whether the italic font should be simulated or not **/
+    private boolean italicSimulation = false;
 
     /** Meta info that will be added to the events thrown by html2Pdf */
     private IMetaInfo metaInfo;
@@ -297,6 +303,45 @@ public class ConverterProperties {
     }
 
     /**
+     * Checks if boldSimulation is set
+     * @return true if boldSimulation is set, false if not.
+     */
+	public boolean isBoldSimulation() {
+		return boldSimulation;
+	}
+
+	 /**
+     * Sets the bold font simulation.
+     *
+     * @param boldSimulation the boldSimulation
+     * @return the ConverterProperties instance
+     */
+	public ConverterProperties setBoldSimulation(boolean boldSimulation) {
+		this.boldSimulation = boldSimulation;
+		return this;
+	}
+	
+    /**
+     * Checks if italicSimulation is set
+     * @return true if italicSimulation is set, false if not.
+     */
+	public boolean isItalicSimulation() {
+		return italicSimulation;
+	}
+
+	 /**
+     * Sets the italic font simulation.
+     *
+     * @param italicSimulation the italicSimulation
+     * @return the ConverterProperties instance
+     */
+	public ConverterProperties setItalicSimulation(boolean italicSimulation) {
+		this.italicSimulation = italicSimulation;
+		return this;
+	}
+    
+
+	/**
      * Gets html meta info. This meta info will be passed with to {@link com.itextpdf.kernel.counter.EventCounter}
      * with {@link com.itextpdf.html2pdf.events.PdfHtmlEvent} and can be used to determine event origin.
      *

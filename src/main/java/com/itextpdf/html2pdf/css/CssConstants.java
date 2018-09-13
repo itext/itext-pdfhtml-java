@@ -109,6 +109,45 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant TABLE_LAYOUT. */
     public static final String TABLE_LAYOUT = "table-layout";
 
+    /** The Constant TEXT_ALIGN. */
+    public static final String TEXT_ALIGN = "text-align";
+
+    /** The Constant TEXT_ALIGN_LAST. */
+    public static final String TEXT_ALIGN_LAST = "text-align-last";
+
+    /** The Constant TEXT_COMBINE_UPRIGHT. */
+    public static final String TEXT_COMBINE_UPRIGHT = "text-combine-upright";
+
+    /** The Constant TEXT_DECORATION. */
+    public static final String TEXT_DECORATION = "text-decoration";
+    
+    /** The Constant TEXT_DECORATION_LINE. */
+    public static final String TEXT_DECORATION_LINE = "text-decoration-line";
+    
+    /** The Constant TEXT_INDENT. */
+    public static final String TEXT_INDENT = "text-indent";
+
+    /** The Constant TEXT_JUSTIFY. */
+    public static final String TEXT_JUSTIFY = "text-justify";
+
+    /** The Constant TEXT_ORIENTATION. */
+    public static final String TEXT_ORIENTATION = "text-orientation";
+
+    /** The Constant TEXT_SHADOW. */
+    public static final String TEXT_SHADOW = "text-shadow";
+
+    /** The Constant TEXT_TRANSFORM. */
+    public static final String TEXT_TRANSFORM = "text-transform";
+
+    /** The Constant TEXT_UNDERLINE_POSITION. */
+    public static final String TEXT_UNDERLINE_POSITION = "text-underline-position";
+
+    /** The Constant TRANSFORM. */
+    public static final String TRANSFORM = "transform";
+
+    /** The Constant UNICODE_BIDI. */
+    public static final String UNICODE_BIDI = "unicode-bidi";
+
     /** The Constant VERTICAL_ALIGN. */
     public static final String VERTICAL_ALIGN = "vertical-align";
 

@@ -42,6 +42,13 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
@@ -63,12 +70,6 @@ import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Utilities class to apply font styles.
@@ -93,7 +94,7 @@ public final class FontStyleApplierUtil {
      * @param element the element
      */
     public static void applyFontStyles(Map<String, String> cssProps, ProcessorContext context, IStylesContainer stylesContainer, IPropertyContainer element) {
-        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+    	float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
         if (em != 0) {
             element.setProperty(Property.FONT_SIZE, UnitValue.createPointValue(em));
@@ -153,6 +154,7 @@ public final class FontStyleApplierUtil {
         }
 
         String textDecorationProp = cssProps.get(CssConstants.TEXT_DECORATION);
+        if (textDecorationProp == null) textDecorationProp = cssProps.get(CssConstants.TEXT_DECORATION_LINE);
         if (textDecorationProp != null) {
             String[] textDecorations = textDecorationProp.split("\\s+");
             List<Underline> underlineList = new ArrayList<>();
