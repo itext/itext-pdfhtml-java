@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -44,14 +44,11 @@ package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.resolve.CssDefaults;
-import com.itextpdf.html2pdf.css.util.CssUtils;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.DashedBorder;
-import com.itextpdf.layout.borders.DottedBorder;
 import com.itextpdf.layout.borders.DoubleBorder;
 import com.itextpdf.layout.borders.GrooveBorder;
 import com.itextpdf.layout.borders.InsetBorder;
@@ -62,6 +59,8 @@ import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.property.BorderRadius;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

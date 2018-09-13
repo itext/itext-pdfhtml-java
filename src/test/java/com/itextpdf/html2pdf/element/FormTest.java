@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -147,7 +147,59 @@ public class FormTest extends ExtendedITextTest {
         runTest("checkbox1");
     }
 
+    @Test
+    public void buttonWithChildrenTest() throws IOException, InterruptedException {
+        runTest("buttonWithChildren");
+    }
+
+    @Test
+    public void buttonSplit01Test() throws IOException, InterruptedException {
+        runTest("buttonSplit01");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
+    })
+    public void buttonSplit02Test() throws IOException, InterruptedException {
+        runTest("buttonSplit02");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
+    })
+    public void buttonSplit03Test() throws IOException, InterruptedException {
+        runTest("buttonSplit03");
+    }
+
+    @Test
+    public void radiobox1Test() throws IOException, InterruptedException {
+        runTest("radiobox1");
+    }
+
+    @Test
+    public void radiobox2Test() throws IOException, InterruptedException {
+        runTest("radiobox2");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, count = 2))
+    public void selectTest01() throws IOException, InterruptedException {
+        runTest("select01", false);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, count = 3))
+    public void selectTest02() throws IOException, InterruptedException {
+        runTest("select02", false);
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
+        runTest(name, true);
+    }
+
+    private void runTest(String name, boolean flattenPdfAcroFormFields) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String outPdfPath = destinationFolder + name + ".pdf";
         String outAcroPdfPath = destinationFolder + name + "_acro.pdf";
@@ -159,13 +211,17 @@ public class FormTest extends ExtendedITextTest {
 
         HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath));
         HtmlConverter.convertToPdf(new File(htmlPath), new File(outAcroPdfPath), new ConverterProperties().setCreateAcroForm(true));
-        PdfDocument document = new PdfDocument(new PdfReader(outAcroPdfPath), new PdfWriter(outAcroFlattenPdfPath));
-        PdfAcroForm acroForm = PdfAcroForm.getAcroForm(document, false);
-        acroForm.flattenFields();
-        document.close();
+        if (flattenPdfAcroFormFields) {
+            PdfDocument document = new PdfDocument(new PdfReader(outAcroPdfPath), new PdfWriter(outAcroFlattenPdfPath));
+            PdfAcroForm acroForm = PdfAcroForm.getAcroForm(document, false);
+            acroForm.flattenFields();
+            document.close();
+        }
 
         Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));
         Assert.assertNull(new CompareTool().compareByContent(outAcroPdfPath, cmpAcroPdfPath, destinationFolder, diff));
-        Assert.assertNull(new CompareTool().compareByContent(outAcroFlattenPdfPath, cmpAcroFlattenPdfPath, destinationFolder, diff));
+        if (flattenPdfAcroFormFields) {
+            Assert.assertNull(new CompareTool().compareByContent(outAcroFlattenPdfPath, cmpAcroFlattenPdfPath, destinationFolder, diff));
+        }
     }
 }

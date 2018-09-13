@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -49,13 +49,15 @@ import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.CheckBox;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.Radio;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,10 +66,14 @@ import org.slf4j.LoggerFactory;
  */
 public class InputTagWorker implements ITagWorker, IDisplayAware {
 
-    /** The form element. */
+    /**
+     * The form element.
+     */
     private IElement formElement;
 
-    /** The display. */
+    /**
+     * The display.
+     */
     private String display;
 
     /**
@@ -85,7 +91,23 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
                 || AttributeConstants.PASSWORD.equals(inputType) || AttributeConstants.NUMBER.equals(inputType)) {
             Integer size = CssUtils.parseInteger(element.getAttribute(AttributeConstants.SIZE));
             formElement = new InputField(name);
-            formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, preprocessInputValue(value, inputType));
+            value = preprocessInputValue(value, inputType);
+            // process placeholder instead
+            String placeholder = element.getAttribute(AttributeConstants.PLACEHOLDER);
+            if (null != placeholder) {
+                Paragraph paragraph;
+                if (placeholder.isEmpty()) {
+                    paragraph = new Paragraph();
+                } else {
+                    if (placeholder.trim().isEmpty()) {
+                        paragraph = new Paragraph("\u00A0");
+                    } else {
+                        paragraph = new Paragraph(placeholder);
+                    }
+                }
+                ((InputField) formElement).setPlaceholder(paragraph.setMargin(0));
+            }
+            formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
             formElement.setProperty(Html2PdfProperty.FORM_FIELD_SIZE, size);
             if (AttributeConstants.PASSWORD.equals(inputType)) {
                 formElement.setProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG, true);
@@ -97,6 +119,15 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
             formElement = new CheckBox(name);
             String checked = element.getAttribute(AttributeConstants.CHECKED);
             if (null != checked) {
+                formElement.setProperty(Html2PdfProperty.FORM_FIELD_CHECKED, checked); // has attribute == is checked
+            }
+        } else if (AttributeConstants.RADIO.equals(inputType)) {
+            formElement = new Radio(name);
+            String radioGroupName = element.getAttribute(AttributeConstants.NAME);
+            formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, radioGroupName);
+            String checked = element.getAttribute(AttributeConstants.CHECKED);
+            if (null != checked) {
+                context.getRadioCheckResolver().checkField(radioGroupName, (Radio) formElement);
                 formElement.setProperty(Html2PdfProperty.FORM_FIELD_CHECKED, checked); // has attribute == is checked
             }
         } else {
@@ -138,7 +169,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        return false;
+        return childTagWorker instanceof PlaceholderTagWorker && null != ((InputField) formElement).getPlaceholder();
     }
 
     /* (non-Javadoc)

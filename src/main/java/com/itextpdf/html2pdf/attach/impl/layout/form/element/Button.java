@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -46,9 +46,10 @@ import com.itextpdf.html2pdf.attach.impl.layout.form.renderer.ButtonRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
 
 /**
- * Extension of the {@link FormField} class representing a button so that
- * a {@link ButtonRenderer} is used instead.
+ * Extension of the {@link FormField} class representing a input with type button or submit in html
+ * @deprecated will be renamed to {@code InputButton} in next major release
  */
+@Deprecated
 public class Button extends FormField<Button> {
 
     /**

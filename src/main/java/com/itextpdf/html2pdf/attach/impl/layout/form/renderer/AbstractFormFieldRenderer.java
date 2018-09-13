@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -46,16 +46,18 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.kernel.geom.Rectangle;
-import com.itextpdf.layout.layout.LayoutArea;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
 import com.itextpdf.layout.layout.MinMaxWidthLayoutResult;
 import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils;
 import com.itextpdf.layout.property.FloatPropertyValue;
+import com.itextpdf.layout.property.OverflowPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.layout.renderer.*;
+import com.itextpdf.layout.renderer.BlockRenderer;
+import com.itextpdf.layout.renderer.DrawContext;
+import com.itextpdf.layout.renderer.ILeafElementRenderer;
+import com.itextpdf.layout.renderer.IRenderer;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -108,38 +110,14 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         float parentWidth = layoutContext.getArea().getBBox().getWidth();
         float parentHeight = layoutContext.getArea().getBBox().getHeight();
 
-        UnitValue minHeight = this.<UnitValue>getProperty(Property.MIN_HEIGHT);
-        UnitValue maxHeight = this.<UnitValue>getProperty(Property.MAX_HEIGHT);
-        UnitValue height = this.<UnitValue>getProperty(Property.HEIGHT);
-        boolean restoreMinHeight = hasOwnProperty(Property.MIN_HEIGHT);
-        boolean restoreMaxHeight = hasOwnProperty(Property.MAX_HEIGHT);
-        boolean restoreHeight = hasOwnProperty(Property.HEIGHT);
-        setProperty(Property.MIN_HEIGHT, null);
-        setProperty(Property.MAX_HEIGHT, null);
-        setProperty(Property.HEIGHT, null);
-
         IRenderer renderer = createFlatRenderer();
+        renderer.setProperty(Property.OVERFLOW_X, OverflowPropertyValue.VISIBLE);
+        renderer.setProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);
         addChild(renderer);
 
         Rectangle bBox = layoutContext.getArea().getBBox().clone().moveDown(INF - parentHeight).setHeight(INF);
         layoutContext.getArea().setBBox(bBox);
         LayoutResult result = super.layout(layoutContext);
-
-        if (restoreMinHeight) {
-            setProperty(Property.MIN_HEIGHT, minHeight);
-        } else {
-            deleteOwnProperty(Property.MIN_HEIGHT);
-        }
-        if (restoreMaxHeight) {
-            setProperty(Property.MAX_HEIGHT, maxHeight);
-        } else {
-            deleteOwnProperty(Property.MAX_HEIGHT);
-        }
-        if (restoreHeight) {
-            setProperty(Property.HEIGHT, height);
-        } else {
-            deleteOwnProperty(Property.HEIGHT);
-        }
 
         if (!Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT)) && (result.getStatus() != LayoutResult.FULL)) {
             //@TODO investigate this tricky code a little more.
@@ -151,11 +129,13 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
                 childRenderers.clear();
                 childRenderers.add(flatRenderer);
                 adjustFieldLayout(layoutContext);
-                Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
-                occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
-                applyPaddings(occupiedArea.getBBox(), true);
-                applyBorderBox(occupiedArea.getBBox(), true);
-                applyMargins(occupiedArea.getBBox(), true);
+                if (isLayoutBasedOnFlatRenderer()) {
+                    Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
+                    occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
+                    applyPaddings(occupiedArea.getBBox(), true);
+                    applyBorderBox(occupiedArea.getBBox(), true);
+                    applyMargins(occupiedArea.getBBox(), true);
+                }
             }
 
             return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth());
@@ -165,17 +145,18 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
             childRenderers.clear();
             childRenderers.add(flatRenderer);
             adjustFieldLayout(layoutContext);
-            Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
-            occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
-            applyPaddings(occupiedArea.getBBox(), true);
-            applyBorderBox(occupiedArea.getBBox(), true);
-            applyMargins(occupiedArea.getBBox(), true);
+            if (isLayoutBasedOnFlatRenderer()) {
+                Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
+                occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
+                applyPaddings(occupiedArea.getBBox(), true);
+                applyBorderBox(occupiedArea.getBBox(), true);
+                applyMargins(occupiedArea.getBBox(), true);
+            }
         } else {
             LoggerFactory.getLogger(getClass()).error(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD);
             occupiedArea.getBBox().setWidth(0).setHeight(0);
         }
         if (!Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT)) && !isRendererFit(parentWidth, parentHeight)) {
-            setProperty(Property.FORCED_PLACEMENT, true);
             occupiedArea.getBBox().setWidth(0).setHeight(0);
             return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth());
         }
@@ -204,7 +185,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         drawContext.getCanvas().saveState();
         boolean flatten = isFlatten();
         if (flatten) {
-            drawContext.getCanvas().rectangle(occupiedArea.getBBox()).clip().newPath();
+            drawContext.getCanvas().rectangle(applyBorderBox(occupiedArea.getBBox(), false)).clip().newPath();
             flatRenderer.draw(drawContext);
         } else {
             applyAcroField(drawContext);
@@ -231,35 +212,15 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
     protected MinMaxWidth getMinMaxWidth() {
         childRenderers.clear();
         flatRenderer = null;
-
-        UnitValue maxHeight = this.<UnitValue>getProperty(Property.MAX_HEIGHT);
-        UnitValue height = this.<UnitValue>getProperty(Property.HEIGHT);
-        boolean restoreMaxHeight = hasOwnProperty(Property.MAX_HEIGHT);
-        boolean restoreHeight = hasOwnProperty(Property.HEIGHT);
-        setProperty(Property.MAX_HEIGHT, null);
-        setProperty(Property.HEIGHT, null);
-
         IRenderer renderer = createFlatRenderer();
         addChild(renderer);
-
         MinMaxWidth minMaxWidth = super.getMinMaxWidth();
-
-        if (restoreMaxHeight) {
-            setProperty(Property.MAX_HEIGHT, maxHeight);
-        } else {
-            deleteOwnProperty(Property.MAX_HEIGHT);
-        }
-        if (restoreHeight) {
-            setProperty(Property.HEIGHT, height);
-        } else {
-            deleteOwnProperty(Property.HEIGHT);
-        }
-
         return minMaxWidth;
     }
 
     /**
      * Adjusts the field layout.
+     *
      * @deprecated Will be removed in 3.0.0, override {@link #adjustFieldLayout(LayoutContext)} instead.
      */
     @Deprecated
@@ -326,5 +287,9 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
             return getContentWidth();
         }
         return super.retrieveWidth(parentBoxWidth);
+    }
+
+    protected boolean isLayoutBasedOnFlatRenderer() {
+        return true;
     }
 }

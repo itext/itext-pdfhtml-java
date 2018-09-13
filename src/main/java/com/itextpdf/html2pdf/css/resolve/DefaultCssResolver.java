@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -45,34 +45,41 @@ package com.itextpdf.html2pdf.css.resolve;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.CssDeclaration;
-import com.itextpdf.html2pdf.css.CssFontFaceRule;
-import com.itextpdf.html2pdf.css.CssStatement;
-import com.itextpdf.html2pdf.css.CssStyleSheet;
 import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
-import com.itextpdf.html2pdf.css.media.CssMediaRule;
-import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
-import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
-import com.itextpdf.html2pdf.css.parse.CssRuleSetParser;
-import com.itextpdf.html2pdf.css.parse.CssStyleSheetParser;
-import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementNode;
-import com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver;
-import com.itextpdf.html2pdf.css.resolve.shorthand.ShorthandResolverFactory;
-import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.html2pdf.css.validate.CssDeclarationValidationMaster;
-import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.exception.Html2PdfException;
 import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.html2pdf.html.node.IDataNode;
-import com.itextpdf.html2pdf.html.node.IDocumentNode;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.html2pdf.html.node.INode;
-import com.itextpdf.html2pdf.html.node.IStylesContainer;
-import com.itextpdf.html2pdf.resolver.resource.ResourceResolver;
 import com.itextpdf.io.util.DecimalFormatUtil;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.io.util.StreamUtil;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.styledxmlparser.css.CssDeclaration;
+import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
+import com.itextpdf.styledxmlparser.css.CssStatement;
+import com.itextpdf.styledxmlparser.css.CssStyleSheet;
+import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
+import com.itextpdf.styledxmlparser.css.ICssResolver;
+import com.itextpdf.styledxmlparser.css.media.CssMediaRule;
+import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
+import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
+import com.itextpdf.styledxmlparser.css.parse.CssRuleSetParser;
+import com.itextpdf.styledxmlparser.css.parse.CssStyleSheetParser;
+import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
+import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
+import com.itextpdf.styledxmlparser.css.resolve.CssInheritance;
+import com.itextpdf.styledxmlparser.css.resolve.CssPropertyMerger;
+import com.itextpdf.styledxmlparser.css.resolve.IStyleInheritance;
+import com.itextpdf.styledxmlparser.css.resolve.shorthand.IShorthandResolver;
+import com.itextpdf.styledxmlparser.css.resolve.shorthand.ShorthandResolverFactory;
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.validate.CssDeclarationValidationMaster;
+import com.itextpdf.styledxmlparser.node.IDataNode;
+import com.itextpdf.styledxmlparser.node.IDocumentNode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.INode;
+import com.itextpdf.styledxmlparser.node.IStylesContainer;
+import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -100,6 +107,11 @@ public class DefaultCssResolver implements ICssResolver {
      * The device description.
      */
     private MediaDeviceDescription deviceDescription;
+
+    /**
+     * Css inheritance checker
+     */
+    private IStyleInheritance cssInheritance = new CssInheritance();
 
     /**
      * The list of fonts.
@@ -138,11 +150,18 @@ public class DefaultCssResolver implements ICssResolver {
         collectFonts();
     }
 
+    @Override
+    public Map<String, String> resolveStyles(INode element, AbstractCssContext context) {
+        if (context instanceof CssContext) {
+            return resolveStyles(element, (CssContext) context);
+        }
+        throw new Html2PdfException("custom AbstractCssContext implementations are not supported yet");
+    }
+
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.css.resolve.ICssResolver#resolveStyles(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.resolve.CssContext)
      */
-    @Override
-    public Map<String, String> resolveStyles(INode element, CssContext context) {
+    private Map<String, String> resolveStyles(INode element, CssContext context) {
         List<CssDeclaration> nodeCssDeclarations = UserAgentCss.getStyles(element);
         if (element instanceof IElementNode) {
             nodeCssDeclarations.addAll(HtmlStylesToCssConverter.convert((IElementNode) element));
@@ -294,9 +313,8 @@ public class DefaultCssResolver implements ICssResolver {
      * @param rootNode         the root node
      * @param resourceResolver the resource resolver
      * @param cssContext       the CSS context
-     * @return the node (always null in this case)
      */
-    private INode collectCssDeclarations(INode rootNode, ResourceResolver resourceResolver, CssContext cssContext) {
+    private void collectCssDeclarations(INode rootNode, ResourceResolver resourceResolver, CssContext cssContext) {
         cssStyleSheet = new CssStyleSheet();
         LinkedList<INode> q = new LinkedList<>();
         q.add(rootNode);
@@ -335,7 +353,6 @@ public class DefaultCssResolver implements ICssResolver {
                 }
             }
         }
-        return null;
     }
 
     /**
@@ -381,7 +398,7 @@ public class DefaultCssResolver implements ICssResolver {
      */
     private void mergeParentCssDeclaration(Map<String, String> styles, String cssProperty, String parentPropValue, Map<String, String> parentStyles) {
         String childPropValue = styles.get(cssProperty);
-        if ((childPropValue == null && CssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(childPropValue)) {
+        if ((childPropValue == null && cssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(childPropValue)) {
             if (valueIsOfMeasurement(parentPropValue, CssConstants.EM) || valueIsOfMeasurement(parentPropValue, CssConstants.EX) ||
                     valueIsOfMeasurement(parentPropValue, CssConstants.PERCENTAGE) && fontSizeDependentPercentage.contains(cssProperty)) {
                 float absoluteParentFontSize = CssUtils.parseAbsoluteLength(parentStyles.get(CssConstants.FONT_SIZE));

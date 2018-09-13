@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -45,36 +45,34 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.forms.fields.PdfButtonFormField;
 import com.itextpdf.forms.fields.PdfFormField;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.forms.util.DrawingUtil;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.CheckBox;
-import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.property.Leading;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
-import org.slf4j.LoggerFactory;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * The {@link AbstractOneLineTextFieldRenderer} implementation for checkboxes.
  */
-public class CheckBoxRenderer extends AbstractOneLineTextFieldRenderer {
+public class CheckBoxRenderer extends AbstractFormFieldRenderer {
 
-    public static final Color CHECKBOX_BORDER_COLOR = ColorConstants.DARK_GRAY;
-    private static final float CHECKBOX_BORDER_WIDTH = 0.75f; // 1px
-    private static final float CHECKBOX_FONT_SIZE = 6f; // enough to fit the area
-    private static final float CHECKBOX_HEIGHT = 8.25f; // 11px
-    private static final float CHECKBOX_WIDTH = 8.25f; // 11px
+    private static final Color DEFAULT_BORDER_COLOR = ColorConstants.DARK_GRAY;
+    private static final Color DEFAULT_BACKGROUND_COLOR = ColorConstants.WHITE;
+    private static final float DEFAULT_BORDER_WIDTH = 0.75f; // 1px
+    private static final float DEFAULT_SIZE = 8.25f; // 11px
 
     /**
      * Creates a new {@link CheckBoxRenderer} instance.
@@ -95,7 +93,12 @@ public class CheckBoxRenderer extends AbstractOneLineTextFieldRenderer {
 
     @Override
     protected IRenderer createFlatRenderer() {
-        return createParagraphRenderer(isBoxChecked() ? "\u2713" : "\u00A0");
+        Paragraph paragraph = new Paragraph()
+                .setWidth(DEFAULT_SIZE)
+                .setHeight(DEFAULT_SIZE)
+                .setBorder(new SolidBorder(DEFAULT_BORDER_COLOR, DEFAULT_BORDER_WIDTH))
+                .setBackgroundColor(DEFAULT_BACKGROUND_COLOR);
+        return new FlatParagraphRenderer(paragraph);
     }
 
     @Override
@@ -108,11 +111,7 @@ public class CheckBoxRenderer extends AbstractOneLineTextFieldRenderer {
      */
     @Override
     protected void adjustFieldLayout(LayoutContext layoutContext) {
-        updatePdfFont((ParagraphRenderer) flatRenderer);
-        if (null == font) {
-            LoggerFactory.getLogger(getClass()).error(MessageFormatUtil.format(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "checkbox input"));
-            setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
-        }
+        this.setProperty(Property.BACKGROUND, null);
     }
 
     /**
@@ -138,24 +137,28 @@ public class CheckBoxRenderer extends AbstractOneLineTextFieldRenderer {
         PdfAcroForm.getAcroForm(doc, true).addField(checkBox, page);
     }
 
-    /**
-     * Creates a paragraph renderer.
-     *
-     * @param defaultValue the default value
-     * @return the renderer
-     */
-    IRenderer createParagraphRenderer(String defaultValue) {
-        Paragraph paragraph = new Paragraph(defaultValue)
-                .setWidth(CHECKBOX_WIDTH)
-                .setHeight(CHECKBOX_HEIGHT)
-                .setBorder(new SolidBorder(CHECKBOX_BORDER_COLOR, CHECKBOX_BORDER_WIDTH))
-                .setFontSize(CHECKBOX_FONT_SIZE)
-                .setTextAlignment(TextAlignment.CENTER);
-        Leading leading = this.<Leading>getProperty(Property.LEADING);
-        if (leading != null) {
-            paragraph.setProperty(Property.LEADING, leading);
+    @Override
+    protected boolean isLayoutBasedOnFlatRenderer() {
+        return false;
+    }
+
+    private class FlatParagraphRenderer extends ParagraphRenderer {
+
+        public FlatParagraphRenderer(Paragraph modelElement) {
+            super(modelElement);
         }
-        return paragraph.createRendererSubTree();
+
+        @Override
+        public void drawChildren(DrawContext drawContext) {
+            if (isBoxChecked()) {
+                PdfCanvas canvas = drawContext.getCanvas();
+                Rectangle rectangle = getInnerAreaBBox();
+                canvas.saveState();
+                canvas.setFillColor(ColorConstants.BLACK);
+                DrawingUtil.drawPdfACheck(canvas, rectangle.getWidth(), rectangle.getHeight(), rectangle.getLeft(), rectangle.getBottom());
+                canvas.restoreState();
+            }
+        }
     }
 }
 

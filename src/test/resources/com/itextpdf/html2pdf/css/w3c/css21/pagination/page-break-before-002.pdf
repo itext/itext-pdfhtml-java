@@ -1,9 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 163>>stream
-xœuA‚0E÷=Å_ê¦
-%b·&º7éŠ‚"…2MôöÖ€	1q3«ÿŞ¼AŒØœ$)L%Ô¹Îä>‡)ÅÊÔä	02Öæ&FœÅ0éh%Uºd:Ç¿Û¯<Ùj©õrŒ‚`ÑÛ+¡ğdï°“×Íˆ¶é®Ó“å?å§7ßK•Í½‘cŠ¹cíB[¢÷®—¨éÚW<4½ŠR¸í×‰F³
+<</Filter/FlateDecode/Length 162>>stream
+xœuA‚0E÷sŠ¿ÔM0b·&º7éŠ¢"…2Môö– 	1q3«ÿŞ¼ö†VÇI
+SQ¶E®7j—Ã”´05{Æ#‚¥¹ÑÁĞ‰ú	H?€ÎT–Î™ÖÉïö+OÖZi=£`XtöÂ(<Û;l%ì!õu@sm®‚ğSÔ?åØ›ë1aêœpÌjšwe8GMÛ¼âáéU”º ]˜iß×LF²
 endstream
 endobj
 4 0 obj
@@ -13,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171116194430+03'00')/ModDate(D:20171116194430+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: page-break-before inline elements)/assert(The 'page-break-before' property applies to block-level elements only.)/flags(paged)>>
+<</CreationDate(D:20180413130315+03'00')/ModDate(D:20180413130315+03'00')/Producer(iText® 7.1.2-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: page-break-before inline elements)/assert(The 'page-break-before' property applies to block-level elements only.)/flags(paged)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -27,16 +27,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000387 00000 n 
-0000000920 00000 n 
-0000000432 00000 n 
-0000000245 00000 n 
+0000000386 00000 n 
+0000000919 00000 n 
+0000000431 00000 n 
+0000000244 00000 n 
 0000000015 00000 n 
-0000000741 00000 n 
-0000000831 00000 n 
+0000000740 00000 n 
+0000000830 00000 n 
 trailer
-<</ID [<d11dc0911b33ae0baef668f14f441b9e><d11dc0911b33ae0baef668f14f441b9e>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<f96e6c1452a68c54e36add5daa8bef53><f96e6c1452a68c54e36add5daa8bef53>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.2-SNAPSHOT
 startxref
-971
+970
 %%EOF

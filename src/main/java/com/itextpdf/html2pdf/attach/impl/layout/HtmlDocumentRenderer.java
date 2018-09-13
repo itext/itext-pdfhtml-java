@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -43,26 +43,36 @@
 package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.css.page.PageContextConstants;
-import com.itextpdf.html2pdf.css.resolve.ICssResolver;
-import com.itextpdf.html2pdf.html.node.INode;
 import com.itextpdf.kernel.events.Event;
 import com.itextpdf.kernel.events.IEventHandler;
 import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.kernel.pdf.tagging.StandardRoles;
+import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.AreaBreak;
+import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.layout.LayoutArea;
 import com.itextpdf.layout.layout.LayoutPosition;
 import com.itextpdf.layout.layout.LayoutResult;
+import com.itextpdf.layout.property.Background;
+import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
+import com.itextpdf.styledxmlparser.css.ICssResolver;
+import com.itextpdf.styledxmlparser.css.page.PageContextConstants;
+import com.itextpdf.styledxmlparser.node.INode;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The DocumentRenderer class for HTML.
@@ -158,12 +168,13 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
             if (Boolean.TRUE.equals(renderer.<Boolean>getProperty(Html2PdfProperty.KEEP_WITH_PREVIOUS))) {
                 waitingElement.setProperty(Property.KEEP_WITH_NEXT, true);
             }
-            super.addChild(waitingElement);
-            if (!isRunningElementsOnly(waitingElement)) {
+            IRenderer element = waitingElement;
+            waitingElement = null;
+            super.addChild(element);
+            if (!isRunningElementsOnly(element)) {
                 // After we have added any child, we should not trim first pages because of break before element, even if the added child had zero height
                 shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
             }
-            waitingElement = null;
         }
         waitingElement = renderer;
 
@@ -310,13 +321,59 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         }
 
         nextProcessor.processNewPage(addedPage);
-
         float[] margins = nextProcessor.computeLayoutMargins();
+        applyHtmlBodyStyles(addedPage, margins);
         setProperty(Property.MARGIN_TOP, margins[0]);
         setProperty(Property.MARGIN_RIGHT, margins[1]);
         setProperty(Property.MARGIN_BOTTOM, margins[2]);
         setProperty(Property.MARGIN_LEFT, margins[3]);
+
         return new PageSize(addedPage.getTrimBox());
+    }
+
+    private void applyHtmlBodyStyles(PdfPage page, float[] defaultMargins) {
+        BodyHtmlStylesContainer[] styles = new BodyHtmlStylesContainer[2];
+        styles[0] = ((IPropertyContainer) document).<BodyHtmlStylesContainer>getProperty(Html2PdfProperty.HTML_STYLING);
+        styles[1] = ((IPropertyContainer) document).<BodyHtmlStylesContainer>getProperty(Html2PdfProperty.BODY_STYLING);
+        int firstBackground = applyFirstBackground(page, defaultMargins, styles);
+        for (int i = 0; i < 2; i++)
+            if (styles[i] != null) {
+                if (styles[i].hasContentToDraw())
+                    drawSimulatedDiv(page, styles[i].properties, defaultMargins, firstBackground != i);
+                for (int j = 0; j < 4; j++)
+                    defaultMargins[j] += styles[i].getTotalWidth()[j];
+            }
+    }
+
+    private int applyFirstBackground(PdfPage page, float[] defaultMargins, BodyHtmlStylesContainer[] styles) {
+        int firstBackground = -1;
+        if (styles[0] != null && (styles[0].<Background>getOwnProperty(Property.BACKGROUND) != null || styles[0].<BackgroundImage>getOwnProperty(Property.BACKGROUND_IMAGE) != null))
+            firstBackground = 0;
+        else if (styles[1] != null && (styles[1].<Background>getOwnProperty(Property.BACKGROUND) != null || styles[1].<BackgroundImage>getOwnProperty(Property.BACKGROUND_IMAGE) != null))
+            firstBackground = 1;
+        if (firstBackground != -1) {
+            HashMap<Integer, Object> background = new HashMap<>();
+            background.put(Property.BACKGROUND, styles[firstBackground].<Background>getProperty(Property.BACKGROUND));
+            background.put(Property.BACKGROUND_IMAGE, styles[firstBackground].<BackgroundImage>getProperty(Property.BACKGROUND_IMAGE));
+            drawSimulatedDiv(page, background, defaultMargins, true);
+        }
+        return firstBackground;
+    }
+
+    private void drawSimulatedDiv(PdfPage page, Map<Integer, Object> styles, float[] margins, boolean drawBackground) {
+        Div pageBordersSimulation;
+        pageBordersSimulation = new Div().setFillAvailableArea(true);
+        for (Map.Entry<Integer, Object> entry : styles.entrySet()) {
+            if ((entry.getKey() == Property.BACKGROUND || entry.getKey() == Property.BACKGROUND_IMAGE) && !drawBackground)
+                continue;
+            pageBordersSimulation.setProperty(entry.getKey(), entry.getValue());
+        }
+        pageBordersSimulation.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
+        Canvas canvas = new Canvas(new PdfCanvas(page), page.getDocument(), page.getTrimBox()
+                .applyMargins(margins[0], margins[1], margins[2], margins[3], false));
+        canvas.enableAutoTagging(page);
+        canvas.add(pageBordersSimulation);
+        canvas.close();
     }
 
     /**
@@ -329,10 +386,10 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     }
 
     /**
-     * Gets the next page processor.
+     * Gets a page processor for the page.
      *
-     * @param firstPage the first page
-     * @return the next page processor
+     * @param pageNum the number of the page for which the {@link PageContextProcessor} shall be obtained
+     * @return a page processor
      */
     private PageContextProcessor getPageProcessor(int pageNum) {
         // If first page, but break-before: left for ltr is present, we should use left page instead of first

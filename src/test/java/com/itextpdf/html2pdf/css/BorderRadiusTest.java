@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,20 +42,16 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import java.io.File;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
-public class BorderRadiusTest extends ExtendedITextTest {
+public class BorderRadiusTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/BorderRadiusTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/BorderRadiusTest/";
@@ -67,79 +63,118 @@ public class BorderRadiusTest extends ExtendedITextTest {
 
     @Test
     public void borderRadius01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest01.html"), new File(destinationFolder + "borderRadiusTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest01.pdf", sourceFolder + "cmp_borderRadiusTest01.pdf", destinationFolder, "diff01_"));
+        convertToPdfAndCompare("borderRadiusTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void borderRadius02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest02.html"), new File(destinationFolder + "borderRadiusTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest02.pdf", sourceFolder + "cmp_borderRadiusTest02.pdf", destinationFolder, "diff02_"));
+        convertToPdfAndCompare("borderRadiusTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void borderRadius03Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest03.html"), new File(destinationFolder + "borderRadiusTest03.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest03.pdf", sourceFolder + "cmp_borderRadiusTest03.pdf", destinationFolder, "diff03_"));
+        convertToPdfAndCompare("borderRadiusTest03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void borderRadius04Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest04.html"), new File(destinationFolder + "borderRadiusTest04.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest04.pdf", sourceFolder + "cmp_borderRadiusTest04.pdf", destinationFolder, "diff04_"));
+        convertToPdfAndCompare("borderRadiusTest04", sourceFolder, destinationFolder);
     }
 
     @Test
     public void borderRadius05Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest05.html"), new File(destinationFolder + "borderRadiusTest05.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest05.pdf", sourceFolder + "cmp_borderRadiusTest05.pdf", destinationFolder, "diff05_"));
+        convertToPdfAndCompare("borderRadiusTest05", sourceFolder, destinationFolder);
     }
 
     @Test
     public void borderRadius06Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest06.html"), new File(destinationFolder + "borderRadiusTest06.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest06.pdf", sourceFolder + "cmp_borderRadiusTest06.pdf", destinationFolder, "diff06_"));
+        convertToPdfAndCompare("borderRadiusTest06", sourceFolder, destinationFolder);
     }
 
     @Test
     public void borderRadius07Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest07.html"), new File(destinationFolder + "borderRadiusTest07.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest07.pdf", sourceFolder + "cmp_borderRadiusTest07.pdf", destinationFolder, "diff07_"));
+        convertToPdfAndCompare("borderRadiusTest07", sourceFolder, destinationFolder);
     }
 
     @Test
     public void borderRadius08Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest08.html"), new File(destinationFolder + "borderRadiusTest08.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest08.pdf", sourceFolder + "cmp_borderRadiusTest08.pdf", destinationFolder, "diff08_"));
+        convertToPdfAndCompare("borderRadiusTest08", sourceFolder, destinationFolder);
     }
 
     @Test
     public void borderRadius09Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest09.html"), new File(destinationFolder + "borderRadiusTest09.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest09.pdf", sourceFolder + "cmp_borderRadiusTest09.pdf", destinationFolder, "diff09_"));
+        convertToPdfAndCompare("borderRadiusTest09", sourceFolder, destinationFolder);
     }
 
     @Test
     public void borderRadius10Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest10.html"), new File(destinationFolder + "borderRadiusTest10.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest10.pdf", sourceFolder + "cmp_borderRadiusTest10.pdf", destinationFolder, "diff10_"));
+        convertToPdfAndCompare("borderRadiusTest10", sourceFolder, destinationFolder);
     }
 
     @Test
     public void borderRadius11Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest11.html"), new File(destinationFolder + "borderRadiusTest11.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest11.pdf", sourceFolder + "cmp_borderRadiusTest11.pdf", destinationFolder, "diff11_"));
+        convertToPdfAndCompare("borderRadiusTest11", sourceFolder, destinationFolder);
     }
 
     @Test
     public void borderRadius12Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest12.html"), new File(destinationFolder + "borderRadiusTest12.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest12.pdf", sourceFolder + "cmp_borderRadiusTest12.pdf", destinationFolder, "diff12_"));
+        convertToPdfAndCompare("borderRadiusTest12", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void borderRadius12ATest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderRadiusTest12A", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void borderRadius12BTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderRadiusTest12B", sourceFolder, destinationFolder);
     }
 
     @Test
     public void borderRadius13Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "borderRadiusTest13.html"), new File(destinationFolder + "borderRadiusTest13.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "borderRadiusTest13.pdf", sourceFolder + "cmp_borderRadiusTest13.pdf", destinationFolder, "diff13_"));
+        convertToPdfAndCompare("borderRadiusTest13", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void borderRadius14Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderRadiusTest14", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void borderRadius15Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderRadiusTest15", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void borderRadius16Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderRadiusTest16", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void borderRadius17Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderRadiusTest17", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void borderRadius18Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderRadiusTest18", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void borderRadiusInlineElementTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderRadiusInlineElementTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void borderRadiusInlineSpanElementTest01() throws IOException, InterruptedException {
+        //TODO: update after DEVSIX-2018, DEVSIX-1191 closing
+        convertToPdfAndCompare("borderRadiusInlineSpanElementTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void borderRadiusInlineDivElementTest01() throws IOException, InterruptedException {
+        //TODO: update after DEVSIX-2018, DEVSIX-1191 closing
+        convertToPdfAndCompare("borderRadiusInlineDivElementTest01", sourceFolder, destinationFolder);
     }
 }

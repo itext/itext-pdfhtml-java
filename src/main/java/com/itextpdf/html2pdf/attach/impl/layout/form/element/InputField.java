@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -44,13 +44,14 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.element;
 
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.renderer.InputFieldRenderer;
+import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.renderer.IRenderer;
 
 /**
  * Extension of the {@link FormField} class representing a button so that
  * a {@link InputFieldRenderer} is used.
  */
-public class InputField extends FormField<InputField> {
+public class InputField extends FormField<InputField> implements IPlaceholderable {
 
     /**
      * Creates a new input field.
@@ -61,9 +62,28 @@ public class InputField extends FormField<InputField> {
         super(id);
     }
 
-    /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.attach.impl.layout.form.element.FormField#getDefaultProperty(int)
+    /**
+     * The placeholder paragraph.
      */
+    private Paragraph placeholder;
+
+    /**
+     * {@inheritDoc}
+     */
+    public Paragraph getPlaceholder() {
+        return placeholder;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setPlaceholder(Paragraph placeholder) {
+        this.placeholder = placeholder;
+    }
+
+    /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.attach.impl.layout.form.element.FormField#getDefaultProperty(int)
+         */
     @Override
     public <T1> T1 getDefaultProperty(int property) {
         switch (property) {

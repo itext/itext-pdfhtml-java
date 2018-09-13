@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -44,12 +44,19 @@ package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -248,6 +255,7 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, count = 2))
     public void thTagTest() throws IOException, InterruptedException {
         runTest("thTag", true);
     }
@@ -341,6 +349,27 @@ public class TableTest extends ExtendedITextTest {
         runTest("separateBorder01");
     }
 
+    @Test
+    public void thScopeTaggedTest() throws IOException, InterruptedException {
+        runTest("thTagScopeTagged", true);
+    }
+
+    @Test
+    public void thScopeTaggedDifferentTablesTest() throws IOException, InterruptedException {
+        runConvertToElements("thTagScopeTaggedDifferentTables", true);
+    }
+
+    @Test
+    public void thScopeNotTaggedDifferentTablesTest() throws IOException, InterruptedException {
+        runConvertToElements("thTagScopeNotTaggedDifferentTables", false);
+    }
+
+    @Test
+    // TODO DEVSIX-2092
+    public void plainTextTest() throws IOException, InterruptedException {
+        runConvertToElements("plainTextTest", false);
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         runTest(testName, false);
     }
@@ -353,6 +382,26 @@ public class TableTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + testName + ".html"), pdfDocument, new ConverterProperties().setBaseUri(sourceFolder));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + testName + ".html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+    }
+
+    private void runConvertToElements(String testName, boolean tagged) throws IOException, InterruptedException {
+        FileInputStream source = new FileInputStream(sourceFolder + testName + ".html");
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + testName + ".pdf"));
+        if (tagged) {
+            pdfDocument.setTagged();
+        }
+        Document layoutDocument = new Document(pdfDocument);
+        ConverterProperties props = new ConverterProperties();
+
+        for (IElement element : HtmlConverter.convertToElements(source, props)) {
+            if (element instanceof IBlockElement)
+                layoutDocument.add((IBlockElement) element);
+        }
+        layoutDocument.close();
+        pdfDocument.close();
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
+                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff01_"));
+
     }
 
 }

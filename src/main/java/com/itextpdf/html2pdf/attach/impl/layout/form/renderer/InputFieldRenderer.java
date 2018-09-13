@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -108,6 +108,16 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
     }
 
     @Override
+    IRenderer createParagraphRenderer(String defaultValue) {
+        if (defaultValue.isEmpty()) {
+            if (null != ((InputField) modelElement).getPlaceholder() && !((InputField) modelElement).getPlaceholder().isEmpty()) {
+                return ((InputField) modelElement).getPlaceholder().createRendererSubTree();
+            }
+        }
+        return super.createParagraphRenderer(defaultValue);
+    }
+
+    @Override
     protected void adjustFieldLayout() {
         throw new RuntimeException("adjustFieldLayout() is deprecated and shouldn't be used. Override adjustFieldLayout(LayoutContext) instead");
     }
@@ -195,19 +205,26 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
 
     @Override
     protected boolean setMinMaxWidthBasedOnFixedWidth(MinMaxWidth minMaxWidth) {
-        if (!hasAbsoluteUnitValue(Property.WIDTH)) {
-            UnitValue width = this.<UnitValue>getProperty(Property.WIDTH);
+        boolean result = false;
+        if (hasRelativeUnitValue(Property.WIDTH)) {
+            UnitValue widthUV = this.<UnitValue>getProperty(Property.WIDTH);
             boolean restoreWidth = hasOwnProperty(Property.WIDTH);
             setProperty(Property.WIDTH, null);
-            boolean result = super.setMinMaxWidthBasedOnFixedWidth(minMaxWidth);
+            Float width = retrieveWidth(0);
+            if (width != null) {
+                // the field can be shrinked if necessary so only max width is set here
+                minMaxWidth.setChildrenMaxWidth((float) width);
+                result = true;
+            }
             if (restoreWidth) {
-                setProperty(Property.WIDTH, width);
+                setProperty(Property.WIDTH, widthUV);
             } else {
                 deleteOwnProperty(Property.WIDTH);
             }
-            return result;
+        } else {
+            result = super.setMinMaxWidthBasedOnFixedWidth(minMaxWidth);
         }
-        return super.setMinMaxWidthBasedOnFixedWidth(minMaxWidth);
+        return result;
     }
 
     /**

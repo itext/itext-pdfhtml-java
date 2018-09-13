@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
@@ -59,7 +60,7 @@ import org.junit.experimental.categories.Category;
 import static com.itextpdf.test.ITextTest.createOrClearDestinationFolder;
 
 @Category(IntegrationTest.class)
-public class VerticalAlignmentTest {
+public class VerticalAlignmentTest extends ExtendedHtmlConversionITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/VerticalAlignmentTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/VerticalAlignmentTest/";
 
@@ -71,93 +72,87 @@ public class VerticalAlignmentTest {
     @Test
     public void verticalAlignmentTest01() throws IOException, InterruptedException {
         // TODO 'top' and 'bottom' values are not supported for now
-        runTest("verticalAlignmentTest01");
+        convertToPdfAndCompare("verticalAlignmentTest01", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignmentTest02() throws IOException, InterruptedException {
-        runTest("verticalAlignmentTest02");
+        convertToPdfAndCompare("verticalAlignmentTest02", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignmentTest03() throws IOException, InterruptedException {
-        runTest("verticalAlignmentTest03");
+        convertToPdfAndCompare("verticalAlignmentTest03", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignmentTest05() throws IOException, InterruptedException {
-        runTest("verticalAlignmentTest05");
+        convertToPdfAndCompare("verticalAlignmentTest05", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignmentTest06() throws IOException, InterruptedException {
-        runTest("verticalAlignmentTest06");
+        convertToPdfAndCompare("verticalAlignmentTest06", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignmentTest07() throws IOException, InterruptedException {
-        runTest("verticalAlignmentTest07");
+        convertToPdfAndCompare("verticalAlignmentTest07", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignmentTest08() throws IOException, InterruptedException {
-        runTest("verticalAlignmentTest08");
+        convertToPdfAndCompare("verticalAlignmentTest08", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignmentTest09() throws IOException, InterruptedException {
-        runTest("verticalAlignmentTest09");
+        convertToPdfAndCompare("verticalAlignmentTest09", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignmentTest10() throws IOException, InterruptedException {
         // TODO interesting thing is that vertical alignment increases line height if needed, however itext doesn't in this case 
-        runTest("verticalAlignmentTest10");
+        convertToPdfAndCompare("verticalAlignmentTest10", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignmentTest11() throws IOException, InterruptedException {
-        runTest("verticalAlignmentTest11");
+        convertToPdfAndCompare("verticalAlignmentTest11", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignmentTest12() throws IOException, InterruptedException {
-        runTest("verticalAlignmentTest12");
+        convertToPdfAndCompare("verticalAlignmentTest12", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignmentCellTest01() throws IOException, InterruptedException {
-        runTest("verticalAlignmentCellTest01");
+        convertToPdfAndCompare("verticalAlignmentCellTest01", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignmentCellTest02() throws IOException, InterruptedException {
-        runTest("verticalAlignmentCellTest02");
+        convertToPdfAndCompare("verticalAlignmentCellTest02", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignmentCellTest03() throws IOException, InterruptedException {
-        runTest("verticalAlignmentCellTest03");
+        convertToPdfAndCompare("verticalAlignmentCellTest03", sourceFolder, destinationFolder);
     }
     
     @Test
     public void vAlignAttributeCellTest01() throws IOException, InterruptedException {
-        runTest("vAlignAttributeCellTest01");
+        convertToPdfAndCompare("vAlignAttributeCellTest01", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignOnNestedInlines01() throws IOException, InterruptedException {
-        runTest("verticalAlignOnNestedInlines01");
+        convertToPdfAndCompare("verticalAlignOnNestedInlines01", sourceFolder, destinationFolder);
     }
     
     @Test
     public void verticalAlignOnNestedInlines02() throws IOException, InterruptedException {
-        runTest("verticalAlignOnNestedInlines02");
-    }
-    
-    private void runTest(String testName) throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + testName + ".html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName + "_"));
+        convertToPdfAndCompare("verticalAlignOnNestedInlines02", sourceFolder, destinationFolder);
     }
 }

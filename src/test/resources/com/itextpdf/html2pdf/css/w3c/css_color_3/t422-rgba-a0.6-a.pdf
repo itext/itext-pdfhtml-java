@@ -1,8 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 148>>stream
-xœ­Í;‚0àışŠ3ÂR¤ˆ0›¨³IG–b/¯Th}ı{‘Ä8¸š›3İsò´U”ìS¤ª¡lƒ¢”¢, ­ÄŸL-Eªë=?|ç®Ö f„áõ™qrÖM¨"=?µa¸í¤ŸUí—–í/</¬»‹X´St¤ñWÏs‘ÉEÇûf79ø­ÿ‹¯kwã¯ÿ6ÀI
+<</Filter/FlateDecode/Length 164>>stream
+xœ­;‚0…÷şŠ3ÂR ˆe6Qg“,E.Smhñõï-$ÆÅÄÅœ{§ó|#Ë0Çu,_#\!rH™ÂkÙ?ûbÉ. ªY
+^J¨†¥|…÷‡}¤úÁc¢ÇßÛ«iP¦àõ™p´Æ:T‘¥n¶Eçô³Š¡ıB™áBaaìÇêÄ¶ê»½(x.;æo²÷:ÿ¿®í>şÓŒV›
 endstream
 endobj
 4 0 obj
@@ -12,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109122319+03'00')/ModDate(D:20171109122319+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: rgba\(\) colors)/assert(Opacity of 0.6 makes text partially opaque.  Colors are in sRGB color space \(may test\).)/flags()>>
+<</CreationDate(D:20180406142844+03'00')/ModDate(D:20180406142844+03'00')/Producer(iText® 7.1.2-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: rgba\(\) colors)/assert(Opacity of 0.6 makes text partially opaque.  Colors are in sRGB color space \(may test\).)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -26,16 +27,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000387 00000 n 
-0000000827 00000 n 
-0000000432 00000 n 
-0000000230 00000 n 
+0000000403 00000 n 
+0000000843 00000 n 
+0000000448 00000 n 
+0000000246 00000 n 
 0000000015 00000 n 
-0000000737 00000 n 
-0000000878 00000 n 
+0000000753 00000 n 
+0000000894 00000 n 
 trailer
-<</ID [<767a6508e4b5af08d8f739900397a933><767a6508e4b5af08d8f739900397a933>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<e61e6c28740b7a777c2000511f30e1da><e61e6c28740b7a777c2000511f30e1da>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.2-SNAPSHOT
 startxref
-905
+921
 %%EOF

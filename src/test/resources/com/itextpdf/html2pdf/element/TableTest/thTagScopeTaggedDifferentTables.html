@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+th {
+ background: lightblue;
+}
+</style>
+</head>
+<body>
+<p>Scope 'col', 'row' and 'colgroup'</p>
+<table  class="problems" summary="Scope 'col', 'row' and 'colgroup'">
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <tr>
+    <td rowspan="2"></td>
+    <th colspan="2" scope="colgroup" id="pr1">Product1</th>
+    <th colspan="2" scope="colgroup">Product2</th>
+  </tr>
+  <tr>
+    <th scope="col">Produced</th>
+    <th scope="col">Sold</th>
+    <th scope="col" id="prod2">Produced</th>
+    <th scope="col" id="sold2">Sold</th>
+  </tr>
+  <tr>
+    <th scope="row">Teddy Bears</th>
+    <td>150,000</td>
+    <td>130,000</td>
+    <td>100,000</td>
+    <td>80,000</td>
+  </tr>
+  <tr>
+    <th scope="row">Board Games</th>
+    <td>110,000</td>
+    <td>50,000</td>
+    <td>120,000</td>
+    <td>90,000</td>
+  </tr>
+</table>
+<p>Scope 'row' and 'rowgroup'</p>
+<table  class="problems" summary="Scope 'row' and 'rowgroup'">
+  <tr>
+    <th rowspan="2" scope="rowgroup">Colors</th>
+    <th scope="row" id="backl">Black and white</th>
+    <td>A1</td>
+    <td>A3</td>
+    <td>A4</td>
+  </tr>
+  <tr>
+    <th scope="row">Sepia</th>
+    <td>A2</td>
+    <td>A3</td>
+    <td>A5</td>
+  </tr>
+</table>
+
+
+</body>
+</html>

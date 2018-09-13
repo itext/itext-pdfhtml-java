@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -44,8 +44,17 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.BodyHtmlStylesContainer;
+import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
-import com.itextpdf.html2pdf.html.node.IStylesContainer;
+import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
+import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.styledxmlparser.node.IStylesContainer;
+
+import java.util.Map;
 
 /**
  * {@link ICssApplier} implementation for Html elements.
@@ -55,10 +64,18 @@ public class HtmlTagCssApplier implements ICssApplier {
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
      */
-    // TODO apply borders. DEVSIX-941
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
-
+        Map<String, String> cssProps = stylesContainer.getStyles();
+        BodyHtmlStylesContainer styleProperty = new BodyHtmlStylesContainer();
+        IPropertyContainer container = tagWorker.getElementResult();
+        if (container != null) {
+            BackgroundApplierUtil.applyBackground(cssProps, context, styleProperty);
+            MarginApplierUtil.applyMargins(cssProps, context, styleProperty);
+            PaddingApplierUtil.applyPaddings(cssProps, context, styleProperty);
+            BorderStyleApplierUtil.applyBorders(cssProps, context, styleProperty);
+            if (styleProperty.hasStylesToApply())
+                container.setProperty(Html2PdfProperty.HTML_STYLING, styleProperty);
+        }
     }
-
 }

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -44,13 +44,14 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
-import com.itextpdf.html2pdf.css.media.MediaType;
-import com.itextpdf.html2pdf.css.util.CssUtils;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
+import com.itextpdf.styledxmlparser.css.media.MediaType;
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -144,8 +145,6 @@ public class FloatTest extends ExtendedITextTest {
 
     @Test
     public void float14Test() throws IOException, InterruptedException {
-        //NOTE: in this test overflow property creates new block-context and element is floating in this block context
-        //the block-context based floating is unsupported in iText
         runTest("float14Test", "diff14_");
     }
 
@@ -313,16 +312,12 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1268")
     public void float44Test() throws IOException, InterruptedException {
-        // TODO DEVSIX-1268
         runTest("float44Test", "diff44_");
     }
 
     @Test
-    @Ignore("DEVSIX-1268")
     public void float45Test() throws IOException, InterruptedException {
-        // TODO DEVSIX-1268
         runTest("float45Test", "diff45_");
     }
 
@@ -467,11 +462,37 @@ public class FloatTest extends ExtendedITextTest {
         runTest("floatInline17Test", "diffImages17_");
     }
 
+    @Test
+    public void floatFixedWidthOverflow01Test() throws IOException, InterruptedException {
+        runTest("floatFixedWidthOverflow01Test", "diffWidthOverflow01_");
+    }
+
+    @Test
+    public void floatFixedWidthOverflow02Test() throws IOException, InterruptedException {
+        runTest("floatFixedWidthOverflow02Test", "diffWidthOverflow02_");
+    }
+
+    @Test
+    public void floatContentOverflow01Test() throws IOException, InterruptedException {
+        runTest("floatContentOverflow01Test", "diffContentOverflow01_");
+    }
+
+    @Test
+    public void floatFixedWidthNested01Test() throws IOException, InterruptedException {
+        runTest("floatFixedWidthNested01Test", "diffWidthOverflowNested01_");
+    }
+
+    @Test
+    public void nestedFloat01Test() throws IOException, InterruptedException {
+        runTest("nestedFloat01Test", "diffNested01_");
+    }
+
     private void runTest(String testName, String diff) throws IOException, InterruptedException {
         String htmlName = sourceFolder + testName + ".html";
         String outFileName = destinationFolder + testName + ".pdf";
         String cmpFileName = sourceFolder + "cmp_" + testName + ".pdf";
         HtmlConverter.convertToPdf(new File(htmlName), new File(outFileName));
+        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlName).getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, destinationFolder, diff));
     }
 

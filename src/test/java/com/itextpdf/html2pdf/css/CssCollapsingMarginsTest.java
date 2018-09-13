@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -351,6 +351,18 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
     @Test
     public void collapsingMarginsFloatTest07() throws IOException, InterruptedException {
         test("collapsingMarginsFloatTest07.html", "collapsingMarginsFloatTest07.pdf", "diff_");
+    }
+
+    @Test
+    public void collapsingMarginsFloatTest08() throws IOException, InterruptedException {
+        // TODO DEVSIX-1820: on floats positioning collapsing margins of parent and first child is not taken into account
+        test("collapsingMarginsFloatTest08.html", "collapsingMarginsFloatTest08.pdf", "diff_");
+    }
+
+    @Test
+    public void collapsingMarginsFloatTest09() throws IOException, InterruptedException {
+        // TODO DEVSIX-1820: on floats positioning collapsing margins of parent and first child is not taken into account
+        test("collapsingMarginsFloatTest09.html", "collapsingMarginsFloatTest09.pdf", "diff_");
     }
 
     private void test(String in, String out, String diff) throws IOException, InterruptedException {

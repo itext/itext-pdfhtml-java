@@ -1,8 +1,8 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
-    
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-    
+
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-    
+
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-    
+
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-    
+
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,7 +36,7 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-    
+
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
@@ -45,10 +45,9 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.Attacher;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
-import com.itextpdf.html2pdf.html.IHtmlParser;
-import com.itextpdf.html2pdf.html.impl.jsoup.JsoupHtmlParser;
-import com.itextpdf.html2pdf.html.node.IDocumentNode;
 import com.itextpdf.io.util.FileUtil;
+import com.itextpdf.kernel.counter.event.IMetaInfo;
+import com.itextpdf.kernel.pdf.DocumentProperties;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -56,16 +55,18 @@ import com.itextpdf.layout.element.IElement;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
+import com.itextpdf.styledxmlparser.IXmlParser;
+import com.itextpdf.styledxmlparser.node.IDocumentNode;
+import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -133,7 +134,7 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
-        convertToPdf(html, new PdfDocument(pdfWriter), converterProperties);
+        convertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())), converterProperties);
     }
 
     /**
@@ -172,9 +173,9 @@ public class HtmlConverter {
      */
     public static void convertToPdf(File htmlFile, File pdfFile, ConverterProperties converterProperties) throws IOException {
         if (converterProperties == null) {
-            converterProperties = new ConverterProperties().setBaseUri(FileUtil.getParentDirectory(htmlFile.getAbsolutePath()) + File.separator);
+            converterProperties = new ConverterProperties().setBaseUri(Paths.get(FileUtil.getParentDirectory(htmlFile.getAbsolutePath())).toUri().toURL().toExternalForm() + File.separator);
         } else if (converterProperties.getBaseUri() == null) {
-            converterProperties = new ConverterProperties(converterProperties).setBaseUri(FileUtil.getParentDirectory(htmlFile.getAbsolutePath()) + File.separator);
+            converterProperties = new ConverterProperties(converterProperties).setBaseUri(Paths.get(FileUtil.getParentDirectory(htmlFile.getAbsolutePath())).toUri().toURL().toExternalForm() + File.separator);
         }
         try (FileInputStream fileInputStream = new FileInputStream(htmlFile.getAbsolutePath());
              FileOutputStream fileOutputStream = new FileOutputStream(pdfFile.getAbsolutePath())) {
@@ -228,7 +229,7 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
-        convertToPdf(htmlStream, new PdfDocument(pdfWriter));
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())));
     }
 
     /**
@@ -242,7 +243,7 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
-        convertToPdf(htmlStream, new PdfDocument(pdfWriter), converterProperties);
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())), converterProperties);
     }
 
     /**
@@ -366,7 +367,7 @@ public class HtmlConverter {
         if (pdfDocument.getReader() != null) {
             throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
         }
-        IHtmlParser parser = new JsoupHtmlParser();
+        IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(html);
         return Attacher.attach(doc, pdfDocument, converterProperties);
     }
@@ -422,7 +423,7 @@ public class HtmlConverter {
         if (pdfDocument.getReader() != null) {
             throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
         }
-        IHtmlParser parser = new JsoupHtmlParser();
+        IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
         return Attacher.attach(doc, pdfDocument, converterProperties);
     }
@@ -498,7 +499,7 @@ public class HtmlConverter {
             }
         }
 
-        IHtmlParser parser = new JsoupHtmlParser();
+        IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(html);
         return Attacher.attach(doc, converterProperties);
     }
@@ -550,8 +551,13 @@ public class HtmlConverter {
             }
         }
 
-        IHtmlParser parser = new JsoupHtmlParser();
+        IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
         return Attacher.attach(doc, converterProperties);
+    }
+
+    private static class HtmlMetaInfo implements IMetaInfo {
+
+        private static final long serialVersionUID = -295587336698550627L;
     }
 }

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -52,9 +52,6 @@ import org.slf4j.LoggerFactory;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.util.CssUtils;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.ColorConstants;
@@ -69,6 +66,10 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.property.Underline;
 import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
+import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
 /**
  * Utilities class to apply font styles.
@@ -267,7 +268,14 @@ public final class FontStyleApplierUtil {
                     break;
             }
         }
-        return CssUtils.parseAbsoluteLength(fontSizeValue);
+        try {
+            /* Styled XML Parser will throw an exception when it can't parse the given value
+               but in html2pdf, we want to fall back to the default value of 0
+             */
+            return CssUtils.parseAbsoluteLength(fontSizeValue);
+        } catch (StyledXMLParserException sxpe) {
+            return 0f;
+        }
     }
 
     /**

@@ -1,8 +1,8 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
-    
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-    
+
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-    
+
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-    
+
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-    
+
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,7 +36,7 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-    
+
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
@@ -48,10 +48,10 @@ import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreak;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreakType;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 
 import java.util.Map;
 
@@ -88,9 +88,7 @@ public class PageBreakApplierUtil {
      */
     /* Handles left, right, always cases. Avoid is handled at different time along with other css property application */
     public static void addPageBreakElementBefore(ProcessorContext context, ITagWorker parentTagWorker, IElementNode childElement, ITagWorker childTagWorker) {
-        // Applies to block-level elements
-        if (CssConstants.BLOCK.equals(childElement.getStyles().get(CssConstants.DISPLAY)) ||
-                childElement.getStyles().get(CssConstants.DISPLAY) == null && childTagWorker.getElementResult() instanceof IBlockElement) {
+        if (isEligibleForBreakBeforeAfter(parentTagWorker, childElement, childTagWorker)) {
             String pageBreakBeforeVal = childElement.getStyles().get(CssConstants.PAGE_BREAK_BEFORE);
             HtmlPageBreak breakBefore = createHtmlPageBreak(pageBreakBeforeVal);
             if (breakBefore != null) {
@@ -109,15 +107,21 @@ public class PageBreakApplierUtil {
      */
     /* Handles left, right, always cases. Avoid is handled at different time along with other css property application */
     public static void addPageBreakElementAfter(ProcessorContext context, ITagWorker parentTagWorker, IElementNode childElement, ITagWorker childTagWorker) {
-        // Applies to block-level elements
-        if (CssConstants.BLOCK.equals(childElement.getStyles().get(CssConstants.DISPLAY)) ||
-                childElement.getStyles().get(CssConstants.DISPLAY) == null && childTagWorker.getElementResult() instanceof IBlockElement) {
+        if (isEligibleForBreakBeforeAfter(parentTagWorker, childElement, childTagWorker)) {
             String pageBreakAfterVal = childElement.getStyles().get(CssConstants.PAGE_BREAK_AFTER);
             HtmlPageBreak breakAfter = createHtmlPageBreak(pageBreakAfterVal);
             if (breakAfter != null) {
                 parentTagWorker.processTagChild(new HtmlPageBreakWorker(breakAfter), context);
             }
         }
+    }
+
+    private static boolean isEligibleForBreakBeforeAfter(ITagWorker parentTagWorker, IElementNode childElement, ITagWorker childTagWorker) {
+        // Applies to block-level elements as per spec
+        String childElementDisplay = childElement.getStyles().get(CssConstants.DISPLAY);
+        return CssConstants.BLOCK.equals(childElementDisplay) ||
+                CssConstants.TABLE.equals(childElementDisplay) ||
+                childElementDisplay == null && childTagWorker.getElementResult() instanceof IBlockElement;
     }
 
     /**
@@ -177,7 +181,7 @@ public class PageBreakApplierUtil {
      * A {@code TagWorker} class for HTML page breaks.
      */
     private static class HtmlPageBreakWorker implements ITagWorker {
-        
+
         /** The {@link HtmlPageBreak} instance. */
         private HtmlPageBreak pageBreak;
 

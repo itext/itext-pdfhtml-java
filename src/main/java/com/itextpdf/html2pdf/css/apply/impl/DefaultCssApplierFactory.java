@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -46,8 +46,8 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.html2pdf.exception.CssApplierInitializationException;
-import com.itextpdf.html2pdf.html.node.IElementNode;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
  * A factory for creating {@link ICssApplier} objects.

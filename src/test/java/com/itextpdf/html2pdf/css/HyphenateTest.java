@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -105,5 +105,12 @@ public class HyphenateTest extends ExtendedITextTest {
     public void test08De() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hyphenateTest08De.html"), new File(destinationFolder + "hyphenateTest08De.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hyphenateTest08De.pdf", sourceFolder + "cmp_hyphenateTest08De.pdf", destinationFolder, "diff08De_"));
+    }
+
+    @Test
+    // TODO DEVSIX-1438: Support word-break
+    public void test09NonBreakingHyphen() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hyphenateTest09NonBreakingHyphen.html"), new File(destinationFolder + "hyphenateTest09NonBreakingHyphen.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hyphenateTest09NonBreakingHyphen.pdf", sourceFolder + "cmp_hyphenateTest09NonBreakingHyphen.pdf", destinationFolder, "diff09NonBreakingHyphen_"));
     }
 }

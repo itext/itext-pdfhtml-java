@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,21 +42,20 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class WidthTest extends ExtendedITextTest {
+public class WidthTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/WidthTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/WidthTest/";
@@ -65,40 +64,47 @@ public class WidthTest extends ExtendedITextTest {
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
-    
+
     @Test
     public void percentTest() throws IOException, InterruptedException {
-        runTest("percentTest");
+        convertToPdfAndCompare("percentTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void maxWidthTest01() throws IOException, InterruptedException {
-        runTest("maxWidthTest01");
+        convertToPdfAndCompare("maxWidthTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void minWidthTest01() throws IOException, InterruptedException {
-        runTest("minWidthTest01");
+        convertToPdfAndCompare("minWidthTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void minMaxWidthTest01() throws IOException, InterruptedException {
-        runTest("minMaxWidthTest01");
+        convertToPdfAndCompare("minMaxWidthTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     //Todo: the width for table currently set incorrect.
     public void percentMarginTest() throws IOException, InterruptedException {
-        runTest("percentMarginTest");
+        convertToPdfAndCompare("percentMarginTest", sourceFolder, destinationFolder);
     }
-    
-    private void runTest(String name) throws IOException, InterruptedException {
-        String htmlPath = sourceFolder + name + ".html";
-        String pdfPath = destinationFolder + name + ".pdf";
-        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-        String diffPrefix = "diff_" + name + "_";
-        
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
-        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+
+    @Test
+    public void relativeInlineBlockWidthWithTextIndentTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeInlineBlockWidthWithTextIndentTest02() throws IOException, InterruptedException {
+        // TODO DEVSIX-1823: inline blocks with relative widths (width:100%) do not wrap to the next line
+        convertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest02", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, count = 2))
+    public void relativeInlineBlockWidthWithTextIndentTest03() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest03", sourceFolder, destinationFolder);
     }
 }

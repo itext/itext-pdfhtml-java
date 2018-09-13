@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -54,11 +54,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.PageMarginBoxWorker;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.impl.PageMarginBoxCssApplier;
-import com.itextpdf.html2pdf.css.media.MediaDeviceDescription;
-import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.html2pdf.html.node.IElementNode;
-import com.itextpdf.html2pdf.html.node.IStylesContainer;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -67,6 +63,10 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.tagging.IAccessibleElement;
+import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
+import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -616,6 +616,21 @@ public class PageRuleTest extends ExtendedITextTest {
         compareResult(name);
     }
 
+    @Test
+    public void marginBoxMultilineTest01() throws IOException, InterruptedException {
+        runTest("marginBoxMultilineTest01");
+    }
+
+    @Test
+    public void marginBoxMultilineTest02() throws IOException, InterruptedException {
+        runTest("marginBoxMultilineTest02");
+    }
+
+    @Test
+    public void marginBoxMultilineTest03() throws IOException, InterruptedException {
+        runTest("marginBoxMultilineTest03");
+    }
+
     private static class CustomFlushingTagWorkerFactory extends DefaultTagWorkerFactory {
         @Override
         public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
@@ -671,7 +686,7 @@ public class PageRuleTest extends ExtendedITextTest {
             converterProperties = new ConverterProperties();
         }
         if (converterProperties.getBaseUri() == null) {
-            converterProperties.setBaseUri(new File(htmlPath).getAbsolutePath());
+            converterProperties.setBaseUri(UrlUtil.getFileUriString(htmlPath));
         }
 
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));

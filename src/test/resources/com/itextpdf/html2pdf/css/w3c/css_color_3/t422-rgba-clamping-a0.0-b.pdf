@@ -1,10 +1,8 @@
 %PDF-1.7
 %‚„œ”
 5 0 obj
-<</Filter/FlateDecode/Length 167>>stream
-xú•Œ¡
-Ç@Ä·˚<≈Î2∫£ªÎ9®nE0/ê∏©!ô≠EΩ}^RBÊ∂≥|ˇ4∞6
-£ú 2h¶ƒ¢db?∑Rî}Qﬂ´Sám·∞æT/l›≥≈GÈÀ¥Í_∫E˜ÔzÃ-ÂkÅ4”Ä÷ÒW ÿzÖπBu®Ìˆ“á∆Oñ-Y3fy6ÜƒjÃFsYcôÃ‰⁄x6kRìkıÏ[uè–
+<</Filter/FlateDecode/Length 185>>stream
+xú•éœÇ0áÔ{äı2∂émúM‘õ∆d/ a¸1DÑ°—∑w3\£1§=µø~_[¬!TW°¿∑DZ3Ë,……Å¥?˜+C¢çè ò<dtÇ4—`2¬ îø\ò≤r‡ ÊZgêZËKÕπ~@oÔ=‹*W•uò¯Öœ]éÖ•Ks"kÛY %¯&à∂éC·—ã:ÿv{åÉ„+5’jå≈ŸX∆(Ú1VÃ≈*çTMæçgccI˘‰[˘ˆ	&Vúﬁ
 endstream
 endobj
 4 0 obj
@@ -14,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109122320+03'00')/ModDate(D:20171109122320+03'00')/Producer(iTextÆ 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: rgba\(\) colors)/assert(Alpha components of rgba\(\) colors less than 0 are clamped to 0.)/flags()>>
+<</CreationDate(D:20180406142845+03'00')/ModDate(D:20180406142845+03'00')/Producer(iTextÆ 7.1.2-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: rgba\(\) colors)/assert(Alpha components of rgba\(\) colors less than 0 are clamped to 0.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -40,20 +38,20 @@ endobj
 xref
 0 12
 0000000000 65535 f 
-0000000448 00000 n 
-0000000864 00000 n 
-0000000493 00000 n 
-0000000249 00000 n 
+0000000466 00000 n 
+0000000882 00000 n 
+0000000511 00000 n 
+0000000267 00000 n 
 0000000015 00000 n 
-0000000774 00000 n 
-0000000915 00000 n 
-0000000940 00000 n 
-0000000965 00000 n 
-0000000990 00000 n 
-0000001016 00000 n 
+0000000792 00000 n 
+0000000933 00000 n 
+0000000958 00000 n 
+0000000983 00000 n 
+0000001008 00000 n 
+0000001034 00000 n 
 trailer
-<</ID [<226d732770a0d320c3b4ba4894b5450a><226d732770a0d320c3b4ba4894b5450a>]/Info 3 0 R/Root 1 0 R/Size 12>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<e5a6e45c70f24f29b4f75f7d0360d2a7><e5a6e45c70f24f29b4f75f7d0360d2a7>]/Info 3 0 R/Root 1 0 R/Size 12>>
+%iText-7.1.2-SNAPSHOT
 startxref
-1042
+1060
 %%EOF

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -90,5 +90,12 @@ public class BrTest extends ExtendedITextTest {
         pdfDoc.setDefaultPageSize(new PageSize(72, 72));
         HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "brTest03.html"), pdfDoc, new ConverterProperties());
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brTest03.pdf", sourceFolder + "cmp_brTest03.pdf", destinationFolder, "diff03_"));
+    }
+
+    @Test
+    // TODO DEVSIX-2092
+    public void brInsideDifferentTagsTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "brInsideDifferentTagsTest01.html"), new File(destinationFolder + "brInsideDifferentTagsTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brInsideDifferentTagsTest01.pdf", sourceFolder + "cmp_brInsideDifferentTagsTest01.pdf", destinationFolder, "diff04_"));
     }
 }

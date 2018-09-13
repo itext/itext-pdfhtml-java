@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>An unordered list with and without line breaks</h2>
+
+<ol>
+<li>0 Line breaks: Test</li>
+<li>1 Line break:<br>Test</li>
+<li>2 Line breaks:<br><br>Test</li>
+<li>3 Line breaks:<br><br><br>Test</li>
+</ol>
+
+<h2>An unordered list with some tags inside. The children shall be treated as inline elements.</h2>
+
+<ol>
+    <li>Before some tag<br><br>After some tag</li>
+    <li>Before some tag<textarea>textarea1</textarea><textarea>textarea2</textarea>After some tag</li>
+    <li>Before some tag<input type="text" value="input1"><input type="text" value="input2">After some tag</li>
+    <li>Before some tag
+        <button>button1</button>
+        <button>button2</button>
+        After some tag
+    </li>
+    <li>Before some tag<select>
+        <option>1Option 1</option>
+        <option>1Option 2</option>
+    </select><select>
+        <option>2Option 1</option>
+        <option>2Option 2</option>
+    </select>After some tag
+    </li>
+</ol>
+
+
+</body>
+</html>
+

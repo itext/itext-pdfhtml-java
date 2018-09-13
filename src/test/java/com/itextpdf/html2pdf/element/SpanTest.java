@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -46,14 +46,14 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.IOException;
-
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class SpanTest extends ExtendedITextTest {
@@ -131,6 +131,13 @@ public class SpanTest extends ExtendedITextTest {
     public void spanTest11() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest11.html"), new File(destinationFolder + "spanTest11.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest11.pdf", sourceFolder + "cmp_spanTest11.pdf", destinationFolder, "diff11_"));
+    }
+
+    @Test
+    @Ignore("DEVSIX-2118")
+    public void spanTest12() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest12.html"), new File(destinationFolder + "spanTest12.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest12.pdf", sourceFolder + "cmp_spanTest12.pdf", destinationFolder, "diff12_"));
     }
 
 }

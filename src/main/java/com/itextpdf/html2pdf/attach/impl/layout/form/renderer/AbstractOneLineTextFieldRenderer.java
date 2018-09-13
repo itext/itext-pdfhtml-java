@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -59,6 +59,7 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
      * The position of the base line of the text.
      * @deprecated use {@link #getLastYLineRecursively()} instead. Will be removed in 3.0.0
      */
+    @Deprecated
     protected float baseline;
 
     /**

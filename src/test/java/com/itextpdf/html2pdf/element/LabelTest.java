@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -46,14 +46,14 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.IOException;
-
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class LabelTest extends ExtendedITextTest {
@@ -70,6 +70,25 @@ public class LabelTest extends ExtendedITextTest {
     public void label01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "labelTest01.html"), new File(destinationFolder + "labelTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelTest01.pdf", sourceFolder + "cmp_labelTest01.pdf", destinationFolder, "diff01_"));
+    }
+
+    @Test
+    public void labelDisplayBlock01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "labelDisplayBlockTest01.html"), new File(destinationFolder + "labelDisplayBlockTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelDisplayBlockTest01.pdf", sourceFolder + "cmp_labelDisplayBlockTest01.pdf", destinationFolder, "diffBlock01_"));
+    }
+
+    @Test
+    public void labelDisplayBlock02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "labelDisplayBlockTest02.html"), new File(destinationFolder + "labelDisplayBlockTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelDisplayBlockTest02.pdf", sourceFolder + "cmp_labelDisplayBlockTest02.pdf", destinationFolder, "diffBlock02_"));
+    }
+
+    @Test
+    @Ignore("DEVSIX-2118")
+    public void labelBackground01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "labelBackground01Test.html"), new File(destinationFolder + "labelBackground01Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelBackground01Test.pdf", sourceFolder + "cmp_labelBackground01Test.pdf", destinationFolder, "diffBackground01_"));
     }
 
 }

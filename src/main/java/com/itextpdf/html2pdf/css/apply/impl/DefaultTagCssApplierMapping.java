@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -43,11 +43,11 @@
 package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.page.PageMarginBoxContextNode;
-import com.itextpdf.html2pdf.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
+import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
+import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementUtil;
 
 /**
  * Class that contains the default mapping between CSS keys and CSS appliers.
@@ -115,19 +115,24 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.MAIN, BlockCssApplier.class);
         mapping.putMapping(TagConstants.MARK, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.NAV, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.OBJECT, BlockCssApplier.class);
         mapping.putMapping(TagConstants.OL, UlOlTagCssApplier.class);
+        mapping.putMapping(TagConstants.OPTGROUP, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.OPTION, BlockCssApplier.class);
         mapping.putMapping(TagConstants.P, BlockCssApplier.class);
         mapping.putMapping(TagConstants.PRE, BlockCssApplier.class);
         mapping.putMapping(TagConstants.Q, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.S, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SAMP, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SECTION, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.SELECT, BlockCssApplier.class);
         mapping.putMapping(TagConstants.SMALL, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SPAN, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.STRIKE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.STRONG, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SUB, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.SUP, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.SVG, BlockCssApplier.class);
         mapping.putMapping(TagConstants.TABLE, TableTagCssApplier.class);
         mapping.putMapping(TagConstants.TEXTAREA, BlockCssApplier.class);
         mapping.putMapping(TagConstants.TD, TdTagCssApplier.class);
@@ -141,6 +146,9 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.UL, UlOlTagCssApplier.class);
         mapping.putMapping(TagConstants.VAR, SpanTagCssApplier.class);
 
+        String placeholderPseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.PLACEHOLDER);
+        mapping.putMapping(placeholderPseudoElemName, PlaceholderCssApplier.class);
+
         mapping.putMapping(TagConstants.UL, CssConstants.INLINE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.LI, CssConstants.INLINE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.LI, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
@@ -149,8 +157,11 @@ class DefaultTagCssApplierMapping {
 
         mapping.putMapping(TagConstants.SPAN, CssConstants.BLOCK, BlockCssApplier.class);
         mapping.putMapping(TagConstants.SPAN, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.A, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
         mapping.putMapping(TagConstants.A, CssConstants.BLOCK, BlockCssApplier.class);
         mapping.putMapping(TagConstants.A, CssConstants.TABLE_CELL, BlockCssApplier.class);
+
+        mapping.putMapping(TagConstants.LABEL, CssConstants.BLOCK, BlockCssApplier.class);
 
         mapping.putMapping(TagConstants.DIV, CssConstants.TABLE, TableTagCssApplier.class);
         mapping.putMapping(TagConstants.DIV, CssConstants.TABLE_CELL, TdTagCssApplier.class);
@@ -161,6 +172,8 @@ class DefaultTagCssApplierMapping {
         String afterPseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.AFTER);
         mapping.putMapping(beforePseudoElemName, SpanTagCssApplier.class);
         mapping.putMapping(afterPseudoElemName, SpanTagCssApplier.class);
+        mapping.putMapping(beforePseudoElemName, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
+        mapping.putMapping(afterPseudoElemName, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
         mapping.putMapping(beforePseudoElemName, CssConstants.BLOCK, BlockCssApplier.class);
         mapping.putMapping(afterPseudoElemName, CssConstants.BLOCK, BlockCssApplier.class);
         // For now behaving like display:block in display:table case is sufficient

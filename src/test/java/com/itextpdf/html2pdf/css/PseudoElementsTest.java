@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,23 +42,19 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.LogMessageConstant;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import java.io.File;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
-public class PseudoElementsTest extends ExtendedITextTest {
+public class PseudoElementsTest extends ExtendedHtmlConversionITextTest {
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/PseudoElementsTest/";
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/PseudoElementsTest/";
 
@@ -69,159 +65,164 @@ public class PseudoElementsTest extends ExtendedITextTest {
 
     @Test
     public void beforeAfterPseudoTest01() throws IOException, InterruptedException {
-        runTest("beforeAfterPseudoTest01");
+        convertToPdfAndCompare("beforeAfterPseudoTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void beforeAfterPseudoTest02() throws IOException, InterruptedException {
-        runTest("beforeAfterPseudoTest02");
+        convertToPdfAndCompare("beforeAfterPseudoTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void beforeAfterPseudoTest03() throws IOException, InterruptedException {
-        runTest("beforeAfterPseudoTest03");
+        convertToPdfAndCompare("beforeAfterPseudoTest03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void beforeAfterPseudoTest04() throws IOException, InterruptedException {
-        runTest("beforeAfterPseudoTest04");
+        convertToPdfAndCompare("beforeAfterPseudoTest04", sourceFolder, destinationFolder);
     }
 
     @Test
     public void beforeAfterPseudoTest05() throws IOException, InterruptedException {
-        runTest("beforeAfterPseudoTest05");
+        convertToPdfAndCompare("beforeAfterPseudoTest05", sourceFolder, destinationFolder);
     }
 
     @Test
     public void beforeAfterPseudoTest06() throws IOException, InterruptedException {
-        runTest("beforeAfterPseudoTest06");
+        convertToPdfAndCompare("beforeAfterPseudoTest06", sourceFolder, destinationFolder);
     }
 
     @Test
     public void beforeAfterPseudoTest07() throws IOException, InterruptedException {
-        runTest("beforeAfterPseudoTest07");
+        convertToPdfAndCompare("beforeAfterPseudoTest07", sourceFolder, destinationFolder);
     }
 
     @Test
     public void beforeAfterPseudoTest10() throws IOException, InterruptedException {
-        runTest("beforeAfterPseudoTest10");
+        convertToPdfAndCompare("beforeAfterPseudoTest10", sourceFolder, destinationFolder);
     }
 
     @Test
     public void beforeAfterPseudoTest11() throws IOException, InterruptedException {
-        runTest("beforeAfterPseudoTest11");
+        convertToPdfAndCompare("beforeAfterPseudoTest11", sourceFolder, destinationFolder);
     }
 
     @Test
     public void beforeAfterPseudoTest12() throws IOException, InterruptedException {
-        runTest("beforeAfterPseudoTest12");
+        convertToPdfAndCompare("beforeAfterPseudoTest12", sourceFolder, destinationFolder);
     }
 
     @Test
     public void beforeAfterPseudoTest13() throws IOException, InterruptedException {
-        runTest("beforeAfterPseudoTest13");
+        convertToPdfAndCompare("beforeAfterPseudoTest13", sourceFolder, destinationFolder);
     }
 
     @Test
     public void beforeAfterPseudoTest14() throws IOException, InterruptedException {
-        runTest("beforeAfterPseudoTest14");
+        convertToPdfAndCompare("beforeAfterPseudoTest14", sourceFolder, destinationFolder);
     }
 
     @Test
     public void collapsingMarginsBeforeAfterPseudo01() throws IOException, InterruptedException {
-        runTest("collapsingMarginsBeforeAfterPseudo01");
+        convertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void collapsingMarginsBeforeAfterPseudo02() throws IOException, InterruptedException {
-        runTest("collapsingMarginsBeforeAfterPseudo02");
+        convertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo02", sourceFolder, destinationFolder);
     }
 
     @Test
     //TODO: incorrect behaviour because of trimmed non-breakable space
     public void collapsingMarginsBeforeAfterPseudo03() throws IOException, InterruptedException {
-        runTest("collapsingMarginsBeforeAfterPseudo03");
+        convertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void collapsingMarginsBeforeAfterPseudo04() throws IOException, InterruptedException {
-        runTest("collapsingMarginsBeforeAfterPseudo04");
+        convertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo04", sourceFolder, destinationFolder);
     }
 
     @Test
     public void collapsingMarginsBeforeAfterPseudo05() throws IOException, InterruptedException {
-        runTest("collapsingMarginsBeforeAfterPseudo05");
+        convertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo05", sourceFolder, destinationFolder);
     }
 
     @Test
     public void collapsingMarginsBeforeAfterPseudo06() throws IOException, InterruptedException {
-        runTest("collapsingMarginsBeforeAfterPseudo06");
+        convertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo06", sourceFolder, destinationFolder);
     }
 
     @Test
     public void escapedStringTest01() throws IOException, InterruptedException {
-        runTest("escapedStringTest01");
+        convertToPdfAndCompare("escapedStringTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void escapedStringTest02() throws IOException, InterruptedException {
-        runTest("escapedStringTest02");
+        convertToPdfAndCompare("escapedStringTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void escapedStringTest03() throws IOException, InterruptedException {
-        runTest("escapedStringTest03");
+        convertToPdfAndCompare("escapedStringTest03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void escapedStringTest04() throws IOException, InterruptedException {
-        runTest("escapedStringTest04");
+        convertToPdfAndCompare("escapedStringTest04", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void escapedStringTest05() throws IOException, InterruptedException {
+        convertToPdfAndCompare("escapedStringTest05", sourceFolder, destinationFolder);
     }
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 5))
     public void attrTest01() throws IOException, InterruptedException {
-        runTest("attrTest01");
+        convertToPdfAndCompare("attrTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 3))
     public void attrTest02() throws IOException, InterruptedException {
-        runTest("attrTest02");
+        convertToPdfAndCompare("attrTest02", sourceFolder, destinationFolder);
     }
 
 
     @Test
     public void emptyStillShownPseudoTest01() throws IOException, InterruptedException {
-        runTest("emptyStillShownPseudoTest01");
+        convertToPdfAndCompare("emptyStillShownPseudoTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void emptyStillShownPseudoTest02() throws IOException, InterruptedException {
         // TODO inline elements with absolute positioning are not supported at the moment
-        runTest("emptyStillShownPseudoTest02");
+        convertToPdfAndCompare("emptyStillShownPseudoTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void emptyStillShownPseudoTest03() throws IOException, InterruptedException {
         // TODO inline elements with absolute positioning are not supported at the moment
-        runTest("emptyStillShownPseudoTest03");
+        convertToPdfAndCompare("emptyStillShownPseudoTest03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void emptyStillShownPseudoTest04() throws IOException, InterruptedException {
         // TODO inline elements with absolute positioning are not supported at the moment
-        runTest("emptyStillShownPseudoTest04");
+        convertToPdfAndCompare("emptyStillShownPseudoTest04", sourceFolder, destinationFolder);
     }
 
     @Test
     public void emptyStillShownPseudoTest05() throws IOException, InterruptedException {
-        runTest("emptyStillShownPseudoTest05");
+        convertToPdfAndCompare("emptyStillShownPseudoTest05", sourceFolder, destinationFolder);
     }
 
     @Test
     public void emptyStillShownPseudoTest06() throws IOException, InterruptedException {
-        runTest("emptyStillShownPseudoTest06");
+        convertToPdfAndCompare("emptyStillShownPseudoTest06", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -229,7 +230,7 @@ public class PseudoElementsTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES),
     })
     public void emptyStillShownPseudoTest07() throws IOException, InterruptedException {
-        runTest("emptyStillShownPseudoTest07");
+        convertToPdfAndCompare("emptyStillShownPseudoTest07", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -237,31 +238,21 @@ public class PseudoElementsTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES),
     })
     public void emptyStillShownPseudoTest08() throws IOException, InterruptedException {
-        runTest("emptyStillShownPseudoTest08");
+        convertToPdfAndCompare("emptyStillShownPseudoTest08", sourceFolder, destinationFolder);
     }
 
     @Test
     public void emptyStillShownPseudoTest09() throws IOException, InterruptedException {
-        runTest("emptyStillShownPseudoTest09");
+        convertToPdfAndCompare("emptyStillShownPseudoTest09", sourceFolder, destinationFolder);
     }
 
     @Test
     public void pseudoDisplayTable01Test() throws IOException, InterruptedException {
-        runTest("pseudoDisplayTable01");
+        convertToPdfAndCompare("pseudoDisplayTable01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void pseudoDisplayTable02Test() throws IOException, InterruptedException {
-        runTest("pseudoDisplayTable02");
-    }
-
-    private void runTest(String name) throws IOException, InterruptedException {
-        String htmlPath = sourceFolder + name + ".html";
-        String pdfPath = destinationFolder + name + ".pdf";
-        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-        String diffPrefix = "diff_" + name + "_";
-
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
-        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+        convertToPdfAndCompare("pseudoDisplayTable02", sourceFolder, destinationFolder);
     }
 }

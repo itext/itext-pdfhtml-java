@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+ <head>
+<style type="text/css">
+
+ address { background: red; margin: 0; height: 1em; display: block; }
+ address:empty { background: lime; }
+ .text { margin: -1em 0 0 0; }
+
+</style>
+ </head>
+ <body>
+
+ <address xmlns="http://tests.example.org/xml-only/"><![CDATA[]]></address>
+ <div class="text" xmlns="http://www.w3.org/1999/xhtml">This line should have a green background.</div>
+ <p xmlns="http://www.w3.org/1999/xhtml">(Note: This test is based on unpublished errata.)</p>
+
+</body>
+</html>

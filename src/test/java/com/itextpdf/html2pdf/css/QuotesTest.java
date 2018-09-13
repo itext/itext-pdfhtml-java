@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,24 +42,20 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.LogMessageConstant;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class QuotesTest extends ExtendedITextTest {
+public class QuotesTest extends ExtendedHtmlConversionITextTest {
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/QuotesTest/";
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/QuotesTest/";
 
@@ -70,32 +66,32 @@ public class QuotesTest extends ExtendedITextTest {
 
     @Test
     public void depthTest01() throws IOException, InterruptedException {
-        runTest("depthTest01");
+        convertToPdfAndCompare("depthTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void depthTest02() throws IOException, InterruptedException {
-        runTest("depthTest02");
+        convertToPdfAndCompare("depthTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void depthTest03() throws IOException, InterruptedException {
-        runTest("depthTest03");
+        convertToPdfAndCompare("depthTest03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void escapedTest() throws IOException, InterruptedException {
-        runTest("escapedTest");
+        convertToPdfAndCompare("escapedTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void noQuoteTest() throws IOException, InterruptedException {
-        runTest("noQuoteTest");
+        convertToPdfAndCompare("noQuoteTest", sourceFolder, destinationFolder);
     }
 
     @Test
     public void valuesTest() throws IOException, InterruptedException {
-        runTest("valuesTest");
+        convertToPdfAndCompare("valuesTest", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -105,7 +101,7 @@ public class QuotesTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
     })
     public void attrTest() throws IOException, InterruptedException {
-        runTest("attrTest");
+        convertToPdfAndCompare("attrTest", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -114,16 +110,6 @@ public class QuotesTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2)
     })
     public void errorTest() throws IOException, InterruptedException {
-        runTest("errorTest");
-    }
-
-    private void runTest(String name) throws IOException, InterruptedException {
-        String htmlPath = sourceFolder + name + ".html";
-        String pdfPath = destinationFolder + name + ".pdf";
-        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-        String diffPrefix = "diff_" + name + "_";
-
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
-        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+        convertToPdfAndCompare("errorTest", sourceFolder, destinationFolder);
     }
 }
