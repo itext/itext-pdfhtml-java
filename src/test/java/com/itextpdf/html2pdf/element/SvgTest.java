@@ -178,6 +178,7 @@ public class SvgTest extends ExtendedITextTest {
     @LogMessages(messages = {
             @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_WIDTH, count = 2),
             @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_HEIGHT, count = 2),
+            @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count=6)
     })
     public void SvgWithoutDimensionsImageAndObjectRef() throws IOException, InterruptedException {
         String name = "SvgWithoutDimensionsImageAndObjectRef";
