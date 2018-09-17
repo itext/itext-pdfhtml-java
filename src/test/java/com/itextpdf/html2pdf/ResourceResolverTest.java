@@ -70,6 +70,9 @@ public class ResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, count = 1),
+                            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, count = 1),
+                            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1)})
     public void resourceResolverTest03() throws IOException, InterruptedException {
         String baseUri = sourceFolder + "res";
         String outPdf = destinationFolder + "resourceResolverTest03.pdf";
