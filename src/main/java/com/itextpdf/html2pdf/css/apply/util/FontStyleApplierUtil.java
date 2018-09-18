@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css.apply.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -79,6 +80,12 @@ public final class FontStyleApplierUtil {
     /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(FontStyleApplierUtil.class);
 
+    /** Css constants related to text-decoration properties . */
+    private static String[] _textDecorationConstants = {
+    		CssConstants.TEXT_DECORATION,
+    		CssConstants.TEXT_DECORATION_LINE
+    };
+    
     /**
      * Creates a {@link FontStyleApplierUtil} instance.
      */
@@ -99,7 +106,7 @@ public final class FontStyleApplierUtil {
         if (em != 0) {
             element.setProperty(Property.FONT_SIZE, UnitValue.createPointValue(em));
         }
-
+ 
         if (cssProps.get(CssConstants.FONT_FAMILY) != null) {
             element.setProperty(Property.FONT, cssProps.get(CssConstants.FONT_FAMILY));
         }
@@ -152,12 +159,19 @@ public final class FontStyleApplierUtil {
             element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.JUSTIFIED);
             element.setProperty(Property.SPACING_RATIO, 1f);
         }
-
-        String textDecorationProp = cssProps.get(CssConstants.TEXT_DECORATION);
-        if (textDecorationProp == null) textDecorationProp = cssProps.get(CssConstants.TEXT_DECORATION_LINE);
-        if (textDecorationProp != null) {
-            String[] textDecorations = textDecorationProp.split("\\s+");
+        
+        // Getting every text-decoration property
+        List<String> textDecorations = new ArrayList<>();
+        for (String textDecorationCons : _textDecorationConstants) {
+        	String textDecorationProp = cssProps.get(textDecorationCons); 
+        	if (textDecorationProp != null) textDecorations.addAll(
+        			Arrays.asList(textDecorationProp.split("\\s+")));
+        }
+        
+        if (!textDecorations.isEmpty()) {
+        	
             List<Underline> underlineList = new ArrayList<>();
+            
             for (String textDecoration : textDecorations) {
                 if (CssConstants.BLINK.equals(textDecoration)) {
                     logger.error(LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
@@ -167,12 +181,14 @@ public final class FontStyleApplierUtil {
                     underlineList.add(new Underline(null, .75f, 0, 0, 9 / 10f, PdfCanvasConstants.LineCapStyle.BUTT));
                 } else if (CssConstants.UNDERLINE.equals(textDecoration)) {
                     underlineList.add(new Underline(null, .75f, 0, 0, -1 / 10f, PdfCanvasConstants.LineCapStyle.BUTT));
-                } else if (CssConstants.NONE.equals(textDecoration)) {
+                } 
+                else if (CssConstants.NONE.equals(textDecoration)) {
                     underlineList = null;
                     // if none and any other decoration are used together, none is displayed
                     break;
                 }
             }
+            
             element.setProperty(Property.UNDERLINE, underlineList);
         }
 

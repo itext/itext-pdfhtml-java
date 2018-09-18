@@ -160,7 +160,7 @@ public class DefaultCssResolver implements ICssResolver {
 
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.css.resolve.ICssResolver#resolveStyles(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.resolve.CssContext)
-     */
+     */ 
     private Map<String, String> resolveStyles(INode element, CssContext context) {
         List<CssDeclaration> nodeCssDeclarations = UserAgentCss.getStyles(element);
         if (element instanceof IElementNode) {
@@ -407,7 +407,7 @@ public class DefaultCssResolver implements ICssResolver {
                         "0.####") + CssConstants.PT);
             } else
                 styles.put(cssProperty, parentPropValue);
-        } else if (CssConstants.TEXT_DECORATION.equals(cssProperty) && !CssConstants.INLINE_BLOCK.equals(styles.get(CssConstants.DISPLAY))) {
+        } else if (cssProperty.startsWith(CssConstants.TEXT_DECORATION) && !CssConstants.INLINE_BLOCK.equals(styles.get(CssConstants.DISPLAY))) {
             // TODO Note! This property is formally not inherited, but the browsers behave very similar to inheritance here.
                         /* Text decorations on inline boxes are drawn across the entire element,
                             going across any descendant elements without paying any attention to their presence. */

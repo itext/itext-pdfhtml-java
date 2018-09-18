@@ -84,7 +84,7 @@ public class HtmlTagWorker implements ITagWorker {
         document.setRenderer(new HtmlDocumentRenderer(document, immediateFlush));
         document.setProperty(Property.COLLAPSING_MARGINS, true);
         document.setFontProvider(context.getFontProvider());
-        if (context.getTempFonts() != null) {
+        if (context.getTempFonts() != null) { 
             document.setProperty(Property.FONT_SET, context.getTempFonts());
         }
         String fontFamily = element.getStyles().get(CssConstants.FONT_FAMILY);

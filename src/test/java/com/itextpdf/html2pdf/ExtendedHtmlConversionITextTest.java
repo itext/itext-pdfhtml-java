@@ -42,6 +42,16 @@
  */
 package com.itextpdf.html2pdf;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.junit.Assert;
+import org.xml.sax.SAXException;
+
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -52,14 +62,6 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.test.ExtendedITextTest;
-import org.junit.Assert;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * This class is used for testing of pdfHTML conversion cases

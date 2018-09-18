@@ -87,7 +87,7 @@ public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
     public void textDecoration04Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationTest04", sourceFolder, destinationFolder);
     }
-
+ 
     @Test
     public void textDecoration05Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "textDecorationTest05.html"), new File(destinationFolder + "textDecorationTest05.pdf"));

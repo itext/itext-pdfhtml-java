@@ -64,6 +64,7 @@ import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
+import com.itextpdf.io.util.FileUtil;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.Version;
 import com.itextpdf.kernel.counter.EventCounterHandler;
@@ -154,7 +155,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      */
     private ICssResolver cssResolver;
 
-    /**
+    /** 
      * Instantiates a new default html processor.
      *
      * @param converterProperties the converter properties
@@ -281,6 +282,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         if (!context.hasFonts()) {
             throw new Html2PdfException(Html2PdfException.FontProviderContainsZeroFonts);
         }
+        
         // TODO store html version from document type in context if necessary
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context);
@@ -631,4 +633,5 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     private boolean isPlaceholder(IElementNode element) {
         return element instanceof CssPseudoElementNode && CssConstants.PLACEHOLDER.equals(((CssPseudoElementNode) element).getPseudoElementName());
     }
+    
 }

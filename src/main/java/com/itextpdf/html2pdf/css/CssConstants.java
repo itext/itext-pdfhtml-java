@@ -118,9 +118,6 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant TEXT_COMBINE_UPRIGHT. */
     public static final String TEXT_COMBINE_UPRIGHT = "text-combine-upright";
 
-    /** The Constant TEXT_DECORATION. */
-    public static final String TEXT_DECORATION = "text-decoration";
-    
     /** The Constant TEXT_DECORATION_LINE. */
     public static final String TEXT_DECORATION_LINE = "text-decoration-line";
     
