@@ -44,8 +44,11 @@ package com.itextpdf.html2pdf.css.apply.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,11 +83,11 @@ public final class FontStyleApplierUtil {
     /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(FontStyleApplierUtil.class);
 
-    /** Css constants related to text-decoration properties . */
-    private static String[] _textDecorationConstants = {
+    /** Css constants related to text-decoration property . */
+    private static final Set<String> textDecorationConstants = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
     		CssConstants.TEXT_DECORATION,
-    		CssConstants.TEXT_DECORATION_LINE
-    };
+    		CssConstants.TEXT_DECORATION_LINE)));
+    
     
     /**
      * Creates a {@link FontStyleApplierUtil} instance.
@@ -162,7 +165,7 @@ public final class FontStyleApplierUtil {
         
         // Getting every text-decoration property
         List<String> textDecorations = new ArrayList<>();
-        for (String textDecorationCons : _textDecorationConstants) {
+        for (String textDecorationCons : textDecorationConstants) {
         	String textDecorationProp = cssProps.get(textDecorationCons); 
         	if (textDecorationProp != null) textDecorations.addAll(
         			Arrays.asList(textDecorationProp.split("\\s+")));
