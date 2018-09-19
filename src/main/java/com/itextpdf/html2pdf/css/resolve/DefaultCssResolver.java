@@ -407,17 +407,33 @@ public class DefaultCssResolver implements ICssResolver {
                         "0.####") + CssConstants.PT);
             } else
                 styles.put(cssProperty, parentPropValue);
-        } else if (cssProperty.startsWith(CssConstants.TEXT_DECORATION) && !CssConstants.INLINE_BLOCK.equals(styles.get(CssConstants.DISPLAY))) {
-            // TODO Note! This property is formally not inherited, but the browsers behave very similar to inheritance here.
-                        /* Text decorations on inline boxes are drawn across the entire element,
-                            going across any descendant elements without paying any attention to their presence. */
-            // Also, when, for example, parent element has text-decoration:underline, and the child text-decoration:overline,
-            // then the text in the child will be both overline and underline. This is why the declarations are merged
-            // See TextDecorationTest#textDecoration01Test
-            styles.put(cssProperty, CssPropertyMerger.mergeTextDecoration(childPropValue, parentPropValue));
-        }
+        } else if (!CssConstants.INLINE_BLOCK.equals(styles.get(CssConstants.DISPLAY))) {
+        	
+        	if (CssConstants.TEXT_DECORATION.equals(cssProperty)) {
+	            // TODO Note! This property is formally not inherited, but the browsers behave very similar to inheritance here.
+        		
+                // Text decorations on inline boxes are drawn across the entire element,
+                // going across any descendant elements without paying any attention to their presence. 
+	            // Also, when, for example, parent element has text-decoration:underline, and the child text-decoration:overline,
+	            // then the text in the child will be both overline and underline. This is why the declarations are merged
+	            // See TextDecorationTest#textDecoration01Test
+	            styles.put(cssProperty, CssPropertyMerger.mergeTextDecoration(childPropValue, parentPropValue));
+        	} else if (cssProperty.startsWith(CssConstants.TEXT_DECORATION)) {
+        		// When the parent element has a text-decoration-line and a nested elements with text-decoration property,
+        		// the parent property value is merged into text-decoration property the child. Otherwise, the
+        		// text-decoration-line property is inherited by the child element. 
+        		if (!styles.containsKey(CssConstants.TEXT_DECORATION)) {
+        			styles.put(cssProperty, CssPropertyMerger.mergeTextDecoration(childPropValue, parentPropValue));
+        		}
+        		else {
+        			styles.put(CssConstants.TEXT_DECORATION, 
+        					CssPropertyMerger.mergeTextDecoration(styles.get(CssConstants.TEXT_DECORATION), parentPropValue));
+        		}
+        	}
+        } 
     }
 
+    
     private static boolean valueIsOfMeasurement(String value, String measurement) {
         if (value == null)
             return false;
