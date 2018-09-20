@@ -42,11 +42,11 @@
  */
 package com.itextpdf.html2pdf.resolver.font;
 
+import java.io.InputStream;
+
 import com.itextpdf.io.util.ResourceUtil;
 import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
-
-import java.io.InputStream;
 
 /**
  * The default {@link BasicFontProvider} for pdfHTML, that, as opposed to
@@ -73,6 +73,7 @@ public class DefaultFontProvider extends BasicFontProvider {
             "FreeSerifBoldItalic.ttf",
             "FreeSerifItalic.ttf",
     };
+
 
     /**
      * Creates a new {@link DefaultFontProvider} instance.
@@ -108,5 +109,5 @@ public class DefaultFontProvider extends BasicFontProvider {
             }
         }
     }
-
+    
 }

@@ -215,8 +215,8 @@ public class ProcessorContext {
         formFieldNameResolver = new FormFieldNameResolver();
         radioCheckResolver = new RadioCheckResolver();
         immediateFlush = converterProperties.isImmediateFlush();
-        boldSimulation = converterProperties.isBoldSimulation();
-        italicSimulation = converterProperties.isItalicSimulation();
+        boldSimulation = converterProperties.isBoldSimulationEnabled();
+        italicSimulation = converterProperties.isItalicSimulationEnabled();
         metaInfo = converterProperties.getEventCountingMetaInfo();
         processingInlineSvg = false;
     }

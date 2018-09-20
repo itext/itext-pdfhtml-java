@@ -45,9 +45,9 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
-import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.kernel.counter.event.IMetaInfo;
+import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 
@@ -56,6 +56,12 @@ import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
  */
 public class ConverterProperties {
 
+	/** Weight of bold fonts. */
+	private static final int BOLD_FONT_WEIGHT = 700;
+	
+	/** Weight of italic fonts. */
+	private static final int ITALIC_FONT_WEIGHT = 500;
+	
     /** The media device description. */
     private MediaDeviceDescription mediaDeviceDescription;
     
@@ -88,7 +94,7 @@ public class ConverterProperties {
     
     /** Indicates whether the italic font should be simulated or not **/
     private boolean italicSimulation = false;
-
+    
     /** Meta info that will be added to the events thrown by html2Pdf */
     private IMetaInfo metaInfo;
 
@@ -155,6 +161,13 @@ public class ConverterProperties {
      */
     public ConverterProperties setFontProvider(FontProvider fontProvider) {
         this.fontProvider = fontProvider;
+        for (FontInfo fontInfo : this.fontProvider.getFontSet().getFonts()) {
+			if (isBoldFont(fontInfo)) {
+				this.boldSimulation = false;
+			} else if (isItalicFont(fontInfo)) {
+				this.italicSimulation = false;
+			}
+		}
         return this;
     }
 
@@ -304,43 +317,89 @@ public class ConverterProperties {
 
     /**
      * Checks if boldSimulation is set
-     * @return true if boldSimulation is set, false if not.
+     * @return true if boldSimulation is set, false otherwise.
      */
-	public boolean isBoldSimulation() {
+	public boolean isBoldSimulationEnabled() {
 		return boldSimulation;
 	}
 
 	 /**
-     * Sets the bold font simulation.
+     * Enables the bold font simulation.
      *
-     * @param boldSimulation the boldSimulation
-     * @return the ConverterProperties instance
      */
-	public ConverterProperties setBoldSimulation(boolean boldSimulation) {
-		this.boldSimulation = boldSimulation;
+	public ConverterProperties enableBoldSimulation() {
+		
+		if (this.fontProvider != null) {
+			for (FontInfo fontInfo : this.fontProvider.getFontSet().getFonts()) {
+				if (isBoldFont(fontInfo)) {
+					this.boldSimulation = false;
+					return this;
+				}
+			}
+		}
+		
+		this.boldSimulation = true;
 		return this;
+	}
+	
+	/**
+     * Disables the bold font simulation.
+     *
+     */
+	public ConverterProperties disableBoldSimulation() {
+		this.boldSimulation = false;
+		return this;
+	}
+	
+	
+	private boolean isBoldFont(FontInfo fontInfo) {
+		return fontInfo.getDescriptor().isBold() ||
+				fontInfo.getDescriptor().getFontWeight() == BOLD_FONT_WEIGHT;
 	}
 	
     /**
      * Checks if italicSimulation is set
-     * @return true if italicSimulation is set, false if not.
+     * @return true if italicSimulation is enabled, false otherwise.
      */
-	public boolean isItalicSimulation() {
+	public boolean isItalicSimulationEnabled() {
 		return italicSimulation;
 	}
 
 	 /**
-     * Sets the italic font simulation.
+     * Enables the italic font simulation.
+     *
+     */
+	public ConverterProperties enableItalicSimulation() {
+		
+		if (this.fontProvider != null) {
+			for (FontInfo fontInfo : this.fontProvider.getFontSet().getFonts()) {
+				if (isItalicFont(fontInfo)) {
+					this.italicSimulation = false;
+					return this;
+				}
+			}
+		}
+		
+		this.italicSimulation = true;
+		return this;
+	}
+	
+	/**
+     * Disables the italic font simulation.
      *
      * @param italicSimulation the italicSimulation
      * @return the ConverterProperties instance
      */
-	public ConverterProperties setItalicSimulation(boolean italicSimulation) {
-		this.italicSimulation = italicSimulation;
+	public ConverterProperties disableItalicSimulation() {
+		this.italicSimulation = false;
 		return this;
 	}
     
-
+	private boolean isItalicFont(FontInfo fontInfo) {
+		return fontInfo.getDescriptor().isItalic() ||
+				fontInfo.getDescriptor().getFontWeight() == ITALIC_FONT_WEIGHT;
+	}
+	
 	/**
      * Gets html meta info. This meta info will be passed with to {@link com.itextpdf.kernel.counter.EventCounter}
      * with {@link com.itextpdf.html2pdf.events.PdfHtmlEvent} and can be used to determine event origin.
