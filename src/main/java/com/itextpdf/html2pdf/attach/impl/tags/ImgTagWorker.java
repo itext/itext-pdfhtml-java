@@ -58,12 +58,11 @@ import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.exceptions.SvgProcessingException;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.processors.impl.SvgConverterProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * TagWorker class for the {@code img} element.
@@ -100,14 +99,15 @@ public class ImgTagWorker implements ITagWorker {
             } else {
                 byte[] resourceBytes = context.getResourceResolver().retrieveBytesFromResource(src);
                 if (resourceBytes != null) {
-                    InputStream resourceStream = context.getResourceResolver().retrieveResourceAsInputStream(src);
-                    //Try with svg
-                    try {
-                        processAsSvg(resourceStream, context);
-                    } catch (SvgProcessingException spe) {
-                        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, context.getBaseUri(), src));
-                    } catch(IOException ioe){
-                        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI,context.getBaseUri(),src));
+                    try (InputStream resourceStream = context.getResourceResolver().retrieveResourceAsInputStream(src)) {
+                        //Try with svg
+                        try {
+                            processAsSvg(resourceStream, context);
+                        } catch (SvgProcessingException spe) {
+                            LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, context.getBaseUri(), src));
+                        }
+                    } catch (IOException ioe) {
+                        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, context.getBaseUri(), src));
                     }
                 }
             }
