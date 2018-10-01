@@ -132,6 +132,12 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    //Test will fail after fix in DEVSIX-2332
+    public void pageBreakInsideAvoidTest01() throws IOException, InterruptedException {
+        runTest("pageBreakInsideAvoidTest01");
+    }
+
+    @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT)})
     /* Test will fail after fix in DEVSIX-2024 */
     public void pageBreakInConstrainedDivTest() throws IOException, InterruptedException {
