@@ -49,9 +49,8 @@ public class LocalFontResolverReleaseTest extends ExtendedITextTest {
         }
 
         // The resource must be freed after the conversion
-        File resourceToBeremoved = new File(workDirFontFile);
-        resourceToBeremoved.delete();
-        Assert.assertFalse(resourceToBeremoved.exists());
+        File resourceToBeRemoved = new File(workDirFontFile);
+        resourceToBeRemoved.delete();
+        Assert.assertFalse(resourceToBeRemoved.exists());
     }
-
 }
