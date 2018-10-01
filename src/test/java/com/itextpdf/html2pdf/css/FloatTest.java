@@ -487,6 +487,12 @@ public class FloatTest extends ExtendedITextTest {
         runTest("nestedFloat01Test", "diffNested01_");
     }
 
+    @Test
+    //This test should fail after the fix in DEVSIX-2335
+    public void floatingDivBottomBorderTest() throws IOException, InterruptedException {
+        runTest("floatingDivBottomBorderTest", "diff_BottomBorderTest_");
+    }
+
     private void runTest(String testName, String diff) throws IOException, InterruptedException {
         String htmlName = sourceFolder + testName + ".html";
         String outFileName = destinationFolder + testName + ".pdf";
