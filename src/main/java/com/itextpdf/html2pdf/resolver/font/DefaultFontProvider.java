@@ -136,11 +136,8 @@ public class DefaultFontProvider extends BasicFontProvider {
         } catch (ClassNotFoundException ignored) { }
         if (klass != null) {
             try {
-                Class[] cArg = {FontProvider.class};
                 Method m = klass.getMethod(methodName);
-                // an empty array of arguments is needed for autoport
-                Object[] args = new Object[] {};
-                ArrayList<byte[]> fontStreams = (ArrayList<byte[]>) m.invoke(cArg, args);
+                ArrayList<byte[]> fontStreams = (ArrayList<byte[]>) m.invoke(null, null);
                 for (byte[] font : fontStreams)
                     addFont(font);
                 // here we return a unicode range that excludes the loaded from the calligraph module fonts
