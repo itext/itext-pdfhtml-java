@@ -112,7 +112,7 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant VERTICAL_ALIGN. */
     public static final String VERTICAL_ALIGN = "vertical-align";
 
-    /** The Constant VISIBILITY. */
+    /** The Constant VISIBLE. */
     public static final String VISIBLE = "visible";
 
     /** The Constant MAX_WIDTH. */

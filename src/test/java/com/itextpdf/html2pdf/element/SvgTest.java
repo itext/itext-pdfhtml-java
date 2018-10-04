@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.element;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.styledxmlparser.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.svg.exceptions.SvgLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -143,6 +144,18 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 4),
+            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, count = 1),
+    })
+    public void externalObjectWithResourceTest() throws IOException, InterruptedException {
+        // TODO DEVSIX-2338: image inside the SVG cannot be resolved because baseUri is not passed correctly in ObjectTagWorker: processUtil.createImageFromProcessingResult(res,document)
+        String name = "external_object_with_resource";
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+    }
+
+    @Test
+    @LogMessages(messages = {
             @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI),
             @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
     })
@@ -151,4 +164,38 @@ public class SvgTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
     }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_WIDTH),
+            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_HEIGHT),
+    })
+    public void SvgWithoutDimensionsTest() throws IOException, InterruptedException {
+        String name = "svg_without_dimensions";
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+    }
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_WIDTH),
+            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_HEIGHT),
+    })
+    public void SvgWithoutDimensionsWithViewboxTest() throws IOException, InterruptedException {
+        String name = "svg_without_dimensions_with_viewbox";
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_WIDTH, count = 2),
+            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_HEIGHT, count = 2),
+            @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count=6)
+    })
+    public void SvgWithoutDimensionsImageAndObjectRef() throws IOException, InterruptedException {
+        String name = "SvgWithoutDimensionsImageAndObjectRef";
+        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+    }
+
 }

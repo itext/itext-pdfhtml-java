@@ -43,21 +43,13 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import static com.itextpdf.test.ITextTest.createOrClearDestinationFolder;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class VerticalAlignmentTest extends ExtendedHtmlConversionITextTest {
@@ -120,10 +112,28 @@ public class VerticalAlignmentTest extends ExtendedHtmlConversionITextTest {
     public void verticalAlignmentTest11() throws IOException, InterruptedException {
         convertToPdfAndCompare("verticalAlignmentTest11", sourceFolder, destinationFolder);
     }
-    
+
     @Test
     public void verticalAlignmentTest12() throws IOException, InterruptedException {
         convertToPdfAndCompare("verticalAlignmentTest12", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @Ignore("DEVSIX-1750")
+    public void verticalAlignmentTest13() throws IOException, InterruptedException {
+        convertToPdfAndCompare("verticalAlignmentTest13", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @Ignore("DEVSIX-1750")
+    public void verticalAlignmentTest14() throws IOException, InterruptedException {
+        convertToPdfAndCompare("verticalAlignmentTest14", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @Ignore("DEVSIX-1750")
+    public void verticalAlignmentTest15() throws IOException, InterruptedException {
+        convertToPdfAndCompare("verticalAlignmentTest15", sourceFolder, destinationFolder);
     }
     
     @Test

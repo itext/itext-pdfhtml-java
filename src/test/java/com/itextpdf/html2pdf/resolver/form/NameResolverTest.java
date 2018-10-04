@@ -42,7 +42,6 @@
  */
 package com.itextpdf.html2pdf.resolver.form;
 
-import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 import org.junit.Assert;

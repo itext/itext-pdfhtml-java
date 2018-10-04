@@ -1,21 +1,18 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 112>>stream
-xœ=Ì»‚@Fá~â/±Y³cÜ­	ö&SĞbt‰á6„ç%PŸ“o »ĞùááRÓ% ú«RQ&júÒL©ÆôÑQ‘m‡Q+ÌÉÒë«èÚ_ZÇ·º“4”=iØ`FÜáÀ7Çü‡‹âø¢"˜
+<</Filter/FlateDecode/Length 111>>stream
+xœ=Ì±‚0Fáı>Å?êRÓín¢;ÉX5\ Æ´ÒKx~ĞçsòÍteºÜ-¬TyÛÀ=XtÁç¡*Š8`™¤¢"eé±FÏ· §oÚÇQÌ™_tcji>àpÀ¾r¦ö?¸ëşßr"—
 endstream
 endobj
 4 0 obj
-<</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R/F2 7 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
+<</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
 endobj
 1 0 obj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123917+03'00')/ModDate(D:20171109123917+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Width of containing block is determined by with of child)/assert(The containing block's width depends on this element's width because the resulting layout has not been defined in CSS2.1.)/flags(ahem)>>
-endobj
-7 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20180826133640+03'00')/ModDate(D:20180826133640+03'00')/Producer(iText® 7.1.4-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: Width of containing block is determined by with of child)/assert(The containing block's width depends on this element's width because the resulting layout has not been defined in CSS2.1.)/flags(ahem)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,18 +21,17 @@ endobj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
 endobj
 xref
-0 8
+0 7
 0000000000 65535 f 
-0000000336 00000 n 
-0000000941 00000 n 
-0000000381 00000 n 
-0000000194 00000 n 
+0000000326 00000 n 
+0000000843 00000 n 
+0000000371 00000 n 
+0000000193 00000 n 
 0000000015 00000 n 
-0000000851 00000 n 
-0000000763 00000 n 
+0000000753 00000 n 
 trailer
-<</ID [<6cca821cac3f2c42e828b99889115873><6cca821cac3f2c42e828b99889115873>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<a89a102f82b5ecdcfe21776c196d8225><a89a102f82b5ecdcfe21776c196d8225>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.4-SNAPSHOT
 startxref
-992
+894
 %%EOF

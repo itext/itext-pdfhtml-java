@@ -331,6 +331,20 @@ public class ResourceResolverTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff17_"));
     }
 
+    @Test
+    // TODO update cmp and remove logMessage after DEVSIX-2085 is done
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI))
+    public void resourceResolverTest18() throws IOException, InterruptedException {
+        String baseUri = sourceFolder;
+        String outPdf = destinationFolder + "resourceResolverTest18.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverTest18.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest18.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff18_"));
+    }
+
     // TODO test with absolute http links for resources?
     // TODO test with http base URI?
 }

@@ -122,6 +122,12 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-1896
+    public void whiteSpaceTest03() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceTest03", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void enspEmspThinspTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("enspEmspThinspTest01", sourceFolder, destinationFolder);
     }

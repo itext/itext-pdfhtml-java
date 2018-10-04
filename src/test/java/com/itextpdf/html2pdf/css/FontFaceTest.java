@@ -226,9 +226,6 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    // The result of te test is FAIL. However we consider it to be correct.
-    // Although the font-family specified by the paragraph's class doesn't match the one of fontface,
-    // font's full name contains specified font-family and iText takes it into account.
     public void incorrectFontNameTest02() throws IOException, InterruptedException {
         runTest("incorrectFontNameTest02");
     }
@@ -245,9 +242,39 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
+    // TODO DEVSIX-1760
+    public void cannotProcessSpecifiedFontTest01() throws IOException, InterruptedException {
+        runTest("cannotProcessSpecifiedFontTest01");
+    }
+
+    @Test
     @Ignore("DEVSIX-1759")
     public void fontFamilyTest01() throws IOException, InterruptedException {
         runTest("fontFamilyTest01");
+    }
+
+    @Test
+    //TODO DEVSIX-2122
+    public void fontFaceFontWeightTest() throws IOException, InterruptedException {
+        runTest("fontFaceFontWeightTest");
+    }
+
+    @Test
+    //TODO DEVSIX-2122
+    public void fontFaceFontWeightWrongTest() throws IOException, InterruptedException {
+        runTest("fontFaceFontWeightWrongWeightsTest");
+    }
+
+    @Test
+    //TODO DEVSIX-2122
+    public void fontFaceFontWeightInvalidTest() throws IOException, InterruptedException {
+        runTest("fontFaceFontWeightInvalidWeightsTest");
+    }
+
+    @Test
+    // TODO DEVSIX-1953
+    public void texFonts01() throws IOException, InterruptedException {
+        runTest("texFonts01");
     }
 
     private void runTest(String name) throws IOException, InterruptedException {

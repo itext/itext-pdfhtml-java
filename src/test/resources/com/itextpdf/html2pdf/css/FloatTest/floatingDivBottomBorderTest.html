@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .clear {
+                clear: both;
+            }
+
+            div.label {
+                float: left;
+                width: 40%;
+                margin: 0 20pt 5pt 0;
+            }
+
+            div.field {
+                float: left;
+                margin: 0 20pt 5pt 0;
+                color: #00a850;
+            }
+
+            div.block_bad {
+                margin-top: 10pt;
+                background: lightblue;
+                border: 1pt solid black;
+            }
+
+            div.block_good {
+                margin-top: 10pt;
+                background: lightblue;
+                border-top: 1pt solid black;
+                border-left: 1pt solid black;
+                border-right: 1pt solid black;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="block_bad">
+        <h1>Both blocks should have equal height, only difference is the bottom border</h1>
+        <div>Lorem Ipsum</div>
+        <div>Lorem Ipsum</div>
+        <div>Lorem Ipsum</div>
+        <div>Lorem Ipsum</div>
+        <div class="label">Lorem Ipsum</div><div class="field">Lorem Ipsum</div>
+        <div class="clear"></div>
+        <div class="label">Lorem Ipsum</div><div class="field">Lorem Ipsum</div>
+        <div class="clear"></div>
+        <div class="label">Lorem Ipsum</div><div class="field">Lorem Ipsum</div>
+        <div class="clear"></div>
+        <div class="label">Lorem Ipsum</div><div class="field">Lorem Ipsum</div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="block_good">
+        <h1>Both blocks should have equal height, only difference is the bottom border</h1>
+        <div>Lorem Ipsum</div>
+        <div>Lorem Ipsum</div>
+        <div>Lorem Ipsum</div>
+        <div>Lorem Ipsum</div>
+        <div class="label">Lorem Ipsum</div><div class="field">Lorem Ipsum</div>
+        <div class="clear"></div>
+        <div class="label">Lorem Ipsum</div><div class="field">Lorem Ipsum</div>
+        <div class="clear"></div>
+        <div class="label">Lorem Ipsum</div><div class="field">Lorem Ipsum</div>
+        <div class="clear"></div>
+        <div class="label">Lorem Ipsum</div><div class="field">Lorem Ipsum</div>
+        <div class="clear"></div>
+    </div>
+
+    </body>
+</html>

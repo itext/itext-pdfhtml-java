@@ -1,22 +1,18 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 288>>stream
-xœ…‘MSÂ0„ïù{ÄKl©!pÔëÑ2ã9Ò¢iSšÔş}ßpp˜‘Só±»Ï¾é=(v[æÈTÍŠ¤”<[AU,C†ı–Í”	µoc¸QŸìQ±W¶?^¿=±ŒKñà\¬Ğ°}—§­cëdøC:)N°š ¶Q;g*"öˆ;‰Ï¡vïÏeI"ÛnÓ!‰FëÜds^W´õß¦ŸJÎpVõbF!ùB$l¤ĞÖÄÑ÷_3:ŒÚFm´“ òc;åƒºl|C¢hˆIıèÖ}“
-íÌur±äó<‘Ã°Ù˜àë³!ÿ³f—2YÓÿèt&ÀÖ©"Páå~½†î:£û@ıœ/ç˜E~Ç—‡g(u?Y‘
+<</Filter/FlateDecode/Length 284>>stream
+xœ…‘ËNÃ0D÷şŠY–IZ¹n— –<j‰µinZƒ§±K~ŸÓ"V~ÍÌ™+Äµ—U‰RÁ4b±„ÖZk˜Z(PbØ‰™¡˜Ğ„.Åó"nŒx‡Óóã­(¤V?¼Jª5Z±æuu>z±É†o¤³â›¡=2ä™àº˜¬÷T3q@Ú»ˆÄ|	³'<İU‹\·Ë—,÷“Í[ó1¼Ñ0•œáKÕ3*-—*c‡v”Æ0¼"ôl$ŒÖ%»ä<&AÆnÊwÙ†–E‰˜Éıø÷C›íéòb%çe&ÇãvK1"4_†üËZ,¤ÖÙšÿ£·1R„krE ÆıÕfÛ÷d‡Èı|,N‰j^Êe¬>eïÇ¶á
 endstream
 endobj
 4 0 obj
-<</Annots[8 0 R]/Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R/F2 7 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
+<</Annots[7 0 R]/Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
 endobj
 1 0 obj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109122406+03'00')/ModDate(D:20171109122406+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(WOFF Test: Original Length Less Than Decompressed Length)/assert(The CFF table when decompressed has a length that is four bytes longer than the value listed in origLength.)/flags(font)>>
-endobj
-7 0 obj
-<</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20180826133656+03'00')/ModDate(D:20180826133656+03'00')/Producer(iText® 7.1.4-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(WOFF Test: Original Length Less Than Decompressed Length)/assert(The CFF table when decompressed has a length that is four bytes longer than the value listed in origLength.)/flags(font)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,27 +20,26 @@ endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
 endobj
-8 0 obj
-<</A 9 0 R/Border[0 0 0]/F 4/P 4 0 R/Rect[36 773.18 95.58 789.38]/Subtype/Link>>
+7 0 obj
+<</A 8 0 R/Border[0 0 0]/F 4/P 4 0 R/Rect[36 773.18 95.58 789.38]/Subtype/Link>>
 endobj
-9 0 obj
+8 0 obj
 <</IsMap false/S/URI/Type/Action/URI(../../FontsToInstall)>>
 endobj
 xref
-0 10
+0 9
 0000000000 65535 f 
-0000000526 00000 n 
-0000001107 00000 n 
-0000000571 00000 n 
-0000000370 00000 n 
+0000000513 00000 n 
+0000001006 00000 n 
+0000000558 00000 n 
+0000000366 00000 n 
 0000000015 00000 n 
-0000001017 00000 n 
-0000000929 00000 n 
-0000001158 00000 n 
-0000001254 00000 n 
+0000000916 00000 n 
+0000001057 00000 n 
+0000001153 00000 n 
 trailer
-<</ID [<c8e002fa4b33f5913f0a28adc5da76bb><c8e002fa4b33f5913f0a28adc5da76bb>]/Info 3 0 R/Root 1 0 R/Size 10>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<4af7d5c16baf939fa5d19738d3ecc8c8><4af7d5c16baf939fa5d19738d3ecc8c8>]/Info 3 0 R/Root 1 0 R/Size 9>>
+%iText-7.1.4-SNAPSHOT
 startxref
-1330
+1229
 %%EOF

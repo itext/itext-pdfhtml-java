@@ -46,17 +46,18 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
-import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.exceptions.SvgProcessingException;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
+import com.itextpdf.svg.processors.impl.SvgConverterProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,7 +73,7 @@ public class ImgTagWorker implements ITagWorker {
     /**
      * The logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(ObjectTagWorker.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ImgTagWorker.class);
 
     /**
      * The image.
@@ -98,14 +99,15 @@ public class ImgTagWorker implements ITagWorker {
             } else {
                 byte[] resourceBytes = context.getResourceResolver().retrieveBytesFromResource(src);
                 if (resourceBytes != null) {
-                    InputStream resourceStream = context.getResourceResolver().retrieveResourceAsInputStream(src);
-                    //Try with svg
-                    try {
-                        processAsSvg(resourceStream, context);
-                    } catch (SvgProcessingException spe) {
-                        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, context.getBaseUri(), src));
-                    } catch(IOException ioe){
-                        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI,context.getBaseUri(),src));
+                    try (InputStream resourceStream = context.getResourceResolver().retrieveResourceAsInputStream(src)) {
+                        //Try with svg
+                        try {
+                            processAsSvg(resourceStream, context);
+                        } catch (SvgProcessingException spe) {
+                            LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, context.getBaseUri(), src));
+                        }
+                    } catch (IOException ioe) {
+                        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, context.getBaseUri(), src));
                     }
                 }
             }
@@ -129,7 +131,11 @@ public class ImgTagWorker implements ITagWorker {
 
     private void processAsSvg(InputStream stream, ProcessorContext context) throws IOException {
         SvgProcessingUtil processingUtil = new SvgProcessingUtil();
-        ISvgProcessorResult res = SvgConverter.parseAndProcess(stream);
+        SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
+        svgConverterProperties.setBaseUri(context.getBaseUri())
+                .setFontProvider(context.getFontProvider())
+                .setMediaDeviceDescription(context.getDeviceDescription());
+        ISvgProcessorResult res = SvgConverter.parseAndProcess(stream, svgConverterProperties);
         if (context.getPdfDocument() != null) {
             image = processingUtil.createImageFromProcessingResult(res, context.getPdfDocument());
         }

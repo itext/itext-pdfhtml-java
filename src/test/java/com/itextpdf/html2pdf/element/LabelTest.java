@@ -46,14 +46,14 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.IOException;
-
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class LabelTest extends ExtendedITextTest {
@@ -82,6 +82,13 @@ public class LabelTest extends ExtendedITextTest {
     public void labelDisplayBlock02Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "labelDisplayBlockTest02.html"), new File(destinationFolder + "labelDisplayBlockTest02.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelDisplayBlockTest02.pdf", sourceFolder + "cmp_labelDisplayBlockTest02.pdf", destinationFolder, "diffBlock02_"));
+    }
+
+    @Test
+    @Ignore("DEVSIX-2118")
+    public void labelBackground01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "labelBackground01Test.html"), new File(destinationFolder + "labelBackground01Test.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelBackground01Test.pdf", sourceFolder + "cmp_labelBackground01Test.pdf", destinationFolder, "diffBackground01_"));
     }
 
 }

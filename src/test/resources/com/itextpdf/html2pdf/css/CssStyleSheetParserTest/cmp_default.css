@@ -1,5 +1,5 @@
 html {
-    font-family: times-roman
+    font-family: times
 }
 pre {
     font-family: monospace;
@@ -366,7 +366,9 @@ input {
     display: inline-block;
     text-align: start;
     margin: 0em 0em 0em 0em;
-    font: 13.3333px arial
+    font-size: 13.3333px;
+    font-family: arial,helvetica;
+    font-weight: normal
 }
 textarea {
     color: initial;
@@ -378,7 +380,9 @@ textarea {
     display: inline-block;
     text-align: start;
     margin: 0em 0em 0em 0em;
-    font: 13.3333px arial
+    font-size: 13.3333px;
+    font-family: arial,helvetica;
+    font-weight: normal
 }
 select {
     color: initial;
@@ -390,7 +394,9 @@ select {
     display: inline-block;
     text-align: start;
     margin: 0em 0em 0em 0em;
-    font: 13.3333px arial
+    font-size: 13.3333px;
+    font-family: arial,helvetica;
+    font-weight: normal
 }
 button {
     color: initial;
@@ -402,7 +408,9 @@ button {
     display: inline-block;
     text-align: start;
     margin: 0em 0em 0em 0em;
-    font: 13.3333px arial
+    font-size: 13.3333px;
+    font-family: arial,helvetica;
+    font-weight: normal
 }
 input {
     background-color: white;
