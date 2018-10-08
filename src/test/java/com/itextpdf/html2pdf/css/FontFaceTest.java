@@ -242,7 +242,6 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO DEVSIX-1760
     public void cannotProcessSpecifiedFontTest01() throws IOException, InterruptedException {
         runTest("cannotProcessSpecifiedFontTest01");
     }
@@ -272,7 +271,6 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO DEVSIX-1953
     public void texFonts01() throws IOException, InterruptedException {
         runTest("texFonts01");
     }
