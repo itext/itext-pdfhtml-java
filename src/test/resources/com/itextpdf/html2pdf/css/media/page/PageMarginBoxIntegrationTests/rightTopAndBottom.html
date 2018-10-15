@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Margin Box Tests: only left top</title>
+    <style type="text/css">
+
+            body{
+                border:2pt solid black;
+            }
+			@page
+			{
+				size: A4 portrait;
+				font-family: FreeSans;
+				color: #2d2d2d;
+
+				margin-top: 50px;
+				margin-bottom: 50px;
+				margin-left:100px;
+				margin-right:100px;
+
+                @top-right-corner {
+                    content:'top-corner'; 
+                    background:red;
+                }
+
+                @bottom-right-corner {
+                    content:'bottom-corner'; 
+                    background:red;
+                }
+
+                @right-top {
+                    content: 'Header in Top Cell (right-top)';
+                    background:green;
+                }
+
+                @right-bottom {
+                    content: 'Header in Bottom Cell (right-bottom)';
+                    background:blue;
+                }
+
+				body
+				{
+					width: 595px;
+					height: 842px;
+				}
+			}
+    </style>
+</head>
+<body>
+<!-- main -->
+<div>
+    <h1>Main Content</h1>
+    <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+        diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+        takimata sanctus est Lorem ipsum dolor sit amet.
+    </p>
+    <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+        diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+        takimata sanctus est Lorem ipsum dolor sit amet.
+    </p>
+</div>
+
+</body>
+</html>
