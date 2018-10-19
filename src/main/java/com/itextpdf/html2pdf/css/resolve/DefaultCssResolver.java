@@ -48,17 +48,15 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.io.util.DecimalFormatUtil;
-import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.io.util.StreamUtil;
-import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.styledxmlparser.css.CssDeclaration;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
+import com.itextpdf.styledxmlparser.css.CssRuleSet;
 import com.itextpdf.styledxmlparser.css.CssStatement;
 import com.itextpdf.styledxmlparser.css.CssStyleSheet;
-import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
 import com.itextpdf.styledxmlparser.css.ICssResolver;
 import com.itextpdf.styledxmlparser.css.media.CssMediaRule;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
@@ -66,14 +64,12 @@ import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
 import com.itextpdf.styledxmlparser.css.parse.CssRuleSetParser;
 import com.itextpdf.styledxmlparser.css.parse.CssStyleSheetParser;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
+import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
 import com.itextpdf.styledxmlparser.css.resolve.CssInheritance;
 import com.itextpdf.styledxmlparser.css.resolve.CssPropertyMerger;
 import com.itextpdf.styledxmlparser.css.resolve.IStyleInheritance;
-import com.itextpdf.styledxmlparser.css.resolve.shorthand.IShorthandResolver;
-import com.itextpdf.styledxmlparser.css.resolve.shorthand.ShorthandResolverFactory;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.itextpdf.styledxmlparser.css.validate.CssDeclarationValidationMaster;
 import com.itextpdf.styledxmlparser.node.IDataNode;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
 import com.itextpdf.styledxmlparser.node.IElementNode;
@@ -86,7 +82,6 @@ import org.slf4j.LoggerFactory;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -162,20 +157,23 @@ public class DefaultCssResolver implements ICssResolver {
      * @see com.itextpdf.html2pdf.css.resolve.ICssResolver#resolveStyles(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.resolve.CssContext)
      */
     private Map<String, String> resolveStyles(INode element, CssContext context) {
-        List<CssDeclaration> nodeCssDeclarations = UserAgentCss.getStyles(element);
+        List<CssRuleSet> ruleSets = new ArrayList<>();
+        ruleSets.add(new CssRuleSet(null, UserAgentCss.getStyles(element)));
+
         if (element instanceof IElementNode) {
-            nodeCssDeclarations.addAll(HtmlStylesToCssConverter.convert((IElementNode) element));
+            ruleSets.add(new CssRuleSet(null, HtmlStylesToCssConverter.convert((IElementNode) element)));
         }
-        nodeCssDeclarations.addAll(cssStyleSheet.getCssDeclarations(element, deviceDescription));
+
+        ruleSets.addAll(cssStyleSheet.getCssRuleSets(element, deviceDescription));
 
         if (element instanceof IElementNode) {
             String styleAttribute = ((IElementNode) element).getAttribute(AttributeConstants.STYLE);
             if (styleAttribute != null) {
-                nodeCssDeclarations.addAll(CssRuleSetParser.parsePropertyDeclarations(styleAttribute));
+                ruleSets.add(new CssRuleSet(null, CssRuleSetParser.parsePropertyDeclarations(styleAttribute)));
             }
         }
 
-        Map<String, String> elementStyles = cssDeclarationsToMap(nodeCssDeclarations);
+        Map<String, String> elementStyles = CssStyleSheet.extractStylesFromRuleSets(ruleSets);
 
         if (CssConstants.CURRENTCOLOR.equals(elementStyles.get(CssConstants.COLOR))) {
             // css-color-3/#currentcolor:
@@ -267,43 +265,6 @@ public class DefaultCssResolver implements ICssResolver {
                     contentContainer.addChild(child);
                 }
             }
-        }
-    }
-
-    /**
-     * Converts a list of {@link CssDeclaration} instances to a map consisting of {@link String} key-value pairs.
-     *
-     * @param nodeCssDeclarations the node css declarations
-     * @return the map
-     */
-    private Map<String, String> cssDeclarationsToMap(List<CssDeclaration> nodeCssDeclarations) {
-        Map<String, String> stylesMap = new HashMap<>();
-        for (CssDeclaration cssDeclaration : nodeCssDeclarations) {
-            IShorthandResolver shorthandResolver = ShorthandResolverFactory.getShorthandResolver(cssDeclaration.getProperty());
-            if (shorthandResolver == null) {
-                putDeclarationInMapIfValid(stylesMap, cssDeclaration);
-            } else {
-                List<CssDeclaration> resolvedShorthandProps = shorthandResolver.resolveShorthand(cssDeclaration.getExpression());
-                for (CssDeclaration resolvedProp : resolvedShorthandProps) {
-                    putDeclarationInMapIfValid(stylesMap, resolvedProp);
-                }
-            }
-        }
-        return stylesMap;
-    }
-
-    /**
-     * Adds a CSS declaration to a styles map if the CSS declaration is valid.
-     *
-     * @param stylesMap      the styles map
-     * @param cssDeclaration the CSS declaration
-     */
-    private void putDeclarationInMapIfValid(Map<String, String> stylesMap, CssDeclaration cssDeclaration) {
-        if (CssDeclarationValidationMaster.checkDeclaration(cssDeclaration)) {
-            stylesMap.put(cssDeclaration.getProperty(), cssDeclaration.getExpression());
-        } else {
-            Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
-            logger.warn(MessageFormatUtil.format(LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, cssDeclaration));
         }
     }
 

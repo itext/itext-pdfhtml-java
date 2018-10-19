@@ -301,6 +301,21 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void displayNoneImportant01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("displayNoneImportant01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void displayNoneImportant02() throws IOException, InterruptedException {
+        convertToPdfAndCompare("displayNoneImportant02", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void displayNoneImportant03() throws IOException, InterruptedException {
+        convertToPdfAndCompare("displayNoneImportant03", sourceFolder, destinationFolder);
+    }
+
+    @Test
     @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 7))
     public void inlineBlockInsideTableCellTest() throws IOException, InterruptedException {
 
