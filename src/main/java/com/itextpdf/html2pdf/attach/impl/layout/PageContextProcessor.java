@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.util.REMatcher;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.PageMarginBoxCssApplier;
@@ -906,8 +907,8 @@ class PageContextProcessor {
 
         float parseDimension(CssContextNode node, String content, float maxAvailableDimension) {
             String numberRegex = "(\\d+(\\.\\d*)?)", units = "(in|cm|mm|pt|pc|px|%|em|ex)";
-            Matcher matcher =
-                    Pattern.compile(numberRegex + units).matcher(content);
+            REMatcher matcher = new REMatcher(numberRegex + units);
+            matcher.setStringForMatch(content);
             if (matcher.find()) {
                 float value = Float.parseFloat(matcher.group(1));
                 String unit = matcher.group(3);

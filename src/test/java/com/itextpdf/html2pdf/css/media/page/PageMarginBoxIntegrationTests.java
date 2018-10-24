@@ -179,4 +179,75 @@ public class PageMarginBoxIntegrationTests extends ExtendedHtmlConversionITextTe
     public void rightTopAndCenterAndBottomTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("rightTopAndCenterAndBottom", sourceFolder, destinationFolder);
     }
+
+    //Edge-case test
+    @Test
+    public void largeAutoLeftRegularCenterTopBottomTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("largeAutoLeftRegularCenterTopBottomTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void hugeAutoLeftTopBottomTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("hugeAutoLeftTopBottomTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void largeAutoCenterRegularSidesTopBottomTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("largeAutoCenterRegularSidesTopBottomTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void largeFixedLeftRegularCenterTopBottomTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("largeFixedLeftRegularCenterTopBottomTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void hugeFixedLeftTopBottomTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("hugeFixedLeftTopBottomTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void smallFixedLeftTopBottomTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("smallFixedLeftTopBottomTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void largeFixedCenterRegularSidesTopBottomTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("largeFixedCenterRegularSidesTopBottomTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void largeAutoTopRegularCenterLeftRightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("largeAutoTopRegularCenterLeftRightTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void hugeAutoTopLeftRightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("hugeAutoTopLeftRightTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void largeAutoCenterRegularSidesLeftRightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("largeAutoCenterRegularSidesLeftRightTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void largeFixedTopRegularCenterLeftRightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("largeFixedTopRegularCenterLeftRightTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void hugeFixedTopLeftRightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("hugeFixedTopLeftRightTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void smallFixedTopLeftRightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("smallFixedTopLeftRightTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void largeFixedCenterRegularSidesLeftRightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("largeFixedCenterRegularSidesLeftRightTest", sourceFolder, destinationFolder);
+    }
 }

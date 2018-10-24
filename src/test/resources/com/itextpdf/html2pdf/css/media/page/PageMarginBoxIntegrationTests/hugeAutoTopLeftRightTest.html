@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Margin Box Tests: only top right</title>
+    <style type="text/css">
+        @page
+        {
+            size: A4 portrait;
+            font-family: FreeSans;
+            color: #2d2d2d;
+
+            margin: 100px;
+
+            @top-left-corner{content:'corner'; background:red;}
+            @top-right-corner{content:'corner'; background:red;}
+            @bottom-left-corner{content:'corner'; background:red;}
+            @bottom-right-corner{content:'corner'; background:red;}
+
+            @left-top { content: "Header in Top Cell (left-top). It's kinda huge. Let's see if it's overlapping center box content. Whoooooaaaaah! Can you see this?! It's huuuuuge! Guess what happens next! Can you see this?!Header in Right Cell (top-left). It's kinda huge. Let's see if it's overlapping center box content. Whoooooaaaaah! Can you see this?! It's huuuuuge! You most probably can't even see this. Bla-bla-bla"; background:blue}
+
+            @left-middle { content: "Header in Middle Cell (left-middle)"; background:aqua}
+            @left-bottom { content: "Header in Bottom Cell (left-bottom)"; background:blue}
+
+            @right-top { content: "Header in Top Cell (right-top). It's kinda huge. Let's see if it's overlapping center box content. Whoooooaaaaah! Can you see this?! It's huuuuuge! Guess what happens next! Can you see this?!Header in Top Cell (right-top).It's kinda huge. Let's see if it's overlapping center box content.Whoooooaaaaah! Can you see this?! It's huuuuuge! You most probably can't even see this. Bla-bla-bla"; background:blue}
+
+            @right-middle { content: "Header in Middle Cell (right-middle)"; background:aqua}
+            @right-bottom { content: "Header in Bottom Cell (right-bottom)"; background:blue}
+        }
+        body
+        {
+            width: 595px;
+            height: 842px;
+        }
+        div {
+            border: solid black 15px;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+<!-- main -->
+<div>
+    <h1>Main Content</h1>
+    <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+        diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+        takimata sanctus est Lorem ipsum dolor sit amet.
+    </p>
+    <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+        diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+        takimata sanctus est Lorem ipsum dolor sit amet.
+    </p>
+</div>
+
+</body>
+</html>
