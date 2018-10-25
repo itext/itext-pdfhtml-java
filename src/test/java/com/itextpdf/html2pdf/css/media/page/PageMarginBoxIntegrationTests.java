@@ -1,6 +1,8 @@
 package com.itextpdf.html2pdf.css.media.page;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -247,7 +249,18 @@ public class PageMarginBoxIntegrationTests extends ExtendedHtmlConversionITextTe
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 4))
     public void largeFixedCenterRegularSidesLeftRightTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("largeFixedCenterRegularSidesLeftRightTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void largeFixedAllLeftRightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("largeFixedAllLeftRightTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void largeFixedAllTopBottomTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("largeFixedAllTopBottomTest", sourceFolder, destinationFolder);
     }
 }

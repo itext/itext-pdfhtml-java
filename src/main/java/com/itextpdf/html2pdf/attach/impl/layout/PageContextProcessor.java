@@ -45,7 +45,6 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.layout.util.REMatcher;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.PageMarginBoxCssApplier;
@@ -102,8 +101,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -774,20 +771,20 @@ class PageContextProcessor {
             if (dimA == null) {
                 if (dimC.isAutoDimension()) {
                     //Allocate everything to C
-                    return new float[]{0, 0, availableDimension};
+                    dimensions[2] = availableDimension;
                 } else {
-                    return new float[]{0, 0, dimC.dimension};
+                    dimensions[2] = dimC.dimension;
                 }
             }
-            if (dimC == null) {
+            else if (dimC == null) {
                 if (dimA.isAutoDimension()) {
                     //Allocate everything to A
-                    return new float[]{availableDimension, 0, 0};
+                    dimensions[0] = availableDimension;
                 } else {
-                    return new float[]{dimA.dimension, 0, 0};
+                    dimensions[0] = dimA.dimension;
                 }
             }
-            if (dimA.isAutoDimension() && dimC.isAutoDimension()) {
+            else if (dimA.isAutoDimension() && dimC.isAutoDimension()) {
                 //Gather input
                 maxContentDimensionA = dimA.maxContentDimension;
                 minContentDimensionA = dimA.minContentDimension;
@@ -812,34 +809,51 @@ class PageContextProcessor {
         } else {
             //Check for edge cases
             if (dimA != null) {
-                maxContentDimensionA = dimA.maxContentDimension;
-                minContentDimensionA = dimA.minContentDimension;
+                if (dimA.isAutoDimension()) {
+                    maxContentDimensionA = dimA.maxContentDimension;
+                    minContentDimensionA = dimA.minContentDimension;
+                } else {
+                    maxContentDimensionA = dimA.dimension;
+                    minContentDimensionA = dimA.dimension;
+                }
             } else {
                 maxContentDimensionA = 0;
                 minContentDimensionA = 0;
             }
             if (dimC != null) {
-                maxContentDimensionC = dimC.maxContentDimension;
-                minContentDimensionC = dimC.minContentDimension;
+                if (dimC.isAutoDimension()) {
+                    maxContentDimensionC = dimC.maxContentDimension;
+                    minContentDimensionC = dimC.minContentDimension;
+                } else {
+                    maxContentDimensionC = dimC.dimension;
+                    minContentDimensionC = dimC.dimension;
+                }
             } else {
                 maxContentDimensionC = 0;
                 minContentDimensionC = 0;
             }
-            //Construct box AC
-            float maxContentWidthAC = maxContentDimensionA + maxContentDimensionC;
-            float minContentWidthAC = minContentDimensionA + minContentDimensionC;
-            //Determine width box B
-            maxContentDimensionB = dimB.maxContentDimension;
-            minContentDimensionB = dimB.minContentDimension;
-            float[] distributedDimensions = distributeDimensionBetweenTwoBoxes(maxContentDimensionB, minContentDimensionB, maxContentWidthAC, minContentWidthAC, availableDimension);
+            if (dimB.isAutoDimension()) {
+                //Construct box AC
+                float maxContentWidthAC = maxContentDimensionA + maxContentDimensionC;
+                float minContentWidthAC = minContentDimensionA + minContentDimensionC;
+                //Determine width box B
+                maxContentDimensionB = dimB.maxContentDimension;
+                minContentDimensionB = dimB.minContentDimension;
+                float[] distributedDimensions = distributeDimensionBetweenTwoBoxes(maxContentDimensionB, minContentDimensionB, maxContentWidthAC, minContentWidthAC, availableDimension);
 
-            //Determine width boxes A & C
-            float newAvailableDimension = (availableDimension - distributedDimensions[0]) / 2;
-            float[] distributedWidthsAC = new float[]{
-                    Math.min(minContentDimensionA, newAvailableDimension),
-                    Math.min(minContentDimensionC, newAvailableDimension)
-            };
-            dimensions = new float[]{distributedWidthsAC[0], distributedDimensions[0], distributedWidthsAC[1]};
+                //Determine width boxes A & C
+                float newAvailableDimension = (availableDimension - distributedDimensions[0]) / 2;
+                float[] distributedWidthsAC = new float[]{
+                        Math.min(minContentDimensionA, newAvailableDimension),
+                        Math.min(minContentDimensionC, newAvailableDimension)
+                };
+                dimensions = new float[]{distributedWidthsAC[0], distributedDimensions[0], distributedWidthsAC[1]};
+            } else {
+                dimensions[1] = dimB.dimension;
+                float newAvailableDimension = (availableDimension - dimensions[1]) / 2;
+                dimensions[0] = Math.min(minContentDimensionA, newAvailableDimension);
+                dimensions[2] = Math.min(minContentDimensionC, newAvailableDimension);
+            }
             setManualDimension(dimA, dimensions, 0);
             setManualDimension(dimB, dimensions, 1);
             setManualDimension(dimC, dimensions, 2);
@@ -906,50 +920,14 @@ class PageContextProcessor {
         }
 
         float parseDimension(CssContextNode node, String content, float maxAvailableDimension) {
-            String numberRegex = "(\\d+(\\.\\d*)?)", units = "(in|cm|mm|pt|pc|px|%|em|ex)";
-            REMatcher matcher = new REMatcher(numberRegex + units);
-            matcher.setStringForMatch(content);
-            if (matcher.find()) {
-                float value = Float.parseFloat(matcher.group(1));
-                String unit = matcher.group(3);
-                switch (unit) {
-                    case "pt":
-                        break;
-                    case "%":
-                        value *= maxAvailableDimension / 100;
-                        break;
-                    case "pc":
-                        value *= 12;
-                        break;
-                    case "px":
-                        value *= 0.75;
-                        break;
-                    case "in":
-                        value *= 72;
-                        break;
-                    case "cm":
-                        value *= 28.3465;
-                        break;
-                    case "mm":
-                        value *= 2.83465;
-                        break;
-                    case "em": {
-                        float fontSize = getFontSize(node);
-                        value *= fontSize;
-                        break;
-                    }
-                    case "ex": {
-                        // Use 0.5em as heuristic of x-height. Look CSS 2.1 Spec
-                        float fontSize = getFontSize(node);
-                        value *= 0.5 * fontSize;
-                        break;
-                    }
-                    default:
-                        value = 0;
-                }
-                return value;
+            UnitValue unitValue = CssUtils.parseLengthValueToPt(content, getFontSize(node), 0);
+            if (unitValue == null) {
+                return 0;
             }
-            return 0;
+            if (unitValue.isPointValue()) {
+                return unitValue.getValue();
+            }
+            return maxAvailableDimension * unitValue.getValue() / 100f;
         }
     }
 
@@ -1028,7 +1006,7 @@ class PageContextProcessor {
         }
 
         float getMaxHeight(CssContextNode node, float maxAvailableHeight) {
-            String content = node.getStyles().get(CssConstants.MIN_HEIGHT);
+            String content = node.getStyles().get(CssConstants.MAX_HEIGHT);
             if (content == null) {
                 return Float.MAX_VALUE;
             }
