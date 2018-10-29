@@ -11,11 +11,11 @@ import org.junit.experimental.categories.Category;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
-public class PageMarginBoxIntegrationTests extends ExtendedHtmlConversionITextTest {
+public class PageMarginBoxIntegrationTest extends ExtendedHtmlConversionITextTest {
 
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/media/page/PageMarginBoxIntegrationTests/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/media/page/PageMarginBoxIntegrationTests/";
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/media/page/PageMarginBoxIntegrationTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/media/page/PageMarginBoxIntegrationTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -262,5 +262,20 @@ public class PageMarginBoxIntegrationTests extends ExtendedHtmlConversionITextTe
     @Test
     public void largeFixedAllTopBottomTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("largeFixedAllTopBottomTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void largeFixedSidesAutoMiddleTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("largeFixedSidesAutoMiddleTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void largeFixedSidesFixedMiddleTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("largeFixedSidesFixedMiddleTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void largeFixedSidesNoMiddleTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("largeFixedSidesNoMiddleTest", sourceFolder, destinationFolder);
     }
 }

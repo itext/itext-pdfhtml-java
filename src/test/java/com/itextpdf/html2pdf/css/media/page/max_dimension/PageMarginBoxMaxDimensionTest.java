@@ -9,7 +9,7 @@ import org.junit.experimental.categories.Category;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
-public class PageMarginBoxMaxDimensionTests extends ExtendedHtmlConversionITextTest {
+public class PageMarginBoxMaxDimensionTest extends ExtendedHtmlConversionITextTest {
 
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/media/page/max_dimension/";

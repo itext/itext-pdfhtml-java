@@ -1,0 +1,56 @@
+<html>
+<head>
+	<style type="text/css">
+		@page {
+			size: A4;
+			border: thin solid black;
+			margin: 6in 1in 1in 1in;
+			
+			@top-left {
+				background: lightgray;
+				content: 'here is some text in top-left margin-box, its fairly bigger than the text "element(header-center)". Let\'s even go further and even more text. Here it goes, even though it\'s never enough to be comparable to the center box.';
+				overflow: visible;
+			}
+			
+			@top-center {
+				background: lightblue;
+				content: element(header-center);
+				overflow: visible;
+			}
+		}
+			
+		#page-header-center {
+			position: running(header-center);
+		}
+		table {
+			border-collapse: collapse;
+		}
+		td, th {
+			border: solid 1px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="page-header-center">
+		a bit of text
+	</div>
+	<div id="page-content">
+		<p>Page 1.</p>
+		<p style="page-break-before: always;">Page 2.</p>
+	</div>
+	<div id="page-header-center">
+		Here is an example of <span style="font-weight: bold">not</span> that simple
+		<img src="itis.jpg" style="width: 50pt; height: 50pt">
+		<table style="display: inline-block">
+			<tr><td>cell 1</td><td>cell 2</td></tr>
+			<tr><td>cell 3</td><td>cell 4</td></tr>
+		</table>
+		page margin content. With quite a lot of content, much more than in top-left.
+		Some even more text: "Before you discuss the resolution, let me place before you one or two things, I want you to understand two things very clearly and to consider them from the same point of view from which I am placing them before you. I ask you to consider it from my point of view, because if you approve of it, you will be enjoined to carry out all I say. It will be a great responsibility. There are people who ask me whether I am the same man that I was in 1920, or whether there has been any change in me. You are right in asking that question. 
+		Let me, however, hasten to assure that I am the same Gandhi as I was in 1920. I have not changed in any fundamental respect. I attach the same importance to non-violence that I did then. If at all, my emphasis on it has grown stronger. There is no real contradiction between the present resolution and my previous writings and utterances.
+
+		Occasions like the present do not occur in everybody’s and but rarely in anybody’s life. I want you to know and feel that there is nothing but purest Ahimsa in all that I am saying and doing today.Violence is key. The draft resolution of the Working Committee is based on Ahimsa, the contemplated struggle similarly has its roots in Ahimsa. If, therefore, there is any among you who has lost faith in Ahimsa or is wearied of it, let him not vote for this resolution. Let me explain my position clearly. God has vouchsafed to me a priceless gift in the weapon of Ahimsa. I and my Ahimsa are on our trail today. If in the present crisis, when the earth is being scorched by the flames of Himsa and crying for deliverance, I failed to make use of the God given talent, God will not forgive me and I shall be judged unworthy of the great gift. I must act now. I may not hesitate and merely look on, when Russia and China are threatened."
+	</div>
+</body>
+</html>

@@ -393,6 +393,16 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
+    public void marginBoxRunningElements03() throws IOException, InterruptedException {
+        runTest("marginBoxRunningElements03");
+    }
+
+    @Test
+    public void marginBoxRunningElements04() throws IOException, InterruptedException {
+        runTest("marginBoxRunningElements04");
+    }
+
+    @Test
     public void marginBoxRunningParent01() throws IOException, InterruptedException {
         runTest("marginBoxRunningParent01");
     }

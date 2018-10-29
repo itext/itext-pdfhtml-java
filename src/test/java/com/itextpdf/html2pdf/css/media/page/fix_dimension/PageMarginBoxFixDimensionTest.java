@@ -9,7 +9,7 @@ import org.junit.experimental.categories.Category;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
-public class PageMarginBoxFixDimensionTests extends ExtendedHtmlConversionITextTest {
+public class PageMarginBoxFixDimensionTest extends ExtendedHtmlConversionITextTest {
 
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/media/page/fix_dimension/";
