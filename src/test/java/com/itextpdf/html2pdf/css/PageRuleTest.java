@@ -182,6 +182,16 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
+    public void marginBoxTestImg01() throws IOException, InterruptedException {
+        runTest("marginBoxTestImg01");
+    }
+
+    @Test
+    public void marginBoxTestImg02() throws IOException, InterruptedException {
+        runTest("marginBoxTestImg02");
+    }
+
+    @Test
     public void bigImageOnPageMarginTest01() throws IOException, InterruptedException {
         runTest("bigImageOnPageMarginTest01");
     }
