@@ -141,12 +141,12 @@ class PageContextProcessor {
     private float[] paddings;
 
     /**
-     * Page background simulation.
+     * page background simulation.
      */
     private Div pageBackgroundSimulation;
 
     /**
-     * Page borders simulation.
+     * page borders simulation.
      */
     private Div pageBordersSimulation;
 
@@ -624,9 +624,9 @@ class PageContextProcessor {
 
         //Top calculation
         float[] topWidthResults = calculatePageMarginBoxDimensions(
-                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.TOP_LEFT), withoutMargins.getWidth()),
-                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.TOP_CENTER), withoutMargins.getWidth()),
-                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.TOP_RIGHT), withoutMargins.getWidth()),
+                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.TOP_LEFT), withoutMargins.getWidth(), context),
+                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.TOP_CENTER), withoutMargins.getWidth(),context),
+                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.TOP_RIGHT), withoutMargins.getWidth(),context),
                 withoutMargins.getWidth()
         );
         float centerOrMiddleCoord = getStartCoordForCenterOrMiddleBox(withoutMargins.getWidth(), topWidthResults, withoutMargins.getLeft());
@@ -638,9 +638,9 @@ class PageContextProcessor {
 
         //Right calculation
         float[] rightHeightResults = calculatePageMarginBoxDimensions(
-                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.RIGHT_TOP), rightMargin, withoutMargins.getHeight()),
-                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.RIGHT_MIDDLE), rightMargin, withoutMargins.getHeight()),
-                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.RIGHT_BOTTOM), rightMargin, withoutMargins.getHeight()),
+                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.RIGHT_TOP), rightMargin, withoutMargins.getHeight(),context),
+                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.RIGHT_MIDDLE), rightMargin, withoutMargins.getHeight(),context),
+                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.RIGHT_BOTTOM), rightMargin, withoutMargins.getHeight(),context),
                 withoutMargins.getHeight()
         );
         centerOrMiddleCoord = getStartCoordForCenterOrMiddleBox(withoutMargins.getHeight(), rightHeightResults, withoutMargins.getBottom());
@@ -652,9 +652,9 @@ class PageContextProcessor {
 
         //Bottom calculation
         float[] bottomWidthResults = calculatePageMarginBoxDimensions(
-                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.BOTTOM_LEFT), withoutMargins.getWidth()),
-                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.BOTTOM_CENTER), withoutMargins.getWidth()),
-                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.BOTTOM_RIGHT), withoutMargins.getWidth()),
+                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.BOTTOM_LEFT), withoutMargins.getWidth(),context),
+                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.BOTTOM_CENTER), withoutMargins.getWidth(),context),
+                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.BOTTOM_RIGHT), withoutMargins.getWidth(),context),
                 withoutMargins.getWidth()
         );
 
@@ -666,9 +666,9 @@ class PageContextProcessor {
         };
         //Left calculation
         float[] leftHeightResults = calculatePageMarginBoxDimensions(
-                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.LEFT_TOP), leftMargin, withoutMargins.getHeight()),
-                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.LEFT_MIDDLE), leftMargin, withoutMargins.getHeight()),
-                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.LEFT_BOTTOM), leftMargin, withoutMargins.getHeight()),
+                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.LEFT_TOP), leftMargin, withoutMargins.getHeight(),context),
+                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.LEFT_MIDDLE), leftMargin, withoutMargins.getHeight(),context),
+                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.LEFT_BOTTOM), leftMargin, withoutMargins.getHeight(),context),
                 withoutMargins.getHeight()
         );
         centerOrMiddleCoord = getStartCoordForCenterOrMiddleBox(withoutMargins.getHeight(), leftHeightResults, withoutMargins.getBottom());
@@ -885,151 +885,22 @@ class PageContextProcessor {
         return false;
     }
 
-    DimensionContainer retrievePageMarginBoxWidths(PageMarginBoxContextNode pmbcNode, float maxWidth) {
+    DimensionContainer retrievePageMarginBoxWidths(PageMarginBoxContextNode pmbcNode, float maxWidth, ProcessorContext context) {
         if (pmbcNode == null) {
             return null;
         } else {
-            return new WidthDimensionContainer(pmbcNode, maxWidth);
+            return new WidthDimensionContainer(pmbcNode, maxWidth, context);
         }
     }
 
-    DimensionContainer retrievePageMarginBoxHeights(PageMarginBoxContextNode pmbcNode, float marginWidth, float maxHeight) {
+    DimensionContainer retrievePageMarginBoxHeights(PageMarginBoxContextNode pmbcNode, float marginWidth, float maxHeight, ProcessorContext context) {
         if (pmbcNode == null) {
             return null;
         } else {
-            return new HeightDimensionContainer(pmbcNode, marginWidth, maxHeight);
+            return new HeightDimensionContainer(pmbcNode, marginWidth, maxHeight, context);
         }
     }
 
-    /**
-     * Container class for grouping necessary values used in dimension calculation
-     */
-    class DimensionContainer {
-        float dimension, minDimension, maxDimension;
-        float minContentDimension, maxContentDimension;
-
-        DimensionContainer() {
-            dimension = -1;
-            minDimension = 0;
-            minContentDimension = 0;
-            maxDimension = Float.MAX_VALUE;
-            maxContentDimension = Float.MAX_VALUE;
-        }
-
-        /**
-         * Check if this dimension is auto
-         *
-         * @return True if the dimension is to be automatically calculated, false if it was set via a property
-         */
-        boolean isAutoDimension() {
-            return dimension == -1;
-        }
-
-        float parseDimension(CssContextNode node, String content, float maxAvailableDimension) {
-            UnitValue unitValue = CssUtils.parseLengthValueToPt(content, getFontSize(node), 0);
-            if (unitValue == null) {
-                return 0;
-            }
-            if (unitValue.isPointValue()) {
-                return unitValue.getValue();
-            }
-            return maxAvailableDimension * unitValue.getValue() / 100f;
-        }
-    }
-
-    class WidthDimensionContainer extends DimensionContainer {
-        WidthDimensionContainer(CssContextNode node, float maxWidth) {
-            String width = node.getStyles().get(CssConstants.WIDTH);
-            if (width != null && !width.equals("auto")) {
-                dimension = parseDimension(node, width, maxWidth);
-            }
-            minDimension = getMinWidth(node, maxWidth);
-            maxDimension = getMaxWidth(node, maxWidth);
-            minContentDimension = getMinContentWidth((PageMarginBoxContextNode) node);
-            maxContentDimension = getMaxContentWidth((PageMarginBoxContextNode) node);
-        }
-
-        float getMinWidth(CssContextNode node, float maxAvailableWidth) {
-            String content = node.getStyles().get(CssConstants.MIN_WIDTH);
-            if (content == null) {
-                return 0;
-            }
-            content = content.toLowerCase().trim();
-            if (content.equals("inherit")) {
-                if (node.parentNode() instanceof CssContextNode) {
-                    return getMinWidth((CssContextNode) node.parentNode(), maxAvailableWidth);
-                }
-                return 0;
-            }
-            return parseDimension(node, content, maxAvailableWidth);
-        }
-
-        float getMaxWidth(CssContextNode node, float maxAvailableWidth) {
-            String content = node.getStyles().get(CssConstants.MAX_WIDTH);
-            if (content == null) {
-                return Float.MAX_VALUE;
-            }
-            content = content.toLowerCase().trim();
-            if (content.equals("inherit")) {
-                if (node.parentNode() instanceof CssContextNode) {
-                    return getMaxWidth((CssContextNode) node.parentNode(), maxAvailableWidth);
-                }
-                return Float.MAX_VALUE;
-            }
-            float dim = parseDimension(node, content, maxAvailableWidth);
-            if (dim == 0) {
-                return Float.MAX_VALUE;
-            }
-            return dim;
-        }
-    }
-
-    class HeightDimensionContainer extends DimensionContainer {
-        HeightDimensionContainer(CssContextNode pmbcNode, float width, float maxHeight) {
-            String height = pmbcNode.getStyles().get(CssConstants.HEIGHT);
-            if (height != null && !height.equals("auto")) {
-                dimension = parseDimension(pmbcNode, height, maxHeight);
-            }
-            minDimension = getMinHeight(pmbcNode, maxHeight);
-            maxDimension = getMaxHeight(pmbcNode, maxHeight);
-            minContentDimension = getMinContentHeight((PageMarginBoxContextNode) pmbcNode, width, maxHeight);
-            maxContentDimension = getMaxContentHeight((PageMarginBoxContextNode) pmbcNode, width, maxHeight);
-        }
-
-        float getMinHeight(CssContextNode node, float maxAvailableHeight) {
-            String content = node.getStyles().get(CssConstants.MIN_HEIGHT);
-            if (content == null) {
-                return 0;
-            }
-            content = content.toLowerCase().trim();
-            if (content.equals("inherit")) {
-                if (node.parentNode() instanceof CssContextNode) {
-                    return getMinHeight((CssContextNode) node.parentNode(), maxAvailableHeight);
-                }
-                return 0;
-            }
-            return parseDimension(node, content, maxAvailableHeight);
-        }
-
-        float getMaxHeight(CssContextNode node, float maxAvailableHeight) {
-            String content = node.getStyles().get(CssConstants.MAX_HEIGHT);
-            if (content == null) {
-                return Float.MAX_VALUE;
-            }
-            content = content.toLowerCase().trim();
-            if (content.equals("inherit")) {
-                if (node.parentNode() instanceof CssContextNode) {
-                    return getMaxHeight((CssContextNode) node.parentNode(), maxAvailableHeight);
-                }
-                return Float.MAX_VALUE;
-            }
-            float dim = parseDimension(node, content, maxAvailableHeight);
-            if (dim == 0) {
-                return Float.MAX_VALUE;
-            }
-            return dim;
-        }
-    }
 
     /**
      * Distribute the available dimension between two boxes A and C based on their content-needs.
@@ -1070,7 +941,7 @@ class PageContextProcessor {
         return new float[]{argA + flexRatioA * flexSpace, argC + flexRatioC * flexSpace};
     }
 
-    float getMaxContentWidth(PageMarginBoxContextNode pmbcNode) {
+    public static float getMaxContentWidth(PageMarginBoxContextNode pmbcNode, ProcessorContext context) {
         //Check styles?
         //Simulate contents?
         //TODO(DEVSIX-1050): Consider complex non-purely text based contents
@@ -1078,8 +949,8 @@ class PageContextProcessor {
 
         //Resolve font using context
         String fontFamilyName = pmbcNode.getStyles().get(CssConstants.FONT_FAMILY);
-        float fontSize = getFontSize(pmbcNode);
-        FontProvider provider = this.context.getFontProvider();
+        float fontSize = FontStyleApplierUtil.parseAbsoluteFontSize(pmbcNode.getStyles().get(CssConstants.FONT_SIZE));
+        FontProvider provider = context.getFontProvider();
         FontCharacteristics fc = new FontCharacteristics();
         FontSelectorStrategy strategy = provider.getStrategy(content,
                 FontFamilySplitter.splitFontFamily(fontFamilyName), fc);
@@ -1096,19 +967,19 @@ class PageContextProcessor {
         return currentFont.getWidth(content, fontSize);
     }
 
-    float getMinContentWidth(PageMarginBoxContextNode node) {
+    public static float getMinContentWidth(PageMarginBoxContextNode node, ProcessorContext context) {
         //TODO(DEVSIX-1050): reread spec to be certain that min-content-size does in fact mean the same as max content
-        return getMaxContentWidth(node);
+        return getMaxContentWidth(node,context);
     }
 
-    float getMaxContentHeight(PageMarginBoxContextNode pmbcNode, float width, float maxAvailableHeight) {
+    public static float getMaxContentHeight(PageMarginBoxContextNode pmbcNode, float width, float maxAvailableHeight, ProcessorContext context) {
         //TODO(DEVSIX-1050): Consider complex non-purely text based contents
         String content = pmbcNode.getStyles().get(CssConstants.CONTENT);
         //Use iText layout engine to simulate
         //Resolve font using context
         String fontFamilyName = pmbcNode.getStyles().get(CssConstants.FONT_FAMILY);
-        float fontSize = getFontSize(pmbcNode);
-        FontProvider provider = this.context.getFontProvider();
+        float fontSize = FontStyleApplierUtil.parseAbsoluteFontSize(pmbcNode.getStyles().get(CssConstants.FONT_SIZE));
+        FontProvider provider = context.getFontProvider();
         FontCharacteristics fc = new FontCharacteristics();
         FontSelectorStrategy strategy = provider.getStrategy(content,
                 FontFamilySplitter.splitFontFamily(fontFamilyName), fc);
@@ -1133,12 +1004,8 @@ class PageContextProcessor {
         return quickLayout.getOccupiedArea().getBBox().getHeight();
     }
 
-    private float getFontSize(CssContextNode pmbcNode) {
-        return FontStyleApplierUtil.parseAbsoluteFontSize(pmbcNode.getStyles().get(CssConstants.FONT_SIZE));
-    }
-
-    float getMinContentHeight(PageMarginBoxContextNode node, float width, float maxAvailableHeight) {
-        return getMaxContentHeight(node, width, maxAvailableHeight);
+    public static float getMinContentHeight(PageMarginBoxContextNode node, float width, float maxAvailableHeight, ProcessorContext context) {
+        return getMaxContentHeight(node, width, maxAvailableHeight, context);
     }
 
 

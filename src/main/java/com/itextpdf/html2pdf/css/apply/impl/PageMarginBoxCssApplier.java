@@ -158,7 +158,7 @@ public class PageMarginBoxCssApplier implements ICssApplier {
         float marginBorderPaddingWidth = boxMargins[1] + boxMargins[3] + boxBorders[1] + boxBorders[3] + boxPaddings[1] + boxPaddings[3];
         float marginBorderPaddingHeight = boxMargins[0] + boxMargins[2] + boxBorders[0] + boxBorders[2] + boxPaddings[0] + boxPaddings[2];
 
-        // TODO DEVSIX-1050: improve width/height calculation according to "5.3. Computing Page-margin Box Dimensions", take into account height and width properties
+        // TODO DEVSIX-1050: improve width/height calculation according to "5.3. Computing page-margin Box Dimensions", take into account height and width properties
         float width = pageMarginBoxContextNode.getPageMarginBoxRectangle().getWidth() - marginBorderPaddingWidth;
         float height = pageMarginBoxContextNode.getPageMarginBoxRectangle().getHeight() - marginBorderPaddingHeight;
         setUnitPointValueProperty(marginBox, Property.WIDTH, width);
