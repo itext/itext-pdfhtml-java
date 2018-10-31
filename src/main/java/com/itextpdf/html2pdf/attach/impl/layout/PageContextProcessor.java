@@ -85,7 +85,6 @@ import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.splitting.DefaultSplitCharacters;
 import com.itextpdf.layout.tagging.LayoutTaggingHelper;
-import com.itextpdf.styledxmlparser.css.CssContextNode;
 import com.itextpdf.styledxmlparser.css.CssRuleName;
 import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
@@ -727,7 +726,9 @@ class PageContextProcessor {
      * @return float[3] containing the distributed dimensions of A at [0], B at [1] and C at [2]
      */
     float[] calculatePageMarginBoxDimensions(DimensionContainer dimA, DimensionContainer dimB, DimensionContainer dimC, float availableDimension) {
-        float maxContentDimensionA, minContentDimensionA, maxContentDimensionB, minContentDimensionB, maxContentDimensionC, minContentDimensionC;
+        float maxContentDimensionA = 0, minContentDimensionA = 0,
+                maxContentDimensionB = 0, minContentDimensionB = 0,
+                maxContentDimensionC = 0, minContentDimensionC = 0;
         float[] dimensions = new float[3];
 
         if (dimA == null && dimB == null && dimC == null) {
@@ -784,9 +785,6 @@ class PageContextProcessor {
                     maxContentDimensionA = dimA.dimension;
                     minContentDimensionA = dimA.dimension;
                 }
-            } else {
-                maxContentDimensionA = 0;
-                minContentDimensionA = 0;
             }
             if (dimC != null) {
                 if (dimC.isAutoDimension()) {
@@ -796,14 +794,21 @@ class PageContextProcessor {
                     maxContentDimensionC = dimC.dimension;
                     minContentDimensionC = dimC.dimension;
                 }
-            } else {
-                maxContentDimensionC = 0;
-                minContentDimensionC = 0;
             }
             if (dimB.isAutoDimension()) {
                 //Construct box AC
-                float maxContentWidthAC = maxContentDimensionA + maxContentDimensionC;
-                float minContentWidthAC = minContentDimensionA + minContentDimensionC;
+                float maxContentWidthAC, minContentWidthAC;
+                if (dimA != null && !dimA.isAutoDimension() || dimC != null && !dimC.isAutoDimension()) {
+                    maxContentWidthAC = 2 * Math.max(maxContentDimensionA, maxContentDimensionC);
+                    if (dimA != null && !dimA.isAutoDimension()) {
+                        minContentWidthAC = 2 * minContentDimensionA;
+                    } else {
+                        minContentWidthAC = 2 * minContentDimensionC;
+                    }
+                } else {
+                    maxContentWidthAC = maxContentDimensionA + maxContentDimensionC;
+                    minContentWidthAC = minContentDimensionA + minContentDimensionC;
+                }
                 //Determine width box B
                 maxContentDimensionB = dimB.maxContentDimension;
                 minContentDimensionB = dimB.minContentDimension;
@@ -811,11 +816,7 @@ class PageContextProcessor {
 
                 //Determine width boxes A & C
                 float newAvailableDimension = (availableDimension - distributedDimensions[0]) / 2;
-                float[] distributedWidthsAC = new float[]{
-                        Math.min(minContentDimensionA, newAvailableDimension),
-                        Math.min(minContentDimensionC, newAvailableDimension)
-                };
-                dimensions = new float[]{distributedWidthsAC[0], distributedDimensions[0], distributedWidthsAC[1]};
+                dimensions = new float[]{newAvailableDimension, distributedDimensions[0], newAvailableDimension};
             } else {
                 dimensions[1] = dimB.dimension;
                 float newAvailableDimension = (availableDimension - dimensions[1]) / 2;
@@ -823,7 +824,6 @@ class PageContextProcessor {
                 dimensions[2] = Math.min(minContentDimensionC, newAvailableDimension);
             }
             setManualDimension(dimA, dimensions, 0);
-            setManualDimension(dimB, dimensions, 1);
             setManualDimension(dimC, dimensions, 2);
         }
 
@@ -832,8 +832,16 @@ class PageContextProcessor {
                 recalculateIfNecessary(dimC, dimensions, 2)) {
             return calculatePageMarginBoxDimensions(dimA, dimB, dimC, availableDimension);
         }
-        limitIfNecessary(dimensions, availableDimension);
+        removeNegativeValues(dimensions);
         return dimensions;
+    }
+
+    private void removeNegativeValues(float[] dimensions) {
+        for (int i = 0; i < dimensions.length; i++) {
+            if (dimensions[i] < 0) {
+                dimensions[i] = 0;
+            }
+        }
     }
 
     /**
