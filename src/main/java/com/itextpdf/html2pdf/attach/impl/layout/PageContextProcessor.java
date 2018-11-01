@@ -50,40 +50,30 @@ import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.PageMarginBoxCssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.page.PageMarginRunningElementNode;
 import com.itextpdf.io.util.MessageFormatUtil;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.canvas.CanvasArtifact;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.kernel.pdf.tagutils.TagTreePointer;
 import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.font.FontCharacteristics;
-import com.itextpdf.layout.font.FontFamilySplitter;
-import com.itextpdf.layout.font.FontProvider;
-import com.itextpdf.layout.font.FontSelectorStrategy;
 import com.itextpdf.layout.layout.LayoutArea;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
+import com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.AreaBreakRenderer;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.splitting.DefaultSplitCharacters;
 import com.itextpdf.layout.tagging.LayoutTaggingHelper;
 import com.itextpdf.styledxmlparser.css.CssRuleName;
 import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
@@ -94,7 +84,6 @@ import com.itextpdf.styledxmlparser.node.ITextNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -195,72 +184,6 @@ class PageContextProcessor {
         return marks;
     }
 
-    static float getMaxContentWidth(PageMarginBoxContextNode pmbcNode, ProcessorContext context) {
-        //Check styles?
-        //Simulate contents?
-        //TODO(DEVSIX-1050): Consider complex non-purely text based contents
-        String content = pmbcNode.getStyles().get(CssConstants.CONTENT);
-
-        //Resolve font using context
-        String fontFamilyName = pmbcNode.getStyles().get(CssConstants.FONT_FAMILY);
-        float fontSize = FontStyleApplierUtil.parseAbsoluteFontSize(pmbcNode.getStyles().get(CssConstants.FONT_SIZE));
-        FontProvider provider = context.getFontProvider();
-        FontCharacteristics fc = new FontCharacteristics();
-        FontSelectorStrategy strategy = provider.getStrategy(content,
-                FontFamilySplitter.splitFontFamily(fontFamilyName), fc);
-        strategy.nextGlyphs();
-        PdfFont currentFont = strategy.getCurrentFont();
-        if (currentFont == null) {
-            LOGGER.warn(LogMessageConstant.UNABLE_TO_RETRIEVE_FONT);
-            try {
-                currentFont = PdfFontFactory.createFont();
-            } catch (IOException ioe) {
-                LOGGER.error(LogMessageConstant.ERROR_LOADING_FONT);
-            }
-        }
-        return currentFont.getWidth(content, fontSize);
-    }
-
-    static float getMinContentWidth(PageMarginBoxContextNode node, ProcessorContext context) {
-        return getMaxContentWidth(node, context);
-    }
-
-    static float getMaxContentHeight(PageMarginBoxContextNode pmbcNode, float width, float maxAvailableHeight, ProcessorContext context) {
-        //TODO(DEVSIX-1050): Consider complex non-purely text based contents
-        String content = pmbcNode.getStyles().get(CssConstants.CONTENT);
-        //Use iText layout engine to simulate
-        //Resolve font using context
-        String fontFamilyName = pmbcNode.getStyles().get(CssConstants.FONT_FAMILY);
-        float fontSize = FontStyleApplierUtil.parseAbsoluteFontSize(pmbcNode.getStyles().get(CssConstants.FONT_SIZE));
-        FontProvider provider = context.getFontProvider();
-        FontCharacteristics fc = new FontCharacteristics();
-        FontSelectorStrategy strategy = provider.getStrategy(content,
-                FontFamilySplitter.splitFontFamily(fontFamilyName), fc);
-        strategy.nextGlyphs();
-        PdfFont currentFont = strategy.getCurrentFont();
-        Text text = new Text(content);
-        text.setFont(currentFont);
-        text.setFontSize(fontSize);
-        text.setProperty(Property.TEXT_RISE, 0f);
-        text.setProperty(Property.TEXT_RENDERING_MODE, PdfCanvasConstants.TextRenderingMode.FILL);
-        text.setProperty(Property.SPLIT_CHARACTERS, new DefaultSplitCharacters());
-        Paragraph p = new Paragraph(text);
-        p.setMargin(0f);
-        p.setPadding(0f);
-        IRenderer pRend = p.createRendererSubTree();
-
-        LayoutArea layoutArea = new LayoutArea(1, new Rectangle(0, 0, width, maxAvailableHeight));
-        LayoutContext minimalContext = new LayoutContext(layoutArea);
-
-        LayoutResult quickLayout = pRend.layout(minimalContext);
-
-        return quickLayout.getOccupiedArea().getBBox().getHeight();
-    }
-
-    static float getMinContentHeight(PageMarginBoxContextNode node, float width, float maxAvailableHeight, ProcessorContext context) {
-        return getMaxContentHeight(node, width, maxAvailableHeight, context);
-    }
-
     /**
      * Gets rid of all page breaks that might have occurred inside page margin boxes because of the running elements.
      *
@@ -306,6 +229,7 @@ class PageContextProcessor {
 
         marks = parseMarks(styles.get(CssConstants.MARKS));
 
+        // todo all of this art with margins, borders and paddings?
         parseMargins(styles, em, rem, defaultPageMargins);
         parseBorders(styles, em, rem);
         parsePaddings(styles, em, rem);
@@ -537,42 +461,90 @@ class PageContextProcessor {
             return;
         }
         PdfPage page = pdfDocument.getPage(pageNumber);
+
+        PageMarginBoxContextNode[][] sides = new PageMarginBoxContextNode[4][3];
+        PageMarginBoxContextNode[] corners = new PageMarginBoxContextNode[4];
         for (PageMarginBoxContextNode marginBoxContentNode : properties.getResolvedPageMarginBoxes()) {
-            IElement curBoxElement = processMarginBoxContent(marginBoxContentNode, pageNumber, context);
+            int marginBoxInd = mapMarginBoxNameToIndex(marginBoxContentNode.getMarginBoxName());
+            if (marginBoxInd % 4 != 0)
+                sides[marginBoxInd / 4][marginBoxInd % 4 - 1] = marginBoxContentNode;
+            else
+                corners[marginBoxInd / 4] = marginBoxContentNode;
+        }
 
-            IRenderer renderer = curBoxElement.createRendererSubTree();
-            removeAreaBreaks(renderer);
-            renderer.setParent(documentRenderer);
-            boolean isTagged = pdfDocument.isTagged();
-            if (isTagged) {
-                LayoutTaggingHelper taggingHelper = renderer.<LayoutTaggingHelper>getProperty(Property.TAGGING_HELPER);
-                LayoutTaggingHelper.addTreeHints(taggingHelper, renderer);
+        IElement[][] sideBoxElement = new IElement[4][3];
+        IElement[] cornerBoxElement = new IElement[4];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 3; j++)
+                if (sides[i][j] != null)
+                    sideBoxElement[i][j] = processMarginBoxContent(sides[i][j], pageNumber, context);
+            if (corners[i] != null)
+                cornerBoxElement[i] = processMarginBoxContent(corners[i], pageNumber, context);
+        }
+
+        for (int i = 0; i < 4; i++) {
+            if (cornerBoxElement[i] != null) {
+                IRenderer cornerRenderer = funWithRenderer(cornerBoxElement[i], documentRenderer, pdfDocument);
+                float rendererWidth = margins[i % 3 == 0 ? 3 : 1] - getWidthOfOneSide(cornerBoxElement[i], Property.MARGIN_LEFT, Property.BORDER_LEFT, Property.PADDING_LEFT) -
+                        getWidthOfOneSide(cornerBoxElement[i], Property.MARGIN_RIGHT, Property.BORDER_RIGHT, Property.PADDING_RIGHT);
+                float rendererHeight = margins[i > 1 ? 2 : 0] - getWidthOfOneSide(cornerBoxElement[i], Property.MARGIN_TOP, Property.BORDER_TOP, Property.PADDING_TOP) -
+                        getWidthOfOneSide(cornerBoxElement[i], Property.MARGIN_BOTTOM, Property.BORDER_BOTTOM, Property.PADDING_BOTTOM);
+                cornerRenderer.setProperty(Property.WIDTH, UnitValue.createPointValue(rendererWidth));
+                cornerRenderer.setProperty(Property.HEIGHT, UnitValue.createPointValue(rendererHeight));
+                draw(cornerRenderer, corners[i], pdfDocument, page, documentRenderer, pageNumber);
             }
-            LayoutResult result = renderer.layout(new LayoutContext(new LayoutArea(pageNumber, marginBoxContentNode.getPageMarginBoxRectangle())));
-            IRenderer rendererToDraw = result.getStatus() == LayoutResult.FULL ? renderer : result.getSplitRenderer();
-            if (rendererToDraw != null) {
-                TagTreePointer tagPointer = null, backupPointer = null;
-                PdfPage backupPage = null;
-                if (isTagged) {
-                    tagPointer = pdfDocument.getTagStructureContext().getAutoTaggingPointer();
-                    backupPage = tagPointer.getCurrentPage();
-                    backupPointer = new TagTreePointer(tagPointer);
-                    tagPointer.moveToRoot();
-                    tagPointer.setPageForTagging(page);
-                }
 
-                rendererToDraw.setParent(documentRenderer).draw(new DrawContext(page.getDocument(), new PdfCanvas(page), isTagged));
-
-                if (isTagged) {
-                    tagPointer.setPageForTagging(backupPage);
-                    tagPointer.moveToPointer(backupPointer);
+            IRenderer[] renderer = new IRenderer[3];
+            for (int j = 0; j < 3; j++) {
+                if (sideBoxElement[i][j] != null) {
+                    renderer[j] = funWithRenderer(sideBoxElement[i][j], documentRenderer, pdfDocument);
                 }
-            } else {
-                // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
-                // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
-                Logger logger = LoggerFactory.getLogger(PageContextProcessor.class);
-                logger.error(MessageFormatUtil.format(LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN, marginBoxContentNode.getMarginBoxName()));
             }
+            determineSizes(sides[i], renderer, sideBoxElement[i], i);
+            for (int j = 0; j < 3; j++) {
+                if (renderer[j] != null) {
+                    draw(renderer[j], sides[i][j], pdfDocument, page, documentRenderer, pageNumber);
+                }
+            }
+        }
+    }
+
+    private IRenderer funWithRenderer(IElement element, DocumentRenderer documentRenderer, PdfDocument pdfDocument) {
+        IRenderer renderer = element.createRendererSubTree();
+        removeAreaBreaks(renderer);
+        renderer.setParent(documentRenderer);
+        if (pdfDocument.isTagged()) {
+            LayoutTaggingHelper taggingHelper = renderer.<LayoutTaggingHelper>getProperty(Property.TAGGING_HELPER);
+            LayoutTaggingHelper.addTreeHints(taggingHelper, renderer);
+        }
+        return renderer;
+    }
+
+    private void draw(IRenderer renderer, PageMarginBoxContextNode node, PdfDocument pdfDocument, PdfPage page, DocumentRenderer documentRenderer, int pageNumber) {
+        LayoutResult result = renderer.layout(new LayoutContext(new LayoutArea(pageNumber, node.getPageMarginBoxRectangle())));
+        IRenderer rendererToDraw = result.getStatus() == LayoutResult.FULL ? renderer : result.getSplitRenderer();
+        if (rendererToDraw != null) {
+            TagTreePointer tagPointer = null, backupPointer = null;
+            PdfPage backupPage = null;
+            if (pdfDocument.isTagged()) {
+                tagPointer = pdfDocument.getTagStructureContext().getAutoTaggingPointer();
+                backupPage = tagPointer.getCurrentPage();
+                backupPointer = new TagTreePointer(tagPointer);
+                tagPointer.moveToRoot();
+                tagPointer.setPageForTagging(page);
+            }
+
+            rendererToDraw.setParent(documentRenderer).draw(new DrawContext(page.getDocument(), new PdfCanvas(page), pdfDocument.isTagged()));
+
+            if (pdfDocument.isTagged()) {
+                tagPointer.setPageForTagging(backupPage);
+                tagPointer.moveToPointer(backupPointer);
+            }
+        } else {
+            // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
+            // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
+            Logger logger = LoggerFactory.getLogger(PageContextProcessor.class);
+            logger.error(MessageFormatUtil.format(LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN, node.getMarginBoxName()));
         }
     }
 
@@ -640,7 +612,7 @@ class PageContextProcessor {
      * @param resolvedPageMarginBoxes the resolved page margin boxes
      */
     private void prepareMarginBoxesSizing(List<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
-        Rectangle[] marginBoxRectangles = calculateMarginBoxRectangles(resolvedPageMarginBoxes);
+        Rectangle[] marginBoxRectangles = calculateMarginBoxRectanglesCornersOnly(resolvedPageMarginBoxes);
         for (PageMarginBoxContextNode marginBoxContentNode : resolvedPageMarginBoxes) {
             if (marginBoxContentNode.childNodes().isEmpty()) {
                 // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
@@ -652,6 +624,8 @@ class PageContextProcessor {
             marginBoxContentNode.setContainingBlockForMarginBox(calculateContainingBlockSizesForMarginBox(marginBoxInd, marginBoxRectangles[marginBoxInd]));
         }
     }
+
+    // todo don't forget to apply MBP to corners!!!
 
     private IElement processMarginBoxContent(PageMarginBoxContextNode marginBoxContentNode, int pageNumber, ProcessorContext context) {
         IElementNode dummyMarginBoxNode = new PageMarginBoxDummyElement();
@@ -699,7 +673,7 @@ class PageContextProcessor {
      * @return Rectangle[12] containing the calulated bounding boxes of the margin-box-nodes. Rectangles with 0 width and/or heigh
      * refer to empty boxes. The order is TLC(top-left-corner)-TL-TC-TY-TRC-RT-RM-RB-RBC-BR-BC-BL-BLC-LB-LM-LT
      */
-    private Rectangle[] calculateMarginBoxRectangles(List<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
+    private Rectangle[] calculateMarginBoxRectanglesCornersOnly(List<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
         float topMargin = margins[0];
         float rightMargin = margins[1];
         float bottomMargin = margins[2];
@@ -715,98 +689,149 @@ class PageContextProcessor {
         Rectangle blc = new Rectangle(0, 0, leftMargin, bottomMargin);
         Rectangle brc = new Rectangle(withoutMargins.getRight(), 0, rightMargin, bottomMargin);
 
-        //Top calculation
-        float[] topWidthResults = calculatePageMarginBoxDimensions(
-                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.TOP_LEFT), withoutMargins.getWidth(), context),
-                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.TOP_CENTER), withoutMargins.getWidth(), context),
-                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.TOP_RIGHT), withoutMargins.getWidth(), context),
-                withoutMargins.getWidth()
-        );
-        float centerOrMiddleCoord = getStartCoordForCenterOrMiddleBox(withoutMargins.getWidth(), topWidthResults, withoutMargins.getLeft());
-        Rectangle[] topResults = new Rectangle[]{
-                new Rectangle(withoutMargins.getLeft(), withoutMargins.getTop(), topWidthResults[0], topMargin),
-                new Rectangle(centerOrMiddleCoord, withoutMargins.getTop(), topWidthResults[1], topMargin),
-                new Rectangle(withoutMargins.getRight() - topWidthResults[2], withoutMargins.getTop(), topWidthResults[2], topMargin)
-        };
-
-        //Right calculation
-        float[] rightHeightResults = calculatePageMarginBoxDimensions(
-                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.RIGHT_TOP), rightMargin, withoutMargins.getHeight(), context),
-                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.RIGHT_MIDDLE), rightMargin, withoutMargins.getHeight(), context),
-                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.RIGHT_BOTTOM), rightMargin, withoutMargins.getHeight(), context),
-                withoutMargins.getHeight()
-        );
-        centerOrMiddleCoord = getStartCoordForCenterOrMiddleBox(withoutMargins.getHeight(), rightHeightResults, withoutMargins.getBottom());
-        Rectangle[] rightResults = new Rectangle[]{
-                new Rectangle(withoutMargins.getRight(), withoutMargins.getTop() - rightHeightResults[0], rightMargin, rightHeightResults[0]),
-                new Rectangle(withoutMargins.getRight(), centerOrMiddleCoord, rightMargin, rightHeightResults[1]),
-                new Rectangle(withoutMargins.getRight(), withoutMargins.getBottom(), rightMargin, rightHeightResults[2])
-        };
-
-        //Bottom calculation
-        float[] bottomWidthResults = calculatePageMarginBoxDimensions(
-                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.BOTTOM_LEFT), withoutMargins.getWidth(), context),
-                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.BOTTOM_CENTER), withoutMargins.getWidth(), context),
-                retrievePageMarginBoxWidths(resolvedPMBMap.get(CssRuleName.BOTTOM_RIGHT), withoutMargins.getWidth(), context),
-                withoutMargins.getWidth()
-        );
-
-        centerOrMiddleCoord = getStartCoordForCenterOrMiddleBox(withoutMargins.getWidth(), bottomWidthResults, withoutMargins.getLeft());
-        Rectangle[] bottomResults = new Rectangle[]{
-                new Rectangle(withoutMargins.getRight() - bottomWidthResults[2], 0, bottomWidthResults[2], bottomMargin),
-                new Rectangle(centerOrMiddleCoord, 0, bottomWidthResults[1], bottomMargin),
-                new Rectangle(withoutMargins.getLeft(), 0, bottomWidthResults[0], bottomMargin)
-        };
-        //Left calculation
-        float[] leftHeightResults = calculatePageMarginBoxDimensions(
-                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.LEFT_TOP), leftMargin, withoutMargins.getHeight(), context),
-                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.LEFT_MIDDLE), leftMargin, withoutMargins.getHeight(), context),
-                retrievePageMarginBoxHeights(resolvedPMBMap.get(CssRuleName.LEFT_BOTTOM), leftMargin, withoutMargins.getHeight(), context),
-                withoutMargins.getHeight()
-        );
-        centerOrMiddleCoord = getStartCoordForCenterOrMiddleBox(withoutMargins.getHeight(), leftHeightResults, withoutMargins.getBottom());
-        Rectangle[] leftResults = new Rectangle[]{
-                new Rectangle(0, withoutMargins.getTop() - leftHeightResults[0], leftMargin, leftHeightResults[0]),
-                new Rectangle(0, centerOrMiddleCoord, leftMargin, leftHeightResults[1]),
-                new Rectangle(0, withoutMargins.getBottom(), leftMargin, leftHeightResults[2])
-        };
         //Group & return results
         Rectangle[] groupedRectangles = new Rectangle[]{
                 tlc,
-                topResults[0],
-                topResults[1],
-                topResults[2],
+                null,
+                null,
+                null,
                 trc,
 
-                rightResults[0],
-                rightResults[1],
-                rightResults[2],
+                null,
+                null,
+                null,
 
                 brc,
-                bottomResults[0],
-                bottomResults[1],
-                bottomResults[2],
+                null,
+                null,
+                null,
                 blc,
 
-                leftResults[2],
-                leftResults[1],
-                leftResults[0],
+                null,
+                null,
+                null,
 
         };
-
         return groupedRectangles;
+    }
+
+    private void determineSizes(PageMarginBoxContextNode[] resolvedPageMarginBoxes, IRenderer[] renderers, IElement[] elements, int side) {
+        float[][] marginsBordersPaddingsWidths = new float[3][4];
+        for (int i = 0; i < 3; i++) {
+            if (elements[i] != null) {
+                marginsBordersPaddingsWidths[i][0] = getWidthOfOneSide(elements[i], Property.MARGIN_TOP, Property.BORDER_TOP, Property.PADDING_TOP);
+                marginsBordersPaddingsWidths[i][1] = getWidthOfOneSide(elements[i], Property.MARGIN_RIGHT, Property.BORDER_RIGHT, Property.PADDING_RIGHT);
+                marginsBordersPaddingsWidths[i][2] = getWidthOfOneSide(elements[i], Property.MARGIN_BOTTOM, Property.BORDER_BOTTOM, Property.PADDING_BOTTOM);
+                marginsBordersPaddingsWidths[i][3] = getWidthOfOneSide(elements[i], Property.MARGIN_LEFT, Property.BORDER_LEFT, Property.PADDING_LEFT);
+            }
+        }
+        Rectangle withoutMargins = pageSize.clone().applyMargins(margins[0], margins[1], margins[2], margins[3], false);
+        Map<String, PageMarginBoxContextNode> resolvedPMBMap = new HashMap<>();
+        for (PageMarginBoxContextNode node : resolvedPageMarginBoxes) {
+            if (node != null)
+                resolvedPMBMap.put(node.getMarginBoxName(), node);
+        }
+        DimensionContainer[] dims = new DimensionContainer[3];
+        String[] cssRuleName = getRuleNames(side);
+        for (int i = 0; i < 3; i++)
+            if (side % 2 == 0)
+                dims[i] = retrievePageMarginBoxWidths(resolvedPMBMap.get(cssRuleName[i]), renderers[i], side % 2 == 0 ? withoutMargins.getWidth() : withoutMargins.getHeight(),
+                        marginsBordersPaddingsWidths[i][1] + marginsBordersPaddingsWidths[i][3]);
+            else
+                dims[i] = retrievePageMarginBoxHeights(resolvedPMBMap.get(cssRuleName[i]), renderers[i], margins[side],
+                        side % 2 == 0 ? withoutMargins.getWidth() : withoutMargins.getHeight(), marginsBordersPaddingsWidths[i][1] + marginsBordersPaddingsWidths[i][3]);
+        float[] widthOfHeightResults = calculatePageMarginBoxDimensions(dims[0], dims[1], dims[2], side % 2 == 0 ? withoutMargins.getWidth() : withoutMargins.getHeight());
+        float centerOrMiddleCoord = getStartCoordForCenterOrMiddleBox(side % 2 == 0 ? withoutMargins.getWidth() : withoutMargins.getHeight(),
+                widthOfHeightResults[1],
+                side % 2 == 0 ? withoutMargins.getLeft() : withoutMargins.getBottom());
+        Rectangle[] result = getRectangles(side, withoutMargins, centerOrMiddleCoord, widthOfHeightResults, marginsBordersPaddingsWidths);
+        for (int i = 0; i < 3; i++)
+            if (resolvedPageMarginBoxes[i] != null) {
+                resolvedPageMarginBoxes[i].setPageMarginBoxRectangle(result[i]);
+                renderers[i].setProperty(Property.WIDTH, UnitValue.createPointValue(result[i].getWidth() - marginsBordersPaddingsWidths[i][1] - marginsBordersPaddingsWidths[i][3]));
+                renderers[i].setProperty(Property.HEIGHT, UnitValue.createPointValue(result[i].getHeight() - marginsBordersPaddingsWidths[i][0] - marginsBordersPaddingsWidths[i][2]));
+            }
+    }
+
+    private String[] getRuleNames(int side) {
+        switch (side) {
+            case 0:
+                return new String[] {CssRuleName.TOP_LEFT, CssRuleName.TOP_CENTER, CssRuleName.TOP_RIGHT};
+            case 1:
+                return new String[] {CssRuleName.RIGHT_TOP, CssRuleName.RIGHT_MIDDLE, CssRuleName.RIGHT_BOTTOM};
+            case 2:
+                return new String[] {CssRuleName.BOTTOM_RIGHT, CssRuleName.BOTTOM_CENTER, CssRuleName.BOTTOM_LEFT};
+            case 3:
+                return new String[] {CssRuleName.LEFT_BOTTOM, CssRuleName.LEFT_MIDDLE, CssRuleName.LEFT_TOP};
+        }
+        return new String[3];
+    }
+
+    private Rectangle[] getRectangles(int side, Rectangle withoutMargins, float centerOrMiddleCoord, float[] results, float[][] marginsBordersPaddingsWidths) {
+        switch (side) {
+            case 0:
+                return new Rectangle[]{new Rectangle(withoutMargins.getLeft(), withoutMargins.getTop(),
+                        results[0], margins[0]),
+                        new Rectangle(centerOrMiddleCoord, withoutMargins.getTop(),
+                                results[1], margins[0]),
+                        new Rectangle(withoutMargins.getRight() - results[2], withoutMargins.getTop(),
+                                results[2], margins[0])};
+            case 1:
+                return new Rectangle[]{
+                        new Rectangle(withoutMargins.getRight(), withoutMargins.getTop() - results[0],
+                                margins[1], results[0]),
+                        new Rectangle(withoutMargins.getRight(), centerOrMiddleCoord, margins[1],
+                                results[1]),
+                        new Rectangle(withoutMargins.getRight(), withoutMargins.getBottom(),
+                                margins[1], results[2])
+                };
+            case 2:
+                return new Rectangle[]{
+                        new Rectangle(withoutMargins.getRight() - results[0], 0,
+                                results[0], margins[2]),
+                        new Rectangle(centerOrMiddleCoord, 0, results[1], margins[2]),
+                        new Rectangle(withoutMargins.getLeft(), 0, results[2], margins[2])
+                };
+            case 3:
+                return new Rectangle[]{
+                        new Rectangle(0, withoutMargins.getBottom(), margins[3], results[0]),
+                        new Rectangle(0, centerOrMiddleCoord, margins[3], results[1]),
+                        new Rectangle(0, withoutMargins.getTop() - results[2],
+                                margins[3], results[2])
+                };
+
+        }
+        return new Rectangle[3];
+    }
+
+    // todo importance of order! Border is different from margin or padding!
+    // todo make sure it's always top, right, bottom and left and not generic
+    // todo make sure margin/padding is always UnitValue
+    private float getWidthOfOneSide(IElement element, int marginProperty, int borderProperty, int paddingProperty) {
+        // todo extract the damn Property accurately
+        float marginWidth = 0, paddingWidth = 0, borderWidth = 0;
+        UnitValue temp = element.<UnitValue>getProperty(marginProperty);
+        if (null != temp)
+            marginWidth = temp.getValue();
+        temp = element.<UnitValue>getProperty(paddingProperty);
+        if (null != temp)
+            paddingWidth = temp.getValue();
+        Border border = element.<Border>getProperty(borderProperty);
+        if (null != border)
+            borderWidth = border.getWidth();
+        return marginWidth + paddingWidth + borderWidth;
     }
 
     /**
      * Calculate the starting coordinate in a given dimension for a center of middle box
      *
      * @param availableDimension size of the available area
-     * @param dimensionResults   float[3] containing the calculated dimensions
+     * @param dimensionResult    the calculated dimensions of the middle (center) box
      * @param offset             offset from the start of the page (page margins and padding included)
      * @return starting coordinate in a given dimension for a center of middle box
      */
-    private float getStartCoordForCenterOrMiddleBox(float availableDimension, float[] dimensionResults, float offset) {
-        return offset + (availableDimension - dimensionResults[1]) / 2;
+    private float getStartCoordForCenterOrMiddleBox(float availableDimension, float dimensionResult, float offset) {
+        return offset + (availableDimension - dimensionResult) / 2;
     }
 
     /**
@@ -894,6 +919,7 @@ class PageContextProcessor {
                 float maxContentWidthAC, minContentWidthAC;
                 if (dimA != null && !dimA.isAutoDimension() || dimC != null && !dimC.isAutoDimension()) {
                     maxContentWidthAC = 2 * Math.max(maxContentDimensionA, maxContentDimensionC);
+                    // I don't get this :\
                     if (dimA != null && !dimA.isAutoDimension()) {
                         minContentWidthAC = 2 * minContentDimensionA;
                     } else {
@@ -914,8 +940,9 @@ class PageContextProcessor {
             } else {
                 dimensions[1] = dimB.dimension;
                 float newAvailableDimension = (availableDimension - dimensions[1]) / 2;
-                dimensions[0] = Math.min(minContentDimensionA, newAvailableDimension);
-                dimensions[2] = Math.min(minContentDimensionC, newAvailableDimension);
+                // todo make sure it's not tooooo big float
+                dimensions[0] = Math.min(maxContentDimensionA, newAvailableDimension) + MinMaxWidthUtils.getEps();
+                dimensions[2] = Math.min(maxContentDimensionC, newAvailableDimension) + MinMaxWidthUtils.getEps();
             }
             setManualDimension(dimA, dimensions, 0);
             setManualDimension(dimC, dimensions, 2);
@@ -987,19 +1014,19 @@ class PageContextProcessor {
         return false;
     }
 
-    private DimensionContainer retrievePageMarginBoxWidths(PageMarginBoxContextNode pmbcNode, float maxWidth, ProcessorContext context) {
+    private DimensionContainer retrievePageMarginBoxWidths(PageMarginBoxContextNode pmbcNode, IRenderer renderer, float maxWidth, float additionalWidthFix) {
         if (pmbcNode == null) {
             return null;
         } else {
-            return new WidthDimensionContainer(pmbcNode, maxWidth, context);
+            return new WidthDimensionContainer(pmbcNode, maxWidth, renderer, additionalWidthFix);
         }
     }
 
-    private DimensionContainer retrievePageMarginBoxHeights(PageMarginBoxContextNode pmbcNode, float marginWidth, float maxHeight, ProcessorContext context) {
+    private DimensionContainer retrievePageMarginBoxHeights(PageMarginBoxContextNode pmbcNode, IRenderer renderer, float marginWidth, float maxHeight, float additionalHeightFix) {
         if (pmbcNode == null) {
             return null;
         } else {
-            return new HeightDimensionContainer(pmbcNode, marginWidth, maxHeight, context);
+            return new HeightDimensionContainer(pmbcNode, marginWidth, maxHeight, renderer, additionalHeightFix);
         }
     }
 
@@ -1030,7 +1057,7 @@ class PageContextProcessor {
 
     private float[] calculateDistribution(float argA, float argC, float flexA, float flexC, float sum, float availableDimension) {
         float flexRatioA, flexRatioC, flexSpace;
-        if (CssUtils.compareFloats(sum,0f)) {
+        if (CssUtils.compareFloats(sum, 0f)) {
             flexRatioA = 1;
             flexRatioC = 1;
         } else {

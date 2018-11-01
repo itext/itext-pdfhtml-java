@@ -183,6 +183,7 @@ public class PageMarginBoxIntegrationTest extends ExtendedHtmlConversionITextTes
     }
 
     //Edge-case test
+    // TODO testing here
     @Test
     public void largeAutoLeftRegularCenterTopBottomTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("largeAutoLeftRegularCenterTopBottomTest", sourceFolder, destinationFolder);
@@ -277,5 +278,10 @@ public class PageMarginBoxIntegrationTest extends ExtendedHtmlConversionITextTes
     @Test
     public void largeFixedSidesNoMiddleTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("largeFixedSidesNoMiddleTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void twoPagesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("twoPagesTest", sourceFolder, destinationFolder);
     }
 }

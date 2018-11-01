@@ -68,6 +68,11 @@ public final class PaddingApplierUtil {
     private PaddingApplierUtil() {
     }
 
+    // todo change javadoc
+    public static void applyPaddings(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+        applyPaddings(cssProps, context, element, 0.0f, 0.0f);
+    }
+
     /**
      * Applies paddings to an element.
      *
@@ -75,7 +80,7 @@ public final class PaddingApplierUtil {
      * @param context the processor context
      * @param element the element
      */
-    public static void applyPaddings(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+    public static void applyPaddings(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element, float baseValueVertical, float baseValueHorizontal) {
         String paddingTop = cssProps.get(CssConstants.PADDING_TOP);
         String paddingBottom = cssProps.get(CssConstants.PADDING_BOTTOM);
         String paddingLeft = cssProps.get(CssConstants.PADDING_LEFT);
@@ -83,40 +88,52 @@ public final class PaddingApplierUtil {
 
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
-        UnitValue marginTopVal = CssUtils.parseLengthValueToPt(paddingTop, em, rem);
-        UnitValue marginBottomVal = CssUtils.parseLengthValueToPt(paddingBottom, em, rem);
-        UnitValue marginLeftVal = CssUtils.parseLengthValueToPt(paddingLeft, em, rem);
-        UnitValue marginRightVal = CssUtils.parseLengthValueToPt(paddingRight, em, rem);
+        UnitValue paddingTopVal = CssUtils.parseLengthValueToPt(paddingTop, em, rem);
+        UnitValue paddingBottomVal = CssUtils.parseLengthValueToPt(paddingBottom, em, rem);
+        UnitValue paddingLeftVal = CssUtils.parseLengthValueToPt(paddingLeft, em, rem);
+        UnitValue paddingRightVal = CssUtils.parseLengthValueToPt(paddingRight, em, rem);
 
-        if (marginTopVal != null) {
-            if (marginTopVal.isPointValue()) {
-                element.setProperty(Property.PADDING_TOP, marginTopVal);
+        if (paddingTopVal != null) {
+            if (paddingTopVal.isPointValue()) {
+                element.setProperty(Property.PADDING_TOP, paddingTopVal);
             } else {
-                logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                if (baseValueVertical != 0.0f)
+                    element.setProperty(Property.PADDING_TOP, new UnitValue(UnitValue.POINT, baseValueVertical * paddingTopVal.getValue() * 0.01f));
+                else
+                    logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
         }
 
-        if (marginBottomVal != null) {
-            if (marginBottomVal.isPointValue()) {
-                element.setProperty(Property.PADDING_BOTTOM, marginBottomVal);
+        if (paddingBottomVal != null) {
+            if (paddingBottomVal.isPointValue()) {
+                element.setProperty(Property.PADDING_BOTTOM, paddingBottomVal);
             } else {
-                logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                if (baseValueVertical != 0.0f)
+                    element.setProperty(Property.PADDING_BOTTOM, new UnitValue(UnitValue.POINT, baseValueVertical * paddingBottomVal.getValue() * 0.01f));
+                else
+                    logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
         }
 
-        if (marginLeftVal != null) {
-            if (marginLeftVal.isPointValue()) {
-                element.setProperty(Property.PADDING_LEFT, marginLeftVal);
+        if (paddingLeftVal != null) {
+            if (paddingLeftVal.isPointValue()) {
+                element.setProperty(Property.PADDING_LEFT, paddingLeftVal);
             } else {
-                logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                if (baseValueHorizontal != 0.0f)
+                    element.setProperty(Property.PADDING_LEFT, new UnitValue(UnitValue.POINT, baseValueHorizontal * paddingLeftVal.getValue() * 0.01f));
+                else
+                    logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
         }
 
-        if (marginRightVal != null) {
-            if (marginRightVal.isPointValue()) {
-                element.setProperty(Property.PADDING_RIGHT, marginRightVal);
+        if (paddingRightVal != null) {
+            if (paddingRightVal.isPointValue()) {
+                element.setProperty(Property.PADDING_RIGHT, paddingRightVal);
             } else {
-                logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                if (baseValueHorizontal != 0.0f)
+                    element.setProperty(Property.PADDING_RIGHT, new UnitValue(UnitValue.POINT, baseValueHorizontal * paddingRightVal.getValue() * 0.01f));
+                else
+                    logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
         }
     }

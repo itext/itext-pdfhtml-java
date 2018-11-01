@@ -30,14 +30,14 @@ abstract class DimensionContainer {
         return dimension == -1;
     }
 
-    float parseDimension(CssContextNode node, String content, float maxAvailableDimension) {
-        float fontsize = FontStyleApplierUtil.parseAbsoluteFontSize(node.getStyles().get(CssConstants.FONT_SIZE));
-        UnitValue unitValue = CssUtils.parseLengthValueToPt(content, fontsize, 0);
+    float parseDimension(CssContextNode node, String content, float maxAvailableDimension, float additionalWidthFix) {
+        float fontSize = FontStyleApplierUtil.parseAbsoluteFontSize(node.getStyles().get(CssConstants.FONT_SIZE));
+        UnitValue unitValue = CssUtils.parseLengthValueToPt(content, fontSize, 0);
         if (unitValue == null) {
             return 0;
         }
         if (unitValue.isPointValue()) {
-            return unitValue.getValue();
+            return unitValue.getValue() + additionalWidthFix;
         }
         return maxAvailableDimension * unitValue.getValue() / 100f;
     }

@@ -71,6 +71,7 @@ public final class MarginApplierUtil {
     private MarginApplierUtil() {
     }
 
+    // todo change javadocs!
     /**
      * Applies margins to an element.
      *
@@ -79,6 +80,17 @@ public final class MarginApplierUtil {
      * @param element the element
      */
     public static void applyMargins(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+        applyMargins(cssProps, context, element, 0.0f, 0.0f);
+    }
+
+    /**
+     * Applies margins to an element.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
+    public static void applyMargins(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element, float baseValueVertical, float baseValueHorizontal) {
         String marginTop = cssProps.get(CssConstants.MARGIN_TOP);
         String marginBottom = cssProps.get(CssConstants.MARGIN_BOTTOM);
         String marginLeft = cssProps.get(CssConstants.MARGIN_LEFT);
@@ -92,12 +104,12 @@ public final class MarginApplierUtil {
         float rem = context.getCssContext().getRootFontSize();
 
         if (isBlock || isImage) {
-            trySetMarginIfNotAuto(Property.MARGIN_TOP, marginTop, element, em, rem);
-            trySetMarginIfNotAuto(Property.MARGIN_BOTTOM, marginBottom, element, em, rem);
+            trySetMarginIfNotAuto(Property.MARGIN_TOP, marginTop, element, em, rem, baseValueVertical);
+            trySetMarginIfNotAuto(Property.MARGIN_BOTTOM, marginBottom, element, em, rem, baseValueVertical);
         }
 
-        boolean isLeftAuto = !trySetMarginIfNotAuto(Property.MARGIN_LEFT, marginLeft, element, em, rem);
-        boolean isRightAuto = !trySetMarginIfNotAuto(Property.MARGIN_RIGHT, marginRight, element, em, rem);
+        boolean isLeftAuto = !trySetMarginIfNotAuto(Property.MARGIN_LEFT, marginLeft, element, em, rem, baseValueHorizontal);
+        boolean isRightAuto = !trySetMarginIfNotAuto(Property.MARGIN_RIGHT, marginRight, element, em, rem, baseValueHorizontal);
 
         if (isBlock) {
             if (isLeftAuto && isRightAuto) {
@@ -121,13 +133,13 @@ public final class MarginApplierUtil {
      * @param rem the root em value
      * @return false if the margin value was "auto"
      */
-    private static boolean trySetMarginIfNotAuto(int marginProperty, String marginValue, IPropertyContainer element, float em, float rem) {
+    private static boolean trySetMarginIfNotAuto(int marginProperty, String marginValue, IPropertyContainer element, float em, float rem, float baseValue) {
         boolean isAuto = CssConstants.AUTO.equals(marginValue);
         if (isAuto) {
             return false;
         }
         
-        Float marginVal = parseMarginValue(marginValue, em, rem);
+        Float marginVal = parseMarginValue(marginValue, em, rem, baseValue);
         if (marginVal != null) {
             element.setProperty(marginProperty, UnitValue.createPointValue((float) marginVal));
         }
@@ -142,10 +154,12 @@ public final class MarginApplierUtil {
      * @param rem the root em value
      * @return the margin value as a {@link Float}
      */
-    private static Float parseMarginValue(String marginValString, float em, float rem) {
+    private static Float parseMarginValue(String marginValString, float em, float rem, float baseValue) {
         UnitValue marginUnitVal = CssUtils.parseLengthValueToPt(marginValString, em, rem);
         if (marginUnitVal != null) {
             if (!marginUnitVal.isPointValue()) {
+                if (baseValue != 0.0f)
+                    return new Float(baseValue * marginUnitVal.getValue() * 0.01);
                 logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 return null;
             }
