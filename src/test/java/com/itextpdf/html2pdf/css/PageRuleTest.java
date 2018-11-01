@@ -637,6 +637,11 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
+    public void marginBoxMultilineTest04() throws IOException, InterruptedException {
+        runTest("marginBoxMultilineTest04");
+    }
+
+    @Test
     public void wrongPageRuleCssStructureTest() throws IOException, InterruptedException {
         junitExpectedException.expect(RuntimeException.class);
         runTest("wrongPageRuleCssStructureTest");

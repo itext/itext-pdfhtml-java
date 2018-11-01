@@ -46,7 +46,6 @@ import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-@LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED)})
 public class InlineBlockWidth002BTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

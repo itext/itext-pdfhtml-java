@@ -104,8 +104,13 @@ public class OptGroupTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void optGroupWidthTest01() throws IOException, InterruptedException {
-        // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
         convertToPdfAndCompare("optGroupWidthTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void optGroupWidthTest02() throws IOException, InterruptedException {
+        // TODO DEVSIX-2444 select props parsing essentially neglects whitespace pre
+        convertToPdfAndCompare("optGroupWidthTest02", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -115,7 +120,6 @@ public class OptGroupTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void optGroupOverflowTest02() throws IOException, InterruptedException {
-        // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
         convertToPdfAndCompare("optGroupOverflowTest02", sourceFolder, destinationFolder);
     }
 

@@ -138,6 +138,9 @@ public final class AttributeConstants extends CommonAttributeConstants {
     /** The Constant NOSHADE. */
     public static final String NOSHADE = "noshade";
 
+    /** The Constant NOWRAP. */
+    public static final String NOWRAP = "nowrap";
+
     /** The Constant NUMBER. */
     public static final String NUMBER = "number";
 

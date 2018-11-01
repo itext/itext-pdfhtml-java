@@ -71,7 +71,6 @@ public class CssInheritanceTest extends ExtendedHtmlConversionITextTest {
     }
 
     //ex value inherited
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN)})
     @Test
     public void cssInheritanceTest02() throws IOException, InterruptedException {
         convertToPdfAndCompare("cssInheritance02", sourceFolder, destinationFolder);

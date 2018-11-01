@@ -71,6 +71,11 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void textAlignTest02() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textAlignTest02", sourceFolder, destinationFolder);
+    }
+
+    @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED)})
     public void textDecorationTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationTest01", sourceFolder, destinationFolder);
@@ -122,9 +127,153 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-1896
     public void whiteSpaceTest03() throws IOException, InterruptedException {
         convertToPdfAndCompare("whiteSpaceTest03", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapBasicTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapBasicTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapBackgroundTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapBackgroundTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapShortTextTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapShortTextTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapShortTextTest02() throws IOException, InterruptedException {
+        // TODO DEVSIX-2443: /r itext doesn't collapse and treats as new-line
+        convertToPdfAndCompare("whiteSpaceNowrapShortTextTest02", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapLongTextTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapLongTextTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapLongTextTest02() throws IOException, InterruptedException {
+        // TODO DEVSIX-2443: /r itext doesn't collapse and treats as new-line
+        convertToPdfAndCompare("whiteSpaceNowrapLongTextTest02", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH))
+    public void whiteSpaceNowrapTableCellTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapTableCellTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapTableCellTest02() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapTableCellTest02", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH))
+    public void whiteSpaceNowrapTableCellTest03() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapTableCellTest03", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapTextAlignTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapTextAlignTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapTextAlignTest02() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapTextAlignTest02", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapTextAlignTest03() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapTextAlignTest03", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapTextAlignTest04() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapTextAlignTest04", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapImageTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapImageTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapImageTest02() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapImageTest02", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapImageTest03() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapImageTest03", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapImageTest04() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapImageTest04", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapInlineBlockTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapInlineBlockTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapInlineBlockTest02() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapInlineBlockTest02", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapInlineBlockTest03() throws IOException, InterruptedException {
+        // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+        convertToPdfAndCompare("whiteSpaceNowrapInlineBlockTest03", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapSequentialTest01() throws IOException, InterruptedException {
+        // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+        convertToPdfAndCompare("whiteSpaceNowrapSequentialTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapSequentialTest02() throws IOException, InterruptedException {
+        // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+        convertToPdfAndCompare("whiteSpaceNowrapSequentialTest02", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapSequentialTest03() throws IOException, InterruptedException {
+        // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+        convertToPdfAndCompare("whiteSpaceNowrapSequentialTest03", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapSequentialTest04() throws IOException, InterruptedException {
+        // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+        convertToPdfAndCompare("whiteSpaceNowrapSequentialTest04", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapSequentialTest05() throws IOException, InterruptedException {
+        // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+        convertToPdfAndCompare("whiteSpaceNowrapSequentialTest05", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapSequentialTest06() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapSequentialTest06", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void whiteSpaceNowrapNestedTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("whiteSpaceNowrapNestedTest01", sourceFolder, destinationFolder);
     }
 
     @Test

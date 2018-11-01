@@ -152,6 +152,9 @@ public final class FontStyleApplierUtil {
             element.setProperty(Property.SPACING_RATIO, 1f);
         }
 
+        String whiteSpace = cssProps.get(CssConstants.WHITE_SPACE);
+        element.setProperty(Property.NO_SOFT_WRAP_INLINE, CssConstants.NOWRAP.equals(whiteSpace) || CssConstants.PRE.equals(whiteSpace));
+
         String textDecorationProp = cssProps.get(CssConstants.TEXT_DECORATION);
         if (textDecorationProp != null) {
             String[] textDecorations = textDecorationProp.split("\\s+");

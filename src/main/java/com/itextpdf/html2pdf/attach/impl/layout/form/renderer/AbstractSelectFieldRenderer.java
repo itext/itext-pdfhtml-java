@@ -76,7 +76,6 @@ public abstract class AbstractSelectFieldRenderer extends BlockRenderer {
     public AbstractSelectFieldRenderer(AbstractSelectField modelElement) {
         super(modelElement);
         addChild(createFlatRenderer());
-        setProperty(Property.SPLIT_CHARACTERS, new NoSplitCharacters());
         if (!isFlatten()) {
             // TODO DEVSIX-1901
             Logger logger = LoggerFactory.getLogger(AbstractSelectFieldRenderer.class);

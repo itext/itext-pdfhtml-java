@@ -103,7 +103,6 @@ public class WidthTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, count = 2))
     public void relativeInlineBlockWidthWithTextIndentTest03() throws IOException, InterruptedException {
         convertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest03", sourceFolder, destinationFolder);
     }

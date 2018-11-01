@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style type="text/css">
+    @page {
+        margin-top: 1.5in;
+        margin-left: .875in;
+        margin-right: .875in;
+        margin-bottom: 1.5in;
+
+        @top-left-corner {
+            white-space: pre;
+            content: "THIS CONTENT SHOULD NOT DISAPPEAR";
+            overflow: visible;
+        }
+
+        @bottom-left-corner {
+            white-space: pre;
+            content: "THIS CONTENT SHOULD NOT WRAP";
+        }
+
+        @top-right-corner {
+            white-space: nowrap;
+            text-align: right;
+            content: "THIS CONTENT SHOULD NOT WRAP";
+        }
+    }
+</style>
+</head>
+
+<body>
+    <div style="background-color: yellow;">
+        Investigating different margin-boxes content behaviour with different `white-space` properties. Content in corners shall not wrap. If content overflow, top-left corner overflow is expected to be visible, while other corners overflow should be clipped.
+    </div>
+</body>
+
+</html>

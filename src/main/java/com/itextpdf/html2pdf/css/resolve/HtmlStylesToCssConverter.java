@@ -83,6 +83,7 @@ class HtmlStylesToCssConverter {
         htmlAttributeConverters.put(AttributeConstants.SIZE, new SizeAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.FACE, new FontFaceAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.NOSHADE, new NoShadeAttributeConverter());
+        htmlAttributeConverters.put(AttributeConstants.NOWRAP, new NoWrapAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.TYPE, new TypeAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.WIDTH, new WidthAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.HEIGHT, new HeightAttributeConverter());
@@ -599,6 +600,30 @@ class HtmlStylesToCssConverter {
                     new CssDeclaration(CssConstants.HEIGHT, "2px"),
                     new CssDeclaration(CssConstants.BORDER_WIDTH, "0"),
                     new CssDeclaration(CssConstants.BACKGROUND_COLOR, "gray")
+            );
+        }
+    }
+
+    /**
+     * {@link IAttributeConverter} implementation for HTML shade styles.
+     */
+    private static class NoWrapAttributeConverter implements IAttributeConverter {
+
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
+        @Override
+        public boolean isSupportedForElement(String elementName) {
+            return TagConstants.TD.equals(elementName) || TagConstants.TH.equals(elementName);
+        }
+
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
+         */
+        @Override
+        public List<CssDeclaration> convert(IElementNode element, String value) {
+            return Collections.singletonList(
+                    new CssDeclaration(CssConstants.WHITE_SPACE, CssConstants.NOWRAP)
             );
         }
     }
