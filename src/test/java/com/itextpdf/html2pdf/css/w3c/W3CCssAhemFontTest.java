@@ -44,14 +44,13 @@ package com.itextpdf.html2pdf.css.w3c;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
 import java.io.File;
 import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -59,64 +58,19 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 /**
+ * {@link W3CCssTest} but using Ahem font in font provider,
+ * taken from <a href="https://github.com/Kozea/Ahem">https://github.com/Kozea/Ahem</a>
  * @see <a href="https://github.com/w3c/csswg-test">https://github.com/w3c/csswg-test</a>
  */
 @Category(IntegrationTest.class)
-public abstract class W3CCssTest extends ExtendedITextTest {
+public abstract class W3CCssAhemFontTest extends W3CCssTest {
 
-    private static final String baseSourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/w3c/";
-    private static final String baseDestinationFolder = "./target/test/com/itextpdf/html2pdf/css/w3c/";
+    private final static String AHEM_FONT_PATH = "./src/test/resources/com/itextpdf/html2pdf/css/w3c/AhemFont/Ahem.ttf";
 
-    protected abstract String getHtmlFileName();
-
-    @BeforeClass
-    public static void beforeClass() {
-    }
-
-    @Before
-    public void before() {
-        createDestinationFolder(getDestinationFolder());
-    }
-
-    @Test
-    public void test() throws IOException, InterruptedException {
-        String sourceFolder = getSourceFolder();
-        String destinationFolder = getDestinationFolder();
-        String htmlFilePath = sourceFolder + getHtmlFileName();
-        String outFilePath = destinationFolder + getOutPdfFileName();
-        String cmpFilePath = sourceFolder + getOutPdfFileName();
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlFilePath).getPath() + "\n");
-        HtmlConverter.convertToPdf(new File(htmlFilePath), new File(outFilePath), getConverterProperties());
-        Assert.assertNull(new CompareTool().compareByContent(outFilePath, cmpFilePath, destinationFolder, "diff_"));
-    }
-
+    @Override
     protected ConverterProperties getConverterProperties() {
-        return null;
+        DefaultFontProvider fontProvider = new DefaultFontProvider();
+        fontProvider.addFont(AHEM_FONT_PATH);
+        return new ConverterProperties().setFontProvider(fontProvider);
     }
-
-    private String getDestinationFolder() {
-        String localPackage = getLocalPackage();
-        return baseDestinationFolder + localPackage + File.separatorChar + getTestClassName() + File.separatorChar;
-    }
-
-    private String getSourceFolder() {
-        String localPackage = getLocalPackage();
-        return baseSourceFolder + localPackage + File.separatorChar;
-    }
-
-    private String getTestClassName() {
-        return getClass().getSimpleName();
-    }
-
-    private String getLocalPackage() {
-        String packageName = getClass().getPackage().getName();
-        String basePackageName = W3CCssTest.class.getPackage().getName();
-        return packageName.substring(basePackageName.length()).replace('.', File.separatorChar);
-    }
-
-    private String getOutPdfFileName() {
-        String htmlFileName = getHtmlFileName();
-        return htmlFileName.replaceAll("\\.[a-zA-Z]+?$", ".pdf");
-    }
-
 }
