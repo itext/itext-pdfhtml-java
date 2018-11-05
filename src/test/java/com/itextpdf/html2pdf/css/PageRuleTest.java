@@ -80,8 +80,10 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.rules.ExpectedException;
 import org.xml.sax.SAXException;
 
 @Category(IntegrationTest.class)
@@ -93,6 +95,9 @@ public class PageRuleTest extends ExtendedITextTest {
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
     }
+
+    @Rule
+    public ExpectedException junitExpectedException = ExpectedException.none();
 
     @Test
     public void marksCropCrossPageRuleTest() throws IOException, InterruptedException {
@@ -629,6 +634,12 @@ public class PageRuleTest extends ExtendedITextTest {
     @Test
     public void marginBoxMultilineTest03() throws IOException, InterruptedException {
         runTest("marginBoxMultilineTest03");
+    }
+
+    @Test
+    public void wrongPageRuleCssStructureTest() throws IOException, InterruptedException {
+        junitExpectedException.expect(RuntimeException.class);
+        runTest("wrongPageRuleCssStructureTest");
     }
 
     private static class CustomFlushingTagWorkerFactory extends DefaultTagWorkerFactory {
