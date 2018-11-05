@@ -5,7 +5,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.styledxmlparser.css.CssContextNode;
 import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
 
-public class HeightDimensionContainer extends DimensionContainer {
+class HeightDimensionContainer extends DimensionContainer {
     HeightDimensionContainer(CssContextNode pmbcNode, float width, float maxHeight, ProcessorContext context) {
         String height = pmbcNode.getStyles().get(CssConstants.HEIGHT);
         if (height != null && !height.equals("auto")) {
@@ -17,7 +17,7 @@ public class HeightDimensionContainer extends DimensionContainer {
         maxContentDimension = PageContextProcessor.getMaxContentHeight((PageMarginBoxContextNode) pmbcNode, width, maxHeight, context);
     }
 
-    float getMinHeight(CssContextNode node, float maxAvailableHeight) {
+    private float getMinHeight(CssContextNode node, float maxAvailableHeight) {
         String content = node.getStyles().get(CssConstants.MIN_HEIGHT);
         if (content == null) {
             return 0;
@@ -32,7 +32,7 @@ public class HeightDimensionContainer extends DimensionContainer {
         return parseDimension(node, content, maxAvailableHeight);
     }
 
-    float getMaxHeight(CssContextNode node, float maxAvailableHeight) {
+    private float getMaxHeight(CssContextNode node, float maxAvailableHeight) {
         String content = node.getStyles().get(CssConstants.MAX_HEIGHT);
         if (content == null) {
             return Float.MAX_VALUE;

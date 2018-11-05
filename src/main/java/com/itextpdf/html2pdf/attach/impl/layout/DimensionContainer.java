@@ -5,10 +5,11 @@ import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.styledxmlparser.css.CssContextNode;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
+
 /**
  * Container class for grouping necessary values used in dimension calculation
  */
-public abstract class DimensionContainer {
+abstract class DimensionContainer {
     float dimension, minDimension, maxDimension;
     float minContentDimension, maxContentDimension;
 

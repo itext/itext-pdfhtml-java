@@ -5,9 +5,9 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.styledxmlparser.css.CssContextNode;
 import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
 
-public class WidthDimensionContainer extends DimensionContainer {
+class WidthDimensionContainer extends DimensionContainer {
 
-    public WidthDimensionContainer(CssContextNode node, float maxWidth, ProcessorContext context) {
+    WidthDimensionContainer(CssContextNode node, float maxWidth, ProcessorContext context) {
         String width = node.getStyles().get(CssConstants.WIDTH);
         if (width != null && !width.equals("auto")) {
             dimension = parseDimension(node, width, maxWidth);
@@ -18,7 +18,7 @@ public class WidthDimensionContainer extends DimensionContainer {
         maxContentDimension = PageContextProcessor.getMaxContentWidth((PageMarginBoxContextNode) node, context);
     }
 
-    float getMinWidth(CssContextNode node, float maxAvailableWidth) {
+    private float getMinWidth(CssContextNode node, float maxAvailableWidth) {
         String content = node.getStyles().get(CssConstants.MIN_WIDTH);
         if (content == null) {
             return 0;
@@ -33,7 +33,7 @@ public class WidthDimensionContainer extends DimensionContainer {
         return parseDimension(node, content, maxAvailableWidth);
     }
 
-    float getMaxWidth(CssContextNode node, float maxAvailableWidth) {
+    private float getMaxWidth(CssContextNode node, float maxAvailableWidth) {
         String content = node.getStyles().get(CssConstants.MAX_WIDTH);
         if (content == null) {
             return Float.MAX_VALUE;
