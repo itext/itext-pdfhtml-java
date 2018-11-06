@@ -152,6 +152,12 @@ class PageContextProcessor {
     private PageContextProperties properties;
     private ProcessorContext context;
 
+
+    /**
+     * The logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(PageContextProcessor.class);
+
     /**
      * Instantiates a new page context processor.
      *
@@ -205,18 +211,17 @@ class PageContextProcessor {
         strategy.nextGlyphs();
         PdfFont currentFont = strategy.getCurrentFont();
         if (currentFont == null) {
-            //TODO(DEVSIX-1050) Warn and use pdf default
+            LOGGER.warn(LogMessageConstant.UNABLE_TO_RETRIEVE_FONT);
             try {
                 currentFont = PdfFontFactory.createFont();
             } catch (IOException ioe) {
-                //TODO throw exception further?
+                LOGGER.error(LogMessageConstant.ERROR_LOADING_FONT);
             }
         }
         return currentFont.getWidth(content, fontSize);
     }
 
     static float getMinContentWidth(PageMarginBoxContextNode node, ProcessorContext context) {
-        //TODO(DEVSIX-1050): reread spec to be certain that min-content-size does in fact mean the same as max content
         return getMaxContentWidth(node, context);
     }
 
@@ -1025,7 +1030,7 @@ class PageContextProcessor {
 
     private float[] calculateDistribution(float argA, float argC, float flexA, float flexC, float sum, float availableDimension) {
         float flexRatioA, flexRatioC, flexSpace;
-        if (sum == 0) {//TODO(DEVSIX-1050) float comparison to zero, revisit
+        if (CssUtils.compareFloats(sum,0f)) {
             flexRatioA = 1;
             flexRatioC = 1;
         } else {
