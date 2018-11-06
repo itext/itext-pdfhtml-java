@@ -43,6 +43,9 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -122,6 +125,11 @@ public class BorderRadiusTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void borderRadius12ImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderRadiusTest12Image", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void borderRadius12ATest() throws IOException, InterruptedException {
         convertToPdfAndCompare("borderRadiusTest12A", sourceFolder, destinationFolder);
     }
@@ -164,6 +172,11 @@ public class BorderRadiusTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void borderRadiusInlineElementTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("borderRadiusInlineElementTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void imageBorderRadiusTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imageBorderRadiusTest01", sourceFolder, destinationFolder);
     }
 
     @Test
