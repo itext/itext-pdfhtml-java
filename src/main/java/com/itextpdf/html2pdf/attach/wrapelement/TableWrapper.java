@@ -46,10 +46,12 @@ import com.itextpdf.html2pdf.attach.util.RowColHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingColgroupsHelper;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.BaseDirection;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -77,7 +79,17 @@ public class TableWrapper implements IWrapElement {
 
     /** The number of columns. */
     private int numberOfColumns = 0;
-    
+
+    /** The direction value. */
+    private boolean isRtl = false;
+
+    public TableWrapper() {
+    }
+
+    public TableWrapper(boolean isRtl) {
+        this.isRtl = isRtl;
+    }
+
     /**
      * Gets the number of rows.
      *
@@ -196,6 +208,9 @@ public class TableWrapper implements IWrapElement {
         }
         if (headerRows != null) {
             for (int i = 0; i < headerRows.size(); i++) {
+                if (isRtl) {
+                    Collections.reverse(headerRows.get(i));
+                }
                 for (int j = 0; j < headerRows.get(i).size(); j++) {
                     table.addHeaderCell(headerRows.get(i).get(j).cell);
                 }
@@ -206,6 +221,9 @@ public class TableWrapper implements IWrapElement {
         }
         if (footerRows != null) {
             for (int i = 0; i < footerRows.size(); i++) {
+                if (isRtl) {
+                    Collections.reverse(footerRows.get(i));
+                }
                 for (int j = 0; j < footerRows.get(i).size(); j++) {
                     table.addFooterCell(footerRows.get(i).get(j).cell);
                 }
@@ -216,6 +234,9 @@ public class TableWrapper implements IWrapElement {
         }
         if (rows != null) {
             for (int i = 0; i < rows.size(); i++) {
+                if (isRtl) {
+                    Collections.reverse(rows.get(i));
+                }
                 for (int j = 0; j < rows.get(i).size(); j++) {
                     table.addCell(rows.get(i).get(j).cell);
                 }

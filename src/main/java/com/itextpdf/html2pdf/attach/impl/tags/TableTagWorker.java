@@ -48,9 +48,11 @@ import com.itextpdf.html2pdf.attach.util.WaitingColgroupsHelper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableWrapper;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.BaseDirection;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
@@ -86,7 +88,9 @@ public class TableTagWorker implements ITagWorker, IDisplayAware {
      * @param context the context
      */
     public TableTagWorker(IElementNode element, ProcessorContext context) {
-        tableWrapper = new TableWrapper();
+        String str = element.getStyles().get(CssConstants.DIRECTION);
+        boolean isRtl = "rtl".equals(str);
+        tableWrapper = new TableWrapper(isRtl);
         parentTagWorker = context.getState().empty() ? null : context.getState().top();
         if (parentTagWorker instanceof TableTagWorker) {
             ((TableTagWorker) parentTagWorker).applyColStyles();
