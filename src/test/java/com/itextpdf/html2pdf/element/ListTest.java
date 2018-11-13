@@ -57,16 +57,16 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class ListTest extends ExtendedITextTest {
@@ -173,6 +173,12 @@ public class ListTest extends ExtendedITextTest {
     @Test
     public void listTest19() throws IOException, InterruptedException {
         runTest("listTest19");
+    }
+
+    @Test
+    @Ignore("DEVSIX-2431")
+    public void listItemAbsolutePositionTest() throws IOException, InterruptedException {
+        runTest("list-item-absolute");
     }
 
     @Test
