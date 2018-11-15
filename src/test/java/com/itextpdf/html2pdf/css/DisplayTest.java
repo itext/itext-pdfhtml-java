@@ -316,6 +316,11 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void displayDivInlineWithStyle() throws IOException, InterruptedException {
+        convertToPdfAndCompare("displayDivInlineWithStyle", sourceFolder, destinationFolder);
+    }
+
+    @Test
     @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 7))
     public void inlineBlockInsideTableCellTest() throws IOException, InterruptedException {
 

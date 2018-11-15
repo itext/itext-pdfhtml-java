@@ -149,6 +149,7 @@ class DefaultTagCssApplierMapping {
         String placeholderPseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.PLACEHOLDER);
         mapping.putMapping(placeholderPseudoElemName, PlaceholderCssApplier.class);
 
+        mapping.putMapping(TagConstants.DIV, CssConstants.INLINE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.UL, CssConstants.INLINE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.LI, CssConstants.INLINE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.LI, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
