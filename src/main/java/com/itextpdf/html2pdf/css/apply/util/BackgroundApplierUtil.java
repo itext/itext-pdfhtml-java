@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
+import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.BackgroundImage;
@@ -85,14 +86,19 @@ public final class BackgroundApplierUtil {
         String backgroundImageStr = cssProps.get(CssConstants.BACKGROUND_IMAGE);
         if (backgroundImageStr != null && !backgroundImageStr.equals(CssConstants.NONE)) {
             String backgroundRepeatStr = cssProps.get(CssConstants.BACKGROUND_REPEAT);
-            PdfImageXObject image = context.getResourceResolver().retrieveImage(CssUtils.extractUrl(backgroundImageStr));
+            PdfXObject image = context.getResourceResolver().retrieveImageExtended(CssUtils.extractUrl(backgroundImageStr));
             boolean repeatX = true, repeatY = true;
             if (backgroundRepeatStr != null) {
                 repeatX = backgroundRepeatStr.equals(CssConstants.REPEAT) || backgroundRepeatStr.equals(CssConstants.REPEAT_X);
                 repeatY = backgroundRepeatStr.equals(CssConstants.REPEAT) || backgroundRepeatStr.equals(CssConstants.REPEAT_Y);
             }
             if (image != null) {
-                BackgroundImage backgroundImage = new BackgroundImage(image, repeatX, repeatY);
+                BackgroundImage backgroundImage = null;
+                if (image instanceof PdfImageXObject) {
+                    backgroundImage = new BackgroundImage((PdfImageXObject) image, repeatX, repeatY);
+                } else {
+                    throw new IllegalStateException();
+                }
                 element.setProperty(Property.BACKGROUND_IMAGE, backgroundImage);
             }
         }

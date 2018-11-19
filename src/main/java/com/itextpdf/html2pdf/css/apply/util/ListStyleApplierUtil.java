@@ -48,7 +48,9 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.numbering.AlphabetNumbering;
+import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
+import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
@@ -112,9 +114,17 @@ public final class ListStyleApplierUtil {
         String listStyleImage = cssProps.get(CssConstants.LIST_STYLE_IMAGE);
         if (listStyleImage != null && !CssConstants.NONE.equals(listStyleImage)) {
             String url = CssUtils.extractUrl(listStyleImage);
-            PdfImageXObject imageXObject = context.getResourceResolver().retrieveImage(url);
+            PdfXObject imageXObject = context.getResourceResolver().retrieveImageExtended(url);
             if (imageXObject != null) {
-                element.setProperty(Property.LIST_SYMBOL, new Image(imageXObject));
+                Image image = null;
+                if (imageXObject instanceof PdfImageXObject) {
+                    image = new Image((PdfImageXObject) imageXObject);
+                } else if (imageXObject instanceof PdfFormXObject) {
+                    image = new Image((PdfFormXObject) imageXObject);
+                } else {
+                    throw new IllegalStateException();
+                }
+                element.setProperty(Property.LIST_SYMBOL, image);
                 element.setProperty(Property.LIST_SYMBOL_INDENT, 5);
             }
         }

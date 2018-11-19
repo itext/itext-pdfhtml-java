@@ -85,7 +85,7 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
     public final ITagWorker getTagWorker(IElementNode tag, ProcessorContext context) {
         ITagWorker tagWorker = getCustomTagWorker(tag, context);
 
-        if ( tagWorker == null ) {
+        if (tagWorker == null ) {
             Class<?> tagWorkerClass = getTagWorkerClass(this.defaultMapping, tag);
 
             if (tagWorkerClass == null) {

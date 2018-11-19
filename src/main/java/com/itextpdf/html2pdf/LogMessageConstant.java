@@ -65,10 +65,12 @@ public final class LogMessageConstant {
     /** The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE. */
     public static final String ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE = "Error during layout of form filed with type {0}.";
     /** The Constant HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED. */
+    @Deprecated
     public static final String HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED = "Height value in percent not supported";
     /** The Constant INPUT_FIELD_DOES_NOT_FIT. */
     public static final String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";
     /** The Constant INPUT_SUPPORTS_ONLY_POINT_WIDTH. */
+    @Deprecated
     public static final String INPUT_SUPPORTS_ONLY_POINT_WIDTH = "Input field supports only point width";
     /** The Constant INPUT_TYPE_IS_NOT_SUPPORTED. */
     public static final String INPUT_TYPE_IS_NOT_SUPPORTED = "Input type {0} is not supported";
@@ -94,6 +96,8 @@ public final class LogMessageConstant {
     public static final String PAGE_MARGIN_BOX_SOME_PROPERTIES_NOT_PROCESSED = "Page margin box margin, padding, height and width properties are not processed. Passed styles container shall be of PageMarginBoxContextNode type.";
     /** The Constant PAGE_SIZE_VALUE_IS_INVALID. */
     public static final String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
+    /** The Constant PDF_DOCUMENT_NOT_PRESENT */
+    public static final String PDF_DOCUMENT_NOT_PRESENT = "PdfDocument is not present";
     /** The Constant QUOTES_PROPERTY_INVALID. */
     public static final String QUOTES_PROPERTY_INVALID = "Quote property \"{0}\" is invalid. It should contain even number of <string> values.";
     /** The Constant RULE_IS_NOT_SUPPORTED. */
@@ -101,14 +105,16 @@ public final class LogMessageConstant {
     /** The Constant TEXT_DECORATION_BLINK_NOT_SUPPORTED. */
     public static final String TEXT_DECORATION_BLINK_NOT_SUPPORTED = "text-decoration: blink not supported";
     /** The Constant TEXT_WAS_NOT_PROCESSED. */
+    @Deprecated
     public static final String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
     /** The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE. */
     public static final String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
     /** The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG*/
-    public static final String UNABLE_TO_PROCESS_IMAGE_AS_SVG="Unable to process image found at {0} as an SVG";
+    public static final String UNABLE_TO_PROCESS_IMAGE_AS_SVG = "Unable to process image found at {0} as an SVG";
     /** The Constant UNABLE_TO_RESOLVE_COUNTER. */
     public static final String UNABLE_TO_RESOLVE_COUNTER = "Unable to resolve counter \"{0}\"";
     /** The Constant UNABLE_TO_RESOLVE_FONT. */
+    @Deprecated
     public static final String UNABLE_TO_RESOLVE_FONT = "Unable to resolve font: {0}. The default one will be used instead";
     /** The Constant UNABLE_TO_RETRIEVE_FONT. */
     public static final String UNABLE_TO_RETRIEVE_FONT = "Unable to retrieve font:\n {0}";
@@ -122,11 +128,7 @@ public final class LogMessageConstant {
     public static final String WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT = "Worker of type {0} unable to process it's text content";
     /** The Constant WORKER_UNABLE_TO_PROCESS_OTHER_WORKER. */
     public static final String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
-    /** The Constant PDF_DOCUMENT_NOT_PRESENT */
-    public static final String PDF_DOCUMENT_NOT_PRESENT = "PdfDocument is not present";
-    /**
-     * Instantiates a new log message constant.
-     */
+
     private LogMessageConstant() {
     }
 

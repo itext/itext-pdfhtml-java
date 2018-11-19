@@ -176,6 +176,12 @@ public class ListTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 3)})
+    public void listTest20() throws IOException, InterruptedException {
+        runTest("listTest20");
+    }
+
+    @Test
     @Ignore("DEVSIX-2431")
     public void listItemAbsolutePositionTest() throws IOException, InterruptedException {
         runTest("list-item-absolute");

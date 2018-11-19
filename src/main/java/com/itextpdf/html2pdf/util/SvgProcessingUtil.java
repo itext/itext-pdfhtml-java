@@ -47,15 +47,11 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.layout.element.Image;
-import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.renderers.ISvgNodeRenderer;
 import com.itextpdf.svg.renderers.SvgDrawContext;
 import com.itextpdf.svg.renderers.impl.PdfRootSvgNodeRenderer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Utility class for handling operations related to SVG
@@ -68,12 +64,23 @@ public class SvgProcessingUtil {
      * @param pdfDocument pdf that shall contain the image
      * @return image layout object
      */
-    public Image createImageFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument){
+    public Image createImageFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument) {
+        PdfFormXObject xObject = createXObjectFromProcessingResult(result, pdfDocument);
+        return new Image(xObject);
+    }
+
+    /**
+     * Create an {@link PdfFormXObject} tied to the passed {@code PdfDocument} using the SVG processing result.
+     * @param result Processing result containing the SVG information
+     * @param pdfDocument pdf that shall contain the image
+     * @return PdfFormXObject instance
+     */
+    public PdfFormXObject createXObjectFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument){
         ISvgNodeRenderer topSvgRenderer = result.getRootRenderer();
         float width, height;
         float[] wh = SvgConverter.extractWidthAndHeight(topSvgRenderer);
         width = wh[0];
-        height=wh[1];
+        height = wh[1];
         PdfFormXObject pdfForm = new PdfFormXObject(new Rectangle(0, 0, width, height));
         PdfCanvas canvas = new PdfCanvas(pdfForm, pdfDocument);
 
@@ -85,6 +92,6 @@ public class SvgProcessingUtil {
 
         root.draw(context);
 
-        return new Image(pdfForm);
+        return pdfForm;
     }
 }

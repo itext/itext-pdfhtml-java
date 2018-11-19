@@ -76,8 +76,7 @@ public class SvgTagWorker implements ITagWorker {
             processingResult = new DefaultSvgProcessor().process((INode) element, props);
             context.startProcessingInlineSvg();
         } catch (SvgProcessingException pe) {
-            LoggerFactory.getLogger(SvgTagWorker.class)
-                    .error(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, pe);
+            LoggerFactory.getLogger(SvgTagWorker.class).error(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, pe);
         }
     }
 
