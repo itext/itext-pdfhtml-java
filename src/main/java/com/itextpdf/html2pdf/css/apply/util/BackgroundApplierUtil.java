@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.layout.IPropertyContainer;
@@ -96,6 +97,8 @@ public final class BackgroundApplierUtil {
                 BackgroundImage backgroundImage = null;
                 if (image instanceof PdfImageXObject) {
                     backgroundImage = new BackgroundImage((PdfImageXObject) image, repeatX, repeatY);
+                } else if (image instanceof PdfFormXObject) {
+                    backgroundImage = new BackgroundImage((PdfFormXObject) image, repeatX, repeatY);
                 } else {
                     throw new IllegalStateException();
                 }
