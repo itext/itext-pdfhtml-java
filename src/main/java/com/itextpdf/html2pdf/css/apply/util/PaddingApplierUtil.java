@@ -68,7 +68,13 @@ public final class PaddingApplierUtil {
     private PaddingApplierUtil() {
     }
 
-    // todo change javadoc
+    /**
+     * Applies paddings to an element.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     */
     public static void applyPaddings(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         applyPaddings(cssProps, context, element, 0.0f, 0.0f);
     }
@@ -79,6 +85,8 @@ public final class PaddingApplierUtil {
      * @param cssProps the CSS properties
      * @param context the processor context
      * @param element the element
+     * @param baseValueHorizontal value used by default for horizontal dimension
+     * @param baseValueVertical value used by default for vertical dimension
      */
     public static void applyPaddings(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element, float baseValueVertical, float baseValueHorizontal) {
         String paddingTop = cssProps.get(CssConstants.PADDING_TOP);

@@ -143,9 +143,8 @@ public class PageMarginBoxCssApplier implements ICssApplier {
             return;
         }
 
-        float availableWidth = stylesContainer instanceof PageMarginBoxContextNode ? ((PageMarginBoxContextNode) stylesContainer).getContainingBlockForMarginBox().getWidth() : 0.0f;
-        float availableHeight = stylesContainer instanceof PageMarginBoxContextNode ? ((PageMarginBoxContextNode) stylesContainer).getContainingBlockForMarginBox().getHeight() : 0.0f;
-        // todo : check HORIZONTAL_ALIGNMENT in MarginApplierUtil.
+        float availableWidth = ((PageMarginBoxContextNode) stylesContainer).getContainingBlockForMarginBox().getWidth();
+        float availableHeight = ((PageMarginBoxContextNode) stylesContainer).getContainingBlockForMarginBox().getHeight();
         MarginApplierUtil.applyMargins(boxStyles, context, marginBox, availableHeight, availableWidth);
         PaddingApplierUtil.applyPaddings(boxStyles, context, marginBox, availableHeight, availableWidth);
 

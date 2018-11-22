@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Margin Box Tests: only top right</title>
+    <style type="text/css">
+        @page
+        {
+            size: A4 portrait;
+            font-family: FreeSans;
+            color: #2d2d2d;
+
+            margin: 200px;
+
+            @top-left-corner { content: "Corner"; background:pink; border: solid black 10pt; margin: 5pt 10pt 15pt 20pt; padding: 10pt; }
+            @top-right-corner { content: "Corner"; background:pink; border: solid black 10pt; margin: 5pt 10pt 15pt 20pt; padding: 10pt; }
+            @bottom-left-corner { content: "Corner"; background:pink; border: solid black 10pt; margin: 5pt 10pt 15pt 20pt; padding: 10pt; }
+            @bottom-right-corner { content: "Corner"; background:pink; border: solid black 10pt; margin: 5pt 10pt 15pt 20pt; padding: 10pt; }
+
+            @left-top { content: "l e f t t o p r e d 3 0"; background:red; height: 30pt; border: solid black 10pt; margin: 5pt 10pt 15pt 20pt; padding: 10pt;}
+
+            @left-middle { content: "l e f t m i d o r a 6 0"; background:orange; height: 60pt; border: solid black 10pt; margin: 5pt 10pt 15pt 20pt; padding: 10pt;}
+
+            @left-bottom { content: "l e f t b o t y e 1 2 0"; background:yellow; height: 120pt; border: solid black 10pt; margin: 5pt 10pt 15pt 20pt; padding: 10pt;}
+
+            @right-top { content: "r i g t o p g r e 1 2 0"; background:green; height: 120pt; border: solid black 10pt; margin: 5pt 10pt 15pt 20pt; padding: 10pt;}
+
+            @right-middle { content: "r i g m i d b l u e 6 0"; background:blue; height: 60pt; border: solid black 10pt; padding: 10pt; margin: 5pt 10pt 15pt 20pt;}
+
+            @right-bottom { content: "r i g b o t p u r p 3 0"; background:purple; height: 30pt; border: solid black 10pt; padding: 10pt; margin: 5pt 10pt 15pt 20pt;}
+
+            @top-left { content: "t o p l e f t r e d 4 0"; background:red; width: 40pt; border: solid black 10pt; margin: 5pt 10pt 15pt 20pt; padding: 10pt;}
+
+            @top-center { content: "t o p c e n t o r a 2 0"; background:orange; width: 20pt; border: solid black 10pt; margin: 5pt 10pt 15pt 20pt; padding: 10pt;}
+
+            @top-right{ content: "t o p r i g h y e l 1 0"; background:yellow; width: 10pt; border: solid black 10pt; margin: 5pt 10pt 15pt 20pt; padding: 10pt;}
+
+            @bottom-left { content: "b o t l e f t g r e 4 0"; background:green; width: 40pt; border: solid black 10pt; margin: 5pt 10pt 15pt 20pt; padding: 10pt;}
+
+            @bottom-center { content: "b o t c e n t b l u 2 0"; background:blue; width: 20pt; border: solid black 10pt; margin: 5pt 10pt 15pt 20pt; padding: 10pt;}
+
+            @bottom-right { content: "b o t r i g p u r p 1 0"; background:purple; width: 10pt; border: solid black 10pt; margin: 5pt 10pt 15pt 20pt; padding: 10pt;}
+        }
+        body {
+            border: solid black 10pt;
+        }
+    </style>
+</head>
+<body>
+<!-- main -->
+<div>Just a div</div>
+</body>
+</html>

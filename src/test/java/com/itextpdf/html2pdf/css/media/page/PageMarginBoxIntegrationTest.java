@@ -183,7 +183,6 @@ public class PageMarginBoxIntegrationTest extends ExtendedHtmlConversionITextTes
     }
 
     //Edge-case test
-    // TODO testing here
     @Test
     public void largeAutoLeftRegularCenterTopBottomTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("largeAutoLeftRegularCenterTopBottomTest", sourceFolder, destinationFolder);
@@ -250,7 +249,6 @@ public class PageMarginBoxIntegrationTest extends ExtendedHtmlConversionITextTes
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 4))
     public void largeFixedCenterRegularSidesLeftRightTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("largeFixedCenterRegularSidesLeftRightTest", sourceFolder, destinationFolder);
     }
@@ -281,7 +279,7 @@ public class PageMarginBoxIntegrationTest extends ExtendedHtmlConversionITextTes
     }
 
     @Test
-    public void twoPagesTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("twoPagesTest", sourceFolder, destinationFolder);
+    public void allFixedWithMBPTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("allFixedWithMBPTest", sourceFolder, destinationFolder);
     }
 }

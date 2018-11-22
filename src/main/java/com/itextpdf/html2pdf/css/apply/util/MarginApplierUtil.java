@@ -71,7 +71,6 @@ public final class MarginApplierUtil {
     private MarginApplierUtil() {
     }
 
-    // todo change javadocs!
     /**
      * Applies margins to an element.
      *
@@ -89,6 +88,8 @@ public final class MarginApplierUtil {
      * @param cssProps the CSS properties
      * @param context the processor context
      * @param element the element
+     * @param baseValueHorizontal value used by default for horizontal dimension
+     * @param baseValueVertical value used by default for vertical dimension
      */
     public static void applyMargins(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element, float baseValueVertical, float baseValueHorizontal) {
         String marginTop = cssProps.get(CssConstants.MARGIN_TOP);
@@ -131,6 +132,7 @@ public final class MarginApplierUtil {
      * @param element the element
      * @param em the em value
      * @param rem the root em value
+     * @param baseValue value used by default
      * @return false if the margin value was "auto"
      */
     private static boolean trySetMarginIfNotAuto(int marginProperty, String marginValue, IPropertyContainer element, float em, float rem, float baseValue) {
@@ -152,14 +154,16 @@ public final class MarginApplierUtil {
      * @param marginValString the margin value as a {@link String}
      * @param em the em value
      * @param rem the root em value
+     * @param baseValue value used my default
      * @return the margin value as a {@link Float}
      */
     private static Float parseMarginValue(String marginValString, float em, float rem, float baseValue) {
         UnitValue marginUnitVal = CssUtils.parseLengthValueToPt(marginValString, em, rem);
         if (marginUnitVal != null) {
             if (!marginUnitVal.isPointValue()) {
-                if (baseValue != 0.0f)
+                if (baseValue != 0.0f) {
                     return new Float(baseValue * marginUnitVal.getValue() * 0.01);
+                }
                 logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 return null;
             }
