@@ -99,4 +99,9 @@ public class CssInheritanceTest extends ExtendedHtmlConversionITextTest {
     public void cssInheritanceTest06() throws IOException, InterruptedException {
         convertToPdfAndCompare("cssInheritance06", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void cssFontFamilyInheritanceTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("cssFontFamilyInheritanceTest01", sourceFolder, destinationFolder);
+    }
 }
