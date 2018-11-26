@@ -255,7 +255,7 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant OVERFLOW_VALUES. */
     public static final Set<String> OVERFLOW_VALUES = new HashSet<>(
-            Arrays.asList(new String[] {VISIBLE, HIDDEN}));
+            Arrays.asList(new String[] {VISIBLE, HIDDEN, SCROLL, AUTO}));
 
     // pseudo-elements
 

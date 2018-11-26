@@ -70,14 +70,14 @@ public class OverflowApplierUtil {
         String overflow = null != cssProps && CssConstants.OVERFLOW_VALUES.contains(cssProps.get(CssConstants.OVERFLOW)) ? cssProps.get(CssConstants.OVERFLOW) : null;
 
         String overflowX = null != cssProps && CssConstants.OVERFLOW_VALUES.contains(cssProps.get(CssConstants.OVERFLOW_X)) ? cssProps.get(CssConstants.OVERFLOW_X) : overflow;
-        if (CssConstants.HIDDEN.equals(overflowX)) {
+        if (CssConstants.HIDDEN.equals(overflowX) || CssConstants.AUTO.equals(overflowX) || CssConstants.SCROLL.equals(overflowX)) {
             element.setProperty(Property.OVERFLOW_X, OverflowPropertyValue.HIDDEN);
         } else {
             element.setProperty(Property.OVERFLOW_X, OverflowPropertyValue.VISIBLE);
         }
 
         String overflowY = null != cssProps && CssConstants.OVERFLOW_VALUES.contains(cssProps.get(CssConstants.OVERFLOW_Y)) ? cssProps.get(CssConstants.OVERFLOW_Y) : overflow;
-        if (CssConstants.HIDDEN.equals(overflowY)) {
+        if (CssConstants.HIDDEN.equals(overflowY) || CssConstants.AUTO.equals(overflowY) || CssConstants.SCROLL.equals(overflowY)) {
             element.setProperty(Property.OVERFLOW_Y, OverflowPropertyValue.HIDDEN);
         } else {
             element.setProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);
