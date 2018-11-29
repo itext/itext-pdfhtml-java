@@ -176,9 +176,31 @@ public class ListTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 3)})
-    public void listTest20() throws IOException, InterruptedException {
-        runTest("listTest20");
+    public void listLiValuePropertyTest() throws IOException, InterruptedException {
+        runTest("listLiValuePropertyTest");
+    }
+
+    @Test
+    public void listStartPropertyTest() throws IOException, InterruptedException {
+        runTest("listStartPropertyTest");
+    }
+
+    @Test
+    public void listItemValueTest() throws IOException, InterruptedException {
+        runTest("listItemValueTest");
+    }
+
+    @Test
+    public void listItemValueTest01() throws IOException, InterruptedException {
+        runTest("listItemValueTest01");
+    }
+    @Test
+    public void listItemValueTest02() throws IOException, InterruptedException {
+        runTest("listItemValueTest02");
+    }
+    @Test
+    public void descendingListTest() throws IOException, InterruptedException {
+        runTest("descendingListTest");
     }
 
     @Test

@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
@@ -87,6 +88,10 @@ public class LiTagWorker implements ITagWorker {
      */
     public LiTagWorker(IElementNode element, ProcessorContext context) {
         listItem = new ListItem();
+        if (element.getAttribute(AttributeConstants.VALUE)!=null){
+            Integer indexValue = (Integer)CssUtils.parseInteger(element.getAttribute(AttributeConstants.VALUE));
+            if (indexValue  != null) listItem.setListSymbolOrdinalValue(indexValue.intValue() );
+        }
         if (!(context.getState().top() instanceof UlOlTagWorker)) {
             listItem.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
             float em = CssUtils.parseAbsoluteLength(element.getStyles().get(CssConstants.FONT_SIZE));
