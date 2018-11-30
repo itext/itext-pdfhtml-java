@@ -50,15 +50,15 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.FloatApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OutlineApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.FloatApplierUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.FloatPropertyValue;
@@ -105,6 +105,14 @@ public class SpanTagCssApplier implements ICssApplier {
                 }
             }
         }
+
+        for (IPropertyContainer child : spanTagWorker.getAllElements()) {
+            FloatPropertyValue kidFloatVal = child.<FloatPropertyValue>getProperty(Property.FLOAT);
+            if (child instanceof Text && !child.hasOwnProperty(Property.BACKGROUND)
+                    && (kidFloatVal == null || FloatPropertyValue.NONE.equals(kidFloatVal))) {
+                BackgroundApplierUtil.applyBackground(cssStyles, context, child);
+            }
+        }
     }
 
     /**
@@ -117,7 +125,6 @@ public class SpanTagCssApplier implements ICssApplier {
      */
     protected void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context, IStylesContainer stylesContainer) {
         FontStyleApplierUtil.applyFontStyles(css, context, stylesContainer, element);
-        //TODO DEVSIX-2118: Background-applying currently doesn't work in html way for spans inside other spans.
         BackgroundApplierUtil.applyBackground(css, context, element);
         //TODO: Border-applying currently doesn't work in html way for spans inside other spans.
         BorderStyleApplierUtil.applyBorders(css, context, element);

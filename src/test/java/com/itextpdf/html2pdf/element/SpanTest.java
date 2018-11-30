@@ -43,12 +43,12 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -66,85 +66,120 @@ public class SpanTest extends ExtendedITextTest {
         createDestinationFolder(destinationFolder);
     }
 
+    private void testWithSuffix(String testIndex) throws IOException, InterruptedException {
+        String htmlFile = sourceFolder + MessageFormatUtil.format("spanTest{0}.html", testIndex);
+        String pdfFile = destinationFolder + MessageFormatUtil.format("spanTest{0}.pdf", testIndex);
+        String cmpFile = sourceFolder + MessageFormatUtil.format("cmp_spanTest{0}.pdf", testIndex);
+        String diff = MessageFormatUtil.format("diff{0}_", testIndex);
+        HtmlConverter.convertToPdf(new File(htmlFile), new File(pdfFile));
+        Assert.assertNull(new CompareTool().compareByContent(pdfFile, cmpFile, destinationFolder, diff));
+    }
+
+    private void test(String testName) throws IOException, InterruptedException {
+        String htmlFile = sourceFolder + testName + ".html";
+        String pdfFile = destinationFolder + testName + ".pdf";
+        String cmpFile = sourceFolder + MessageFormatUtil.format("cmp_{0}.pdf", testName);
+        String diff = MessageFormatUtil.format("diff_{0}_", testName);
+        HtmlConverter.convertToPdf(new File(htmlFile), new File(pdfFile));
+        Assert.assertNull(new CompareTool().compareByContent(pdfFile, cmpFile, destinationFolder, diff));
+    }
+
+
     @Test
     public void spanTest01() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest01.html"), new File(destinationFolder + "spanTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest01.pdf", sourceFolder + "cmp_spanTest01.pdf", destinationFolder, "diff01_"));
+        testWithSuffix("01");
     }
 
     @Test
     public void spanTest02() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest02.html"), new File(destinationFolder + "spanTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest02.pdf", sourceFolder + "cmp_spanTest02.pdf", destinationFolder, "diff02_"));
+        testWithSuffix("02");
     }
 
     @Test
     public void spanTest03() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest03.html"), new File(destinationFolder + "spanTest03.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest03.pdf", sourceFolder + "cmp_spanTest03.pdf", destinationFolder, "diff03_"));
+        testWithSuffix("03");
     }
 
     @Test
     public void spanTest04() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest04.html"), new File(destinationFolder + "spanTest04.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest04.pdf", sourceFolder + "cmp_spanTest04.pdf", destinationFolder, "diff04_"));
+        testWithSuffix("04");
     }
 
     @Test
     public void spanTest05() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest05.html"), new File(destinationFolder + "spanTest05.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest05.pdf", sourceFolder + "cmp_spanTest05.pdf", destinationFolder, "diff05_"));
+        testWithSuffix("05");
     }
 
     @Test
     public void spanTest06() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest06.html"), new File(destinationFolder + "spanTest06.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest06.pdf", sourceFolder + "cmp_spanTest06.pdf", destinationFolder, "diff06_"));
+        testWithSuffix("06");
     }
 
     @Test
     public void spanTest07() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest07.html"), new File(destinationFolder + "spanTest07.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest07.pdf", sourceFolder + "cmp_spanTest07.pdf", destinationFolder, "diff07_"));
+        testWithSuffix("07");
     }
 
     @Test
     // TODO DEVSIX-1438
     public void spanTest08() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest08.html"), new File(destinationFolder + "spanTest08.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest08.pdf", sourceFolder + "cmp_spanTest08.pdf", destinationFolder, "diff08_"));
+        testWithSuffix("08");
     }
 
     @Test
     public void spanTest09() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest09.html"), new File(destinationFolder + "spanTest09.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest09.pdf", sourceFolder + "cmp_spanTest09.pdf", destinationFolder, "diff09_"));
+        testWithSuffix("09");
     }
 
     @Test
     public void spanTest10() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest10.html"), new File(destinationFolder + "spanTest10.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest10.pdf", sourceFolder + "cmp_spanTest10.pdf", destinationFolder, "diff10_"));
+        testWithSuffix("10");
     }
 
     @Test
     public void spanTest11() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest11.html"), new File(destinationFolder + "spanTest11.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest11.pdf", sourceFolder + "cmp_spanTest11.pdf", destinationFolder, "diff11_"));
+        testWithSuffix("11");
     }
 
     @Test
-    @Ignore("DEVSIX-2118")
     public void spanTest12() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest12.html"), new File(destinationFolder + "spanTest12.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest12.pdf", sourceFolder + "cmp_spanTest12.pdf", destinationFolder, "diff12_"));
+        testWithSuffix("12");
     }
 
     @Test
-    @Ignore("DEVSIX-2118")
     public void spanTest13() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "spanTest13.html"), new File(destinationFolder + "spanTest13.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "spanTest13.pdf", sourceFolder + "cmp_spanTest13.pdf", destinationFolder, "diff13_"));
+        testWithSuffix("13");
     }
 
+    @Test
+    public void spanInsideSpanWithBackgroundTest() throws IOException, InterruptedException {
+        test("spanInsideSpanWithBackground");
+    }
+
+    @Test
+    public void spanWithLeftFloatInsideSpanWithBackgroundTest() throws IOException, InterruptedException {
+        test("spanWithLeftFloatInsideSpanWithBackground");
+    }
+
+    @Test
+    public void spanWithFloatsInsideSpanWithBackgroundAndFloatTest() throws IOException, InterruptedException {
+        test("spanWithFloatsInsideSpanWithBackgroundAndFloat");
+    }
+
+    @Test
+    public void commonNestedSpanTest() throws IOException, InterruptedException {
+        test("commonNestedSpanTest");
+    }
+
+    // TODO: update cmp files during DEVSIX-2510
+    @Test
+    public void spanTestNestedBlock() throws IOException, InterruptedException {
+        test("spanTestNestedBlock");
+    }
+
+    // TODO: update cmp files during DEVSIX-2510
+    @Test
+    public void spanTestNestedInlineBlock() throws IOException, InterruptedException {
+        test("spanTestNestedInlineBlock");
+    }
 }
