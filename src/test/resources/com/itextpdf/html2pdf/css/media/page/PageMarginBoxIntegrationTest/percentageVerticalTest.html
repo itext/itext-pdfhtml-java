@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Margin Box Tests: only top right</title>
+    <style type="text/css">
+			@page
+			{
+				size: A4 portrait;
+				margin-left: 100pt;
+                margin-top: 250pt;
+                margin-right: 50pt;
+                margin-bottom: 40pt;
+
+                @top-left-corner { content: "Corner"; background:pink; border: solid black 10pt;  }
+                @top-right-corner { content: "Corner"; background:pink; border: solid black 10pt; }
+                @bottom-left-corner { content: "Corner"; background:pink; border: solid black 10pt; }
+                @bottom-right-corner { content: "Corner"; background:pink; border: solid black 10pt; }
+
+                
+                @left-top { content: "l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0"; background:orange; margin: 10%; }
+                @left-middle { content: "l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0"; background:orange; margin: 5%; }
+                @left-bottom { content: "l e f t b o t y e 1 2 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0"; background:yellow; margin: 5%;}
+
+
+                @top-left { content: "l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0"; background:orange; margin: 10%; }
+                @top-center { content: "l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0"; background:orange; margin: 5%; }
+                @top-right { content: "l e f t b o t y e 1 2 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0"; background:yellow; margin: 10pt;}
+
+                @right-top { content: "l e f t m i d o r a 6 0l"; background:orange; padding-top: 10%; padding-right: 20%;}
+                @right-middle { content: "l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e f t"; background:orange; margin: 3%; padding: 5%; }
+                @right-bottom { content: "l e f t b o t y e 1 2 0l e f t m i d o r a 6 0l e f t m i d o r a 6 0l e "; background:yellow; padding-left: 10%; padding-right: 15%;}
+
+			}
+            body {
+                border: solid black 10pt;
+            }
+    </style>
+</head>
+<body>
+<div>Just fine</div>
+<!-- main -->
+</body>
+</html>

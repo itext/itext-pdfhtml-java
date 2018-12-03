@@ -86,6 +86,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -141,6 +142,7 @@ class PageContextProcessor {
     private PageContextProperties properties;
     private ProcessorContext context;
 
+    private static final float EPSILON = 0.00001f;
 
     /**
      * The logger.
@@ -461,77 +463,75 @@ class PageContextProcessor {
         }
         PdfPage page = pdfDocument.getPage(pageNumber);
 
-        PageMarginBoxContextNode[][] sides = new PageMarginBoxContextNode[4][3];
-        PageMarginBoxContextNode[] corners = new PageMarginBoxContextNode[4];
+        ArrayList<PageMarginBoxContextNode> nodes = new ArrayList<PageMarginBoxContextNode>(Collections.nCopies(16, (PageMarginBoxContextNode) null));
         for (PageMarginBoxContextNode marginBoxContentNode : properties.getResolvedPageMarginBoxes()) {
-            int marginBoxInd = mapMarginBoxNameToIndex(marginBoxContentNode.getMarginBoxName());
-            if (marginBoxInd % 4 != 0) {
-                sides[marginBoxInd / 4][marginBoxInd % 4 - 1] = marginBoxContentNode;
-            }
-            else {
-                corners[marginBoxInd / 4] = marginBoxContentNode;
+            nodes.set(mapMarginBoxNameToIndex(marginBoxContentNode.getMarginBoxName()), marginBoxContentNode);
+        }
+
+        ArrayList<IElement> elements = new ArrayList<IElement>(Collections.nCopies(16, (IElement) null));
+        for (int i = 0; i < 16; i++) {
+            if (nodes.get(i) != null) {
+                elements.set(i, processMarginBoxContent(nodes.get(i), pageNumber, context));
             }
         }
 
-        IElement[][] sideBoxElement = new IElement[4][3];
-        IElement[] cornerBoxElement = new IElement[4];
+        ArrayList<IRenderer> renderers = getPMBRenderers(elements, nodes, documentRenderer, pdfDocument);
+        for (int i = 0; i < 16; i++)
+            if (renderers.get(i) != null)
+                draw(renderers.get(i), nodes.get(i), pdfDocument, page, documentRenderer, pageNumber);
+
+    }
+
+    private ArrayList<IRenderer> getPMBRenderers(ArrayList<IElement> elements, ArrayList<PageMarginBoxContextNode> nodes, DocumentRenderer documentRenderer, PdfDocument pdfDocument) {
+        ArrayList<IRenderer> renderers = new ArrayList<IRenderer>(Collections.nCopies(16, (IRenderer) null));
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 3; j++)
-                if (sides[i][j] != null) {
-                    sideBoxElement[i][j] = processMarginBoxContent(sides[i][j], pageNumber, context);
-                }
-            if (corners[i] != null) {
-                cornerBoxElement[i] = processMarginBoxContent(corners[i], pageNumber, context);
+            renderers.set(i * 4, createCornerRenderer(elements.get(i * 4), documentRenderer, pdfDocument, i));
+            for (int j = 1; j <= 3; j++) {
+                renderers.set(i * 4 + j, createRendererFromElement(elements.get(i * 4 + j), documentRenderer, pdfDocument));
             }
+            determineSizes(nodes.subList(i * 4 + 1, i * 4 + 4), renderers.subList(i * 4 + 1, i * 4 + 4), i);
+        }
+        return renderers;
+    }
+
+    private IRenderer createCornerRenderer(IElement cornerBoxElement, DocumentRenderer documentRenderer, PdfDocument pdfDocument, int indexOfCorner) {
+        IRenderer cornerRenderer = createRendererFromElement(cornerBoxElement, documentRenderer, pdfDocument);
+        if (cornerRenderer != null) {
+            float rendererWidth =
+                    margins[indexOfCorner % 3 == 0 ? 3 : 1]
+                            - getSizeOfOneSide(cornerRenderer, Property.MARGIN_LEFT,
+                            Property.BORDER_LEFT, Property.PADDING_LEFT)
+                            - getSizeOfOneSide(cornerRenderer, Property.MARGIN_RIGHT,
+                            Property.BORDER_RIGHT, Property.PADDING_RIGHT);
+
+            float rendererHeight =
+                    margins[indexOfCorner > 1 ? 2 : 0]
+                            - getSizeOfOneSide(cornerRenderer, Property.MARGIN_TOP,
+                            Property.BORDER_TOP, Property.PADDING_TOP)
+                            - getSizeOfOneSide(cornerRenderer, Property.MARGIN_BOTTOM,
+                            Property.BORDER_BOTTOM, Property.PADDING_BOTTOM);
+
+            cornerRenderer.setProperty(Property.WIDTH, UnitValue.createPointValue(rendererWidth));
+            cornerRenderer.setProperty(Property.HEIGHT, UnitValue.createPointValue(rendererHeight));
+
+            return cornerRenderer;
         }
 
-        for (int i = 0; i < 4; i++) {
-            if (cornerBoxElement[i] != null) {
-                IRenderer cornerRenderer = createRendererFromElement(cornerBoxElement[i], documentRenderer, pdfDocument);
-
-                float rendererWidth =
-                        margins[i % 3 == 0 ? 3 : 1]
-                                - getSizeOfOneSide(cornerBoxElement[i], Property.MARGIN_LEFT,
-                                                    Property.BORDER_LEFT, Property.PADDING_LEFT)
-                                - getSizeOfOneSide(cornerBoxElement[i], Property.MARGIN_RIGHT,
-                                                    Property.BORDER_RIGHT, Property.PADDING_RIGHT);
-
-                float rendererHeight =
-                        margins[i > 1 ? 2 : 0]
-                                - getSizeOfOneSide(cornerBoxElement[i], Property.MARGIN_TOP,
-                                                    Property.BORDER_TOP, Property.PADDING_TOP)
-                                - getSizeOfOneSide(cornerBoxElement[i], Property.MARGIN_BOTTOM,
-                                                    Property.BORDER_BOTTOM, Property.PADDING_BOTTOM);
-
-                cornerRenderer.setProperty(Property.WIDTH, UnitValue.createPointValue(rendererWidth));
-                cornerRenderer.setProperty(Property.HEIGHT, UnitValue.createPointValue(rendererHeight));
-                draw(cornerRenderer, corners[i], pdfDocument, page, documentRenderer, pageNumber);
-            }
-
-            IRenderer[] renderers = new IRenderer[3];
-            for (int j = 0; j < 3; j++) {
-                if (sideBoxElement[i][j] != null) {
-                    renderers[j] = createRendererFromElement(sideBoxElement[i][j], documentRenderer, pdfDocument);
-                }
-            }
-            determineSizes(sides[i], renderers, sideBoxElement[i], i);
-            for (int j = 0; j < 3; j++) {
-                if (renderers[j] != null) {
-                    draw(renderers[j], sides[i][j], pdfDocument, page, documentRenderer, pageNumber);
-                }
-            }
-        }
+        return null;
     }
 
     private IRenderer createRendererFromElement(IElement element, DocumentRenderer documentRenderer, PdfDocument pdfDocument) {
-        IRenderer renderer = element.createRendererSubTree();
-        removeAreaBreaks(renderer);
-        renderer.setParent(documentRenderer);
-        if (pdfDocument.isTagged()) {
-            LayoutTaggingHelper taggingHelper = renderer.<LayoutTaggingHelper>getProperty(Property.TAGGING_HELPER);
-            LayoutTaggingHelper.addTreeHints(taggingHelper, renderer);
+        if (element != null) {
+            IRenderer renderer = element.createRendererSubTree();
+            removeAreaBreaks(renderer);
+            renderer.setParent(documentRenderer);
+            if (pdfDocument.isTagged()) {
+                LayoutTaggingHelper taggingHelper = renderer.<LayoutTaggingHelper>getProperty(Property.TAGGING_HELPER);
+                LayoutTaggingHelper.addTreeHints(taggingHelper, renderer);
+            }
+            return renderer;
         }
-        return renderer;
+        return null;
     }
 
     private void draw(IRenderer renderer, PageMarginBoxContextNode node, PdfDocument pdfDocument, PdfPage page, DocumentRenderer documentRenderer, int pageNumber) {
@@ -557,8 +557,7 @@ class PageContextProcessor {
         } else {
             // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
             // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
-            Logger logger = LoggerFactory.getLogger(PageContextProcessor.class);
-            logger.error(MessageFormatUtil.format(LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN, node.getMarginBoxName()));
+            LOGGER.error(MessageFormatUtil.format(LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN, node.getMarginBoxName()));
         }
     }
 
@@ -634,7 +633,8 @@ class PageContextProcessor {
             }
 
             int marginBoxInd = mapMarginBoxNameToIndex(marginBoxContentNode.getMarginBoxName());
-            marginBoxContentNode.setPageMarginBoxRectangle(marginBoxRectangles[marginBoxInd]);
+            if (marginBoxRectangles[marginBoxInd] != null)
+                marginBoxContentNode.setPageMarginBoxRectangle(new Rectangle(marginBoxRectangles[marginBoxInd]).increaseHeight(EPSILON));
             marginBoxContentNode.setContainingBlockForMarginBox(calculateContainingBlockSizesForMarginBox(marginBoxInd, marginBoxRectangles[marginBoxInd]));
         }
     }
@@ -662,7 +662,7 @@ class PageContextProcessor {
                     marginBoxWorker.processTagChild(runningElement.getProcessedElementWorker(), context);
                 }
             } else {
-                LoggerFactory.getLogger(getClass()).error(LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
+                LOGGER.error(LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
             }
         }
 
@@ -727,14 +727,14 @@ class PageContextProcessor {
         return groupedRectangles;
     }
 
-    private void determineSizes(PageMarginBoxContextNode[] resolvedPageMarginBoxes, IRenderer[] renderers, IElement[] elements, int side) {
+    private void determineSizes(List<PageMarginBoxContextNode> resolvedPageMarginBoxes, List<IRenderer> renderers, int side) {
         float[][] marginsBordersPaddingsWidths = new float[3][4];
         for (int i = 0; i < 3; i++) {
-            if (elements[i] != null) {
-                marginsBordersPaddingsWidths[i][0] = getSizeOfOneSide(elements[i], Property.MARGIN_TOP, Property.BORDER_TOP, Property.PADDING_TOP);
-                marginsBordersPaddingsWidths[i][1] = getSizeOfOneSide(elements[i], Property.MARGIN_RIGHT, Property.BORDER_RIGHT, Property.PADDING_RIGHT);
-                marginsBordersPaddingsWidths[i][2] = getSizeOfOneSide(elements[i], Property.MARGIN_BOTTOM, Property.BORDER_BOTTOM, Property.PADDING_BOTTOM);
-                marginsBordersPaddingsWidths[i][3] = getSizeOfOneSide(elements[i], Property.MARGIN_LEFT, Property.BORDER_LEFT, Property.PADDING_LEFT);
+            if (renderers.get(i) != null) {
+                marginsBordersPaddingsWidths[i][0] = getSizeOfOneSide(renderers.get(i), Property.MARGIN_TOP, Property.BORDER_TOP, Property.PADDING_TOP);
+                marginsBordersPaddingsWidths[i][1] = getSizeOfOneSide(renderers.get(i), Property.MARGIN_RIGHT, Property.BORDER_RIGHT, Property.PADDING_RIGHT);
+                marginsBordersPaddingsWidths[i][2] = getSizeOfOneSide(renderers.get(i), Property.MARGIN_BOTTOM, Property.BORDER_BOTTOM, Property.PADDING_BOTTOM);
+                marginsBordersPaddingsWidths[i][3] = getSizeOfOneSide(renderers.get(i), Property.MARGIN_LEFT, Property.BORDER_LEFT, Property.PADDING_LEFT);
             }
         }
         Rectangle withoutMargins = pageSize.clone().applyMargins(margins[0], margins[1], margins[2], margins[3], false);
@@ -749,36 +749,35 @@ class PageContextProcessor {
         float withoutMarginsWidthOrHeight = side % 2 == 0 ? withoutMargins.getWidth() : withoutMargins.getHeight();
         for (int i = 0; i < 3; i++)
             if (side % 2 == 0) {
-                dims[i] = retrievePageMarginBoxWidths(resolvedPMBMap.get(cssRuleName[i]), renderers[i], withoutMarginsWidthOrHeight,
+                dims[i] = retrievePageMarginBoxWidths(resolvedPMBMap.get(cssRuleName[i]), renderers.get(i), withoutMarginsWidthOrHeight,
                         marginsBordersPaddingsWidths[i][1] + marginsBordersPaddingsWidths[i][3]);
-            }
-            else {
-                dims[i] = retrievePageMarginBoxHeights(resolvedPMBMap.get(cssRuleName[i]), renderers[i], margins[side],
+            } else {
+                dims[i] = retrievePageMarginBoxHeights(resolvedPMBMap.get(cssRuleName[i]), renderers.get(i), margins[side],
                         withoutMarginsWidthOrHeight, marginsBordersPaddingsWidths[i][0] + marginsBordersPaddingsWidths[i][2]);
 
             }
 
-        float centerOrMiddleCoord, widthOfHeightResults[];
-        widthOfHeightResults = calculatePageMarginBoxDimensions(dims[0], dims[1], dims[2], withoutMarginsWidthOrHeight);
+        float centerOrMiddleCoord, widthOrHeightResults[];
+        widthOrHeightResults = calculatePageMarginBoxDimensions(dims[0], dims[1], dims[2], withoutMarginsWidthOrHeight);
         if (side % 2 == 0) {
             centerOrMiddleCoord = getStartCoordForCenterOrMiddleBox(withoutMarginsWidthOrHeight,
-                    widthOfHeightResults[1], withoutMargins.getLeft());
+                    widthOrHeightResults[1], withoutMargins.getLeft());
         } else {
             centerOrMiddleCoord = getStartCoordForCenterOrMiddleBox(withoutMarginsWidthOrHeight,
-                    widthOfHeightResults[1], withoutMargins.getBottom());
+                    widthOrHeightResults[1], withoutMargins.getBottom());
         }
 
-        Rectangle[] result = getRectangles(side, withoutMargins, centerOrMiddleCoord, widthOfHeightResults, marginsBordersPaddingsWidths);
+        Rectangle[] result = getRectangles(side, withoutMargins, centerOrMiddleCoord, widthOrHeightResults);
         for (int i = 0; i < 3; i++)
-            if (resolvedPageMarginBoxes[i] != null) {
-                resolvedPageMarginBoxes[i].setPageMarginBoxRectangle(result[i]);
+            if (resolvedPageMarginBoxes.get(i) != null) {
+                resolvedPageMarginBoxes.get(i).setPageMarginBoxRectangle(new Rectangle(result[i]).increaseHeight(EPSILON));
                 UnitValue width = UnitValue.createPointValue(result[i].getWidth() - marginsBordersPaddingsWidths[i][1] - marginsBordersPaddingsWidths[i][3]);
                 UnitValue height = UnitValue.createPointValue(result[i].getHeight() - marginsBordersPaddingsWidths[i][0] - marginsBordersPaddingsWidths[i][2]);
-                if (Math.abs(width.getValue()) < 1e-3 || Math.abs(height.getValue()) < 1e-3) {
-                    renderers[i] = null;
+                if (Math.abs(width.getValue()) < EPSILON || Math.abs(height.getValue()) < EPSILON) {
+                    renderers.set(i, null);
                 } else {
-                    renderers[i].setProperty(Property.WIDTH, width);
-                    renderers[i].setProperty(Property.HEIGHT, height);
+                    renderers.get(i).setProperty(Property.WIDTH, width);
+                    renderers.get(i).setProperty(Property.HEIGHT, height);
                 }
             }
     }
@@ -786,18 +785,18 @@ class PageContextProcessor {
     private String[] getRuleNames(int side) {
         switch (side) {
             case 0:
-                return new String[] {CssRuleName.TOP_LEFT, CssRuleName.TOP_CENTER, CssRuleName.TOP_RIGHT};
+                return new String[]{CssRuleName.TOP_LEFT, CssRuleName.TOP_CENTER, CssRuleName.TOP_RIGHT};
             case 1:
-                return new String[] {CssRuleName.RIGHT_TOP, CssRuleName.RIGHT_MIDDLE, CssRuleName.RIGHT_BOTTOM};
+                return new String[]{CssRuleName.RIGHT_TOP, CssRuleName.RIGHT_MIDDLE, CssRuleName.RIGHT_BOTTOM};
             case 2:
-                return new String[] {CssRuleName.BOTTOM_RIGHT, CssRuleName.BOTTOM_CENTER, CssRuleName.BOTTOM_LEFT};
+                return new String[]{CssRuleName.BOTTOM_RIGHT, CssRuleName.BOTTOM_CENTER, CssRuleName.BOTTOM_LEFT};
             case 3:
-                return new String[] {CssRuleName.LEFT_BOTTOM, CssRuleName.LEFT_MIDDLE, CssRuleName.LEFT_TOP};
+                return new String[]{CssRuleName.LEFT_BOTTOM, CssRuleName.LEFT_MIDDLE, CssRuleName.LEFT_TOP};
         }
         return new String[3];
     }
 
-    private Rectangle[] getRectangles(int side, Rectangle withoutMargins, float centerOrMiddleCoord, float[] results, float[][] marginsBordersPaddingsWidths) {
+    private Rectangle[] getRectangles(int side, Rectangle withoutMargins, float centerOrMiddleCoord, float[] results) {
         switch (side) {
             case 0:
                 return new Rectangle[]{new Rectangle(withoutMargins.getLeft(), withoutMargins.getTop(),
@@ -834,20 +833,20 @@ class PageContextProcessor {
         return new Rectangle[3];
     }
 
-    private float getSizeOfOneSide(IElement element, int marginProperty, int borderProperty, int paddingProperty) {
+    private float getSizeOfOneSide(IRenderer renderer, int marginProperty, int borderProperty, int paddingProperty) {
         float marginWidth = 0, paddingWidth = 0, borderWidth = 0;
 
-        UnitValue temp = element.<UnitValue>getProperty(marginProperty);
+        UnitValue temp = renderer.<UnitValue>getProperty(marginProperty);
         if (null != temp) {
             marginWidth = temp.getValue();
         }
 
-        temp = element.<UnitValue>getProperty(paddingProperty);
+        temp = renderer.<UnitValue>getProperty(paddingProperty);
         if (null != temp) {
             paddingWidth = temp.getValue();
         }
 
-        Border border = element.<Border>getProperty(borderProperty);
+        Border border = renderer.<Border>getProperty(borderProperty);
         if (null != border) {
             borderWidth = border.getWidth();
         }
@@ -949,18 +948,10 @@ class PageContextProcessor {
             if (dimB.isAutoDimension()) {
                 //Construct box AC
                 float maxContentWidthAC, minContentWidthAC;
-                if (dimA != null && !dimA.isAutoDimension() || dimC != null && !dimC.isAutoDimension()) {
-                    maxContentWidthAC = 2 * Math.max(maxContentDimensionA, maxContentDimensionC);
-                    // I don't get this :\
-                    if (dimA != null && !dimA.isAutoDimension()) {
-                        minContentWidthAC = 2 * minContentDimensionA;
-                    } else {
-                        minContentWidthAC = 2 * minContentDimensionC;
-                    }
-                } else {
-                    maxContentWidthAC = maxContentDimensionA + maxContentDimensionC;
-                    minContentWidthAC = minContentDimensionA + minContentDimensionC;
-                }
+
+                maxContentWidthAC = 2 * Math.max(maxContentDimensionA, maxContentDimensionC);
+                minContentWidthAC = 2 * Math.max(minContentDimensionA, minContentDimensionC);
+
                 //Determine width box B
                 maxContentDimensionB = dimB.maxContentDimension;
                 minContentDimensionB = dimB.minContentDimension;
@@ -993,7 +984,7 @@ class PageContextProcessor {
     }
 
     private boolean isContainerEmpty(DimensionContainer container) {
-        return container == null || Math.abs(container.maxContentDimension) < 1e-3;
+        return container == null || Math.abs(container.maxContentDimension) < EPSILON;
     }
 
     private void removeNegativeValues(float[] dimensions) {
@@ -1127,7 +1118,7 @@ class PageContextProcessor {
         } else if (marginBoxInd < 12) {
             return new Rectangle(withoutMargins.getWidth(), margins[2]);
         } else {
-            return new Rectangle(margins[3], withoutMargins.getWidth());
+            return new Rectangle(margins[3], withoutMargins.getHeight());
         }
     }
 

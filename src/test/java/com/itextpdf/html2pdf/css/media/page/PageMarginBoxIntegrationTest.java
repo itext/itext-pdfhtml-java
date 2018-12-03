@@ -1,8 +1,6 @@
 package com.itextpdf.html2pdf.css.media.page;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -281,5 +279,25 @@ public class PageMarginBoxIntegrationTest extends ExtendedHtmlConversionITextTes
     @Test
     public void allFixedWithMBPTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("allFixedWithMBPTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void percentageVerticalTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("percentageVerticalTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void cornerPrecisionTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("cornerPrecisionTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void negativeMarginsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("negativeMarginsTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void hugeImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("hugeImageTest", sourceFolder, destinationFolder);
     }
 }

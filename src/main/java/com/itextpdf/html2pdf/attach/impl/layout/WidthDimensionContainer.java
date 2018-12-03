@@ -10,14 +10,17 @@ class WidthDimensionContainer extends DimensionContainer {
 
     public WidthDimensionContainer(CssContextNode node, float maxWidth, IRenderer renderer, float additionalWidthFix) {
         String width = node.getStyles().get(CssConstants.WIDTH);
-        if (width != null && !width.equals("auto")) {
+        if (width != null && !width.equals(CssConstants.AUTO)) {
             dimension = parseDimension(node, width, maxWidth, additionalWidthFix);
         }
         minDimension = getMinWidth(node, maxWidth, additionalWidthFix);
         maxDimension = getMaxWidth(node, maxWidth, additionalWidthFix);
-        MinMaxWidth minMaxWidth = null;
-        if (renderer instanceof BlockRenderer) {
-            minMaxWidth = ((BlockRenderer) renderer).getMinMaxWidth();
+
+        if (!isAutoDimension()) {
+            maxContentDimension = dimension;
+            maxContentDimension = dimension;
+        } else if (renderer instanceof BlockRenderer) {
+            MinMaxWidth minMaxWidth = ((BlockRenderer) renderer).getMinMaxWidth();
             maxContentDimension = minMaxWidth.getMaxWidth();
             minContentDimension = minMaxWidth.getMinWidth();
         }
