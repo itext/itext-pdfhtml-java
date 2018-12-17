@@ -493,6 +493,14 @@ public class FloatTest extends ExtendedITextTest {
         runTest("floatingDivBottomBorderTest", "diff_BottomBorderTest_");
     }
 
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 1),
+    })
+    public void floatCaption01Test() throws IOException, InterruptedException {
+        runTest("floatCaption01Test", "diff_floatCaption01Test_");
+    }
+
     private void runTest(String testName, String diff) throws IOException, InterruptedException {
         String htmlName = sourceFolder + testName + ".html";
         String outFileName = destinationFolder + testName + ".pdf";

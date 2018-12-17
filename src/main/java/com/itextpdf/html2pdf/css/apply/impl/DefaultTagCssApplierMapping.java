@@ -76,7 +76,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.BLOCKQUOTE, BlockCssApplier.class);
         mapping.putMapping(TagConstants.BODY, BodyTagCssApplier.class);
         mapping.putMapping(TagConstants.BUTTON, BlockCssApplier.class);
-        //mapping.putMapping(TagConstants.CAPTION, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.CAPTION, CaptionCssApplier.class);
         mapping.putMapping(TagConstants.CENTER, BlockCssApplier.class);
         mapping.putMapping(TagConstants.CITE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.CODE, SpanTagCssApplier.class);

@@ -369,6 +369,51 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
+    public void separatedTablesWithDifferentCaptionsTest01() throws IOException, InterruptedException {
+        runTest("separatedTableWithDifferentCaptionsTest01", false);
+    }
+
+    @Test
+    public void collapsedTablesWithDifferentCaptionsTest01() throws IOException, InterruptedException {
+        runTest("collapsedTablesWithDifferentCaptionsTest01", false);
+    }
+
+    @Test
+    public void captionWithTextAlignTest01() throws IOException, InterruptedException {
+        runTest("captionWithTextAlignTest01", false);
+    }
+
+    @Test
+    public void wideCaptionTest01() throws IOException, InterruptedException {
+        runTest("wideCaptionTest01", false);
+    }
+
+    @Test
+    public void wideCaptionTest02() throws IOException, InterruptedException {
+        runTest("wideCaptionTest02", false);
+    }
+
+    @Test
+    public void wideTableWithCaptionTest01() throws IOException, InterruptedException {
+        runTest("wideTableWithCaptionTest01", false);
+    }
+
+    @Test
+    public void wideTableWithCaptionTest02() throws IOException, InterruptedException {
+        runTest("wideTableWithCaptionTest02", false);
+    }
+
+    @Test
+    public void captionSideTest01() throws IOException, InterruptedException {
+        runTest("captionSideTest01", false);
+    }
+
+    @Test
+    public void captionSideSetAsAlignTest01() throws IOException, InterruptedException {
+        runTest("captionSideSetAsAlignTest01", false);
+    }
+
+    @Test
     public void tableCellMinWidthRightAlignmentTest() throws IOException, InterruptedException {
         runConvertToElements("tableCellMinWidthRightAlignmentTest", false);
     }

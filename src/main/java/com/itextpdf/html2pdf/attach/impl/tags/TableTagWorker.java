@@ -48,11 +48,13 @@ import com.itextpdf.html2pdf.attach.util.WaitingColgroupsHelper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableWrapper;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.AbstractElement;
+import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.BaseDirection;
+import com.itextpdf.layout.property.CaptionSide;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
@@ -60,25 +62,39 @@ import com.itextpdf.styledxmlparser.node.IElementNode;
  */
 public class TableTagWorker implements ITagWorker, IDisplayAware {
 
-    /** The table wrapper. */
+    /**
+     * The table wrapper.
+     */
     private TableWrapper tableWrapper;
 
-    /** The table. */
+    /**
+     * The table.
+     */
     private Table table;
 
-    /** The footer. */
+    /**
+     * The footer.
+     */
     private boolean footer;
 
-    /** The header. */
+    /**
+     * The header.
+     */
     private boolean header;
 
-    /** The parent tag worker. */
+    /**
+     * The parent tag worker.
+     */
     private ITagWorker parentTagWorker;
 
-    /** The colgroups helper. */
+    /**
+     * The colgroups helper.
+     */
     private WaitingColgroupsHelper colgroupsHelper;
 
-    /** The display value. */
+    /**
+     * The display value.
+     */
     private String display;
 
     /**
@@ -122,15 +138,14 @@ public class TableTagWorker implements ITagWorker, IDisplayAware {
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         if (childTagWorker instanceof TrTagWorker) {
-            TableRowWrapper wrapper = ((TrTagWorker)childTagWorker).getTableRowWrapper();
+            TableRowWrapper wrapper = ((TrTagWorker) childTagWorker).getTableRowWrapper();
             tableWrapper.newRow();
             for (Cell cell : wrapper.getCells()) {
                 tableWrapper.addCell(cell);
             }
             return true;
-        }
-        else if (childTagWorker instanceof TableTagWorker) {
-            if (((TableTagWorker) childTagWorker).header){
+        } else if (childTagWorker instanceof TableTagWorker) {
+            if (((TableTagWorker) childTagWorker).header) {
                 Table header = ((TableTagWorker) childTagWorker).tableWrapper.toTable(colgroupsHelper);
                 for (int i = 0; i < header.getNumberOfRows(); i++) {
                     tableWrapper.newHeaderRow();
@@ -155,12 +170,14 @@ public class TableTagWorker implements ITagWorker, IDisplayAware {
                 }
                 return true;
             }
-        }
-        else if (childTagWorker instanceof ColgroupTagWorker) {
+        } else if (childTagWorker instanceof ColgroupTagWorker) {
             if (colgroupsHelper != null) {
                 colgroupsHelper.add(((ColgroupTagWorker) childTagWorker).getColgroup().finalizeCols());
                 return true;
             }
+        } else if (childTagWorker instanceof CaptionTagWorker) {
+            tableWrapper.setCaption((Div) childTagWorker.getElementResult());
+            return true;
         }
         return false;
     }

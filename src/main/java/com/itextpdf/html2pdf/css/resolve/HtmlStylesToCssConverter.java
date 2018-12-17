@@ -531,7 +531,8 @@ class HtmlStylesToCssConverter {
         @Override
         public boolean isSupportedForElement(String elementName) {
             return TagConstants.HR.equals(elementName) || TagConstants.TABLE.equals(elementName) || TagConstants.IMG.equals(elementName)
-                    || TagConstants.TD.equals(elementName) || TagConstants.DIV.equals(elementName) || TagConstants.P.equals(elementName);
+                    || TagConstants.TD.equals(elementName) || TagConstants.DIV.equals(elementName) || TagConstants.P.equals(elementName)
+                    || TagConstants.CAPTION.equals(elementName);
         }
 
         /* (non-Javadoc)
@@ -568,6 +569,8 @@ class HtmlStylesToCssConverter {
                 } else if (AttributeConstants.LEFT.equals(value) || AttributeConstants.RIGHT.equals(value)) {
                     result.add(new CssDeclaration(CssConstants.FLOAT, value));
                 }
+            } else if (TagConstants.CAPTION.equals(element.name())) {
+                result.add(new CssDeclaration(CssConstants.CAPTION_SIDE, value));
             } else {
                 // TODO in fact, align attribute also affects horizontal alignment of all child blocks (not only direct children),
                 // however this effect conflicts in queer manner with 'text-align' property if it set on the same blocks explicitly via CSS

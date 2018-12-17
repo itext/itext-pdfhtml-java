@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.AbbrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.BodyTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.BrTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ButtonTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.CaptionTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ColTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ColgroupTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.DisplayTableRowTagWorker;
@@ -94,12 +95,8 @@ import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementUtil;
 class DefaultTagWorkerMapping {
 
     /**
-     * Instantiates a new {@link DefaultTagWorkerMapping} instance.
+     * The worker mapping.
      */
-    private DefaultTagWorkerMapping() {
-    }
-
-    /** The worker mapping. */
     private static TagProcessorMapping workerMapping;
 
     static {
@@ -116,6 +113,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.BODY, BodyTagWorker.class);
         workerMapping.putMapping(TagConstants.BR, BrTagWorker.class);
         workerMapping.putMapping(TagConstants.BUTTON, ButtonTagWorker.class);
+        workerMapping.putMapping(TagConstants.CAPTION, CaptionTagWorker.class);
         workerMapping.putMapping(TagConstants.CENTER, DivTagWorker.class);
         workerMapping.putMapping(TagConstants.CITE, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.CODE, SpanTagWorker.class);
@@ -238,6 +236,12 @@ class DefaultTagWorkerMapping {
      */
     static TagProcessorMapping getDefaultTagWorkerMapping() {
         return workerMapping;
+    }
+
+    /**
+     * Instantiates a new {@link DefaultTagWorkerMapping} instance.
+     */
+    private DefaultTagWorkerMapping() {
     }
 
 }
