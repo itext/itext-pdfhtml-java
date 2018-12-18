@@ -51,6 +51,7 @@ import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.font.FontFamilySplitter;
 import com.itextpdf.layout.property.BaseDirection;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.Leading;
@@ -100,7 +101,9 @@ public final class FontStyleApplierUtil {
         }
 
         if (cssProps.get(CssConstants.FONT_FAMILY) != null) {
-            element.setProperty(Property.FONT, cssProps.get(CssConstants.FONT_FAMILY));
+            // TODO DEVSIX-2534
+            List<String> fontFamilies = FontFamilySplitter.splitFontFamily(cssProps.get(CssConstants.FONT_FAMILY));
+            element.setProperty(Property.FONT, fontFamilies.toArray(new String[fontFamilies.size()]));
         }
         if (cssProps.get(CssConstants.FONT_WEIGHT) != null) {
             element.setProperty(Property.FONT_WEIGHT, cssProps.get(CssConstants.FONT_WEIGHT));

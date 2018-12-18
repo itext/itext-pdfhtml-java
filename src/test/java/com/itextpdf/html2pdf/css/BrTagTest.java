@@ -85,6 +85,6 @@ public class BrTagTest extends ExtendedITextTest {
         Assert.assertTrue(elements.get(1) instanceof Paragraph);
         Assert.assertEquals(1, ((Paragraph)elements.get(1)).getChildren().size());
         IElement iElement = ((Paragraph) elements.get(1)).getChildren().get(0);
-        Assert.assertEquals("freesans", iElement.<String>getProperty(Property.FONT));
+        Assert.assertArrayEquals(new String[] {"freesans"}, iElement.<String[]>getProperty(Property.FONT));
     }
 }

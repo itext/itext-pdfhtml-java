@@ -54,11 +54,13 @@ import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.font.FontFamilySplitter;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.styledxmlparser.css.ICssResolver;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
+import java.util.List;
 
 /**
  * TagWorker class for the {@code html} element.
@@ -87,8 +89,11 @@ public class HtmlTagWorker implements ITagWorker {
         if (context.getTempFonts() != null) {
             document.setProperty(Property.FONT_SET, context.getTempFonts());
         }
+
         String fontFamily = element.getStyles().get(CssConstants.FONT_FAMILY);
-        document.setProperty(Property.FONT, fontFamily);
+        // TODO DEVSIX-2534
+        List<String> fontFamilies = FontFamilySplitter.splitFontFamily(fontFamily);
+        document.setProperty(Property.FONT, fontFamilies.toArray(new String[fontFamilies.size()]));
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 

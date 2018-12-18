@@ -75,6 +75,7 @@ class FontFace {
         String srcs = null;
         for(CssDeclaration descriptor: properties) {
             if ("font-family".equals(descriptor.getProperty())) {
+                // TODO DEVSIX-2534
                 fontFamily = FontFamilySplitter.removeQuotes(descriptor.getExpression());
             } else if ("src".equals(descriptor.getProperty())) {
                 srcs = descriptor.getExpression();
