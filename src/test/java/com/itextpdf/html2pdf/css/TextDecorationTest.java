@@ -44,12 +44,11 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.IOException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
@@ -81,5 +80,11 @@ public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void textDecoration04Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationTest04", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO DEVSIX-2532
+    public void textDecoration05Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationTest05", sourceFolder, destinationFolder);
     }
 }
