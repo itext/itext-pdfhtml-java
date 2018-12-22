@@ -85,6 +85,12 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant MAX_HEIGHT. */
     public static final String MAX_HEIGHT = "max-height";
 
+    /** The Constant MAX_WIDTH. */
+    public static final String MAX_WIDTH = "max-width";
+
+    /** The Constant MIN_WIDTH. */
+    public static final String MIN_WIDTH = "min-width";
+
     /** The Constant OUTLINE_OFFSET. */
     public static final String OUTLINE_OFFSET = "outline-offset";
 
@@ -96,6 +102,9 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant OVERFLOW_Y. */
     public static final String OVERFLOW_Y = "overflow-y";
+
+    /** The Constant PADDING_INLINE_START. */
+    public static final String PADDING_INLINE_START = "padding-inline-start";
 
     /** The Constant PLACEHOLDER. */
     public static final String PLACEHOLDER = "placeholder";
@@ -114,12 +123,6 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant VISIBLE. */
     public static final String VISIBLE = "visible";
-
-    /** The Constant MAX_WIDTH. */
-    public static final String MAX_WIDTH = "max-width";
-
-    /** The Constant MIN_WIDTH. */
-    public static final String MIN_WIDTH = "min-width";
 
     // property values
 
