@@ -58,7 +58,6 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.property.VerticalAlignment;
 import com.itextpdf.layout.renderer.DrawContext;
@@ -138,19 +137,27 @@ public class RadioRenderer extends AbstractFormFieldRenderer {
     @Override
     protected void applyAcroField(DrawContext drawContext) {
         PdfDocument doc = drawContext.getDocument();
+        PdfAcroForm form = PdfAcroForm.getAcroForm(doc, true);
         Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
         PdfPage page = doc.getPage(occupiedArea.getPageNumber());
         String groupName = this.<String>getProperty(Html2PdfProperty.FORM_FIELD_VALUE);
-        PdfButtonFormField radioGroup = (PdfButtonFormField) PdfAcroForm.getAcroForm(doc, true).getField(groupName);
+
+        PdfButtonFormField radioGroup = (PdfButtonFormField) form.getField(groupName);
+        boolean addNew = false;
         if (null == radioGroup) {
             radioGroup = PdfFormField.createRadioGroup(doc, groupName, "on");
+            addNew = true;
         }
         if (isBoxChecked()) {
             radioGroup.setValue(getModelId());
         }
-        PdfButtonFormField field = (PdfButtonFormField) PdfFormField.createRadioButton(doc, area, radioGroup, getModelId());
-        field.setCheckType(PdfFormField.TYPE_CIRCLE);
-        PdfAcroForm.getAcroForm(doc, true).addField(radioGroup, page);
+        PdfFormField.createRadioButton(doc, area, radioGroup, getModelId())
+                .setCheckType(PdfFormField.TYPE_CIRCLE);
+        if (addNew) {
+            form.addField(radioGroup, page);
+        } else {
+            form.replaceField(getModelId(), radioGroup);
+        }
     }
 
     @Override
