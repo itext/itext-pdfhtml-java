@@ -81,7 +81,7 @@ public class SelectFieldComboBoxRenderer extends AbstractSelectFieldRenderer {
     }
 
     @Override
-    protected MinMaxWidth getMinMaxWidth() {
+    public MinMaxWidth getMinMaxWidth() {
         List<IRenderer> realChildRenderers = childRenderers;
         childRenderers = new ArrayList<>();
         childRenderers.add(minMaxWidthRenderer);

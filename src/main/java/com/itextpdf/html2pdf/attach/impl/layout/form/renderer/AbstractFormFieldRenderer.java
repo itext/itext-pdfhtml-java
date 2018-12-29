@@ -209,7 +209,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
      * @see com.itextpdf.layout.renderer.BlockRenderer#getMinMaxWidth(float)
      */
     @Override
-    protected MinMaxWidth getMinMaxWidth() {
+    public MinMaxWidth getMinMaxWidth() {
         childRenderers.clear();
         flatRenderer = null;
         IRenderer renderer = createFlatRenderer();
