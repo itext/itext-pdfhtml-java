@@ -56,6 +56,7 @@ import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.styledxmlparser.util.WhiteSpaceUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -107,7 +108,7 @@ public class WaitingInlineElementsHelper {
      */
     public void add(String text) {
         if (!keepLineBreaks && collapseSpaces) {
-            text = collapseConsecutiveSpaces(text);
+            text = WhiteSpaceUtil.collapseConsecutiveSpaces(text);
         } else if (keepLineBreaks && collapseSpaces) {
             StringBuilder sb = new StringBuilder(text.length());
             for (int i = 0; i < text.length(); i++) {
@@ -308,25 +309,4 @@ public class WaitingInlineElementsHelper {
             }
         }
     }
-
-    /**
-     * Collapses consecutive spaces.
-     *
-     * @param s a string
-     * @return the string with the consecutive spaces collapsed
-     */
-    private static String collapseConsecutiveSpaces(String s) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < s.length(); i++) {
-            if (TrimUtil.isNonEmSpace(s.charAt(i))) {
-                if (sb.length() == 0 || !TrimUtil.isNonEmSpace(sb.charAt(sb.length() - 1))) {
-                    sb.append(" ");
-                }
-            } else {
-                sb.append(s.charAt(i));
-            }
-        }
-        return sb.toString();
-    }
-
 }

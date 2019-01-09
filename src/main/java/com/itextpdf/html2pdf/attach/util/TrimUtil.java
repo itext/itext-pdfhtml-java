@@ -50,6 +50,7 @@ import com.itextpdf.layout.layout.LayoutPosition;
 import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.styledxmlparser.util.WhiteSpaceUtil;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -60,14 +61,6 @@ import java.util.Set;
  * Utility class to trim content.
  */
 public final class TrimUtil {
-
-    private static final Set<Character> EM_SPACES = new HashSet<>();
-
-    static {
-        EM_SPACES.add((char) 0x2002);
-        EM_SPACES.add((char) 0x2003);
-        EM_SPACES.add((char) 0x2009);
-    }
 
     /**
      * Creates a new {@link TrimUtil} instance.
@@ -115,18 +108,9 @@ public final class TrimUtil {
      * @return true, if the character is a white space character, but no newline
      */
     static boolean isNonLineBreakSpace(char ch) {
-        return isNonEmSpace(ch) && ch != '\n';
+        return WhiteSpaceUtil.isNonEmSpace(ch) && ch != '\n';
     }
 
-    /**
-     * Checks if a character is white space value that is not em, en or similar special whitespace character.
-     *
-     * @param ch the character
-     * @return true, if the character is a white space character, but no em, en or similar
-     */
-    static boolean isNonEmSpace(char ch) {
-        return Character.isWhitespace(ch) && !EM_SPACES.contains(ch);
-    }
 
     /**
      * Trims a sub list of leaf elements.
