@@ -416,7 +416,7 @@ public class ProcessorContext {
         this.linkContext = new LinkContext();
         this.formFieldNameResolver.reset();
         //Reset font provider. PdfFonts shall be reseted.
-        this.fontProvider = new BasicFontProvider(this.fontProvider.getFontSet(), this.fontProvider.getDefaultFontFamily());
+        this.fontProvider.reset();
         this.tempFonts = null;
         this.outlineHandler.reset();
         this.processingInlineSvg = false;
