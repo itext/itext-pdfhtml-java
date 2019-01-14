@@ -43,17 +43,19 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class ParagraphTest extends ExtendedITextTest {
@@ -119,4 +121,68 @@ public class ParagraphTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphInTablePercentTest01.html"), new File(destinationFolder + "paragraphInTablePercentTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphInTablePercentTest01.pdf", sourceFolder + "cmp_paragraphInTablePercentTest01.pdf", destinationFolder, "diff09_"));
     }
+
+    @Test
+    public void paragraphWithButtonInputLabelSelectTextareaTest() throws IOException, InterruptedException {
+        //TODO: update after DEVSIX-2445 fix
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithButtonInputLabelSelectTextareaTest.html"), new File(destinationFolder + "paragraphWithButtonInputLabelSelectTextareaTest.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithButtonInputLabelSelectTextareaTest.pdf", sourceFolder + "cmp_paragraphWithButtonInputLabelSelectTextareaTest.pdf", destinationFolder, "diff11_"));
+    }
+
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 2)})
+    @Test
+    public void paragraphWithBdoBrImgMapQSubSupTest() throws IOException, InterruptedException {
+        //TODO: update after DEVSIX-2445 fix
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithBdoBrImgMapQSubSupTest.html"), new File(destinationFolder + "paragraphWithBdoBrImgMapQSubSupTest.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithBdoBrImgMapQSubSupTest.pdf", sourceFolder + "cmp_paragraphWithBdoBrImgMapQSubSupTest.pdf", destinationFolder, "diff12_"));
+    }
+
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 2)})
+    @Test
+    public void paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest() throws IOException, InterruptedException {
+        //TODO: update after DEVSIX-2445 fix
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.html"), new File(destinationFolder + "paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.pdf", sourceFolder + "cmp_paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.pdf", destinationFolder, "diff13_"));
+    }
+
+    @Test
+    public void paragraphWithAParagraphSpanDivTest() throws IOException, InterruptedException {
+        //TODO: update after DEVSIX-2445 fix
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithAParagraphSpanDivTest.html"), new File(destinationFolder + "paragraphWithAParagraphSpanDivTest.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithAParagraphSpanDivTest.pdf", sourceFolder + "cmp_paragraphWithAParagraphSpanDivTest.pdf", destinationFolder, "diff14_"));
+    }
+
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 2)})
+    @Test
+    public void paragraphWithBBigISmallTtStrongTest() throws IOException, InterruptedException {
+        //TODO: update after DEVSIX-2445 fix
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithBBigISmallTtStrongTest.html"), new File(destinationFolder + "paragraphWithBBigISmallTtStrongTest.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithBBigISmallTtStrongTest.pdf", sourceFolder + "cmp_paragraphWithBBigISmallTtStrongTest.pdf", destinationFolder, "diff15_"));
+    }
+
+    @Test
+    public void paragraphWithPDisplayTableTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithPDisplayTableTest.html"), new File(destinationFolder + "paragraphWithPDisplayTableTest.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithPDisplayTableTest.pdf", sourceFolder + "cmp_paragraphWithPDisplayTableTest.pdf", destinationFolder, "diff15_"));
+    }
+
+    @Test
+    public void paragraphWithDifferentSpansTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithDifferentSpansTest.html"), new File(destinationFolder + "paragraphWithDifferentSpansTest.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithDifferentSpansTest.pdf", sourceFolder + "cmp_paragraphWithDifferentSpansTest.pdf", destinationFolder, "diff15_"));
+    }
+
+    @Test
+    public void paragraphWithDifferentBlocksAndDisplaysTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithDifferentBlocksAndDisplaysTest.html"), new File(destinationFolder + "paragraphWithDifferentBlocksAndDisplaysTest.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithDifferentBlocksAndDisplaysTest.pdf", sourceFolder + "cmp_paragraphWithDifferentBlocksAndDisplaysTest.pdf", destinationFolder, "diff15_"));
+    }
+
+    @Test
+    public void paragraphWithLabelSpanDisplayBlockTest() throws IOException, InterruptedException {
+        //TODO: update after DEVSIX-2619 fix
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithLabelSpanDisplayBlockTest.html"), new File(destinationFolder + "paragraphWithLabelSpanDisplayBlockTest.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithLabelSpanDisplayBlockTest.pdf", sourceFolder + "cmp_paragraphWithLabelSpanDisplayBlockTest.pdf", destinationFolder, "diff15_"));
+    }
+
 }

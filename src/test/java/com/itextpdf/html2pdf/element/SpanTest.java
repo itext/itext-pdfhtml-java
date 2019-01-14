@@ -44,6 +44,8 @@ package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -53,6 +55,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
@@ -75,15 +78,26 @@ public class SpanTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(pdfFile, cmpFile, destinationFolder, diff));
     }
 
-    private void test(String testName) throws IOException, InterruptedException {
+    private void test(String testName, boolean tagged) throws IOException, InterruptedException {
         String htmlFile = sourceFolder + testName + ".html";
         String pdfFile = destinationFolder + testName + ".pdf";
         String cmpFile = sourceFolder + MessageFormatUtil.format("cmp_{0}.pdf", testName);
         String diff = MessageFormatUtil.format("diff_{0}_", testName);
-        HtmlConverter.convertToPdf(new File(htmlFile), new File(pdfFile));
+        if (tagged) {
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfFile));
+            pdfDocument.setTagged();
+            try (FileInputStream fileInputStream = new FileInputStream(htmlFile)) {
+                HtmlConverter.convertToPdf(fileInputStream, pdfDocument);
+            }
+        } else {
+            HtmlConverter.convertToPdf(new File(htmlFile), new File(pdfFile));
+        }
         Assert.assertNull(new CompareTool().compareByContent(pdfFile, cmpFile, destinationFolder, diff));
     }
 
+    private void test(String testName) throws IOException, InterruptedException {
+        test(testName, false);
+    }
 
     @Test
     public void spanTest01() throws IOException, InterruptedException {
@@ -181,5 +195,10 @@ public class SpanTest extends ExtendedITextTest {
     @Test
     public void spanTestNestedInlineBlock() throws IOException, InterruptedException {
         test("spanTestNestedInlineBlock");
+    }
+
+    @Test
+    public void spanWithDisplayBlockInsideSpanParagraphTest() throws IOException, InterruptedException {
+        test("spanWithDisplayBlockInsideSpanParagraphTest", true);
     }
 }

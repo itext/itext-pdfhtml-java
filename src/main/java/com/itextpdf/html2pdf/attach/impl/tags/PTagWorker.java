@@ -47,18 +47,35 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * TagWorker class for the {@code p} element.
+ * <p>
+ * This is how this worker processes the &lt;p&gt; tag:
+ * <ul>
+ * <li> if the worker meets a text or an inline element, it processes them with a help of
+ * the {@link com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper} instance</li>
+ *
+ * <li> if the worker meets a block element without inline displaying or
+ * an inline element with the {@code display: block} style, it wraps all the content which hasn't been handled yet
+ * into a {@code com.itextpdf.layout.element.Paragraph} object and adds this paragraph to the {@link #elements list of elements},
+ * which are going to be wrapped into a {@code com.itextpdf.layout.element.Div} object on {@link #processEnd}</li>
+ * </ul>
  */
 public class PTagWorker implements ITagWorker, IDisplayAware {
 
-    /** The paragraph object. */
-    private Paragraph paragraph;
+    /** The latest paragraph object inside tag. */
+    private Paragraph lastParagraph;
+    /** List of block elements that contained in the &lt;p&gt; tag. */
+    private List<IBlockElement> elements;
 
     /** Helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
@@ -73,7 +90,7 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
      * @param context the context
      */
     public PTagWorker(IElementNode element, ProcessorContext context) {
-        paragraph = new Paragraph();
+        lastParagraph = new Paragraph();
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
@@ -83,7 +100,7 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        inlineHelper.flushHangingLeaves(paragraph);
+        inlineHelper.flushHangingLeaves(lastParagraph);
     }
 
     /* (non-Javadoc)
@@ -105,16 +122,23 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
         if (element instanceof ILeafElement) {
             inlineHelper.add((ILeafElement) element);
             return true;
-        } else if (element instanceof IBlockElement && childTagWorker instanceof IDisplayAware && CssConstants.INLINE_BLOCK.equals(((IDisplayAware) childTagWorker).getDisplay())) {
+        } else if (isBlockWithDisplay(childTagWorker, element, CssConstants.INLINE_BLOCK, false)) {
             inlineHelper.add((IBlockElement) element);
+            return true;
+        } else if (isBlockWithDisplay(childTagWorker, element,CssConstants.BLOCK, false)) {
+            IPropertyContainer propertyContainer = childTagWorker.getElementResult();
+            processBlockElement((IBlockElement) propertyContainer);
             return true;
         } else if (childTagWorker instanceof SpanTagWorker) {
             boolean allChildrenProcessed = true;
+
             for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
                 if (propertyContainer instanceof ILeafElement) {
                     inlineHelper.add((ILeafElement) propertyContainer);
-                } else if (propertyContainer instanceof IBlockElement && CssConstants.INLINE_BLOCK.equals(((SpanTagWorker) childTagWorker).getElementDisplay(propertyContainer))) {
+                } else if (isBlockWithDisplay(childTagWorker, propertyContainer, CssConstants.INLINE_BLOCK, true)) {
                     inlineHelper.add((IBlockElement) propertyContainer);
+                } else if (isBlockWithDisplay(childTagWorker, propertyContainer, CssConstants.BLOCK, true)) {
+                    processBlockElement((IBlockElement) propertyContainer);
                 } else {
                     allChildrenProcessed = false;
                 }
@@ -129,11 +153,44 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public IPropertyContainer getElementResult() {
-        return paragraph;
+        if (elements == null) {
+            return lastParagraph;
+        }
+
+        Div div = new Div();
+        for (IBlockElement element : elements) {
+            div.add(element);
+        }
+        return div;
     }
 
     @Override
     public String getDisplay() {
         return display;
+    }
+
+    private void processBlockElement(IBlockElement propertyContainer) {
+        if (elements == null) {
+            elements = new ArrayList<>();
+            elements.add(lastParagraph);
+        }
+        inlineHelper.flushHangingLeaves(lastParagraph);
+
+        elements.add(propertyContainer);
+
+        lastParagraph = new Paragraph();
+        elements.add(lastParagraph);
+    }
+
+    private boolean isBlockWithDisplay(ITagWorker childTagWorker, IPropertyContainer element,
+                                       String displayMode, boolean isChild) {
+        if (isChild) {
+            return element instanceof IBlockElement &&
+                    displayMode.equals(((SpanTagWorker) childTagWorker).getElementDisplay(element));
+        } else {
+            return element instanceof IBlockElement &&
+                    childTagWorker instanceof IDisplayAware &&
+                    displayMode.equals(((IDisplayAware) childTagWorker).getDisplay());
+        }
     }
 }

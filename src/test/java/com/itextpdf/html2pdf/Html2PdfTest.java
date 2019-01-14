@@ -45,17 +45,14 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class Html2PdfTest extends ExtendedITextTest {
@@ -121,11 +118,7 @@ public class Html2PdfTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)
-    })
     public void aBlockInPTagTest() throws IOException, InterruptedException {
-        //TODO after DEVSIX-2002 fix change cmp_ file and remove expected LogMessage annotation
         HtmlConverter.convertToPdf(new File(sourceFolder + "aBlockInPTag.html"), new File(destinationFolder + "aBlockInPTag.pdf"));
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "aBlockInPTag.html").getPath() + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "aBlockInPTag.pdf", sourceFolder + "cmp_aBlockInPTag.pdf", destinationFolder, "diff03_"));
