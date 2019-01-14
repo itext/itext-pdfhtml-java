@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <title>Testing</title>
+    <style type="text/css">
+div.header {position: running(header)}
+div.footer {position: running(footer)}
+@page{
+ margin-top: 1.5in;
+ margin-left: .875in;
+ margin-right: .875in;
+ margin-bottom: 1.5in;
+ @top-center {
+ width: auto;
+ background: green;
+ content: element(header);
+ }
+ @bottom-center {
+ width: auto;
+ background: green;
+ content: element(footer);
+ }
+}
+</style>
+</head>
+<body>
+<div class="header"> THIS HEADER SHOULD APPEAR ON ONE LINE </div>
+<div class="footer"> THIS&nbsp;FOOTER&nbsp;SHOULD&nbsp;APPEAR&nbsp;ON&nbsp;ONE&nbsp;LINE </div>
+<div>
+    Normal Text
+</div>
+</body>
+<html>

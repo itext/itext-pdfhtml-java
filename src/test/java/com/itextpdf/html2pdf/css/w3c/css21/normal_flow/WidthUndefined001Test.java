@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,9 +42,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.normal_flow;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
 
-public class WidthUndefined001Test extends W3CCssTest {
+public class WidthUndefined001Test extends W3CCssAhemFontTest {
     @Override
     protected String getHtmlFileName() {
         return "width-undefined-001.xht";

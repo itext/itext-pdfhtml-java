@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p {
+	width: 300px;
+	border: solid 2px;
+}
+</style>
+</head>
+<body>
+
+Testing sequential spans having different "whitespace" properties. Different paragraphs have different spaces between those spans.
+
+<p>
+	<span style="background: yellow; white-space: nowrap;">Lorem ipsum dolor sit amet,consectetur adipiscing elit, </span><span>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+</p>
+<p>
+	<span style="background: yellow; white-space: pre;">Lorem ipsum dolor sit amet,consectetur adipiscing elit, </span><span>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+</p>
+<p>
+	<span style="background: yellow; white-space: nowrap;">Lorem ipsum dolor sit amet,consectetur adipiscing elit, </span> <span>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+</p>
+<p>
+	<span style="background: yellow; white-space: pre;">Lorem ipsum dolor sit amet,consectetur adipiscing elit, </span> <span>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+</p>
+<p>
+	<span style="background: yellow; white-space: nowrap;">Lorem ipsum dolor sit amet,consectetur adipiscing elit, </span><span> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+</p>
+<p>
+	<span style="background: yellow; white-space: nowrap;">Lorem ipsum dolor sit amet,consectetur adipiscing elit,</span> <span>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+</p>
+<p>
+	<span style="background: yellow; white-space: nowrap;">Lorem ipsum dolor sit amet,consectetur adipiscing elit,</span><span> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+</p>
+
+</body>
+</html>

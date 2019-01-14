@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        th, td {
+            border: 1px solid black;
+        }
+
+        table {
+            border: 30px solid green;
+            background-color: blue;
+        }
+
+        caption {
+            background-color: gray;
+            width: 100px;
+        }
+
+        div.beforeOrAfter {
+            border: 1px solid black;
+        }
+        
+        div.lastOnThePage {
+            border: 1px solid black;
+            page-break-after: always;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>A table with a default-aligned caption</h1>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption>
+        <p style="background-color: red;">I'm the caption of the table! <br> Yes, I <div style="background-color: green; width: 70px;">belong</div> to the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="beforeOrAfter">A div after the table</div>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="caption-side: bottom;">
+        <p style="background-color: red;">I'm the caption of the table! <br> Yes, I <div style="background-color: green; width: 70px;">belong</div> to the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="lastOnThePage">A div after the table</div>
+
+<h1>A table with a center-aligned caption</h1>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="text-align: center">
+        <p style="background-color: red;">I'm the caption of the table! <br> Yes, I <div style="background-color: green; width: 70px;">belong</div> to the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="beforeOrAfter">A div after the table</div>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="caption-side: bottom; text-align: center">
+        <p style="background-color: red;">I'm the caption of the table! <br> Yes, I <div style="background-color: green; width: 70px;">belong</div> to the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="lastOnThePage">A div after the table</div>
+
+
+<h1>A table with a left-aligned caption</h1>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="text-align: left">
+        <p style="background-color: red;">I'm the caption of the table! <br> Yes, I <div style="background-color: green; width: 70px;">belong</div> to the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="beforeOrAfter">A div after the table</div>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="caption-side: bottom; text-align: left">
+        <p style="background-color: red;">I'm the caption of the table! <br> Yes, I <div style="background-color: green; width: 70px;">belong</div> to the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="lastOnThePage">A div after the table</div>
+
+<h1>A table with a right-aligned caption</h1>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="text-align: right">
+        <p style="background-color: red;">I'm the caption of the table! <br> Yes, I <div style="background-color: green; width: 70px;">belong</div> to the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="beforeOrAfter">A div after the table</div>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="caption-side: bottom; text-align: right">
+        <p style="background-color: red;">I'm the caption of the table! <br> Yes, I <div style="background-color: green; width: 70px;">belong</div> to the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="lastOnThePage">A div after the table</div>
+
+<h1>A table with a justify-aligned caption</h1>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="text-align: justify">
+        <p style="background-color: red;">I'm the caption of the table! <br> Yes, I <div style="background-color: green; width: 70px;">belong</div> to the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="beforeOrAfter">A div after the table</div>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="caption-side: bottom; text-align: justify">
+        <p style="background-color: red;">I'm the caption of the table! <br> Yes, I <div style="background-color: green; width: 70px;">belong</div> to the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="lastOnThePage">A div after the table</div>
+
+<h1>A table with a justify-all-aligned caption</h1>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="text-align: justify-all;">
+        <p style="background-color: red;">I'm the caption of the table! <br> Yes, I <div style="background-color: green; width: 70px;">belong</div> to the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="beforeOrAfter">A div after the table</div>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="caption-side: bottom; text-align: justify-all;">
+        <p style="background-color: red;">I'm the caption of the table! <br> Yes, I <div style="background-color: green; width: 70px;">belong</div> to the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="lastOnThePage">A div after the table</div>
+
+</body>
+</html>

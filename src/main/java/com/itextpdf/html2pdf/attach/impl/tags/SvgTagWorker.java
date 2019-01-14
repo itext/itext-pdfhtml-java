@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -76,8 +76,7 @@ public class SvgTagWorker implements ITagWorker {
             processingResult = new DefaultSvgProcessor().process((INode) element, props);
             context.startProcessingInlineSvg();
         } catch (SvgProcessingException pe) {
-            LoggerFactory.getLogger(SvgTagWorker.class)
-                    .error(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, pe);
+            LoggerFactory.getLogger(SvgTagWorker.class).error(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, pe);
         }
     }
 

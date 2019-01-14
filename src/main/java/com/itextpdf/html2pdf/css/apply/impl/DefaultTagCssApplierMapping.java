@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -76,7 +76,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.BLOCKQUOTE, BlockCssApplier.class);
         mapping.putMapping(TagConstants.BODY, BodyTagCssApplier.class);
         mapping.putMapping(TagConstants.BUTTON, BlockCssApplier.class);
-        //mapping.putMapping(TagConstants.CAPTION, SpanTagCssApplier.class);
+        mapping.putMapping(TagConstants.CAPTION, CaptionCssApplier.class);
         mapping.putMapping(TagConstants.CENTER, BlockCssApplier.class);
         mapping.putMapping(TagConstants.CITE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.CODE, SpanTagCssApplier.class);
@@ -149,6 +149,7 @@ class DefaultTagCssApplierMapping {
         String placeholderPseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.PLACEHOLDER);
         mapping.putMapping(placeholderPseudoElemName, PlaceholderCssApplier.class);
 
+        mapping.putMapping(TagConstants.DIV, CssConstants.INLINE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.UL, CssConstants.INLINE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.LI, CssConstants.INLINE, SpanTagCssApplier.class);
         mapping.putMapping(TagConstants.LI, CssConstants.INLINE_BLOCK, BlockCssApplier.class);

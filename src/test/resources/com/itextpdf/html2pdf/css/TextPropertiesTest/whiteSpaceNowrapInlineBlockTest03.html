@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p {
+	width: 300px;
+	border: solid 2px;
+}
+</style>
+</head>
+<body>
+
+<p>
+	<span>Lorem ipsum dolor sit amet, </span><span style="display: inline-block; border: solid; float: left; white-space: nowrap;">consectetur adipiscing elit,</span><span> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+</p>
+<p>
+	<span style="display: inline-block; border: solid; float: left; white-space: nowrap;"><span>Lorem ipsum dolor sit amet, </span>consectetur adipiscing elit,</span><span> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+</p>
+<p>
+	L <span style="display: inline-block; border: solid; float: left; white-space: nowrap;"><span>Lorem ipsum dolor sit amet, </span>consectetur adipiscing elit,</span><span> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+</p>
+
+<p>
+	L <span style="border: solid; background: yellow; float: left; white-space: nowrap;">Lorem ipsum dolor sit amet, consectetur adipiscing elit,</span><span> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+</p>
+
+No "whitespace: nowrap":
+<p>
+	L <span style="display: inline-block; border: solid; float: left;"><span>Lorem ipsum dolor sit amet, </span>consectetur adipiscing elit,</span><span> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+</p>
+
+</body>
+</html>

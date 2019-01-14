@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -46,7 +46,6 @@ import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-@LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED)})
 public class InlineBlockWidth002BTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

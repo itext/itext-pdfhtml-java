@@ -192,17 +192,17 @@ acronym[title] {
 ul {
     list-style-type: disc;
     margin: 1em 0;
-    padding-left: 40px
+    padding-inline-start: 40px
 }
 menu {
     list-style-type: disc;
     margin: 1em 0;
-    padding-left: 40px
+    padding-inline-start: 40px
 }
 dir {
     list-style-type: disc;
     margin: 1em 0;
-    padding-left: 40px
+    padding-inline-start: 40px
 }
 ul li ul {
     list-style-type: circle
@@ -226,7 +226,7 @@ ol ol {
 ol {
     list-style-type: decimal;
     margin: 1em 0;
-    padding-left: 40px
+    padding-inline-start: 40px
 }
 dl {
     display: block;

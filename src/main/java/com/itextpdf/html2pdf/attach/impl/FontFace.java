@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -75,6 +75,7 @@ class FontFace {
         String srcs = null;
         for(CssDeclaration descriptor: properties) {
             if ("font-family".equals(descriptor.getProperty())) {
+                // TODO DEVSIX-2534
                 fontFamily = FontFamilySplitter.removeQuotes(descriptor.getExpression());
             } else if ("src".equals(descriptor.getProperty())) {
                 srcs = descriptor.getExpression();

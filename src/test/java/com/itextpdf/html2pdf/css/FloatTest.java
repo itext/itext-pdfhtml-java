@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -491,6 +491,14 @@ public class FloatTest extends ExtendedITextTest {
     //This test should fail after the fix in DEVSIX-2335
     public void floatingDivBottomBorderTest() throws IOException, InterruptedException {
         runTest("floatingDivBottomBorderTest", "diff_BottomBorderTest_");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 1),
+    })
+    public void floatCaption01Test() throws IOException, InterruptedException {
+        runTest("floatCaption01Test", "diff_floatCaption01Test_");
     }
 
     private void runTest(String testName, String diff) throws IOException, InterruptedException {

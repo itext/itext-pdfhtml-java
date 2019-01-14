@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -50,11 +50,12 @@ import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OutlineApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.property.OverflowPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
@@ -74,15 +75,15 @@ public class PageMarginBoxCssApplier implements ICssApplier {
     /**
      * Parses the page and margin boxes properties (like margins, paddings, etc).
      *
-     * @param styles a {@link Map} containing the styles
-     * @param em a measurement expressed in em
-     * @param rem a measurement expressed in rem (root em)
-     * @param defaultValues the default values
+     * @param styles          a {@link Map} containing the styles
+     * @param em              a measurement expressed in em
+     * @param rem             a measurement expressed in rem (root em)
+     * @param defaultValues   the default values
      * @param containingBlock the containing block
-     * @param topPropName the top prop name
-     * @param rightPropName the right prop name
-     * @param bottomPropName the bottom prop name
-     * @param leftPropName the left prop name
+     * @param topPropName     the top prop name
+     * @param rightPropName   the right prop name
+     * @param bottomPropName  the bottom prop name
+     * @param leftPropName    the left prop name
      * @return an array with a top, right, bottom, and top float value
      */
     public static float[] parseBoxProps(Map<String, String> styles, float em, float rem, float[] defaultValues, Rectangle containingBlock,
@@ -97,11 +98,11 @@ public class PageMarginBoxCssApplier implements ICssApplier {
         Float bottom = parseBoxValue(bottomStr, em, rem, containingBlock.getHeight());
         Float left = parseBoxValue(leftStr, em, rem, containingBlock.getWidth());
 
-        return new float[] {
-                top != null ? (float)top : defaultValues[0],
-                right != null ? (float)right : defaultValues[1],
-                bottom != null ? (float)bottom : defaultValues[2],
-                left != null ? (float)left : defaultValues[3]
+        return new float[]{
+                top != null ? (float) top : defaultValues[0],
+                right != null ? (float) right : defaultValues[1],
+                bottom != null ? (float) bottom : defaultValues[2],
+                left != null ? (float) left : defaultValues[3]
         };
     }
 
@@ -142,45 +143,18 @@ public class PageMarginBoxCssApplier implements ICssApplier {
             return;
         }
 
-        PageMarginBoxContextNode pageMarginBoxContextNode = (PageMarginBoxContextNode) stylesContainer;
+        float availableWidth = ((PageMarginBoxContextNode) stylesContainer).getContainingBlockForMarginBox().getWidth();
+        float availableHeight = ((PageMarginBoxContextNode) stylesContainer).getContainingBlockForMarginBox().getHeight();
+        MarginApplierUtil.applyMargins(boxStyles, context, marginBox, availableHeight, availableWidth);
+        PaddingApplierUtil.applyPaddings(boxStyles, context, marginBox, availableHeight, availableWidth);
 
-        float em = CssUtils.parseAbsoluteLength(boxStyles.get(CssConstants.FONT_SIZE));
-        float rem = context.getCssContext().getRootFontSize();
-        float[] boxMargins = parseBoxProps(boxStyles, em, rem, new float[]{0,0,0,0}, pageMarginBoxContextNode.getContainingBlockForMarginBox(),
-                CssConstants.MARGIN_TOP, CssConstants.MARGIN_RIGHT, CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT);
-        float[] boxPaddings = parseBoxProps(boxStyles, em, rem, new float[]{0,0,0,0}, pageMarginBoxContextNode.getContainingBlockForMarginBox(),
-                CssConstants.PADDING_TOP, CssConstants.PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT);
-
-        setUnitPointValueProperties(marginBox, new int[]{Property.MARGIN_TOP, Property.MARGIN_RIGHT, Property.MARGIN_BOTTOM, Property.MARGIN_LEFT}, boxMargins);
-        setUnitPointValueProperties(marginBox, new int[]{Property.PADDING_TOP, Property.PADDING_RIGHT, Property.PADDING_BOTTOM, Property.PADDING_LEFT}, boxPaddings);
-
-        float[] boxBorders = getBordersWidth(marginBox);
-        float marginBorderPaddingWidth = boxMargins[1] + boxMargins[3] + boxBorders[1] + boxBorders[3] + boxPaddings[1] + boxPaddings[3];
-        float marginBorderPaddingHeight = boxMargins[0] + boxMargins[2] + boxBorders[0] + boxBorders[2] + boxPaddings[0] + boxPaddings[2];
-
-        // TODO DEVSIX-1050: improve width/height calculation according to "5.3. Computing Page-margin Box Dimensions", take into account height and width properties
-        float width = pageMarginBoxContextNode.getPageMarginBoxRectangle().getWidth() - marginBorderPaddingWidth;
-        float height = pageMarginBoxContextNode.getPageMarginBoxRectangle().getHeight() - marginBorderPaddingHeight;
-        setUnitPointValueProperty(marginBox, Property.WIDTH, width);
-        setUnitPointValueProperty(marginBox, Property.HEIGHT, height);
-    }
-
-    private static void setUnitPointValueProperties(IPropertyContainer container, int[] properties, float[] values) {
-        for (int i = 0; i < properties.length; ++i) {
-            setUnitPointValueProperty(container, properties[i], values[i]);
-        }
-    }
-
-    private static void setUnitPointValueProperty(IPropertyContainer container, int property, float value) {
-        UnitValue marginUV = UnitValue.createPointValue(value);
-        container.setProperty(property, marginUV);
     }
 
     /**
      * Parses the box value.
      *
-     * @param em a measurement expressed in em
-     * @param rem a measurement expressed in rem (root em)
+     * @param em            a measurement expressed in em
+     * @param rem           a measurement expressed in rem (root em)
      * @param dimensionSize the dimension size
      * @return a float value
      */
@@ -196,35 +170,5 @@ public class PageMarginBoxCssApplier implements ICssApplier {
         }
 
         return null;
-    }
-
-    private static float[] getBordersWidth(IPropertyContainer container) {
-        Border border = container.<Border>getProperty(Property.BORDER);
-        Border topBorder = container.<Border>getProperty(Property.BORDER_TOP);
-        Border rightBorder = container.<Border>getProperty(Property.BORDER_RIGHT);
-        Border bottomBorder = container.<Border>getProperty(Property.BORDER_BOTTOM);
-        Border leftBorder = container.<Border>getProperty(Property.BORDER_LEFT);
-
-        Border[] borders = {topBorder, rightBorder, bottomBorder, leftBorder};
-
-        if (!container.hasProperty(Property.BORDER_TOP)) {
-            borders[0] = border;
-        }
-        if (!container.hasProperty(Property.BORDER_RIGHT)) {
-            borders[1] = border;
-        }
-        if (!container.hasProperty(Property.BORDER_BOTTOM)) {
-            borders[2] = border;
-        }
-        if (!container.hasProperty(Property.BORDER_LEFT)) {
-            borders[3] = border;
-        }
-
-        return new float[] {
-                borders[0] != null ? borders[0].getWidth() : 0,
-                borders[1] != null ? borders[1].getWidth() : 0,
-                borders[2] != null ? borders[2].getWidth() : 0,
-                borders[3] != null ? borders[3].getWidth() : 0,
-        };
     }
 }

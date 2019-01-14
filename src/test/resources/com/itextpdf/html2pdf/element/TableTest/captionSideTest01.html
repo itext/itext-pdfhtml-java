@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        th, td {
+            border: 1px solid black;
+        }
+
+        table {
+            border: 30px solid green;
+            background-color: blue;
+        }
+
+        caption {
+            background-color: gray;
+            width: 100px;
+        }
+
+        div.beforeOrAfter {
+            border: 1px solid black;
+        }
+
+        div.lastOnThePage {
+            border: 1px solid black;
+            page-break-after: always;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>A table with a default caption</h1>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption>
+        <p style="background-color: red;">I'm the caption of the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="lastOnThePage">A div after the table</div>
+
+<h1>A table with a top caption</h1>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="caption-side: top;">
+        <p style="background-color: red;">I'm the caption of the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="lastOnThePage">A div after the table</div>
+
+<h1>A table with a right caption</h1>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="caption-side: right;">
+        <p style="background-color: red;">I'm the caption of the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="lastOnThePage">A div after the table</div>
+
+<h1>A table with a bottom caption</h1>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="caption-side: bottom; ">
+        <p style="background-color: red;">I'm the caption of the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="lastOnThePage">A div after the table</div>
+
+<h1>A table with a left caption</h1>
+
+<div class="beforeOrAfter">A div before the table</div>
+<table>
+    <caption style="caption-side: left; ">
+        <p style="background-color: red;">I'm the caption of the table!</p>
+    </caption>
+    <thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    </thead>
+    <tr>
+        <td>Body</td>
+        <td>Body</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>Footer</td>
+        <td>Footer</td>
+    </tr>
+    </tfoot>
+</table>
+<div class="lastOnThePage">A div after the table</div>
+
+</body>
+</html>

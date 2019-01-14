@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -85,7 +85,7 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
     public final ITagWorker getTagWorker(IElementNode tag, ProcessorContext context) {
         ITagWorker tagWorker = getCustomTagWorker(tag, context);
 
-        if ( tagWorker == null ) {
+        if (tagWorker == null ) {
             Class<?> tagWorkerClass = getTagWorkerClass(this.defaultMapping, tag);
 
             if (tagWorkerClass == null) {

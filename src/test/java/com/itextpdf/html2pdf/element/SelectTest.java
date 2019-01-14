@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -114,7 +114,6 @@ public class SelectTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, count = 1))
     public void selectBasicTest10() throws IOException, InterruptedException {
         runTest("selectBasicTest10");
     }
@@ -145,7 +144,6 @@ public class SelectTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, count = 2))
     public void selectWidthTest01() throws IOException, InterruptedException {
         runTest("selectWidthTest01");
     }
@@ -157,19 +155,15 @@ public class SelectTest extends ExtendedITextTest {
 
     @Test
     public void selectWidthTest03() throws IOException, InterruptedException {
-        // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
         runTest("selectWidthTest03");
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, count = 1))
     public void selectWidthTest04() throws IOException, InterruptedException {
-        // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
         runTest("selectWidthTest04");
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, count = 1))
     public void selectWidthTest05() throws IOException, InterruptedException {
         runTest("selectWidthTest05");
     }
@@ -196,7 +190,6 @@ public class SelectTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, count = 2))
     public void selectOverflowTest01() throws IOException, InterruptedException {
         runTest("selectOverflowTest01");
     }

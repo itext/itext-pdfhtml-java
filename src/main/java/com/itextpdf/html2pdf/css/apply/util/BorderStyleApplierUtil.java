@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -61,8 +61,6 @@ import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
@@ -70,11 +68,6 @@ import java.util.Map;
  * Utilities class to apply border styles.
  */
 public class BorderStyleApplierUtil {
-
-    /**
-     * The logger.
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(BorderStyleApplierUtil.class);
 
     /**
      * Creates a new {@link BorderStyleApplierUtil} instance.
@@ -192,7 +185,6 @@ public class BorderStyleApplierUtil {
             return null;
         }
         if (unitValue.isPercentValue()) {
-            LOGGER.error("border-width in percents is not supported");
             return null;
         }
 

@@ -158,7 +158,7 @@ abbr[title], acronym[title] {
 ul, menu, dir {
     list-style-type: disc;
     margin: 1em 0;
-    padding-left: 40px;
+    padding-inline-start: 40px;
 }
 
 ul li ul {
@@ -173,7 +173,7 @@ ol ul, ul ol, ul ul, ol ol {
 ol {
     list-style-type: decimal;
     margin: 1em 0;
-    padding-left: 40px;
+    padding-inline-start: 40px;
 }
 
 dl {

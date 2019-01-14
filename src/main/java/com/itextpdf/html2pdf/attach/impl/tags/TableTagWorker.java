@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -49,8 +49,12 @@ import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableWrapper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.AbstractElement;
+import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.CaptionSide;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
@@ -58,25 +62,39 @@ import com.itextpdf.styledxmlparser.node.IElementNode;
  */
 public class TableTagWorker implements ITagWorker, IDisplayAware {
 
-    /** The table wrapper. */
+    /**
+     * The table wrapper.
+     */
     private TableWrapper tableWrapper;
 
-    /** The table. */
+    /**
+     * The table.
+     */
     private Table table;
 
-    /** The footer. */
+    /**
+     * The footer.
+     */
     private boolean footer;
 
-    /** The header. */
+    /**
+     * The header.
+     */
     private boolean header;
 
-    /** The parent tag worker. */
+    /**
+     * The parent tag worker.
+     */
     private ITagWorker parentTagWorker;
 
-    /** The colgroups helper. */
+    /**
+     * The colgroups helper.
+     */
     private WaitingColgroupsHelper colgroupsHelper;
 
-    /** The display value. */
+    /**
+     * The display value.
+     */
     private String display;
 
     /**
@@ -86,7 +104,9 @@ public class TableTagWorker implements ITagWorker, IDisplayAware {
      * @param context the context
      */
     public TableTagWorker(IElementNode element, ProcessorContext context) {
-        tableWrapper = new TableWrapper();
+        String str = element.getStyles().get(CssConstants.DIRECTION);
+        boolean isRtl = "rtl".equals(str);
+        tableWrapper = new TableWrapper(isRtl);
         parentTagWorker = context.getState().empty() ? null : context.getState().top();
         if (parentTagWorker instanceof TableTagWorker) {
             ((TableTagWorker) parentTagWorker).applyColStyles();
@@ -118,15 +138,14 @@ public class TableTagWorker implements ITagWorker, IDisplayAware {
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         if (childTagWorker instanceof TrTagWorker) {
-            TableRowWrapper wrapper = ((TrTagWorker)childTagWorker).getTableRowWrapper();
+            TableRowWrapper wrapper = ((TrTagWorker) childTagWorker).getTableRowWrapper();
             tableWrapper.newRow();
             for (Cell cell : wrapper.getCells()) {
                 tableWrapper.addCell(cell);
             }
             return true;
-        }
-        else if (childTagWorker instanceof TableTagWorker) {
-            if (((TableTagWorker) childTagWorker).header){
+        } else if (childTagWorker instanceof TableTagWorker) {
+            if (((TableTagWorker) childTagWorker).header) {
                 Table header = ((TableTagWorker) childTagWorker).tableWrapper.toTable(colgroupsHelper);
                 for (int i = 0; i < header.getNumberOfRows(); i++) {
                     tableWrapper.newHeaderRow();
@@ -151,12 +170,14 @@ public class TableTagWorker implements ITagWorker, IDisplayAware {
                 }
                 return true;
             }
-        }
-        else if (childTagWorker instanceof ColgroupTagWorker) {
+        } else if (childTagWorker instanceof ColgroupTagWorker) {
             if (colgroupsHelper != null) {
                 colgroupsHelper.add(((ColgroupTagWorker) childTagWorker).getColgroup().finalizeCols());
                 return true;
             }
+        } else if (childTagWorker instanceof CaptionTagWorker) {
+            tableWrapper.setCaption((Div) childTagWorker.getElementResult());
+            return true;
         }
         return false;
     }

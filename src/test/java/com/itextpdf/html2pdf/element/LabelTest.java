@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -48,7 +48,6 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -85,7 +84,6 @@ public class LabelTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-2118")
     public void labelBackground01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "labelBackground01Test.html"), new File(destinationFolder + "labelBackground01Test.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelBackground01Test.pdf", sourceFolder + "cmp_labelBackground01Test.pdf", destinationFolder, "diffBackground01_"));

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -137,6 +137,9 @@ public final class AttributeConstants extends CommonAttributeConstants {
 
     /** The Constant NOSHADE. */
     public static final String NOSHADE = "noshade";
+
+    /** The Constant NOWRAP. */
+    public static final String NOWRAP = "nowrap";
 
     /** The Constant NUMBER. */
     public static final String NUMBER = "number";

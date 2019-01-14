@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,33 +42,23 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.util.SvgProcessingUtil;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
+import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
-import com.itextpdf.svg.converter.SvgConverter;
-import com.itextpdf.svg.exceptions.SvgProcessingException;
-import com.itextpdf.svg.processors.ISvgProcessorResult;
-import com.itextpdf.svg.processors.impl.SvgConverterProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * TagWorker class for the {@code img} element.
  */
 public class ImgTagWorker implements ITagWorker {
-
 
     /**
      * The logger.
@@ -93,28 +83,15 @@ public class ImgTagWorker implements ITagWorker {
      */
     public ImgTagWorker(IElementNode element, ProcessorContext context) {
         String src = element.getAttribute(AttributeConstants.SRC);
-        if (src != null) {
-            if (src.contains(ResourceResolver.BASE64IDENTIFIER) || context.getResourceResolver().isImageTypeSupportedByImageDataFactory(src)) {
-                processAsImage(src, element, context);
+        PdfXObject imageXObject = context.getResourceResolver().retrieveImageExtended(src);
+        if (imageXObject != null) {
+            if (imageXObject instanceof PdfImageXObject) {
+                image = new HtmlImage((PdfImageXObject) imageXObject);
+            } else if (imageXObject instanceof PdfFormXObject) {
+                image = new HtmlImage((PdfFormXObject) imageXObject);
             } else {
-                byte[] resourceBytes = context.getResourceResolver().retrieveBytesFromResource(src);
-                if (resourceBytes != null) {
-                    try (InputStream resourceStream = context.getResourceResolver().retrieveResourceAsInputStream(src)) {
-                        //Try with svg
-                        try {
-                            processAsSvg(resourceStream, context);
-                        } catch (SvgProcessingException spe) {
-                            LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, context.getBaseUri(), src));
-                        }
-                    } catch (IOException ioe) {
-                        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, context.getBaseUri(), src));
-                    }
-                }
+                throw new IllegalStateException();
             }
-        } else
-        {
-            LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI,context.getBaseUri(),src));
-
         }
 
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
@@ -127,26 +104,6 @@ public class ImgTagWorker implements ITagWorker {
         if (altText != null && image != null) {
             image.getAccessibilityProperties().setAlternateDescription(altText);
         }
-    }
-
-    private void processAsSvg(InputStream stream, ProcessorContext context) throws IOException {
-        SvgProcessingUtil processingUtil = new SvgProcessingUtil();
-        SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
-        svgConverterProperties.setBaseUri(context.getBaseUri())
-                .setFontProvider(context.getFontProvider())
-                .setMediaDeviceDescription(context.getDeviceDescription());
-        ISvgProcessorResult res = SvgConverter.parseAndProcess(stream, svgConverterProperties);
-        if (context.getPdfDocument() != null) {
-            image = processingUtil.createImageFromProcessingResult(res, context.getPdfDocument());
-        }
-    }
-
-    private void processAsImage(String src, IElementNode element, ProcessorContext context) {
-        PdfImageXObject imageXObject = context.getResourceResolver().retrieveImage(src);
-        if (imageXObject != null) {
-            image = new HtmlImage(imageXObject);
-        }
-
     }
 
     /* (non-Javadoc)
@@ -192,21 +149,33 @@ public class ImgTagWorker implements ITagWorker {
     /**
      * Implementation of the Image class when used in the context of HTML to PDF conversion.
      */
-    private class HtmlImage extends Image {
+    private static class HtmlImage extends Image {
+
+        private static final double PX_TO_PT_MULTIPLIER = 0.75;
 
         /**
          * In iText, we use user unit for the image sizes (and by default
          * one user unit = one point), whereas images are usually measured
          * in pixels.
          */
-        private double pxToPt = 0.75;
+        private double dimensionMultiplier = 1;
 
         /**
-         * * Creates a new {@link HtmlImage} instance.
+         * Creates a new {@link HtmlImage} instance.
          *
          * @param xObject an Image XObject
          */
         public HtmlImage(PdfImageXObject xObject) {
+            super(xObject);
+            this.dimensionMultiplier = PX_TO_PT_MULTIPLIER;
+        }
+
+        /**
+         * Creates a new {@link HtmlImage} instance.
+         *
+         * @param xObject an Image XObject
+         */
+        public HtmlImage(PdfFormXObject xObject) {
             super(xObject);
         }
 
@@ -215,7 +184,7 @@ public class ImgTagWorker implements ITagWorker {
          */
         @Override
         public float getImageWidth() {
-            return (float) (xObject.getWidth() * pxToPt);
+            return (float) (xObject.getWidth() * dimensionMultiplier);
         }
 
         /* (non-Javadoc)
@@ -223,7 +192,7 @@ public class ImgTagWorker implements ITagWorker {
          */
         @Override
         public float getImageHeight() {
-            return (float) (xObject.getHeight() * pxToPt);
+            return (float) (xObject.getHeight() * dimensionMultiplier);
         }
 
     }

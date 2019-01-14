@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -209,7 +209,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
      * @see com.itextpdf.layout.renderer.BlockRenderer#getMinMaxWidth(float)
      */
     @Override
-    protected MinMaxWidth getMinMaxWidth() {
+    public MinMaxWidth getMinMaxWidth() {
         childRenderers.clear();
         flatRenderer = null;
         IRenderer renderer = createFlatRenderer();

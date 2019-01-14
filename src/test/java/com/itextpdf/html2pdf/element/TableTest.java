@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -366,6 +366,51 @@ public class TableTest extends ExtendedITextTest {
     // TODO DEVSIX-2092
     public void plainTextTest() throws IOException, InterruptedException {
         runConvertToElements("plainTextTest", false);
+    }
+
+    @Test
+    public void separatedTablesWithDifferentCaptionsTest01() throws IOException, InterruptedException {
+        runTest("separatedTableWithDifferentCaptionsTest01", false);
+    }
+
+    @Test
+    public void collapsedTablesWithDifferentCaptionsTest01() throws IOException, InterruptedException {
+        runTest("collapsedTablesWithDifferentCaptionsTest01", false);
+    }
+
+    @Test
+    public void captionWithTextAlignTest01() throws IOException, InterruptedException {
+        runTest("captionWithTextAlignTest01", false);
+    }
+
+    @Test
+    public void wideCaptionTest01() throws IOException, InterruptedException {
+        runTest("wideCaptionTest01", false);
+    }
+
+    @Test
+    public void wideCaptionTest02() throws IOException, InterruptedException {
+        runTest("wideCaptionTest02", false);
+    }
+
+    @Test
+    public void wideTableWithCaptionTest01() throws IOException, InterruptedException {
+        runTest("wideTableWithCaptionTest01", false);
+    }
+
+    @Test
+    public void wideTableWithCaptionTest02() throws IOException, InterruptedException {
+        runTest("wideTableWithCaptionTest02", false);
+    }
+
+    @Test
+    public void captionSideTest01() throws IOException, InterruptedException {
+        runTest("captionSideTest01", false);
+    }
+
+    @Test
+    public void captionSideSetAsAlignTest01() throws IOException, InterruptedException {
+        runTest("captionSideSetAsAlignTest01", false);
     }
 
     @Test

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -83,6 +83,7 @@ class HtmlStylesToCssConverter {
         htmlAttributeConverters.put(AttributeConstants.SIZE, new SizeAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.FACE, new FontFaceAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.NOSHADE, new NoShadeAttributeConverter());
+        htmlAttributeConverters.put(AttributeConstants.NOWRAP, new NoWrapAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.TYPE, new TypeAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.WIDTH, new WidthAttributeConverter());
         htmlAttributeConverters.put(AttributeConstants.HEIGHT, new HeightAttributeConverter());
@@ -530,7 +531,8 @@ class HtmlStylesToCssConverter {
         @Override
         public boolean isSupportedForElement(String elementName) {
             return TagConstants.HR.equals(elementName) || TagConstants.TABLE.equals(elementName) || TagConstants.IMG.equals(elementName)
-                    || TagConstants.TD.equals(elementName) || TagConstants.DIV.equals(elementName) || TagConstants.P.equals(elementName);
+                    || TagConstants.TD.equals(elementName) || TagConstants.DIV.equals(elementName) || TagConstants.P.equals(elementName)
+                    || TagConstants.CAPTION.equals(elementName);
         }
 
         /* (non-Javadoc)
@@ -567,6 +569,8 @@ class HtmlStylesToCssConverter {
                 } else if (AttributeConstants.LEFT.equals(value) || AttributeConstants.RIGHT.equals(value)) {
                     result.add(new CssDeclaration(CssConstants.FLOAT, value));
                 }
+            } else if (TagConstants.CAPTION.equals(element.name())) {
+                result.add(new CssDeclaration(CssConstants.CAPTION_SIDE, value));
             } else {
                 // TODO in fact, align attribute also affects horizontal alignment of all child blocks (not only direct children),
                 // however this effect conflicts in queer manner with 'text-align' property if it set on the same blocks explicitly via CSS
@@ -599,6 +603,30 @@ class HtmlStylesToCssConverter {
                     new CssDeclaration(CssConstants.HEIGHT, "2px"),
                     new CssDeclaration(CssConstants.BORDER_WIDTH, "0"),
                     new CssDeclaration(CssConstants.BACKGROUND_COLOR, "gray")
+            );
+        }
+    }
+
+    /**
+     * {@link IAttributeConverter} implementation for HTML shade styles.
+     */
+    private static class NoWrapAttributeConverter implements IAttributeConverter {
+
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+         */
+        @Override
+        public boolean isSupportedForElement(String elementName) {
+            return TagConstants.TD.equals(elementName) || TagConstants.TH.equals(elementName);
+        }
+
+        /* (non-Javadoc)
+         * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
+         */
+        @Override
+        public List<CssDeclaration> convert(IElementNode element, String value) {
+            return Collections.singletonList(
+                    new CssDeclaration(CssConstants.WHITE_SPACE, CssConstants.NOWRAP)
             );
         }
     }

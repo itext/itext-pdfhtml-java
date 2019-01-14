@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -129,6 +129,12 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void pageBreakBeforeTable01Test() throws IOException, InterruptedException {
         runTest("page-break-before-table01");
+    }
+
+    @Test
+    //Test will fail after fix in DEVSIX-2332
+    public void pageBreakInsideAvoidTest01() throws IOException, InterruptedException {
+        runTest("pageBreakInsideAvoidTest01");
     }
 
     @Test

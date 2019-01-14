@@ -1,9 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 151>>stream
-xœŠÉ‚0E÷ï+îRSi¡[İ›4aòZ†G¢/¸:¹ç‘NmàZJ´J-2[¨"†khWvì1L½n®Ÿ!<ËªB³ÜxF‚0Áb¨îë-Â"Ã"
-®cxşÈÿÁ»únİ5£~Uş©öîAgGWÉh£ŒA–Ç*J¡³HÙ6WE‚‰©$¿V?a!1_
+<</Filter/FlateDecode/Length 126>>stream
+xœŠË
+Â0E÷ów© ‘h£t+è^¸NÍÔÔG›	èßÛººœsî›–Ö'½í©Ñjg°7­j·°—Ày¢°_AÂP \dRÉ×+4H#²»Mz¤*¹Š‚ŒÈù¼ÜwşÍ“ ctOjiït´t¦›²)¸
 endstream
 endobj
 4 0 obj
@@ -20,8 +20,10 @@ endobj
 <</Contents 8 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
 endobj
 10 0 obj
-<</Filter/FlateDecode/Length 117>>stream
-xœË±‚0àıâu9{lYMp7¹ÄÁ8ÔX´ØÑ.¾½ä›¿…¬X¶Î7lög¸sè<÷->‘ÎTh¡ƒÒî(×Ğ°oáMÏâ wÚ\ô™¾x‡GD*5–šærş!Ç±â–Cy]·:Ñ tZı²ú
+<</Filter/FlateDecode/Length 115>>stream
+xœÂ±‚0àıâu99hiYMp7¹ÄÁ8ÔX´ØÑ.¾½æûV2Â½…ó7=¬;XÏƒÁ;Ò‰
+­´WÚÒB'j¥coà›ÅAo´9ë#}ğ
+÷ˆTj,5-%äüESÅ5‡ò¼lu¦Qéø÷òĞ›
 endstream
 endobj
 9 0 obj
@@ -36,8 +38,10 @@ endobj
 <</Contents 12 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
 endobj
 14 0 obj
-<</Filter/FlateDecode/Length 117>>stream
-xœË±‚0àıâu9{lYMp7¹ÄÁ8ÔX´ØÑ.¾½ä›¿…¬X¶Î7lög¸sè<÷->‘ÎTh¡ƒÒî(×Ğ°oáMÏâ wÚ\ô™¾x‡GD*5–šærş!Ç±â–Cy]·:Ñ tZı²ú
+<</Filter/FlateDecode/Length 115>>stream
+xœÂ±‚0àıâu99hiYMp7¹ÄÁ8ÔX´ØÑ.¾½æûV2Â½…ó7=¬;XÏƒÁ;Ò‰
+­´WÚÒB'j¥coà›ÅAo´9ë#}ğ
+÷ˆTj,5-%äüESÅ5‡ò¼lu¦Qéø÷òĞ›
 endstream
 endobj
 13 0 obj
@@ -47,7 +51,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20180118111930-03'00')/ModDate(D:20180118111930-03'00')/Producer(iText® 7.1.2-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: page-break-after: left)/assert(The 'left' value of the 'page-break-after' property forces one or two page breaks before the box so that the page after the break is formatted as a left page)/flags(paged)>>
+<</CreationDate(D:20181123124105+03'00')/ModDate(D:20181123124105+03'00')/Producer(iText® 7.1.5-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: page-break-after: left)/assert(The 'left' value of the 'page-break-after' property forces one or two page breaks before the box so that the page after the break is formatted as a left page)/flags(paged)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -58,23 +62,23 @@ endobj
 xref
 0 15
 0000000000 65535 f 
-0000001615 00000 n 
-0000002135 00000 n 
-0000001660 00000 n 
-0000000233 00000 n 
+0000001586 00000 n 
+0000002106 00000 n 
+0000001631 00000 n 
+0000000208 00000 n 
 0000000015 00000 n 
-0000002045 00000 n 
-0000000550 00000 n 
-0000000366 00000 n 
-0000000868 00000 n 
-0000000683 00000 n 
-0000001160 00000 n 
-0000001002 00000 n 
-0000001480 00000 n 
-0000001295 00000 n 
+0000002016 00000 n 
+0000000525 00000 n 
+0000000341 00000 n 
+0000000841 00000 n 
+0000000658 00000 n 
+0000001133 00000 n 
+0000000975 00000 n 
+0000001451 00000 n 
+0000001268 00000 n 
 trailer
-<</ID [<791663a94f73973fc320c8e73e063651><791663a94f73973fc320c8e73e063651>]/Info 3 0 R/Root 1 0 R/Size 15>>
-%iText-7.1.2-SNAPSHOT
+<</ID [<22f95a722277c5afca2674dcaa2bc51b><22f95a722277c5afca2674dcaa2bc51b>]/Info 3 0 R/Root 1 0 R/Size 15>>
+%iText-7.1.5-SNAPSHOT
 startxref
-2212
+2183
 %%EOF

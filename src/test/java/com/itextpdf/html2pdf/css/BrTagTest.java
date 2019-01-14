@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -85,6 +85,6 @@ public class BrTagTest extends ExtendedITextTest {
         Assert.assertTrue(elements.get(1) instanceof Paragraph);
         Assert.assertEquals(1, ((Paragraph)elements.get(1)).getChildren().size());
         IElement iElement = ((Paragraph) elements.get(1)).getChildren().get(0);
-        Assert.assertEquals("freesans", iElement.<String>getProperty(Property.FONT));
+        Assert.assertArrayEquals(new String[] {"freesans"}, iElement.<String[]>getProperty(Property.FONT));
     }
 }

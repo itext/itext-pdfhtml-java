@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Margin Box Tests: only top right</title>
+    <style type="text/css">
+        @page
+        {
+            size: A4 portrait;
+            font-family: FreeSans;
+            color: #2d2d2d;
+
+            margin: 200px;
+
+            @top-left-corner { content: "Corner"; background:pink; border: solid black 10pt;  }
+            @top-right-corner { content: "Corner"; background:pink; border: solid black 10pt; }
+            @bottom-left-corner { content: "Corner"; background:pink; border: solid black 10pt; }
+            @bottom-right-corner { content: "Corner"; background:pink; border: solid black 10pt; }
+
+            
+            @left-top { content: "oops"; background:rgba(255,0,0,0.5);  border: solid rgba(255,255,255,0.4) 10pt; margin: -10pt; }
+
+            @left-middle { content: "intentionally big text intentionally big text intentionally big text intentionally big text intentionally big text intentionally big text intentionally big text"; background:rgba(0,255,0,0.5);  border: solid rgba(255,255,255,0.4) 10pt;  }
+
+            @left-bottom{ content: "oops"; background:rgba(0,0,255,0.5); border: solid rgba(255,255,255,0.4) 10pt;  }
+
+
+            @right-top { content: "oops"; background:rgba(255,0,0,0.5);  border: solid rgba(255,255,255,0.4) 10pt; margin: -10pt; }
+
+            @right-middle { content: "intentionally big text intentionally big text intentionally big text intentionally big text intentionally big text intentionally big text intentionally big text"; background:rgba(0,255,0,0.5);  border: solid rgba(255,255,255,0.4) 10pt; margin: -10pt; }
+
+            @right-bottom { content: "oops"; background:rgba(0,0,255,0.5); border: solid rgba(255,255,255,0.4) 10pt; margin: -10pt; }
+
+
+
+            @top-left { content: "oops"; background:rgba(255,0,0,0.5);  border: solid rgba(255,255,255,0.4) 10pt; margin: -10pt; }
+
+            @top-center { content: "intentionally big text intentionally big text intentionally big text intentionally big text intentionally big text intentionally big text intentionally big text"; background:rgba(0,255,0,0.5);  border: solid rgba(255,255,255,0.4) 10pt;  }
+
+            @top-right{ content: "oops"; background:rgba(0,0,255,0.5); border: solid rgba(255,255,255,0.4) 10pt;  }
+
+
+
+            @bottom-left { content: "oops"; background:rgba(255,0,0,0.5);  border: solid rgba(255,255,255,0.4) 10pt; margin: -10pt; }
+
+            @bottom-center { content: "intentionally big text intentionally big text intentionally big text intentionally big text intentionally big text intentionally big text intentionally big text"; background:rgba(0,255,0,0.5);  border: solid rgba(255,255,255,0.4) 10pt; margin: -10pt; }
+
+            @bottom-right{ content: "oops"; background:rgba(0,0,255,0.5); border: solid rgba(255,255,255,0.4) 10pt; margin: -10pt; }
+        }
+        body {
+            border: solid black 10pt;
+        }
+    </style>
+</head>
+<body>
+<!-- main -->
+<div>Just a div</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		optgroup {
+			border: 0.5px solid;
+			white-space: pre;
+		}
+		option {
+			white-space: pre;
+		}
+		.fixedWidthSmall {
+			width: 3px; 
+		}
+		.fixedWidthBigger {
+			width: 40px; 
+		}
+		.fixedWidthLarge {
+			width: 100px; 
+		}
+	</style>
+</head>
+<body>
+<select name="options" size="10" style="width: 200px">
+	<optgroup label="Group 1" class="fixedWidthSmall">
+		<option value="value1">Val&#10;ue 1</option> 
+  		<option value="value2">Value 2</option>
+	</optgroup>
+	<optgroup label="Gro&#10;up 2" class="fixedWidthBigger">
+		<option value="value3">Val<br>ue 3</option>
+  		<option value="value4">Value 4</option>		
+	</optgroup>
+	<optgroup label="Group 3" class="fixedWidthLarge">
+  		<option value="value5" selected>Value 5</option>		
+	</optgroup>
+	<optgroup label="Group 4">
+	</optgroup>
+	<optgroup label="Group 5">
+  		<option value="value6" selected>Value&#10;6</option>		
+	</optgroup>
+</select>
+
+<select name="options" size="10" style="width: 200px; white-space: pre;">
+	<optgroup label="Group 1" class="fixedWidthSmall">
+		<option value="value1">Val&#10;ue 1</option> 
+  		<option value="value2">Value 2</option>
+	</optgroup>
+	<optgroup label="Gro&#10;up 2" class="fixedWidthBigger">
+		<option value="value3">Val<br>ue 3</option>
+  		<option value="value4">Value 4</option>		
+	</optgroup>
+	<optgroup label="Group 3" class="fixedWidthLarge">
+  		<option value="value5" selected>Value 5</option>		
+	</optgroup>
+	<optgroup label="Group 4">
+	</optgroup>
+	<optgroup label="Group 5">
+  		<option value="value6" selected>Value&#10;6</option>		
+	</optgroup>
+</select>
+
+</body>
+</html>

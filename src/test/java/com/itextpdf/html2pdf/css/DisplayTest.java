@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -298,6 +298,26 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void displayInlineBlockYLineTest06() throws IOException, InterruptedException {
         convertToPdfAndCompare("displayInlineBlockYLineTest06", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void displayNoneImportant01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("displayNoneImportant01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void displayNoneImportant02() throws IOException, InterruptedException {
+        convertToPdfAndCompare("displayNoneImportant02", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void displayNoneImportant03() throws IOException, InterruptedException {
+        convertToPdfAndCompare("displayNoneImportant03", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void displayDivInlineWithStyle() throws IOException, InterruptedException {
+        convertToPdfAndCompare("displayDivInlineWithStyle", sourceFolder, destinationFolder);
     }
 
     @Test

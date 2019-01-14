@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -52,6 +52,7 @@ import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.html2pdf.resolver.form.FormFieldNameResolver;
 import com.itextpdf.html2pdf.resolver.form.RadioCheckResolver;
+import com.itextpdf.html2pdf.resolver.resource.HtmlResourceResolver;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.kernel.counter.event.IMetaInfo;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -201,7 +202,7 @@ public class ProcessorContext {
             outlineHandler = new OutlineHandler();
         }
 
-        resourceResolver = new ResourceResolver(baseUri);
+        resourceResolver = new HtmlResourceResolver(baseUri, this);
 
         cssContext = new CssContext();
         linkContext = new LinkContext();
@@ -471,7 +472,7 @@ public class ProcessorContext {
     /**
      * Set the processor to processing Inline Svg state
      */
-    public void startProcessingInlineSvg(){
+    public void startProcessingInlineSvg() {
         processingInlineSvg = true;
     }
 

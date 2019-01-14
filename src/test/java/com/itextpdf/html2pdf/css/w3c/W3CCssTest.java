@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.w3c;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
@@ -85,8 +86,12 @@ public abstract class W3CCssTest extends ExtendedITextTest {
         String outFilePath = destinationFolder + getOutPdfFileName();
         String cmpFilePath = sourceFolder + getOutPdfFileName();
         System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlFilePath).getPath() + "\n");
-        HtmlConverter.convertToPdf(new File(htmlFilePath), new File(outFilePath));
+        HtmlConverter.convertToPdf(new File(htmlFilePath), new File(outFilePath), getConverterProperties());
         Assert.assertNull(new CompareTool().compareByContent(outFilePath, cmpFilePath, destinationFolder, "diff_"));
+    }
+
+    protected ConverterProperties getConverterProperties() {
+        return null;
     }
 
     private String getDestinationFolder() {

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -79,6 +79,19 @@ public final class MarginApplierUtil {
      * @param element the element
      */
     public static void applyMargins(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+        applyMargins(cssProps, context, element, 0.0f, 0.0f);
+    }
+
+    /**
+     * Applies margins to an element.
+     *
+     * @param cssProps the CSS properties
+     * @param context the processor context
+     * @param element the element
+     * @param baseValueHorizontal value used by default for horizontal dimension
+     * @param baseValueVertical value used by default for vertical dimension
+     */
+    public static void applyMargins(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element, float baseValueVertical, float baseValueHorizontal) {
         String marginTop = cssProps.get(CssConstants.MARGIN_TOP);
         String marginBottom = cssProps.get(CssConstants.MARGIN_BOTTOM);
         String marginLeft = cssProps.get(CssConstants.MARGIN_LEFT);
@@ -92,12 +105,12 @@ public final class MarginApplierUtil {
         float rem = context.getCssContext().getRootFontSize();
 
         if (isBlock || isImage) {
-            trySetMarginIfNotAuto(Property.MARGIN_TOP, marginTop, element, em, rem);
-            trySetMarginIfNotAuto(Property.MARGIN_BOTTOM, marginBottom, element, em, rem);
+            trySetMarginIfNotAuto(Property.MARGIN_TOP, marginTop, element, em, rem, baseValueVertical);
+            trySetMarginIfNotAuto(Property.MARGIN_BOTTOM, marginBottom, element, em, rem, baseValueVertical);
         }
 
-        boolean isLeftAuto = !trySetMarginIfNotAuto(Property.MARGIN_LEFT, marginLeft, element, em, rem);
-        boolean isRightAuto = !trySetMarginIfNotAuto(Property.MARGIN_RIGHT, marginRight, element, em, rem);
+        boolean isLeftAuto = !trySetMarginIfNotAuto(Property.MARGIN_LEFT, marginLeft, element, em, rem, baseValueHorizontal);
+        boolean isRightAuto = !trySetMarginIfNotAuto(Property.MARGIN_RIGHT, marginRight, element, em, rem, baseValueHorizontal);
 
         if (isBlock) {
             if (isLeftAuto && isRightAuto) {
@@ -119,15 +132,16 @@ public final class MarginApplierUtil {
      * @param element the element
      * @param em the em value
      * @param rem the root em value
+     * @param baseValue value used by default
      * @return false if the margin value was "auto"
      */
-    private static boolean trySetMarginIfNotAuto(int marginProperty, String marginValue, IPropertyContainer element, float em, float rem) {
+    private static boolean trySetMarginIfNotAuto(int marginProperty, String marginValue, IPropertyContainer element, float em, float rem, float baseValue) {
         boolean isAuto = CssConstants.AUTO.equals(marginValue);
         if (isAuto) {
             return false;
         }
         
-        Float marginVal = parseMarginValue(marginValue, em, rem);
+        Float marginVal = parseMarginValue(marginValue, em, rem, baseValue);
         if (marginVal != null) {
             element.setProperty(marginProperty, UnitValue.createPointValue((float) marginVal));
         }
@@ -140,12 +154,16 @@ public final class MarginApplierUtil {
      * @param marginValString the margin value as a {@link String}
      * @param em the em value
      * @param rem the root em value
+     * @param baseValue value used my default
      * @return the margin value as a {@link Float}
      */
-    private static Float parseMarginValue(String marginValString, float em, float rem) {
+    private static Float parseMarginValue(String marginValString, float em, float rem, float baseValue) {
         UnitValue marginUnitVal = CssUtils.parseLengthValueToPt(marginValString, em, rem);
         if (marginUnitVal != null) {
             if (!marginUnitVal.isPointValue()) {
+                if (baseValue != 0.0f) {
+                    return new Float(baseValue * marginUnitVal.getValue() * 0.01);
+                }
                 logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 return null;
             }

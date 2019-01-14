@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -51,6 +51,7 @@ import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.font.FontFamilySplitter;
 import com.itextpdf.layout.property.BaseDirection;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.Leading;
@@ -100,7 +101,9 @@ public final class FontStyleApplierUtil {
         }
 
         if (cssProps.get(CssConstants.FONT_FAMILY) != null) {
-            element.setProperty(Property.FONT, cssProps.get(CssConstants.FONT_FAMILY));
+            // TODO DEVSIX-2534
+            List<String> fontFamilies = FontFamilySplitter.splitFontFamily(cssProps.get(CssConstants.FONT_FAMILY));
+            element.setProperty(Property.FONT, fontFamilies.toArray(new String[fontFamilies.size()]));
         }
         if (cssProps.get(CssConstants.FONT_WEIGHT) != null) {
             element.setProperty(Property.FONT_WEIGHT, cssProps.get(CssConstants.FONT_WEIGHT));
@@ -151,6 +154,9 @@ public final class FontStyleApplierUtil {
             element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.JUSTIFIED);
             element.setProperty(Property.SPACING_RATIO, 1f);
         }
+
+        String whiteSpace = cssProps.get(CssConstants.WHITE_SPACE);
+        element.setProperty(Property.NO_SOFT_WRAP_INLINE, CssConstants.NOWRAP.equals(whiteSpace) || CssConstants.PRE.equals(whiteSpace));
 
         String textDecorationProp = cssProps.get(CssConstants.TEXT_DECORATION);
         if (textDecorationProp != null) {

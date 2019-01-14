@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -242,7 +242,6 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO DEVSIX-1760
     public void cannotProcessSpecifiedFontTest01() throws IOException, InterruptedException {
         runTest("cannotProcessSpecifiedFontTest01");
     }
@@ -272,7 +271,6 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO DEVSIX-1953
     public void texFonts01() throws IOException, InterruptedException {
         runTest("texFonts01");
     }

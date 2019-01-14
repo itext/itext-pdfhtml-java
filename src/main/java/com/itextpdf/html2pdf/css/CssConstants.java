@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -85,6 +85,12 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant MAX_HEIGHT. */
     public static final String MAX_HEIGHT = "max-height";
 
+    /** The Constant MAX_WIDTH. */
+    public static final String MAX_WIDTH = "max-width";
+
+    /** The Constant MIN_WIDTH. */
+    public static final String MIN_WIDTH = "min-width";
+
     /** The Constant OUTLINE_OFFSET. */
     public static final String OUTLINE_OFFSET = "outline-offset";
 
@@ -96,6 +102,9 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant OVERFLOW_Y. */
     public static final String OVERFLOW_Y = "overflow-y";
+
+    /** The Constant PADDING_INLINE_START. */
+    public static final String PADDING_INLINE_START = "padding-inline-start";
 
     /** The Constant PLACEHOLDER. */
     public static final String PLACEHOLDER = "placeholder";
@@ -114,12 +123,6 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant VISIBLE. */
     public static final String VISIBLE = "visible";
-
-    /** The Constant MAX_WIDTH. */
-    public static final String MAX_WIDTH = "max-width";
-
-    /** The Constant MIN_WIDTH. */
-    public static final String MIN_WIDTH = "min-width";
 
     // property values
 
@@ -255,7 +258,7 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant OVERFLOW_VALUES. */
     public static final Set<String> OVERFLOW_VALUES = new HashSet<>(
-            Arrays.asList(new String[] {VISIBLE, HIDDEN}));
+            Arrays.asList(new String[] {VISIBLE, HIDDEN, SCROLL, AUTO}));
 
     // pseudo-elements
 

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2018 iText Group NV
+    Copyright (c) 1998-2019 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -57,16 +57,16 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class ListTest extends ExtendedITextTest {
@@ -173,6 +173,40 @@ public class ListTest extends ExtendedITextTest {
     @Test
     public void listTest19() throws IOException, InterruptedException {
         runTest("listTest19");
+    }
+
+    @Test
+    public void listLiValuePropertyTest() throws IOException, InterruptedException {
+        runTest("listLiValuePropertyTest");
+    }
+
+    @Test
+    public void listStartPropertyTest() throws IOException, InterruptedException {
+        runTest("listStartPropertyTest");
+    }
+
+    @Test
+    public void listItemValueTest() throws IOException, InterruptedException {
+        runTest("listItemValueTest");
+    }
+
+    @Test
+    public void listItemValueTest01() throws IOException, InterruptedException {
+        runTest("listItemValueTest01");
+    }
+    @Test
+    public void listItemValueTest02() throws IOException, InterruptedException {
+        runTest("listItemValueTest02");
+    }
+    @Test
+    public void descendingListTest() throws IOException, InterruptedException {
+        runTest("descendingListTest");
+    }
+
+    @Test
+    @Ignore("DEVSIX-2431")
+    public void listItemAbsolutePositionTest() throws IOException, InterruptedException {
+        runTest("list-item-absolute");
     }
 
     @Test
