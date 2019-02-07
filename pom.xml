@@ -15,7 +15,9 @@
   <url>http://itextpdf.com/</url>
   <properties>
     <itext.version>${project.parent.version}</itext.version>
-    <javadoc.version>3.0.0</javadoc.version>
+    <javadoc.version>3.0.1</javadoc.version>
+    <javadoc-additionalOptions />
+    <javadoc-link>https://docs.oracle.com/javase/8/docs/api/</javadoc-link>
   </properties>
   <repositories>
     <repository>
@@ -118,6 +120,11 @@
         <configuration>
           <quiet>true</quiet>
           <failOnError>true</failOnError>
+          <source>7</source>
+          <additionalOptions>${javadoc-additionalOptions}</additionalOptions>
+          <links>
+            <link>${javadoc-link}</link>
+          </links>
         </configuration>
       </plugin>
       <plugin>
@@ -160,4 +167,16 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>java9+</id>
+      <activation>
+        <jdk>[9,)</jdk>
+      </activation>
+      <properties>
+        <javadoc-additionalOptions>-html5</javadoc-additionalOptions>
+        <javadoc-link>https://docs.oracle.com/javase/9/docs/api/</javadoc-link>
+      </properties>
+    </profile>
+  </profiles>
 </project>
