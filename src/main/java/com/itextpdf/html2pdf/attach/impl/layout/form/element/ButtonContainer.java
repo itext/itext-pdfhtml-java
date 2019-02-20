@@ -44,7 +44,6 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.element;
 
 import com.itextpdf.html2pdf.attach.impl.layout.form.renderer.ButtonContainerRenderer;
 import com.itextpdf.layout.element.BlockElement;
-import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.property.Property;

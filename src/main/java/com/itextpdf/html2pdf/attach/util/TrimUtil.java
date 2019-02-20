@@ -53,9 +53,7 @@ import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.styledxmlparser.util.WhiteSpaceUtil;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Utility class to trim content.

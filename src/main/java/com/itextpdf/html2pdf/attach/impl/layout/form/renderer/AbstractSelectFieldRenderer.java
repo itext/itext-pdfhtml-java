@@ -56,12 +56,12 @@ import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.BlockRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.ParagraphRenderer;
 import com.itextpdf.layout.splitting.ISplitCharacters;
-import java.util.ArrayList;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Abstract {@link BlockRenderer} for select form fields.

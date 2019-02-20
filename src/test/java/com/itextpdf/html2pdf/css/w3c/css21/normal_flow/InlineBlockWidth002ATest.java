@@ -43,8 +43,6 @@
 package com.itextpdf.html2pdf.css.w3c.css21.normal_flow;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
 public class InlineBlockWidth002ATest extends W3CCssTest {
     @Override

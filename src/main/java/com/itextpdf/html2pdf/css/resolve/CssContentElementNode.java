@@ -44,7 +44,11 @@ package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.styledxmlparser.css.CssContextNode;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementUtil;
-import com.itextpdf.styledxmlparser.node.*;
+import com.itextpdf.styledxmlparser.node.IAttribute;
+import com.itextpdf.styledxmlparser.node.IAttributes;
+import com.itextpdf.styledxmlparser.node.ICustomElementNode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.INode;
 
 import java.util.Iterator;
 import java.util.List;

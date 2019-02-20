@@ -43,7 +43,6 @@
 package com.itextpdf.html2pdf.css.w3c.css21.generated_content;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import org.junit.Ignore;
 
 /**
  * Difference in width of two lines is due the our approach of fonts resolving.

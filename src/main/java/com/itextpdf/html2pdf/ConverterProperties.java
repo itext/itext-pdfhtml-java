@@ -45,7 +45,6 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
-import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.kernel.counter.event.IMetaInfo;
 import com.itextpdf.layout.font.FontProvider;

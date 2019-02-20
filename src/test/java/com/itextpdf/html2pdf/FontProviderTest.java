@@ -46,15 +46,18 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
+import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.IOException;
 
 // Actually the results are invalid because there is no pdfCalligraph.
 // But we'd like to test how Free Sans works for a specific scripts.
+@Category(IntegrationTest.class)
 public class FontProviderTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/FontProviderTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/FontProviderTest/";

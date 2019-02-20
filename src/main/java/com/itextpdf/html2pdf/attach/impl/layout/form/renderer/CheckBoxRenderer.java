@@ -62,8 +62,6 @@ import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
 
-import java.nio.charset.StandardCharsets;
-
 /**
  * The {@link AbstractOneLineTextFieldRenderer} implementation for checkboxes.
  */
