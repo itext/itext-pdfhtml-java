@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
@@ -119,6 +120,38 @@ public class TableTest extends ExtendedITextTest {
     @Test
     public void helloTableFixed8DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_fixed8");
+    }
+
+    @Test
+    public void helloTableFixedLackOfTableWidthTest01() throws IOException, InterruptedException {
+        runTest("helloTableFixedLackOfTableWidthTest01", false, new PageSize(PageSize.A3).rotate());
+    }
+
+    @Test
+    public void helloTableFixedLackOfTableWidthTest01A() throws IOException, InterruptedException {
+        runTest("helloTableFixedLackOfTableWidthTest01A", false, new PageSize(PageSize.A3).rotate());
+    }
+
+    @Test
+    public void helloTableFixedLackOfTableWidthTest02() throws IOException, InterruptedException {
+        runTest("helloTableFixedLackOfTableWidthTest02", false, new PageSize(PageSize.A3).rotate());
+    }
+
+    @Test
+    public void helloTableFixedLackOfTableWidthTest02A() throws IOException, InterruptedException {
+        runTest("helloTableFixedLackOfTableWidthTest02A", false, new PageSize(PageSize.A3).rotate());
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, count = 3))
+    public void helloTableFixedLackOfTableWidthTest03() throws IOException, InterruptedException {
+        runTest("helloTableFixedLackOfTableWidthTest03", false, new PageSize(PageSize.A3).rotate());
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, count = 3))
+    public void helloTableFixedLackOfTableWidthTest03A() throws IOException, InterruptedException {
+        runTest("helloTableFixedLackOfTableWidthTest03A", false, new PageSize(PageSize.A3).rotate());
     }
 
     @Test
@@ -423,7 +456,14 @@ public class TableTest extends ExtendedITextTest {
     }
 
     private void runTest(String testName, boolean tagged) throws IOException, InterruptedException {
+        runTest(testName, tagged, null);
+    }
+
+    private void runTest(String testName, boolean tagged, PageSize pageSize) throws IOException, InterruptedException {
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + testName + ".pdf"));
+        if (null != pageSize) {
+            pdfDocument.setDefaultPageSize(pageSize);
+        }
         if (tagged) {
             pdfDocument.setTagged();
         }
