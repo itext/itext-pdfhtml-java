@@ -12,6 +12,10 @@
   <name>pdfHTML</name>
   <description>pdfHTML is an iText 7 add-on that lets you to parse (X)HTML snippets and the associated CSS and converts
     them to PDF.</description>
+  <scm>
+    <connection>scm:git:ssh://git@git.itextsupport.com:7999/i7j/html2pdf.git</connection>
+    <url>https://git.itextsupport.com/projects/I7J/repos/html2pdf</url>
+  </scm>
   <properties>
     <itext.version>${project.parent.version}</itext.version>
   </properties>
