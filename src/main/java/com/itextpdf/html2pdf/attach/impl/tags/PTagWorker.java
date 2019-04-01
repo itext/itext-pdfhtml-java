@@ -47,9 +47,12 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.AbstractElement;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
@@ -66,16 +69,17 @@ import java.util.List;
  *
  * <li> if the worker meets a block element without inline displaying or
  * an inline element with the {@code display: block} style, it wraps all the content which hasn't been handled yet
- * into a {@code com.itextpdf.layout.element.Paragraph} object and adds this paragraph to the {@link #elements list of elements},
- * which are going to be wrapped into a {@code com.itextpdf.layout.element.Div} object on {@link #processEnd}</li>
+ * into a {@code com.itextpdf.layout.element.Paragraph} object and adds this paragraph to the resultant {@code com.itextpdf.layout.element.Div} object
+ * </li>
  * </ul>
  */
 public class PTagWorker implements ITagWorker, IDisplayAware {
 
     /** The latest paragraph object inside tag. */
     private Paragraph lastParagraph;
-    /** List of block elements that contained in the &lt;p&gt; tag. */
-    private List<IBlockElement> elements;
+
+    /** The container which handles the elements that are present in the &lt;p&gt; tag. */
+    private Div elementsContainer;
 
     /** Helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
@@ -119,7 +123,11 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         // TODO child might be inline, however still have display:block; it behaves like a block, however p includes it in own occupied area
         IPropertyContainer element = childTagWorker.getElementResult();
-        if (element instanceof ILeafElement) {
+        if (childTagWorker instanceof ImgTagWorker && CssConstants.BLOCK.equals(((ImgTagWorker) childTagWorker).getDisplay())) {
+            IPropertyContainer propertyContainer = childTagWorker.getElementResult();
+            processBlockElement((Image) propertyContainer);
+            return true;
+        } else if (element instanceof ILeafElement) {
             inlineHelper.add((ILeafElement) element);
             return true;
         } else if (isBlockWithDisplay(childTagWorker, element, CssConstants.INLINE_BLOCK, false)) {
@@ -153,15 +161,7 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public IPropertyContainer getElementResult() {
-        if (elements == null) {
-            return lastParagraph;
-        }
-
-        Div div = new Div();
-        for (IBlockElement element : elements) {
-            div.add(element);
-        }
-        return div;
+        return null == elementsContainer ? (IPropertyContainer) lastParagraph : (IPropertyContainer) elementsContainer;
     }
 
     @Override
@@ -169,17 +169,21 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
         return display;
     }
 
-    private void processBlockElement(IBlockElement propertyContainer) {
-        if (elements == null) {
-            elements = new ArrayList<>();
-            elements.add(lastParagraph);
+    private void processBlockElement(IElement propertyContainer) {
+        if (elementsContainer == null) {
+            elementsContainer = new Div();
+            elementsContainer.add(lastParagraph);
         }
         inlineHelper.flushHangingLeaves(lastParagraph);
 
-        elements.add(propertyContainer);
+        if (propertyContainer instanceof Image) {
+            elementsContainer.add((Image) propertyContainer);
+        } else {
+            elementsContainer.add((IBlockElement) propertyContainer);
+        }
 
         lastParagraph = new Paragraph();
-        elements.add(lastParagraph);
+        elementsContainer.add(lastParagraph);
     }
 
     private boolean isBlockWithDisplay(ITagWorker childTagWorker, IPropertyContainer element,

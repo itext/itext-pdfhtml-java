@@ -185,4 +185,9 @@ public class ParagraphTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithLabelSpanDisplayBlockTest.pdf", sourceFolder + "cmp_paragraphWithLabelSpanDisplayBlockTest.pdf", destinationFolder, "diff15_"));
     }
 
+    @Test
+    public void paragraphWithImageTest01() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithImageTest01.html"), new File(destinationFolder + "paragraphWithImageTest01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithImageTest01.pdf", sourceFolder + "cmp_paragraphWithImageTest01.pdf", destinationFolder, "diff_paragraphWithImageTest01_"));
+    }
 }
