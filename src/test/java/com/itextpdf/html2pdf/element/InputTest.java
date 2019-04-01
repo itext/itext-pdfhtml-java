@@ -176,6 +176,12 @@ public class InputTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INPUT_TYPE_IS_INVALID))
+    public void inputDefaultTest01() throws IOException, InterruptedException {
+        runTest("inputDefaultTest01");
+    }
+
+    @Test
     public void placeholderTest01() throws IOException, InterruptedException {
         runTest("placeholderTest01");
     }

@@ -72,6 +72,8 @@ public final class LogMessageConstant {
     /** The Constant INPUT_SUPPORTS_ONLY_POINT_WIDTH. */
     @Deprecated
     public static final String INPUT_SUPPORTS_ONLY_POINT_WIDTH = "Input field supports only point width";
+    /** The Constant INPUT_TYPE_IS_INVALID. */
+    public static final String INPUT_TYPE_IS_INVALID = "Input type {0} is invalid. The default text type will be used instead.";
     /** The Constant INPUT_TYPE_IS_NOT_SUPPORTED. */
     public static final String INPUT_TYPE_IS_NOT_SUPPORTED = "Input type {0} is not supported";
     /** The Constant INVALID_CSS_PROPERTY_DECLARATION. */
