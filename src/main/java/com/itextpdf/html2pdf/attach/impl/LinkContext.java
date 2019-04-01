@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 
@@ -91,9 +92,12 @@ public class LinkContext {
         while (!stk.isEmpty()) {
             INode n = stk.pop();
             if (n instanceof IElementNode) {
-                IElementNode n2 = (IElementNode) n;
-                if (n2.name().equals(AttributeConstants.a) && n2.getAttribute(AttributeConstants.HREF) != null && n2.getAttribute(AttributeConstants.HREF).startsWith("#")) {
-                    linkDestinations.add(n2.getAttribute(AttributeConstants.HREF).substring(1));
+                IElementNode elem = (IElementNode) n;
+                if (TagConstants.A.equals(elem.name())) {
+                    String href = elem.getAttribute(AttributeConstants.HREF);
+                    if (href != null && href.startsWith("#")){
+                        linkDestinations.add(href.substring(1));
+                    }
                 }
             }
             if (!n.childNodes().isEmpty()) {

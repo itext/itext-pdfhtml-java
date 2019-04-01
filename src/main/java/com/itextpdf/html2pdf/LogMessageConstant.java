@@ -49,6 +49,7 @@ public final class LogMessageConstant {
 
     /** The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT. */
     public static final String ACROFORM_NOT_SUPPORTED_FOR_SELECT = "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will be flattened instead.";
+    public static final String ANCHOR_LINK_NOT_HANDLED = "The anchor link was not handled. Could not create a destination for element \"{0}\" with ID \"{1}\", which is processed by \"{2}\" tag worker class.";
     /** The Constant CONTENT_PROPERTY_INVALID. */
     public static final String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
     /** The Constant CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED. */
@@ -111,7 +112,7 @@ public final class LogMessageConstant {
     public static final String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
     /** The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE. */
     public static final String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
-    /** The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG*/
+    /** The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG */
     public static final String UNABLE_TO_PROCESS_IMAGE_AS_SVG = "Unable to process image found at {0} as an SVG";
     /** The Constant UNABLE_TO_RESOLVE_COUNTER. */
     public static final String UNABLE_TO_RESOLVE_COUNTER = "Unable to resolve counter \"{0}\"";

@@ -170,4 +170,11 @@ public class LinkTest extends ExtendedITextTest {
         }
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest12.pdf", sourceFolder + "cmp_linkTest12.pdf", destinationFolder, "diff12_"));
     }
+
+    @Test
+    public void anchorLinkToSpanTest01() throws IOException, InterruptedException {
+        String fileName = "anchorLinkToSpanTest01";
+        HtmlConverter.convertToPdf(new File(sourceFolder + fileName + ".html"), new File(destinationFolder + fileName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + fileName + ".pdf", sourceFolder + "cmp_" + fileName + ".pdf", destinationFolder));
+    }
 }
