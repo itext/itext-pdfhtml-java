@@ -12,12 +12,8 @@
   <name>pdfHTML</name>
   <description>pdfHTML is an iText 7 add-on that lets you to parse (X)HTML snippets and the associated CSS and converts
     them to PDF.</description>
-  <url>http://itextpdf.com/</url>
   <properties>
     <itext.version>${project.parent.version}</itext.version>
-    <javadoc.version>3.0.1</javadoc.version>
-    <javadoc-additionalOptions />
-    <javadoc-link>https://docs.oracle.com/javase/8/docs/api/</javadoc-link>
   </properties>
   <repositories>
     <repository>
@@ -109,37 +105,8 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${javadoc.version}</version>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
         <configuration>
-          <quiet>true</quiet>
-          <failOnError>true</failOnError>
-          <source>7</source>
-          <additionalOptions>${javadoc-additionalOptions}</additionalOptions>
-          <links>
-            <link>${javadoc-link}</link>
-          </links>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>3.0.1</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>jar-no-fork</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -167,16 +134,4 @@
       </plugin>
     </plugins>
   </build>
-  <profiles>
-    <profile>
-      <id>java9+</id>
-      <activation>
-        <jdk>[9,)</jdk>
-      </activation>
-      <properties>
-        <javadoc-additionalOptions>-html5</javadoc-additionalOptions>
-        <javadoc-link>https://docs.oracle.com/javase/9/docs/api/</javadoc-link>
-      </properties>
-    </profile>
-  </profiles>
 </project>
