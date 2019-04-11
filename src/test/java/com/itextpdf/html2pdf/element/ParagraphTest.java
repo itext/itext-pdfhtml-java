@@ -190,4 +190,10 @@ public class ParagraphTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithImageTest01.html"), new File(destinationFolder + "paragraphWithImageTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithImageTest01.pdf", sourceFolder + "cmp_paragraphWithImageTest01.pdf", destinationFolder, "diff_paragraphWithImageTest01_"));
     }
+
+    @Test
+    public void paragraphWithImageTest01RTL() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "paragraphWithImageTest01RTL.html"), new File(destinationFolder + "paragraphWithImageTest01RTL.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithImageTest01RTL.pdf", sourceFolder + "cmp_paragraphWithImageTest01RTL.pdf", destinationFolder, "diff_paragraphWithImageTest01_"));
+    }
 }
