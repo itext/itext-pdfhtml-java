@@ -61,7 +61,6 @@ import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.font.FontSet;
 import com.itextpdf.layout.font.Range;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
-import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 
 /**
@@ -416,7 +415,7 @@ public class ProcessorContext {
         this.linkContext = new LinkContext();
         this.formFieldNameResolver.reset();
         //Reset font provider. PdfFonts shall be reseted.
-        this.fontProvider = new BasicFontProvider(this.fontProvider.getFontSet(), this.fontProvider.getDefaultFontFamily());
+        this.fontProvider.reset();
         this.tempFonts = null;
         this.outlineHandler.reset();
         this.processingInlineSvg = false;

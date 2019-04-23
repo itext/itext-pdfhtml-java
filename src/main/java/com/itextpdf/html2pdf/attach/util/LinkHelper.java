@@ -42,8 +42,11 @@
  */
 package com.itextpdf.html2pdf.attach.util;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfArray;
 import com.itextpdf.kernel.pdf.action.PdfAction;
@@ -56,6 +59,9 @@ import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.styledxmlparser.node.IElementNode;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Helper class for links.
@@ -99,22 +105,33 @@ public class LinkHelper {
      * @param context   the Processor context
      */
     public static void createDestination(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
-        if (element.getAttribute(AttributeConstants.ID) == null)
-            return;
-
-        if (tagWorker == null)
-            return;
-
-        IPropertyContainer propertyContainer = tagWorker.getElementResult();
-        if (propertyContainer == null)
-            return;
-
-        // get id
         String id = element.getAttribute(AttributeConstants.ID);
+        if (id == null)
+            return;
 
-        // set property
-        if (context.getLinkContext().isUsedLinkDestination(id)) {
-            propertyContainer.setProperty(Property.DESTINATION, id);
+        if (!context.getLinkContext().isUsedLinkDestination(id)) {
+            return;
         }
+
+        IPropertyContainer propertyContainer = null;
+        if (tagWorker != null) {
+            if (tagWorker instanceof SpanTagWorker) {
+                List<IPropertyContainer> spanElements = ((SpanTagWorker) tagWorker).getAllElements();
+                if (!spanElements.isEmpty()) {
+                    propertyContainer = spanElements.get(0);
+                }
+            } else {
+                propertyContainer = tagWorker.getElementResult();
+            }
+        }
+
+        if (propertyContainer == null) {
+            Logger logger = LoggerFactory.getLogger(LinkHelper.class);
+            String tagWorkerClassName = tagWorker != null ? tagWorker.getClass().getName() : "null";
+            logger.warn(MessageFormatUtil.format(LogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.name(), id, tagWorkerClassName));
+            return;
+        }
+
+        propertyContainer.setProperty(Property.DESTINATION, id);
     }
 }

@@ -44,6 +44,11 @@ package com.itextpdf.html2pdf.html;
 
 import com.itextpdf.styledxmlparser.CommonAttributeConstants;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Class that bundles a series of attribute constants.
  */
@@ -218,14 +223,32 @@ public final class AttributeConstants extends CommonAttributeConstants {
     /** The Constant CHECKED. */
     public static final String CHECKED = "checked";
 
+    /** The Constant DATE. */
+    public static final String DATE = "date";
+
+    /** The Constant DATETIME. */
+    public static final String DATETIME = "datetime";
+
+    /** The Constant DATETIME_LOCAL. */
+    public static final String DATETIME_LOCAL = "datetime_local";
+
     /** The Constant EMAIL. */
     public static final String EMAIL = "email";
+
+    /** The Constant FILE. */
+    public static final String FILE = "file";
+
+    /** The Constant HIDDEN. */
+    public static final String HIDDEN = "hidden";
 
     /** The Constant I. */
     public static final String I = "I";
 
     /** The Constant i. */
     public static final String i = "i";
+
+    /** The Constant IMAGE. */
+    public static final String IMAGE = "image";
 
     /** The Constant LEFT. */
     public static final String LEFT = "left";
@@ -236,11 +259,23 @@ public final class AttributeConstants extends CommonAttributeConstants {
     /** The Constant MIDDLE. */
     public static final String MIDDLE = "middle";
 
+    /** The Constant MONTH. */
+    public static final String MONTH = "month";
+
     /** The Constant PASSWORD. */
     public static final String PASSWORD = "password";
 
+    /** The Constant PLACEHOLDER. */
+    public static final String PLACEHOLDER = "placeholder";
+
     /** The Constant RADIO. */
     public static final String RADIO = "radio";
+
+    /** The Constant RANGE. */
+    public static final String RANGE = "range";
+
+    /** The Constant RESET. */
+    public static final String RESET = "reset";
 
     /** The Constant RIGHT. */
     public static final String RIGHT = "right";
@@ -248,19 +283,37 @@ public final class AttributeConstants extends CommonAttributeConstants {
     /** The Constant RTL. */
     public static final String RTL = "rtl";
 
+    /** The Constant SEARCH. */
+    public static final String SEARCH = "search";
+
+    /**The Constant START*/
+    public static final String START = "start";
+
     /** The Constant SUBMIT. */
     public static final String SUBMIT = "submit";
+
+    /** The Constant TEL. */
+    public static final String TEL = "tel";
 
     /** The Constant TEXT. */
     public static final String TEXT = "text";
 
+    /** The Constant TIME. */
+    public static final String TIME = "time";
+
     /** The Constant TOP. */
     public static final String TOP = "top";
 
-    /**The Constant start*/
-    public static final String START = "start";
+    /**The Constant URL*/
+    public static final String URL = "url";
 
-    public static final String PLACEHOLDER = "placeholder";
+    /**The Constant WEEK*/
+    public static final String WEEK = "week";
+
+    /** The Constant INPUT_TYPE_VALUES. */
+    public static final Set<String> INPUT_TYPE_VALUES = Collections.unmodifiableSet(new HashSet<>(
+            Arrays.asList(new String[] {BUTTON, CHECKBOX, COLOR, DATE, DATETIME, DATETIME_LOCAL, EMAIL, FILE, HIDDEN,
+                    IMAGE, MONTH, NUMBER, PASSWORD, RADIO, RANGE, RESET, SEARCH, SUBMIT, TEL, TEXT, TIME, URL, WEEK})));
 
     // iText custom attributes
     public static final class ObjectTypes{

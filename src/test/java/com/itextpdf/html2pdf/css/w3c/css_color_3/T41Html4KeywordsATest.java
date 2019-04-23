@@ -43,7 +43,6 @@
 package com.itextpdf.html2pdf.css.w3c.css_color_3;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import org.junit.Ignore;
 
 public class T41Html4KeywordsATest extends W3CCssTest {
     @Override

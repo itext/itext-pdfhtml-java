@@ -43,7 +43,6 @@
 package com.itextpdf.html2pdf.css.w3c.css3_selectors;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import org.junit.Ignore;
 
 public class Css3Modsel_65_NegatedFocusPseudoClassTest extends W3CCssTest {
     @Override

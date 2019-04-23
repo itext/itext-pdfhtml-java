@@ -52,7 +52,11 @@ import com.itextpdf.test.annotations.type.UnitTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;

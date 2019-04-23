@@ -84,6 +84,13 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
      */
     public InputTagWorker(IElementNode element, ProcessorContext context) {
         String inputType = element.getAttribute(AttributeConstants.TYPE);
+        if (!AttributeConstants.INPUT_TYPE_VALUES.contains(inputType)) {
+            if (null != inputType && 0 != inputType.length()) {
+                Logger logger = LoggerFactory.getLogger(InputTagWorker.class);
+                logger.warn(MessageFormatUtil.format(LogMessageConstant.INPUT_TYPE_IS_INVALID, inputType));
+            }
+            inputType = AttributeConstants.TEXT;
+        }
         String value = element.getAttribute(AttributeConstants.VALUE);
         String name = context.getFormFieldNameResolver().resolveFormName(element.getAttribute(AttributeConstants.NAME));
         // Default input type is text

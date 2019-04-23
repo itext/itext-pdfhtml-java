@@ -137,7 +137,8 @@ public final class FontStyleApplierUtil {
         }
 
         if (stylesContainer instanceof IElementNode && ((IElementNode) stylesContainer).parentNode() instanceof IElementNode &&
-                CssConstants.RTL.equals(((IElementNode) ((IElementNode) stylesContainer).parentNode()).getStyles().get(CssConstants.DIRECTION))) {
+                CssConstants.RTL.equals(((IElementNode) ((IElementNode) stylesContainer).parentNode()).getStyles().get(CssConstants.DIRECTION)) &&
+                !element.hasProperty(Property.HORIZONTAL_ALIGNMENT)) {
             // We should only apply horizontal alignment if parent has dir attribute or direction property
             element.setProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.RIGHT);
         }

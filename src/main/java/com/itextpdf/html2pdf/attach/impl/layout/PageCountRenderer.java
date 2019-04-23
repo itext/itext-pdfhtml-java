@@ -74,8 +74,15 @@ class PageCountRenderer extends TextRenderer {
     @Override
     public LayoutResult layout(LayoutContext layoutContext) {
         PageCountType pageCountType = (PageCountType)this.<PageCountType>getProperty(Html2PdfProperty.PAGE_COUNT_TYPE);
+        String previousText = getText().toString();
+        // If typography is enabled and the page counter element has a non-default direction,
+        // iText processes its content (see LineRenderer#updateBidiLevels) before layouting it.
+        // This might result in an ArrayIndexOutOfBounds exception, because currently iText updates the page counter's content on layout.
+        // To solve this, this workaround has been implemented: the renderer's strToBeConverted shouldn't be updated by layout.
+        boolean textHasBeenReplaced = false;
         if (pageCountType == PageCountType.CURRENT_PAGE_NUMBER) {
             setText(String.valueOf(layoutContext.getArea().getPageNumber()));
+            textHasBeenReplaced = true;
         } else if (pageCountType == PageCountType.TOTAL_PAGE_COUNT) {
             IRenderer rootRenderer = this;
             while (rootRenderer instanceof AbstractRenderer && ((AbstractRenderer) rootRenderer).getParent() != null) {
@@ -83,11 +90,17 @@ class PageCountRenderer extends TextRenderer {
             }
             if (rootRenderer instanceof HtmlDocumentRenderer && ((HtmlDocumentRenderer) rootRenderer).getEstimatedNumberOfPages() > 0) {
                 setText(String.valueOf(((HtmlDocumentRenderer) rootRenderer).getEstimatedNumberOfPages()));
+                textHasBeenReplaced = true;
             } else if (rootRenderer instanceof DocumentRenderer && rootRenderer.getModelElement() instanceof Document) {
                 setText(String.valueOf(((Document) rootRenderer.getModelElement()).getPdfDocument().getNumberOfPages()));
+                textHasBeenReplaced = true;
             }
         }
-        return super.layout(layoutContext);
+        LayoutResult result = super.layout(layoutContext);
+        if (textHasBeenReplaced) {
+            setText(previousText);
+        }
+        return result;
     }
 
     /* (non-Javadoc)

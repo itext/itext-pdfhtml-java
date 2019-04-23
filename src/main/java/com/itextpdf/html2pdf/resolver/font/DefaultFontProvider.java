@@ -45,7 +45,6 @@ package com.itextpdf.html2pdf.resolver.font;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.io.util.ResourceUtil;
 import com.itextpdf.io.util.StreamUtil;
-import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.font.Range;
 import com.itextpdf.layout.font.RangeBuilder;
 import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;

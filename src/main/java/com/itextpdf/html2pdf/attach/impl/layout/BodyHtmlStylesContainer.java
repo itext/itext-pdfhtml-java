@@ -60,9 +60,6 @@ import java.util.Map;
  */
 public class BodyHtmlStylesContainer implements IPropertyContainer {
 
-    /**
-     * {@inheritDoc}
-     */
     protected Map<Integer, Object> properties = new HashMap<>();
 
     /**

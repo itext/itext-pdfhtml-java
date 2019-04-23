@@ -44,14 +44,9 @@ package com.itextpdf.html2pdf.attach.wrapelement;
 
 import com.itextpdf.html2pdf.attach.util.RowColHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingColgroupsHelper;
-import com.itextpdf.layout.element.AbstractElement;
-import com.itextpdf.layout.element.BlockElement;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.BaseDirection;
-import com.itextpdf.layout.property.CaptionSide;
-import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 
 import java.util.ArrayList;
