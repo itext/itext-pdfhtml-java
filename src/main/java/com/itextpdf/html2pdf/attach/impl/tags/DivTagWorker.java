@@ -135,13 +135,9 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
             postProcessInlineGroup();
             div.add((AreaBreak) element);
             processed = true;
-        } else if (childTagWorker instanceof ImgTagWorker && element instanceof IElement) {
-            if (CssConstants.BLOCK.equals(((ImgTagWorker) childTagWorker).getDisplay())) {
-                processed = addBlockChild((com.itextpdf.layout.element.IElement) element);
-            } else if (childTagWorker.getElementResult() instanceof Image) {
-                inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
-                processed = true;
-            }
+        } else if (childTagWorker instanceof ImgTagWorker && element instanceof IElement && !CssConstants.BLOCK.equals(((ImgTagWorker) childTagWorker).getDisplay())) {
+            inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
+            processed = true;
         } else if (element instanceof com.itextpdf.layout.element.IElement) {
             processed = addBlockChild((com.itextpdf.layout.element.IElement) element);
         }

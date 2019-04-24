@@ -47,19 +47,21 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.font.FontFamilySplitter;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.styledxmlparser.css.ICssResolver;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
+
 import java.util.List;
 
 /**
@@ -143,6 +145,9 @@ public class HtmlTagWorker implements ITagWorker {
             inlineHelper.add((IBlockElement) childTagWorker.getElementResult());
             processed = true;
         } else if (childTagWorker instanceof BrTagWorker) {
+            inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
+            processed = true;
+        } else if (childTagWorker instanceof ImgTagWorker && childTagWorker.getElementResult() instanceof IElement && !CssConstants.BLOCK.equals(((ImgTagWorker) childTagWorker).getDisplay())) {
             inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
             processed = true;
         } else if (childTagWorker.getElementResult() != null) {
