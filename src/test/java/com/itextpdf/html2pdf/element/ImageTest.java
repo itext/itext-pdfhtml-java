@@ -72,4 +72,30 @@ public class ImageTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imagesInBody.pdf", sourceFolder + "cmp_imagesInBody.pdf", destinationFolder, "diff18_"));
     }
 
+    @Test
+    public void imagesWithWideBorders() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "imagesWithWideBorders.html"), new File(destinationFolder + "imagesWithWideBorders.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imagesWithWideBorders.pdf", sourceFolder + "cmp_imagesWithWideBorders.pdf", destinationFolder));
+    }
+
+    @Test
+    public void imagesWithWideMargins() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "imagesWithWideMargins.html"), new File(destinationFolder + "imagesWithWideMargins.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imagesWithWideMargins.pdf", sourceFolder + "cmp_imagesWithWideMargins.pdf", destinationFolder));
+    }
+
+    @Test
+    // TODO DEVSIX-2467
+    public void imagesWithWidePaddings() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "imagesWithWidePaddings.html"), new File(destinationFolder + "imagesWithWidePaddings.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imagesWithWidePaddings.pdf", sourceFolder + "cmp_imagesWithWidePaddings.pdf", destinationFolder));
+    }
+
+    @Test
+    // TODO DEVSIX-2467
+    public void imagesWithWidePaddingsBordersMargins() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "imagesWithWidePaddingsBordersMargins.html"), new File(destinationFolder + "imagesWithWidePaddingsBordersMargins.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imagesWithWidePaddingsBordersMargins.pdf", sourceFolder + "cmp_imagesWithWidePaddingsBordersMargins.pdf", destinationFolder));
+    }
+
 }
