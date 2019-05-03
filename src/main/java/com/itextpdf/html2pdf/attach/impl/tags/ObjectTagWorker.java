@@ -45,22 +45,28 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.ContextMappingHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
+import com.itextpdf.io.util.FileUtil;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.exceptions.SvgProcessingException;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.processors.impl.SvgConverterProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * TagWorker class for the {@code object} element.
@@ -73,13 +79,19 @@ public class ObjectTagWorker implements ITagWorker {
     private static final Logger LOGGER = LoggerFactory.getLogger(ObjectTagWorker.class);
 
     /**
-     * The Svg as image.
+     * Helper for conversion of SVG processing results.
+     */
+    private final SvgProcessingUtil processUtil;
+
+    /**
+     * An Outcome of the worker. The Svg as image.
      */
     private Image image;
 
+    /**
+     * Output of SVG processing.  Intermediate result.
+     */
     private ISvgProcessorResult res;
-
-    private SvgProcessingUtil processUtil;
 
     /**
      * Creates a new {@link ImgTagWorker} instance.
@@ -88,29 +100,35 @@ public class ObjectTagWorker implements ITagWorker {
      * @param context the context
      */
     public ObjectTagWorker(IElementNode element, ProcessorContext context) {
-        image = null;
-        res = null;
-        processUtil = new SvgProcessingUtil();
+        this.processUtil = new SvgProcessingUtil();
+
         //Retrieve object type
         String type = element.getAttribute(AttributeConstants.TYPE);
         if (isSvgImage(type)) {
-            //Use resource resolver to retrieve the URL
-            try (InputStream svgStream = context.getResourceResolver().retrieveResourceAsInputStream(element.getAttribute(AttributeConstants.DATA))) {
+            String dataValue = element.getAttribute(AttributeConstants.DATA);
+            try (InputStream svgStream = context.getResourceResolver().retrieveResourceAsInputStream(dataValue)) {
                 if (svgStream != null) {
-                    try {
-                        SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
-                        svgConverterProperties.setBaseUri(context.getBaseUri())
-                                .setFontProvider(context.getFontProvider())
-                                .setMediaDeviceDescription(context.getDeviceDescription());
-                        res = SvgConverter.parseAndProcess(svgStream, svgConverterProperties);
-                    } catch (SvgProcessingException spe) {
-                        LOGGER.error(spe.getMessage());
+                    SvgConverterProperties props =
+                            ContextMappingHelper.mapToSvgConverterProperties(context);
+                    if (!context.getResourceResolver().isDataSrc(dataValue)) {
+                        URL fullURL = context.getResourceResolver().resolveAgainstBaseUri(dataValue);
+                        String dir = FileUtil.parentDirectory(fullURL);
+                        props.setBaseUri(dir);
                     }
+                    res = SvgConverter.parseAndProcess(svgStream, props);
                 }
-            } catch (IOException ie) {
-                LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, context.getBaseUri(), element.getAttribute(AttributeConstants.DATA)));
+            } catch (SvgProcessingException spe) {
+                LOGGER.error(spe.getMessage());
+            } catch (IOException | URISyntaxException ie) {
+                LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, context
+                        .getBaseUri(), element.getAttribute(AttributeConstants.DATA), ie));
             }
         }
+    }
+
+    //todo  according specs 'At least one of the "data" or "type" attribute MUST be defined.'
+    private boolean isSvgImage(String typeAttribute) {
+        return AttributeConstants.ObjectTypes.SVGIMAGE.equals(typeAttribute);
     }
 
     @Override
@@ -118,8 +136,9 @@ public class ObjectTagWorker implements ITagWorker {
         if (context.getPdfDocument() != null) {
             PdfDocument document = context.getPdfDocument();
             //Create Image object
+
             if (res != null) {
-                image = processUtil.createImageFromProcessingResult(res,document);
+                image = processUtil.createImageFromProcessingResult(res, document);
             }
 
         } else {
@@ -140,9 +159,5 @@ public class ObjectTagWorker implements ITagWorker {
     @Override
     public IPropertyContainer getElementResult() {
         return image;
-    }
-
-    private boolean isSvgImage(String typeAttribute) {
-        return typeAttribute.equals(AttributeConstants.ObjectTypes.SVGIMAGE);
     }
 }

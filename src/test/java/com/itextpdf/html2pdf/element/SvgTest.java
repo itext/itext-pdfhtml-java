@@ -140,11 +140,9 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 4),
-            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, count = 1),
-    })
+            @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 4)})
     public void externalObjectWithResourceTest() throws IOException, InterruptedException {
-        // TODO DEVSIX-2338: image inside the SVG cannot be resolved because baseUri is not passed correctly in ObjectTagWorker: processUtil.createImageFromProcessingResult(res,document)
+        //TODO update after DEVSIX-2239
         String name = "external_object_with_resource";
         HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));

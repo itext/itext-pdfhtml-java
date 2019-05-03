@@ -54,6 +54,7 @@ import com.itextpdf.svg.exceptions.SvgProcessingException;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.processors.impl.DefaultSvgProcessor;
 import com.itextpdf.svg.processors.impl.SvgConverterProperties;
+
 import org.slf4j.LoggerFactory;
 
 /**
