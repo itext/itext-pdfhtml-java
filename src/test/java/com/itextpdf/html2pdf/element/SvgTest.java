@@ -165,6 +165,7 @@ public class SvgTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
     }
+
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_WIDTH),
