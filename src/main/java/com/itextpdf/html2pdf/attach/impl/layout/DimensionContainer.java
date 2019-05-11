@@ -73,7 +73,7 @@ abstract class DimensionContainer {
     }
 
     float parseDimension(CssContextNode node, String content, float maxAvailableDimension, float additionalWidthFix) {
-        float fontSize = FontStyleApplierUtil.parseAbsoluteFontSize(node.getStyles().get(CssConstants.FONT_SIZE));
+        float fontSize = CssUtils.parseAbsoluteFontSize(node.getStyles().get(CssConstants.FONT_SIZE));
         UnitValue unitValue = CssUtils.parseLengthValueToPt(content, fontSize, 0);
         if (unitValue == null) {
             return 0;

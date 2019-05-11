@@ -243,7 +243,9 @@ public final class FontStyleApplierUtil {
      *
      * @param fontSizeValue the font size value as a {@link String}
      * @return the font size value as a {@code float}
+     * @deprecated Use {@link CssUtils#parseAbsoluteFontSize(String)} instead.
      */
+    @Deprecated
     public static float parseAbsoluteFontSize(String fontSizeValue) {
         if (CssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS.contains(fontSizeValue)) {
             switch (fontSizeValue) {
@@ -289,7 +291,9 @@ public final class FontStyleApplierUtil {
      * @param relativeFontSizeValue the relative font size value as a {@link String}
      * @param baseValue the base value
      * @return the relative font size value as a {@code float}
+     * @deprecated Use {@link CssUtils#parseRelativeFontSize(String, float)} instead.
      */
+    @Deprecated
     public static float parseRelativeFontSize(final String relativeFontSizeValue, final float baseValue) {
         if (CssConstants.SMALLER.equals(relativeFontSizeValue)) {
             return (float)(baseValue / 1.2);
