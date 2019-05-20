@@ -128,7 +128,6 @@ public class Html2PdfTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 8)})
     public void base64svgTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "objectTag_base64svg.html"), new File(destinationFolder + "objectTag_base64svg.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "objectTag_base64svg.pdf", sourceFolder + "cmp_objectTag_base64svg.pdf", destinationFolder, "diff01_"));
@@ -155,8 +154,7 @@ public class Html2PdfTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 8),
-            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1),})
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1),})
     public void htmlObjectNestedObjectTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "objectTag_nestedTag.html"), new File(destinationFolder + "objectTag_nestedTag.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "objectTag_nestedTag.pdf", sourceFolder + "cmp_objectTag_nestedTag.pdf", destinationFolder, "diff01_"));
@@ -165,7 +163,6 @@ public class Html2PdfTest extends ExtendedITextTest {
 
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 8)})
     public  void htmlImgBase64SVGTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "imgTag_base64svg.html"), new File(destinationFolder + "imgTag_base64svg.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imgTag_base64svg.pdf", sourceFolder + "cmp_imgTag_base64svg.pdf", destinationFolder, "diff01_"));

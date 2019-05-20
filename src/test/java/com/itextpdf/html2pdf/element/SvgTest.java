@@ -106,7 +106,6 @@ public class SvgTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.ERROR_PARSING_COULD_NOT_MAP_NODE),
-            @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 4),
     })
     public void externalImageSuccessTest() throws IOException, InterruptedException {
         String name = "external_img";
@@ -130,7 +129,6 @@ public class SvgTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.ERROR_PARSING_COULD_NOT_MAP_NODE),
-            @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 4),
     })
     public void externalObjectSuccessTest() throws IOException, InterruptedException {
         String name = "external_object";
@@ -139,8 +137,6 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 4)})
     public void externalObjectWithResourceTest() throws IOException, InterruptedException {
         //TODO update after DEVSIX-2239
         String name = "external_object_with_resource";
@@ -184,7 +180,6 @@ public class SvgTest extends ExtendedITextTest {
     @LogMessages(messages = {
             @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_WIDTH, count = 2),
             @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_HEIGHT, count = 2),
-            @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count=6)
     })
     public void svgWithoutDimensionsImageAndObjectRef() throws IOException, InterruptedException {
         String name = "svgWithoutDimensionsImageAndObjectRef";

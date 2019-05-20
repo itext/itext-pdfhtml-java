@@ -69,7 +69,6 @@ public class LocalImageResolverReleaseTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 60)})
     public void testThatSvgIsReleasedAfterConversion() throws IOException {
         String htmlFileName = "testWithSvg.html";
         String svgFileName = "imageWithMultipleShapes.svg";

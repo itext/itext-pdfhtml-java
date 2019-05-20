@@ -360,7 +360,6 @@ public class ResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 1))
     public void resourceResolverSvgWithImageBackgroundTest() throws IOException, InterruptedException {
         //Browsers do not render this
         String baseUri = sourceFolder;
@@ -375,7 +374,6 @@ public class ResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, count = 1))
     public void resourceResolverSvgWithImageObjectTest() throws IOException, InterruptedException {
         String baseUri = sourceFolder;
         String outPdf = destinationFolder + "resourceResolverSvgWithImageObject.pdf";
