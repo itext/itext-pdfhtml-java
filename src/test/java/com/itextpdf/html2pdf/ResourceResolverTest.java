@@ -158,6 +158,8 @@ public class ResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    // TODO DEVSIX-1595
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
     public void resourceResolverTest11() throws IOException, InterruptedException {
         String outPdf = destinationFolder + "resourceResolverTest11.pdf";
         String cmpPdf = sourceFolder + "cmp_resourceResolverTest11.pdf";
