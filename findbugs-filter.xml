@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+  <Match>
+    <Class name="com.itextpdf.html2pdf.HtmlConverter"/>
+    <Or>
+      <Method
+          name="convertToDocument"
+          params="java.io.InputStream, com.itextpdf.kernel.pdf.PdfDocument, com.itextpdf.html2pdf.ConverterProperties"
+      />
+      <Method
+          name="convertToDocument"
+          params="java.lang.String, com.itextpdf.kernel.pdf.PdfDocument, com.itextpdf.html2pdf.ConverterProperties"
+      />
+      <Method
+          name="convertToElements"
+          params="java.io.InputStream, com.itextpdf.html2pdf.ConverterProperties"
+      />
+      <Method
+          name="convertToElements"
+          params="java.lang.String, com.itextpdf.html2pdf.ConverterProperties"
+      />
+    </Or>
+    <Bug pattern="EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS"/>
+  </Match>
+  <Match>
+    <Class name="com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor"/>
+    <Method name="visit" params="com.itextpdf.styledxmlparser.node.INode"/>
+    <Bug pattern="LSC_LITERAL_STRING_COMPARISON"/>
+  </Match>
+  <Match>
+    <Class name="com.itextpdf.html2pdf.attach.impl.layout.HeightDimensionContainer"/>
+    <Method
+        name="&lt;init&gt;"
+        params="com.itextpdf.styledxmlparser.css.CssContextNode, float, float, com.itextpdf.layout.renderer.IRenderer, float"
+    />
+    <Bug pattern="LSC_LITERAL_STRING_COMPARISON"/>
+  </Match>
+  <Match>
+    <Class name="com.itextpdf.html2pdf.attach.impl.layout.WidthDimensionContainer"/>
+    <Method
+        name="&lt;init&gt;"
+        params="com.itextpdf.styledxmlparser.css.CssContextNode, float, com.itextpdf.layout.renderer.IRenderer, float"
+    />
+    <Bug pattern="LSC_LITERAL_STRING_COMPARISON"/>
+  </Match>
+  <Match>
+    <Class name="com.itextpdf.html2pdf.attach.impl.tags.ThTagWorker"/>
+    <Method
+        name="processEnd"
+        params="com.itextpdf.styledxmlparser.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext"
+    />
+    <Bug pattern="LSC_LITERAL_STRING_COMPARISON"/>
+  </Match>
+  <Match>
+    <Class name="com.itextpdf.html2pdf.attach.util.WaitingColgroupsHelper"/>
+    <Or>
+      <Method name="applyColStyles" params=""/>
+      <Method
+          name="applyColStyles"
+          params="com.itextpdf.styledxmlparser.node.INode, com.itextpdf.html2pdf.attach.util.RowColHelper"
+      />
+    </Or>
+    <Bug pattern="LSC_LITERAL_STRING_COMPARISON"/>
+  </Match>
+  <Match>
+    <Class name="com.itextpdf.html2pdf.css.CssConstants"/>
+    <Field name="OVERFLOW_VALUES"/>
+    <Bug pattern="MS_MUTABLE_COLLECTION"/>
+  </Match>
+  <Match>
+    <Class name="com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil"/>
+    <Method
+        name="applyBackground"
+        params="java.util.Map, com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.layout.IPropertyContainer"
+    />
+    <Bug pattern="LSC_LITERAL_STRING_COMPARISON"/>
+  </Match>
+  <Match>
+    <Class name="com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil"/>
+    <Method
+        name="applyFontStyles"
+        params="java.util.Map, com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.styledxmlparser.node.IStylesContainer, com.itextpdf.layout.IPropertyContainer"
+    />
+    <Bug pattern="LSC_LITERAL_STRING_COMPARISON"/>
+  </Match>
+  <Match>
+    <Class name="com.itextpdf.html2pdf.css.resolve.DefaultCssResolver"/>
+    <Method
+        name="collectCssDeclarations"
+        params="com.itextpdf.styledxmlparser.node.INode, com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver, com.itextpdf.html2pdf.css.resolve.CssContext"
+    />
+    <Or>
+      <Bug pattern="DM_DEFAULT_ENCODING"/>
+      <Bug pattern="LSC_LITERAL_STRING_COMPARISON"/>
+    </Or>
+  </Match>
+  <Match>
+    <Class name="com.itextpdf.html2pdf.html.HtmlUtils"/>
+    <Method name="isStyleSheetLink" params="com.itextpdf.styledxmlparser.node.IElementNode"/>
+    <Bug pattern="LSC_LITERAL_STRING_COMPARISON"/>
+  </Match>
+</FindBugsFilter>
