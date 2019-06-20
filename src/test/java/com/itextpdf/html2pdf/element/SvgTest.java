@@ -104,9 +104,6 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.ERROR_PARSING_COULD_NOT_MAP_NODE),
-    })
     public void externalImageSuccessTest() throws IOException, InterruptedException {
         String name = "external_img";
         HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
@@ -127,9 +124,6 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.ERROR_PARSING_COULD_NOT_MAP_NODE),
-    })
     public void externalObjectSuccessTest() throws IOException, InterruptedException {
         String name = "external_object";
         HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
@@ -167,10 +161,6 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_WIDTH),
-            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_HEIGHT),
-    })
     public void svgWithoutDimensionsWithViewboxTest() throws IOException, InterruptedException {
         String name = "svg_without_dimensions_with_viewbox";
         HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
