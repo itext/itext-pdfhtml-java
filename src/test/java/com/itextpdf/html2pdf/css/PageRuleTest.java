@@ -63,6 +63,7 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.tagging.IAccessibleElement;
+import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
 import com.itextpdf.styledxmlparser.node.IElementNode;
@@ -267,7 +268,7 @@ public class PageRuleTest extends ExtendedITextTest {
         public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
             Map<String, String> styles = stylesContainer.getStyles();
             if (styles.get(CssConstants.OVERFLOW) == null) {
-                styles.put(CssConstants.OVERFLOW, CssConstants.VISIBLE);
+                styles.put(CssConstants.OVERFLOW, CommonCssConstants.VISIBLE);
             }
             super.apply(context, stylesContainer, tagWorker);
         }

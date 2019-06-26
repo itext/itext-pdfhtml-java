@@ -56,6 +56,7 @@ import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.util.WhiteSpaceUtil;
 
 import java.util.ArrayList;
@@ -178,7 +179,7 @@ public class WaitingInlineElementsHelper {
         Paragraph p = createLeavesContainer();
         if (p != null) {
             Map<String, String> map = new HashMap<>();
-            map.put(CssConstants.OVERFLOW, CssConstants.VISIBLE);
+            map.put(CssConstants.OVERFLOW, CommonCssConstants.VISIBLE);
             OverflowApplierUtil.applyOverflow(map, p);
             if (container instanceof Document) {
                 ((Document) container).add(p);

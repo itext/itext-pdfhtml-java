@@ -94,7 +94,8 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant OUTLINE_OFFSET. */
     public static final String OUTLINE_OFFSET = "outline-offset";
 
-    /** The Constant OVERFLOW. */
+    /** The Constant OVERFLOW. @Deprecated in favour of CommonCssConstants.OVERFLOW */
+    @Deprecated
     public static final String OVERFLOW = "overflow";
 
     /** The Constant OVERFLOW_X. */
@@ -121,7 +122,10 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant VERTICAL_ALIGN. */
     public static final String VERTICAL_ALIGN = "vertical-align";
 
-    /** The Constant VISIBLE. */
+    /** The Constant VISIBLE.
+     * @deprecated in favour of StyledXmlParser
+     */
+    @Deprecated
     public static final String VISIBLE = "visible";
 
     // property values
@@ -262,7 +266,7 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant OVERFLOW_VALUES. */
     public static final Set<String> OVERFLOW_VALUES = new HashSet<>(
-            Arrays.asList(new String[] {VISIBLE, HIDDEN, SCROLL, AUTO}));
+            Arrays.asList(new String[] {CommonCssConstants.VISIBLE, HIDDEN, SCROLL, AUTO}));
 
     // pseudo-elements
 
