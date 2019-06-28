@@ -197,16 +197,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
             super.addChild(r);
         }
         super.close();
-        if (TRIM_LAST_BLANK_PAGE) {
-            PdfDocument pdfDocument = document.getPdfDocument();
-            if (pdfDocument.getNumberOfPages() > 1) {
-                PdfPage lastPage = pdfDocument.getLastPage();
-                if (lastPage.getContentStreamCount() == 1 && lastPage.getContentStream(0).getOutputStream().getCurrentPos() <= 0) {
-                    // Remove last empty page
-                    pdfDocument.removePage(pdfDocument.getNumberOfPages());
-                }
-            }
-        }
+        trimLastPageIfNecessary();
         document.getPdfDocument().removeEventHandler(PdfDocumentEvent.END_PAGE, handler);
         for (int i = 1; i <= document.getPdfDocument().getNumberOfPages(); ++i) {
             PdfPage page = document.getPdfDocument().getPage(i);
@@ -232,9 +223,53 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         relayoutRenderer.firstPageProc = firstPageProc.reset(defaultPageSize, defaultPageMargins);
         relayoutRenderer.leftPageProc = leftPageProc.reset(defaultPageSize, defaultPageMargins);
         relayoutRenderer.rightPageProc = rightPageProc.reset(defaultPageSize, defaultPageMargins);
-        relayoutRenderer.estimatedNumberOfPages = currentPageNumber;
+        relayoutRenderer.estimatedNumberOfPages = currentPageNumber - simulateTrimLastPage();
         relayoutRenderer.handler = handler.setHtmlDocumentRenderer(relayoutRenderer);
         return relayoutRenderer;
+    }
+
+    boolean shouldAttemptTrimLastPage() {
+        return TRIM_LAST_BLANK_PAGE && document.getPdfDocument().getNumberOfPages() > 1;
+    }
+
+    void trimLastPageIfNecessary() {
+        if (shouldAttemptTrimLastPage()) {
+            PdfDocument pdfDocument = document.getPdfDocument();
+            PdfPage lastPage = pdfDocument.getLastPage();
+            if (lastPage.getContentStreamCount() == 1 && lastPage.getContentStream(0).getOutputStream().getCurrentPos() <= 0) {
+                // Remove last empty page
+                pdfDocument.removePage(pdfDocument.getNumberOfPages());
+            }
+        }
+    }
+
+    /**
+     * Returns the number of pages that will be trimmed on {@link #close()}
+     * @return 0 if no pages will be trimmed, or positive number of trimmed pages in case any are trimmed
+     */
+    int simulateTrimLastPage() {
+        if (shouldAttemptTrimLastPage()) {
+            int lastPageNumber = document.getPdfDocument().getNumberOfPages();
+            // At the moment we only check if some element was positioned on this page
+            // However, there might theoretically be an inconsistency with the method that
+            // actually does the trimming because that method checks the canvas output only.
+            // We might want to simulate drawing on canvas here in the future, or possibly
+            // consider invisible elements in the method that actually does the trimming
+            boolean willAnyContentBeDrawnOnLastPage = false;
+            for (IRenderer renderer : childRenderers) {
+                if (renderer.getOccupiedArea().getPageNumber() == lastPageNumber) {
+                    willAnyContentBeDrawnOnLastPage = true;
+                }
+            }
+            for (IRenderer renderer : positionedRenderers) {
+                if (renderer.getOccupiedArea().getPageNumber() == lastPageNumber) {
+                    willAnyContentBeDrawnOnLastPage = true;
+                }
+            }
+            return willAnyContentBeDrawnOnLastPage ? 0 : 1;
+        } else {
+            return 0;
+        }
     }
 
     /* (non-Javadoc)
@@ -385,6 +420,18 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         return estimatedNumberOfPages;
     }
 
+    private static boolean isRunningElementsOnly(IRenderer waitingElement) {
+        boolean res;
+        if (res = waitingElement instanceof ParagraphRenderer && !waitingElement.getChildRenderers().isEmpty()) {
+            List<IRenderer> childRenderers = waitingElement.getChildRenderers();
+            int i = 0;
+            while (res && i < childRenderers.size()) {
+                res = childRenderers.get(i++) instanceof RunningElement.RunningElementRenderer;
+            }
+        }
+        return res;
+    }
+
     /**
      * Gets a page processor for the page.
      *
@@ -420,18 +467,6 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
      */
     private boolean isPageRight(int pageNum) {
         return !isPageLeft(pageNum);
-    }
-
-    private static boolean isRunningElementsOnly(IRenderer waitingElement) {
-        boolean res;
-        if (res = waitingElement instanceof ParagraphRenderer && !waitingElement.getChildRenderers().isEmpty()) {
-            List<IRenderer> childRenderers = waitingElement.getChildRenderers();
-            int i = 0;
-            while (res && i < childRenderers.size()) {
-                res = childRenderers.get(i++) instanceof RunningElement.RunningElementRenderer;
-            }
-        }
-        return res;
     }
 
     private static class PageMarginBoxesDrawingHandler implements IEventHandler {
