@@ -44,12 +44,11 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.IOException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class CounterTest extends ExtendedHtmlConversionITextTest{
@@ -80,5 +79,11 @@ public class CounterTest extends ExtendedHtmlConversionITextTest{
     @Test
     public void pageCounter03Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("page_counter03", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO cmp file to be fixed after DEVSIX-2999 is done
+    public void pageCounter04Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("page_counter04", sourceFolder, destinationFolder);
     }
 }
