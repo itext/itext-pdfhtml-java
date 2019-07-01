@@ -59,7 +59,7 @@ pipeline {
             steps {
                 withMaven(jdk: "${JDK_VERSION}", maven: 'M3') {
                     withSonarQubeEnv('Sonar') {
-                        sh 'mvn --activate-profiles test org.jacoco:jacoco-maven-plugin:prepare-agent org.jacoco:jacoco-maven-plugin:report verify -DgsExec="${gsExec}" -DcompareExec="${compareExec}" -Dmaven.test.skip=false -Dmaven.test.failure.ignore=false -Dmaven.javadoc.skip=true sonar:sonar "${SONAR_BRANCH_NAME}" "${SONAR_BRANCH_TARGET}"'
+                        sh 'mvn --activate-profiles test verify -DgsExec="${gsExec}" -DcompareExec="${compareExec}" -Dmaven.test.skip=false -Dmaven.test.failure.ignore=false -Dmaven.javadoc.skip=true org.jacoco:jacoco-maven-plugin:prepare-agent org.jacoco:jacoco-maven-plugin:report sonar:sonar "${SONAR_BRANCH_NAME}" "${SONAR_BRANCH_TARGET}"'
                     }
                 }
             }
