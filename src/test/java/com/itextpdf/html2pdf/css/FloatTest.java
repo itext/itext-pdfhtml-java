@@ -56,16 +56,15 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class FloatTest extends ExtendedITextTest {
@@ -488,7 +487,19 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
-    //This test should fail after the fix in DEVSIX-2335
+    // TODO fix cmp file after DEVSIX-1933
+    public void floatImageTableTest() throws IOException, InterruptedException {
+        runTest("floatImageTableTest", "diffFloatImageTableTest_");
+    }
+
+    @Test
+    //TODO Test file to be updated in DEVSIX-2231
+    public void newPageFloatTest() throws IOException, InterruptedException {
+        runTest("newPageFloatTest", "diff_newPageFloat_");
+    }
+
+    @Test
+    //TODO This test should fail after the fix in DEVSIX-2335
     public void floatingDivBottomBorderTest() throws IOException, InterruptedException {
         runTest("floatingDivBottomBorderTest", "diff_BottomBorderTest_");
     }

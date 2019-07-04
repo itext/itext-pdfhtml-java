@@ -44,7 +44,10 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -53,6 +56,7 @@ import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Category(IntegrationTest.class)
 public class Html2PdfTest extends ExtendedITextTest {
@@ -94,7 +98,6 @@ public class Html2PdfTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_paragraph_junk_spaces.pdf", sourceFolder + "cmp_hello_paragraph_junk_spaces.pdf", destinationFolder, "diff03_"));
     }
 
-
     @Test
     // TODO DEVSIX-1124
     public void helloParagraphNestedInTableDocumentTest() throws IOException, InterruptedException {
@@ -124,4 +127,44 @@ public class Html2PdfTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "aBlockInPTag.pdf", sourceFolder + "cmp_aBlockInPTag.pdf", destinationFolder, "diff03_"));
     }
 
+    @Test
+    public void base64svgTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "objectTag_base64svg.html"), new File(destinationFolder + "objectTag_base64svg.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "objectTag_base64svg.pdf", sourceFolder + "cmp_objectTag_base64svg.pdf", destinationFolder, "diff01_"));
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, count = 1),
+            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1)})
+    public void htmlObjectIncorrectBase64Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "objectTag_incorrectBase64svg.html"), new File(destinationFolder + "objectTag_incorrectBase64svg.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "objectTag_incorrectBase64svg.pdf", sourceFolder + "cmp_objectTag_incorrectBase64svg.pdf", destinationFolder, "diff01_"));
+
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT, count = 1),
+            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2),
+    })
+    public void htmlObjectAltTextTest() throws IOException, InterruptedException {
+        //update after DEVSIX-1346
+        HtmlConverter.convertToPdf(new File(sourceFolder + "objectTag_altText.html"), new File(destinationFolder + "objectTag_altText.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "objectTag_altText.pdf", sourceFolder + "cmp_objectTag_altText.pdf", destinationFolder, "diff01_"));
+
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1),})
+    public void htmlObjectNestedObjectTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "objectTag_nestedTag.html"), new File(destinationFolder + "objectTag_nestedTag.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "objectTag_nestedTag.pdf", sourceFolder + "cmp_objectTag_nestedTag.pdf", destinationFolder, "diff01_"));
+
+    }
+
+
+    @Test
+    public  void htmlImgBase64SVGTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "imgTag_base64svg.html"), new File(destinationFolder + "imgTag_base64svg.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imgTag_base64svg.pdf", sourceFolder + "cmp_imgTag_base64svg.pdf", destinationFolder, "diff01_"));
+    }
 }

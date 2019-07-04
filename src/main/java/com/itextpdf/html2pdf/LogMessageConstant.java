@@ -128,7 +128,7 @@ public final class LogMessageConstant {
     /** The Constant UNKNOWN_MARGIN_BOX_CHILD. */
     public static final String UNKNOWN_MARGIN_BOX_CHILD = "Unknown margin box child";
     /** The Constant WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT. */
-    public static final String WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT = "Worker of type {0} unable to process it's text content";
+    public static final String WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT = "Worker of type {0} unable to process it`s text content";
     /** The Constant WORKER_UNABLE_TO_PROCESS_OTHER_WORKER. */
     public static final String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
 

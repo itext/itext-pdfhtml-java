@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
@@ -78,4 +79,9 @@ public class RelativeCssPathTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "css_relative_base64.pdf", sourceFolder + "cmp_css_relative_base64.pdf", destinationFolder, "diff02_"));
     }
 
+    @Test
+    public void relativeImports01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "root/html/test.html"), new File(destinationFolder + "relativeImportsTest.pdf"), new ConverterProperties().setBaseUri(sourceFolder + "root/html/"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "relativeImportsTest.pdf", sourceFolder + "cmp_relativeImportsTest.pdf", destinationFolder));
+    }
 }

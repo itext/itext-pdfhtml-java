@@ -43,8 +43,10 @@
 package com.itextpdf.html2pdf.resolver.resource;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.ContextMappingHelper;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
 import com.itextpdf.io.codec.Base64;
+import com.itextpdf.io.util.FileUtil;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
@@ -83,6 +85,8 @@ public class HtmlResourceResolver extends ResourceResolver {
         this.context = context;
     }
 
+
+
     @Override
     protected PdfXObject tryResolveBase64ImageSource(String src) {
         String fixedSrc = src.replaceAll("\\s", "");
@@ -105,23 +109,28 @@ public class HtmlResourceResolver extends ResourceResolver {
             return super.createImageByUrl(url);
         } catch (Exception ignored) {
             try (InputStream is = url.openStream()) {
-                return processAsSvg(is, context);
+                String newRoot = FileUtil.parentDirectory(url);
+                return processAsSvg(is, context, newRoot);
             }
         }
     }
 
-    private PdfFormXObject processAsSvg(InputStream stream, ProcessorContext context) throws IOException {
+    private PdfFormXObject processAsSvg(InputStream stream, ProcessorContext context, String parentDir) throws IOException {
         SvgProcessingUtil processingUtil = new SvgProcessingUtil();
-        SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
-        svgConverterProperties.setBaseUri(context.getBaseUri())
-                .setFontProvider(context.getFontProvider())
-                .setMediaDeviceDescription(context.getDeviceDescription());
+        SvgConverterProperties svgConverterProperties = ContextMappingHelper.mapToSvgConverterProperties(context);
+        if (parentDir != null) {
+            svgConverterProperties.setBaseUri(parentDir);
+        }
         ISvgProcessorResult res = SvgConverter.parseAndProcess(stream, svgConverterProperties);
         if (context.getPdfDocument() != null) {
             return processingUtil.createXObjectFromProcessingResult(res, context.getPdfDocument());
         } else {
             return null;
         }
+    }
+
+    private PdfFormXObject processAsSvg(InputStream stream, ProcessorContext context) throws IOException {
+        return this.processAsSvg(stream, context, null);
     }
 
 }

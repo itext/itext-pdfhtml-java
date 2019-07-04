@@ -250,10 +250,14 @@ public class CssConstants extends CommonCssConstants {
     public static final String UPPERCASE = "uppercase";
 
     // properties possible values
-    /** The Constant FONT_ABSOLUTE_SIZE_KEYWORDS. */
+    /**
+     *  The Constant FONT_ABSOLUTE_SIZE_KEYWORDS.
+     * @deprecated Use {@link CommonCssConstants#FONT_ABSOLUTE_SIZE_KEYWORDS} instead.
+     */
+    @Deprecated
     public static final Set<String> FONT_ABSOLUTE_SIZE_KEYWORDS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-            CssConstants.MEDIUM, CssConstants.XX_SMALL, CssConstants.X_SMALL, CssConstants.SMALL, CssConstants.LARGE,
-            CssConstants.X_LARGE, CssConstants.XX_LARGE
+            CommonCssConstants.MEDIUM, CommonCssConstants.XX_SMALL, CommonCssConstants.X_SMALL, CommonCssConstants.SMALL, CommonCssConstants.LARGE,
+            CommonCssConstants.X_LARGE, CommonCssConstants.XX_LARGE
     )));
 
     /** The Constant OVERFLOW_VALUES. */

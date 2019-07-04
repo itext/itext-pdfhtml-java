@@ -1,0 +1,6 @@
+@import url("../css/extra01.css");
+
+div {
+    border-width: 10px;
+    opacity: 0.5;
+}

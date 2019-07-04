@@ -161,17 +161,11 @@ public class TaggedPdfFormTest extends ExtendedITextTest {
 
         //flatted created tagged PDF with acroform
         PdfDocument document = new PdfDocument(new PdfReader(outTaggedPdfPathAcro), new PdfWriter(outTaggedPdfPathFlatted));
-        PdfAcroForm acroForm = PdfAcroForm.getAcroForm(document, false);
-        acroForm.flattenFields();
+        PdfAcroForm.getAcroForm(document, false).flattenFields();
         document.close();
 
-        //compare with cmp
-        String compResult1 = new CompareTool().compareByContent(outTaggedPdfPath, cmpPdfPath, destinationFolder, diff1);
-        String compResult2 = new CompareTool().compareByContent(outTaggedPdfPathAcro, cmpPdfPathAcro, destinationFolder, diff2);
-        String compResult3 = new CompareTool().compareByContent(outTaggedPdfPathFlatted, cmpPdfPathAcroFlatten, destinationFolder, diff3);
-
-        Assert.assertNull(compResult1);
-        Assert.assertNull(compResult2);
-        Assert.assertNull(compResult3);
+        Assert.assertNull(new CompareTool().compareByContent(outTaggedPdfPath, cmpPdfPath, destinationFolder, diff1));
+        Assert.assertNull(new CompareTool().compareByContent(outTaggedPdfPathAcro, cmpPdfPathAcro, destinationFolder, diff2));
+        Assert.assertNull(new CompareTool().compareByContent(outTaggedPdfPathFlatted, cmpPdfPathAcroFlatten, destinationFolder, diff3));
     }
 }

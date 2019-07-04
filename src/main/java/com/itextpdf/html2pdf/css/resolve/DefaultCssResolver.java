@@ -206,16 +206,16 @@ public class DefaultCssResolver implements ICssResolver {
                 baseFontSize = context.getRootFontSize();
             } else {
                 if (parentFontSizeStr == null) {
-                    baseFontSize = FontStyleApplierUtil.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
+                    baseFontSize = CssUtils.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
                 } else {
                     baseFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
                 }
             }
-            float absoluteFontSize = FontStyleApplierUtil.parseRelativeFontSize(elementFontSize, baseFontSize);
+            float absoluteFontSize = CssUtils.parseRelativeFontSize(elementFontSize, baseFontSize);
             // Format to 4 decimal places to prevent differences between Java and C#
             elementStyles.put(CssConstants.FONT_SIZE, DecimalFormatUtil.formatNumber(absoluteFontSize, "0.####") + CssConstants.PT);
         } else {
-            elementStyles.put(CssConstants.FONT_SIZE, Float.toString(FontStyleApplierUtil.parseAbsoluteFontSize(elementFontSize)) + CssConstants.PT);
+            elementStyles.put(CssConstants.FONT_SIZE, Float.toString(CssUtils.parseAbsoluteFontSize(elementFontSize)) + CssConstants.PT);
         }
 
         // Update root font size

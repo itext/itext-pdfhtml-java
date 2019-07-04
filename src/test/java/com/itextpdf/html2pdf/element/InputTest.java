@@ -211,6 +211,21 @@ public class InputTest extends ExtendedITextTest {
     }
 
     @Test
+    // TODO DEVSIX_1973
+    public void inputDisabled01AcroTest() throws IOException, InterruptedException {
+        String htmlPath = sourceFolder + "inputDisabled01Test.html";
+        String outPdfPath = destinationFolder + "inputDisabled01AcroTest.pdf";
+        String cmpPdfPath = sourceFolder + "cmp_" + "inputDisabled01AcroTest.pdf";
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath), new ConverterProperties().setCreateAcroForm(true));
+        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder));
+    }
+
+    @Test
+    public void inputDisabled01Test() throws IOException, InterruptedException {
+        runTest("inputDisabled01Test");
+    }
+
+    @Test
     public void placeholderTest05() throws IOException, InterruptedException {
         String htmlPath = sourceFolder + "placeholderTest05.html";
         String outPdfPath = destinationFolder + "placeholderTest05.pdf";

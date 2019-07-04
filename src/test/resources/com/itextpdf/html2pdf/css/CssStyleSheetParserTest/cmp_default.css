@@ -57,6 +57,16 @@ dl {
 multicol {
     margin: 1em 0
 }
+input:disabled {
+    opacity: 0.4;
+    background-color: rgb(235,235,228);
+    color: rgb(84,84,84)
+}
+textarea:disabled {
+    opacity: 0.4;
+    background-color: rgb(235,235,228);
+    color: rgb(84,84,84)
+}
 dd {
     margin-left: 40px;
     margin-bottom: 0;

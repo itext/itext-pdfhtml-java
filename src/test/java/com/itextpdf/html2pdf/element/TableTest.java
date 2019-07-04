@@ -292,6 +292,17 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, count = 2))
+    public void theadTagTest() throws IOException, InterruptedException {
+        runTest("theadTagTest", true);
+    }
+
+    @Test
+    public void tfootTagTest() throws IOException, InterruptedException {
+        runTest("tfootTagTest", true);
+    }
+
+    @Test
     public void brInTdTest() throws IOException, InterruptedException {
         runTest("brInTd");
     }
@@ -449,6 +460,13 @@ public class TableTest extends ExtendedITextTest {
     @Test
     public void tableCellMinWidthRightAlignmentTest() throws IOException, InterruptedException {
         runConvertToElements("tableCellMinWidthRightAlignmentTest", false);
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, count = 4)})
+    //TODO: DEVSIX-2895 - inconsistency in table width between pdf and html
+    public void tableWidthMoreThan100PercentTest() throws IOException, InterruptedException {
+        runTest("tableWidthMoreThan100Percent");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {
