@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -60,8 +61,10 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.rules.ExpectedException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -73,6 +76,9 @@ public class ListTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/ListTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/ListTest/";
+
+    @Rule
+    public ExpectedException junitExpectedException = ExpectedException.none();
 
     @BeforeClass
     public static void beforeClass() {
@@ -207,6 +213,27 @@ public class ListTest extends ExtendedITextTest {
     @Ignore("DEVSIX-2431")
     public void listItemAbsolutePositionTest() throws IOException, InterruptedException {
         runTest("list-item-absolute");
+    }
+
+    @Test
+    //TODO: update after fix of DEVSIX-2537
+    //http://www.timrivera.com/tests/ol-start.html
+    public void checkOrderedListStartAndValue() throws IOException, InterruptedException {
+        runTest("checkOrderedListStartAndValue");
+    }
+    @Test
+    //TODO: update after fix of DEVSIX-2538
+    public void checkOrderedListNestedLists() throws IOException, InterruptedException {
+        junitExpectedException.expect(IllegalArgumentException.class);
+        junitExpectedException.expectMessage(MessageFormatUtil.format("The parameter must be a positive integer"));
+        runTest("checkOrderedListNestedLists");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 6)})
+        //TODO: update after DEVSIX-2093, DEVSIX-2092, DEVSIX-2091 fixes
+        public void listsWithInlineChildren() throws IOException, InterruptedException {
+            runTest("listsWithInlineChildren");
     }
 
     @Test

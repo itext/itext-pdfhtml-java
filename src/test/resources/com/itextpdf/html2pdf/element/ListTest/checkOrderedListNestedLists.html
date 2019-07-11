@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Check different lists start and value attributes</title>
+    <style>
+        div {
+        background: #ccc;
+        }
+    </style>
+</head>
+<body>
+<h3>Check different NESTED OL lists start and value attributes </h3>
+
+<div>Nested ols: <b>start="1111111" type="1"</b> for parent,</div>
+<div><b>ol start="1" type="a" reversed</b> for 3rd nested,</div>
+<div><b>ol start="1111111" type="1"</b> for 3-3 nested,</div>
+ <div>   <b>ol start="-7" type="A"</b> for 5th nested</div>
+<ol start="1111111" type="1">
+    <li>one</li>
+    <li>two</li>
+    <li>three</li>
+    <ol start="1" type="a" reversed>
+        <li>three-one</li>
+        <li>three-two</li>
+        <li>three-three</li>
+        <ol start="1111111" type="1">
+            <li>three-three-one</li>
+            <li>three-three-two</li>
+            <li>three-three-three</li>
+        </ol>
+    </ol>
+    <li>four</li>
+    <li>five</li>
+    <ol start="-7" type="A">
+        <li>three-one</li>
+        <li>three-two</li>
+    </ol>
+</ol>
+</body>
+</html>

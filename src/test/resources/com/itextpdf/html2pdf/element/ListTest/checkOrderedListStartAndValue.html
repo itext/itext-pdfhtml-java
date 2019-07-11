@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Check different lists start and value attributes</title>
+    <style>
+        div {
+        background: #ccc;
+        }
+    </style>
+</head>
+<body>
+<h3>Check different OL lists start and value attributes</h3>
+
+<div>ol start="1" type="A"</div>
+<ol start="3" type="A">
+    <li>one</li>
+    <li>two</li>
+    <li>three</li>
+</ol>
+<div>ol start="3" type="A" reversed</div>
+<ol start="3" type="A" reversed>
+    <li>one</li>
+    <li>two</li>
+    <li>three</li>
+</ol>
+<div>ol start="-10" type="I"</div>
+<ol start="-10" type="I">
+    <li>one</li>
+    <li>two</li>
+    <li>three</li>
+</ol>
+<div>ol start="1111111" type="i"</div>
+<ol start="1111111" type="i">
+    <li>one</li>
+    <li>two</li>
+    <li>three</li>
+</ol>
+<div> start="1111111" type="1" with li value="9" for 3rd and li value="-10" for 5th</div>
+<ol start="1111111" type="1">
+    <li>one</li>
+    <li>two</li>
+    <li value="9">three</li>
+    <li>four</li>
+    <li value="-10">five</li>
+</ol>
+
+<div>Reveresed: start="1111111" type="1" reversed with li value="9" for 3rd and li value="-10" for 5th</div>
+<ol start="1111111" type="1" reversed>
+    <li>one</li>
+    <li>two</li>
+    <li value="9">three</li>
+    <li>four</li>
+    <li value="-10">five</li>
+    <li>six</li>
+    <li>seven</li>
+</ol>
+</body>
+</html>
