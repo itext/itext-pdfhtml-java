@@ -1,0 +1,75 @@
+<html>
+<head>
+    <title>BASIC table features within pdfHTML</title>
+    <style>
+    table, td {
+        border: 2px solid green;
+}
+th {
+        border: 1px solid brown;
+        background-color:yellow;
+}
+table#table01 tr:nth-child(even) {
+    background-color: #eee;
+}
+table#ttable01 tr:nth-child(odd) {
+    background-color: #fff;
+}
+p {
+  color: gray;
+}
+
+    </style>
+</head>
+<body>
+<table id="table01" width="100%">
+    <tr>
+        <th scope="col">TH 1 col</th>
+        <th scope="col">TH 2 col</th>
+        <th scope="col">TH 3 col</th>
+        <th scope="col">TH 4 col</th>
+        <th scope="col">TH 5 col</th>
+    </tr>
+    <tr>
+        <th scope="row">TH 1 row</th>
+        <td colspan="2" style="background-color:yellow;">TD colspan 2</td>
+        <td style="border-style: dotted dashed;">TD border-style</td>
+        <td style="text-align: right;">TD text-align right</td>
+    </tr>
+    <tr>
+        <th scope="row">TH 2 row</th>
+        <td rowspan="2" style="background-color:orange;">TD rowspan 2</td>
+        <td style="border-style: none;">TD border-style none</td>
+        <td style="text-align: center;">TD text-align center</td>
+        <td style="text-align: right;">TD text-align right</td>
+    </tr>
+    <tr>
+        <th scope="row">TH 3 row</th>
+        <td style="border-style: double;">TD border-style double</td>
+        <td>
+            <div style="background-color: yellow; width:50px">div with style inside td width 50</div>
+        </td>
+        <td>TD this cell contains<br><br>two br tags</td>
+    </tr>
+    <tr>
+        <th scope="row">TH 4 row</th>
+        <td><p>Paragraph inside td. Paragraph inside td. Paragraph inside td. Paragraph inside td. Paragraph inside td.</p></td>
+        <td style="border-style: double;">TD border-style doub;e</td>
+        <td>
+            <div style="background-color: yellow; width:250px">div with style inside td width 250</div>
+        </td>
+        <td>Multiple rows should be here. Multiple rows should be here. Multiple rows should be here.
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">TH 5 row</th>
+        <td></td>
+        <td>Image in div inside<div><img src="image.png" width="200"></div></td>
+        <td>
+            <img src="image.png" width="200"></div>
+        </td>
+        <td></td>
+    </tr>
+</table>
+</body>
+</html>

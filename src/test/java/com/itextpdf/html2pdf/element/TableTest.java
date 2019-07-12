@@ -83,6 +83,17 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
+    public void checkBasicTableFeatures() throws IOException, InterruptedException {
+        runTest("checkBasicTableFeatures");
+    }
+
+    @Test
+    //TODO update after DEVSIX-2908
+    public void check_th_align() throws IOException, InterruptedException {
+        runTest("th_align");
+    }
+
+    @Test
     public void helloTableFixed1DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_fixed1");
     }
@@ -243,6 +254,39 @@ public class TableTest extends ExtendedITextTest {
     @Test
     public void helloTableHeaderFooterDocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_header_footer");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate =  com.itextpdf.io.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE),
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)
+    })
+    //TODO update after DEVSIX-2395 and DEVSIX-2399
+    public void checkHeaderFooterTaggedTables() throws IOException, InterruptedException {
+        runTest("checkHeaderFooterTaggedTables");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, count = 3)})
+    //TODO update after DEVSIX-2395 and DEVSIX-2399
+    public void checkFloatInTdTagged() throws IOException, InterruptedException {
+        runTest("checkFloatInTdTagged");
+    }
+
+    @Test
+    //TODO update after DEVSIX-2399
+    public void checkDisplayInTableTagged() throws IOException, InterruptedException {
+        runTest("checkDisplayInTableTagged");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate =  com.itextpdf.io.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 3),
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2)
+    })
+    //TODO update after DEVSIX-2382
+    public void checkLargeImagesInTable() throws IOException, InterruptedException {
+        runTest("checkLargeImagesInTable");
     }
 
     @Test
@@ -467,6 +511,14 @@ public class TableTest extends ExtendedITextTest {
     //TODO: DEVSIX-2895 - inconsistency in table width between pdf and html
     public void tableWidthMoreThan100PercentTest() throws IOException, InterruptedException {
         runTest("tableWidthMoreThan100Percent");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED, count = 63)})
+    //https://codepen.io/heypablete/pen/qdIsm
+    //TODO: update after DEVSIX-1101
+    public void checkResponsiveTableExample() throws IOException, InterruptedException {
+        runTest("checkResponsiveTableExample");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {

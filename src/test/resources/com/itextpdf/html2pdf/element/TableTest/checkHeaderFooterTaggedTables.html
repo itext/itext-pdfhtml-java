@@ -1,0 +1,60 @@
+<html>
+<head>
+    <title>Header, Footer  table features within pdfHTML</title>
+    <style>
+        table, thead, tbody, tfoot, tr, th, td {
+            display: block; /* Set all of our table elements to display type block */
+        }
+        @media only screen and (min-width: 1024px) {
+            table { display: table; }
+            thead { display: table-header-group; }
+            tbody { display: table-row-group; }
+            tfoot { display: table-footer-group; }
+            tr { display: table-row; }
+            th, td { display: table-cell; }
+        }
+        td:first-child {
+            box-sizing: border-box;
+            width: 25%;
+            float: left;
+            padding: 10px;
+        }
+        td:nth-child(2), td:nth-child(3), td:nth-child(4) {
+            padding: 10px;
+             background-color:yellow;
+        }
+        td {
+            padding: 15px;
+            margin: 15px;
+            border: 3px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Table Header 1</th>
+        <th>Table Header 2</th>
+        <th>Table Header 3</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Table Cell 1</td>
+        <td>Table Cell 2</td>
+        <td>Table Cell 3</td>
+        <td>Table Cell 4</td>
+        <td>Table Cell 5</td>
+        <td>Table Cell 6</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="6">Footer Cell</td>
+    </tr>
+    </tfoot>
+</table>
+</body>
+</html>
+

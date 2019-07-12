@@ -1,0 +1,109 @@
+<html>
+<head>
+    <title>Header, Footer table features within pdfHTML</title>
+    <style>
+         table { display: table; }
+            thead { display: table-header-group; }
+            tbody { display: table-row-group; }
+            tfoot { display: table-footer-group; }
+            tr { display: table-row; }
+            th, td { display: table-cell; }
+        table.inline, thead.inline, tbody.inline, tfoot.inline, tr.inline, th.inline, td.inline {
+            display: inline;
+        }
+        table.block, thead.block, tbody.block, tfoot.block, tr.block, th.block, td.block {
+            display: block;
+        }
+         td.floatLeft {
+            box-sizing: border-box;
+            width: 25%;
+            float: left;
+            padding: 10px;
+        }
+        td:nth-child(2), td:nth-child(3), td:nth-child(4) {
+            padding: 10px;
+             background-color:yellow;
+        }
+        td {
+            padding: 15px;
+            margin: 15px;
+            border: 3px solid #ddd;
+        }
+
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Table 1</th>
+        <th>FOR DEFAULT</th>
+        <th>Table Dislay settings</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="floatLeft">Table Cell 1 ( float: left;)</td>
+        <td>Table Cell 2</td>
+        <td>Table Cell 3</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="3" class="floatLeft">Footer Cell ( float: left;)</td>
+    </tr>
+    </tfoot>
+</table>
+<br>
+<br>
+<table class="inline">
+    <thead class="inline">
+    <tr class="inline">
+        <th class="inline">Table 2</th>
+        <th class="inline">For Display </th>
+        <th class="inline">INLINE</th>
+        <th class="inline">Table </th>
+    </tr>
+    </thead>
+    <tbody class="inline">
+    <tr class="inline">
+        <td class="inline" class="floatLeft">Table Cell 1(float: left;)</td>
+        <td class="inline">Table Cell 2</td>
+        <td class="inline">Table Cell 3</td>
+        <td class="inline">Table Cell 4</td>
+    </tr>
+    </tbody>
+    <tfoot class="inline">
+    <tr class="inline">
+        <td class="inline" class="floatLeft" colspan="4">Footer Cell (float: left;)</td>
+    </tr>
+    </tfoot>
+</table>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<table class="block">
+    <thead class="block">
+    <tr class="block">
+        <th class="block">Table 3 for</th>
+        <th class="block">Display BLOCK</th>
+    </tr>
+    </thead>
+    <tbody class="block">
+    <tr class="block">
+        <td class="block" class="floatLeft">Table Cell 1 (float: left;)</td>
+        <td class="block">Table Cell 2</td>
+    </tr>
+    </tbody>
+    <tfoot class="block">
+    <tr class="block">
+        <td class="block" class="floatLeft" colspan="2">Footer Cell float: left</td>
+    </tr>
+    </tfoot>
+</table>
+</body>
+</html>
+
