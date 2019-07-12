@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+div.ex1 {
+    background-color: lightblue;
+    width: 200px;
+    height: 220px;
+    overflow: scroll;
+}
+
+div.ex2 {
+    background-color: lightblue;
+    width: 200px;
+    height: 220px;
+    overflow: hidden;
+}
+
+div.ex3 {
+    background-color: lightblue;
+    width: 200px;
+    height: 220px;
+    overflow: auto;
+}
+
+div.ex4 {
+    background-color: lightblue;
+    width: 200px;
+    height: 220px;
+    overflow: visible;
+}
+span.internalScroll {
+background-color: magenta;
+overflow: scroll;
+}
+span.internalAuto {
+background-color: magenta;
+overflow: auto;
+}
+span.internalHidden {
+background-color: magenta;
+overflow: hidden;
+}
+span.internalVisible {
+background-color: magenta;
+overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>The overflow Property</h1>
+
+<p>The overflow property specifies whether to clip content or to add scrollbars when an element's content is too big to fit in a specified area.</p>
+<ul><li>div.ex1 {
+  background-color: lightblue;
+  width: 200px;
+  height: 220px;
+  overflow: scroll;
+  }</li><li>
+
+  div.ex2 {
+  background-color: lightblue;
+  width: 200px;
+  height: 220px;
+  overflow: hidden;
+  }</li><li>
+
+  div.ex3 {
+  background-color: lightblue;
+  width: 200px;
+  height: 220px;
+  overflow: auto;
+  }</li><li>
+
+  div.ex4 {
+  background-color: lightblue;
+  width: 200px;
+  height: 220px;
+  overflow: visible;
+  }</li><li>
+  span.internalScroll {
+  background-color: magenta;
+  overflow: scroll;
+  }</li><li>
+  span.internalAuto {
+  background-color: magenta;
+  overflow: auto;
+  }</li><li>
+  span.internalHidden {
+  background-color: magenta;
+  overflow: hidden;
+  }</li><li>
+  span.internalVisible {
+  background-color: magenta;
+  overflow: visible;
+  }</li></ul>
+<h2>overflow: scroll for div, </h2>
+<div class="ex1">internal span Scroll: <span class="internalScroll">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+
+<br><div class="ex1">internal span Auto: <span class="internalAuto">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+<br><div class="ex1">internal span Hidden: <span class="internalHidden">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+<br><div class="ex1">internal span Visible: <span class="internalVisible">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+
+<h2>overflow: hidden:</h2>
+<div class="ex2">internal span Scroll: <span class="internalScroll">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+
+<br><div class="ex2">internal span Auto: <span class="internalAuto">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+<br><div class="ex2">internal span Hidden:  <span class="internalHidden">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+<br><div class="ex2">internal span Visible:  <span class="internalVisible">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+
+<h2>overflow: auto:</h2>
+<div class="ex3">internal span Scroll: <span class="internalScroll">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+
+<br><div class="ex3">internal span Auto: <span class="internalAuto">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+<br><div class="ex3">internal span Hidden:  <span class="internalHidden">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+<br><div class="ex3">internal span Visible:  <span class="internalVisible">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+
+<h2>overflow: visible (default):</h2>
+<div class="ex4">internal span Scroll: <span class="internalScroll">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+<br>
+<br><br><div class="ex4">internal span Auto: <span class="internalAuto">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+<br><br><br><div class="ex4">internal span Hidden:  <span class="internalHidden">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+<br><br><br><div class="ex4">internal span Visible:  <span class="internalVisible">Some text is hereherehereherehereherehhhhhhhh 1 and hereherehereherehereherehhhhhhhh</span>  should be magenta color for internal span, lightblue for parent div </div>
+
+</body>
+</html>

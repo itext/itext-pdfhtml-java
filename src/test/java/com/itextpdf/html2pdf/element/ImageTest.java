@@ -98,4 +98,10 @@ public class ImageTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imagesWithWidePaddingsBordersMargins.pdf", sourceFolder + "cmp_imagesWithWidePaddingsBordersMargins.pdf", destinationFolder));
     }
 
+    @Test
+    public void checkImageBorderRadius() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "checkImageBorderRadius.html"), new File(destinationFolder + "checkImageBorderRadius.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "checkImageBorderRadius.pdf", sourceFolder + "cmp_checkImageBorderRadius.pdf", destinationFolder));
+    }
+
 }

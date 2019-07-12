@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Check image border radius</title>
+    <style>
+        .solid {
+            border: 1pt solid black;
+        }
+        div {
+            float: left;
+        }
+
+    </style>
+</head>
+<body>
+<div>border-radius: 5pt 10pt 15pt 20pt; /* top left, top right, bottom right, bottom left */ </div>
+<img src="placeholder_100x100.png" style="border-radius: 5pt 10pt 15pt 20pt;" class="solid">
+<br>
+
+<div>border-radius: 5px 10px 15px 20px; /* top left, top right, bottom right, bottom left */ </div>
+<img src="placeholder_100x100.png" style="border-radius: 5px 10px 15px 20px;" class="solid">
+<br>
+<div>border-top-left-radius: 15px;</div>
+<img src="placeholder_100x100.png" style="border-top-left-radius: 15px;" class="solid">
+<br>
+<div>border-bottom-right-radius: 70%</div>
+<img src="placeholder_100x100.png" style="border-bottom-right-radius: 70%;" class="solid">
+<br>
+<div>border-radius: 5% 10% 15% 20%; /* top left, top right, bottom right, bottom left */ </div>
+<img src="placeholder_100x100.png" style="border-radius: 5% 10% 15% 20%;" class="solid">
+<br>
+<div>border-radius: 5px 20px 35px; /* The second value applies to top-right and also bottom-left. */ </div>
+<img src="placeholder_100x100.png" style="border-radius: 5px 20px 35px;" class="solid">
+<br>
+<div>border-radius: 5px 20px; /* the first applies to top-left and bottom-right corner, the second - to top-right and bottom-left corner. */ </div>
+<img src="placeholder_100x100.png" style="border-radius: 5px 20px;" class="solid">
+<br>
+<div>border-radius: 40% 5px; /*  the first applies to top-left and bottom-right corner, the second - to top-right and bottom-left corner.  */ </div>
+<img src="placeholder_100x100.png" style="border-radius: 40% 5px;" class="solid">
+<br>
+<div>border-radius: 20px; /* this radius applies to all 4 corners. */ </div>
+<img src="placeholder_100x100.png" style="border-radius: 20px;" class="solid">
+<br>
+<div>border-radius: 40%; /* this radius applies to all 4 corners. */ </div>
+<img src="placeholder_100x100.png" style="border-radius: 40%;" class="solid">
+<br>
+<div>border-radius: 10px/30px; /* horizontal radius / vertical radius */ </div>
+<img src="placeholder_100x100.png" style="border-radius: 10px/30px;" class="solid">
+<br>
+<div>border-radius: 30px/10px; /* horizontal radius / vertical radius */ </div>
+<img src="placeholder_100x100.png" style="border-radius: 30px/10px;" class="solid">
+<br>
+<div>border-radius: 60px 45px 30px 15px/15px 30px 45px 60px;</div>
+<img src="placeholder_100x100.png" style="border-radius: 60px 45px 30px 15px/15px 30px 45px 60px;" class="solid">
+<br>
+</body>
+</html>
