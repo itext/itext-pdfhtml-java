@@ -1,0 +1,16 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../styles.css"/>
+</head>
+<body>
+<h1>Resources reachable and not reachable</h1>
+<p> Example Image1</p>
+<img src="./res/itextpdf.com/lines.svg" style="height:300"/>
+<p> Example Image2 not reachable</p>
+<img src="/res/itextpdf.com/defaultAspectRatioTest.svg" style="height:300"/>
+<p>Example Object1</p>
+<object data="res/itextpdf.com/lines.svg" type="image/svg+xml" style="height:300"></object>
+<p>Example Object2 not reachable</p>
+<object data="//res/itextpdf.com/defaultAspectRatioTest.svg" type="image/svg+xml" style="height:300"></object>
+</body>
+</html>

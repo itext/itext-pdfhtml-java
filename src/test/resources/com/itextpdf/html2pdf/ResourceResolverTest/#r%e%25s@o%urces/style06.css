@@ -1,0 +1,15 @@
+@media all, print {
+ul, ol {
+	padding-left: 200px;
+}
+ul {
+    list-style-image: url('defaultAspectRatioTest.svg');
+}
+ol {
+    list-style-image: url('differentAspectRatios.svg');
+}
+dl {
+    list-style-image: url('image folder/sqpurple.gif');
+}
+
+}
