@@ -503,6 +503,21 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
+    public void checkMarginBoxFixDimension() throws IOException, InterruptedException {
+        runTest("checkMarginBoxFixDimension");
+    }
+
+    @Test
+    public void checkMarginBoxMaxMinDimension() throws IOException, InterruptedException {
+        runTest("checkMarginBoxMaxMinDimension");
+    }
+
+    @Test
+    public void checkMarginBoxMarginPaddings() throws IOException, InterruptedException {
+        runTest("checkMarginBoxMarginPaddings");
+    }
+
+    @Test
     public void mediaAppliedToRunningElementsProperties() throws IOException, InterruptedException {
         MediaDeviceDescription printMediaDevice = new MediaDeviceDescription("print");
         ConverterProperties converterProperties = new ConverterProperties().setMediaDeviceDescription(printMediaDevice);

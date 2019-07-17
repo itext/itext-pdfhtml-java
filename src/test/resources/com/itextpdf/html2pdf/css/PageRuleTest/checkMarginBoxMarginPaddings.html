@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+		@page {
+		border: dashed 1pt brown;
+		@top-left {
+		    font-size: 6pt;
+			background-color: #ccc;
+			margin: 10% 0%;
+			padding-left: 10pt;
+			content: "top-left margin 10% 0% padding-left 10pt #ccc";
+		}
+		@top-center {
+		    font-size: 6pt;
+			background-color: #ddd;
+			margin: 0%;
+			border: solid 1pt;
+			padding-bottom: 10pt;
+			content: "top-center margin 0% padding-bottom 10pt #ddd";
+		}
+		@top-right {
+		    font-size: 6pt;
+			background-color: #aff;
+			margin: -5%;
+			border: solid 1pt;
+			padding-top: 10pt;
+			content: "top-right margin -5% #aff";
+		}
+		@right-top {
+		    background-color: yellow;
+			margin: 0pt;
+			border: solid 1pt black;
+			padding-bottom: 10%;
+			content: "right-top margin 0pt padding-bottom 10% yellow";
+		}
+		@right-middle {
+			background-color: orange;
+			margin: -10pt;
+			border: dotted 1pt black;
+			padding-top: 10%;
+			content: "right-middle margin -10pt padding-top 10% orange";
+		}
+		@right-bottom {
+			content: "right-bottom margin -20pt yellow";
+			font-size: 10pt;
+			border: solid 1pt black;
+			margin: -20pt;
+			background-color: yellow;
+			vertical-align: top;
+		}
+		@bottom-right {
+			background-color: #ccc;
+			font-size: 6pt;
+			margin: 10pt;
+            padding-top: 10pt;
+			content: "bottom-right margin 10pt padding-top 10pt #ccc";
+			vertical-align: top;
+		}
+		@bottom-center {
+			background-color: #ddd;
+			font-size: 6pt;
+			margin: -15pt;
+			border: solid 1pt;
+			padding-right: 10pt;
+			content: "bottom-center margin -15pt padding-right 10pt";
+			vertical-align: top;
+		}
+		@bottom-left {
+			background-color: #ccc;
+			font-size: 6pt;
+			margin: 10pt;
+			border: solid 1pt;
+			padding-top: 10pt;
+			content: "bottom-left margin 10pt border padding-top 10pt";
+			vertical-align: top;
+		}
+		@left-bottom {
+			content: "left-bottom margin padding-bottom 10pt -3%";
+			margin: -3%;
+			background-color: #ccf;
+			padding-bottom: 10pt;
+			vertical-align: top;
+		}
+		@left-middle {
+		    margin: 0%;
+			background-color: #cff;
+			padding-left: 10%;
+			content: "left-middle margin 0% padding-left 10% cff";
+		}
+		@left-top {
+			content: "left-top margin 10% padding-bottom 10% #ffc";
+			margin: 10%;
+			padding-bottom: 10%;
+			background-color: #ffc;
+		}
+		@bottom-left-corner {
+		    font-size: 6pt;
+			background-color: green;
+			margin: -5%;
+			border: solid 1pt;
+			padding-left: 3%;
+			content: "bottom-left-corner margin -5% padding-left 3%";
+		}
+
+		@bottom-right-corner {
+		    font-size: 6pt;
+            background-color: green;
+            margin: 5%;
+            border: solid 1pt blue;
+            padding-right: 3%;
+            content: "bottom-right-corner margin 5% padding-left: 3% border green";
+		}
+
+		@top-right-corner {
+		    font-size: 6pt;
+			background-color: green;
+			margin: -10pt;
+			border: solid 1pt black;
+			text-align: justify;
+			content: "top-right-corner margin -10pt green";
+		}
+
+		@top-left-corner {
+		    font-size: 6pt;
+			background-color: green;
+			margin: 2pt;
+			border: solid 1pt black;
+			content: "top-left-corner margin 2pt  border green";
+			text-align: right;
+		}
+	}
+    </style>
+</head>
+<body>
+<div style="background-color: ffc;">
+    <h2>The @at-rules test as below css:</h2>
+    <ul>
+        <li>
+            @page {
+            border: dashed 1pt brown;
+            }
+        </li>
+        <li>
+            @top-left {
+            font-size: 6pt;
+            background-color: #ccc;
+            margin: 10% 0%;
+            padding-left: 10pt;
+            content: "top-left margin 10% 0% padding-left 10pt #ccc";
+            }
+        </li>
+        <li>
+            @top-center {
+            font-size: 6pt;
+            background-color: #ddd;
+            margin: 0%;
+            border: solid 1pt;
+            padding-bottom: 10pt;
+            content: "top-center margin 0% padding-bottom 10pt #ddd";
+            }
+        </li>
+        <li>
+            @top-right {
+            font-size: 6pt;
+            background-color: #aff;
+            margin: -5%;
+            border: solid 1pt;
+            padding-top: 10pt;
+            content: "top-right margin -5% #aff";
+            }
+        </li>
+        <li>
+            @right-top {
+            background-color: yellow;
+            margin: 0pt;
+            border: solid 1pt black;
+            padding-bottom: 10%;
+            content: "right-top margin 0pt padding-bottom 10% yellow"
+            }
+        </li>
+        <li>
+            @right-middle {
+            background-color: orange;
+            margin: -10pt;
+            border: dotted 1pt black;
+            padding-top: 10%;
+            content: "right-middle margin -10pt padding-top 10% orange";
+            }
+        </li>
+        <li>
+            @right-bottom {
+            content: "right-bottom margin -20pt yellow";
+            font-size: 10pt;
+            border: solid 1pt black;
+            margin: -20pt;
+            background-color: yellow;
+            vertical-align: top;
+            }
+        </li>
+        <li>
+            @bottom-right {
+            background-color: #ccc;
+            margin: 10pt;
+            padding-top: 10pt;
+            content: "bottom-right margin 10pt padding-top 10pt #ccc";
+            }
+        </li>
+        <li>
+            @bottom-center {
+            background-color: #ddd;
+            margin: -15pt;
+            border: solid 1pt;
+            padding-right: 10pt;
+            content: "bottom-center margin -15pt padding-right 10pt";
+            }
+        </li>
+        <li>
+            @bottom-left {
+            background-color: #ccc;
+            margin: 10pt;
+            border: solid 1pt;
+            padding-top: 10pt;
+            content: "bottom-left margin 10pt border padding-top 10pt"
+            }
+        </li>
+        <li>
+            @left-bottom {
+            content: "left-bottom margin padding-bottom 10pt -3%";
+            margin: -3%;
+            background-color: #ccf;
+            padding-bottom: 10pt;
+            vertical-align: top;
+            }
+        </li>
+        <li>
+            @left-middle {
+            margin: 0%;
+            background-color: #cff;
+            padding-left: 10%;
+            content: "left-middle margin 0% padding-left 10% cff";
+            }
+        </li>
+        <li>
+            @left-top {
+            content: "left-top margin 10% padding-bottom 10% #ffc";
+            margin: 10%;
+            padding-bottom: 10%;
+            background-color: #ffc;
+            }
+        </li>
+        <li>
+            @bottom-left-corner {
+            font-size: 6pt;
+            background-color: green;
+            margin: -5%;
+            padding-left: 3%;
+            border: solid 1pt;
+            content: "bottom-left-corner margin padding-left 3% -5%"
+            }
+        </li>
+        <li>
+            @bottom-right-corner {
+            font-size: 6pt;
+            background-color: green;
+            margin: 5%;
+            border: solid 1pt blue;
+            padding-right: 3%;
+            content: "bottom-right-corner margin 5% padding-left: 3% border green";
+            }
+        </li>
+        <li>
+            @top-right-corner {
+            font-size: 6pt;
+            background-color: green;
+            margin: -10pt;
+            border: solid 1pt black;
+            text-align: justify;
+            content: "top-right-corner margin -10pt green";
+            }
+        </li>
+        <li>
+            @top-left-corner {
+            font-size: 6pt;
+            background-color: green;
+            margin: 2pt;
+            border: solid 1pt black;
+            content: "top-left-corner margin 2pt border green";
+            text-align: right;
+            }
+        </li>
+    </ul>
+</div>
+</body>
+</html>
