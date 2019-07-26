@@ -119,13 +119,15 @@ class PageSizeParser {
                 }
             }
 
-            boolean b1 = pageSizeChunks.length == 1 && (namedPageSize != null || landscape != null);
-            boolean b2 = namedPageSize != null && landscape != null;
-            if (b1 || b2) {
+            boolean isValidSingleWordDeclaration = pageSizeChunks.length == 1 && (namedPageSize != null || landscape != null);
+            boolean isValidTwoWordDeclaration = namedPageSize != null && landscape != null;
+            if (isValidSingleWordDeclaration || isValidTwoWordDeclaration) {
                 if (namedPageSize != null) {
                     pageSize = namedPageSize;
                 }
-                if (Boolean.TRUE.equals(landscape)) {
+                boolean landscapeRequestedAndNeedRotation = Boolean.TRUE.equals(landscape) && pageSize.getWidth() < pageSize.getHeight();
+                boolean portraitRequestedAndNeedRotation = Boolean.FALSE.equals(landscape) && pageSize.getHeight() < pageSize.getWidth();
+                if (landscapeRequestedAndNeedRotation || portraitRequestedAndNeedRotation) {
                     pageSize = pageSize.rotate();
                 }
             } else {
