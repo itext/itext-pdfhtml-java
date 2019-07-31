@@ -251,8 +251,8 @@ public class CssConstants extends CommonCssConstants {
 
     // properties possible values
     /**
-     *  The Constant FONT_ABSOLUTE_SIZE_KEYWORDS.
-     * @deprecated Use {@link CommonCssConstants#FONT_ABSOLUTE_SIZE_KEYWORDS} instead.
+     * The Constant FONT_ABSOLUTE_SIZE_KEYWORDS.
+     * @deprecated Use {@link CommonCssConstants#FONT_ABSOLUTE_SIZE_KEYWORDS_VALUES} instead.
      */
     @Deprecated
     public static final Set<String> FONT_ABSOLUTE_SIZE_KEYWORDS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
