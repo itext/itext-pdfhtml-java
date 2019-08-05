@@ -191,11 +191,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
      */
     @Override
     public void close() {
-        if (waitingElement != null) {
-            IRenderer r = this.waitingElement;
-            waitingElement = null;
-            super.addChild(r);
-        }
+        processWaitingElement();
         super.close();
         trimLastPageIfNecessary();
         document.getPdfDocument().removeEventHandler(PdfDocumentEvent.END_PAGE, handler);
@@ -213,10 +209,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     @Override
     public IRenderer getNextRenderer() {
         // Process waiting element to get the correct number of pages
-        if (waitingElement != null) {
-            super.addChild(waitingElement);
-            waitingElement = null;
-        }
+        processWaitingElement();
         HtmlDocumentRenderer relayoutRenderer = new HtmlDocumentRenderer(document, immediateFlush);
         PageSize defaultPageSize = document.getPdfDocument().getDefaultPageSize();
         float[] defaultPageMargins = {document.getTopMargin(), document.getRightMargin(), document.getBottomMargin(), document.getRightMargin()};
@@ -226,6 +219,20 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         relayoutRenderer.estimatedNumberOfPages = currentPageNumber - simulateTrimLastPage();
         relayoutRenderer.handler = handler.setHtmlDocumentRenderer(relayoutRenderer);
         return relayoutRenderer;
+    }
+
+    @Override
+    public void flush(){
+        processWaitingElement();
+        super.flush();
+    }
+
+    void processWaitingElement(){
+        if (waitingElement != null) {
+            IRenderer r = this.waitingElement;
+            waitingElement = null;
+            super.addChild(r);
+        }
     }
 
     boolean shouldAttemptTrimLastPage() {

@@ -626,7 +626,7 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, count = 4))
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, count = 6))
     public void marginBoxRunningNoImmediateFlush04() throws IOException, InterruptedException {
         String name = "marginBoxRunningNoImmediateFlush04";
         String htmlPath = sourceFolder + name + ".html";
