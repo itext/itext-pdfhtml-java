@@ -275,6 +275,24 @@ public class FontFaceTest extends ExtendedITextTest {
         runTest("texFonts01");
     }
 
+    @Test
+    //TODO: update/refactor after DEVSIX-2054 fix
+    public void correctUrlWithNotUsedUnicodeRangeTest() throws IOException, InterruptedException {
+        runTest("correctUrlWithNotUsedUnicodeRangeTest");
+    }
+
+    @Test
+    //TODO: update after DEVSIX-2052 and probably DEVSIX-2034 fix
+    public void correctUrlWithUsedUnicodeRangeTest() throws IOException, InterruptedException {
+        runTest("correctUrlWithUsedUnicodeRangeTest");
+    }
+
+    @Test
+    //TODO: update after DEVSIX-2052 and probably DEVSIX-2034 fix
+    public void correctUnicodeRangeSignificantTest() throws IOException, InterruptedException {
+        runTest("correctUnicodeRangeSignificantTest");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
