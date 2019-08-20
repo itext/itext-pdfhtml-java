@@ -23,46 +23,6 @@
     <Bug pattern="EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS"/>
   </Match>
   <Match>
-    <Class name="com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor"/>
-    <Method name="visit" params="com.itextpdf.styledxmlparser.node.INode"/>
-    <Bug pattern="LSC_LITERAL_STRING_COMPARISON"/>
-  </Match>
-  <Match>
-    <Class name="com.itextpdf.html2pdf.attach.impl.layout.HeightDimensionContainer"/>
-    <Method
-        name="&lt;init&gt;"
-        params="com.itextpdf.styledxmlparser.css.CssContextNode, float, float, com.itextpdf.layout.renderer.IRenderer, float"
-    />
-    <Bug pattern="LSC_LITERAL_STRING_COMPARISON"/>
-  </Match>
-  <Match>
-    <Class name="com.itextpdf.html2pdf.attach.impl.layout.WidthDimensionContainer"/>
-    <Method
-        name="&lt;init&gt;"
-        params="com.itextpdf.styledxmlparser.css.CssContextNode, float, com.itextpdf.layout.renderer.IRenderer, float"
-    />
-    <Bug pattern="LSC_LITERAL_STRING_COMPARISON"/>
-  </Match>
-  <Match>
-    <Class name="com.itextpdf.html2pdf.attach.impl.tags.ThTagWorker"/>
-    <Method
-        name="processEnd"
-        params="com.itextpdf.styledxmlparser.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext"
-    />
-    <Bug pattern="LSC_LITERAL_STRING_COMPARISON"/>
-  </Match>
-  <Match>
-    <Class name="com.itextpdf.html2pdf.attach.util.WaitingColgroupsHelper"/>
-    <Or>
-      <Method name="applyColStyles" params=""/>
-      <Method
-          name="applyColStyles"
-          params="com.itextpdf.styledxmlparser.node.INode, com.itextpdf.html2pdf.attach.util.RowColHelper"
-      />
-    </Or>
-    <Bug pattern="LSC_LITERAL_STRING_COMPARISON"/>
-  </Match>
-  <Match>
     <Class name="com.itextpdf.html2pdf.css.CssConstants"/>
     <Field name="OVERFLOW_VALUES"/>
     <Bug pattern="MS_MUTABLE_COLLECTION"/>

@@ -330,7 +330,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
             visitPseudoElement(element, tagWorker, CssConstants.BEFORE);
             visitPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER);
-            if (element.name().equals(TagConstants.BODY) || element.name().equals(TagConstants.HTML))
+            if (TagConstants.BODY.equals(element.name()) || TagConstants.HTML.equals(element.name()))
                 runApplier(element, tagWorker);
             for (INode childNode : element.childNodes()) {
                 if (!context.isProcessingInlineSvg()) {
@@ -345,7 +345,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 context.getOutlineHandler().addDestination(tagWorker, element);
                 context.getState().pop();
 
-                if (!element.name().equals(TagConstants.BODY) && !element.name().equals(TagConstants.HTML))
+                if (!TagConstants.BODY.equals(element.name()) && !TagConstants.HTML.equals(element.name()))
                     runApplier(element, tagWorker);
                 if (!context.getState().empty()) {
                     PageBreakApplierUtil.addPageBreakElementBefore(context, context.getState().top(), element, tagWorker);
