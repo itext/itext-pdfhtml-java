@@ -79,10 +79,10 @@ public class ThTagWorker extends TdTagWorker {
                 AccessibilityProperties properties = ((IAccessibleElement) elementResult).getAccessibilityProperties();
                 PdfDictionary attributes = new PdfDictionary();
                 attributes.put(PdfName.O, PdfName.Table);
-                if (scope != null && (scope.equalsIgnoreCase(AttributeConstants.ROW) || scope.equalsIgnoreCase(AttributeConstants.ROWGROUP))) {
+                if (scope != null && (AttributeConstants.ROW.equalsIgnoreCase(scope) || AttributeConstants.ROWGROUP.equalsIgnoreCase(scope))) {
                     attributes.put(PdfName.Scope, PdfName.Row);
                     properties.addAttributes(new PdfStructureAttributes(attributes));
-                } else if (scope != null && (scope.equalsIgnoreCase(AttributeConstants.COL) || scope.equalsIgnoreCase(AttributeConstants.COLGROUP))) {
+                } else if (scope != null && (AttributeConstants.COL.equalsIgnoreCase(scope) || AttributeConstants.COLGROUP.equalsIgnoreCase(scope))) {
                     attributes.put(PdfName.Scope, PdfName.Column);
                     properties.addAttributes(new PdfStructureAttributes(attributes));
                 } else {

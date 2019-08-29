@@ -31,8 +31,8 @@ Contact [sales] for more info.
 [building]: BUILDING.md
 [contributing]: https://github.com/itext/itext7/blob/develop/CONTRIBUTING.md
 [itext]: http://itextpdf.com/
-[github]: https://github.com/itext/pdfHtml
-[latest]: https://github.com/itext/pdfHtml/releases/latest
+[github]: https://github.com/itext/i7j-pdfhtml/
+[latest]: https://github.com/itext/i7j-pdfhtml/releases/latest
 [sales]: http://itextpdf.com/sales
 [gratis]: https://en.wikipedia.org/wiki/Gratis_versus_libre
 [pdfHtml]: http://itextpdf.com/itext7/pdfHtml

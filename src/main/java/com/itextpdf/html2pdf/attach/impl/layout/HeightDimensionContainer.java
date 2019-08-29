@@ -56,7 +56,7 @@ class HeightDimensionContainer extends DimensionContainer {
 
     HeightDimensionContainer(CssContextNode pmbcNode, float width, float maxHeight, IRenderer renderer, float additionalWidthFix) {
         String height = pmbcNode.getStyles().get(CssConstants.HEIGHT);
-        if (height != null && !height.equals(CssConstants.AUTO)) {
+        if (height != null && !CssConstants.AUTO.equals(height)) {
             dimension = parseDimension(pmbcNode, height, maxHeight, additionalWidthFix);
         }
         minDimension = getMinHeight(pmbcNode, maxHeight, additionalWidthFix);

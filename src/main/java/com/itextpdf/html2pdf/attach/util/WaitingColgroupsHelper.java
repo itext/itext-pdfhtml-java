@@ -105,9 +105,9 @@ public class WaitingColgroupsHelper {
         for (INode child : tableElement.childNodes()) {
             if (child instanceof IElementNode) {
                 element = (IElementNode) child;
-                if (element.name().equals(TagConstants.THEAD)) {
+                if (TagConstants.THEAD.equals(element.name())) {
                     applyColStyles(element, headerRowColHelper);
-                } else if (element.name().equals(TagConstants.TFOOT)) {
+                } else if (TagConstants.TFOOT.equals(element.name())) {
                     applyColStyles(element, footerRowColHelper);
                 } else {
                     applyColStyles(element, tableRowColHelper);
@@ -141,10 +141,10 @@ public class WaitingColgroupsHelper {
         for (INode child : node.childNodes()) {
             if (child instanceof IElementNode) {
                 element = (IElementNode) child;
-                if (element.name().equals(TagConstants.TR)) {
+                if (TagConstants.TR.equals(element.name())) {
                     applyColStyles(element, rowColHelper);
                     rowColHelper.newRow();
-                } else if (element.name().equals(TagConstants.TH) || element.name().equals(TagConstants.TD)) {
+                } else if (TagConstants.TH.equals(element.name()) || TagConstants.TD.equals(element.name())) {
                     Integer colspan = CssUtils.parseInteger(element.getAttribute(AttributeConstants.COLSPAN));
                     Integer rowspan = CssUtils.parseInteger(element.getAttribute(AttributeConstants.ROWSPAN));
                     colspan = colspan != null ? colspan : 1;

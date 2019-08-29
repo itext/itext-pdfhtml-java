@@ -46,7 +46,6 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
-import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.HtmlUtils;
@@ -81,6 +80,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -284,7 +284,7 @@ public class DefaultCssResolver implements ICssResolver {
             q.removeFirst();
             if (currentNode instanceof IElementNode) {
                 IElementNode headChildElement = (IElementNode) currentNode;
-                if (headChildElement.name().equals(TagConstants.STYLE)) {
+                if (TagConstants.STYLE.equals(headChildElement.name())) {
                     if (currentNode.childNodes().size() > 0 && currentNode.childNodes().get(0) instanceof IDataNode) {
                         String styleData = ((IDataNode) currentNode.childNodes().get(0)).getWholeData();
                         checkIfPagesCounterMentioned(styleData, cssContext);
@@ -297,7 +297,7 @@ public class DefaultCssResolver implements ICssResolver {
                     try {
                         InputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUri);
                         byte[] bytes = StreamUtil.inputStreamToArray(stream);
-                        checkIfPagesCounterMentioned(new String(bytes), cssContext);
+                        checkIfPagesCounterMentioned(new String(bytes, StandardCharsets.UTF_8), cssContext);
                         CssStyleSheet styleSheet = CssStyleSheetParser.parse(new ByteArrayInputStream(bytes), resourceResolver.resolveAgainstBaseUri(styleSheetUri).toExternalForm());
                         styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);

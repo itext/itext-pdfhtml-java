@@ -82,7 +82,6 @@ public class CounterTest extends ExtendedHtmlConversionITextTest{
     }
 
     @Test
-    // TODO cmp file to be fixed after DEVSIX-2999 is done
     public void pageCounter04Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("page_counter04", sourceFolder, destinationFolder);
     }

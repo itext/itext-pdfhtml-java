@@ -84,4 +84,11 @@ public class FontProviderTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "devanagari.pdf", sourceFolder + "cmp_devanagari.pdf", destinationFolder, "diffDevanagari_"));
     }
 
+    @Test
+    //For more specific tests see FontSelectorTimesFontTest in html2pdf and FontSelectorHelveticaFontTest in html2pdf-private
+    public void convertStandardFonts() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "convertStandardFonts.html"), new File(destinationFolder + "convertStandardFonts.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "convertStandardFonts.pdf", sourceFolder + "cmp_convertStandardFonts", destinationFolder, "difffontstand_"));
+    }
+
 }

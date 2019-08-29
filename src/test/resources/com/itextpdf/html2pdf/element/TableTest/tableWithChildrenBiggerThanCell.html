@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html, body {
+            font-family: Helvetica, Arial, sans-serif
+        }
+        table {
+            width: 100%;
+            text-indent: 5px;
+            border-collapse: collapse
+        }
+        table, tbody, tr, td {
+            border: 1px solid black
+        }
+        .content {
+            background-color: lightcoral;
+            border: 2px solid darkred;
+            box-sizing: border-box;
+            width: 100%
+        }
+        .inline-block {
+            display: inline-block
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tbody>
+    <tr><td>Start of table</td></tr>
+    <tr><td><span class="content inline-block">I'm inline-block span</span></td></tr>
+    <tr><td><input class="content" value="I'm input"></td></tr>
+    <tr><td><div class="content">I'm div</div></td></tr>
+    <tr><td><img style="margin-left: 300px" class="content" src="100x100placeholder.png"></td></tr>
+    <tr><td><span class="content">I'm span</span></td></tr>
+    <tr style="text-indent: 0"><td><input style="width: 105%" class="content" value="I'm input in no text-indent row but I'm bigger than cell"></td></tr>
+    <tr><td><div class="content inline-block">I'm inline-block div</div></td></tr>
+    <tr style="text-indent: 0"><td><table style="width: 105%" class="content"><tbody><tr><td>I'm table in no text-indent row but I'm bigger than cell</td></tr></table></td></tr>
+    <tr><td>End of table</td></tr>
+    </tbody>
+</table>
+</body>
+</html>

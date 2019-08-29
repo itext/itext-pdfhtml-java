@@ -47,6 +47,7 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -64,10 +65,11 @@ public class DirAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void rtlDir01Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("rtlDirTest01", sourceFolder, destinationFolder);}
+        convertToPdfAndCompare("rtlDirTest01", sourceFolder, destinationFolder);
+    }
 
     @Test
     public void rtlDir02Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("rtlDirTest02", sourceFolder, destinationFolder);}
-
+        convertToPdfAndCompare("rtlDirTest02", sourceFolder, destinationFolder);
+    }
 }

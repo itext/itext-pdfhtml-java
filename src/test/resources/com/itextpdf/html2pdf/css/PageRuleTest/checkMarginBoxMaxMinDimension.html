@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Margin Box Tests: fix dimension</title>
+    <style type="text/css">
+			@page
+			{
+				size: A4;
+				border: dashed 1pt brown;
+
+                @top-left-corner {
+                    content:'top-left-corner';
+                    background: #dfe;
+                    border: solid 1px blue;
+                }
+
+                @bottom-left-corner {
+                    content:'bottom-left-corner';
+                    background: green;
+                     border: solid 1px blue;
+                }
+
+                @left-bottom {
+                    content: 'left-bottom';
+                     background-color: rgba(0, 0, 100, 0.3);
+                    max-height:40px;
+                }
+
+                @left-middle {
+                    content: 'left-middle';
+                     background-color: rgba(0, 0, 150, 0.3);
+                    height: 33%;
+                }
+                @left-top {
+                    content: 'left-top';
+                     background-color: rgba(0, 0, 255, 0.3);
+                    height: 33%;
+                    max-height:100px;
+                }
+
+                @right-bottom {
+                    content: 'right-bottom';
+                    background:#cff;
+                    max-height:10%;
+                    min-height:400px;
+                }
+
+                @right-middle {
+                    content: 'right-middle';
+                    background:#ccf;
+                    height: 200px;
+                }
+                @right-top {
+                    content: 'right-top';
+                    background:#fcc;
+                    height: 200px;
+                    min-height:400px;
+                }
+                @bottom-left {
+                    content: 'bottom-left';
+                    background:#f0c;
+                    width: 350px;
+                    max-width: 10%;
+                }
+                @bottom-center {
+                    content: 'bottom-center';
+                    background:#fc0;
+                    width: 350px;
+                    max-width: 10%;
+                }
+                @bottom-right {
+                    content: 'bottom-right';
+                    background:#f01;
+                    width: 350px;
+                    max-width: 360px;
+                }
+                @top-left {
+                    content: 'top-left';
+                     background-color: rgba(255, 0, 0, 0.3);
+                    width: 33%;
+                }
+                @top-center {
+                    content: 'top-center';
+                    background:#fc0;
+                    width: 33%;
+                }
+                @top-right {
+                    content: 'top-right';
+                    background:#f01;
+                    min-width: 400px;
+                }
+			}
+    </style>
+</head>
+<body>
+<h1>Min-width and max-width Dimensions for Margin Box</h1>
+<ul>
+    <li>	@page
+        {
+        size: A4;
+        border: dashed 1pt brown;
+    </li><li>
+        @top-left-corner {
+        content:'top-left-corner';
+        background: #dfe;
+        border: 1pt blue;
+        }
+</li><li>
+        @bottom-left-corner {
+        content:'bottom-left-corner';
+        background: green;
+        border: 1pt blue;
+        }
+</li><li>
+        @left-bottom {
+        content: 'left-bottom';
+        background:#cff;
+        max-height:40px;
+        }
+</li><li>
+        @left-middle {
+        content: 'left-middle';
+        background:#ccf;
+        height: 33%;
+        }</li><li>
+        @left-top {
+        content: 'left-top';
+        background-color: rgba(0, 0, 255, 0.3);
+        height: 33%;
+        max-height:100px;
+        }
+</li><li>
+        @right-bottom {
+        content: 'right-bottom';
+        background:#cff;
+        max-height:10%;
+        min-height:400px;
+        }
+</li><li>
+        @right-middle {
+        content: 'right-middle';
+        background:#ccf;
+        height: 200px;
+        }</li><li>
+        @right-top {
+        content: 'right-top';
+        background:#fcc;
+        height: 200px;
+        min-height:400px;
+        }</li><li>
+        @bottom-left {
+        content: 'bottom-left';
+        background:#f0c;
+        width: 350px;
+        max-width: 10%;
+        }</li><li>
+        @bottom-center {
+        content: 'bottom-center';
+        background:#fc0;
+        width: 350px;
+        max-width: 10%;
+        }</li><li>
+        @bottom-right {
+        content: 'bottom-right';
+        background:#f01;
+        width: 350px;
+        max-width: 360px;
+        }</li><li>
+        @top-left {
+        content: 'top-left';
+        background-color: rgba(255, 0, 0, 0.3);
+        width: 33%;
+        }</li><li>
+        @top-center {
+        content: 'top-center';
+        background:#fc0;
+        width: 33%;
+        }</li><li>
+        @top-right {
+        content: 'top-right';
+        background:#f01;
+        min-width: 400px;
+        }
+        }</li>
+</ul>
+</body>
+</html>

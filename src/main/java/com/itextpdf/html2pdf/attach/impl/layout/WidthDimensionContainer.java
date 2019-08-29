@@ -52,7 +52,7 @@ class WidthDimensionContainer extends DimensionContainer {
 
     public WidthDimensionContainer(CssContextNode node, float maxWidth, IRenderer renderer, float additionalWidthFix) {
         String width = node.getStyles().get(CssConstants.WIDTH);
-        if (width != null && !width.equals(CssConstants.AUTO)) {
+        if (width != null && !CssConstants.AUTO.equals(width)) {
             dimension = parseDimension(node, width, maxWidth, additionalWidthFix);
         }
         minDimension = getMinWidth(node, maxWidth, additionalWidthFix);

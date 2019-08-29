@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>White Space example</title>
+    <style>
+       table, tr, td {
+       border: solid black;
+       background:#ccf;
+       font-size: 10pt;
+}
+
+    </style>
+</head>
+<body>
+<p>NORMAL: Sequences of white space are collapsed. Newline characters in the source are handled the same as other white space. Lines are broken as necessary to fill line boxes.</p>
+<table style="width: 400pt;">
+    <tr>
+        <td width="99%">white-space: normal;</td>
+        <td style="white-space: normal;"> Whitespace character is <&#32;> here. non-breaking space <&#160;> here. OGHAM
+            SPACE MARK <&#5760;> here. 2BR <<br><br>> here. CR(Carriage return (slash r) <&#13;>) and LF(Line feed
+            (slash n) or <&#10;> here).
+            CR LF <&#13;&#10;> here. LF CR <&#10;&#13;> here.Some very long text is here also. Some very long text is
+            here also. Some very long text is here also.
+        </td>
+    </tr>
+</table>
+<br>
+<p>NOWRAP: Collapses white space as for normal, but suppresses line breaks (text wrapping) within the source.</p>
+<table style="width: 400pt;">
+    <tr>
+        <td style="width: 99%">white-space: nowrap;</td>
+        <td style="white-space: nowrap;">Whitespace character is <&#32;> here. non-breaking space <&#160;> here. OGHAM
+            SPACE MARK <&#5760;> here. 2BR <<br><br>> here. CR(Carriage return (slash r) <&#13;>) and LF(Line feed
+            (slash n) or <&#10;> here).
+            CR LF <&#13;&#10;> here. LF CR <&#10;&#13;> here.Some very long text is here also. Some very long text is
+            here also. Some very long text is here also.
+        </td>
+    </tr>
+</table>
+<br>
+<p>PRE: Sequences of white space are preserved. Lines are only broken at newline characters in the source and at br elements.</p>
+<table style="width: 400pt;">
+    <tr>
+        <td width="99%">white-space: pre;</td>
+        <td style="white-space: pre;"> Whitespace character is <&#32;> here. non-breaking space <&#160;> here. OGHAM
+            SPACE MARK <&#5760;> here. 2BR <<br><br>> here. CR(Carriage return (slash r) <&#13;>) and LF(Line feed
+            (slash n) or <&#10;> here).
+            CR LF <&#13;&#10;> here. LF CR <&#10;&#13;> here.Some very long text is here also. Some very long text is
+            here also. Some very long text is here also.
+        </td>
+    </tr>
+</table>
+<br>
+<p>PRE-WRAP: Sequences of white space are preserved. Lines are broken at newline characters, at br, and as necessary to fill line boxes.</p>
+<table style="width: 400pt;">
+    <tr>
+        <td width="99%">white-space: pre-wrap;</td>
+        <td style="white-space: pre-wrap;"> Whitespace character is <&#32;> here. non-breaking space <&#160;> here. OGHAM
+            SPACE MARK <&#5760;> here. 2BR <<br><br>> here. CR(Carriage return (slash r) <&#13;>) and LF(Line feed
+            (slash n) or <&#10;> here).
+            CR LF <&#13;&#10;> here. LF CR <&#10;&#13;> here.Some very long text is here also. Some very long text is
+            here also. Some very long text is here also.
+        </td>
+    </tr>
+</table>
+<br>
+<p>PRE-LINE: Sequences of white space are collapsed. Lines are broken at newline characters, at br, and as necessary to fill line boxes.</p>
+<table style="width: 400pt;">
+    <tr>
+        <td width="99%">white-space: pre-line;</td>
+        <td style="white-space: pre-line;"> Whitespace character is <&#32;> here. non-breaking space <&#160;> here.
+            OGHAM SPACE MARK <&#5760;> here. 2BR <<br><br>> here. CR(Carriage return (slash r) <&#13;>) and LF(Line feed
+            (slash n) or <&#10;> here).
+            CR LF <&#13;&#10;> here. LF CR <&#10;&#13;> here.Some very long text is here also. Some very long text is
+            here also. Some very long
+            text is here also.
+        </td>
+    </tr>
+</table>
+</body>
+</html>

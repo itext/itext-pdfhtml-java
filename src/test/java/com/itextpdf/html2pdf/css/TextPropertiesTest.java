@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -129,6 +130,13 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void whiteSpaceTest03() throws IOException, InterruptedException {
         convertToPdfAndCompare("whiteSpaceTest03", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH))
+    //TODO: fix after DEVSIX-2447. To reproduce without error, remove "white-space: pre;" (pre-wrap, pre-line)
+    public void checkWhiteSpaceCss() throws IOException, InterruptedException {
+        convertToPdfAndCompare("checkWhiteSpaceCss", sourceFolder, destinationFolder);
     }
 
     @Test

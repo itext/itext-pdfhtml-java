@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Title with <br><br><br>3 br</title>
+    <style>
+        div {
+            background-color: grey;
+        }
+        br {
+            background-color: yellow;
+        }
+        th {
+            background-color: green;
+        }
+        tr {
+            background-color: magenta;
+        }
+        table {
+            background-color: orange;
+        }
+        li {
+            background-color: rgba(0, 255, 0, 0.3);
+        }
+        span {
+            background-color: magenta;
+        }
+        p {
+            background-color: rgba(255, 255, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <tr>
+        <td>
+            <ol>
+                <li>0 Line breaks: Test</li>
+                <li>1 Line break:<br>Test</li>
+                <li>2 Line breaks:<br><br>Test</li>
+                <li>3 Line breaks:<br><br><br>Test</li>
+                <li><b>3 Line breaks:<br><br><br>Test</b></li>
+            </ol>
+        </td>
+        <td>
+            <ul>
+                <li>0 Line breaks: Test</li>
+                <li>1 Line break:<br>Test</li>
+                <li>2 Line breaks:<br><br>Test</li>
+                <li>3 Line breaks:<br><br><br>Test</li>
+                <li><b>3 Line breaks:<br><br><br>Test</b></li>
+            </ul>
+        </td>
+        <td>
+            <dl>
+                <dt>0 Line breaks: Test</dt>
+                <dd>0 Line breaks: Test</dd>
+                <dt>1 Line break:<br>Test</dt>
+                <dd>1 Line break:<br>Test</dd>
+                <dt>2 Line breaks:<br><br>Test</dt>
+                <dd>2 Line breaks:<br><br>Test</dd>
+                <dt>3 Line break:<br><br><br>Test</dt>
+                <dd><strike>3 Line break:<br><br><br>Test</strike></dd>
+            </dl>
+        </td>
+    </tr>
+</table>
+<ul>
+    <li>Here
+        <bdi>Three line breaks<br><br><br>inside BDI</bdi>
+        test inside LI
+    </li>
+    <li>Here <bdo dir="rtl">Three line breaks<br><br><br>inside BDO</bdo> test inside LI</li>
+    <li>Here <bdo dir="ltr">Three line breaks<br><br><br>inside BDO</bdo> test inside LI</li>
+</ul>
+Here
+<bdi>Three line breaks<br><br><br>inside BDI</bdi>
+test
+Here <bdo dir="rtl">Three line breaks<br><br><br>inside BDO RTL</bdo> test
+Here <bdo dir="ltr">Three line breaks<br><br><br>inside BDO LTR</bdo> test
+<span>Three line breaks<br><br><br>inside SPAN</span>
+<p>Three line breaks<br><br><br>inside P</p>
+<div>Line breaks in ABBR</div>
+<abbr title="Some Abbrev Here">SA<br><br><br>H</abbr>
+<div>Line breaks in a tag</div>
+<table>
+    <tr>
+        <td>
+            Here <a style="display: block;">Three line breaks<br><br><br>inside A</a>
+        </td>
+        <td>
+            Here <a style="display: inline;">Three line breaks<br><br><br>inside A</a>
+        </td>
+    </tr>
+
+</table>
+<div>Three line breaks<br><br><br>inside DIV</div>
+<h1>Three line breaks<br><br><br>inside H1</h1>
+<link>
+Three line breaks<br><br><br>inside LINK</link>
+<pre>Three line breaks<br><br><br>inside PRE</pre>
+<table>
+    <tr>
+        <td><p>Three line breaks<br><br><br>inside P</p></td>
+        <td><b>Three line breaks<br><br><br>inside B</b></td>
+        <td><p><b>Three line breaks<br><br><br>inside B inside P</b></p></td>
+        <td>
+            <div><b>Three line breaks<br><br><br>inside B inside DIV</b></div>
+        </td>
+    </tr>
+    <tr>
+        <td><big>Three line breaks<br><br><br>inside BIG</big></td>
+        <td>
+            <small>Three line breaks<br><br><br>inside SMALL</small>
+        </td>
+        <td><p><i>Three line breaks<br><br><br>inside I inside P</i></p></td>
+        <td>
+            <div>
+                <small>Three line breaks<br><br><br>inside SMALL inside DIV</small>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td><span><big>Three line breaks<br><br><br>inside BIG inside SPAN</big></span></td>
+        <td><span>Three line breaks<br><br><br>inside SPAN inside TD</span></td>
+        <td><p><strong>Three line breaks<br><br><br>inside STRONG inside P</strong></p></td>
+        <td>
+            <div><strong>Three line breaks<br><br><br>inside STRONG inside DIV</strong></div>
+        </td>
+    </tr>
+    <tr>
+        <td><span><code>Three line breaks<br><br><br>inside CODE inside SPAN</code></span></td>
+        <td><code>Three line breaks<br><br><br>inside CODE</code></td>
+        <td><cite>Three line breaks<br><br><br>inside CITE</cite></td>
+        <td><div><dfn>Three line breaks<br><br><br>inside DFN inside DIV</dfn></div></td>
+    </tr>
+</table>
+
+<img src="planets.gif" width="145" height="126" alt="Planets" usemap="#planetmap">
+
+<map name="planetmap"><br><br><br>
+    <area shape="rect" coords="0,0,82,126" href="sun.htm" alt="Sun">
+    <area shape="circle" coords="90,58,3" href="mercur.htm" alt="Mercury">
+    <area shape="circle" coords="124,58,8" href="venus.htm" alt="Venus">
+</map>
+<select>
+    <br><br><br>
+    <option>THREE LINE BREAKS<br><br><br>inside OPTION</option>
+    <br><br><br>
+    <option selected>Three line breaks<br><br><br>inside OPTION</option>
+</select>
+<table>
+    <tr>
+        <th scope="col">Three line breaks<br><br><br>inside TH</th>
+        Three line breaks<br><br><br>inside TABLE NO STRUCTURE
+        <th scope="col">Three line breaks<br><br><br>inside TH</th>
+    </tr>
+    Three line breaks<br><br><br>inside
+    <tr>
+        <td>Three line breaks<br><br><br>inside TD</td>
+        Three line breaks<br><br><br>inside TABLE NO STRUCTURE
+        <td>Three line breaks<br><br><br>inside TD</td>
+    </tr>
+</table>
+<br><br>
+<table>
+    <thead>
+    <td>Three line breaks<br><br><br>inside TD inside THEAD</td>
+    Three line breaks<br><br><br>inside THEAD NO STRUCTURE
+    <td>Three line breaks<br><br><br>inside TD inside THEAD</td>
+    </thead>
+    Three line breaks<br><br><br>inside TABLE NO STRUCTURE
+    <tr>
+        <td>Three line breaks<br><br><br>inside</td>
+        Three line breaks<br><br><br>inside NO STRUCTURE
+        <td>Three line breaks<br><br><br>inside</td>
+    </tr>
+    <tfoot>
+    <td>Three line breaks<br><br><br>inside TD inside TFOOT</td>
+    Three line breaks<br><br><br>inside TFOOT NO STRUCTURE
+    <td>Three line breaks<br><br><br> inside TD inside TFOOT</td>
+    </tfoot>
+</table>
+<br>
+<button>Three line breaks<br><br><br>inside BUTTON</button>
+<br>
+<textarea>Three line breaks<br><br><br>inside TEXTAREA</textarea>
+<br>
+<input placeholder="Three line breaks <br><br><br>inside PLACEHOLDER">
+<br>
+<samp>Three line breaks<br><br><br>inside SAMP</samp>
+<br>
+Here
+<del>Three line breaks<br><br><br>inside DEL</del>
+<ins>Three line breaks<br><br><br>inside INS</ins>
+!
+</body>
+</html>

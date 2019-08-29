@@ -43,6 +43,9 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.styledxmlparser.LogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
@@ -79,5 +82,12 @@ public class FontSizeTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void fontRelativeKeywords() throws IOException, InterruptedException {
         convertToPdfAndCompare("fontRelativeKeywords", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO DEVSIX-2881 : Update cmps
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED))
+    public void spacesInFontSizeValueTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("spacesInFontSizeValueTest", sourceFolder, destinationFolder);
     }
 }

@@ -1,0 +1,48 @@
+<html>
+<head>
+    <title>Large images within table pdfHTML</title>
+    <style> td {
+            padding: 15px;
+            margin: 15px;
+            border: 3px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<h3>3 pictures should be here in every of 2 cells (image size exceeding page size limits)</h3>
+
+<table>
+    <tr>
+        <td>
+            <div>
+                <img style="width:1200px; height:1200px;" src="image400on400.jpg"> </div>
+            <div>
+                <img style="width:1100px; height:1100px;" src="image400on400.jpg">
+            </div>
+
+            <div>
+                <img style="width:1000px; height:1000px;" src="image400on400.jpg"></div>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div>
+                <img style="width:1200px; height:1200px;"
+                     src="image400on400.jpg">
+            </div>
+            <div>
+                <img style="width:1100px; height:1100px;"
+                     src="image400on400.jpg">
+            </div>
+
+            <div>
+                <img style="width:1000px; height:1000px;"
+                     src="image400on400.jpg">
+            </div>
+
+        </td>
+    </tr>
+</table>
+</body>
+</html>

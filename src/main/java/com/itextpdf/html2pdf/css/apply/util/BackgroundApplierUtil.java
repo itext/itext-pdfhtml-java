@@ -85,13 +85,13 @@ public final class BackgroundApplierUtil {
             element.setProperty(Property.BACKGROUND, backgroundColor);
         }
         String backgroundImageStr = cssProps.get(CssConstants.BACKGROUND_IMAGE);
-        if (backgroundImageStr != null && !backgroundImageStr.equals(CssConstants.NONE)) {
+        if (backgroundImageStr != null && !CssConstants.NONE.equals(backgroundImageStr)) {
             String backgroundRepeatStr = cssProps.get(CssConstants.BACKGROUND_REPEAT);
             PdfXObject image = context.getResourceResolver().retrieveImageExtended(CssUtils.extractUrl(backgroundImageStr));
             boolean repeatX = true, repeatY = true;
             if (backgroundRepeatStr != null) {
-                repeatX = backgroundRepeatStr.equals(CssConstants.REPEAT) || backgroundRepeatStr.equals(CssConstants.REPEAT_X);
-                repeatY = backgroundRepeatStr.equals(CssConstants.REPEAT) || backgroundRepeatStr.equals(CssConstants.REPEAT_Y);
+                repeatX = CssConstants.REPEAT.equals(backgroundRepeatStr) || CssConstants.REPEAT_X.equals(backgroundRepeatStr);
+                repeatY = CssConstants.REPEAT.equals(backgroundRepeatStr) || CssConstants.REPEAT_Y.equals(backgroundRepeatStr);
             }
             if (image != null) {
                 BackgroundImage backgroundImage = null;

@@ -165,6 +165,15 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    //TODO: update after DEVSIX-2445 fix
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 6),
+    })
+    public void displayBlockInsideParagraphTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("displayBlockInsideParagraph", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void displayInline01Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("display_inline01", sourceFolder, destinationFolder);
     }

@@ -62,7 +62,7 @@ public final class HtmlUtils {
      * @return true, if the element node represents a style sheet link
      */
     public static boolean isStyleSheetLink(IElementNode headChildElement) {
-        return headChildElement.name().equals(TagConstants.LINK)
+        return TagConstants.LINK.equals(headChildElement.name())
                 && AttributeConstants.STYLESHEET.equals(headChildElement.getAttribute(AttributeConstants.REL));
     }
 
