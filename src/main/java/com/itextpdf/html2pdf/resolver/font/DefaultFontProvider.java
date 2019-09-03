@@ -109,7 +109,8 @@ public class DefaultFontProvider extends BasicFontProvider {
     public DefaultFontProvider(boolean registerStandardPdfFonts, boolean registerShippedFreeFonts, boolean registerSystemFonts) {
         super(registerStandardPdfFonts, registerSystemFonts);
         if (registerShippedFreeFonts) {
-            addShippedFreeFonts(addCalligraphFonts());
+            addShippedFreeFonts(null);
+            addCalligraphFonts();
         }
     }
 
