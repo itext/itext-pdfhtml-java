@@ -109,8 +109,12 @@ public class DefaultFontProvider extends BasicFontProvider {
     public DefaultFontProvider(boolean registerStandardPdfFonts, boolean registerShippedFreeFonts, boolean registerSystemFonts) {
         super(registerStandardPdfFonts, registerSystemFonts);
         if (registerShippedFreeFonts) {
-            addShippedFreeFonts(null);
-            addCalligraphFonts();
+            if(checkCalligraphFonts() != null) {
+                addShippedFreeFonts(FREE_FONT_RANGE);
+                addCalligraphFonts();
+            } else {
+                addShippedFreeFonts(null);
+            }
         }
     }
 
@@ -136,15 +140,13 @@ public class DefaultFontProvider extends BasicFontProvider {
      * If it's needed to have a DefaultFontProvider without typography fonts loaded,
      * create an extension of DefaultFontProvider and override this method so it does nothing and only returns null.
      *
+     *
      * @return a unicode {@link Range} that excludes the loaded from pdfCalligraph fonts,
      * i.e. the unicode range that is to be rendered with any other font contained in this FontProvider
      */
     protected Range addCalligraphFonts() {
         String methodName = "loadShippedFonts";
-        Class<?> klass = null;
-        try {
-            klass = getTypographyUtilsClass();
-        } catch (ClassNotFoundException ignored) { }
+        Class<?> klass = checkCalligraphFonts();
         if (klass != null) {
             try {
                 Method m = klass.getMethod(methodName);
@@ -159,6 +161,14 @@ public class DefaultFontProvider extends BasicFontProvider {
             }
         }
         return null;
+    }
+
+    private Class<?> checkCalligraphFonts() {
+        Class<?> klass = null;
+        try {
+            klass = getTypographyUtilsClass();
+        } catch (ClassNotFoundException ignored) { }
+        return klass;
     }
 
     private static Class<?> getTypographyUtilsClass() throws ClassNotFoundException {
