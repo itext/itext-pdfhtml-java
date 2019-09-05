@@ -161,7 +161,7 @@ public class DefaultFontProvider extends BasicFontProvider {
                 Method m = klass.getMethod(methodName);
                 ArrayList<byte[]> fontStreams = (ArrayList<byte[]>) m.invoke(null, null);
                 for (byte[] font : fontStreams)
-                    addFont(font);
+                    addFontToList(font);
                 // here we return a unicode range that excludes the loaded from the calligraph module fonts
                 // i.e. the unicode range that is to be rendered with standard or shipped free fonts
                 return FREE_FONT_RANGE;
@@ -177,9 +177,7 @@ public class DefaultFontProvider extends BasicFontProvider {
         return Class.forName(typographyClassFullName);
     }
 
-    @Override
-    public boolean addFont(byte[] fontData) {
+    private void addFontToList(byte[] fontData) {
         this.fontStreamList.add(fontData);
-        return true;
     }
 }
