@@ -53,6 +53,7 @@ import org.slf4j.LoggerFactory;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The default {@link BasicFontProvider} for pdfHTML, that, as opposed to
@@ -92,6 +93,9 @@ public class DefaultFontProvider extends BasicFontProvider {
     private static final Range FREE_FONT_RANGE = new RangeBuilder()
             .addRange(0, 0x058F).addRange(0x0E80, Integer.MAX_VALUE).create();
 
+
+    private List<byte[]> fontStreamList = new ArrayList<>();
+
     /**
      * Creates a new {@link DefaultFontProvider} instance.
      */
@@ -109,12 +113,14 @@ public class DefaultFontProvider extends BasicFontProvider {
     public DefaultFontProvider(boolean registerStandardPdfFonts, boolean registerShippedFreeFonts, boolean registerSystemFonts) {
         super(registerStandardPdfFonts, registerSystemFonts);
         if (registerShippedFreeFonts) {
-            if(checkCalligraphFonts() != null) {
-                addShippedFreeFonts(FREE_FONT_RANGE);
-                addCalligraphFonts();
-            } else {
-                addShippedFreeFonts(null);
-            }
+            addAllAvailableFonts(addCalligraphFonts());
+        }
+    }
+
+    private void addAllAvailableFonts(Range rangeToLoad) {
+        addShippedFreeFonts(rangeToLoad);
+        for(byte[] fontData : fontStreamList) {
+            addFont(fontData, null);
         }
     }
 
@@ -146,7 +152,10 @@ public class DefaultFontProvider extends BasicFontProvider {
      */
     protected Range addCalligraphFonts() {
         String methodName = "loadShippedFonts";
-        Class<?> klass = checkCalligraphFonts();
+        Class<?> klass = null;
+        try {
+            klass = getTypographyUtilsClass();
+        } catch (ClassNotFoundException ignored) { }
         if (klass != null) {
             try {
                 Method m = klass.getMethod(methodName);
@@ -163,16 +172,14 @@ public class DefaultFontProvider extends BasicFontProvider {
         return null;
     }
 
-    private Class<?> checkCalligraphFonts() {
-        Class<?> klass = null;
-        try {
-            klass = getTypographyUtilsClass();
-        } catch (ClassNotFoundException ignored) { }
-        return klass;
-    }
-
     private static Class<?> getTypographyUtilsClass() throws ClassNotFoundException {
         String typographyClassFullName = "com.itextpdf.typography.util.TypographyShippedFontsUtil";
         return Class.forName(typographyClassFullName);
+    }
+
+    @Override
+    public boolean addFont(byte[] fontData) {
+        this.fontStreamList.add(fontData);
+        return true;
     }
 }
