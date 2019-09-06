@@ -94,7 +94,10 @@ public class DefaultFontProvider extends BasicFontProvider {
             .addRange(0, 0x058F).addRange(0x0E80, Integer.MAX_VALUE).create();
 
 
-    private List<byte[]> fontStreamList = new ArrayList<>();
+    //we want to add free fonts to font provider before calligraph fonts. However, the existing public API states
+    // that addCalligraphFonts() should be used first to load calligraph fonts and to define the range for loading free fonts.
+    // In order to maintain backward compatibility, this temporary field is used to stash calligraph fonts before free fonts are loaded.
+    private List<byte[]> calligraphyFontsTempList = new ArrayList<>();
 
     /**
      * Creates a new {@link DefaultFontProvider} instance.
@@ -119,9 +122,10 @@ public class DefaultFontProvider extends BasicFontProvider {
 
     private void addAllAvailableFonts(Range rangeToLoad) {
         addShippedFreeFonts(rangeToLoad);
-        for(byte[] fontData : fontStreamList) {
+        for(byte[] fontData : calligraphyFontsTempList) {
             addFont(fontData, null);
         }
+        calligraphyFontsTempList = null;
     }
 
     /**
@@ -146,7 +150,6 @@ public class DefaultFontProvider extends BasicFontProvider {
      * If it's needed to have a DefaultFontProvider without typography fonts loaded,
      * create an extension of DefaultFontProvider and override this method so it does nothing and only returns null.
      *
-     *
      * @return a unicode {@link Range} that excludes the loaded from pdfCalligraph fonts,
      * i.e. the unicode range that is to be rendered with any other font contained in this FontProvider
      */
@@ -160,8 +163,9 @@ public class DefaultFontProvider extends BasicFontProvider {
             try {
                 Method m = klass.getMethod(methodName);
                 ArrayList<byte[]> fontStreams = (ArrayList<byte[]>) m.invoke(null, null);
-                for (byte[] font : fontStreams)
-                    addFontToList(font);
+                for (byte[] font : fontStreams) {
+                    this.calligraphyFontsTempList.add(font);
+                }
                 // here we return a unicode range that excludes the loaded from the calligraph module fonts
                 // i.e. the unicode range that is to be rendered with standard or shipped free fonts
                 return FREE_FONT_RANGE;
@@ -175,9 +179,5 @@ public class DefaultFontProvider extends BasicFontProvider {
     private static Class<?> getTypographyUtilsClass() throws ClassNotFoundException {
         String typographyClassFullName = "com.itextpdf.typography.util.TypographyShippedFontsUtil";
         return Class.forName(typographyClassFullName);
-    }
-
-    private void addFontToList(byte[] fontData) {
-        this.fontStreamList.add(fontData);
     }
 }
