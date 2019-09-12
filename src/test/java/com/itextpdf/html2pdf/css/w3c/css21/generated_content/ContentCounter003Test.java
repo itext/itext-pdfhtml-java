@@ -45,7 +45,8 @@ package com.itextpdf.html2pdf.css.w3c.css21.generated_content;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import org.junit.Ignore;
 
-@Ignore("DEVSIX-1123")
+//It was decided not to update fonts to the current latest version (dated from 2012)
+
 public class ContentCounter003Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
