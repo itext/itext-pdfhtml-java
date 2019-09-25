@@ -65,12 +65,11 @@ import java.util.List;
  * This is how this worker processes the &lt;p&gt; tag:
  * <ul>
  * <li> if the worker meets a text or an inline element, it processes them with a help of
- * the {@link com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper} instance</li>
+ * the {@link com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper} instance
  *
  * <li> if the worker meets a block element without inline displaying or
  * an inline element with the {@code display: block} style, it wraps all the content which hasn't been handled yet
  * into a {@code com.itextpdf.layout.element.Paragraph} object and adds this paragraph to the resultant {@code com.itextpdf.layout.element.Div} object
- * </li>
  * </ul>
  */
 public class PTagWorker implements ITagWorker, IDisplayAware {
