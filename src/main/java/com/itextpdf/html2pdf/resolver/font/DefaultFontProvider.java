@@ -67,6 +67,8 @@ public class DefaultFontProvider extends BasicFontProvider {
      */
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(DefaultFontProvider.class);
 
+    private static final String DEFAULT_FONT_FAMILY = "Times";
+
     /** The path to the shipped fonts. */
     private static final String SHIPPED_FONT_RESOURCE_PATH = "com/itextpdf/html2pdf/font/";
 
@@ -114,7 +116,19 @@ public class DefaultFontProvider extends BasicFontProvider {
      * @param registerSystemFonts use true if you want to register the system fonts (can require quite some resources)
      */
     public DefaultFontProvider(boolean registerStandardPdfFonts, boolean registerShippedFreeFonts, boolean registerSystemFonts) {
-        super(registerStandardPdfFonts, registerSystemFonts);
+        this(registerStandardPdfFonts, registerShippedFreeFonts, registerSystemFonts, DEFAULT_FONT_FAMILY);
+    }
+
+    /**
+     * Creates a new {@link DefaultFontProvider} instance.
+     *
+     * @param registerStandardPdfFonts use true if you want to register the standard Type 1 fonts (can't be embedded)
+     * @param registerShippedFreeFonts use true if you want to register the shipped fonts (can be embedded)
+     * @param registerSystemFonts use true if you want to register the system fonts (can require quite some resources)
+     * @param defaultFontFamily default font family
+     */
+    public DefaultFontProvider(boolean registerStandardPdfFonts, boolean registerShippedFreeFonts, boolean registerSystemFonts, String defaultFontFamily) {
+        super(registerStandardPdfFonts, registerSystemFonts, defaultFontFamily);
         if (registerShippedFreeFonts) {
             addAllAvailableFonts(addCalligraphFonts());
         }
