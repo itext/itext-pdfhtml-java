@@ -110,6 +110,12 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${javadoc.version}</version>
         <configuration>
+          <sourceFileExcludes>
+            <sourceFileExclude>com/itextpdf/html2pdf/attach/impl/layout/BodyHtmlStylesContainer.java</sourceFileExclude>
+
+            <!-- ProductInfo -->
+            <sourceFileExclude>**/Html2PdfProductInfo.java</sourceFileExclude>
+          </sourceFileExcludes>
           <groups>
             <group>
               <title>pdfHTML</title>
