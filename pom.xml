@@ -110,7 +110,6 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${javadoc.version}</version>
         <configuration>
-          <subpackages>com.itextpdf.html2pdf</subpackages>
           <groups>
             <group>
               <title>pdfHTML</title>
