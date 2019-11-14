@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
@@ -56,22 +57,21 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class InputTest extends ExtendedITextTest {
+public class InputTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/InputTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/InputTest/";
@@ -257,14 +257,13 @@ public class InputTest extends ExtendedITextTest {
         runTest("placeholderTest05A");
     }
 
-    private void runTest(String name) throws IOException, InterruptedException {
-        String htmlPath = sourceFolder + name + ".html";
-        String outPdfPath = destinationFolder + name + ".pdf";
-        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-        String diff = "diff_" + name + "_";
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+    @Test
+    // TODO fix after DEVSIX-3461 is done
+    public void checkboxTaggingTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("checkboxTagging", sourceFolder, destinationFolder, true);
+    }
 
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath));
-        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));
+    private void runTest(String name) throws IOException, InterruptedException {
+        convertToPdfAndCompare(name, sourceFolder, destinationFolder);
     }
 }
