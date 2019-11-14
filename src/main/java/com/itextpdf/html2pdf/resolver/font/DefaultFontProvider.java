@@ -53,6 +53,7 @@ import org.slf4j.LoggerFactory;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The default {@link BasicFontProvider} for pdfHTML, that, as opposed to
@@ -65,6 +66,8 @@ public class DefaultFontProvider extends BasicFontProvider {
      * The logger.
      */
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(DefaultFontProvider.class);
+
+    private static final String DEFAULT_FONT_FAMILY = "Times";
 
     /** The path to the shipped fonts. */
     private static final String SHIPPED_FONT_RESOURCE_PATH = "com/itextpdf/html2pdf/font/";
@@ -92,6 +95,12 @@ public class DefaultFontProvider extends BasicFontProvider {
     private static final Range FREE_FONT_RANGE = new RangeBuilder()
             .addRange(0, 0x058F).addRange(0x0E80, Integer.MAX_VALUE).create();
 
+
+    //we want to add free fonts to font provider before calligraph fonts. However, the existing public API states
+    // that addCalligraphFonts() should be used first to load calligraph fonts and to define the range for loading free fonts.
+    // In order to maintain backward compatibility, this temporary field is used to stash calligraph fonts before free fonts are loaded.
+    private List<byte[]> calligraphyFontsTempList = new ArrayList<>();
+
     /**
      * Creates a new {@link DefaultFontProvider} instance.
      */
@@ -107,10 +116,30 @@ public class DefaultFontProvider extends BasicFontProvider {
      * @param registerSystemFonts use true if you want to register the system fonts (can require quite some resources)
      */
     public DefaultFontProvider(boolean registerStandardPdfFonts, boolean registerShippedFreeFonts, boolean registerSystemFonts) {
-        super(registerStandardPdfFonts, registerSystemFonts);
+        this(registerStandardPdfFonts, registerShippedFreeFonts, registerSystemFonts, DEFAULT_FONT_FAMILY);
+    }
+
+    /**
+     * Creates a new {@link DefaultFontProvider} instance.
+     *
+     * @param registerStandardPdfFonts use true if you want to register the standard Type 1 fonts (can't be embedded)
+     * @param registerShippedFreeFonts use true if you want to register the shipped fonts (can be embedded)
+     * @param registerSystemFonts use true if you want to register the system fonts (can require quite some resources)
+     * @param defaultFontFamily default font family
+     */
+    public DefaultFontProvider(boolean registerStandardPdfFonts, boolean registerShippedFreeFonts, boolean registerSystemFonts, String defaultFontFamily) {
+        super(registerStandardPdfFonts, registerSystemFonts, defaultFontFamily);
         if (registerShippedFreeFonts) {
-            addShippedFreeFonts(addCalligraphFonts());
+            addAllAvailableFonts(addCalligraphFonts());
         }
+    }
+
+    private void addAllAvailableFonts(Range rangeToLoad) {
+        addShippedFreeFonts(rangeToLoad);
+        for(byte[] fontData : calligraphyFontsTempList) {
+            addFont(fontData, null);
+        }
+        calligraphyFontsTempList = null;
     }
 
     /**
@@ -148,8 +177,9 @@ public class DefaultFontProvider extends BasicFontProvider {
             try {
                 Method m = klass.getMethod(methodName);
                 ArrayList<byte[]> fontStreams = (ArrayList<byte[]>) m.invoke(null, null);
-                for (byte[] font : fontStreams)
-                    addFont(font);
+                for (byte[] font : fontStreams) {
+                    this.calligraphyFontsTempList.add(font);
+                }
                 // here we return a unicode range that excludes the loaded from the calligraph module fonts
                 // i.e. the unicode range that is to be rendered with standard or shipped free fonts
                 return FREE_FONT_RANGE;

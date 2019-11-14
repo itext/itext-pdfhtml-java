@@ -44,12 +44,8 @@ package com.itextpdf.html2pdf.css.w3c.css21.normal_flow;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-import org.junit.Ignore;
-
-@Ignore
 public class MaxWidthAppliesTo007Test extends W3CCssTest {
     @Override
-    @Ignore
     protected String getHtmlFileName() {
         return "max-width-applies-to-007.xht";
     }

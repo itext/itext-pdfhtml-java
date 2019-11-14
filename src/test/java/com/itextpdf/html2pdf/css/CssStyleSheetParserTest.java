@@ -48,14 +48,12 @@ import com.itextpdf.styledxmlparser.css.CssStyleSheet;
 import com.itextpdf.styledxmlparser.css.parse.CssStyleSheetParser;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 @Category(UnitTest.class)
 public class CssStyleSheetParserTest extends ExtendedITextTest {
@@ -63,109 +61,10 @@ public class CssStyleSheetParserTest extends ExtendedITextTest {
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssStyleSheetParserTest/";
     private static final String DEFAULT_CSS_PATH = "com/itextpdf/html2pdf/default.css";
 
-    @BeforeClass
-    public static void beforeClass() {
-    }
-
     @Test
     public void testDefaultCss() throws IOException {
         String cmpFile = sourceFolder + "cmp_default.css";
         CssStyleSheet styleSheet = CssStyleSheetParser.parse(ResourceUtil.getResourceStream(DEFAULT_CSS_PATH));
-        Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
-    }
-
-    @Test
-    public void test01() throws IOException {
-        String cssFile = sourceFolder + "css01.css";
-        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
-        Assert.assertEquals(getCssFileContents(cssFile), styleSheet.toString());
-    }
-
-    @Test
-    public void test02() throws IOException {
-        String cssFile = sourceFolder + "css02.css";
-        String cmpFile = sourceFolder + "cmp_css02.css";
-        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
-        Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
-    }
-
-    @Test
-    public void test03() throws IOException {
-        String cssFile = sourceFolder + "css03.css";
-        String cmpFile = sourceFolder + "cmp_css03.css";
-        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
-        Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
-    }
-
-    @Test
-    public void test04() throws IOException {
-        String cssFile = sourceFolder + "css04.css";
-        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
-        Assert.assertEquals("", styleSheet.toString());
-    }
-
-    @Test
-    public void test05() throws IOException {
-        String cssFile = sourceFolder + "css05.css";
-        String cmpFile = sourceFolder + "cmp_css05.css";
-        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
-        Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
-    }
-
-    @Test
-    public void test06() throws IOException {
-        String cssFile = sourceFolder + "css06.css";
-        String cmpFile = sourceFolder + "cmp_css06.css";
-        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
-        Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
-    }
-
-    @Test
-    public void test07() throws IOException {
-        String cssFile = sourceFolder + "css07.css";
-        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
-        Assert.assertEquals(getCssFileContents(cssFile), styleSheet.toString());
-    }
-
-    @Test
-    public void test08() throws IOException {
-        String cssFile = sourceFolder + "css08.css";
-        String cmpFile = sourceFolder + "cmp_css08.css";
-        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
-        Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
-    }
-
-    @Test
-    public void test09() throws IOException {
-        String cssFile = sourceFolder + "css09.css";
-        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
-        Assert.assertEquals(getCssFileContents(cssFile), styleSheet.toString());
-    }
-
-    @Test
-    public void test10() throws IOException {
-        String cssFile = sourceFolder + "css10.css";
-        String cmpFile = sourceFolder + "cmp_css10.css";
-        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
-        Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
-    }
-
-    @Test
-    public void test11() throws IOException {
-        // TODO in this test declarations of the page at-rule with compound selector are duplicated.
-        // See CssPageRule#addBodyCssDeclarations() method for the reason and possible solution if this becomes important.
-        
-        String cssFile = sourceFolder + "css11.css";
-        String cmpFile = sourceFolder + "cmp_css11.css";
-        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
-        Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
-    }
-
-    @Test
-    public void test12() throws IOException {
-        String cssFile = sourceFolder + "css12.css";
-        String cmpFile = sourceFolder + "cmp_css12.css";
-        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new FileInputStream(cssFile));
         Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
     }
 

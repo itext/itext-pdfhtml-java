@@ -1,0 +1,31 @@
+<html>
+<head>
+<style>
+    svg.hidden {
+    visibility: hidden;
+    }
+
+    img.hidden {
+    visibility: hidden;
+    }
+</style>
+</head>
+<body>
+<p>Visible svg</p>
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <rect width="200" height="100" fill="none" stroke="blue" stroke-width="10"/>
+        <circle cx="100" cy="50" r="30" fill="green" stroke="red"/>
+
+</svg>
+<p>Hidden svg</p>
+<svg class = "hidden" width="400" height="200" xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <rect width="200" height="100" fill="none" stroke="blue" stroke-width="10"/>
+        <circle cx="100" cy="50" r="30" fill="green" stroke="red"/>
+
+</svg>
+<p>Visible external SVG image</p>
+<img src="external.svg"  alt="external svg picture" width = "400" height = "180" />
+<p>Hidden external SVG image</p>
+<img class = "hidden" src="external.svg"  alt="external svg picture" width = "400" height = "180" />
+</body>
+</html>

@@ -43,9 +43,8 @@
 package com.itextpdf.html2pdf.css.w3c.css_ui_3;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import org.junit.Ignore;
 
-@Ignore
+// TODO update cmp file after fixing DEVSIX-3386
 public class Outline009Test extends W3CCssTest {
     @Override
     // parent's <outline-style: none;> should override parent's <outline-width: whatever;> to 0 value

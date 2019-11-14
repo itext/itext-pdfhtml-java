@@ -75,7 +75,6 @@ public class PageMarginBoxMinDimensionTest extends ExtendedHtmlConversionITextTe
     }
 
     @Test
-    @Ignore("TODO DEVSIX-2389: Change test files after decision")
     public void topMinLeftAndCenterTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("topMinLeftAndCenter", sourceFolder, destinationFolder);
     }

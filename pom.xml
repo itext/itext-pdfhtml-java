@@ -4,11 +4,11 @@
   <parent>
     <groupId>com.itextpdf</groupId>
     <artifactId>root</artifactId>
-    <version>7.1.8</version>
+    <version>7.1.9</version>
     <relativePath/>
   </parent>
   <artifactId>html2pdf</artifactId>
-  <version>2.1.5</version>
+  <version>2.1.6</version>
   <name>pdfHTML</name>
   <description>pdfHTML is an iText 7 add-on that lets you to parse (X)HTML snippets and the associated CSS and converts
     them to PDF.</description>
@@ -90,16 +90,6 @@
     </resources>
     <plugins>
       <plugin>
-        <groupId>com.github.spotbugs</groupId>
-        <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>${spotbugs.version}</version>
-        <configuration>
-          <threshold>High</threshold>
-          <failOnError>true</failOnError>
-          <excludeFilterFile>findbugs-filter.xml</excludeFilterFile>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>external.atlassian.jgitflow</groupId>
         <artifactId>jgitflow-maven-plugin</artifactId>
         <version>1.0-m5.1</version>
@@ -120,7 +110,12 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${javadoc.version}</version>
         <configuration>
-          <subpackages>com.itextpdf.html2pdf</subpackages>
+          <sourceFileExcludes>
+            <sourceFileExclude>com/itextpdf/html2pdf/attach/impl/layout/BodyHtmlStylesContainer.java</sourceFileExclude>
+
+            <!-- ProductInfo -->
+            <sourceFileExclude>**/Html2PdfProductInfo.java</sourceFileExclude>
+          </sourceFileExcludes>
           <groups>
             <group>
               <title>pdfHTML</title>

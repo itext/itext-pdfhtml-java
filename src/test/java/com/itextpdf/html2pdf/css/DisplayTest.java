@@ -310,6 +310,12 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO Fix cmp after DEVSIX-3429 is implemented. The checkbox should become aligned with the baseline of the text
+    public void displayInlineBlockYLineTest07() throws IOException, InterruptedException {
+        convertToPdfAndCompare("displayInlineBlockYLineTest07", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void displayNoneImportant01() throws IOException, InterruptedException {
         convertToPdfAndCompare("displayNoneImportant01", sourceFolder, destinationFolder);
     }

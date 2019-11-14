@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.css.w3c.css_ui_3;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import org.junit.Ignore;
 
-@Ignore("DEVSIX-1578")
+//There is a thin red "border" because of rendering issues
 public class Outline008Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

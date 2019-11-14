@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
+import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 import org.junit.Assert;
 import org.junit.Test;
@@ -53,7 +54,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Category(UnitTest.class)
-public class Html2PdfPropertyTest {
+public class Html2PdfPropertyTest extends ExtendedITextTest {
 
     @Test
     public void propertyUniquenessTest() throws IllegalAccessException {
