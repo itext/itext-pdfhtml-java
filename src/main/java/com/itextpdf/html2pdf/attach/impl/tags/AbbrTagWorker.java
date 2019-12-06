@@ -56,11 +56,11 @@ public class AbbrTagWorker extends SpanTagWorker {
     /**
      * Creates a new {@link AbbrTagWorker} instance.
      *
-     * @param tag the tag
+     * @param element the tag
      * @param context the context
      */
-    public AbbrTagWorker(IElementNode tag, ProcessorContext context) {
-        super(tag, context);
+    public AbbrTagWorker(IElementNode element, ProcessorContext context) {
+        super(element, context);
     }
 
     /* (non-Javadoc)

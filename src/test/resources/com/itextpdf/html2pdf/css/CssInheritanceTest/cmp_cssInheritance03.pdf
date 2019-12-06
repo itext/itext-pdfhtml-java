@@ -12,16 +12,16 @@ endobj
 <</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R/F2 7 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
 endobj
 1 0 obj
-<</Pages 2 0 R/Type/Catalog>>
+<</Lang(en)/Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171208164555+03'00')/ModDate(D:20171208164555+03'00')/Producer(iText® 7.1.1-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS-UI test: computed values ouf outline-width)/assert(outline-offset values compute to absolute lengths)/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20191226115458+03'00')/ModDate(D:20191226115458+03'00')/Producer(iText® 7.1.10-SNAPSHOT ©2000-2019 iText Group NV \(AGPL-version\))/Title(CSS-UI test: computed values ouf outline-width)/assert(outline-offset values compute to absolute lengths)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -30,15 +30,15 @@ xref
 0 8
 0000000000 65535 f 
 0000000497 00000 n 
-0000001007 00000 n 
-0000000542 00000 n 
+0000001017 00000 n 
+0000000551 00000 n 
 0000000355 00000 n 
 0000000015 00000 n 
-0000000828 00000 n 
-0000000918 00000 n 
+0000000927 00000 n 
+0000000838 00000 n 
 trailer
-<</ID [<f7f9e5338f3fd7a26510ecc79f023ce4><f7f9e5338f3fd7a26510ecc79f023ce4>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.1-SNAPSHOT
+<</ID [<90e38e4025a75460f2bb027ecc964018><90e38e4025a75460f2bb027ecc964018>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.10-SNAPSHOT
 startxref
-1058
+1068
 %%EOF

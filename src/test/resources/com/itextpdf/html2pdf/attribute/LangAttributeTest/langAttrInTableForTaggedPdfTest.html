@@ -1,43 +1,39 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML>
 <html>
-<head>
-<style>
-table, th, td {
-  border: 1px solid black;
-}
-</style>
-</head>
-<body>
-<table>
-  <colgroup>
-    <col span="1" lang="en" style="background-color:red">
-    <col span="2" style="background-color:yellow">
-  </colgroup>
-  <tr>
-    <td>Name</td>
-    <td lang="fr">Titre</td>
-    <td>Country</td>
-  </tr>
-  <tr lang="de">
-    <td>John</td>
-    <td>Meine erster HTML</td>
-    <td>$53</td>
-  </tr>
-  <tr>
-    <td colspan="2" lang="ru">Миша</td>
-    <td>My first CSS</td>
-    <td>$49</td>
-  </tr>
-  <tr>
-    <td>Hank</td>
-    <td rowspan="2" lang="en">My first DOC</td>
-    <td lang="fr">$21</td>
-  </tr>
-  <tr>
-    <td>Rose</td>
-    <td>My first file</td>
-    <td lang="en">$1</td>
-  </tr>
-</table>
-</body>
+ 	<head>
+		<meta charset="utf-8">
+		<style>
+			table, th, td {
+				border: 1px solid black;
+			}
+		</style>
+ 	</head>
+
+ <body lang="da">
+	<!-- table without lang, thead and tfoot-->
+	<table>
+    <!-- table row with lang -->
+    <tr lang="uk">	<th scope="col" lang="ru">First row</th>	</tr>
+    <tr lang="en">	<td lang="da">Second row</td>							</tr>
+    <tr lang="uk">	<th scope="col">Third row</th>						</tr>
+    <tr lang="en">	<td>Fourth row</td>												</tr>
+​
+		<!-- table row without lang -->
+    <tr>	<th scope="col" lang="ru">First row</th>	</tr>
+    <tr>	<td lang="da">Second row</td>							</tr>
+    <tr>	<th scope="col">Third row</th>						</tr>
+    <tr>	<td>Fourth row</td>												</tr>
+​
+    <!-- table row with several child -->
+    <tr>	<th scope="col" lang="ru">First row 1</th>	
+  				<th scope="col">First row 2</th>				</tr>
+    <tr>	<td lang="ru">Second row 1</td>	
+  				<td>Second row 2</td>										</tr>
+​
+    <tr  lang="uk">	<th scope="col" lang="ru">First row 1	</th>	
+  									<th scope="col">First row 2</th>				</tr>
+    <tr  lang="uk">	<td lang="ru">Second row 1</td>	
+  									<td>Second row 2</td>										</tr>
+	</table>
+ </body>
 </html>

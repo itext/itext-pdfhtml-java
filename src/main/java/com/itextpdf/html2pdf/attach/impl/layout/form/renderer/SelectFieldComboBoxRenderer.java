@@ -44,6 +44,8 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.AbstractSelectField;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
+import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Paragraph;
@@ -53,6 +55,8 @@ import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.VerticalAlignment;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
+import com.itextpdf.layout.tagging.IAccessibleElement;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,6 +133,7 @@ public class SelectFieldComboBoxRenderer extends AbstractSelectFieldRenderer {
         for (Paragraph option : allOptions) {
             pseudoContainer.add(option);
         }
+        AccessiblePropHelper.trySetLangAttribute(pseudoContainer, getLang());
 
         IRenderer rendererSubTree = pseudoContainer.createRendererSubTree();
 
@@ -146,7 +151,9 @@ public class SelectFieldComboBoxRenderer extends AbstractSelectFieldRenderer {
         }
         if (selectedOption != null) {
             String label = selectedOption.<String>getProperty(Html2PdfProperty.FORM_FIELD_LABEL);
-            selectedOptionFlatRendererList.add(createComboBoxOptionFlatElement(label, false));
+            Paragraph p = createComboBoxOptionFlatElement(label, false);
+            processLangAttribute(p, selectedOption);
+            selectedOptionFlatRendererList.add(p);
         }
         return selectedOptionFlatRendererList;
     }
@@ -175,8 +182,7 @@ public class SelectFieldComboBoxRenderer extends AbstractSelectFieldRenderer {
         for (IRenderer child : renderer.getChildRenderers()) {
             if (isOptionRenderer(child)) {
                 String label = child.<String>getProperty(Html2PdfProperty.FORM_FIELD_LABEL);
-                Paragraph optionFlatElement = createComboBoxOptionFlatElement(label, isInOptGroup);
-                options.add(optionFlatElement);
+                options.add(createComboBoxOptionFlatElement(label, isInOptGroup));
             } else {
                 options.addAll(getAllOptionsFlatElements(child, isInOptGroup || isOptGroupRenderer(child)));
             }
@@ -208,5 +214,13 @@ public class SelectFieldComboBoxRenderer extends AbstractSelectFieldRenderer {
         float topPaddingVal = 0;
         paragraph.setPaddings(topPaddingVal, leftRightPaddingVal, bottomPaddingVal, leftRightPaddingVal);
         return paragraph;
+    }
+
+    private void processLangAttribute(Paragraph optionFlatElement, IRenderer originalOptionRenderer) {
+        IPropertyContainer propertyContainer = originalOptionRenderer.getModelElement();
+        if (propertyContainer instanceof IAccessibleElement) {
+            String lang = ((IAccessibleElement) propertyContainer).getAccessibilityProperties().getLanguage();
+            AccessiblePropHelper.trySetLangAttribute(optionFlatElement, lang);
+        }
     }
 }

@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
@@ -72,6 +73,8 @@ public class BrTagWorker implements ITagWorker {
         // TODO DEVSIX-2534
         List<String> splitFontFamily = FontFamilySplitter.splitFontFamily(fontFamily);
         newLine.setFontFamily(splitFontFamily.toArray(new String[splitFontFamily.size()]));
+
+        AccessiblePropHelper.trySetLangAttribute(newLine, element);
     }
 
     /* (non-Javadoc)

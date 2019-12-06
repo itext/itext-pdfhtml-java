@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.wrapelement;
 
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.RowColHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingColgroupsHelper;
 import com.itextpdf.layout.element.Cell;
@@ -84,6 +85,15 @@ public class TableWrapper implements IWrapElement {
 
     /** The caption value. */
     private Div caption = null;
+
+    /** The lang attribute value. */
+    private String lang;
+
+    /** The footer lang attribute value. */
+    private String footerLang;
+
+    /** The header lang attribute value. */
+    private String headerLang;
 
     public TableWrapper() {
     }
@@ -179,6 +189,18 @@ public class TableWrapper implements IWrapElement {
         addCellToTable(cell, rows, rowShift);
     }
 
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    public void setFooterLang(String footerLang) {
+        this.footerLang = footerLang;
+    }
+
+    public void setHeaderLang(String headerLang) {
+        this.headerLang = headerLang;
+    }
+
     /**
      * Adds a cell to a table.
      *
@@ -217,18 +239,30 @@ public class TableWrapper implements IWrapElement {
             // if table is empty, create empty table with single column
             table = new Table(1);
         }
+        AccessiblePropHelper.trySetLangAttribute(table, lang);
+
         if (headerRows != null) {
             for (int i = 0; i < headerRows.size(); i++) {
                 if (isRtl) {
                     Collections.reverse(headerRows.get(i));
                 }
                 for (int j = 0; j < headerRows.get(i).size(); j++) {
-                    table.addHeaderCell(headerRows.get(i).get(j).cell);
+                    Cell cell = headerRows.get(i).get(j).cell;
+                    ColWrapper colWrapper = colgroupsHelper.getColWrapper(j);
+                    if (colWrapper != null) {
+                        if (headerLang == null && cell.getAccessibilityProperties().getLanguage() == null) {
+                            if (colWrapper.getLang() != null) {
+                                cell.getAccessibilityProperties().setLanguage(colWrapper.getLang());
+                            }
+                        }
+                    }
+                    table.addHeaderCell(cell);
                 }
                 if (i != headerRows.size() - 1) {
                     table.getHeader().startNewRow();
                 }
             }
+            AccessiblePropHelper.trySetLangAttribute(table.getHeader(), headerLang);
         }
         if (footerRows != null) {
             for (int i = 0; i < footerRows.size(); i++) {
@@ -236,12 +270,22 @@ public class TableWrapper implements IWrapElement {
                     Collections.reverse(footerRows.get(i));
                 }
                 for (int j = 0; j < footerRows.get(i).size(); j++) {
-                    table.addFooterCell(footerRows.get(i).get(j).cell);
+                    Cell cell = footerRows.get(i).get(j).cell;
+                    ColWrapper colWrapper = colgroupsHelper.getColWrapper(j);
+                    if (colWrapper != null) {
+                        if (footerLang == null && cell.getAccessibilityProperties().getLanguage() == null) {
+                            if (colWrapper.getLang() != null) {
+                                cell.getAccessibilityProperties().setLanguage(colWrapper.getLang());
+                            }
+                        }
+                    }
+                    table.addFooterCell(cell);
                 }
                 if (i != footerRows.size() - 1) {
                     table.getFooter().startNewRow();
                 }
             }
+            AccessiblePropHelper.trySetLangAttribute(table.getFooter(), footerLang);
         }
         if (rows != null) {
             for (int i = 0; i < rows.size(); i++) {

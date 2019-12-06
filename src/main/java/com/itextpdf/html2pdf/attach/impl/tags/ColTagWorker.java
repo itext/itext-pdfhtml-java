@@ -67,6 +67,7 @@ public class ColTagWorker implements ITagWorker {
     public ColTagWorker(IElementNode element, ProcessorContext context) {
         Integer span = CssUtils.parseInteger(element.getAttribute(AttributeConstants.SPAN));
         col = new ColWrapper(span != null ? (int)span : 1);
+        col.setLang(element.getAttribute(AttributeConstants.LANG));
     }
 
     /* (non-Javadoc)

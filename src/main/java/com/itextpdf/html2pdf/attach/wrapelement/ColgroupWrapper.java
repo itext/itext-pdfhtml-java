@@ -57,7 +57,10 @@ public class ColgroupWrapper implements IWrapElement {
 
     /** The span. */
     private int span;
-    
+
+    /** The lang attribute value. */
+    private String lang;
+
     /** The width. */
     private UnitValue width;
     
@@ -178,17 +181,26 @@ public class ColgroupWrapper implements IWrapElement {
         }
         if (columns.isEmpty()) {
             columns.add(new ColWrapper(span).setCellCssProps(cellCssProps).setWidth(width));
-        } else if (cellCssProps != null) {
-            for (ColWrapper col : columns) {
-                Map<String, String> colStyles = new HashMap<>(cellCssProps);
-                if (col.getCellCssProps() != null) {
-                    colStyles.putAll(col.getCellCssProps());
+        } else {
+            if (cellCssProps != null) {
+                for (ColWrapper col : columns) {
+                    Map<String, String> colStyles = new HashMap<>(cellCssProps);
+                    if (col.getCellCssProps() != null) {
+                        colStyles.putAll(col.getCellCssProps());
+                    }
+                    if (colStyles.size() > 0) {
+                        col.setCellCssProps(colStyles);
+                    }
+                    if (col.getWidth() == null) {
+                        col.setWidth(width);
+                    }
                 }
-                if (colStyles.size() > 0) {
-                    col.setCellCssProps(colStyles);
-                }
-                if (col.getWidth() == null) {
-                    col.setWidth(width);
+            }
+            if (lang != null) {
+                for (ColWrapper col : columns) {
+                    if (col.getLang() == null) {
+                        col.setLang(lang);
+                    }
                 }
             }
         }
@@ -217,5 +229,23 @@ public class ColgroupWrapper implements IWrapElement {
      */
     public ColWrapper getColumnByIndex(int index) {
         return columns.get(indexToColMapping[index]);
+    }
+
+    /**
+     * Sets the language attribute.
+     *
+     * @param lang the lang attribute
+     */
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    /**
+     * Gets the language attribute.
+     *
+     * @return the lang attribute
+     */
+    public String getLang() {
+        return lang;
     }
 }

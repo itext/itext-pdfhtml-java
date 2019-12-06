@@ -88,6 +88,7 @@ public class TextAreaTagWorker implements ITagWorker, IDisplayAware {
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_ROWS, rows);
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_COLS, cols);
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
+        textArea.setProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, element.getAttribute(AttributeConstants.LANG));
         String placeholder = element.getAttribute(AttributeConstants.PLACEHOLDER);
         if (null != placeholder) {
             Paragraph paragraph;

@@ -155,6 +155,8 @@ public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
         }
         applyDefaultFieldProperties(button);
         PdfAcroForm.getAcroForm(doc, true).addField(button, page);
+
+        writeAcroFormFieldLangAttribute(doc);
     }
 
     /* (non-Javadoc)

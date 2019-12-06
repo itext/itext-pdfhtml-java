@@ -44,12 +44,14 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.attach.wrapelement.SpanWrapper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 import java.util.ArrayList;
@@ -104,6 +106,12 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
         }
         flushInlineHelper();
         elements = spanWrapper.getElements();
+
+        for (IPropertyContainer elem : elements) {
+            if (elem instanceof IAccessibleElement) {
+                AccessiblePropHelper.trySetLangAttribute((IAccessibleElement) elem, element);
+            }
+        }
     }
 
     /* (non-Javadoc)

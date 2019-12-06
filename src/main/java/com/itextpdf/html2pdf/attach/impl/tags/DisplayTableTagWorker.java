@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableWrapper;
@@ -53,6 +54,7 @@ import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.Table;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
@@ -63,7 +65,7 @@ public class DisplayTableTagWorker implements ITagWorker {
     /**
      * The table.
      */
-    private IPropertyContainer table;
+    private Table table;
 
     /**
      * The table wrapper.
@@ -92,7 +94,8 @@ public class DisplayTableTagWorker implements ITagWorker {
      * @param context the context
      */
     public DisplayTableTagWorker(IElementNode element, ProcessorContext context) {
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
+        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE),
+                element.getStyles().get(CssConstants.TEXT_TRANSFORM));
     }
 
     /* (non-Javadoc)
@@ -102,6 +105,7 @@ public class DisplayTableTagWorker implements ITagWorker {
     public void processEnd(IElementNode element, ProcessorContext context) {
         flushWaitingCell();
         table = tableWrapper.toTable(null);
+        AccessiblePropHelper.trySetLangAttribute(table, element);
     }
 
     /* (non-Javadoc)

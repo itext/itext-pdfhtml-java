@@ -49,6 +49,7 @@ import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
+import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
 
 import java.util.ArrayList;
 
@@ -150,8 +151,19 @@ public class WaitingColgroupsHelper {
                     colspan = colspan != null ? colspan : 1;
                     rowspan = rowspan != null ? rowspan : 1;
                     col = rowColHelper.moveToNextEmptyCol();
-                    if (getColWrapper(col) != null && getColWrapper(col).getCellCssProps() != null) {
-                        element.addAdditionalHtmlStyles(getColWrapper(col).getCellCssProps());
+                    if (getColWrapper(col) != null) {
+                        ColWrapper colWrapper = getColWrapper(col);
+                        if (colWrapper.getCellCssProps() != null) {
+                            element.addAdditionalHtmlStyles(colWrapper.getCellCssProps());
+                        }
+                        String elemLang = element.getAttribute(AttributeConstants.LANG);
+                        String trLang = null;
+                        if (node instanceof IElementNode) {
+                            trLang = ((IElementNode) node).getAttribute(AttributeConstants.LANG);
+                        }
+                        if (trLang == null && colWrapper.getLang() != null && elemLang == null) {
+                            element.getAttributes().setAttribute(AttributeConstants.LANG, colWrapper.getLang());
+                        }
                     }
                     rowColHelper.updateCurrentPosition((int) colspan, (int) rowspan);
                 } else {

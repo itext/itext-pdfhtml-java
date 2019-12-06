@@ -91,4 +91,7 @@ public class Html2PdfProperty {
 
     /** The Constant FORM_FIELD_SELECTED. */
     public static final int FORM_FIELD_LABEL = PROPERTY_START + 14;
+
+    /** The Constant FORM_ACCESSIBILITY_LANGUAGE. */
+    public static final int FORM_ACCESSIBILITY_LANGUAGE = PROPERTY_START + 15;
 }

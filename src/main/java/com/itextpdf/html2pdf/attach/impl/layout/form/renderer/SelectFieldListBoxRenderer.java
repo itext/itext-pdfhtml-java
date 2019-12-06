@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.AbstractSelectField;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.geom.Rectangle;
@@ -130,6 +131,7 @@ public class SelectFieldListBoxRenderer extends AbstractSelectFieldRenderer {
         for (IBlockElement option : options) {
             optionsContainer.add(option);
         }
+        AccessiblePropHelper.trySetLangAttribute(optionsContainer, getLang());
 
         IRenderer rendererSubTree;
         if (optionsContainer.getChildren().isEmpty()) {

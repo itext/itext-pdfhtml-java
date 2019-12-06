@@ -144,6 +144,15 @@ public abstract class AbstractSelectFieldRenderer extends BlockRenderer {
         }
     }
 
+    /**
+     * Gets the accessibility language.
+     *
+     * @return the accessibility language
+     */
+    protected String getLang() {
+        return this.<String>getProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
+    }
+
     protected abstract IRenderer createFlatRenderer();
 
     protected abstract void applyAcroField(DrawContext drawContext);

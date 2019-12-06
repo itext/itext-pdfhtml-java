@@ -44,7 +44,9 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.styledxmlparser.node.IElementNode;
@@ -65,6 +67,11 @@ public class TrTagWorker implements ITagWorker {
     private ITagWorker parentTagWorker;
 
     /**
+     * The lang attribute value.
+     */
+    private String lang;
+
+    /**
      * Creates a new {@link TrTagWorker} instance.
      *
      * @param element the element
@@ -76,6 +83,7 @@ public class TrTagWorker implements ITagWorker {
         if (parentTagWorker instanceof TableTagWorker) {
             ((TableTagWorker) parentTagWorker).applyColStyles();
         }
+        lang = element.getAttribute(AttributeConstants.LANG);
     }
 
     /* (non-Javadoc)
@@ -101,6 +109,7 @@ public class TrTagWorker implements ITagWorker {
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         if (childTagWorker.getElementResult() instanceof Cell) {
             Cell cell = (Cell) childTagWorker.getElementResult();
+            AccessiblePropHelper.trySetLangAttribute(cell, lang);
             rowWrapper.addCell(cell);
             return true;
         }

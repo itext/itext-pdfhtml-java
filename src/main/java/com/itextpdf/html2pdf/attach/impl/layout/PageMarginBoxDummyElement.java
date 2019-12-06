@@ -73,7 +73,7 @@ class PageMarginBoxDummyElement implements IElementNode, ICustomElementNode {
 
     @Override
     public String getAttribute(String key) {
-        throw new UnsupportedOperationException();
+        return null;
     }
 
     @Override

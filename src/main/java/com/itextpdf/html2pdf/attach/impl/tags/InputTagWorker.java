@@ -83,6 +83,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
      * @param context the context
      */
     public InputTagWorker(IElementNode element, ProcessorContext context) {
+        String lang = element.getAttribute(AttributeConstants.LANG);
         String inputType = element.getAttribute(AttributeConstants.TYPE);
         if (!AttributeConstants.INPUT_TYPE_VALUES.contains(inputType)) {
             if (null != inputType && 0 != inputType.length()) {
@@ -98,6 +99,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
                 || AttributeConstants.PASSWORD.equals(inputType) || AttributeConstants.NUMBER.equals(inputType)) {
             Integer size = CssUtils.parseInteger(element.getAttribute(AttributeConstants.SIZE));
             formElement = new InputField(name);
+
             value = preprocessInputValue(value, inputType);
             // process placeholder instead
             String placeholder = element.getAttribute(AttributeConstants.PLACEHOLDER);
@@ -143,6 +145,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
         }
         if (formElement != null) {
             formElement.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
+            formElement.setProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
         }
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }

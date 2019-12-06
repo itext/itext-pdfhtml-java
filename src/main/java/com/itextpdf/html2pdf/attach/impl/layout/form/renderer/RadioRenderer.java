@@ -151,13 +151,17 @@ public class RadioRenderer extends AbstractFormFieldRenderer {
         if (isBoxChecked()) {
             radioGroup.setValue(getModelId());
         }
-        PdfFormField.createRadioButton(doc, area, radioGroup, getModelId())
-                .setCheckType(PdfFormField.TYPE_CIRCLE);
+
+        PdfFormField radio = PdfFormField.createRadioButton(doc, area, radioGroup, getModelId());
+        radio.setCheckType(PdfFormField.TYPE_CIRCLE);
+
         if (addNew) {
             form.addField(radioGroup, page);
         } else {
             form.replaceField(getModelId(), radioGroup);
         }
+
+        writeAcroFormFieldLangAttribute(doc);
     }
 
     @Override

@@ -48,6 +48,7 @@ import com.itextpdf.html2pdf.attach.util.WaitingColgroupsHelper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableWrapper;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Div;
@@ -111,6 +112,11 @@ public class TableTagWorker implements ITagWorker, IDisplayAware {
             colgroupsHelper = new WaitingColgroupsHelper(element);
         }
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
+
+        String lang = element.getAttribute(AttributeConstants.LANG);
+        if (lang != null) {
+            tableWrapper.setLang(lang);
+        }
     }
 
     /* (non-Javadoc)
@@ -144,6 +150,8 @@ public class TableTagWorker implements ITagWorker, IDisplayAware {
         } else if (childTagWorker instanceof TableTagWorker) {
             if (((TableTagWorker) childTagWorker).header) {
                 Table header = ((TableTagWorker) childTagWorker).tableWrapper.toTable(colgroupsHelper);
+                String headerLang = header.getAccessibilityProperties().getLanguage();
+                tableWrapper.setHeaderLang(headerLang);
                 for (int i = 0; i < header.getNumberOfRows(); i++) {
                     tableWrapper.newHeaderRow();
                     for (int j = 0; j < header.getNumberOfColumns(); j++) {
@@ -156,6 +164,8 @@ public class TableTagWorker implements ITagWorker, IDisplayAware {
                 return true;
             } else if (((TableTagWorker) childTagWorker).footer) {
                 Table footer = ((TableTagWorker) childTagWorker).tableWrapper.toTable(colgroupsHelper);
+                String footerLang = footer.getAccessibilityProperties().getLanguage();
+                tableWrapper.setFooterLang(footerLang);
                 for (int i = 0; i < footer.getNumberOfRows(); i++) {
                     tableWrapper.newFooterRow();
                     for (int j = 0; j < footer.getNumberOfColumns(); j++) {

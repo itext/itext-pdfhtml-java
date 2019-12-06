@@ -183,6 +183,8 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         inputField.setDefaultValue(new PdfString(getDefaultValue()));
         applyDefaultFieldProperties(inputField);
         PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
+
+        writeAcroFormFieldLangAttribute(doc);
     }
 
     @Override

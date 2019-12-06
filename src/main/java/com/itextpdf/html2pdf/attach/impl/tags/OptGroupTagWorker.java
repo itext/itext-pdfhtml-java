@@ -42,13 +42,17 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
+import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.OverflowPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
@@ -78,5 +82,20 @@ public class OptGroupTagWorker extends DivTagWorker {
     @Override
     public boolean processContent(String content, ProcessorContext context) {
         return content == null || content.trim().isEmpty();
+    }
+
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        if (childTagWorker instanceof OptionTagWorker) {
+            IPropertyContainer element = childTagWorker.getElementResult();
+            IPropertyContainer propertyContainer = getElementResult();
+            if (propertyContainer instanceof IAccessibleElement) {
+                String lang = ((IAccessibleElement) propertyContainer).getAccessibilityProperties().getLanguage();
+                AccessiblePropHelper.trySetLangAttribute((Div) childTagWorker.getElementResult(), lang);
+            }
+            return addBlockChild((com.itextpdf.layout.element.IElement) element);
+        } else {
+            return super.processTagChild(childTagWorker, context);
+        }
     }
 }

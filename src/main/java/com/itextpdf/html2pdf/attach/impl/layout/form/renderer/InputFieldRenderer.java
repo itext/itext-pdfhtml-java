@@ -183,6 +183,8 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
         }
         applyDefaultFieldProperties(inputField);
         PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
+
+        writeAcroFormFieldLangAttribute(doc);
     }
 
     @Override

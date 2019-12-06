@@ -131,6 +131,9 @@ public final class AttributeConstants extends CommonAttributeConstants {
     /** The Constant LABEL. */
     public static final String LABEL = "label";
 
+    /** The Constant LANG. */
+    public static final String LANG = "lang";
+
     /** The Constant MEDIA. */
     public static final String MEDIA = "media";
 

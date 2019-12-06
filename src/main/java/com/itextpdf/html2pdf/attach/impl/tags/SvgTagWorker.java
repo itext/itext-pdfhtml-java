@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
@@ -86,6 +87,8 @@ public class SvgTagWorker implements ITagWorker {
         if (context.getPdfDocument() != null && processingResult != null) {
             SvgProcessingUtil util = new SvgProcessingUtil();
             svgImage = util.createImageFromProcessingResult(processingResult, context.getPdfDocument());
+
+            AccessiblePropHelper.trySetLangAttribute(svgImage, element);
             context.endProcessingInlineSvg();
         }
     }

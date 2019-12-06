@@ -133,6 +133,8 @@ public class CheckBoxRenderer extends AbstractFormFieldRenderer {
         PdfPage page = doc.getPage(occupiedArea.getPageNumber());
         PdfButtonFormField checkBox = PdfFormField.createCheckBox(doc, area, name, isBoxChecked() ? "Yes" : "Off");
         PdfAcroForm.getAcroForm(doc, true).addField(checkBox, page);
+
+        writeAcroFormFieldLangAttribute(doc);
     }
 
     @Override

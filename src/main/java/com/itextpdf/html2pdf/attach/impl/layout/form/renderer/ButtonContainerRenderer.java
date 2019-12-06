@@ -52,12 +52,16 @@ import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.annot.PdfAnnotation;
+import com.itextpdf.kernel.pdf.tagging.StandardRoles;
+import com.itextpdf.kernel.pdf.tagutils.TagTreePointer;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.BlockRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
+
+import java.util.List;
 
 /**
  * The {@link AbstractOneLineTextFieldRenderer} implementation for buttons with kids.
@@ -98,6 +102,19 @@ public class ButtonContainerRenderer extends BlockRenderer {
             //Add fields only if it isn't already added. This can happen on split.
             if (forms.getField(name) == null) {
                 forms.addField(button, page);
+            }
+
+            if (doc.isTagged()) {
+                TagTreePointer formParentPointer = doc.getTagStructureContext().getAutoTaggingPointer();
+                List<String> kidsRoles = formParentPointer.getKidsRoles();
+                int lastFormIndex = kidsRoles.lastIndexOf(StandardRoles.FORM);
+                TagTreePointer formPointer = formParentPointer.moveToKid(lastFormIndex);
+
+                String lang = this.<String>getProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
+                if (lang != null) {
+                    formPointer.getProperties().setLanguage(lang);
+                }
+                formParentPointer.moveToParent();
             }
         }
     }
