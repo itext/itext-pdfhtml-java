@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.css.w3c.css21.ui;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class OverflowTest002 extends W3CCssTest {
+public class Overflow002Test extends W3CCssTest {
 
     @Override
     protected String getHtmlFileName() {

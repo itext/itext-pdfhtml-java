@@ -37,7 +37,7 @@ import java.io.File;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
-public class SurrogatePairsTests extends ExtendedITextTest {
+public class SurrogatePairsTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/SurrogatePairsTests/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/SurrogatePairsTests/";
     private static final String TYPOGRAPHY_WARNING = "Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties";
@@ -78,7 +78,7 @@ public class SurrogatePairsTests extends ExtendedITextTest {
     }
 
     @Test
-    //TODO DEVSIX-3307
+    //TODO DEVSIX-3307: It is required to update cmp files when the ticket will be implemented.
     @LogMessages(messages = {
             @LogMessage(messageTemplate = TYPOGRAPHY_WARNING, count = 2),
             @LogMessage(messageTemplate = LogMessageConstant.FONT_SUBSET_ISSUE)})
@@ -90,7 +90,7 @@ public class SurrogatePairsTests extends ExtendedITextTest {
     }
 
     @Test
-    //TODO DEVSIX-3307
+    //TODO DEVSIX-3307: It is required to update cmp files when the ticket will be implemented.
     @LogMessages(messages = {
             @LogMessage(messageTemplate = TYPOGRAPHY_WARNING, count = 2),
             @LogMessage(messageTemplate = LogMessageConstant.FONT_SUBSET_ISSUE)})
@@ -102,7 +102,6 @@ public class SurrogatePairsTests extends ExtendedITextTest {
     }
 
     @Test
-    //TODO DEVSIX-3307
     @LogMessages(messages = {
             @LogMessage(messageTemplate = TYPOGRAPHY_WARNING, count = 2)})
     public void surrogatePairCombinationOf3TypesPairs() throws IOException, InterruptedException {
