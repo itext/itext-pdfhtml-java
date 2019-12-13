@@ -17,7 +17,6 @@ pipeline {
         ansiColor('xterm')
         buildDiscarder(logRotator(artifactNumToKeepStr: '1'))
         parallelsAlwaysFailFast()
-        retry(1)
         skipStagesAfterUnstable()
         timeout(time: 60, unit: 'MINUTES')
         timestamps()
@@ -40,24 +39,36 @@ pipeline {
                 }
             }
         }
-        stage('Clean workspace') {
+        stage('Build') {
             options {
-                timeout(time: 5, unit: 'MINUTES')
+                retry(2)
             }
-            steps {
-                withMaven(jdk: "${JDK_VERSION}", maven: 'M3', mavenLocalRepo: '.repository') {
-                    sh 'mvn clean'
-                    sh 'mvn dependency:purge-local-repository -Dinclude=com.itextpdf -DresolutionFuzziness=groupId -DreResolve=false'
+            stages {
+                stage('Clean workspace') {
+                    options {
+                        timeout(time: 5, unit: 'MINUTES')
+                    }
+                    steps {
+                        withMaven(jdk: "${JDK_VERSION}", maven: 'M3', mavenLocalRepo: '.repository') {
+                            sh 'mvn clean'
+                            sh 'mvn dependency:purge-local-repository -Dinclude=com.itextpdf -DresolutionFuzziness=groupId -DreResolve=false'
+                        }
+                    }
+                }
+                stage('Compile') {
+                    options {
+                        timeout(time: 5, unit: 'MINUTES')
+                    }
+                    steps {
+                        withMaven(jdk: "${JDK_VERSION}", maven: 'M3', mavenLocalRepo: '.repository') {
+                            sh 'mvn compile test-compile package -Dmaven.test.skip=true -Dmaven.javadoc.failOnError=false'
+                        }
+                    }
                 }
             }
-        }
-        stage('Compile') {
-            options {
-                timeout(time: 5, unit: 'MINUTES')
-            }
-            steps {
-                withMaven(jdk: "${JDK_VERSION}", maven: 'M3', mavenLocalRepo: '.repository') {
-                    sh 'mvn compile test-compile package -Dmaven.test.skip=true -Dmaven.javadoc.failOnError=false'
+            post {
+                failure {
+                    sleep time: 2, unit: 'MINUTES'
                 }
             }
         }
