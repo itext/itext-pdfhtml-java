@@ -70,6 +70,9 @@ pipeline {
                 failure {
                     sleep time: 2, unit: 'MINUTES'
                 }
+                success {
+                    script { currentBuild.result = 'SUCCESS' }
+                }
             }
         }
         stage('Run Tests') {
