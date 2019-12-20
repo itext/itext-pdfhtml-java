@@ -79,19 +79,19 @@ pipeline {
                                     def mainPomFiles = findFiles(glob: '**/main.pom')
                                     mainPomFiles.each{ pomFile ->
                                         pomPath = pomFile.path.replace("\\","/")
-                                        sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${workSpace}/.repository -Dpackaging=pom -Dfile=${pomPath} -DpomFile=${pomPath}"
+                                        sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${env.WORKSPACE.replace('\\','/')}/.repository -Dpackaging=pom -Dfile=${pomPath} -DpomFile=${pomPath}"
                                     }
                                     def pomFiles = findFiles(glob: 'downloads/**/*.pom')
                                     pomFiles.each{ pomFile ->
                                         if (pomFile.name != "main.pom") {
                                             pomPath = pomFile.path.replace("\\","/")
-                                            sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${workSpace}/.repository -Dpackaging=pom -Dfile=${pomPath} -DpomFile=${pomPath}"
+                                            sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${env.WORKSPACE.replace('\\','/')}/.repository -Dpackaging=pom -Dfile=${pomPath} -DpomFile=${pomPath}"
                                         }
                                     }
                                     def jarFiles = findFiles(glob: '**/*.jar')
                                     jarFiles.each{ jarFile ->
                                         jarPath = jarFile.path.replace("\\","/")
-                                        sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${workSpace}/.repository -Dfile=${jarPath}"
+                                        sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${env.WORKSPACE.replace('\\','/')}/.repository -Dfile=${jarPath}"
                                     }
                                 }
                             }
