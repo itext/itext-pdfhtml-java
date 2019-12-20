@@ -59,8 +59,11 @@ class WidthDimensionContainer extends DimensionContainer {
         maxDimension = getMaxWidth(node, maxWidth, additionalWidthFix);
 
         if (!isAutoDimension()) {
+
+            // According to point 3 of paragraph "5.3.2.3. Handling min-width and max-width" of the specification
+            // maxContentDimension and minContentDimension will always be equal
             maxContentDimension = dimension;
-            maxContentDimension = dimension;
+            minContentDimension = dimension;
         } else if (renderer instanceof BlockRenderer) {
             MinMaxWidth minMaxWidth = ((BlockRenderer) renderer).getMinMaxWidth();
             maxContentDimension = minMaxWidth.getMaxWidth();

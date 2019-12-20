@@ -45,7 +45,6 @@ package com.itextpdf.html2pdf.css.media.page.min_dimension;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
