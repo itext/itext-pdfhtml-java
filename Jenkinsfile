@@ -143,6 +143,7 @@ pipeline {
                         sh 'mvn --activate-profiles test -DgsExec="${gsExec}" -DcompareExec="${compareExec}" -Dmaven.test.skip=false -Dmaven.test.failure.ignore=false -Dmaven.javadoc.skip=true org.jacoco:jacoco-maven-plugin:prepare-agent verify org.jacoco:jacoco-maven-plugin:report -Dsonar.java.spotbugs.reportPaths="target/spotbugs.xml" sonar:sonar ' + sonarBranchName + ' ' + sonarBranchTarget
                     }
                 }
+                dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
             }
         }
         stage('Static Code Analysis') {
@@ -151,7 +152,7 @@ pipeline {
             }
             steps {
                 withMaven(jdk: "${JDK_VERSION}", maven: 'M3', mavenLocalRepo: '.repository') {
-                    sh 'mvn --activate-profiles qa verify -Dpmd.analysisCache=true'
+                    sh 'mvn --activate-profiles qa verify -Dmaven.test.skip=true -Ddependency-check.skip=true -Dpmd.analysisCache=true'
                 }
             }
         }
@@ -178,7 +179,7 @@ pipeline {
                     def rtMaven = Artifactory.newMavenBuild()
                     rtMaven.deployer server: server, releaseRepo: 'releases', snapshotRepo: 'snapshot'
                     rtMaven.tool = 'M3'
-                    def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'install --threads 2C -Dmaven.test.skip=true -Dspotbugs.skip=true -Dmaven.javadoc.failOnError=false'
+                    def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'install --threads 2C -Dmaven.main.skip=true -Dmaven.test.skip=true -Ddependency-check.skip=true -Dspotbugs.skip=true -Dmaven.javadoc.failOnError=false'
                     server.publishBuildInfo buildInfo
                 }
             }
