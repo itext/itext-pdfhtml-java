@@ -179,7 +179,7 @@ pipeline {
                     def rtMaven = Artifactory.newMavenBuild()
                     rtMaven.deployer server: server, releaseRepo: 'releases', snapshotRepo: 'snapshot'
                     rtMaven.tool = 'M3'
-                    def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'install --threads 2C -Dmaven.main.skip=true -Dmaven.test.skip=true -Ddependency-check.skip=true -Dspotbugs.skip=true -Dmaven.javadoc.failOnError=false'
+                    def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'package --threads 2C -Dmaven.main.skip=true -Dmaven.test.skip=true -Ddependency-check.skip=true -Dspotbugs.skip=true -Dmaven.javadoc.failOnError=false'
                     server.publishBuildInfo buildInfo
                 }
             }
