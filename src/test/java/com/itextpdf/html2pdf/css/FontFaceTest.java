@@ -282,13 +282,13 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    //TODO: update after DEVSIX-2052 and probably DEVSIX-2034 fix
+    //TODO: update after DEVSIX-2052
     public void correctUrlWithUsedUnicodeRangeTest() throws IOException, InterruptedException {
         runTest("correctUrlWithUsedUnicodeRangeTest");
     }
 
     @Test
-    //TODO: update after DEVSIX-2052 and probably DEVSIX-2034 fix
+    //TODO: update after DEVSIX-2052
     public void correctUnicodeRangeSignificantTest() throws IOException, InterruptedException {
         runTest("correctUnicodeRangeSignificantTest");
     }
