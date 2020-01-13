@@ -79,6 +79,8 @@ public final class FontStyleApplierUtil {
     /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(FontStyleApplierUtil.class);
 
+    private static final float DEFAULT_LINE_HEIGHT = 1.2f;
+
     /**
      * Creates a {@link FontStyleApplierUtil} instance.
      */
@@ -234,7 +236,7 @@ public final class FontStyleApplierUtil {
                 }
             }
         } else {
-            element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, 1.2f));
+            element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, DEFAULT_LINE_HEIGHT));
         }
     }
 
