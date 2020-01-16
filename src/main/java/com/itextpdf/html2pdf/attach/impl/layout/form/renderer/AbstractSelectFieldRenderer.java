@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -142,6 +142,15 @@ public abstract class AbstractSelectFieldRenderer extends BlockRenderer {
         } else {
             applyAcroField(drawContext);
         }
+    }
+
+    /**
+     * Gets the accessibility language.
+     *
+     * @return the accessibility language
+     */
+    protected String getLang() {
+        return this.<String>getProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
     }
 
     protected abstract IRenderer createFlatRenderer();

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -44,10 +44,10 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.AbstractElement;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
@@ -55,9 +55,6 @@ import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.styledxmlparser.node.IElementNode;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * TagWorker class for the {@code p} element.
@@ -94,7 +91,8 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
      */
     public PTagWorker(IElementNode element, ProcessorContext context) {
         lastParagraph = new Paragraph();
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
+        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE),
+                element.getStyles().get(CssConstants.TEXT_TRANSFORM));
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
@@ -104,6 +102,12 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         inlineHelper.flushHangingLeaves(lastParagraph);
+
+        if (elementsContainer != null) {
+            AccessiblePropHelper.trySetLangAttribute(elementsContainer, element);
+        } else {
+            AccessiblePropHelper.trySetLangAttribute(lastParagraph, element);
+        }
     }
 
     /* (non-Javadoc)

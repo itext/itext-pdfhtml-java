@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -44,10 +44,10 @@ package com.itextpdf.html2pdf.css.w3c.css21.ui;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class OverflowTest001 extends W3CCssTest {
+public class Overflow002Test extends W3CCssTest {
 
     @Override
     protected String getHtmlFileName() {
-        return "overflow-001.xht";
+        return "overflow-002.xht";
     }
 }

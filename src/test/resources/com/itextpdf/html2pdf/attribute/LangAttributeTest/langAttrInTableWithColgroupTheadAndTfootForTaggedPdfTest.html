@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+ 	<head>
+		<meta charset="utf-8">
+		<style>
+			table, th, td {
+				border: 1px solid black;
+			}
+		</style>
+ 	</head>
+
+ <body lang="da">
+	<!-- table with colgroup and col-->
+​
+	<!-- colgroup without lang-->
+	<table>
+		<thead lang="ru">
+	    <tr>	<th scope="col" lang="ru">First row 1	</th>	
+	  				<th scope="col">First row 2</th>				</tr>
+	    <tr>	<td lang="ru">Second row 1</td>	
+	  				<td>Second row 2</td>										</tr>
+	  </thead>
+	  <tfoot>
+	    <tr  lang="uk">	<th scope="col" lang="ru">First row 1	</th>	
+    									<th scope="col">First row 2</th>				</tr>
+	    <tr  lang="uk">	<td lang="ru">Second row 1</td>	
+    									<td>Second row 2</td>										</tr>
+	  </tfoot>
+​
+	  <colgroup>
+      <col>
+      <col bgcolor="red" lang="by">
+	  </colgroup>
+​
+	  <tr>
+      <td lang="da">TableD</td>
+      <th scope="col">THeader</th>
+	  </tr>
+	  <tr>
+    	<td>TableD</td>
+      <th scope="col" lang="uk">THeader</th>
+	  </tr>
+	</table>
+ </body>
+</html>

@@ -17,7 +17,6 @@ pipeline {
         ansiColor('xterm')
         buildDiscarder(logRotator(artifactNumToKeepStr: '1'))
         parallelsAlwaysFailFast()
-        retry(1)
         skipStagesAfterUnstable()
         timeout(time: 60, unit: 'MINUTES')
         timestamps()
@@ -33,24 +32,89 @@ pipeline {
     }
 
     stages {
-        stage('Clean workspace') {
-            options {
-                timeout(time: 5, unit: 'MINUTES')
-            }
+        stage('Wait for blocking jobs') {
             steps {
-                withMaven(jdk: "${JDK_VERSION}", maven: 'M3', mavenLocalRepo: '.repository') {
-                    sh 'mvn clean'
-                    sh 'mvn dependency:purge-local-repository -Dinclude=com.itextpdf -DresolutionFuzziness=groupId -DreResolve=false'
+                script {
+                    properties([[$class: 'BuildBlockerProperty', blockLevel: 'GLOBAL', blockingJobs: ".*/itextcore/${env.JOB_BASE_NAME}", scanQueueFor: 'ALL', useBuildBlocker: true]])
                 }
             }
         }
-        stage('Compile') {
+        stage('Build') {
             options {
-                timeout(time: 5, unit: 'MINUTES')
+                retry(2)
             }
-            steps {
-                withMaven(jdk: "${JDK_VERSION}", maven: 'M3', mavenLocalRepo: '.repository') {
-                    sh 'mvn compile test-compile package -Dmaven.test.skip=true -Dmaven.javadoc.failOnError=false'
+            stages {
+                stage('Clean workspace') {
+                    options {
+                        timeout(time: 5, unit: 'MINUTES')
+                    }
+                    steps {
+                        withMaven(jdk: "${JDK_VERSION}", maven: 'M3', mavenLocalRepo: '.repository') {
+                            sh 'mvn clean'
+                            sh 'mvn dependency:purge-local-repository -Dinclude=com.itextpdf -DresolutionFuzziness=groupId -DreResolve=false'
+                        }
+                        script {
+                            try {sh "rm -rf ${env.WORKSPACE.replace('\\','/')}/downloads"} catch (Exception err) {}
+                        }
+                    }
+                }
+                stage('Install branch dependencies') {
+                    options {
+                        timeout(time: 5, unit: 'MINUTES')
+                    }
+                    when {
+                        not {
+                            anyOf {
+                                branch "master"
+                                branch "develop"
+                            }
+                        }
+                    }
+                    steps {
+                        script {
+                            getAndConfigureJFrogCLI()
+                            sh "./jfrog rt dl branch-artifacts/${env.JOB_BASE_NAME}/**/java/ downloads/"
+                            if(fileExists("downloads")) {
+                                dir ("downloads") {
+                                    def mainPomFiles = findFiles(glob: '**/main.pom')
+                                    mainPomFiles.each{ pomFile ->
+                                        pomPath = pomFile.path.replace("\\","/")
+                                        sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${env.WORKSPACE.replace('\\','/')}/.repository -Dpackaging=pom -Dfile=${pomPath} -DpomFile=${pomPath}"
+                                    }
+                                    def pomFiles = findFiles(glob: 'downloads/**/*.pom')
+                                    pomFiles.each{ pomFile ->
+                                        if (pomFile.name != "main.pom") {
+                                            pomPath = pomFile.path.replace("\\","/")
+                                            sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${env.WORKSPACE.replace('\\','/')}/.repository -Dpackaging=pom -Dfile=${pomPath} -DpomFile=${pomPath}"
+                                        }
+                                    }
+                                    def jarFiles = findFiles(glob: '**/*.jar')
+                                    jarFiles.each{ jarFile ->
+                                        jarPath = jarFile.path.replace("\\","/")
+                                        sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${env.WORKSPACE.replace('\\','/')}/.repository -Dfile=${jarPath}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                stage('Compile') {
+                    options {
+                        timeout(time: 5, unit: 'MINUTES')
+                    }
+                    steps {
+                        withMaven(jdk: "${JDK_VERSION}", maven: 'M3', mavenLocalRepo: '.repository') {
+                            sh 'mvn compile test-compile package -Dmaven.test.skip=true -Dmaven.javadoc.failOnError=false'
+                        }
+                    }
+                }
+            }
+            post {
+                failure {
+                    sleep time: 2, unit: 'MINUTES'
+                }
+                success {
+                    script { currentBuild.result = 'SUCCESS' }
                 }
             }
         }
@@ -101,6 +165,42 @@ pipeline {
                     rtMaven.tool = 'M3'
                     def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'install -Dmaven.test.skip=true -Dspotbugs.skip=true -Dmaven.javadoc.failOnError=false'
                     server.publishBuildInfo buildInfo
+                }
+            }
+        }
+        stage('Branch Artifactory Deploy') {
+            options {
+                timeout(time: 5, unit: 'MINUTES')
+            }
+            when {
+                not {
+                    anyOf {
+                        branch "master"
+                        branch "develop"
+                    }
+                }
+            }
+            steps {
+                script {
+                    if (env.GIT_URL) {
+                        repoName = ("${env.GIT_URL}" =~ /(.*\/)(.*)(\.git)/)[ 0 ][ 2 ]
+                        findFiles(glob: 'target/*.jar').each { item ->
+                            if (!(item ==~ /.*\/fb-contrib-.*?.jar/) && !(item ==~ /.*\/findsecbugs-plugin-.*?.jar/) && !(item ==~ /.*-sources.jar/) && !(item ==~ /.*-javadoc.jar/)) {
+                                sh "./jfrog rt u \"${item.path}\" branch-artifacts/${env.BRANCH_NAME}/${repoName}/java/ --recursive=false --build-name ${env.BRANCH_NAME} --build-number ${env.BUILD_NUMBER} --props \"vcs.revision=${env.GIT_COMMIT};repo.name=${repoName}\""
+                            }
+                        }
+                        findFiles(glob: '**/pom.xml').each { item ->
+                            def pomPath = item.path.replace('\\','/')
+                            if (!(pomPath ==~ /.*target.*/)) {
+                                def resPomName = "main.pom"
+                                def subDirMatcher = (pomPath =~ /^.*(?<=\/|^)(.*)\/pom\.xml/)
+                                if (subDirMatcher.matches()) {
+                                    resPomName = "${subDirMatcher[ 0 ][ 1 ]}.pom"
+                                }
+                                sh "./jfrog rt u \"${item.path}\" branch-artifacts/${env.BRANCH_NAME}/${repoName}/java/${resPomName} --recursive=false --build-name ${env.BRANCH_NAME} --build-number ${env.BUILD_NUMBER} --props \"vcs.revision=${env.GIT_COMMIT};repo.name=${repoName}\""
+                            }
+                        }
+                    }
                 }
             }
         }

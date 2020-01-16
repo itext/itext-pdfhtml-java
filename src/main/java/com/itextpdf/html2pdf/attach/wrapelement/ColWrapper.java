@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -53,6 +53,9 @@ public class ColWrapper implements IWrapElement {
 
     /** The span. */
     private int span;
+
+    /** The lang attribute value. */
+    private String lang;
     
     /** The width. */
     private UnitValue width;
@@ -146,5 +149,23 @@ public class ColWrapper implements IWrapElement {
     public ColWrapper setOwnCssProps(Map<String, String> ownCssProps) {
         this.ownCssProps = ownCssProps;
         return this;
+    }
+
+    /**
+     * Sets the language attribute.
+     *
+     * @param lang the lang attribute
+     */
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    /**
+     * Gets the language attribute.
+     *
+     * @return the lang attribute
+     */
+    public String getLang() {
+        return lang;
     }
 }

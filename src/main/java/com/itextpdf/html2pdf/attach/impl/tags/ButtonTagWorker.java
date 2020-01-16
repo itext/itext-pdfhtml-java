@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -48,12 +48,14 @@ import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.ButtonContainer;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
-import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
@@ -66,6 +68,9 @@ public class ButtonTagWorker extends DivTagWorker {
 
     /** The button. */
     private IFormField formField;
+
+    /** The lang attribute value. */
+    private String lang;
 
     private StringBuilder fallbackContent = new StringBuilder();
 
@@ -89,6 +94,8 @@ public class ButtonTagWorker extends DivTagWorker {
         }
         this.name = context.getFormFieldNameResolver().resolveFormName(name);
         flatten = !context.isCreateAcroForm();
+
+        lang = element.getAttribute(AttributeConstants.LANG);
     }
 
     /* (non-Javadoc)
@@ -117,8 +124,12 @@ public class ButtonTagWorker extends DivTagWorker {
         if (formField == null) {
             if (hasChildren) {
                 ButtonContainer button = new ButtonContainer(name);
+                button.setProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
                 Div div = (Div) super.getElementResult();
                 for (IElement element : div.getChildren()) {
+                    if (element instanceof IAccessibleElement) {
+                        AccessiblePropHelper.trySetLangAttribute((IAccessibleElement) element, lang);
+                    }
                     if (element instanceof IBlockElement) {
                         button.add((IBlockElement) element);
                     } else if (element instanceof Image) {
@@ -129,6 +140,7 @@ public class ButtonTagWorker extends DivTagWorker {
                 formField = button;
             } else {
                 Button inputButton = new Button(name);
+                inputButton.setProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
                 inputButton.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, fallbackContent.toString().trim());
                 formField = inputButton;
             }

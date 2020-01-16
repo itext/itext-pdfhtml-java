@@ -1,0 +1,3 @@
+Please notice that the following fonts are used with the mentioned below licenses.
+
+* NotoSans-Regular - SIL Open Font License, Version 1.1.

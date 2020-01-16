@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -84,6 +84,8 @@ public class SelectTagWorker implements ITagWorker, IDisplayAware {
         } else {
             selectElement = new ComboBoxField(name);
         }
+        String lang = element.getAttribute(AttributeConstants.LANG);
+        selectElement.setProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
         selectElement.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }

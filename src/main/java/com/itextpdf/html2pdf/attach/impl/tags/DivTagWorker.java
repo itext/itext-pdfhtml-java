@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
@@ -84,6 +85,8 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
         inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE),
                 styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM));
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
+
+        AccessiblePropHelper.trySetLangAttribute(div, element);
     }
 
     /* (non-Javadoc)
@@ -138,7 +141,7 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
         } else if (childTagWorker instanceof ImgTagWorker && element instanceof IElement && !CssConstants.BLOCK.equals(((ImgTagWorker) childTagWorker).getDisplay())) {
             inlineHelper.add((ILeafElement) childTagWorker.getElementResult());
             processed = true;
-        } else if (element instanceof com.itextpdf.layout.element.IElement) {
+       } else if (element instanceof com.itextpdf.layout.element.IElement) {
             processed = addBlockChild((com.itextpdf.layout.element.IElement) element);
         }
         return processed;
@@ -166,7 +169,7 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
      * @param element the element
      * @return true, if successful
      */
-    private boolean addBlockChild(com.itextpdf.layout.element.IElement element) {
+    protected boolean addBlockChild(com.itextpdf.layout.element.IElement element) {
         postProcessInlineGroup();
 
         boolean processed = false;
@@ -183,7 +186,7 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
     /**
      * Post-processes the hanging leaves of the waiting inline elements.
      */
-    private void postProcessInlineGroup() {
+    protected void postProcessInlineGroup() {
         inlineHelper.flushHangingLeaves(div);
     }
 }

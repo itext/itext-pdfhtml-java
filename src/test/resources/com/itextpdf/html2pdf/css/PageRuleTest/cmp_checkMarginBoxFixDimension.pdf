@@ -15,10 +15,10 @@ endobj
 <</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</ExtGState<</Gs1 8 0 R/Gs2 9 0 R>>/Font<</F1 6 0 R/F2 7 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
 endobj
 1 0 obj
-<</Pages 2 0 R/Type/Catalog>>
+<</Lang(en)/Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20190717143545+03'00')/ModDate(D:20190717143545+03'00')/Producer(iText® 7.1.8-SNAPSHOT ©2000-2019 iText Group NV \(AGPL-version\))/Title(Page Margin Box Tests: fix dimension)>>
+<</CreationDate(D:20191226115531+03'00')/ModDate(D:20191226115531+03'00')/Producer(iText® 7.1.10-SNAPSHOT ©2000-2019 iText Group NV \(AGPL-version\))/Title(Page Margin Box Tests: fix dimension)>>
 endobj
 7 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -39,17 +39,17 @@ xref
 0 10
 0000000000 65535 f 
 0000001426 00000 n 
-0000001860 00000 n 
-0000001471 00000 n 
+0000001870 00000 n 
+0000001480 00000 n 
 0000001250 00000 n 
 0000000015 00000 n 
-0000001771 00000 n 
-0000001681 00000 n 
-0000001911 00000 n 
-0000001938 00000 n 
+0000001781 00000 n 
+0000001691 00000 n 
+0000001921 00000 n 
+0000001948 00000 n 
 trailer
-<</ID [<d067c0e525f0e0a4bd0e2a5a644d6342><d067c0e525f0e0a4bd0e2a5a644d6342>]/Info 3 0 R/Root 1 0 R/Size 10>>
-%iText-7.1.8-SNAPSHOT
+<</ID [<e97d917bba3de4dcb26737177f52acf4><e97d917bba3de4dcb26737177f52acf4>]/Info 3 0 R/Root 1 0 R/Size 10>>
+%iText-7.1.10-SNAPSHOT
 startxref
-1965
+1975
 %%EOF

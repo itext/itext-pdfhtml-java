@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -56,11 +56,11 @@ public class AbbrTagWorker extends SpanTagWorker {
     /**
      * Creates a new {@link AbbrTagWorker} instance.
      *
-     * @param tag the tag
+     * @param element the tag
      * @param context the context
      */
-    public AbbrTagWorker(IElementNode tag, ProcessorContext context) {
-        super(tag, context);
+    public AbbrTagWorker(IElementNode element, ProcessorContext context) {
+        super(element, context);
     }
 
     /* (non-Javadoc)

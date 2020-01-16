@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -45,7 +45,15 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
+import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.geom.Rectangle;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfString;
+import com.itextpdf.kernel.pdf.tagging.PdfStructElem;
+import com.itextpdf.kernel.pdf.tagging.StandardRoles;
+import com.itextpdf.kernel.pdf.tagutils.TagTreePointer;
+import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
 import com.itextpdf.layout.layout.MinMaxWidthLayoutResult;
@@ -58,6 +66,9 @@ import com.itextpdf.layout.renderer.BlockRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.ILeafElementRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
+import com.itextpdf.layout.tagging.IAccessibleElement;
+
+import java.util.List;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -126,6 +137,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
                 setProperty(Property.FORCED_PLACEMENT, true);
             } else {
                 flatRenderer = childRenderers.get(0);
+                processLangAttribute();
                 childRenderers.clear();
                 childRenderers.add(flatRenderer);
                 adjustFieldLayout(layoutContext);
@@ -142,6 +154,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         }
         if (!childRenderers.isEmpty()) {
             flatRenderer = childRenderers.get(0);
+            processLangAttribute();
             childRenderers.clear();
             childRenderers.add(flatRenderer);
             adjustFieldLayout(layoutContext);
@@ -279,6 +292,15 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         return super.retrieveWidth(0);
     }
 
+    /**
+     * Gets the accessibility language.
+     *
+     * @return the accessibility language
+     */
+    protected String getLang() {
+        return this.<String>getProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
+    }
+
     //NOTE: should be removed in 3.0.0
     @Override
     protected Float retrieveWidth(float parentBoxWidth) {
@@ -291,5 +313,26 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
 
     protected boolean isLayoutBasedOnFlatRenderer() {
         return true;
+    }
+
+    protected void writeAcroFormFieldLangAttribute(PdfDocument pdfDoc) {
+        if (pdfDoc.isTagged()) {
+            TagTreePointer formParentPointer = pdfDoc.getTagStructureContext().getAutoTaggingPointer();
+            List<String> kidsRoles = formParentPointer.getKidsRoles();
+            int lastFormIndex = kidsRoles.lastIndexOf(StandardRoles.FORM);
+            TagTreePointer formPointer = formParentPointer.moveToKid(lastFormIndex);
+
+            if (getLang() != null) {
+                formPointer.getProperties().setLanguage(getLang());
+            }
+            formParentPointer.moveToParent();
+        }
+    }
+
+    private void processLangAttribute() {
+        IPropertyContainer propertyContainer = flatRenderer.getModelElement();
+        if (propertyContainer instanceof IAccessibleElement) {
+            AccessiblePropHelper.trySetLangAttribute((IAccessibleElement) propertyContainer, getLang());
+        }
     }
 }

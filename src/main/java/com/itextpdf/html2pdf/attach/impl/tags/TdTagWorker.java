@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
@@ -84,6 +85,8 @@ public class TdTagWorker implements ITagWorker, IDisplayAware {
         cell.setPadding(0);
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
+
+        AccessiblePropHelper.trySetLangAttribute(cell, element);
     }
 
     /* (non-Javadoc)

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -67,6 +67,7 @@ public class ColgroupTagWorker implements ITagWorker {
     public ColgroupTagWorker(IElementNode element, ProcessorContext context) {
         Integer span = CssUtils.parseInteger(element.getAttribute(AttributeConstants.SPAN));
         colgroup = new ColgroupWrapper(span != null ? (int)span : 1);
+        colgroup.setLang(element.getAttribute(AttributeConstants.LANG));
     }
 
     /* (non-Javadoc)

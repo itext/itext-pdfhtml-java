@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -91,4 +91,7 @@ public class Html2PdfProperty {
 
     /** The Constant FORM_FIELD_SELECTED. */
     public static final int FORM_FIELD_LABEL = PROPERTY_START + 14;
+
+    /** The Constant FORM_ACCESSIBILITY_LANGUAGE. */
+    public static final int FORM_ACCESSIBILITY_LANGUAGE = PROPERTY_START + 15;
 }

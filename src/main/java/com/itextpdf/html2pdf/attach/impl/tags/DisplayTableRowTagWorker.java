@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -44,9 +44,11 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableRowWrapper;
 import com.itextpdf.html2pdf.attach.wrapelement.TableWrapper;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
@@ -76,13 +78,20 @@ public class DisplayTableRowTagWorker implements ITagWorker {
     private Cell waitingCell = null;
 
     /**
+     * The lang attribute value.
+     */
+    private String lang;
+
+    /**
      * Creates a new {@link DisplayTableTagWorker} instance.
      *
      * @param element the element
      * @param context the context
      */
     public DisplayTableRowTagWorker(IElementNode element, ProcessorContext context) {
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
+        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE),
+                element.getStyles().get(CssConstants.TEXT_TRANSFORM));
+        lang = element.getAttribute(AttributeConstants.LANG);
     }
 
     /* (non-Javadoc)
@@ -143,6 +152,7 @@ public class DisplayTableRowTagWorker implements ITagWorker {
     public IPropertyContainer getElementResult() {
         TableWrapper tableWrapper = new TableWrapper();
         for (Cell cell : rowWrapper.getCells()) {
+            AccessiblePropHelper.trySetLangAttribute(cell, lang);
             tableWrapper.addCell(cell);
         }
         return tableWrapper.toTable(null);

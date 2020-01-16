@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -44,10 +44,18 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.io.font.PdfEncodings;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
@@ -58,6 +66,9 @@ public class BodyTagWorker extends DivTagWorker {
 
     /** The parent tag worker. */
     private ITagWorker parentTagWorker;
+
+    /** The lang attribute value. */
+    private String lang;
 
     /**
      * Creates a new {@link BodyTagWorker} instance.
@@ -77,6 +88,16 @@ public class BodyTagWorker extends DivTagWorker {
                 parentTagWorker.getElementResult().setProperty(Property.FONT_SIZE, UnitValue.createPointValue(em));
             }
         }
+
+        PdfDocument pdfDocument = context.getPdfDocument();
+        if (pdfDocument != null) {
+            lang = element.getAttribute(AttributeConstants.LANG);
+            if (lang != null) {
+                pdfDocument.getCatalog().setLang(new PdfString(lang, PdfEncodings.UNICODE_BIG));
+            }
+        } else {
+            lang = element.getLang();
+        }
     }
 
     /* (non-Javadoc)
@@ -84,8 +105,16 @@ public class BodyTagWorker extends DivTagWorker {
      */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        if(parentTagWorker == null)
+        if(parentTagWorker == null) {
             super.processEnd(element, context);
+            if (context.getPdfDocument() == null) {
+                for (IElement child : ((Div) super.getElementResult()).getChildren()) {
+                    if (child instanceof IAccessibleElement) {
+                        AccessiblePropHelper.trySetLangAttribute((IAccessibleElement) child, lang);
+                    }
+                }
+            }
+        }
     }
 
     /* (non-Javadoc)

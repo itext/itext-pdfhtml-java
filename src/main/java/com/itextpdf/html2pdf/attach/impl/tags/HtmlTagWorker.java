@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -48,7 +48,11 @@ import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfName;
+import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.AreaBreak;
@@ -97,6 +101,11 @@ public class HtmlTagWorker implements ITagWorker {
         List<String> fontFamilies = FontFamilySplitter.splitFontFamily(fontFamily);
         document.setProperty(Property.FONT, fontFamilies.toArray(new String[fontFamilies.size()]));
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
+
+        String lang = element.getAttribute(AttributeConstants.LANG);
+        if (lang != null) {
+            pdfDocument.getCatalog().setLang(new PdfString(lang, PdfEncodings.UNICODE_BIG));
+        }
     }
 
     /* (non-Javadoc)

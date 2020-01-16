@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -88,6 +88,7 @@ public class TextAreaTagWorker implements ITagWorker, IDisplayAware {
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_ROWS, rows);
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_COLS, cols);
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
+        textArea.setProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, element.getAttribute(AttributeConstants.LANG));
         String placeholder = element.getAttribute(AttributeConstants.PLACEHOLDER);
         if (null != placeholder) {
             Paragraph paragraph;

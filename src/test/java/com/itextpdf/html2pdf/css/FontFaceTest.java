@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -175,11 +175,15 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1612")
-    //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
-    //See DirectoryTableOrder002Test in io for decompression details
     public void w3cProblemTest02() throws IOException, InterruptedException {
-        runTest("w3cProblemTest02");
+        try {
+            runTest("w3cProblemTest02");
+        } catch (NegativeArraySizeException e) {
+            return;
+        }
+
+        Assert.fail("In w3c test suite this font is labeled as invalid, "
+                + "so the invalid negative value is expected while creating a glyph.");
     }
 
     @Test
@@ -213,11 +217,15 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1612")
-    //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
-    //See ValidationOff012Test in io for decompression details
     public void w3cProblemTest07() throws IOException, InterruptedException {
-        runTest("w3cProblemTest07");
+        try {
+            runTest("w3cProblemTest07");
+        } catch (NegativeArraySizeException e) {
+            return;
+        }
+
+        Assert.fail("In w3c test suite this font is labeled as invalid, "
+                + "so the invalid negative value is expected while creating a glyph.");
     }
 
     @Test
@@ -282,13 +290,13 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    //TODO: update after DEVSIX-2052 and probably DEVSIX-2034 fix
+    //TODO: update after DEVSIX-2052
     public void correctUrlWithUsedUnicodeRangeTest() throws IOException, InterruptedException {
         runTest("correctUrlWithUsedUnicodeRangeTest");
     }
 
     @Test
-    //TODO: update after DEVSIX-2052 and probably DEVSIX-2034 fix
+    //TODO: update after DEVSIX-2052
     public void correctUnicodeRangeSignificantTest() throws IOException, InterruptedException {
         runTest("correctUnicodeRangeSignificantTest");
     }

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
@@ -100,9 +101,12 @@ public class ImgTagWorker implements ITagWorker {
             display = CssConstants.BLOCK;
         }
 
-        String altText = element.getAttribute(AttributeConstants.ALT);
-        if (altText != null && image != null) {
-            image.getAccessibilityProperties().setAlternateDescription(altText);
+        if (image != null) {
+            String altText = element.getAttribute(AttributeConstants.ALT);
+            if (altText != null) {
+                image.getAccessibilityProperties().setAlternateDescription(altText);
+            }
+            AccessiblePropHelper.trySetLangAttribute(image, element);
         }
     }
 

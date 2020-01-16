@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2019 iText Group NV
+    Copyright (c) 1998-2020 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -51,7 +51,7 @@ import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 
 /**
- * Properties that will be used by the converter.
+ * Properties that will be used by the {@link com.itextpdf.html2pdf.HtmlConverter}.
  */
 public class ConverterProperties {
 
@@ -112,6 +112,9 @@ public class ConverterProperties {
     /**
      * Gets the media device description.
      *
+     * The properties of the multimedia device are taken into account when creating the SVG and
+     * when processing the properties of the СSS.
+     *
      * @return the media device description
      */
     public MediaDeviceDescription getMediaDeviceDescription() {
@@ -121,8 +124,11 @@ public class ConverterProperties {
     /**
      * Sets the media device description.
      *
+     * The properties of the multimedia device are taken into account when creating the SVG and
+     * when processing the properties of the СSS.
+     *
      * @param mediaDeviceDescription the media device description
-     * @return the ConverterProperties instance
+     * @return the {@link ConverterProperties} instance
      */
     public ConverterProperties setMediaDeviceDescription(MediaDeviceDescription mediaDeviceDescription) {
         this.mediaDeviceDescription = mediaDeviceDescription;
@@ -132,6 +138,10 @@ public class ConverterProperties {
     /**
      * Gets the font provider.
      *
+     * Please note that {@link FontProvider} instances cannot be reused across several documents
+     * and thus as soon as you set this property, this {@link ConverterProperties} instance becomes only useful
+     * for a single HTML conversion.
+     *
      * @return the font provider
      */
     public FontProvider getFontProvider() {
@@ -139,12 +149,14 @@ public class ConverterProperties {
     }
 
     /**
-     * Sets the font provider. Please note that {@link FontProvider} instances cannot be reused across several documents
-     * and thus as soon as you set this property, this {@link ConverterProperties} instance becomes only useful for a single
-     * HTML conversion.
+     * Sets the font provider.
+     *
+     * Please note that {@link FontProvider} instances cannot be reused across several documents
+     * and thus as soon as you set this property, this {@link ConverterProperties} instance becomes only useful
+     * for a single HTML conversion.
      *
      * @param fontProvider the font provider
-     * @return the ConverterProperties instance
+     * @return the {@link ConverterProperties} instance
      */
     public ConverterProperties setFontProvider(FontProvider fontProvider) {
         this.fontProvider = fontProvider;
@@ -153,6 +165,9 @@ public class ConverterProperties {
 
     /**
      * Gets the TagWorkerFactory instance.
+     *
+     * The tagWorkerFactory is used to create {@link com.itextpdf.html2pdf.attach.ITagWorker}, which in turn
+     * are used to convert the HTML tags to the PDF elements.
      *
      * @return the TagWorkerFactory
      */
@@ -163,8 +178,11 @@ public class ConverterProperties {
     /**
      * Sets the TagWorkerFactory.
      *
+     * The tagWorkerFactory is used to create {@link com.itextpdf.html2pdf.attach.ITagWorker}, which in turn
+     * are used to convert the HTML tags to the PDF elements.
+     *
      * @param tagWorkerFactory the TagWorkerFactory
-     * @return the ConverterProperties instance
+     * @return the {@link ConverterProperties} instance
      */
     public ConverterProperties setTagWorkerFactory(ITagWorkerFactory tagWorkerFactory) {
         this.tagWorkerFactory = tagWorkerFactory;
@@ -173,6 +191,9 @@ public class ConverterProperties {
 
     /**
      * Gets the CSS applier factory.
+     *
+     * The cssApplierFactory is used to create {@link com.itextpdf.html2pdf.css.apply.ICssApplier}, which in turn
+     * are used to convert the CSS properties to the PDF properties.
      *
      * @return the CSS applier factory
      */
@@ -183,8 +204,11 @@ public class ConverterProperties {
     /**
      * Sets the CSS applier factory.
      *
+     * The cssApplierFactory is used to create {@link com.itextpdf.html2pdf.css.apply.ICssApplier}, which in turn
+     * are used to convert the CSS properties to the PDF properties.
+     *
      * @param cssApplierFactory the CSS applier factory
-     * @return the ConverterProperties instance
+     * @return the {@link ConverterProperties} instance
      */
     public ConverterProperties setCssApplierFactory(ICssApplierFactory cssApplierFactory) {
         this.cssApplierFactory = cssApplierFactory;
@@ -193,6 +217,8 @@ public class ConverterProperties {
 
     /**
      * Gets the base URI.
+     *
+     * Base URI is used to resolve other URI.
      *
      * @return the base URI
      */
@@ -203,8 +229,10 @@ public class ConverterProperties {
     /**
      * Sets the base URI.
      *
+     * Base URI is used to resolve other URI.
+     *
      * @param baseUri the base URI
-     * @return the ConverterProperties instance
+     * @return the {@link ConverterProperties} instance
      */
     public ConverterProperties setBaseUri(String baseUri) {
         this.baseUri = baseUri;
@@ -212,9 +240,13 @@ public class ConverterProperties {
     }
 
     /**
-     * Checks if is an AcroForm needs to be created.
+     * Check if the createAcroForm flag is set.
      *
-     * @return true, an AcroForm should be created
+     * If createAcroForm is set, then when the form is encountered in HTML, AcroForm will be created, otherwise
+     * a visually identical, but not functional element will be created. Please bare in mind that the created
+     * Acroform may visually differ a bit from the HTML one.
+     *
+     * @return the createAcroForm flag
      */
     public boolean isCreateAcroForm() {
         return createAcroForm;
@@ -223,8 +255,12 @@ public class ConverterProperties {
     /**
      * Sets the createAcroForm value.
      *
+     * If createAcroForm is set, then when the form is encountered in HTML, AcroForm will be created, otherwise
+     * a visually identical, but not functional element will be created. Please bare in mind that the created
+     * Acroform may visually differ a bit from the HTML one.
+     *
      * @param createAcroForm true if an AcroForm needs to be created
-     * @return the ConverterProperties instance
+     * @return the {@link ConverterProperties} instance
      */
     public ConverterProperties setCreateAcroForm(boolean createAcroForm) {
         this.createAcroForm = createAcroForm;
@@ -234,6 +270,13 @@ public class ConverterProperties {
     /**
      * Gets the outline handler.
      *
+     * If outlineHandler is specified, then outlines will be created in the PDF
+     * for HTML tags specified in outlineHandler.
+     *
+     * Please note that {@link OutlineHandler} is not thread safe, thus
+     * as soon as you have set this property, this {@link ConverterProperties} instance cannot be used in
+     * converting multiple HTMLs simultaneously.
+     *
      * @return the outline handler
      */
     public OutlineHandler getOutlineHandler() {
@@ -241,12 +284,17 @@ public class ConverterProperties {
     }
 
     /**
-     * Sets the outline handler. Please note that {@link OutlineHandler} is not thread safe, thus
-     * as soon as you have set this property, this {@link ConverterProperties} instance cannot be used in converting multiple
-     * HTMLs simultaneously.
+     * Sets the outline handler.
+     *
+     * If outlineHandler is specified, then outlines will be created in the PDF
+     * for HTML tags specified in outlineHandler.
+     *
+     * Please note that {@link OutlineHandler} is not thread safe, thus
+     * as soon as you have set this property, this {@link ConverterProperties} instance cannot be used in
+     * converting multiple HTMLs simultaneously.
      *
      * @param outlineHandler the outline handler
-     * @return the ConverterProperties instance
+     * @return the {@link ConverterProperties} instance
      */
     public ConverterProperties setOutlineHandler(OutlineHandler outlineHandler) {
         this.outlineHandler = outlineHandler;
@@ -255,6 +303,8 @@ public class ConverterProperties {
 
     /**
      * Gets the encoding charset.
+     *
+     * Charset is used to correctly decode an HTML file.
      *
      * @return the charset
      */
@@ -265,8 +315,10 @@ public class ConverterProperties {
     /**
      * Sets the encoding charset.
      *
+     * Charset is used to correctly decode an HTML file.
+     *
      * @param charset the charset
-     * @return the ConverterProperties instance
+     * @return the {@link ConverterProperties} instance
      */
     public ConverterProperties setCharset(String charset) {
         this.charset = charset;
@@ -274,21 +326,29 @@ public class ConverterProperties {
     }
 
     /**
-     * Checks if immediateFlush is set
-     * @return true if immediateFlush is set, false if not.
+     * Checks if immediateFlush is set.
+     *
+     * This is used for {@link com.itextpdf.html2pdf.HtmlConverter#convertToDocument} methods and will be
+     * overwritten to false if a page-counter declaration is present in the CSS of the HTML being converted.
+     * Has no effect when used in conjunction with {@link com.itextpdf.html2pdf.HtmlConverter#convertToPdf}
+     * or {@link com.itextpdf.html2pdf.HtmlConverter#convertToElements}.
+     *
+     * @return true if immediateFlush is set, false if not
      */
     public boolean isImmediateFlush(){
         return immediateFlush;
     }
 
     /**
-     * set the immediate flush property of the layout document
-     * This is used for convertToDocument methods and will be overwritten to
-     * false if a page-counter declaration is present in the CSS of the HTML being
-     * converted.
-     * Has no effect when used in conjunction with convertToPdf or convertToElements
+     * Set the immediate flush property of the layout document.
+     *
+     * This is used for {@link com.itextpdf.html2pdf.HtmlConverter#convertToDocument} methods and will be
+     * overwritten to false if a page-counter declaration is present in the CSS of the HTML being converted.
+     * Has no effect when used in conjunction with {@link com.itextpdf.html2pdf.HtmlConverter#convertToPdf}
+     * or {@link com.itextpdf.html2pdf.HtmlConverter#convertToElements}.
+     *
      * @param immediateFlush the immediate flush value
-     * @return the ConverterProperties
+     * @return the {@link ConverterProperties} instance
      */
     public ConverterProperties setImmediateFlush(boolean immediateFlush){
         this.immediateFlush = immediateFlush;
@@ -296,7 +356,9 @@ public class ConverterProperties {
     }
 
     /**
-     * Gets html meta info. This meta info will be passed with to {@link com.itextpdf.kernel.counter.EventCounter}
+     * Gets html meta info.
+     *
+     * This meta info will be passed with to {@link com.itextpdf.kernel.counter.EventCounter}
      * with {@link com.itextpdf.html2pdf.events.PdfHtmlEvent} and can be used to determine event origin.
      *
      * @return converter's {@link IMetaInfo}
@@ -306,11 +368,13 @@ public class ConverterProperties {
     }
 
     /**
-     * Sets html meta info. This meta info will be passed with to {@link com.itextpdf.kernel.counter.EventCounter}
+     * Sets html meta info.
+     *
+     * This meta info will be passed with to {@link com.itextpdf.kernel.counter.EventCounter}
      * with {@link com.itextpdf.html2pdf.events.PdfHtmlEvent} and can be used to determine event origin.
      *
      * @param metaInfo meta info to set
-     * @return this {@link ConverterProperties} instance
+     * @return the {@link ConverterProperties} instance
      */
     public ConverterProperties setEventCountingMetaInfo(IMetaInfo metaInfo) {
         this.metaInfo = metaInfo;
