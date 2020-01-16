@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-@Library('pipeline-library')_
+@Library('pipeline-library') _
 
 def schedule, sonarBranchName, sonarBranchTarget
 switch (env.BRANCH_NAME) {
@@ -29,16 +29,16 @@ pipeline {
     }
 
     options {
-        ansiColor('xterm')
-        buildDiscarder(logRotator(artifactNumToKeepStr: '1'))
+        ansiColor 'xterm'
+        buildDiscarder logRotator(artifactNumToKeepStr: '1')
         parallelsAlwaysFailFast()
         skipStagesAfterUnstable()
-        timeout(time: 60, unit: 'MINUTES')
+        timeout time: 1, unit: 'HOURS'
         timestamps()
     }
 
     triggers {
-        cron(schedule)
+        cron schedule
     }
 
     tools {
@@ -50,34 +50,43 @@ pipeline {
         stage('Wait for blocking jobs') {
             steps {
                 script {
-                    properties([[$class: 'BuildBlockerProperty', blockLevel: 'GLOBAL', blockingJobs: ".*/itextcore/${env.JOB_BASE_NAME}", scanQueueFor: 'ALL', useBuildBlocker: true]])
+                    properties[[
+                            $class         : 'BuildBlockerProperty',
+                            blockLevel     : 'GLOBAL',
+                            blockingJobs   : ".*/itextcore/${env.JOB_BASE_NAME}",
+                            scanQueueFor   : 'ALL',
+                            useBuildBlocker: true
+                    ]]
                 }
             }
         }
         stage('Build') {
             options {
-                retry(2)
+                retry 2
             }
             stages {
                 stage('Clean workspace') {
                     options {
-                        timeout(time: 5, unit: 'MINUTES')
+                        timeout time: 5, unit: 'MINUTES'
                     }
                     steps {
                         withMaven(jdk: "${JDK_VERSION}", maven: 'M3') {
-                            sh 'mvn --threads 2C clean'
-                            sh 'mvn dependency:purge-local-repository ' +
+                            sh 'mvn --threads 2C --no-transfer-progress clean ' +
+                                    'dependency:purge-local-repository ' +
                                     "-Dmaven.repo.local=${env.WORKSPACE.replace '\\', '/'}/.repository " +
                                     '-Dinclude=com.itextpdf -DresolutionFuzziness=groupId -DreResolve=false'
                         }
                         script {
-                            try {sh "rm -rf ${env.WORKSPACE.replace('\\','/')}/downloads"} catch (Exception ignored) {}
+                            try {
+                                sh "rm -rf ${env.WORKSPACE.replace('\\', '/')}/downloads"
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
                 }
                 stage('Install branch dependencies') {
                     options {
-                        timeout(time: 5, unit: 'MINUTES')
+                        timeout time: 5, unit: 'MINUTES'
                     }
                     when {
                         not {
@@ -91,24 +100,24 @@ pipeline {
                         script {
                             getAndConfigureJFrogCLI()
                             sh "./jfrog rt dl branch-artifacts/${env.JOB_BASE_NAME}/**/java/ downloads/"
-                            if(fileExists("downloads")) {
-                                dir ("downloads") {
+                            if (fileExists("downloads")) {
+                                dir("downloads") {
                                     def mainPomFiles = findFiles(glob: '**/main.pom')
-                                    mainPomFiles.each{ pomFile ->
-                                        pomPath = pomFile.path.replace("\\","/")
-                                        sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${env.WORKSPACE.replace('\\','/')}/.repository -Dpackaging=pom -Dfile=${pomPath} -DpomFile=${pomPath}"
+                                    mainPomFiles.each { pomFile ->
+                                        pomPath = pomFile.path.replace("\\", "/")
+                                        sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${env.WORKSPACE.replace('\\', '/')}/.repository -Dpackaging=pom -Dfile=${pomPath} -DpomFile=${pomPath}"
                                     }
                                     def pomFiles = findFiles(glob: 'downloads/**/*.pom')
-                                    pomFiles.each{ pomFile ->
+                                    pomFiles.each { pomFile ->
                                         if (pomFile.name != "main.pom") {
-                                            pomPath = pomFile.path.replace("\\","/")
-                                            sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${env.WORKSPACE.replace('\\','/')}/.repository -Dpackaging=pom -Dfile=${pomPath} -DpomFile=${pomPath}"
+                                            pomPath = pomFile.path.replace("\\", "/")
+                                            sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${env.WORKSPACE.replace('\\', '/')}/.repository -Dpackaging=pom -Dfile=${pomPath} -DpomFile=${pomPath}"
                                         }
                                     }
                                     def jarFiles = findFiles(glob: '**/*.jar')
-                                    jarFiles.each{ jarFile ->
-                                        jarPath = jarFile.path.replace("\\","/")
-                                        sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${env.WORKSPACE.replace('\\','/')}/.repository -Dfile=${jarPath}"
+                                    jarFiles.each { jarFile ->
+                                        jarPath = jarFile.path.replace("\\", "/")
+                                        sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${env.WORKSPACE.replace('\\', '/')}/.repository -Dfile=${jarPath}"
                                     }
                                 }
                             }
@@ -117,13 +126,13 @@ pipeline {
                 }
                 stage('Compile') {
                     options {
-                        timeout(time: 5, unit: 'MINUTES')
+                        timeout time: 10, unit: 'MINUTES'
                     }
                     steps {
                         withMaven(jdk: "${JDK_VERSION}", maven: 'M3') {
-                            sh 'mvn --threads 2C compile test-compile package ' +
+                            sh 'mvn --threads 2C package ' +
                                     "-Dmaven.repo.local=${env.WORKSPACE.replace '\\', '/'}/.repository " +
-                                    '-Dmaven.test.skip=true -Dmaven.javadoc.failOnError=false'
+                                    '-Dmaven.test.skip=true'
                         }
                     }
                 }
@@ -139,7 +148,7 @@ pipeline {
         }
         stage('Static Code Analysis') {
             options {
-                timeout(time: 30, unit: 'MINUTES')
+                timeout time: 1, unit: 'HOURS'
             }
             steps {
                 withMaven(jdk: "${JDK_VERSION}", maven: 'M3') {
@@ -147,18 +156,24 @@ pipeline {
                             "-Dmaven.repo.local=${env.WORKSPACE.replace '\\', '/'}/.repository " +
                             '-Dmaven.test.skip=true -Dpmd.analysisCache=true'
                 }
+                recordIssues tools: [
+                        checkStyle(),
+                        pmdParser(),
+                        spotBugs(useRankAsPriority: true)
+                ]
                 dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
             }
         }
         stage('Run Tests') {
             options {
-                timeout(time: 30, unit: 'MINUTES')
+                timeout time: 30, unit: 'MINUTES'
             }
             steps {
                 withMaven(jdk: "${JDK_VERSION}", maven: 'M3') {
                     sh 'mvn --no-transfer-progress --activate-profiles test ' +
                             "-Dmaven.repo.local=${env.WORKSPACE.replace '\\', '/'}/.repository " +
                             '-DgsExec="${gsExec}" -DcompareExec="${compareExec}" ' +
+                            '-Dmaven.main.skip=true ' +
                             '-Dmaven.test.skip=false -Dmaven.test.failure.ignore=false ' +
                             '-Ddependency-check.skip=true -Dmaven.javadoc.skip=true ' +
                             'org.jacoco:jacoco-maven-plugin:prepare-agent verify org.jacoco:jacoco-maven-plugin:report'
@@ -182,7 +197,7 @@ pipeline {
         }
         stage('Artifactory Deploy') {
             options {
-                timeout(time: 5, unit: 'MINUTES')
+                timeout time: 5, unit: 'MINUTES'
             }
             when {
                 anyOf {
@@ -207,7 +222,7 @@ pipeline {
         }
         stage('Branch Artifactory Deploy') {
             options {
-                timeout(time: 5, unit: 'MINUTES')
+                timeout time: 5, unit: 'MINUTES'
             }
             when {
                 not {
@@ -220,19 +235,19 @@ pipeline {
             steps {
                 script {
                     if (env.GIT_URL) {
-                        repoName = ("${env.GIT_URL}" =~ /(.*\/)(.*)(\.git)/)[ 0 ][ 2 ]
+                        repoName = ("${env.GIT_URL}" =~ /(.*\/)(.*)(\.git)/)[0][2]
                         findFiles(glob: 'target/*.jar').each { item ->
                             if (!(item ==~ /.*\/[fs]b-contrib-.*?.jar/) && !(item ==~ /.*\/findsecbugs-plugin-.*?.jar/) && !(item ==~ /.*-sources.jar/) && !(item ==~ /.*-javadoc.jar/)) {
                                 sh "./jfrog rt u \"${item.path}\" branch-artifacts/${env.BRANCH_NAME}/${repoName}/java/ --recursive=false --build-name ${env.BRANCH_NAME} --build-number ${env.BUILD_NUMBER} --props \"vcs.revision=${env.GIT_COMMIT};repo.name=${repoName}\""
                             }
                         }
                         findFiles(glob: '**/pom.xml').each { item ->
-                            def pomPath = item.path.replace('\\','/')
+                            def pomPath = item.path.replace('\\', '/')
                             if (!(pomPath ==~ /.*target.*/)) {
                                 def resPomName = "main.pom"
                                 def subDirMatcher = (pomPath =~ /^.*(?<=\/|^)(.*)\/pom\.xml/)
                                 if (subDirMatcher.matches()) {
-                                    resPomName = "${subDirMatcher[ 0 ][ 1 ]}.pom"
+                                    resPomName = "${subDirMatcher[0][1]}.pom"
                                 }
                                 sh "./jfrog rt u \"${item.path}\" branch-artifacts/${env.BRANCH_NAME}/${repoName}/java/${resPomName} --recursive=false --build-name ${env.BRANCH_NAME} --build-number ${env.BUILD_NUMBER} --props \"vcs.revision=${env.GIT_COMMIT};repo.name=${repoName}\""
                             }
@@ -249,6 +264,7 @@ pipeline {
         }
         success {
             echo 'I succeeeded! \u263A'
+            cleanWs deleteDirs: true
         }
         unstable {
             echo 'I am unstable \uD83D\uDE2E'
@@ -262,14 +278,14 @@ pipeline {
         fixed {
             script {
                 if (env.BRANCH_NAME.contains('master') || env.BRANCH_NAME.contains('develop')) {
-                    slackNotifier("#ci", currentBuild.currentResult, "${env.BRANCH_NAME} - Back to normal")
+                    slackNotifier "#ci", currentBuild.currentResult, "${env.BRANCH_NAME} - Back to normal"
                 }
             }
         }
         regression {
             script {
                 if (env.BRANCH_NAME.contains('master') || env.BRANCH_NAME.contains('develop')) {
-                    slackNotifier("#ci", currentBuild.currentResult, "${env.BRANCH_NAME} - First failure")
+                    slackNotifier "#ci", currentBuild.currentResult, "${env.BRANCH_NAME} - First failure"
                 }
             }
         }
