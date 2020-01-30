@@ -55,6 +55,7 @@ import com.itextpdf.layout.font.FontFamilySplitter;
 import com.itextpdf.layout.property.BaseDirection;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.Leading;
+import com.itextpdf.layout.property.LineHeight;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.TransparentColor;
@@ -64,12 +65,12 @@ import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utilities class to apply font styles.
@@ -218,26 +219,9 @@ public final class FontStyleApplierUtil {
         }
 
         String lineHeight = cssProps.get(CssConstants.LINE_HEIGHT);
-        // specification does not give auto as a possible lineHeight value
-        // nevertheless some browsers compute it as normal so we apply the same behaviour.
-        // What's more, it's basically the same thing as if lineHeight is not set in the first place
-        if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight) && !CssConstants.AUTO.equals(lineHeight)) {
-            if (CssUtils.isNumericValue(lineHeight)) {
-                Float mult = CssUtils.parseFloat(lineHeight);
-                if (mult != null) {
-                    element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));
-                }
-            } else {
-                UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em, rem);
-                if (lineHeightValue != null && lineHeightValue.isPointValue()) {
-                    element.setProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.getValue()));
-                } else if (lineHeightValue != null) {
-                    element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue() / 100));
-                }
-            }
-        } else {
-            element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, DEFAULT_LINE_HEIGHT));
-        }
+        setLineHeight(element, lineHeight, em, rem);
+        // TODO (DEVSIX-3662) remove this method
+        setLineHeightByLeading(element, lineHeight, em, rem);
     }
 
     /**
@@ -303,6 +287,55 @@ public final class FontStyleApplierUtil {
             return (float)(baseValue * 1.2);
         }
         return CssUtils.parseRelativeValue(relativeFontSizeValue, baseValue);
+    }
+
+
+    private static void setLineHeight(IPropertyContainer elementToSet, String lineHeight, float em, float rem) {
+        if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight) && !CssConstants.AUTO.equals(lineHeight)) {
+            if (CssUtils.isNumericValue(lineHeight)) {
+                Float number = CssUtils.parseFloat(lineHeight);
+                if (number != null) {
+                    elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createMultipliedValue((float)number));
+                } else {
+                    elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createNormalValue());
+                }
+            } else {
+                UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em, rem);
+                if (lineHeightValue != null && lineHeightValue.isPointValue()) {
+                    elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createFixedValue(lineHeightValue.getValue()));
+                } else if (lineHeightValue != null) {
+                    elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createMultipliedValue(lineHeightValue.getValue() / 100f));
+                } else {
+                    elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createNormalValue());
+                }
+            }
+        } else {
+            elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createNormalValue());
+        }
+    }
+
+    @Deprecated
+    private static void setLineHeightByLeading(IPropertyContainer element, String lineHeight, float em, float rem) {
+        // specification does not give auto as a possible lineHeight value
+        // nevertheless some browsers compute it as normal so we apply the same behaviour.
+        // What's more, it's basically the same thing as if lineHeight is not set in the first place
+        if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight) && !CssConstants.AUTO.equals(lineHeight)) {
+            if (CssUtils.isNumericValue(lineHeight)) {
+                Float mult = CssUtils.parseFloat(lineHeight);
+                if (mult != null) {
+                    element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));
+                }
+            } else {
+                UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em, rem);
+                if (lineHeightValue != null && lineHeightValue.isPointValue()) {
+                    element.setProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.getValue()));
+                } else if (lineHeightValue != null) {
+                    element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue() / 100));
+                }
+            }
+        } else {
+            element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, DEFAULT_LINE_HEIGHT));
+        }
     }
 
 }

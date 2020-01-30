@@ -22,24 +22,208 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
+import com.itextpdf.html2pdf.attach.impl.tags.BodyTagWorker;
+import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.property.Leading;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.RenderingMode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class LineHeightTest {
+public class LineHeightTest extends ExtendedHtmlConversionITextTest {
+    private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/LineHeightTest/";
+    private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/LineHeightTest/";
+    private static final String RESOURCES = SOURCE_FOLDER + "fonts/";
+
+    private static ConverterProperties converterProperties = new ConverterProperties();
+
+    @BeforeClass
+    public static void init() {
+        createOrClearDestinationFolder(DESTINATION_FOLDER);
+        initConverterProperties();
+    }
+
+    @Test
+    public void lineHeightFreeSansFontLengthTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightFreeSansFontLengthTest");
+    }
+
+    @Test
+    public void lineHeightFreeSansFontMaxCoeffTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightFreeSansFontMaxCoeffTest");
+    }
+
+    @Test
+    // differences with HTML due to default coefficient (see LineHeightHelper#DEFAULT_LINE_HEIGHT_COEFF)
+    public void lineHeightFreeSansFontNormalTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightFreeSansFontNormalTest");
+    }
+
+    @Test
+    public void lineHeightFreeSansFontNumberTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightFreeSansFontNumberTest");
+    }
+
+    @Test
+    public void lineHeightFreeSansFontPercentageTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightFreeSansFontPercentageTest");
+    }
+
+
+    @Test
+    public void lineHeightNotoSansFontMaxCoeffTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightNotoSansFontMaxCoeffTest");
+    }
+
+    @Test
+    public void lineHeightNotoSansFontNormalTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightNotoSansFontNormalTest");
+    }
+
+    @Test
+    public void getMaxLineHeightWhenThereAreFewInlineElementsInTheBoxTest() throws IOException, InterruptedException {
+        testLineHeight("getMaxLineHeightWhenThereAreFewInlineElementsInTheBoxTest");
+    }
+
+    @Test
+    public void lineHeightWithDiffFontsTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightWithDiffFontsTest");
+    }
+
+    @Test
+    public void lineHeightStratFontTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightStratFontTest");
+    }
+
+    @Test
+    public void imageLineHeightNormalTest() throws IOException, InterruptedException {
+        testLineHeight("imageLineHeightNormalTest");
+    }
+
+
+    @Test
+    public void imageLineHeightTest() throws IOException, InterruptedException {
+        testLineHeight("imageLineHeightTest");
+    }
+
+    @Test
+    public void imageLineHeightZeroTest() throws IOException, InterruptedException {
+        testLineHeight("imageLineHeightZeroTest");
+    }
+
+    @Test
+    public void imageAscenderLineHeightTest() throws IOException, InterruptedException {
+        testLineHeight("imageAscenderLineHeightTest");
+    }
+
+    @Test
+    public void inputLineHeightTest() throws IOException, InterruptedException {
+        testLineHeight("inputLineHeightTest");
+    }
+
+    @Test
+    public void textAreaLineHeightNormalTest() throws IOException, InterruptedException {
+        testLineHeight("textAreaLineHeightNormalTest");
+    }
+
+    @Test
+    public void textAreaLineHeightTest() throws IOException, InterruptedException {
+        testLineHeight("textAreaLineHeightTest");
+    }
+
+    @Test
+    public void textAreaLineHeightShortTest() throws IOException, InterruptedException {
+        testLineHeight("textAreaLineHeightShortTest");
+    }
+
+    @Test
+    // TODO DEVSIX-2485 change cmp after fixing the ticket
+    public void inlineElementLineHeightTest() throws IOException, InterruptedException {
+        testLineHeight("inlineElementLineHeightTest");
+    }
+
+    @Test
+    public void inlineBlockElementLineHeightTest() throws IOException, InterruptedException {
+        testLineHeight("inlineBlockElementLineHeightTest");
+    }
+
+    @Test
+    public void blockElementLineHeightTest() throws IOException, InterruptedException {
+        testLineHeight("blockElementLineHeightTest");
+    }
 
     @Test
     public void defaultLineHeightTest() throws IOException {
         List<IElement> elements = HtmlConverter.convertToElements("<p>Lorem Ipsum</p>");
         Assert.assertEquals(1.2f, elements.get(0).<Leading>getProperty(Property.LEADING).getValue(), 1e-10);
+    }
+
+    void testLineHeight(String name) throws IOException, InterruptedException {
+        String sourceHtml = SOURCE_FOLDER + name + ".html";
+        String destinationPdf = DESTINATION_FOLDER + name + ".pdf";
+        String cmpPdf = SOURCE_FOLDER + "cmp_" + name + ".pdf";
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf));
+        try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
+            HtmlConverter.convertToPdf(fileInputStream, pdfDocument,
+                    converterProperties);
+        }
+        System.out.println("html: file://" + UrlUtil.toNormalizedURI(sourceHtml).getPath() + "\n");
+        Assert.assertNull(
+                new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER, "diff_" + name + "_"));
+    }
+
+    static void initConverterProperties() {
+        converterProperties.setBaseUri(SOURCE_FOLDER);
+        FontProvider fontProvider = new FontProvider();
+        fontProvider.addDirectory(RESOURCES);
+        fontProvider.addStandardPdfFonts();
+        converterProperties.setFontProvider(fontProvider);
+        DefaultTagWorkerFactory tagWorkerFactory = new HtmlModeTagWorkerFactory();
+        converterProperties.setTagWorkerFactory(tagWorkerFactory);
+    }
+
+    static class HtmlModeTagWorkerFactory extends DefaultTagWorkerFactory {
+        @Override
+        public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
+            if (TagConstants.BODY.equals(tag.name())) {
+                return new HtmlModeBodyTagWorker(tag, context);
+            }
+            return null;
+        }
+    }
+
+    static class HtmlModeBodyTagWorker extends BodyTagWorker {
+        HtmlModeBodyTagWorker(IElementNode element, ProcessorContext context) {
+            super(element, context);
+        }
+
+        @Override
+        public IPropertyContainer getElementResult() {
+            IPropertyContainer result = super.getElementResult();
+            result.setProperty(Property.RENDERING_MODE, RenderingMode.HTML_MODE);
+            return result;
+        }
     }
 }

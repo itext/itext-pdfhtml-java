@@ -1,0 +1,4 @@
+Please notice that the following fonts are used with the mentioned below licenses.
+
+* NotoSans-Regular - SIL Open Font License, Version 1.1.
+* FreeSans - GPL license you can find following the link: https://www.gnu.org/licenses
