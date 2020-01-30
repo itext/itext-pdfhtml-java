@@ -411,19 +411,6 @@ public class ResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("The path to the image shall be changed to reference some available shared file in order to run the test correctly.")
-    public void resourceResolverTest17() throws IOException, InterruptedException {
-        String baseUri = sourceFolder;
-        String outPdf = destinationFolder + "resourceResolverTest17.pdf";
-        String cmpPdf = sourceFolder + "cmp_resourceResolverTest17.pdf";
-        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverTest17.html");
-             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
-            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
-        }
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff17_"));
-    }
-
-    @Test
     public void resourceResolverSvgWithImageInlineTest() throws IOException, InterruptedException {
         String baseUri = sourceFolder;
         String outPdf = destinationFolder + "resourceResolverSvgWithImageInline.pdf";
