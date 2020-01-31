@@ -43,10 +43,13 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.kernel.PdfException;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.rules.ExpectedException;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -58,6 +61,9 @@ public class TagsInsideButtonTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/TagsInsideButtonTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/TagsInsideButtonTest/";
+
+    @Rule
+    public ExpectedException junitExpectedException = ExpectedException.none();
 
     @BeforeClass
     public static void beforeClass() {
@@ -82,5 +88,10 @@ public class TagsInsideButtonTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void buttonWithPInsideTagged() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         convertToPdfAcroformFlattenAndCompare("buttonWithPInside", sourceFolder, destinationFolder, true);
+    }
+    @Test
+    public void buttonInsideMoreThanTwoAreas() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        junitExpectedException.expect(PdfException.class);
+        convertToPdfAcroformFlattenAndCompare("buttonInsideMoreThanTwoAreas", sourceFolder, destinationFolder, true);
     }
 }
