@@ -289,7 +289,7 @@ public class SelectTest extends ExtendedITextTest {
         String outPdfPath = destinationFolder + name + ".pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
         String diff = "diff_" + name + "_";
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlPath) + "\n");
 
         HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath));
         Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));

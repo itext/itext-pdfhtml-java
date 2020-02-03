@@ -517,7 +517,7 @@ public class FloatTest extends ExtendedITextTest {
         String outFileName = destinationFolder + testName + ".pdf";
         String cmpFileName = sourceFolder + "cmp_" + testName + ".pdf";
         HtmlConverter.convertToPdf(new File(htmlName), new File(outFileName));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlName).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlName) + "\n");
         Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, destinationFolder, diff));
     }
 

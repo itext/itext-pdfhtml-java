@@ -89,7 +89,7 @@ public abstract class ExtendedHtmlConversionITextTest extends ExtendedITextTest 
         try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
             HtmlConverter.convertToPdf(fileInputStream, pdfDocument, converterProperties);
         }
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceHtml).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(sourceHtml) + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, destinationFolder, "diff_" + name + "_"));
     }
 
@@ -118,7 +118,7 @@ public abstract class ExtendedHtmlConversionITextTest extends ExtendedITextTest 
                 document.add((IBlockElement) element);
             }
         }
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceHtml).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(sourceHtml) + "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, destinationFolder, "diff_" + name + "_"));
     }
 
@@ -155,7 +155,7 @@ public abstract class ExtendedHtmlConversionITextTest extends ExtendedITextTest 
         converterPropertiesAcro.setBaseUri(sourceFolder);
         converterPropertiesAcro.setCreateAcroForm(true);
         HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfTaggedAcro, converterPropertiesAcro);
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceHtml).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(sourceHtml) + "\n");
 
         //flatted created tagged PDF with acroform
         PdfDocument document = new PdfDocument(new PdfReader(outPdfPathAcro), new PdfWriter(outPdfPathFlatted));

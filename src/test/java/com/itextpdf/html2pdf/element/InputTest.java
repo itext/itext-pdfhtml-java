@@ -114,7 +114,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
         String htmlPath = sourceFolder + "inputTest06.html";
         String outPdfPath = destinationFolder + "inputTest06.pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + "inputTest06.pdf";
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlPath) + "\n");
 
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outPdfPath));
         pdfDoc.setDefaultPageSize(PageSize.A8);
@@ -230,7 +230,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
         String htmlPath = sourceFolder + "placeholderTest05.html";
         String outPdfPath = destinationFolder + "placeholderTest05.pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + "placeholderTest05.pdf";
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlPath) + "\n");
 
         List<IElement> elements = HtmlConverter.convertToElements(new FileInputStream(htmlPath));
         Paragraph placeholderToBeSet = new Paragraph("bazinga").setBackgroundColor(ColorConstants.RED).setFontColor(ColorConstants.YELLOW);

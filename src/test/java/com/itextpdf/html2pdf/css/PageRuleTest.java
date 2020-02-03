@@ -732,7 +732,7 @@ public class PageRuleTest extends ExtendedITextTest {
 
         File outFile = new File(pdfPath);
 
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlPath) + "\n");
 
         if (converterProperties == null) {
             converterProperties = new ConverterProperties();

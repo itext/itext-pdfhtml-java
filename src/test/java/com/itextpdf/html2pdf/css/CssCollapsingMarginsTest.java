@@ -373,7 +373,7 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
         File destFile = new File(outPdf);
         HtmlConverter.convertToPdf(srcFile, destFile);
 
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(srcFile).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(srcFile.getAbsolutePath()) + "\n");
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, diff));
     }
 

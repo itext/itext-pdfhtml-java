@@ -121,7 +121,7 @@ public class FontFaceTest extends ExtendedITextTest {
     public void droidSerifLocalWithMediaRuleFontTest3() throws IOException, InterruptedException {
         String name = "droidSerifLocalWithMediaRuleFontTest";
         String htmlPath = sourceFolder + name + ".html";
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlPath) + "\n");
 
         ConverterProperties converterProperties = new ConverterProperties()
                 .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT))
@@ -306,7 +306,7 @@ public class FontFaceTest extends ExtendedITextTest {
         String pdfPath = destinationFolder + name + ".pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
         String diffPrefix = "diff_" + name + "_";
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlPath) + "\n");
 
         ConverterProperties converterProperties = new ConverterProperties()
                 .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT))

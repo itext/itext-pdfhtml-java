@@ -88,7 +88,7 @@ public class PdfHtmlPageXofYEventHandlerTest extends ExtendedITextTest {
         String dest = destinationFolder + filename + ".pdf";
         String cmp = sourceFolder + "cmp_" + filename + ".pdf";
         new PdfHtmlPageXofYEventHandlerTest().parseWithFooter(src, dest, sourceFolder);
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(src).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(src) + "\n");
         Assert.assertNull(new CompareTool().compareByContent(dest, cmp, destinationFolder, "diff_XofY_"));
 
     }

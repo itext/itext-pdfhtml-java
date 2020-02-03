@@ -79,7 +79,7 @@ public class LinkTest extends ExtendedITextTest {
 
     @Test
     public void linkTest01() throws IOException, InterruptedException {
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "linkTest01.html").getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(sourceFolder + "linkTest01.html") + "\n");
         PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "linkTest01.pdf"));
         outDoc.setTagged();
         try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "linkTest01.html")) {
