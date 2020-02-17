@@ -86,6 +86,11 @@ public class TagsInsideButtonTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void imageNotFinishedTagged() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("imageNotFinishedTagged", sourceFolder, destinationFolder, true);
+    }
+
+    @Test
     public void buttonWithPInsideTagged() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         convertToPdfAcroformFlattenAndCompare("buttonWithPInside", sourceFolder, destinationFolder, true);
     }
