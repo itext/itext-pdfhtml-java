@@ -411,7 +411,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
             pageBordersSimulation.setProperty(entry.getKey(), entry.getValue());
         }
         pageBordersSimulation.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
-        Canvas canvas = new Canvas(new PdfCanvas(page), page.getDocument(), page.getTrimBox()
+        Canvas canvas = new Canvas(new PdfCanvas(page), page.getTrimBox()
                 .applyMargins(margins[0], margins[1], margins[2], margins[3], false));
         canvas.enableAutoTagging(page);
         canvas.add(pageBordersSimulation);
