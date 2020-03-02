@@ -42,9 +42,20 @@
  */
 package com.itextpdf.html2pdf.attribute;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfString;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.WriterProperties;
+import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -64,5 +75,30 @@ public class AlignAttributeTest extends ExtendedHtmlConversionITextTest {
     public void alignImgTest01() throws IOException, InterruptedException {
         // vertical-alignment values top, middle and bottom are not currently supported for inline-block elements and images
         convertToPdfAndCompare("alignImgTest01", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void imgAttrAlignLeftReadOrderPdfTest() throws IOException, InterruptedException {
+        String pdfDestinationFile = destinationFolder + "imgAttrAlignLeftReadOrderPdf.pdf";
+        String htmlSource = sourceFolder + "imgAttrAlignLeftReadOrderPdf.html";
+        String cmpPdfDestinationFile = sourceFolder + "cmp_imgAttrAlignLeftReadOrderPdf.pdf";
+
+        FileOutputStream fileOutputStream = new FileOutputStream(pdfDestinationFile);
+        WriterProperties writerProperties = new WriterProperties();
+        writerProperties.addXmpMetadata();
+
+        PdfWriter pdfWriter = new PdfWriter(fileOutputStream, writerProperties);
+        PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+        pdfDocument.getCatalog().setLang(new PdfString("en-US"));
+        pdfDocument.setTagged();
+
+        ConverterProperties converterProperties = new ConverterProperties();
+        converterProperties.setBaseUri(sourceFolder);
+
+        FileInputStream fileInputStream = new FileInputStream(htmlSource);
+        HtmlConverter.convertToPdf(fileInputStream, pdfDocument, converterProperties);
+
+        Assert.assertNull(new CompareTool()
+                .compareByContent(pdfDestinationFile, cmpPdfDestinationFile, destinationFolder));
     }
 }
