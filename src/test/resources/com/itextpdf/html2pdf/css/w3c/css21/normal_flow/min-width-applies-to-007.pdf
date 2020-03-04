@@ -1,11 +1,9 @@
 %PDF-1.7
 %‚„œ”
 5 0 obj
-<</Filter/FlateDecode/Length 111>>stream
+<</Filter/FlateDecode/Length 110>>stream
 xúåA
-¬0D˜säYÍ&6±6u+Ë^¯à¯£°&ø‚ıMxº≈c
-NÇ›≈”J∆~`É#Âéç®-¸$35NôÀS´r2&Z˘¶Ê7}œ?∑ïŒÇ+
-:Æ´èıh8ˆÆ?0◊˘FVEn—Ÿr
+1Ô˝ä>Í%n≤íËU–ª0à8—¡Mf≈Ôõ•°®C—'¡Ó‚È•`åLá—•=Âéç®-ú≥ôß¬Â©M93≠~s˜õæ??∑ïŒÇ+*Ækèı(£L¡æìMQzÛ∫à:
 endstream
 endobj
 4 0 obj
@@ -15,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20180921055956-03'00')/ModDate(D:20180921055956-03'00')/Producer(iTextÆ 7.1.4-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: Min-width applied to elements with 'display' set to 'table-cell')/assert(The 'min-width' property applies to elements with 'display' set to 'table-cell'.)/flags()>>
+<</CreationDate(D:20200311120040+03'00')/ModDate(D:20200311120040+03'00')/Producer(iTextÆ 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Min-width applied to elements with 'display' set to 'table-cell')/assert(The 'min-width' property applies to elements with 'display' set to 'table-cell'.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -26,15 +24,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000326 00000 n 
+0000000325 00000 n 
 0000000806 00000 n 
-0000000371 00000 n 
-0000000193 00000 n 
+0000000370 00000 n 
+0000000192 00000 n 
 0000000015 00000 n 
 0000000716 00000 n 
 trailer
-<</ID [<a23649c8687f09d3fbcd7d2a8dde4c58><a23649c8687f09d3fbcd7d2a8dde4c58>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.4-SNAPSHOT
+<</ID [<d7ad9b10d35eca23e7771d9e3848136b><d7ad9b10d35eca23e7771d9e3848136b>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
 857
 %%EOF

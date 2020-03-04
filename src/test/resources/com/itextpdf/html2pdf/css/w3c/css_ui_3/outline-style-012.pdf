@@ -1,8 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 275>>stream
-xœ•ÁRÃ E÷ï+îR7 @ºuF]«Ù9.R¡m´IM Óß—$ÄÉÔ…íŽË¼s¸ŽîKº{äàå†¤†)+JK7¥óß•÷Î£Þ ì\ïP{TXï«ö¾;VñæT‡nËOz(é™ºÉ(’QÈ‚É¥´Â¶w®…=„àì9ö[„s¦Å’ÃúÐ[×ãÃµ!ö°¨[_[7–9º¤KCl¡•8Q†/Oô&‘3õÅ„‚%U0£Ëâ†ÏaO¯ÿÂÜˆ‘Vl5ÑCÔ¹¼œçqœOôØ$¥K`eæ§šáœZœ‘Le|¥£á/oäÐ=is¥çp¹‚Ç¯YÚŒ:.r¥EGHOŽ±UJWì"æg›áœMü™¬£
+<</Filter/FlateDecode/Length 273>>stream
+xœ•=OÃ0EwÿŠ;Âbb;¶Û	˜oˆ!ÅnhR§êßÇ_BQH·w-ŸóîÈ½!wŒÃl‰PÐ+AucÉq~Âwã½óh·˜önth=lMÿ?œšðrn§=nÍ'y0ä™ÙÈ‹‘‹siƒÝè\{œ&g/±ß"ŒQÅç6ÇÑº®ŸB‹¶÷­u©ÌÉ]ùDgZ3©Páå‰¼	ÔT¾CR.a‰\Q	-×”£#L³2Èë¿(Ó<±šêÄÆ¤j¹˜fá·Hl*‘ÃTê²§‹c.pÁQY±µ
+ü_Z‹Øº®óÅR•y¹€……ÑÀóÝ))U]éPPáìhH…r¸â
+^vvqÌe2ý<IŸ©
 endstream
 endobj
 4 0 obj
@@ -12,13 +14,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171116194505+03'00')/ModDate(D:20171116194505+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Basic User Interface Test: outline-style - inherit \(basic\))/assert(Test checks that the sub element outline style is same as parent element outline style when outline-style set inherit)/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20200311162826+03'00')/ModDate(D:20200311162826+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Basic User Interface Test: outline-style - inherit \(basic\))/assert(Test checks that the sub element outline style is same as parent element outline style when outline-style set inherit)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -26,16 +28,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000499 00000 n 
-0000001095 00000 n 
-0000000544 00000 n 
-0000000357 00000 n 
+0000000497 00000 n 
+0000001094 00000 n 
+0000000542 00000 n 
+0000000355 00000 n 
 0000000015 00000 n 
-0000000916 00000 n 
-0000001006 00000 n 
+0000001004 00000 n 
+0000000915 00000 n 
 trailer
-<</ID [<d5269054a430f67670deb177d2dc07ef><d5269054a430f67670deb177d2dc07ef>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<4e1bc24f85371b3da0e518a7c642c6b1><4e1bc24f85371b3da0e518a7c642c6b1>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
-1146
+1145
 %%EOF

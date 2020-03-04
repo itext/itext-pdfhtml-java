@@ -1,11 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 225>>stream
-xœ…Ïnƒ0Æï~
-·KJ²Å”ë¤í>)/€„i™-I÷ş„
-õâƒùÙşFøp°ûÒ¨ºŞË½Qû]/ãÏuŒ±kñräÀØE¬±í¼çyÀ8şÖ©P¾ºøtğcæš…kÈ(Ò’=œ0p³Õ_ç0•İè•j,Ò	‡i\ª´z·XÎÚY‘êÊº¢¬³	UĞ¤ËñHgg^émÉ=h
-Dù2ytÍ×ş6q¥dbA+q}ƒ—}ï"3¦‹yaÆ/û>±§ÿ·‘ÜTÒe×	øP}$
+<</Filter/FlateDecode/Length 222>>stream
+xœ}ÁÂ @ïıŠõ‚ƒ	Û®&z7á–¬Ó6èÿC'5ôĞ´/¯-#l4¬v¹@İB®°(sV¬Q7°Ğä®x©#‡]‹×#YÂÎamg5x°DºñVûF=4¸Ô'ØjØÃ½âáJ0ÅS÷pFKÍ'ÿÜCTòƒg	Ê1óÏÂºªÊ™ÀB†°íø6“¯TÄ¤7e¥ÇÖ2Ä?L[¾Sœû²*§<|Ï#aó]6¢,+gYÜø]œÌûi›ıëó:ÿ]œÌûÿ}zEr[âM¦×ÆÈx
 endstream
 endobj
 4 0 obj
@@ -15,13 +12,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171116194458+03'00')/ModDate(D:20171116194458+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Basic User Interface Test: outline - create outline likes border property)/assert(Test checks that the outline property creates outlines around visual objects and makes them stand out)/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20200311162811+03'00')/ModDate(D:20200311162811+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Basic User Interface Test: outline - create outline likes border property)/assert(Test checks that the outline property creates outlines around visual objects and makes them stand out)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -29,16 +26,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000449 00000 n 
-0000001042 00000 n 
-0000000494 00000 n 
-0000000307 00000 n 
+0000000446 00000 n 
+0000001040 00000 n 
+0000000491 00000 n 
+0000000304 00000 n 
 0000000015 00000 n 
-0000000863 00000 n 
-0000000953 00000 n 
+0000000950 00000 n 
+0000000861 00000 n 
 trailer
-<</ID [<14c55102a58c1bcd7060d88f151e943e><14c55102a58c1bcd7060d88f151e943e>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<28e6983dc7d32115b5572a2db41a61e1><28e6983dc7d32115b5572a2db41a61e1>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
-1093
+1091
 %%EOF

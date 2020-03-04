@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 8 0 obj
-<</Filter/FlateDecode/Length 173>>stream
-xœ}Í‚0„ï}Š9â¥P«‰ÞMúÁZè¢>¾´¢ñ²‡Ù™ÙoG±Wb}Œ'PH3äÅFîr¨ZDªí˜ÃN¦ž+r0ÁLà›Õg/403Û™—UjôTwZ"¤LCEèç¥¦$ïâ–àtOÁíVê""øyPâ$Æo¤¼i|v ;?‹å¿Ü6–yözåF[KzúöWti®o'°îZÁ
+<</Filter/FlateDecode/Length 172>>stream
+xœ}Á‚0DïýŠ9â¥«‰ÞMúÁ„¶ÐEý|)&£ñ²‡Ù™Ù·½8(±>Åˆ7PµØ¦ÈòDf;¨JDªi=˜<Ã¶Kò°†`ðÝÂéKjØ‘ÝÈÓj–*tTµZbN{2L¦$tãTSPpqCðº£ÙíWê*"„yTâ,úo¤},óRÈzð»XþË%©Œ¯|ÂhçH¿€fÃ]ØÛâÄ­FZ¼
 endstream
 endobj
 7 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 6 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123926+03'00')/ModDate(D:20171109123926+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: page-break-before \(no inherit\))/assert(The 'page-break-before' property is not inherited.)/flags(paged)>>
+<</CreationDate(D:20200311132306+03'00')/ModDate(D:20200311132306+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: page-break-before \(no inherit\))/assert(The 'page-break-before' property is not inherited.)/flags(paged)>>
 endobj
 9 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,18 +23,18 @@ endobj
 xref
 0 10
 0000000004 65535 f 
-0000000388 00000 n 
+0000000387 00000 n 
 0000000005 00001 f 
-0000000433 00000 n 
+0000000432 00000 n 
 0000000002 00001 f 
 0000000000 00001 f 
 0000000811 00000 n 
-0000000255 00000 n 
+0000000254 00000 n 
 0000000015 00000 n 
 0000000721 00000 n 
 trailer
-<</ID [<b90d1f57300b0023486b7c58042e3ca9><b90d1f57300b0023486b7c58042e3ca9>]/Info 3 0 R/Root 1 0 R/Size 10>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<c275e24e0724870f8ccefe565f1fa92a><c275e24e0724870f8ccefe565f1fa92a>]/Info 3 0 R/Root 1 0 R/Size 10>>
+%iText-7.1.11-SNAPSHOT
 startxref
 862
 %%EOF

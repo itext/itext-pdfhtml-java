@@ -1,9 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 157>>stream
-xœmÁ‚0DïûsÄËJK[ğ‰ŞMú
-Æ(U£Ÿo%F‰˜=MòŞìŒTYZï„„í(3ÈÉEÛRb.8œo—+‡}pn@ã1üõĞbğ®å•=ÒÖÒFHã…~*S’•†–¤Š uÖ©Ø˜˜±yƒñÿ]ÌÓ†xÍû)IÊr6b¡)ÃyñO«ªöf2=‚
+<</Filter/FlateDecode/Length 153>>stream
+xœuK
+Â@D÷}ŠZÆÍ˜ùäã2İs„t"bfÈ¨èñ‚D1H¯Š~U¼‰jKÛƒ„T°=éE©Ea`;Jì‰c¼_oh†ÀìĞúgŒÿ@ã:8ÀØØ3í-i"‰4^æ1c„B¦4”‰õ3ÿ"Kå.ÿpZ½¹n¥–•¢œÕ~’ªúXÕ´ùS«ë¥öq¡<¯
 endstream
 endobj
 4 0 obj
@@ -13,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20181115081557-03'00')/ModDate(D:20181115081557-03'00')/Producer(iText® 7.1.5-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: Line Breaking in Collapsed White Space)/assert(Line break opportunities are determined before\n    white space collapsing.)>>
+<</CreationDate(D:20200311133534+03'00')/ModDate(D:20200311133534+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Line Breaking in Collapsed White Space)/assert(Line break opportunities are determined before\n    white space collapsing.)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,15 +24,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000372 00000 n 
-0000000813 00000 n 
-0000000417 00000 n 
-0000000239 00000 n 
+0000000368 00000 n 
+0000000810 00000 n 
+0000000413 00000 n 
+0000000235 00000 n 
 0000000015 00000 n 
-0000000723 00000 n 
+0000000720 00000 n 
 trailer
-<</ID [<348fb854bae4900e6037d473fe8c8602><348fb854bae4900e6037d473fe8c8602>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.5-SNAPSHOT
+<</ID [<841da428666e2534b7b3dabe6a8de01a><841da428666e2534b7b3dabe6a8de01a>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-864
+861
 %%EOF

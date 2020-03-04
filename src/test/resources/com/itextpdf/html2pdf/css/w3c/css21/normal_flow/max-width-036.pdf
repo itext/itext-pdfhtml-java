@@ -2,7 +2,7 @@
 %‚„œ”
 5 0 obj
 <</Filter/FlateDecode/Length 112>>stream
-xúå;É0˚=≈+ì∆Û±”"%}§ΩÄkæä¿Î˚+†igÊ†é©xó(-8R’¬ykºtc—å=®äbé»ì$¡¨¯n°_ë§œ·7nbÓº–ãÈC=pë∆Î’>kS7∞ﬁTú=äßÙE{Ç
+xúÃAÇ0F·˝ú‚_Í¶Jã-lIto2®0EÑËÙ˛Ú∂_ﬁN”ÌU°≤‡DŒ#4ŒÑ<–ÖE∂®*ä)°|%&Eƒgâ˝å,}âÎ∏àπÚèûLo⁄Èé≥<û/ﬂzca„ˆîÛ%ÿJ
 endstream
 endobj
 4 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123638+03'00')/ModDate(D:20171109123638+03'00')/Producer(iTextÆ 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-width using centimeters with a minimum plus one value, 1cm)/assert(The 'max-width' property sets a minimum plus one length value in centimeters.)/flags()>>
+<</CreationDate(D:20200311115751+03'00')/ModDate(D:20200311115751+03'00')/Producer(iTextÆ 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-width using centimeters with a minimum plus one value, 1cm)/assert(The 'max-width' property sets a minimum plus one length value in centimeters.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,14 +24,14 @@ xref
 0 7
 0000000000 65535 f 
 0000000327 00000 n 
-0000000802 00000 n 
+0000000803 00000 n 
 0000000372 00000 n 
 0000000194 00000 n 
 0000000015 00000 n 
-0000000712 00000 n 
+0000000713 00000 n 
 trailer
-<</ID [<d1605e903dab3a6cf3c8d090fbfe910e><d1605e903dab3a6cf3c8d090fbfe910e>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<ec33beece8d61d1ba6285800d8266045><ec33beece8d61d1ba6285800d8266045>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-853
+854
 %%EOF

@@ -1,9 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 214>>stream
-xœ•½RÃ0„û{Š-IsHŠ%Ù-3„PÇP(£KÈ¶Âäõ‘cÏà¡
-İíİí·ÛÑC û•†6Z:øÚpíİÉg|Åœ%c·Á¹•^°ËˆXïãñ¹ûesiOY°>õIúá¼ôè™ºn&¸i7Õ<`Û‹‘bn%ıuıVRìôÜÅ³WÍRPl•n^èÍ—­}‡VHdë"¼uìq íõ4ïéõF@ñ°–;2íª%Wöœb2××R£¸`ı,÷0É©ÖHù7*g\
+<</Filter/FlateDecode/Length 213>>stream
+xœ•»N1EûùŠ[B3Ø½Î¶H@¸C<ay°ë ü>^¼+ªĞX:3¾gnO·nî5´AXÓ¢_.Ø[„DWAòŸ1gÉØ¬qìdl2"VÛ¸ÿ@î¿b™œºC¬C’a\_‡wºôH}•›InZÃ­xDöH1w’ş¦~+)nô<Å³¯šN¤ Ø)İ6Pxz _¦îZ!‘[ğåµ;Ò^ŸaKÏ*Jˆı(ñì«cÄÆ:6ÿ³”Œ­=~ZMt¹b,p>¼›¨¶ªo+CgO
 endstream
 endobj
 4 0 obj
@@ -13,13 +12,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171116194507+03'00')/ModDate(D:20171116194507+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Basic User Interface Test: outline-style - dashed \(basic\))/assert(Test checks that the outline style is dashed when outline-style set dashed)/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20200311162827+03'00')/ModDate(D:20200311162827+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Basic User Interface Test: outline-style - dashed \(basic\))/assert(Test checks that the outline style is dashed when outline-style set dashed)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +26,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000438 00000 n 
+0000000437 00000 n 
 0000000990 00000 n 
-0000000483 00000 n 
-0000000296 00000 n 
+0000000482 00000 n 
+0000000295 00000 n 
 0000000015 00000 n 
+0000000900 00000 n 
 0000000811 00000 n 
-0000000901 00000 n 
 trailer
-<</ID [<f52e55a4dc7d458878e10d66357ed18c><f52e55a4dc7d458878e10d66357ed18c>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<12866ff4cafa0a39f38d4a4bcb09060b><12866ff4cafa0a39f38d4a4bcb09060b>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
 1041
 %%EOF

@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 114>>stream
-xœÌ1Â0Fáİ§øGX	mSV¤²#ù¡8Ú¡µ£ª·~z+İ˜NwÀ™.b\Á/:°XÅ’ÌÄP2êGTP	›h-cšñœÓ8Áª–EÜ‘¿40=h¥3öô½»kãš¾EP¡ü?Ùİ D
+<</Filter/FlateDecode/Length 113>>stream
+xœÌ1Â0Fáİ§øGXI!©ìH¾@(„vhí¨ç‡ê­ŸŞB7¦ÃİÃp¡."]:—NàíX¬aÎfb¨í#*¨†ŒU´Õ!OxNyaMë,nÏ_ê™´Ğ[úŞñ]€?#¨Pùƒ¸t 
 endstream
 endobj
 4 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123752+03'00')/ModDate(D:20171109123752+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Min-width using 'em' units with a minimum plus one value, 1em)/assert(The 'min-width' property sets a minimum plus one length value in 'em' units.)/flags(ahem)>>
+<</CreationDate(D:20200311120006+03'00')/ModDate(D:20200311120006+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Min-width using 'em' units with a minimum plus one value, 1em)/assert(The 'min-width' property sets a minimum plus one length value in 'em' units.)/flags(ahem)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000329 00000 n 
+0000000328 00000 n 
 0000000806 00000 n 
-0000000374 00000 n 
-0000000196 00000 n 
+0000000373 00000 n 
+0000000195 00000 n 
 0000000015 00000 n 
 0000000716 00000 n 
 trailer
-<</ID [<8a9a0b64c134edbd679b1a34f6d5739d><8a9a0b64c134edbd679b1a34f6d5739d>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<3e4132b100bdaa8b17f4a6e234f0d678><3e4132b100bdaa8b17f4a6e234f0d678>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
 857
 %%EOF

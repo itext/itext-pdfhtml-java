@@ -1,10 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 144>>stream
-xœ•±
-Â@DûıŠ!•6'IˆI-˜^ØX’=rr\Ìİ~¾&¢•İ0ó˜™…NL‡¾DY-ÕG´]eº<Ò5eÜ$%MpyRx³EÑ;ï5‚õ‘H!Ş¯Á
-“D²ÆôqòƒDİ(àç»ÆA’š=_éÌt¡å÷IÓ˜ºÚØ÷ÚVó§ş<¾ªIQ
+<</Filter/FlateDecode/Length 143>>stream
+xœ•±Â0C÷û
+«,E¥@`E¢;ÒıÀ©½¨AQJ“HğùĞV°0±Yö“í‘ÎL›¦Bµ[ª0Çº4;pG+Ö”q—”4ÁYä^á]PEã¼×Ög. ¡ƒx?Ôö¥ÍÓÇÉou¦\€[IZ®ùF¦+¿Oö¦<-Oì²6×ü©¿/¿ IX
 endstream
 endobj
 4 0 obj
@@ -14,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20181102113358-03'00')/ModDate(D:20181102113358-03'00')/Producer(iText® 7.1.5-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-transform set to 'lowercase')/assert(The 'text-transform' property set to 'lowercase' on an element makes every letter lowercase.)/flags()>>
+<</CreationDate(D:20200311133431+03'00')/ModDate(D:20200311133431+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-transform set to 'lowercase')/assert(The 'text-transform' property set to 'lowercase' on an element makes every letter lowercase.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -25,15 +24,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000359 00000 n 
+0000000358 00000 n 
 0000000820 00000 n 
-0000000404 00000 n 
-0000000226 00000 n 
+0000000403 00000 n 
+0000000225 00000 n 
 0000000015 00000 n 
 0000000730 00000 n 
 trailer
-<</ID [<9d49a6046f77fb43c419e693e9d48873><9d49a6046f77fb43c419e693e9d48873>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.5-SNAPSHOT
+<</ID [<899e9ac6d36049da45cda2c8dea6c43d><899e9ac6d36049da45cda2c8dea6c43d>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
 871
 %%EOF

@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
@@ -51,7 +52,6 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
@@ -60,13 +60,9 @@ import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.font.FontFamilySplitter;
-import com.itextpdf.layout.property.Property;
 import com.itextpdf.styledxmlparser.css.ICssResolver;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
-
-import java.util.List;
 
 /**
  * TagWorker class for the {@code html} element.
@@ -90,16 +86,9 @@ public class HtmlTagWorker implements ITagWorker {
         PdfDocument pdfDocument = context.getPdfDocument();
         document = new Document(pdfDocument, pdfDocument.getDefaultPageSize(), immediateFlush);
         document.setRenderer(new HtmlDocumentRenderer(document, immediateFlush));
-        document.setProperty(Property.COLLAPSING_MARGINS, true);
-        document.setFontProvider(context.getFontProvider());
-        if (context.getTempFonts() != null) {
-            document.setProperty(Property.FONT_SET, context.getTempFonts());
-        }
 
-        String fontFamily = element.getStyles().get(CssConstants.FONT_FAMILY);
-        // TODO DEVSIX-2534
-        List<String> fontFamilies = FontFamilySplitter.splitFontFamily(fontFamily);
-        document.setProperty(Property.FONT, fontFamilies.toArray(new String[fontFamilies.size()]));
+        DefaultHtmlProcessor.setConvertedRootElementProperties(element.getStyles(), context, document);
+
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
 
         String lang = element.getAttribute(AttributeConstants.LANG);

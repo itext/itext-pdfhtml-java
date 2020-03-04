@@ -2,8 +2,8 @@
 %âãÏÓ
 5 0 obj
 <</Filter/FlateDecode/Length 151>>stream
-xœË
-Â0D÷÷+f©›ØD“¶[A÷B~ ›)Õ&õÿ/(]ˆÌìæp˜‘ö–6G	©`mêF‰¦†õ´²œ'Ü\Îœ¦3'FÌp±ïÙ£KÌòxwepƒÇÚ^è`éDãÛ«>^e”0rî®Hì—ü÷‡jõ‚3T¢*Iİó®i¥ØiÔ¯&¦ğ'Qv¡+ÙšŸÜŞ‘C•
+xœA
+Â0D÷ÿ³ÔMlR“š­ {!ä§VJµI½¿)*”.DfvóxÌHGG»³„Tp‘jƒæP‹fhã8Oxøœ9£‹˜®œ]†GìúÚÄ< O_?lİN.4¾½êãUF	#—îáÄaÍ(«W¼X UIjç»ÆÖB¡ÑsSü(³Ğ•´æö«Bí
 endstream
 endobj
 4 0 obj
@@ -13,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171116194452+03'00')/ModDate(D:20171116194452+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Relative positioning with top and bottom do not change element dimensions)/assert(Relatively positioned element dimensions are not changed with top/bottom applied. If 'top' is 'auto' and if 'bottom' is '100px', then top's used value becomes the negative of bottom. If both 'top' and 'bottom' are specified \(like for #div3 in this test\), then 'bottom' is ignored and the used value of 'bottom' becomes minus the value of 'top'\).)/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20200311132922+03'00')/ModDate(D:20200311132922+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Relative positioning with top and bottom do not change element dimensions)/assert(Relatively positioned element dimensions are not changed with top/bottom applied. If 'top' is 'auto' and if 'bottom' is '100px', then top's used value becomes the negative of bottom. If both 'top' and 'bottom' are specified \(like for #div3 in this test\), then 'bottom' is ignored and the used value of 'bottom' becomes minus the value of 'top'\).)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -28,15 +28,15 @@ xref
 0 8
 0000000000 65535 f 
 0000000375 00000 n 
-0000001221 00000 n 
+0000001222 00000 n 
 0000000420 00000 n 
 0000000233 00000 n 
 0000000015 00000 n 
-0000001042 00000 n 
 0000001132 00000 n 
+0000001043 00000 n 
 trailer
-<</ID [<3de55dd260a1d21eff8dc58df6af23ea><3de55dd260a1d21eff8dc58df6af23ea>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<5fb9843fd50d086f8fde805c095355e7><5fb9843fd50d086f8fde805c095355e7>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
-1272
+1273
 %%EOF

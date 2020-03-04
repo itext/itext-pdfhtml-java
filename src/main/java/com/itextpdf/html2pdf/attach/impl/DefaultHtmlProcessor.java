@@ -71,9 +71,11 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.font.FontFamilySplitter;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.Range;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.RenderingMode;
 import com.itextpdf.styledxmlparser.css.CssDeclaration;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
 import com.itextpdf.styledxmlparser.css.ICssResolver;
@@ -83,6 +85,8 @@ import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.ITextNode;
+
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -163,6 +167,29 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         this.context = new ProcessorContext(converterProperties);
     }
 
+    /**
+     * Sets properties to top-level layout elements converted from HTML.
+     * This enables features set by user via HTML converter API and also changes properties defaults
+     * to the ones specific to HTML-like behavior.
+     * @param cssProperties HTML document-level css properties.
+     * @param context processor context specific to the current HTML conversion.
+     * @param propertyContainer top-level layout element converted from HTML.
+     */
+    public static void setConvertedRootElementProperties(Map<String, String> cssProperties, ProcessorContext context, IPropertyContainer propertyContainer) {
+        propertyContainer.setProperty(Property.COLLAPSING_MARGINS, true);
+        propertyContainer.setProperty(Property.RENDERING_MODE, RenderingMode.HTML_MODE);
+        propertyContainer.setProperty(Property.FONT_PROVIDER, context.getFontProvider());
+        if (context.getTempFonts() != null) {
+            propertyContainer.setProperty(Property.FONT_SET, context.getTempFonts());
+        }
+
+        // TODO DEVSIX-2534
+        List<String> fontFamilies = FontFamilySplitter.splitFontFamily(cssProperties.get(CssConstants.FONT_FAMILY));
+        if (fontFamilies != null && !propertyContainer.hasOwnProperty(Property.FONT)) {
+            propertyContainer.setProperty(Property.FONT, fontFamilies.toArray(new String[0]));
+        }
+    }
+
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processElements(com.itextpdf.html2pdf.html.node.INode)
      */
@@ -220,13 +247,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
         Div bodyDiv = (Div) roots.get(0);
         List<com.itextpdf.layout.element.IElement> elements = new ArrayList<>();
+        // re-resolve body element styles in order to use them in top-level elements properties setting
+        body.setStyles(cssResolver.resolveStyles(body, context.getCssContext()));
         for (IPropertyContainer propertyContainer : bodyDiv.getChildren()) {
             if (propertyContainer instanceof com.itextpdf.layout.element.IElement) {
-                propertyContainer.setProperty(Property.COLLAPSING_MARGINS, true);
-                propertyContainer.setProperty(Property.FONT_PROVIDER, context.getFontProvider());
-                if (context.getTempFonts() != null) {
-                    propertyContainer.setProperty(Property.FONT_SET, context.getTempFonts());
-                }
+                setConvertedRootElementProperties(body.getStyles(), context, propertyContainer);
                 elements.add((com.itextpdf.layout.element.IElement) propertyContainer);
             }
         }

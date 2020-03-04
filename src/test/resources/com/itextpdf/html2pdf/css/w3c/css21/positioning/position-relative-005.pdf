@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 144>>stream
-xœmÍ±‚0…áı>Åu°¶ˆm]Mt7éÔpR¤Ş_0q39Ûÿ%g¢k ãİÀT-,œ¯”wíËŒwaAjñ†LK,Œ$3æQR×Ï‡>æ’Æ¸ÒŒ±ÄÜı´Ú‡İ=h"­lí´…Fé¶K{©U}†«¶¦öëôÚÍ&ŒöÉ¯ª1ê
+<</Filter/FlateDecode/Length 142>>stream
+xœmÍ±‚0…áı>Åu°¶@Z\Mt7éÔpÓJ/¼¿@âfr¶ÿKÎDWOç»©à{ª-\[+×Àwtğ,3>A„±GÀó½0dZBaDAN˜GF‰Ã8ŸÆ:Hìy¥	¹„4ü´:úİ<=h"­lã´…F¶K{±ª‚ÛW˜úé5›İş_Iı1}
 endstream
 endobj
 4 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123953+03'00')/ModDate(D:20171109123953+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Relative positioning with left)/assert(Relatively positioned element with the left specified offsets the element from the left of the containing block.)/flags()>>
+<</CreationDate(D:20200311132919+03'00')/ModDate(D:20200311132919+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Relative positioning with left)/assert(Relatively positioned element with the left specified offsets the element from the left of the containing block.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000359 00000 n 
-0000000837 00000 n 
-0000000404 00000 n 
-0000000226 00000 n 
+0000000357 00000 n 
+0000000836 00000 n 
+0000000402 00000 n 
+0000000224 00000 n 
 0000000015 00000 n 
-0000000747 00000 n 
+0000000746 00000 n 
 trailer
-<</ID [<627fd37c54b9f3c5d84530a85a98fc32><627fd37c54b9f3c5d84530a85a98fc32>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<697a79755c6e178fcce3f7f65aeed8da><697a79755c6e178fcce3f7f65aeed8da>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-888
+887
 %%EOF

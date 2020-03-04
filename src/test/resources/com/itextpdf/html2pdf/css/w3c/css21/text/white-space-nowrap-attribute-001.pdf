@@ -1,9 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 151>>stream
-xœ­Í»
-Â@…á~âØi³’„\lí…}u31+q7aãã›ØV¶s˜ÿè¨iN¤ĞeÊ*UU	]ÓV³DôF„®AlqèœŸWîÂˆÖ<yøel„˜Czc¿©¾ÓIÓ…†o$ÏU–®Hûù@ğsKVFØGöv¢<s&r¡fdó+TYü%şªöUç
+<</Filter/FlateDecode/Length 149>>stream
+xœ­Í±‚0ÆñıâsÓ¥¦‚VWİMú‹Árøø'×ûrÿ_G{KË£†^ÁV”m`¶™29lIsË’Ğ:Ô’g¤>¢©Ãp8s{xwçià‡+ÄİÒº¢µ°W:X:Q÷¬Ú½ÿù@cK^ŒpHŠ
+Ì%RÈ‰‘Ù¯x+ıŸøªñUâ
 endstream
 endobj
 4 0 obj
@@ -13,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20181122105616-03'00')/ModDate(D:20181122105616-03'00')/Producer(iText® 7.1.5-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: White-space 'nowrap' vs. 'nowrap' attribute)/assert(The 'nowrap' attribute and 'white-space: nowrap' assignment behave the same way with respect to white space.)/flags()>>
+<</CreationDate(D:20200311133558+03'00')/ModDate(D:20200311133558+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: White-space 'nowrap' vs. 'nowrap' attribute)/assert(The 'nowrap' attribute and 'white-space: nowrap' assignment behave the same way with respect to white space.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,15 +24,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000366 00000 n 
-0000000853 00000 n 
-0000000411 00000 n 
-0000000233 00000 n 
+0000000364 00000 n 
+0000000852 00000 n 
+0000000409 00000 n 
+0000000231 00000 n 
 0000000015 00000 n 
-0000000763 00000 n 
+0000000762 00000 n 
 trailer
-<</ID [<ffa06da368e6ed48d52582ad3222cd93><ffa06da368e6ed48d52582ad3222cd93>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.5-SNAPSHOT
+<</ID [<e8023ef4e4c1fd6a8c816106fc0f6806><e8023ef4e4c1fd6a8c816106fc0f6806>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-904
+903
 %%EOF

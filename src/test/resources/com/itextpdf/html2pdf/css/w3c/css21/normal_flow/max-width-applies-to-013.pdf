@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 110>>stream
-xœŒ1Â0û}Å–Ğì„$´HĞ#İåAH`_"¾£i¦MÆEp¸yú@Ih:öCpCO™°µ…ßh¦Æ9qyjQÎÆHËk¬>êûós{yá*¸#ãÈòØFİ¹uí‰Á×g`Q¤šüó
+<</Filter/FlateDecode/Length 108>>stream
+xœŒ1Â0û}Å–Ğì '´HĞ#İŒ8'A‘À¾ ¾£i¦MÁEp¸yú@Éè"û¡sı‰òÄNÔV~’™çÌuÒªœ‰V¾©ùC—÷Ïíå…«à‚#7ê¸â9ºÀàÛ2°*r+ş€ÑÛ
 endstream
 endobj
 4 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171221105554+03'00')/ModDate(D:20171221105554+03'00')/Producer(iText® 7.1.1-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-width applied to elements with 'display' set to 'table')/assert(The 'max-width' property applies to elements with 'display' set to 'table'.)/flags()>>
+<</CreationDate(D:20200311115905+03'00')/ModDate(D:20200311115905+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-width applied to elements with 'display' set to 'table')/assert(The 'max-width' property applies to elements with 'display' set to 'table'.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000325 00000 n 
-0000000795 00000 n 
-0000000370 00000 n 
-0000000192 00000 n 
+0000000323 00000 n 
+0000000794 00000 n 
+0000000368 00000 n 
+0000000190 00000 n 
 0000000015 00000 n 
-0000000705 00000 n 
+0000000704 00000 n 
 trailer
-<</ID [<ed6b879b29730bad903a2e6244df0180><ed6b879b29730bad903a2e6244df0180>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.1-SNAPSHOT
+<</ID [<bcaf13c1f8464c5794b97d2671a11496><bcaf13c1f8464c5794b97d2671a11496>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-846
+845
 %%EOF

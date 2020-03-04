@@ -2,7 +2,8 @@
 %‚„œ”
 5 0 obj
 <</Filter/FlateDecode/Length 211>>stream
-xúïéªN1E˚˘ä[Bc¸»ÿﬁ)PÓÖ#;…íª6 Ô√≤¨®B7w§sÓÌË6–ÕùÇ“k2Œk·B¢´êK≈[,%¥k‘mÓ3⁄Çà’>w(›{¸¸ú€∫≈ux•e†ÍF£ûå⁄xaÊ“àMüÛÈTkN±ü!J	´ÁVß>Â^ÃÉ3IH¡R5è˜Ùl∞¸öëàΩ`8vb¡8ê2Ê7ÓÈÈBâ2ƒ¢ÎÂ˛cä≠k∆_´¶tπÑ›wÒa∏ßE#ˇl"e•
+xúïé=O1D˚˝SB≥úÌ¨Ì¥H@∏CéÏêÉ|pg£¸}rwQt¢
+›ŒJÔÕttËÓQAiÑ5ÁªB¢õêK≈w,%¥k‘MÓ3⁄Çà’6ÓøP∫üx˙€∫¡m¯§á@œ‘MF}6j„ŸÃ•}Œ{§C≠9˝≈.Cîb´ÁVá>ÂûgÑ¡ë4,çZZ4xy¢7ÉÀ;Ñµ ëx8Y≤∆éî1ó¥•◊+ åc7÷Î”˝~hµ^ç∆AS∏^!Ó‹∫ŒiÃDˇ)qc‚
 endstream
 endobj
 4 0 obj
@@ -12,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171116194504+03'00')/ModDate(D:20171116194504+03'00')/Producer(iTextÆ 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Basic User Interface Test: outline-style - dotted \(basic\))/assert(Test checks that the outline style is dotted when outline-style set dotted)/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20200311162824+03'00')/ModDate(D:20200311162824+03'00')/Producer(iTextÆ 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Basic User Interface Test: outline-style - dotted \(basic\))/assert(Test checks that the outline style is dotted when outline-style set dotted)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,15 +28,15 @@ xref
 0 8
 0000000000 65535 f 
 0000000435 00000 n 
-0000000987 00000 n 
+0000000988 00000 n 
 0000000480 00000 n 
 0000000293 00000 n 
 0000000015 00000 n 
-0000000808 00000 n 
 0000000898 00000 n 
+0000000809 00000 n 
 trailer
-<</ID [<bba9cab19dbf9eb0be01f9d0cb195e2e><bba9cab19dbf9eb0be01f9d0cb195e2e>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<6a8d9ffc542de369f51b70a20ee1bd0c><6a8d9ffc542de369f51b70a20ee1bd0c>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
-1038
+1039
 %%EOF

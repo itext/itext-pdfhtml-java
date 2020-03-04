@@ -1,9 +1,10 @@
 %PDF-1.7
 %‚„œ”
 5 0 obj
-<</Filter/FlateDecode/Length 130>>stream
+<</Filter/FlateDecode/Length 129>>stream
 xúeçÀ
-¬0E˜Ûó¨ta§)µ]v/ÃT;≈H∞i&R?ﬂ⁄Önœ}úâéL˚∂@·¿ï‘ç≥MÓi√¢±SÖêoÇ 9KÇi¸c%Ûòz]Äa	X^Ÿ‡"aú·ı”y∆(iwÌTÏñÔtb:”Ùo≠*[∫’˙ÛÙº∂‚/Ä
+¬0E˜Ûó¨ta§VçnªÊ™ùb$¥i&R?ﬂ™ Ç€sg†”≤*P¨¿-ï[∏]i›‹–åE3b≠*
+ﬂ"_ArñS¯ÓM∆>5:¬∞<≤¡YB?¬Î´sèQ“‚R´ÿ9ﬂË»t¢·ﬂ∫qvˇ±˛<}O∂D/á
 endstream
 endobj
 4 0 obj
@@ -13,7 +14,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20181102113358-03'00')/ModDate(D:20181102113358-03'00')/Producer(iTextÆ 7.1.5-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-transform application to 'display: table-row-group' element)/assert(The 'text-transform' property is applied to 'display: table-row-group' elements.)/flags()>>
+<</CreationDate(D:20200311133443+03'00')/ModDate(D:20200311133443+03'00')/Producer(iTextÆ 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-transform application to 'display: table-row-group' element)/assert(The 'text-transform' property is applied to 'display: table-row-group' elements.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,15 +25,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000345 00000 n 
+0000000344 00000 n 
 0000000825 00000 n 
-0000000390 00000 n 
-0000000212 00000 n 
+0000000389 00000 n 
+0000000211 00000 n 
 0000000015 00000 n 
 0000000735 00000 n 
 trailer
-<</ID [<3bf81835c573d1bba57fc0fe796608ad><3bf81835c573d1bba57fc0fe796608ad>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.5-SNAPSHOT
+<</ID [<37d374ae4ce68360be61b6be08599f5b><37d374ae4ce68360be61b6be08599f5b>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
 876
 %%EOF

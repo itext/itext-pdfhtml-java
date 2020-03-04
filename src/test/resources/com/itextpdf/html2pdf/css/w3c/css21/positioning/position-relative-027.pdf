@@ -3,8 +3,7 @@
 5 0 obj
 <</Filter/FlateDecode/Length 125>>stream
 xœuÌ±
-Â0Fáı>ÅO§ºD“X[W¡İ…ûo1«íÍàã
-šùğ™.LûÁÂ:ğHş„¶s¦kÁ7ªY4ãTEGä»À£bJ²€å“+„EğšÖ¤á)Hq³ãõLWšïMc¼[ï›Jâ|(ˆ°G»øG¾ù?D
+Â0Fáı>ÅO']¢1ÕØUhwá¾@À[ŒÄÖöfèãº4óá;]˜v…=€{r'ø³3¾ßhÃ¢¯ *ŠØ#ßUS’,K®fÁ8|’†§ ÅAÌ–Ô2]iú½½i¾÷Õ%Ñì¢lm×ÿÈÿ¨?_
 endstream
 endobj
 4 0 obj
@@ -14,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123958+03'00')/ModDate(D:20171109123958+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Relatively positioned elements with auto positioning with anonymous boxes before and after)/assert(Relatively positioned element with auto positioning appear as though they were positioned in flow.)/flags()>>
+<</CreationDate(D:20200311132929+03'00')/ModDate(D:20200311132929+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Relatively positioned elements with auto positioning with anonymous boxes before and after)/assert(Relatively positioned element with auto positioning appear as though they were positioned in flow.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -26,14 +25,14 @@ xref
 0 7
 0000000000 65535 f 
 0000000340 00000 n 
-0000000864 00000 n 
+0000000865 00000 n 
 0000000385 00000 n 
 0000000207 00000 n 
 0000000015 00000 n 
-0000000774 00000 n 
+0000000775 00000 n 
 trailer
-<</ID [<4ff5315c2b13b4545613f7e287078aac><4ff5315c2b13b4545613f7e287078aac>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<2ab696490bfbdea24b88109cd6c1df1b><2ab696490bfbdea24b88109cd6c1df1b>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-915
+916
 %%EOF

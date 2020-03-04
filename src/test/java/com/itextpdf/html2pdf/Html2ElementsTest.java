@@ -43,10 +43,19 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
+import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.AreaBreak;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.property.Leading;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.test.ExtendedITextTest;
@@ -54,6 +63,8 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -65,6 +76,7 @@ import org.junit.experimental.categories.Category;
 @Category(IntegrationTest.class)
 public class Html2ElementsTest extends ExtendedITextTest {
 
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/Html2ElementsTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/Html2ElementsTest/";
 
     @BeforeClass
@@ -185,6 +197,57 @@ public class Html2ElementsTest extends ExtendedITextTest {
         Assert.assertTrue(lst.size() == 0);
     }
 
+    @Test
+    public void htmlToElementsVsHtmlToPdfTest() throws IOException, InterruptedException {
+        String src = sourceFolder + "basic.html";
+        String outConvertToPdf = destinationFolder + "basicCovertToPdfResult.pdf";
+        String outConvertToElements = destinationFolder + "basicCovertToElementsResult.pdf";
+        HtmlConverter.convertToPdf(new File(src), new File(outConvertToPdf));
 
+        List<IElement> elements = HtmlConverter.convertToElements(new FileInputStream(src));
+        Document document = new Document(new PdfDocument(new PdfWriter(outConvertToElements)));
 
+        // In order to collapse margins between the direct children of root element
+        // it's required to manually enable collapsing on root element. This is because siblings
+        // margins collapsing is controlled by the parent element.
+        // This leads to the difference between pure convertToPdf/Document and convertToElements methods.
+        document.setProperty(Property.COLLAPSING_MARGINS, true);
+
+        for (IElement elem : elements) {
+            if (elem instanceof IBlockElement) {
+                document.add((IBlockElement)elem);
+            } else if (elem instanceof Image) {
+                document.add((Image)elem);
+            } else if (elem instanceof AreaBreak) {
+                document.add((AreaBreak) elem);
+            } else {
+                Assert.fail("The #convertToElements method gave element which is unsupported as root element, it's unexpected.");
+            }
+        }
+        document.close();
+
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(src) + "\n");
+
+        Assert.assertNull(new CompareTool().compareByContent(outConvertToElements, outConvertToPdf, destinationFolder));
+    }
+
+    @Test
+    public void bodyFontFamilyTest() throws IOException {
+        String html = "<!DOCTYPE html>\n"
+                + "<html>\n"
+                + "<body style=\"font-family: monospace\">\n"
+                + "This text is directly in body and should be monospaced.\n"
+                + "<p>This text is in paragraph and should be monospaced.</p>\n"
+                + "</body>\n"
+                + "</html>";
+        List<IElement> elements = HtmlConverter.convertToElements(html);
+
+        Assert.assertEquals(2, elements.size());
+        IElement anonymousParagraph = elements.get(0);
+
+        Assert.assertArrayEquals(new String[] {"monospace"}, anonymousParagraph.<String[]>getProperty(Property.FONT));
+
+        IElement normalParagraph = elements.get(1);
+        Assert.assertArrayEquals(new String[] {"monospace"}, normalParagraph.<String[]>getProperty(Property.FONT));
+    }
 }

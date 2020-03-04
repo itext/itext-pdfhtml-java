@@ -1,11 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 273>>stream
-xœuÏMn„0à½Oáåt“’LØVj÷•r$Â”
-h!Óû†	8…
-	ñ$ó={„Ïou†®MX+d®†‹óá†ßU>`ÛàíÃOÛ€6m×ù¯“÷†ñ§šü“û„.ïWï0á¬ª¼ÃÕP&ÕcÒ’°Š_8ùú?XR)t2/Ø¨Äl~¦+‹”“P{JÇĞÔ9Ù5Ì[nßû4)Æ€UË­Üµ|ŞèH'¥'Şƒè—Ş›÷I´=ğÒæp*Ç¶R~‡yáŠ2$cVŠ
-‘ÇÔAQ.)Ò¼fÿçÈ1"‚šD±ƒÊğ´‘Iõ)º2ı½=’ËV)SZ}r4çb/?’Ó¼r¡~f=²6
+<</Filter/FlateDecode/Length 269>>stream
+xœuÍn„ F÷÷)îrº¡"è¶Igß„0§6j«Ì¼ù±Ú˜à%ùÎù.3¼)x½Qdª˜@Ébª…‹Òæ?1Ú`ßáãS/{ƒvı0èï‹ÖšùÙ,úE}Áİù®àæ£˜rRq3µ‡d“• U™‡§o\tûŸ˜Šš°]dQŠ…ı–;\+‚ã´d~€2BJ;ÙåÂSt{z…Îë"â\V;Ñ&?8lt·¥§$ïÛ':øÓÊI“ÄXQ àÌ²BîÇdíF/JÆ˜;ò+¶®œğä`,»ÏVsjòøèë¢É­°óÄË®îäU™É×¥§dÂ¬Æ~ê¼
 endstream
 endobj
 4 0 obj
@@ -15,7 +12,7 @@ endobj
 <</Lang(en)/Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20191226115458+03'00')/ModDate(D:20191226115458+03'00')/Producer(iText® 7.1.10-SNAPSHOT ©2000-2019 iText Group NV \(AGPL-version\))/Title(CSS-UI test: computed values ouf outline-width)/assert(outline-offset values compute to absolute lengths)/flags()>>
+<</CreationDate(D:20200311181927+03'00')/ModDate(D:20200311181927+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS-UI test: computed values ouf outline-width)/assert(outline-offset values compute to absolute lengths)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -29,16 +26,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000497 00000 n 
-0000001017 00000 n 
-0000000551 00000 n 
-0000000355 00000 n 
+0000000493 00000 n 
+0000001013 00000 n 
+0000000547 00000 n 
+0000000351 00000 n 
 0000000015 00000 n 
-0000000927 00000 n 
-0000000838 00000 n 
+0000000923 00000 n 
+0000000834 00000 n 
 trailer
-<</ID [<90e38e4025a75460f2bb027ecc964018><90e38e4025a75460f2bb027ecc964018>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.10-SNAPSHOT
+<</ID [<05050b4e1be87a1ebf7db89887f28924><05050b4e1be87a1ebf7db89887f28924>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
-1068
+1064
 %%EOF

@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 164>>stream
-xœ]Á‚0DïûsÔK¥½šèİ¤?P¥Z¡¨¿/MŠÙ=ìlŞL¦§¦ÍAB2tMi¢dQĞ­´õ#îÆ{ëÑÖ`œœ9ßàû‡¦Wccc±ÖWÚk:R?§ñ79j‘èMgñj«±ù÷üğ³Š="B„.¡h®2‘mQpØÁR½$dR"—* İ,”ÂÍŞè!;Ü'ísAÂ
+<</Filter/FlateDecode/Length 163>>stream
+xœ]Ë‚0E÷ów©›J§¦Ğ­‰îMúUŠ %ŠúûòĞffq39÷dÚYÚ$$Ã¤4ÒL‰t›ÓÊúØáîbôUÆ)¸ó±y¸¶?•îéÑ•k{¥½¥#5“?6f%ÌÂ]íñªò®üï|?àŒ›yGÌĞÃ´—áQm´`¤ã¶Š% “šeOÔS6ªÏa*şâH„FÑßR@`
 endstream
 endobj
 4 0 obj
@@ -12,13 +12,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171116193709+03'00')/ModDate(D:20171116193709+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-width using pixels with a nominal value, 96px)/assert(The 'max-width' property sets a nominal length value in pixels.)/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20200311130450+03'00')/ModDate(D:20200311130450+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-width using pixels with a nominal value, 96px)/assert(The 'max-width' property sets a nominal length value in pixels.)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -26,16 +26,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000388 00000 n 
+0000000387 00000 n 
 0000000925 00000 n 
-0000000433 00000 n 
-0000000246 00000 n 
+0000000432 00000 n 
+0000000245 00000 n 
 0000000015 00000 n 
+0000000835 00000 n 
 0000000746 00000 n 
-0000000836 00000 n 
 trailer
-<</ID [<81ca151a177e38f5f018bc4c2372a747><81ca151a177e38f5f018bc4c2372a747>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<c7a61ebbad5096524b00b4235411871e><c7a61ebbad5096524b00b4235411871e>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
 976
 %%EOF

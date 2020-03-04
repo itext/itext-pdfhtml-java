@@ -1,19 +1,19 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 126>>stream
+<</Filter/FlateDecode/Length 125>>stream
 xœŠË
-Â0E÷ów© ‘h£t+è^¸NÍÔÔG›	èßÛººœsî›–Ö'½í©Ñjg°7­j·°—Ày¢°_AÂP \dRÉ×+4H#²»Mz¤*¹Š‚ŒÈù¼ÜwşÍ“ ctOjiït´t¦›²)¸
+Â0E÷ów© ÑH[]º\§fjë#‰Íôïm]]Î9÷M¦õÉÂnÁUÖ45vÍÆìÁ—^Ò8¿‚öC†JÖIE_®’Q!¨‘Üm‚Ø!ME¸ùè¿àå¾óo­ }ºğ0K¾Ó‘éL?|ˆ)|
 endstream
 endobj
 4 0 obj
 <</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
 endobj
 8 0 obj
-<</Filter/FlateDecode/Length 117>>stream
+<</Filter/FlateDecode/Length 116>>stream
 xœ%ÊA
-Â0Ğıœâ/$µJ·‚‚Ka.0µ[-IÍ¤z}•®ß{Ñ‘i}öğp wû
-‡ªvõÜÒâP:Å˜õİ§É0Ê]ñCLÍ ñ¹ú‡¬°.MC‹F!3ÌWBÑü+½Á47uK~Ğ‰éJ_&ú
+Â0Ğıœâ/$ÑêZPp)Ì¦vbkKR3©^_¥ë÷^tbZ_<ühç]µÇ¡Ú¸#¸¡Å5 ´Š1ë»K“a”‡â#†˜
+êAb¿ú‡¬°6MCƒZ!3ÌWBÑü+Á4wuK~Ò™éF_ó*&¾
 endstream
 endobj
 7 0 obj
@@ -31,7 +31,7 @@ endobj
 endobj
 12 0 obj
 <</Filter/FlateDecode/Length 91>>stream
-xœÁA@0Ğıœâ/ÙTŠ[	{É\ ÑR"¢îï½›F¦jÖĞ5x£V«Î 7ƒ°£‚Ãñb•˜}Ìxƒ|—ƒMÉÛ‘ƒÇ&ß“’İ½*ù¤‰i¡{
+xœÁM@0Ğıœâ[²)k	{É\ ÑR"Òº¿÷š˜ªEC7àZ­úC_«l©`&l²ÉËw[˜y!Ù;ìò½Ù#šÃ©’/š™VúüQ?
 endstream
 endobj
 11 0 obj
@@ -51,7 +51,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20181123124105+03'00')/ModDate(D:20181123124105+03'00')/Producer(iText® 7.1.5-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: page-break-after: left)/assert(The 'left' value of the 'page-break-after' property forces one or two page breaks before the box so that the page after the break is formatted as a left page)/flags(paged)>>
+<</CreationDate(D:20200311132258+03'00')/ModDate(D:20200311132258+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: page-break-after: left)/assert(The 'left' value of the 'page-break-after' property forces one or two page breaks before the box so that the page after the break is formatted as a left page)/flags(paged)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -62,23 +62,23 @@ endobj
 xref
 0 15
 0000000000 65535 f 
-0000001586 00000 n 
-0000002106 00000 n 
-0000001631 00000 n 
-0000000208 00000 n 
+0000001584 00000 n 
+0000002105 00000 n 
+0000001629 00000 n 
+0000000207 00000 n 
 0000000015 00000 n 
-0000002016 00000 n 
-0000000525 00000 n 
-0000000341 00000 n 
-0000000841 00000 n 
-0000000658 00000 n 
-0000001133 00000 n 
-0000000975 00000 n 
-0000001451 00000 n 
-0000001268 00000 n 
+0000002015 00000 n 
+0000000523 00000 n 
+0000000340 00000 n 
+0000000839 00000 n 
+0000000656 00000 n 
+0000001131 00000 n 
+0000000973 00000 n 
+0000001449 00000 n 
+0000001266 00000 n 
 trailer
-<</ID [<22f95a722277c5afca2674dcaa2bc51b><22f95a722277c5afca2674dcaa2bc51b>]/Info 3 0 R/Root 1 0 R/Size 15>>
-%iText-7.1.5-SNAPSHOT
+<</ID [<34cac06ecf9db26c7b6bc3eb8459f862><34cac06ecf9db26c7b6bc3eb8459f862>]/Info 3 0 R/Root 1 0 R/Size 15>>
+%iText-7.1.11-SNAPSHOT
 startxref
-2183
+2182
 %%EOF

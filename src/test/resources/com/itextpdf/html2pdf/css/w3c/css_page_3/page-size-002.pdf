@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 274>>stream
-xœKk„0…÷ùg9Å]¶ĞB——³‰ã#iu4mçç7¾ê(%pÉ	7ß9çJ\ô§-I9,Fè3Ç§ĞÄg´¿LZYí:uÈÆõYŞÿV¤ ïäº°×°>|ZØl-gö6Ê|€é9É„b²£UŒ÷¤··õW6ë#ö9!¯ÔCRÌ^èĞIFoBœ4ˆ´Æuµ>Q·P¼-óoì”ø7—Š§*€²;&ä€~¾$»Fnì0o0ºÔ•É+ƒNÔ_*Cš£i¥}Ê +p¤Š_>‘Ö7Ëæ‚[?üÈÌÔÅ¬‚8pÜÓ`Eİ¾¯2‹¹,…±Ğ“mæüA~æ<“¯
+<</Filter/FlateDecode/Length 272>>stream
+xœMk„0„ïùsÜ…b©{l¡…÷×d›¨«i»?¿q£u„xÉ„7ÏÌ\ˆát‰‡Ì)4	.£VV‡N'NÇÌ­Oòş·"%ù —™½„ÍğÛ§™Í–rb¯£lÀo0=%ÑcL¶a´ˆ±âŞƒôºàºşÂfÁa_RòøFA¤å´0Ï‘æd÷^â9ÆqG£Dk\P_ëãMÅ»ªèĞòÖNÙƒs©x¦Š!û}z&;ó5İ4¢8£SS›¢6èEó¥rdÚNÚ§²G¦øéYsµln ¸õÃÌ@SşÇ*:$^ä¬¨?táun¢•0–úd›y_à$“«
 endstream
 endobj
 4 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109122351+03'00')/ModDate(D:20171109122351+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: @page size A5)/assert(The 'A5' value of the 'size' property specifies that the page box's width be 148mm and its height 210mm.)/flags(paged)>>
+<</CreationDate(D:20200311161343+03'00')/ModDate(D:20200311161343+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: @page size A5)/assert(The 'A5' value of the 'size' property specifies that the page box's width be 148mm and its height 210mm.)/flags(paged)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000489 00000 n 
-0000000947 00000 n 
-0000000534 00000 n 
-0000000356 00000 n 
+0000000487 00000 n 
+0000000946 00000 n 
+0000000532 00000 n 
+0000000354 00000 n 
 0000000015 00000 n 
-0000000857 00000 n 
+0000000856 00000 n 
 trailer
-<</ID [<6e9a144d5d9b6cf994f9371cea7f2de5><6e9a144d5d9b6cf994f9371cea7f2de5>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<cd600eef43fbed444c8e1979f8adbd66><cd600eef43fbed444c8e1979f8adbd66>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-998
+997
 %%EOF

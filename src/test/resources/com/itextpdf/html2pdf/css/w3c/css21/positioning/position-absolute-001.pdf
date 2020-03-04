@@ -2,8 +2,8 @@
 %‚„œ”
 5 0 obj
 <</Filter/FlateDecode/Length 150>>stream
-xú}éA
-¬0D˜ˇ≥‘Ml¢I€≠†{!‰ßFJµIΩø±*î.df7è«åt¥¥;KHhoP7J45¨ßçÂ<··rÊå0]91bÜCà}œ]bê«ß+É<∂ˆF'K?^ıı*£ÑëK˜pGbøÊ?T´WºX†UIÍﬁwM+≈A£ûõò¬Lî]ËJ∂Ê/˜V'<¢
+xú}éÀ
+¬0D˜˜+f©õÿ§&5[A˜B~ êõZ)’&ıˇM}@ÈBfvs8ÃHGGª≥ÑTpëjÉÊPãfh„8Ox¯ú9£ãòÆú]ÜGÏ˙û⁄ƒ< èO_?l›çNé.4~ºÍÎUF	#óÓ·éƒaÕˇ~(´WºX†UIjÁª∆÷B°—sS|e∫í÷¸√^◊§</
 endstream
 endobj
 4 0 obj
@@ -13,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171116194448+03'00')/ModDate(D:20171116194448+03'00')/Producer(iTextÆ 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Absolute positions impact on later siblings)/assert(Absolute positioned elements do not impact later siblings.)/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20200311132908+03'00')/ModDate(D:20200311132908+03'00')/Producer(iTextÆ 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Absolute positions impact on later siblings)/assert(Absolute positioned elements do not impact later siblings.)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -28,15 +28,15 @@ xref
 0 8
 0000000000 65535 f 
 0000000374 00000 n 
-0000000900 00000 n 
+0000000901 00000 n 
 0000000419 00000 n 
 0000000232 00000 n 
 0000000015 00000 n 
-0000000721 00000 n 
 0000000811 00000 n 
+0000000722 00000 n 
 trailer
-<</ID [<4a3f4427c93a6738afc8fa611dbdf960><4a3f4427c93a6738afc8fa611dbdf960>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<039b2888e0ffd3c7a3a502db242d809c><039b2888e0ffd3c7a3a502db242d809c>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
-951
+952
 %%EOF

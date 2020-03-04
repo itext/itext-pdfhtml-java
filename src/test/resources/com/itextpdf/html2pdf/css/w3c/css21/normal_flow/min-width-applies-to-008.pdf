@@ -1,9 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 166>>stream
-xœ]ÏM‚0àıœâ-qSi±?,5Ñ½I/@Ò1¥Åû[Bf9o¾¼ébéxãà6P¥ `FÃ:*¬OŞMJ>¡˜>zt	B×÷Ş¡ŞHã§É‹fp8Ø']-İi\\±ºB	¦øÖ^ˆŞíó¿¢–»<ÛD9Ê<±ë*­Y%!OŒKQ
-[OËõ/U+fÌlåc&K^«)Îú%@K
+<</Filter/FlateDecode/Length 165>>stream
+xœ]ÏAÂ Ğ=§øËºA ÊRİ›p Ö˜j¡Ş_šZÓ4³œ?/Fr¶äxåà6’ZA·5Õ¬'•yÂÛå2úˆéR@Ÿáûç3xt)„yü¸²pƒÇÁ>ÈÅ’Wü\¡U|k/¤à÷ùµ‡0r—§›(+“º¹®2Œ
+È†r‰–“Ä-§åú3T×3Un©dÜ¨Å¨Nù7Ê?ü
 endstream
 endobj
 4 0 obj
@@ -13,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20181116093603+03'00')/ModDate(D:20181116093603+03'00')/Producer(iText® 7.1.5-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: Min-width applied to elements with 'display' set to 'inline')/assert(The 'min-width' property does not apply to elements with 'display' set to 'inline'.)/flags()>>
+<</CreationDate(D:20200311120041+03'00')/ModDate(D:20200311120041+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Min-width applied to elements with 'display' set to 'inline')/assert(The 'min-width' property does not apply to elements with 'display' set to 'inline'.)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -27,16 +27,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000390 00000 n 
+0000000389 00000 n 
 0000000958 00000 n 
-0000000435 00000 n 
-0000000248 00000 n 
+0000000434 00000 n 
+0000000247 00000 n 
 0000000015 00000 n 
 0000000868 00000 n 
 0000000779 00000 n 
 trailer
-<</ID [<9a908d7c4f4c6839fa1016d2685d3919><9a908d7c4f4c6839fa1016d2685d3919>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.5-SNAPSHOT
+<</ID [<fc998d24b62fb725a9f496dfe6b92674><fc998d24b62fb725a9f496dfe6b92674>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
 1009
 %%EOF

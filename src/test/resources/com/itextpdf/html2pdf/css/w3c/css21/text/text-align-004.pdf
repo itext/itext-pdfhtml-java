@@ -1,8 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 335>>stream
-xœ­’Árƒ †ï<ÅNNé…Æ¯iîá0BJ!lòøE:µi{éÅÙeØïÿ.è…£ç=Ê€+”m¡Ø1¼+€×hÍ¥pÞKZAx—pumíaµ×ÆÈ¸¼…ˆVÂ©óA+-k¶‡Xº.€³iNé6²ÂÕÑ6â\ÄÅaÐÖëZ¦-•éä?¡5ôßWŽÞÐå»Ý¶ÀKv•»aà‰m…IÜ[»˜a]€wñéª©b½Âö‹•ð½¨…ÎÇóˆ£´Ñ©9ÙÄJí,žØ @¡=F\äPäÓD7%fcoÍIjÊX÷Òc9™2HÍ™sÈJ2¼)(a¸Ø,–é?p¿8Í`1`{¿ulùêá/XP‡Ù©ïÌE¶ztÇiGVbBûkf8~EëÉ‹ƒIý×ƒI0ã¶ÿ#.“Ùo”4ÿ	êÚ™
+<</Filter/FlateDecode/Length 333>>stream
+xœ­’ÏrÂ ‡ï<ÅŽ'{¡’?Æ\;Sïáˆ!ŠC@©>~lÒ˜ÚöÒKòƒa¿ývàL^8yÞ2`	ð†¤k(6)-2à5Yré<œ„sÒjÀ$\lW;Xl•Ö².¯~¢“pìW’5Sƒ;‰FÛ{°&Ö5ªC–¿XÐÊ Î"‹A§jTº—OüH–¾¯œ¼‘ów»uIË›]e¯xd¡#wÄÖ{ëá Þ‘n¡š*Vèµ&lVÂQ½ÃyÄ^tjOZ¶˜„WÖÐ‰Í
+VÀ Û£	-r(ò”®sh	ËJšŒkMX¾ÂEF3ÌAzŒ“*Mš{æ=äÊ’ðû„2FçæÍÀÞ0í 1PƒÞ:äYóæáü3æ`p7òˆœ5nÝo<‘¥4-Ã'XÇ/d9ym0É=–KJšÿŒå´ˆ°ß(±þÛ•Ùå
 endstream
 endobj
 4 0 obj
@@ -12,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20181102112253-03'00')/ModDate(D:20181102112253-03'00')/Producer(iText® 7.1.5-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-align set to 'justify')/assert(Text-align justify on a block element aligns the text on both the left and right sides.)/flags()>>
+<</CreationDate(D:20200311133224+03'00')/ModDate(D:20200311133224+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-align set to 'justify')/assert(Text-align justify on a block element aligns the text on both the left and right sides.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,15 +24,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000550 00000 n 
-0000001000 00000 n 
-0000000595 00000 n 
-0000000417 00000 n 
+0000000548 00000 n 
+0000000999 00000 n 
+0000000593 00000 n 
+0000000415 00000 n 
 0000000015 00000 n 
-0000000910 00000 n 
+0000000909 00000 n 
 trailer
-<</ID [<6eb6e1b58143a1bafa3ad913e0190e68><6eb6e1b58143a1bafa3ad913e0190e68>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.5-SNAPSHOT
+<</ID [<5a024258cdce57736f18dfab69247c5c><5a024258cdce57736f18dfab69247c5c>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-1051
+1050
 %%EOF

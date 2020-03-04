@@ -2,8 +2,10 @@
 %âãÏÓ
 5 0 obj
 <</Filter/FlateDecode/Length 140>>stream
-xœ5Í±
-Â0Fáı>Å?ê““vtò©½)‘ÒÚ¤E|{«T8ãg¢³§ÃUAiøHGWiQ9ø–vËŒg(…RD@Ó/Œ2-!3RA›2ßçş†ûñ…0`ÌaèşDìıƒ.n4‘„„Bî¾«µ0'8e2Sü)¬qÒ®tƒµÙàÚæ>I(.|
+xœ5ÍK
+Â0Fáù]Å?ÔILÒèTĞ¹¤ö¶DBI‹¸{«V8ÃÎDgO‡«‚Òğ-UîX	gàÚy.3ÆP
+ÄuZeZBfÄ‚&f¾Ïé…šÓğDè1äĞw"öşAO7šHBB!wŸƒÕFh8e2Sû
+RXã¤]åæNöçÖ6öê`.
 endstream
 endobj
 4 0 obj
@@ -13,7 +15,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123957+03'00')/ModDate(D:20171109123957+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Relative positioning and computed 'top'/'bottom' set to 'auto')/assert(Computed values are zero when both 'top' and 'bottom' are set to 'auto'.)/flags()>>
+<</CreationDate(D:20200311132926+03'00')/ModDate(D:20200311132926+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Relative positioning and computed 'top'/'bottom' set to 'auto')/assert(Computed values are zero when both 'top' and 'bottom' are set to 'auto'.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -25,14 +27,14 @@ xref
 0 7
 0000000000 65535 f 
 0000000355 00000 n 
-0000000825 00000 n 
+0000000826 00000 n 
 0000000400 00000 n 
 0000000222 00000 n 
 0000000015 00000 n 
-0000000735 00000 n 
+0000000736 00000 n 
 trailer
-<</ID [<9da0dc2c0c86df993b851686db187f5f><9da0dc2c0c86df993b851686db187f5f>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<2aa832856d9b20f4120362f95365c0d5><2aa832856d9b20f4120362f95365c0d5>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-876
+877
 %%EOF

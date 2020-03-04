@@ -2,7 +2,7 @@
 %âãÏÓ
 5 0 obj
 <</Filter/FlateDecode/Length 257>>stream
-xœmMO„0†ïıï‘MùÜâÕD&÷Rh¡Õ.°Puã¯w€íbÌ¦ÉäíLgæÄ"ÌolÏğ˜f8²<-–dYE”ö”xâCv™5ì6ÚC+Î=MÜ_Í¦¾ó™¦²À^Ù5xí?rÛaÛ©…W®àSÉ^bÄ	Êf’$,8JÉ‚×VµÂŞOæGI‚"ÌM‡3âÌt‡úVŒ­1ˆª™ ¾„±¢²êNÓ¿î;§:‡I÷ŸV¢RFC-		TVÔ»ò˜ësyû¤ˆ‡i²œTõg-h¾t}ƒ}˜“±ÖŠº¤‰V¦Õn‘f„×¿ÄÀx%
+xœmËnƒ0E÷şŠ»$RKy†°”J]Vb™Á;u€€ÛFıú8„ªŠ,¯=:gæÂLghX– œYïædXš”¶”²h	É­W³wvYérx¶ĞÄıÕ¬êx6ÑTf˜À;ëÂ¢ıG:à¼.¶®zS,Jîöò"ŒPÔ3Å>]…`Ş[#nGı#ŞÎOu‹+ÂD·Çº†ĞóªÁ¿¸6¼4ò	VÑ»êZ+[‹QuŸF ”èM_$â(¯>6Å‰y˜ê¡x¼Rû¹[©ì®$æŠÓ0|kaº[?%c¥$ı¶‚:JêFÙ©E×ñï#~Å)x,
 endstream
 endobj
 4 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109122355+03'00')/ModDate(D:20171109122355+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: @page size Legal)/assert(The 'legal' value of the 'size' property specifies that the page box's width be 8.5in and its height 14in.)/flags(paged)>>
+<</CreationDate(D:20200311161351+03'00')/ModDate(D:20200311161351+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: @page size Legal)/assert(The 'legal' value of the 'size' property specifies that the page box's width be 8.5in and its height 14in.)/flags(paged)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,14 +24,14 @@ xref
 0 7
 0000000000 65535 f 
 0000000474 00000 n 
-0000000937 00000 n 
+0000000938 00000 n 
 0000000519 00000 n 
 0000000339 00000 n 
 0000000015 00000 n 
-0000000847 00000 n 
+0000000848 00000 n 
 trailer
-<</ID [<00643fc24ef346c9b0c1634465b8be46><00643fc24ef346c9b0c1634465b8be46>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<1b0ac8c19ce78d1357a80717f6fe1f1b><1b0ac8c19ce78d1357a80717f6fe1f1b>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-988
+989
 %%EOF
