@@ -57,8 +57,6 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
     private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/LineHeightTest/";
     private static final String RESOURCES = SOURCE_FOLDER + "fonts/";
 
-    private static ConverterProperties converterProperties = new ConverterProperties();
-
     @BeforeClass
     public static void init() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
@@ -100,6 +98,11 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void lineHeightNotoSansFontNormalTest() throws IOException, InterruptedException {
         testLineHeight("lineHeightNotoSansFontNormalTest");
+    }
+
+    @Test
+    public void notoSansNormalLineHeightLineBoxMinHeightTest() throws IOException, InterruptedException {
+        testLineHeight("notoSansNormalLineHeightLineBoxMinHeightTest");
     }
 
     @Test
@@ -185,16 +188,17 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
         String destinationPdf = DESTINATION_FOLDER + name + ".pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_" + name + ".pdf";
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf));
+        ConverterProperties converterProperties = initConverterProperties();
         try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
-            HtmlConverter.convertToPdf(fileInputStream, pdfDocument,
-                    converterProperties);
+            HtmlConverter.convertToPdf(fileInputStream, pdfDocument, converterProperties);
         }
         System.out.println("html: file://" + UrlUtil.toNormalizedURI(sourceHtml).getPath() + "\n");
         Assert.assertNull(
                 new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER, "diff_" + name + "_"));
     }
 
-    static void initConverterProperties() {
+    static ConverterProperties initConverterProperties() {
+        ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setBaseUri(SOURCE_FOLDER);
         FontProvider fontProvider = new FontProvider();
         fontProvider.addDirectory(RESOURCES);
@@ -202,6 +206,7 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
         converterProperties.setFontProvider(fontProvider);
         DefaultTagWorkerFactory tagWorkerFactory = new HtmlModeTagWorkerFactory();
         converterProperties.setTagWorkerFactory(tagWorkerFactory);
+        return converterProperties;
     }
 
     static class HtmlModeTagWorkerFactory extends DefaultTagWorkerFactory {
