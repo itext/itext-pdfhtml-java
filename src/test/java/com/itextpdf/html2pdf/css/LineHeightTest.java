@@ -30,6 +30,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.tags.BodyTagWorker;
 import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -41,6 +42,8 @@ import com.itextpdf.layout.property.Leading;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.RenderingMode;
 import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.FileInputStream;
@@ -125,7 +128,6 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
         testLineHeight("imageLineHeightNormalTest");
     }
 
-
     @Test
     public void imageLineHeightTest() throws IOException, InterruptedException {
         testLineHeight("imageLineHeightTest");
@@ -181,6 +183,12 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
     public void defaultLineHeightTest() throws IOException {
         List<IElement> elements = HtmlConverter.convertToElements("<p>Lorem Ipsum</p>");
         Assert.assertEquals(1.2f, elements.get(0).<Leading>getProperty(Property.LEADING).getValue(), 1e-10);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 2))
+    public void lineHeightEmptyDivTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightEmptyDivTest");
     }
 
     void testLineHeight(String name) throws IOException, InterruptedException {
