@@ -103,7 +103,7 @@ public final class LogMessageConstant {
     public static final String PDF_DOCUMENT_NOT_PRESENT = "PdfDocument is not present";
     /** The Constant QUOTES_PROPERTY_INVALID. */
     public static final String QUOTES_PROPERTY_INVALID = "Quote property \"{0}\" is invalid. It should contain even number of <string> values.";
-    /** The Constant RULE_IS_NOT_SUPPORTED. */
+    @Deprecated
     public static final String RULE_IS_NOT_SUPPORTED = "The rule @{0} is unsupported. All selectors in this rule will be ignored.";
     /** The Constant TEXT_DECORATION_BLINK_NOT_SUPPORTED. */
     public static final String TEXT_DECORATION_BLINK_NOT_SUPPORTED = "text-decoration: blink not supported";

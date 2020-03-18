@@ -108,7 +108,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(ignore = true, messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, count = 4),
+            @LogMessage(messageTemplate = LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT),
     })
     public void input06Test() throws IOException, InterruptedException {
         String htmlPath = sourceFolder + "inputTest06.html";
@@ -203,8 +203,8 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(ignore = true, messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, count = 3),
-            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 3),
+            @LogMessage(messageTemplate = LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED),
+            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
     })
     public void placeholderTest04() throws IOException, InterruptedException {
         runTest("placeholderTest04");
