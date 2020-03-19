@@ -22,21 +22,12 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
-import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
 
 // TODO DEVSIX-3757 change cmp file after completing the ticket
 public class LineHeight126Test extends W3CCssAhemFontTest {
-
     @Override
     protected String getHtmlFileName() {
         return "line-height-126.xht";
-    }
-
-    @Override
-    protected ConverterProperties getConverterProperties() {
-        ConverterProperties converterProperties = super.getConverterProperties();
-        converterProperties.setTagWorkerFactory(new HtmlModeTagWorkerFactory());
-        return converterProperties;
     }
 }

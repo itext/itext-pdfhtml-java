@@ -104,7 +104,6 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES))
-    // TODO DEVSIX-3662
     public void lineHeightTest03() throws IOException, InterruptedException {
         convertToPdfAndCompare("lineHeightTest03", sourceFolder, destinationFolder);
     }

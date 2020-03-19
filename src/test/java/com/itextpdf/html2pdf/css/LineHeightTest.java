@@ -25,23 +25,15 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
-import com.itextpdf.html2pdf.attach.impl.tags.BodyTagWorker;
-import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.property.Leading;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.RenderingMode;
-import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -212,31 +204,6 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
         fontProvider.addDirectory(RESOURCES);
         fontProvider.addStandardPdfFonts();
         converterProperties.setFontProvider(fontProvider);
-        DefaultTagWorkerFactory tagWorkerFactory = new HtmlModeTagWorkerFactory();
-        converterProperties.setTagWorkerFactory(tagWorkerFactory);
         return converterProperties;
-    }
-
-    static class HtmlModeTagWorkerFactory extends DefaultTagWorkerFactory {
-        @Override
-        public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
-            if (TagConstants.BODY.equals(tag.name())) {
-                return new HtmlModeBodyTagWorker(tag, context);
-            }
-            return null;
-        }
-    }
-
-    static class HtmlModeBodyTagWorker extends BodyTagWorker {
-        HtmlModeBodyTagWorker(IElementNode element, ProcessorContext context) {
-            super(element, context);
-        }
-
-        @Override
-        public IPropertyContainer getElementResult() {
-            IPropertyContainer result = super.getElementResult();
-            result.setProperty(Property.RENDERING_MODE, RenderingMode.HTML_MODE);
-            return result;
-        }
     }
 }

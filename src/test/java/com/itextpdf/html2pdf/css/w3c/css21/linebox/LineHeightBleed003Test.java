@@ -22,19 +22,11 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
-import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
 
 public class LineHeightBleed003Test extends W3CCssAhemFontTest {
     @Override
     protected String getHtmlFileName() {
         return "line-height-bleed-003.xht";
-    }
-
-    @Override
-    protected ConverterProperties getConverterProperties() {
-        ConverterProperties converterProperties = super.getConverterProperties();
-        converterProperties.setTagWorkerFactory(new HtmlModeTagWorkerFactory());
-        return converterProperties;
     }
 }

@@ -22,20 +22,11 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
-import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
 
 public class LineHeight125Test extends W3CCssAhemFontTest {
-
     @Override
     protected String getHtmlFileName() {
         return "line-height-125.xht";
-    }
-
-    @Override
-    protected ConverterProperties getConverterProperties() {
-        ConverterProperties converterProperties = super.getConverterProperties();
-        converterProperties.setTagWorkerFactory(new HtmlModeTagWorkerFactory());
-        return converterProperties;
     }
 }

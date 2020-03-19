@@ -220,7 +220,6 @@ public final class FontStyleApplierUtil {
 
         String lineHeight = cssProps.get(CssConstants.LINE_HEIGHT);
         setLineHeight(element, lineHeight, em, rem);
-        // TODO (DEVSIX-3662) remove this method
         setLineHeightByLeading(element, lineHeight, em, rem);
     }
 
@@ -314,7 +313,6 @@ public final class FontStyleApplierUtil {
         }
     }
 
-    @Deprecated
     private static void setLineHeightByLeading(IPropertyContainer element, String lineHeight, float em, float rem) {
         // specification does not give auto as a possible lineHeight value
         // nevertheless some browsers compute it as normal so we apply the same behaviour.

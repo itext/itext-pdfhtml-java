@@ -22,7 +22,6 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
-import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
 
 // There is a slight difference between the appearance of the HTML and the output PDF.
@@ -32,12 +31,5 @@ public class LineHeightLargest001Test extends W3CCssAhemFontTest {
     @Override
     protected String getHtmlFileName() {
         return "line-height-largest-001.xht";
-    }
-
-    @Override
-    protected ConverterProperties getConverterProperties() {
-        ConverterProperties converterProperties = super.getConverterProperties();
-        converterProperties.setTagWorkerFactory(new HtmlModeTagWorkerFactory());
-        return converterProperties;
     }
 }
