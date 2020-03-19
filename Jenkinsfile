@@ -64,9 +64,11 @@ pipeline {
                         timeout(time: 5, unit: 'MINUTES')
                     }
                     steps {
-                        withMaven(jdk: "${JDK_VERSION}", maven: 'M3', mavenLocalRepo: '.repository') {
+                        withMaven(jdk: "${JDK_VERSION}", maven: 'M3') {
                             sh 'mvn --threads 2C clean'
-                            sh 'mvn dependency:purge-local-repository -Dinclude=com.itextpdf -DresolutionFuzziness=groupId -DreResolve=false'
+                            sh 'mvn dependency:purge-local-repository ' +
+                                    "-Dmaven.repo.local=${env.WORKSPACE.replace '\\', '/'}/.repository " +
+                                    '-Dinclude=com.itextpdf -DresolutionFuzziness=groupId -DreResolve=false'
                         }
                         script {
                             try {sh "rm -rf ${env.WORKSPACE.replace('\\','/')}/downloads"} catch (Exception ignored) {}
@@ -118,8 +120,10 @@ pipeline {
                         timeout(time: 5, unit: 'MINUTES')
                     }
                     steps {
-                        withMaven(jdk: "${JDK_VERSION}", maven: 'M3', mavenLocalRepo: '.repository') {
-                            sh 'mvn --threads 2C compile test-compile package -Dmaven.test.skip=true -Dmaven.javadoc.failOnError=false'
+                        withMaven(jdk: "${JDK_VERSION}", maven: 'M3') {
+                            sh 'mvn --threads 2C compile test-compile package ' +
+                                    "-Dmaven.repo.local=${env.WORKSPACE.replace '\\', '/'}/.repository " +
+                                    '-Dmaven.test.skip=true -Dmaven.javadoc.failOnError=false'
                         }
                     }
                 }
@@ -133,31 +137,44 @@ pipeline {
                 }
             }
         }
-        stage('Run Tests') {
-            options {
-                timeout(time: 30, unit: 'MINUTES')
-            }
-            steps {
-                withMaven(jdk: "${JDK_VERSION}", maven: 'M3', mavenLocalRepo: '.repository') {
-                    withSonarQubeEnv('Sonar') {
-                        sh 'mvn --activate-profiles test -DgsExec="${gsExec}" -DcompareExec="${compareExec}" -Dmaven.test.skip=false -Dmaven.test.failure.ignore=false -Dmaven.javadoc.skip=true org.jacoco:jacoco-maven-plugin:prepare-agent verify org.jacoco:jacoco-maven-plugin:report -Dsonar.java.spotbugs.reportPaths="target/spotbugs.xml" sonar:sonar ' + sonarBranchName + ' ' + sonarBranchTarget
-                    }
-                }
-                dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
-            }
-        }
         stage('Static Code Analysis') {
             options {
                 timeout(time: 30, unit: 'MINUTES')
             }
             steps {
-                withMaven(jdk: "${JDK_VERSION}", maven: 'M3', mavenLocalRepo: '.repository') {
-                    sh 'mvn --activate-profiles qa verify -Dmaven.test.skip=true -Ddependency-check.skip=true -Dpmd.analysisCache=true'
+                withMaven(jdk: "${JDK_VERSION}", maven: 'M3') {
+                    sh 'mvn --no-transfer-progress verify --activate-profiles qa ' +
+                            "-Dmaven.repo.local=${env.WORKSPACE.replace '\\', '/'}/.repository " +
+                            '-Dmaven.test.skip=true -Dpmd.analysisCache=true'
+                }
+                dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+            }
+        }
+        stage('Run Tests') {
+            options {
+                timeout(time: 30, unit: 'MINUTES')
+            }
+            steps {
+                withMaven(jdk: "${JDK_VERSION}", maven: 'M3') {
+                    sh 'mvn --no-transfer-progress --activate-profiles test ' +
+                            "-Dmaven.repo.local=${env.WORKSPACE.replace '\\', '/'}/.repository " +
+                            '-DgsExec="${gsExec}" -DcompareExec="${compareExec}" ' +
+                            '-Dmaven.test.skip=false -Dmaven.test.failure.ignore=false ' +
+                            '-Ddependency-check.skip=true -Dmaven.javadoc.skip=true ' +
+                            'org.jacoco:jacoco-maven-plugin:prepare-agent verify org.jacoco:jacoco-maven-plugin:report'
                 }
             }
         }
         stage("Quality Gate") {
             steps {
+                withMaven(jdk: "${JDK_VERSION}", maven: 'M3') {
+                    withSonarQubeEnv('Sonar') {
+                        sh 'mvn --no-transfer-progress sonar:sonar ' +
+                                "-Dmaven.repo.local=${env.WORKSPACE.replace '\\', '/'}/.repository " +
+                                '-Dsonar.java.spotbugs.reportPaths="target/spotbugs.xml" ' +
+                                sonarBranchName + ' ' + sonarBranchTarget
+                    }
+                }
                 timeout(time: 1, unit: 'HOURS') {
                     waitForQualityGate abortPipeline: true
                 }
@@ -179,7 +196,11 @@ pipeline {
                     def rtMaven = Artifactory.newMavenBuild()
                     rtMaven.deployer server: server, releaseRepo: 'releases', snapshotRepo: 'snapshot'
                     rtMaven.tool = 'M3'
-                    def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'package --threads 2C -Dmaven.main.skip=true -Dmaven.test.skip=true -Ddependency-check.skip=true -Dspotbugs.skip=true -Dmaven.javadoc.failOnError=false'
+                    rtMaven.opts = "-Dmaven.repo.local=${env.WORKSPACE.replace '\\', '/'}/.repository"
+                    def buildInfo = rtMaven.run pom: 'pom.xml',
+                            goals: '--no-transfer-progress install -Dmaven.main.skip=true -Dmaven.test.skip=true ' +
+                                    '-Ddependency-check.skip=true -Dspotbugs.skip=true ' +
+                                    '-Dmaven.javadoc.failOnError=false'
                     server.publishBuildInfo buildInfo
                 }
             }
@@ -218,14 +239,6 @@ pipeline {
                         }
                     }
                 }
-            }
-        }
-        stage('Archive Artifacts') {
-            options {
-                timeout(time: 5, unit: 'MINUTES')
-            }
-            steps {
-                archiveArtifacts allowEmptyArchive: true, artifacts: 'target/*.jar, target/*.pom', excludes: '**/?b-contrib-*.jar, **/findsecbugs-plugin-*.jar'
             }
         }
     }
