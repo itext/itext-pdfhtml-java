@@ -50,6 +50,7 @@ import com.itextpdf.styledxmlparser.node.IElementNode;
 /**
  * TagWorker class for the {@code link} element.
  */
+// TODO DEVSIX-3857
 public class LinkTagWorker implements ITagWorker {
 
     /**
@@ -59,7 +60,7 @@ public class LinkTagWorker implements ITagWorker {
      * @param context the context
      */
     public LinkTagWorker(IElementNode element, ProcessorContext context) {
-        // TODO process rel="author"?
+        
     }
 
     /* (non-Javadoc)
