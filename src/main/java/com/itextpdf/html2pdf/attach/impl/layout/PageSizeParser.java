@@ -71,7 +71,12 @@ class PageSizeParser {
         pageSizeConstants.put("jis-b4", new PageSize(729, 1032));
         pageSizeConstants.put("letter", PageSize.LETTER);
         pageSizeConstants.put("legal", PageSize.LEGAL);
-        pageSizeConstants.put("ledger", PageSize.LEDGER); // TODO may be use here TABLOID? based on w3c tests, ledger in html is interpreted as portrait-oriented page
+        /* according to CSS Paged Media Module Level 3 Editor’s Draft:
+        "ledger - Equivalent to the size of North American ledger: 11 inches wide by 17 inches high"
+        See https://www.w3.org/TR/css-page-3/
+        That makes this <page-size> portrait-oriented, i.e. rotated PageSize.LEDGER.
+        */
+        pageSizeConstants.put("ledger", PageSize.LEDGER.rotate());
     }
 
     /**
