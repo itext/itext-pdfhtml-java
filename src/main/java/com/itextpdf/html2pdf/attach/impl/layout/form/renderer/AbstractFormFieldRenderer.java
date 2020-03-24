@@ -130,29 +130,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         layoutContext.getArea().setBBox(bBox);
         LayoutResult result = super.layout(layoutContext);
 
-        if (!Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT)) && (result.getStatus() != LayoutResult.FULL)) {
-            //@TODO investigate this tricky code a little more.
-            FloatPropertyValue floatPropertyValue = this.<FloatPropertyValue>getProperty(Property.FLOAT);
-            if (floatPropertyValue == null || floatPropertyValue == FloatPropertyValue.NONE) {
-                setProperty(Property.FORCED_PLACEMENT, true);
-            } else {
-                flatRenderer = childRenderers.get(0);
-                processLangAttribute();
-                childRenderers.clear();
-                childRenderers.add(flatRenderer);
-                adjustFieldLayout(layoutContext);
-                if (isLayoutBasedOnFlatRenderer()) {
-                    Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
-                    occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
-                    applyPaddings(occupiedArea.getBBox(), true);
-                    applyBorderBox(occupiedArea.getBBox(), true);
-                    applyMargins(occupiedArea.getBBox(), true);
-                }
-            }
-
-            return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth());
-        }
-        if (!childRenderers.isEmpty()) {
+         if (!childRenderers.isEmpty()) {
             flatRenderer = childRenderers.get(0);
             processLangAttribute();
             childRenderers.clear();
