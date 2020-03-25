@@ -90,4 +90,18 @@ public class FontProviderTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "convertStandardFonts.pdf", sourceFolder + "cmp_convertStandardFonts", destinationFolder, "difffontstand_"));
     }
 
+    @Test
+    public void notoSansMonoItalicTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "notoSansMonoItalic.html"), new File(destinationFolder + "notoSansMonoItalic.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "notoSansMonoItalic.pdf", sourceFolder + "cmp_notoSansMonoItalic.pdf", destinationFolder, "diffnotoSansMonoItalic_"));
+
+    }
+
+    @Test
+    public void notoSansMonoBoldItalicTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "notoSansMonoBoldItalic.html"), new File(destinationFolder + "notoSansMonoBoldItalic.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "notoSansMonoBoldItalic.pdf", sourceFolder + "cmp_notoSansMonoBoldItalic.pdf", destinationFolder, "diffnotoSansMonoBoldItalic_"));
+
+    }
+
 }
