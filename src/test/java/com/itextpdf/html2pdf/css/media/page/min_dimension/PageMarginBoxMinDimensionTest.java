@@ -113,4 +113,9 @@ public class PageMarginBoxMinDimensionTest extends ExtendedHtmlConversionITextTe
     public void leftMinTopAndMinCenterAndBottomTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("leftMinTopAndMinCenterAndBottom", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void pageMarginFont() throws IOException, InterruptedException {
+        convertToPdfAndCompare("pageMarginFont", sourceFolder, destinationFolder);
+    }
 }

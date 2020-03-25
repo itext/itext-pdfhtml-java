@@ -173,4 +173,9 @@ public class PageMarginBoxFixDimensionTest extends ExtendedHtmlConversionITextTe
     public void leftFixTopAndFixCenterAndBottomTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("leftFixTopAndFixCenterAndBottom", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void pageMarginFont() throws IOException, InterruptedException {
+        convertToPdfAndCompare("pageMarginFont", sourceFolder, destinationFolder);
+    }
 }

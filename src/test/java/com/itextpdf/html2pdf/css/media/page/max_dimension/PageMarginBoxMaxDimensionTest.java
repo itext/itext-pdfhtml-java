@@ -133,4 +133,9 @@ public class PageMarginBoxMaxDimensionTest extends ExtendedHtmlConversionITextTe
     public void leftMaxTopAndMaxCenterAndBottomTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("leftMaxTopAndMaxCenterAndBottom", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void pageMarginFont() throws IOException, InterruptedException {
+        convertToPdfAndCompare("pageMarginFont", sourceFolder, destinationFolder);
+    }
 }

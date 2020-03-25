@@ -342,4 +342,9 @@ public class PageMarginBoxIntegrationTest extends ExtendedHtmlConversionITextTes
     public void hugeImageTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("hugeImageTest", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void pageMarginFont() throws IOException, InterruptedException {
+        convertToPdfAndCompare("pageMarginFont", sourceFolder, destinationFolder);
+    }
 }
