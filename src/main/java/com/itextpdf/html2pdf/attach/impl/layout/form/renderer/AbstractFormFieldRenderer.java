@@ -58,7 +58,6 @@ import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
 import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.OverflowPropertyValue;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.BlockRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
@@ -195,16 +194,9 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer {
 
     /**
      * Adjusts the field layout.
-     *
-     * @deprecated Will be removed in 3.0.0, override {@link #adjustFieldLayout(LayoutContext)} instead.
+     * @param layoutContext layout context
      */
-    @Deprecated
-    protected abstract void adjustFieldLayout();
-
-    //NOTE: should be abstract in 3.0.0
-    protected void adjustFieldLayout(LayoutContext layoutContext) {
-        adjustFieldLayout();
-    }
+    protected abstract void adjustFieldLayout(LayoutContext layoutContext);
 
     /**
      * Creates the flat renderer instance.
@@ -244,33 +236,12 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer {
     }
 
     /**
-     * Gets the content width.
-     *
-     * @return the content width
-     * @deprecated will be removed in 3.0.0. Use {@link #retrieveWidth(float)}} instead.
-     */
-    @Deprecated
-    protected Float getContentWidth() {
-        return super.retrieveWidth(0);
-    }
-
-    /**
      * Gets the accessibility language.
      *
      * @return the accessibility language
      */
     protected String getLang() {
         return this.<String>getProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
-    }
-
-    //NOTE: should be removed in 3.0.0
-    @Override
-    protected Float retrieveWidth(float parentBoxWidth) {
-        UnitValue width = super.<UnitValue>getProperty(Property.WIDTH);
-        if (width != null && width.isPointValue()) {
-            return getContentWidth();
-        }
-        return super.retrieveWidth(parentBoxWidth);
     }
 
     protected boolean isLayoutBasedOnFlatRenderer() {

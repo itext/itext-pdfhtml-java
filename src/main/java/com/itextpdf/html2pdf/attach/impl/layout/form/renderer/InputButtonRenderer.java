@@ -43,17 +43,17 @@
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
 import com.itextpdf.forms.PdfAcroForm;
+import com.itextpdf.forms.fields.PdfButtonFormField;
 import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputButton;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
-import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
+import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.DrawContext;
@@ -66,16 +66,19 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- * The {@link AbstractOneLineTextFieldRenderer} implementation for input fields.
+ * The {@link AbstractOneLineTextFieldRenderer} implementation for buttons with no kids.
  */
-public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
+public class InputButtonRenderer extends AbstractOneLineTextFieldRenderer {
+
+    /** Indicates of the content was split. */
+    private boolean isSplit = false;
 
     /**
-     * Creates a new {@link InputFieldRenderer} instance.
+     * Creates a new {@link InputButtonRenderer} instance.
      *
      * @param modelElement the model element
      */
-    public InputFieldRenderer(InputField modelElement) {
+    public InputButtonRenderer(InputButton modelElement) {
         super(modelElement);
     }
 
@@ -84,37 +87,7 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
      */
     @Override
     public IRenderer getNextRenderer() {
-        return new InputFieldRenderer((InputField) modelElement);
-    }
-
-    /**
-     * Gets the size of the input field.
-     *
-     * @return the input field size
-     */
-    public int getSize() {
-        Integer size = this.getPropertyAsInteger(Html2PdfProperty.FORM_FIELD_SIZE);
-        return size != null ? (int) size : (int) modelElement.<Integer>getDefaultProperty(Html2PdfProperty.FORM_FIELD_SIZE);
-    }
-
-    /**
-     * Checks if the input field is a password field.
-     *
-     * @return true, if the input field is a password field
-     */
-    public boolean isPassword() {
-        Boolean password = getPropertyAsBoolean(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG);
-        return password != null ? (boolean) password : (boolean) modelElement.<Boolean>getDefaultProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG);
-    }
-
-    @Override
-    IRenderer createParagraphRenderer(String defaultValue) {
-        if (defaultValue.isEmpty()) {
-            if (null != ((InputField) modelElement).getPlaceholder() && !((InputField) modelElement).getPlaceholder().isEmpty()) {
-                return ((InputField) modelElement).getPlaceholder().createRendererSubTree();
-            }
-        }
-        return super.createParagraphRenderer(defaultValue);
+        return new InputButtonRenderer((InputButton) modelElement);
     }
 
     /* (non-Javadoc)
@@ -126,13 +99,21 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
         Rectangle flatBBox = flatRenderer.getOccupiedArea().getBBox();
         updatePdfFont((ParagraphRenderer) flatRenderer);
         if (!flatLines.isEmpty() && font != null) {
+            if (flatLines.size() != 1) {
+                isSplit = true;
+            }
             cropContentLines(flatLines, flatBBox);
+            Float width = retrieveWidth(layoutContext.getArea().getBBox().getWidth());
+            if (width == null) {
+                LineRenderer drawnLine = flatLines.get(0);
+                drawnLine.move(flatBBox.getX() - drawnLine.getOccupiedArea().getBBox().getX(), 0);
+                flatBBox.setWidth(drawnLine.getOccupiedArea().getBBox().getWidth());
+            }
         } else {
-            LoggerFactory.getLogger(getClass()).error(MessageFormatUtil.format(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "text input"));
+            LoggerFactory.getLogger(getClass()).error(MessageFormatUtil.format(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "button"));
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
             flatBBox.setY(flatBBox.getTop()).setHeight(0);
         }
-        flatBBox.setWidth((float) retrieveWidth(layoutContext.getArea().getBBox().getWidth()));
     }
 
     /* (non-Javadoc)
@@ -140,13 +121,7 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
      */
     @Override
     protected IRenderer createFlatRenderer() {
-        String defaultValue = getDefaultValue();
-        boolean flatten = isFlatten();
-        boolean password = isPassword();
-        if (flatten && password) {
-            defaultValue = obfuscatePassword(defaultValue);
-        }
-        return createParagraphRenderer(defaultValue);
+        return createParagraphRenderer(getDefaultValue());
     }
 
     /* (non-Javadoc)
@@ -154,86 +129,34 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
      */
     @Override
     protected void applyAcroField(DrawContext drawContext) {
-        font.setSubset(false);
         String value = getDefaultValue();
         String name = getModelId();
         UnitValue fontSize = (UnitValue) this.getPropertyAsUnitValue(Property.FONT_SIZE);
         if (!fontSize.isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(InputFieldRenderer.class);
+            Logger logger = LoggerFactory.getLogger(InputButtonRenderer.class);
             logger.error(MessageFormatUtil.format(com.itextpdf.io.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property.FONT_SIZE));
         }
         PdfDocument doc = drawContext.getDocument();
         Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
+        applyPaddings(area, true);
         PdfPage page = doc.getPage(occupiedArea.getPageNumber());
-        boolean password = isPassword();
-        if (password) {
-            value = "";
+        PdfButtonFormField button = PdfFormField.createPushButton(doc, area, name, value, font, fontSize.getValue());
+        Background background = this.<Background>getProperty(Property.BACKGROUND);
+        if (background != null && background.getColor() != null) {
+            button.setBackgroundColor(background.getColor());
         }
-        PdfFormField inputField = PdfFormField.createText(doc, area, name, value, font, fontSize.getValue());
-        if (password) {
-            inputField.setFieldFlag(PdfFormField.FF_PASSWORD, true);
-        } else {
-            inputField.setDefaultValue(new PdfString(value));
-        }
-        applyDefaultFieldProperties(inputField);
-        PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
+        applyDefaultFieldProperties(button);
+        PdfAcroForm.getAcroForm(doc, true).addField(button, page);
 
         writeAcroFormFieldLangAttribute(doc);
     }
 
-    @Override
-    public <T1> T1 getProperty(int key) {
-        if (key == Property.WIDTH) {
-            T1 width = super.<T1>getProperty(Property.WIDTH);
-            if (width == null) {
-                UnitValue fontSize = (UnitValue) this.getPropertyAsUnitValue(Property.FONT_SIZE);
-                if (!fontSize.isPointValue()) {
-                    Logger logger = LoggerFactory.getLogger(InputFieldRenderer.class);
-                    logger.error(MessageFormatUtil.format(com.itextpdf.io.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property.FONT_SIZE));
-                }
-                int size = getSize();
-                return (T1) (Object) UnitValue.createPointValue(updateHtmlColsSizeBasedWidth(fontSize.getValue() * (size * 0.5f + 2) + 2));
-            }
-            return width;
-        }
-        return super.<T1>getProperty(key);
-    }
-
-    @Override
-    protected boolean setMinMaxWidthBasedOnFixedWidth(MinMaxWidth minMaxWidth) {
-        boolean result = false;
-        if (hasRelativeUnitValue(Property.WIDTH)) {
-            UnitValue widthUV = this.<UnitValue>getProperty(Property.WIDTH);
-            boolean restoreWidth = hasOwnProperty(Property.WIDTH);
-            setProperty(Property.WIDTH, null);
-            Float width = retrieveWidth(0);
-            if (width != null) {
-                // the field can be shrinked if necessary so only max width is set here
-                minMaxWidth.setChildrenMaxWidth((float) width);
-                result = true;
-            }
-            if (restoreWidth) {
-                setProperty(Property.WIDTH, widthUV);
-            } else {
-                deleteOwnProperty(Property.WIDTH);
-            }
-        } else {
-            result = super.setMinMaxWidthBasedOnFixedWidth(minMaxWidth);
-        }
-        return result;
-    }
-
-    /**
-     * Obfuscates the content of a password input field.
-     *
-     * @param text the password
-     * @return a string consisting of '*' characters.
+    /* (non-Javadoc)
+     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#isRendererFit(float, float)
      */
-    private String obfuscatePassword(String text) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < text.length(); ++i) {
-            builder.append('*');
-        }
-        return builder.toString();
+    @Override
+    protected boolean isRendererFit(float availableWidth, float availableHeight) {
+        return !isSplit && super.isRendererFit(availableWidth, availableHeight);
     }
 }
+

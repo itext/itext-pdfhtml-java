@@ -62,7 +62,6 @@ import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.property.Underline;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
@@ -222,72 +221,6 @@ public final class FontStyleApplierUtil {
         setLineHeight(element, lineHeight, em, rem);
         setLineHeightByLeading(element, lineHeight, em, rem);
     }
-
-    /**
-     * Parses the absolute font size.
-     *
-     * @param fontSizeValue the font size value as a {@link String}
-     * @return the font size value as a {@code float}
-     * @deprecated Use {@link CssUtils#parseAbsoluteFontSize(String)} instead.
-     */
-    @Deprecated
-    public static float parseAbsoluteFontSize(String fontSizeValue) {
-        if (CssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS.contains(fontSizeValue)) {
-            switch (fontSizeValue) {
-                case CssConstants.XX_SMALL:
-                    fontSizeValue = "9px";
-                    break;
-                case CssConstants.X_SMALL:
-                    fontSizeValue = "10px";
-                    break;
-                case CssConstants.SMALL:
-                    fontSizeValue = "13px";
-                    break;
-                case CssConstants.MEDIUM:
-                    fontSizeValue = "16px";
-                    break;
-                case CssConstants.LARGE:
-                    fontSizeValue = "18px";
-                    break;
-                case CssConstants.X_LARGE:
-                    fontSizeValue = "24px";
-                    break;
-                case CssConstants.XX_LARGE:
-                    fontSizeValue = "32px";
-                    break;
-                default:
-                    fontSizeValue = "16px";
-                    break;
-            }
-        }
-        try {
-            /* Styled XML Parser will throw an exception when it can't parse the given value
-               but in html2pdf, we want to fall back to the default value of 0
-             */
-            return CssUtils.parseAbsoluteLength(fontSizeValue);
-        } catch (StyledXMLParserException sxpe) {
-            return 0f;
-        }
-    }
-
-    /**
-     * Parses the relative font size.
-     *
-     * @param relativeFontSizeValue the relative font size value as a {@link String}
-     * @param baseValue the base value
-     * @return the relative font size value as a {@code float}
-     * @deprecated Use {@link CssUtils#parseRelativeFontSize(String, float)} instead.
-     */
-    @Deprecated
-    public static float parseRelativeFontSize(final String relativeFontSizeValue, final float baseValue) {
-        if (CssConstants.SMALLER.equals(relativeFontSizeValue)) {
-            return (float)(baseValue / 1.2);
-        } else if (CssConstants.LARGER.equals(relativeFontSizeValue)) {
-            return (float)(baseValue * 1.2);
-        }
-        return CssUtils.parseRelativeValue(relativeFontSizeValue, baseValue);
-    }
-
 
     private static void setLineHeight(IPropertyContainer elementToSet, String lineHeight, float em, float rem) {
         if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight) && !CssConstants.AUTO.equals(lineHeight)) {

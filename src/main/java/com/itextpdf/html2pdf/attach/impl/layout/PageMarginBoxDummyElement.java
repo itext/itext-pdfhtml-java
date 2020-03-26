@@ -52,8 +52,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @deprecated Remove this class in 7.2 and use {@link PageMarginBoxContextNode} instead
- *             (by making it implement {@link IElementNode}).
+ * @deprecated To be removed in next major pdfHTML version once {@link PageMarginBoxContextNode} implements
+ *            {@link IElementNode} so that it can be used directly instead of creating dummy node.
  */
 @Deprecated
 class PageMarginBoxDummyElement implements IElementNode, ICustomElementNode {

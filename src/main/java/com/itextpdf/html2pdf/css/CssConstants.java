@@ -45,7 +45,6 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -94,10 +93,6 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant OUTLINE_OFFSET. */
     public static final String OUTLINE_OFFSET = "outline-offset";
 
-    /** The Constant OVERFLOW. @Deprecated in favour of CommonCssConstants.OVERFLOW */
-    @Deprecated
-    public static final String OVERFLOW = "overflow";
-
     /** The Constant OVERFLOW_X. */
     public static final String OVERFLOW_X = "overflow-x";
 
@@ -121,12 +116,6 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant VERTICAL_ALIGN. */
     public static final String VERTICAL_ALIGN = "vertical-align";
-
-    /** The Constant VISIBLE.
-     * @deprecated in favour of StyledXmlParser
-     */
-    @Deprecated
-    public static final String VISIBLE = "visible";
 
     // property values
 
@@ -254,15 +243,6 @@ public class CssConstants extends CommonCssConstants {
     public static final String UPPERCASE = "uppercase";
 
     // properties possible values
-    /**
-     * The Constant FONT_ABSOLUTE_SIZE_KEYWORDS.
-     * @deprecated Use {@link CommonCssConstants#FONT_ABSOLUTE_SIZE_KEYWORDS_VALUES} instead.
-     */
-    @Deprecated
-    public static final Set<String> FONT_ABSOLUTE_SIZE_KEYWORDS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-            CommonCssConstants.MEDIUM, CommonCssConstants.XX_SMALL, CommonCssConstants.X_SMALL, CommonCssConstants.SMALL, CommonCssConstants.LARGE,
-            CommonCssConstants.X_LARGE, CommonCssConstants.XX_LARGE
-    )));
 
     /** The Constant OVERFLOW_VALUES. */
     public static final Set<String> OVERFLOW_VALUES = new HashSet<>(
