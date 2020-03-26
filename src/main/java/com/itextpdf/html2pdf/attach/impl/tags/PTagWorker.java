@@ -133,6 +133,12 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
         } else if (element instanceof ILeafElement) {
             inlineHelper.add((ILeafElement) element);
             return true;
+        } else if (childTagWorker instanceof IDisplayAware &&
+                (CssConstants.INLINE_BLOCK.equals(((IDisplayAware) childTagWorker).getDisplay()) ||
+                        CssConstants.INLINE.equals(((IDisplayAware) childTagWorker).getDisplay()))
+                && element instanceof IBlockElement) {
+            inlineHelper.add((IBlockElement) element);
+            return true;
         } else if (isBlockWithDisplay(childTagWorker, element, CssConstants.INLINE_BLOCK, false)) {
             inlineHelper.add((IBlockElement) element);
             return true;

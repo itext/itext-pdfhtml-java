@@ -46,11 +46,8 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
-import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfString;
-import com.itextpdf.kernel.pdf.tagging.PdfStructElem;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.kernel.pdf.tagutils.TagTreePointer;
 import com.itextpdf.layout.IPropertyContainer;
@@ -64,7 +61,6 @@ import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.BlockRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
-import com.itextpdf.layout.renderer.ILeafElementRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.tagging.IAccessibleElement;
 
@@ -74,7 +70,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Abstract {@link BlockRenderer} for form fields.
  */
-public abstract class AbstractFormFieldRenderer extends BlockRenderer implements ILeafElementRenderer {
+public abstract class AbstractFormFieldRenderer extends BlockRenderer {
 
     /**
      * The flat renderer.
@@ -182,18 +178,6 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
             applyAcroField(drawContext);
         }
         drawContext.getCanvas().restoreState();
-    }
-
-    @Override
-    public float getAscent() {
-        Float baseline = getLastYLineRecursively();
-        return baseline != null ? occupiedArea.getBBox().getTop() - (float) baseline : occupiedArea.getBBox().getHeight();
-    }
-
-    @Override
-    public float getDescent() {
-        Float baseline = getLastYLineRecursively();
-        return baseline != null ? occupiedArea.getBBox().getBottom() - (float) baseline : 0;
     }
 
     /* (non-Javadoc)

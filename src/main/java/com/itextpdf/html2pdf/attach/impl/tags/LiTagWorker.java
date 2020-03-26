@@ -135,6 +135,12 @@ public class LiTagWorker implements ITagWorker {
         if (element instanceof ILeafElement) {
             inlineHelper.add((ILeafElement) element);
             return true;
+        } else if (childTagWorker instanceof IDisplayAware &&
+                (CssConstants.INLINE_BLOCK.equals(((IDisplayAware) childTagWorker).getDisplay()) ||
+                        CssConstants.INLINE.equals(((IDisplayAware) childTagWorker).getDisplay()))
+                && element instanceof IBlockElement) {
+            inlineHelper.add((IBlockElement) element);
+            return true;
         } else if (childTagWorker instanceof SpanTagWorker) {
             boolean allChildrenProcessed = true;
             for (IPropertyContainer propertyContainer : ((SpanTagWorker) childTagWorker).getAllElements()) {
