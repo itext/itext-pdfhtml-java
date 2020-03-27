@@ -69,7 +69,7 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
         PdfOutline pdfOutline = context.getPdfDocument().getOutlines(false).getAllChildren().get(0);
         Assert.assertEquals("p1", pdfOutline.getTitle());
         PdfString pdfStringDest = (PdfString) pdfOutline.getDestination().getPdfObject();
-        Assert.assertEquals("pdfHTML-iText-outline-pdfHTML-iText-outline-1", pdfStringDest.toUnicodeString());
+        Assert.assertEquals("pdfHTML-iText-outline-1", pdfStringDest.toUnicodeString());
     }
 
     @Test
@@ -96,6 +96,6 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
         PdfOutline pdfOutline = context.getPdfDocument().getOutlines(false).getAllChildren().get(0);
         Assert.assertEquals("p1", pdfOutline.getTitle());
         PdfString pdfStringDest = (PdfString) pdfOutline.getDestination().getPdfObject();
-        Assert.assertEquals("prefix-prefix-1", pdfStringDest.toUnicodeString());
+        Assert.assertEquals("prefix-1", pdfStringDest.toUnicodeString());
     }
 }

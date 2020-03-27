@@ -214,7 +214,7 @@ public class OutlineHandler {
      * @return the unique destination name
      */
     protected String generateUniqueDestinationName(IElementNode element) {
-        return destinationNamePrefix + getUniqueID(destinationNamePrefix);
+        return getUniqueID(destinationNamePrefix);
     }
 
     /**
