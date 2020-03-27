@@ -46,16 +46,13 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.html2pdf.attach.Attacher;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
 import com.itextpdf.io.util.FileUtil;
+import com.itextpdf.kernel.Version;
 import com.itextpdf.kernel.counter.event.IMetaInfo;
 import com.itextpdf.kernel.pdf.DocumentProperties;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IElement;
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import com.itextpdf.kernel.Version;
 import com.itextpdf.styledxmlparser.IXmlParser;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
@@ -66,6 +63,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -92,9 +92,8 @@ public class HtmlConverter {
      *
      * @param html the html in the form of a {@link String}
      * @param pdfStream the PDF as an {@link OutputStream}
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void convertToPdf(String html, OutputStream pdfStream) throws IOException {
+    public static void convertToPdf(String html, OutputStream pdfStream) {
         convertToPdf(html, pdfStream, null);
     }
 
@@ -105,9 +104,8 @@ public class HtmlConverter {
      * @param html the html in the form of a {@link String}
      * @param pdfStream the PDF as an {@link OutputStream}
      * @param converterProperties a {@link ConverterProperties} instance
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void convertToPdf(String html, OutputStream pdfStream, ConverterProperties converterProperties) throws IOException {
+    public static void convertToPdf(String html, OutputStream pdfStream, ConverterProperties converterProperties) {
         convertToPdf(html, new PdfWriter(pdfStream), converterProperties);
     }
 
@@ -117,9 +115,8 @@ public class HtmlConverter {
      *
      * @param html the html in the form of a {@link String}
      * @param pdfWriter the {@link PdfWriter} instance
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void convertToPdf(String html, PdfWriter pdfWriter) throws IOException {
+    public static void convertToPdf(String html, PdfWriter pdfWriter) {
         convertToPdf(html, pdfWriter, null);
     }
 
@@ -130,9 +127,8 @@ public class HtmlConverter {
      * @param html the html in the form of a {@link String}
      * @param pdfWriter the {@link PdfWriter} instance
      * @param converterProperties a {@link ConverterProperties} instance
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void convertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
+    public static void convertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
         convertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())), converterProperties);
     }
 
@@ -143,9 +139,8 @@ public class HtmlConverter {
      * @param html the html in the form of a {@link String}
      * @param pdfDocument the {@link PdfDocument} instance
      * @param converterProperties a {@link ConverterProperties} instance
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void convertToPdf(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
+    public static void convertToPdf(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) {
         Document document = convertToDocument(html, pdfDocument, converterProperties);
         document.close();
     }
@@ -268,9 +263,8 @@ public class HtmlConverter {
      * @param html the html in the form of a {@link String}
      * @param pdfWriter the {@link PdfWriter} containing the resulting PDF
      * @return a {@link Document} instance
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static Document convertToDocument(String html, PdfWriter pdfWriter) throws IOException {
+    public static Document convertToDocument(String html, PdfWriter pdfWriter) {
         return convertToDocument(html, pdfWriter, null);
     }
 
@@ -296,9 +290,8 @@ public class HtmlConverter {
      * @param pdfWriter the pdf writer
      * @param converterProperties a {@link ConverterProperties} instance
      * @return a {@link Document} instance
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static Document convertToDocument(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
+    public static Document convertToDocument(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
         return convertToDocument(html, new PdfDocument(pdfWriter), converterProperties);
     }
 
@@ -326,9 +319,8 @@ public class HtmlConverter {
      * @param pdfDocument the {@link PdfDocument} instance
      * @param converterProperties a {@link ConverterProperties} instance
      * @return a {@link Document} instance
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static Document convertToDocument(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
+    public static Document convertToDocument(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) {
         String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
         String licenseKeyProductClassName = "com.itextpdf.licensekey.LicenseKeyProduct";
         String licenseKeyFeatureClassName = "com.itextpdf.licensekey.LicenseKeyProductFeature";
@@ -435,9 +427,8 @@ public class HtmlConverter {
      *
      * @param html the html in the form of a {@link String}
      * @return a list of iText building blocks
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static List<IElement> convertToElements(String html) throws IOException {
+    public static List<IElement> convertToElements(String html) {
         return convertToElements(html, null);
     }
 
@@ -461,9 +452,8 @@ public class HtmlConverter {
      * @param html the html in the form of a {@link String}
      * @param converterProperties a {@link ConverterProperties} instance
      * @return a list of iText building blocks
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static List<IElement> convertToElements(String html, ConverterProperties converterProperties) throws IOException {
+    public static List<IElement> convertToElements(String html, ConverterProperties converterProperties) {
         String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
         String licenseKeyProductClassName = "com.itextpdf.licensekey.LicenseKeyProduct";
         String licenseKeyFeatureClassName = "com.itextpdf.licensekey.LicenseKeyProductFeature";

@@ -93,7 +93,7 @@ public class PdfHtmlPageXofYEventHandlerTest extends ExtendedITextTest {
 
     }
 
-    public void parseWithFooter(String htmlSource, String pdfDest, String resoureLoc) throws IOException, InterruptedException {
+    public void parseWithFooter(String htmlSource, String pdfDest, String resoureLoc) throws IOException {
         //Create Document
         PdfWriter writer = new PdfWriter(pdfDest);
         PdfDocument pdfDocument = new PdfDocument(writer);

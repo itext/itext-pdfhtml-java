@@ -101,109 +101,109 @@ public class PageRuleTest extends ExtendedITextTest {
     public ExpectedException junitExpectedException = ExpectedException.none();
 
     @Test
-    public void marksCropCrossPageRuleTest() throws IOException, InterruptedException {
+    public void marksCropCrossPageRuleTest() {
         runTest("marksCropCrossPageRuleTest");
     }
 
     @Test
-    public void marksCropPageRuleTest() throws IOException, InterruptedException {
+    public void marksCropPageRuleTest() {
         runTest("marksCropPageRuleTest");
     }
 
     @Test
-    public void marksCrossPageRuleTest() throws IOException, InterruptedException {
+    public void marksCrossPageRuleTest() {
         runTest("marksCrossPageRuleTest");
     }
 
     @Test
-    public void marksInvalidPageRuleTest() throws IOException, InterruptedException {
+    public void marksInvalidPageRuleTest() {
         runTest("marksInvalidPageRuleTest");
     }
 
     @Test
-    public void marksNonePageRuleTest() throws IOException, InterruptedException {
+    public void marksNonePageRuleTest() {
         runTest("marksNonePageRuleTest");
     }
 
     @Test
-    public void paddingPageRuleTest() throws IOException, InterruptedException {
+    public void paddingPageRuleTest() {
         runTest("paddingPageRuleTest");
     }
 
     @Test
-    public void compoundSizePageRuleTest() throws IOException, InterruptedException {
+    public void compoundSizePageRuleTest() {
         runTest("compoundSizePageRuleTest");
     }
 
     @Test
-    public void bleedPageRuleTest() throws IOException, InterruptedException {
+    public void bleedPageRuleTest() {
         runTest("bleedPageRuleTest");
     }
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, count = 3))
-    public void invalidCompoundSizePageRuleTest() throws IOException, InterruptedException {
+    public void invalidCompoundSizePageRuleTest() {
         runTest("invalidCompoundSizePageRuleTest");
     }
 
     @Test
-    public void notAllMarginsPageRuleTest() throws IOException, InterruptedException {
+    public void notAllMarginsPageRuleTest() {
         runTest("notAllMarginsPageRuleTest");
     }
 
     @Test
-    public void firstLeftRightPageRuleTest() throws IOException, InterruptedException {
+    public void firstLeftRightPageRuleTest() {
         runTest("firstLeftRightPageRuleTest");
     }
 
     @Test
-    public void marksBleedPageRuleTest() throws IOException, InterruptedException {
+    public void marksBleedPageRuleTest() {
         runTest("marksBleedPageRuleTest");
     }
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 3))
-    public void marginBoxTest01() throws IOException, InterruptedException {
+    public void marginBoxTest01() {
         runTest("marginBoxTest01");
     }
 
     @Test
-    public void marginBoxTest02() throws IOException, InterruptedException {
+    public void marginBoxTest02() {
         runTest("marginBoxTest02");
     }
 
     @Test
-    public void marginBoxTest03() throws IOException, InterruptedException {
+    public void marginBoxTest03() {
         runTest("marginBoxTest03");
     }
 
     @Test
-    public void marginBoxTest04() throws IOException, InterruptedException {
+    public void marginBoxTest04() {
         runTest("marginBoxTest04");
     }
 
     @Test
-    public void marginBoxTestImg01() throws IOException, InterruptedException {
+    public void marginBoxTestImg01() {
         runTest("marginBoxTestImg01");
     }
 
     @Test
-    public void marginBoxTestImg02() throws IOException, InterruptedException {
+    public void marginBoxTestImg02() {
         runTest("marginBoxTestImg02");
     }
 
     @Test
-    public void bigImageOnPageMarginTest01() throws IOException, InterruptedException {
+    public void bigImageOnPageMarginTest01() {
         runTest("bigImageOnPageMarginTest01");
     }
 
     @Test
-    public void bigImageOnPageMarginTest02() throws IOException, InterruptedException {
+    public void bigImageOnPageMarginTest02() {
         runTest("bigImageOnPageMarginTest02");
     }
 
     @Test
-    public void bigImageOnPageMarginTest03() throws IOException, InterruptedException {
+    public void bigImageOnPageMarginTest03() {
         runTest("bigImageOnPageMarginTest03", new ConverterProperties().setTagWorkerFactory(new PageMarginBoxImagesTagWorkerFactory()));
     }
 
@@ -234,22 +234,22 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    public void bigTextOnPageMarginTest01() throws IOException, InterruptedException {
+    public void bigTextOnPageMarginTest01() {
         runTest("bigTextOnPageMarginTest01");
     }
 
     @Test
-    public void bigTextOnPageMarginTest02() throws IOException, InterruptedException {
+    public void bigTextOnPageMarginTest02() {
         runTest("bigTextOnPageMarginTest02");
     }
 
     @Test
-    public void marginBoxOverflowPropertyTest01() throws IOException, InterruptedException {
+    public void marginBoxOverflowPropertyTest01() {
         runTest("marginBoxOverflowPropertyTest01");
     }
 
     @Test
-    public void marginBoxOverflowPropertyTest02() throws IOException, InterruptedException {
+    public void marginBoxOverflowPropertyTest02() {
         runTest("marginBoxOverflowPropertyTest02", new ConverterProperties().setCssApplierFactory(new PageMarginsOverflowCssApplierFactory()));
     }
 
@@ -275,258 +275,258 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    public void marginBoxOutlinePropertyTest01() throws IOException, InterruptedException {
+    public void marginBoxOutlinePropertyTest01() {
         // TODO Outlines are currently not supported for page margin boxes, because of the outlines handling specificity (they are handled on renderer's parent level).
         //      See com.itextpdf.html2pdf.attach.impl.layout.PageContextProcessor.
         runTest("marginBoxOutlinePropertyTest01");
     }
 
     @Test
-    public void marginBoxRunningTest01() throws IOException, InterruptedException {
+    public void marginBoxRunningTest01() {
         runTest("marginBoxRunningTest01");
     }
 
     @Test
-    public void marginBoxRunningTest02() throws IOException, InterruptedException {
+    public void marginBoxRunningTest02() {
         runTest("marginBoxRunningTest02");
     }
 
     @Test
-    public void marginBoxRunningTest03() throws IOException, InterruptedException {
+    public void marginBoxRunningTest03() {
         runTest("marginBoxRunningTest03");
     }
 
     @Test
-    public void marginBoxRunningTest04() throws IOException, InterruptedException {
+    public void marginBoxRunningTest04() {
         // TODO This tests shows wrong result, because running element name is custom-ident which shall be case sensitive, while iText treats it as case-insensitive.
         runTest("marginBoxRunningTest04");
     }
 
     @Test
-    public void marginBoxRunningTest05() throws IOException, InterruptedException {
+    public void marginBoxRunningTest05() {
         runTest("marginBoxRunningTest05");
     }
 
     @Test
-    public void marginBoxRunningTest06() throws IOException, InterruptedException {
+    public void marginBoxRunningTest06() {
         runTest("marginBoxRunningTest06");
     }
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID))
-    public void marginBoxRunningTest07() throws IOException, InterruptedException {
+    public void marginBoxRunningTest07() {
         runTest("marginBoxRunningTest07");
     }
 
     @Test
-    public void marginBoxRunningTest08() throws IOException, InterruptedException {
+    public void marginBoxRunningTest08() {
         runTest("marginBoxRunningTest08");
     }
 
     @Test
-    public void marginBoxRunningOverrideTest01() throws IOException, InterruptedException {
+    public void marginBoxRunningOverrideTest01() {
         runTest("marginBoxRunningOverrideTest01");
     }
 
     @Test
-    public void marginBoxRunningOverrideTest02() throws IOException, InterruptedException {
+    public void marginBoxRunningOverrideTest02() {
         runTest("marginBoxRunningOverrideTest02");
     }
 
     @Test
-    public void marginBoxRunningOverrideTest03() throws IOException, InterruptedException {
+    public void marginBoxRunningOverrideTest03() {
         runTest("marginBoxRunningOverrideTest03");
     }
 
     @Test
-    public void marginBoxRunningOverrideTest04() throws IOException, InterruptedException {
+    public void marginBoxRunningOverrideTest04() {
         runTest("marginBoxRunningOverrideTest04");
     }
 
     @Test
-    public void marginBoxRunningOverrideTest05() throws IOException, InterruptedException {
+    public void marginBoxRunningOverrideTest05() {
         runTest("marginBoxRunningOverrideTest05");
     }
 
     @Test
-    public void marginBoxRunningOverrideTest06() throws IOException, InterruptedException {
+    public void marginBoxRunningOverrideTest06() {
         runTest("marginBoxRunningOverrideTest06");
     }
 
     @Test
-    public void marginBoxRunningOverrideTest07() throws IOException, InterruptedException {
+    public void marginBoxRunningOverrideTest07() {
         runTest("marginBoxRunningOverrideTest07");
     }
 
     @Test
-    public void marginBoxRunningOverrideTest08() throws IOException, InterruptedException {
+    public void marginBoxRunningOverrideTest08() {
         runTest("marginBoxRunningOverrideTest08");
     }
 
     @Test
-    public void marginBoxRunningImg01() throws IOException, InterruptedException {
+    public void marginBoxRunningImg01() {
         runTest("marginBoxRunningImg01");
     }
 
     @Test
-    public void marginBoxRunningImg02() throws IOException, InterruptedException {
+    public void marginBoxRunningImg02() {
         runTest("marginBoxRunningImg02");
     }
 
     @Test
-    public void marginBoxRunningTable01() throws IOException, InterruptedException {
+    public void marginBoxRunningTable01() {
         runTest("marginBoxRunningTable01");
     }
 
     @Test
-    public void marginBoxRunningLink01() throws IOException, InterruptedException {
+    public void marginBoxRunningLink01() {
         runTest("marginBoxRunningLink01");
     }
 
     @Test
-    public void marginBoxRunningLink02() throws IOException, InterruptedException {
+    public void marginBoxRunningLink02() {
         runTest("marginBoxRunningLink02");
     }
 
     @Test
-    public void marginBoxRunningLink03() throws IOException, InterruptedException {
+    public void marginBoxRunningLink03() {
         runTest("marginBoxRunningLink03");
     }
 
     @Test
-    public void marginBoxRunningElements01() throws IOException, InterruptedException {
+    public void marginBoxRunningElements01() {
         runTest("marginBoxRunningElements01");
     }
 
     @Test
-    public void marginBoxRunningElements02() throws IOException, InterruptedException {
+    public void marginBoxRunningElements02() {
         runTest("marginBoxRunningElements02");
     }
 
     @Test
-    public void marginBoxRunningElements03() throws IOException, InterruptedException {
+    public void marginBoxRunningElements03() {
         runTest("marginBoxRunningElements03");
     }
 
     @Test
-    public void marginBoxRunningElements04() throws IOException, InterruptedException {
+    public void marginBoxRunningElements04() {
         runTest("marginBoxRunningElements04");
     }
 
     @Test
-    public void marginBoxRunningParent01() throws IOException, InterruptedException {
+    public void marginBoxRunningParent01() {
         runTest("marginBoxRunningParent01");
     }
 
     @Test
-    public void marginBoxRunningParent02() throws IOException, InterruptedException {
+    public void marginBoxRunningParent02() {
         runTest("marginBoxRunningParent02");
     }
 
     @Test
-    public void marginBoxRunningParent03() throws IOException, InterruptedException {
+    public void marginBoxRunningParent03() {
         runTest("marginBoxRunningParent03");
     }
 
     @Test
-    public void marginBoxRunningParent04() throws IOException, InterruptedException {
+    public void marginBoxRunningParent04() {
         runTest("marginBoxRunningParent04");
     }
 
     @Test
-    public void marginBoxRunningParent05() throws IOException, InterruptedException {
+    public void marginBoxRunningParent05() {
         runTest("marginBoxRunningParent05");
     }
 
     @Test
-    public void marginBoxRunningParent06() throws IOException, InterruptedException {
+    public void marginBoxRunningParent06() {
         runTest("marginBoxRunningParent06");
     }
 
     @Test
-    public void marginBoxRunningParent07() throws IOException, InterruptedException {
+    public void marginBoxRunningParent07() {
         runTest("marginBoxRunningParent07");
     }
 
     @Test
-    public void marginBoxRunningParent08() throws IOException, InterruptedException {
+    public void marginBoxRunningParent08() {
         runTest("marginBoxRunningParent08");
     }
 
     @Test
-    public void marginBoxRunningPageBreak01() throws IOException, InterruptedException {
+    public void marginBoxRunningPageBreak01() {
         runTest("marginBoxRunningPageBreak01");
     }
 
     @Test
-    public void marginBoxRunningPageBreak02() throws IOException, InterruptedException {
+    public void marginBoxRunningPageBreak02() {
         runTest("marginBoxRunningPageBreak02");
     }
 
     @Test
-    public void marginBoxRunningPageBreak03() throws IOException, InterruptedException {
+    public void marginBoxRunningPageBreak03() {
         runTest("marginBoxRunningPageBreak03");
     }
 
     @Test
-    public void marginBoxRunningPageBreakAvoid01() throws IOException, InterruptedException {
+    public void marginBoxRunningPageBreakAvoid01() {
         runTest("marginBoxRunningPageBreakAvoid01");
     }
 
     @Test
-    public void marginBoxRunningOutlines01() throws IOException, InterruptedException {
+    public void marginBoxRunningOutlines01() {
         runTest("marginBoxRunningOutlines01", new ConverterProperties().setOutlineHandler(OutlineHandler.createStandardHandler()));
     }
 
     @Test
-    public void marginBoxRunningOutlines02() throws IOException, InterruptedException {
+    public void marginBoxRunningOutlines02() {
         runTest("marginBoxRunningOutlines02", new ConverterProperties().setOutlineHandler(OutlineHandler.createStandardHandler()));
     }
 
     @Test
-    public void marginBoxRunningQuotes01() throws IOException, InterruptedException {
+    public void marginBoxRunningQuotes01() {
         runTest("marginBoxRunningQuotes01");
     }
 
     @Test
-    public void marginBoxRunningQuotes02() throws IOException, InterruptedException {
+    public void marginBoxRunningQuotes02() {
         runTest("marginBoxRunningQuotes02");
     }
 
     @Test
-    public void marginBoxRunningQuotes03() throws IOException, InterruptedException {
+    public void marginBoxRunningQuotes03() {
         runTest("marginBoxRunningQuotes03");
     }
 
     @Test
-    public void marginBoxRunningQuotes04() throws IOException, InterruptedException {
+    public void marginBoxRunningQuotes04() {
         runTest("marginBoxRunningQuotes04");
     }
 
     @Test
-    public void checkMarginBoxFixDimension() throws IOException, InterruptedException {
+    public void checkMarginBoxFixDimension() {
         runTest("checkMarginBoxFixDimension");
     }
 
     @Test
-    public void checkMarginBoxMaxMinDimension() throws IOException, InterruptedException {
+    public void checkMarginBoxMaxMinDimension() {
         runTest("checkMarginBoxMaxMinDimension");
     }
 
     @Test
-    public void checkMarginBoxMarginPaddings() throws IOException, InterruptedException {
+    public void checkMarginBoxMarginPaddings() {
         runTest("checkMarginBoxMarginPaddings");
     }
 
     @Test
-    public void mediaAppliedToRunningElementsProperties() throws IOException, InterruptedException {
+    public void mediaAppliedToRunningElementsProperties() {
         MediaDeviceDescription printMediaDevice = new MediaDeviceDescription("print");
         ConverterProperties converterProperties = new ConverterProperties().setMediaDeviceDescription(printMediaDevice);
         runTest("mediaAppliedToRunningElementsProperties", converterProperties);
     }
 
     @Test
-    public void mediaNotAppliedToRunningElementsProperties() throws IOException, InterruptedException {
+    public void mediaNotAppliedToRunningElementsProperties() {
         runTest("mediaNotAppliedToRunningElementsProperties");
     }
 
@@ -658,27 +658,27 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    public void marginBoxMultilineTest01() throws IOException, InterruptedException {
+    public void marginBoxMultilineTest01() {
         runTest("marginBoxMultilineTest01");
     }
 
     @Test
-    public void marginBoxMultilineTest02() throws IOException, InterruptedException {
+    public void marginBoxMultilineTest02() {
         runTest("marginBoxMultilineTest02");
     }
 
     @Test
-    public void marginBoxMultilineTest03() throws IOException, InterruptedException {
+    public void marginBoxMultilineTest03() {
         runTest("marginBoxMultilineTest03");
     }
 
     @Test
-    public void marginBoxMultilineTest04() throws IOException, InterruptedException {
+    public void marginBoxMultilineTest04() {
         runTest("marginBoxMultilineTest04");
     }
 
     @Test
-    public void wrongPageRuleCssStructureTest() throws IOException, InterruptedException {
+    public void wrongPageRuleCssStructureTest() {
         junitExpectedException.expect(RuntimeException.class);
         runTest("wrongPageRuleCssStructureTest");
     }
@@ -712,11 +712,11 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
 
-    private void runTest(String name) throws IOException, InterruptedException {
+    private void runTest(String name) {
         runTest(name, null);
     }
 
-    private void runTest(String name, ConverterProperties converterProperties) throws IOException, InterruptedException {
+    private void runTest(String name, ConverterProperties converterProperties) {
         try {
             runTest(name, converterProperties, false);
         } catch (Exception e) {

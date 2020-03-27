@@ -176,7 +176,7 @@ public abstract class ExtendedHtmlConversionITextTest extends ExtendedITextTest 
         }
     }
 
-    private void compareTagStructure(String outPath, String cmpPath) throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+    private void compareTagStructure(String outPath, String cmpPath) throws IOException, ParserConfigurationException, SAXException {
         CompareTool compareTool = new CompareTool();
         String tagStructureErrors = compareTool.compareTagStructures(outPath, cmpPath);
         String resultMessage = "";

@@ -172,7 +172,7 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void defaultLineHeightTest() throws IOException {
+    public void defaultLineHeightTest() {
         List<IElement> elements = HtmlConverter.convertToElements("<p>Lorem Ipsum</p>");
         Assert.assertEquals(1.2f, elements.get(0).<Leading>getProperty(Property.LEADING).getValue(), 1e-10);
     }

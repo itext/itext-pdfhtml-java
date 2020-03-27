@@ -118,7 +118,7 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    public void droidSerifLocalWithMediaRuleFontTest3() throws IOException, InterruptedException {
+    public void droidSerifLocalWithMediaRuleFontTest3() {
         String name = "droidSerifLocalWithMediaRuleFontTest";
         String htmlPath = sourceFolder + name + ".html";
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlPath) + "\n");
