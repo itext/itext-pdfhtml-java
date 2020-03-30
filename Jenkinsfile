@@ -107,7 +107,7 @@ pipeline {
                                         pomPath = pomFile.path.replace("\\", "/")
                                         sh "mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file --quiet -Dmaven.repo.local=${env.WORKSPACE.replace('\\', '/')}/.repository -Dpackaging=pom -Dfile=${pomPath} -DpomFile=${pomPath}"
                                     }
-                                    def pomFiles = findFiles(glob: 'downloads/**/*.pom')
+                                    def pomFiles = findFiles(glob: '**/*.pom')
                                     pomFiles.each { pomFile ->
                                         if (pomFile.name != "main.pom") {
                                             pomPath = pomFile.path.replace("\\", "/")
