@@ -57,7 +57,9 @@ import com.itextpdf.html2pdf.css.apply.impl.PageMarginBoxCssApplier;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
@@ -681,6 +683,48 @@ public class PageRuleTest extends ExtendedITextTest {
     public void wrongPageRuleCssStructureTest() {
         junitExpectedException.expect(RuntimeException.class);
         runTest("wrongPageRuleCssStructureTest");
+    }
+
+    @Test
+    //TODO: DEVSIX-1570, SUP-2322. Remove junitExpectedException after the fix.
+    public void pageCountTestTableAlignLeft() throws IOException {
+        junitExpectedException.expect(AssertionError.class);
+
+        String expectedText = "Page 1 of 3";
+        String nameAlignLeft = "htmlWithTableAlignLeft.html";
+        String pdfOutputName = destinationFolder + nameAlignLeft + ".pdf";
+
+        File pdfOutputAlignLeft = new File(pdfOutputName);
+        HtmlConverter.convertToPdf(new File(sourceFolder + nameAlignLeft), pdfOutputAlignLeft);
+
+        PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfOutputAlignLeft));
+        String textFromPage = PdfTextExtractor.getTextFromPage(pdfDocument.getPage(1));
+
+        // Print the output file. No comparison will be made on the following line
+        ExtendedITextTest.printOutputPdfNameAndDir(pdfOutputName);
+
+        Assert.assertTrue("Page doesn't contain text " + expectedText, textFromPage.contains(expectedText));
+    }
+
+    @Test
+    //TODO: DEVSIX-1570, SUP-2322. Remove junitExpectedException after the fix.
+    public void pageCountTestTableFloatLeft() throws IOException {
+        junitExpectedException.expect(AssertionError.class);
+
+        String expectedText = "Page 3 of 3";
+        String nameFloatLeft = "htmlWithTableFloatLeft.html";
+        String pdfOutputName = destinationFolder + nameFloatLeft + ".pdf";
+
+        File pdfOutputFloatLeft = new File(pdfOutputName);
+        HtmlConverter.convertToPdf(new File(sourceFolder + nameFloatLeft), pdfOutputFloatLeft);
+
+        PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfOutputFloatLeft));
+        String textFromPage = PdfTextExtractor.getTextFromPage(pdfDocument.getPage(3));
+
+        // Print the output file. No comparison will be made on the following line
+        ExtendedITextTest.printOutputPdfNameAndDir(pdfOutputName);
+        
+        Assert.assertTrue("Page doesn't contain text " + expectedText, textFromPage.contains(expectedText));
     }
 
     private static class CustomFlushingTagWorkerFactory extends DefaultTagWorkerFactory {
