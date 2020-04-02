@@ -56,7 +56,6 @@ import java.io.File;
 import java.io.IOException;
 
 // Actually the results are invalid because there is no pdfCalligraph.
-// But we'd like to test how Free Sans works for a specific scripts.
 @Category(IntegrationTest.class)
 public class FontProviderTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/FontProviderTest/";
@@ -71,7 +70,7 @@ public class FontProviderTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = TYPOGRAPHY_WARNING, count = 14)
+            @LogMessage(messageTemplate = TYPOGRAPHY_WARNING, count = 4)
     })
     public void hebrewTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hebrew.html"), new File(destinationFolder + "hebrew.pdf"));
@@ -89,6 +88,20 @@ public class FontProviderTest extends ExtendedITextTest {
     public void convertStandardFonts() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "convertStandardFonts.html"), new File(destinationFolder + "convertStandardFonts.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "convertStandardFonts.pdf", sourceFolder + "cmp_convertStandardFonts", destinationFolder, "difffontstand_"));
+    }
+
+    @Test
+    public void notoSansMonoItalicTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "notoSansMonoItalic.html"), new File(destinationFolder + "notoSansMonoItalic.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "notoSansMonoItalic.pdf", sourceFolder + "cmp_notoSansMonoItalic.pdf", destinationFolder, "diffnotoSansMonoItalic_"));
+
+    }
+
+    @Test
+    public void notoSansMonoBoldItalicTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "notoSansMonoBoldItalic.html"), new File(destinationFolder + "notoSansMonoBoldItalic.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "notoSansMonoBoldItalic.pdf", sourceFolder + "cmp_notoSansMonoBoldItalic.pdf", destinationFolder, "diffnotoSansMonoBoldItalic_"));
+
     }
 
 }

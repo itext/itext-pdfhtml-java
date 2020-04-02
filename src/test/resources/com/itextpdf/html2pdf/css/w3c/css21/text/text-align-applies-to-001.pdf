@@ -1,12 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 220>>stream
-xœ‘Á
-Â0Dïûƒ'½DÛ¦Msô.ä”¦5­6ı|MÕÚˆÉe&ov™-Í×	’ª¦¬€(SV
-¨Š¦J;óÖ9í`jø½Ædm¬Õ”¾ù	vÚ¶W‡­5ÍIWğmïêL³÷p¦ÒhŸÿvíÍÔVŠ6t¡ÂëÊË!
-Îd#ñ$ıHûü!
-Æƒ«³ÛêA&—Œ¿‘\0ùÿŠşÍì!ÇWü‹ö‡y[ÿº:¢½ƒ£3?è(òI‹ŠK¤†<ceÚw7ê	ÌC7w·ø|æ
+<</Filter/FlateDecode/Length 221>>stream
+xœ‘ÍnÂ0„ïû#NíÅÔ‰“+Ü+ù‚â#CJl©yüæÔF/³Òø›]ÍöŠ¶G@Õ”æ»”IUÑ‡ÒÎã§tN;˜ş¬±9ku¥{¿ÁIÛöÆ¡´¦¹é
+¾\iÎÎTíüïÔöìS]è è›îô…ñu¥’eyÎ$®$x²Nv˜Ä w,ô¸×CÊÀSÇ´°â²„\Æ™xBÇ¡¯âºD/¼q¥·ê0´~umD[rÃÿÁQàÌŠêâE1r&æÆ‚vğ†^ùëz¤
 endstream
 endobj
 4 0 obj
@@ -16,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20181102112253-03'00')/ModDate(D:20181102112253-03'00')/Producer(iText® 7.1.5-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-align application on a 'display: inline' element)/assert(The 'text-align' property is not applied to 'display: inline' element.)/flags()>>
+<</CreationDate(D:20200311133226+03'00')/ModDate(D:20200311133226+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-align application on a 'display: inline' element)/assert(The 'text-align' property is not applied to 'display: inline' element.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -27,15 +24,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000435 00000 n 
-0000000894 00000 n 
-0000000480 00000 n 
-0000000302 00000 n 
+0000000436 00000 n 
+0000000896 00000 n 
+0000000481 00000 n 
+0000000303 00000 n 
 0000000015 00000 n 
-0000000804 00000 n 
+0000000806 00000 n 
 trailer
-<</ID [<39eeed4807e6ce748bdb67955caaea59><39eeed4807e6ce748bdb67955caaea59>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.5-SNAPSHOT
+<</ID [<7d1e31a950ea4ad62c85baa182afbd37><7d1e31a950ea4ad62c85baa182afbd37>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-945
+947
 %%EOF

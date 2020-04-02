@@ -63,7 +63,7 @@ public class PageSizeParserTest extends ExtendedITextTest {
 
     @Test
     public void simpleLedgerTest() {
-        PageSize expected = PageSize.LEDGER;
+        PageSize expected = PageSize.LEDGER.rotate();
         PageSize actual = PageSizeParser.fetchPageSize("ledger", 10, 10, PageSize.A0);
         assertSizesAreSame(expected, actual);
     }

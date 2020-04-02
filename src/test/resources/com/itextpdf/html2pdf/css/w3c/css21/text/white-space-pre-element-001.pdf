@@ -1,8 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 161>>stream
-xœµÍ±‚@Ğ~¿bì°9"`k¢½ÉşÀ	‹`ô€ìEù|­SN2ó:1í.1â\Sš!/SäàŠ"õè­ª(Ú¾8=ü§Ã³u¡mì[æ^F[z¨}	´·eëîfË:3]iXŒñ~5¹9f³k¬# s˜NU°f¡â¼¸2°N¤‚ïp[ğiäÍ$Føå¦™IÿÍ~Û]
+<</Filter/FlateDecode/Length 162>>stream
+xœµÍ1‚@Ğ~O1vØ¬Êbk¢½É^`…@ôùåø.Z;§œdæêlÕî#N`+•f0yªÍ¶T‘%ñè	š
+¾&0şÓáÙphk÷¦¹§Ñâ^é]ÑğCom«.VİÔ°	âıjO:Kf6¬±€1'œ
+aÍ$Bˆ=qX&*á;Ü|Úy3‰~¹©Ñ¹ù·û,á]A
 endstream
 endobj
 4 0 obj
@@ -12,13 +14,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20181102113401-03'00')/ModDate(D:20181102113401-03'00')/Producer(iText® 7.1.5-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: White-space 'pre' vs. 'pre' element)/assert(The 'pre' element and 'white-space: pre' assignment behave the same way with respect to white space.)/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20200311133607+03'00')/ModDate(D:20200311133607+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: White-space 'pre' vs. 'pre' element)/assert(The 'pre' element and 'white-space: pre' assignment behave the same way with respect to white space.)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Courier/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -26,16 +28,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000385 00000 n 
-0000000942 00000 n 
-0000000430 00000 n 
-0000000243 00000 n 
+0000000386 00000 n 
+0000000944 00000 n 
+0000000431 00000 n 
+0000000244 00000 n 
 0000000015 00000 n 
-0000000766 00000 n 
-0000000856 00000 n 
+0000000854 00000 n 
+0000000768 00000 n 
 trailer
-<</ID [<557dbe451a0906f5216ba01afc2154a7><557dbe451a0906f5216ba01afc2154a7>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.5-SNAPSHOT
+<</ID [<8b5900eb673ffd923e37b48351207ce7><8b5900eb673ffd923e37b48351207ce7>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
-993
+995
 %%EOF

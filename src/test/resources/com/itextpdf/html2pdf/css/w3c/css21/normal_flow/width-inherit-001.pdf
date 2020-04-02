@@ -1,9 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 169>>stream
-xœmÎ;Â0ĞŞ§˜c;vBZ$è‘|C6±\Ÿ>
-ˆf‹ÕÛÙéÙÊ²ÅFB*Ø’%)²¥âË¶`3K!âìB €¦D¬	'ïºŠàº»öBğ´Ã¦Dí®4š¹=°µe[Ö?ÃÕ+\å†çÉôApGÂ­)bı{ó)d4W_¥ø„JêL¤ğÕØ^'<7RqõX9b1 ùfJrıİ3&B/
+<</Filter/FlateDecode/Length 168>>stream
+xœmÎ9Â0ĞŞ§ø%4ÆKœ	z$_ÀÉ‚B ¶ëÂ¢€h¦½ùó{¶²l±‘
+¶d:E¶Ô<K`6³"Î.
+hJÄšpò®«®+°k/Oû8lÚAÔîJ£™Û[[¶eı3\½ÂUnx®§‚;nMëß›O!“põUŠO¨„ài’‰¾Û'†gRqõX9Z1ùVJsõGİ¨¥A¼
 endstream
 endobj
 4 0 obj
@@ -13,13 +14,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171116194417+03'00')/ModDate(D:20171116194417+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Inheriting Explicit Widths)/assert(The computed width is inherited, even if the\n        'width' property does not apply.)/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20200311120234+03'00')/ModDate(D:20200311120234+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Inheriting Explicit Widths)/assert(The computed width is inherited, even if the\n        'width' property does not apply.)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +28,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000393 00000 n 
+0000000392 00000 n 
 0000000930 00000 n 
-0000000438 00000 n 
-0000000251 00000 n 
+0000000437 00000 n 
+0000000250 00000 n 
 0000000015 00000 n 
+0000000840 00000 n 
 0000000751 00000 n 
-0000000841 00000 n 
 trailer
-<</ID [<a04842a0bdf6981067d56165e24c4310><a04842a0bdf6981067d56165e24c4310>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<6eb00af9e26ba001ad82dc3eae2763db><6eb00af9e26ba001ad82dc3eae2763db>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
 981
 %%EOF

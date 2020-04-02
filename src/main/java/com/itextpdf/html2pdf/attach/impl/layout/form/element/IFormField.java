@@ -43,12 +43,11 @@
 package com.itextpdf.html2pdf.attach.impl.layout.form.element;
 
 import com.itextpdf.layout.element.IBlockElement;
-import com.itextpdf.layout.element.ILeafElement;
 
 /**
- * Interface extending the {@link ILeafElement} interface in the context of form fields.
+ * Common interface for HTML form elements
  */
-public interface IFormField extends ILeafElement, IBlockElement {
+public interface IFormField extends IBlockElement {
 
     /**
      * Gets the id.

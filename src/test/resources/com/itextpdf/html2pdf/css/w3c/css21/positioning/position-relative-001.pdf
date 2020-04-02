@@ -1,8 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 167>>stream
-xœÎ±Â à§øG]PJÁÎ&º›ğ´üM1H[ 1¾½ØÁ˜’®w_.7“³"‡+Vê	—pj*Úœ@²SL:FŒ`{H‚Ã”0DhÑOĞA;£_Ê¨YXŸCo>ÉkÖg4ºÅd;u0è^İÉE‘™ÿ/Ayµ\Ğ%V3Êù¯„¢¬W²-IqÜº)øJvEÙP)7mJ¶’æ+ßªKeÙ
+<</Filter/FlateDecode/Length 168>>stream
+xœÎA
+Â0Ğ}Nñ—º‰Æ´iİ
+ºr´ù¥‘˜¶I@¼½±‚H%ĞíÌc˜‰œ$Ù]°ÈpUÍiU€Ôd#1DUÀt{‹1¢Ğ  <‚²7—Aİ“0.…N¿“ç,ŒKhìUƒÑ´*i¯ÑÓ­¼‘³$W2ı_(+zü\P9V0Êù¯„¬,²ÉÉr¿v³äÙfeM…Xµ)ØBê¯|ÌÈf
 endstream
 endobj
 4 0 obj
@@ -12,7 +14,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123950+03'00')/ModDate(D:20171109123950+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Relative positioning and normal flow)/assert(Relatively positioned elements lay out in normal flow.)/flags()>>
+<</CreationDate(D:20200311132915+03'00')/ModDate(D:20200311132915+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Relative positioning and normal flow)/assert(Relatively positioned elements lay out in normal flow.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,15 +25,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000382 00000 n 
-0000000808 00000 n 
-0000000427 00000 n 
-0000000249 00000 n 
+0000000383 00000 n 
+0000000810 00000 n 
+0000000428 00000 n 
+0000000250 00000 n 
 0000000015 00000 n 
-0000000718 00000 n 
+0000000720 00000 n 
 trailer
-<</ID [<280110900f0034cc56593ccb89942dce><280110900f0034cc56593ccb89942dce>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<74cfd7cd6161a876f8e9a155d9d6256a><74cfd7cd6161a876f8e9a155d9d6256a>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-859
+861
 %%EOF

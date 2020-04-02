@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Margin Box Tests: margin with Noto Sans Font</title>
+    <style type="text/css">
+
+            body{
+                border:2pt solid black;
+            }
+			@page
+			{
+				size: A4 portrait;
+				font-family: "Noto Sans";
+				color: #2d2d2d;
+
+				margin-top: 100px;
+				margin-bottom: 100px;
+				margin-left:50px;
+				margin-right:50px;
+
+                @bottom-left{
+                    content: 'Header in Left Cell (bottom-left)';
+                     background:green;
+                }
+				body
+				{
+					width: 595px;
+					height: 842px;
+				}
+			}
+    </style>
+</head>
+<body>
+<!-- main -->
+<div>
+    <h1>Main Content</h1>
+    <p>
+        The text on the margins should be displayed in Noto Sans font.
+    </p>
+</div>
+
+</body>
+</html>

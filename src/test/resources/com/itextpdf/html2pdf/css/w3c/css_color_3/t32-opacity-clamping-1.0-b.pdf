@@ -1,8 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 162>>stream
-xœ­Ï=Â0à=¿âFymŞ6IgAw!›8Tm%6öCèÏ·®:dÉv×‹Ûƒ„dØ›È5LÉTØZ¬lã‡±	o_ã²¤v†o;7"Ü0¹yBè05íˆWuwTŞ/uÙUO‡kğa œäw¬Ïkû{+¢ÿ•¢œÓ‰ÙÑéÄ<.f±L'QQ&ğ£Š‹…"™ğ£ş?ĞËÍ
+<</Filter/FlateDecode/Length 160>>stream
+xœ­Ò=Â0àıı7*Hl’&­« »M¢Mm%6öCèÏ·®:dÉvÏr=ím\ÀÔ$5ŠR²"‡©he78ŒMxû
+×%µ3|Û¹¡Æäæ	¡ÃÔ´#^öî6°Ş/uÙÙ§Ã-ø00œùw¬/kó ƒ¡õÿ¢*Ø.¡(â¢Œ'e\Ì4“	Å<*ê2c*¡¨â¢Ê“>Gÿˆ"¬Ë×
 endstream
 endobj
 4 0 obj
@@ -12,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109122312+03'00')/ModDate(D:20171109122312+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: opacity)/assert(Opacity values greater than 1.0 are clamped to 1.0)/flags()>>
+<</CreationDate(D:20200311140144+03'00')/ModDate(D:20200311140144+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: opacity)/assert(Opacity values greater than 1.0 are clamped to 1.0)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,15 +24,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000377 00000 n 
-0000000770 00000 n 
-0000000422 00000 n 
-0000000244 00000 n 
+0000000375 00000 n 
+0000000769 00000 n 
+0000000420 00000 n 
+0000000242 00000 n 
 0000000015 00000 n 
-0000000680 00000 n 
+0000000679 00000 n 
 trailer
-<</ID [<70397c248f129e4cb825aa20b38437df><70397c248f129e4cb825aa20b38437df>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<a3b801ad8f787b194e842db9fc789716><a3b801ad8f787b194e842db9fc789716>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-821
+820
 %%EOF

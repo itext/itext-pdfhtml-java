@@ -53,8 +53,8 @@ public class Html2PdfProductInfo {
     public static final String PRODUCT_NAME = "pdfHtml";
     
     /** The major version number. */
-    public static final int MAJOR_VERSION = 2;
+    public static final int MAJOR_VERSION = 3;
     
     /** The minor version number. */
-    public static final int MINOR_VERSION = 1;
+    public static final int MINOR_VERSION = 0;
 }

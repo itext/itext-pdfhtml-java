@@ -117,11 +117,6 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
         return super.createParagraphRenderer(defaultValue);
     }
 
-    @Override
-    protected void adjustFieldLayout() {
-        throw new RuntimeException("adjustFieldLayout() is deprecated and shouldn't be used. Override adjustFieldLayout(LayoutContext) instead");
-    }
-
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
      */
@@ -135,7 +130,6 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
         } else {
             LoggerFactory.getLogger(getClass()).error(MessageFormatUtil.format(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "text input"));
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
-            baseline = flatBBox.getTop();
             flatBBox.setY(flatBBox.getTop()).setHeight(0);
         }
         flatBBox.setWidth((float) retrieveWidth(layoutContext.getArea().getBBox().getWidth()));

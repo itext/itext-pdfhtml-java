@@ -46,6 +46,8 @@ import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
+import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.RenderingMode;
 import com.itextpdf.layout.renderer.DivRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
@@ -81,6 +83,10 @@ public class RunningElement extends Div {
         public RunningElementRenderer(Div modelElement, RunningElementContainer runningElementContainer) {
             super(modelElement);
             this.runningElementContainer = runningElementContainer;
+            // LineRenderer uses html logic only if there is at least one child renderer in html
+            // mode. So the case when the line contains only running elements should be
+            // processed in the default mode, since for this line the line-height should not be calculated.
+            setProperty(Property.RENDERING_MODE, RenderingMode.DEFAULT_LAYOUT_MODE);
         }
 
         @Override

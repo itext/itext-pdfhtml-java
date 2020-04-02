@@ -49,9 +49,7 @@ import com.itextpdf.layout.property.Property;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.IOException;
 import java.util.List;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -70,7 +68,7 @@ public class BrTagTest extends ExtendedITextTest {
     }
 
     @Test
-    public void test() throws IOException, InterruptedException {
+    public void test() {
         String input = "<html>\n" +
                 "<head><title>Test</title></head>" +
                 "<body style=\"font-family: FreeSans;\">" +

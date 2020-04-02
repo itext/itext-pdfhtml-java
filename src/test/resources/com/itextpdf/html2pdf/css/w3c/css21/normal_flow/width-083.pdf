@@ -2,8 +2,8 @@
 %âãÏÓ
 5 0 obj
 <</Filter/FlateDecode/Length 164>>stream
-xœ]Á‚0DïûsÔK¥½šèİ¤?P¥Z¡¨¿/XMŠÙ=ìlŞL¦§¦ÍAB2tMi¢dQĞ­´õ#îÆ{ëÑÖ`œœ9ßàû‡¦Wccc±ÖWÚk:RÒø›Æœ
-µHô¦³xµÕØü{~x‚YÅ¡	æ.sÑ\e"ÛbÚ‚1Xª—„LJäRÍH„’³pÁİr±Ã}ÒŞsAÂ
+xœ]Í‚0„ïûsÔK¥[,p5Ñ»I_ J´$BQ__~4‚ÙËdóÍ—ihghsSÒHR%’&§•q¡Ãİ†àªŒ“·çBó°mÿ*íÓ¡+ÖæJ{CGj&lÌJdc°µÃ«Ê»ò¿ó]À)Îæ1C#×^†¡:Ó‚o‘0ZGÅQ
+Í²'ê)gªÏ~*şâHøíGÑßO@`
 endstream
 endobj
 4 0 obj
@@ -13,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171116194403+03'00')/ModDate(D:20171116194403+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Width using 'ex' units with a nominal value, 6ex)/assert(The 'width' property sets a nominal length value in 'ex' units.)/flags(ahem)>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20200311120159+03'00')/ModDate(D:20200311120159+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Width using 'ex' units with a nominal value, 6ex)/assert(The 'width' property sets a nominal length value in 'ex' units.)/flags(ahem)>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -28,15 +28,15 @@ xref
 0 8
 0000000000 65535 f 
 0000000388 00000 n 
-0000000928 00000 n 
+0000000929 00000 n 
 0000000433 00000 n 
 0000000246 00000 n 
 0000000015 00000 n 
-0000000749 00000 n 
 0000000839 00000 n 
+0000000750 00000 n 
 trailer
-<</ID [<478f62609cc69665ba12fdef2c8c9f39><478f62609cc69665ba12fdef2c8c9f39>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<e04215516a7bc5f3fe02f656d99812ea><e04215516a7bc5f3fe02f656d99812ea>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
-979
+980
 %%EOF

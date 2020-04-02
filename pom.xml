@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>com.itextpdf</groupId>
     <artifactId>root</artifactId>
-    <version>7.1.10</version>
+    <version>7.1.11</version>
     <relativePath/>
   </parent>
+
   <artifactId>html2pdf</artifactId>
-  <version>2.1.7</version>
+  <version>3.0.0</version>
+
   <name>pdfHTML</name>
   <description>pdfHTML is an iText 7 add-on that lets you to parse (X)HTML snippets and the associated CSS and converts
     them to PDF.</description>
+
   <scm>
     <connection>scm:git:ssh://git@git.itextsupport.com:7999/i7j/html2pdf.git</connection>
     <url>https://git.itextsupport.com/projects/I7J/repos/html2pdf</url>
   </scm>
+
   <properties>
     <itext.version>${project.parent.version}</itext.version>
   </properties>
+
   <repositories>
     <repository>
       <snapshots>
@@ -37,6 +43,7 @@
       <url>https://repo.itextsupport.com/releases</url>
     </repository>
   </repositories>
+
   <dependencies>
     <dependency>
       <groupId>com.itextpdf</groupId>
@@ -72,6 +79,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
   <build>
     <resources>
       <resource>
@@ -90,25 +98,7 @@
     </resources>
     <plugins>
       <plugin>
-        <groupId>external.atlassian.jgitflow</groupId>
-        <artifactId>jgitflow-maven-plugin</artifactId>
-        <version>1.0-m5.1</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>${failsafe.version}</version>
-        <configuration>
-          <includes>
-            <include>**/*.java</include>
-          </includes>
-          <groups>${integrationtests}</groups>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>${javadoc.version}</version>
         <configuration>
           <sourceFileExcludes>
             <sourceFileExclude>com/itextpdf/html2pdf/attach/impl/layout/BodyHtmlStylesContainer.java</sourceFileExclude>
@@ -122,30 +112,6 @@
               <packages>com.itextpdf.html2pdf*</packages>
             </group>
           </groups>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${surefire.version}</version>
-        <configuration>
-          <groups>${unittests}</groups>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.pitest</groupId>
-        <artifactId>pitest-maven</artifactId>
-        <version>1.1.11</version>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.revapi</groupId>
-        <artifactId>revapi-maven-plugin</artifactId>
-        <version>0.8.2</version>
-        <configuration>
-          <skip>true</skip>
         </configuration>
       </plugin>
     </plugins>

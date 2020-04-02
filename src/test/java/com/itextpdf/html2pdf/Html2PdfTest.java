@@ -71,60 +71,52 @@ public class Html2PdfTest extends ExtendedITextTest {
 
     @Test
     public void helloWorldParagraphTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph.html"), new File(destinationFolder + "hello_paragraph.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "hello_paragraph.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_paragraph.pdf", sourceFolder + "cmp_hello_paragraph.pdf", destinationFolder, "diff01_"));
+        convertAndCompare(sourceFolder + "hello_paragraph.html", destinationFolder + "hello_paragraph.pdf",
+                sourceFolder + "cmp_hello_paragraph.pdf", destinationFolder, "diff01_");
     }
 
     @Test
     // TODO DEVSIX-1124
     public void helloParagraphTableTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph_table.html"), new File(destinationFolder + "hello_paragraph_table.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "hello_paragraph_table.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_paragraph_table.pdf", sourceFolder + "cmp_hello_paragraph_table.pdf", destinationFolder, "diff02_"));
+        convertAndCompare(sourceFolder + "hello_paragraph_table.html", destinationFolder + "hello_paragraph_table.pdf",
+                sourceFolder + "cmp_hello_paragraph_table.pdf", destinationFolder, "diff02_");
     }
 
     @Test
     public void helloMalformedDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_malformed.html"), new File(destinationFolder + "hello_malformed.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "hello_malformed.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_malformed.pdf", sourceFolder + "cmp_hello_malformed.pdf", destinationFolder, "diff03_"));
+        convertAndCompare(sourceFolder + "hello_malformed.html", destinationFolder + "hello_malformed.pdf",
+                sourceFolder + "cmp_hello_malformed.pdf", destinationFolder, "diff03_");
     }
 
     @Test
     public void helloParagraphJunkSpacesDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph_junk_spaces.html"), new File(destinationFolder + "hello_paragraph_junk_spaces.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "hello_paragraph_junk_spaces.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_paragraph_junk_spaces.pdf", sourceFolder + "cmp_hello_paragraph_junk_spaces.pdf", destinationFolder, "diff03_"));
+        convertAndCompare(sourceFolder + "hello_paragraph_junk_spaces.html", destinationFolder + "hello_paragraph_junk_spaces.pdf",
+                sourceFolder + "cmp_hello_paragraph_junk_spaces.pdf", destinationFolder, "diff03_");
     }
 
     @Test
     // TODO DEVSIX-1124
     public void helloParagraphNestedInTableDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph_nested_in_table.html"), new File(destinationFolder + "hello_paragraph_nested_in_table.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "hello_paragraph_nested_in_table.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_paragraph_nested_in_table.pdf", sourceFolder + "cmp_hello_paragraph_nested_in_table.pdf", destinationFolder, "diff03_"));
+        convertAndCompare(sourceFolder + "hello_paragraph_nested_in_table.html", destinationFolder + "hello_paragraph_nested_in_table.pdf",
+                sourceFolder + "cmp_hello_paragraph_nested_in_table.pdf", destinationFolder, "diff03_");
     }
 
     @Test
     public void helloParagraphWithSpansDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_paragraph_with_span.html"), new File(destinationFolder + "hello_paragraph_with_span.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "hello_paragraph_with_span.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_paragraph_with_span.pdf", sourceFolder + "cmp_hello_paragraph_with_span.pdf", destinationFolder, "diff03_"));
+        convertAndCompare(sourceFolder + "hello_paragraph_with_span.html", destinationFolder + "hello_paragraph_with_span.pdf",
+                sourceFolder + "cmp_hello_paragraph_with_span.pdf", destinationFolder, "diff03_");
     }
 
     @Test
     public void helloDivDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hello_div.html"), new File(destinationFolder + "hello_div.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "hello_div.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hello_div.pdf", sourceFolder + "cmp_hello_div.pdf", destinationFolder, "diff03_"));
+        convertAndCompare(sourceFolder + "hello_div.html", destinationFolder + "hello_div.pdf",
+                sourceFolder + "cmp_hello_div.pdf", destinationFolder, "diff03_");
     }
 
     @Test
     public void aBlockInPTagTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "aBlockInPTag.html"), new File(destinationFolder + "aBlockInPTag.pdf"));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + "aBlockInPTag.html").getPath() + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "aBlockInPTag.pdf", sourceFolder + "cmp_aBlockInPTag.pdf", destinationFolder, "diff03_"));
+        convertAndCompare(sourceFolder + "aBlockInPTag.html", destinationFolder + "aBlockInPTag.pdf",
+                sourceFolder + "cmp_aBlockInPTag.pdf", destinationFolder, "diff03_");
     }
 
     @Test
@@ -166,5 +158,11 @@ public class Html2PdfTest extends ExtendedITextTest {
     public  void htmlImgBase64SVGTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "imgTag_base64svg.html"), new File(destinationFolder + "imgTag_base64svg.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imgTag_base64svg.pdf", sourceFolder + "cmp_imgTag_base64svg.pdf", destinationFolder, "diff01_"));
+    }
+
+    private void convertAndCompare(String srcFilename, String outFilename, String cmpFilename, String outFolder, String diff) throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(srcFilename), new File(outFilename));
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(srcFilename) + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(outFilename, cmpFilename, outFolder, diff));
     }
 }

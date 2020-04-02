@@ -3,8 +3,7 @@
 5 0 obj
 <</Filter/FlateDecode/Length 136>>stream
 xúçŒ±
-¬0Ö·˝>≈°ì.—§∆∂´`w·æ@¿[åƒjõ>æ–© ùﬂœôËƒ¥Î-¨T—¥Œ¥¯Jñ\
-9KFPnè™è)…ñw©f¡s\¶ÇG1[æ”ôÈB”w›{Sª•æÍ@›^∞ª¯át^#Í/Á›Øc˝äWÓ
+¬0Ö·˝>≈°ì.—§ç1´`w·æ@¿[åƒjõ>æ†KAÇŒáÔÁLt`⁄Ù⁄Äjwp˚Vπ|¶K.xÑú%#(ÅE”«îdÀ≥4≥‡>æßnÇGQkæ“ëÈD”w›:Â?ıE5·∑Q∫”KÅà∑5R˝e¨˘uÏX
 endstream
 endobj
 4 0 obj
@@ -14,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109124001+03'00')/ModDate(D:20171109124001+03'00')/Producer(iTextÆ 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Relatively positioned elements with auto positioning with an inline element before, anonymous boxes, and inline boxes after)/assert(Relatively positioned element with auto positioning render as though they were positioned in flow.)/flags()>>
+<</CreationDate(D:20200311132934+03'00')/ModDate(D:20200311132934+03'00')/Producer(iTextÆ 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Relatively positioned elements with auto positioning with an inline element before, anonymous boxes, and inline boxes after)/assert(Relatively positioned element with auto positioning render as though they were positioned in flow.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -26,14 +25,14 @@ xref
 0 7
 0000000000 65535 f 
 0000000351 00000 n 
-0000000908 00000 n 
+0000000909 00000 n 
 0000000396 00000 n 
 0000000218 00000 n 
 0000000015 00000 n 
-0000000818 00000 n 
+0000000819 00000 n 
 trailer
-<</ID [<278f0503337255af14f43ce584670d84><278f0503337255af14f43ce584670d84>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<b107dbc515099298cba69c9ae726c812><b107dbc515099298cba69c9ae726c812>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-959
+960
 %%EOF

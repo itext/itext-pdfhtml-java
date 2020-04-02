@@ -55,21 +55,21 @@ import com.itextpdf.layout.font.FontFamilySplitter;
 import com.itextpdf.layout.property.BaseDirection;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.Leading;
+import com.itextpdf.layout.property.LineHeight;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.property.Underline;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utilities class to apply font styles.
@@ -78,6 +78,8 @@ public final class FontStyleApplierUtil {
 
     /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(FontStyleApplierUtil.class);
+
+    private static final float DEFAULT_LINE_HEIGHT = 1.2f;
 
     /**
      * Creates a {@link FontStyleApplierUtil} instance.
@@ -216,6 +218,35 @@ public final class FontStyleApplierUtil {
         }
 
         String lineHeight = cssProps.get(CssConstants.LINE_HEIGHT);
+        setLineHeight(element, lineHeight, em, rem);
+        setLineHeightByLeading(element, lineHeight, em, rem);
+    }
+
+    private static void setLineHeight(IPropertyContainer elementToSet, String lineHeight, float em, float rem) {
+        if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight) && !CssConstants.AUTO.equals(lineHeight)) {
+            if (CssUtils.isNumericValue(lineHeight)) {
+                Float number = CssUtils.parseFloat(lineHeight);
+                if (number != null) {
+                    elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createMultipliedValue((float)number));
+                } else {
+                    elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createNormalValue());
+                }
+            } else {
+                UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em, rem);
+                if (lineHeightValue != null && lineHeightValue.isPointValue()) {
+                    elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createFixedValue(lineHeightValue.getValue()));
+                } else if (lineHeightValue != null) {
+                    elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createMultipliedValue(lineHeightValue.getValue() / 100f));
+                } else {
+                    elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createNormalValue());
+                }
+            }
+        } else {
+            elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createNormalValue());
+        }
+    }
+
+    private static void setLineHeightByLeading(IPropertyContainer element, String lineHeight, float em, float rem) {
         // specification does not give auto as a possible lineHeight value
         // nevertheless some browsers compute it as normal so we apply the same behaviour.
         // What's more, it's basically the same thing as if lineHeight is not set in the first place
@@ -234,73 +265,8 @@ public final class FontStyleApplierUtil {
                 }
             }
         } else {
-            element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, 1.2f));
+            element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, DEFAULT_LINE_HEIGHT));
         }
-    }
-
-    /**
-     * Parses the absolute font size.
-     *
-     * @param fontSizeValue the font size value as a {@link String}
-     * @return the font size value as a {@code float}
-     * @deprecated Use {@link CssUtils#parseAbsoluteFontSize(String)} instead.
-     */
-    @Deprecated
-    public static float parseAbsoluteFontSize(String fontSizeValue) {
-        if (CssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS.contains(fontSizeValue)) {
-            switch (fontSizeValue) {
-                case CssConstants.XX_SMALL:
-                    fontSizeValue = "9px";
-                    break;
-                case CssConstants.X_SMALL:
-                    fontSizeValue = "10px";
-                    break;
-                case CssConstants.SMALL:
-                    fontSizeValue = "13px";
-                    break;
-                case CssConstants.MEDIUM:
-                    fontSizeValue = "16px";
-                    break;
-                case CssConstants.LARGE:
-                    fontSizeValue = "18px";
-                    break;
-                case CssConstants.X_LARGE:
-                    fontSizeValue = "24px";
-                    break;
-                case CssConstants.XX_LARGE:
-                    fontSizeValue = "32px";
-                    break;
-                default:
-                    fontSizeValue = "16px";
-                    break;
-            }
-        }
-        try {
-            /* Styled XML Parser will throw an exception when it can't parse the given value
-               but in html2pdf, we want to fall back to the default value of 0
-             */
-            return CssUtils.parseAbsoluteLength(fontSizeValue);
-        } catch (StyledXMLParserException sxpe) {
-            return 0f;
-        }
-    }
-
-    /**
-     * Parses the relative font size.
-     *
-     * @param relativeFontSizeValue the relative font size value as a {@link String}
-     * @param baseValue the base value
-     * @return the relative font size value as a {@code float}
-     * @deprecated Use {@link CssUtils#parseRelativeFontSize(String, float)} instead.
-     */
-    @Deprecated
-    public static float parseRelativeFontSize(final String relativeFontSizeValue, final float baseValue) {
-        if (CssConstants.SMALLER.equals(relativeFontSizeValue)) {
-            return (float)(baseValue / 1.2);
-        } else if (CssConstants.LARGER.equals(relativeFontSizeValue)) {
-            return (float)(baseValue * 1.2);
-        }
-        return CssUtils.parseRelativeValue(relativeFontSizeValue, baseValue);
     }
 
 }

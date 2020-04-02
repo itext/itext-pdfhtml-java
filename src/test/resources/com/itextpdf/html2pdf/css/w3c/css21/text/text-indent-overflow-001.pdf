@@ -1,9 +1,10 @@
 %PDF-1.7
 %‚„œ”
 5 0 obj
-<</Filter/FlateDecode/Length 136>>stream
+<</Filter/FlateDecode/Length 134>>stream
 xúeçΩ¬0É˜{
-èe	MB˙≥"¡^)¨†^KJiÆ‚˘IÏ—ˆÁïéûˆgm‡'≤⁄Œ®ÆÖ©Ú,ﬁ7Ñ	€É#‚Çƒ#>A¬˝≈XbârqfµÛO:yh•>≥\≠zÌîsyEä9˚;uNYSN5ÍÏ4Su-˙Ò˙l]+ë
+èe	Ñ§+ÏïNÇ‘k	B)ÕU<?)ˆh˚ÛL¶Ì…¬Ó¡π
+u„LÌ¡=,∫‡uUE∞‹%	Ç"NH“„4‹ûÇ)ÆQ.éb6¸†#SG3µôUz„·+ÎLìGt¶ò£øœ≤6Ì˜”bóùF*.´~∏é>A+c
 endstream
 endobj
 4 0 obj
@@ -13,7 +14,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20181102113357-03'00')/ModDate(D:20181102113357-03'00')/Producer(iTextÆ 7.1.5-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-indent with negative value with overflow hidden)/assert(The 'text-indent' property with negative value follows the overflow hidden assignment.)/flags()>>
+<</CreationDate(D:20200311133422+03'00')/ModDate(D:20200311133422+03'00')/Producer(iTextÆ 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-indent with negative value with overflow hidden)/assert(The 'text-indent' property with negative value follows the overflow hidden assignment.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,15 +25,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000351 00000 n 
-0000000825 00000 n 
-0000000396 00000 n 
-0000000218 00000 n 
+0000000349 00000 n 
+0000000824 00000 n 
+0000000394 00000 n 
+0000000216 00000 n 
 0000000015 00000 n 
-0000000735 00000 n 
+0000000734 00000 n 
 trailer
-<</ID [<630e75b244b118103f986bd436a75fc5><630e75b244b118103f986bd436a75fc5>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.5-SNAPSHOT
+<</ID [<921a0dcf1d98f13a9717974c855cc06f><921a0dcf1d98f13a9717974c855cc06f>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-876
+875
 %%EOF

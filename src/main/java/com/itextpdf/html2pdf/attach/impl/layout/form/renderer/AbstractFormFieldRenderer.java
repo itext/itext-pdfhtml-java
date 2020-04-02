@@ -46,11 +46,8 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
-import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfString;
-import com.itextpdf.kernel.pdf.tagging.PdfStructElem;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.kernel.pdf.tagutils.TagTreePointer;
 import com.itextpdf.layout.IPropertyContainer;
@@ -61,10 +58,8 @@ import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
 import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.OverflowPropertyValue;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.BlockRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
-import com.itextpdf.layout.renderer.ILeafElementRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.tagging.IAccessibleElement;
 
@@ -74,7 +69,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Abstract {@link BlockRenderer} for form fields.
  */
-public abstract class AbstractFormFieldRenderer extends BlockRenderer implements ILeafElementRenderer {
+public abstract class AbstractFormFieldRenderer extends BlockRenderer {
 
     /**
      * The flat renderer.
@@ -130,29 +125,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         layoutContext.getArea().setBBox(bBox);
         LayoutResult result = super.layout(layoutContext);
 
-        if (!Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT)) && (result.getStatus() != LayoutResult.FULL)) {
-            //@TODO investigate this tricky code a little more.
-            FloatPropertyValue floatPropertyValue = this.<FloatPropertyValue>getProperty(Property.FLOAT);
-            if (floatPropertyValue == null || floatPropertyValue == FloatPropertyValue.NONE) {
-                setProperty(Property.FORCED_PLACEMENT, true);
-            } else {
-                flatRenderer = childRenderers.get(0);
-                processLangAttribute();
-                childRenderers.clear();
-                childRenderers.add(flatRenderer);
-                adjustFieldLayout(layoutContext);
-                if (isLayoutBasedOnFlatRenderer()) {
-                    Rectangle fBox = flatRenderer.getOccupiedArea().getBBox();
-                    occupiedArea.getBBox().setX(fBox.getX()).setY(fBox.getY()).setWidth(fBox.getWidth()).setHeight(fBox.getHeight());
-                    applyPaddings(occupiedArea.getBBox(), true);
-                    applyBorderBox(occupiedArea.getBBox(), true);
-                    applyMargins(occupiedArea.getBBox(), true);
-                }
-            }
-
-            return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth());
-        }
-        if (!childRenderers.isEmpty()) {
+         if (!childRenderers.isEmpty()) {
             flatRenderer = childRenderers.get(0);
             processLangAttribute();
             childRenderers.clear();
@@ -206,18 +179,6 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
         drawContext.getCanvas().restoreState();
     }
 
-    @Override
-    public float getAscent() {
-        Float baseline = getLastYLineRecursively();
-        return baseline != null ? occupiedArea.getBBox().getTop() - (float) baseline : occupiedArea.getBBox().getHeight();
-    }
-
-    @Override
-    public float getDescent() {
-        Float baseline = getLastYLineRecursively();
-        return baseline != null ? occupiedArea.getBBox().getBottom() - (float) baseline : 0;
-    }
-
     /* (non-Javadoc)
      * @see com.itextpdf.layout.renderer.BlockRenderer#getMinMaxWidth(float)
      */
@@ -233,16 +194,9 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
 
     /**
      * Adjusts the field layout.
-     *
-     * @deprecated Will be removed in 3.0.0, override {@link #adjustFieldLayout(LayoutContext)} instead.
+     * @param layoutContext layout context
      */
-    @Deprecated
-    protected abstract void adjustFieldLayout();
-
-    //NOTE: should be abstract in 3.0.0
-    protected void adjustFieldLayout(LayoutContext layoutContext) {
-        adjustFieldLayout();
-    }
+    protected abstract void adjustFieldLayout(LayoutContext layoutContext);
 
     /**
      * Creates the flat renderer instance.
@@ -282,33 +236,12 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer implements
     }
 
     /**
-     * Gets the content width.
-     *
-     * @return the content width
-     * @deprecated will be removed in 3.0.0. Use {@link #retrieveWidth(float)}} instead.
-     */
-    @Deprecated
-    protected Float getContentWidth() {
-        return super.retrieveWidth(0);
-    }
-
-    /**
      * Gets the accessibility language.
      *
      * @return the accessibility language
      */
     protected String getLang() {
         return this.<String>getProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
-    }
-
-    //NOTE: should be removed in 3.0.0
-    @Override
-    protected Float retrieveWidth(float parentBoxWidth) {
-        UnitValue width = super.<UnitValue>getProperty(Property.WIDTH);
-        if (width != null && width.isPointValue()) {
-            return getContentWidth();
-        }
-        return super.retrieveWidth(parentBoxWidth);
     }
 
     protected boolean isLayoutBasedOnFlatRenderer() {

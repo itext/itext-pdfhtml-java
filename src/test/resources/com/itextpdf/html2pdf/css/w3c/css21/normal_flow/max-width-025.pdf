@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 111>>stream
-xœÌ1Â0Fáİ§øGX¥)+ìH¾€[t vÄù!zëÓ·Ò™iwíĞEp¦Ã€4Æ0&ğ6¬^ñwu”ŒúTS‡à«VË,¦Eæ7&±°å]˜n´Ò-{4n8õ¡?6>E˜Rş?Xß
+<</Filter/FlateDecode/Length 110>>stream
+xœÌ1Â0Fáİ§øGXMQ+ìH¾€[t vÄù!zëÓ·Ò™iw0Dp¡1!Çà;mX½á#îê¨í©¦¨ÁW­ÕYL‹ÌoLbaË/º0İh¥=zöè\:¥»#L©ü‡8§
 endstream
 endobj
 4 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123634+03'00')/ModDate(D:20171109123634+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-width using picas with a minimum plus one value, 1pc)/assert(The 'max-width' property sets a minimum plus one length value in picas.)/flags()>>
+<</CreationDate(D:20200311130504+03'00')/ModDate(D:20200311130504+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-width using picas with a minimum plus one value, 1pc)/assert(The 'max-width' property sets a minimum plus one length value in picas.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000326 00000 n 
+0000000325 00000 n 
 0000000789 00000 n 
-0000000371 00000 n 
-0000000193 00000 n 
+0000000370 00000 n 
+0000000192 00000 n 
 0000000015 00000 n 
 0000000699 00000 n 
 trailer
-<</ID [<97aff61b4e941798a70b08a0e0c30752><97aff61b4e941798a70b08a0e0c30752>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<bcae315169348e308621c2f5b6db6431><bcae315169348e308621c2f5b6db6431>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
 840
 %%EOF

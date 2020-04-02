@@ -1,8 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 161>>stream
-xœmÎAÂ Ğ=§˜¥n(nMtoÂ0ı-­ZÏo[i“¿ûo&Ó²½g›£„Tğ+¬SÜYø’­<åÏ3e\*t‘p¾õ„Ğ”x¤ĞÔ„Üö!ï^4µ¿²ƒg'Ö~šÕ·Y¹‚+;oÏáNˆt©c·ıæh½ñHõ¸Úì4×[X5^"VMBBp£­0ƒœî/| —?¿
+<</Filter/FlateDecode/Length 158>>stream
+xœmA
+Â0D÷ÿ³ÔMLÒèVĞ½DúÛT´Ú¦õüÆ*RŠ0»yó˜ö6G¥á+*,Ü¶ÎÀ—´òœ<BJœĞT"ã|¡-qïC[3R7†>×1<yÖşBO'ê>fı5ë¬ÕnnOáÆˆÜÔqX~wŒYŒÄ•Pèë÷k»³BÃMé™ª	PÂ'm3¦äö÷›œ?L
 endstream
 endobj
 4 0 obj
@@ -12,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171116193700+03'00')/ModDate(D:20171116193700+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Inline-block non-replaced elements' margin box is used for the height of the line box)/assert(Inline-block non-replaced elements use the margin box for sizing the height of the line box.)/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20200311130432+03'00')/ModDate(D:20200311130432+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Inline-block non-replaced elements' margin box is used for the height of the line box)/assert(Inline-block non-replaced elements use the margin box for sizing the height of the line box.)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -26,16 +27,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000385 00000 n 
-0000000987 00000 n 
-0000000430 00000 n 
-0000000243 00000 n 
+0000000382 00000 n 
+0000000985 00000 n 
+0000000427 00000 n 
+0000000240 00000 n 
 0000000015 00000 n 
-0000000808 00000 n 
-0000000898 00000 n 
+0000000895 00000 n 
+0000000806 00000 n 
 trailer
-<</ID [<3d32aeae2874aed84bd860a6f5f27779><3d32aeae2874aed84bd860a6f5f27779>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<f01f1c3d8f7510617c007c13422f38b5><f01f1c3d8f7510617c007c13422f38b5>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
-1038
+1036
 %%EOF

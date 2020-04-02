@@ -46,7 +46,7 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputButton;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.CheckBox;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Radio;
@@ -122,7 +122,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
                 formElement.setProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG, true);
             }
         } else if (AttributeConstants.SUBMIT.equals(inputType) || AttributeConstants.BUTTON.equals(inputType)) {
-            formElement = new Button(name);
+            formElement = new InputButton(name);
             formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
         } else if (AttributeConstants.CHECKBOX.equals(inputType)) {
             formElement = new CheckBox(name);

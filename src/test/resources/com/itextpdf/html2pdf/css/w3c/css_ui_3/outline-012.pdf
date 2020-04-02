@@ -1,9 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 197>>stream
-xœ¥Á‚0DïûsÔKµUZ¸šèİ¤?@Â1ˆÒêÿ["pğ iİÌäÍl[ÚYZ$¤‚u´Ñ0©©-ha9ÜqËCà€Êá~bÏ¨r¸ª®¹@é™„ö‘G!o
-,í™ö–Ô¾¹ªç*­„–cvs…çbîz¨,™ùÅÈ*±Ç—¯º:“b›Àt×3¹Îu‘¬e¦ß>³QW©È\&SMRÆ­_ºÛxOm?qûr³?ÁŸ¥g!ÿsÇÿğû½z
+<</Filter/FlateDecode/Length 194>>stream
+xœ¥A‚0E÷sŠ¿ÔM¥­´²5Ñ½I/@Â DiñşP&n4í¢Íyó§¥­£Õ^B*¸’´İha×p-‡·<¨Jt'öŒ* GYÕ58zæ¡½ç1È›Kw¦£µ£W=½Ê(aäÔİ\á¹øä_=T–~ğb‚J$ñøc_×dZ(Ø´¿©€‹4‘™1«EÌu",.ÓOMRÆ!fõ°ûó9c~P¥æúœï=çú?•“Å¿màuG
 endstream
 endobj
 4 0 obj
@@ -13,7 +12,7 @@ endobj
 <</Lang(en)/Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20191226134057+03'00')/ModDate(D:20191226134057+03'00')/Producer(iText® 7.1.10-SNAPSHOT ©2000-2019 iText Group NV \(AGPL-version\))/Title(CSS-UI test: outline-offset width negative values)/assert(Negative values on outline-offset must cause the outline to shrink into the border box.)/flags()>>
+<</CreationDate(D:20200311162820+03'00')/ModDate(D:20200311162820+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS-UI test: outline-offset width negative values)/assert(Negative values on outline-offset must cause the outline to shrink into the border box.)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -27,16 +26,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000421 00000 n 
-0000000982 00000 n 
-0000000475 00000 n 
-0000000279 00000 n 
+0000000418 00000 n 
+0000000979 00000 n 
+0000000472 00000 n 
+0000000276 00000 n 
 0000000015 00000 n 
-0000000892 00000 n 
-0000000803 00000 n 
+0000000889 00000 n 
+0000000800 00000 n 
 trailer
-<</ID [<db1996cd6a0e259f2dcd5840cdac176f><db1996cd6a0e259f2dcd5840cdac176f>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.10-SNAPSHOT
+<</ID [<aa6cb49e77df9f9050efebe3f66ba0c5><aa6cb49e77df9f9050efebe3f66ba0c5>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
-1033
+1030
 %%EOF

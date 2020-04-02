@@ -1,8 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 258>>stream
-xœ•“MNÃ0F÷>Å,éfðŒÿâ.‘ÊÉˆÔ”Üº%A…ƒô¾´@Pj4,²{~úœ'ïÕ]R·÷ÄVÊxc -ÕMZ7°*9—C»}„þP ·Û¦ƒn]^ór)Ï0KOj‘ÔƒÚ™øÛÄdÐØK[½Û½”·vS÷M~ÿ}lÀ'ÞF@ZÑÕ›f~íÌy´shø“?âñhÚKôÏøtzN8=a%rz;'œÁ#‹œ!ŽÁ	gÔèEÎhPú?I;‘’´ôæDQ˜ˆ˜ÅÈa$2^\‰l%ÌDŽÄÈ³0y'/‚ÌYi©1’´T´âRç§l"?€ðïGú Í8
+<</Filter/FlateDecode/Length 257>>stream
+xœ•“MNÃ0F÷>Å,a3xü3¶»D‚=’/©)¸uK‚
+é}¡*­P£a‘ÝóÓç<y«î³º{$ y¡,Cˆƒƒ<W7yÙÂ¢–RwÝú†]…Ò­Ûúe}/s(µ¾Âm~QY=©íÑd~L†,Zwik6›·úÑ­š¡-Ÿ¿˜hG#`ø^Ñ7«vvíÌa´˜Žü÷×@Ð]¢ÆŸ@¯Çà„“	£ÈÉnN8£9CƒÎ¤‘EÎdQú?I{‘’´ôæDI˜ˆŒ7"k…‘È²¸¹(ÌDžÄˆ0±——
+AæŒZjL$-•œ¸Ôá);‡táßYúõê	
 endstream
 endobj
 4 0 obj
@@ -12,13 +14,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171116193656+03'00')/ModDate(D:20171116193656+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: content: counters\(c, ".", disc\))>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20200311112938+03'00')/ModDate(D:20200311112938+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: content: counters\(c, ".", disc\))>>
 endobj
 7 0 obj
 <</BaseFont/Times-Italic/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -26,16 +28,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000482 00000 n 
+0000000481 00000 n 
 0000000925 00000 n 
-0000000527 00000 n 
-0000000340 00000 n 
+0000000526 00000 n 
+0000000339 00000 n 
 0000000015 00000 n 
+0000000835 00000 n 
 0000000744 00000 n 
-0000000834 00000 n 
 trailer
-<</ID [<70066a820689968e5cb6c7a880849bc9><70066a820689968e5cb6c7a880849bc9>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<926985f8ccf6f03e2f404cb8ac587b83><926985f8ccf6f03e2f404cb8ac587b83>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
 976
 %%EOF

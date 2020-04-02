@@ -99,11 +99,6 @@ public class CheckBoxRenderer extends AbstractFormFieldRenderer {
         return new FlatParagraphRenderer(paragraph);
     }
 
-    @Override
-    protected void adjustFieldLayout() {
-        throw new RuntimeException("adjustFieldLayout() is deprecated and shouldn't be used. Override adjustFieldLayout(LayoutContext) instead");
-    }
-
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
      */

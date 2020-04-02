@@ -1,8 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 114>>stream
-xœŒ±ƒ0wÅÛ%…¬Hí^É?‡ºBâ¨ß_Ğ-7œn§‘éö¬Q{p¢{‡Ğ{×ğD+Ø¢™4¡|$ÔÕ?ÉEßqÁ¢«¸+éÁô¢*œäùÜuCãš•-‚GJGóco
+<</Filter/FlateDecode/Length 113>>stream
+xœŒÁ‚0ïûï¨—
+[¹’èİd ‘­®!ºß/d.s˜ÌF#ÓåÑ¢õàL]@¼u.öà‰N,V±&31hFıH¨!íª~Rª¾ÒŒYqgşÒéI58(ïc†à<¯ˆE(ïÉ|Ì7
 endstream
 endobj
 4 0 obj
@@ -12,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123806+03'00')/ModDate(D:20171109123806+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Min-width set to inherit)/assert(The 'min-width' property properly inherits the min-width value of the parent.)/flags()>>
+<</CreationDate(D:20200311120032+03'00')/ModDate(D:20200311120032+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Min-width set to inherit)/assert(The 'min-width' property properly inherits the min-width value of the parent.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,15 +24,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000329 00000 n 
+0000000328 00000 n 
 0000000766 00000 n 
-0000000374 00000 n 
-0000000196 00000 n 
+0000000373 00000 n 
+0000000195 00000 n 
 0000000015 00000 n 
 0000000676 00000 n 
 trailer
-<</ID [<958a3c3e9b8a9bd2d0318bafb2b5d115><958a3c3e9b8a9bd2d0318bafb2b5d115>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<84b3c07575aca77390d59e7505c3d6ac><84b3c07575aca77390d59e7505c3d6ac>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
 817
 %%EOF

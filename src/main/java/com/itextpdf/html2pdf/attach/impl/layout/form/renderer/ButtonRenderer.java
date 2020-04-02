@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2020 iText Group NV
-    Authors: Bruno Lowagie, Paulo Soares, et al.
+    Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -45,126 +45,116 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.forms.fields.PdfButtonFormField;
 import com.itextpdf.forms.fields.PdfFormField;
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
-import com.itextpdf.layout.layout.LayoutContext;
-import com.itextpdf.layout.property.Background;
+import com.itextpdf.kernel.pdf.annot.PdfAnnotation;
+import com.itextpdf.kernel.pdf.tagging.StandardRoles;
+import com.itextpdf.kernel.pdf.tagutils.TagTreePointer;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.renderer.BlockRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
-import com.itextpdf.layout.renderer.LineRenderer;
-import com.itextpdf.layout.renderer.ParagraphRenderer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 /**
- * The {@link AbstractOneLineTextFieldRenderer} implementation for buttons with no kids.
- * @deprecated Will be renamed to {@code InputButtonRenderer} in next major release.
+ * The {@link AbstractOneLineTextFieldRenderer} implementation for buttons with kids.
  */
-@Deprecated
-public class ButtonRenderer extends AbstractOneLineTextFieldRenderer {
+public class ButtonRenderer extends BlockRenderer {
 
-    /** Indicates of the content was split. */
-    private boolean isSplit = false;
+    private static final float DEFAULT_FONT_SIZE = 12f;
 
-    /**
-     * Creates a new {@link ButtonRenderer} instance.
-     *
-     * @param modelElement the model element
-     */
     public ButtonRenderer(Button modelElement) {
         super(modelElement);
     }
 
-    /* (non-Javadoc)
-     * @see com.itextpdf.layout.renderer.IRenderer#getNextRenderer()
-     */
+    @Override
+    public void draw(DrawContext drawContext) {
+        super.draw(drawContext);
+        if (!isFlatten()) {
+            String value = getDefaultValue();
+            String name = getModelId();
+            UnitValue fontSize = (UnitValue) this.getPropertyAsUnitValue(Property.FONT_SIZE);
+            if (!fontSize.isPointValue()) {
+                fontSize = UnitValue.createPointValue(DEFAULT_FONT_SIZE);
+            }
+            PdfDocument doc = drawContext.getDocument();
+            Rectangle area = getOccupiedArea().getBBox().clone();
+            applyMargins(area, false);
+            PdfPage page = doc.getPage(occupiedArea.getPageNumber());
+            PdfButtonFormField button = PdfFormField.createPushButton(doc, area, name, value, doc.getDefaultFont(), fontSize.getValue());
+            button.getWidgets().get(0).setHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
+            button.setBorderWidth(0);
+            button.setBackgroundColor(null);
+            TransparentColor color = getPropertyAsTransparentColor(Property.FONT_COLOR);
+            if (color != null) {
+                button.setColor(color.getColor());
+            }
+            PdfAcroForm forms = PdfAcroForm.getAcroForm(doc, true);
+            //Add fields only if it isn't already added. This can happen on split.
+            if (forms.getField(name) == null) {
+                forms.addField(button, page);
+            }
+
+            if (doc.isTagged()) {
+                TagTreePointer formParentPointer = doc.getTagStructureContext().getAutoTaggingPointer();
+                List<String> kidsRoles = formParentPointer.getKidsRoles();
+                int lastFormIndex = kidsRoles.lastIndexOf(StandardRoles.FORM);
+                TagTreePointer formPointer = formParentPointer.moveToKid(lastFormIndex);
+
+                String lang = this.<String>getProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
+                if (lang != null) {
+                    formPointer.getProperties().setLanguage(lang);
+                }
+                formParentPointer.moveToParent();
+            }
+        }
+    }
+
+    @Override
+    protected Float getLastYLineRecursively() {
+        return super.getFirstYLineRecursively();
+    }
+
     @Override
     public IRenderer getNextRenderer() {
         return new ButtonRenderer((Button) modelElement);
     }
 
-    @Override
-    protected void adjustFieldLayout() {
-        throw new RuntimeException("adjustFieldLayout() is deprecated and shouldn't be used. Override adjustFieldLayout(LayoutContext) instead");
+    //NOTE: Duplicates methods from AbstractFormFieldRenderer should be changed in next major version
+
+    /**
+     * Gets the model id.
+     *
+     * @return the model id
+     */
+    protected String getModelId() {
+        return ((IFormField) getModelElement()).getId();
     }
 
-    /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
+    /**
+     * Checks if form fields need to be flattened.
+     *
+     * @return true, if fields need to be flattened
      */
-    @Override
-    protected void adjustFieldLayout(LayoutContext layoutContext) {
-        List<LineRenderer> flatLines = ((ParagraphRenderer) flatRenderer).getLines();
-        Rectangle flatBBox = flatRenderer.getOccupiedArea().getBBox();
-        updatePdfFont((ParagraphRenderer) flatRenderer);
-        if (!flatLines.isEmpty() && font != null) {
-            if (flatLines.size() != 1) {
-                isSplit = true;
-            }
-            cropContentLines(flatLines, flatBBox);
-            Float width = retrieveWidth(layoutContext.getArea().getBBox().getWidth());
-            if (width == null) {
-                LineRenderer drawnLine = flatLines.get(0);
-                drawnLine.move(flatBBox.getX() - drawnLine.getOccupiedArea().getBBox().getX(), 0);
-                flatBBox.setWidth(drawnLine.getOccupiedArea().getBBox().getWidth());
-            }
-        } else {
-            LoggerFactory.getLogger(getClass()).error(MessageFormatUtil.format(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "button"));
-            setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
-            baseline = flatBBox.getTop();
-            flatBBox.setY(flatBBox.getTop()).setHeight(0);
-        }
+    public boolean isFlatten() {
+        Boolean flatten = getPropertyAsBoolean(Html2PdfProperty.FORM_FIELD_FLATTEN);
+        return flatten != null ? (boolean) flatten : (boolean) modelElement.<Boolean>getDefaultProperty(Html2PdfProperty.FORM_FIELD_FLATTEN);
     }
 
-    /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#createFlatRenderer()
+    /**
+     * Gets the default value of the form field.
+     *
+     * @return the default value of the form field
      */
-    @Override
-    protected IRenderer createFlatRenderer() {
-        return createParagraphRenderer(getDefaultValue());
-    }
-
-    /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#applyAcroField(com.itextpdf.layout.renderer.DrawContext)
-     */
-    @Override
-    protected void applyAcroField(DrawContext drawContext) {
-        String value = getDefaultValue();
-        String name = getModelId();
-        UnitValue fontSize = (UnitValue) this.getPropertyAsUnitValue(Property.FONT_SIZE);
-        if (!fontSize.isPointValue()) {
-            Logger logger = LoggerFactory.getLogger(ButtonRenderer.class);
-            logger.error(MessageFormatUtil.format(com.itextpdf.io.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property.FONT_SIZE));
-        }
-        PdfDocument doc = drawContext.getDocument();
-        Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
-        applyPaddings(area, true);
-        PdfPage page = doc.getPage(occupiedArea.getPageNumber());
-        PdfButtonFormField button = PdfFormField.createPushButton(doc, area, name, value, font, fontSize.getValue());
-        Background background = this.<Background>getProperty(Property.BACKGROUND);
-        if (background != null && background.getColor() != null) {
-            button.setBackgroundColor(background.getColor());
-        }
-        applyDefaultFieldProperties(button);
-        PdfAcroForm.getAcroForm(doc, true).addField(button, page);
-
-        writeAcroFormFieldLangAttribute(doc);
-    }
-
-    /* (non-Javadoc)
-     * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#isRendererFit(float, float)
-     */
-    @Override
-    protected boolean isRendererFit(float availableWidth, float availableHeight) {
-        return !isSplit && super.isRendererFit(availableWidth, availableHeight);
+    public String getDefaultValue() {
+        String defaultValue = this.<String>getProperty(Html2PdfProperty.FORM_FIELD_VALUE);
+        return defaultValue != null ? defaultValue : modelElement.<String>getDefaultProperty(Html2PdfProperty.FORM_FIELD_VALUE);
     }
 }
-

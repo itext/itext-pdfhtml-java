@@ -1,9 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 176>>stream
-xœmË
-Â0E÷ó³ÔMšæÑT—‚ºòÖ¦U‰†&ı|j™†sçtc*ß/0¶d•¢è4°ƒV²MDê&1ªd¤T¨k˜é£ÁÆYëî§k·Şcå&`8ºŞÖX¼E$ì/Î:¿œë3¬õë/%%¦ùº•DH,hRölrlCâ‘şXAÉbÄ~hö¦ãÆ'rLı9†¤ññ$Ó)år>á{M¬K)
+<</Filter/FlateDecode/Length 175>>stream
+xœmË‚0E÷ów©…Rui¢®Mú"4Õ†V¢Ÿoë#š™I&“sçt”"”m(+à›³B$°ŠjÚRGKIñÚ#²Œ˜e‘È!+šÈV¡6Z›ëáÜø­·(ÍM9¸ÖôºB©pñˆÛöF»˜Ê#­äãoÍæí¼ˆŠ$˜y¼q)p$4g‘øF_0{Â~ËşÄØ|l‚ù÷'N!–ò_Û#JR
 endstream
 endobj
 4 0 obj
@@ -13,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20180406141236+03'00')/ModDate(D:20180406141236+03'00')/Producer(iText® 7.1.2-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: opacity)/assert(That alpha within the offscreen buffer is composited correctly.)/flags()>>
+<</CreationDate(D:20200311140152+03'00')/ModDate(D:20200311140152+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: opacity)/assert(That alpha within the offscreen buffer is composited correctly.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -39,10 +38,10 @@ endobj
 xref
 0 12
 0000000000 65535 f 
-0000000457 00000 n 
+0000000456 00000 n 
 0000000863 00000 n 
-0000000502 00000 n 
-0000000258 00000 n 
+0000000501 00000 n 
+0000000257 00000 n 
 0000000015 00000 n 
 0000000773 00000 n 
 0000000914 00000 n 
@@ -51,8 +50,8 @@ xref
 0000001016 00000 n 
 0000001051 00000 n 
 trailer
-<</ID [<fefdd671fd89bfd9d3b787e1749e22b1><fefdd671fd89bfd9d3b787e1749e22b1>]/Info 3 0 R/Root 1 0 R/Size 12>>
-%iText-7.1.2-SNAPSHOT
+<</ID [<b429d9c95c8c545c1aea2153522a1d90><b429d9c95c8c545c1aea2153522a1d90>]/Info 3 0 R/Root 1 0 R/Size 12>>
+%iText-7.1.11-SNAPSHOT
 startxref
 1079
 %%EOF

@@ -1,9 +1,11 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 150>>stream
-xœ•=ƒ@DûıƒUÒTŒÖ…€MÂi]ñÂáÇİòó…¤I•n˜y0o¡Ó¡N¤à²#Š2ËÜÑÕÌâ½z˜aPX3*¦Qm¬UÖgˆ c±vV¨ÄIÔùOŞÄéF™yV×Š×xÏwª˜.´üšäyœ¥›I}nšê
-®nŒ?ó÷àË¤C
+<</Filter/FlateDecode/Length 149>>stream
+xœ•±
+Â@DûıŠ!•6‘5Ú
+	i”-l—dCN3¹;ÁÏ×(ÚXÙ3æ´gZT²%¸£|ƒb›§Å
+ÜÒŒ5D‚˜±WXã×Ie¬UÖ{L ®…X;Ôôâ¥‰êÃ§‰OâõE‡Û0¨o$h:ç•LGMÖEº{›T‡º.OàòÌø3ÌC
 endstream
 endobj
 4 0 obj
@@ -13,7 +15,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20181102113358-03'00')/ModDate(D:20181102113358-03'00')/Producer(iText® 7.1.5-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-transform set to 'uppercase')/assert(The 'text-transform' property set to 'uppercase' on an element makes every letter uppercase.)/flags()>>
+<</CreationDate(D:20200311133432+03'00')/ModDate(D:20200311133432+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-transform set to 'uppercase')/assert(The 'text-transform' property set to 'uppercase' on an element makes every letter uppercase.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,15 +26,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000365 00000 n 
+0000000364 00000 n 
 0000000826 00000 n 
-0000000410 00000 n 
-0000000232 00000 n 
+0000000409 00000 n 
+0000000231 00000 n 
 0000000015 00000 n 
 0000000736 00000 n 
 trailer
-<</ID [<da552fe3659bc22696cbb42da7bfe344><da552fe3659bc22696cbb42da7bfe344>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.5-SNAPSHOT
+<</ID [<912bf54e72f177a21871f21df7cdf2fb><912bf54e72f177a21871f21df7cdf2fb>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
 877
 %%EOF

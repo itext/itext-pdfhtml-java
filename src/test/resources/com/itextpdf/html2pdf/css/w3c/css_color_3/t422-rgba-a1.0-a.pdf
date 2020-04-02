@@ -2,7 +2,8 @@
 %âãÏÓ
 5 0 obj
 <</Filter/FlateDecode/Length 145>>stream
-xœ­=‚0„÷÷WÜKÅ6µÌ&º›td)ğ"hµâÇÏ·¸¸˜¸˜»íË3ÒK¦#©RµT0¦ÀÄÔÑÆŸûÖÒjŸ	Û-Œ)¥(lK–¤gfû!bæçŒØ‡›oQ3æİ…Ñ&TYí]s®r¸øŞüpåÄùğ¹=ÑÎ~·i-”ü“ÍÕáÎÛh•Lµ
+xœ­=‚0„÷÷WÜKE««‰î&Y
+¼Xm õãçÛº¸˜¸˜»íË3Ñ1ó‰Š5BË¼€”f¦4ıÜwŠ‡€äP]dä¦rÕR†˜ğLT?8x~z¸ŞŞL‹šá{†ÓFcQ%µÑÍ¹J¡İ{3Ã•gìC¤j¤½ún+¥ØşË¦k{çíiºL¼
 endstream
 endobj
 4 0 obj
@@ -12,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20180406142845+03'00')/ModDate(D:20180406142845+03'00')/Producer(iText® 7.1.2-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: rgba\(\) colors)/assert(Opacity of 1.0 makes text fully opaque.)/flags()>>
+<</CreationDate(D:20200311140202+03'00')/ModDate(D:20200311140202+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: rgba\(\) colors)/assert(Opacity of 1.0 makes text fully opaque.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,14 +25,14 @@ xref
 0 7
 0000000000 65535 f 
 0000000360 00000 n 
-0000000750 00000 n 
+0000000751 00000 n 
 0000000405 00000 n 
 0000000227 00000 n 
 0000000015 00000 n 
-0000000660 00000 n 
+0000000661 00000 n 
 trailer
-<</ID [<31e3a7a7f48b48bc5d729b06b5a5ce9d><31e3a7a7f48b48bc5d729b06b5a5ce9d>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.2-SNAPSHOT
+<</ID [<fbb2c49f9282ededb6b534b4294b8fa8><fbb2c49f9282ededb6b534b4294b8fa8>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-801
+802
 %%EOF

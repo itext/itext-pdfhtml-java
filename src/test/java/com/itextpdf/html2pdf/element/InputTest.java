@@ -108,13 +108,13 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(ignore = true, messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, count = 4),
+            @LogMessage(messageTemplate = LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT),
     })
     public void input06Test() throws IOException, InterruptedException {
         String htmlPath = sourceFolder + "inputTest06.html";
         String outPdfPath = destinationFolder + "inputTest06.pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + "inputTest06.pdf";
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlPath) + "\n");
 
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outPdfPath));
         pdfDoc.setDefaultPageSize(PageSize.A8);
@@ -203,8 +203,8 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(ignore = true, messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, count = 3),
-            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 3),
+            @LogMessage(messageTemplate = LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED),
+            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
     })
     public void placeholderTest04() throws IOException, InterruptedException {
         runTest("placeholderTest04");
@@ -230,7 +230,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
         String htmlPath = sourceFolder + "placeholderTest05.html";
         String outPdfPath = destinationFolder + "placeholderTest05.pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + "placeholderTest05.pdf";
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlPath) + "\n");
 
         List<IElement> elements = HtmlConverter.convertToElements(new FileInputStream(htmlPath));
         Paragraph placeholderToBeSet = new Paragraph("bazinga").setBackgroundColor(ColorConstants.RED).setFontColor(ColorConstants.YELLOW);

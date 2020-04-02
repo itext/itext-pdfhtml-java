@@ -1,18 +1,19 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 248>>stream
-xœmAOÃ0…ïùï¸I0Vµ=#Ä)Ç]Ò&mYÚ¥&~=.Íº‚PëÅöûŸX†é„ñ¼@A÷ÈxVV?Ò‘¬2’Õ$ó|QE*·ì…Vˆ‹11ø•1¹ã®Cş£ğ™B1AÈ¿b\ä2ä/#«Ï®X`Ë€ğ Øİ¿‡hgë>ßU%„b›çN«N‡ÛÑ~i…Ã†sëq/­?lÑ8¨Aíù!­“µÓ7ˆ†ŞMï£ö£éßB­1K)IÔN6o¨û3uË#‰€O«¢Aß¢¤¦ÆhÊyEy£mgâTàûTÙmÅ+{´É7j–tÔ
+<</Filter/FlateDecode/Length 254>>stream
+xœ}AO„0…ïıïÈ&ŠÔEŠWM<špÜK¡…V»ÀBÕ¿Şa%hši^çu¾7'a8]Åxœ€G"Å‘%³t$S’iD’Çñ"¯JöÆN%ÙP¨&M¯pÉÿªã˜sA\ÂÄ¤fwàkÀ²Z†ñâ)cw/üY9'"12Å‚×N«Jw·½ıÑ
+‡€s[ã.l}Ø¡éàdG>ZÙÒm{È/iÌ¾7ô.šÚëÚ£7Í§SÈ5ÚÎRK@¹“Åòæ¼ËŞY€á~ÎşZìa>‹y#=Œ¤8|[åš‚ˆ…ÑÔ«õ¶•ñƒÁ÷“^ñ¿öÚ~Z
 endstream
 endobj
 4 0 obj
-<</Contents 5 0 R/MediaBox[0 0 1224 792]/Parent 2 0 R/Resources<</Font<</F1 6 0 R>>>>/TrimBox[0 0 1224 792]/Type/Page>>
+<</Contents 5 0 R/MediaBox[0 0 792 1224]/Parent 2 0 R/Resources<</Font<</F1 6 0 R>>>>/TrimBox[0 0 792 1224]/Type/Page>>
 endobj
 1 0 obj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109122356+03'00')/ModDate(D:20171109122356+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: @page size Ledger)/assert(The 'ledger' value of the 'size' property specifies that the page box's width be 11in and its height 17in.)/flags(paged)>>
+<</CreationDate(D:20200324182257+03'00')/ModDate(D:20200324182257+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: @page size Ledger)/assert(The 'ledger' value of the 'size' property specifies that the page box's width be 11in and its height 17in.)/flags(paged)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,15 +24,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000465 00000 n 
-0000000929 00000 n 
-0000000510 00000 n 
-0000000330 00000 n 
+0000000471 00000 n 
+0000000936 00000 n 
+0000000516 00000 n 
+0000000336 00000 n 
 0000000015 00000 n 
-0000000839 00000 n 
+0000000846 00000 n 
 trailer
-<</ID [<1949c323f69d28143346dd34e3c4eccb><1949c323f69d28143346dd34e3c4eccb>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<92eddd89d0ef07a6775b17509773b085><92eddd89d0ef07a6775b17509773b085>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-980
+987
 %%EOF

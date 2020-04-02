@@ -53,6 +53,7 @@ import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,9 +70,18 @@ import java.util.Map;
 public class OutlineHandler {
 
     /**
-     * The Constant DESTINATION_PREFIX.
+     * The Constant DEFAULT_DESTINATION_PREFIX.
      */
-    private static final String DESTINATION_PREFIX = "pdfHTML-iText-outline-";
+    private static final String DEFAULT_DESTINATION_NAME_PREFIX = "pdfHTML-iText-outline-";
+
+    /**
+     * The destination counter.
+     *
+     * Counts the number of created the destinations with the same prefix in name,
+     * to achieve the uniqueness of the destination names.
+     *
+     */
+    private Map<String, Integer> destCounter = new HashMap<String, Integer>();
 
     /**
      * The current outline.
@@ -94,9 +104,9 @@ public class OutlineHandler {
     private Map<String, Integer> tagPrioritiesMapping = new HashMap<String, Integer>();
 
     /**
-     * The unique IDs.
+     * The destination prefix.
      */
-    private Map<String, Integer> uniqueIDs = new HashMap<String, Integer>();
+    private String destinationNamePrefix = DEFAULT_DESTINATION_NAME_PREFIX;
 
 
     /**
@@ -165,18 +175,78 @@ public class OutlineHandler {
         currentOutline = null;
         destinationsInProcess.clear();
         levelsInProcess.clear();
-        uniqueIDs.clear();
+        destCounter.clear();
     }
 
     /**
-     * Adds the outline.
+     * Sets the destination name prefix.
+     *
+     * The destination name prefix serves as the prefix for the destination names created in the
+     * {@link #generateUniqueDestinationName} method.
+     *
+     * @param destinationNamePrefix the destination name prefix
+     */
+    public void setDestinationNamePrefix(String destinationNamePrefix) {
+        this.destinationNamePrefix = destinationNamePrefix;
+    }
+
+    /**
+     * Gets the destination name prefix.
+     *
+     * The destination name prefix serves as the prefix for the destination names created in the
+     * {@link #generateUniqueDestinationName} method.
+     *
+     * @return the destination name prefix
+     */
+    public String getDestinationNamePrefix() {
+        return destinationNamePrefix;
+    }
+
+    /**
+     * Generate the unique destination name.
+     *
+     * The destination name is a unique identifier for the outline so it is generated for the outline
+     * in the {@link #addOutlineAndDestToDocument} method. You can override this method to set
+     * your own way to generate the destination names, to avoid the destination name conflicts when
+     * merging several PDF files created by html2pdf.
+     *
+     * @param element the element
+     * @return the unique destination name
+     */
+    protected String generateUniqueDestinationName(IElementNode element) {
+        return getUniqueID(destinationNamePrefix);
+    }
+
+    /**
+     * Generate the unique outline name.
+     *
+     * This method is used in the {@link #addOutlineAndDestToDocument} method.
+     * You can override this method to set your own way to generate the outline names.
+     *
+     * @param element the element
+     * @return the unique destination name
+     */
+    protected String generateUniqueOutlineName(IElementNode element) {
+        String tagName = element.name();
+        String content = ((JsoupElementNode) element).text();
+        if (content.isEmpty()) {
+            content = getUniqueID(tagName);
+        }
+        return content;
+    }
+
+    /**
+     * Adds the outline and the destination.
+     *
+     * Adds the outline and its corresponding the destination to the PDF document
+     * if the priority mapping is set for the element.
      *
      * @param tagWorker the tag worker
      * @param element   the element
      * @param context   the processor context
      * @return the outline handler
      */
-    OutlineHandler addOutline(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
+    OutlineHandler addOutlineAndDestToDocument(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
         String tagName = element.name();
         if (null != tagWorker && hasTagPriorityMapping(tagName) && context.getPdfDocument() != null) {
             int level = (int) getTagPriorityMapping(tagName);
@@ -188,12 +258,8 @@ public class OutlineHandler {
                 parent = parent.getParent();
                 levelsInProcess.pop();
             }
-            String content = ((JsoupElementNode) element).text();
-            if (content.isEmpty()) {
-                content = getUniqueID(tagName);
-            }
-            PdfOutline outline = parent.addOutline(content);
-            String destination = DESTINATION_PREFIX + getUniqueID(DESTINATION_PREFIX);
+            PdfOutline outline = parent.addOutline(generateUniqueOutlineName(element));
+            String destination = generateUniqueDestinationName(element);
             outline.addDestination(PdfDestination.makeDestination(new PdfString(destination)));
 
             destinationsInProcess.push(destination);
@@ -205,15 +271,18 @@ public class OutlineHandler {
     }
 
     /**
-     * Adds the destination.
+     * Sets the destination to element.
+     *
+     * Sets the destination previously created in the {@link #addOutlineAndDestToDocument} method
+     * to the tag worker element.
      *
      * @param tagWorker the tag worker
      * @param element   the element
      * @return the outline handler
      */
-    OutlineHandler addDestination(ITagWorker tagWorker, IElementNode element) {
+    OutlineHandler setDestinationToElement(ITagWorker tagWorker, IElementNode element) {
         String tagName = element.name();
-        if (null != tagWorker && hasTagPriorityMapping(tagName) && destinationsInProcess.size()>0) {
+        if (null != tagWorker && hasTagPriorityMapping(tagName) && destinationsInProcess.size() > 0) {
             String content = destinationsInProcess.pop();
             if (tagWorker.getElementResult() instanceof IElement) {
                 tagWorker.getElementResult().setProperty(Property.DESTINATION, content);
@@ -228,15 +297,19 @@ public class OutlineHandler {
     /**
      * Gets the unique ID.
      *
+     * This method is used in the {@link #generateUniqueDestinationName} method to generate the unique
+     * destination names and in the {@link #generateUniqueOutlineName} method to generate the unique
+     * outline names. The {@link #destCounter} map serves to achieve the uniqueness of an ID.
+     *
      * @param key the key
      * @return the unique ID
      */
     private String getUniqueID(String key) {
-        if (!uniqueIDs.containsKey(key)) {
-            uniqueIDs.put(key, 1);
+        if (!destCounter.containsKey(key)) {
+            destCounter.put(key, 1);
         }
-        int id = (int) uniqueIDs.get(key);
-        uniqueIDs.put(key, id + 1);
+        int id = (int) destCounter.get(key);
+        destCounter.put(key, id + 1);
         return key + id;
     }
 }

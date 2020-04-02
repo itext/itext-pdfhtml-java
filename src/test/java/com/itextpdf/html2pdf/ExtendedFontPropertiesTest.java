@@ -112,7 +112,7 @@ public class ExtendedFontPropertiesTest extends ExtendedITextTest {
         String htmlPath = destinationFolder + DOCUMENT_PREFIX + fileName + ".html";
         FileOutputStream out = new FileOutputStream(htmlPath);
         out.write(bytes);
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlPath).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlPath) + "\n");
         out.close();
     }
 

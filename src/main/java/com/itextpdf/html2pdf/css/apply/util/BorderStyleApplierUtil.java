@@ -275,21 +275,6 @@ public class BorderStyleApplierUtil {
         return borderRadii;
     }
 
-    /**
-     * Gets the array that defines the borders.
-     *
-     * @param styles the styles mapping
-     * @param em     the em value
-     * @param rem    the root em value
-     * @return the borders array
-     * @deprecated use {@link #getBorderRadiiArray(Map, float, float)} instead
-     */
-    @Deprecated
-    public static UnitValue getBorderRadius(Map<String, String> styles, float em, float rem) {
-        String borderRadius = styles.get(CssConstants.BORDER_RADIUS);
-        return CssUtils.parseLengthValueToPt(borderRadius, em, rem);
-    }
-
     private static String getSpecificBorderColorOrDefaultColor(Map<String, String> styles, String specificBorderColorProperty) {
         String borderColor = styles.get(specificBorderColorProperty);
         if (borderColor == null || CssConstants.CURRENTCOLOR.equals(borderColor)) {

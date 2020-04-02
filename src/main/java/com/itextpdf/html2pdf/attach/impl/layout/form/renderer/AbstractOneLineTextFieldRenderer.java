@@ -56,13 +56,6 @@ import java.util.List;
 public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextFieldRenderer {
 
     /**
-     * The position of the base line of the text.
-     * @deprecated use {@link #getLastYLineRecursively()} instead. Will be removed in 3.0.0
-     */
-    @Deprecated
-    protected float baseline;
-
-    /**
      * Creates a new {@link AbstractOneLineTextFieldRenderer} instance.
      *
      * @param modelElement the model element
@@ -74,7 +67,6 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
     @Override
     public void move(float dxRight, float dyUp) {
         super.move(dxRight, dyUp);
-        baseline += dyUp;
     }
 
     /**
@@ -86,7 +78,6 @@ public abstract class AbstractOneLineTextFieldRenderer extends AbstractTextField
     void cropContentLines(List<LineRenderer> lines, Rectangle bBox) {
         adjustNumberOfContentLines(lines, bBox, 1);
         updateParagraphHeight();
-        this.baseline = lines.get(0).getYLine();
     }
 
     /**

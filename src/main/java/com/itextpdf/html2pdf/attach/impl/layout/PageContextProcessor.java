@@ -401,11 +401,11 @@ class PageContextProcessor {
      * @param page the page
      */
     private void drawPageBackgroundAndBorders(PdfPage page) {
-        Canvas canvas = new Canvas(new PdfCanvas(page), page.getDocument(), page.getBleedBox());
+        Canvas canvas = new Canvas(new PdfCanvas(page), page.getBleedBox());
         canvas.enableAutoTagging(page);
         canvas.add(pageBackgroundSimulation);
         canvas.close();
-        canvas = new Canvas(new PdfCanvas(page), page.getDocument(), page.getTrimBox());
+        canvas = new Canvas(new PdfCanvas(page), page.getTrimBox());
         canvas.enableAutoTagging(page);
         canvas.add(pageBordersSimulation);
         canvas.close();

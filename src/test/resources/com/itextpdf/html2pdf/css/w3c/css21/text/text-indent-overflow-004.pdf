@@ -2,9 +2,8 @@
 %âãÏÓ
 5 0 obj
 <</Filter/FlateDecode/Length 136>>stream
-xœU±Â0C÷û
-e	Iª´eE‚½R$XA½– *¥¹Šï'a@Âıl¯tô´??Rİ í¬êZø*Ï²áuaA±=81‚ .H<à$ÜgÆK”Á‰ÕÎ?éä©§õ»å´: Ñ0N9—Kt¡˜£¿Oã
-èTmË©ÎNU×¢ß^Oi¾+‡
+xœU½Â0ƒ÷{
+e	IX‘`¯t¬ ^K*”Ò¤âùI: aşl/tbÚ_4ô<©Ñ´F5ÜSÁW¼ï1J„°>%\„Ÿ¤ÇÇE÷x	fŸ£¢v<Ñ™©£eÛª¬²¨Kh£ÚÔ¡+ù”ü]ê*s:nŸer©¸eıæ:ú>…+Y
 endstream
 endobj
 4 0 obj
@@ -14,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20181102113357-03'00')/ModDate(D:20181102113357-03'00')/Producer(iText® 7.1.5-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-indent with value larger than the available width with 'overflow' set to 'hidden')/assert(The 'text-indent' property with value exceeding the available width of the element follows the 'overflow: hidden' assignment.)/flags()>>
+<</CreationDate(D:20200311133426+03'00')/ModDate(D:20200311133426+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-indent with value larger than the available width with 'overflow' set to 'hidden')/assert(The 'text-indent' property with value exceeding the available width of the element follows the 'overflow: hidden' assignment.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -26,14 +25,14 @@ xref
 0 7
 0000000000 65535 f 
 0000000351 00000 n 
-0000000898 00000 n 
+0000000899 00000 n 
 0000000396 00000 n 
 0000000218 00000 n 
 0000000015 00000 n 
-0000000808 00000 n 
+0000000809 00000 n 
 trailer
-<</ID [<4e7e197c367a3e413014ff24da9c5bd9><4e7e197c367a3e413014ff24da9c5bd9>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.5-SNAPSHOT
+<</ID [<d362e11a6b6b55325b4ac30042199621><d362e11a6b6b55325b4ac30042199621>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-949
+950
 %%EOF

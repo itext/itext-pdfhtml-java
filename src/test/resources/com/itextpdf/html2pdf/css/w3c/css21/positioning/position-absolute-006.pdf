@@ -1,10 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 138>>stream
-xœeÊ½
-Â0Ğı>Å7ê““º
-ºyÖŞÔJiÍOß^-è"œñD:xÚœ”†´µp••ƒoiå9Üëœ9£(WF3ÌŒç:1úŒ¶O|)ÃÓcSªÇî{ÄÚßèèéL‘¤°ÆI‰Ô‘’ìŞ³ƒÓ‰),Q¾ƒú­ÿÊK/ş
+<</Filter/FlateDecode/Length 137>>stream
+xœ]Ê½
+Â0†áı\Å7ê“4$utr©=­•bÍOï^	è ¼ÛûD:xÚ”†¨±pm#œïiã9<BÎœ1(WF7¯Œ×SF?%¾”ù…çåYÅ’Â}ü±õ7:z:S$)¬qÒB"¤d»·BÃÕÓPü|õÚü‹7éÆ/‘
 endstream
 endobj
 4 0 obj
@@ -14,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123949+03'00')/ModDate(D:20171109123949+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Absolutely positioned elements establishes a new containing block for absolutely positioned children)/assert(An absolutely positioned box establishes a new containing block for absolutely positioned children.)/flags()>>
+<</CreationDate(D:20200311132912+03'00')/ModDate(D:20200311132912+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Absolutely positioned elements establishes a new containing block for absolutely positioned children)/assert(An absolutely positioned box establishes a new containing block for absolutely positioned children.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -25,15 +24,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000353 00000 n 
+0000000352 00000 n 
 0000000888 00000 n 
-0000000398 00000 n 
-0000000220 00000 n 
+0000000397 00000 n 
+0000000219 00000 n 
 0000000015 00000 n 
 0000000798 00000 n 
 trailer
-<</ID [<e93952a850a9ba2f4e3f919df472ab1b><e93952a850a9ba2f4e3f919df472ab1b>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<5f80e0f9e71ea30fcc24d9fc93923a39><5f80e0f9e71ea30fcc24d9fc93923a39>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
 939
 %%EOF

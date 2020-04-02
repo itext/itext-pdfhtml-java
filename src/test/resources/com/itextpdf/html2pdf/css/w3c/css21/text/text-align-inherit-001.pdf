@@ -2,7 +2,9 @@
 %‚„œ”
 5 0 obj
 <</Filter/FlateDecode/Length 131>>stream
-xúµé;¬0˚=≈S*hå‚»qhëHè¥0…å¢|ºñ‡¯H)@ÄÓ£ô∑“âÈ–ñ(-x†™Üo¨i<∏ßãf,AUq@æä6é£$ñW.pïq~"*:ô≤$È∫4´n‰nbˆ¸†3”Ö÷ﬂN}4ﬁ9SŸ≠Ùµ‚OÛÛ‰ùELÁ
+xúµéK
+¬@˜}äGV∫â1≥Ã^ËåIGGÜ|¶í„
+äp˜E’õÈƒ¥kr‰{pOE{,å=Ä;⁄∞h¬‰TE·{§ª k|Y÷î·*a\‡≠I¢tpmU_‰‰nb∂¸†3”ÖÊﬂNUõ∂¥¶~óæV¸i~û<ü,LÓ
 endstream
 endobj
 4 0 obj
@@ -12,7 +14,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20181102112255-03'00')/ModDate(D:20181102112255-03'00')/Producer(iTextÆ 7.1.5-SNAPSHOT ©2000-2018 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-align inheritance on block level elements \(spec example\))/assert(Ensure that block level elements inherit text-align values of parent elements.)/flags()>>
+<</CreationDate(D:20200311133243+03'00')/ModDate(D:20200311133243+03'00')/Producer(iTextÆ 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Text-align inheritance on block level elements \(spec example\))/assert(Ensure that block level elements inherit text-align values of parent elements.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,14 +26,14 @@ xref
 0 7
 0000000000 65535 f 
 0000000346 00000 n 
-0000000823 00000 n 
+0000000824 00000 n 
 0000000391 00000 n 
 0000000213 00000 n 
 0000000015 00000 n 
-0000000733 00000 n 
+0000000734 00000 n 
 trailer
-<</ID [<43bcb0703b205bbec3deff4f14a68fb6><43bcb0703b205bbec3deff4f14a68fb6>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.5-SNAPSHOT
+<</ID [<63261bb344e6ed274fa90456909dd1fa><63261bb344e6ed274fa90456909dd1fa>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-874
+875
 %%EOF

@@ -85,7 +85,7 @@ public abstract class W3CCssTest extends ExtendedITextTest {
         String htmlFilePath = sourceFolder + getHtmlFileName();
         String outFilePath = destinationFolder + getOutPdfFileName();
         String cmpFilePath = sourceFolder + getOutPdfFileName();
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(htmlFilePath).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlFilePath) + "\n");
         HtmlConverter.convertToPdf(new File(htmlFilePath), new File(outFilePath), getConverterProperties());
         Assert.assertNull(new CompareTool().compareByContent(outFilePath, cmpFilePath, destinationFolder, "diff_"));
     }

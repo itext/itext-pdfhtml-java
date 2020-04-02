@@ -74,18 +74,16 @@ public class DefaultFontProvider extends BasicFontProvider {
 
     /** The file names of the shipped fonts. */
     private static final String[] SHIPPED_FONT_NAMES = new String[] {
-            "FreeMono.ttf",
-            "FreeMonoBold.ttf",
-            "FreeMonoBoldOblique.ttf",
-            "FreeMonoOblique.ttf",
-            "FreeSans.ttf",
-            "FreeSansBold.ttf",
-            "FreeSansBoldOblique.ttf",
-            "FreeSansOblique.ttf",
-            "FreeSerif.ttf",
-            "FreeSerifBold.ttf",
-            "FreeSerifBoldItalic.ttf",
-            "FreeSerifItalic.ttf",
+            "NotoSansMono-Regular.ttf",
+            "NotoSansMono-Bold.ttf",
+            "NotoSans-Regular.ttf",
+            "NotoSans-Bold.ttf",
+            "NotoSans-BoldItalic.ttf",
+            "NotoSans-Italic.ttf",
+            "NotoSerif-Regular.ttf",
+            "NotoSerif-Bold.ttf",
+            "NotoSerif-BoldItalic.ttf",
+            "NotoSerif-Italic.ttf",
     };
 
     // This range exclude Hebrew, Arabic, Syriac, Arabic Supplement, Thaana, NKo, Samaritan,

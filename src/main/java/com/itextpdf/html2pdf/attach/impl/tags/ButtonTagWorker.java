@@ -45,8 +45,8 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
+import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputButton;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.ButtonContainer;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
@@ -123,7 +123,7 @@ public class ButtonTagWorker extends DivTagWorker {
     public IPropertyContainer getElementResult() {
         if (formField == null) {
             if (hasChildren) {
-                ButtonContainer button = new ButtonContainer(name);
+                Button button = new Button(name);
                 button.setProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
                 Div div = (Div) super.getElementResult();
                 for (IElement element : div.getChildren()) {
@@ -139,7 +139,7 @@ public class ButtonTagWorker extends DivTagWorker {
                 div.getChildren().clear();
                 formField = button;
             } else {
-                Button inputButton = new Button(name);
+                InputButton inputButton = new InputButton(name);
                 inputButton.setProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
                 inputButton.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, fallbackContent.toString().trim());
                 formField = inputButton;

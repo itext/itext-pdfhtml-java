@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 234>>stream
-xœÔ»N1…áŞOqJhŒ/ëËR"AäH²÷5±¢Êë³@4Èı7¿Ï\ÄS/Ú Âz„hdH¸KS¡ä\nóyÄõVçs¿a›Ê{îKYqİÍvxëïÓ"“x—¿Iç¤5_ÉÇ-­ı-ÁÊ†È#'ªm:Kä‰•Qz_ÕôšÈ•¡¶‘=+lc]39prÿ•ÍH_9ÙêÚfÛ9qR+UÕÊ:ó4|šªªV„.<µÒ»Êª'te©1ÕUãÍÿ­²meğß«Œ#Nè°ßŒ˜0cÁŠŸáçuğs
+<</Filter/FlateDecode/Length 233>>stream
+xœÔ¹N1…áŞOqJhŒ—ñ2”HĞ#ù’Ì>N¬h‚òúŒè¢‹Üşou|/I<½ihƒ4ë¢•¡AêÄCšz%çrŸ/#n÷‚<_úÛT>r‡\ÊŠÛn¶Ã¹~L‹xMâ]\ÿ&]íWòÀ±FKkK°²!òÈI§j›Îybe”ŞW5½&²ce¨mEdÏJ'ÛX×ŒDœŒ¦¶éõ‘“­®m¶‘'µRµQ­,¡3Oƒ´¦®ª¡O­ô®²ê	]YjLuÕ8BóSŞ×§¿§Œ#Nè°ÿ1aÆ‚??ÄñJ
 endstream
 endobj
 4 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123546+03'00')/ModDate(D:20171109123546+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: content: counter\(c, lower-alpha\))>>
+<</CreationDate(D:20200311112930+03'00')/ModDate(D:20200311112930+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: content: counter\(c, lower-alpha\))>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000449 00000 n 
+0000000448 00000 n 
 0000000802 00000 n 
-0000000494 00000 n 
-0000000316 00000 n 
+0000000493 00000 n 
+0000000315 00000 n 
 0000000015 00000 n 
 0000000712 00000 n 
 trailer
-<</ID [<6af3c213401cdd4243fc8b6f235bff50><6af3c213401cdd4243fc8b6f235bff50>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<dd90af82a7977a41c3046fc9fe636a35><dd90af82a7977a41c3046fc9fe636a35>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
 853
 %%EOF

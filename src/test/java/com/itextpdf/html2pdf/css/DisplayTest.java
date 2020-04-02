@@ -101,6 +101,7 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-2445
     public void displayTable04Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("display_table04", sourceFolder, destinationFolder);
     }

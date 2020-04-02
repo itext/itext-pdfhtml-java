@@ -88,12 +88,12 @@ public class PdfHtmlPageXofYEventHandlerTest extends ExtendedITextTest {
         String dest = destinationFolder + filename + ".pdf";
         String cmp = sourceFolder + "cmp_" + filename + ".pdf";
         new PdfHtmlPageXofYEventHandlerTest().parseWithFooter(src, dest, sourceFolder);
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(src).getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(src) + "\n");
         Assert.assertNull(new CompareTool().compareByContent(dest, cmp, destinationFolder, "diff_XofY_"));
 
     }
 
-    public void parseWithFooter(String htmlSource, String pdfDest, String resoureLoc) throws IOException, InterruptedException {
+    public void parseWithFooter(String htmlSource, String pdfDest, String resoureLoc) throws IOException {
         //Create Document
         PdfWriter writer = new PdfWriter(pdfDest);
         PdfDocument pdfDocument = new PdfDocument(writer);
@@ -133,7 +133,7 @@ public class PdfHtmlPageXofYEventHandlerTest extends ExtendedITextTest {
             Rectangle pageSize = page.getPageSize();
             PdfCanvas pdfCanvas = new PdfCanvas(
                     page.getLastContentStream(), page.getResources(), pdf);
-            Canvas canvas = new Canvas(pdfCanvas, pdf, pageSize);
+            Canvas canvas = new Canvas(pdfCanvas, pageSize);
             Paragraph p = new Paragraph()
                     .add("Page ").add(String.valueOf(pageNumber)).add(" of");
             canvas.showTextAligned(p, x, y, TextAlignment.RIGHT);

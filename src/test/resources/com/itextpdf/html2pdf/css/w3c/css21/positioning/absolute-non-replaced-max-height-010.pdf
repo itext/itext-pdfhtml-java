@@ -1,9 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 243>>stream
-xœmÒMnÃ à=§˜e»¡ÌO¶•Ú}%.@qê†858­zûBØEŞxşŞÉ#y¶äé•ã`;"hÃ©Ñ`wäÁbœàËÅˆú¼û3BÀvrÃŞ#ôí'y±äŒ3Ä/Û
-ªD‰}c˜úÖyÿ-Üİ~|mÁ¡Uèp|œ¼?ı¤®=@Ï. -Œä'ì‰ĞT‚VİJ8.Å:ú4æAÑ&yßå]—×ºš¬«)³š²Ñ³SÜ„ßU/Ìqn° ©[eCŞİY¾&—øjİ‚¯ƒW- â›|ÈYxúş/ı\Ã€h
+<</Filter/FlateDecode/Length 240>>stream
+xœmÑÁrÂ à;O±Çz¡ñÚ½;ÃĞ¸±i1ˆvúö%¦$Ğq¸,|ÿîĞ“7C^÷Ó¡@W‚ê˜#y1¸Ú0@Û€…wwCğX¶;9„6ÀÊ|’!ÒOÿƒØVP%rì~hkëÜÔØèñøÿqê‚W-¶ÛÁÇÅ¹ËwìÂÖ_ú›õH3cãò'"4• •¢Î„K1ï\ÜuEy¬ÇaS©³;M©å@â¤\ÏœÜlFN—¡OÁ‰8OÑÉ‹-åÜRç¡Í“i-åæ.p¸Xl¶çñŒ³øšÇß~Üù°7{Ğ
 endstream
 endobj
 4 0 obj
@@ -13,13 +12,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171116194437+03'00')/ModDate(D:20171116194437+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-height on absolutely positioned, non-replaced elements, 'margin-top' and 'margin-bottom' set to '0')/assert(When 'top' and 'height' are 'auto' and 'bottom' is not 'auto', then the height is based on the content \(and such height can be constrained by a max-height declaration\) and then set 'auto' values for 'margin-top' and 'margin-bottom' to 0, and solve for 'top' )/flags()>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20200311132855+03'00')/ModDate(D:20200311132855+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Max-height on absolutely positioned, non-replaced elements, 'margin-top' and 'margin-bottom' set to '0')/assert(When 'top' and 'height' are 'auto' and 'bottom' is not 'auto', then the height is based on the content \(and such height can be constrained by a max-height declaration\) and then set 'auto' values for 'margin-top' and 'margin-bottom' to 0, and solve for 'top' )/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +26,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000467 00000 n 
-0000001255 00000 n 
-0000000512 00000 n 
-0000000325 00000 n 
+0000000464 00000 n 
+0000001253 00000 n 
+0000000509 00000 n 
+0000000322 00000 n 
 0000000015 00000 n 
-0000001076 00000 n 
-0000001166 00000 n 
+0000001163 00000 n 
+0000001074 00000 n 
 trailer
-<</ID [<da55156d89e0aea7bc4923ceff7754d7><da55156d89e0aea7bc4923ceff7754d7>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<59418500428e2e6f0c84cd8012921d3e><59418500428e2e6f0c84cd8012921d3e>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.11-SNAPSHOT
 startxref
-1306
+1304
 %%EOF

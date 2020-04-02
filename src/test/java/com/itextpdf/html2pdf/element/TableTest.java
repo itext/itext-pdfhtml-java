@@ -548,7 +548,7 @@ public class TableTest extends ExtendedITextTest {
             pdfDocument.setTagged();
         }
         HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + testName + ".html"), pdfDocument, new ConverterProperties().setBaseUri(sourceFolder));
-        System.out.println("html: file:///" + UrlUtil.toNormalizedURI(sourceFolder + testName + ".html").getPath() + "\n");
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(sourceFolder + testName + ".html")+ "\n");
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
     }
 

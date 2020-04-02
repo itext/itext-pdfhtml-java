@@ -2,7 +2,8 @@
 %âãÏÓ
 5 0 obj
 <</Filter/FlateDecode/Length 130>>stream
-xœEÍ±Â Fáı>Å¿U(³‰î&÷hJ#¦–"T_ßÄ¤u>9ù2™NW	©À#µSÂuàJÅâK	qD½Ìë³/ôaJÄ%•Xã{O~òê'Ô„FIİi×Zmqä]˜n”7T)a6VaÜı?ûñ…,°
+xœEÍK
+Â0Fáù]Å?«N"y˜Ô© sán ¥)FjÓ˜T·/­ãÃáËtf:\%¤¤-\«…3àvJÅìK	q@½LË³/taLÄ9•Xã{K~êòâGÔ„FIãL«­±Øóƒ.L7Ê+ª”8®¬iÅÉıØÿ³_z,³
 endstream
 endobj
 4 0 obj
@@ -12,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20171109123609+03'00')/ModDate(D:20171109123609+03'00')/Producer(iText® 7.1.0-SNAPSHOT ©2000-2017 iText Group NV \(AGPL-version\))/Title(CSS Test: Counter-reset with an identifier and a number equivalent to the maximum minus one value, ident 2147483646)/assert(The 'counter-reset' property with an identifier and an integer value equivalent to the maximum minus one value.)/flags(32bit may)>>
+<</CreationDate(D:20200311115439+03'00')/ModDate(D:20200311115439+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Counter-reset with an identifier and a number equivalent to the maximum minus one value, ident 2147483646)/assert(The 'counter-reset' property with an identifier and an integer value equivalent to the maximum minus one value.)/flags(32bit may)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,14 +25,14 @@ xref
 0 7
 0000000000 65535 f 
 0000000345 00000 n 
-0000000906 00000 n 
+0000000907 00000 n 
 0000000390 00000 n 
 0000000212 00000 n 
 0000000015 00000 n 
-0000000816 00000 n 
+0000000817 00000 n 
 trailer
-<</ID [<7472f4cf7bdb3399036db7d9770b22bc><7472f4cf7bdb3399036db7d9770b22bc>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.0-SNAPSHOT
+<</ID [<26880bb3bdcf1565aceb53b2ebad157b><26880bb3bdcf1565aceb53b2ebad157b>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-7.1.11-SNAPSHOT
 startxref
-957
+958
 %%EOF
