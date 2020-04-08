@@ -96,8 +96,10 @@ public class ImgTagWorker implements ITagWorker {
         }
 
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
-        // TODO this is a workaround for now Imgto that image is not added as inline
         if (element.getStyles() != null && CssConstants.ABSOLUTE.equals(element.getStyles().get(CssConstants.POSITION))) {
+            // TODO DEVSIX-1393: we don't support absolute positioning in inline context.
+            // This workaround allows to identify image as an element which needs to be processed outside of inline context.
+            // See AbsoluteReplacedHeight001Test.
             display = CssConstants.BLOCK;
         }
 
