@@ -350,13 +350,14 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 ((HtmlTagWorker) tagWorker).processPageRules(node, cssResolver, context);
             }
 
-            context.getOutlineHandler().addOutlineAndDestToDocument(tagWorker, element, context);
+            if (TagConstants.BODY.equals(element.name()) || TagConstants.HTML.equals(element.name())) {
+                runApplier(element, tagWorker);
+            }
 
+            context.getOutlineHandler().addOutlineAndDestToDocument(tagWorker, element, context);
 
             visitPseudoElement(element, tagWorker, CssConstants.BEFORE);
             visitPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER);
-            if (TagConstants.BODY.equals(element.name()) || TagConstants.HTML.equals(element.name()))
-                runApplier(element, tagWorker);
             for (INode childNode : element.childNodes()) {
                 if (!context.isProcessingInlineSvg()) {
                     visit(childNode);
