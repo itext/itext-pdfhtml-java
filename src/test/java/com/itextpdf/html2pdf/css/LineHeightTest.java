@@ -183,6 +183,31 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
         testLineHeight("lineHeightEmptyDivTest");
     }
 
+    @Test
+    public void lineHeightUnitlessValueInSpanTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightUnitlessValueInSpan");
+    }
+
+    @Test
+    public void lineHeightLengthValueInSpanTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightLengthValueInSpan");
+    }
+
+    @Test
+    public void lineHeightPercentageValueInSpanTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightPercentageValueInSpan");
+    }
+
+    @Test
+    public void lineHeightNormalInSpanTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightNormalInSpan");
+    }
+
+    @Test
+    public void lineHeightInheritedInSpanTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightInheritedInSpan");
+    }
+
     void testLineHeight(String name) throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + name + ".html";
         String destinationPdf = DESTINATION_FOLDER + name + ".pdf";
