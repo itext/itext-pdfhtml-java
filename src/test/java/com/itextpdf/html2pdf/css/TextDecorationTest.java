@@ -87,4 +87,57 @@ public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
     public void textDecoration05Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationTest05", sourceFolder, destinationFolder);
     }
+
+    @Test
+    // TODO DEVSIX-3933
+    public void textDecorationShorthandAllValuesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationShorthandAllValues", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO DEVSIX-3933
+    public void textDecorationShorthandOneValueTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationShorthandOneValue", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO DEVSIX-3933
+    public void textDecorationShorthandTwoValuesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationShorthandTwoValues", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void textDecorationWithChildElementTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationWithChildElement", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO: DEVSIX-3933
+    public void textDecorationColorTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationColor", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO: DEVSIX-3933
+    public void textDecorationLineTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationLine", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO: DEVSIX-3933
+    public void textDecorationStyleTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationStyle", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO: DEVSIX-3933
+    public void shorthandAndSpecificTextDecorPropsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("shorthandAndSpecificTextDecorProps", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO: DEVSIX-3933
+    public void combinationOfLinesInTextDecorationTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("combinationOfLinesInTextDecoration", sourceFolder, destinationFolder);
+    }
 }
