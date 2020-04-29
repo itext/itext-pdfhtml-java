@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
+import com.itextpdf.html2pdf.css.util.CssStyleSheetAnalyzer;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.HtmlUtils;
@@ -75,18 +76,17 @@ import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Default implementation of the {@link ICssResolver} interface.
@@ -287,7 +287,6 @@ public class DefaultCssResolver implements ICssResolver {
                 if (TagConstants.STYLE.equals(headChildElement.name())) {
                     if (currentNode.childNodes().size() > 0 && currentNode.childNodes().get(0) instanceof IDataNode) {
                         String styleData = ((IDataNode) currentNode.childNodes().get(0)).getWholeData();
-                        checkIfPagesCounterMentioned(styleData, cssContext);
                         CssStyleSheet styleSheet = CssStyleSheetParser.parse(styleData);
                         styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);
@@ -297,7 +296,6 @@ public class DefaultCssResolver implements ICssResolver {
                     try {
                         InputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUri);
                         byte[] bytes = StreamUtil.inputStreamToArray(stream);
-                        checkIfPagesCounterMentioned(new String(bytes, StandardCharsets.UTF_8), cssContext);
                         CssStyleSheet styleSheet = CssStyleSheetParser.parse(new ByteArrayInputStream(bytes), resourceResolver.resolveAgainstBaseUri(styleSheetUri).toExternalForm());
                         styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);
@@ -314,20 +312,20 @@ public class DefaultCssResolver implements ICssResolver {
                 }
             }
         }
+        checkIfPagesCounterMentioned(cssStyleSheet, cssContext);
     }
 
     /**
      * Check if a pages counter is mentioned.
      *
-     * @param cssContents the CSS contents
-     * @param cssContext  the CSS context
+     * @param styleSheet the stylesheet to analyze
+     * @param cssContext the CSS context
      */
-    private void checkIfPagesCounterMentioned(String cssContents, CssContext cssContext) {
-        // TODO more efficient (avoid searching in text string) and precise (e.g. skip spaces) check during the parsing.
-        if (cssContents.contains("counter(pages)") || cssContents.contains("counters(pages")) {
-            // The presence of counter(pages) means that theoretically relayout may be needed.
-            // We don't know it yet because that selector might not even be used, but
-            // when we know it for sure, it's too late because the Document is created right in the start.
+    private void checkIfPagesCounterMentioned(CssStyleSheet styleSheet, CssContext cssContext) {
+        // The presence of counter(pages) means that theoretically relayout may be needed.
+        // We don't know it yet because that selector might not even be used, but
+        // when we know it for sure, it's too late because the Document is created right in the start.
+        if (CssStyleSheetAnalyzer.checkPagesCounterPresence(styleSheet)) {
             cssContext.setPagesCounterPresent(true);
         }
     }
