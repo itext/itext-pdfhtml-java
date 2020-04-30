@@ -100,7 +100,7 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     public void inlineSvgExternalFontUrlTest() throws IOException, InterruptedException {
-        // TODO RND-1042 external font loading in SVG via @import
+        // TODO DEVSIX-2264 external font loading in SVG via @import
         String name = "inline_svg_external_font_url";
         HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
