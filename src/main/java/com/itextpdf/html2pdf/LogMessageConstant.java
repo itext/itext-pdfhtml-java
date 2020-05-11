@@ -101,6 +101,8 @@ public final class LogMessageConstant {
     public static final String QUOTES_PROPERTY_INVALID = "Quote property \"{0}\" is invalid. It should contain even number of <string> values.";
     /** The Constant TEXT_DECORATION_BLINK_NOT_SUPPORTED. */
     public static final String TEXT_DECORATION_BLINK_NOT_SUPPORTED = "text-decoration: blink not supported";
+    /** The Constant HSL_COLOR_NOT_SUPPORTED. */
+    public static final String HSL_COLOR_NOT_SUPPORTED = "Hsl colors are not supported";
     /** The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE. */
     public static final String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
     /** The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG */
