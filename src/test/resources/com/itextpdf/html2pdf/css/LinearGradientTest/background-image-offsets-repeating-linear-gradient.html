@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Background Image with gradient and different offsets logic</title>
+</head>
+<body>
+<h1>background-image: repeating-linear-gradient with different metrics</h1>
+<div>
+    <h2>special cases</h2>
+    <div>
+        <h3>start and end inside object</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange 100pt, red 150pt, green 200pt, blue 250pt); width: 500pt; height: 100pt;"></div>
+    </div>
+    <div>
+        <h3>start and end out of object</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange -100pt, red 150pt, green 200pt, blue 750pt); width: 500pt; height: 100pt;"></div>
+    </div>
+</div>
+<div>
+    <h2>all specified with absolutes</h2>
+    <div>
+        <h3>width 500pt</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange 100pt, red 150pt, green 200pt, blue 250pt); width: 500pt; height: 100pt;"></div>
+    </div>
+    <div>
+        <h3>width 400pt</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange 100pt, red 150pt, green 200pt, blue 250pt); width: 400pt; height: 100pt;"></div>
+    </div>
+    <div>
+        <h3>width 200pt</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange 100pt, red 150pt, green 200pt, blue 250pt); width: 200pt; height: 100pt;"></div>
+    </div>
+</div>
+<div>
+    <h2>auto tests</h2>
+    <div>
+        <h3>auto start and end, middle elements are out of range</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange, red -20%, green 120%, blue); width: 500pt; height: 100pt;"></div>
+    </div>
+    <div>
+        <h3>auto between absolute and relative</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange, red 300pt, green, blue 80%, black); width: 500pt; height: 100pt;"></div>
+    </div>
+    <div>
+        <h3>auto between absolute and relative, width = 500pt</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange, red 200pt, magenta, green, blue 80%, black); width: 500pt; height: 100pt;"></div>
+    </div>
+    <div>
+        <h3>auto between absolute and relative, width = 300pt</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange, red 200pt, magenta, green, blue 80%, black); width: 300pt; height: 100pt;"></div>
+    </div>
+    <div>
+        <h3>auto between relative with hint</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange, red 10%, lime, 80%, blue 80.5%, black); width: 500pt; height: 100pt;"></div>
+    </div>
+    <div>
+        <h3>auto between absolute and relative with hint, width = 500pt</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange, red 50pt, lime, 80%, blue 400pt, black); width: 500pt; height: 100pt;"></div>
+    </div>
+    <div>
+        <h3>auto between absolute and relative with hint, width = 300pt</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange, red 50pt, lime, 80%, blue 400pt, black); width: 300pt; height: 100pt;"></div>
+    </div>
+    <div>
+        <h3>hint between autos</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange 10%, red, lime, 40%, blue, black 90%); width: 500pt; height: 100pt;"></div>
+    </div>
+</div>
+<div>
+    <h2>hints tests</h2>
+    <div>
+        <h3>small hint</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange, 1%, blue); width: 500pt; height: 100pt;"></div>
+    </div>
+    <div>
+        <h3>negative hint</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange, -100pt, blue); width: 500pt; height: 100pt;"></div>
+    </div>
+    <div>
+        <h3>hint</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange, 100pt, blue); width: 500pt; height: 100pt;"></div>
+    </div>
+</div>
+<div>
+    <h2>multiple offsets</h2>
+    <div>
+        <h3>default case</h3>
+        <div style="background-image: repeating-linear-gradient(to right, orange 10%, blue 60% 70%, black 90%); width: 500pt; height: 100pt;"></div>
+    </div>
+</div>
+</body>
+</html>

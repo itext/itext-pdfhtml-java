@@ -73,6 +73,8 @@ public final class LogMessageConstant {
     public static final String INPUT_TYPE_IS_NOT_SUPPORTED = "Input type {0} is not supported";
     /** The Constant INVALID_CSS_PROPERTY_DECLARATION. */
     public static final String INVALID_CSS_PROPERTY_DECLARATION = "Invalid css property declaration: {0}";
+    /** The Constant INVALID_CSS_PROPERTY_DECLARATION. */
+    public static final String INVALID_GRADIENT_DECLARATION = "Invalid gradient declaration: {0}";
     /** The Constant MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED. */
     public static final String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
     /** The Constant NOT_SUPPORTED_LIST_STYLE_TYPE. */

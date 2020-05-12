@@ -226,9 +226,6 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = SvgLogMessageConstant.UNMAPPEDTAG),
-    })
     public void convertInlineSvgLogo() throws IOException, InterruptedException {
         String html = "inline_svg_logo";
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + html + ".pdf"));
@@ -301,7 +298,6 @@ public class SvgTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 66),
-            @LogMessage(messageTemplate = SvgLogMessageConstant.UNMAPPEDTAG, count = 67),
     })
     public void externalObjectWithGoogleCharts() throws IOException, InterruptedException {
         //TODO update after DEVSIX-2239

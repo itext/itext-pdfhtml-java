@@ -147,7 +147,9 @@ public class CssShorthandResolverTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = "Was not able to define one of the background CSS shorthand properties: rgdbq(150,90,60)"),
-            @LogMessage(messageTemplate = "Was not able to define one of the background CSS shorthand properties: url'smiley.gif')")
+            @LogMessage(messageTemplate = "Was not able to define one of the background CSS shorthand properties: url"),
+            @LogMessage(messageTemplate = "Was not able to define one of the background CSS shorthand properties: smiley.gif"),
+            @LogMessage(messageTemplate = "Was not able to define one of the background CSS shorthand properties: )")
     })
     public void backgroundTest05() {
         String shorthandExpression = "rgdbq(150,90,60) url'smiley.gif') repeat-x scroll 20 60%";

@@ -42,25 +42,37 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
 import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer;
+import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer.Token;
+import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer.TokenType;
+import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
 
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utilities class to apply backgrounds.
  */
 public final class BackgroundApplierUtil {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BackgroundApplierUtil.class);
 
     /**
      * Creates a new {@link BackgroundApplierUtil} instance.
@@ -85,25 +97,58 @@ public final class BackgroundApplierUtil {
             element.setProperty(Property.BACKGROUND, backgroundColor);
         }
         String backgroundImageStr = cssProps.get(CssConstants.BACKGROUND_IMAGE);
+
+        // TODO: DEVSIX-2027 ignore multiple backgrounds at the moment
+        if (backgroundImageStr != null) {
+            CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(backgroundImageStr);
+            Token currentToken = tokenizer.getNextValidToken();
+            while (currentToken != null && currentToken.getType() == TokenType.COMMA) {
+                currentToken = tokenizer.getNextValidToken();
+            }
+            backgroundImageStr = currentToken != null ? currentToken.getValue() : null;
+        }
+
+        BackgroundImage backgroundImage = null;
         if (backgroundImageStr != null && !CssConstants.NONE.equals(backgroundImageStr)) {
+            boolean repeatX = true;
+            boolean repeatY = true;
             String backgroundRepeatStr = cssProps.get(CssConstants.BACKGROUND_REPEAT);
-            PdfXObject image = context.getResourceResolver().retrieveImageExtended(CssUtils.extractUrl(backgroundImageStr));
-            boolean repeatX = true, repeatY = true;
             if (backgroundRepeatStr != null) {
-                repeatX = CssConstants.REPEAT.equals(backgroundRepeatStr) || CssConstants.REPEAT_X.equals(backgroundRepeatStr);
-                repeatY = CssConstants.REPEAT.equals(backgroundRepeatStr) || CssConstants.REPEAT_Y.equals(backgroundRepeatStr);
+                repeatX = CssConstants.REPEAT.equals(backgroundRepeatStr) || CssConstants.REPEAT_X
+                        .equals(backgroundRepeatStr);
+                repeatY = CssConstants.REPEAT.equals(backgroundRepeatStr) || CssConstants.REPEAT_Y
+                        .equals(backgroundRepeatStr);
             }
-            if (image != null) {
-                BackgroundImage backgroundImage = null;
-                if (image instanceof PdfImageXObject) {
-                    backgroundImage = new BackgroundImage((PdfImageXObject) image, repeatX, repeatY);
-                } else if (image instanceof PdfFormXObject) {
-                    backgroundImage = new BackgroundImage((PdfFormXObject) image, repeatX, repeatY);
-                } else {
-                    throw new IllegalStateException();
+
+            if (CssGradientUtil.isCssLinearGradientValue(backgroundImageStr)) {
+                float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+                float rem = context.getCssContext().getRootFontSize();
+                try {
+                    StrategyBasedLinearGradientBuilder gradientBuilder =
+                            CssGradientUtil.parseCssLinearGradient(backgroundImageStr, em, rem);
+                    if (gradientBuilder != null) {
+                        backgroundImage = new BackgroundImage(gradientBuilder);
+                    }
+                } catch (StyledXMLParserException e) {
+                    LOGGER.warn(MessageFormatUtil.format(
+                            LogMessageConstant.INVALID_GRADIENT_DECLARATION, backgroundImageStr));
                 }
-                element.setProperty(Property.BACKGROUND_IMAGE, backgroundImage);
+            } else {
+                PdfXObject image = context.getResourceResolver()
+                        .retrieveImageExtended(CssUtils.extractUrl(backgroundImageStr));
+                if (image != null) {
+                    if (image instanceof PdfImageXObject) {
+                        backgroundImage = new BackgroundImage((PdfImageXObject) image, repeatX, repeatY);
+                    } else if (image instanceof PdfFormXObject) {
+                        backgroundImage = new BackgroundImage((PdfFormXObject) image, repeatX, repeatY);
+                    } else {
+                        throw new IllegalStateException();
+                    }
+                }
             }
+        }
+        if (backgroundImage != null) {
+            element.setProperty(Property.BACKGROUND_IMAGE, backgroundImage);
         }
     }
 }
