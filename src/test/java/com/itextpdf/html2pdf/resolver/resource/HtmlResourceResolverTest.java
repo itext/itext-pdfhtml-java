@@ -40,34 +40,51 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf;
+package com.itextpdf.html2pdf.resolver.resource;
 
+import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.resolver.resource.HtmlResourceResolver;
+import com.itextpdf.html2pdf.attach.util.ContextMappingHelper;
+import com.itextpdf.html2pdf.util.SvgProcessingUtil;
+import com.itextpdf.kernel.pdf.PdfDictionary;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfName;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.exceptions.SvgLogMessageConstant;
+import com.itextpdf.svg.processors.ISvgConverterProperties;
+import com.itextpdf.svg.processors.ISvgProcessorResult;
+import com.itextpdf.svg.renderers.ISvgNodeRenderer;
+import com.itextpdf.svg.renderers.impl.SvgTagSvgNodeRenderer;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ByteArrayOutputStream;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import static com.itextpdf.svg.SvgConstants.Attributes.XLINK_HREF;
 
 @Category(IntegrationTest.class)
-public class ResourceResolverTest extends ExtendedITextTest {
+public class HtmlResourceResolverTest extends ExtendedITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/ResourceResolverTest/";
+    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/resolver/resource/HtmlResourceResolverTest/";
 
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/ResourceResolverTest/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/resolver/resource/HtmlResourceResolverTest/";
 
     private final String bLogoCorruptedData = "data:image/png;base64,,,iVBORw0KGgoAAAANSUhEUgAAAVoAAAAxCAMAAACsy5FpAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAqUExURQAAAPicJAdJdQdJdQdJdficJjBUbPicJgdJdQdJdficJficJQdJdficJlrFe50AAAAMdFJOUwCBe8I/Phe+65/saIJg0K4AAAMOSURBVHja7ZvbmqsgDIU5Bo/v/7q7/WZXsQYNuGy1muuZFH7DIiSglFLU6pZUbGQQNvXpNcC4caoNRvNxOuDUdf80HXk3VYewKp516DHWxuOc/0ye/U00duAwU+/qkWzfh9F9hzIHJxuzNa+fsa4I7Ihx+H+qUFN/sKVhzP7lH+a+qwY1gJHtmwFDPBHK1wLLjLOGTb2jIWhHScAF7RgOGod2CAGTFB8J2JodJ3Dq5kNow95oH3BdtsjGHE6LVu+P9iG5UlVwNjXOndGeRWuZEBBJLtWcMMK11nFoDfDL4TOEMUu0K/leIpNNpUrYFVsrDi2Mbb1DXqv5PV4quWzKHikJKq99utTsoI1dsMjBkr2dctoAMO3XQS2ogrNrJ5vH1OvtU6/ddIPR0k1g9K++bcSKo6Htf8wbdxpK2rnRigJRqAU3WiEylzzVlubCF0TLb/pTyZXH9o1WoKLVoKK8yBbUHS6IdjksZYpxo82WXIzIXhptYtmDRPbQaDXiPBZaaQl26ZBI6pfQ+gZ00A3CxkH6COo2rIwjom12KM/IJRehBUdF2wLrtUWS+56P/Q7aPUrheYnYRpE9LtrwSbSp7cxuJnv1qCWzk9AeEy3t0MAp2ccq93NogWHry3QWowqHPDK0mPSr8aXZAWQzO+hB17ebb9P5ZbDCu2obJPeiNQQWbAUse10VbbKqSLm9yRutQGT/8wO0G6+LdvV2Aaq0eDW0kmI3SHKvhZZkESnoTd5o5SIr+gb0A2g9wGQi67KUw5wdLajNEHymyCqo5B4RLawWHp10XcEC528suBOjJVwDZ2iOca9lBNsSl4jZE6Ntd6jXmtKVzeiIOy/aDzwTydmPZpJrzov2A89EsrKod8mVoq1y0LbsE02Zf/sVQSAObXa5ZSq5UkGoZw9LlqwRNkai5ZT7rRXyHkJgQqioSBipgjhGHPdMYy3hbLx8UDbDPTatndyeeW1HpaXtodxYyUO+zmoDUWjeUnHRB7d5E/KQnazRs0VdbWjI/EluloPnb26+KXIGI+e+7CBt/wAetDeCKwxY6QAAAABJRU5ErkJggg==";
 
@@ -80,7 +97,7 @@ public class ResourceResolverTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, count = 1),
+            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI),
             @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, count = 1),
             @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1)})
     public void resourceResolverTest03() throws IOException, InterruptedException {
@@ -218,6 +235,92 @@ public class ResourceResolverTest extends ExtendedITextTest {
             HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
         }
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffsvgLevels_"));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)
+    })
+    public void attemptToProcessBySvgProcessingUtilSvgWithImageTest() throws IOException {
+        // TODO review this test in the scope of DEVSIX-4107
+        String fileName = "svgWithImage.svg";
+        ProcessorContext context = new ProcessorContext(new ConverterProperties());
+        HtmlResourceResolver resourceResolver = new HtmlResourceResolver(sourceFolder, context);
+
+        ISvgConverterProperties svgConverterProperties = ContextMappingHelper.mapToSvgConverterProperties(context);
+        ISvgProcessorResult res = SvgConverter.parseAndProcess(resourceResolver.retrieveResourceAsInputStream(fileName), svgConverterProperties);
+        ISvgNodeRenderer imageRenderer = ((SvgTagSvgNodeRenderer) res.getRootRenderer()).getChildren().get(0);
+        // Remove the previous result of the resource resolving in order to demonstrate that the resource will not be
+        // resolved due to not setting of baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method.
+        imageRenderer.setAttribute(XLINK_HREF, "doggo.jpg");
+
+        SvgProcessingUtil processingUtil = new SvgProcessingUtil(resourceResolver);
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
+        PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, pdfDocument);
+        PdfDictionary resources = (PdfDictionary) pdfFormXObject.getResources().getPdfObject().get(PdfName.XObject);
+        PdfDictionary fm1Dict = (PdfDictionary) resources.get(new PdfName("Fm1"));
+        Assert.assertFalse(((PdfDictionary) fm1Dict.get(PdfName.Resources)).containsKey(PdfName.XObject));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)
+    })
+    public void attemptToProcessBySvgProcessingUtilSvgWithSvgTest() throws IOException {
+        // TODO review this test in the scope of DEVSIX-4107
+        String fileName = "svgWithSvg.svg";
+        ProcessorContext context = new ProcessorContext(new ConverterProperties());
+        HtmlResourceResolver resourceResolver = new HtmlResourceResolver(sourceFolder, context);
+
+        ISvgConverterProperties svgConverterProperties = ContextMappingHelper.mapToSvgConverterProperties(context);
+        ISvgProcessorResult res = SvgConverter.parseAndProcess(resourceResolver.retrieveResourceAsInputStream(fileName), svgConverterProperties);
+        ISvgNodeRenderer imageRenderer = ((SvgTagSvgNodeRenderer) res.getRootRenderer()).getChildren().get(1);
+        // Remove the previous result of the resource resolving in order to demonstrate that the resource will not be
+        // resolved due to not setting of baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method.
+        // But even if set baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method, the SVG will not
+        // be processed, because in the createXObjectFromProcessingResult method we create ResourceResolver, not HtmlResourceResolver.
+        imageRenderer.setAttribute(XLINK_HREF, "res\\itextpdf.com\\lines.svg");
+
+        SvgProcessingUtil processingUtil = new SvgProcessingUtil(resourceResolver);
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
+        PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, pdfDocument);
+        PdfDictionary resources = (PdfDictionary) pdfFormXObject.getResources().getPdfObject().get(PdfName.XObject);
+        PdfDictionary fm1Dict = (PdfDictionary) resources.get(new PdfName("Fm1"));
+        Assert.assertFalse(((PdfDictionary) fm1Dict.get(PdfName.Resources)).containsKey(PdfName.XObject));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)
+    })
+    public void resourceResolverSvgEmbeddedSvg() throws IOException, InterruptedException {
+        // TODO review this test in the scope of DEVSIX-4107
+        String baseUri = sourceFolder;
+
+        String outPdf = destinationFolder + "resourceResolverSvgEmbeddedSvg.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverSvgEmbeddedSvg.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverSvgEmbeddedSvg.html");
+                FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffEmbeddedSvg_"));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)
+    })
+    public void resourceResolverObjectWithSvgEmbeddedSvg() throws IOException, InterruptedException {
+        // TODO review this test in the scope of DEVSIX-4107
+        String baseUri = sourceFolder;
+
+        String outPdf = destinationFolder + "resourceResolverObjectWithSvgEmbeddedSvg.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverObjectWithSvgEmbeddedSvg.pdf";
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "resourceResolverObjectWithSvgEmbeddedSvg.html");
+                FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffObjectWithSvg_"));
     }
 
     @Test

@@ -51,7 +51,8 @@ public class ContextMappingHelper {
         SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
         svgConverterProperties.setFontProvider(context.getFontProvider())
                               .setBaseUri(context.getBaseUri())
-                              .setMediaDeviceDescription(context.getDeviceDescription());
+                              .setMediaDeviceDescription(context.getDeviceDescription())
+                              .setResourceRetriever(context.getResourceResolver().getRetriever());
         return svgConverterProperties;
     }
 }

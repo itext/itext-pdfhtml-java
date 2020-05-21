@@ -291,12 +291,13 @@ public class DefaultCssResolver implements ICssResolver {
                     }
                 } else if (HtmlUtils.isStyleSheetLink(headChildElement)) {
                     String styleSheetUri = headChildElement.getAttribute(AttributeConstants.HREF);
-                    try {
-                        InputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUri);
-                        byte[] bytes = StreamUtil.inputStreamToArray(stream);
-                        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new ByteArrayInputStream(bytes), resourceResolver.resolveAgainstBaseUri(styleSheetUri).toExternalForm());
-                        styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
-                        cssStyleSheet.appendCssStyleSheet(styleSheet);
+                    try (InputStream stream = resourceResolver.retrieveResourceAsInputStream(styleSheetUri)) {
+                        if (stream != null) {
+                            CssStyleSheet styleSheet = CssStyleSheetParser.parse(stream,
+                                    resourceResolver.resolveAgainstBaseUri(styleSheetUri).toExternalForm());
+                            styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
+                            cssStyleSheet.appendCssStyleSheet(styleSheet);
+                        }
                     } catch (Exception exc) {
                         Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
                         logger.error(LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, exc);

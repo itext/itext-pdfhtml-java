@@ -100,7 +100,7 @@ public class ObjectTagWorker implements ITagWorker {
      * @param context the context
      */
     public ObjectTagWorker(IElementNode element, ProcessorContext context) {
-        this.processUtil = new SvgProcessingUtil();
+        this.processUtil = new SvgProcessingUtil(context.getResourceResolver());
 
         //Retrieve object type
         String type = element.getAttribute(AttributeConstants.TYPE);
@@ -108,8 +108,7 @@ public class ObjectTagWorker implements ITagWorker {
             String dataValue = element.getAttribute(AttributeConstants.DATA);
             try (InputStream svgStream = context.getResourceResolver().retrieveResourceAsInputStream(dataValue)) {
                 if (svgStream != null) {
-                    SvgConverterProperties props =
-                            ContextMappingHelper.mapToSvgConverterProperties(context);
+                    SvgConverterProperties props = ContextMappingHelper.mapToSvgConverterProperties(context);
                     if (!context.getResourceResolver().isDataSrc(dataValue)) {
                         URL fullURL = context.getResourceResolver().resolveAgainstBaseUri(dataValue);
                         String dir = FileUtil.parentDirectory(fullURL);
@@ -120,13 +119,13 @@ public class ObjectTagWorker implements ITagWorker {
             } catch (SvgProcessingException spe) {
                 LOGGER.error(spe.getMessage());
             } catch (IOException | URISyntaxException ie) {
-                LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, context
-                        .getBaseUri(), element.getAttribute(AttributeConstants.DATA), ie));
+                LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI,
+                        context.getBaseUri(), element.getAttribute(AttributeConstants.DATA), ie));
             }
         }
     }
 
-    //todo  according specs 'At least one of the "data" or "type" attribute MUST be defined.'
+    // TODO  according specs 'At least one of the "data" or "type" attribute MUST be defined.'
     private boolean isSvgImage(String typeAttribute) {
         return AttributeConstants.ObjectTypes.SVGIMAGE.equals(typeAttribute);
     }

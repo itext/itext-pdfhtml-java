@@ -171,8 +171,6 @@ public class ResourceReleaseResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("Ignored because currently the css file is not removed and test is failed. Remove this ignore after DEVSIX-3205 is fixed")
-    // TODO update after DEVSIX-3205 is fixed
     public void testThatCssIsReleasedAfterConversion() throws IOException {
         String dirName = "CssIsReleased/";
         String htmlFileName = "cssIsReleased.html";

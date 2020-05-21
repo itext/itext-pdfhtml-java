@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500">
+       <line x1="0" y1="0" x2="500" y2="500" stroke="black" stroke-width="2"/>
+       <image width="500" height="500" xlink:href="res\itextpdf.com\lines.svg" />
+</svg>

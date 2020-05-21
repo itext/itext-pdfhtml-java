@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -38,7 +39,7 @@ public class LineHeight128Test extends W3CCssAhemFontTest {
     @Test
     @Override
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = "Unable to process external css file")
+            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)
     })
     public void test() throws IOException, InterruptedException {
         super.test();

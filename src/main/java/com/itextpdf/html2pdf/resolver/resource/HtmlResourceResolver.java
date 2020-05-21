@@ -49,6 +49,7 @@ import com.itextpdf.io.codec.Base64;
 import com.itextpdf.io.util.FileUtil;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
+import com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
@@ -57,6 +58,7 @@ import com.itextpdf.svg.processors.impl.SvgConverterProperties;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.net.URL;
 
 /**
@@ -69,22 +71,38 @@ public class HtmlResourceResolver extends ResourceResolver {
     private ProcessorContext context;
 
     /**
-     * Creates {@link HtmlResourceResolver} instance. If {@code baseUri} is a string that represents an absolute URI with any schema
+     * Creates a new {@link HtmlResourceResolver} instance.
+     * If {@code baseUri} is a string that represents an absolute URI with any schema
      * except "file" - resources url values will be resolved exactly as "new URL(baseUrl, uriString)". Otherwise base URI
      * will be handled as path in local file system.
      * <p>
      * If empty string or relative URI string is passed as base URI, then it will be resolved against current working
      * directory of this application instance.
      *
-     * @param baseUri base URI against which all relative resource URIs will be resolved.
+     * @param baseUri base URI against which all relative resource URIs will be resolved
      * @param context {@link ProcessorContext} instance for the current HTML to PDF conversion process
      */
     public HtmlResourceResolver(String baseUri, ProcessorContext context) {
-        super(baseUri);
-        this.context = context;
+        this(baseUri, context, null);
     }
 
-
+    /**
+     * Creates a new {@link HtmlResourceResolver} instance.
+     * If {@code baseUri} is a string that represents an absolute URI with any schema
+     * except "file" - resources url values will be resolved exactly as "new URL(baseUrl, uriString)". Otherwise base URI
+     * will be handled as path in local file system.
+     * <p>
+     * If empty string or relative URI string is passed as base URI, then it will be resolved against current working
+     * directory of this application instance.
+     *
+     * @param baseUri base URI against which all relative resource URIs will be resolved
+     * @param context {@link ProcessorContext} instance for the current HTML to PDF conversion process
+     * @param retriever the resource retriever with the help of which data from resources will be retrieved
+     */
+    public HtmlResourceResolver(String baseUri, ProcessorContext context, IResourceRetriever retriever) {
+        super(baseUri, retriever);
+        this.context = context;
+    }
 
     @Override
     protected PdfXObject tryResolveBase64ImageSource(String src) {
@@ -92,7 +110,8 @@ public class HtmlResourceResolver extends ResourceResolver {
         if (fixedSrc.startsWith(SVG_BASE64_PREFIX)) {
             fixedSrc = fixedSrc.substring(fixedSrc.indexOf(BASE64IDENTIFIER) + 7);
             try {
-                PdfFormXObject xObject = processAsSvg(new ByteArrayInputStream(Base64.decode(fixedSrc)), context);
+                PdfXObject xObject = HtmlResourceResolver.processAsSvg(
+                        new ByteArrayInputStream(Base64.decode(fixedSrc)), context, null);
                 if (xObject != null) {
                     return xObject;
                 }
@@ -107,29 +126,23 @@ public class HtmlResourceResolver extends ResourceResolver {
         try {
             return super.createImageByUrl(url);
         } catch (Exception ignored) {
-            try (InputStream is = url.openStream()) {
-                String newRoot = FileUtil.parentDirectory(url);
-                return processAsSvg(is, context, newRoot);
+            try (InputStream is = getRetriever().getInputStreamByUrl(url)) {
+                return is == null ? null : HtmlResourceResolver.processAsSvg(is, context, FileUtil.parentDirectory(url));
             }
         }
     }
 
-    private PdfFormXObject processAsSvg(InputStream stream, ProcessorContext context, String parentDir) throws IOException {
-        SvgProcessingUtil processingUtil = new SvgProcessingUtil();
+    private static PdfFormXObject processAsSvg(InputStream stream, ProcessorContext context, String parentDir) throws IOException {
         SvgConverterProperties svgConverterProperties = ContextMappingHelper.mapToSvgConverterProperties(context);
         if (parentDir != null) {
             svgConverterProperties.setBaseUri(parentDir);
         }
         ISvgProcessorResult res = SvgConverter.parseAndProcess(stream, svgConverterProperties);
         if (context.getPdfDocument() != null) {
+            SvgProcessingUtil processingUtil = new SvgProcessingUtil(context.getResourceResolver());
             return processingUtil.createXObjectFromProcessingResult(res, context.getPdfDocument());
         } else {
             return null;
         }
     }
-
-    private PdfFormXObject processAsSvg(InputStream stream, ProcessorContext context) throws IOException {
-        return this.processAsSvg(stream, context, null);
-    }
-
 }

@@ -47,6 +47,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.renderers.ISvgNodeRenderer;
@@ -58,6 +59,26 @@ import com.itextpdf.svg.utils.SvgCssUtils;
  * Utility class for handling operations related to SVG
  */
 public class SvgProcessingUtil {
+    private ResourceResolver resourceResolver;
+
+    /**
+     * Creates a new {@link SvgProcessingUtil} instance.
+     * @deprecated will be removed in next major release
+     */
+    @Deprecated
+    public SvgProcessingUtil() {
+        resourceResolver = new ResourceResolver(null);
+    }
+
+    /**
+     * Creates a new {@link SvgProcessingUtil} instance based on {@link ResourceResolver}
+     * which is used to resolve a variety of resources.
+     *
+     * @param resourceResolver the resource resolver
+     */
+    public SvgProcessingUtil(ResourceResolver resourceResolver) {
+        this.resourceResolver = resourceResolver;
+    }
 
     /**
      * Create an {@code Image} layout object tied to the passed {@code PdfDocument} using the SVG processing result.
@@ -85,7 +106,10 @@ public class SvgProcessingUtil {
         PdfFormXObject pdfForm = new PdfFormXObject(new Rectangle(0, 0, width, height));
         PdfCanvas canvas = new PdfCanvas(pdfForm, pdfDocument);
 
-        SvgDrawContext context = new SvgDrawContext(null, result.getFontProvider(), result.getRootRenderer());
+        ResourceResolver tempResolver = new ResourceResolver(null, resourceResolver.getRetriever());
+        // TODO DEVSIX-4107 pass the resourceResolver variable (not tempResolver variable) to the
+        //  SvgDrawContext constructor so that the SVG inside the SVG is processed.
+        SvgDrawContext context = new SvgDrawContext(tempResolver, result.getFontProvider(), result.getRootRenderer());
         context.addNamedObjects(result.getNamedObjects());
         context.pushCanvas(canvas);
 
