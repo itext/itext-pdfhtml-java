@@ -43,9 +43,11 @@ public class CssStyleSheetAnalyzer {
     }
 
     /**
-     * Helper method to check if counter(pages) or counters(page) is present anywhere in the CSS.
+     * Helper method to check if counter(pages) or counters(pages) is present anywhere in the CSS.
      * If the presence is detected, it may require additional treatment
      * @param styleSheet CSS stylesheet to analyze
+     * @return <code>true</code> in case any "pages" counters are present in CSS declarations,
+     * or <code>false</code> otherwise
      */
     public static boolean checkPagesCounterPresence(CssStyleSheet styleSheet) {
         return checkPagesCounterPresence(styleSheet.getStatements());
