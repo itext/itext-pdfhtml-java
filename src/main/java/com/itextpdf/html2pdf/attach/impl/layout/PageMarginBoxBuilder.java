@@ -584,7 +584,7 @@ class PageMarginBoxBuilder {
      * @param dim        Dimension container containing min and max dimension info
      * @param dimensions array of calculated auto values for boxes in the given dimension
      * @param index      position in the array to look at
-     * @return True if the values in dimensions trigger a recalculation, false otherwise
+     * @return <code>true</code> if the values in dimensions trigger a recalculation, <code>false</code> otherwise
      */
     private boolean recalculateIfNecessary(DimensionContainer dim, float[] dimensions, int index) {
         if (dim != null) {
@@ -603,7 +603,7 @@ class PageMarginBoxBuilder {
     /**
      * Calculate the margin boxes given the list of margin boxes that have generated content
      *
-     * @return Rectangle[12] containing the calulated bounding boxes of the margin-box-nodes. Rectangles with 0 width and/or heigh
+     * @return Rectangle[12] containing the calculated bounding boxes of the margin-box-nodes. Rectangles with 0 width and/or height
      * refer to empty boxes. The order is TLC(top-left-corner)-TL-TC-TY-TRC-RT-RM-RB-RBC-BR-BC-BL-BLC-LB-LM-LT
      */
     private Rectangle[] calculateMarginBoxRectanglesCornersOnly() {
