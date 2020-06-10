@@ -52,6 +52,7 @@ import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.renderers.ISvgNodeRenderer;
 import com.itextpdf.svg.renderers.SvgDrawContext;
 import com.itextpdf.svg.renderers.impl.PdfRootSvgNodeRenderer;
+import com.itextpdf.svg.utils.SvgCssUtils;
 
 /**
  * Utility class for handling operations related to SVG
@@ -84,7 +85,7 @@ public class SvgProcessingUtil {
         PdfFormXObject pdfForm = new PdfFormXObject(new Rectangle(0, 0, width, height));
         PdfCanvas canvas = new PdfCanvas(pdfForm, pdfDocument);
 
-        SvgDrawContext context = new SvgDrawContext(null, result.getFontProvider());
+        SvgDrawContext context = new SvgDrawContext(null, result.getFontProvider(), result.getRootRenderer());
         context.addNamedObjects(result.getNamedObjects());
         context.pushCanvas(canvas);
 
