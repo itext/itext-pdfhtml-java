@@ -43,6 +43,13 @@
 package com.itextpdf.html2pdf.css.w3c.css_color_3;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
+import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.test.LogLevelConstants;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
+
+import java.io.IOException;
+import org.junit.Test;
 
 public class T32OpacityOffscreenMultipleBoxes2CTest extends W3CCssTest {
     // In pdf, if several layers of the same color are drawn one atop another, then in case of transparency
@@ -51,5 +58,14 @@ public class T32OpacityOffscreenMultipleBoxes2CTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "t32-opacity-offscreen-multiple-boxes-2-c.xht";
+    }
+
+    @Test
+    @Override
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, logLevel = LogLevelConstants.WARN)
+    })
+    public void test() throws IOException, InterruptedException {
+        super.test();
     }
 }

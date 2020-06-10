@@ -55,6 +55,7 @@ import com.itextpdf.pdfa.PdfADocument;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -230,7 +231,10 @@ public class ListTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 6)})
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 6),
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 12, logLevel = LogLevelConstants.WARN)
+    })
         //TODO: update after DEVSIX-2093, DEVSIX-2092, DEVSIX-2091 fixes
         public void listsWithInlineChildren() throws IOException, InterruptedException {
             runTest("listsWithInlineChildren");

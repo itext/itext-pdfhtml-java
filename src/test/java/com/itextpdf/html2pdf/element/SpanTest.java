@@ -43,11 +43,15 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.LogLevelConstants;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -146,6 +150,9 @@ public class SpanTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, logLevel = LogLevelConstants.WARN)
+    })
     public void spanTest10() throws IOException, InterruptedException {
         testWithSuffix("10");
     }
@@ -187,12 +194,18 @@ public class SpanTest extends ExtendedITextTest {
 
     // TODO: update cmp files during DEVSIX-2510
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 4, logLevel = LogLevelConstants.WARN)
+    })
     public void spanTestNestedBlock() throws IOException, InterruptedException {
         test("spanTestNestedBlock");
     }
 
     // TODO: update cmp files during DEVSIX-2510
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 4, logLevel = LogLevelConstants.WARN)
+    })
     public void spanTestNestedInlineBlock() throws IOException, InterruptedException {
         test("spanTestNestedInlineBlock");
     }
@@ -200,5 +213,10 @@ public class SpanTest extends ExtendedITextTest {
     @Test
     public void spanWithDisplayBlockInsideSpanParagraphTest() throws IOException, InterruptedException {
         test("spanWithDisplayBlockInsideSpanParagraphTest", true);
+    }
+
+    @Test
+    public void spanWithBackgroundImageTest() throws IOException, InterruptedException {
+        test("spanWithBackgroundImageTest");
     }
 }

@@ -43,6 +43,10 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.test.LogLevelConstants;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
@@ -64,11 +68,14 @@ public class CssOpacityTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void innerOpacityTest() throws IOException, InterruptedException {
         // TODO itext "overwrites" parent's opacity while in css, opacity kinda "merges"
-        // i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
+        //  i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
         convertToPdfAndCompare("innerOpacityTest", sourceFolder, destinationFolder);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 2, logLevel = LogLevelConstants.WARN)
+    })
     public void nestedInSpanTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("nestedInSpanTest", sourceFolder, destinationFolder);
     }

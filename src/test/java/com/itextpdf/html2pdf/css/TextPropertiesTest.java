@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -146,6 +147,9 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, logLevel = LogLevelConstants.WARN)
+    })
     public void whiteSpaceNowrapBackgroundTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("whiteSpaceNowrapBackgroundTest01", sourceFolder, destinationFolder);
     }
@@ -246,6 +250,9 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 2, logLevel = LogLevelConstants.WARN)
+    })
     public void whiteSpaceNowrapSequentialTest01() throws IOException, InterruptedException {
         // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
         convertToPdfAndCompare("whiteSpaceNowrapSequentialTest01", sourceFolder, destinationFolder);
