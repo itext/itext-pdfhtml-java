@@ -183,6 +183,11 @@ public class ListTest extends ExtendedITextTest {
     }
 
     @Test
+    public void listTest20() throws IOException, InterruptedException {
+        runTest("listTest20");
+    }
+
+    @Test
     public void listLiValuePropertyTest() throws IOException, InterruptedException {
         runTest("listLiValuePropertyTest");
     }
