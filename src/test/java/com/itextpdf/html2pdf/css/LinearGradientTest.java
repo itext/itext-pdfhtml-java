@@ -33,6 +33,7 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -223,6 +224,82 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
     })
     public void invalidLastElementIsAHintValueTest() throws IOException {
         convertHtmlWithGradient("linear-gradient(red, orange, 30%, green 200pt, blue 250pt, 120%)");
+    }
+
+    @Test
+    public void backgroundImageLinearGradientInBodyTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInBody", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageLinearGradientInParagraphTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInParagraph", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageLinearGradientInHeaderTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInHeader", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageLinearGradientInAbbrTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInAbbr", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageLinearGradientInListItemsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInListItems", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageLinearGradientInSeveralElementsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInSeveralElements", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageLinearGradientInSpanTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInSpan", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageLinearGradientInTableTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInTable", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageLinearGradientInCiteTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInCite", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageLinearGradientInCaptionTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInCaption", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageLinearGradientInBlockquoteTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInBlockquote", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageLinearGradientInLinkTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInLink", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageLinearGradientInLableTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInLabel", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageLinearGradientInButtonTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInButton", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO: DEVSIX-4174 update cmp after fix
+    public void backgroundImageLinearGradientInFormsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageLinearGradientInForms", sourceFolder, destinationFolder);
     }
 
     private void convertHtmlWithGradient(String gradientString) throws IOException {

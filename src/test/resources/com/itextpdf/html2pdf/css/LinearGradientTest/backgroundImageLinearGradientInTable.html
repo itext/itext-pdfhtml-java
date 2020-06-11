@@ -1,0 +1,44 @@
+<html>
+<head>
+    <style>
+    table, td {
+        border: 2px solid green;
+}
+th {
+        border: 1px solid brown;
+}
+p {
+  color: gray;
+}
+
+    </style>
+</head>
+<body>
+<table id="table01" width="400">
+    <tr>
+        <th scope="col" style="background-image: linear-gradient(to top, orange -20pt, magenta 0%, yellow,  teal 100%, orange 120%);">TH 1 col</th>
+        <th scope="col">TH 2 col</th>
+        <th scope="col">TH 3 col</th>
+    </tr>
+    <tr>
+        <th scope="row">TH 1 row</th>
+        <td colspan="2" style="background-image: linear-gradient(to bottom, orange -20pt, magenta 0%, yellow,  teal 100%, orange 120%);">TD colspan 2</td>
+    </tr>
+    <tr>
+        <th scope="row">TH 2 row</th>
+        <td rowspan="2" style="background-image: linear-gradient(to bottom, orange -20pt, magenta 0%, yellow,  teal 100%, orange 120%);">TD rowspan 2</td>
+    </tr>
+    <tr>
+        <th scope="row" style="background-image: linear-gradient(to top, orange -20pt, magenta 0%, yellow,  teal 100%, orange 120%);">TH 3 row</th>
+        <td><p style="background-image: linear-gradient(to bottom, orange -20pt, magenta 0%, yellow,  teal 100%, orange 120%);">Paragraph with gradient inside td</p></td>
+    </tr>
+    <tr>
+        <th scope="row">TH 4 row</th>
+        <td></td>
+        <td>
+            <div style="background-image: linear-gradient(to top, orange -20pt, magenta 0%, yellow,  teal 100%, orange 120%); width:50px">div with gradient inside td</div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
