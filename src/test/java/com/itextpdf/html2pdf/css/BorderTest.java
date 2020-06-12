@@ -138,4 +138,70 @@ public class BorderTest extends ExtendedHtmlConversionITextTest {
     public void borderTransparencyTest02() throws IOException, InterruptedException {
         convertToPdfAndCompare("borderTransparencyTest02", sourceFolder, destinationFolder);
     }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleSolidInTRTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleSolidInTR", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleDashedInTRTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleDashedInTR", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleDoubleInTRTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleDoubleInTR", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleSolidAndDoubleValueInTRTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleSolidAndDoubleValueInTR", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleSolidAndDottedValueInTRTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleSolidAndDottedValueInTR", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleSolidAndDashedValueInTRTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleSolidAndDashedValueInTR", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleInTrVariousValuesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleInTrVariousValues", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleTRInsideTheadTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleTRInsideThead", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleTRInsideTbodyTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleTRInsideTbody", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleTRInsideTfootTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleTRInsideTfoot", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleInsideTableElementsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleInsideTableElements", sourceFolder, destinationFolder);
+    }
 }
