@@ -141,20 +141,8 @@ public class BorderTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     //TODO DEVSIX-2857 update cmp file after fix
-    public void borderStyleSolidInTRTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("borderStyleSolidInTR", sourceFolder, destinationFolder);
-    }
-
-    @Test
-    //TODO DEVSIX-2857 update cmp file after fix
-    public void borderStyleDashedInTRTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("borderStyleDashedInTR", sourceFolder, destinationFolder);
-    }
-
-    @Test
-    //TODO DEVSIX-2857 update cmp file after fix
-    public void borderStyleDoubleInTRTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("borderStyleDoubleInTR", sourceFolder, destinationFolder);
+    public void borderStyleOverlayingInTRTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleOverlayingInTR", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -177,8 +165,8 @@ public class BorderTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     //TODO DEVSIX-2857 update cmp file after fix
-    public void borderStyleInTrVariousValuesTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("borderStyleInTrVariousValues", sourceFolder, destinationFolder);
+    public void borderStyleInTrDifferentTypesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleInTrDifferentTypes", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -203,5 +191,30 @@ public class BorderTest extends ExtendedHtmlConversionITextTest {
     //TODO DEVSIX-2857 update cmp file after fix
     public void borderStyleInsideTableElementsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("borderStyleInsideTableElements", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleInTRLengthUnitsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleInTRLengthUnits", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleInTrColorValuesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleInTrColorValues", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE))
+    public void borderStyleInTRwithTHTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleInTRwithTH", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleInTRSeparateBorderCollapseTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleInTRSeparateBorderCollapse", sourceFolder, destinationFolder);
     }
 }
