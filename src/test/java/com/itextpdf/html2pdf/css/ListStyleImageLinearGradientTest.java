@@ -39,7 +39,6 @@ public class ListStyleImageLinearGradientTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO update cmp file after fixing problem in DEVSIX-2086 scope
     public void linearGradientWithEmRemValuesTest() throws IOException, InterruptedException {
         runTest("linearGradientWithEmRemValues");
     }
