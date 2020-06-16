@@ -217,4 +217,22 @@ public class BorderTest extends ExtendedHtmlConversionITextTest {
     public void borderStyleInTRSeparateBorderCollapseTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("borderStyleInTRSeparateBorderCollapse", sourceFolder, destinationFolder);
     }
+
+    @Test
+    //TODO DEVSix-4119 update cmp file after fix
+    public void tbodyBorderCollapseTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tbodyBorderCollapse", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSix-4119 update cmp file after fix
+    public void theadBorderCollapseTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("theadBorderCollapse", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSix-4119 update cmp file after fix
+    public void tfootBorderCollapseTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tfootBorderCollapse", sourceFolder, destinationFolder);
+    }
 }
