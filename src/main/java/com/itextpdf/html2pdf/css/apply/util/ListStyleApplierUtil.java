@@ -141,13 +141,16 @@ public final class ListStyleApplierUtil {
                     if (gradientBuilder != null) {
                         Rectangle formBBox = new Rectangle(0, 0, em * LIST_ITEM_MARKER_SIZE_COEFFICIENT,
                                 em * LIST_ITEM_MARKER_SIZE_COEFFICIENT);
-                        imageXObject = new PdfFormXObject(formBBox);
+
                         PdfDocument pdfDocument = context.getPdfDocument();
                         Color gradientColor = gradientBuilder.buildColor(formBBox, null, pdfDocument);
-                        new PdfCanvas((PdfFormXObject) imageXObject, pdfDocument)
-                                .setColor(gradientColor, true)
-                                .rectangle(formBBox)
-                                .fill();
+                        if (gradientColor != null) {
+                            imageXObject = new PdfFormXObject(formBBox);
+                            new PdfCanvas((PdfFormXObject) imageXObject, context.getPdfDocument())
+                                    .setColor(gradientColor, true)
+                                    .rectangle(formBBox)
+                                    .fill();
+                        }
                     }
                 } catch (StyledXMLParserException e) {
                     LOGGER.warn(MessageFormatUtil.format(

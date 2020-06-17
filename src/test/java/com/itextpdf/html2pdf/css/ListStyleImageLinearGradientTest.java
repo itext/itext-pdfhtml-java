@@ -23,8 +23,11 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
@@ -53,6 +56,12 @@ public class ListStyleImageLinearGradientTest extends ExtendedITextTest {
     @Test
     public void linearGradientTypeTest() throws IOException, InterruptedException {
         runTest("linearGradientType");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, count = 3)})
+    public void invalidLinearGradientTypeTest() throws IOException, InterruptedException {
+        runTest("invalidLinearGradientType");
     }
 
     @Test
