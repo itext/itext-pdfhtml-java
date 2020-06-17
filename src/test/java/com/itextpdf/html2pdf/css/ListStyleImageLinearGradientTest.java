@@ -42,7 +42,7 @@ public class ListStyleImageLinearGradientTest extends ExtendedITextTest {
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(DESTINATION_FOLDER);
+        createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
