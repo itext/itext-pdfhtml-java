@@ -62,18 +62,11 @@ import java.util.List;
  */
 public class DefaultFontProvider extends BasicFontProvider {
 
-    /**
-     * The logger.
-     */
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(DefaultFontProvider.class);
-
-    private static final String DEFAULT_FONT_FAMILY = "Times";
-
     /** The path to the shipped fonts. */
-    private static final String SHIPPED_FONT_RESOURCE_PATH = "com/itextpdf/html2pdf/font/";
+    static final String SHIPPED_FONT_RESOURCE_PATH = "com/itextpdf/html2pdf/font/";
 
     /** The file names of the shipped fonts. */
-    private static final String[] SHIPPED_FONT_NAMES = new String[] {
+    static final String[] SHIPPED_FONT_NAMES = new String[] {
             "NotoSansMono-Regular.ttf",
             "NotoSansMono-Bold.ttf",
             "NotoSans-Regular.ttf",
@@ -86,13 +79,19 @@ public class DefaultFontProvider extends BasicFontProvider {
             "NotoSerif-Italic.ttf",
     };
 
+    /**
+     * The logger.
+     */
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(DefaultFontProvider.class);
+
+    private static final String DEFAULT_FONT_FAMILY = "Times";
+
     // This range exclude Hebrew, Arabic, Syriac, Arabic Supplement, Thaana, NKo, Samaritan,
     // Mandaic, Syriac Supplement, Arabic Extended-A, Devanagari, Bengali, Gurmukhi, Gujarati,
     // Oriya, Tamil, Telugu, Kannada, Malayalam, Sinhala, Thai unicode blocks.
     // Those blocks either require pdfCalligraph or do not supported by GNU Free Fonts.
     private static final Range FREE_FONT_RANGE = new RangeBuilder()
             .addRange(0, 0x058F).addRange(0x0E80, Integer.MAX_VALUE).create();
-
 
     //we want to add free fonts to font provider before calligraph fonts. However, the existing public API states
     // that addCalligraphFonts() should be used first to load calligraph fonts and to define the range for loading free fonts.
