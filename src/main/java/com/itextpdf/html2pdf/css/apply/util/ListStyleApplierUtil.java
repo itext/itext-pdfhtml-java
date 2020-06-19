@@ -51,6 +51,7 @@ import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.numbering.AlphabetNumbering;
+import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
@@ -141,8 +142,9 @@ public final class ListStyleApplierUtil {
                         Rectangle formBBox = new Rectangle(0, 0, em * LIST_ITEM_MARKER_SIZE_COEFFICIENT,
                                 em * LIST_ITEM_MARKER_SIZE_COEFFICIENT);
                         imageXObject = new PdfFormXObject(formBBox);
-                        Color gradientColor = gradientBuilder.buildColor(formBBox, null);
-                        new PdfCanvas((PdfFormXObject) imageXObject, context.getPdfDocument())
+                        PdfDocument pdfDocument = context.getPdfDocument();
+                        Color gradientColor = gradientBuilder.buildColor(formBBox, null, pdfDocument);
+                        new PdfCanvas((PdfFormXObject) imageXObject, pdfDocument)
                                 .setColor(gradientColor, true)
                                 .rectangle(formBBox)
                                 .fill();
