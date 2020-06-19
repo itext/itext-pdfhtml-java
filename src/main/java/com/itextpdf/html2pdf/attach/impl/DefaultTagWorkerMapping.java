@@ -223,6 +223,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(beforePseudoElemName, CssConstants.TABLE, DivTagWorker.class);
         workerMapping.putMapping(afterPseudoElemName, CssConstants.TABLE, DivTagWorker.class);
         workerMapping.putMapping(CssPseudoElementUtil.createPseudoElementTagName(TagConstants.IMG), ImgTagWorker.class);
+        workerMapping.putMapping(CssPseudoElementUtil.createPseudoElementTagName(TagConstants.DIV), DivTagWorker.class);
 
         // custom elements mapping, implementation-specific
         workerMapping.putMapping(PageCountElementNode.PAGE_COUNTER_TAG, PageCountWorker.class);

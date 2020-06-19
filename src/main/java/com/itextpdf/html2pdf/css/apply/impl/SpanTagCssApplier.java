@@ -106,11 +106,13 @@ public class SpanTagCssApplier implements ICssApplier {
             }
         }
 
-        for (IPropertyContainer child : spanTagWorker.getAllElements()) {
-            FloatPropertyValue kidFloatVal = child.<FloatPropertyValue>getProperty(Property.FLOAT);
-            if (child instanceof Text && !child.hasOwnProperty(Property.BACKGROUND)
-                    && (kidFloatVal == null || FloatPropertyValue.NONE.equals(kidFloatVal))) {
-                BackgroundApplierUtil.applyBackground(cssStyles, context, child);
+        if (spanTagWorker.getAllElements() != null) {
+            for (IPropertyContainer child : spanTagWorker.getAllElements()) {
+                FloatPropertyValue kidFloatVal = child.<FloatPropertyValue>getProperty(Property.FLOAT);
+                if (child instanceof Text && !child.hasOwnProperty(Property.BACKGROUND)
+                        && (kidFloatVal == null || FloatPropertyValue.NONE.equals(kidFloatVal))) {
+                    BackgroundApplierUtil.applyBackground(cssStyles, context, child);
+                }
             }
         }
     }

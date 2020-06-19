@@ -181,6 +181,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(beforePseudoElemName, CssConstants.TABLE, BlockCssApplier.class);
         mapping.putMapping(afterPseudoElemName, CssConstants.TABLE, BlockCssApplier.class);
         mapping.putMapping(CssPseudoElementUtil.createPseudoElementTagName(TagConstants.IMG), BlockCssApplier.class);
+        mapping.putMapping(CssPseudoElementUtil.createPseudoElementTagName(TagConstants.DIV), CssContentLinearGradientApplier.class);
 
 
         // custom elements mapping, implementation-specific

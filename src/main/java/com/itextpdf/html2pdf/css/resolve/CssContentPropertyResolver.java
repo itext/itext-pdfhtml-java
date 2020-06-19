@@ -54,6 +54,7 @@ import com.itextpdf.html2pdf.css.page.PageMarginRunningElementNode;
 import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.styledxmlparser.css.resolve.CssQuotes;
+import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
@@ -151,6 +152,12 @@ class CssContentPropertyResolver {
                     //TODO: probably should add user agent styles on CssContentElementNode creation, not here.
                     attributes.put(AttributeConstants.STYLE, CssConstants.DISPLAY + ":" + CssConstants.INLINE_BLOCK);
                     result.add(new CssContentElementNode(contentContainer, TagConstants.IMG, attributes));
+                } else if (CssGradientUtil.isCssLinearGradientValue(token.getValue())) {
+                    Map<String, String> attributes = new HashMap<>();
+                    attributes.put(AttributeConstants.STYLE, CssConstants.BACKGROUND_IMAGE + ":" + token.getValue() + ";"
+                            + CssConstants.HEIGHT + ":" + CssConstants.INHERIT + ";"
+                            + CssConstants.WIDTH + ":" + CssConstants.INHERIT + ";");
+                    result.add(new CssContentElementNode(contentContainer, TagConstants.DIV, attributes));
                 } else if (token.getValue().startsWith("attr(") && contentContainer instanceof CssPseudoElementNode) {
                     int endBracket = token.getValue().indexOf(')');
                     if (endBracket > 5 ) {

@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.page.PageMarginRunningElementNode;
+import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -64,6 +65,7 @@ import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
+import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import com.itextpdf.styledxmlparser.node.ITextNode;
 import org.slf4j.LoggerFactory;
 
@@ -133,6 +135,7 @@ class PageMarginBoxBuilder {
     private IElement processMarginBoxContent(PageMarginBoxContextNode marginBoxContentNode, int pageNumber, ProcessorContext context) {
         IElementNode dummyMarginBoxNode = new PageMarginBoxDummyElement();
         dummyMarginBoxNode.setStyles(marginBoxContentNode.getStyles());
+        DefaultCssResolver cssResolver = new DefaultCssResolver(marginBoxContentNode, context);
         ITagWorker marginBoxWorker = context.getTagWorkerFactory().getTagWorker(dummyMarginBoxNode, context);
         for (int i = 0; i < marginBoxContentNode.childNodes().size(); i++) {
             INode childNode = marginBoxContentNode.childNodes().get(i);
@@ -142,6 +145,13 @@ class PageMarginBoxBuilder {
             } else if (childNode instanceof IElementNode) {
                 ITagWorker childTagWorker = context.getTagWorkerFactory().getTagWorker((IElementNode) childNode, context);
                 if (childTagWorker != null) {
+                    Map<String, String> stringStringMap = cssResolver.resolveStyles(childNode, context.getCssContext());
+                    ((IElementNode) childNode).setStyles(stringStringMap);
+                    ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier((IElementNode) childNode);
+                    if (cssApplier != null) {
+                        cssApplier.apply(context, (IStylesContainer) childNode, childTagWorker);
+                    }
+
                     childTagWorker.processEnd((IElementNode) childNode, context);
                     marginBoxWorker.processTagChild(childTagWorker, context);
                 }
