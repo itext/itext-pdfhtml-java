@@ -58,6 +58,8 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
+
+import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,6 +67,9 @@ import org.slf4j.LoggerFactory;
  * TagWorker class for the {@code input} element.
  */
 public class InputTagWorker implements ITagWorker, IDisplayAware {
+
+    private static final Pattern NUMBER_INPUT_ALLOWED_VALUES =
+            Pattern.compile("^(((-?[0-9]+)(\\.[0-9]+)?)|(-?\\.[0-9]+))$");
 
     /**
      * The form element.
@@ -190,8 +195,9 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
         return formElement;
     }
 
-    private static String preprocessInputValue(String value, String inputType) {
-        if (AttributeConstants.NUMBER.equals(inputType) && value != null && !value.matches("[0-9.]*")) {
+    static String preprocessInputValue(String value, String inputType) {
+        if (AttributeConstants.NUMBER.equals(inputType) && value != null &&
+                !NUMBER_INPUT_ALLOWED_VALUES.matcher(value).matches()) {
             value = "";
         }
         return value;
