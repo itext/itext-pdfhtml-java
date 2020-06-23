@@ -62,9 +62,6 @@ public class T422RgbaOnscreenMultipleBoxesCTest extends W3CCssTest {
 
     @Test
     @Override
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, logLevel = LogLevelConstants.WARN)
-    })
     public void test() throws IOException, InterruptedException {
         super.test();
     }

@@ -43,17 +43,13 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -153,7 +149,6 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 2)})
     public void elementUlOlLiTest() throws IOException, InterruptedException {
         test("elementUlOlLiTest.html", "elementUlOlLiTest.pdf", "diff_");
     }
@@ -169,9 +164,6 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)
-    })
     public void negativeMarginsTest01() throws IOException, InterruptedException {
         test("negativeMarginsTest01.html", "negativeMarginsTest01.pdf", "diff_");
     }
@@ -182,7 +174,6 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES))
     public void negativeMarginsTest03() throws IOException, InterruptedException {
         test("negativeMarginsTest03.html", "negativeMarginsTest03.pdf", "diff_");
     }
@@ -263,9 +254,6 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)
-    })
     public void selfCollapsingTest09() throws IOException, InterruptedException {
         test("selfCollapsingTest09.html", "selfCollapsingTest09.pdf", "diff_");
     }
@@ -291,9 +279,6 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)
-    })
     public void selfCollapsingTest14() throws IOException, InterruptedException {
         test("selfCollapsingTest14.html", "selfCollapsingTest14.pdf", "diff_");
     }

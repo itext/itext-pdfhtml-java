@@ -43,10 +43,6 @@
 package com.itextpdf.html2pdf.css.w3c.css21.text;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
-import com.itextpdf.io.LogMessageConstant;
-import com.itextpdf.test.LogLevelConstants;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
 import org.junit.Test;
@@ -60,9 +56,6 @@ public class WhiteSpaceProcessing046Test extends W3CCssAhemFontTest {
 
     @Test
     @Override
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, logLevel = LogLevelConstants.WARN)
-    })
     public void test() throws IOException, InterruptedException {
         super.test();
     }

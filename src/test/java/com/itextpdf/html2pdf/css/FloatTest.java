@@ -53,18 +53,16 @@ import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class FloatTest extends ExtendedITextTest {
@@ -371,10 +369,7 @@ public class FloatTest extends ExtendedITextTest {
         runTest("float58Test", "diff58_");
     }
 
-    @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 1),
-    })
+   @Test
     public void float60Test() throws IOException, InterruptedException {
         runTest("float60Test", "diff60_");
     }
@@ -504,10 +499,7 @@ public class FloatTest extends ExtendedITextTest {
         runTest("floatingDivBottomBorderTest", "diff_BottomBorderTest_");
     }
 
-    @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 1),
-    })
+   @Test
     public void floatCaption01Test() throws IOException, InterruptedException {
         runTest("floatCaption01Test", "diff_floatCaption01Test_");
     }

@@ -150,9 +150,6 @@ public class SpanTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, logLevel = LogLevelConstants.WARN)
-    })
     public void spanTest10() throws IOException, InterruptedException {
         testWithSuffix("10");
     }
@@ -194,18 +191,12 @@ public class SpanTest extends ExtendedITextTest {
 
     // TODO: update cmp files during DEVSIX-2510
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 4, logLevel = LogLevelConstants.WARN)
-    })
     public void spanTestNestedBlock() throws IOException, InterruptedException {
         test("spanTestNestedBlock");
     }
 
     // TODO: update cmp files during DEVSIX-2510
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count = 4, logLevel = LogLevelConstants.WARN)
-    })
     public void spanTestNestedInlineBlock() throws IOException, InterruptedException {
         test("spanTestNestedInlineBlock");
     }

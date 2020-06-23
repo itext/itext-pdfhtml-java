@@ -223,9 +223,7 @@ public class PageRuleTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.CLIP_ELEMENT, count= 2, logLevel = LogLevelConstants.WARN),
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, count= 2, logLevel = LogLevelConstants.WARN),
-    })
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.CLIP_ELEMENT, count= 2, logLevel = LogLevelConstants.WARN)})
     public void linearGradientOnPageMarginWithPercentWidthAndHeightTest() {
         runTest("linearGradientOnPageMarginWithPercentWidthAndHeightTest", new ConverterProperties().setTagWorkerFactory(new PageMarginBoxImagesTagWorkerFactory()));
     }
