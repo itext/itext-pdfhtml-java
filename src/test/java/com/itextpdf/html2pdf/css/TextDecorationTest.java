@@ -92,19 +92,18 @@ public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-3933
+    //TODO update after DEVSIX-4063 is closed
     public void textDecorationShorthandAllValuesTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationShorthandAllValues", sourceFolder, destinationFolder);
     }
 
     @Test
-    // TODO DEVSIX-3933
     public void textDecorationShorthandOneValueTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationShorthandOneValue", sourceFolder, destinationFolder);
     }
 
     @Test
-    // TODO DEVSIX-3933
+    //TODO update after DEVSIX-4063 is closed
     public void textDecorationShorthandTwoValuesTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationShorthandTwoValues", sourceFolder, destinationFolder);
     }
@@ -115,7 +114,7 @@ public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO: DEVSIX-3933
+    //TODO: DEVSIX-4201
     @LogMessages(messages = {
             @LogMessage(messageTemplate = LogMessageConstant.HSL_COLOR_NOT_SUPPORTED)})
     public void textDecorationColorTest() throws IOException, InterruptedException {
@@ -128,7 +127,6 @@ public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO: DEVSIX-3933
     public void textDecorationLineTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationLine", sourceFolder, destinationFolder);
     }
@@ -139,19 +137,18 @@ public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO: DEVSIX-3933
+    //TODO update after DEVSIX-4063 is closed
     public void textDecorationStyleTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationStyle", sourceFolder, destinationFolder);
     }
 
     @Test
-    //TODO: DEVSIX-3933
+    //TODO update after DEVSIX-4063 is closed
     public void shorthandAndSpecificTextDecorPropsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("shorthandAndSpecificTextDecorProps", sourceFolder, destinationFolder);
     }
 
     @Test
-    //TODO: DEVSIX-3933
     public void combinationOfLinesInTextDecorationTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("combinationOfLinesInTextDecoration", sourceFolder, destinationFolder);
     }
