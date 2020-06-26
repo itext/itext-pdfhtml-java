@@ -77,11 +77,11 @@ import com.itextpdf.layout.font.Range;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.RenderingMode;
 import com.itextpdf.styledxmlparser.css.CssDeclaration;
+import com.itextpdf.styledxmlparser.css.font.CssFontFace;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
 import com.itextpdf.styledxmlparser.css.ICssResolver;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementUtil;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.ITextNode;
@@ -463,10 +463,10 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             for (CssFontFaceRule fontFace : ((DefaultCssResolver) cssResolver).getFonts()) {
                 boolean findSupportedSrc = false;
                 List<CssDeclaration> declarations = fontFace.getProperties();
-                FontFace ff = FontFace.create(declarations);
+                CssFontFace ff = CssFontFace.create(declarations);
                 if (ff != null) {
-                    for (FontFace.FontFaceSrc src : ff.getSources()) {
-                        if (createFont(ff.getFontFamily(), src, resolveUnicodeRange(declarations))) {
+                    for (CssFontFace.CssFontFaceSrc src : ff.getSources()) {
+                        if (createFont(ff.getFontFamily(), src, fontFace.resolveUnicodeRange())) {
                             findSupportedSrc = true;
                             break;
                         }
@@ -479,16 +479,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
     }
 
-    private Range resolveUnicodeRange(List<CssDeclaration> declarations) {
-        Range range = null;
-        for (CssDeclaration descriptor : declarations) {
-            if ("unicode-range".equals(descriptor.getProperty())) {
-                range = CssUtils.parseUnicodeRange(descriptor.getExpression());
-            }
-        }
-        return range;
-    }
-
     /**
      * Creates a font and adds it to the context.
      *
@@ -497,11 +487,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      * @param unicodeRange the unicode range
      * @return true, if successful
      */
-    private boolean createFont(String fontFamily, FontFace.FontFaceSrc src, Range unicodeRange) {
-        if (!supportedFontFormat(src.format)) {
+    private boolean createFont(String fontFamily, CssFontFace.CssFontFaceSrc src, Range unicodeRange) {
+        if (!CssFontFace.isSupportedFontFormat(src.getFormat())) {
             return false;
-        } else if (src.isLocal) { // to method with lazy initialization
-            Collection<FontInfo> fonts = context.getFontProvider().getFontSet().get(src.src);
+        } else if (src.isLocal()) { // to method with lazy initialization
+            Collection<FontInfo> fonts = context.getFontProvider().getFontSet().get(src.getSrc());
             if (fonts.size() > 0) {
                 for (FontInfo fi : fonts) {
                     context.addTemporaryFont(fi, fontFamily);
@@ -514,7 +504,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             try {
                 // Cache at resource resolver level only, at font level we will create font in any case.
                 // The instance of fontProgram will be collected by GC if the is no need in it.
-                byte[] bytes = context.getResourceResolver().retrieveBytesFromResource(src.src);
+                byte[] bytes = context.getResourceResolver().retrieveBytesFromResource(src.getSrc());
                 if (bytes != null) {
                     FontProgram fp = FontProgramFactory.createFont(bytes, false);
                     context.addTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily, unicodeRange);
@@ -523,25 +513,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             } catch (Exception ignored) {
             }
             return false;
-        }
-    }
-
-    /**
-     * Checks whether in general we support requested font format.
-     *
-     * @param format {@link com.itextpdf.html2pdf.attach.impl.FontFace.FontFormat}
-     * @return true, if supported or unrecognized.
-     */
-    private boolean supportedFontFormat(FontFace.FontFormat format) {
-        switch (format) {
-            case None:
-            case TrueType:
-            case OpenType:
-            case WOFF:
-            case WOFF2:
-                return true;
-            default:
-                return false;
         }
     }
 
