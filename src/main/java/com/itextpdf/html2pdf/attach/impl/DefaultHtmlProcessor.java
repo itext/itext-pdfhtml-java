@@ -73,8 +73,6 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.font.FontFamilySplitter;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.Range;
 import com.itextpdf.layout.property.Property;
@@ -90,6 +88,7 @@ import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.ITextNode;
+import com.itextpdf.styledxmlparser.util.FontFamilySplitterUtil;
 
 import java.util.Map;
 import org.slf4j.Logger;
@@ -187,7 +186,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
 
         // TODO DEVSIX-2534
-        List<String> fontFamilies = FontFamilySplitter.splitFontFamily(cssProperties.get(CssConstants.FONT_FAMILY));
+        List<String> fontFamilies = FontFamilySplitterUtil.splitFontFamily(cssProperties.get(CssConstants.FONT_FAMILY));
         if (fontFamilies != null && !propertyContainer.hasOwnProperty(Property.FONT)) {
             propertyContainer.setProperty(Property.FONT, fontFamilies.toArray(new String[0]));
         }

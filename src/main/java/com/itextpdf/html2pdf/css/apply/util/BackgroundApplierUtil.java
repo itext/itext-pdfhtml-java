@@ -492,15 +492,5 @@ public final class BackgroundApplierUtil {
         public float getImageHeight() {
             return (float) (image.getHeight() * dimensionMultiplier);
         }
-
-        @Override
-        public float getWidth() {
-            return (float) (image.getWidth() * dimensionMultiplier);
-        }
-
-        @Override
-        public float getHeight() {
-            return (float) (image.getHeight() * dimensionMultiplier);
-        }
     }
 }
