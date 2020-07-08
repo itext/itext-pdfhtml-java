@@ -90,7 +90,7 @@ public final class PositionApplierUtil {
 //            float em = CssUtils.parseAbsoluteLength(cssProps.get(CommonCssConstants.FONT_SIZE));
 //            applyLeftProperty(cssProps, element, em, Property.X);
 //            applyTopProperty(cssProps, element, em, Property.Y);
-            // TODO
+            // TODO DEVSIX-4104 support "fixed" value of position property
         }
     }
 

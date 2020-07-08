@@ -85,4 +85,9 @@ public class CounterTest extends ExtendedHtmlConversionITextTest{
     public void pageCounter04Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("page_counter04", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void pageCounterSpacesInDeclarationTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("page_counter_spaces_in_declaration", sourceFolder, destinationFolder);
+    }
 }

@@ -43,10 +43,9 @@
 package com.itextpdf.html2pdf.css.resolve;
 
 
-import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.page.CssRunningManager;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
-import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
@@ -62,7 +61,7 @@ public class CssContext extends AbstractCssContext {
     /** The counter manager. */
     private CssCounterManager counterManager = new CssCounterManager();
 
-    /** Indicates if a page counter is present. */
+    /** Indicates if a pages counter is present. */
     private boolean pagesCounterPresent = false;
 
     /** The running elements manager. */

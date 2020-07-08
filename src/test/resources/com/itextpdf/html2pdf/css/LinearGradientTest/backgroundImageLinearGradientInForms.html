@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Background-image:linear-gradient in form tag</h2>
+
+<form style="background-image: linear-gradient(to top, orange -20pt, magenta 0%, yellow,  teal 100%, orange 120%)">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe">
+</form>
+
+<h2>Background-image:linear-gradient in input tag</h2>
+
+<form>
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John" style="background-image: linear-gradient(to top, orange -20pt, magenta 0%, yellow,  teal 100%, orange 120%)"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe">
+</form>
+
+<form>
+<input type="submit" value="Submit" style="background-image: linear-gradient(to top, orange -20pt, magenta 0%, yellow,  teal 100%, orange 120%)">
+</form>
+
+<h2>Background-image:linear-gradient in form and input tag</h2>
+<form style="background-image: linear-gradient(to top, orange -20pt, blue 0%, red,  green 100%, orange 120%)">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John" style="background-image: linear-gradient(to top, orange -20pt, magenta 0%, yellow,  teal 100%, orange 120%)"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe" style="background-image: linear-gradient(to top, orange -20pt, magenta 0%, yellow,  teal 100%, orange 120%)">
+</form>
+
+<h2>Background-image:linear-gradient in radio buttons</h2>
+
+<form style="background-image: linear-gradient(to top, orange -20pt, blue 0%, red,  green 100%, orange 120%)">
+  <input type="radio" id="male" name="gender" value="male" style="background-image: linear-gradient(to top, orange -20pt, magenta 0%, yellow,  teal 100%, orange 120%)">
+  <label for="male" style="background-image: linear-gradient(to top, orange -20pt, blue 0%, red,  green 100%, orange 120%)">Male</label><br>
+  <input type="radio" id="female" name="gender" value="female" style="background-image: linear-gradient(to top, orange -20pt, blue 0%, red,  green 100%, orange 120%)">
+  <label for="female">Female</label><br>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Other</label>
+</form> 
+</body>
+</html>

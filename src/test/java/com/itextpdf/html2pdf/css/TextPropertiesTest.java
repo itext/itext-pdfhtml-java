@@ -47,13 +47,12 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
+
+import java.io.IOException;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
@@ -103,7 +102,6 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES))
     public void lineHeightTest03() throws IOException, InterruptedException {
         convertToPdfAndCompare("lineHeightTest03", sourceFolder, destinationFolder);
     }

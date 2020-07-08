@@ -211,7 +211,6 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX_1973
     public void inputDisabled01AcroTest() throws IOException, InterruptedException {
         String htmlPath = sourceFolder + "inputDisabled01Test.html";
         String outPdfPath = destinationFolder + "inputDisabled01AcroTest.pdf";

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>TR inside tbody element</h1>
+<h3>TR with border style, tbody element not</h3>
+
+<table style="border-collapse: collapse">
+  <tbody>
+    <tr style="border:1px solid red">
+      <td>TR inside tbody</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>TR and tbody with the same border width</h3>
+<table style="border-collapse: collapse">
+  <tbody style="border:1px solid blue">
+    <tr style="border:1px solid red">
+      <td>TR border:1px solid red; tbody border:1px solid blue </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>tbody's border width greater than TR's</h3>
+<table style="border-collapse: collapse">
+  <tbody style="border:2px solid blue">
+    <tr style="border:1px solid red">
+      <td>TR border:2px solid red; tbody border:1px solid blue </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>TR's border width greater than tbody's</h3>
+<table style="border-collapse: collapse">
+  <tbody style="border:1px solid blue">
+    <tr style="border:2px solid red">
+      <td>TR border:2px solid red; tbody border:1px solid blue </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>TR and tbody both with border style</h3>
+<table style="border-collapse: collapse">
+  <tbody style="border:2px solid blue">
+      <td>tbody border:2px solid blue </td>
+  </tbody>
+  <tr style="border:2px solid green"><td>Tr between tbody with border: 2px solid green</tr>
+  <tbody style="border:2px solid blue">
+      <td>tbody border:2px solid blue </td>
+  </tbody>
+</table>
+
+<h3>TR, TD and tbody with border style</h3>
+<table style="border-collapse: collapse">
+  <tbody style="border:2px solid blue">
+      <tr style="border:2px solid green"><td style="border: 2px solid red">tbody blue, tr green, td red</td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>

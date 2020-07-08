@@ -38,7 +38,6 @@ public class LineHeight005Test extends W3CCssAhemFontTest {
     @Test
     @Override
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = "The background rectangle has negative or zero sizes. It will not be displayed."),
             @LogMessage(messageTemplate = "Unable to process external css file")
     })
     public void test() throws IOException, InterruptedException {

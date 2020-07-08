@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.page.PageMarginRunningElementNode;
+import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -64,6 +65,7 @@ import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
+import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import com.itextpdf.styledxmlparser.node.ITextNode;
 import org.slf4j.LoggerFactory;
 
@@ -133,6 +135,7 @@ class PageMarginBoxBuilder {
     private IElement processMarginBoxContent(PageMarginBoxContextNode marginBoxContentNode, int pageNumber, ProcessorContext context) {
         IElementNode dummyMarginBoxNode = new PageMarginBoxDummyElement();
         dummyMarginBoxNode.setStyles(marginBoxContentNode.getStyles());
+        DefaultCssResolver cssResolver = new DefaultCssResolver(marginBoxContentNode, context);
         ITagWorker marginBoxWorker = context.getTagWorkerFactory().getTagWorker(dummyMarginBoxNode, context);
         for (int i = 0; i < marginBoxContentNode.childNodes().size(); i++) {
             INode childNode = marginBoxContentNode.childNodes().get(i);
@@ -142,6 +145,13 @@ class PageMarginBoxBuilder {
             } else if (childNode instanceof IElementNode) {
                 ITagWorker childTagWorker = context.getTagWorkerFactory().getTagWorker((IElementNode) childNode, context);
                 if (childTagWorker != null) {
+                    Map<String, String> stringStringMap = cssResolver.resolveStyles(childNode, context.getCssContext());
+                    ((IElementNode) childNode).setStyles(stringStringMap);
+                    ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier((IElementNode) childNode);
+                    if (cssApplier != null) {
+                        cssApplier.apply(context, (IStylesContainer) childNode, childTagWorker);
+                    }
+
                     childTagWorker.processEnd((IElementNode) childNode, context);
                     marginBoxWorker.processTagChild(childTagWorker, context);
                 }
@@ -584,7 +594,7 @@ class PageMarginBoxBuilder {
      * @param dim        Dimension container containing min and max dimension info
      * @param dimensions array of calculated auto values for boxes in the given dimension
      * @param index      position in the array to look at
-     * @return True if the values in dimensions trigger a recalculation, false otherwise
+     * @return <code>true</code> if the values in dimensions trigger a recalculation, <code>false</code> otherwise
      */
     private boolean recalculateIfNecessary(DimensionContainer dim, float[] dimensions, int index) {
         if (dim != null) {
@@ -603,7 +613,7 @@ class PageMarginBoxBuilder {
     /**
      * Calculate the margin boxes given the list of margin boxes that have generated content
      *
-     * @return Rectangle[12] containing the calulated bounding boxes of the margin-box-nodes. Rectangles with 0 width and/or heigh
+     * @return Rectangle[12] containing the calculated bounding boxes of the margin-box-nodes. Rectangles with 0 width and/or height
      * refer to empty boxes. The order is TLC(top-left-corner)-TL-TC-TY-TRC-RT-RM-RB-RBC-BR-BC-BL-BLC-LB-LM-LT
      */
     private Rectangle[] calculateMarginBoxRectanglesCornersOnly() {

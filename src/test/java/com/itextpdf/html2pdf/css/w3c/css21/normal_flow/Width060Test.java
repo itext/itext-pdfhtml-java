@@ -43,10 +43,8 @@
 package com.itextpdf.html2pdf.css.w3c.css21.normal_flow;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
-@LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)})
+
 public class Width060Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

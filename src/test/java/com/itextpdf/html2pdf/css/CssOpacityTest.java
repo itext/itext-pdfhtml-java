@@ -46,7 +46,6 @@ import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -64,7 +63,7 @@ public class CssOpacityTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void innerOpacityTest() throws IOException, InterruptedException {
         // TODO itext "overwrites" parent's opacity while in css, opacity kinda "merges"
-        // i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
+        //  i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
         convertToPdfAndCompare("innerOpacityTest", sourceFolder, destinationFolder);
     }
 

@@ -38,6 +38,7 @@ import com.itextpdf.layout.property.ParagraphWidowsControl;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
+import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 
 import java.io.FileInputStream;
@@ -48,7 +49,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(UnitTest.class)
-public class OrphansWidowsUnitTest {
+public class OrphansWidowsUnitTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/OrphansWidowsUnitTest/";
 

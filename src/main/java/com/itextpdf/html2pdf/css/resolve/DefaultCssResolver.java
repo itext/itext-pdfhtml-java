@@ -46,12 +46,14 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
+import com.itextpdf.html2pdf.css.util.CssStyleSheetAnalyzer;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.io.util.DecimalFormatUtil;
 import com.itextpdf.io.util.StreamUtil;
+import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
 import com.itextpdf.styledxmlparser.css.CssRuleSet;
 import com.itextpdf.styledxmlparser.css.CssStatement;
@@ -66,7 +68,6 @@ import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
 import com.itextpdf.styledxmlparser.css.resolve.CssInheritance;
-import com.itextpdf.styledxmlparser.css.resolve.CssPropertyMerger;
 import com.itextpdf.styledxmlparser.css.resolve.IStyleInheritance;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IDataNode;
@@ -75,18 +76,18 @@ import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.itextpdf.styledxmlparser.util.StyleUtil;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Default implementation of the {@link ICssResolver} interface.
@@ -112,13 +113,6 @@ public class DefaultCssResolver implements ICssResolver {
      * The list of fonts.
      */
     private List<CssFontFaceRule> fonts = new ArrayList<>();
-
-    private static final List<String> fontSizeDependentPercentage = new ArrayList<String>(2);
-
-    static {
-        fontSizeDependentPercentage.add(CssConstants.FONT_SIZE);
-        fontSizeDependentPercentage.add(CssConstants.LINE_HEIGHT);
-    }
 
     /**
      * Creates a new {@link DefaultCssResolver} instance.
@@ -192,8 +186,12 @@ public class DefaultCssResolver implements ICssResolver {
             }
 
             if (parentStyles != null) {
+                Set<IStyleInheritance> inheritanceRules = new HashSet<>();
+                inheritanceRules.add(cssInheritance);
                 for (Map.Entry<String, String> entry : parentStyles.entrySet()) {
-                    mergeParentCssDeclaration(elementStyles, entry.getKey(), entry.getValue(), parentStyles);
+                    elementStyles = StyleUtil
+                            .mergeParentStyleDeclaration(elementStyles, entry.getKey(), entry.getValue(), parentStyles.get(
+                            CommonCssConstants.FONT_SIZE), inheritanceRules);
                 }
                 parentFontSizeStr = parentStyles.get(CssConstants.FONT_SIZE);
             }
@@ -287,7 +285,6 @@ public class DefaultCssResolver implements ICssResolver {
                 if (TagConstants.STYLE.equals(headChildElement.name())) {
                     if (currentNode.childNodes().size() > 0 && currentNode.childNodes().get(0) instanceof IDataNode) {
                         String styleData = ((IDataNode) currentNode.childNodes().get(0)).getWholeData();
-                        checkIfPagesCounterMentioned(styleData, cssContext);
                         CssStyleSheet styleSheet = CssStyleSheetParser.parse(styleData);
                         styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);
@@ -297,7 +294,6 @@ public class DefaultCssResolver implements ICssResolver {
                     try {
                         InputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUri);
                         byte[] bytes = StreamUtil.inputStreamToArray(stream);
-                        checkIfPagesCounterMentioned(new String(bytes, StandardCharsets.UTF_8), cssContext);
                         CssStyleSheet styleSheet = CssStyleSheetParser.parse(new ByteArrayInputStream(bytes), resourceResolver.resolveAgainstBaseUri(styleSheetUri).toExternalForm());
                         styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);
@@ -314,20 +310,20 @@ public class DefaultCssResolver implements ICssResolver {
                 }
             }
         }
+        checkIfPagesCounterMentioned(cssStyleSheet, cssContext);
     }
 
     /**
      * Check if a pages counter is mentioned.
      *
-     * @param cssContents the CSS contents
-     * @param cssContext  the CSS context
+     * @param styleSheet the stylesheet to analyze
+     * @param cssContext the CSS context
      */
-    private void checkIfPagesCounterMentioned(String cssContents, CssContext cssContext) {
-        // TODO more efficient (avoid searching in text string) and precise (e.g. skip spaces) check during the parsing.
-        if (cssContents.contains("counter(pages)") || cssContents.contains("counters(pages")) {
-            // The presence of counter(pages) means that theoretically relayout may be needed.
-            // We don't know it yet because that selector might not even be used, but
-            // when we know it for sure, it's too late because the Document is created right in the start.
+    private void checkIfPagesCounterMentioned(CssStyleSheet styleSheet, CssContext cssContext) {
+        // The presence of counter(pages) means that theoretically relayout may be needed.
+        // We don't know it yet because that selector might not even be used, but
+        // when we know it for sure, it's too late because the Document is created right in the start.
+        if (CssStyleSheetAnalyzer.checkPagesCounterPresence(styleSheet)) {
             cssContext.setPagesCounterPresent(true);
         }
     }
@@ -348,43 +344,6 @@ public class DefaultCssResolver implements ICssResolver {
             styleSheet.addStatement(mediaRule);
         }
         return styleSheet;
-    }
-
-    /**
-     * Merge parent CSS declarations.
-     *
-     * @param styles          the styles map
-     * @param cssProperty     the CSS property
-     * @param parentPropValue the parent properties value
-     */
-    private void mergeParentCssDeclaration(Map<String, String> styles, String cssProperty, String parentPropValue, Map<String, String> parentStyles) {
-        String childPropValue = styles.get(cssProperty);
-        if ((childPropValue == null && cssInheritance.isInheritable(cssProperty)) || CssConstants.INHERIT.equals(childPropValue)) {
-            if (valueIsOfMeasurement(parentPropValue, CssConstants.EM) || valueIsOfMeasurement(parentPropValue, CssConstants.EX) ||
-                    valueIsOfMeasurement(parentPropValue, CssConstants.PERCENTAGE) && fontSizeDependentPercentage.contains(cssProperty)) {
-                float absoluteParentFontSize = CssUtils.parseAbsoluteLength(parentStyles.get(CssConstants.FONT_SIZE));
-                // Format to 4 decimal places to prevent differences between Java and C#
-                styles.put(cssProperty, DecimalFormatUtil.formatNumber(CssUtils.parseRelativeValue(parentPropValue, absoluteParentFontSize),
-                        "0.####") + CssConstants.PT);
-            } else
-                styles.put(cssProperty, parentPropValue);
-        } else if (CssConstants.TEXT_DECORATION.equals(cssProperty) && !CssConstants.INLINE_BLOCK.equals(styles.get(CssConstants.DISPLAY))) {
-            // TODO Note! This property is formally not inherited, but the browsers behave very similar to inheritance here.
-                        /* Text decorations on inline boxes are drawn across the entire element,
-                            going across any descendant elements without paying any attention to their presence. */
-            // Also, when, for example, parent element has text-decoration:underline, and the child text-decoration:overline,
-            // then the text in the child will be both overline and underline. This is why the declarations are merged
-            // See TextDecorationTest#textDecoration01Test
-            styles.put(cssProperty, CssPropertyMerger.mergeTextDecoration(childPropValue, parentPropValue));
-        }
-    }
-
-    private static boolean valueIsOfMeasurement(String value, String measurement) {
-        if (value == null)
-            return false;
-        if (value.endsWith(measurement) && CssUtils.isNumericValue(value.substring(0, value.length() - measurement.length()).trim()))
-            return true;
-        return false;
     }
 
     /**

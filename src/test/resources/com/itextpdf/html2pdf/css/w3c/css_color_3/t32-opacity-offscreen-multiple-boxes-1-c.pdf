@@ -1,10 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 218>>stream
-xœ…‘;oÂ0…÷û+ÎHã·SÆJ-s%]KqBQÀ"ÑŸß\HhÚú!y¸ç|çÈRàİ5d<úã´A]¢š^é@O‘æ/ıˆF¬y&TF‹¸¦YÜ$Ô¹móùsßàxÎXå¯TP6ùÔ®±J8öå}—ğ‘ÛÜ-â–ãÅv¾,
-Mé_òÀVîQ8Ë9”F)¾
-.‰ôˆE^‰Šİœfo¼n´Anîx•yrg'p¬ù‰Ã=ÊMU3Tó¿TsîÿjRxğ1-4¼d›òXÜp
+<</Filter/FlateDecode/Length 212>>stream
+xœ…‘»n1EûùŠ[’Æøíe¤„:’‹´!x— ‹5ˆ|~vÀPD›ÄöHSÌ=s$HïĞ‘ñŸÓ!H‰Zz¥=Eš¿Œ#±å™Ğ,âšfq“Ğæ¾ÏçÏ}‡ã9c•¿RAÙäS¿Æ*á8N”÷]ÂGîó°xˆ[zì|Yº2vò*`÷(œe¥„Ñ7‹Ğ×ÀÅHW#y%º“fo|îÛjÜp¼övÕØ)~bÜ”¶ùCÛÿ¢íÜÿÚRxpİ~(-4¼dLİòrìhÉ
 endstream
 endobj
 4 0 obj
@@ -14,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20200311140148+03'00')/ModDate(D:20200311140148+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: opacity)/assert(Opacity is group opacity over elements \(not boxes\).)/flags()>>
+<</CreationDate(D:20200610162549+03'00')/ModDate(D:20200610162549+03'00')/Producer(iText® 7.1.12-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: opacity)/assert(Opacity is group opacity over elements \(not boxes\).)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Courier/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -46,22 +44,22 @@ endobj
 xref
 0 14
 0000000000 65535 f 
-0000000520 00000 n 
-0000001003 00000 n 
-0000000565 00000 n 
-0000000300 00000 n 
+0000000514 00000 n 
+0000000997 00000 n 
+0000000559 00000 n 
+0000000294 00000 n 
 0000000015 00000 n 
-0000000913 00000 n 
-0000000827 00000 n 
-0000001054 00000 n 
-0000001088 00000 n 
-0000001122 00000 n 
-0000001157 00000 n 
-0000001192 00000 n 
-0000001227 00000 n 
+0000000907 00000 n 
+0000000821 00000 n 
+0000001048 00000 n 
+0000001082 00000 n 
+0000001116 00000 n 
+0000001151 00000 n 
+0000001186 00000 n 
+0000001221 00000 n 
 trailer
-<</ID [<0b5c8dbbabd9b9a734df203d1c6b85bb><0b5c8dbbabd9b9a734df203d1c6b85bb>]/Info 3 0 R/Root 1 0 R/Size 14>>
-%iText-7.1.11-SNAPSHOT
+<</ID [<674081e45264f99739298b7d58c93225><674081e45264f99739298b7d58c93225>]/Info 3 0 R/Root 1 0 R/Size 14>>
+%iText-7.1.12-SNAPSHOT
 startxref
-1262
+1256
 %%EOF

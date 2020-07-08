@@ -1,0 +1,23 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <style type="text/css">
+            .none-with-width-height::before
+            {
+                content: linear-gradient(to left top, red, green, blue);
+                display: none;
+                height: 100px;
+                width: auto;
+            }
+            .none::before
+            {
+                content: linear-gradient(to left top, red, green, blue);
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="none-with-width-height">none content with width&height before</div>
+        <div class="none">none content before</div>
+    </body>
+</html>

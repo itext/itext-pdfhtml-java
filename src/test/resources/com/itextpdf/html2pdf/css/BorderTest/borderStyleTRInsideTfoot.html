@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>TR inside tfoot element</h1>
+<h3>TR with border style, tfoot element not</h3>
+
+<table style="border-collapse: collapse">
+  <tfoot>
+    <tr style="border:1px solid red">
+      <td>TR inside tfoot</td>
+    </tr>
+  </tfoot>
+</table>
+
+<h3>TR and tfoot both with border style</h3>
+<table style="border-collapse: collapse">
+  <tfoot style="border:1px solid blue">
+    <tr style="border:1px solid red">
+      <td>TR border:1px solid red; tfoot border:1px solid blue </td>
+    </tr>
+  </tfoot>
+</table>
+
+<h3>TR and tfoot both with border style</h3>
+<table style="border-collapse: collapse">
+  <tfoot style="border:1px solid blue">
+    <tr style="border:2px solid red">
+      <td>TR border:2px solid red; tfoot border:1px solid blue </td>
+    </tr>
+  </tfoot>
+</table>
+
+<h3>TR and tfoot both with border style</h3>
+<table style="border-collapse: collapse">
+<tr style="border:2px solid green"><td>Tr before tfoot with border: 2px solid green</td></tr>
+  <tfoot style="border:2px solid blue">
+      <td>TR border:2px solid red; tfoot border:2px solid blue </td>
+  </tfoot>
+</table>
+
+</body>
+</html>

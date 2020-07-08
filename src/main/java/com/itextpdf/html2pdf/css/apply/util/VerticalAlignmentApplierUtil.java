@@ -109,11 +109,11 @@ public class VerticalAlignmentApplierUtil {
         String vAlignVal = cssProps.get(CssConstants.VERTICAL_ALIGN);
         if (vAlignVal != null) {
 
-            // TODO for inline images and tables (inline-blocks) v-align is not supported
+            // TODO DEVSIX-1750 for inline images and tables (inline-blocks) v-align is not supported
 
             float textRise = 0;
 
-            // TODO 'top' and 'bottom' values are not supported;
+            // TODO DEVSIX-3757 'top' and 'bottom' values are not supported;
             // 'top' and 'bottom' require information of actual line height, therefore should be applied at layout level;
             // 'sub', 'super' calculations are based on the behaviour of the common browsers (+33% and -20% shift accordingly from the parent's font size);
             // 'middle', 'text-top', 'text-bottom' calculations are based on the approximate assumptions that x-height is 0.5 of the font size

@@ -43,6 +43,9 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -86,5 +89,67 @@ public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
     // TODO DEVSIX-2532
     public void textDecoration05Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationTest05", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO update after DEVSIX-4063 is closed
+    public void textDecorationShorthandAllValuesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationShorthandAllValues", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void textDecorationShorthandOneValueTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationShorthandOneValue", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO update after DEVSIX-4063 is closed
+    public void textDecorationShorthandTwoValuesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationShorthandTwoValues", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void textDecorationWithChildElementTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationWithChildElement", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO: DEVSIX-4201
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.HSL_COLOR_NOT_SUPPORTED)})
+    public void textDecorationColorTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationColor", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void textDecorationColorWithTransparencyTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationColorWithTransparency", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void textDecorationLineTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationLine", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void textDecorationLineNoneAndUnderlineTogetherTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationLineNoneAndUnderlineTogether", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO update after DEVSIX-4063 is closed
+    public void textDecorationStyleTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationStyle", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO update after DEVSIX-4063 is closed
+    public void shorthandAndSpecificTextDecorPropsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("shorthandAndSpecificTextDecorProps", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void combinationOfLinesInTextDecorationTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("combinationOfLinesInTextDecoration", sourceFolder, destinationFolder);
     }
 }

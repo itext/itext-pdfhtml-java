@@ -138,4 +138,101 @@ public class BorderTest extends ExtendedHtmlConversionITextTest {
     public void borderTransparencyTest02() throws IOException, InterruptedException {
         convertToPdfAndCompare("borderTransparencyTest02", sourceFolder, destinationFolder);
     }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleOverlayingInTRTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleOverlayingInTR", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleSolidAndDoubleValueInTRTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleSolidAndDoubleValueInTR", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleSolidAndDottedValueInTRTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleSolidAndDottedValueInTR", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleSolidAndDashedValueInTRTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleSolidAndDashedValueInTR", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleInTrDifferentTypesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleInTrDifferentTypes", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleTRInsideTheadTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleTRInsideThead", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleTRInsideTbodyTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleTRInsideTbody", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleTRInsideTfootTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleTRInsideTfoot", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleInsideTableElementsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleInsideTableElements", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleInTRLengthUnitsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleInTRLengthUnits", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleInTrColorValuesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleInTrColorValues", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE))
+    public void borderStyleInTRwithTHTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleInTRwithTH", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSIX-2857 update cmp file after fix
+    public void borderStyleInTRSeparateBorderCollapseTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderStyleInTRSeparateBorderCollapse", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSix-4119 update cmp file after fix
+    public void tbodyBorderCollapseTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tbodyBorderCollapse", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSix-4119 update cmp file after fix
+    public void theadBorderCollapseTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("theadBorderCollapse", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    //TODO DEVSix-4119 update cmp file after fix
+    public void tfootBorderCollapseTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tfootBorderCollapse", sourceFolder, destinationFolder);
+    }
 }

@@ -143,7 +143,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     public void processPageRules(INode rootNode, ICssResolver cssResolver, ProcessorContext context) {
         PageContextProperties firstPageProps = PageContextProperties.resolve(rootNode, cssResolver, context.getCssContext(),
                 PageContextConstants.FIRST, PageContextConstants.RIGHT);
-        // TODO in documents with set to rtl on root document, first page is considered as left
+        // TODO DEVSIX-4118 in documents with set to rtl on root document, first page is considered as left
         PageContextProperties leftPageProps = PageContextProperties.resolve(rootNode, cssResolver, context.getCssContext(),
                 PageContextConstants.LEFT);
         PageContextProperties rightPageProps = PageContextProperties.resolve(rootNode, cssResolver, context.getCssContext(),
@@ -462,7 +462,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
      * @return true, if is current page left
      */
     private boolean isPageLeft(int pageNum) {
-        // TODO rtl
+        // TODO DEVSIX-4118 rtl
         boolean pageIsEven = pageNum % 2 == 0;
         return evenPagesAreLeft == pageIsEven;
     }

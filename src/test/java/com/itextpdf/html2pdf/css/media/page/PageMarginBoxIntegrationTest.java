@@ -43,25 +43,31 @@
 package com.itextpdf.html2pdf.css.media.page;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.io.IOException;
+import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.junit.rules.ExpectedException;
 
 @Category(IntegrationTest.class)
 public class PageMarginBoxIntegrationTest extends ExtendedHtmlConversionITextTest {
 
-
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/media/page/PageMarginBoxIntegrationTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/media/page/PageMarginBoxIntegrationTest/";
+
+    @Rule
+    public ExpectedException junitExpectedException = ExpectedException.none();
 
     @BeforeClass
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
     }
-
 
     @Test
     public void headerFooterTest() throws IOException, InterruptedException {
@@ -347,4 +353,12 @@ public class PageMarginBoxIntegrationTest extends ExtendedHtmlConversionITextTes
     public void pageMarginFont() throws IOException, InterruptedException {
         convertToPdfAndCompare("pageMarginFont", sourceFolder, destinationFolder);
     }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT)})
+    public void tableInsideOfPageMarginNotFittingIntoDedicatedSpace() throws IOException, InterruptedException {
+        junitExpectedException.expect(NullPointerException.class);
+        convertToPdfAndCompare("tableInsideOfPageMarginNotFittingIntoDedicatedSpace", sourceFolder, destinationFolder);
+    }
+
 }

@@ -100,7 +100,7 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     public void inlineSvgExternalFontUrlTest() throws IOException, InterruptedException {
-        // TODO RND-1042 external font loading in SVG via @import
+        // TODO DEVSIX-2264 external font loading in SVG via @import
         String name = "inline_svg_external_font_url";
         HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
@@ -226,9 +226,6 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = SvgLogMessageConstant.UNMAPPEDTAG),
-    })
     public void convertInlineSvgLogo() throws IOException, InterruptedException {
         String html = "inline_svg_logo";
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + html + ".pdf"));
@@ -301,7 +298,6 @@ public class SvgTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 66),
-            @LogMessage(messageTemplate = SvgLogMessageConstant.UNMAPPEDTAG, count = 67),
     })
     public void externalObjectWithGoogleCharts() throws IOException, InterruptedException {
         //TODO update after DEVSIX-2239

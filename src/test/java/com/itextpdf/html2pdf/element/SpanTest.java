@@ -43,11 +43,15 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.LogLevelConstants;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -200,5 +204,10 @@ public class SpanTest extends ExtendedITextTest {
     @Test
     public void spanWithDisplayBlockInsideSpanParagraphTest() throws IOException, InterruptedException {
         test("spanWithDisplayBlockInsideSpanParagraphTest", true);
+    }
+
+    @Test
+    public void spanWithBackgroundImageTest() throws IOException, InterruptedException {
+        test("spanWithBackgroundImageTest");
     }
 }

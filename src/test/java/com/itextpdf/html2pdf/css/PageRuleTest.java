@@ -57,7 +57,9 @@ import com.itextpdf.html2pdf.css.apply.impl.PageMarginBoxCssApplier;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
@@ -69,6 +71,7 @@ import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -79,22 +82,24 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.rules.ExpectedException;
-import org.xml.sax.SAXException;
 
 @Category(IntegrationTest.class)
 public class PageRuleTest extends ExtendedITextTest {
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/PageRuleTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/PageRuleTest/";
+    public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/PageRuleTest/";
+    public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/PageRuleTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createOrClearDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Rule
@@ -205,6 +210,30 @@ public class PageRuleTest extends ExtendedITextTest {
     @Test
     public void bigImageOnPageMarginTest03() {
         runTest("bigImageOnPageMarginTest03", new ConverterProperties().setTagWorkerFactory(new PageMarginBoxImagesTagWorkerFactory()));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.CLIP_ELEMENT, count= 4, logLevel = LogLevelConstants.WARN)
+    })
+    public void linearGradientOnPageMarginWithAutoWidthAndHeightTest() {
+        runTest("linearGradientOnPageMarginWithAutoWidthAndHeightTest", new ConverterProperties().setTagWorkerFactory(new PageMarginBoxImagesTagWorkerFactory()));
+    }
+
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.CLIP_ELEMENT, count= 2, logLevel = LogLevelConstants.WARN)})
+    public void linearGradientOnPageMarginWithPercentWidthAndHeightTest() {
+        runTest("linearGradientOnPageMarginWithPercentWidthAndHeightTest", new ConverterProperties().setTagWorkerFactory(new PageMarginBoxImagesTagWorkerFactory()));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.CLIP_ELEMENT, count= 2, logLevel = LogLevelConstants.WARN)
+    })
+    public void linearGradientOnPageMarginWithWidthAndHeightTest() {
+        runTest("linearGradientOnPageMarginWithWidthAndHeightTest", new ConverterProperties().setTagWorkerFactory(new PageMarginBoxImagesTagWorkerFactory()));
     }
 
     private static class PageMarginBoxImagesTagWorkerFactory extends DefaultTagWorkerFactory {
@@ -577,8 +606,8 @@ public class PageRuleTest extends ExtendedITextTest {
     @Test
     public void marginBoxRunningNoImmediateFlush01() throws IOException, InterruptedException {
         String name = "marginBoxRunningNoImmediateFlush01";
-        String htmlPath = sourceFolder + name + ".html";
-        String pdfPath = destinationFolder + name + ".pdf";
+        String htmlPath = SOURCE_FOLDER + name + ".html";
+        String pdfPath = DESTINATION_FOLDER + name + ".pdf";
 
         ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
         Document doc = HtmlConverter.convertToDocument(new FileInputStream(htmlPath), new PdfWriter(pdfPath), converterProperties);
@@ -589,8 +618,8 @@ public class PageRuleTest extends ExtendedITextTest {
     @Test
     public void marginBoxRunningNoImmediateFlush02() throws IOException, InterruptedException {
         String name = "marginBoxRunningNoImmediateFlush02";
-        String htmlPath = sourceFolder + name + ".html";
-        String pdfPath = destinationFolder + name + ".pdf";
+        String htmlPath = SOURCE_FOLDER + name + ".html";
+        String pdfPath = DESTINATION_FOLDER + name + ".pdf";
 
         ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
         Document doc = HtmlConverter.convertToDocument(new FileInputStream(htmlPath), new PdfWriter(pdfPath), converterProperties);
@@ -604,8 +633,8 @@ public class PageRuleTest extends ExtendedITextTest {
     @Test
     public void marginBoxRunningNoImmediateFlush03() throws IOException, InterruptedException {
         String name = "marginBoxRunningNoImmediateFlush03";
-        String htmlPath = sourceFolder + name + ".html";
-        String pdfPath = destinationFolder + name + ".pdf";
+        String htmlPath = SOURCE_FOLDER + name + ".html";
+        String pdfPath = DESTINATION_FOLDER + name + ".pdf";
 
         ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
         Document doc = HtmlConverter.convertToDocument(new FileInputStream(htmlPath), new PdfWriter(pdfPath), converterProperties);
@@ -630,8 +659,8 @@ public class PageRuleTest extends ExtendedITextTest {
     @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, count = 6))
     public void marginBoxRunningNoImmediateFlush04() throws IOException, InterruptedException {
         String name = "marginBoxRunningNoImmediateFlush04";
-        String htmlPath = sourceFolder + name + ".html";
-        String pdfPath = destinationFolder + name + ".pdf";
+        String htmlPath = SOURCE_FOLDER + name + ".html";
+        String pdfPath = DESTINATION_FOLDER + name + ".pdf";
 
         ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
         Document doc = HtmlConverter.convertToDocument(new FileInputStream(htmlPath), new PdfWriter(pdfPath), converterProperties);
@@ -648,8 +677,8 @@ public class PageRuleTest extends ExtendedITextTest {
     @Test
     public void marginBoxRunningNoImmediateFlush05() throws IOException, InterruptedException {
         String name = "marginBoxRunningNoImmediateFlush05";
-        String htmlPath = sourceFolder + name + ".html";
-        String pdfPath = destinationFolder + name + ".pdf";
+        String htmlPath = SOURCE_FOLDER + name + ".html";
+        String pdfPath = DESTINATION_FOLDER + name + ".pdf";
 
         ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
         converterProperties.setTagWorkerFactory(new CustomFlushingTagWorkerFactory());
@@ -681,6 +710,48 @@ public class PageRuleTest extends ExtendedITextTest {
     public void wrongPageRuleCssStructureTest() {
         junitExpectedException.expect(RuntimeException.class);
         runTest("wrongPageRuleCssStructureTest");
+    }
+
+    @Test
+    //TODO: DEVSIX-1570, SUP-2322. Remove junitExpectedException after the fix.
+    public void pageCountTestTableAlignLeft() throws IOException {
+        junitExpectedException.expect(AssertionError.class);
+
+        String expectedText = "Page 1 of 3";
+        String nameAlignLeft = "htmlWithTableAlignLeft.html";
+        String pdfOutputName = DESTINATION_FOLDER + nameAlignLeft + ".pdf";
+
+        File pdfOutputAlignLeft = new File(pdfOutputName);
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + nameAlignLeft), pdfOutputAlignLeft);
+
+        PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfOutputAlignLeft));
+        String textFromPage = PdfTextExtractor.getTextFromPage(pdfDocument.getPage(1));
+
+        // Print the output file. No comparison will be made on the following line
+        ExtendedITextTest.printOutputPdfNameAndDir(pdfOutputName);
+
+        Assert.assertTrue("Page doesn't contain text " + expectedText, textFromPage.contains(expectedText));
+    }
+
+    @Test
+    //TODO: DEVSIX-1570, SUP-2322. Remove junitExpectedException after the fix.
+    public void pageCountTestTableFloatLeft() throws IOException {
+        junitExpectedException.expect(AssertionError.class);
+
+        String expectedText = "Page 3 of 3";
+        String nameFloatLeft = "htmlWithTableFloatLeft.html";
+        String pdfOutputName = DESTINATION_FOLDER + nameFloatLeft + ".pdf";
+
+        File pdfOutputFloatLeft = new File(pdfOutputName);
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + nameFloatLeft), pdfOutputFloatLeft);
+
+        PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfOutputFloatLeft));
+        String textFromPage = PdfTextExtractor.getTextFromPage(pdfDocument.getPage(3));
+
+        // Print the output file. No comparison will be made on the following line
+        ExtendedITextTest.printOutputPdfNameAndDir(pdfOutputName);
+        
+        Assert.assertTrue("Page doesn't contain text " + expectedText, textFromPage.contains(expectedText));
     }
 
     private static class CustomFlushingTagWorkerFactory extends DefaultTagWorkerFactory {
@@ -725,9 +796,9 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     private void runTest(String name, ConverterProperties converterProperties, boolean isTagged) throws IOException, InterruptedException, ParserConfigurationException, SAXException {
-        String htmlPath = sourceFolder + name + ".html";
-        String pdfPath = destinationFolder + name + ".pdf";
-        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+        String htmlPath = SOURCE_FOLDER + name + ".html";
+        String pdfPath = DESTINATION_FOLDER + name + ".pdf";
+        String cmpPdfPath = SOURCE_FOLDER + "cmp_" + name + ".pdf";
         String diffPrefix = "diff_" + name + "_";
 
         File outFile = new File(pdfPath);
@@ -752,13 +823,13 @@ public class PageRuleTest extends ExtendedITextTest {
         if (isTagged) {
             compareTool.compareTagStructures(pdfPath, cmpPdfPath);
         }
-        Assert.assertNull(compareTool.compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+        Assert.assertNull(compareTool.compareByContent(pdfPath, cmpPdfPath, DESTINATION_FOLDER, diffPrefix));
     }
 
     private void compareResult(String name) throws InterruptedException, IOException {
-        String pdfPath = destinationFolder + name + ".pdf";
-        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+        String pdfPath = DESTINATION_FOLDER + name + ".pdf";
+        String cmpPdfPath = SOURCE_FOLDER + "cmp_" + name + ".pdf";
         String diffPrefix = "diff_" + name + "_";
-        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, DESTINATION_FOLDER, diffPrefix));
     }
 }

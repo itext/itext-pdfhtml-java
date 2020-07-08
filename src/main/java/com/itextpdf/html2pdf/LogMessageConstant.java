@@ -73,6 +73,8 @@ public final class LogMessageConstant {
     public static final String INPUT_TYPE_IS_NOT_SUPPORTED = "Input type {0} is not supported";
     /** The Constant INVALID_CSS_PROPERTY_DECLARATION. */
     public static final String INVALID_CSS_PROPERTY_DECLARATION = "Invalid css property declaration: {0}";
+    /** The Constant INVALID_CSS_PROPERTY_DECLARATION. */
+    public static final String INVALID_GRADIENT_DECLARATION = "Invalid gradient declaration: {0}";
     /** The Constant MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED. */
     public static final String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
     /** The Constant NOT_SUPPORTED_LIST_STYLE_TYPE. */
@@ -99,6 +101,8 @@ public final class LogMessageConstant {
     public static final String QUOTES_PROPERTY_INVALID = "Quote property \"{0}\" is invalid. It should contain even number of <string> values.";
     /** The Constant TEXT_DECORATION_BLINK_NOT_SUPPORTED. */
     public static final String TEXT_DECORATION_BLINK_NOT_SUPPORTED = "text-decoration: blink not supported";
+    /** The Constant HSL_COLOR_NOT_SUPPORTED. */
+    public static final String HSL_COLOR_NOT_SUPPORTED = "Hsl colors are not supported";
     /** The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE. */
     public static final String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
     /** The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG */

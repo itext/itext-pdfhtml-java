@@ -1,8 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 209>>stream
-xœ¥‘=Â „÷÷WÜ¨R Ð8š¨³	ƒ«´jªÄRS¾¥¶êbä#a¸»çÞp¥qWIö¤BÂŽÊQN+ºÒÌÒdÑJl5&“Ì(Ø=ìÁ!÷eé›ã¥@ÝxlýÝ„ƒ¿•{lêV6g‡/}5ÛÍm;Y†Eh_üY@e0Z°TÅIÂ¤Zôñ4tDß¨3)–ÅB¯¤Ñ:®­·Ë7^¦ÿŠS_pç‡wTúëhúÑ8ÓˆwøE“j& yŒé)QYp
+<</Filter/FlateDecode/Length 204>>stream
+xœ¥‘=Â †÷ûï¨R Ð8š¨³	ƒ«´jªÄ¢©?ßR±ƒq1—ÜpïsOÂ•2ÄÛT$5º—	c8G%­èJ3K“E7"`Ë8c
+ÉŒ‚ÝÓÈJ_×¾=^*ÜZ­¸€pð÷z­Ã­››³ÃÎ×¾™Ží‰æ¶ÇN–!CºŽƒ¿T£ËUôÈ2&ÅÛ"Ä+Ð‰dÔ‡+¢Ð@­ã¶¥¸ŒñÔ«/¨B}Cá“ÿª­ÿÐæL#Öû‡L®™€æ“¶<q8hÏ
 endstream
 endobj
 4 0 obj
@@ -12,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20200311140150+03'00')/ModDate(D:20200311140150+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: opacity)/assert(Opacity is group opacity over elements \(not boxes\).)/flags()>>
+<</CreationDate(D:20200610155854+03'00')/ModDate(D:20200610155854+03'00')/Producer(iText® 7.1.12-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: opacity)/assert(Opacity is group opacity over elements \(not boxes\).)/flags()>>
 endobj
 7 0 obj
 <</BaseFont/Courier/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -44,22 +45,22 @@ endobj
 xref
 0 14
 0000000000 65535 f 
-0000000511 00000 n 
-0000000994 00000 n 
-0000000556 00000 n 
-0000000291 00000 n 
+0000000506 00000 n 
+0000000989 00000 n 
+0000000551 00000 n 
+0000000286 00000 n 
 0000000015 00000 n 
-0000000904 00000 n 
-0000000818 00000 n 
-0000001045 00000 n 
-0000001079 00000 n 
-0000001113 00000 n 
-0000001148 00000 n 
-0000001183 00000 n 
-0000001218 00000 n 
+0000000899 00000 n 
+0000000813 00000 n 
+0000001040 00000 n 
+0000001074 00000 n 
+0000001108 00000 n 
+0000001143 00000 n 
+0000001178 00000 n 
+0000001213 00000 n 
 trailer
-<</ID [<e03adee811d6c57e72258fa8ffac7a34><e03adee811d6c57e72258fa8ffac7a34>]/Info 3 0 R/Root 1 0 R/Size 14>>
-%iText-7.1.11-SNAPSHOT
+<</ID [<eb344931e408d0ac146e4abb480d7756><eb344931e408d0ac146e4abb480d7756>]/Info 3 0 R/Root 1 0 R/Size 14>>
+%iText-7.1.12-SNAPSHOT
 startxref
-1253
+1248
 %%EOF

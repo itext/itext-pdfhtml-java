@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Background with gradient</title>
+</head>
+<body>
+<h1>background: repeating-linear-gradient</h1>
+<div>
+    <h2>different colors specification test</h2>
+    <div>
+        <h3>names</h3>
+        <div style="background: repeating-linear-gradient(red, green, blue); width: 500pt; height: 100pt;"></div>
+
+        <h3>hex</h3>
+        <div style="background: repeating-linear-gradient(#ff0000, #008000, #0000ff); width: 500pt; height: 100pt;"></div>
+
+        <h3>rgb</h3>
+        <div style="background: repeating-linear-gradient(rgb(255, 0, 0), rgb(0, 127, 0), rgb(0, 0, 255)); width: 500pt; height: 100pt;"></div>
+
+        <h3>rgba</h3>
+        <div style="background: repeating-linear-gradient(rgba(255, 0, 0, 1), rgba(0, 127, 0, 1), rgba(0, 0, 255, 1)); width: 500pt; height: 100pt;"></div>
+    </div>
+</div>
+<div>
+    <h2>complex arguments list cases</h2>
+    <div>
+        <h3>to left top</h3>
+        <div style="background: repeating-linear-gradient(to left top, red, green, blue); width: 500pt; height: 100pt;"></div>
+
+        <h3>to left top with rgb</h3>
+        <div style="background: repeating-linear-gradient(to left top, red, rgb(0, 127, 0), blue); width: 500pt; height: 100pt;"></div>
+
+        <h3>to left top with rgb, offsets and hints</h3>
+        <div style="background: magenta repeating-linear-gradient(to left top, red 10% 20%, 30%, rgb(0, 127, 0) 80%, blue); width: 500pt; height: 100pt;"></div>
+    </div>
+</div>
+<div>
+    <h2>multiple gradients</h2>
+    <div>
+        <h3>not opaque gradients</h3>
+        <div style="background: repeating-linear-gradient(orange, darkmagenta), repeating-linear-gradient(red, green, blue); width: 500pt; height: 100pt;"></div>
+    </div>
+</div>
+<div>
+    <h2>gradient image with background color</h2>
+    <div>
+        <h3>not opaque gradient</h3>
+        <div style="background: magenta repeating-linear-gradient(red, green, blue); width: 500pt; height: 100pt;"></div>
+    </div>
+</div>
+</body>
+</html>

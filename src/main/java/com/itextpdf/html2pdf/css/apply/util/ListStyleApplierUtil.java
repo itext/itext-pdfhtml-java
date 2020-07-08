@@ -47,7 +47,12 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
+import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.numbering.AlphabetNumbering;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
@@ -61,9 +66,12 @@ import com.itextpdf.layout.property.IListSymbolFactory;
 import com.itextpdf.layout.property.ListNumberingType;
 import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
+import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,6 +81,15 @@ import java.util.Map;
  * Utilities class to apply list styles to an element.
  */
 public final class ListStyleApplierUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ListStyleApplierUtil.class);
+
+    /**
+     * The Constant LIST_ITEM_MARKER_SIZE_COEFFICIENT.
+     *
+     * The coefficient value of 2/5 is chosen in such a way that the result
+     * of the converting is as similar as possible to the browsers displaying.
+     */
+    private static final float LIST_ITEM_MARKER_SIZE_COEFFICIENT = 2 / 5f;
 
     //private static final String HTML_SYMBOL_FONT = "Sans-serif";
 
@@ -111,10 +128,38 @@ public final class ListStyleApplierUtil {
      * @param element the element
      */
     public static void applyListStyleImageProperty(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
-        String listStyleImage = cssProps.get(CssConstants.LIST_STYLE_IMAGE);
-        if (listStyleImage != null && !CssConstants.NONE.equals(listStyleImage)) {
-            String url = CssUtils.extractUrl(listStyleImage);
-            PdfXObject imageXObject = context.getResourceResolver().retrieveImageExtended(url);
+        String listStyleImageStr = cssProps.get(CssConstants.LIST_STYLE_IMAGE);
+
+        PdfXObject imageXObject = null;
+        if (listStyleImageStr != null && !CssConstants.NONE.equals(listStyleImageStr)) {
+            if (CssGradientUtil.isCssLinearGradientValue(listStyleImageStr)) {
+                float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+                float rem = context.getCssContext().getRootFontSize();
+                try {
+                    StrategyBasedLinearGradientBuilder gradientBuilder =
+                            CssGradientUtil.parseCssLinearGradient(listStyleImageStr, em, rem);
+                    if (gradientBuilder != null) {
+                        Rectangle formBBox = new Rectangle(0, 0, em * LIST_ITEM_MARKER_SIZE_COEFFICIENT,
+                                em * LIST_ITEM_MARKER_SIZE_COEFFICIENT);
+
+                        PdfDocument pdfDocument = context.getPdfDocument();
+                        Color gradientColor = gradientBuilder.buildColor(formBBox, null, pdfDocument);
+                        if (gradientColor != null) {
+                            imageXObject = new PdfFormXObject(formBBox);
+                            new PdfCanvas((PdfFormXObject) imageXObject, context.getPdfDocument())
+                                    .setColor(gradientColor, true)
+                                    .rectangle(formBBox)
+                                    .fill();
+                        }
+                    }
+                } catch (StyledXMLParserException e) {
+                    LOGGER.warn(MessageFormatUtil.format(
+                            LogMessageConstant.INVALID_GRADIENT_DECLARATION, listStyleImageStr));
+                }
+            } else {
+                imageXObject = context.getResourceResolver().retrieveImageExtended(CssUtils.extractUrl(listStyleImageStr));
+            }
+
             if (imageXObject != null) {
                 Image image = null;
                 if (imageXObject instanceof PdfImageXObject) {

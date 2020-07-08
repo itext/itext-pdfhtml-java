@@ -77,7 +77,6 @@ public class AbsolutePositionTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)})
     public void absolutePosition03Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("absolutePositionTest03", sourceFolder, destinationFolder);
     }

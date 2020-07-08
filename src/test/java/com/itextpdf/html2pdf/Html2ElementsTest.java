@@ -250,4 +250,20 @@ public class Html2ElementsTest extends ExtendedITextTest {
         IElement normalParagraph = elements.get(1);
         Assert.assertArrayEquals(new String[] {"monospace"}, normalParagraph.<String[]>getProperty(Property.FONT));
     }
+
+    @Test
+    public void leadingInDefaultRenderingModeTest() {
+        String html = "This text is directly in body. It should have the same default LEADING property as everything else.\n"
+                + "<p>This text is in paragraph.</p>";
+        List<IElement> elements = HtmlConverter.convertToElements(html);
+
+        Assert.assertEquals(2, elements.size());
+        IElement anonymousParagraph = elements.get(0);
+
+        // TODO DEVSIX-3873 anonymous paragraph inherited styles should be applied in general way
+        Assert.assertNull(anonymousParagraph.<Leading>getProperty(Property.LEADING));
+
+        IElement normalParagraph = elements.get(1);
+        Assert.assertEquals(new Leading(Leading.MULTIPLIED, 1.2f), normalParagraph.<Leading>getProperty(Property.LEADING));
+    }
 }

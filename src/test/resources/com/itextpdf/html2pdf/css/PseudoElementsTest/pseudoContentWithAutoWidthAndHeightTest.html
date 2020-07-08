@@ -1,0 +1,38 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <style type="text/css">
+            .inline-with-width::before
+            {
+                content: linear-gradient(to left top, red, green, blue);
+                display: inline;
+                width: auto;
+                height: 30px;
+            }
+            .run-in-with-height::before
+            {
+                content: linear-gradient(to left top, red, green, blue);
+                display: run-in;
+                height: auto;
+                width: 100px;
+            }
+            .without-display-with-width-height::before
+            {
+                content: linear-gradient(to left top, red, green, blue);
+                width: auto;
+                height: auto;
+            }
+            .contents::before
+            {
+                content: linear-gradient(to left top, red, green, blue);
+                display: contents;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="inline-with-width">inline content with auto width and px height before</div>
+        <div class="run-in-with-height">run-in content with auto height and px width before</div>
+        <div class="without-display-with-width-height">content with auto width&height before</div>
+        <div class="contents">contents content before</div>
+    </body>
+</html>

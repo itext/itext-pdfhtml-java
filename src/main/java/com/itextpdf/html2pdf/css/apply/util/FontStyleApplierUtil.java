@@ -50,6 +50,7 @@ import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
+import com.itextpdf.kernel.pdf.colorspace.PdfDeviceCs.Rgb;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.font.FontFamilySplitter;
 import com.itextpdf.layout.property.BaseDirection;
@@ -161,20 +162,43 @@ public final class FontStyleApplierUtil {
         String whiteSpace = cssProps.get(CssConstants.WHITE_SPACE);
         element.setProperty(Property.NO_SOFT_WRAP_INLINE, CssConstants.NOWRAP.equals(whiteSpace) || CssConstants.PRE.equals(whiteSpace));
 
-        String textDecorationProp = cssProps.get(CssConstants.TEXT_DECORATION);
-        if (textDecorationProp != null) {
-            String[] textDecorations = textDecorationProp.split("\\s+");
+        float [] colors = new float[4];
+        Color textDecorationColor;
+        float opacity = 1f;
+        String textDecorationColorProp = cssProps.get(CssConstants.TEXT_DECORATION_COLOR);
+        if (textDecorationColorProp == null || CssConstants.CURRENTCOLOR.equals(textDecorationColorProp)) {
+            if (element.<TransparentColor>getProperty(Property.FONT_COLOR) != null) {
+                TransparentColor transparentColor = element.<TransparentColor>getProperty(Property.FONT_COLOR);
+                textDecorationColor = transparentColor.getColor();
+                opacity = transparentColor.getOpacity();
+            } else {
+                textDecorationColor = ColorConstants.BLACK;
+            }
+        } else {
+            if (textDecorationColorProp.startsWith("hsl")) {
+                logger.error(LogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
+                textDecorationColor = ColorConstants.BLACK;
+            } else {
+                colors = CssUtils.parseRgbaColor(textDecorationColorProp);
+                textDecorationColor = new DeviceRgb(colors[0], colors[1], colors[2]);;
+                opacity = colors[3];
+            }
+        }
+
+        String textDecorationLineProp = cssProps.get(CssConstants.TEXT_DECORATION_LINE);
+        if (textDecorationLineProp != null) {
+            String[] textDecorationLines = textDecorationLineProp.split("\\s+");
             List<Underline> underlineList = new ArrayList<>();
-            for (String textDecoration : textDecorations) {
-                if (CssConstants.BLINK.equals(textDecoration)) {
+            for (String textDecorationLine : textDecorationLines) {
+                if (CssConstants.BLINK.equals(textDecorationLine)) {
                     logger.error(LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
-                } else if (CssConstants.LINE_THROUGH.equals(textDecoration)) {
-                    underlineList.add(new Underline(null, .75f, 0, 0, 1 / 4f, PdfCanvasConstants.LineCapStyle.BUTT));
-                } else if (CssConstants.OVERLINE.equals(textDecoration)) {
-                    underlineList.add(new Underline(null, .75f, 0, 0, 9 / 10f, PdfCanvasConstants.LineCapStyle.BUTT));
-                } else if (CssConstants.UNDERLINE.equals(textDecoration)) {
-                    underlineList.add(new Underline(null, .75f, 0, 0, -1 / 10f, PdfCanvasConstants.LineCapStyle.BUTT));
-                } else if (CssConstants.NONE.equals(textDecoration)) {
+                } else if (CssConstants.LINE_THROUGH.equals(textDecorationLine)) {
+                    underlineList.add(new Underline(textDecorationColor, opacity, .75f, 0, 0, 1 / 4f, PdfCanvasConstants.LineCapStyle.BUTT));
+                } else if (CssConstants.OVERLINE.equals(textDecorationLine)) {
+                    underlineList.add(new Underline(textDecorationColor, opacity, .75f, 0, 0, 9 / 10f, PdfCanvasConstants.LineCapStyle.BUTT));
+                } else if (CssConstants.UNDERLINE.equals(textDecorationLine)) {
+                    underlineList.add(new Underline(textDecorationColor, opacity, .75f, 0, 0, -1 / 10f, PdfCanvasConstants.LineCapStyle.BUTT));
+                } else if (CssConstants.NONE.equals(textDecorationLine)) {
                     underlineList = null;
                     // if none and any other decoration are used together, none is displayed
                     break;
