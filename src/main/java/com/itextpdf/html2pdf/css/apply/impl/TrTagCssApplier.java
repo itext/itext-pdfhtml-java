@@ -57,8 +57,8 @@ public class TrTagCssApplier implements ICssApplier {
      */
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
-        // TODO background inheritance to cells is done via default.css at the moment, because it was overwriting cell's properties.
-        // TODO may be this applier will be removed in the future
+        // TODO DEVSIX-4247 background inheritance to cells is done via default.css at the moment,
+        //  because it was overwriting cell's properties
     }
 
 }
