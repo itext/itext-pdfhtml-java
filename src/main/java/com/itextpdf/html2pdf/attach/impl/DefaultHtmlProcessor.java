@@ -118,7 +118,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     private static final Set<String> ignoredTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
             TagConstants.HEAD,
             TagConstants.STYLE,
-            // TODO <tbody> is not supported. Styles will be propagated anyway
+            // <tbody> is not supported via tag workers. Styles will be propagated anyway (most of them, but not all)
+            // TODO in scope of DEVSIX-4258 we might want to introduce a tag worker for <tbody> and remove it from here
             TagConstants.TBODY)));
 
     /**
