@@ -138,9 +138,9 @@ public final class BackgroundApplierUtil {
                         .retrieveImageExtended(CssUtils.extractUrl(backgroundImageStr));
                 if (image != null) {
                     if (image instanceof PdfImageXObject) {
-                        backgroundImage = new BackgroundImage((PdfImageXObject) image, repeatX, repeatY);
+                        backgroundImage = new HtmlBackgroundImage((PdfImageXObject) image, repeatX, repeatY);
                     } else if (image instanceof PdfFormXObject) {
-                        backgroundImage = new BackgroundImage((PdfFormXObject) image, repeatX, repeatY);
+                        backgroundImage = new HtmlBackgroundImage((PdfFormXObject) image, repeatX, repeatY);
                     } else {
                         throw new IllegalStateException();
                     }
@@ -149,6 +149,41 @@ public final class BackgroundApplierUtil {
         }
         if (backgroundImage != null) {
             element.setProperty(Property.BACKGROUND_IMAGE, backgroundImage);
+        }
+    }
+
+
+    /**
+     * Implementation of the Image class when used in the context of HTML to PDF conversion.
+     */
+    private static class HtmlBackgroundImage extends BackgroundImage {
+
+        private static final double PX_TO_PT_MULTIPLIER = 0.75;
+
+        /**
+         * In iText, we use user unit for the image sizes (and by default
+         * one user unit = one point), whereas images are usually measured
+         * in pixels.
+         */
+        private double dimensionMultiplier = 1;
+
+        public HtmlBackgroundImage(PdfImageXObject xObject, boolean repeatX, boolean repeatY) {
+            super(xObject, repeatX, repeatY);
+            dimensionMultiplier = PX_TO_PT_MULTIPLIER;
+        }
+
+        public HtmlBackgroundImage(PdfFormXObject xObject, boolean repeatX, boolean repeatY) {
+            super(xObject, repeatX, repeatY);
+        }
+
+        @Override
+        public float getWidth() {
+            return (float) (image.getWidth() * dimensionMultiplier);
+        }
+
+        @Override
+        public float getHeight() {
+            return (float) (image.getHeight() * dimensionMultiplier);
         }
     }
 }
