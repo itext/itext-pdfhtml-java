@@ -307,7 +307,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         if (!context.hasFonts()) {
             throw new Html2PdfException(Html2PdfException.FontProviderContainsZeroFonts);
         }
-        // TODO store html version from document type in context if necessary
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context);
         context.getLinkContext().scanForIds(root);
