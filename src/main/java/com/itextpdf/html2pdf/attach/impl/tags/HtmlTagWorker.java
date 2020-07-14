@@ -82,6 +82,7 @@ public class HtmlTagWorker implements ITagWorker {
      * @param context the context
      */
     public HtmlTagWorker(IElementNode element, ProcessorContext context) {
+        // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
         boolean immediateFlush = context.isImmediateFlush() && !context.getCssContext().isPagesCounterPresent();
         PdfDocument pdfDocument = context.getPdfDocument();
         document = new Document(pdfDocument, pdfDocument.getDefaultPageSize(), immediateFlush);

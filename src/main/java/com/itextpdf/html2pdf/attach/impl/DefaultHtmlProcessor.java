@@ -315,7 +315,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
         visit(root);
         Document doc = (Document) roots.get(0);
-        // TODO more precise check if a counter was actually added to the document
+        // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
         if (context.getCssContext().isPagesCounterPresent() && doc.getRenderer() instanceof HtmlDocumentRenderer) {
             doc.relayout();
         }
