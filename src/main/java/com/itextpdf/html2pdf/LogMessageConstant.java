@@ -115,6 +115,9 @@ public final class LogMessageConstant {
     public static final String UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI = "Unable to retrieve image with given base URI ({0}) and image source path ({1})";
     /** The Constant UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI. */
     public static final String UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI = "Unable to retrieve stream with given base URI ({0}) and source path ({1})";
+    /** The Constant UNEXPECTED_VALUE_OF_OBJECT_FIT_PROPERTY. */
+    public static final String UNEXPECTED_VALUE_OF_OBJECT_FIT =
+            "Unexpected value of object-fit property: {0}. Will be processed as default";
     /** The Constant UNKNOWN_MARGIN_BOX_CHILD. */
     public static final String UNKNOWN_MARGIN_BOX_CHILD = "Unknown margin box child";
     /** The Constant WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT. */

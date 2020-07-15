@@ -42,16 +42,19 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.property.ObjectFit;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,6 +113,12 @@ public class ImgTagWorker implements ITagWorker {
             }
             AccessiblePropHelper.trySetLangAttribute(image, element);
         }
+
+        if (image != null) {
+            String objectFitValue = element.getStyles() != null ?
+                    element.getStyles().get(CssConstants.OBJECT_FIT) : null;
+            image.setObjectFit(getObjectFitValue(objectFitValue));
+        }
     }
 
     /* (non-Javadoc)
@@ -150,6 +159,29 @@ public class ImgTagWorker implements ITagWorker {
      */
     String getDisplay() {
         return display;
+    }
+
+    private ObjectFit getObjectFitValue(String objectFitValue) {
+        if (objectFitValue == null) {
+            return ObjectFit.FILL;
+        }
+
+        switch (objectFitValue) {
+            case CssConstants.CONTAIN:
+                return ObjectFit.CONTAIN;
+            case CssConstants.COVER:
+                return ObjectFit.COVER;
+            case CssConstants.SCALE_DOWN:
+                return ObjectFit.SCALE_DOWN;
+            case CssConstants.NONE:
+                return ObjectFit.NONE;
+            case CssConstants.FILL:
+                return ObjectFit.FILL;
+            default:
+                LOGGER.warn(MessageFormatUtil.format(
+                        LogMessageConstant.UNEXPECTED_VALUE_OF_OBJECT_FIT, objectFitValue));
+                return ObjectFit.FILL;
+        }
     }
 
     /**

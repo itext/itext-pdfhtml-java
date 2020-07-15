@@ -87,6 +87,11 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant MIN_WIDTH. */
     public static final String MIN_WIDTH = "min-width";
 
+    /**
+     * The Constant OBJECT_FIT.
+     */
+    public static final String OBJECT_FIT = "object-fit";
+
     /** The Constant OUTLINE_OFFSET. */
     public static final String OUTLINE_OFFSET = "outline-offset";
 
@@ -139,6 +144,9 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant CROSS. */
     public static final String CROSS = "cross";
+
+    /** The Constant FILL. */
+    public static final String FILL = "fill";
 
     /** The Constant FIRST. */
     public static final String FIRST = "first";
@@ -208,6 +216,9 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant RTL. */
     public static final String RTL = "rtl";
+
+    /** The Constant SCALE_DOWN. */
+    public static final String SCALE_DOWN = "scale-down";
 
     /** The Constant SEPARATE. */
     public static final String SEPARATE = "separate";

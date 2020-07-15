@@ -1,0 +1,41 @@
+<html>
+<head>
+    <style>
+	div {
+	    padding: 20px 100px;
+	}
+	img {
+	    width:100;
+	    height: 350;
+	    border: 2px yellow solid;
+	}
+	</style>
+</head>
+<body>
+Object-fit: fill
+<div>
+    <img src="Desert.jpg" style="object-fit: fill;">
+</div>
+Object-fit: contain
+<div>
+    <img src="Desert.jpg" style="object-fit: contain;">
+</div>
+Object-fit: cover
+<div>
+    <img src="Desert.jpg" style="object-fit: cover;">
+</div>
+Object-fit: scale-down
+<div>
+    <img src="Desert.jpg" style="object-fit: scale-down;">
+</div>
+Object-fit: none
+<div>
+    <img src="Desert.jpg" style="object-fit: none;">
+</div>
+Object-fit: contain + craziness
+<div>
+    <img src="Desert.jpg" style="border: 15px solid blue;
+    transform: rotate(25deg); object-fit: contain;">
+</div>
+</body>
+</html>
