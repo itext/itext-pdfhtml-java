@@ -82,11 +82,19 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
     public void letterSpacingTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("letterSpacingTest01", sourceFolder, destinationFolder);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
+    public void letterSpacingWithInvalidValuesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("letterSpacingWithInvalidValues", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
     public void wordSpacingTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("wordSpacingTest01", sourceFolder, destinationFolder);
     }

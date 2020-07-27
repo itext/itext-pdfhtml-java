@@ -85,8 +85,7 @@ public class FontSizeTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-2881 : Update cmps
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED))
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
     public void spacesInFontSizeValueTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("spacesInFontSizeValueTest", sourceFolder, destinationFolder);
     }

@@ -200,8 +200,8 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void lineHeightInheritedInSpanTest() throws IOException, InterruptedException {
-        testLineHeight("lineHeightInheritedInSpan");
+    public void lineHeightInheritInSpanTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightInheritInSpan");
     }
 
     void testLineHeight(String name) throws IOException, InterruptedException {
