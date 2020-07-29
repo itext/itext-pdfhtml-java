@@ -84,8 +84,6 @@ public class HtmlConverter {
     private HtmlConverter() {
     }
 
-    // TODO add overloads without automatic elements flushing
-
     /**
      * Converts a {@link String} containing HTML to an {@link OutputStream}
      * containing PDF.
