@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.util;
 
+import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.RunningElement;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.util.OverflowApplierUtil;
@@ -215,9 +216,7 @@ public class WaitingInlineElementsHelper {
         if (collapseSpaces) {
             waitingLeaves = TrimUtil.trimLeafElementsAndSanitize(waitingLeaves);
         }
-        if (CssConstants.CAPITALIZE.equals(textTransform)) {
-            capitalize(waitingLeaves);
-        }
+        capitalize(waitingLeaves);
 
         if (waitingLeaves.size() > 0) {
             Paragraph p = createParagraphContainer();
@@ -286,28 +285,56 @@ public class WaitingInlineElementsHelper {
      *
      * @param leaves a list of leaf elements
      */
-    private static void capitalize(List<IElement> leaves) {
+    private void capitalize(List<IElement> leaves) {
         boolean previousLetter = false;
-        for (IElement element : leaves) {
-            if (element instanceof Text) {
+        boolean previousProcessed = false;
+        for (int i = 0; i < leaves.size(); i++) {
+            IElement element = leaves.get(i);
+            boolean hasCapitalizeProperty = element.hasOwnProperty(Html2PdfProperty.CAPITALIZE_ELEMENT);
+            boolean needCapitalize = hasCapitalizeProperty
+                    && ((boolean) element.<Boolean>getOwnProperty(Html2PdfProperty.CAPITALIZE_ELEMENT));
+            if (hasCapitalizeProperty && !needCapitalize) {
+                previousProcessed = false;
+                continue;
+            }
+            if (element instanceof Text && (CssConstants.CAPITALIZE.equals(textTransform) || needCapitalize)) {
                 String text = ((Text) element).getText();
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < text.length(); i++) {
-                    if (Character.isLowerCase(text.charAt(i)) && !previousLetter) {
-                        sb.append(Character.toUpperCase(text.charAt(i)));
-                        previousLetter = true;
-                    } else if (Character.isAlphabetic(text.charAt(i))) {
-                        sb.append(text.charAt(i));
-                        previousLetter = true;
-                    } else {
-                        sb.append(text.charAt(i));
-                        previousLetter = false;
-                    }
+                if (!previousProcessed && i > 0) {
+                    previousLetter = isLastCharAlphabetic(leaves.get(i - 1));
                 }
-                ((Text) element).setText(sb.toString());
+                previousLetter = capitalizeAndReturnIsLastAlphabetic((Text) element, text, previousLetter);
+                previousProcessed = true;
             } else {
+                previousProcessed = false;
                 previousLetter = false;
             }
         }
+    }
+
+    private boolean isLastCharAlphabetic(IElement element) {
+        if (!(element instanceof Text)) {
+            return false;
+        }
+        String text = ((Text) element).getText();
+        return text.length() > 0 && Character.isAlphabetic(text.charAt(text.length() - 1));
+    }
+
+    private boolean capitalizeAndReturnIsLastAlphabetic(Text element, String text, boolean previousAlphabetic) {
+        StringBuilder sb = new StringBuilder();
+        boolean previousLetter = previousAlphabetic;
+        for (int i = 0; i < text.length(); i++) {
+            if (Character.isLowerCase(text.charAt(i)) && !previousLetter) {
+                sb.append(Character.toUpperCase(text.charAt(i)));
+                previousLetter = true;
+            } else if (Character.isAlphabetic(text.charAt(i))) {
+                sb.append(text.charAt(i));
+                previousLetter = true;
+            } else {
+                sb.append(text.charAt(i));
+                previousLetter = false;
+            }
+        }
+        element.setText(sb.toString());
+        return previousLetter;
     }
 }
