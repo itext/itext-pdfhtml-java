@@ -1,0 +1,4 @@
+Please notice that the resource files which are located within the resource packages below are used within the
+"The 3-Clause BSD License". The license itself can be found in the current directory.
+
+* resources.com.itextpdf.html2pdf.css.w3c.css21.backgrounds (link: https://github.com/web-platform-tests/wpt/tree/master/css/CSS2/backgrounds)
