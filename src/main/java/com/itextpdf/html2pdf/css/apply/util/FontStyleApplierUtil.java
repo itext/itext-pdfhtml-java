@@ -56,6 +56,7 @@ import com.itextpdf.layout.property.BaseDirection;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.Leading;
 import com.itextpdf.layout.property.LineHeight;
+import com.itextpdf.layout.property.OverflowWrapPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.TransparentColor;
@@ -161,7 +162,19 @@ public final class FontStyleApplierUtil {
         }
 
         String whiteSpace = cssProps.get(CssConstants.WHITE_SPACE);
-        element.setProperty(Property.NO_SOFT_WRAP_INLINE, CssConstants.NOWRAP.equals(whiteSpace) || CssConstants.PRE.equals(whiteSpace));
+        boolean textWrappingDisabled = CssConstants.NOWRAP.equals(whiteSpace) || CssConstants.PRE.equals(whiteSpace);
+        element.setProperty(Property.NO_SOFT_WRAP_INLINE, textWrappingDisabled);
+
+        if (!textWrappingDisabled) {
+            String overflowWrap = cssProps.get(CssConstants.OVERFLOW_WRAP);
+            if (CssConstants.ANYWHERE.equals(overflowWrap)) {
+                element.setProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.ANYWHERE);
+            } else if (CssConstants.BREAK_WORD.equals(overflowWrap)) {
+                element.setProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.BREAK_WORD);
+            } else {
+                element.setProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.NORMAL);
+            }
+        }
 
         float [] colors = new float[4];
         Color textDecorationColor;
