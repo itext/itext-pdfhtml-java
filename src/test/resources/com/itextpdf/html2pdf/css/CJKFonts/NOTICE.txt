@@ -1,0 +1,5 @@
+Please notice that the following fonts are used with the mentioned below licenses.
+
+* NotoSansCJKjp-Regular - SIL Open Font License v1.10
+
+

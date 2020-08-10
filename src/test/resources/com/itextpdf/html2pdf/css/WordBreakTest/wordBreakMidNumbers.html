@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p { 
+width: 80px;
+border: 1px solid red;
+}
+.normal {
+  word-break: normal;
+}
+
+.breakAll {
+  word-break: break-all;
+}
+
+.keepAll { 
+  word-break: keep-all; 
+} 
+
+.breakWord {
+  word-break: break-word;
+}
+</style>
+</head>
+<body>
+<h3>1. word-break: normal</h3>
+<p class="normal">Lorem 12345.678912345 -6789 ipsum dolor sit ametconsecteturadipiscingelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</p>
+
+<h3>2. word-break: break-all</h3>
+<p class="breakAll">Lorem 12345.678912345 -6789 ipsum dolor sit ametconsecteturadipiscingelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</p>
+
+<h3>3. word-break: keep-all</h3> 
+<p class="keepAll">Lorem 12345.678912345 -6789 ipsum dolor sit ametconsecteturadipiscingelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</p>
+
+<h3>4. word-break: break-word</h3>
+<p class="breakWord">Lorem 12345.678912345-6789 ipsum dolor sit ametconsecteturadipiscingelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</p>
+
+<h3>Chinese script</h3>
+<h3>1. word-break: break-word</h3>
+<p class="breakWord">只不过是绝大多数人生来就有12345.678912345 -6789根手指这样一个解剖学事实的结果</p>
+<h3>1. word-break: keep-all</h3>
+<p class="keepAll">只不过是绝大多数人生来就有12345.678912345 -6789根手指这样一个解剖学事实的结果</p>
+<h3>1. word-break: break-all</h3>
+<p class="breakAll">只不过是绝大多数人生来就有12345.678912345 -6789根手指这样一个解剖学事实的结果</p>
+<h3>1. word-break: normal</h3>
+<p class="normal">只不过是绝大多数人生来就有12345.678912345 -6789根手指这样一个解剖学事实的结果</p>
+
+
+</body>
+</html>
