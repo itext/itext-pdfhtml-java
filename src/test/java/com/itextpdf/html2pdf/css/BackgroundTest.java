@@ -40,10 +40,12 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf;
+package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -57,7 +59,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class BackgroundTest extends ExtendedITextTest {
+public class BackgroundTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/BackgroundTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/BackgroundTest/";
@@ -79,43 +81,25 @@ public class BackgroundTest extends ExtendedITextTest {
 
     @Test
     // TODO DEVSIX-1708 support background-size
-    // TODO DEVSIX-2027 process multiple backgrounds
     public void backgroundAttachmentMarginRoot1Test() throws IOException, InterruptedException {
-        String testName = "backgroundAttachmentMarginRoot1";
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
-                new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
-                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
+        convertToPdfAndCompare("backgroundAttachmentMarginRoot1", sourceFolder, destinationFolder);
     }
 
     @Test
     // TODO DEVSIX-1708 support background-size
-    // TODO DEVSIX-2027 process multiple backgrounds
     public void backgroundAttachmentMarginRoot2Test() throws IOException, InterruptedException {
-        String testName = "backgroundAttachmentMarginRoot2";
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
-                new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
-                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
+        convertToPdfAndCompare("backgroundAttachmentMarginRoot2", sourceFolder, destinationFolder);
     }
 
     @Test
     // TODO DEVSIX-4445 support display: contents
     public void backgroundColorBodyDisplayContentsTest() throws IOException, InterruptedException {
-        String testName = "backgroundColorBodyDisplayContents";
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
-                new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
-                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
+        convertToPdfAndCompare("backgroundColorBodyDisplayContents", sourceFolder, destinationFolder);
     }
 
     @Test
     public void backgroundMarginHtmlTest() throws IOException, InterruptedException {
-        String testName = "backgroundMarginHtml";
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
-                new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
-                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
+        convertToPdfAndCompare("backgroundMarginHtml", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -123,20 +107,86 @@ public class BackgroundTest extends ExtendedITextTest {
     @LogMessages(messages = {
             @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)})
     public void backgroundTransformedRootTest() throws IOException, InterruptedException {
-        String testName = "backgroundTransformedRoot";
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
-                new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
-                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
+        convertToPdfAndCompare("backgroundTransformedRoot", sourceFolder, destinationFolder);
     }
 
     @Test
     // TODO DEVSIX-4448 support will-change CSS property
     public void backgroundWillChangeRootTest() throws IOException, InterruptedException {
-        String testName = "backgroundWillChangeRoot";
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
-                new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
-                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
+        convertToPdfAndCompare("backgroundWillChangeRoot", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundSoloImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("background_solo_image", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.ONLY_THE_LAST_BACKGROUND_CAN_INCLUDE_BACKGROUND_COLOR)
+    })
+    public void backgroundImageAndColorNotLastTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("background_image_and_color_not_last", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
+    public void backgroundImageAndColorsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("background_image_and_colors", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundSoloImageWithNoRepeatTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("background_solo_image_with_no_repeat", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundSoloImageWithNoRepeatAndColorTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("background_solo_image_with_no_repeat_and_color", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundMultiImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("background_multi_image", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundTransparentAndNotTransparentImagesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundTransparentAndNotTransparentImages", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundTwoTransparentImagesAndColorTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundTwoTransparentImagesAndColor", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundShorthandOnlyImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundShorthandOnlyImage", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundShorthandImageRepeatAndColorTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundShorthandImageRepeatAndColor", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundShorthandTwoImageWithRepeatAndColorTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundShorthandTwoImageWithRepeatAndColor", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundShorthandThreeImagesWithOneRepeatTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundShorthandThreeImagesWithOneRepeat", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundShorthandAndPropertyTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundShorthandAndProperty", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundPropertyAndShorthandTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundPropertyAndShorthand", sourceFolder, destinationFolder);
     }
 }

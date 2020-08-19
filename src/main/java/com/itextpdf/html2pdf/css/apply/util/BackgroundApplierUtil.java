@@ -55,14 +55,14 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
 import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.BackgroundImage;
+import com.itextpdf.layout.property.BackgroundRepeat;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer;
-import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer.Token;
-import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer.TokenType;
 import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,7 +88,83 @@ public final class BackgroundApplierUtil {
      * @param element the element
      */
     public static void applyBackground(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
-        String backgroundColorStr = cssProps.get(CssConstants.BACKGROUND_COLOR);
+        final String backgroundColorStr = cssProps.get(CssConstants.BACKGROUND_COLOR);
+        applyBackgroundColor(backgroundColorStr, element);
+
+        final String backgroundImagesStr = cssProps.get(CssConstants.BACKGROUND_IMAGE);
+        final String backgroundRepeatStr = cssProps.get(CssConstants.BACKGROUND_REPEAT);
+
+        final List<BackgroundImage> backgroundImagesList = new ArrayList<>();
+        final String[] backgroundImagesArray = splitStringWithComma(backgroundImagesStr);
+        final String[] backgroundRepeatArray = splitStringWithComma(backgroundRepeatStr);
+        for (int i = 0; i < backgroundImagesArray.length; ++i) {
+            if (backgroundImagesArray[i] == null || CssConstants.NONE.equals(backgroundImagesArray[i])) {
+                continue;
+            }
+
+            if (CssGradientUtil.isCssLinearGradientValue(backgroundImagesArray[i])) {
+                applyLinearGradient(cssProps, context, backgroundImagesArray, backgroundImagesList, i);
+            } else {
+                final BackgroundRepeat repeat = applyBackgroundRepeat(backgroundRepeatArray, i);
+                applyBackgroundImage(context, backgroundImagesArray, backgroundImagesList, i, repeat);
+            }
+        }
+        if (!backgroundImagesList.isEmpty()) {
+            element.setProperty(Property.BACKGROUND_IMAGE, backgroundImagesList);
+        }
+    }
+
+    static String[] splitStringWithComma(final String value) {
+        if (value == null) {
+            return new String[0];
+        }
+        final List<String> resultList = new ArrayList<>();
+        int lastComma = 0;
+        int notClosedBrackets = 0;
+        for (int i = 0; i < value.length(); ++i) {
+            if (value.charAt(i) == ',' && notClosedBrackets == 0) {
+                resultList.add(value.substring(lastComma, i));
+                lastComma = i + 1;
+            }
+            if (value.charAt(i) == '(') {
+                ++notClosedBrackets;
+            }
+            if (value.charAt(i) == ')') {
+                --notClosedBrackets;
+                notClosedBrackets = Math.max(notClosedBrackets, 0);
+            }
+        }
+        final String lastToken = value.substring(lastComma);
+        if (!lastToken.isEmpty()) {
+            resultList.add(lastToken);
+        }
+        return resultList.toArray(new String[0]);
+    }
+
+    private static BackgroundRepeat applyBackgroundRepeat(final String[] backgroundRepeatArray, final int iteration) {
+        final int index = getBackgroundSidePropertyIndex(backgroundRepeatArray, iteration);
+        if (index != -1) {
+            final boolean repeatX = CssConstants.REPEAT.equals(backgroundRepeatArray[index]) ||
+                    CssConstants.REPEAT_X.equals(backgroundRepeatArray[index]);
+            final boolean repeatY = CssConstants.REPEAT.equals(backgroundRepeatArray[index]) ||
+                    CssConstants.REPEAT_Y.equals(backgroundRepeatArray[index]);
+            return new BackgroundRepeat(repeatX, repeatY);
+        }
+        return new BackgroundRepeat(true, true);
+    }
+
+    private static int getBackgroundSidePropertyIndex(final String[] backgroundPropertyArray, final int iteration) {
+        if (backgroundPropertyArray.length > 0) {
+            if (backgroundPropertyArray.length > iteration) {
+                return iteration;
+            } else {
+                return 0;
+            }
+        }
+        return -1;
+    }
+
+    private static void applyBackgroundColor(final String backgroundColorStr, final IPropertyContainer element) {
         if (backgroundColorStr != null && !CssConstants.TRANSPARENT.equals(backgroundColorStr)) {
             float[] rgbaColor = CssUtils.parseRgbaColor(backgroundColorStr);
             Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
@@ -96,62 +172,40 @@ public final class BackgroundApplierUtil {
             Background backgroundColor = new Background(color, opacity);
             element.setProperty(Property.BACKGROUND, backgroundColor);
         }
-        String backgroundImageStr = cssProps.get(CssConstants.BACKGROUND_IMAGE);
+    }
 
-        // TODO: DEVSIX-2027 ignore multiple backgrounds at the moment
-        if (backgroundImageStr != null) {
-            CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(backgroundImageStr);
-            Token currentToken = tokenizer.getNextValidToken();
-            while (currentToken != null && currentToken.getType() == TokenType.COMMA) {
-                currentToken = tokenizer.getNextValidToken();
-            }
-            backgroundImageStr = currentToken != null ? currentToken.getValue() : null;
-        }
-
-        BackgroundImage backgroundImage = null;
-        if (backgroundImageStr != null && !CssConstants.NONE.equals(backgroundImageStr)) {
-            boolean repeatX = true;
-            boolean repeatY = true;
-            String backgroundRepeatStr = cssProps.get(CssConstants.BACKGROUND_REPEAT);
-            if (backgroundRepeatStr != null) {
-                repeatX = CssConstants.REPEAT.equals(backgroundRepeatStr) || CssConstants.REPEAT_X
-                        .equals(backgroundRepeatStr);
-                repeatY = CssConstants.REPEAT.equals(backgroundRepeatStr) || CssConstants.REPEAT_Y
-                        .equals(backgroundRepeatStr);
-            }
-
-            if (CssGradientUtil.isCssLinearGradientValue(backgroundImageStr)) {
-                float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
-                float rem = context.getCssContext().getRootFontSize();
-                try {
-                    StrategyBasedLinearGradientBuilder gradientBuilder =
-                            CssGradientUtil.parseCssLinearGradient(backgroundImageStr, em, rem);
-                    if (gradientBuilder != null) {
-                        backgroundImage = new BackgroundImage(gradientBuilder);
-                    }
-                } catch (StyledXMLParserException e) {
-                    LOGGER.warn(MessageFormatUtil.format(
-                            LogMessageConstant.INVALID_GRADIENT_DECLARATION, backgroundImageStr));
-                }
+    private static void applyBackgroundImage(final ProcessorContext context, final String[] backgroundImagesArray,
+                                             final List<BackgroundImage> backgroundImagesList, final int i,
+                                             final BackgroundRepeat repeat) {
+        final PdfXObject image = context.getResourceResolver().retrieveImageExtended(
+                CssUtils.extractUrl(backgroundImagesArray[i]));
+        if (image != null) {
+            if (image instanceof PdfImageXObject) {
+                backgroundImagesList.add(new HtmlBackgroundImage((PdfImageXObject) image, repeat));
+            } else if (image instanceof PdfFormXObject) {
+                backgroundImagesList.add(new HtmlBackgroundImage((PdfFormXObject) image, repeat));
             } else {
-                PdfXObject image = context.getResourceResolver()
-                        .retrieveImageExtended(CssUtils.extractUrl(backgroundImageStr));
-                if (image != null) {
-                    if (image instanceof PdfImageXObject) {
-                        backgroundImage = new HtmlBackgroundImage((PdfImageXObject) image, repeatX, repeatY);
-                    } else if (image instanceof PdfFormXObject) {
-                        backgroundImage = new HtmlBackgroundImage((PdfFormXObject) image, repeatX, repeatY);
-                    } else {
-                        throw new IllegalStateException();
-                    }
-                }
+                throw new IllegalStateException();
             }
-        }
-        if (backgroundImage != null) {
-            element.setProperty(Property.BACKGROUND_IMAGE, backgroundImage);
         }
     }
 
+    private static void applyLinearGradient(final Map<String, String> cssProps, final ProcessorContext context,
+                                            final String[] backgroundImagesArray,
+                                            final List<BackgroundImage> backgroundImagesList, final int i) {
+        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float rem = context.getCssContext().getRootFontSize();
+        try {
+            StrategyBasedLinearGradientBuilder gradientBuilder =
+                    CssGradientUtil.parseCssLinearGradient(backgroundImagesArray[i], em, rem);
+            if (gradientBuilder != null) {
+                backgroundImagesList.add(new BackgroundImage(gradientBuilder));
+            }
+        } catch (StyledXMLParserException e) {
+            LOGGER.warn(MessageFormatUtil.format(
+                    LogMessageConstant.INVALID_GRADIENT_DECLARATION, backgroundImagesArray[i]));
+        }
+    }
 
     /**
      * Implementation of the Image class when used in the context of HTML to PDF conversion.
@@ -167,13 +221,51 @@ public final class BackgroundApplierUtil {
          */
         private double dimensionMultiplier = 1;
 
-        public HtmlBackgroundImage(PdfImageXObject xObject, boolean repeatX, boolean repeatY) {
-            super(xObject, repeatX, repeatY);
+        /**
+         * Creates a new {@link HtmlBackgroundImage} instance.
+         *
+         * @param xObject background image property. {@link PdfImageXObject} instance.
+         * @param repeat background repeat property. {@link BackgroundRepeat} instance.
+         */
+        public HtmlBackgroundImage(final PdfImageXObject xObject, final BackgroundRepeat repeat) {
+            super(xObject, repeat);
             dimensionMultiplier = PX_TO_PT_MULTIPLIER;
         }
 
-        public HtmlBackgroundImage(PdfFormXObject xObject, boolean repeatX, boolean repeatY) {
-            super(xObject, repeatX, repeatY);
+        /**
+         * Creates a new {@link HtmlBackgroundImage} instance.
+         *
+         * @param xObject background-image property. {@link PdfFormXObject} instance.
+         * @param repeat background-repeat property. {@link BackgroundRepeat} instance.
+         */
+        public HtmlBackgroundImage(final PdfFormXObject xObject, final BackgroundRepeat repeat) {
+            super(xObject, repeat);
+        }
+
+        /**
+         * Creates a new {@link HtmlBackgroundImage} instance.
+         *
+         * @param xObject background image property. {@link PdfImageXObject} instance.
+         * @param repeatX is background is repeated in x dimension.
+         * @param repeatY is background is repeated in y dimension.
+         * @deprecated Remove this constructor in 7.2.
+         */
+        @Deprecated
+        public HtmlBackgroundImage(final PdfImageXObject xObject, final boolean repeatX, final boolean repeatY) {
+            this(xObject, new BackgroundRepeat(repeatX, repeatY));
+        }
+
+        /**
+         * Creates a new {@link HtmlBackgroundImage} instance.
+         *
+         * @param xObject background-image property. {@link PdfFormXObject} instance.
+         * @param repeatX is background is repeated in x dimension.
+         * @param repeatY is background is repeated in y dimension.
+         * @deprecated Remove this constructor in 7.2.
+         */
+        @Deprecated
+        public HtmlBackgroundImage(final PdfFormXObject xObject, final boolean repeatX, final boolean repeatY) {
+            this(xObject, new BackgroundRepeat(repeatX, repeatY));
         }
 
         @Override

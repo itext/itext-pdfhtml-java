@@ -24,7 +24,7 @@ package com.itextpdf.html2pdf.css.w3c.css_backgrounds;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
 
-// TODO DEVSIX-2027 Process multiple backgrounds
+// TODO DEVSIX-4425 Nothing is shown because ::first-letter is not supported.
 public class BackgroundImage007Test extends W3CCssAhemFontTest {
     @Override
     protected String getHtmlFileName() {

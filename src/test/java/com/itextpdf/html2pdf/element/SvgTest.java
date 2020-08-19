@@ -319,6 +319,9 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     //TODO: Update cmp_ file when DEVSIX-2731 resolved
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
+    })
     public void htmlWithSvgBackground() throws IOException, InterruptedException {
         String name = "HTML_with_svg_background";
         HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
@@ -327,6 +330,9 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     //TODO: Update cmp_ file when DEVSIX-2731 resolved
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
+    })
     public void htmlWithSvgBackgroundNoViewbox() throws IOException, InterruptedException {
         String name = "Html_with_svg_background_no_viewbox";
         HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));

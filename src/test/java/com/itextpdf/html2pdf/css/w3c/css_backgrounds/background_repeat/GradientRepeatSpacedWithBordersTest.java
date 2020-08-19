@@ -29,7 +29,7 @@ import com.itextpdf.test.annotations.LogMessages;
 
 // TODO DEVSIX-4396 background: radial-gradient is not supported
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
+        @LogMessage(messageTemplate = LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES)
 })public class GradientRepeatSpacedWithBordersTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
