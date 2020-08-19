@@ -44,15 +44,17 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.File;
+import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.io.File;
-import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class BackgroundTest extends ExtendedITextTest {
@@ -68,10 +70,73 @@ public class BackgroundTest extends ExtendedITextTest {
     @Test
     @Ignore("DEVSIX-1708")
     public void backgroundSizeTest01() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "backgroundsize01.html"), new File(destinationFolder + "backgroundsize01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "backgroundsize01.pdf", sourceFolder + "cmp_backgroundsize01.pdf", destinationFolder, "diff01_"));
+        HtmlConverter.convertToPdf(new File(sourceFolder + "backgroundsize01.html"),
+                new File(destinationFolder + "backgroundsize01.pdf"));
+        Assert.assertNull(new CompareTool()
+                .compareByContent(destinationFolder + "backgroundsize01.pdf", sourceFolder + "cmp_backgroundsize01.pdf",
+                        destinationFolder));
     }
 
+    @Test
+    // TODO DEVSIX-1708 support background-size
+    // TODO DEVSIX-2027 process multiple backgrounds
+    public void backgroundAttachmentMarginRoot1Test() throws IOException, InterruptedException {
+        String testName = "backgroundAttachmentMarginRoot1";
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
+                new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
+                sourceFolder + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+    }
 
+    @Test
+    // TODO DEVSIX-1708 support background-size
+    // TODO DEVSIX-2027 process multiple backgrounds
+    public void backgroundAttachmentMarginRoot2Test() throws IOException, InterruptedException {
+        String testName = "backgroundAttachmentMarginRoot2";
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
+                new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
+                sourceFolder + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+    }
 
+    @Test
+    // TODO DEVSIX-4445 support display: contents
+    public void backgroundColorBodyDisplayContentsTest() throws IOException, InterruptedException {
+        String testName = "backgroundColorBodyDisplayContents";
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
+                new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
+                sourceFolder + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+    }
+
+    @Test
+    public void backgroundMarginHtmlTest() throws IOException, InterruptedException {
+        String testName = "backgroundMarginHtml";
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
+                new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
+                sourceFolder + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+    }
+
+    @Test
+    // TODO DEVSIX-4426 support rotateZ() - remove log message after fixing
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)})
+    public void backgroundTransformedRootTest() throws IOException, InterruptedException {
+        String testName = "backgroundTransformedRoot";
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
+                new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
+                sourceFolder + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+    }
+
+    @Test
+    // TODO DEVSIX-4448 support will-change CSS property
+    public void backgroundWillChangeRootTest() throws IOException, InterruptedException {
+        String testName = "backgroundWillChangeRoot";
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
+                new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
+                sourceFolder + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+    }
 }
