@@ -24,7 +24,7 @@ package com.itextpdf.html2pdf.css.w3c.css_backgrounds.background_attachment_loca
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-// TODO DEVSIX-4402 background's position is not supported
+// TODO DEVSIX-1457 background's position is not supported
 public class AttachmentLocalPositioning4RefTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
