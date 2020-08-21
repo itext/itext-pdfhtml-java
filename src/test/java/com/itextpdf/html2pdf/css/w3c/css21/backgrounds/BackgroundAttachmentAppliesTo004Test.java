@@ -24,7 +24,7 @@ package com.itextpdf.html2pdf.css.w3c.css21.backgrounds;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-// TODO DEVSIX-2027, DEVSIX-4371. The blue stripe above should be short.
+// TODO DEVSIX-2445. Display property lacking support
 public class BackgroundAttachmentAppliesTo004Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
