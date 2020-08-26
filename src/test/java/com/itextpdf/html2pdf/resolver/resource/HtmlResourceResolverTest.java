@@ -383,6 +383,36 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
     }
 
+    @Test
+    public void resourceResolverLinkBaseRefTest() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceResolverLinkBaseRef.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverLinkBaseRef.pdf";
+        String baseUri = sourceFolder + "img/";
+
+        try (FileInputStream fileInputStream = new FileInputStream(
+                sourceFolder + "resourceResolverLinkBaseRef.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter
+                    .convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(baseUri));
+        }
+
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+    }
+
+    @Test
+    public void resourceResolverLinkDirectRefTest() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "resourceResolverLinkDirectRef.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverLinkDirectRef.pdf";
+
+        try (FileInputStream fileInputStream = new FileInputStream(
+                sourceFolder + "resourceResolverLinkDirectRef.html");
+             FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
+            HtmlConverter
+                    .convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(sourceFolder));
+        }
+
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+    }
 
 
     // TODO test with absolute http links for resources?
