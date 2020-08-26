@@ -271,6 +271,194 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         Assert.assertEquals("one Two", lineResult);
     }
 
+    @Test
+    //TODO: replace assertNotEquals with assertEquals DEVSIX-4414
+    public void capitalizeAfterUnderScoreTest() {
+        inlineHelper = new WaitingInlineElementsHelper(null, null);
+        inlineHelper.add(createText("( one_", true));
+        inlineHelper.add(createText("two) ", true));
+        inlineHelper.add(createText("( _one", true));
+        inlineHelper.add(createText("_two)", true));
+
+        Div div = new Div();
+        inlineHelper.flushHangingLeaves(div);
+        String lineResult = getLine(div);
+
+        Assert.assertNotEquals("( One_two) ( _one_two)", lineResult);
+    }
+
+    @Test
+    //TODO: replace assertNotEquals with assertEquals DEVSIX-4414
+    public void capitalizeAfterDigitsTest() {
+        inlineHelper = new WaitingInlineElementsHelper(null, null);
+        inlineHelper.add(createText("( one2", true));
+        inlineHelper.add(createText("two) ", true));
+        inlineHelper.add(createText("( one ", true));
+        inlineHelper.add(createText("2two) ", true));
+        inlineHelper.add(createText("( one-", true));
+        inlineHelper.add(createText("2two) ", true));
+        inlineHelper.add(createText("one_", true));
+        inlineHelper.add(createText("2two", true));
+
+        Div div = new Div();
+        inlineHelper.flushHangingLeaves(div);
+        String lineResult = getLine(div);
+
+        Assert.assertNotEquals("( One2two) ( One 2two) ( One-2two) ( One_2two)", lineResult);
+    }
+
+    @Test
+    //TODO: replace assertNotEquals with assertEquals DEVSIX-4414
+    public void capitalizeAfterColonTest() {
+        inlineHelper = new WaitingInlineElementsHelper(null, null);
+        inlineHelper.add(createText("one:", true));
+        inlineHelper.add(createText("two", true));
+
+        Div div = new Div();
+        inlineHelper.flushHangingLeaves(div);
+        String lineResult = getLine(div);
+
+        Assert.assertNotEquals("One:two", lineResult);
+    }
+
+    @Test
+    public void capitalizeTest10() {
+        inlineHelper = new WaitingInlineElementsHelper(null, null);
+        inlineHelper.add(createText("(one/", true));
+        inlineHelper.add(createText("two) ", true));
+        inlineHelper.add(createText("(one-", true));
+        inlineHelper.add(createText("two) ", true));
+        inlineHelper.add(createText("(one&", true));
+        inlineHelper.add(createText("two)", true));
+
+        Div div = new Div();
+        inlineHelper.flushHangingLeaves(div);
+        String lineResult = getLine(div);
+
+        Assert.assertEquals("(One/Two) (One-Two) (One&Two)", lineResult);
+    }
+
+    @Test
+    public void capitalizeTest11() {
+        inlineHelper = new WaitingInlineElementsHelper(null, null);
+        inlineHelper.add(createText("(one: ", true));
+        inlineHelper.add(createText("two) ", true));
+        inlineHelper.add(createText("(one;", true));
+        inlineHelper.add(createText("two) ", true));
+        inlineHelper.add(createText("(one?", true));
+        inlineHelper.add(createText("two)", true));
+
+        Div div = new Div();
+        inlineHelper.flushHangingLeaves(div);
+        String lineResult = getLine(div);
+
+        Assert.assertEquals("(One: Two) (One;Two) (One?Two)", lineResult);
+    }
+
+    @Test
+    //TODO: replace assertNotEquals with assertEquals DEVSIX-4414
+    public void capitalizeTest12() {
+        inlineHelper = new WaitingInlineElementsHelper(null, null);
+        inlineHelper.add(createText("one@", true));
+        inlineHelper.add(createText("2two", true));
+
+        Div div = new Div();
+        inlineHelper.flushHangingLeaves(div);
+        String lineResult = getLine(div);
+
+        Assert.assertNotEquals("One@2two", lineResult);
+    }
+
+    @Test
+    //TODO: replace assertNotEquals with assertEquals DEVSIX-4414
+    public void capitalizeTest13() {
+        inlineHelper = new WaitingInlineElementsHelper(null, null);
+        inlineHelper.add(createText("_one", true));
+        inlineHelper.add(createText("_@two", true));
+
+        Div div = new Div();
+        inlineHelper.flushHangingLeaves(div);
+        String lineResult = getLine(div);
+
+        Assert.assertNotEquals("_one_@Two", lineResult);
+    }
+
+    @Test
+    //TODO: replace assertNotEquals with assertEquals DEVSIX-4414
+    public void capitalizeTest14() {
+        inlineHelper = new WaitingInlineElementsHelper(null, null);
+        inlineHelper.add(createText("one'", true));
+        inlineHelper.add(createText("two'", true));
+
+        Div div = new Div();
+        inlineHelper.flushHangingLeaves(div);
+        String lineResult = getLine(div);
+
+        Assert.assertNotEquals("One'two'", lineResult);
+    }
+
+    @Test
+    public void capitalizeTest15() {
+        inlineHelper = new WaitingInlineElementsHelper(null, null);
+        inlineHelper.add(createText("( 4'", true));
+        inlineHelper.add(createText("two') ", true));
+        inlineHelper.add(createText("( one2(", true));
+        inlineHelper.add(createText("two))", true));
+
+        Div div = new Div();
+        inlineHelper.flushHangingLeaves(div);
+        String lineResult = getLine(div);
+
+        Assert.assertEquals("( 4'Two') ( One2(Two))", lineResult);
+    }
+
+    @Test
+    public void capitalizeTest16() {
+        inlineHelper = new WaitingInlineElementsHelper(null, null);
+        inlineHelper.add(createText("(!one", true));
+        inlineHelper.add(createText("!two) ", true));
+        inlineHelper.add(createText("( one:", true));
+        inlineHelper.add(createText(":two) ", true));
+        inlineHelper.add(createText("( one:", true));
+        inlineHelper.add(createText("-two)", true));
+
+        Div div = new Div();
+        inlineHelper.flushHangingLeaves(div);
+        String lineResult = getLine(div);
+
+        Assert.assertEquals("(!One!Two) ( One::Two) ( One:-Two)", lineResult);
+    }
+
+    @Test
+    public void capitalizeTest17() {
+        inlineHelper = new WaitingInlineElementsHelper(null, null);
+        inlineHelper.add(createText("( one:'", true));
+        inlineHelper.add(createText("two') ", true));
+        inlineHelper.add(createText("( one(", true));
+        inlineHelper.add(createText("two))", true));
+
+        Div div = new Div();
+        inlineHelper.flushHangingLeaves(div);
+        String lineResult = getLine(div);
+
+        Assert.assertEquals("( One:'Two') ( One(Two))", lineResult);
+    }
+
+    @Test
+    public void capitalizeTest18() {
+        inlineHelper = new WaitingInlineElementsHelper(null, null);
+        inlineHelper.add(createText("( one,", true));
+        inlineHelper.add(createText("two) ", true));
+        inlineHelper.add(createText("( one", true));
+        inlineHelper.add(createText("~two)", true));
+
+        Div div = new Div();
+        inlineHelper.flushHangingLeaves(div);
+        String lineResult = getLine(div);
+
+        Assert.assertEquals("( One,Two) ( One~Two)", lineResult);
+    }
+
     private Text createText(String text, boolean capitalizeProperty) {
         Text element = new Text(text);
         element.setProperty(Html2PdfProperty.CAPITALIZE_ELEMENT, capitalizeProperty);
