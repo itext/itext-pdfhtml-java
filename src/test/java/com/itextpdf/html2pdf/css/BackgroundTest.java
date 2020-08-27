@@ -161,6 +161,62 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void backgroundPositionTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundPosition", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundGradientPositionTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundGradientPosition", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundGradientWithPercentagePositionTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundGradientWithPercentagePosition", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundPositionWithoutYTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundPositionWithoutY", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundPositionXTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundPositionX", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundPositionYTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundPositionY", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundPositionXYTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundPositionXY", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // html works inappropriate in chrome.
+    public void backgroundComplicatedPositionXYTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundComplicatedPositionXY", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundPositionXAndPositionTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundPositionXAndPosition", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundPositionAndPositionXTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundPositionAndPositionX", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundPositionInheritAndInitialTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundPositionInheritAndInitial", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void backgroundShorthandOnlyImageTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("backgroundShorthandOnlyImage", sourceFolder, destinationFolder);
     }
