@@ -34,6 +34,6 @@ import com.itextpdf.test.annotations.LogMessages;
 public class TCovNpWNpHVbCTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
-        return "tall--cover--nonpercent-width-nonpercent-height-viewbox--crisp.html";
+        return "tall--cover--npercent-w-npercent-h-viewbox--crisp.html";
     }
 }

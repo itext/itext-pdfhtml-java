@@ -34,6 +34,6 @@ import com.itextpdf.test.annotations.LogMessages;
 public class Wi12PxAPWNpHVbTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
-        return "wide--12px-auto--percent-width-nonpercent-height-viewbox.html";
+        return "wide--12px-auto--percent-w-npercent-h-viewbox.html";
     }
 }
