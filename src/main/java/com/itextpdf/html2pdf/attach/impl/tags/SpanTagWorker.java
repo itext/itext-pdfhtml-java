@@ -71,7 +71,8 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
     /** The span wrapper. */
     SpanWrapper spanWrapper;
 
-    // TODO ideally, this should be refactored. For now, I don't see a beautiful way of passing this information to other workers.
+    // TODO DEVSIX-2445. Ideally, this should be refactored. For now, I don't see a beautiful way
+    //  of passing this information to other workers.
     // Also, we probably should wait a bit until the display support is more or less stable
     Map<IPropertyContainer, String> childrenDisplayMap = new HashMap<>();
 

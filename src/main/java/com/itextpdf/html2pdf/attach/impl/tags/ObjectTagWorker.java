@@ -125,7 +125,7 @@ public class ObjectTagWorker implements ITagWorker {
         }
     }
 
-    // TODO  according specs 'At least one of the "data" or "type" attribute MUST be defined.'
+    // TODO DEVSIX-4460. According specs 'At least one of the "data" or "type" attribute MUST be defined.'
     private boolean isSvgImage(String typeAttribute) {
         return AttributeConstants.ObjectTypes.SVGIMAGE.equals(typeAttribute);
     }

@@ -124,7 +124,8 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-        // TODO child might be inline, however still have display:block; it behaves like a block, however p includes it in own occupied area
+        // Child might be inline, however still have display:block; it behaves like a block,
+        // however p includes it in own occupied area
         IPropertyContainer element = childTagWorker.getElementResult();
         if (childTagWorker instanceof ImgTagWorker && CssConstants.BLOCK.equals(((ImgTagWorker) childTagWorker).getDisplay())) {
             IPropertyContainer propertyContainer = childTagWorker.getElementResult();
