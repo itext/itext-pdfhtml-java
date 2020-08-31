@@ -24,9 +24,9 @@ package com.itextpdf.html2pdf.css.w3c.css_backgrounds;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class TtwfCss3backgroundBorderColorShorthandMissingBottomTest extends W3CCssTest {
+public class TtwfBorderStyleTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
-        return "ttwf-css3background-border-color-shorthand-missing-bottom.htm";
+        return "ttwf-border-style.htm";
     }
 }

@@ -24,9 +24,9 @@ package com.itextpdf.html2pdf.css.w3c.css_backgrounds;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class TtwfCss3backgroundBorderStyleTest extends W3CCssTest {
+public class TtwfBorderStyleDoubleTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
-        return "ttwf-css3background-border-style.htm";
+        return "ttwf-border-style-double.htm";
     }
 }
