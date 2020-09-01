@@ -189,4 +189,14 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
     public void backgroundPropertyAndShorthandTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("backgroundPropertyAndShorthand", sourceFolder, destinationFolder);
     }
+
+    @Test
+    // TODO DEVSIX-3108. Background with FormXObject isn't processed properly because of scaling
+    public void backgroundSvgTest() throws IOException, InterruptedException {
+        String testName = "backgroundSvgTest";
+        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".xht"),
+                new File(destinationFolder + testName + ".pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
+                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
+    }
 }
