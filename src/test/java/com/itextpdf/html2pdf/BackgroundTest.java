@@ -85,7 +85,7 @@ public class BackgroundTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
                 new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
-                sourceFolder + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
     }
 
     @Test
@@ -96,7 +96,7 @@ public class BackgroundTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
                 new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
-                sourceFolder + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class BackgroundTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
                 new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
-                sourceFolder + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class BackgroundTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
                 new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
-                sourceFolder + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
     }
 
     @Test
@@ -127,7 +127,7 @@ public class BackgroundTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
                 new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
-                sourceFolder + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
     }
 
     @Test
@@ -137,6 +137,6 @@ public class BackgroundTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"),
                 new File(destinationFolder + testName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
-                sourceFolder + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+                sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
     }
 }
