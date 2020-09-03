@@ -57,6 +57,7 @@ import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.BackgroundPosition;
 import com.itextpdf.layout.property.BackgroundRepeat;
+import com.itextpdf.layout.property.BackgroundSize;
 import com.itextpdf.layout.property.BlendMode;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
@@ -99,6 +100,7 @@ public final class BackgroundApplierUtil {
 
         final String backgroundImagesStr = cssProps.get(CssConstants.BACKGROUND_IMAGE);
         final String backgroundRepeatStr = cssProps.get(CssConstants.BACKGROUND_REPEAT);
+        final String backgroundSizeStr = cssProps.get(CssConstants.BACKGROUND_SIZE);
         final String backgroundPositionXStr = cssProps.get(CssConstants.BACKGROUND_POSITION_X);
         final String backgroundPositionYStr = cssProps.get(CssConstants.BACKGROUND_POSITION_Y);
         final String backgroundBlendModeStr = cssProps.get(CssConstants.BACKGROUND_BLEND_MODE);
@@ -106,27 +108,36 @@ public final class BackgroundApplierUtil {
         final List<BackgroundImage> backgroundImagesList = new ArrayList<>();
         final List<String> backgroundImagesArray = CssUtils.splitStringWithComma(backgroundImagesStr);
         final List<String> backgroundRepeatArray = CssUtils.splitStringWithComma(backgroundRepeatStr);
+        final List<List<String>> backgroundSizeArray = backgroundSizeStr == null ? null
+                : CssUtils.extractShorthandProperties(backgroundSizeStr);
         final List<String> backgroundPositionXArray = CssUtils.splitStringWithComma(backgroundPositionXStr);
         final List<String> backgroundPositionYArray = CssUtils.splitStringWithComma(backgroundPositionYStr);
         final List<String> backgroundBlendModeArray = CssUtils.splitStringWithComma(backgroundBlendModeStr);
+
+        final String fontSize = cssProps.get(CssConstants.FONT_SIZE);
+        final float em = fontSize == null ? 0 : CssUtils.parseAbsoluteLength(fontSize);
+        final float rem = context.getCssContext().getRootFontSize();
+
         for (int i = 0; i < backgroundImagesArray.size(); ++i) {
             final String backgroundImage = backgroundImagesArray.get(i);
             if (backgroundImage == null || CssConstants.NONE.equals(backgroundImage)) {
                 continue;
             }
-
-            final String fontSize = cssProps.get(CssConstants.FONT_SIZE);
-            final float em = fontSize == null ? 0 : CssUtils.parseAbsoluteLength(fontSize);
-            final float rem = context.getCssContext().getRootFontSize();
             final BackgroundPosition position =
                     applyBackgroundPosition(backgroundPositionXArray, backgroundPositionYArray, i, em, rem);
             final BlendMode blendMode = applyBackgroundBlendMode(backgroundBlendModeArray, i);
-
+            boolean imageApplied = false;
             if (CssGradientUtil.isCssLinearGradientValue(backgroundImage)) {
-                applyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem);
+                imageApplied = applyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem);
             } else {
                 final BackgroundRepeat repeat = applyBackgroundRepeat(backgroundRepeatArray, i);
-                applyBackgroundImage(context, backgroundImage, backgroundImagesList, repeat, blendMode, position);
+                final PdfXObject image = context.getResourceResolver().retrieveImageExtended(
+                        CssUtils.extractUrl(backgroundImage));
+                imageApplied = applyBackgroundImage(image, backgroundImagesList, repeat, blendMode, position);
+            }
+            if (imageApplied) {
+                applyBackgroundSize(backgroundSizeArray, em, rem, i,
+                        backgroundImagesList.get(backgroundImagesList.size() - 1));
             }
         }
         if (!backgroundImagesList.isEmpty()) {
@@ -184,11 +195,11 @@ public final class BackgroundApplierUtil {
                                                               List<String> backgroundPositionYArray,
                                                               int i, float em, float rem) {
         final BackgroundPosition position = new BackgroundPosition();
-        final int indexX = getBackgroundSidePropertyIndex(backgroundPositionXArray, i);
+        final int indexX = getBackgroundSidePropertyIndex(backgroundPositionXArray.size(), i);
         if (indexX != -1) {
             applyBackgroundPositionX(position, backgroundPositionXArray.get(indexX), em, rem);
         }
-        final int indexY = getBackgroundSidePropertyIndex(backgroundPositionYArray, i);
+        final int indexY = getBackgroundSidePropertyIndex(backgroundPositionYArray.size(), i);
         if (indexY != -1) {
             applyBackgroundPositionY(position, backgroundPositionYArray.get(indexY), em, rem);
         }
@@ -238,7 +249,7 @@ public final class BackgroundApplierUtil {
     }
 
     private static BackgroundRepeat applyBackgroundRepeat(List<String> backgroundRepeatArray, int iteration) {
-        final int index = getBackgroundSidePropertyIndex(backgroundRepeatArray, iteration);
+        final int index = getBackgroundSidePropertyIndex(backgroundRepeatArray.size(), iteration);
         if (index != -1) {
             final boolean repeatX = CssConstants.REPEAT.equals(backgroundRepeatArray.get(index)) ||
                     CssConstants.REPEAT_X.equals(backgroundRepeatArray.get(index));
@@ -249,13 +260,9 @@ public final class BackgroundApplierUtil {
         return new BackgroundRepeat();
     }
 
-    private static int getBackgroundSidePropertyIndex(final List<String> backgroundPropertyArray, final int iteration) {
-        if (!backgroundPropertyArray.isEmpty()) {
-            if (backgroundPropertyArray.size() > iteration) {
-                return iteration;
-            } else {
-                return 0;
-            }
+    private static int getBackgroundSidePropertyIndex(final int propertiesNumber, final int iteration) {
+        if (propertiesNumber > 0) {
+            return iteration % propertiesNumber;
         }
         return -1;
     }
@@ -270,37 +277,91 @@ public final class BackgroundApplierUtil {
         }
     }
 
-    private static void applyBackgroundImage(ProcessorContext context, String backgroundImage,
-                                             List<BackgroundImage> backgroundImagesList, BackgroundRepeat repeat,
-                                             BlendMode backgroundBlendMode, BackgroundPosition position) {
-        final PdfXObject image = context.getResourceResolver().retrieveImageExtended(
-                CssUtils.extractUrl(backgroundImage));
-        if (image != null) {
-            if (image instanceof PdfImageXObject) {
-                backgroundImagesList
-                        .add(new HtmlBackgroundImage((PdfImageXObject) image, repeat, position, backgroundBlendMode));
-            } else if (image instanceof PdfFormXObject) {
-                backgroundImagesList
-                        .add(new HtmlBackgroundImage((PdfFormXObject) image, repeat, position, backgroundBlendMode));
-            } else {
-                throw new IllegalStateException();
-            }
+    private static boolean applyBackgroundImage(PdfXObject image, List<BackgroundImage> backgroundImagesList,
+            BackgroundRepeat repeat, BlendMode backgroundBlendMode, BackgroundPosition position) {
+        if (image == null) {
+            return false;
+        }
+        if (image instanceof PdfImageXObject) {
+            backgroundImagesList.add(new HtmlBackgroundImage((PdfImageXObject) image, repeat, position,
+                    backgroundBlendMode));
+            return true;
+        } else if (image instanceof PdfFormXObject) {
+            backgroundImagesList.add(new HtmlBackgroundImage((PdfFormXObject) image, repeat, position,
+                    backgroundBlendMode));
+            return true;
+        } else {
+            throw new IllegalStateException();
         }
     }
 
-    private static void applyLinearGradient(String backgroundImage, List<BackgroundImage> backgroundImagesList,
-                                            BlendMode blendMode, BackgroundPosition position, float em, float rem) {
+    private static boolean applyLinearGradient(String image, List<BackgroundImage> backgroundImagesList,
+            BlendMode blendMode, BackgroundPosition position, float em, float rem) {
         try {
             StrategyBasedLinearGradientBuilder gradientBuilder =
-                    CssGradientUtil.parseCssLinearGradient(backgroundImage, em, rem);
+                    CssGradientUtil.parseCssLinearGradient(image, em, rem);
             if (gradientBuilder != null) {
                 backgroundImagesList.add(new BackgroundImage.Builder().setLinearGradientBuilder(gradientBuilder)
                         .setBackgroundBlendMode(blendMode).setBackgroundPosition(position).build());
+                return true;
             }
         } catch (StyledXMLParserException e) {
-            LOGGER.warn(MessageFormatUtil.format(
-                    LogMessageConstant.INVALID_GRADIENT_DECLARATION, backgroundImage));
+            LOGGER.warn(MessageFormatUtil.format(LogMessageConstant.INVALID_GRADIENT_DECLARATION, image));
         }
+        return false;
+    }
+
+    private static void applyBackgroundSize(List<List<String>> backgroundProperties, float em, float rem,
+            int imageIndex, BackgroundImage image) {
+        if (backgroundProperties == null || backgroundProperties.isEmpty()) {
+            return;
+        }
+        if (image.getForm() != null && (image.getImageHeight() == 0f || image.getImageWidth() == 0f)) {
+            return;
+        }
+        List<String> backgroundSizeValues = backgroundProperties
+                .get(getBackgroundSidePropertyIndex(backgroundProperties.size(), imageIndex));
+        if (backgroundSizeValues.size() == 2 && CommonCssConstants.AUTO.equals(backgroundSizeValues.get(1))) {
+            backgroundSizeValues.remove(1);
+        }
+        if (backgroundSizeValues.size() == 1) {
+            String widthValue = backgroundSizeValues.get(0);
+            applyBackgroundWidth(widthValue, image, em, rem);
+        }
+        if (backgroundSizeValues.size() == 2) {
+            applyBackgroundWidthHeight(backgroundSizeValues, image, em, rem);
+        }
+    }
+
+    private static void applyBackgroundWidth(final String widthValue, final BackgroundImage image,
+            final float em, final float rem) {
+        if (CommonCssConstants.BACKGROUND_SIZE_VALUES.contains(widthValue)) {
+            if (widthValue.equals(CommonCssConstants.CONTAIN)) {
+                image.getBackgroundSize().setBackgroundSizeToContain();
+            }
+            if (widthValue.equals(CommonCssConstants.COVER)) {
+                image.getBackgroundSize().setBackgroundSizeToCover();
+            }
+            return;
+        }
+        image.getBackgroundSize().setBackgroundSizeToValues(CssUtils.parseLengthValueToPt(widthValue, em, rem), null);
+    }
+
+    private static void applyBackgroundWidthHeight(final List<String> backgroundSizeValues,
+            final BackgroundImage image, final float em, final float rem) {
+        String widthValue = backgroundSizeValues.get(0);
+        if (CommonCssConstants.BACKGROUND_SIZE_VALUES.contains(widthValue)) {
+            if (widthValue.equals(CommonCssConstants.AUTO)) {
+                UnitValue height = CssUtils.parseLengthValueToPt(backgroundSizeValues.get(1), em, rem);
+                if (height != null) {
+                    image.getBackgroundSize().setBackgroundSizeToValues(null, height);
+                }
+            }
+            return;
+        }
+        image.getBackgroundSize().setBackgroundSizeToValues(
+                CssUtils.parseLengthValueToPt(backgroundSizeValues.get(0), em, rem),
+                CssUtils.parseLengthValueToPt(backgroundSizeValues.get(1), em, rem));
     }
 
     /**
@@ -327,7 +388,7 @@ public final class BackgroundApplierUtil {
          */
         public HtmlBackgroundImage(PdfImageXObject xObject,
                                    BackgroundRepeat repeat, BackgroundPosition position, BlendMode blendMode) {
-            super(xObject, repeat, position, null, blendMode);
+            super(xObject, repeat, position, new BackgroundSize(), null, blendMode);
             dimensionMultiplier = PX_TO_PT_MULTIPLIER;
         }
 
@@ -341,7 +402,17 @@ public final class BackgroundApplierUtil {
          */
         public HtmlBackgroundImage(PdfFormXObject xObject,
                                    BackgroundRepeat repeat, BackgroundPosition position, BlendMode blendMode) {
-            super(xObject, repeat, position, null, blendMode);
+            super(xObject, repeat, position, new BackgroundSize(), null, blendMode);
+        }
+
+        @Override
+        public float getImageWidth() {
+            return (float) (image.getWidth() * dimensionMultiplier);
+        }
+
+        @Override
+        public float getImageHeight() {
+            return (float) (image.getHeight() * dimensionMultiplier);
         }
 
         @Override

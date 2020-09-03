@@ -70,7 +70,6 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1708")
     public void backgroundSizeTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "backgroundsize01.html"),
                 new File(destinationFolder + "backgroundsize01.pdf"));
@@ -80,13 +79,13 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-1708 support background-size
+    // TODO DEVSIX-4370 support background repeat for linear-gradient
     public void backgroundAttachmentMarginRoot1Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("backgroundAttachmentMarginRoot1", sourceFolder, destinationFolder);
     }
 
     @Test
-    // TODO DEVSIX-1708 support background-size
+    // TODO DEVSIX-4370 support background repeat for linear-gradient
     public void backgroundAttachmentMarginRoot2Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("backgroundAttachmentMarginRoot2", sourceFolder, destinationFolder);
     }
@@ -119,6 +118,16 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void backgroundSoloImageTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("background_solo_image", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageWithoutFixedWidthTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageWithoutFixedSize", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundImageCoverSizeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageCoverSize", sourceFolder, destinationFolder);
     }
 
     @Test

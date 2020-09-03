@@ -24,6 +24,7 @@ package com.itextpdf.html2pdf.css.w3c.css_backgrounds.bg_size;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
+//TODO DEVSIX-4370 support background-repeat for linear-gradients
 public class BackgroundSizeNearZeroGradientTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
