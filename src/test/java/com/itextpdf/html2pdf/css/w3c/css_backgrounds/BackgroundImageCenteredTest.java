@@ -28,7 +28,6 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 // TODO DEVSIX-4423 support repeating-radial-gradient, change cmp and remove log message
-// TODO DEVSIX-1457 support background-position
 @LogMessages(messages = {
         @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)})
 public class BackgroundImageCenteredTest extends W3CCssTest {

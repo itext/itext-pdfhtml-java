@@ -27,7 +27,6 @@ import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-// TODO DEVSIX-1457 support background-position
 @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
 public class BgPNegativePercentageComparisonTest extends W3CCssTest {
     @Override

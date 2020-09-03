@@ -24,7 +24,6 @@ package com.itextpdf.html2pdf.css.w3c.css_backgrounds.bg_att_local;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-// TODO DEVSIX-1457 background's position is not supported
 public class AttScrollPos1RefTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

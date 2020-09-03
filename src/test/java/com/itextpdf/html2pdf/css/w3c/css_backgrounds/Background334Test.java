@@ -27,7 +27,6 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 // TODO DEVSIX-1708 support background size
-// TODO DEVSIX-1457 support background-position
 public class Background334Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

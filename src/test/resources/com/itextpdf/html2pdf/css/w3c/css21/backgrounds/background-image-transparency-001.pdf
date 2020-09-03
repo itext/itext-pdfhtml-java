@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 216>>stream
-xœ…±nƒ0E÷÷wl‡:66Ö*­Ô1’¥Îˆ<!‰Íÿ«6K—¨oòğÎ½>ºztø40ÂH¶o­òáL/Ó†{Ÿ'Ì#¶GÆœĞcœ—…Ï˜"óŠÈÃÖ¯ÓÂè‡xK©€96±z?ôèDÒĞªÖ¦k §ı#«•G]YX¯êÜBãN>=}ÓšO¾Îiü¼Ù¾iU…áJ‡¯«Áñ¶§ÿÒó?aŒ‘Vl©±ÅÊ.Nvq²K™¥é¬0‹@”Y$¤[Ê,’Šìâd÷ÜåD¿3 ë
+<</Filter/FlateDecode/Length 215>>stream
+xœ…?oƒ0Å÷ûol‡8666¬Q[©c$K9(!‰Í÷WK–H7İp¿÷GïA§HÇ/S!d=BcUpˆz‹œWÜ»œ9c°şrbL†iù‚11/HÜ¯İ2ÎŒ®O·œ7°ÈFVïñ>#éAZÕÚ´iÜƒ¬Vueaƒª‹;ùòõCKy…º¨5Ê)o­ªĞ_éø}5ø¸íâ'aŒ‘ƒmE—Fª¼dåºN®ëä.Ûv¾‘fmÉ¥ƒ¶YÄÊu\×½îr¦ø§ ë
 endstream
 endobj
 4 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20200814131721+03'00')/ModDate(D:20200814131721+03'00')/Producer(iText® 7.1.13-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Transparent background-image with background-color)/assert(Background-image set to a transparent image causes the 'background-color' to shine through.)/flags(image)>>
+<</CreationDate(D:20200904004513+03'00')/ModDate(D:20200904004513+03'00')/Producer(iText® 7.1.13-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Transparent background-image with background-color)/assert(Background-image set to a transparent image causes the 'background-color' to shine through.)/flags(image)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -34,17 +34,17 @@ endobj
 xref
 0 9
 0000000000 65535 f 
-0000000453 00000 n 
-0000000936 00000 n 
-0000000498 00000 n 
-0000000298 00000 n 
+0000000452 00000 n 
+0000000935 00000 n 
+0000000497 00000 n 
+0000000297 00000 n 
 0000000015 00000 n 
-0000000846 00000 n 
-0000000987 00000 n 
-0000001595 00000 n 
+0000000845 00000 n 
+0000000986 00000 n 
+0000001594 00000 n 
 trailer
-<</ID [<9c7eeda77c35603d5124fa2abd03ad13><9c7eeda77c35603d5124fa2abd03ad13>]/Info 3 0 R/Root 1 0 R/Size 9>>
+<</ID [<9707ca8d30799b9438ed4fc48a92c7d4><9707ca8d30799b9438ed4fc48a92c7d4>]/Info 3 0 R/Root 1 0 R/Size 9>>
 %iText-7.1.13-SNAPSHOT
 startxref
-1848
+1847
 %%EOF

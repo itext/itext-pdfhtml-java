@@ -24,7 +24,7 @@ package com.itextpdf.html2pdf.css.w3c.css21.backgrounds;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-// TODO DEVSIX-1457. Background-position isn't supported
+// TODO DEVSIX-4258 There is no image.
 public class BackgroundPositionAppliesTo001aTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

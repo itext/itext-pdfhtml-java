@@ -27,6 +27,7 @@ import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
+// TODO DEVSIX-1708 diamond should not be cut.
 @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, count = 8)})
 public class Css3BImRepeatRepeatRefTest extends W3CCssTest {
     @Override
