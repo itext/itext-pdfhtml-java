@@ -22,16 +22,13 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_backgrounds;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
 // TODO DEVSIX-1457 support background-position
-@LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
-public class BackgroundPositionNegativePercentageComparisonTest extends W3CCssTest {
+// PDF and HTML look pretty the same but background-position is not supported
+public class BgPSubpixelAtBorderTentativeTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
-        return "background-position-negative-percentage-comparison.html";
+        return "background-position-subpixel-at-border.tentative.html";
     }
 }
