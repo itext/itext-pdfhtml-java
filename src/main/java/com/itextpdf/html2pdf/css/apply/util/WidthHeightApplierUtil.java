@@ -100,7 +100,6 @@ public final class WidthHeightApplierUtil {
             element.setProperty(Property.MAX_WIDTH, maxWidth);
         }
 
-        // TODO consider display css property
         boolean applyToTable = element instanceof Table;
         boolean applyToCell = element instanceof Cell;
 
