@@ -22,10 +22,10 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 // TODO DEVSIX-3757 update cmp file after completing the ticket
-public class VerticalAlignAppliesTo006Test extends W3CCssAhemFontTest {
+public class VerticalAlignAppliesTo006Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "vertical-align-applies-to-006.xht";

@@ -22,12 +22,12 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 // There is a slight difference between the appearance of the HTML and the output PDF.
 // This is due to the fact that no font is specified in the html,
 // and browsers and iText by default use different fonts from the Times font family.
-public class LineHeightLargest001Test extends W3CCssAhemFontTest {
+public class LineHeightLargest001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "line-height-largest-001.xht";

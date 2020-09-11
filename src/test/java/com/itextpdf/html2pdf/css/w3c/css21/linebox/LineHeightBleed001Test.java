@@ -22,20 +22,11 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-import java.io.IOException;
-import org.junit.Test;
-
-public class LineHeightBleed001Test extends W3CCssAhemFontTest {
+public class LineHeightBleed001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "line-height-bleed-001.xht";
-    }
-
-    @Test
-    @Override
-    public void test() throws IOException, InterruptedException {
-        super.test();
     }
 }

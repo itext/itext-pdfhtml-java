@@ -22,10 +22,10 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 //TODO: update cmp file after DEVSIX-3757 will be fixed
-public class InlineFormattingContext011Test extends W3CCssAhemFontTest {
+public class InlineFormattingContext011Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "inline-formatting-context-011.xht";

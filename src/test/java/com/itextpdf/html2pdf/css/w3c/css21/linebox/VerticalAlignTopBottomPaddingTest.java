@@ -22,15 +22,10 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
-
-import java.io.IOException;
-import org.junit.Test;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 // TODO DEVSIX-3757 update cmp file after completing the ticket
-public class VerticalAlignTopBottomPaddingTest extends W3CCssAhemFontTest {
+public class VerticalAlignTopBottomPaddingTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "vertical-align-top-bottom-padding.html";

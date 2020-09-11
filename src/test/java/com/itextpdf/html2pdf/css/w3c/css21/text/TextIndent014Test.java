@@ -42,9 +42,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.text;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class TextIndent014Test extends W3CCssAhemFontTest {
+public class TextIndent014Test extends W3CCssTest {
     // TODO DEVSIX-1880: negative margin boxes are poorly supported
 
     // TODO In HTML+CSS, text-indent affects only the first line of a block container if that line is also the first formatted line of an element.

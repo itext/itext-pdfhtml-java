@@ -22,10 +22,10 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 // TODO DEVSIX-2445, 2485 update cmp file after fixing tickets
-public class LineHeightAppliesTo010Test extends W3CCssAhemFontTest {
+public class LineHeightAppliesTo010Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "line-height-applies-to-010.xht";
