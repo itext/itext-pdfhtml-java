@@ -60,13 +60,16 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.regex.Pattern;
 
 /**
  * Extends {@link ResourceResolver} to also support SVG images
  */
 public class HtmlResourceResolver extends ResourceResolver {
 
-    private static final String SVG_BASE64_PREFIX = "data:image/svg+xml";
+    private static final String SVG_PREFIX = "data:image/svg+xml";
+    private static final Pattern SVG_IDENTIFIER_PATTERN = Pattern.compile(",[\\s]*(<svg )");
 
     private ProcessorContext context;
 
@@ -105,13 +108,29 @@ public class HtmlResourceResolver extends ResourceResolver {
     }
 
     @Override
+    public PdfXObject retrieveImageExtended(String src) {
+        if (src != null && src.trim().startsWith(SVG_PREFIX) && SVG_IDENTIFIER_PATTERN.matcher(src).find()) {
+            PdfXObject imageXObject = tryResolveSvgImageSource(src);
+            if (imageXObject != null) {
+                return imageXObject;
+            }
+        }
+        return super.retrieveImageExtended(src);
+    }
+
+    /**
+     * Retrieve image as either {@link com.itextpdf.kernel.pdf.xobject.PdfImageXObject}, or {@link PdfFormXObject}.
+     *
+     * @param src either link to file or base64 encoded stream
+     * @return PdfXObject on success, otherwise null
+     */
+    @Override
     protected PdfXObject tryResolveBase64ImageSource(String src) {
         String fixedSrc = src.replaceAll("\\s", "");
-        if (fixedSrc.startsWith(SVG_BASE64_PREFIX)) {
-            fixedSrc = fixedSrc.substring(fixedSrc.indexOf(BASE64IDENTIFIER) + 7);
-            try {
-                PdfXObject xObject = HtmlResourceResolver.processAsSvg(
-                        new ByteArrayInputStream(Base64.decode(fixedSrc)), context, null);
+        if (fixedSrc.startsWith(SVG_PREFIX)) {
+            fixedSrc = fixedSrc.substring(fixedSrc.indexOf(BASE64_IDENTIFIER) + BASE64_IDENTIFIER.length() + 1);
+            try (ByteArrayInputStream stream = new ByteArrayInputStream(Base64.decode(fixedSrc))) {
+                PdfFormXObject xObject = processAsSvg(stream, context, null);
                 if (xObject != null) {
                     return xObject;
                 }
@@ -130,6 +149,18 @@ public class HtmlResourceResolver extends ResourceResolver {
                 return is == null ? null : HtmlResourceResolver.processAsSvg(is, context, FileUtil.parentDirectory(url));
             }
         }
+    }
+
+    private PdfXObject tryResolveSvgImageSource(String src) {
+        try (ByteArrayInputStream stream = new ByteArrayInputStream(src.getBytes(StandardCharsets.UTF_8))) {
+            PdfFormXObject xObject = processAsSvg(stream, context, null);
+            if (xObject != null) {
+                return xObject;
+            }
+        } catch (Exception ignored) {
+            //Logs an error in a higher-level method if null is returned
+        }
+        return null;
     }
 
     private static PdfFormXObject processAsSvg(InputStream stream, ProcessorContext context, String parentDir) throws IOException {

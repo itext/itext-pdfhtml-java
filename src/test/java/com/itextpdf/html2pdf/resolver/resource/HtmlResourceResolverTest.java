@@ -359,11 +359,47 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
         try (FileInputStream fileInputStream = new FileInputStream(
                 sourceFolder + "resourceResolverSvgWithImageObject.html");
                 FileOutputStream fileOutputStream = new FileOutputStream(outPdf)) {
-            HtmlConverter
-                    .convertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().setBaseUri(sourceFolder));
+            HtmlConverter.convertToPdf(fileInputStream, fileOutputStream,
+                            new ConverterProperties().setBaseUri(sourceFolder));
         }
 
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI, count = 3),
+            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 3)
+    })
+    public void resourceResolverSvgDifferentFormatsTest() throws IOException, InterruptedException {
+        String html = sourceFolder + "resourceResolverSvgDifferentFormats.html";
+        String outPdf = destinationFolder + "resourceResolverSvgDifferentFormats.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverSvgDifferentFormats.pdf";
+        try (
+                FileInputStream htmlInput = new FileInputStream(html);
+                FileOutputStream pdfOutput = new FileOutputStream(outPdf)
+        ) {
+            HtmlConverter.convertToPdf(htmlInput, pdfOutput, new ConverterProperties().setBaseUri(sourceFolder));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffCorruptedSvg_"));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI),
+            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)
+    })
+    public void resourceResolverNotValidInlineSvgTest() throws IOException, InterruptedException {
+        String html = sourceFolder + "resourceResolverNotValidInlineSvg.html";
+        String outPdf = destinationFolder + "resourceResolverNotValidInlineSvg.pdf";
+        String cmpPdf = sourceFolder + "cmp_resourceResolverNotValidInlineSvg.pdf";
+        try (
+                FileInputStream htmlInput = new FileInputStream(html);
+                FileOutputStream pdfOutput = new FileOutputStream(outPdf)
+        ) {
+            HtmlConverter.convertToPdf(htmlInput, pdfOutput, new ConverterProperties().setBaseUri(sourceFolder));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diffCorruptedSvg_"));
     }
 
     @Test
