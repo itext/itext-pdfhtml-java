@@ -56,6 +56,7 @@ import com.itextpdf.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
 import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.BackgroundRepeat;
+import com.itextpdf.layout.property.BlendMode;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
@@ -84,29 +85,34 @@ public final class BackgroundApplierUtil {
      * Applies background to an element.
      *
      * @param cssProps the CSS properties
-     * @param context the processor context
-     * @param element the element
+     * @param context  the processor context
+     * @param element  the element
      */
-    public static void applyBackground(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
+    public static void applyBackground(Map<String, String> cssProps, ProcessorContext context,
+            IPropertyContainer element) {
         final String backgroundColorStr = cssProps.get(CssConstants.BACKGROUND_COLOR);
         applyBackgroundColor(backgroundColorStr, element);
 
         final String backgroundImagesStr = cssProps.get(CssConstants.BACKGROUND_IMAGE);
         final String backgroundRepeatStr = cssProps.get(CssConstants.BACKGROUND_REPEAT);
+        final String backgroundBlendModeStr = cssProps.get(CssConstants.BACKGROUND_BLEND_MODE);
 
         final List<BackgroundImage> backgroundImagesList = new ArrayList<>();
-        final String[] backgroundImagesArray = splitStringWithComma(backgroundImagesStr);
-        final String[] backgroundRepeatArray = splitStringWithComma(backgroundRepeatStr);
-        for (int i = 0; i < backgroundImagesArray.length; ++i) {
-            if (backgroundImagesArray[i] == null || CssConstants.NONE.equals(backgroundImagesArray[i])) {
+        final List<String> backgroundImagesArray = CssUtils.splitStringWithComma(backgroundImagesStr);
+        final List<String> backgroundRepeatArray = CssUtils.splitStringWithComma(backgroundRepeatStr);
+        final List<String> backgroundBlendModeArray = CssUtils.splitStringWithComma(backgroundBlendModeStr);
+        for (int i = 0; i < backgroundImagesArray.size(); ++i) {
+            String backgroundImage = backgroundImagesArray.get(i);
+            if (backgroundImage == null || CssConstants.NONE.equals(backgroundImage)) {
                 continue;
             }
 
-            if (CssGradientUtil.isCssLinearGradientValue(backgroundImagesArray[i])) {
-                applyLinearGradient(cssProps, context, backgroundImagesArray, backgroundImagesList, i);
+            final BlendMode backgroundBlendMode = applyBackgroundBlendMode(backgroundBlendModeArray, i);
+            if (CssGradientUtil.isCssLinearGradientValue(backgroundImage)) {
+                applyLinearGradient(cssProps, context, backgroundImage, backgroundBlendMode, backgroundImagesList);
             } else {
                 final BackgroundRepeat repeat = applyBackgroundRepeat(backgroundRepeatArray, i);
-                applyBackgroundImage(context, backgroundImagesArray, backgroundImagesList, i, repeat);
+                applyBackgroundImage(context, backgroundImage, backgroundImagesList, repeat, backgroundBlendMode);
             }
         }
         if (!backgroundImagesList.isEmpty()) {
@@ -114,6 +120,14 @@ public final class BackgroundApplierUtil {
         }
     }
 
+    /**
+     * Splits the provided {@link String} by comma with respect of brackets.
+     *
+     * @param value to split
+     * @return the split result
+     * @deprecated use {@link CssUtils#splitStringWithComma(String)}
+     */
+    @Deprecated
     static String[] splitStringWithComma(final String value) {
         if (value == null) {
             return new String[0];
@@ -141,21 +155,34 @@ public final class BackgroundApplierUtil {
         return resultList.toArray(new String[0]);
     }
 
-    private static BackgroundRepeat applyBackgroundRepeat(final String[] backgroundRepeatArray, final int iteration) {
+    private static BlendMode applyBackgroundBlendMode(final List<String> backgroundBlendModeArray,
+            final int iteration) {
+        String cssValue = null;
+        if (backgroundBlendModeArray != null && !backgroundBlendModeArray.isEmpty()) {
+            int actualValueIteration = Math.min(iteration, backgroundBlendModeArray.size() - 1);
+            cssValue = backgroundBlendModeArray.get(actualValueIteration);
+        }
+
+        return CssUtils.parseBlendMode(cssValue);
+    }
+
+    private static BackgroundRepeat applyBackgroundRepeat(final List<String> backgroundRepeatArray,
+            final int iteration) {
         final int index = getBackgroundSidePropertyIndex(backgroundRepeatArray, iteration);
         if (index != -1) {
-            final boolean repeatX = CssConstants.REPEAT.equals(backgroundRepeatArray[index]) ||
-                    CssConstants.REPEAT_X.equals(backgroundRepeatArray[index]);
-            final boolean repeatY = CssConstants.REPEAT.equals(backgroundRepeatArray[index]) ||
-                    CssConstants.REPEAT_Y.equals(backgroundRepeatArray[index]);
+            final boolean repeatX = CssConstants.REPEAT.equals(backgroundRepeatArray.get(index)) ||
+                    CssConstants.REPEAT_X.equals(backgroundRepeatArray.get(index));
+            final boolean repeatY = CssConstants.REPEAT.equals(backgroundRepeatArray.get(index)) ||
+                    CssConstants.REPEAT_Y.equals(backgroundRepeatArray.get(index));
             return new BackgroundRepeat(repeatX, repeatY);
         }
         return new BackgroundRepeat(true, true);
     }
 
-    private static int getBackgroundSidePropertyIndex(final String[] backgroundPropertyArray, final int iteration) {
-        if (backgroundPropertyArray.length > 0) {
-            if (backgroundPropertyArray.length > iteration) {
+    private static int getBackgroundSidePropertyIndex(final List<String> backgroundPropertyArray,
+            final int iteration) {
+        if (!backgroundPropertyArray.isEmpty()) {
+            if (backgroundPropertyArray.size() > iteration) {
                 return iteration;
             } else {
                 return 0;
@@ -174,16 +201,18 @@ public final class BackgroundApplierUtil {
         }
     }
 
-    private static void applyBackgroundImage(final ProcessorContext context, final String[] backgroundImagesArray,
-                                             final List<BackgroundImage> backgroundImagesList, final int i,
-                                             final BackgroundRepeat repeat) {
+    private static void applyBackgroundImage(final ProcessorContext context, final String backgroundImage,
+                                             final List<BackgroundImage> backgroundImagesList,
+                                             final BackgroundRepeat repeat, final BlendMode backgroundBlendMode) {
         final PdfXObject image = context.getResourceResolver().retrieveImageExtended(
-                CssUtils.extractUrl(backgroundImagesArray[i]));
+                CssUtils.extractUrl(backgroundImage));
         if (image != null) {
             if (image instanceof PdfImageXObject) {
-                backgroundImagesList.add(new HtmlBackgroundImage((PdfImageXObject) image, repeat));
+                backgroundImagesList.add(new HtmlBackgroundImage((PdfImageXObject) image,
+                        repeat, backgroundBlendMode));
             } else if (image instanceof PdfFormXObject) {
-                backgroundImagesList.add(new HtmlBackgroundImage((PdfFormXObject) image, repeat));
+                backgroundImagesList.add(new HtmlBackgroundImage((PdfFormXObject) image,
+                        repeat, backgroundBlendMode));
             } else {
                 throw new IllegalStateException();
             }
@@ -191,19 +220,19 @@ public final class BackgroundApplierUtil {
     }
 
     private static void applyLinearGradient(final Map<String, String> cssProps, final ProcessorContext context,
-                                            final String[] backgroundImagesArray,
-                                            final List<BackgroundImage> backgroundImagesList, final int i) {
+                                            final String backgroundImage, final BlendMode backgroundBlendMode,
+                                            final List<BackgroundImage> backgroundImagesList) {
         float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
         try {
             StrategyBasedLinearGradientBuilder gradientBuilder =
-                    CssGradientUtil.parseCssLinearGradient(backgroundImagesArray[i], em, rem);
+                    CssGradientUtil.parseCssLinearGradient(backgroundImage, em, rem);
             if (gradientBuilder != null) {
-                backgroundImagesList.add(new BackgroundImage(gradientBuilder));
+                backgroundImagesList.add(new BackgroundImage(gradientBuilder, backgroundBlendMode));
             }
         } catch (StyledXMLParserException e) {
             LOGGER.warn(MessageFormatUtil.format(
-                    LogMessageConstant.INVALID_GRADIENT_DECLARATION, backgroundImagesArray[i]));
+                    LogMessageConstant.INVALID_GRADIENT_DECLARATION, backgroundImage));
         }
     }
 
@@ -224,48 +253,26 @@ public final class BackgroundApplierUtil {
         /**
          * Creates a new {@link HtmlBackgroundImage} instance.
          *
-         * @param xObject background image property. {@link PdfImageXObject} instance.
-         * @param repeat background repeat property. {@link BackgroundRepeat} instance.
+         * @param xObject   background-image property. {@link PdfImageXObject} instance
+         * @param repeat    background-repeat property. {@link BackgroundRepeat} instance
+         * @param blendMode background-blend-mode property. {@link BlendMode} instance
          */
-        public HtmlBackgroundImage(final PdfImageXObject xObject, final BackgroundRepeat repeat) {
-            super(xObject, repeat);
+        public HtmlBackgroundImage(final PdfImageXObject xObject, final BackgroundRepeat repeat,
+                final BlendMode blendMode) {
+            super(xObject, repeat, blendMode);
             dimensionMultiplier = PX_TO_PT_MULTIPLIER;
         }
 
         /**
          * Creates a new {@link HtmlBackgroundImage} instance.
          *
-         * @param xObject background-image property. {@link PdfFormXObject} instance.
-         * @param repeat background-repeat property. {@link BackgroundRepeat} instance.
+         * @param xObject   background-image property. {@link PdfFormXObject} instance
+         * @param repeat    background-repeat property. {@link BackgroundRepeat} instance
+         * @param blendMode background-blend-mode property. {@link BlendMode} instance
          */
-        public HtmlBackgroundImage(final PdfFormXObject xObject, final BackgroundRepeat repeat) {
-            super(xObject, repeat);
-        }
-
-        /**
-         * Creates a new {@link HtmlBackgroundImage} instance.
-         *
-         * @param xObject background image property. {@link PdfImageXObject} instance.
-         * @param repeatX is background is repeated in x dimension.
-         * @param repeatY is background is repeated in y dimension.
-         * @deprecated Remove this constructor in 7.2.
-         */
-        @Deprecated
-        public HtmlBackgroundImage(final PdfImageXObject xObject, final boolean repeatX, final boolean repeatY) {
-            this(xObject, new BackgroundRepeat(repeatX, repeatY));
-        }
-
-        /**
-         * Creates a new {@link HtmlBackgroundImage} instance.
-         *
-         * @param xObject background-image property. {@link PdfFormXObject} instance.
-         * @param repeatX is background is repeated in x dimension.
-         * @param repeatY is background is repeated in y dimension.
-         * @deprecated Remove this constructor in 7.2.
-         */
-        @Deprecated
-        public HtmlBackgroundImage(final PdfFormXObject xObject, final boolean repeatX, final boolean repeatY) {
-            this(xObject, new BackgroundRepeat(repeatX, repeatY));
+        public HtmlBackgroundImage(final PdfFormXObject xObject, final BackgroundRepeat repeat,
+                final BlendMode blendMode) {
+            super(xObject, repeat, blendMode);
         }
 
         @Override

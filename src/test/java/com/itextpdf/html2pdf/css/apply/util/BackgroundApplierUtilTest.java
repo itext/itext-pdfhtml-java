@@ -248,7 +248,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
         final String gradients = "linear-gradient(red),linear-gradient(green),linear-gradient(blue)";
         final String otterFontSize = "15px";
         IPropertyContainer container = new BodyHtmlStylesContainer() {
-            final String[] gradientsArray = BackgroundApplierUtil.splitStringWithComma(gradients);
+            final List<String> gradientsArray = CssUtils.splitStringWithComma(gradients);
             final float fontSize = CssUtils.parseAbsoluteLength(otterFontSize);
 
             @Override
@@ -256,7 +256,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                 Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
                 Assert.assertTrue(value instanceof List);
                 List values = (List) value;
-                Assert.assertEquals(gradientsArray.length, values.size());
+                Assert.assertEquals(gradientsArray.size(), values.size());
                 for (int i = 0; i < values.size(); ++i) {
                     Assert.assertTrue(values.get(i) instanceof BackgroundImage);
                     AbstractLinearGradientBuilder builder =
@@ -264,7 +264,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                     Assert.assertTrue(builder instanceof StrategyBasedLinearGradientBuilder);
 
                     StrategyBasedLinearGradientBuilder expectedGradientBuilder =
-                            CssGradientUtil.parseCssLinearGradient(gradientsArray[i], fontSize, fontSize);
+                            CssGradientUtil.parseCssLinearGradient(gradientsArray.get(i), fontSize, fontSize);
                     Assert.assertNotNull(expectedGradientBuilder);
                     StrategyBasedLinearGradientBuilder actualGradientBuilder =
                             (StrategyBasedLinearGradientBuilder) builder;
@@ -314,24 +314,5 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
         props.put(CssConstants.BACKGROUND_IMAGE, otterGradient);
         props.put(CssConstants.FONT_SIZE, "15px");
         BackgroundApplierUtil.applyBackground(props, new ProcessorContext(new ConverterProperties()), container);
-    }
-
-    @Test
-    public void splitStringWithCommaTest() {
-        Assert.assertEquals(new ArrayList<String>(), Arrays.asList(BackgroundApplierUtil.splitStringWithComma(null)));
-        Assert.assertEquals(Arrays.asList("value1", "value2", "value3"),
-                Arrays.asList(BackgroundApplierUtil.splitStringWithComma("value1,value2,value3")));
-        Assert.assertEquals(Arrays.asList("value1", " value2", " value3"),
-                Arrays.asList(BackgroundApplierUtil.splitStringWithComma("value1, value2, value3")));
-        Assert.assertEquals(Arrays.asList("value1", "(value,with,comma)", "value3"),
-                Arrays.asList(BackgroundApplierUtil.splitStringWithComma("value1,(value,with,comma),value3")));
-        Assert.assertEquals(Arrays.asList("value1", "(val(ue,with,comma),value3"),
-                Arrays.asList(BackgroundApplierUtil.splitStringWithComma("value1,(val(ue,with,comma),value3")));
-        Assert.assertEquals(Arrays.asList("value1", "(value,with)", "comma)", "value3"),
-                Arrays.asList(BackgroundApplierUtil.splitStringWithComma("value1,(value,with),comma),value3")));
-        Assert.assertEquals(Arrays.asList("value1", "( v2,v3)", "(v4, v5)", "value3"),
-                Arrays.asList(BackgroundApplierUtil.splitStringWithComma("value1,( v2,v3),(v4, v5),value3")));
-        Assert.assertEquals(Arrays.asList("v.al*ue1\"", "( v2,v3)", "\"(v4,v5;);", "value3"),
-                Arrays.asList(BackgroundApplierUtil.splitStringWithComma("v.al*ue1\",( v2,v3),\"(v4,v5;);,value3")));
     }
 }
