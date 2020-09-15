@@ -46,6 +46,133 @@ public class BackgroundBlendModeTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void backgroundBlendModeColorTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeColor", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeColorBurnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeColorBurn", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeColorDodgeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeColorDodge", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeDarkenTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeDarken", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeDifferenceTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeDifference", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeExclusionTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeExclusion", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeHardLightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeHardLight", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeHueTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeHue", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeLightenTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeLighten", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeLuminosityTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeLuminosity", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeMultiplyTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeMultiply", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeNormalTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeNormal", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeOverlayTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeOverlay", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeSaturationTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeSaturation", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeScreenTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeScreen", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeSoftLightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeSoftLight", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void oneImageTwoBackgroundBlendModesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("oneImageTwoBackgroundBlendModes", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void twoImagesOneBackgroundBlendModeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("twoImagesOneBackgroundBlendMode", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void imageAndGradientWithBackgroundBlendModeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imageAndGradientWithBackgroundBlendMode", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void placementOrderOfLayersAndBackgroundBlendModeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("placementOrderOfLayersAndBackgroundBlendMode", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeTwoGradientsSaturationLuminosityTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeTwoGradientsSaturationLuminosity", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void threeBackgroundBlendModesLastNormalTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("threeBackgroundBlendModesLastNormal", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void threeBackgroundBlendModesSecondNormalTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("threeBackgroundBlendModesSecondNormal", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void backgroundBlendModeLetterCaseTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundBlendModeLetterCase", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION,
+                    logLevel = LogLevelConstants.WARN, count = 3)})
+    public void invalidBackgroundBlendModeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("invalidBackgroundBlendMode", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void backgroundImageLinearGradientTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("background-blend-mode-two-gradients-darken-lighten", sourceFolder, destinationFolder);
     }
