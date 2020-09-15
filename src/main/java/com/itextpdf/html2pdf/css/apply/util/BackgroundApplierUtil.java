@@ -48,16 +48,16 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
 import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.BackgroundPosition;
+import com.itextpdf.layout.property.BackgroundBox;
 import com.itextpdf.layout.property.BackgroundRepeat;
-import com.itextpdf.layout.property.BackgroundSize;
 import com.itextpdf.layout.property.BlendMode;
 import com.itextpdf.layout.property.BackgroundRepeat.BackgroundRepeatValue;
 import com.itextpdf.layout.property.Property;
@@ -98,16 +98,15 @@ public final class BackgroundApplierUtil {
     public static void applyBackground(Map<String, String> cssProps, ProcessorContext context,
                                        IPropertyContainer element) {
         final String backgroundColorStr = cssProps.get(CssConstants.BACKGROUND_COLOR);
-        applyBackgroundColor(backgroundColorStr, element);
-
         final String backgroundImagesStr = cssProps.get(CssConstants.BACKGROUND_IMAGE);
         final String backgroundRepeatStr = cssProps.get(CssConstants.BACKGROUND_REPEAT);
         final String backgroundSizeStr = cssProps.get(CssConstants.BACKGROUND_SIZE);
         final String backgroundPositionXStr = cssProps.get(CssConstants.BACKGROUND_POSITION_X);
         final String backgroundPositionYStr = cssProps.get(CssConstants.BACKGROUND_POSITION_Y);
         final String backgroundBlendModeStr = cssProps.get(CssConstants.BACKGROUND_BLEND_MODE);
+        final String backgroundClipStr = cssProps.get(CssConstants.BACKGROUND_CLIP);
+        final String backgroundOriginStr = cssProps.get(CssConstants.BACKGROUND_ORIGIN);
 
-        final List<BackgroundImage> backgroundImagesList = new ArrayList<>();
         final List<String> backgroundImagesArray = CssUtils.splitStringWithComma(backgroundImagesStr);
         final List<String> backgroundRepeatArray = CssUtils.splitStringWithComma(backgroundRepeatStr);
         final List<List<String>> backgroundSizeArray = backgroundSizeStr == null ? null
@@ -120,29 +119,16 @@ public final class BackgroundApplierUtil {
         final float em = fontSize == null ? 0 : CssUtils.parseAbsoluteLength(fontSize);
         final float rem = context.getCssContext().getRootFontSize();
 
-        for (int i = 0; i < backgroundImagesArray.size(); ++i) {
-            final String backgroundImage = backgroundImagesArray.get(i);
-            if (backgroundImage == null || CssConstants.NONE.equals(backgroundImage)) {
-                continue;
-            }
-            final BackgroundPosition position =
-                    applyBackgroundPosition(backgroundPositionXArray, backgroundPositionYArray, i, em, rem);
-            final BlendMode blendMode = applyBackgroundBlendMode(backgroundBlendModeArray, i);
-            boolean imageApplied = false;
-            final BackgroundRepeat repeat = applyBackgroundRepeat(backgroundRepeatArray, i);
+        final List<String> backgroundClipArray = CssUtils.splitStringWithComma(backgroundClipStr);
+        final List<String> backgroundOriginArray = CssUtils.splitStringWithComma(backgroundOriginStr);
 
-            if (CssGradientUtil.isCssLinearGradientValue(backgroundImage)) {
-                imageApplied = applyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem, repeat);
-            } else {
-                final PdfXObject image = context.getResourceResolver().retrieveImageExtended(
-                        CssUtils.extractUrl(backgroundImage));
-                imageApplied = applyBackgroundImage(image, backgroundImagesList, repeat, blendMode, position);
-            }
-            if (imageApplied) {
-                applyBackgroundSize(backgroundSizeArray, em, rem, i,
-                        backgroundImagesList.get(backgroundImagesList.size() - 1));
-            }
-        }
+        final BackgroundBox clipForColor = getBackgroundBoxProperty(backgroundClipArray,
+                backgroundImagesArray.isEmpty() ? 0 : (backgroundImagesArray.size() - 1), BackgroundBox.BORDER_BOX);
+        applyBackgroundColor(backgroundColorStr, element, clipForColor);
+
+        final List<BackgroundImage> backgroundImagesList = getBackgroundImagesList(backgroundImagesArray, context, em,
+                rem, backgroundPositionXArray, backgroundPositionYArray, backgroundSizeArray, backgroundBlendModeArray,
+                backgroundRepeatArray, backgroundClipArray, backgroundOriginArray);
         if (!backgroundImagesList.isEmpty()) {
             element.setProperty(Property.BACKGROUND_IMAGE, backgroundImagesList);
         }
@@ -181,6 +167,67 @@ public final class BackgroundApplierUtil {
             resultList.add(lastToken.trim());
         }
         return resultList.toArray(new String[0]);
+    }
+
+    private static List<BackgroundImage> getBackgroundImagesList(List<String> backgroundImagesArray,
+            ProcessorContext context, float em, float rem,
+            List<String> backgroundPositionXArray, List<String> backgroundPositionYArray,
+            List<List<String>> backgroundSizeArray, List<String> backgroundBlendModeArray,
+            List<String> backgroundRepeatArray, List<String> backgroundClipArray,
+            List<String> backgroundOriginArray) {
+        final List<BackgroundImage> backgroundImagesList = new ArrayList<>();
+
+        for (int i = 0; i < backgroundImagesArray.size(); ++i) {
+            final String backgroundImage = backgroundImagesArray.get(i);
+            if (backgroundImage == null || CssConstants.NONE.equals(backgroundImage)) {
+                continue;
+            }
+            final BackgroundPosition position =
+                    applyBackgroundPosition(backgroundPositionXArray, backgroundPositionYArray, i, em, rem);
+            final BlendMode blendMode = applyBackgroundBlendMode(backgroundBlendModeArray, i);
+            boolean imageApplied = false;
+            final BackgroundRepeat repeat = applyBackgroundRepeat(backgroundRepeatArray, i);
+
+            final BackgroundBox clip = getBackgroundBoxProperty(backgroundClipArray, i,
+                    BackgroundBox.BORDER_BOX);
+            final BackgroundBox origin = getBackgroundBoxProperty(backgroundOriginArray, i,
+                    BackgroundBox.PADDING_BOX);
+
+            if (CssGradientUtil.isCssLinearGradientValue(backgroundImage)) {
+                imageApplied = applyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem,
+                        repeat, clip, origin);
+            } else {
+                final PdfXObject image = context.getResourceResolver().retrieveImageExtended(
+                        CssUtils.extractUrl(backgroundImage));
+                imageApplied = applyBackgroundImage(image, backgroundImagesList, repeat, blendMode, position, clip,
+                        origin);
+            }
+            if (imageApplied) {
+                applyBackgroundSize(backgroundSizeArray, em, rem, i,
+                        backgroundImagesList.get(backgroundImagesList.size() - 1));
+            }
+        }
+        return backgroundImagesList;
+    }
+
+    private static BackgroundBox getBackgroundBoxProperty(final List<String> propertyArray,
+            final int iteration, BackgroundBox defaultValue) {
+        final int index = getBackgroundSidePropertyIndex(propertyArray.size(), iteration);
+        if (index == -1) {
+            return defaultValue;
+        } else {
+            return getBackgroundBoxPropertyByString(propertyArray.get(index));
+        }
+    }
+
+    private static BackgroundBox getBackgroundBoxPropertyByString(String box) {
+        if (CommonCssConstants.PADDING_BOX.equals(box)) {
+            return BackgroundBox.PADDING_BOX;
+        } else if (CommonCssConstants.CONTENT_BOX.equals(box)) {
+            return BackgroundBox.CONTENT_BOX;
+        } else {
+            return BackgroundBox.BORDER_BOX;
+        }
     }
 
     private static BlendMode applyBackgroundBlendMode(final List<String> backgroundBlendModeArray,
@@ -277,32 +324,35 @@ public final class BackgroundApplierUtil {
     private static int getBackgroundSidePropertyIndex(final int propertiesNumber, final int iteration) {
         if (propertiesNumber > 0) {
             return iteration % propertiesNumber;
+        } else {
+            return -1;
         }
-        return -1;
     }
 
-    private static void applyBackgroundColor(final String backgroundColorStr, final IPropertyContainer element) {
+    private static void applyBackgroundColor(final String backgroundColorStr, final IPropertyContainer element,
+            BackgroundBox clip) {
         if (backgroundColorStr != null && !CssConstants.TRANSPARENT.equals(backgroundColorStr)) {
             float[] rgbaColor = CssUtils.parseRgbaColor(backgroundColorStr);
             Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
             float opacity = rgbaColor[3];
-            Background backgroundColor = new Background(color, opacity);
+            final Background backgroundColor = new Background(color, opacity, clip);
             element.setProperty(Property.BACKGROUND, backgroundColor);
         }
     }
 
     private static boolean applyBackgroundImage(PdfXObject image, List<BackgroundImage> backgroundImagesList,
-            BackgroundRepeat repeat, BlendMode backgroundBlendMode, BackgroundPosition position) {
+            BackgroundRepeat repeat, BlendMode backgroundBlendMode, BackgroundPosition position, BackgroundBox clip,
+            BackgroundBox origin) {
         if (image == null) {
             return false;
         }
         if (image instanceof PdfImageXObject) {
             backgroundImagesList.add(new HtmlBackgroundImage((PdfImageXObject) image, repeat, position,
-                    backgroundBlendMode));
+                    backgroundBlendMode, clip, origin));
             return true;
         } else if (image instanceof PdfFormXObject) {
             backgroundImagesList.add(new HtmlBackgroundImage((PdfFormXObject) image, repeat, position,
-                    backgroundBlendMode));
+                    backgroundBlendMode, clip, origin));
             return true;
         } else {
             throw new IllegalStateException();
@@ -310,13 +360,15 @@ public final class BackgroundApplierUtil {
     }
 
     private static boolean applyLinearGradient(String image, List<BackgroundImage> backgroundImagesList,
-            BlendMode blendMode, BackgroundPosition position, float em, float rem, final BackgroundRepeat repeat) {
+            BlendMode blendMode, BackgroundPosition position, float em, float rem, final BackgroundRepeat repeat,
+            BackgroundBox clip, BackgroundBox origin) {
         try {
             StrategyBasedLinearGradientBuilder gradientBuilder =
                     CssGradientUtil.parseCssLinearGradient(image, em, rem);
             if (gradientBuilder != null) {
                 backgroundImagesList.add(new BackgroundImage.Builder().setLinearGradientBuilder(gradientBuilder)
-                        .setBackgroundBlendMode(blendMode).setBackgroundPosition(position).setBackgroundRepeat(repeat).build());
+                        .setBackgroundBlendMode(blendMode).setBackgroundPosition(position).setBackgroundRepeat(repeat)
+                        .setBackgroundClip(clip).setBackgroundOrigin(origin).build());
                 return true;
             }
         } catch (StyledXMLParserException e) {
@@ -399,10 +451,15 @@ public final class BackgroundApplierUtil {
          * @param repeat    background-repeat property. {@link BackgroundRepeat} instance.
          * @param position  background-position property. {@link BackgroundPosition} instance.
          * @param blendMode background-blend-mode property. {@link BlendMode} instance.
+         * @param clip      background-clip property. {@link BackgroundBox} instance.
+         * @param origin    background-origin property. {@link BackgroundBox} instance.
          */
         public HtmlBackgroundImage(PdfImageXObject xObject,
-                                   BackgroundRepeat repeat, BackgroundPosition position, BlendMode blendMode) {
-            super(xObject, repeat, position, new BackgroundSize(), null, blendMode);
+                BackgroundRepeat repeat, BackgroundPosition position, BlendMode blendMode,
+                BackgroundBox clip, BackgroundBox origin) {
+            super(new BackgroundImage.Builder().setImage(xObject).setBackgroundRepeat(repeat)
+                    .setBackgroundPosition(position).setBackgroundBlendMode(blendMode).setBackgroundClip(clip)
+                    .setBackgroundOrigin(origin).build());
             dimensionMultiplier = PX_TO_PT_MULTIPLIER;
         }
 
@@ -413,10 +470,15 @@ public final class BackgroundApplierUtil {
          * @param repeat    background-repeat property. {@link BackgroundRepeat} instance.
          * @param position  background-position property. {@link BackgroundPosition} instance.
          * @param blendMode background-blend-mode property. {@link BlendMode} instance.
+         * @param clip background-clip property. {@link BackgroundBox} instance.
+         * @param origin background-origin property. {@link BackgroundBox} instance.
          */
         public HtmlBackgroundImage(PdfFormXObject xObject,
-                                   BackgroundRepeat repeat, BackgroundPosition position, BlendMode blendMode) {
-            super(xObject, repeat, position, new BackgroundSize(), null, blendMode);
+                BackgroundRepeat repeat, BackgroundPosition position, BlendMode blendMode,
+                BackgroundBox clip, BackgroundBox origin) {
+            super(new BackgroundImage.Builder().setImage(xObject).setBackgroundRepeat(repeat)
+                    .setBackgroundPosition(position).setBackgroundBlendMode(blendMode).setBackgroundClip(clip)
+                    .setBackgroundOrigin(origin).build());
         }
 
         @Override

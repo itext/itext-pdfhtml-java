@@ -27,7 +27,7 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 // TODO DEVSIX-4398 border-radius is not supported for double borders
-// TODO DEVSIX-2105 background's padding-box is not supported (background-clip)
+// TODO DEVSIX-4525 calculate border-radius according to background-clip
 @LogMessages(messages = {
         @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.METHOD_IS_NOT_IMPLEMENTED_BY_DEFAULT_OTHER_METHOD_WILL_BE_USED, count = 4)
 })

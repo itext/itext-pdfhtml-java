@@ -34,6 +34,7 @@ import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Background;
+import com.itextpdf.layout.property.BackgroundBox;
 import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.BackgroundPosition;
 import com.itextpdf.layout.property.BackgroundRepeat.BackgroundRepeatValue;
@@ -54,6 +55,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Category(UnitTest.class)
 public class BackgroundApplierUtilTest extends ExtendedITextTest {
@@ -371,8 +375,10 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                 for (Object value : values) {
                     Assert.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(BackgroundPosition.PositionX.RIGHT, image.getBackgroundPosition().getPositionX());
-                    Assert.assertEquals(BackgroundPosition.PositionY.CENTER, image.getBackgroundPosition().getPositionY());
+                    Assert.assertEquals(BackgroundPosition.PositionX.RIGHT,
+                            image.getBackgroundPosition().getPositionX());
+                    Assert.assertEquals(BackgroundPosition.PositionY.CENTER,
+                            image.getBackgroundPosition().getPositionY());
                 }
             }
         };
@@ -399,7 +405,8 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                 for (Object value : values) {
                     Assert.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(BackgroundPosition.PositionX.LEFT, image.getBackgroundPosition().getPositionX());
+                    Assert.assertEquals(BackgroundPosition.PositionX.LEFT,
+                            image.getBackgroundPosition().getPositionX());
                     Assert.assertEquals(BackgroundPosition.PositionY.TOP, image.getBackgroundPosition().getPositionY());
                 }
             }
@@ -426,7 +433,8 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                 for (Object value : values) {
                     Assert.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(BackgroundPosition.PositionX.LEFT, image.getBackgroundPosition().getPositionX());
+                    Assert.assertEquals(BackgroundPosition.PositionX.LEFT,
+                            image.getBackgroundPosition().getPositionX());
                     Assert.assertEquals(BackgroundPosition.PositionY.TOP, image.getBackgroundPosition().getPositionY());
                 }
             }
@@ -542,10 +550,13 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                 Assert.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
                 Assert.assertEquals(imagesArray.length, values.size());
-                BackgroundPosition[] positions = new BackgroundPosition[]{
-                        new BackgroundPosition().setPositionX(BackgroundPosition.PositionX.LEFT).setPositionY(BackgroundPosition.PositionY.CENTER),
-                        new BackgroundPosition().setPositionX(BackgroundPosition.PositionX.CENTER).setPositionY(BackgroundPosition.PositionY.BOTTOM),
-                        new BackgroundPosition().setPositionX(BackgroundPosition.PositionX.LEFT).setPositionY(BackgroundPosition.PositionY.CENTER)
+                BackgroundPosition[] positions = new BackgroundPosition[] {
+                        new BackgroundPosition().setPositionX(BackgroundPosition.PositionX.LEFT).setPositionY(
+                                BackgroundPosition.PositionY.CENTER),
+                        new BackgroundPosition().setPositionX(BackgroundPosition.PositionX.CENTER).setPositionY(
+                                BackgroundPosition.PositionY.BOTTOM),
+                        new BackgroundPosition().setPositionX(BackgroundPosition.PositionX.LEFT).setPositionY(
+                                BackgroundPosition.PositionY.CENTER)
                 };
                 for (int i = 0; i < values.size(); i++) {
                     Object value = values.get(i);
@@ -576,7 +587,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                 Assert.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
                 Assert.assertEquals(imagesArray.length, values.size());
-                BackgroundPosition[] positions = new BackgroundPosition[]{
+                BackgroundPosition[] positions = new BackgroundPosition[] {
                         new BackgroundPosition(),
                         new BackgroundPosition().setPositionY(BackgroundPosition.PositionY.BOTTOM),
                         new BackgroundPosition().setPositionX(BackgroundPosition.PositionX.RIGHT)
@@ -595,5 +606,136 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
         props.put(CssConstants.BACKGROUND_POSITION_Y, "top, bottom,top");
         props.put(CssConstants.FONT_SIZE, "15pt");
         BackgroundApplierUtil.applyBackground(props, context, container);
+    }
+
+    @Test
+    public void backgroundClipOriginImageTest() {
+        final String image = "url(rock_texture.jpg)";
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
+        IPropertyContainer container = new BodyHtmlStylesContainer() {
+
+            @Override
+            public void setProperty(int property, Object propertyValue) {
+                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assert.assertTrue(propertyValue instanceof List);
+                List values = (List) propertyValue;
+                Assert.assertEquals(1, values.size());
+                for (Object value : values) {
+                    Assert.assertTrue(value instanceof BackgroundImage);
+                    BackgroundImage image = (BackgroundImage) value;
+                    Assert.assertEquals(BackgroundBox.CONTENT_BOX, image.getBackgroundClip());
+                    Assert.assertEquals(BackgroundBox.PADDING_BOX, image.getBackgroundOrigin());
+                }
+            }
+        };
+        Map<String, String> props = new HashMap<>();
+        props.put(CssConstants.BACKGROUND_IMAGE, image);
+        props.put(CssConstants.BACKGROUND_CLIP, CssConstants.CONTENT_BOX);
+        props.put(CssConstants.BACKGROUND_ORIGIN, CssConstants.PADDING_BOX);
+        BackgroundApplierUtil.applyBackground(props, context, container);
+    }
+
+    @Test
+    public void backgroundClipColorTest() {
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
+        IPropertyContainer container = new BodyHtmlStylesContainer() {
+
+            @Override
+            public void setProperty(int property, Object propertyValue) {
+                Assert.assertEquals(Property.BACKGROUND, property);
+                Assert.assertTrue(propertyValue instanceof Background);
+                Background color = (Background) propertyValue;
+                Assert.assertEquals(BackgroundBox.CONTENT_BOX, color.getBackgroundClip());
+            }
+        };
+        Map<String, String> props = new HashMap<>();
+        props.put(CssConstants.BACKGROUND_COLOR, "blue");
+        props.put(CssConstants.BACKGROUND_CLIP, CssConstants.CONTENT_BOX);
+        BackgroundApplierUtil.applyBackground(props, context, container);
+    }
+
+    @Test
+    public void backgroundClipOriginImagesTest() {
+        final String images = "url(rock_texture.jpg),url(rock_texture2.jpg)";
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
+        IPropertyContainer container = new BodyHtmlStylesContainer() {
+            final String[] imagesArray = images.split(",");
+
+            @Override
+            public void setProperty(int property, Object propertyValue) {
+                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assert.assertTrue(propertyValue instanceof List);
+                List values = (List) propertyValue;
+                Assert.assertEquals(imagesArray.length, values.size());
+                for (int i = 0; i < values.size(); i++) {
+                    Object value = values.get(i);
+                    Assert.assertTrue(value instanceof BackgroundImage);
+                    BackgroundImage image = (BackgroundImage) value;
+                    Assert.assertEquals(BackgroundBox.CONTENT_BOX, image.getBackgroundClip());
+                    Assert.assertEquals(BackgroundBox.BORDER_BOX, image.getBackgroundOrigin());
+                }
+            }
+        };
+        Map<String, String> props = new HashMap<>();
+        props.put(CssConstants.BACKGROUND_IMAGE, images);
+        props.put(CssConstants.BACKGROUND_CLIP, CssConstants.CONTENT_BOX);
+        props.put(CssConstants.BACKGROUND_ORIGIN, CssConstants.BORDER_BOX);
+        BackgroundApplierUtil.applyBackground(props, context, container);
+    }
+
+    @Test
+    public void backgroundMultipleClipOriginImagesTest() {
+        final String images = "url(rock_texture.jpg),url(rock_texture2.jpg)";
+        final String clips = "content-box,padding-box";
+        final String origins = "border-box,content-box";
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
+        IPropertyContainer container = new BodyHtmlStylesContainer();
+        Map<String, String> props = new HashMap<>();
+        props.put(CssConstants.BACKGROUND_IMAGE, images);
+        props.put(CssConstants.BACKGROUND_CLIP, clips);
+        props.put(CssConstants.BACKGROUND_ORIGIN, origins);
+        BackgroundApplierUtil.applyBackground(props, context, container);
+        List<BackgroundImage> backgroundImages = container.<List<BackgroundImage>>getProperty(
+                Property.BACKGROUND_IMAGE);
+        Assert.assertNotNull(backgroundImages);
+        Assert.assertEquals(2, backgroundImages.size());
+        BackgroundImage imageObj1 = backgroundImages.get(0);
+        Assert.assertNotNull(imageObj1);
+        Assert.assertEquals(BackgroundBox.CONTENT_BOX, imageObj1.getBackgroundClip());
+        Assert.assertEquals(BackgroundBox.BORDER_BOX, imageObj1.getBackgroundOrigin());
+        BackgroundImage imageObj2 = backgroundImages.get(1);
+        Assert.assertNotNull(imageObj2);
+        Assert.assertEquals(BackgroundBox.PADDING_BOX, imageObj2.getBackgroundClip());
+        Assert.assertEquals(BackgroundBox.CONTENT_BOX, imageObj2.getBackgroundOrigin());
+    }
+
+    @Test
+    public void backgroundClipOriginImagesColorTest() {
+        final String images = "url(rock_texture.jpg),url(rock_texture2.jpg)";
+        final String clips = "content-box,padding-box";
+        final String origins = "border-box,content-box";
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
+        IPropertyContainer container = new BodyHtmlStylesContainer();
+        Map<String, String> props = new HashMap<>();
+        props.put(CssConstants.BACKGROUND_IMAGE, images);
+        props.put(CssConstants.BACKGROUND_COLOR, "blue");
+        props.put(CssConstants.BACKGROUND_CLIP, clips);
+        props.put(CssConstants.BACKGROUND_ORIGIN, origins);
+        BackgroundApplierUtil.applyBackground(props, context, container);
+        Background background = container.<Background>getProperty(Property.BACKGROUND);
+        Assert.assertNotNull(background);
+        Assert.assertEquals(BackgroundBox.PADDING_BOX, background.getBackgroundClip());
+        List<BackgroundImage> backgroundImages =  container.<List<BackgroundImage>>getProperty(
+                Property.BACKGROUND_IMAGE);
+        Assert.assertNotNull(backgroundImages);
+        Assert.assertEquals(2, backgroundImages.size());
+        BackgroundImage imageObj1 = backgroundImages.get(0);
+        Assert.assertNotNull(imageObj1);
+        Assert.assertEquals(BackgroundBox.CONTENT_BOX, imageObj1.getBackgroundClip());
+        Assert.assertEquals(BackgroundBox.BORDER_BOX, imageObj1.getBackgroundOrigin());
+        BackgroundImage imageObj2 = backgroundImages.get(1);
+        Assert.assertNotNull(imageObj2);
+        Assert.assertEquals(BackgroundBox.PADDING_BOX, imageObj2.getBackgroundClip());
+        Assert.assertEquals(BackgroundBox.CONTENT_BOX, imageObj2.getBackgroundOrigin());
     }
 }

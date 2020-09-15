@@ -64,7 +64,6 @@ public class BackgroundRepeatTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void imageBckgSpaceWithBigBorderTest() throws InterruptedException, IOException {
-        // TODO DEVSIX-2105
         convertToPdfAndCompare("imageBckgSpaceWithBigBorder", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 

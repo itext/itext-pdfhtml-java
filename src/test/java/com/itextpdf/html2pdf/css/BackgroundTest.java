@@ -261,4 +261,59 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
                 sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
     }
+
+    @Test
+    public void multipleBackgroundRepeatMissedTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("multipleBackgroundRepeatMissed", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void clipOriginTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("clipOrigin", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void clipOriginGradientTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("clipOriginGradient", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void clipOriginShorthandTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("clipOriginShorthand", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void clipOriginLatentImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("clipOriginLatentImage", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void clipOriginRepeatXTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("clipOriginRepeatX", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void clipOriginLatentImageRepeatXTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("clipOriginLatentImageRepeatX", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void clipOriginPositionOnePercentageValueTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("clipOriginPositionOnePercentageValue", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void clipOriginSizeCoverTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("clipOriginSizeCover", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void clipOriginRepeatSpaceTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("clipOriginRepeatSpace", sourceFolder, destinationFolder);
+    }
+    @Test
+    public void clipOriginRepeatRoundTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("clipOriginRepeatRound", sourceFolder, destinationFolder);
+    }
+
 }
