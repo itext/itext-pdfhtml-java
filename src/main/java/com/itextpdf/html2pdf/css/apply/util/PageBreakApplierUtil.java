@@ -168,7 +168,7 @@ public class PageBreakApplierUtil {
      * @param element the element
      */
     private static void applyPageBreakInside(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
-        // TODO A potential page break location is typically under the influence of the parent element's 'page-break-inside' property,
+        // TODO DEVSIX-4521 A page break location is under the influence of the parent 'page-break-inside' property,
         // the 'page-break-after' property of the preceding element, and the 'page-break-before' property of the following element.
         // When these properties have values other than 'auto', the values 'always', 'left', and 'right' take precedence over 'avoid'.
         String pageBreakInsideVal = cssProps.get(CssConstants.PAGE_BREAK_INSIDE);
