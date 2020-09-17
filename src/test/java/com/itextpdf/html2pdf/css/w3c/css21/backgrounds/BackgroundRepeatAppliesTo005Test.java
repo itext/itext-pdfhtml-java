@@ -24,7 +24,7 @@ package com.itextpdf.html2pdf.css.w3c.css21.backgrounds;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-// TODO DEVSIX-4370. Backround repeat property isn't supported properly
+// TODO DEVSIX-2445 display: table-column-group not supported for divs
 public class BackgroundRepeatAppliesTo005Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

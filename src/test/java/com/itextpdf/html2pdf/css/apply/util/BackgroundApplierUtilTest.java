@@ -36,6 +36,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.BackgroundPosition;
+import com.itextpdf.layout.property.BackgroundRepeat.BackgroundRepeatValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
@@ -44,6 +45,7 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -57,7 +59,7 @@ import java.util.Map;
 public class BackgroundApplierUtilTest extends ExtendedITextTest {
     private static final double EPS = 0.000001;
 
-    public static final String sourceFolder =
+    public static final String SOURCE_FOLDER =
             "./src/test/resources/com/itextpdf/html2pdf/css/apply/util/BackgroundApplierUtilTest";
 
     @Test
@@ -80,7 +82,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     @Test
     public void backgroundImageTest() {
         final String image = "url(rock_texture.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
             final ProcessorContext innerContext = context;
             final String innerImage = image;
@@ -116,7 +118,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     })
     public void backgroundInvalidImageTest() {
         final String image = "url(img.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
 
             @Override
@@ -133,7 +135,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     @Test
     public void backgroundImageRepeatTest() {
         final String image = "url(rock_texture.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
 
             @Override
@@ -145,8 +147,8 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                 for (Object value : values) {
                     Assert.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertFalse(image.isRepeatX());
-                    Assert.assertFalse(image.isRepeatY());
+                    Assert.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getXAxisRepeat());
+                    Assert.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getYAxisRepeat());
                 }
             }
         };
@@ -160,7 +162,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     @Test
     public void backgroundImageInvalidRepeatTest() {
         final String image = "url(rock_texture.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
 
             @Override
@@ -172,8 +174,8 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                 for (Object value : values) {
                     Assert.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertFalse(image.isRepeatX());
-                    Assert.assertFalse(image.isRepeatY());
+                    Assert.assertEquals(BackgroundRepeatValue.REPEAT, image.getRepeat().getXAxisRepeat());
+                    Assert.assertEquals(BackgroundRepeatValue.REPEAT, image.getRepeat().getYAxisRepeat());
                 }
             }
         };
@@ -187,7 +189,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     @Test
     public void backgroundImagesTest() {
         final String images = "url(rock_texture.jpg),url(rock_texture2.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
             final ProcessorContext innerContext = context;
             final String[] imagesArray = images.split(",");
@@ -221,7 +223,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     @Test
     public void backgroundImagesRepeatTest() {
         final String images = "url(rock_texture.jpg),url(rock_texture2.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
             final String[] imagesArray = images.split(",");
 
@@ -235,8 +237,8 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                     Object value = values.get(i);
                     Assert.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertFalse(image.isRepeatX());
-                    Assert.assertFalse(image.isRepeatY());
+                    Assert.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getXAxisRepeat());
+                    Assert.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getYAxisRepeat());
                 }
             }
         };
@@ -250,7 +252,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     @Test
     public void backgroundImagesRepeatsTest() {
         final String images = "url(rock_texture.jpg),url(rock_texture2.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
             final String[] imagesArray = images.split(",");
 
@@ -264,8 +266,14 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                     Object value = values.get(i);
                     Assert.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertNotEquals((i == 0), image.isRepeatX());
-                    Assert.assertNotEquals((i == 0), image.isRepeatY());
+                    if (i == 0) {
+                        Assert.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getXAxisRepeat());
+                        Assert.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getYAxisRepeat());
+                    } else {
+                        Assert.assertEquals(BackgroundRepeatValue.REPEAT, image.getRepeat().getXAxisRepeat());
+                        Assert.assertEquals(BackgroundRepeatValue.REPEAT, image.getRepeat().getYAxisRepeat());
+                    }
+
                 }
             }
         };
@@ -351,7 +359,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     @Test
     public void backgroundImagePositionTest() {
         final String image = "url(rock_texture.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
 
             @Override
@@ -379,7 +387,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     @Test
     public void backgroundImageInvalidPositionTest() {
         final String image = "url(rock_texture.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
 
             @Override
@@ -406,7 +414,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     @Test
     public void backgroundImageEmptyPositionTest() {
         final String image = "url(rock_texture.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
 
             @Override
@@ -434,7 +442,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     @Test
     public void backgroundImagesLeftBottomPositionTest() {
         final String images = "url(rock_texture.jpg),url(rock_texture2.jpg),url(rock_texture.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
             final String[] imagesArray = images.split(",");
 
@@ -464,7 +472,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     @Test
     public void backgroundImagesRightTopPositionTest() {
         final String images = "url(rock_texture.jpg),url(rock_texture2.jpg),url(rock_texture.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
             final String[] imagesArray = images.split(",");
 
@@ -494,7 +502,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     @Test
     public void backgroundImagesCenterCenterPositionTest() {
         final String images = "url(rock_texture.jpg),url(rock_texture2.jpg),url(rock_texture.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
             final String[] imagesArray = images.split(",");
 
@@ -524,7 +532,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     @Test
     public void backgroundImagesPositionMissedTest() {
         final String images = "url(rock_texture.jpg),url(rock_texture2.jpg),url(rock_texture.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
             final String[] imagesArray = images.split(",");
 
@@ -558,7 +566,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
     @Test
     public void backgroundImagesPositionsTest() {
         final String images = "url(rock_texture.jpg),url(rock_texture2.jpg),url(rock_texture.jpg)";
-        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(sourceFolder));
+        final ProcessorContext context = new ProcessorContext(new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         IPropertyContainer container = new BodyHtmlStylesContainer() {
             final String[] imagesArray = images.split(",");
 

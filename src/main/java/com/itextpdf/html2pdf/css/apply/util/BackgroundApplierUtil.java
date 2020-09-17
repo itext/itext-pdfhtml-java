@@ -59,10 +59,12 @@ import com.itextpdf.layout.property.BackgroundPosition;
 import com.itextpdf.layout.property.BackgroundRepeat;
 import com.itextpdf.layout.property.BackgroundSize;
 import com.itextpdf.layout.property.BlendMode;
+import com.itextpdf.layout.property.BackgroundRepeat.BackgroundRepeatValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
+import com.itextpdf.styledxmlparser.css.util.CssMappingUtils;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
 
@@ -127,10 +129,11 @@ public final class BackgroundApplierUtil {
                     applyBackgroundPosition(backgroundPositionXArray, backgroundPositionYArray, i, em, rem);
             final BlendMode blendMode = applyBackgroundBlendMode(backgroundBlendModeArray, i);
             boolean imageApplied = false;
+            final BackgroundRepeat repeat = applyBackgroundRepeat(backgroundRepeatArray, i);
+
             if (CssGradientUtil.isCssLinearGradientValue(backgroundImage)) {
-                imageApplied = applyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem);
+                imageApplied = applyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem, repeat);
             } else {
-                final BackgroundRepeat repeat = applyBackgroundRepeat(backgroundRepeatArray, i);
                 final PdfXObject image = context.getResourceResolver().retrieveImageExtended(
                         CssUtils.extractUrl(backgroundImage));
                 imageApplied = applyBackgroundImage(image, backgroundImagesList, repeat, blendMode, position);
@@ -251,12 +254,23 @@ public final class BackgroundApplierUtil {
     private static BackgroundRepeat applyBackgroundRepeat(List<String> backgroundRepeatArray, int iteration) {
         final int index = getBackgroundSidePropertyIndex(backgroundRepeatArray.size(), iteration);
         if (index != -1) {
-            final boolean repeatX = CssConstants.REPEAT.equals(backgroundRepeatArray.get(index)) ||
-                    CssConstants.REPEAT_X.equals(backgroundRepeatArray.get(index));
-            final boolean repeatY = CssConstants.REPEAT.equals(backgroundRepeatArray.get(index)) ||
-                    CssConstants.REPEAT_Y.equals(backgroundRepeatArray.get(index));
-            return new BackgroundRepeat(repeatX, repeatY);
+            String[] repeatProps = backgroundRepeatArray.get(index).split(" ");
+            if (repeatProps.length == 1) {
+                if (CommonCssConstants.REPEAT_X.equals(repeatProps[0])) {
+                    return new BackgroundRepeat(BackgroundRepeatValue.REPEAT, BackgroundRepeatValue.NO_REPEAT);
+                } else if (CommonCssConstants.REPEAT_Y.equals(repeatProps[0])) {
+                    return new BackgroundRepeat(BackgroundRepeatValue.NO_REPEAT, BackgroundRepeatValue.REPEAT);
+                } else {
+                    BackgroundRepeatValue value = CssMappingUtils.parseBackgroundRepeat(repeatProps[0]);
+                    return new BackgroundRepeat(value);
+                }
+            } else if (repeatProps.length == 2) {
+                return new BackgroundRepeat(CssMappingUtils.parseBackgroundRepeat(repeatProps[0]),
+                        CssMappingUtils.parseBackgroundRepeat(repeatProps[1]));
+            }
         }
+        // Valid cases are processed by the block above, and in invalid
+        // situations, the REPEAT property on both axes is used by default
         return new BackgroundRepeat();
     }
 
@@ -296,13 +310,13 @@ public final class BackgroundApplierUtil {
     }
 
     private static boolean applyLinearGradient(String image, List<BackgroundImage> backgroundImagesList,
-            BlendMode blendMode, BackgroundPosition position, float em, float rem) {
+            BlendMode blendMode, BackgroundPosition position, float em, float rem, final BackgroundRepeat repeat) {
         try {
             StrategyBasedLinearGradientBuilder gradientBuilder =
                     CssGradientUtil.parseCssLinearGradient(image, em, rem);
             if (gradientBuilder != null) {
                 backgroundImagesList.add(new BackgroundImage.Builder().setLinearGradientBuilder(gradientBuilder)
-                        .setBackgroundBlendMode(blendMode).setBackgroundPosition(position).build());
+                        .setBackgroundBlendMode(blendMode).setBackgroundPosition(position).setBackgroundRepeat(repeat).build());
                 return true;
             }
         } catch (StyledXMLParserException e) {

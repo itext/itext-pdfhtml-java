@@ -79,13 +79,11 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-4370 support background repeat for linear-gradient
     public void backgroundAttachmentMarginRoot1Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("backgroundAttachmentMarginRoot1", sourceFolder, destinationFolder);
     }
 
     @Test
-    // TODO DEVSIX-4370 support background repeat for linear-gradient
     public void backgroundAttachmentMarginRoot2Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("backgroundAttachmentMarginRoot2", sourceFolder, destinationFolder);
     }

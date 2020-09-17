@@ -243,6 +243,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void backgroundImageLinearGradientInAbbrTest() throws IOException, InterruptedException {
+        // TODO DEVSIX-4617 process abbr tag with "text-decoration: underline dotted" CSS styles
         convertToPdfAndCompare("backgroundImageLinearGradientInAbbr", sourceFolder, destinationFolder);
     }
 
