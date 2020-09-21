@@ -88,7 +88,6 @@ public class OverflowTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO: update after DEVSIX-2502 fix
     public void displayOverflowAutoScroll() throws IOException, InterruptedException {
         convertToPdfAndCompare("displayOverflowAutoScroll", sourceFolder, destinationFolder);
     }
