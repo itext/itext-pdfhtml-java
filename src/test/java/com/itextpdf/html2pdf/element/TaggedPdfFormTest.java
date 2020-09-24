@@ -46,6 +46,7 @@ package com.itextpdf.html2pdf.element;
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.PdfException;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -55,8 +56,10 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.rules.ExpectedException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -72,6 +75,9 @@ public class TaggedPdfFormTest extends ExtendedITextTest {
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
+
+    @Rule
+    public ExpectedException junitExpectedException = ExpectedException.none();
 
     @Test
     public void simpleTextFieldTagged() throws IOException, InterruptedException {
@@ -124,13 +130,22 @@ public class TaggedPdfFormTest extends ExtendedITextTest {
 
     @Test
     @Ignore("DEVSIX-980. DefaultHtmlProcessor ERROR No worker found for tag datalist")
-    public void datalistFormTagged() throws IOException, InterruptedException {
-        runTest("datalistFormTagged");
+    public void dataListFormTagged() throws IOException, InterruptedException {
+        runTest("dataListFormTagged");
     }
 
     @Test
-    public void fieldsetFormTagged() throws IOException, InterruptedException {
-        runTest("fieldsetFormTagged");
+    public void fieldSetFormTagged() throws IOException, InterruptedException {
+        runTest("fieldSetFormTagged");
+    }
+
+    @Test
+    // TODO DEVSIX-4601
+    // exception is thrown on "convert tagged PDF with acroform" stage
+    public void inputFormPrematureFlush() throws IOException, InterruptedException {
+        junitExpectedException.expect(PdfException.class);
+        junitExpectedException.expectMessage(PdfException.TagStructureFlushingFailedItMightBeCorrupted);
+        runTest("inputFormPrematureFlush");
     }
 
     private void runTest(String name) throws IOException, InterruptedException {
