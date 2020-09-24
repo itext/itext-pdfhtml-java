@@ -154,7 +154,6 @@ public class PseudoElementsTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO: incorrect behaviour because of trimmed non-breakable space
     public void collapsingMarginsBeforeAfterPseudo03() throws IOException, InterruptedException {
         convertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo03", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -218,24 +217,24 @@ public class PseudoElementsTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-1393 position property is not supported for inline elements.
     public void emptyStillShownPseudoTest02() throws IOException, InterruptedException {
-        // TODO inline elements with absolute positioning are not supported at the moment
         convertToPdfAndCompare("emptyStillShownPseudoTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void emptyStillShownPseudoTest03() throws IOException, InterruptedException {
-        // TODO inline elements with absolute positioning are not supported at the moment
         convertToPdfAndCompare("emptyStillShownPseudoTest03", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    // TODO DEVSIX-1393 position property is not supported for inline elements.
     public void emptyStillShownPseudoTest04() throws IOException, InterruptedException {
-        // TODO inline elements with absolute positioning are not supported at the moment
         convertToPdfAndCompare("emptyStillShownPseudoTest04", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    // TODO DEVSIX-1393 position property is not supported for inline elements.
     public void emptyStillShownPseudoTest05() throws IOException, InterruptedException {
         convertToPdfAndCompare("emptyStillShownPseudoTest05", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
