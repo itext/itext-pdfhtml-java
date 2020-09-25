@@ -204,6 +204,12 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
         testLineHeight("lineHeightInheritInSpan");
     }
 
+    @Test
+    // TODO: update cmp file after fixing DEVSIX-4604
+    public void inlineBlockFloatAndLineHeightTest() throws IOException, InterruptedException {
+        testLineHeight("inlineBlockFloatAndLineHeight");
+    }
+
     void testLineHeight(String name) throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + name + ".html";
         String destinationPdf = DESTINATION_FOLDER + name + ".pdf";
