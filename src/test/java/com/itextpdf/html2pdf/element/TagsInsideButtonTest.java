@@ -55,7 +55,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
-
 @Category(IntegrationTest.class)
 public class TagsInsideButtonTest extends ExtendedHtmlConversionITextTest {
 
@@ -71,32 +70,45 @@ public class TagsInsideButtonTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void buttonWithImageInside() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
-        convertToPdfAcroformFlattenAndCompare("buttonWithImageInside", sourceFolder, destinationFolder, false);
+    public void buttonWithImageInside()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("buttonWithImageInside",
+                sourceFolder, destinationFolder, false);
     }
 
     @Test
-    public void buttonWithImageInsideTagged() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
-        convertToPdfAcroformFlattenAndCompare("buttonWithImageInside", sourceFolder, destinationFolder, true);
+    public void buttonWithImageInsideTagged()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("buttonWithImageInside",
+                sourceFolder, destinationFolder, true);
     }
 
     @Test
-    public void buttonWithPInside() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
-        convertToPdfAcroformFlattenAndCompare("buttonWithPInside", sourceFolder, destinationFolder, false);
+    public void buttonWithPInside()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("buttonWithPInside",
+                sourceFolder, destinationFolder, false);
     }
 
     @Test
-    public void imageNotFinishedTagged() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
-        convertToPdfAcroformFlattenAndCompare("imageNotFinishedTagged", sourceFolder, destinationFolder, true);
+    public void imageNotFinishedTagged()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("imageNotFinishedTagged", sourceFolder,
+                destinationFolder, true);
     }
 
     @Test
-    public void buttonWithPInsideTagged() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
-        convertToPdfAcroformFlattenAndCompare("buttonWithPInside", sourceFolder, destinationFolder, true);
+    public void buttonWithPInsideTagged()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("buttonWithPInside", sourceFolder,
+                destinationFolder, true);
     }
+
     @Test
-    public void buttonInsideMoreThanTwoAreas() throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+    public void buttonInsideMoreThanTwoAreas()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         junitExpectedException.expect(PdfException.class);
-        convertToPdfAcroformFlattenAndCompare("buttonInsideMoreThanTwoAreas", sourceFolder, destinationFolder, true);
+        convertToPdfAcroformFlattenAndCompare("buttonInsideMoreThanTwoAreas", sourceFolder,
+                destinationFolder, true);
     }
 }
