@@ -76,4 +76,10 @@ public class PaddingTest extends ExtendedHtmlConversionITextTest {
     public void cellPaddingTest02() throws IOException, InterruptedException {
         convertToPdfAndCompare("cellPaddingTest02", sourceFolder, destinationFolder);
     }
+
+    @Test
+    // TODO DEVSIX-4623 process negative paddings
+    public void negativePaddingsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("negativePaddings", sourceFolder, destinationFolder);
+    }
 }
