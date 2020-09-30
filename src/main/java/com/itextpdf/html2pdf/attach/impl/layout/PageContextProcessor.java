@@ -63,6 +63,7 @@ import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.layout.LayoutArea;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
+import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
@@ -247,7 +248,25 @@ class PageContextProcessor {
     void processNewPage(PdfPage page) {
         setBleed(page);
         drawMarks(page);
-        drawPageBackgroundAndBorders(page);
+        drawPageBorders(page);
+    }
+
+    /**
+     * Draws page background.
+     *
+     * @param page the page
+     * @return pdfCanvas instance if there was a background to draw, otherwise returns null
+     */
+    PdfCanvas drawPageBackground(PdfPage page) {
+        PdfCanvas pdfCanvas = null;
+        if (pageBackgroundSimulation != null) {
+            pdfCanvas = new PdfCanvas(page.newContentStreamBefore(), page.getResources(),page.getDocument());
+            Canvas canvas = new Canvas(pdfCanvas, page.getBleedBox());
+            canvas.enableAutoTagging(page);
+            canvas.add(pageBackgroundSimulation);
+            canvas.close();
+        }
+        return pdfCanvas;
     }
 
     /**
@@ -396,16 +415,15 @@ class PageContextProcessor {
     }
 
     /**
-     * Draws page background and borders.
+     * Draws page border.
      *
      * @param page the page
      */
-    private void drawPageBackgroundAndBorders(PdfPage page) {
-        Canvas canvas = new Canvas(new PdfCanvas(page), page.getBleedBox());
-        canvas.enableAutoTagging(page);
-        canvas.add(pageBackgroundSimulation);
-        canvas.close();
-        canvas = new Canvas(new PdfCanvas(page), page.getTrimBox());
+    private void drawPageBorders(PdfPage page) {
+        if (pageBordersSimulation == null) {
+            return;
+        }
+        Canvas canvas = new Canvas(new PdfCanvas(page), page.getTrimBox());
         canvas.enableAutoTagging(page);
         canvas.add(pageBordersSimulation);
         canvas.close();
@@ -502,7 +520,14 @@ class PageContextProcessor {
         pageBackgroundSimulation = new Div().setFillAvailableArea(true);
         BackgroundApplierUtil.applyBackground(styles, context, pageBackgroundSimulation);
         pageBackgroundSimulation.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
-
+        if (!pageBackgroundSimulation.hasOwnProperty(Property.BACKGROUND)
+                && !pageBackgroundSimulation.hasOwnProperty(Property.BACKGROUND_IMAGE)) {
+            pageBackgroundSimulation = null;
+        }
+        if (borders[0] == null && borders[1] == null && borders[2] == null && borders[3] == null) {
+            pageBordersSimulation = null;
+            return;
+        }
         pageBordersSimulation = new Div().setFillAvailableArea(true);
         pageBordersSimulation.setMargins(margins[0], margins[1], margins[2], margins[3]);
         pageBordersSimulation.setBorderTop(borders[0]);

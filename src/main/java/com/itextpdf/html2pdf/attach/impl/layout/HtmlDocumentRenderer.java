@@ -43,23 +43,21 @@
 package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.HtmlBodyStylesApplierHandler.LowestAndHighest;
+import com.itextpdf.html2pdf.attach.impl.layout.HtmlBodyStylesApplierHandler.PageStylesProperties;
 import com.itextpdf.kernel.events.Event;
 import com.itextpdf.kernel.events.IEventHandler;
 import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.kernel.pdf.tagging.StandardRoles;
-import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.AreaBreak;
-import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.layout.LayoutArea;
 import com.itextpdf.layout.layout.LayoutPosition;
 import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.property.Background;
 import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.renderer.DocumentRenderer;
@@ -102,7 +100,10 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
      */
     private boolean evenPagesAreLeft = true;
 
-    private PageMarginBoxesDrawingHandler handler;
+    private PageMarginBoxesDrawingHandler marginBoxesHandler;
+    private HtmlBodyStylesApplierHandler htmlBodyHandler;
+
+    private Map<Integer, PageStylesProperties> pageStylesPropertiesMap = new HashMap<>();
 
     /**
      * The waiting element, an child element is kept waiting for the
@@ -130,6 +131,8 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
      */
     public HtmlDocumentRenderer(Document document, boolean immediateFlush) {
         super(document, immediateFlush);
+        htmlBodyHandler = new HtmlBodyStylesApplierHandler(this, pageStylesPropertiesMap);
+        document.getPdfDocument().addEventHandler(PdfDocumentEvent.END_PAGE, htmlBodyHandler);
     }
 
     /**
@@ -154,8 +157,8 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         leftPageProc = new PageContextProcessor(leftPageProps, context, defaultPageSize, defaultPageMargins);
         rightPageProc = new PageContextProcessor(rightPageProps, context, defaultPageSize, defaultPageMargins);
 
-        handler = new HtmlDocumentRenderer.PageMarginBoxesDrawingHandler().setHtmlDocumentRenderer(this);
-        document.getPdfDocument().addEventHandler(PdfDocumentEvent.END_PAGE, handler);
+        marginBoxesHandler = new HtmlDocumentRenderer.PageMarginBoxesDrawingHandler().setHtmlDocumentRenderer(this);
+        document.getPdfDocument().addEventHandler(PdfDocumentEvent.END_PAGE, marginBoxesHandler);
     }
 
     /* (non-Javadoc)
@@ -193,11 +196,13 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         processWaitingElement();
         super.close();
         trimLastPageIfNecessary();
-        document.getPdfDocument().removeEventHandler(PdfDocumentEvent.END_PAGE, handler);
+        document.getPdfDocument().removeEventHandler(PdfDocumentEvent.END_PAGE, marginBoxesHandler);
+        document.getPdfDocument().removeEventHandler(PdfDocumentEvent.END_PAGE, htmlBodyHandler);
         for (int i = 1; i <= document.getPdfDocument().getNumberOfPages(); ++i) {
             PdfPage page = document.getPdfDocument().getPage(i);
             if (!page.isFlushed()) {
-                handler.processPage(document.getPdfDocument(), i);
+                marginBoxesHandler.processPage(document.getPdfDocument(), i);
+                htmlBodyHandler.processPage(page, i);
             }
         }
     }
@@ -216,7 +221,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         relayoutRenderer.leftPageProc = leftPageProc.reset(defaultPageSize, defaultPageMargins);
         relayoutRenderer.rightPageProc = rightPageProc.reset(defaultPageSize, defaultPageMargins);
         relayoutRenderer.estimatedNumberOfPages = currentPageNumber - simulateTrimLastPage();
-        relayoutRenderer.handler = handler.setHtmlDocumentRenderer(relayoutRenderer);
+        relayoutRenderer.marginBoxesHandler = marginBoxesHandler.setHtmlDocumentRenderer(relayoutRenderer);
         return relayoutRenderer;
     }
 
@@ -224,58 +229,6 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     public void flush(){
         processWaitingElement();
         super.flush();
-    }
-
-    void processWaitingElement(){
-        if (waitingElement != null) {
-            IRenderer r = this.waitingElement;
-            waitingElement = null;
-            super.addChild(r);
-        }
-    }
-
-    boolean shouldAttemptTrimLastPage() {
-        return TRIM_LAST_BLANK_PAGE && document.getPdfDocument().getNumberOfPages() > 1;
-    }
-
-    void trimLastPageIfNecessary() {
-        if (shouldAttemptTrimLastPage()) {
-            PdfDocument pdfDocument = document.getPdfDocument();
-            PdfPage lastPage = pdfDocument.getLastPage();
-            if (lastPage.getContentStreamCount() == 1 && lastPage.getContentStream(0).getOutputStream().getCurrentPos() <= 0) {
-                // Remove last empty page
-                pdfDocument.removePage(pdfDocument.getNumberOfPages());
-            }
-        }
-    }
-
-    /**
-     * Returns the number of pages that will be trimmed on {@link #close()}
-     * @return 0 if no pages will be trimmed, or positive number of trimmed pages in case any are trimmed
-     */
-    int simulateTrimLastPage() {
-        if (shouldAttemptTrimLastPage()) {
-            int lastPageNumber = document.getPdfDocument().getNumberOfPages();
-            // At the moment we only check if some element was positioned on this page
-            // However, there might theoretically be an inconsistency with the method that
-            // actually does the trimming because that method checks the canvas output only.
-            // We might want to simulate drawing on canvas here in the future, or possibly
-            // consider invisible elements in the method that actually does the trimming
-            boolean willAnyContentBeDrawnOnLastPage = false;
-            for (IRenderer renderer : childRenderers) {
-                if (renderer.getOccupiedArea().getPageNumber() == lastPageNumber) {
-                    willAnyContentBeDrawnOnLastPage = true;
-                }
-            }
-            for (IRenderer renderer : positionedRenderers) {
-                if (renderer.getOccupiedArea().getPageNumber() == lastPageNumber) {
-                    willAnyContentBeDrawnOnLastPage = true;
-                }
-            }
-            return willAnyContentBeDrawnOnLastPage ? 0 : 1;
-        } else {
-            return 0;
-        }
     }
 
     /* (non-Javadoc)
@@ -346,6 +299,15 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         super.shrinkCurrentAreaAndProcessRenderer(renderer, resultRenderers, result);
     }
 
+    @Override
+    protected void flushSingleRenderer(IRenderer resultRenderer) {
+        if (!isElementOnNonStaticLayout(resultRenderer)) {
+            LayoutArea area = resultRenderer.getOccupiedArea();
+            updateLowestAndHighestPoints(area.getBBox(), area.getPageNumber());
+        }
+        super.flushSingleRenderer(resultRenderer);
+    }
+
     /* (non-Javadoc)
      * @see com.itextpdf.layout.renderer.DocumentRenderer#addNewPage(com.itextpdf.kernel.geom.PageSize)
      */
@@ -353,8 +315,8 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     protected PageSize addNewPage(PageSize customPageSize) {
         PdfPage addedPage;
 
-        int numberOfPages = document.getPdfDocument().getNumberOfPages();
-        PageContextProcessor nextProcessor = getPageProcessor(numberOfPages + 1);
+        int pageNumber = document.getPdfDocument().getNumberOfPages() + 1;
+        PageContextProcessor nextProcessor = getPageProcessor(pageNumber);
         if (customPageSize != null) {
             addedPage = document.getPdfDocument().addNewPage(customPageSize);
         } else {
@@ -362,8 +324,14 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         }
 
         nextProcessor.processNewPage(addedPage);
+
         float[] margins = nextProcessor.computeLayoutMargins();
-        applyHtmlBodyStyles(addedPage, margins);
+        BodyHtmlStylesContainer[] styles = new BodyHtmlStylesContainer[] {
+                ((IPropertyContainer) document).<BodyHtmlStylesContainer>getProperty(Html2PdfProperty.HTML_STYLING),
+                ((IPropertyContainer) document).<BodyHtmlStylesContainer>getProperty(Html2PdfProperty.BODY_STYLING)};
+        pageStylesPropertiesMap.put(pageNumber, new PageStylesProperties(styles));
+        updateDefaultMargins(styles, margins);
+
         setProperty(Property.MARGIN_TOP, margins[0]);
         setProperty(Property.MARGIN_RIGHT, margins[1]);
         setProperty(Property.MARGIN_BOTTOM, margins[2]);
@@ -372,53 +340,73 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         return new PageSize(addedPage.getTrimBox());
     }
 
-    private void applyHtmlBodyStyles(PdfPage page, float[] defaultMargins) {
-        BodyHtmlStylesContainer[] styles = new BodyHtmlStylesContainer[2];
-        styles[0] = ((IPropertyContainer) document).<BodyHtmlStylesContainer>getProperty(Html2PdfProperty.HTML_STYLING);
-        styles[1] = ((IPropertyContainer) document).<BodyHtmlStylesContainer>getProperty(Html2PdfProperty.BODY_STYLING);
-        int firstBackground = applyFirstBackground(page, defaultMargins, styles);
-        for (int i = 0; i < 2; i++)
-            if (styles[i] != null) {
-                if (styles[i].hasContentToDraw())
-                    drawSimulatedDiv(page, styles[i].properties, defaultMargins, firstBackground != i);
-                for (int j = 0; j < 4; j++)
-                    defaultMargins[j] += styles[i].getTotalWidth()[j];
+    void processWaitingElement(){
+        if (waitingElement != null) {
+            IRenderer r = this.waitingElement;
+            waitingElement = null;
+            super.addChild(r);
+        }
+    }
+
+    boolean shouldAttemptTrimLastPage() {
+        return TRIM_LAST_BLANK_PAGE && document.getPdfDocument().getNumberOfPages() > 1;
+    }
+
+    void trimLastPageIfNecessary() {
+        if (shouldAttemptTrimLastPage()) {
+            PdfDocument pdfDocument = document.getPdfDocument();
+            PdfPage lastPage = pdfDocument.getLastPage();
+            if (lastPage.getContentStreamCount() == 1 && lastPage.getContentStream(0).getOutputStream().getCurrentPos() <= 0) {
+                // Remove last empty page
+                pdfDocument.removePage(pdfDocument.getNumberOfPages());
             }
+        }
     }
 
-    private int applyFirstBackground(PdfPage page, float[] defaultMargins, BodyHtmlStylesContainer[] styles) {
-        int firstBackground = -1;
-        if (styles[0] != null && (styles[0].<Background>getOwnProperty(Property.BACKGROUND) != null ||
-                styles[0].<Object>getOwnProperty(Property.BACKGROUND_IMAGE) != null)) {
-            firstBackground = 0;
-        } else if (styles[1] != null && (styles[1].<Background>getOwnProperty(Property.BACKGROUND) != null ||
-                styles[1].<Object>getOwnProperty(Property.BACKGROUND_IMAGE) != null)) {
-            firstBackground = 1;
+    /**
+     * Returns the number of pages that will be trimmed on {@link #close()}
+     * @return 0 if no pages will be trimmed, or positive number of trimmed pages in case any are trimmed
+     */
+    int simulateTrimLastPage() {
+        if (shouldAttemptTrimLastPage()) {
+            int lastPageNumber = document.getPdfDocument().getNumberOfPages();
+            // At the moment we only check if some element was positioned on this page
+            // However, there might theoretically be an inconsistency with the method that
+            // actually does the trimming because that method checks the canvas output only.
+            // We might want to simulate drawing on canvas here in the future, or possibly
+            // consider invisible elements in the method that actually does the trimming
+            boolean willAnyContentBeDrawnOnLastPage = false;
+            for (IRenderer renderer : childRenderers) {
+                if (renderer.getOccupiedArea().getPageNumber() == lastPageNumber) {
+                    willAnyContentBeDrawnOnLastPage = true;
+                }
+            }
+            for (IRenderer renderer : positionedRenderers) {
+                if (renderer.getOccupiedArea().getPageNumber() == lastPageNumber) {
+                    willAnyContentBeDrawnOnLastPage = true;
+                }
+            }
+            return willAnyContentBeDrawnOnLastPage ? 0 : 1;
+        } else {
+            return 0;
         }
-        if (firstBackground != -1) {
-            HashMap<Integer, Object> background = new HashMap<>();
-            background.put(Property.BACKGROUND, styles[firstBackground].<Background>getProperty(Property.BACKGROUND));
-            background.put(Property.BACKGROUND_IMAGE,
-                    styles[firstBackground].<Object>getProperty(Property.BACKGROUND_IMAGE));
-            drawSimulatedDiv(page, background, defaultMargins, true);
-        }
-        return firstBackground;
     }
 
-    private void drawSimulatedDiv(PdfPage page, Map<Integer, Object> styles, float[] margins, boolean drawBackground) {
-        Div pageBordersSimulation;
-        pageBordersSimulation = new Div().setFillAvailableArea(true);
-        for (Map.Entry<Integer, Object> entry : styles.entrySet()) {
-            if ((entry.getKey() == Property.BACKGROUND || entry.getKey() == Property.BACKGROUND_IMAGE) && !drawBackground)
-                continue;
-            pageBordersSimulation.setProperty(entry.getKey(), entry.getValue());
+    /**
+     * Gets a page processor for the page.
+     *
+     * @param pageNum the number of the page for which the {@link PageContextProcessor} shall be obtained
+     * @return a page processor
+     */
+    PageContextProcessor getPageProcessor(int pageNum) {
+        // If first page, but break-before: left for ltr is present, we should use left page instead of first
+        if (pageNum == 1 && evenPagesAreLeft) {
+            return firstPageProc;
+        } else if (isPageLeft(pageNum)) {
+            return leftPageProc;
+        } else {
+            return rightPageProc;
         }
-        pageBordersSimulation.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
-        Canvas canvas = new Canvas(new PdfCanvas(page), page.getTrimBox()
-                .applyMargins(margins[0], margins[1], margins[2], margins[3], false));
-        canvas.enableAutoTagging(page);
-        canvas.add(pageBordersSimulation);
-        canvas.close();
     }
 
     /**
@@ -428,6 +416,45 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
      */
     int getEstimatedNumberOfPages() {
         return estimatedNumberOfPages;
+    }
+
+    private void updateDefaultMargins(BodyHtmlStylesContainer[] styles, float[] defaultMargins) {
+        for (int i = 0; i < 2; i++) {
+            if (styles[i] != null) {
+                for (int j = 0; j < 4; j++) {
+                    defaultMargins[j] += styles[i].getTotalWidth()[j];
+                }
+            }
+        }
+    }
+
+    private boolean isElementOnNonStaticLayout(IRenderer resultRenderer) {
+        boolean nonStaticLayout = false;
+        if (resultRenderer.hasProperty(Property.POSITION)) {
+            int positionProperty = (int) resultRenderer.<Integer>getProperty(Property.POSITION);
+            nonStaticLayout = positionProperty == LayoutPosition.ABSOLUTE || positionProperty == LayoutPosition.FIXED;
+        }
+        if (!nonStaticLayout && resultRenderer.hasProperty(Property.FLOAT)) {
+            FloatPropertyValue floatProperty = resultRenderer.<FloatPropertyValue>getProperty(Property.FLOAT);
+            nonStaticLayout = floatProperty == FloatPropertyValue.LEFT || floatProperty == FloatPropertyValue.RIGHT;
+        }
+        return nonStaticLayout;
+    }
+
+    private void updateLowestAndHighestPoints(Rectangle rectangle, int page) {
+        if (!pageStylesPropertiesMap.containsKey(page)) {
+            return;
+        }
+        LowestAndHighest currentPagePoints = pageStylesPropertiesMap.get(page).lowestAndHighest;
+        if (currentPagePoints == null) {
+            pageStylesPropertiesMap.get(page).lowestAndHighest
+                    = new LowestAndHighest(rectangle.getY(), rectangle.getY() + rectangle.getHeight());
+        } else {
+            float newLowestPoint = rectangle.getY();
+            float newHighestPoint = rectangle.getY() + rectangle.getHeight();
+            currentPagePoints.lowest = Math.min(newLowestPoint, currentPagePoints.lowest);
+            currentPagePoints.highest = Math.max(newHighestPoint, currentPagePoints.highest);
+        }
     }
 
     private static boolean isRunningElementsOnly(IRenderer waitingElement) {
@@ -440,23 +467,6 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
             }
         }
         return res;
-    }
-
-    /**
-     * Gets a page processor for the page.
-     *
-     * @param pageNum the number of the page for which the {@link PageContextProcessor} shall be obtained
-     * @return a page processor
-     */
-    private PageContextProcessor getPageProcessor(int pageNum) {
-        // If first page, but break-before: left for ltr is present, we should use left page instead of first
-        if (pageNum == 1 && evenPagesAreLeft) {
-            return firstPageProc;
-        } else if (isPageLeft(pageNum)) {
-            return leftPageProc;
-        } else {
-            return rightPageProc;
-        }
     }
 
     /**
