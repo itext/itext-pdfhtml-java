@@ -65,6 +65,4 @@ public class Html2PdfException extends RuntimeException {
     /** The Constant UnsupportedEncodingException. */
     public static final String UnsupportedEncodingException = "Unsupported encoding exception.";
     
-    /**  Serial version UID. */
-    private static final long serialVersionUID = -136587601709625428L;
 }

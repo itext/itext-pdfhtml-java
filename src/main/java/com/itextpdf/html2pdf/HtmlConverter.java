@@ -404,6 +404,5 @@ public class HtmlConverter {
 
     private static class HtmlMetaInfo implements IMetaInfo {
 
-        private static final long serialVersionUID = -295587336698550627L;
     }
 }

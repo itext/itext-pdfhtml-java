@@ -63,6 +63,4 @@ public class CssApplierInitializationException extends RuntimeException {
     /** The message template in case reflection failed. */
     public static final String ReflectionFailed = "Could not instantiate CssApplier-class {0} for tag {1}.";
 
-    /**  Serial version UID. */
-	private static final long serialVersionUID = -3098207669765613290L;
 }
