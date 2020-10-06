@@ -197,16 +197,15 @@ public class DefaultCssResolver implements ICssResolver {
         }
 
         String elementFontSize = elementStyles.get(CssConstants.FONT_SIZE);
-        if (CssUtils.isRelativeValue(elementFontSize) || CssConstants.LARGER.equals(elementFontSize) || CssConstants.SMALLER.equals(elementFontSize)) {
+        if (CssUtils.isRelativeValue(elementFontSize) || CssConstants.LARGER.equals(elementFontSize)
+                || CssConstants.SMALLER.equals(elementFontSize)) {
             float baseFontSize;
             if (CssUtils.isRemValue(elementFontSize)) {
                 baseFontSize = context.getRootFontSize();
+            } else if (parentFontSizeStr == null) {
+                baseFontSize = CssUtils.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
             } else {
-                if (parentFontSizeStr == null) {
-                    baseFontSize = CssUtils.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
-                } else {
-                    baseFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
-                }
+                baseFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
             }
             float absoluteFontSize = CssUtils.parseRelativeFontSize(elementFontSize, baseFontSize);
             // Format to 4 decimal places to prevent differences between Java and C#

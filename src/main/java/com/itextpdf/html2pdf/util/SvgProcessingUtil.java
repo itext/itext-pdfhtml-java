@@ -50,6 +50,7 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
+import com.itextpdf.svg.processors.impl.SvgProcessorResult;
 import com.itextpdf.svg.renderers.ISvgNodeRenderer;
 import com.itextpdf.svg.renderers.SvgDrawContext;
 import com.itextpdf.svg.renderers.impl.PdfRootSvgNodeRenderer;
@@ -109,7 +110,10 @@ public class SvgProcessingUtil {
         ResourceResolver tempResolver = new ResourceResolver(null, resourceResolver.getRetriever());
         // TODO DEVSIX-4107 pass the resourceResolver variable (not tempResolver variable) to the
         //  SvgDrawContext constructor so that the SVG inside the SVG is processed.
-        SvgDrawContext context = new SvgDrawContext(tempResolver, result.getFontProvider(), result.getRootRenderer());
+        SvgDrawContext context = new SvgDrawContext(tempResolver, result.getFontProvider());
+        if (result instanceof SvgProcessorResult) {
+            context.setCssContext(((SvgProcessorResult) result).getContext().getCssContext());
+        }
         context.addNamedObjects(result.getNamedObjects());
         context.pushCanvas(canvas);
 
