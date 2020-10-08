@@ -43,7 +43,6 @@
 package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.ConverterProperties;
-import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
@@ -61,11 +60,11 @@ import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.events.PdfHtmlEvent;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
 import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.util.ReflectionUtils;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.io.util.MessageFormatUtil;
-import com.itextpdf.kernel.Version;
 import com.itextpdf.kernel.counter.EventCounterHandler;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
@@ -77,11 +76,11 @@ import com.itextpdf.layout.font.Range;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.RenderingMode;
 import com.itextpdf.styledxmlparser.css.CssDeclaration;
+import com.itextpdf.styledxmlparser.css.font.CssFontFace;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
 import com.itextpdf.styledxmlparser.css.ICssResolver;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementUtil;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.ITextNode;
@@ -90,9 +89,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -118,7 +114,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     private static final Set<String> ignoredTags = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
             TagConstants.HEAD,
             TagConstants.STYLE,
-            // TODO <tbody> is not supported. Styles will be propagated anyway
+            // <tbody> is not supported via tag workers. Styles will be propagated anyway (most of them, but not all)
+            // TODO in scope of DEVSIX-4258 we might want to introduce a tag worker for <tbody> and remove it from here
             TagConstants.TBODY)));
 
     /**
@@ -195,41 +192,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      */
     @Override
     public List<com.itextpdf.layout.element.IElement> processElements(INode root) {
-        String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
-        String licenseKeyProductClassName = "com.itextpdf.licensekey.LicenseKeyProduct";
-        String licenseKeyFeatureClassName = "com.itextpdf.licensekey.LicenseKeyProductFeature";
-        String checkLicenseKeyMethodName = "scheduledCheck";
-
-        try {
-            Class licenseKeyClass = Class.forName(licenseKeyClassName);
-            Class licenseKeyProductClass = Class.forName(licenseKeyProductClassName);
-            Class licenseKeyProductFeatureClass = Class.forName(licenseKeyFeatureClassName);
-
-            Object licenseKeyProductFeatureArray = Array.newInstance(licenseKeyProductFeatureClass, 0);
-
-            Class[] params = new Class[]{
-                    String.class,
-                    Integer.TYPE,
-                    Integer.TYPE,
-                    licenseKeyProductFeatureArray.getClass()
-            };
-
-            Constructor licenseKeyProductConstructor = licenseKeyProductClass.getConstructor(params);
-
-            Object licenseKeyProductObject = licenseKeyProductConstructor.newInstance(
-                    Html2PdfProductInfo.PRODUCT_NAME,
-                    Html2PdfProductInfo.MAJOR_VERSION,
-                    Html2PdfProductInfo.MINOR_VERSION,
-                    licenseKeyProductFeatureArray
-            );
-
-            Method method = licenseKeyClass.getMethod(checkLicenseKeyMethodName, licenseKeyProductClass);
-            method.invoke(null, licenseKeyProductObject);
-        } catch (Exception e) {
-            if (!Version.isAGPLVersion()) {
-                throw new RuntimeException(e.getCause());
-            }
-        }
+        ReflectionUtils.scheduledLicenseCheck();
 
         context.reset();
         roots = new ArrayList<>();
@@ -266,47 +229,12 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      */
     @Override
     public Document processDocument(INode root, PdfDocument pdfDocument) {
-        String licenseKeyClassName = "com.itextpdf.licensekey.LicenseKey";
-        String licenseKeyProductClassName = "com.itextpdf.licensekey.LicenseKeyProduct";
-        String licenseKeyFeatureClassName = "com.itextpdf.licensekey.LicenseKeyProductFeature";
-        String checkLicenseKeyMethodName = "scheduledCheck";
-
-        try {
-            Class licenseKeyClass = Class.forName(licenseKeyClassName);
-            Class licenseKeyProductClass = Class.forName(licenseKeyProductClassName);
-            Class licenseKeyProductFeatureClass = Class.forName(licenseKeyFeatureClassName);
-
-            Object licenseKeyProductFeatureArray = Array.newInstance(licenseKeyProductFeatureClass, 0);
-
-            Class[] params = new Class[]{
-                    String.class,
-                    Integer.TYPE,
-                    Integer.TYPE,
-                    licenseKeyProductFeatureArray.getClass()
-            };
-
-            Constructor licenseKeyProductConstructor = licenseKeyProductClass.getConstructor(params);
-
-            Object licenseKeyProductObject = licenseKeyProductConstructor.newInstance(
-                    Html2PdfProductInfo.PRODUCT_NAME,
-                    Html2PdfProductInfo.MAJOR_VERSION,
-                    Html2PdfProductInfo.MINOR_VERSION,
-                    licenseKeyProductFeatureArray
-            );
-
-            Method method = licenseKeyClass.getMethod(checkLicenseKeyMethodName, licenseKeyProductClass);
-            method.invoke(null, licenseKeyProductObject);
-        } catch (Exception e) {
-            if (!Version.isAGPLVersion()) {
-                throw new RuntimeException(e.getCause());
-            }
-        }
+        ReflectionUtils.scheduledLicenseCheck();
 
         context.reset(pdfDocument);
         if (!context.hasFonts()) {
             throw new Html2PdfException(Html2PdfException.FontProviderContainsZeroFonts);
         }
-        // TODO store html version from document type in context if necessary
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context);
         context.getLinkContext().scanForIds(root);
@@ -315,7 +243,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
         visit(root);
         Document doc = (Document) roots.get(0);
-        // TODO more precise check if a counter was actually added to the document
+        // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
         if (context.getCssContext().isPagesCounterPresent() && doc.getRenderer() instanceof HtmlDocumentRenderer) {
             doc.relayout();
         }
@@ -463,10 +391,10 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             for (CssFontFaceRule fontFace : ((DefaultCssResolver) cssResolver).getFonts()) {
                 boolean findSupportedSrc = false;
                 List<CssDeclaration> declarations = fontFace.getProperties();
-                FontFace ff = FontFace.create(declarations);
+                CssFontFace ff = CssFontFace.create(declarations);
                 if (ff != null) {
-                    for (FontFace.FontFaceSrc src : ff.getSources()) {
-                        if (createFont(ff.getFontFamily(), src, resolveUnicodeRange(declarations))) {
+                    for (CssFontFace.CssFontFaceSrc src : ff.getSources()) {
+                        if (createFont(ff.getFontFamily(), src, fontFace.resolveUnicodeRange())) {
                             findSupportedSrc = true;
                             break;
                         }
@@ -479,16 +407,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
     }
 
-    private Range resolveUnicodeRange(List<CssDeclaration> declarations) {
-        Range range = null;
-        for (CssDeclaration descriptor : declarations) {
-            if ("unicode-range".equals(descriptor.getProperty())) {
-                range = CssUtils.parseUnicodeRange(descriptor.getExpression());
-            }
-        }
-        return range;
-    }
-
     /**
      * Creates a font and adds it to the context.
      *
@@ -497,11 +415,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      * @param unicodeRange the unicode range
      * @return true, if successful
      */
-    private boolean createFont(String fontFamily, FontFace.FontFaceSrc src, Range unicodeRange) {
-        if (!supportedFontFormat(src.format)) {
+    private boolean createFont(String fontFamily, CssFontFace.CssFontFaceSrc src, Range unicodeRange) {
+        if (!CssFontFace.isSupportedFontFormat(src.getFormat())) {
             return false;
-        } else if (src.isLocal) { // to method with lazy initialization
-            Collection<FontInfo> fonts = context.getFontProvider().getFontSet().get(src.src);
+        } else if (src.isLocal()) { // to method with lazy initialization
+            Collection<FontInfo> fonts = context.getFontProvider().getFontSet().get(src.getSrc());
             if (fonts.size() > 0) {
                 for (FontInfo fi : fonts) {
                     context.addTemporaryFont(fi, fontFamily);
@@ -514,7 +432,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             try {
                 // Cache at resource resolver level only, at font level we will create font in any case.
                 // The instance of fontProgram will be collected by GC if the is no need in it.
-                byte[] bytes = context.getResourceResolver().retrieveBytesFromResource(src.src);
+                byte[] bytes = context.getResourceResolver().retrieveBytesFromResource(src.getSrc());
                 if (bytes != null) {
                     FontProgram fp = FontProgramFactory.createFont(bytes, false);
                     context.addTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily, unicodeRange);
@@ -523,25 +441,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             } catch (Exception ignored) {
             }
             return false;
-        }
-    }
-
-    /**
-     * Checks whether in general we support requested font format.
-     *
-     * @param format {@link com.itextpdf.html2pdf.attach.impl.FontFace.FontFormat}
-     * @return true, if supported or unrecognized.
-     */
-    private boolean supportedFontFormat(FontFace.FontFormat format) {
-        switch (format) {
-            case None:
-            case TrueType:
-            case OpenType:
-            case WOFF:
-            case WOFF2:
-                return true;
-            default:
-                return false;
         }
     }
 

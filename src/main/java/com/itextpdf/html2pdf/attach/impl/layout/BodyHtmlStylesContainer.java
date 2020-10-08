@@ -142,7 +142,8 @@ public class BodyHtmlStylesContainer implements IPropertyContainer {
             if (borders[i] != null && borders[i].getWidth() != 0)
                 return true;
         }
-        return this.<Background>getOwnProperty(Property.BACKGROUND) != null || this.<BackgroundImage>getOwnProperty(Property.BACKGROUND_IMAGE) != null;
+        return this.<Background>getOwnProperty(Property.BACKGROUND) != null ||
+                this.<Object>getOwnProperty(Property.BACKGROUND_IMAGE) != null;
     }
 
     /**
@@ -155,7 +156,8 @@ public class BodyHtmlStylesContainer implements IPropertyContainer {
         for (int i = 0; i < 4; i++)
             if (totalWidth[i] > 0)
                 return true;
-        return this.<Background>getOwnProperty(Property.BACKGROUND) != null || this.<BackgroundImage>getOwnProperty(Property.BACKGROUND_IMAGE) != null;
+        return this.<Background>getOwnProperty(Property.BACKGROUND) != null ||
+                this.<Object>getOwnProperty(Property.BACKGROUND_IMAGE) != null;
     }
 
     /**

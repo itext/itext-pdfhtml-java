@@ -58,7 +58,7 @@ import java.util.Map;
  */
 public final class HyphenationApplierUtil {
 
-    // TODO these are css properties actually, but it is not supported by the browsers currently
+    // These are css properties actually, but it is not supported by the browsers currently
 
     /** The Constant HYPHENATE_BEFORE. */
     private static final int HYPHENATE_BEFORE = 2;

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p { 
+width: 100px;
+border: 1px solid red;
+}
+.anywhere {
+overflow-wrap: anywhere;
+}
+
+.breakWord {
+overflow-wrap: break-word;
+}
+
+.floatRight {
+  float: right;
+}
+
+.floatLeft {
+  float: left;
+  border: 1px solid green;
+}
+</style>
+</head>
+<body>
+
+<h3>Paragraph has "overflow-wrap: anywhere" and yellow highlighted text has "float: right" properties</h3>
+<p class="anywhere"><span style="background-color:blue;">Lorem ipsum dolor sit ametconsecteturadipisci</span><span class = "floatRight" style="background-color:yellow;">Lorem ipsum dolor sit ametconsecteturadipiscingelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</span><span style="background-color:green;">ngelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</span></p>
+
+<h3>Paragraph has "overflow-wrap: anywhere" and yellow highlighted text has "float: left" properties</h3>
+<p class="anywhere"><span style="background-color:blue;">Lorem ipsum dolor sit ametconsecteturadipisci</span><span class = "floatLeft" style="background-color:yellow;">Lorem ipsum dolor sit ametconsecteturadipiscingelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</span><span style="background-color:green;">ngelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</span></p>
+
+<h3>Paragraph has "overflow-wrap: break-word" and yellow highlighted text has "float: right" properties</h3>
+<p class="break-word"><span style="background-color:blue;">Lorem ipsum dolor sit ametconsecteturadipisci</span><span class = "floatRight" style="background-color:yellow;">Lorem ipsum dolor sit ametconsecteturadipiscingelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</span><span style="background-color:green;">ngelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</span></p>
+
+<h3>Paragraph has "overflow-wrap: break-word" and yellow highlighted text has "float: left" properties</h3>
+<p class="break-word"><span style="background-color:blue;">Lorem ipsum dolor sit ametconsecteturadipisci</span><span class = "floatLeft" style="background-color:yellow;">Lorem ipsum dolor sit ametconsecteturadipiscingelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</span><span style="background-color:green;">ngelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</span></p>
+
+</body>
+</html>

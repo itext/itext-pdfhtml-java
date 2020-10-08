@@ -200,8 +200,14 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void lineHeightInheritedInSpanTest() throws IOException, InterruptedException {
-        testLineHeight("lineHeightInheritedInSpan");
+    public void lineHeightInheritInSpanTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightInheritInSpan");
+    }
+
+    @Test
+    // TODO: update cmp file after fixing DEVSIX-4604
+    public void inlineBlockFloatAndLineHeightTest() throws IOException, InterruptedException {
+        testLineHeight("inlineBlockFloatAndLineHeight");
     }
 
     void testLineHeight(String name) throws IOException, InterruptedException {

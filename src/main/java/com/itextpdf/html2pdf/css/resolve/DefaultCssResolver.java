@@ -49,7 +49,6 @@ import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
 import com.itextpdf.html2pdf.css.util.CssStyleSheetAnalyzer;
 import com.itextpdf.html2pdf.exception.Html2PdfException;
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.io.util.DecimalFormatUtil;
 import com.itextpdf.io.util.StreamUtil;
@@ -289,14 +288,15 @@ public class DefaultCssResolver implements ICssResolver {
                         styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);
                     }
-                } else if (HtmlUtils.isStyleSheetLink(headChildElement)) {
+                } else if (CssUtils.isStyleSheetLink(headChildElement)) {
                     String styleSheetUri = headChildElement.getAttribute(AttributeConstants.HREF);
-                    try {
-                        InputStream stream = resourceResolver.retrieveStyleSheet(styleSheetUri);
-                        byte[] bytes = StreamUtil.inputStreamToArray(stream);
-                        CssStyleSheet styleSheet = CssStyleSheetParser.parse(new ByteArrayInputStream(bytes), resourceResolver.resolveAgainstBaseUri(styleSheetUri).toExternalForm());
-                        styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
-                        cssStyleSheet.appendCssStyleSheet(styleSheet);
+                    try (InputStream stream = resourceResolver.retrieveResourceAsInputStream(styleSheetUri)) {
+                        if (stream != null) {
+                            CssStyleSheet styleSheet = CssStyleSheetParser.parse(stream,
+                                    resourceResolver.resolveAgainstBaseUri(styleSheetUri).toExternalForm());
+                            styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
+                            cssStyleSheet.appendCssStyleSheet(styleSheet);
+                        }
                     } catch (Exception exc) {
                         Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
                         logger.error(LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, exc);

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p { 
+width: 120px;
+border: 1px solid red;
+}
+
+.breakWord {
+  overflow-wrap: break-word;
+}
+.anywhere {
+  overflow-wrap: anywhere;
+}
+
+.visible {
+  overflow-x: visible;
+  }
+
+.hidden {
+  overflow-x: hidden;
+}
+
+.scroll {
+  overflow-x: scroll;
+  }
+
+
+</style>
+</head>
+<body>
+<h3>1. visible/anywhere</h3>
+<p class="visible anywhere">Lorem ipsum dolor sit ametconsecteturadipiscingelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</p>
+
+<h3>2. visible/break-word</h3>
+<p class="visible breakWord">Lorem ipsum dolor sit ametconsecteturadipiscingelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</p>
+
+<h3>3. hidden/anywhere</h3> 
+<p class="hidden anywhere">Lorem ipsum dolor sit ametconsecteturadipiscingelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</p>
+
+<h3>4. hidden/break-word</h3> 
+<p class="hidden breakWord">Lorem ipsum dolor sit ametconsecteturadipiscingelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</p>
+
+<h3>5. scroll/anywhere</h3> 
+<p class="scroll anywhere">Lorem ipsum dolor sit ametconsecteturadipiscingelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</p>
+
+<h3>6. scroll/break-word</h3> 
+<p class="scroll breakWord">Lorem ipsum dolor sit ametconsecteturadipiscingelitseddoeiusmodtempor incididunt ut labore et dolore magna aliqua</p>
+</body>
+</html>

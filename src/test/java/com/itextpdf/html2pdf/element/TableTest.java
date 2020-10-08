@@ -531,6 +531,12 @@ public class TableTest extends ExtendedITextTest {
         runTest("tableWithChildrenBiggerThanCell");
     }
 
+    @Test
+    // TODO DEVSIX-4247
+    public void tableRowAndCellBackgroundColorConflictTest() throws IOException, InterruptedException {
+        runTest("tableRowAndCellBackgroundColorConflictTest");
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         runTest(testName, false);
     }

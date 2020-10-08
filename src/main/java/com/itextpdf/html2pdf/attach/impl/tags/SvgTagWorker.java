@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
+import com.itextpdf.html2pdf.attach.util.ContextMappingHelper;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
@@ -74,7 +75,7 @@ public class SvgTagWorker implements ITagWorker {
     public SvgTagWorker(IElementNode element, ProcessorContext context) {
         svgImage = null;
         try {
-            SvgConverterProperties props = new SvgConverterProperties().setBaseUri(context.getBaseUri());
+            SvgConverterProperties props = ContextMappingHelper.mapToSvgConverterProperties(context);
             processingResult = new DefaultSvgProcessor().process((INode) element, props);
             context.startProcessingInlineSvg();
         } catch (SvgProcessingException pe) {
@@ -85,7 +86,7 @@ public class SvgTagWorker implements ITagWorker {
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         if (context.getPdfDocument() != null && processingResult != null) {
-            SvgProcessingUtil util = new SvgProcessingUtil();
+            SvgProcessingUtil util = new SvgProcessingUtil(context.getResourceResolver());
             svgImage = util.createImageFromProcessingResult(processingResult, context.getPdfDocument());
 
             AccessiblePropHelper.trySetLangAttribute(svgImage, element);

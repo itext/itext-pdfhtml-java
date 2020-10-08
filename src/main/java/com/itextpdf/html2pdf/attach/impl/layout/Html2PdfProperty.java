@@ -94,4 +94,7 @@ public class Html2PdfProperty {
 
     /** The Constant FORM_ACCESSIBILITY_LANGUAGE. */
     public static final int FORM_ACCESSIBILITY_LANGUAGE = PROPERTY_START + 15;
+
+    /** The Constant CAPITALIZE_ELEMENT indicates if an inline element needs to be capitalized. */
+    public static final int CAPITALIZE_ELEMENT = PROPERTY_START + 16;
 }

@@ -177,4 +177,15 @@ public class LinkTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + fileName + ".html"), new File(destinationFolder + fileName + ".pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + fileName + ".pdf", sourceFolder + "cmp_" + fileName + ".pdf", destinationFolder));
     }
+
+    @Test
+    public void simpleLinkTest() throws IOException, InterruptedException {
+        String outPdf = destinationFolder + "simpleLink.pdf";
+        String cmpPdf = sourceFolder + "cmp_simpleLink.pdf";
+
+        HtmlConverter.convertToPdf(new File(sourceFolder + "simpleLink.html"), new File(outPdf));
+
+        Assert.assertNull(new CompareTool()
+                .compareByContent(outPdf, cmpPdf, destinationFolder, "diff09_"));
+    }
 }

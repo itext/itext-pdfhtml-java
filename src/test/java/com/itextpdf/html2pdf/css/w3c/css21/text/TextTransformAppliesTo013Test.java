@@ -42,9 +42,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.text;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class TextTransformAppliesTo013Test extends W3CCssAhemFontTest {
+public class TextTransformAppliesTo013Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "text-transform-applies-to-013.xht";

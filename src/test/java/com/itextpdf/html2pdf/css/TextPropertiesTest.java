@@ -82,11 +82,19 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
     public void letterSpacingTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("letterSpacingTest01", sourceFolder, destinationFolder);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
+    public void letterSpacingWithInvalidValuesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("letterSpacingWithInvalidValues", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
     public void wordSpacingTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("wordSpacingTest01", sourceFolder, destinationFolder);
     }
@@ -239,37 +247,37 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void whiteSpaceNowrapInlineBlockTest03() throws IOException, InterruptedException {
-        // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+        // TODO DEVSIX-4600 ignores nowrap on inline elements
         convertToPdfAndCompare("whiteSpaceNowrapInlineBlockTest03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void whiteSpaceNowrapSequentialTest01() throws IOException, InterruptedException {
-        // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+        // TODO DEVSIX-4600 ignores nowrap on inline elements
         convertToPdfAndCompare("whiteSpaceNowrapSequentialTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void whiteSpaceNowrapSequentialTest02() throws IOException, InterruptedException {
-        // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+        // TODO DEVSIX-4600 ignores nowrap on inline elements
         convertToPdfAndCompare("whiteSpaceNowrapSequentialTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void whiteSpaceNowrapSequentialTest03() throws IOException, InterruptedException {
-        // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+        // TODO DEVSIX-4600 ignores nowrap on inline elements
         convertToPdfAndCompare("whiteSpaceNowrapSequentialTest03", sourceFolder, destinationFolder);
     }
 
     @Test
     public void whiteSpaceNowrapSequentialTest04() throws IOException, InterruptedException {
-        // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+        // TODO DEVSIX-4600 ignores nowrap on inline elements
         convertToPdfAndCompare("whiteSpaceNowrapSequentialTest04", sourceFolder, destinationFolder);
     }
 
     @Test
     public void whiteSpaceNowrapSequentialTest05() throws IOException, InterruptedException {
-        // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+        // TODO DEVSIX-4600 ignores nowrap on inline elements
         convertToPdfAndCompare("whiteSpaceNowrapSequentialTest05", sourceFolder, destinationFolder);
     }
 

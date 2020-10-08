@@ -22,25 +22,11 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssAhemFontTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-import java.io.IOException;
-import org.junit.Test;
-
-public class LineHeight128Test extends W3CCssAhemFontTest {
+public class LineHeight128Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "line-height-128.xht";
-    }
-
-    @Test
-    @Override
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = "Unable to process external css file")
-    })
-    public void test() throws IOException, InterruptedException {
-        super.test();
     }
 }

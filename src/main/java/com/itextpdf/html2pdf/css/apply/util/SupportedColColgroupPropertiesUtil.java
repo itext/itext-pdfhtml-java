@@ -64,13 +64,12 @@ public class SupportedColColgroupPropertiesUtil {
      * to &lt;col&gt; and then to &lt;td&gt; or &lt;th&gt;.
      */
     private static final Set<String> CELL_CSS_PROPERTIES = new HashSet<String>(Arrays.asList(
-            CssConstants.BACKGROUND_COLOR, CssConstants.BACKGROUND_IMAGE, CssConstants.BACKGROUND_POSITION,
-            CssConstants.BACKGROUND_SIZE, CssConstants.BACKGROUND_REPEAT, CssConstants.BACKGROUND_ORIGIN,
-            CssConstants.BACKGROUND_CLIP, CssConstants.BACKGROUND_ATTACHMENT));
+            CssConstants.BACKGROUND_COLOR, CssConstants.BACKGROUND_IMAGE, CssConstants.BACKGROUND_POSITION_X,
+            CssConstants.BACKGROUND_POSITION_Y, CssConstants.BACKGROUND_SIZE, CssConstants.BACKGROUND_REPEAT,
+            CssConstants.BACKGROUND_ORIGIN, CssConstants.BACKGROUND_CLIP, CssConstants.BACKGROUND_ATTACHMENT));
 
     /** These properties don't need to be transferred from &lt;colgroup&gt; to &lt;col&gt;. */
-    /*TODO Note: visibility doesn't work on "chrome" or "safari" and though it technically works on "firefox" and "edge" the results differ,
-      with "edge" surprisingly giving the closest result to expected one.
+    /*TODO DEVSIX-2090 visibility doesn't work on "chrome" or "safari" and it works on "firefox" but the results differ,
       The supported values are 'collapse' and 'visible'. The expected behaviour for 'collapse' is not to render those cols
       (the table layout should change ann the width should be diminished), and to clip cells that are spaned to none-collapsed one.
       The state of the content in clipped cells is not specified*/

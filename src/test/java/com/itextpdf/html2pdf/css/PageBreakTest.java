@@ -54,6 +54,7 @@ import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -74,6 +75,12 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
     @BeforeClass
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
+    }
+
+    @Test
+    @Ignore("DEVSIX-4521: test currently results in endless loop")
+    public void breakInsideAndBreakAfterTest() throws IOException, InterruptedException {
+        runTest("breakInsideAndBreakAfter");
     }
 
     @Test

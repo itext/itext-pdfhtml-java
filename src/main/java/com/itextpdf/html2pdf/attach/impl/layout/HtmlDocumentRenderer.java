@@ -60,7 +60,6 @@ import com.itextpdf.layout.layout.LayoutArea;
 import com.itextpdf.layout.layout.LayoutPosition;
 import com.itextpdf.layout.layout.LayoutResult;
 import com.itextpdf.layout.property.Background;
-import com.itextpdf.layout.property.BackgroundImage;
 import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.renderer.DocumentRenderer;
@@ -389,14 +388,18 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
 
     private int applyFirstBackground(PdfPage page, float[] defaultMargins, BodyHtmlStylesContainer[] styles) {
         int firstBackground = -1;
-        if (styles[0] != null && (styles[0].<Background>getOwnProperty(Property.BACKGROUND) != null || styles[0].<BackgroundImage>getOwnProperty(Property.BACKGROUND_IMAGE) != null))
+        if (styles[0] != null && (styles[0].<Background>getOwnProperty(Property.BACKGROUND) != null ||
+                styles[0].<Object>getOwnProperty(Property.BACKGROUND_IMAGE) != null)) {
             firstBackground = 0;
-        else if (styles[1] != null && (styles[1].<Background>getOwnProperty(Property.BACKGROUND) != null || styles[1].<BackgroundImage>getOwnProperty(Property.BACKGROUND_IMAGE) != null))
+        } else if (styles[1] != null && (styles[1].<Background>getOwnProperty(Property.BACKGROUND) != null ||
+                styles[1].<Object>getOwnProperty(Property.BACKGROUND_IMAGE) != null)) {
             firstBackground = 1;
+        }
         if (firstBackground != -1) {
             HashMap<Integer, Object> background = new HashMap<>();
             background.put(Property.BACKGROUND, styles[firstBackground].<Background>getProperty(Property.BACKGROUND));
-            background.put(Property.BACKGROUND_IMAGE, styles[firstBackground].<BackgroundImage>getProperty(Property.BACKGROUND_IMAGE));
+            background.put(Property.BACKGROUND_IMAGE,
+                    styles[firstBackground].<Object>getProperty(Property.BACKGROUND_IMAGE));
             drawSimulatedDiv(page, background, defaultMargins, true);
         }
         return firstBackground;

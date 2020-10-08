@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #shorthand {
+            background: url(green-100.png) content-box border-box;
+            border: black dotted 10px;
+            padding: 20px;
+            background-repeat: no-repeat;
+            height: 100px;
+        }
+        #test {
+            background: url(green-100.png);
+            background-origin: content-box;
+            background-clip: border-box;
+            border: black dotted 10px;
+            padding: 20px;
+            background-repeat: no-repeat;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="shorthand">
+    Here we have background with background-origin and background-clip properties
+</div>
+<div id="test">
+    Here we have background with background-origin and background-clip properties
+</div>
+</body>
+</html>

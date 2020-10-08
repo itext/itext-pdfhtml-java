@@ -504,6 +504,11 @@ public class FloatTest extends ExtendedITextTest {
         runTest("floatCaption01Test", "diff_floatCaption01Test_");
     }
 
+    @Test
+    public void plainTextIndentAfterBlockAndFloatTest() throws IOException, InterruptedException {
+        runTest("plainTextIndentAfterBlockAndFloat", "diff_plainTextIndentAfterBlockAndFloat_");
+    }
+
     private void runTest(String testName, String diff) throws IOException, InterruptedException {
         String htmlName = sourceFolder + testName + ".html";
         String outFileName = destinationFolder + testName + ".pdf";

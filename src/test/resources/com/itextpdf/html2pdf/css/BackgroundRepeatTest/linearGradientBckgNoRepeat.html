@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>background blend mode</title>
+	<style>
+		div {
+			background-color: green;
+		}
+	</style>
+</head>
+<body>
+<div style="
+	height: 220px;
+	width: 500px;
+	background-size: 50px 50px;
+	background-image: linear-gradient(to right, blue, purple, pink);
+	background-repeat: no-repeat;">
+</div>	
+<p>Two-value equivalent</p>
+<div style="
+	height: 220px;
+	width: 500px;
+	background-size: 50px 50px;
+	background-image: linear-gradient(to right, blue, purple, pink);
+	background-repeat: no-repeat no-repeat;"> 
+</div>
+</body>
+</html>

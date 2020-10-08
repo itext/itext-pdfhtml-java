@@ -68,6 +68,12 @@ public class ColColgroupTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-2090. This property with cols works only in firefox and only with collapse value.
+    public void simpleVisibilityTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("simpleVisibilityTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void simpleTdColspanTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("simpleTdColspanTest", sourceFolder, destinationFolder);
     }

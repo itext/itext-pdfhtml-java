@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>background-repeat and round and background-size</title>
+    <style>
+      div {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+  <p>Repeat&Round, size: 52px auto</p>
+  <div style="
+      background-color: red;
+      background-image: url(100x100-blue-and-orange.png);
+      background-repeat: repeat round;
+      background-size: 52px auto;
+      height: 180px;
+      width: 156px;">
+  </div>
+  <p>Round&Repeat, size: auto 52px</p>
+  <div style="
+      background-color: red;
+      background-image: url(100x100-blue-and-orange.png);
+      background-repeat: round repeat;
+      background-size: auto 52px;
+      height: 156px;
+      width: 180px;">
+  </div>
+
+  <p>Repeat&Round, size: 45px 72px</p>
+  <div style="
+      background-color: red;
+      background-image: url(100x100-blue-and-orange.png);
+      background-repeat: repeat round;
+      background-size: 45px 70px;
+      height: 180px;
+      width: 156px;">
+  </div>
+  <p>Round&Repeat, size: 72px 45px</p>
+  <div style="
+      background-color: red;
+      background-image: url(100x100-blue-and-orange.png);
+      background-repeat: round repeat;
+      background-size: 70px 45px;
+      height: 156px;
+      width: 180px;
+      margin-bottom: 10em;">
+  </div>
+
+  <p>Round&Round, size: 72px 45px</p>
+  <div style="
+      background-color: red;
+      background-image: url(100x100-blue-and-orange.png);
+      background-repeat: round round;
+      background-size: 45px 70px;
+      height: 180px;
+      width: 156px;">
+  </div>
+
+  <p>Round&Round, size: contain</p>
+  <div style="
+      background-color: red;
+      background-image: url(100x100-blue-and-orange.png);
+      background-repeat: round;
+      background-size: contain;
+      height: 70px;
+      width: 156px;">
+  </div>
+
+  <p>size: contain</p>
+  <div style="
+      background-color: red;
+      background-image: url(100x100-blue-and-orange.png);
+      background-size: contain;
+      height: 70px;
+      width: 156px;">
+  </div>
+  </body>
+</html>

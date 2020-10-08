@@ -44,17 +44,21 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.attach.wrapelement.SpanWrapper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
+import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +71,8 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
     /** The span wrapper. */
     SpanWrapper spanWrapper;
 
-    // TODO ideally, this should be refactored. For now, I don't see a beautiful way of passing this information to other workers.
+    // TODO DEVSIX-2445. Ideally, this should be refactored. For now, I don't see a beautiful way
+    //  of passing this information to other workers.
     // Also, we probably should wait a bit until the display support is more or less stable
     Map<IPropertyContainer, String> childrenDisplayMap = new HashMap<>();
 
@@ -81,7 +86,10 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
     private WaitingInlineElementsHelper inlineHelper;
 
     /** The display value. */
-    private String display;
+    private final String display;
+
+    /** The text-transform value. */
+    private final String textTransform;
 
     /**
      * Creates a new {@link SpanTagWorker} instance.
@@ -93,7 +101,8 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
         spanWrapper = new SpanWrapper();
         Map<String, String> styles = element.getStyles();
         inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE), styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM));
-        display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
+        display = styles == null ? null : styles.get(CssConstants.DISPLAY);
+        textTransform = styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM);
     }
 
     /* (non-Javadoc)
@@ -197,9 +206,28 @@ public class SpanTagWorker implements ITagWorker, IDisplayAware {
      * Flushes the waiting leaf elements.
      */
     private void flushInlineHelper() {
-        spanWrapper.addAll(inlineHelper.getWaitingLeaves());
-        ownLeafElements.addAll(inlineHelper.getWaitingLeaves());
+        Collection<IElement> waitingLeaves = inlineHelper.getWaitingLeaves();
+        setCapitalizeProperty(waitingLeaves);
+        spanWrapper.addAll(waitingLeaves);
+        ownLeafElements.addAll(waitingLeaves);
         inlineHelper.clearWaitingLeaves();
     }
 
+    /**
+     * Sets property that indicates whether the element should be capitalized, for {@link Text} elements only.
+     *
+     * @param elements elements to which properties will be added
+     */
+    private void setCapitalizeProperty(Collection<IElement> elements) {
+        for (IElement iElement : elements) {
+            if (iElement instanceof Text) {
+                if (!iElement.hasOwnProperty(Html2PdfProperty.CAPITALIZE_ELEMENT)
+                        && CssConstants.CAPITALIZE.equals(textTransform)) {
+                    iElement.setProperty(Html2PdfProperty.CAPITALIZE_ELEMENT, true);
+                } else {
+                    iElement.setProperty(Html2PdfProperty.CAPITALIZE_ELEMENT, false);
+                }
+            }
+        }
+    }
 }

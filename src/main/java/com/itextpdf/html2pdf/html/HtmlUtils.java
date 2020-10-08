@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.html;
 
+import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
@@ -60,10 +61,12 @@ public final class HtmlUtils {
      *
      * @param headChildElement the head child element
      * @return true, if the element node represents a style sheet link
+     * @deprecated Will be replaced by the
+     * {@link com.itextpdf.styledxmlparser.css.util.CssUtils#isStyleSheetLink(IElementNode)} in update 7.2.
      */
+    @Deprecated
     public static boolean isStyleSheetLink(IElementNode headChildElement) {
-        return TagConstants.LINK.equals(headChildElement.name())
-                && AttributeConstants.STYLESHEET.equals(headChildElement.getAttribute(AttributeConstants.REL));
+        return CssUtils.isStyleSheetLink(headChildElement);
     }
 
 }

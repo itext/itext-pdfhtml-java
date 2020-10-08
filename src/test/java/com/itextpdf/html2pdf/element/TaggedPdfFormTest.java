@@ -42,28 +42,23 @@
  */
 package com.itextpdf.html2pdf.element;
 
-
-import com.itextpdf.forms.PdfAcroForm;
-import com.itextpdf.html2pdf.ConverterProperties;
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfReader;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.kernel.PdfException;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
+
+import javax.xml.parsers.ParserConfigurationException;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.rules.ExpectedException;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import org.xml.sax.SAXException;
 
 @Category(IntegrationTest.class)
-public class TaggedPdfFormTest extends ExtendedITextTest {
-
+public class TaggedPdfFormTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/TaggedPdfFormTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/TaggedPdfFormTest/";
@@ -73,99 +68,90 @@ public class TaggedPdfFormTest extends ExtendedITextTest {
         createDestinationFolder(destinationFolder);
     }
 
+    @Rule
+    public ExpectedException junitExpectedException = ExpectedException.none();
+
     @Test
-    public void simpleTextFieldTagged() throws IOException, InterruptedException {
-        runTest("simpleTextFieldTagged");
+    public void simpleTextFieldTagged()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("simpleTextField", sourceFolder, destinationFolder, true);
     }
 
     @Test
-    public void simpleTextareaTagged() throws IOException, InterruptedException {
-        runTest("simpleTextareaTagged");
+    public void simpleTextareaTagged()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("simpleTextarea", sourceFolder, destinationFolder, true);
     }
 
     @Test
-    public void simpleButtonTagged() throws IOException, InterruptedException {
-        runTest("simpleButtonTagged");
+    public void simpleButtonTagged()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("simpleButton", sourceFolder, destinationFolder, true);
     }
 
     @Test
-    public void simpleLabelTagged() throws IOException, InterruptedException {
-        runTest("simpleLabelTagged");
+    public void simpleLabelTagged()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("simpleLabel", sourceFolder, destinationFolder, true);
     }
 
     @Test
-    public void simpleCheckboxTagged() throws IOException, InterruptedException {
-        runTest("simpleCheckboxTagged");
-    }
-
-    @Test
-    @Ignore("DEVSIX-1901")
-    public void simpleSelectTagged() throws IOException, InterruptedException {
-        runTest("simpleSelectTagged");
-    }
-
-    @Test
-    @Ignore("DEVSIX-1901")
-    public void listBoxSelectTagged() throws IOException, InterruptedException {
-        runTest("listBoxSelectTagged");
+    public void simpleCheckboxTagged()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("simpleCheckbox", sourceFolder, destinationFolder, true);
     }
 
     @Test
     @Ignore("DEVSIX-1901")
-    public void listBoxOptGroupSelectTagged() throws IOException, InterruptedException {
-        runTest("listBoxOptGroupSelectTagged");
+    public void simpleSelectTagged()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("simpleSelect", sourceFolder, destinationFolder, true);
     }
 
     @Test
     @Ignore("DEVSIX-1901")
-    public void simpleRadioFormTagged() throws IOException, InterruptedException {
-        runTest("simpleRadioFormTagged");
+    public void listBoxSelectTagged()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("listBoxSelect", sourceFolder, destinationFolder, true);
+    }
+
+    @Test
+    @Ignore("DEVSIX-1901")
+    public void listBoxOptGroupSelectTagged()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("listBoxOptGroupSelect", sourceFolder,
+                destinationFolder, true);
+    }
+
+    @Test
+    @Ignore("DEVSIX-1901")
+    public void simpleRadioFormTagged()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("simpleRadioForm", sourceFolder, destinationFolder, true);
     }
 
     @Test
     @Ignore("DEVSIX-980. DefaultHtmlProcessor ERROR No worker found for tag datalist")
-    public void datalistFormTagged() throws IOException, InterruptedException {
-        runTest("datalistFormTagged");
+    public void dataListFormTagged()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("dataListForm", sourceFolder, destinationFolder, true);
     }
 
     @Test
-    public void fieldsetFormTagged() throws IOException, InterruptedException {
-        runTest("fieldsetFormTagged");
+    public void fieldSetFormTagged()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        convertToPdfAcroformFlattenAndCompare("fieldSetForm", sourceFolder, destinationFolder, true);
     }
 
-    private void runTest(String name) throws IOException, InterruptedException {
-        String htmlPath = sourceFolder + name + ".html";
-        String outTaggedPdfPath = destinationFolder + name + ".pdf";
-        String outTaggedPdfPathAcro = destinationFolder + name + "_acro.pdf";
-        String outTaggedPdfPathFlatted = destinationFolder + name + "_acro_flatten.pdf";
-        String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-        String cmpPdfPathAcro = sourceFolder + "cmp_" + name + "_acro.pdf";
-        String cmpPdfPathAcroFlatten = sourceFolder + "cmp_" + name + "_acro_flatten.pdf";
-        String diff1 = "diff1_" + name;
-        String diff2 = "diff2_" + name;
-        String diff3 = "diff3_" + name;
+    @Test
+    // TODO DEVSIX-4601
+    // exception is thrown on "convert tagged PDF with acroform" stage
+    public void inputFormPrematureFlush()
+            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+        junitExpectedException.expect(PdfException.class);
+        junitExpectedException.expectMessage(PdfException.TagStructureFlushingFailedItMightBeCorrupted);
 
-        //convert tagged PDF without acroform (from html with form elements)
-        PdfWriter taggedWriter = new PdfWriter(outTaggedPdfPath);
-        PdfDocument pdfTagged = new PdfDocument(taggedWriter);
-        pdfTagged.setTagged();
-        HtmlConverter.convertToPdf(new FileInputStream(htmlPath), pdfTagged);
-
-        //convert tagged PDF with acroform
-        PdfWriter taggedWriterAcro = new PdfWriter(outTaggedPdfPathAcro);
-        PdfDocument pdfTaggedAcro = new PdfDocument(taggedWriterAcro);
-        pdfTaggedAcro.setTagged();
-        ConverterProperties converterPropertiesAcro = new ConverterProperties();
-        converterPropertiesAcro.setCreateAcroForm(true);
-        HtmlConverter.convertToPdf(new FileInputStream(htmlPath), pdfTaggedAcro, converterPropertiesAcro);
-
-        //flatted created tagged PDF with acroform
-        PdfDocument document = new PdfDocument(new PdfReader(outTaggedPdfPathAcro), new PdfWriter(outTaggedPdfPathFlatted));
-        PdfAcroForm.getAcroForm(document, false).flattenFields();
-        document.close();
-
-        Assert.assertNull(new CompareTool().compareByContent(outTaggedPdfPath, cmpPdfPath, destinationFolder, diff1));
-        Assert.assertNull(new CompareTool().compareByContent(outTaggedPdfPathAcro, cmpPdfPathAcro, destinationFolder, diff2));
-        Assert.assertNull(new CompareTool().compareByContent(outTaggedPdfPathFlatted, cmpPdfPathAcroFlatten, destinationFolder, diff3));
+        convertToPdfAcroformFlattenAndCompare("inputFormPrematureFlush",
+                sourceFolder, destinationFolder, true);
     }
 }

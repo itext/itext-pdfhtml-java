@@ -201,7 +201,7 @@ public class ProcessorContext {
             outlineHandler = new OutlineHandler();
         }
 
-        resourceResolver = new HtmlResourceResolver(baseUri, this);
+        resourceResolver = new HtmlResourceResolver(baseUri, this, converterProperties.getResourceRetriever());
 
         cssContext = new CssContext();
         linkContext = new LinkContext();

@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<style>
+		div {
+			width: 400px; 
+			font-size:50px; 
+			border: solid blue 2px; 
+			display: inline-block;
+			line-height: 2;
+		}
+	</style>
+</head>
+<body>
+<p>Span with red border has float: left, it's height should be the same as in Div with blue border</p>
+<p>Span with yellow border has no float</p>
+<p>Span with green border has float: left and line-height: 1.2</p>
+<div>
+  <span style="border: solid red 2px; float: left; width: 100;">Text1</span>
+  <span style="border: solid yellow 2px; width: 100;">Text2</span>
+  <span style="border: solid green 2px; float: left; line-height: 1.2; width: 100;">Text3</span>
+</div>
+</body>
+</html>
