@@ -61,9 +61,8 @@ public class CssOpacityTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    //TODO: DEVSIX-4679 invalid processing of opacity in kid elements
     public void innerOpacityTest() throws IOException, InterruptedException {
-        // TODO itext "overwrites" parent's opacity while in css, opacity kinda "merges"
-        //  i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
         convertToPdfAndCompare("innerOpacityTest", sourceFolder, destinationFolder);
     }
 
