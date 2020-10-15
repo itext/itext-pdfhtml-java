@@ -51,7 +51,6 @@ import com.itextpdf.html2pdf.exception.Html2PdfException;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.io.util.DecimalFormatUtil;
-import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
 import com.itextpdf.styledxmlparser.css.CssRuleSet;
@@ -77,7 +76,6 @@ import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.styledxmlparser.util.StyleUtil;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;

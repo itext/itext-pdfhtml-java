@@ -75,6 +75,7 @@ import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.Range;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.RenderingMode;
+import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.styledxmlparser.css.CssDeclaration;
 import com.itextpdf.styledxmlparser.css.font.CssFontFace;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
@@ -244,8 +245,19 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         visit(root);
         Document doc = (Document) roots.get(0);
         // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
-        if (context.getCssContext().isPagesCounterPresent() && doc.getRenderer() instanceof HtmlDocumentRenderer) {
-            doc.relayout();
+        if (doc.getRenderer() instanceof HtmlDocumentRenderer
+                && context.getCssContext().isPagesCounterPresent()) {
+            ((HtmlDocumentRenderer) doc.getRenderer()).processWaitingElement();
+            int counter = 0;
+            do {
+                ++counter;
+                doc.relayout();
+                ((HtmlDocumentRenderer) doc.getRenderer()).processWaitingElement();
+                if (counter >= context.getLimitOfLayouts()) {
+                    logger.warn(MessageFormatUtil.format(LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS));
+                    break;
+                }
+            } while (((DocumentRenderer) doc.getRenderer()).isRelayoutRequired());
         }
         cssResolver = null;
         roots = null;

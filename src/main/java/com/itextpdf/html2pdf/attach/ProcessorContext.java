@@ -161,6 +161,13 @@ public class ProcessorContext {
     private boolean processingInlineSvg;
 
     /**
+     * Indicates whether the document shall process target-counter or not.
+     */
+    private final boolean targetCounterEnabled;
+
+    private final int limitOfLayouts;
+
+    /**
      * Instantiates a new {@link ProcessorContext} instance.
      *
      * @param converterProperties a {@link ConverterProperties} instance
@@ -203,7 +210,9 @@ public class ProcessorContext {
 
         resourceResolver = new HtmlResourceResolver(baseUri, this, converterProperties.getResourceRetriever());
 
-        cssContext = new CssContext();
+        targetCounterEnabled = converterProperties.isTargetCounterEnabled();
+        limitOfLayouts = converterProperties.getLimitOfLayouts();
+        cssContext = new CssContext().setTargetCounterEnabled(targetCounterEnabled);
         linkContext = new LinkContext();
 
         createAcroForm = converterProperties.isCreateAcroForm();
@@ -212,6 +221,15 @@ public class ProcessorContext {
         immediateFlush = converterProperties.isImmediateFlush();
         metaInfo = converterProperties.getEventCountingMetaInfo();
         processingInlineSvg = false;
+    }
+
+    /**
+     * Gets maximum number of layouts.
+     *
+     * @return layouts limit
+     */
+    public int getLimitOfLayouts() {
+        return limitOfLayouts;
     }
 
     /**
@@ -230,6 +248,15 @@ public class ProcessorContext {
      */
     public State getState() {
         return state;
+    }
+
+    /**
+     * Checks if target-counter is enabled.
+     *
+     * @return true if target-counter shall be processed, false otherwise
+     */
+    public boolean isTargetCounterEnabled() {
+        return targetCounterEnabled;
     }
 
     /**
@@ -411,7 +438,7 @@ public class ProcessorContext {
         this.pdfDocument = null;
         this.state = new State();
         this.resourceResolver.resetCache();
-        this.cssContext = new CssContext();
+        this.cssContext = new CssContext().setTargetCounterEnabled(isTargetCounterEnabled());
         this.linkContext = new LinkContext();
         this.formFieldNameResolver.reset();
         //Reset font provider. PdfFonts shall be reseted.

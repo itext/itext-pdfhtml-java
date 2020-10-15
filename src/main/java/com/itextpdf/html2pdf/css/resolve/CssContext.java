@@ -61,11 +61,16 @@ public class CssContext extends AbstractCssContext {
     /** The counter manager. */
     private CssCounterManager counterManager = new CssCounterManager();
 
-    /** Indicates if a pages counter is present. */
-    private boolean pagesCounterPresent = false;
+    /** Indicates if a pages counter or target-counter is present. */
+    private boolean pagesCounterOrTargetCounterPresent = false;
 
     /** The running elements manager. */
     private CssRunningManager runningManager = new CssRunningManager();
+
+    /**
+     * Indicates whether the document shall process target-counter or not.
+     */
+    private boolean targetCounterEnabled = false;
 
     /**
      * Gets the root font size.
@@ -74,6 +79,26 @@ public class CssContext extends AbstractCssContext {
      */
     public float getRootFontSize() {
         return rootFontSize;
+    }
+
+    /**
+     * Sets the targetCounterEnabled flag.
+     *
+     * @param targetCounterEnabled true if target-counter shall be processed, false otherwise
+     * @return the {@link CssContext} instance
+     */
+    public CssContext setTargetCounterEnabled(boolean targetCounterEnabled) {
+        this.targetCounterEnabled = targetCounterEnabled;
+        return this;
+    }
+
+    /**
+     * Checks if target-counter is enabled.
+     *
+     * @return true if target-counter shall be processed, false otherwise
+     */
+    public boolean isTargetCounterEnabled() {
+        return targetCounterEnabled;
     }
 
     /**
@@ -104,21 +129,21 @@ public class CssContext extends AbstractCssContext {
     }
 
     /**
-     * Sets the presence of a page counter.
+     * Sets the presence of a page counter or target counter.
      *
-     * @param pagesCounterPresent the new pages counter present
+     * @param pagesCounterOrTargetCounterPresent the new pages counter or target-counter present
      */
-    public void setPagesCounterPresent(boolean pagesCounterPresent) {
-        this.pagesCounterPresent = pagesCounterPresent;
+    public void setPagesCounterPresent(boolean pagesCounterOrTargetCounterPresent) {
+        this.pagesCounterOrTargetCounterPresent = pagesCounterOrTargetCounterPresent;
     }
 
     /**
-     * Checks if a pages counter is present.
+     * Checks if a pages counter or target is present.
      *
-     * @return true, if is pages counter present
+     * @return true, if pages counter or target-counter present
      */
     public boolean isPagesCounterPresent() {
-        return pagesCounterPresent;
+        return pagesCounterOrTargetCounterPresent;
     }
 
     public CssRunningManager getRunningManager() {

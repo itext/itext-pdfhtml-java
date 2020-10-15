@@ -68,6 +68,8 @@ import org.slf4j.LoggerFactory;
  */
 public class LinkHelper {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(LinkHelper.class);
+
     /**
      * Creates a new {@link LinkHelper} class.
      */
@@ -109,29 +111,33 @@ public class LinkHelper {
         if (id == null)
             return;
 
-        if (!context.getLinkContext().isUsedLinkDestination(id)) {
-            return;
-        }
+        final IPropertyContainer propertyContainer = getPropertyContainer(tagWorker);
 
-        IPropertyContainer propertyContainer = null;
+        if (context.getLinkContext().isUsedLinkDestination(id)) {
+            if (propertyContainer == null) {
+                String tagWorkerClassName = tagWorker != null ? tagWorker.getClass().getName() : "null";
+                LOGGER.warn(MessageFormatUtil.format(
+                        LogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.name(), id, tagWorkerClassName));
+                return;
+            }
+            propertyContainer.setProperty(Property.DESTINATION, id);
+        }
+        if (propertyContainer != null) {
+            propertyContainer.setProperty(Property.ID, id);
+        }
+    }
+
+    private static IPropertyContainer getPropertyContainer(ITagWorker tagWorker) {
         if (tagWorker != null) {
             if (tagWorker instanceof SpanTagWorker) {
                 List<IPropertyContainer> spanElements = ((SpanTagWorker) tagWorker).getAllElements();
                 if (!spanElements.isEmpty()) {
-                    propertyContainer = spanElements.get(0);
+                    return spanElements.get(0);
                 }
             } else {
-                propertyContainer = tagWorker.getElementResult();
+                return tagWorker.getElementResult();
             }
         }
-
-        if (propertyContainer == null) {
-            Logger logger = LoggerFactory.getLogger(LinkHelper.class);
-            String tagWorkerClassName = tagWorker != null ? tagWorker.getClass().getName() : "null";
-            logger.warn(MessageFormatUtil.format(LogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.name(), id, tagWorkerClassName));
-            return;
-        }
-
-        propertyContainer.setProperty(Property.DESTINATION, id);
+        return null;
     }
 }

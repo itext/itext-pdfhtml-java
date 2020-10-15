@@ -100,6 +100,11 @@ public class CssStyleSheetAnalyzer {
                         String paramsStr = token.getValue().substring(CssConstants.COUNTER.length() + 1, token.getValue().length() - 1);
                         String[] params = paramsStr.split(",");
                         pagesCounterPresent = pagesCounterPresent || checkCounterFunctionParamsForPagesReferencePresence(params);
+                    } else if (token.getValue().startsWith(CssConstants.TARGET_COUNTER + "(")) {
+                        final String paramsStr = token.getValue()
+                                .substring(CssConstants.TARGET_COUNTER.length() + 1, token.getValue().length() - 1);
+                        final String[] params = paramsStr.split(",");
+                        pagesCounterPresent = pagesCounterPresent || params.length > 0;
                     }
                 }
             }

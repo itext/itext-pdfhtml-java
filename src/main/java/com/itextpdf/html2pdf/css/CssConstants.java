@@ -288,6 +288,12 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant RUNNING. */
     public static final String RUNNING = "running";
 
+    /** The Constant TARGET_COUNTER. */
+    public static final String TARGET_COUNTER = "target-counter";
+
+    /** The Constant TARGET_COUNTERS. */
+    public static final String TARGET_COUNTERS = "target-counters";
+
     // units of resolution
 
     /** The Constant DPI. */

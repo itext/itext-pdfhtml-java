@@ -63,6 +63,7 @@ import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.ParagraphRenderer;
+import com.itextpdf.layout.renderer.TargetCounterHandler;
 import com.itextpdf.styledxmlparser.css.ICssResolver;
 import com.itextpdf.styledxmlparser.css.page.PageContextConstants;
 import com.itextpdf.styledxmlparser.node.INode;
@@ -222,6 +223,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         relayoutRenderer.rightPageProc = rightPageProc.reset(defaultPageSize, defaultPageMargins);
         relayoutRenderer.estimatedNumberOfPages = currentPageNumber - simulateTrimLastPage();
         relayoutRenderer.marginBoxesHandler = marginBoxesHandler.setHtmlDocumentRenderer(relayoutRenderer);
+        relayoutRenderer.targetCounterHandler = new TargetCounterHandler(targetCounterHandler);
         return relayoutRenderer;
     }
 
@@ -229,6 +231,17 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     public void flush(){
         processWaitingElement();
         super.flush();
+    }
+
+    /**
+     * Layouts waiting element.
+     */
+    public void processWaitingElement(){
+        if (waitingElement != null) {
+            IRenderer r = this.waitingElement;
+            waitingElement = null;
+            super.addChild(r);
+        }
     }
 
     /* (non-Javadoc)
@@ -338,14 +351,6 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         setProperty(Property.MARGIN_LEFT, margins[3]);
 
         return new PageSize(addedPage.getTrimBox());
-    }
-
-    void processWaitingElement(){
-        if (waitingElement != null) {
-            IRenderer r = this.waitingElement;
-            waitingElement = null;
-            super.addChild(r);
-        }
     }
 
     boolean shouldAttemptTrimLastPage() {
