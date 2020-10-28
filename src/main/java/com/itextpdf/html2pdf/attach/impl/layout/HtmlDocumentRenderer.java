@@ -208,6 +208,15 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         }
     }
 
+    /**
+     * Removes event handlers that were added to pdf document when this {@link HtmlDocumentRenderer} was created.
+     */
+    void removeEventHandlers() {
+        document.getPdfDocument().removeEventHandler(PdfDocumentEvent.END_PAGE, htmlBodyHandler);
+        // This handler is added in processPageRules method.
+        document.getPdfDocument().removeEventHandler(PdfDocumentEvent.END_PAGE, marginBoxesHandler);
+    }
+
     /* (non-Javadoc)
      * @see com.itextpdf.layout.renderer.DocumentRenderer#getNextRenderer()
      */

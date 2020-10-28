@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            counter-reset: section;
+        }
+        .x::before {
+            counter-increment: section;
+            content: "Section " counter(section) ": ";
+        }
+        .p::after {
+            content: target-counter(url('#id1'), section) " " target-counter(url('#id1'), section, decimal-leading-zero) " " target-counter(url('#id1'), section, upper-roman) " "
+            target-counter(url('#id1'), section, upper-latin) " " target-counter(url('#id1'), section, lower-alpha) " " target-counter(url('#id1'), section, lower-greek) " "
+            target-counter(url('#id1'), section, disc) " " target-counter(url('#id1'), section, circle) " " target-counter(url('#id1'), section, square);
+        }
+    </style>
+</head>
+<body>
+
+<p class="p">Target counters unusual styles: </p>
+<div class="a">
+    <div class="x">x</div>
+    <div class="x">x</div>
+    <div class="x">x</div>
+    <div class="x">x</div>
+    <div class="x">x</div>
+    <div class="x">x</div>
+    <div class="x" id="id1">x</div>
+    <div class="x">x</div>
+</div>
+</body>
+</html>

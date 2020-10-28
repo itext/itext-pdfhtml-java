@@ -57,6 +57,7 @@ import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.styledxmlparser.css.resolve.CssQuotes;
 import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.EscapeGroup;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
@@ -76,10 +77,15 @@ import java.util.Map;
  */
 class CssContentPropertyResolver {
 
-    /**
-     * The logger.
-     */
-    private static final Logger logger = LoggerFactory.getLogger(CssContentPropertyResolver.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CssContentPropertyResolver.class);
+
+    private static final EscapeGroup[] ALLOWED_ESCAPE_CHARACTERS = {
+            new EscapeGroup('\''), new EscapeGroup('\"'),
+    };
+    private static final int COUNTERS_MIN_PARAMS_SIZE = 2;
+    private static final int COUNTER_MIN_PARAMS_SIZE = 1;
+    private static final int TARGET_COUNTERS_MIN_PARAMS_SIZE = 3;
+    private static final int TARGET_COUNTER_MIN_PARAMS_SIZE = 2;
 
     /**
      * Resolves content.
@@ -105,15 +111,16 @@ class CssContentPropertyResolver {
             }
             if (token.getValue().startsWith(CssConstants.COUNTERS + "(")) {
                 String paramsStr = token.getValue().substring(CssConstants.COUNTERS.length() + 1, token.getValue().length() - 1);
-                String[] params = paramsStr.split(",");
-                if (params.length == 0) {
+                final List<String> params = CssUtils.splitString(paramsStr, ',', ALLOWED_ESCAPE_CHARACTERS);
+                if (params.size() < COUNTERS_MIN_PARAMS_SIZE) {
                     return errorFallback(contentStr);
                 }
                 // Counters are denoted by case-sensitive identifiers
-                String counterName = params[0].trim();
-                String counterSeparationStr = params[1].trim();
+                String counterName = params.get(0).trim();
+                String counterSeparationStr = params.get(1).trim();
                 counterSeparationStr = counterSeparationStr.substring(1, counterSeparationStr.length() - 1);
-                String listStyleType = params.length > 2 ? params[2].trim() : null;
+                final String listStyleType =
+                        params.size() > COUNTERS_MIN_PARAMS_SIZE ? params.get(COUNTERS_MIN_PARAMS_SIZE).trim() : null;
                 CssCounterManager counterManager = context.getCounterManager();
                 INode scope = contentContainer;
                 if (CssConstants.PAGE.equals(counterName)) {
@@ -121,22 +128,21 @@ class CssContentPropertyResolver {
                 } else if (CssConstants.PAGES.equals(counterName)) {
                     result.add(new PageCountElementNode(true, contentContainer));
                 } else {
-                    String resolvedCounter = counterManager.resolveCounters(counterName, counterSeparationStr, listStyleType, scope);
-                    if (resolvedCounter == null) {
-                        logger.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName));
-                    } else {
-                        result.add(new ContentTextNode(scope, resolvedCounter));
-                    }
+                    final String resolvedCounter =
+                            counterManager.resolveCounters(counterName, counterSeparationStr, listStyleType);
+                    result.add(new ContentTextNode(scope, resolvedCounter));
                 }
             } else if (token.getValue().startsWith(CssConstants.COUNTER + "(")) {
-                String paramsStr = token.getValue().substring(CssConstants.COUNTER.length() + 1, token.getValue().length() - 1);
-                String[] params = paramsStr.split(",");
-                if (params.length == 0) {
+                final String paramsStr = token.getValue()
+                        .substring(CssConstants.COUNTER.length() + 1, token.getValue().length() - 1);
+                final List<String> params = CssUtils.splitString(paramsStr, ',', ALLOWED_ESCAPE_CHARACTERS);
+                if (params.size() < COUNTER_MIN_PARAMS_SIZE) {
                     return errorFallback(contentStr);
                 }
                 // Counters are denoted by case-sensitive identifiers
-                String counterName = params[0].trim();
-                String listStyleType = params.length > 1 ? params[1].trim() : null;
+                String counterName = params.get(0).trim();
+                final String listStyleType =
+                        params.size() > COUNTER_MIN_PARAMS_SIZE ? params.get(COUNTER_MIN_PARAMS_SIZE).trim() : null;
                 CssCounterManager counterManager = context.getCounterManager();
                 INode scope = contentContainer;
                 if (CssConstants.PAGE.equals(counterName)) {
@@ -144,27 +150,61 @@ class CssContentPropertyResolver {
                 } else if (CssConstants.PAGES.equals(counterName)) {
                     result.add(new PageCountElementNode(true, contentContainer));
                 } else {
-                    String resolvedCounter = counterManager.resolveCounter(counterName, listStyleType, scope);
-                    if (resolvedCounter == null) {
-                        logger.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName));
-                    } else {
-                        result.add(new ContentTextNode(scope, resolvedCounter));
-                    }
+                    final String resolvedCounter = counterManager.resolveCounter(counterName, listStyleType);
+                    result.add(new ContentTextNode(scope, resolvedCounter));
                 }
             } else if (token.getValue().startsWith(CssConstants.TARGET_COUNTER + "(")) {
                 if (!context.isTargetCounterEnabled()) {
                     return errorFallback(contentStr);
                 }
-                final String paramsStr = token.getValue()
+                String paramsStr = token.getValue()
                         .substring(CssConstants.TARGET_COUNTER.length() + 1, token.getValue().length() - 1);
-                final String[] params = paramsStr.split(",");
-                if (params.length == 0) {
+                List<String> params = CssUtils.splitString(paramsStr, ',', ALLOWED_ESCAPE_CHARACTERS);
+                if (params.size() < TARGET_COUNTER_MIN_PARAMS_SIZE) {
                     return errorFallback(contentStr);
                 }
-                final String counterName = params[1].trim();
-                final String target = CssUtils.extractUrl(params[0]);
+                final String target = CssUtils.extractUrl(params.get(0));
+                final String counterName = params.get(1).trim();
+                final String listStyleType = params.size() > TARGET_COUNTER_MIN_PARAMS_SIZE ?
+                        params.get(TARGET_COUNTER_MIN_PARAMS_SIZE).trim() : null;
                 if (CssConstants.PAGE.equals(counterName)) {
                     result.add(new PageTargetCountElementNode(contentContainer, target));
+                } else if (CssConstants.PAGES.equals(counterName)) {
+                    // TODO DEVSIX-4692 pages support.
+                    return errorFallback(contentStr);
+                } else {
+                    final String counter = context.getCounterManager().resolveTargetCounter
+                            (target.replace("'", "").replace("#", ""), counterName, listStyleType);
+                    final ContentTextNode node = new ContentTextNode(contentContainer, counter == null ? "0" : counter);
+                    result.add(node);
+                }
+            } else if (token.getValue().startsWith(CssConstants.TARGET_COUNTERS + "(")) {
+                if (!context.isTargetCounterEnabled()) {
+                    return errorFallback(contentStr);
+                }
+                final String paramsStr = token.getValue()
+                        .substring(CssConstants.TARGET_COUNTERS.length() + 1, token.getValue().length() - 1);
+                final List<String> params = CssUtils.splitString(paramsStr, ',', ALLOWED_ESCAPE_CHARACTERS);
+                if (params.size() < TARGET_COUNTERS_MIN_PARAMS_SIZE) {
+                    return errorFallback(contentStr);
+                }
+                final String target = CssUtils.extractUrl(params.get(0));
+                final String counterName = params.get(1).trim();
+                String counterSeparator = params.get(2).trim();
+                counterSeparator = counterSeparator.substring(1, counterSeparator.length() - 1);
+                final String listStyleType = params.size() > TARGET_COUNTERS_MIN_PARAMS_SIZE ?
+                        params.get(TARGET_COUNTERS_MIN_PARAMS_SIZE).trim() : null;
+                if (CssConstants.PAGE.equals(counterName)) {
+                    result.add(new PageTargetCountElementNode(contentContainer, target));
+                } else if (CssConstants.PAGES.equals(counterName)) {
+                    // TODO DEVSIX-4692 pages support.
+                    return errorFallback(contentStr);
+                } else {
+                    final String counters = context.getCounterManager().resolveTargetCounters
+                            (target.replace(",", "").replace("#", ""), counterName, counterSeparator, listStyleType);
+                    final ContentTextNode node =
+                            new ContentTextNode(contentContainer, counters == null ? "0" : counters);
+                    result.add(node);
                 }
             } else if (token.getValue().startsWith("url(")) {
                 Map<String, String> attributes = new HashMap<>();
@@ -226,14 +266,12 @@ class CssContentPropertyResolver {
      * @return the resulting list of {@link INode} instances
      */
     private static List<INode> errorFallback(String contentStr) {
-        Logger logger = LoggerFactory.getLogger(CssContentPropertyResolver.class);
-
         int logMessageParameterMaxLength = 100;
         if (contentStr.length() > logMessageParameterMaxLength) {
             contentStr = contentStr.substring(0, logMessageParameterMaxLength) + ".....";
         }
 
-        logger.error(MessageFormatUtil.format(LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
+        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
         return null;
     }
 

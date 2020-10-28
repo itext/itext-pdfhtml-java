@@ -60,8 +60,11 @@ public class CssContext extends AbstractCssContext {
     /** The counter manager. */
     private CssCounterManager counterManager = new CssCounterManager();
 
-    /** Indicates if a pages counter or target-counter is present. */
+    /** Indicates if a pages counter or page(s) target-counter is present. */
     private boolean pagesCounterOrTargetCounterPresent = false;
+
+    /** Indicates if a non-page(s) target-counter(s) is present. */
+    private boolean nonPagesTargetCounterPresent = false;
 
     /** The running elements manager. */
     private CssRunningManager runningManager = new CssRunningManager();
@@ -128,21 +131,39 @@ public class CssContext extends AbstractCssContext {
     }
 
     /**
-     * Sets the presence of a page counter or target counter.
+     * Sets the presence of a pages counter or page(s) target counter.
      *
-     * @param pagesCounterOrTargetCounterPresent the new pages counter or target-counter present
+     * @param pagesCounterOrTargetCounterPresent the new pages counter or page(s) target-counter present
      */
     public void setPagesCounterPresent(boolean pagesCounterOrTargetCounterPresent) {
         this.pagesCounterOrTargetCounterPresent = pagesCounterOrTargetCounterPresent;
     }
 
     /**
-     * Checks if a pages counter or target is present.
+     * Checks if a pages counter or page(s) target-counter is present.
      *
-     * @return true, if pages counter or target-counter present
+     * @return true, if pages counter or page(s) target-counter present
      */
     public boolean isPagesCounterPresent() {
         return pagesCounterOrTargetCounterPresent;
+    }
+
+    /**
+     * Sets the presence of a non-page(s) target-counter(s).
+     *
+     * @param nonPagesTargetCounterPresent the new non-page(s) target-counter(s) present
+     */
+    public void setNonPagesTargetCounterPresent(boolean nonPagesTargetCounterPresent) {
+        this.nonPagesTargetCounterPresent = nonPagesTargetCounterPresent;
+    }
+
+    /**
+     * Checks if a non-page(s) target-counter(s) is present.
+     *
+     * @return true, if non-page(s) target-counter(s) present
+     */
+    public boolean isNonPagesTargetCounterPresent() {
+        return nonPagesTargetCounterPresent;
     }
 
     public CssRunningManager getRunningManager() {

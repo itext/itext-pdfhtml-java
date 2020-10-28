@@ -55,7 +55,6 @@ public class CssContentPropertyResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO DEVSIX-2995 This code should be correctly parsed.
     public void resolveContentTargetCounterNotPageTest() {
         Map<String, String> styles = new HashMap<>();
         styles.put(CssConstants.CONTENT, "target-counter(url('#some_target'), some_counter)");
@@ -63,17 +62,70 @@ public class CssContentPropertyResolverTest extends ExtendedITextTest {
         context.setTargetCounterEnabled(true);
         List<INode> result = CssContentPropertyResolver.resolveContent(styles, null, context);
         Assert.assertNotNull(result);
-        Assert.assertEquals(0, result.size());
+        Assert.assertEquals(1, result.size());
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID))
-    public void resolveContentTargetCounterDisabledTest() {
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 2))
+    public void resolveContentTargetCountersDisabledTest() {
         Map<String, String> styles = new HashMap<>();
         styles.put(CssConstants.CONTENT, "target-counter(url('#some_target'), some_counter)");
         CssContext context = new CssContext();
         context.setTargetCounterEnabled(false);
         List<INode> result = CssContentPropertyResolver.resolveContent(styles, null, context);
         Assert.assertNull(result);
+
+        styles.put(CssConstants.CONTENT, "target-counter(url('#some_target'), some_counter, 'a')");
+        result = CssContentPropertyResolver.resolveContent(styles, null, context);
+        Assert.assertNull(result);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 4))
+    public void resolveContentInvalidParamsTest() {
+        Map<String, String> styles = new HashMap<>();
+        styles.put(CssConstants.CONTENT, "target-counter(url('#some_target'))");
+        CssContext context = new CssContext();
+        context.setTargetCounterEnabled(true);
+        List<INode> result = CssContentPropertyResolver.resolveContent(styles, null, context);
+        Assert.assertNull(result);
+
+        styles.put(CssConstants.CONTENT, "target-counters(url('#some_target'), some_counter)");
+        result = CssContentPropertyResolver.resolveContent(styles, null, context);
+        Assert.assertNull(result);
+
+        styles.put(CssConstants.CONTENT, "counter()");
+        result = CssContentPropertyResolver.resolveContent(styles, null, context);
+        Assert.assertNull(result);
+
+        styles.put(CssConstants.CONTENT, "counters(some_counter)");
+        result = CssContentPropertyResolver.resolveContent(styles, null, context);
+        Assert.assertNull(result);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 2))
+    public void resolveContentPagesTargetCountersTest() {
+        Map<String, String> styles = new HashMap<>();
+        styles.put(CssConstants.CONTENT, "target-counter(url('#some_target'), pages)");
+        CssContext context = new CssContext();
+        context.setTargetCounterEnabled(true);
+        List<INode> result = CssContentPropertyResolver.resolveContent(styles, null, context);
+        Assert.assertNull(result);
+
+        styles.put(CssConstants.CONTENT, "target-counters(url('#some_target'), pages, '.')");
+        result = CssContentPropertyResolver.resolveContent(styles, null, context);
+        Assert.assertNull(result);
+    }
+
+    @Test
+    public void resolveContentCounterNotPageTest() {
+        Map<String, String> styles = new HashMap<>();
+        styles.put(CssConstants.CONTENT, "counter(some_counter)");
+        CssContext context = new CssContext();
+        context.setTargetCounterEnabled(true);
+        List<INode> result = CssContentPropertyResolver.resolveContent(styles, null, context);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(1, result.size());
     }
 }

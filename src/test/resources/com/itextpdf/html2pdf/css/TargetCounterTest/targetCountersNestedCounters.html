@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .x::before {
+            counter-increment: section;
+            content: "Counter " counters(section, '.') ": ";
+        }
+        .p::before {
+            content: "Target counters " target-counters(url('#id0'), section, '.') " " target-counters(url('#id1'), section, '.') " "
+            target-counters(url('#id2'), section, '.') " " target-counters(url('#id3'), section, '.') ": ";
+        }
+        .y {
+            counter-reset: section;
+        }
+        .counter_before_increment_or_reset:before {
+            content: "counter: " counter(section) ". target-counter: " target-counter(url("#id_before"), section);
+        }
+    </style>
+</head>
+<body>
+
+<p class="p">p</p>
+<div class="counter_before_increment_or_reset" id="id_before"></div>
+<div class="y">reset</div>
+<div class="x">level 0</div>
+<div class="x">level 0</div>
+<div class="x" id="id0">target level 0</div>
+<div>
+    <div class="y">reset</div>
+    <div class="x" id="id1">target level 1</div>
+    <div class="x">level 1</div>
+    <div class="x">
+        container
+        <div class="y">reset</div>
+        <div class="x">level 2</div>
+        <div class="x">level 2</div>
+        <div class="x" id="id2">target level 2</div>
+        <div>
+            <div class="y">reset</div>
+            <div class="x">level 3</div>
+            <div class="x" id="id3">target level 3</div>
+        </div>
+        <div class="x">level 2</div>
+    </div>
+    <div class="x">level 1</div>
+</div>
+<div class="x">level 0</div>
+</body>
+</html>

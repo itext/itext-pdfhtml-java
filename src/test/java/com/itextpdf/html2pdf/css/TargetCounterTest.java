@@ -84,6 +84,49 @@ public class TargetCounterTest extends ExtendedHtmlConversionITextTest {
         convertToPdfWithTargetCounterEnabledAndCompare("targetCounterNotExistingTarget");
     }
 
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
+    public void pageTargetCounterTestWithLogMessageTest() throws IOException, InterruptedException {
+        convertToPdfWithTargetCounterEnabledAndCompare("pageTargetCounterTestWithLogMessage");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+    // There should be only one log message here, but we have two because we resolve css styles twice.
+    public void nonPageTargetCounterTestWithLogMessageTest() throws IOException, InterruptedException {
+        convertToPdfWithTargetCounterEnabledAndCompare("nonPageTargetCounterTestWithLogMessage");
+    }
+
+    @Test
+    public void targetCounterSeveralCountersTest() throws IOException, InterruptedException {
+        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterSeveralCounters");
+    }
+
+    @Test
+    public void targetCounterIDNotExistTest() throws IOException, InterruptedException {
+        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterIDNotExist");
+    }
+
+    @Test
+    public void targetCounterNotCounterElementTest() throws IOException, InterruptedException {
+        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterNotCounterElement");
+    }
+
+    @Test
+    public void targetCounterNestedCountersTest() throws IOException, InterruptedException {
+        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterNestedCounters");
+    }
+
+    @Test
+    public void targetCounterUnusualStylesTest() throws IOException, InterruptedException {
+        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterUnusualStyles");
+    }
+
+    @Test
+    public void targetCountersNestedCountersTest() throws IOException, InterruptedException {
+        convertToPdfWithTargetCounterEnabledAndCompare("targetCountersNestedCounters");
+    }
+
     private void convertToPdfWithTargetCounterEnabledAndCompare(String name) throws IOException, InterruptedException {
         String sourceHtml = sourceFolder + name + ".html";
         String cmpPdf = sourceFolder + "cmp_" + name + ".pdf";

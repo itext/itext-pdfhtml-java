@@ -55,6 +55,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.RunningElementTagWorker;
 import com.itextpdf.html2pdf.attach.util.LinkHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
 import com.itextpdf.html2pdf.css.apply.util.PageBreakApplierUtil;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.events.PdfHtmlEvent;
@@ -242,6 +243,10 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         addFontFaceFonts();
         root = findHtmlNode(root);
 
+        if (context.getCssContext().isNonPagesTargetCounterPresent()) {
+            visitToProcessCounters(root);
+            context.getCssContext().getCounterManager().clearManager();
+        }
         visit(root);
         Document doc = (Document) roots.get(0);
         // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
@@ -263,6 +268,29 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         roots = null;
         EventCounterHandler.getInstance().onEvent(PdfHtmlEvent.CONVERT, context.getEventCountingMetaInfo(), getClass());
         return doc;
+    }
+
+    /**
+     * Recursively processes a node to preprocess target-counters.
+     *
+     * @param node the node
+     */
+    private void visitToProcessCounters(INode node) {
+        if (node instanceof IElementNode) {
+            final IElementNode element = (IElementNode) node;
+            if (cssResolver instanceof DefaultCssResolver) {
+                ((DefaultCssResolver) cssResolver).resolveContentAndCountersStyles(node, context.getCssContext());
+            }
+            CounterProcessorUtil.startProcessingCounters(context.getCssContext(), element);
+            visitToProcessCounters(createPseudoElement(element, null, CssConstants.BEFORE));
+            for (final INode childNode : element.childNodes()) {
+                if (!context.isProcessingInlineSvg()) {
+                    visitToProcessCounters(childNode);
+                }
+            }
+            visitToProcessCounters(createPseudoElement(element, null, CssConstants.AFTER));
+            CounterProcessorUtil.endProcessingCounters(context.getCssContext(), element);
+        }
     }
 
     /**
@@ -296,14 +324,16 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
             context.getOutlineHandler().addOutlineAndDestToDocument(tagWorker, element, context);
 
-            visitPseudoElement(element, tagWorker, CssConstants.BEFORE);
-            visitPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER);
+            CounterProcessorUtil.startProcessingCounters(context.getCssContext(), element);
+            visit(createPseudoElement(element, tagWorker, CssConstants.BEFORE));
+            visit(createPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER));
             for (INode childNode : element.childNodes()) {
                 if (!context.isProcessingInlineSvg()) {
                     visit(childNode);
                 }
             }
-            visitPseudoElement(element, tagWorker, CssConstants.AFTER);
+            visit(createPseudoElement(element, tagWorker, CssConstants.AFTER));
+            CounterProcessorUtil.endProcessingCounters(context.getCssContext(), element);
 
             if (tagWorker != null) {
                 tagWorker.processEnd(element, context);
@@ -311,8 +341,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 context.getOutlineHandler().setDestinationToElement(tagWorker, element);
                 context.getState().pop();
 
-                if (!TagConstants.BODY.equals(element.name()) && !TagConstants.HTML.equals(element.name()))
+                if (!TagConstants.BODY.equals(element.name()) && !TagConstants.HTML.equals(element.name())) {
                     runApplier(element, tagWorker);
+                }
                 if (!context.getState().empty()) {
                     PageBreakApplierUtil.addPageBreakElementBefore(context, context.getState().top(), element, tagWorker);
                     tagWorker = processRunningElement(tagWorker, element, context);
@@ -457,17 +488,20 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     }
 
     /**
-     * Processes a pseudo element (before and after CSS).
+     * Creates a pseudo element (before and after CSS).
      *
      * @param node              the node
+     * @param tagWorker         the tagWorker
      * @param pseudoElementName the pseudo element name
+     * @return created pseudo element
      */
-    private void visitPseudoElement(IElementNode node, ITagWorker tagWorker, String pseudoElementName) {
+    private static CssPseudoElementNode createPseudoElement(IElementNode node,
+                                                            ITagWorker tagWorker, String pseudoElementName) {
         switch (pseudoElementName) {
             case CssConstants.BEFORE:
             case CssConstants.AFTER:
                 if (!CssPseudoElementUtil.hasBeforeAfterElements(node)) {
-                    return;
+                    return null;
                 }
                 break;
             case CssConstants.PLACEHOLDER:
@@ -475,13 +509,13 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                         null == tagWorker
                         || !(tagWorker.getElementResult() instanceof IPlaceholderable)
                         || null == ((IPlaceholderable) tagWorker.getElementResult()).getPlaceholder()) {
-                    return;
+                    return null;
                 }
                 break;
             default:
-                return;
+                return null;
         }
-        visit(new CssPseudoElementNode(node, pseudoElementName));
+        return new CssPseudoElementNode(node, pseudoElementName);
     }
 
     /**

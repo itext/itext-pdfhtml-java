@@ -43,43 +43,80 @@
 package com.itextpdf.html2pdf.css.resolve.func.counter;
 
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.kernel.numbering.ArmenianNumbering;
 import com.itextpdf.kernel.numbering.EnglishAlphabetNumbering;
 import com.itextpdf.kernel.numbering.GeorgianNumbering;
 import com.itextpdf.kernel.numbering.GreekAlphabetNumbering;
 import com.itextpdf.kernel.numbering.RomanNumbering;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * Class that manages counters (e.g. for list symbols).
  */
 public class CssCounterManager {
 
-    /** The Constant DISC_SYMBOL. */
+    /**
+     * The Constant DISC_SYMBOL.
+     */
     private static final String DISC_SYMBOL = "\u2022";
-    
-    /** The Constant CIRCLE_SYMBOL. */
+
+    /**
+     * The Constant CIRCLE_SYMBOL.
+     */
     private static final String CIRCLE_SYMBOL = "\u25e6";
-    
-    /** The Constant SQUARE_SYMBOL. */
+
+    /**
+     * The Constant SQUARE_SYMBOL.
+     */
     private static final String SQUARE_SYMBOL = "\u25a0";
 
-    /** The Constant DEFAULT_COUNTER_VALUE. */
+    /**
+     * The Constant DEFAULT_COUNTER_VALUE.
+     */
     private static final int DEFAULT_COUNTER_VALUE = 0;
-    
-    /** The Constant DEFAULT_INCREMENT_VALUE. */
+
+    /**
+     * The Constant DEFAULT_INCREMENT_VALUE.
+     */
     private static final int DEFAULT_INCREMENT_VALUE = 1;
-    
-    /** The Constant MAX_ROMAN_NUMBER. */
+
+    /**
+     * The Constant MAX_ROMAN_NUMBER.
+     */
     private static final int MAX_ROMAN_NUMBER = 3999;
 
-    /** The counters. */
-    private Map<INode, Map<String, Integer> > counters = new HashMap<>();
+    /**
+     * Map to store target-counter values. First key is target-counter ID. Second key is counter name.
+     */
+    private final Map<String, Map<String, Integer>> targetCounterMap = new HashMap<>();
+
+    /**
+     * Map to store target-counters values. First key is target-counters ID. Second key is counter name.
+     */
+    private final Map<String, Map<String, String>> targetCountersMap = new HashMap<>();
+
+    /**
+     * Map to store counters values. The key is the counter name, the value is the {@link Stack} with counters values.
+     */
+    private final Map<String, Deque<Integer>> counters = new HashMap<>();
+
+    /**
+     * Map to store counter values. The key is the counter name, the value is the current counter value.
+     */
+    private final Map<String, Integer> counterValues = new HashMap<>();
+
+    private final Map<IElementNode, List<String>> pushedCountersMap = new HashMap<>();
 
     /**
      * Creates a new {@link CssCounterManager} instance.
@@ -88,86 +125,219 @@ public class CssCounterManager {
     }
 
     /**
-     * Resolves a counter.
-     *
-     * @param counterName the counter name
-     * @param listSymbolType the list symbol type
-     * @param scope the scope
-     * @return the counter value as a {@link String}
+     * Clears information about counters. Target-counter(s) information remains.
      */
-    public String resolveCounter(String counterName, String listSymbolType, INode scope) {
-        Map<String, Integer> scopeCounters = findSuitableScopeMap(scope, counterName);
-        Integer counterValue = scopeCounters != null ? scopeCounters.get(counterName) : null;
-        if (counterValue == null) {
-            return null; // TODO we do that to print a logger message. We might want to reconsider and silently reset to 0 in the future
-        } else {
-            if (listSymbolType == null) {
-                return String.valueOf(counterValue);
+    public void clearManager() {
+        counters.clear();
+    }
+
+    /**
+     * Pushes every current non-null counter to stack of counters.
+     * This method should be called when we are about to process child nodes.
+     *
+     * @param element the element which counters shall be pushed
+     */
+    public void pushEveryCounterToCounters(IElementNode element) {
+        final List<String> pushedCounters = new ArrayList<>();
+        for (final Map.Entry<String, Integer> counter : new HashSet<>(counterValues.entrySet())) {
+            if (counter.getValue() != null) {
+                pushCounter(counter.getKey(), counter.getValue());
+                pushedCounters.add(counter.getKey());
+                counterValues.put(counter.getKey(), null);
+            }
+        }
+        pushedCountersMap.put(element, pushedCounters);
+    }
+
+    /**
+     * Pops every given counter from stack of counters.
+     * This method should be called when we have finished processing child nodes.
+     *
+     * @param element the element which counters shall be popped
+     */
+    public void popEveryCounterFromCounters(IElementNode element) {
+        counterValues.clear();
+        if (pushedCountersMap.get(element) != null) {
+            for (final String pushedCounter : pushedCountersMap.get(element)) {
+                counterValues.put(pushedCounter, popCounter(pushedCounter));
+            }
+            pushedCountersMap.remove(element);
+        }
+    }
+
+    /**
+     * Gets target-counter value for specified ID and counterName. Value is converted according to listSymbolType.
+     *
+     * @param id             ID of the element. The first call adds ID to the Map, which means we require its value.
+     *                       The second call returns corresponding value if we already encountered corresponding element
+     * @param counterName    name of the counter. The first call adds counterName to the Map,
+     *                       which means we require its value.
+     *                       The second call returns corresponding value if we already encountered corresponding element
+     * @param listSymbolType the list symbol type to convert counter's value. null if conversion is not required.
+     * @return target-counter value.
+     */
+    public String resolveTargetCounter(String id, String counterName, String listSymbolType) {
+        Integer counterValue = null;
+        if (targetCounterMap.containsKey(id)) {
+            final Map<String, Integer> countersForThisId = targetCounterMap.get(id);
+            if (countersForThisId.containsKey(counterName)) {
+                counterValue = countersForThisId.get(counterName);
             } else {
-                if (CssConstants.NONE.equals(listSymbolType)) {
-                    return "";
-                } else if (CssConstants.DISC.equals(listSymbolType)) {
-                    return DISC_SYMBOL;
-                } else if (CssConstants.SQUARE.equals(listSymbolType)) {
-                    return SQUARE_SYMBOL;
-                } else if (CssConstants.CIRCLE.equals(listSymbolType)) {
-                    return CIRCLE_SYMBOL;
-                } else if (CssConstants.UPPER_ALPHA.equals(listSymbolType) || CssConstants.UPPER_LATIN.equals(listSymbolType)) {
-                    return EnglishAlphabetNumbering.toLatinAlphabetNumberUpperCase((int)counterValue);
-                } else if (CssConstants.LOWER_ALPHA.equals(listSymbolType) || CssConstants.LOWER_LATIN.equals(listSymbolType)) {
-                    return EnglishAlphabetNumbering.toLatinAlphabetNumberLowerCase((int)counterValue);
-                } else if (CssConstants.LOWER_ROMAN.equals(listSymbolType)) {
-                    return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.toRomanLowerCase((int)counterValue) : String.valueOf(counterValue);
-                } else if (CssConstants.UPPER_ROMAN.equals(listSymbolType)) {
-                    return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.toRomanUpperCase((int)counterValue) : String.valueOf(counterValue);
-                } else if (CssConstants.DECIMAL_LEADING_ZERO.equals(listSymbolType)) {
-                    return (counterValue < 10 ? "0" : "") + String.valueOf(counterValue);
-                } else if (CssConstants.LOWER_GREEK.equals(listSymbolType)) {
-                    return GreekAlphabetNumbering.toGreekAlphabetNumberLowerCase((int)counterValue);
-                } else if (CssConstants.GEORGIAN.equals(listSymbolType)) {
-                    return GeorgianNumbering.toGeorgian((int)counterValue);
-                } else if (CssConstants.ARMENIAN.equals(listSymbolType)) {
-                    return ArmenianNumbering.toArmenian((int)counterValue);
-                } else {
-                    return String.valueOf(counterValue); //TODO
+                countersForThisId.put(counterName, null);
+            }
+        } else {
+            targetCounterMap.put(id, new HashMap<>());
+            targetCounterMap.get(id).put(counterName, null);
+        }
+        return counterValue == null ? null : convertCounterToSymbol(listSymbolType, counterValue);
+    }
+
+    /**
+     * Gets target-counter value for specified ID and counterName. Value is converted according to listSymbolType.
+     *
+     * @param id                  ID of the element. The first call adds ID at the Map,
+     *                            which means we require its value. The second call returns corresponding value
+     *                            if we already encountered this element
+     * @param counterName         name of the counter. The first call adds name at the Map,
+     *                            which means we require its value. The second call returns corresponding value
+     *                            if we already encountered this element
+     * @param counterSeparatorStr separator to separate counters values.
+     * @param listSymbolType      the list symbol type to convert counter's value. null if conversion is not required.
+     * @return target-counter value.
+     */
+    public String resolveTargetCounters(String id,
+                                        String counterName, String counterSeparatorStr, String listSymbolType) {
+        String countersStr = null;
+        if (targetCountersMap.containsKey(id)) {
+            final Map<String, String> countersForThisId= targetCountersMap.get(id);
+            if (countersForThisId.containsKey(counterName)) {
+                countersStr = countersForThisId.get(counterName);
+            } else {
+                countersForThisId.put(counterName, null);
+            }
+        } else {
+            targetCountersMap.put(id, new HashMap<>());
+            targetCountersMap.get(id).put(counterName, null);
+        }
+        if (countersStr == null) {
+            return null;
+        } else {
+            final String[] resolvedCounters = countersStr.split("\\.");
+            final List<String> convertedCounters = new ArrayList<>();
+            for (String counter : resolvedCounters) {
+                convertedCounters.add(convertCounterToSymbol(listSymbolType, Integer.valueOf(counter)));
+            }
+            return buildCountersStringFromList(convertedCounters, counterSeparatorStr);
+        }
+    }
+
+    /**
+     * Adds counter value to every counter in the Map corresponding to a node ID.
+     *
+     * @param node node to take ID and scope from
+     */
+    public void addTargetCounterIfRequired(IElementNode node) {
+        final String id = node.getAttribute(AttributeConstants.ID);
+        if (id != null && targetCounterMap.containsKey(id)) {
+            for (final Map.Entry<String, Integer> targetCounter : new HashSet<>(targetCounterMap.get(id).entrySet())) {
+                final String counterName = targetCounter.getKey();
+                final String counterStr = resolveCounter(counterName, null);
+                if (counterStr != null) {
+                    targetCounterMap.get(id).put(counterName, Integer.parseInt(counterStr));
                 }
             }
         }
+    }
+
+    /**
+     * Adds counters value to every counter in the Map corresponding to a node ID.
+     *
+     * @param node node to take ID and scope from
+     */
+    public void addTargetCountersIfRequired(IElementNode node) {
+        final String id = node.getAttribute(AttributeConstants.ID);
+        if (id != null && targetCountersMap.containsKey(id)) {
+            for (final Map.Entry<String, String> targetCounter : new HashSet<>(targetCountersMap.get(id).entrySet())) {
+                final String counterName = targetCounter.getKey();
+                final String resolvedCounters = resolveCounters(counterName, ".", null);
+                if (resolvedCounters != null) {
+                    targetCountersMap.get(id).put(counterName, resolvedCounters);
+                }
+            }
+        }
+    }
+
+    /**
+     * Resolves a counter.
+     *
+     * @param counterName    the counter name
+     * @param listSymbolType the list symbol type
+     * @param node           current element
+     * @return the counter value as a {@link String}
+     * @deprecated Need to be removed in 7.2
+     */
+    @Deprecated
+    public String resolveCounter(String counterName, String listSymbolType, INode node) {
+        return resolveCounter(counterName, listSymbolType);
+    }
+
+    /**
+     * Resolves a counter.
+     *
+     * @param counterName    the counter name
+     * @param listSymbolType the list symbol type
+     * @return the counter value as a {@link String}
+     */
+    public String resolveCounter(String counterName, String listSymbolType) {
+        Integer result = counterValues.get(counterName);
+        if (result == null) {
+            if (!counters.containsKey(counterName) || counters.get(counterName).isEmpty()) {
+                result = 0;
+            } else {
+                result = counters.get(counterName).getLast();
+            }
+        }
+        return convertCounterToSymbol(listSymbolType, result);
     }
 
     /**
      * Resolves counters.
      *
-     * @param counterName the counter name
+     * @param counterName         the counter name
      * @param counterSeparatorStr the counter separator
-     * @param listSymbolType the list symbol type
-     * @param scope the scope
+     * @param listSymbolType      the list symbol type
+     * @param node                current element
+     * @return the counters as a {@link String}
+     * @deprecated Need to be removed in 7.2
+     */
+    @Deprecated
+    public String resolveCounters(String counterName, String counterSeparatorStr, String listSymbolType, INode node) {
+        return resolveCounters(counterName, counterSeparatorStr, listSymbolType);
+    }
+
+    /**
+     * Resolves counters.
+     *
+     * @param counterName         the counter name
+     * @param counterSeparatorStr the counter separator
+     * @param listSymbolType      the list symbol type
      * @return the counters as a {@link String}
      */
-    public String resolveCounters(String counterName, String counterSeparatorStr, String listSymbolType, INode scope) {
-        INode currentScope = scope;
-        List<String> resolvedCounters = null;
-        while (currentScope != null) {
-            INode curCounterOwnerScope = findCounterOwner(currentScope, counterName);
-            if (curCounterOwnerScope != null) {
-                if (resolvedCounters == null) {
-                    resolvedCounters = new ArrayList<>();
-                }
-                resolvedCounters.add(resolveCounter(counterName, listSymbolType, curCounterOwnerScope));
+    public String resolveCounters(String counterName, String counterSeparatorStr, String listSymbolType) {
+        final List<String> resolvedCounters = new ArrayList<>();
+        if (counters.containsKey(counterName)) {
+            for (final Integer value : counters.get(counterName)) {
+                resolvedCounters.add(convertCounterToSymbol(listSymbolType, value));
             }
-            currentScope = curCounterOwnerScope == null ? null : curCounterOwnerScope.parentNode();
         }
-        if (resolvedCounters == null) {
-            return null;
+        final Integer currentValue = counterValues.get(counterName);
+        if (currentValue != null) {
+            resolvedCounters.add(convertCounterToSymbol(listSymbolType, currentValue));
+        }
+        if (resolvedCounters.isEmpty()) {
+            return convertCounterToSymbol(listSymbolType, 0);
         } else {
-            StringBuilder sb = new StringBuilder();
-            for (int i = resolvedCounters.size() - 1; i >= 0; i--) {
-                sb.append(resolvedCounters.get(i));
-                if (i != 0) {
-                    sb.append(counterSeparatorStr);
-                }
-            }
-            return sb.toString();
+            return buildCountersStringFromList(resolvedCounters, counterSeparatorStr);
         }
     }
 
@@ -175,109 +345,170 @@ public class CssCounterManager {
      * Resets the counter.
      *
      * @param counterName the counter name
-     * @param scope the scope
+     * @param node        current element
+     * @deprecated Need to be removed in 7.2
      */
-    public void resetCounter(String counterName, INode scope) {
-        resetCounter(counterName, DEFAULT_COUNTER_VALUE, scope);
+    @Deprecated
+    public void resetCounter(String counterName, INode node) {
+        resetCounter(counterName, DEFAULT_COUNTER_VALUE);
     }
 
     /**
      * Resets the counter.
      *
      * @param counterName the counter name
-     * @param value the new value
-     * @param scope the scope
+     * @param value       the new value
+     * @param node        current element
+     * @deprecated Need to be removed in 7.2
      */
-    public void resetCounter(String counterName, int value, INode scope) {
-        getOrCreateScopeCounterMap(scope).put(counterName, value);
+    @Deprecated
+    public void resetCounter(String counterName, int value, INode node) {
+        resetCounter(counterName, value);
+    }
+
+    /**
+     * Resets the counter.
+     *
+     * @param counterName the counter name
+     */
+    public void resetCounter(String counterName) {
+        resetCounter(counterName, DEFAULT_COUNTER_VALUE);
+    }
+
+    /**
+     * Resets the counter.
+     *
+     * @param counterName the counter name
+     * @param value       the new value
+     */
+    public void resetCounter(String counterName, int value) {
+        counterValues.put(counterName, value);
     }
 
     /**
      * Increments the counter.
      *
      * @param counterName the counter name
+     * @param node        current element.
+     * @deprecated Need to be removed in 7.2
+     */
+    @Deprecated
+    public void incrementCounter(String counterName, INode node) {
+        incrementCounter(counterName, DEFAULT_INCREMENT_VALUE);
+    }
+
+    /**
+     * Increments the counter.
+     *
+     * @param counterName    the counter name
      * @param incrementValue the increment value
-     * @param scope the scope
+     * @param node           current element
+     * @deprecated Need to be removed in 7.2
      */
-    public void incrementCounter(String counterName, int incrementValue, INode scope) {
-        Map<String, Integer> scopeCounters = findSuitableScopeMap(scope, counterName);
-        Integer curValue = scopeCounters != null ? scopeCounters.get(counterName) : null;
-        if (curValue == null) {
-            // If 'counter-increment' or 'content' on an element or pseudo-element refers to a counter that is not in the scope of any 'counter-reset',
-            // implementations should behave as though a 'counter-reset' had reset the counter to 0 on that element or pseudo-element.
-            curValue = DEFAULT_COUNTER_VALUE;
-            resetCounter(counterName, (int)curValue, scope);
-            scopeCounters = getOrCreateScopeCounterMap(scope);
-        }
-        scopeCounters.put(counterName, curValue + incrementValue);
+    @Deprecated
+    public void incrementCounter(String counterName, int incrementValue, INode node) {
+        incrementCounter(counterName, incrementValue);
     }
 
     /**
      * Increments the counter.
      *
      * @param counterName the counter name
-     * @param scope the scope
      */
-    public void incrementCounter(String counterName, INode scope) {
-        incrementCounter(counterName, DEFAULT_INCREMENT_VALUE, scope);
+    public void incrementCounter(String counterName) {
+        incrementCounter(counterName, DEFAULT_INCREMENT_VALUE);
     }
 
     /**
-     * Gets the scope counter map (or creates it if it doesn't exist).
+     * Increments the counter.
      *
-     * @param scope the scope
-     * @return the or create scope counter map
+     * @param counterName    the counter name
+     * @param incrementValue the increment value
      */
-    private Map<String, Integer> getOrCreateScopeCounterMap(INode scope) {
-        Map<String, Integer> scopeCounters = counters.get(scope);
-        if (scopeCounters == null) {
-            scopeCounters = new HashMap<>();
-            counters.put(scope, scopeCounters);
-        }
-        return scopeCounters;
-    }
-
-    /**
-     * Searches for the suitable scope map.
-     *
-     * @param scope the scope
-     * @param counterName the counter name
-     * @return the map
-     */
-    private Map<String, Integer> findSuitableScopeMap(INode scope, String counterName) {
-        INode ownerScope = findCounterOwner(scope, counterName);
-        return ownerScope == null ? null : counters.get(ownerScope);
-    }
-
-    /**
-     * Searches for the counter owner.
-     *
-     * @param scope the scope
-     * @param counterName the counter name
-     * @return the owner node
-     */
-    private INode findCounterOwner(INode scope, String counterName) {
-        while (scope != null && (!counters.containsKey(scope) || !counters.get(scope).containsKey(counterName))) {
-            // First, search through previous siblings
-            boolean foundSuitableSibling = false;
-            if (scope.parentNode() != null) {
-                List<INode> allSiblings = scope.parentNode().childNodes();
-                int indexOfCurScope = allSiblings.indexOf(scope);
-                for (int i = indexOfCurScope - 1; i >= 0; i--) {
-                    INode siblingScope = allSiblings.get(i);
-                    if (counters.containsKey(siblingScope) && counters.get(siblingScope).containsKey(counterName)) {
-                        scope = siblingScope;
-                        foundSuitableSibling = true;
-                        break;
-                    }
-                }
+    public void incrementCounter(String counterName, int incrementValue) {
+        Integer currentValue = counterValues.get(counterName);
+        if (currentValue == null) {
+            final Deque<Integer> counterStack = counters.get(counterName);
+            if (counterStack == null || counterStack.isEmpty()) {
+                // If 'counter-increment' or 'content' on an element or pseudo-element refers to a counter that is not in the scope of any 'counter-reset',
+                // implementations should behave as though a 'counter-reset' had reset the counter to 0 on that element or pseudo-element.
+                currentValue = DEFAULT_COUNTER_VALUE;
+                resetCounter(counterName, (int) currentValue);
+                counterValues.put(counterName, currentValue + incrementValue);
+            } else {
+                currentValue = counterStack.getLast();
+                counterStack.removeLast();
+                counterStack.addLast((int) (currentValue + incrementValue));
             }
-            // If a previous sibling with matching counter was not found, move to parent scope
-            if (!foundSuitableSibling) {
-                scope = scope.parentNode();
+        } else {
+            counterValues.put(counterName, currentValue + incrementValue);
+        }
+    }
+
+    private Integer popCounter(String counterName) {
+        if (counters.containsKey(counterName) && !counters.get(counterName).isEmpty()) {
+            Integer last = counters.get(counterName).getLast();
+            counters.get(counterName).removeLast();
+            return last;
+        }
+        return null;
+    }
+
+    private void pushCounter(String counterName, Integer value) {
+        if (!counters.containsKey(counterName)) {
+            counters.put(counterName, new LinkedList<>());
+        }
+        counters.get(counterName).addLast((int) value);
+    }
+
+    private static String buildCountersStringFromList(List<String> resolvedCounters, String counterSeparatorStr) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < resolvedCounters.size(); i++) {
+            sb.append(resolvedCounters.get(i));
+            if (i != resolvedCounters.size() - 1) {
+                sb.append(counterSeparatorStr);
             }
         }
-        return scope;
+        return sb.toString();
+    }
+
+    private static String convertCounterToSymbol(String listSymbolType, Integer counterValue) {
+        if (listSymbolType == null) {
+            return String.valueOf(counterValue);
+        } else {
+            if (CssConstants.NONE.equals(listSymbolType)) {
+                return "";
+            } else if (CssConstants.DISC.equals(listSymbolType)) {
+                return DISC_SYMBOL;
+            } else if (CssConstants.SQUARE.equals(listSymbolType)) {
+                return SQUARE_SYMBOL;
+            } else if (CssConstants.CIRCLE.equals(listSymbolType)) {
+                return CIRCLE_SYMBOL;
+            } else if (CssConstants.UPPER_ALPHA.equals(listSymbolType) || CssConstants.UPPER_LATIN.equals(listSymbolType)) {
+                return counterValue > 0 ? EnglishAlphabetNumbering.toLatinAlphabetNumberUpperCase((int) counterValue)
+                        : String.valueOf(counterValue);
+            } else if (CssConstants.LOWER_ALPHA.equals(listSymbolType) || CssConstants.LOWER_LATIN.equals(listSymbolType)) {
+                return counterValue > 0 ? EnglishAlphabetNumbering.toLatinAlphabetNumberLowerCase((int) counterValue)
+                        : String.valueOf(counterValue);
+            } else if (CssConstants.LOWER_GREEK.equals(listSymbolType)) {
+                return counterValue > 0 ? GreekAlphabetNumbering.toGreekAlphabetNumberLowerCase((int) counterValue)
+                        : String.valueOf(counterValue);
+            } else if (CssConstants.LOWER_ROMAN.equals(listSymbolType)) {
+                return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.toRomanLowerCase((int) counterValue)
+                        : String.valueOf(counterValue);
+            } else if (CssConstants.UPPER_ROMAN.equals(listSymbolType)) {
+                return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.toRomanUpperCase((int) counterValue)
+                        : String.valueOf(counterValue);
+            } else if (CssConstants.DECIMAL_LEADING_ZERO.equals(listSymbolType)) {
+                return (counterValue < 10 ? "0" : "") + String.valueOf(counterValue);
+            } else if (CssConstants.GEORGIAN.equals(listSymbolType)) {
+                return GeorgianNumbering.toGeorgian((int) counterValue);
+            } else if (CssConstants.ARMENIAN.equals(listSymbolType)) {
+                return ArmenianNumbering.toArmenian((int) counterValue);
+            } else {
+                return String.valueOf(counterValue); //TODO
+            }
+        }
     }
 
 }

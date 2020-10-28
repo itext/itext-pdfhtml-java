@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            counter-reset: section another_section;
+        }
+        div::before {
+            counter-increment: section;
+            content: "Section: " counter(section) " ";
+        }
+        .x::before {
+            counter-increment: section another_section;
+            content: "Another section: " counter(another_section) " ";
+        }
+        .before::before {
+            content: target-counter(url('#id1'), section) " ";
+        }
+        .after::after {
+            content: " " target-counter(url('#id1'), another_section);
+        }
+    </style>
+</head>
+<body>
+
+<p class="before"> - section</p>
+<div>
+    <div class="x">x</div>
+    <div>x</div>
+    <div>x</div>
+    <div>x</div>
+    <div class="x">x</div>
+    <div class="x">x</div>
+    <div class="x" id="id1">target</div>
+</div>
+<p class="after">Another section: </p>
+</body>
+</html>
