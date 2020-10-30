@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.PdfDictionary;
@@ -87,7 +87,7 @@ public class ThTagWorker extends TdTagWorker {
                     properties.addAttributes(new PdfStructureAttributes(attributes));
                 } else {
                     Logger logger = LoggerFactory.getLogger(ThTagWorker.class);
-                    logger.warn(MessageFormatUtil.format(LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, scope));
+                    logger.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, scope));
                 }
 
             }

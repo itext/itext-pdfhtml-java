@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.io.util.MessageFormatUtil;
@@ -373,7 +373,7 @@ public final class BackgroundApplierUtil {
                 return true;
             }
         } catch (StyledXMLParserException e) {
-            LOGGER.warn(MessageFormatUtil.format(LogMessageConstant.INVALID_GRADIENT_DECLARATION, image));
+            LOGGER.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, image));
         }
         return false;
     }

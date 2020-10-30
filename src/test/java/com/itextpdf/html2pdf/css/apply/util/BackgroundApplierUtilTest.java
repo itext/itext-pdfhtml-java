@@ -23,10 +23,10 @@
 package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.html2pdf.ConverterProperties;
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.BodyHtmlStylesContainer;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.colors.gradients.AbstractLinearGradientBuilder;
 import com.itextpdf.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
@@ -116,7 +116,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)
     })
     public void backgroundInvalidImageTest() {
         final String image = "url(img.jpg)";

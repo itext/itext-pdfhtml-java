@@ -23,7 +23,7 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -50,31 +50,31 @@ public class FlexIntrinsicAspectRatioTest extends ExtendedHtmlConversionITextTes
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
     public void autoFixedHeightUnfixedWidthDefiniteContainerTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("autoFixedHeightUnfixedWidthDefiniteContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
     public void contentFixedHeightFixedWidthIndefiniteContainerTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("contentFixedHeightFixedWidthIndefiniteContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
     public void contentFixedHeightUnfixedWidthIndefiniteContainerTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("contentFixedHeightUnfixedWidthIndefiniteContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
     public void contentUnfixedHeightUnfixedWidthDefiniteContainerStartTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("contentUnfixedHeightUnfixedWidthDefiniteContainerStart", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
     // Both firefox and chrome work incorrectly in this case.
     // Paragraph https://www.w3.org/TR/css-flexbox-1/#algo-stretch from the specification explicitly says,
     // that stretch does not affect the main size of the flex item, even if it has an intrinsic aspect ratio.

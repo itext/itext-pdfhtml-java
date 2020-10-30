@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
@@ -155,7 +155,7 @@ public final class ListStyleApplierUtil {
                     }
                 } catch (StyledXMLParserException e) {
                     LOGGER.warn(MessageFormatUtil.format(
-                            LogMessageConstant.INVALID_GRADIENT_DECLARATION, listStyleImageStr));
+                            Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, listStyleImageStr));
                 }
             } else {
                 imageXObject = context.getResourceResolver().retrieveImageExtended(CssUtils.extractUrl(listStyleImageStr));
@@ -213,7 +213,7 @@ public final class ListStyleApplierUtil {
         } else {
             if (style != null) {
                 Logger logger = LoggerFactory.getLogger(ListStyleApplierUtil.class);
-                logger.error(MessageFormatUtil.format(LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
+                logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
             }
 
             // Fallback style

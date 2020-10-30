@@ -22,7 +22,7 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_backgrounds;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.kernel.PdfException;
 import com.itextpdf.test.annotations.LogMessage;

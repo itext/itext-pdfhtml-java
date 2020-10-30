@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
@@ -81,7 +81,7 @@ public class SvgTagWorker implements ITagWorker {
         try {
             processingResult = new DefaultSvgProcessor().process((INode) element, props);
         } catch (SvgProcessingException spe) {
-            LOGGER.error(LogMessageConstant.UNABLE_TO_PROCESS_SVG_ELEMENT, spe);
+            LOGGER.error(Html2PdfLogMessageConstant.UNABLE_TO_PROCESS_SVG_ELEMENT, spe);
         }
         context.startProcessingInlineSvg();
     }

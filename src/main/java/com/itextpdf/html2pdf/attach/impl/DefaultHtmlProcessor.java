@@ -43,7 +43,8 @@
 package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.ConverterProperties;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.Html2PdfProductInfo;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
@@ -60,7 +61,7 @@ import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
 import com.itextpdf.html2pdf.css.apply.util.PageBreakApplierUtil;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.events.PdfHtmlEvent;
-import com.itextpdf.html2pdf.exception.Html2PdfException;
+import com.itextpdf.html2pdf.exceptions.Html2PdfException;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.util.ReflectionUtils;
 import com.itextpdf.io.font.FontProgram;
@@ -262,12 +263,12 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                     doc.relayout();
                     if (counter >= context.getLimitOfLayouts()) {
                         logger.warn(
-                                MessageFormatUtil.format(LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS));
+                                MessageFormatUtil.format(Html2PdfLogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS));
                         break;
                     }
                 } while (((DocumentRenderer) doc.getRenderer()).isRelayoutRequired());
             } else {
-                logger.warn(LogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT);
+                logger.warn(Html2PdfLogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT);
             }
         }
         cssResolver = null;
@@ -315,7 +316,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             ITagWorker tagWorker = context.getTagWorkerFactory().getTagWorker(element, context);
             if (tagWorker == null) {
                 if (!ignoredTags.contains(element.name())) {
-                    logger.error(MessageFormatUtil.format(LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).name()));
+                    logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).name()));
                 }
             } else {
                 context.getState().push(tagWorker);
@@ -356,7 +357,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                     boolean childProcessed = context.getState().top().processTagChild(tagWorker, context);
                     PageBreakApplierUtil.addPageBreakElementAfter(context, context.getState().top(), element, tagWorker);
                     if (!childProcessed && !ignoredChildTags.contains(element.name())) {
-                        logger.error(MessageFormatUtil.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
+                        logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
                                 context.getState().top().getClass().getName(), tagWorker.getClass().getName()));
                     }
                 } else if (tagWorker.getElementResult() != null) {
@@ -372,11 +373,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 if (!context.getState().empty()) {
                     boolean contentProcessed = context.getState().top().processContent(content, context);
                     if (!contentProcessed) {
-                        logger.error(MessageFormatUtil.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT,
+                        logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT,
                                 context.getState().top().getClass().getName()));
                     }
                 } else {
-                    logger.error(LogMessageConstant.NO_CONSUMER_FOUND_FOR_CONTENT);
+                    logger.error(Html2PdfLogMessageConstant.NO_CONSUMER_FOUND_FOR_CONTENT);
                 }
 
             }
@@ -387,7 +388,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(element);
         if (cssApplier == null) {
             if (!ignoredCssTags.contains(element.name())) {
-                logger.error(MessageFormatUtil.format(LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
+                logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
             }
         } else {
             cssApplier.apply(context, element, tagWorker);
@@ -450,7 +451,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                     }
                 }
                 if (!findSupportedSrc) {
-                    logger.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace));
+                    logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace));
                 }
             }
         }

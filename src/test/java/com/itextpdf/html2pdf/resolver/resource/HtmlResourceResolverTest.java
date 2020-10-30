@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.resolver.resource;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.ContextMappingHelper;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
@@ -57,7 +57,7 @@ import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.svg.SvgConstants;
 import com.itextpdf.svg.converter.SvgConverter;
-import com.itextpdf.svg.exceptions.SvgLogMessageConstant;
+import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
 import com.itextpdf.svg.processors.ISvgConverterProperties;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.renderers.ISvgNodeRenderer;
@@ -99,8 +99,8 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2),
-            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, count = 2)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, count = 2)
     })
     public void resourceResolverHtmlWithSvgTest02() throws IOException, InterruptedException {
         String baseUri = sourceFolder + "%23r%e%2525s@o%25urces/";
@@ -125,7 +125,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
     public void resourceResolverTest07A() throws IOException, InterruptedException {
         String baseUri = sourceFolder + "%23r%e%2525s@o%25urces/";
 
@@ -147,7 +147,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 1))
     public void resourceResolverTest07C() throws IOException, InterruptedException {
         String outPdf = destinationFolder + "resourceResolverTest07C.pdf";
         String cmpPdf = sourceFolder + "cmp_resourceResolverTest07C.pdf";
@@ -201,7 +201,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
                     .LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI),
             @LogMessage(messageTemplate = com.itextpdf.styledxmlparser
                     .LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI),
-            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2)
     })
     public void resourceResolverHtmlWithSvgDifferentLevels() throws IOException, InterruptedException {
         String outPdf = destinationFolder + "resourceResolverHtmlWithSvgDifferentLevels.pdf";
@@ -306,7 +306,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
     @Test
     // TODO DEVSIX-1595
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG))
     public void resourceResolverTest11() throws IOException, InterruptedException {
         String outPdf = destinationFolder + "resourceResolverTest11.pdf";
         String cmpPdf = sourceFolder + "cmp_resourceResolverTest11.pdf";
@@ -369,7 +369,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI, count = 3),
-            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 3)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 3)
     })
     public void resourceResolverSvgDifferentFormatsTest() throws IOException, InterruptedException {
         String html = sourceFolder + "resourceResolverSvgDifferentFormats.html";
@@ -387,7 +387,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI),
-            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)
     })
     public void resourceResolverNotValidInlineSvgTest() throws IOException, InterruptedException {
         String html = sourceFolder + "resourceResolverNotValidInlineSvg.html";
@@ -403,8 +403,8 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = SvgLogMessageConstant.NOROOT),
-            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)})
+    @LogMessages(messages = {@LogMessage(messageTemplate = SvgExceptionMessageConstant.NO_ROOT),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)})
     public void resourceResolverIncorrectSyntaxTest() throws IOException, InterruptedException {
         String outPdf = destinationFolder + "resourceResolverIncorrectSyntaxObject.pdf";
         String cmpPdf = sourceFolder + "cmp_resourceResolverIncorrectSyntaxObject.pdf";

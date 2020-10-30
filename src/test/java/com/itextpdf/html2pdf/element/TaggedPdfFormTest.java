@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.kernel.PdfException;
+import com.itextpdf.kernel.exceptions.KernelExceptionMessageConstant;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -149,7 +150,7 @@ public class TaggedPdfFormTest extends ExtendedHtmlConversionITextTest {
     public void inputFormPrematureFlush()
             throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         junitExpectedException.expect(PdfException.class);
-        junitExpectedException.expectMessage(PdfException.TagStructureFlushingFailedItMightBeCorrupted);
+        junitExpectedException.expectMessage(KernelExceptionMessageConstant.TAG_STRUCTURE_FLUSHING_FAILED_IT_MIGHT_BE_CORRUPTED);
 
         convertToPdfAcroformFlattenAndCompare("inputFormPrematureFlush",
                 sourceFolder, destinationFolder, true);

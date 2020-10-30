@@ -25,9 +25,9 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreak;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.TextArea;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
@@ -207,7 +207,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
     //TODO DEVSIX-5086 change this test when working on the ticket
     public void flexWrapTest() throws IOException {
         String name = "flexWrap";

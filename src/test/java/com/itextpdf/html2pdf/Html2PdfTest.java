@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -139,7 +140,7 @@ public class Html2PdfTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, count = 1),
-            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1)})
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1)})
     public void htmlObjectIncorrectBase64Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "objectTag_incorrectBase64svg.html"), new File(destinationFolder + "objectTag_incorrectBase64svg.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "objectTag_incorrectBase64svg.pdf", sourceFolder + "cmp_objectTag_incorrectBase64svg.pdf", destinationFolder, "diff01_"));
@@ -147,8 +148,8 @@ public class Html2PdfTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT, count = 1),
-            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2),
+    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT, count = 1),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2),
     })
     public void htmlObjectAltTextTest() throws IOException, InterruptedException {
         //update after DEVSIX-1346
@@ -158,7 +159,7 @@ public class Html2PdfTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1),})
+    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1),})
     public void htmlObjectNestedObjectTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "objectTag_nestedTag.html"), new File(destinationFolder + "objectTag_nestedTag.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "objectTag_nestedTag.pdf", sourceFolder + "cmp_objectTag_nestedTag.pdf", destinationFolder, "diff01_"));
@@ -167,10 +168,10 @@ public class Html2PdfTest extends ExtendedITextTest {
     @Test
     @LogMessages(ignore = true, messages = {
             @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.RULE_IS_NOT_SUPPORTED),
-            @LogMessage(messageTemplate = LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED),
-            @LogMessage(messageTemplate = LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED),
-            @LogMessage(messageTemplate = LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED),
-            @LogMessage(messageTemplate = LogMessageConstant.ERROR_PARSING_CSS_SELECTOR),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR),
             @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED),
     })
     public void batchConversionTest() throws IOException, InterruptedException {

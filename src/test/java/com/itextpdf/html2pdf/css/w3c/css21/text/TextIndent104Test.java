@@ -42,14 +42,17 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.text;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-@LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED),
-        @LogMessage(messageTemplate = LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED)})
+@LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED),
+        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED)})
 public class TextIndent104Test extends W3CCssTest {
+
+@LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED),
+        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED)})
     // TODO DEVSIX-1101, DEVSIX-1989: margins and text-indent in percents not supported
     // TODO DEVSIX-1880: negative margins are poorly supported in some cases
     @Override

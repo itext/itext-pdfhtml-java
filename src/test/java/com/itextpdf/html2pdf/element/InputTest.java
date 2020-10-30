@@ -45,10 +45,10 @@ package com.itextpdf.html2pdf.element;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
 import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.io.util.UrlUtil;
@@ -116,7 +116,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(ignore = true, messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT),
     })
     public void input06Test() throws IOException, InterruptedException {
         String htmlPath = sourceFolder + "inputTest06.html";
@@ -184,7 +184,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INPUT_TYPE_IS_INVALID))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_TYPE_IS_INVALID))
     public void inputDefaultTest01() throws IOException, InterruptedException {
         runTest("inputDefaultTest01");
     }
@@ -211,8 +211,8 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(ignore = true, messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED),
-            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
     })
     public void placeholderTest04() throws IOException, InterruptedException {
         runTest("placeholderTest04");
@@ -274,7 +274,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
     // TODO DEVSIX-5571 Update cmp after the ticket is closed
     @LogMessages(ignore = true, messages = {
             @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
-            @LogMessage(messageTemplate = LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT),
     })
     public void checkboxFullWidthDisplayBlockTest() throws IOException, InterruptedException {
         runTest("checkboxFullWidthDisplayBlockTest");

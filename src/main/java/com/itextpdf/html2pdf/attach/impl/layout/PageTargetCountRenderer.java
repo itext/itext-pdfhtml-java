@@ -22,10 +22,10 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
 import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.io.font.otf.GlyphLine;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.layout.layout.LayoutContext;
@@ -93,7 +93,7 @@ public class PageTargetCountRenderer extends TextRenderer {
     @Override
     public void draw(DrawContext drawContext) {
         if (!TargetCounterHandler.isValueDefinedForThisId(this, target)) {
-            LOGGER.warn(MessageFormatUtil.format(LogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, target));
+            LOGGER.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, target));
         }
         super.draw(drawContext);
     }

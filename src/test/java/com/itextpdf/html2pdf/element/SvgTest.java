@@ -44,11 +44,12 @@ package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.styledxmlparser.LogMessageConstant;
-import com.itextpdf.svg.exceptions.SvgLogMessageConstant;
+import com.itextpdf.svg.logs.SvgLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -267,7 +268,7 @@ public class SvgTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI),
-            @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
     })
     public void externalImageNonExistentRefTest() throws IOException, InterruptedException {
         String name = "external_img_nonExistentRef";
@@ -279,7 +280,7 @@ public class SvgTest extends ExtendedITextTest {
     @Test
     //TODO update after DEVSIX-3034
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2)
     })
     public void externalObjectSuccessTest() throws IOException, InterruptedException {
         String name = "external_object";
@@ -309,7 +310,7 @@ public class SvgTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI),
-            @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
     })
     public void externalObjectNonExistentRefTest() throws IOException, InterruptedException {
         String name = "external_objectNonExistentRef";

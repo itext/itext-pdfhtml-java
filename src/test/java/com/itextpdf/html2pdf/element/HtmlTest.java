@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.element;
 
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
@@ -77,7 +77,7 @@ public class HtmlTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG)})
+    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)})
     public void html02Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest02.html"), new File(destinationFolder + "htmlTest02.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest02.pdf", sourceFolder + "cmp_htmlTest02.pdf", destinationFolder, "diff02_"));

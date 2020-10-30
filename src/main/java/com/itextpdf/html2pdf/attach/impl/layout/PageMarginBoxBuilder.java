@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
@@ -164,7 +164,7 @@ class PageMarginBoxBuilder {
                     marginBoxWorker.processTagChild(runningElement.getProcessedElementWorker(), context);
                 }
             } else {
-                LoggerFactory.getLogger(this.getClass()).error(LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
+                LoggerFactory.getLogger(this.getClass()).error(Html2PdfLogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
             }
         }
 

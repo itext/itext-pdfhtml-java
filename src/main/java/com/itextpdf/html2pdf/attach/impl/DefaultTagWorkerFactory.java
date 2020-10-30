@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.attach.impl;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.exception.TagWorkerInitializationException;
+import com.itextpdf.html2pdf.exceptions.TagWorkerInitializationException;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.styledxmlparser.node.IElementNode;

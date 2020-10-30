@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.impl.PageMarginBoxCssApplier;
@@ -469,7 +469,7 @@ class PageContextProcessor {
         } else {
             // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
             // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
-            LOGGER.error(MessageFormatUtil.format(LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN, node.getMarginBoxName()));
+            LOGGER.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN, node.getMarginBoxName()));
         }
     }
 

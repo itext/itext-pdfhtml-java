@@ -23,9 +23,9 @@
 package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.html2pdf.ConverterProperties;
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.property.AlignmentPropertyValue;
@@ -118,7 +118,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
     public void applyFlexBasisContentWidthTest() {
         ProcessorContext context = new ProcessorContext(new ConverterProperties());
         Map<String, String> cssProps = new HashMap<>();
@@ -144,7 +144,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
 
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
     public void applyAlignItemsTest() {
         String[] alignItemsStrings = {
                 CssConstants.START,
@@ -217,7 +217,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
     public void applyAlignItemsUnsupportedValuesTest() {
         Map<String, String> cssProps = new HashMap<>();
         cssProps.put(CommonCssConstants.ALIGN_ITEMS, CssConstants.SAFE + " " + CommonCssConstants.FLEX_END);
@@ -227,7 +227,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
     public void applyJustifyContentUnsupportedValuesTest() {
         Map<String, String> cssProps = new HashMap<>();
         cssProps.put(CssConstants.JUSTIFY_CONTENT, CommonCssConstants.SPACE_BETWEEN);
@@ -237,7 +237,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 5))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 5))
     public void applyFlexContainerUnsupportedPropertiesUnsupportedValuesTest() {
         String[] unsupportedProperties = {
                 CssConstants.FLEX_WRAP,
@@ -265,7 +265,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
     public void applyFlexItemUnsupportedPropertiesUnsupportedValuesTest() {
         ProcessorContext context = new ProcessorContext(new ConverterProperties());
         Map<String, String> cssProps = new HashMap<>();

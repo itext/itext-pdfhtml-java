@@ -42,9 +42,9 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.AlignmentPropertyValue;
@@ -118,7 +118,7 @@ final public class FlexApplierUtil {
         } else {
             // The case when we don't set the flex-basis property should be identified
             // as flex-basis: content
-            LOGGER.warn(MessageFormatUtil.format(LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET,
+            LOGGER.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET,
                     CommonCssConstants.FLEX_BASIS, CommonCssConstants.CONTENT));
         }
     }
@@ -168,7 +168,7 @@ final public class FlexApplierUtil {
                     alignItems = AlignmentPropertyValue.STRETCH;
                     break;
                 default:
-                    LOGGER.warn(MessageFormatUtil.format(LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET,
+                    LOGGER.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET,
                             CommonCssConstants.ALIGN_ITEMS, alignItemsString));
                     alignItems = AlignmentPropertyValue.STRETCH;
                     break;
@@ -216,7 +216,7 @@ final public class FlexApplierUtil {
                     justifyContent = JustifyContent.FLEX_START;
                     break;
                 default:
-                    LOGGER.warn(MessageFormatUtil.format(LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET,
+                    LOGGER.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET,
                         CommonCssConstants.JUSTIFY_CONTENT, justifyContentString));
                     justifyContent = JustifyContent.FLEX_START;
                     break;
@@ -233,7 +233,7 @@ final public class FlexApplierUtil {
             String propertyValue = cssProps.get(supportedPair);
             if (propertyValue != null && !supportedValues.contains(propertyValue)) {
                 LOGGER.warn(MessageFormatUtil.format(
-                        LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, supportedPair, propertyValue));
+                        Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, supportedPair, propertyValue));
             }
         }
     }

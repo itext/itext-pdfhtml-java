@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
@@ -281,7 +281,7 @@ class CssContentPropertyResolver {
             contentStr = contentStr.substring(0, logMessageParameterMaxLength) + ".....";
         }
 
-        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
+        LOGGER.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
         return null;
     }
 

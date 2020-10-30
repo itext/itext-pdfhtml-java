@@ -24,6 +24,7 @@ package com.itextpdf.html2pdf.css.w3c.css_backgrounds;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.kernel.PdfException;
+import com.itextpdf.kernel.exceptions.KernelExceptionMessageConstant;
 
 import java.io.IOException;
 import org.junit.Rule;
@@ -45,7 +46,7 @@ public class BoxShadowBodyTest extends W3CCssTest {
     @Override
     public void test() throws IOException, InterruptedException {
         junitExpectedException.expect(PdfException.class);
-        junitExpectedException.expectMessage(PdfException.DocumentHasNoPages);
+        junitExpectedException.expectMessage(KernelExceptionMessageConstant.DOCUMENT_HAS_NO_PAGES);
         super.test();
     }
 }

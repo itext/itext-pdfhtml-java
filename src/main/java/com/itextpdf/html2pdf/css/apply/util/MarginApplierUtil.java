@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
@@ -165,7 +165,7 @@ public final class MarginApplierUtil {
                 if (baseValue != 0.0f) {
                     return new Float(baseValue * marginUnitVal.getValue() * 0.01);
                 }
-                logger.error(LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                logger.error(Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 return null;
             }
 

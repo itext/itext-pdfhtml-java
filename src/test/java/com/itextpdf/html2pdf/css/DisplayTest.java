@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -132,7 +133,7 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
     @LogMessages(messages = {
             @LogMessage(messageTemplate = LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE),
             @LogMessage(messageTemplate = LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH),
-            @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1)
     })
     public void displayTable07Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("display_table07", sourceFolder, destinationFolder);
@@ -168,7 +169,7 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
     @Test
     //TODO: update after DEVSIX-2445 fix
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 6),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 6),
     })
     public void displayBlockInsideParagraphTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("displayBlockInsideParagraph", sourceFolder, destinationFolder);
@@ -337,7 +338,7 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 7))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 7))
     public void inlineBlockInsideTableCellTest() throws IOException, InterruptedException {
 
         // IO setup

@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -188,8 +189,8 @@ public class Html2ElementsTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, count = 1),
-            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1),
-            @LogMessage(messageTemplate = LogMessageConstant.PDF_DOCUMENT_NOT_PRESENT, count = 1),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.PDF_DOCUMENT_NOT_PRESENT, count = 1),
     })
     public void htmlObjectMalformedUrlTest() {
         String html = "<object data ='htt://as' type='image/svg+xml'></object>";

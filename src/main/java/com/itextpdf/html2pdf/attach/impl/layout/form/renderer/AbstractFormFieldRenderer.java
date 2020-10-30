@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
@@ -55,7 +55,6 @@ import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
 import com.itextpdf.layout.layout.MinMaxWidthLayoutResult;
 import com.itextpdf.layout.minmaxwidth.MinMaxWidth;
-import com.itextpdf.layout.property.FloatPropertyValue;
 import com.itextpdf.layout.property.OverflowPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.renderer.BlockRenderer;
@@ -139,7 +138,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer {
                 applyMargins(occupiedArea.getBBox(), true);
             }
         } else {
-            LoggerFactory.getLogger(getClass()).error(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD);
+            LoggerFactory.getLogger(getClass()).error(Html2PdfLogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD);
             occupiedArea.getBBox().setWidth(0).setHeight(0);
         }
         if (!Boolean.TRUE.equals(getPropertyAsBoolean(Property.FORCED_PLACEMENT)) && !isRendererFit(parentWidth, parentHeight)) {
@@ -147,7 +146,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer {
             return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).setMinMaxWidth(new MinMaxWidth());
         }
         if (result.getStatus() != LayoutResult.FULL || !isRendererFit(parentWidth, parentHeight)) {
-            LoggerFactory.getLogger(getClass()).warn(LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
+            LoggerFactory.getLogger(getClass()).warn(Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
         }
         return new MinMaxWidthLayoutResult(LayoutResult.FULL, occupiedArea, this, null)
                 .setMinMaxWidth(new MinMaxWidth(occupiedArea.getBBox().getWidth(), occupiedArea.getBBox().getWidth(), 0));

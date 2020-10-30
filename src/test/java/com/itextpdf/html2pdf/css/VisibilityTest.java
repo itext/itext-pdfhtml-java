@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -117,7 +118,7 @@ public class VisibilityTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {@LogMessage
-            (messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT)})
+            (messageTemplate = Html2PdfLogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT)})
     //TODO update cmp-file after DEVSIX-2090 and DEVSIX-1901 done
     public void visiblePropertyInFormDropdownListTest() throws IOException, InterruptedException {
         String htmlFile = sourceFolder + "visiblePropertyInFormDropdownListTest.html";

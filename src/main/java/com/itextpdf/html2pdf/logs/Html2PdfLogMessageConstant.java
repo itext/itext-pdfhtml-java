@@ -40,12 +40,12 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf;
+package com.itextpdf.html2pdf.logs;
 
 /**
  * Class that bundles all the error message templates as constants.
  */
-public final class LogMessageConstant {
+public final class Html2PdfLogMessageConstant {
 
     /** The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT. */
     public static final String ACROFORM_NOT_SUPPORTED_FOR_SELECT = "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will be flattened instead.";
@@ -145,7 +145,7 @@ public final class LogMessageConstant {
     /** The Constant WORKER_UNABLE_TO_PROCESS_OTHER_WORKER. */
     public static final String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
 
-    private LogMessageConstant() {
+    private Html2PdfLogMessageConstant() {
     }
 
 }

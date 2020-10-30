@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
@@ -146,7 +146,7 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, count = 3))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, count = 3))
     public void invalidCompoundSizePageRuleTest() {
         runTest("invalidCompoundSizePageRuleTest");
     }
@@ -167,7 +167,7 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 3))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, count = 3))
     public void marginBoxTest01() {
         runTest("marginBoxTest01");
     }
@@ -342,7 +342,7 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID))
     public void marginBoxRunningTest07() {
         runTest("marginBoxRunningTest07");
     }

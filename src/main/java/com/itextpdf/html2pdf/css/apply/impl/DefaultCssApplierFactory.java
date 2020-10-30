@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.css.apply.impl;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
-import com.itextpdf.html2pdf.exception.CssApplierInitializationException;
+import com.itextpdf.html2pdf.exceptions.CssApplierInitializationException;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 

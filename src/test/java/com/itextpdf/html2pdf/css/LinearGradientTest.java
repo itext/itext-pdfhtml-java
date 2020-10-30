@@ -24,7 +24,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -67,7 +67,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
     // TODO: DEVSIX-3595 update cmp_ after fix and remove log message expectation
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, count = 3, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, count = 3, logLevel = LogLevelConstants.WARN)
     })
     public void backgroundImageLinearGradientWithAnglesTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("background-image-angles-linear-gradient", sourceFolder, destinationFolder);
@@ -76,7 +76,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
     // TODO: DEVSIX-3596 update cmp_ after fix and remove log message expectation
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, count = 5, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, count = 5, logLevel = LogLevelConstants.WARN)
     })
     public void backgroundImageLinearGradientWithMetricsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("background-image-metrics-linear-gradient", sourceFolder, destinationFolder);
@@ -100,7 +100,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
     // TODO: DEVSIX-3595 update cmp_ after fix and remove log message expectation
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, count = 3, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, count = 3, logLevel = LogLevelConstants.WARN)
     })
     public void backgroundImageRepeatingLinearGradientWithAnglesTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("background-image-angles-repeating-linear-gradient", sourceFolder, destinationFolder);
@@ -109,7 +109,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
     // TODO: DEVSIX-3596 update cmp_ after fix and remove log message expectation
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, count = 5, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, count = 5, logLevel = LogLevelConstants.WARN)
     })
     public void backgroundImageRepeatingLinearGradientWithMetricsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("background-image-metrics-repeating-linear-gradient", sourceFolder, destinationFolder);
@@ -122,7 +122,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
     })
     public void invalidFirstArgumentTest() throws IOException {
         convertHtmlWithGradient(
@@ -131,7 +131,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
     })
     public void invalidToSideTest0() throws IOException {
         convertHtmlWithGradient("linear-gradient(to , orange 100pt, red 150pt, green 200pt, blue 250pt)");
@@ -139,7 +139,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
     })
     public void invalidToSideTest1() throws IOException {
         convertHtmlWithGradient("linear-gradient(to, orange 100pt, red 150pt, green 200pt, blue 250pt)");
@@ -147,7 +147,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
     })
     public void invalidToSideTest2() throws IOException {
         convertHtmlWithGradient("linear-gradient(to left left, orange 100pt, red 150pt, green 200pt, blue 250pt)");
@@ -155,7 +155,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
     })
     public void invalidToSideTest3() throws IOException {
         convertHtmlWithGradient("linear-gradient(to bottom top, orange 100pt, red 150pt, green 200pt, blue 250pt)");
@@ -163,7 +163,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
     })
     public void invalidToSideTest4() throws IOException {
         convertHtmlWithGradient("linear-gradient(to left right, orange 100pt, red 150pt, green 200pt, blue 250pt)");
@@ -171,7 +171,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
     })
     public void invalidToSideTest5() throws IOException {
         convertHtmlWithGradient(
@@ -180,7 +180,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
     })
     public void invalidColorWithThreeOffsetsValueTest() throws IOException {
         convertHtmlWithGradient("linear-gradient(red, orange 20pt 30pt 100pt, green 200pt, blue 250pt)");
@@ -188,7 +188,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
     })
     public void invalidColorOffsetValueTest() throws IOException {
         convertHtmlWithGradient("linear-gradient(red, orange 20, green 200pt, blue 250pt)");
@@ -196,7 +196,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
     })
     public void invalidMultipleHintsInARowValueTest() throws IOException {
         convertHtmlWithGradient("linear-gradient(red, orange, 20%, 30%, green 200pt, blue 250pt)");
@@ -204,7 +204,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
     })
     public void invalidMultipleHintsInARowWithoutCommaValueTest() throws IOException {
         convertHtmlWithGradient("linear-gradient(red, orange, 20% 30%, green 200pt, blue 250pt)");
@@ -212,7 +212,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
     })
     public void invalidFirstElementIsAHintValueTest() throws IOException {
         convertHtmlWithGradient("linear-gradient(5%, red, orange, 30%, green 200pt, blue 250pt)");
@@ -220,7 +220,7 @@ public class LinearGradientTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, logLevel = LogLevelConstants.WARN)
     })
     public void invalidLastElementIsAHintValueTest() throws IOException {
         convertHtmlWithGradient("linear-gradient(red, orange, 30%, green 200pt, blue 250pt, 120%)");

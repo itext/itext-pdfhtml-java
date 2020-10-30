@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.util;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
@@ -117,7 +117,7 @@ public class LinkHelper {
             if (propertyContainer == null) {
                 String tagWorkerClassName = tagWorker != null ? tagWorker.getClass().getName() : "null";
                 LOGGER.warn(MessageFormatUtil.format(
-                        LogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.name(), id, tagWorkerClassName));
+                        Html2PdfLogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.name(), id, tagWorkerClassName));
                 return;
             }
             propertyContainer.setProperty(Property.DESTINATION, id);

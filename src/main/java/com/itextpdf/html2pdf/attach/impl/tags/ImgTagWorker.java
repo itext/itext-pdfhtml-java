@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
@@ -179,7 +179,7 @@ public class ImgTagWorker implements ITagWorker {
                 return ObjectFit.FILL;
             default:
                 LOGGER.warn(MessageFormatUtil.format(
-                        LogMessageConstant.UNEXPECTED_VALUE_OF_OBJECT_FIT, objectFitValue));
+                        Html2PdfLogMessageConstant.UNEXPECTED_VALUE_OF_OBJECT_FIT, objectFitValue));
                 return ObjectFit.FILL;
         }
     }

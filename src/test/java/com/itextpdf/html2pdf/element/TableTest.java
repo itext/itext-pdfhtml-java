@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.PdfException;
 import com.itextpdf.kernel.geom.PageSize;
@@ -339,13 +339,13 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, count = 2))
     public void thTagTest() throws IOException, InterruptedException {
         runTest("thTag", true);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, count = 2))
     public void theadTagTest() throws IOException, InterruptedException {
         runTest("theadTagTest", true);
     }
@@ -523,7 +523,7 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED, count = 63)})
+    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED, count = 63)})
     //https://codepen.io/heypablete/pen/qdIsm
     //TODO: update after DEVSIX-1101
     public void checkResponsiveTableExample() throws IOException, InterruptedException {
@@ -533,7 +533,7 @@ public class TableTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
-            @LogMessage(messageTemplate = LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, count = 2),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, count = 2),
     })
     //TODO: DEVSIX-3022 - Inputs bigger than enclosing cell force table to split
     public void tableWithChildrenBiggerThanCellTest() throws IOException, InterruptedException {

@@ -29,7 +29,7 @@ import com.itextpdf.test.annotations.LogMessages;
 
 @LogMessages(messages = {
         @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 54),
-        @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)
+        @LogMessage(messageTemplate = com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)
 })
 //TODO DEVSIX-5086 support flex-wrap
 public class FlexDirectionRowTest extends W3CCssTest {

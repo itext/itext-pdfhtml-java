@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.resolver.font;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.util.ResourceUtil;
 import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.layout.font.Range;
@@ -152,7 +152,7 @@ public class DefaultFontProvider extends BasicFontProvider {
                 byte[] fontProgramBytes = StreamUtil.inputStreamToArray(stream);
                 addFont(fontProgramBytes, null, rangeToLoad);
             } catch (Exception e) {
-                LOGGER.error(LogMessageConstant.ERROR_LOADING_FONT);
+                LOGGER.error(Html2PdfLogMessageConstant.ERROR_LOADING_FONT);
             }
         }
     }
@@ -185,7 +185,7 @@ public class DefaultFontProvider extends BasicFontProvider {
                 // i.e. the unicode range that is to be rendered with standard or shipped free fonts
                 return FREE_FONT_RANGE;
             } catch (Exception e) {
-                LOGGER.error(LogMessageConstant.ERROR_LOADING_FONT);
+                LOGGER.error(Html2PdfLogMessageConstant.ERROR_LOADING_FONT);
             }
         }
         return null;

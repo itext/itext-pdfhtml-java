@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
@@ -129,7 +129,7 @@ public class ParagraphTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithButtonInputLabelSelectTextareaTest.pdf", sourceFolder + "cmp_paragraphWithButtonInputLabelSelectTextareaTest.pdf", destinationFolder, "diff11_"));
     }
 
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 2)})
+    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 2)})
     @Test
     public void paragraphWithBdoBrImgMapQSubSupTest() throws IOException, InterruptedException {
         //TODO: update after DEVSIX-2445 fix
@@ -137,7 +137,7 @@ public class ParagraphTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithBdoBrImgMapQSubSupTest.pdf", sourceFolder + "cmp_paragraphWithBdoBrImgMapQSubSupTest.pdf", destinationFolder, "diff12_"));
     }
 
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 2)})
+    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 2)})
     @Test
     public void paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest() throws IOException, InterruptedException {
         //TODO: update after DEVSIX-2445 fix
@@ -152,7 +152,7 @@ public class ParagraphTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "paragraphWithAParagraphSpanDivTest.pdf", sourceFolder + "cmp_paragraphWithAParagraphSpanDivTest.pdf", destinationFolder, "diff14_"));
     }
 
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 2)})
+    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 2)})
     @Test
     public void paragraphWithBBigISmallTtStrongTest() throws IOException, InterruptedException {
         //TODO: update after DEVSIX-2445 fix

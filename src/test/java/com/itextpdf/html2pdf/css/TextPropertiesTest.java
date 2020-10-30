@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -103,13 +103,13 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED)})
+    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED)})
     public void textDecorationTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationTest01", sourceFolder, destinationFolder);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
     public void letterSpacingTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("letterSpacingTest01", sourceFolder, destinationFolder);
     }
@@ -121,7 +121,7 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
     public void wordSpacingTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("wordSpacingTest01", sourceFolder, destinationFolder);
     }

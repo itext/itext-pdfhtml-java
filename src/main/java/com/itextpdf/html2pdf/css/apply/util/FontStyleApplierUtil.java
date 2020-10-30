@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.io.util.MessageFormatUtil;
@@ -210,7 +210,7 @@ public final class FontStyleApplierUtil {
             }
         } else {
             if (textDecorationColorProp.startsWith("hsl")) {
-                logger.error(LogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
+                logger.error(Html2PdfLogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
                 textDecorationColor = ColorConstants.BLACK;
             } else {
                 colors = CssDimensionParsingUtils.parseRgbaColor(textDecorationColorProp);
@@ -225,7 +225,7 @@ public final class FontStyleApplierUtil {
             List<Underline> underlineList = new ArrayList<>();
             for (String textDecorationLine : textDecorationLines) {
                 if (CssConstants.BLINK.equals(textDecorationLine)) {
-                    logger.error(LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
+                    logger.error(Html2PdfLogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
                 } else if (CssConstants.LINE_THROUGH.equals(textDecorationLine)) {
                     underlineList.add(new Underline(textDecorationColor, opacity, .75f, 0, 0, 1 / 4f, PdfCanvasConstants.LineCapStyle.BUTT));
                 } else if (CssConstants.OVERLINE.equals(textDecorationLine)) {
@@ -248,7 +248,7 @@ public final class FontStyleApplierUtil {
                 if (textIndentValue.isPointValue()) {
                     element.setProperty(Property.FIRST_LINE_INDENT, textIndentValue.getValue());
                 } else {
-                    logger.error(MessageFormatUtil.format(LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.TEXT_INDENT));
+                    logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.TEXT_INDENT));
                 }
             }
         }

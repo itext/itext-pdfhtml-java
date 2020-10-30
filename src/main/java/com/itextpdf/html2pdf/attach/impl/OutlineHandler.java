@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.io.util.MessageFormatUtil;
@@ -288,7 +288,7 @@ public class OutlineHandler {
                 tagWorker.getElementResult().setProperty(Property.DESTINATION, content);
             } else {
                 Logger logger = LoggerFactory.getLogger(OutlineHandler.class);
-                logger.warn(MessageFormatUtil.format(LogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG, tagName));
+                logger.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG, tagName));
             }
         }
         return this;

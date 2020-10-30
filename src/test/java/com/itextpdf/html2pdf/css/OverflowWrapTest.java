@@ -122,7 +122,7 @@ public class OverflowWrapTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
+            @LogMessage(messageTemplate = com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
     })
     public void chosenOverflowWrapValue01() throws IOException {
         List<IElement> elements = convertToElements("chosenOverflowWrapValue01");
@@ -138,7 +138,7 @@ public class OverflowWrapTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2)
+            @LogMessage(messageTemplate = com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2)
     })
     public void chosenOverflowWrapValue02() throws IOException {
         List<IElement> elements = convertToElements("chosenOverflowWrapValue02");
@@ -196,7 +196,7 @@ public class OverflowWrapTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
+            @LogMessage(messageTemplate = com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
     })
     public void overflowWrapWordWrapInheritanceAndInvalidValues() throws IOException {
         List<IElement> elements = convertToElements("overflowWrapWordWrapInheritanceAndInvalidValues");

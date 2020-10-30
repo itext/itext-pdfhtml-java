@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.forms.fields.PdfFormField;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
 import com.itextpdf.io.util.MessageFormatUtil;
@@ -128,7 +128,7 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
         if (!flatLines.isEmpty() && font != null) {
             cropContentLines(flatLines, flatBBox);
         } else {
-            LoggerFactory.getLogger(getClass()).error(MessageFormatUtil.format(LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "text input"));
+            LoggerFactory.getLogger(getClass()).error(MessageFormatUtil.format(Html2PdfLogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "text input"));
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
             flatBBox.setY(flatBBox.getTop()).setHeight(0);
         }

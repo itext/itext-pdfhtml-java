@@ -42,12 +42,12 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
 import com.itextpdf.html2pdf.css.util.CssStyleSheetAnalyzer;
-import com.itextpdf.html2pdf.exception.Html2PdfException;
+import com.itextpdf.html2pdf.exceptions.Html2PdfException;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.io.util.DecimalFormatUtil;
@@ -190,7 +190,7 @@ public class DefaultCssResolver implements ICssResolver {
 
             if (parentStyles == null && !(element.parentNode() instanceof IDocumentNode)) {
                 Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
-                logger.error(LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES);
+                logger.error(Html2PdfLogMessageConstant.ERROR_RESOLVING_PARENT_STYLES);
             }
 
             if (parentStyles != null) {
@@ -326,7 +326,7 @@ public class DefaultCssResolver implements ICssResolver {
                         }
                     } catch (Exception exc) {
                         Logger logger = LoggerFactory.getLogger(DefaultCssResolver.class);
-                        logger.error(LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, exc);
+                        logger.error(Html2PdfLogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, exc);
                     }
                 }
             }

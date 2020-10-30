@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
@@ -109,7 +109,7 @@ public final class PaddingApplierUtil {
                 if (baseValueVertical != 0.0f)
                     element.setProperty(Property.PADDING_TOP, new UnitValue(UnitValue.POINT, baseValueVertical * paddingTopVal.getValue() * 0.01f));
                 else
-                    logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    logger.error(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
         }
 
@@ -120,7 +120,7 @@ public final class PaddingApplierUtil {
                 if (baseValueVertical != 0.0f)
                     element.setProperty(Property.PADDING_BOTTOM, new UnitValue(UnitValue.POINT, baseValueVertical * paddingBottomVal.getValue() * 0.01f));
                 else
-                    logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    logger.error(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
         }
 
@@ -131,7 +131,7 @@ public final class PaddingApplierUtil {
                 if (baseValueHorizontal != 0.0f)
                     element.setProperty(Property.PADDING_LEFT, new UnitValue(UnitValue.POINT, baseValueHorizontal * paddingLeftVal.getValue() * 0.01f));
                 else
-                    logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    logger.error(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
         }
 
@@ -142,7 +142,7 @@ public final class PaddingApplierUtil {
                 if (baseValueHorizontal != 0.0f)
                     element.setProperty(Property.PADDING_RIGHT, new UnitValue(UnitValue.POINT, baseValueHorizontal * paddingRightVal.getValue() * 0.01f));
                 else
-                    logger.error(LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    logger.error(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
         }
     }

@@ -2,7 +2,7 @@
     This file is part of the iText (R) project.
     Copyright (c) 1998-2021 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
-    
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-    
+
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-    
+
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-    
+
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-    
+
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,33 +36,31 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-    
+
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.exception;
+package com.itextpdf.html2pdf.exceptions;
+
+import com.itextpdf.io.util.MessageFormatUtil;
 
 /**
- * Runtime exception that gets thrown if something goes wrong in the HTML to PDF conversion.
+ * Runtime exception in case a CSS applier can't be initialized.
  */
-public class Html2PdfException extends RuntimeException {
+public class CssApplierInitializationException extends RuntimeException {
 
     /**
-     * Creates a new {@link Html2PdfException} instance.
+     * Creates a new {@link CssApplierInitializationException} instance.
      *
-     * @param message the message
+     * @param message   the message
+     * @param className the class name of the CSS applier
+     * @param tag       the key
      */
-    public Html2PdfException(String message) {
-        super(message);
+    public CssApplierInitializationException(String message, String className, String tag) {
+        super(MessageFormatUtil.format(message, className, tag));
     }
 
-    /** Message in case one tries to write to a PDF document that isn't in writing mode. */
-    public static final String PdfDocumentShouldBeInWritingMode = "PdfDocument should be created in writing mode. Reading and stamping is not allowed";
-    
-    /** Message in case the font provider doesn't know about any fonts. */
-    public static final String FontProviderContainsZeroFonts = "Font Provider contains zero fonts. At least one font shall be present";
-    
-    /** The Constant UnsupportedEncodingException. */
-    public static final String UnsupportedEncodingException = "Unsupported encoding exception.";
-    
+    /** The message template in case reflection failed. */
+    public static final String ReflectionFailed = "Could not instantiate CssApplier-class {0} for tag {1}.";
+
 }
