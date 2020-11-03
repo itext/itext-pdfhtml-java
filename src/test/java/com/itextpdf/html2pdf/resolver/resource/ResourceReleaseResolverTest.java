@@ -64,7 +64,7 @@ import org.junit.experimental.categories.Category;
 public class ResourceReleaseResolverTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/resolver/resource/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/resolver/resource/";
+    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/resolver/resource/release/";
 
     @BeforeClass
     public static void beforeClass() {
