@@ -24,7 +24,7 @@ package com.itextpdf.html2pdf.css.w3c.css21.backgrounds;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-// TODO DEVSIX-4699 investigate problem
+// TODO DEVSIX-4732 background image should be around the content
 public class BackgroundBgPos208Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
