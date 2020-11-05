@@ -282,6 +282,7 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
+    // todo DEVSIX-1270, DEVSIX-1269
     public void float39Test() throws IOException, InterruptedException {
         runTest("float39Test", "diff39_");
     }
