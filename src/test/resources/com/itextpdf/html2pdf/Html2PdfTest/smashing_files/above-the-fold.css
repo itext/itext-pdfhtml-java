@@ -1,0 +1,1033 @@
+body, svg:not(:root) {
+    overflow: hidden
+}
+a, button, input {
+    margin: 0
+}
+.cahe, .ntb, h4 {
+    text-transform: uppercase
+}
+.bobo08 {
+    border-bottom: .08em solid rgba(0, 0, 0, .1)
+}
+.bo08 {
+    border: .08em solid rgba(0, 0, 0, .1)
+}
+article, aside, b, body, div, figcaption, figure, form, h1, h2, h3, h4, html, img, label, li, nav, p, span, strong, ul {
+    font-size: 100%;
+    vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0;
+    background: 0 0
+}
+html {
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizelegibility;
+    -webkit-font-feature-settings: "liga", "kern";
+    font-feature-settings: "liga", "kern";
+    overflow-y: scroll;
+    overflow-x: hidden
+}
+body {
+    line-height: 1.46;
+    max-width: 2000px;
+    color: #333;
+    background-image: url(https://media-mediatemple.netdna-ssl.com/wp-content/themes/smashing-magazine/assets/images/smbg.png)
+}
+a {
+    font-size: 100%;
+    text-decoration: none;
+    vertical-align: baseline;
+    padding: 0;
+    background: 0 0;
+    color: #41b7d8
+}
+a:active {
+    color: #fff;
+    background-color: #e53b2c
+}
+.pap a, li a, p a {
+    border-bottom: .08em solid rgba(0, 0, 0, .1);
+    padding-bottom: .08em
+}
+br+em a, figcaption a {
+    border-bottom: .09em solid rgba(0, 0, 0, .1);
+    padding-bottom: .09em
+}
+.pmd a, nav a {
+    padding-bottom: 0;
+    border: 0
+}
+img {
+    max-width: 100%;
+    height: auto;
+    border: 0
+}
+ul {
+    list-style: none
+}
+ol {
+    list-style: decimal
+}
+article ul {
+    list-style: disc
+}
+article ol, article ul {
+    font-size: 1.125em;
+    margin: .5em 1.5em
+}
+article li {
+    padding: .25em 0
+}
+article li ol, article li ul {
+    font-size: 1em;
+    margin: 0 1.5em
+}
+input {
+    vertical-align: middle
+}
+[type=submit], button, label {
+    cursor: pointer
+}
+[type=text], button {
+    font-size: 1.125em;
+    outline: 0;
+    -webkit-transition: border-color .3s;
+    transition: border-color .3s
+}
+button {
+    vertical-align: top;
+    overflow: visible;
+    padding: .75em 2em;
+    border: .08em solid #c73a11;
+    color: #fff;
+    background-color: #e95c33;
+    background: -webkit-linear-gradient(top, #e85c33 0, #e53a2b 100%);
+    background: linear-gradient(to bottom, #e85c33 0, #e53a2b 100%);
+    border-radius: .5em
+}
+.sr, .stb {
+    overflow: hidden;
+    white-space: nowrap
+}
+[type=text]:placeholder {
+    color: #777
+}
+[type=text] {
+    line-height: 1.5;
+    margin-bottom: 1em;
+    padding: .5em;
+    color: #777;
+    border: .08em solid rgba(0, 0, 0, .1);
+    background-color: #fff;
+    border-radius: .5em 0 0 .5em
+}
+@-ms-viewport {
+    width: device-width
+}
+body, button, input, label {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400
+}
+.cahe, .cat h3, .category .cat h2, .ntb, b, h4, strong {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 700
+}
+.ed+p, .pmd .a, .pmd+p {
+    font-family: 'Noto Sans';
+    font-weight: 400;
+    font-style: normal
+}
+.ed+p em, .pmd+p em {
+    font-family: 'Noto Sans';
+    font-weight: 400;
+    font-style: italic
+}
+.ed+p b, .ed+p strong, .pmd+p b, .pmd+p strong {
+    font-family: 'Noto Sans';
+    font-weight: 700;
+    font-style: normal
+}
+h2, h3 {
+    font-family: 'Noto Sans';
+    font-weight: 700;
+    font-style: normal
+}
+.clearfix::after, .clearfix::before {
+    content: " ";
+    display: table
+}
+.clearfix::after {
+    clear: both
+}
+.sr {
+    text-indent: 200%;
+    height: .008em;
+    width: .008em
+}
+.blocked, .ch, .mise, .mn ul, .mnc, .ms form, .msc, .nw, .pmd .pt, .po, .sb, .short, .sn {
+    display: none
+}
+.ad .declare, .cahe, .long, .pmd li, .sr, article, figure, label, nav {
+    display: block
+}
+.poptag a h2 a, .tags a, h3 .hsl, h4 .hsl {
+    display: inline-block
+}
+.awithus, .blocked figure, .gra, .ntb, .stb {
+    float: right
+}
+.mn, .mnb, .ms, .pt, .sr {
+    position: absolute
+}
+.h, .h .awithus, .poptag a, .pt img, aside, button, div, form, h3 .hsl, h4 .hsl, li, ul {
+    position: relative
+}
+.h {
+    z-index: 80;
+    width: 38.2%;
+    margin-left: 5.5%;
+    padding: 1.25em 0
+}
+.ntb, .stb {
+    padding: .4em
+}
+.mnb {
+    top: 1.5em;
+    right: 1.5em;
+    z-index: 90
+}
+.ntb, .stb {
+    box-sizing: border-box;
+    border: .08em solid #c73a11;
+    border-radius: .25em;
+    box-shadow: 0 .08em .08em rgba(0, 0, 0, .25)
+}
+.ntb {
+    margin-left: 1em;
+    color: #fff;
+    background: #e95c33
+}
+.stb {
+    text-indent: 150%;
+    width: 2.9375em;
+    background: url(https://media-mediatemple.netdna-ssl.com/wp-content/themes/smashing-magazine/assets/images/search-icon.svg) 50% 50% no-repeat, #e95c33;
+    background-size: 1.875em auto;
+    -webkit-background-size: 1.875em
+}
+.mn, .ms {
+    width: 100%;
+    height: 0;
+    max-height: 0;
+    padding-top: 0;
+    opacity: 0;
+    -webkit-transition: none;
+    transition: none
+}
+.cc, .post {
+    margin-bottom: 2em
+}
+.fluid {
+    padding-bottom: 1.5em;
+    background-color: #fff;
+    box-shadow: 0 0 .625em .08em rgba(0, 0, 0, .05)
+}
+.grid {
+    margin-top: 1.25em
+}
+.post {
+    padding: .5em 5.5% 4em;
+    border-bottom: .3125em solid #41b7d8
+}
+h2 {
+    font-size: 2em;
+    line-height: 1.1
+}
+h2 a {
+    color: #333
+}
+.cahe {
+    font-size: .45em;
+    line-height: 1.5;
+    letter-spacing: .08em;
+    padding-bottom: .5em;
+    color: #41b7d8
+}
+article {
+    line-height: 1.55
+}
+article p {
+    font-size: 1.125em
+}
+.ed+p, .pmd .a, .pmd+p {
+    font-size: 1.375em;
+    line-height: 1.35;
+    margin: 0
+}
+h3 {
+    font-size: 1.625em;
+    line-height: 1.3
+}
+h4 {
+    font-size: 1.125em;
+    letter-spacing: .125em
+}
+h3, h4 {
+    padding: 1.5em 0 .5em
+}
+figure img, p, p img {
+    padding: .5em 0
+}
+figure {
+    margin: 1em 0
+}
+.mcc {
+    padding-top: 1em;
+    width: 12.5em
+}
+.pmd {
+    padding-bottom: 2em;
+    margin: 0
+}
+.pmd li {
+    padding-left: 1.5em;
+    margin-top: 1em;
+    color: rgba(0, 0, 0, .3)
+}
+.pmd .a {
+    padding: .5em .5em .5em 0;
+    border-bottom: .08em solid rgba(0, 0, 0, .1)
+}
+.tags a {
+    margin: 0 1em .5em 0;
+    border-bottom: .08em solid transparent
+}
+.tags a:first-child {
+    margin-top: 0
+}
+.tags a::after {
+    content: ", "
+}
+.tags a:last-child::after {
+    content: ""
+}
+.cat {
+    border-top: .625em solid;
+    border-bottom: .08em solid;
+    border-color: #e5e5e5;
+    margin: 2em 5.5% 3em;
+    padding: 1em 0 1.25em
+}
+.cat h2 {
+    margin-bottom: .5em
+}
+.cat h3 {
+    font-size: 1.25em
+}
+.poptag a {
+    padding: .25em .5em;
+    margin: 0 .5em .5em 0;
+    border-bottom: .08em solid rgba(0, 0, 0, .1);
+    background: #a1a1a1;
+    border-radius: .25em
+}
+.gra {
+    padding: 1.25em .75em 1.25em 1.5em
+}
+.avatar {
+    border-radius: 50%
+}
+.sf label, .sfm label {
+    font-weight: 400;
+    color: rgba(0, 0, 0, .25);
+    margin: -.8em 0 .5em
+}
+.sf button {
+    line-height: 2.25;
+    left: -.3125em;
+    width: 23%;
+    height: 2.375em;
+    padding: 0 1%;
+    border-left: 0;
+    border-radius: 0 .5em .5em 0
+}
+.sf [type=text] {
+    width: 73%;
+    height: 1.5em;
+    padding: .375em 0 .375em 2%;
+    margin-bottom: 0;
+    border-right: 0
+}
+.declare {
+    float: left;
+    margin: .875em 0 .5em;
+    color: rgba(0, 0, 0, .25)
+}
+.awithus {
+    margin-top: .875em;
+    z-index: 9
+}
+.ad .declare {
+    font-size: 1em;
+    float: none;
+    padding: 1em 0 .5em;
+    margin-top: 0
+}
+.cad {
+    margin-bottom: 1.5em
+}
+.blocked {
+    margin: 1em 5.5%;
+    padding: 1em 1.5em;
+    background: #f9f9f9;
+    border-radius: .5em
+}
+.blocked figure {
+    float: right;
+    margin: 0 0 0 1em
+}
+.pt {
+    top: 0;
+    right: -2em
+}
+.pt img {
+    float: left;
+    border: .08em solid rgba(0, 0, 0, .1);
+    border-radius: .3125em
+}
+@media screen and (min-width:31.25em) {
+    .h {
+        width: 28.55%
+    }
+    .pmd li {
+        display: inline-block;
+        padding-right: 2em
+    }
+    .pmd .a {
+        display: block
+    }
+    .tags a {
+        display: inline;
+        margin: 0
+    }
+}
+@media screen and (min-width:38.125em) {
+    .grid {
+        padding: .5em 0
+    }
+    .pmd .pt {
+        display: block
+    }
+}
+@media screen and (min-width:40.625em) {
+    .ad {
+        float: right;
+        margin: 0 0 1em 2em
+    }
+}
+@media screen and (min-width:50em) {
+    body {
+        border-left: .625em solid transparent
+    }
+    .h, .mn, .mn+.mnc, .mn:target, .mn:target+.mnc, .ms, .ms+.msc, .ms:target, .ms:target+.msc {
+        display: none
+    }
+    .ch, .ch li a, .mise, .nw, .nw a, .sn, .sn li a {
+        display: block
+    }
+    .mnb, .mnb a {
+        overflow: hidden;
+        top: -.5em;
+        right: 0;
+        height: .01em;
+        width: .01em;
+        padding: 0
+    }
+    .ch, .main {
+        float: right
+    }
+    .cc, .ch li, .col, .nw, .nw li {
+        float: left
+    }
+    .nw {
+        width: 79%
+    }
+    .nw li {
+        border-right: .08em solid rgba(0, 0, 0, .05)
+    }
+    .nw li a {
+        padding: 2.5em 1em .5em;
+        height: 1.75em;
+        color: rgba(0, 0, 0, .3);
+        -webkit-transition: color .3s, background-color .3s;
+        transition: color .3s, background-color .3s
+    }
+    .nw .current {
+        z-index: 2;
+        width: 24%;
+        background: #fff
+    }
+    .nw .current a {
+        padding: 1.5em 1em 0;
+        height: 3.3125em;
+        -webkit-transition: none;
+        transition: none
+    }
+    .nw .current a:focus, .nw .current a:hover {
+        background-color: #fff
+    }
+    .nw .current img {
+        position: relative;
+        top: -.125em
+    }
+    .ch {
+        margin: 2.5em 4% 0 0;
+        z-index: 50
+    }
+    .ch li {
+        margin-left: .625em
+    }
+    .ch li a {
+        text-indent: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 1.4375em;
+        height: 1.4375em;
+        background-image: url(https://media-mediatemple.netdna-ssl.com/wp-content/themes/smashing-magazine/assets/images/channels.svg);
+        background-size: 353% 600%;
+        opacity: .45;
+        -webkit-transition: all .3s;
+        transition: all .3s
+    }
+    .rss a {
+        background-position: 76% 35.5%
+    }
+    .fb a {
+        background-position: 76% 62%
+    }
+    .tw a {
+        background-position: 76% 90%
+    }
+    .nl a {
+        background-position: 76% 9%
+    }
+    .cc {
+        width: 100%
+    }
+    .main {
+        width: 80%;
+        padding: 0;
+        margin-top: 1.5em
+    }
+    .mise form {
+        margin: 1em 0 2em 5.5%
+    }
+    .mise [type=text] {
+        height: 1.125em;
+        padding: 1em 2.5%
+    }
+    .mise button {
+        line-height: 3.125;
+        width: 17.5%;
+        height: 3.25em
+    }
+    .sn {
+        width: 20%
+    }
+    .sct {
+        margin: 2em 0
+    }
+    .sn ul {
+        margin-left: -.08em
+    }
+    .sn li {
+        border-left-width: .625em;
+        border-left-style: solid;
+        padding-bottom: 2.25em;
+        -webkit-transition: border-color .3s;
+        transition: border-color .3s
+    }
+    .sn li a {
+        font-family: 'Noto Sans';
+        font-style: normal;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .175em;
+        color: #333;
+        padding: .25em .5em .25em 20%;
+        border-bottom: .08em solid transparent;
+        -webkit-transition: background-color .3s;
+        transition: background-color .3s
+    }
+    .sn li li {
+        border: 0;
+        margin-left: .08em;
+        padding-bottom: 0
+    }
+    .sn li li a {
+        font-family: 'Noto Sans';
+        font-style: normal;
+        font-weight: 400;
+        letter-spacing: 0;
+        text-transform: none;
+        color: #777;
+        border: 0;
+        padding-left: 20%;
+        margin: 0;
+        -webkit-transition: color .3s, background-color .3s;
+        transition: color .3s, background-color .3s
+    }
+    .menu-item-coding {
+        border-left-color: #C9E9E5
+    }
+    .menu-item-design {
+        border-left-color: #CDEEAA
+    }
+    .menu-item-mobile {
+        border-left-color: #F9F0A8
+    }
+    .menu-item-graphics {
+        border-left-color: #E0CFDF
+    }
+    .menu-item-uxdesign {
+        border-left-color: #FACED2
+    }
+    .menu-item-wordpress {
+        border-left-color: #BCD8F0
+    }
+    .cat {
+        padding-left: 5.5%;
+        padding-right: 5.5%
+    }
+    .post {
+        padding-left: 11%
+    }
+    .blocked {
+        margin-left: 11%
+    }
+    article img {
+        max-width: 31.25em
+    }
+    .fwi img {
+        max-width: 100%
+    }
+}
+@media screen and (min-width:63.75em) {
+    .wg h3, .wg h3 a {
+        position: relative
+    }
+    .so img, .so p {
+        overflow: hidden
+    }
+    .mise, .sn li ul {
+        display: none
+    }
+    .sb, .sb .sf {
+        display: block
+    }
+    .sn li, .so img {
+        float: left
+    }
+    .bnnr-list, .wg {
+        clear: both
+    }
+    .nw .current {
+        width: 21%
+    }
+    .main, .sn {
+        width: 100%
+    }
+    .ch {
+        margin-right: 1em
+    }
+    .main {
+        margin-top: -.5em
+    }
+    .post {
+        padding-left: 5.5%
+    }
+    .blocked {
+        margin-left: 5.5%
+    }
+    .sn {
+        margin-top: 0;
+        margin-bottom: 0
+    }
+    .sn ul {
+        margin: 1em 0 0;
+        padding: 0 0 0 5.5%;
+        border-bottom: .3125em solid rgba(0, 0, 0, .06)
+    }
+    .sn li {
+        border-left-width: 0;
+        border-right: .08em solid #e5e5e5;
+        border-bottom-width: .3125em;
+        border-bottom-style: solid;
+        margin-bottom: -.3125em;
+        padding-bottom: 0
+    }
+    .sn li:last-child {
+        border-right: 0
+    }
+    .sn li a {
+        font-size: .75em;
+        border: 0;
+        padding: .75em .9em
+    }
+    .sct {
+        margin-top: -.5em
+    }
+    .menu-item-coding {
+        border-bottom-color: #C9E9E5
+    }
+    .menu-item-design {
+        border-bottom-color: #CDEEAA
+    }
+    .menu-item-mobile {
+        border-bottom-color: #F9F0A8
+    }
+    .menu-item-graphics {
+        border-bottom-color: #E0CFDF
+    }
+    .menu-item-uxdesign {
+        border-bottom-color: #FACED2
+    }
+    .menu-item-wordpress {
+        border-bottom-color: #BCD8F0
+    }
+    h2 {
+        padding-top: .5em
+    }
+    .cc {
+        margin-right: -28.125em
+    }
+    .fluid {
+        margin-right: 28.125em;
+        border-radius: 0 .625em .625em 0
+    }
+    .cat {
+        padding-left: 0;
+        padding-right: 0;
+        margin-top: 2em;
+        margin-right: 5.5%
+    }
+    .sb {
+        z-index: 3
+    }
+    .sb .sf form {
+        margin: 0
+    }
+    .sb .sf .sl {
+        padding: 2em 0 .125em
+    }
+    .sb .sf [type=text] {
+        height: 1.5em;
+        padding: .375em 0 .375em 2%
+    }
+    .sb .sf button {
+        line-height: 2.25;
+        width: 23%;
+        height: 2.375em
+    }
+    .side {
+        padding: 0 0 0 1.25em;
+        width: 26.25em;
+        top: -3.325em
+    }
+    .bw {
+        margin: 0 0 1.25em
+    }
+    .bw .awithus {
+        margin-right: .5em
+    }
+    .bw p {
+        padding-top: 0
+    }
+    .faw {
+        margin-top: 1.5em
+    }
+    .bnnr-list li {
+        font-size: .75em;
+        text-align: center;
+        width: 48%;
+        display: inline-block;
+        margin: 0 2% 1em 0
+    }
+    .bnnr-list a {
+        border-bottom: 0
+    }
+    .bnnr-list .double {
+        width: 34.16667em
+    }
+    .wg {
+        margin: 1.5em 0 1.5em -1.25em;
+        padding: 0 1.25em 2em;
+        border: .08em solid rgba(0, 0, 0, .1);
+        border-left: 0;
+        background: rgba(255, 255, 255, .55);
+        border-radius: 0 .625em .625em 0
+    }
+    .wg form {
+        margin: .75em 0 1em
+    }
+    .wg li {
+        list-style: none;
+        padding: 1em 0
+    }
+    .wg h3 {
+        padding-left: 2.5em
+    }
+    .wg h3 img {
+        position: absolute;
+        left: -2.5em;
+        top: 0
+    }
+    .sb .mcf input {
+        width: 66%
+    }
+    .sb .mcf input+.submit {
+        width: 30%
+    }
+    .so div, .wg li {
+        border-bottom: .08em solid rgba(0, 0, 0, .05)
+    }
+    .so div {
+        margin-top: .5em
+    }
+    .so p {
+        line-height: 1.55;
+        padding-top: 1.125em
+    }
+    .so img {
+        margin: 1.5em 1.5em 0 0;
+        border-radius: .5em
+    }
+    .fir {
+        padding: 0 1.5em 1.75em 0
+    }
+    .sec {
+        padding-bottom: 1.75em
+    }
+}
+@media screen and (min-width:76.25em) {
+    .sn li, .sn ul {
+        border-bottom: 0
+    }
+    .nw {
+        width: 50%
+    }
+    .nw .current {
+        width: 29%
+    }
+    .nw .current img {
+        top: -.4375em
+    }
+    .main {
+        width: 78%;
+        margin-top: 1.8%
+    }
+    .archive .main, .sn {
+        margin-top: 4%
+    }
+    .post {
+        padding-top: 0
+    }
+    .sn {
+        width: 22%
+    }
+    .sn ul {
+        margin: 0;
+        padding: 0 2.5% 0 0
+    }
+    .sn li {
+        border-right: 0;
+        border-left-width: .625em;
+        border-left-style: solid;
+        float: none;
+        margin-bottom: 0;
+        padding-bottom: 2.25em
+    }
+    .sn li a {
+        font-size: 1em;
+        border: none;
+        border-bottom: .08em solid transparent;
+        padding: .25em .5em .25em 25%
+    }
+    .sn li ul {
+        padding: 0;
+        margin-left: -.08em;
+        display: block
+    }
+    .sn li ul li {
+        padding-bottom: 0;
+        border: 0
+    }
+    .sn li ul li a {
+        margin-top: 0;
+        padding-left: 25%;
+        border: 0
+    }
+    .sct {
+        margin: 0 0 1em;
+        z-index: 99
+    }
+    .menu-item-coding {
+        border-left-color: #C9E9E5
+    }
+    .menu-item-design {
+        border-left-color: #CDEEAA
+    }
+    .menu-item-mobile {
+        border-left-color: #F9F0A8
+    }
+    .menu-item-graphics {
+        border-left-color: #E0CFDF
+    }
+    .menu-item-uxdesign {
+        border-left-color: #FACED2
+    }
+    .menu-item-wordpress {
+        border-left-color: #BCD8F0
+    }
+    .cat {
+        margin-top: 0;
+        padding-left: 5.5%;
+        padding-right: 5.5%
+    }
+    .ch {
+        margin-right: 28.125em
+    }
+}
+@media screen and (min-width:90.625em) {
+    .nw li, body {
+        border: 0
+    }
+    .ch, .nw, .nw li {
+        float: none
+    }
+    .tn {
+        float: left;
+        width: 10%
+    }
+    .nw {
+        width: auto
+    }
+    .nw li {
+        border-bottom: .08em solid rgba(0, 0, 0, .1)
+    }
+    .nw li a {
+        padding: 1em 0 1em 1.375em
+    }
+    .nw .current {
+        margin: .6em 0 0;
+        width: auto;
+        box-shadow: none
+    }
+    .nw .current a {
+        padding: 1.5em 0 1em 1.5em;
+        height: auto
+    }
+    .nw .current img {
+        top: 0;
+        left: -.5em
+    }
+    .ch {
+        margin: 1.25em 0 0 .875em
+    }
+    .ch li {
+        margin-left: 0;
+        margin-right: .5em
+    }
+    .cc {
+        width: 90%;
+        border-top: .625em solid transparent
+    }
+    .fluid {
+        border-radius: 0 .625em .625em
+    }
+    .grid {
+        margin-top: 2.3em
+    }
+    .side {
+        top: 0
+    }
+    .mise {
+        top: 1.65em;
+        padding-bottom: 1em
+    }
+    .sb .sf .sl {
+        margin: 1.5em 0 0;
+        padding-top: 0
+    }
+}
+@media screen and (min-width:100em) {
+    body {
+        font-size: 1.15em
+    }
+    .post {
+        padding-left: 11%;
+        padding-right: 11%
+    }
+    .blocked {
+        margin: 1em 11%
+    }
+    .sn {
+        margin-top: 3.65%
+    }
+    .sn ul li ul {
+        margin-left: -.08em
+    }
+    .ch {
+        margin: 1.5em 0 0 1.5em
+    }
+    .ad, .ch {
+        font-size: .86957em
+    }
+    .wg {
+        margin-left: -1.08696em
+    }
+    .cc {
+        margin-right: -24.45652em
+    }
+    .fluid {
+        margin-right: 24.45652em
+    }
+    .side {
+        width: 22.82609em;
+        padding-left: 1.08696em
+    }
+    .bnnr-list .double {
+        width: 29.71015em
+    }
+    article p {
+        padding: .75em 0
+    }
+    article li {
+        padding: .5em 0
+    }
+    article img {
+        max-width: 27.17391em
+    }
+    .fwi img {
+        max-width: 100%
+    }
+    .cat {
+        margin-left: 5.5%
+    }
+    .pt {
+        top: -.5em;
+        right: -5em
+    }
+}
+@media screen and (min-width:63.75em) and (max-width:70.3125em) {
+    .long {
+        display: none
+    }
+    .short {
+        display: block
+    }
+}

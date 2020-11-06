@@ -42,19 +42,31 @@
  */
 package com.itextpdf.html2pdf;
 
+import com.itextpdf.html2pdf.attach.IHtmlProcessor;
+import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
+import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.font.FontProvider;
+import com.itextpdf.styledxmlparser.IXmlParser;
+import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
+import com.itextpdf.styledxmlparser.css.media.MediaType;
+import com.itextpdf.styledxmlparser.node.IDocumentNode;
+import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
@@ -152,6 +164,34 @@ public class Html2PdfTest extends ExtendedITextTest {
 
     }
 
+    @Test
+    @LogMessages(ignore = true, messages = {
+            @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.RULE_IS_NOT_SUPPORTED),
+            @LogMessage(messageTemplate = LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED),
+            @LogMessage(messageTemplate = LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED),
+            @LogMessage(messageTemplate = LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED),
+            @LogMessage(messageTemplate = LogMessageConstant.ERROR_PARSING_CSS_SELECTOR),
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED),
+    })
+    public void batchConversionTest() throws IOException, InterruptedException {
+        ConverterProperties properties = new ConverterProperties().setBaseUri(sourceFolder)
+                .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT));
+        FontProvider fontProvider = new DefaultFontProvider(true, false, false);
+        fontProvider.addDirectory(sourceFolder + "fonts/");
+        properties.setFontProvider(fontProvider);
+        IHtmlProcessor processor = new DefaultHtmlProcessor(properties);
+
+        IXmlParser parser = new JsoupHtmlParser();
+        String outPdfPath = destinationFolder + "smashing1.pdf";
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outPdfPath));
+        IDocumentNode doc = parser.parse(new FileInputStream(sourceFolder + "smashing01.html"),
+                properties.getCharset());
+        Document document = processor.processDocument(doc, pdfDocument);
+        document.close();
+
+        Assert.assertNull(new CompareTool().compareByContent(outPdfPath,
+                sourceFolder + "cmp_smashing1.pdf", destinationFolder, "diff01_"));
+    }
 
     @Test
     public  void htmlImgBase64SVGTest() throws IOException, InterruptedException {
