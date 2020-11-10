@@ -47,7 +47,8 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.styledxmlparser.css.CssDeclaration;
 import com.itextpdf.styledxmlparser.css.resolve.shorthand.impl.BorderShorthandResolver;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IAttribute;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
@@ -181,7 +182,7 @@ class HtmlStylesToCssConverter {
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
-            Float width = CssUtils.parseFloat(value);
+            Float width = CssDimensionParsingUtils.parseFloat(value);
             if (width != null) {
                 if (TagConstants.TABLE.equals(element.name()) && width != 0) {
                     List<CssDeclaration> declarations = new BorderShorthandResolver().resolveShorthand("1px solid");
@@ -237,7 +238,7 @@ class HtmlStylesToCssConverter {
          */
         @Override
         public List<CssDeclaration> convert(IElementNode element, String value) {
-            Float cellPadding = CssUtils.parseFloat(value);
+            Float cellPadding = CssDimensionParsingUtils.parseFloat(value);
             if (cellPadding != null) {
                 if (TagConstants.TABLE.equals(element.name())) {
                     Map<String, String> styles = new HashMap<>();
@@ -486,7 +487,7 @@ class HtmlStylesToCssConverter {
         public List<CssDeclaration> convert(IElementNode element, String value) {
             // Trim semicolons at the end because they seem to not affect the value in browsers
             String cssEquivalent = value.replaceAll(";+$", "");
-            if (!CssUtils.isMetricValue(cssEquivalent) && !cssEquivalent.endsWith(CssConstants.PERCENTAGE)) {
+            if (!CssTypesValidationUtils.isMetricValue(cssEquivalent) && !cssEquivalent.endsWith(CssConstants.PERCENTAGE)) {
                 cssEquivalent += CssConstants.PX;
             }
             return Arrays.asList(new CssDeclaration(CssConstants.WIDTH, cssEquivalent));
@@ -513,7 +514,7 @@ class HtmlStylesToCssConverter {
         public List<CssDeclaration> convert(IElementNode element, String value) {
             // Trim semicolons at the end because they seem to not affect the value in browsers
             String cssEquivalent = value.replaceAll(";+$", "");
-            if (!CssUtils.isMetricValue(cssEquivalent) && !cssEquivalent.endsWith(CssConstants.PERCENTAGE)) {
+            if (!CssTypesValidationUtils.isMetricValue(cssEquivalent) && !cssEquivalent.endsWith(CssConstants.PERCENTAGE)) {
                 cssEquivalent += CssConstants.PX;
             }
             return Arrays.asList(new CssDeclaration(CssConstants.HEIGHT, cssEquivalent));

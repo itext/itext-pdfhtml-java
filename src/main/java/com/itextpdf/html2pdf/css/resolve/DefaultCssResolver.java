@@ -67,6 +67,8 @@ import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
 import com.itextpdf.styledxmlparser.css.resolve.CssInheritance;
 import com.itextpdf.styledxmlparser.css.resolve.IStyleInheritance;
+import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IDataNode;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
@@ -195,21 +197,21 @@ public class DefaultCssResolver implements ICssResolver {
         }
 
         String elementFontSize = elementStyles.get(CssConstants.FONT_SIZE);
-        if (CssUtils.isRelativeValue(elementFontSize) || CssConstants.LARGER.equals(elementFontSize)
+        if (CssTypesValidationUtils.isRelativeValue(elementFontSize) || CssConstants.LARGER.equals(elementFontSize)
                 || CssConstants.SMALLER.equals(elementFontSize)) {
             float baseFontSize;
-            if (CssUtils.isRemValue(elementFontSize)) {
+            if (CssTypesValidationUtils.isRemValue(elementFontSize)) {
                 baseFontSize = context.getRootFontSize();
             } else if (parentFontSizeStr == null) {
-                baseFontSize = CssUtils.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
+                baseFontSize = CssDimensionParsingUtils.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
             } else {
-                baseFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
+                baseFontSize = CssDimensionParsingUtils.parseAbsoluteLength(parentFontSizeStr);
             }
-            float absoluteFontSize = CssUtils.parseRelativeFontSize(elementFontSize, baseFontSize);
+            float absoluteFontSize = CssDimensionParsingUtils.parseRelativeFontSize(elementFontSize, baseFontSize);
             // Format to 4 decimal places to prevent differences between Java and C#
             elementStyles.put(CssConstants.FONT_SIZE, DecimalFormatUtil.formatNumber(absoluteFontSize, "0.####") + CssConstants.PT);
         } else {
-            elementStyles.put(CssConstants.FONT_SIZE, Float.toString(CssUtils.parseAbsoluteFontSize(elementFontSize)) + CssConstants.PT);
+            elementStyles.put(CssConstants.FONT_SIZE, Float.toString(CssDimensionParsingUtils.parseAbsoluteFontSize(elementFontSize)) + CssConstants.PT);
         }
 
         // Update root font size

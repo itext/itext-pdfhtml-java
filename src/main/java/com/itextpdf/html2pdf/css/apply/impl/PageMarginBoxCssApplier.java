@@ -60,7 +60,7 @@ import com.itextpdf.layout.property.OverflowPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -159,7 +159,7 @@ public class PageMarginBoxCssApplier implements ICssApplier {
      * @return a float value
      */
     private static Float parseBoxValue(String valString, float em, float rem, float dimensionSize) {
-        UnitValue marginUnitVal = CssUtils.parseLengthValueToPt(valString, em, rem);
+        UnitValue marginUnitVal = CssDimensionParsingUtils.parseLengthValueToPt(valString, em, rem);
         if (marginUnitVal != null) {
             if (marginUnitVal.isPointValue()) {
                 return marginUnitVal.getValue();

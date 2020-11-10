@@ -52,7 +52,7 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
@@ -76,8 +76,8 @@ public class TdTagWorker implements ITagWorker, IDisplayAware {
      * @param context the context
      */
     public TdTagWorker(IElementNode element, ProcessorContext context) {
-        Integer colspan = CssUtils.parseInteger(element.getAttribute(AttributeConstants.COLSPAN));
-        Integer rowspan = CssUtils.parseInteger(element.getAttribute(AttributeConstants.ROWSPAN));
+        Integer colspan = CssDimensionParsingUtils.parseInteger(element.getAttribute(AttributeConstants.COLSPAN));
+        Integer rowspan = CssDimensionParsingUtils.parseInteger(element.getAttribute(AttributeConstants.ROWSPAN));
         colspan = colspan != null ? colspan : 1;
         rowspan = rowspan != null ? rowspan : 1;
 

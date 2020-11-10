@@ -50,7 +50,6 @@ import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
-import com.itextpdf.kernel.pdf.colorspace.PdfDeviceCs.Rgb;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.font.FontFamilySplitter;
 import com.itextpdf.layout.property.BaseDirection;
@@ -62,13 +61,15 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.property.Underline;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -97,7 +98,7 @@ public final class FontStyleApplierUtil {
      * @param element the element
      */
     public static void applyFontStyles(Map<String, String> cssProps, ProcessorContext context, IStylesContainer stylesContainer, IPropertyContainer element) {
-        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
         if (em != 0) {
             element.setProperty(Property.FONT_SIZE, UnitValue.createPointValue(em));
@@ -119,7 +120,7 @@ public final class FontStyleApplierUtil {
         if (cssColorPropValue != null) {
             TransparentColor transparentColor;
             if (!CssConstants.TRANSPARENT.equals(cssColorPropValue)) {
-                float[] rgbaColor = CssUtils.parseRgbaColor(cssColorPropValue);
+                float[] rgbaColor = CssDimensionParsingUtils.parseRgbaColor(cssColorPropValue);
                 Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
                 float opacity = rgbaColor[3];
                 transparentColor = new TransparentColor(color, opacity);
@@ -179,7 +180,7 @@ public final class FontStyleApplierUtil {
                 logger.error(LogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
                 textDecorationColor = ColorConstants.BLACK;
             } else {
-                colors = CssUtils.parseRgbaColor(textDecorationColorProp);
+                colors = CssDimensionParsingUtils.parseRgbaColor(textDecorationColorProp);
                 textDecorationColor = new DeviceRgb(colors[0], colors[1], colors[2]);;
                 opacity = colors[3];
             }
@@ -209,7 +210,7 @@ public final class FontStyleApplierUtil {
 
         String textIndent = cssProps.get(CssConstants.TEXT_INDENT);
         if (textIndent != null) {
-            UnitValue textIndentValue = CssUtils.parseLengthValueToPt(textIndent, em, rem);
+            UnitValue textIndentValue = CssDimensionParsingUtils.parseLengthValueToPt(textIndent, em, rem);
             if (textIndentValue != null) {
                 if (textIndentValue.isPointValue()) {
                     element.setProperty(Property.FIRST_LINE_INDENT, textIndentValue.getValue());
@@ -221,7 +222,7 @@ public final class FontStyleApplierUtil {
 
         String letterSpacing = cssProps.get(CssConstants.LETTER_SPACING);
         if (letterSpacing != null && !CssConstants.NORMAL.equals(letterSpacing)) {
-            UnitValue letterSpacingValue = CssUtils.parseLengthValueToPt(letterSpacing, em, rem);
+            UnitValue letterSpacingValue = CssDimensionParsingUtils.parseLengthValueToPt(letterSpacing, em, rem);
             if (letterSpacingValue.isPointValue()) {
                 element.setProperty(Property.CHARACTER_SPACING, letterSpacingValue.getValue());
             } else {
@@ -231,7 +232,7 @@ public final class FontStyleApplierUtil {
 
         String wordSpacing = cssProps.get(CssConstants.WORD_SPACING);
         if (wordSpacing != null) {
-            UnitValue wordSpacingValue = CssUtils.parseLengthValueToPt(wordSpacing, em, rem);
+            UnitValue wordSpacingValue = CssDimensionParsingUtils.parseLengthValueToPt(wordSpacing, em, rem);
             if (wordSpacingValue != null) {
                 if (wordSpacingValue.isPointValue()) {
                     element.setProperty(Property.WORD_SPACING, wordSpacingValue.getValue());
@@ -248,15 +249,15 @@ public final class FontStyleApplierUtil {
 
     private static void setLineHeight(IPropertyContainer elementToSet, String lineHeight, float em, float rem) {
         if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight) && !CssConstants.AUTO.equals(lineHeight)) {
-            if (CssUtils.isNumericValue(lineHeight)) {
-                Float number = CssUtils.parseFloat(lineHeight);
+            if (CssTypesValidationUtils.isNumericValue(lineHeight)) {
+                Float number = CssDimensionParsingUtils.parseFloat(lineHeight);
                 if (number != null) {
                     elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createMultipliedValue((float)number));
                 } else {
                     elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createNormalValue());
                 }
             } else {
-                UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em, rem);
+                UnitValue lineHeightValue = CssDimensionParsingUtils.parseLengthValueToPt(lineHeight, em, rem);
                 if (lineHeightValue != null && lineHeightValue.isPointValue()) {
                     elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createFixedValue(lineHeightValue.getValue()));
                 } else if (lineHeightValue != null) {
@@ -275,13 +276,13 @@ public final class FontStyleApplierUtil {
         // nevertheless some browsers compute it as normal so we apply the same behaviour.
         // What's more, it's basically the same thing as if lineHeight is not set in the first place
         if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight) && !CssConstants.AUTO.equals(lineHeight)) {
-            if (CssUtils.isNumericValue(lineHeight)) {
-                Float mult = CssUtils.parseFloat(lineHeight);
+            if (CssTypesValidationUtils.isNumericValue(lineHeight)) {
+                Float mult = CssDimensionParsingUtils.parseFloat(lineHeight);
                 if (mult != null) {
                     element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));
                 }
             } else {
-                UnitValue lineHeightValue = CssUtils.parseLengthValueToPt(lineHeight, em, rem);
+                UnitValue lineHeightValue = CssDimensionParsingUtils.parseLengthValueToPt(lineHeight, em, rem);
                 if (lineHeightValue != null && lineHeightValue.isPointValue()) {
                     element.setProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.getValue()));
                 } else if (lineHeightValue != null) {

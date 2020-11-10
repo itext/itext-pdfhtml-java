@@ -27,7 +27,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.ParagraphOrphansControl;
 import com.itextpdf.layout.property.ParagraphWidowsControl;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 
 import java.util.Map;
 
@@ -55,7 +55,7 @@ public class OrphansWidowsApplierUtil {
     public static void applyOrphansAndWidows(Map<String, String> cssProps, IPropertyContainer element) {
         if (cssProps != null) {
             if (cssProps.containsKey(CssConstants.WIDOWS)) {
-                Integer minWidows = CssUtils.parseInteger(cssProps.get(CssConstants.WIDOWS));
+                Integer minWidows = CssDimensionParsingUtils.parseInteger(cssProps.get(CssConstants.WIDOWS));
                 if (minWidows != null && minWidows > 0) {
                     element.setProperty(Property.WIDOWS_CONTROL,
                             new ParagraphWidowsControl(minWidows.intValue(), MAX_LINES_TO_MOVE, OVERFLOW_PARAGRAPH_ON_VIOLATION));
@@ -63,7 +63,7 @@ public class OrphansWidowsApplierUtil {
             }
 
             if (cssProps.containsKey(CssConstants.ORPHANS)) {
-                Integer minOrphans = CssUtils.parseInteger(cssProps.get(CssConstants.ORPHANS));
+                Integer minOrphans = CssDimensionParsingUtils.parseInteger(cssProps.get(CssConstants.ORPHANS));
                 if (minOrphans != null && minOrphans > 0) {
                     element.setProperty(Property.ORPHANS_CONTROL,
                             new ParagraphOrphansControl(minOrphans.intValue()));

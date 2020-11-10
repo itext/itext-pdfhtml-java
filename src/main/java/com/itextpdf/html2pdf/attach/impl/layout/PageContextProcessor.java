@@ -69,7 +69,8 @@ import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -180,13 +181,13 @@ class PageContextProcessor {
      */
     PageContextProcessor reset(PageSize defaultPageSize, float[] defaultPageMargins) {
         Map<String, String> styles = properties.getResolvedPageContextNode().getStyles();
-        float em = CssUtils.parseAbsoluteLength(styles.get(CssConstants.FONT_SIZE));
+        float em = CssDimensionParsingUtils.parseAbsoluteLength(styles.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
 
 
         pageSize = PageSizeParser.fetchPageSize(styles.get(CssConstants.SIZE), em, rem, defaultPageSize);
 
-        UnitValue bleedValue = CssUtils.parseLengthValueToPt(styles.get(CssConstants.BLEED), em, rem);
+        UnitValue bleedValue = CssDimensionParsingUtils.parseLengthValueToPt(styles.get(CssConstants.BLEED), em, rem);
         if (bleedValue != null && bleedValue.isPointValue()) {
             bleed = bleedValue.getValue();
         }

@@ -55,7 +55,7 @@ import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
@@ -83,7 +83,7 @@ public class UlOlTagWorker implements ITagWorker {
         list = new List().setListSymbol("");
         //In the case of an ordered list, see if the start attribute can be found
         if (element.getAttribute(AttributeConstants.START) != null) {
-            Integer startValue = CssUtils.parseInteger(element.getAttribute(AttributeConstants.START));
+            Integer startValue = CssDimensionParsingUtils.parseInteger(element.getAttribute(AttributeConstants.START));
             if (startValue != null) list.setItemStartIndex((int) startValue);
         }
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));

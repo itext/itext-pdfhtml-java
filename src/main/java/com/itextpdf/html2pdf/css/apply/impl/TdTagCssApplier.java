@@ -51,7 +51,7 @@ import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import java.util.Map;
 
@@ -72,7 +72,7 @@ public class TdTagCssApplier extends BlockCssApplier {
             Map<String, String> cssProps = stylesContainer.getStyles();
             VerticalAlignmentApplierUtil.applyVerticalAlignmentForCells(cssProps, context, cell);
 
-            float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+            float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
             float rem = context.getCssContext().getRootFontSize();
 
             Border[] bordersArray = BorderStyleApplierUtil.getBordersArray(cssProps, em, rem);

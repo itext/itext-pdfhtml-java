@@ -48,7 +48,8 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,12 +95,12 @@ public final class PaddingApplierUtil {
         String paddingLeft = cssProps.get(CssConstants.PADDING_LEFT);
         String paddingRight = cssProps.get(CssConstants.PADDING_RIGHT);
 
-        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
-        UnitValue paddingTopVal = CssUtils.parseLengthValueToPt(paddingTop, em, rem);
-        UnitValue paddingBottomVal = CssUtils.parseLengthValueToPt(paddingBottom, em, rem);
-        UnitValue paddingLeftVal = CssUtils.parseLengthValueToPt(paddingLeft, em, rem);
-        UnitValue paddingRightVal = CssUtils.parseLengthValueToPt(paddingRight, em, rem);
+        UnitValue paddingTopVal = CssDimensionParsingUtils.parseLengthValueToPt(paddingTop, em, rem);
+        UnitValue paddingBottomVal = CssDimensionParsingUtils.parseLengthValueToPt(paddingBottom, em, rem);
+        UnitValue paddingLeftVal = CssDimensionParsingUtils.parseLengthValueToPt(paddingLeft, em, rem);
+        UnitValue paddingRightVal = CssDimensionParsingUtils.parseLengthValueToPt(paddingRight, em, rem);
 
         if (paddingTopVal != null) {
             if (paddingTopVal.isPointValue()) {

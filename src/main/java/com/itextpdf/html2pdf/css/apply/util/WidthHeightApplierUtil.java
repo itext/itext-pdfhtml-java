@@ -50,7 +50,8 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.BoxSizingPropertyValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,23 +81,23 @@ public final class WidthHeightApplierUtil {
      * @param element  the element
      */
     public static void applyWidthHeight(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
-        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
         String widthVal = cssProps.get(CssConstants.WIDTH);
         if (!CssConstants.AUTO.equals(widthVal) && widthVal != null) {
-            UnitValue width = CssUtils.parseLengthValueToPt(widthVal, em, rem);
+            UnitValue width = CssDimensionParsingUtils.parseLengthValueToPt(widthVal, em, rem);
             element.setProperty(Property.WIDTH, width);
         }
 
         String minWidthVal = cssProps.get(CssConstants.MIN_WIDTH);
         if (!CssConstants.AUTO.equals(minWidthVal) && minWidthVal != null) {
-            UnitValue minWidth = CssUtils.parseLengthValueToPt(minWidthVal, em, rem);
+            UnitValue minWidth = CssDimensionParsingUtils.parseLengthValueToPt(minWidthVal, em, rem);
             element.setProperty(Property.MIN_WIDTH, minWidth);
         }
 
         String maxWidthVal = cssProps.get(CssConstants.MAX_WIDTH);
         if (!CssConstants.AUTO.equals(maxWidthVal) && maxWidthVal != null) {
-            UnitValue maxWidth = CssUtils.parseLengthValueToPt(maxWidthVal, em, rem);
+            UnitValue maxWidth = CssDimensionParsingUtils.parseLengthValueToPt(maxWidthVal, em, rem);
             element.setProperty(Property.MAX_WIDTH, maxWidth);
         }
 
@@ -107,7 +108,7 @@ public final class WidthHeightApplierUtil {
         String heightVal = cssProps.get(CssConstants.HEIGHT);
         if (heightVal != null) {
             if (!CssConstants.AUTO.equals(heightVal)) {
-                height = CssUtils.parseLengthValueToPt(heightVal, em, rem);
+                height = CssDimensionParsingUtils.parseLengthValueToPt(heightVal, em, rem);
                 if (height != null) {
                     // For tables, height does not have any effect. The height value will be used when
                     // calculating effective min height value below
@@ -122,7 +123,7 @@ public final class WidthHeightApplierUtil {
         float maxHeightToApply = 0;
         UnitValue maxHeight = new UnitValue(UnitValue.POINT, 0);
         if (maxHeightVal != null) {
-            maxHeight = CssUtils.parseLengthValueToPt(maxHeightVal, em, rem);
+            maxHeight = CssDimensionParsingUtils.parseLengthValueToPt(maxHeightVal, em, rem);
             if (maxHeight != null) {
                 // For tables and cells, max height does not have any effect. See also comments below when MIN_HEIGHT is applied.
                 if (!applyToTable && !applyToCell) {
@@ -138,7 +139,7 @@ public final class WidthHeightApplierUtil {
         float minHeightToApply = 0;
         UnitValue minHeight = new UnitValue(UnitValue.POINT, 0);
         if (minHeightVal != null) {
-            minHeight = CssUtils.parseLengthValueToPt(minHeightVal, em, rem);
+            minHeight = CssDimensionParsingUtils.parseLengthValueToPt(minHeightVal, em, rem);
             if (minHeight != null) {
                 // For cells, min height does not have any effect. See also comments below when MIN_HEIGHT is applied.
                 if (!applyToCell) {

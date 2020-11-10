@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.resolver.form;
 
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -110,7 +110,7 @@ public class FormFieldNameResolver {
         Integer nameIndex = null;
         if (separatorIndex != -1 && separatorIndex < name.length()) {
             String numberString = name.substring(separatorIndex + 1);
-            nameIndex = CssUtils.parseInteger(numberString);
+            nameIndex = CssDimensionParsingUtils.parseInteger(numberString);
             //Treat number as index only in case it is positive
             if (nameIndex != null && nameIndex > 0) {
                 name = name.substring(0, separatorIndex);

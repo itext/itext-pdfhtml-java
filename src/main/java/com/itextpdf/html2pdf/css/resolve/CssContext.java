@@ -42,13 +42,12 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
-
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.page.CssRunningManager;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
 import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 
 /**
  * Class that bundles all the CSS context properties.
@@ -56,7 +55,7 @@ import com.itextpdf.styledxmlparser.css.util.CssUtils;
 public class CssContext extends AbstractCssContext {
 
     /** The root font size value in pt. */
-    private float rootFontSize = CssUtils.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
+    private float rootFontSize = CssDimensionParsingUtils.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
 
     /** The counter manager. */
     private CssCounterManager counterManager = new CssCounterManager();
@@ -116,7 +115,7 @@ public class CssContext extends AbstractCssContext {
      * @param fontSizeStr the new root font size
      */
     public void setRootFontSize(String fontSizeStr) {
-        this.rootFontSize = CssUtils.parseAbsoluteFontSize(fontSizeStr);
+        this.rootFontSize = CssDimensionParsingUtils.parseAbsoluteFontSize(fontSizeStr);
     }
 
     /**

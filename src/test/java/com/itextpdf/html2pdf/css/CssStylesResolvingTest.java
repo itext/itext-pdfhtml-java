@@ -49,7 +49,7 @@ import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.styledxmlparser.IXmlParser;
 import com.itextpdf.styledxmlparser.css.ICssResolver;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
@@ -440,8 +440,8 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
         if (containsActual != null && containsExpected != null) {
             containsActual = containsActual.substring(propertyName.length() + 1).trim();
             containsExpected = containsExpected.substring(propertyName.length() + 1).trim();
-            float actual = CssUtils.parseAbsoluteLength(containsActual, CssConstants.PT);
-            float expected = CssUtils.parseAbsoluteLength(containsExpected, CssConstants.PT);
+            float actual = CssDimensionParsingUtils.parseAbsoluteLength(containsActual, CssConstants.PT);
+            float expected = CssDimensionParsingUtils.parseAbsoluteLength(containsExpected, CssConstants.PT);
             return Math.abs(actual - expected) < 0.0001;
         } else {
             return false;

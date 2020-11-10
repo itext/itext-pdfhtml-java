@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.css.apply.util;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.INode;
 
 import java.util.Map;
@@ -70,7 +70,7 @@ public class CounterProcessorUtil {
             for (int i = 0; i < params.length; i++) {
                 String counterName = params[i];
                 Integer possibleCounterValue;
-                if (i + 1 < params.length && (possibleCounterValue = CssUtils.parseInteger(params[i + 1])) != null) {
+                if (i + 1 < params.length && (possibleCounterValue = CssDimensionParsingUtils.parseInteger(params[i + 1])) != null) {
                     counterManager.resetCounter(counterName, (int)possibleCounterValue, scope);
                     i++;
                 } else {
@@ -85,7 +85,7 @@ public class CounterProcessorUtil {
             for (int i = 0; i < params.length; i++) {
                 String counterName = params[i];
                 Integer possibleIncrementValue;
-                if (i + 1 < params.length && (possibleIncrementValue = CssUtils.parseInteger(params[i + 1])) != null) {
+                if (i + 1 < params.length && (possibleIncrementValue = CssDimensionParsingUtils.parseInteger(params[i + 1])) != null) {
                     counterManager.incrementCounter(counterName, (int)possibleIncrementValue, scope);
                     i++;
                 } else {

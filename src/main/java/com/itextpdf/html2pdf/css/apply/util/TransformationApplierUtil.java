@@ -49,7 +49,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.Transform;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 
 import java.util.Map;
 
@@ -102,7 +102,7 @@ public class TransformationApplierUtil {
                 int i = 0;
                 for (; i < 6; i++) {
                     if (i == 4 || i == 5)
-                        matrix[i] = CssUtils.parseAbsoluteLength(arg[i].trim());
+                        matrix[i] = CssDimensionParsingUtils.parseAbsoluteLength(arg[i].trim());
                     else
                         matrix[i] = Float.parseFloat(arg[i].trim());
                     if (i == 1 || i == 2 || i == 5)
@@ -116,22 +116,22 @@ public class TransformationApplierUtil {
             boolean xPoint, yPoint = true;
             float x, y = 0;
             xPoint = arg[0].indexOf('%') < 0;
-            x = xPoint ? CssUtils.parseAbsoluteLength(arg[0].trim()) : Float.parseFloat(arg[0].trim().substring(0, arg[0].indexOf('%')));
+            x = xPoint ? CssDimensionParsingUtils.parseAbsoluteLength(arg[0].trim()) : Float.parseFloat(arg[0].trim().substring(0, arg[0].indexOf('%')));
             if (arg.length == 2) {
                 yPoint = arg[1].indexOf('%') < 0;
-                y = -1 * (yPoint ? CssUtils.parseAbsoluteLength(arg[1].trim()) : Float.parseFloat(arg[1].trim().substring(0, arg[1].indexOf('%'))));
+                y = -1 * (yPoint ? CssDimensionParsingUtils.parseAbsoluteLength(arg[1].trim()) : Float.parseFloat(arg[1].trim().substring(0, arg[1].indexOf('%'))));
             }
             return getSingleTransformTranslate(1, 0, 0, 1, x, y, xPoint, yPoint);
         }
         if (CssConstants.TRANSLATE_X.equals(function)) {
             boolean xPoint = args.indexOf('%') < 0;
-            float x = xPoint ? CssUtils.parseAbsoluteLength(args.trim()) : Float.parseFloat(args.trim().substring(0, args.indexOf('%')));
+            float x = xPoint ? CssDimensionParsingUtils.parseAbsoluteLength(args.trim()) : Float.parseFloat(args.trim().substring(0, args.indexOf('%')));
             ;
             return getSingleTransformTranslate(1, 0, 0, 1, x, 0, xPoint, true);
         }
         if (CssConstants.TRANSLATE_Y.equals(function)) {
             boolean yPoint = args.indexOf('%') < 0;
-            float y = -1 * (yPoint ? CssUtils.parseAbsoluteLength(args.trim()) : Float.parseFloat(args.trim().substring(0, args.indexOf('%'))));
+            float y = -1 * (yPoint ? CssDimensionParsingUtils.parseAbsoluteLength(args.trim()) : Float.parseFloat(args.trim().substring(0, args.indexOf('%'))));
             return getSingleTransformTranslate(1, 0, 0, 1, 0, y, true, yPoint);
         }
         if (CssConstants.ROTATE.equals(function)) {
