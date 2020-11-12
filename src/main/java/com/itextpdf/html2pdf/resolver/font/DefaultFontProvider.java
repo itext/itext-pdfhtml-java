@@ -109,30 +109,32 @@ public class DefaultFontProvider extends BasicFontProvider {
      * Creates a new {@link DefaultFontProvider} instance.
      *
      * @param registerStandardPdfFonts use true if you want to register the standard Type 1 fonts (can't be embedded)
-     * @param registerShippedFreeFonts use true if you want to register the shipped fonts (can be embedded)
+     * @param registerShippedFonts use true if you want to register the shipped fonts (can be embedded)
      * @param registerSystemFonts use true if you want to register the system fonts (can require quite some resources)
      */
-    public DefaultFontProvider(boolean registerStandardPdfFonts, boolean registerShippedFreeFonts, boolean registerSystemFonts) {
-        this(registerStandardPdfFonts, registerShippedFreeFonts, registerSystemFonts, DEFAULT_FONT_FAMILY);
+    public DefaultFontProvider(boolean registerStandardPdfFonts, boolean registerShippedFonts,
+            boolean registerSystemFonts) {
+        this(registerStandardPdfFonts, registerShippedFonts, registerSystemFonts, DEFAULT_FONT_FAMILY);
     }
 
     /**
      * Creates a new {@link DefaultFontProvider} instance.
      *
      * @param registerStandardPdfFonts use true if you want to register the standard Type 1 fonts (can't be embedded)
-     * @param registerShippedFreeFonts use true if you want to register the shipped fonts (can be embedded)
+     * @param registerShippedFonts use true if you want to register the shipped fonts (can be embedded)
      * @param registerSystemFonts use true if you want to register the system fonts (can require quite some resources)
      * @param defaultFontFamily default font family
      */
-    public DefaultFontProvider(boolean registerStandardPdfFonts, boolean registerShippedFreeFonts, boolean registerSystemFonts, String defaultFontFamily) {
+    public DefaultFontProvider(boolean registerStandardPdfFonts, boolean registerShippedFonts,
+            boolean registerSystemFonts, String defaultFontFamily) {
         super(registerStandardPdfFonts, registerSystemFonts, defaultFontFamily);
-        if (registerShippedFreeFonts) {
+        if (registerShippedFonts) {
             addAllAvailableFonts(addCalligraphFonts());
         }
     }
 
     private void addAllAvailableFonts(Range rangeToLoad) {
-        addShippedFreeFonts(rangeToLoad);
+        addShippedFonts(rangeToLoad);
         for(byte[] fontData : calligraphyFontsTempList) {
             addFont(fontData, null);
         }
@@ -140,9 +142,11 @@ public class DefaultFontProvider extends BasicFontProvider {
     }
 
     /**
-     * Adds the shipped free fonts.
+     * Adds the shipped fonts.
+     *
+     * @param rangeToLoad a unicode {@link Range} to load characters
      */
-    private void addShippedFreeFonts(Range rangeToLoad) {
+    private void addShippedFonts(Range rangeToLoad) {
         for (String fontName : SHIPPED_FONT_NAMES) {
             try (InputStream stream = ResourceUtil.getResourceStream(SHIPPED_FONT_RESOURCE_PATH + fontName)) {
                 byte[] fontProgramBytes = StreamUtil.inputStreamToArray(stream);
