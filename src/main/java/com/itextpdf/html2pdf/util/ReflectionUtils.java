@@ -45,8 +45,6 @@ package com.itextpdf.html2pdf.util;
 import com.itextpdf.html2pdf.Html2PdfProductInfo;
 import com.itextpdf.kernel.Version;
 
-import java.lang.reflect.Array;
-
 /**
  * Utility class for handling operation related to reflections.
  */
@@ -56,7 +54,6 @@ public final class ReflectionUtils {
 
     private static final String LICENSEKEY = "LicenseKey";
     private static final String LICENSEKEY_PRODUCT = "LicenseKeyProduct";
-    private static final String LICENSEKEY_FEATURE = "LicenseKeyProductFeature";
 
     private static final String CHECK_LICENSEKEY_METHOD = "scheduledCheck";
 
@@ -70,15 +67,12 @@ public final class ReflectionUtils {
     public static void scheduledLicenseCheck() {
         try {
             Class licenseKeyProductClass = getClass(LICENSEKEY_PACKAGE + LICENSEKEY_PRODUCT);
-            Object licenseKeyProductFeatureArray = Array.newInstance(
-                    getClass(LICENSEKEY_PACKAGE + LICENSEKEY_FEATURE), 0);
             Class[] params = new Class[] {
-                    String.class, Integer.TYPE,
-                    Integer.TYPE, licenseKeyProductFeatureArray.getClass(),
+                    String.class, String.class, String.class,
             };
             Object licenseKeyProductObject = licenseKeyProductClass.getConstructor(params).newInstance(
-                    Html2PdfProductInfo.PRODUCT_NAME, Html2PdfProductInfo.MAJOR_VERSION,
-                    Html2PdfProductInfo.MINOR_VERSION, licenseKeyProductFeatureArray
+                    Html2PdfProductInfo.PRODUCT_NAME, String.valueOf(Html2PdfProductInfo.MAJOR_VERSION),
+                    String.valueOf(Html2PdfProductInfo.MINOR_VERSION)
             );
             getClass(LICENSEKEY_PACKAGE + LICENSEKEY).getMethod(CHECK_LICENSEKEY_METHOD, licenseKeyProductClass)
                     .invoke(null, licenseKeyProductObject);
