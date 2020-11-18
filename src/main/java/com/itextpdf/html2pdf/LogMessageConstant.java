@@ -50,10 +50,14 @@ public final class LogMessageConstant {
     /** The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT. */
     public static final String ACROFORM_NOT_SUPPORTED_FOR_SELECT = "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will be flattened instead.";
     public static final String ANCHOR_LINK_NOT_HANDLED = "The anchor link was not handled. Could not create a destination for element \"{0}\" with ID \"{1}\", which is processed by \"{2}\" tag worker class.";
+    /** The Constant CANNOT_RESOLVE_TARGET_COUNTER_VALUE. */
     public static final String CANNOT_RESOLVE_TARGET_COUNTER_VALUE
             = "Cannot resolve target-counter value with given target \"{0}\"";
     /** The Constant CONTENT_PROPERTY_INVALID. */
     public static final String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
+    /** The Constant CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT. */
+    public static final String CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT = "A custom renderer which doesn't extend " +
+            "HtmlDocumentRenderer is set for HtmlDocument. Counters and target-counters may be displayed incorrectly.";
     /** The Constant CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED. */
     public static final String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
     public static final String DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN = "Default value of the css property \"{0}\" is unknown.";

@@ -160,11 +160,6 @@ public class ProcessorContext {
      */
     private boolean processingInlineSvg;
 
-    /**
-     * Indicates whether the document shall process target-counter or not.
-     */
-    private final boolean targetCounterEnabled;
-
     private final int limitOfLayouts;
 
     /**
@@ -210,9 +205,8 @@ public class ProcessorContext {
 
         resourceResolver = new HtmlResourceResolver(baseUri, this, converterProperties.getResourceRetriever());
 
-        targetCounterEnabled = converterProperties.isTargetCounterEnabled();
         limitOfLayouts = converterProperties.getLimitOfLayouts();
-        cssContext = new CssContext().setTargetCounterEnabled(targetCounterEnabled);
+        cssContext = new CssContext();
         linkContext = new LinkContext();
 
         createAcroForm = converterProperties.isCreateAcroForm();
@@ -248,15 +242,6 @@ public class ProcessorContext {
      */
     public State getState() {
         return state;
-    }
-
-    /**
-     * Checks if target-counter is enabled.
-     *
-     * @return true if target-counter shall be processed, false otherwise
-     */
-    public boolean isTargetCounterEnabled() {
-        return targetCounterEnabled;
     }
 
     /**
@@ -438,7 +423,7 @@ public class ProcessorContext {
         this.pdfDocument = null;
         this.state = new State();
         this.resourceResolver.resetCache();
-        this.cssContext = new CssContext().setTargetCounterEnabled(isTargetCounterEnabled());
+        this.cssContext = new CssContext();
         this.linkContext = new LinkContext();
         this.formFieldNameResolver.reset();
         //Reset font provider. PdfFonts shall be reseted.

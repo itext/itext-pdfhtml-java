@@ -62,6 +62,8 @@ public class PageCountElementNode extends JsoupElementNode implements ICustomEle
     /** The parent. */
     private final INode parent;
 
+    private CounterDigitsGlyphStyle digitsGlyphStyle;
+
     /** Indicates if the node represents the total page count. */
     private boolean totalPageCount = false;
 
@@ -102,6 +104,26 @@ public class PageCountElementNode extends JsoupElementNode implements ICustomEle
      */
     public boolean isTotalPageCount() {
         return totalPageCount;
+    }
+
+    /**
+     * Gets glyph style for digits.
+     *
+     * @return name of the glyph style
+     */
+    public CounterDigitsGlyphStyle getDigitsGlyphStyle() {
+        return digitsGlyphStyle;
+    }
+
+    /**
+     * Sets glyph style for digits.
+     *
+     * @param digitsGlyphStyle name of the glyph style
+     * @return this {@link PageCountElementNode} instance
+     */
+    public PageCountElementNode setDigitsGlyphStyle(CounterDigitsGlyphStyle digitsGlyphStyle) {
+        this.digitsGlyphStyle = digitsGlyphStyle;
+        return this;
     }
 
 }

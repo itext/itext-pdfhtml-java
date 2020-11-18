@@ -3,35 +3,15 @@
 <head>
     <style>
         p::before {
-            content: target-counter(url('#href_2'), page) ' ';
+            content: target-counter(url('#href_2'), page, upper-roman) ' ';
         }
         p::after {
-            content: ' ' target-counter(url('#href_1'), page);
-        }
-        .x::after {
-            content: ' ' target-counter(url('#href_1'), pages);
-        }
-        @page:first{
-            @bottom-right {
-                content: target-counter(url('#href_2'), page);
-            }
+            content: ' ' counter(page);
         }
     </style>
 </head>
 <body style="font-size: 100px; margin: 20px">
-<div style="width: 160pt; border: solid 2px">
-    <div>F</div>
-    <div>F</div>
-    <div>F</div>
-    <div>F</div>
-    <div>F</div>
-    <div>F</div>
-    <div>F</div>
-    <div style="page-break-inside: avoid">
-        <div id="href_1" class="x">A</div>
-        <div>F</div>
-    </div>
-    <div>F</div>
+<div style="width: 180pt; border: solid 2px">
     <div>F</div>
     <div>F</div>
     <div>F</div>
@@ -49,6 +29,9 @@
     <div>F</div>
     <div>F</div>
     <p>F</p>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
     <div>F</div>
     <div>F</div>
     <div>F</div>

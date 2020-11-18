@@ -42,13 +42,8 @@
  */
 package com.itextpdf.html2pdf.css.resolve.func.counter;
 
-import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.kernel.numbering.ArmenianNumbering;
-import com.itextpdf.kernel.numbering.EnglishAlphabetNumbering;
-import com.itextpdf.kernel.numbering.GeorgianNumbering;
-import com.itextpdf.kernel.numbering.GreekAlphabetNumbering;
-import com.itextpdf.kernel.numbering.RomanNumbering;
+import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 
@@ -67,21 +62,6 @@ import java.util.Stack;
 public class CssCounterManager {
 
     /**
-     * The Constant DISC_SYMBOL.
-     */
-    private static final String DISC_SYMBOL = "\u2022";
-
-    /**
-     * The Constant CIRCLE_SYMBOL.
-     */
-    private static final String CIRCLE_SYMBOL = "\u25e6";
-
-    /**
-     * The Constant SQUARE_SYMBOL.
-     */
-    private static final String SQUARE_SYMBOL = "\u25a0";
-
-    /**
      * The Constant DEFAULT_COUNTER_VALUE.
      */
     private static final int DEFAULT_COUNTER_VALUE = 0;
@@ -90,11 +70,6 @@ public class CssCounterManager {
      * The Constant DEFAULT_INCREMENT_VALUE.
      */
     private static final int DEFAULT_INCREMENT_VALUE = 1;
-
-    /**
-     * The Constant MAX_ROMAN_NUMBER.
-     */
-    private static final int MAX_ROMAN_NUMBER = 3999;
 
     /**
      * Map to store target-counter values. First key is target-counter ID. Second key is counter name.
@@ -116,6 +91,9 @@ public class CssCounterManager {
      */
     private final Map<String, Integer> counterValues = new HashMap<>();
 
+    /**
+     * List of counters that were pushed before processing children of the corresponding element.
+     */
     private final Map<IElementNode, List<String>> pushedCountersMap = new HashMap<>();
 
     /**
@@ -176,7 +154,7 @@ public class CssCounterManager {
      * @param listSymbolType the list symbol type to convert counter's value. null if conversion is not required.
      * @return target-counter value.
      */
-    public String resolveTargetCounter(String id, String counterName, String listSymbolType) {
+    public String resolveTargetCounter(String id, String counterName, CounterDigitsGlyphStyle listSymbolType) {
         Integer counterValue = null;
         if (targetCounterMap.containsKey(id)) {
             final Map<String, Integer> countersForThisId = targetCounterMap.get(id);
@@ -189,7 +167,8 @@ public class CssCounterManager {
             targetCounterMap.put(id, new HashMap<>());
             targetCounterMap.get(id).put(counterName, null);
         }
-        return counterValue == null ? null : convertCounterToSymbol(listSymbolType, counterValue);
+        return counterValue == null ?
+                null : HtmlUtils.convertNumberAccordingToGlyphStyle(listSymbolType, (int) counterValue);
     }
 
     /**
@@ -205,8 +184,8 @@ public class CssCounterManager {
      * @param listSymbolType      the list symbol type to convert counter's value. null if conversion is not required.
      * @return target-counter value.
      */
-    public String resolveTargetCounters(String id,
-                                        String counterName, String counterSeparatorStr, String listSymbolType) {
+    public String resolveTargetCounters(String id, String counterName,
+                                        String counterSeparatorStr, CounterDigitsGlyphStyle listSymbolType) {
         String countersStr = null;
         if (targetCountersMap.containsKey(id)) {
             final Map<String, String> countersForThisId= targetCountersMap.get(id);
@@ -225,7 +204,8 @@ public class CssCounterManager {
             final String[] resolvedCounters = countersStr.split("\\.");
             final List<String> convertedCounters = new ArrayList<>();
             for (String counter : resolvedCounters) {
-                convertedCounters.add(convertCounterToSymbol(listSymbolType, Integer.valueOf(counter)));
+                convertedCounters.add(
+                        HtmlUtils.convertNumberAccordingToGlyphStyle(listSymbolType, Integer.parseInt(counter)));
             }
             return buildCountersStringFromList(convertedCounters, counterSeparatorStr);
         }
@@ -241,7 +221,7 @@ public class CssCounterManager {
         if (id != null && targetCounterMap.containsKey(id)) {
             for (final Map.Entry<String, Integer> targetCounter : new HashSet<>(targetCounterMap.get(id).entrySet())) {
                 final String counterName = targetCounter.getKey();
-                final String counterStr = resolveCounter(counterName, null);
+                final String counterStr = resolveCounter(counterName, CounterDigitsGlyphStyle.DEFAULT);
                 if (counterStr != null) {
                     targetCounterMap.get(id).put(counterName, Integer.parseInt(counterStr));
                 }
@@ -259,7 +239,7 @@ public class CssCounterManager {
         if (id != null && targetCountersMap.containsKey(id)) {
             for (final Map.Entry<String, String> targetCounter : new HashSet<>(targetCountersMap.get(id).entrySet())) {
                 final String counterName = targetCounter.getKey();
-                final String resolvedCounters = resolveCounters(counterName, ".", null);
+                final String resolvedCounters = resolveCounters(counterName, ".", CounterDigitsGlyphStyle.DEFAULT);
                 if (resolvedCounters != null) {
                     targetCountersMap.get(id).put(counterName, resolvedCounters);
                 }
@@ -278,7 +258,7 @@ public class CssCounterManager {
      */
     @Deprecated
     public String resolveCounter(String counterName, String listSymbolType, INode node) {
-        return resolveCounter(counterName, listSymbolType);
+        return resolveCounter(counterName, HtmlUtils.convertStringCounterGlyphStyleToEnum(listSymbolType));
     }
 
     /**
@@ -288,7 +268,7 @@ public class CssCounterManager {
      * @param listSymbolType the list symbol type
      * @return the counter value as a {@link String}
      */
-    public String resolveCounter(String counterName, String listSymbolType) {
+    public String resolveCounter(String counterName, CounterDigitsGlyphStyle listSymbolType) {
         Integer result = counterValues.get(counterName);
         if (result == null) {
             if (!counters.containsKey(counterName) || counters.get(counterName).isEmpty()) {
@@ -297,7 +277,7 @@ public class CssCounterManager {
                 result = counters.get(counterName).getLast();
             }
         }
-        return convertCounterToSymbol(listSymbolType, result);
+        return HtmlUtils.convertNumberAccordingToGlyphStyle(listSymbolType, (int) result);
     }
 
     /**
@@ -312,7 +292,8 @@ public class CssCounterManager {
      */
     @Deprecated
     public String resolveCounters(String counterName, String counterSeparatorStr, String listSymbolType, INode node) {
-        return resolveCounters(counterName, counterSeparatorStr, listSymbolType);
+        return resolveCounters(counterName,
+                counterSeparatorStr, HtmlUtils.convertStringCounterGlyphStyleToEnum(listSymbolType));
     }
 
     /**
@@ -323,19 +304,20 @@ public class CssCounterManager {
      * @param listSymbolType      the list symbol type
      * @return the counters as a {@link String}
      */
-    public String resolveCounters(String counterName, String counterSeparatorStr, String listSymbolType) {
+    public String resolveCounters(String counterName,
+                                  String counterSeparatorStr, CounterDigitsGlyphStyle listSymbolType) {
         final List<String> resolvedCounters = new ArrayList<>();
         if (counters.containsKey(counterName)) {
             for (final Integer value : counters.get(counterName)) {
-                resolvedCounters.add(convertCounterToSymbol(listSymbolType, value));
+                resolvedCounters.add(HtmlUtils.convertNumberAccordingToGlyphStyle(listSymbolType, (int) value));
             }
         }
         final Integer currentValue = counterValues.get(counterName);
         if (currentValue != null) {
-            resolvedCounters.add(convertCounterToSymbol(listSymbolType, currentValue));
+            resolvedCounters.add(HtmlUtils.convertNumberAccordingToGlyphStyle(listSymbolType, (int) currentValue));
         }
         if (resolvedCounters.isEmpty()) {
-            return convertCounterToSymbol(listSymbolType, 0);
+            return HtmlUtils.convertNumberAccordingToGlyphStyle(listSymbolType, 0);
         } else {
             return buildCountersStringFromList(resolvedCounters, counterSeparatorStr);
         }
@@ -470,45 +452,6 @@ public class CssCounterManager {
             }
         }
         return sb.toString();
-    }
-
-    private static String convertCounterToSymbol(String listSymbolType, Integer counterValue) {
-        if (listSymbolType == null) {
-            return String.valueOf(counterValue);
-        } else {
-            if (CssConstants.NONE.equals(listSymbolType)) {
-                return "";
-            } else if (CssConstants.DISC.equals(listSymbolType)) {
-                return DISC_SYMBOL;
-            } else if (CssConstants.SQUARE.equals(listSymbolType)) {
-                return SQUARE_SYMBOL;
-            } else if (CssConstants.CIRCLE.equals(listSymbolType)) {
-                return CIRCLE_SYMBOL;
-            } else if (CssConstants.UPPER_ALPHA.equals(listSymbolType) || CssConstants.UPPER_LATIN.equals(listSymbolType)) {
-                return counterValue > 0 ? EnglishAlphabetNumbering.toLatinAlphabetNumberUpperCase((int) counterValue)
-                        : String.valueOf(counterValue);
-            } else if (CssConstants.LOWER_ALPHA.equals(listSymbolType) || CssConstants.LOWER_LATIN.equals(listSymbolType)) {
-                return counterValue > 0 ? EnglishAlphabetNumbering.toLatinAlphabetNumberLowerCase((int) counterValue)
-                        : String.valueOf(counterValue);
-            } else if (CssConstants.LOWER_GREEK.equals(listSymbolType)) {
-                return counterValue > 0 ? GreekAlphabetNumbering.toGreekAlphabetNumberLowerCase((int) counterValue)
-                        : String.valueOf(counterValue);
-            } else if (CssConstants.LOWER_ROMAN.equals(listSymbolType)) {
-                return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.toRomanLowerCase((int) counterValue)
-                        : String.valueOf(counterValue);
-            } else if (CssConstants.UPPER_ROMAN.equals(listSymbolType)) {
-                return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.toRomanUpperCase((int) counterValue)
-                        : String.valueOf(counterValue);
-            } else if (CssConstants.DECIMAL_LEADING_ZERO.equals(listSymbolType)) {
-                return (counterValue < 10 ? "0" : "") + String.valueOf(counterValue);
-            } else if (CssConstants.GEORGIAN.equals(listSymbolType)) {
-                return GeorgianNumbering.toGeorgian((int) counterValue);
-            } else if (CssConstants.ARMENIAN.equals(listSymbolType)) {
-                return ArmenianNumbering.toArmenian((int) counterValue);
-            } else {
-                return String.valueOf(counterValue); //TODO
-            }
-        }
     }
 
 }

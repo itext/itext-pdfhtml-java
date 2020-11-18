@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
+import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
+import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.renderer.IRenderer;
 
@@ -50,12 +52,35 @@ import com.itextpdf.layout.renderer.IRenderer;
  */
 public class PageCountElement extends Text {
 
+    private final CounterDigitsGlyphStyle digitsGlyphStyle;
+
     /**
      * Instantiates a new {@link PageCountElement}.
      */
     public PageCountElement() {
         // Workaround to match correct font containing number glyphs
         super("1234567890");
+        digitsGlyphStyle = CounterDigitsGlyphStyle.DEFAULT;
+    }
+
+    /**
+     * Instantiates a new {@link PageCountElement}.
+     *
+     * @param digitsGlyphStyle digits glyph style
+     */
+    public PageCountElement(CounterDigitsGlyphStyle digitsGlyphStyle) {
+        // Workaround to match correct font containing number glyphs
+        super(HtmlUtils.getAllNumberGlyphsForStyle(digitsGlyphStyle));
+        this.digitsGlyphStyle = digitsGlyphStyle;
+    }
+
+    /**
+     * Gets glyph style for digits.
+     *
+     * @return name of the glyph style
+     */
+    public CounterDigitsGlyphStyle getDigitsGlyphStyle() {
+        return digitsGlyphStyle;
     }
 
     /* (non-Javadoc)

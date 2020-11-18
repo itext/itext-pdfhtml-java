@@ -24,12 +24,23 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
-import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
+import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
+import com.itextpdf.html2pdf.attach.impl.tags.HtmlTagWorker;
+import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.renderer.DocumentRenderer;
+import com.itextpdf.styledxmlparser.IXmlParser;
+import com.itextpdf.styledxmlparser.node.IDocumentNode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -54,90 +65,135 @@ public class TargetCounterTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void targetCounterPageUrlNameTest() throws IOException, InterruptedException {
-        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterPageUrlName");
+        convertToPdfAndCompare("targetCounterPageUrlName");
     }
 
     @Test
     public void targetCounterPageUrlIdTest() throws IOException, InterruptedException {
-        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterPageUrlId");
+        convertToPdfAndCompare("targetCounterPageUrlId");
     }
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS))
     public void targetCounterManyRelayoutsTest() throws IOException, InterruptedException {
-        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterManyRelayouts");
+        convertToPdfAndCompare("targetCounterManyRelayouts");
     }
 
     @Test
     public void targetCounterPageBigElementTest() throws IOException, InterruptedException {
-        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterPageBigElement");
+        convertToPdfAndCompare("targetCounterPageBigElement");
     }
 
     @Test
     public void targetCounterPageAllTagsTest() throws IOException, InterruptedException {
-        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterPageAllTags");
+        convertToPdfAndCompare("targetCounterPageAllTags");
     }
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, count = 2))
     public void targetCounterNotExistingTargetTest() throws IOException, InterruptedException {
-        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterNotExistingTarget");
+        convertToPdfAndCompare("targetCounterNotExistingTarget");
     }
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
     public void pageTargetCounterTestWithLogMessageTest() throws IOException, InterruptedException {
-        convertToPdfWithTargetCounterEnabledAndCompare("pageTargetCounterTestWithLogMessage");
+        convertToPdfAndCompare("pageTargetCounterTestWithLogMessage");
     }
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
     // There should be only one log message here, but we have two because we resolve css styles twice.
     public void nonPageTargetCounterTestWithLogMessageTest() throws IOException, InterruptedException {
-        convertToPdfWithTargetCounterEnabledAndCompare("nonPageTargetCounterTestWithLogMessage");
+        convertToPdfAndCompare("nonPageTargetCounterTestWithLogMessage");
     }
 
     @Test
     public void targetCounterSeveralCountersTest() throws IOException, InterruptedException {
-        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterSeveralCounters");
+        convertToPdfAndCompare("targetCounterSeveralCounters");
     }
 
     @Test
     public void targetCounterIDNotExistTest() throws IOException, InterruptedException {
-        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterIDNotExist");
+        convertToPdfAndCompare("targetCounterIDNotExist");
     }
 
     @Test
     public void targetCounterNotCounterElementTest() throws IOException, InterruptedException {
-        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterNotCounterElement");
+        convertToPdfAndCompare("targetCounterNotCounterElement");
     }
 
     @Test
     public void targetCounterNestedCountersTest() throws IOException, InterruptedException {
-        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterNestedCounters");
+        convertToPdfAndCompare("targetCounterNestedCounters");
     }
 
     @Test
     public void targetCounterUnusualStylesTest() throws IOException, InterruptedException {
-        convertToPdfWithTargetCounterEnabledAndCompare("targetCounterUnusualStyles");
+        convertToPdfAndCompare("targetCounterUnusualStyles");
     }
 
     @Test
     public void targetCountersNestedCountersTest() throws IOException, InterruptedException {
-        convertToPdfWithTargetCounterEnabledAndCompare("targetCountersNestedCounters");
+        convertToPdfAndCompare("targetCountersNestedCounters");
     }
 
-    private void convertToPdfWithTargetCounterEnabledAndCompare(String name) throws IOException, InterruptedException {
-        String sourceHtml = sourceFolder + name + ".html";
-        String cmpPdf = sourceFolder + "cmp_" + name + ".pdf";
-        String destinationPdf = destinationFolder + name + ".pdf";
+    @Test
+    // TODO DEVSIX-4789 Armenian and Georgian symbols are not drawn, but there is no log message.
+    public void targetCounterNotDefaultStyleTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("targetCounterNotDefaultStyle");
+    }
 
-        ConverterProperties converterProperties = new ConverterProperties().setBaseUri(sourceFolder).setTargetCounterEnabled(true);
-        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf));
-        try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
-            HtmlConverter.convertToPdf(fileInputStream, pdfDocument, converterProperties);
-        }
-        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(sourceHtml) + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, destinationFolder, "diff_" + name + "_"));
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS))
+    public void targetCounterCannotBeResolvedTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("targetCounterCannotBeResolved");
+    }
+
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT))
+    public void customRendererAndPageTargetCounterTest() throws IOException, InterruptedException {
+        convertToPdfWithCustomRendererAndCompare("customRendererAndPageTargetCounter");
+    }
+
+    @Test
+    public void customRendererAndNonPageTargetCounterTest() throws IOException, InterruptedException {
+        convertToPdfWithCustomRendererAndCompare("customRendererAndNonPageTargetCounter");
+    }
+
+    private void convertToPdfWithCustomRendererAndCompare(String name) throws IOException, InterruptedException {
+        ConverterProperties properties = new ConverterProperties().setTagWorkerFactory(new DefaultTagWorkerFactory() {
+            @Override
+            public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
+                if (TagConstants.HTML.equals(tag.name())) {
+                    return new HtmlTagWorker(tag, context) {
+                        @Override
+                        public IPropertyContainer getElementResult() {
+                            Document document = (Document) super.getElementResult();
+                            document.setRenderer(new DocumentRenderer(document));
+                            return document;
+                        }
+                    };
+                }
+                return null;
+            }
+        });
+        DefaultHtmlProcessor processor = new DefaultHtmlProcessor(properties);
+
+        IXmlParser parser = new JsoupHtmlParser();
+        String outPdfPath = destinationFolder + name + ".pdf";
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outPdfPath));
+        IDocumentNode doc = parser.parse(new FileInputStream(sourceFolder + name + ".html"),
+                properties.getCharset());
+        Document document = processor.processDocument(doc, pdfDocument);
+        document.close();
+
+        Assert.assertNull(new CompareTool().compareByContent(outPdfPath,
+                sourceFolder + "cmp_" + name + ".pdf", destinationFolder));
+    }
+
+    private void convertToPdfAndCompare(String name) throws IOException, InterruptedException {
+        convertToPdfAndCompare(name, sourceFolder, destinationFolder);
     }
 }

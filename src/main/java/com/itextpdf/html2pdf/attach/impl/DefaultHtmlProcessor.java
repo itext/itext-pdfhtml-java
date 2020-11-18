@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocument;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
 import com.itextpdf.html2pdf.attach.impl.layout.RunningElementContainer;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IPlaceholderable;
@@ -248,21 +249,24 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             context.getCssContext().getCounterManager().clearManager();
         }
         visit(root);
-        Document doc = (Document) roots.get(0);
+        HtmlDocument doc = (HtmlDocument) roots.get(0);
         // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
-        if (doc.getRenderer() instanceof HtmlDocumentRenderer
-                && context.getCssContext().isPagesCounterPresent()) {
-            ((HtmlDocumentRenderer) doc.getRenderer()).processWaitingElement();
-            int counter = 0;
-            do {
-                ++counter;
-                doc.relayout();
+        if (context.getCssContext().isPagesCounterPresent()) {
+            if (doc.getRenderer() instanceof HtmlDocumentRenderer) {
                 ((HtmlDocumentRenderer) doc.getRenderer()).processWaitingElement();
-                if (counter >= context.getLimitOfLayouts()) {
-                    logger.warn(MessageFormatUtil.format(LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS));
-                    break;
-                }
-            } while (((DocumentRenderer) doc.getRenderer()).isRelayoutRequired());
+                int counter = 0;
+                do {
+                    ++counter;
+                    doc.relayout();
+                    if (counter >= context.getLimitOfLayouts()) {
+                        logger.warn(
+                                MessageFormatUtil.format(LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS));
+                        break;
+                    }
+                } while (((DocumentRenderer) doc.getRenderer()).isRelayoutRequired());
+            } else {
+                logger.warn(LogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT);
+            }
         }
         cssResolver = null;
         roots = null;

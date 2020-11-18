@@ -22,6 +22,8 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
+import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
+import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.renderer.IRenderer;
 
@@ -31,6 +33,7 @@ import com.itextpdf.layout.renderer.IRenderer;
 public class PageTargetCountElement extends Text {
 
     private final String target;
+    private final CounterDigitsGlyphStyle digitsGlyphStyle;
 
     /**
      * Instantiates a new {@link PageTargetCountElement}.
@@ -40,6 +43,19 @@ public class PageTargetCountElement extends Text {
     public PageTargetCountElement(String target) {
         super("1234567890");
         this.target = target.replace("'", "").replace("#", "");
+        this.digitsGlyphStyle = CounterDigitsGlyphStyle.DEFAULT;
+    }
+
+    /**
+     * Instantiates a new {@link PageTargetCountElement}.
+     *
+     * @param target name of the corresponding target
+     * @param digitsGlyphStyle digits glyph style
+     */
+    public PageTargetCountElement(String target, CounterDigitsGlyphStyle digitsGlyphStyle) {
+        super(HtmlUtils.getAllNumberGlyphsForStyle(digitsGlyphStyle));
+        this.target = target.replace("'", "").replace("#", "");
+        this.digitsGlyphStyle = digitsGlyphStyle;
     }
 
     /**
@@ -49,6 +65,15 @@ public class PageTargetCountElement extends Text {
      */
     public String getTarget() {
         return target;
+    }
+
+    /**
+     * Gets glyph style for digits.
+     *
+     * @return name of the glyph style
+     */
+    public CounterDigitsGlyphStyle getDigitsGlyphStyle() {
+        return digitsGlyphStyle;
     }
 
     /**

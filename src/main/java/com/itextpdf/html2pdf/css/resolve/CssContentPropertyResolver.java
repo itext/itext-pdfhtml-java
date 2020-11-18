@@ -44,9 +44,11 @@ package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageTargetCountElementNode;
+import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.html2pdf.html.AttributeConstants;
@@ -119,14 +121,14 @@ class CssContentPropertyResolver {
                 String counterName = params.get(0).trim();
                 String counterSeparationStr = params.get(1).trim();
                 counterSeparationStr = counterSeparationStr.substring(1, counterSeparationStr.length() - 1);
-                final String listStyleType =
-                        params.size() > COUNTERS_MIN_PARAMS_SIZE ? params.get(COUNTERS_MIN_PARAMS_SIZE).trim() : null;
+                final CounterDigitsGlyphStyle listStyleType = HtmlUtils.convertStringCounterGlyphStyleToEnum(
+                        params.size() > COUNTERS_MIN_PARAMS_SIZE ? params.get(COUNTERS_MIN_PARAMS_SIZE).trim() : null);
                 CssCounterManager counterManager = context.getCounterManager();
                 INode scope = contentContainer;
                 if (CssConstants.PAGE.equals(counterName)) {
-                    result.add(new PageCountElementNode(false, contentContainer));
+                    result.add(new PageCountElementNode(false, contentContainer).setDigitsGlyphStyle(listStyleType));
                 } else if (CssConstants.PAGES.equals(counterName)) {
-                    result.add(new PageCountElementNode(true, contentContainer));
+                    result.add(new PageCountElementNode(true, contentContainer).setDigitsGlyphStyle(listStyleType));
                 } else {
                     final String resolvedCounter =
                             counterManager.resolveCounters(counterName, counterSeparationStr, listStyleType);
@@ -141,22 +143,21 @@ class CssContentPropertyResolver {
                 }
                 // Counters are denoted by case-sensitive identifiers
                 String counterName = params.get(0).trim();
-                final String listStyleType =
-                        params.size() > COUNTER_MIN_PARAMS_SIZE ? params.get(COUNTER_MIN_PARAMS_SIZE).trim() : null;
+                final CounterDigitsGlyphStyle listStyleType = HtmlUtils.convertStringCounterGlyphStyleToEnum(
+                        params.size() > COUNTER_MIN_PARAMS_SIZE ? params.get(COUNTER_MIN_PARAMS_SIZE).trim() : null);
                 CssCounterManager counterManager = context.getCounterManager();
                 INode scope = contentContainer;
                 if (CssConstants.PAGE.equals(counterName)) {
-                    result.add(new PageCountElementNode(false, contentContainer));
+                    result.add(new PageCountElementNode(false, contentContainer)
+                            .setDigitsGlyphStyle(listStyleType));
                 } else if (CssConstants.PAGES.equals(counterName)) {
-                    result.add(new PageCountElementNode(true, contentContainer));
+                    result.add(new PageCountElementNode(true, contentContainer)
+                            .setDigitsGlyphStyle(listStyleType));
                 } else {
                     final String resolvedCounter = counterManager.resolveCounter(counterName, listStyleType);
                     result.add(new ContentTextNode(scope, resolvedCounter));
                 }
             } else if (token.getValue().startsWith(CssConstants.TARGET_COUNTER + "(")) {
-                if (!context.isTargetCounterEnabled()) {
-                    return errorFallback(contentStr);
-                }
                 String paramsStr = token.getValue()
                         .substring(CssConstants.TARGET_COUNTER.length() + 1, token.getValue().length() - 1);
                 List<String> params = CssUtils.splitString(paramsStr, ',', ALLOWED_ESCAPE_CHARACTERS);
@@ -165,13 +166,15 @@ class CssContentPropertyResolver {
                 }
                 final String target = CssUtils.extractUrl(params.get(0));
                 final String counterName = params.get(1).trim();
-                final String listStyleType = params.size() > TARGET_COUNTER_MIN_PARAMS_SIZE ?
-                        params.get(TARGET_COUNTER_MIN_PARAMS_SIZE).trim() : null;
+                final CounterDigitsGlyphStyle listStyleType = HtmlUtils.convertStringCounterGlyphStyleToEnum(
+                        params.size() > TARGET_COUNTER_MIN_PARAMS_SIZE ?
+                        params.get(TARGET_COUNTER_MIN_PARAMS_SIZE).trim() : null);
                 if (CssConstants.PAGE.equals(counterName)) {
-                    result.add(new PageTargetCountElementNode(contentContainer, target));
+                    result.add(new PageTargetCountElementNode(contentContainer, target)
+                            .setDigitsGlyphStyle(listStyleType));
                 } else if (CssConstants.PAGES.equals(counterName)) {
-                    // TODO DEVSIX-4692 pages support.
-                    return errorFallback(contentStr);
+                    result.add(new PageCountElementNode(true, contentContainer)
+                            .setDigitsGlyphStyle(listStyleType));
                 } else {
                     final String counter = context.getCounterManager().resolveTargetCounter
                             (target.replace("'", "").replace("#", ""), counterName, listStyleType);
@@ -179,9 +182,6 @@ class CssContentPropertyResolver {
                     result.add(node);
                 }
             } else if (token.getValue().startsWith(CssConstants.TARGET_COUNTERS + "(")) {
-                if (!context.isTargetCounterEnabled()) {
-                    return errorFallback(contentStr);
-                }
                 final String paramsStr = token.getValue()
                         .substring(CssConstants.TARGET_COUNTERS.length() + 1, token.getValue().length() - 1);
                 final List<String> params = CssUtils.splitString(paramsStr, ',', ALLOWED_ESCAPE_CHARACTERS);
@@ -192,13 +192,15 @@ class CssContentPropertyResolver {
                 final String counterName = params.get(1).trim();
                 String counterSeparator = params.get(2).trim();
                 counterSeparator = counterSeparator.substring(1, counterSeparator.length() - 1);
-                final String listStyleType = params.size() > TARGET_COUNTERS_MIN_PARAMS_SIZE ?
-                        params.get(TARGET_COUNTERS_MIN_PARAMS_SIZE).trim() : null;
+                final CounterDigitsGlyphStyle listStyleType = HtmlUtils.convertStringCounterGlyphStyleToEnum(
+                        params.size() > TARGET_COUNTERS_MIN_PARAMS_SIZE ?
+                        params.get(TARGET_COUNTERS_MIN_PARAMS_SIZE).trim() : null);
                 if (CssConstants.PAGE.equals(counterName)) {
-                    result.add(new PageTargetCountElementNode(contentContainer, target));
+                    result.add(new PageTargetCountElementNode(contentContainer, target)
+                            .setDigitsGlyphStyle(listStyleType));
                 } else if (CssConstants.PAGES.equals(counterName)) {
-                    // TODO DEVSIX-4692 pages support.
-                    return errorFallback(contentStr);
+                    result.add(new PageCountElementNode(true, contentContainer)
+                            .setDigitsGlyphStyle(listStyleType));
                 } else {
                     final String counters = context.getCounterManager().resolveTargetCounters
                             (target.replace(",", "").replace("#", ""), counterName, counterSeparator, listStyleType);

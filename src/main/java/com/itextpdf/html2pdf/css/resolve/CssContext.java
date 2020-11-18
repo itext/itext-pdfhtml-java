@@ -70,37 +70,12 @@ public class CssContext extends AbstractCssContext {
     private CssRunningManager runningManager = new CssRunningManager();
 
     /**
-     * Indicates whether the document shall process target-counter or not.
-     */
-    private boolean targetCounterEnabled = false;
-
-    /**
      * Gets the root font size.
      *
      * @return the root font size in pt
      */
     public float getRootFontSize() {
         return rootFontSize;
-    }
-
-    /**
-     * Sets the targetCounterEnabled flag.
-     *
-     * @param targetCounterEnabled true if target-counter shall be processed, false otherwise
-     * @return the {@link CssContext} instance
-     */
-    public CssContext setTargetCounterEnabled(boolean targetCounterEnabled) {
-        this.targetCounterEnabled = targetCounterEnabled;
-        return this;
-    }
-
-    /**
-     * Checks if target-counter is enabled.
-     *
-     * @return true if target-counter shall be processed, false otherwise
-     */
-    public boolean isTargetCounterEnabled() {
-        return targetCounterEnabled;
     }
 
     /**

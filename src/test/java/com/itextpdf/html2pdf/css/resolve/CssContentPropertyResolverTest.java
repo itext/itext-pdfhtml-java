@@ -24,8 +24,10 @@ package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageTargetCountElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
+import com.itextpdf.styledxmlparser.node.ITextNode;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -46,7 +48,6 @@ public class CssContentPropertyResolverTest extends ExtendedITextTest {
         Map<String, String> styles = new HashMap<>();
         styles.put(CssConstants.CONTENT, "target-counter(url('#some_target'), page)");
         CssContext context = new CssContext();
-        context.setTargetCounterEnabled(true);
         List<INode> result = CssContentPropertyResolver.resolveContent(styles, null, context);
         Assert.assertNotNull(result);
         Assert.assertEquals(1, result.size());
@@ -59,25 +60,10 @@ public class CssContentPropertyResolverTest extends ExtendedITextTest {
         Map<String, String> styles = new HashMap<>();
         styles.put(CssConstants.CONTENT, "target-counter(url('#some_target'), some_counter)");
         CssContext context = new CssContext();
-        context.setTargetCounterEnabled(true);
         List<INode> result = CssContentPropertyResolver.resolveContent(styles, null, context);
         Assert.assertNotNull(result);
         Assert.assertEquals(1, result.size());
-    }
-
-    @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 2))
-    public void resolveContentTargetCountersDisabledTest() {
-        Map<String, String> styles = new HashMap<>();
-        styles.put(CssConstants.CONTENT, "target-counter(url('#some_target'), some_counter)");
-        CssContext context = new CssContext();
-        context.setTargetCounterEnabled(false);
-        List<INode> result = CssContentPropertyResolver.resolveContent(styles, null, context);
-        Assert.assertNull(result);
-
-        styles.put(CssConstants.CONTENT, "target-counter(url('#some_target'), some_counter, 'a')");
-        result = CssContentPropertyResolver.resolveContent(styles, null, context);
-        Assert.assertNull(result);
+        Assert.assertTrue(result.get(0) instanceof ITextNode);
     }
 
     @Test
@@ -86,7 +72,6 @@ public class CssContentPropertyResolverTest extends ExtendedITextTest {
         Map<String, String> styles = new HashMap<>();
         styles.put(CssConstants.CONTENT, "target-counter(url('#some_target'))");
         CssContext context = new CssContext();
-        context.setTargetCounterEnabled(true);
         List<INode> result = CssContentPropertyResolver.resolveContent(styles, null, context);
         Assert.assertNull(result);
 
@@ -104,18 +89,22 @@ public class CssContentPropertyResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 2))
     public void resolveContentPagesTargetCountersTest() {
         Map<String, String> styles = new HashMap<>();
         styles.put(CssConstants.CONTENT, "target-counter(url('#some_target'), pages)");
         CssContext context = new CssContext();
-        context.setTargetCounterEnabled(true);
         List<INode> result = CssContentPropertyResolver.resolveContent(styles, null, context);
-        Assert.assertNull(result);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(1, result.size());
+        Assert.assertTrue(result.get(0) instanceof PageCountElementNode);
+        Assert.assertTrue(((PageCountElementNode) result.get(0)).isTotalPageCount());
 
         styles.put(CssConstants.CONTENT, "target-counters(url('#some_target'), pages, '.')");
         result = CssContentPropertyResolver.resolveContent(styles, null, context);
-        Assert.assertNull(result);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(1, result.size());
+        Assert.assertTrue(result.get(0) instanceof PageCountElementNode);
+        Assert.assertTrue(((PageCountElementNode) result.get(0)).isTotalPageCount());
     }
 
     @Test
@@ -123,9 +112,9 @@ public class CssContentPropertyResolverTest extends ExtendedITextTest {
         Map<String, String> styles = new HashMap<>();
         styles.put(CssConstants.CONTENT, "counter(some_counter)");
         CssContext context = new CssContext();
-        context.setTargetCounterEnabled(true);
         List<INode> result = CssContentPropertyResolver.resolveContent(styles, null, context);
         Assert.assertNotNull(result);
         Assert.assertEquals(1, result.size());
+        Assert.assertTrue(result.get(0) instanceof ITextNode);
     }
 }

@@ -47,6 +47,7 @@ import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.PageCountElement;
 import com.itextpdf.html2pdf.attach.impl.layout.PageCountType;
 import com.itextpdf.html2pdf.attach.impl.layout.PageTargetCountElement;
+import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageTargetCountElementNode;
 import com.itextpdf.layout.IPropertyContainer;
@@ -67,14 +68,17 @@ public class PageCountWorker extends SpanTagWorker {
      */
     public PageCountWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
-        if (element instanceof PageTargetCountElementNode) {
-            pageCountElement = new PageTargetCountElement(((PageTargetCountElementNode) element).getTarget());
-        } else {
-            final boolean totalPageCount =
-                    element instanceof PageCountElementNode && ((PageCountElementNode) element).isTotalPageCount();
-            pageCountElement = new PageCountElement();
-            pageCountElement.setProperty(Html2PdfProperty.PAGE_COUNT_TYPE,
-                    totalPageCount ? PageCountType.TOTAL_PAGE_COUNT : PageCountType.CURRENT_PAGE_NUMBER);
+        if (element instanceof PageCountElementNode) {
+            final CounterDigitsGlyphStyle digitsStyle = ((PageCountElementNode) element).getDigitsGlyphStyle();
+            if (element instanceof PageTargetCountElementNode) {
+                pageCountElement =
+                        new PageTargetCountElement(((PageTargetCountElementNode) element).getTarget(), digitsStyle);
+            } else {
+                final boolean totalPageCount = ((PageCountElementNode) element).isTotalPageCount();
+                pageCountElement = new PageCountElement(digitsStyle);
+                pageCountElement.setProperty(Html2PdfProperty.PAGE_COUNT_TYPE,
+                        totalPageCount ? PageCountType.TOTAL_PAGE_COUNT : PageCountType.CURRENT_PAGE_NUMBER);
+            }
         }
     }
 

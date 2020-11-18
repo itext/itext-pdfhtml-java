@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
+import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
+import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
@@ -59,6 +61,8 @@ import java.util.List;
  */
 class PageCountRenderer extends TextRenderer {
 
+    private final CounterDigitsGlyphStyle digitsGlyphStyle;
+
     /**
      * Instantiates a new page count renderer.
      *
@@ -66,6 +70,7 @@ class PageCountRenderer extends TextRenderer {
      */
     PageCountRenderer(PageCountElement textElement) {
         super(textElement);
+        digitsGlyphStyle = textElement.getDigitsGlyphStyle();
     }
 
     /* (non-Javadoc)
@@ -81,7 +86,8 @@ class PageCountRenderer extends TextRenderer {
         // To solve this, this workaround has been implemented: the renderer's strToBeConverted shouldn't be updated by layout.
         boolean textHasBeenReplaced = false;
         if (pageCountType == PageCountType.CURRENT_PAGE_NUMBER) {
-            setText(String.valueOf(layoutContext.getArea().getPageNumber()));
+            setText(HtmlUtils.convertNumberAccordingToGlyphStyle(digitsGlyphStyle,
+                    layoutContext.getArea().getPageNumber()));
             textHasBeenReplaced = true;
         } else if (pageCountType == PageCountType.TOTAL_PAGE_COUNT) {
             IRenderer rootRenderer = this;
@@ -89,10 +95,12 @@ class PageCountRenderer extends TextRenderer {
                 rootRenderer = ((AbstractRenderer) rootRenderer).getParent();
             }
             if (rootRenderer instanceof HtmlDocumentRenderer && ((HtmlDocumentRenderer) rootRenderer).getEstimatedNumberOfPages() > 0) {
-                setText(String.valueOf(((HtmlDocumentRenderer) rootRenderer).getEstimatedNumberOfPages()));
+                setText(HtmlUtils.convertNumberAccordingToGlyphStyle(digitsGlyphStyle,
+                        ((HtmlDocumentRenderer) rootRenderer).getEstimatedNumberOfPages()));
                 textHasBeenReplaced = true;
             } else if (rootRenderer instanceof DocumentRenderer && rootRenderer.getModelElement() instanceof Document) {
-                setText(String.valueOf(((Document) rootRenderer.getModelElement()).getPdfDocument().getNumberOfPages()));
+                setText(HtmlUtils.convertNumberAccordingToGlyphStyle(digitsGlyphStyle,
+                        ((Document) rootRenderer.getModelElement()).getPdfDocument().getNumberOfPages()));
                 textHasBeenReplaced = true;
             }
         }

@@ -23,6 +23,8 @@
 package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
+import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
@@ -47,6 +49,7 @@ public class PageTargetCountRenderer extends TextRenderer {
     private static final String UNDEFINED_VALUE = "0";
 
     private final String target;
+    private final CounterDigitsGlyphStyle digitsGlyphStyle;
 
     /**
      * Instantiates a new {@link PageTargetCountRenderer}.
@@ -55,6 +58,7 @@ public class PageTargetCountRenderer extends TextRenderer {
      */
     PageTargetCountRenderer(PageTargetCountElement textElement) {
         super(textElement);
+        digitsGlyphStyle = textElement.getDigitsGlyphStyle();
         target = textElement.getTarget();
     }
 
@@ -68,7 +72,7 @@ public class PageTargetCountRenderer extends TextRenderer {
         if (page == null) {
             setText(UNDEFINED_VALUE);
         } else {
-            setText(String.valueOf(page));
+            setText(HtmlUtils.convertNumberAccordingToGlyphStyle(digitsGlyphStyle, (int) page));
         }
         final LayoutResult result = super.layout(layoutContext);
         setText(previousText);
@@ -80,7 +84,7 @@ public class PageTargetCountRenderer extends TextRenderer {
      */
     @Override
     public void draw(DrawContext drawContext) {
-        if (!TargetCounterHandler.isValueDefinedForThisID(this, target)) {
+        if (!TargetCounterHandler.isValueDefinedForThisId(this, target)) {
             LOGGER.warn(MessageFormatUtil.format(LogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, target));
         }
         super.draw(drawContext);

@@ -112,11 +112,6 @@ public class ConverterProperties {
     private boolean immediateFlush = true;
 
     /**
-     * Indicates whether the document shall process target-counter or not.
-     */
-    private boolean targetCounterEnabled = false;
-
-    /**
      * Maximum number of layouts.
      */
     private int limitOfLayouts = DEFAULT_LIMIT_OF_LAYOUTS;
@@ -149,7 +144,6 @@ public class ConverterProperties {
         this.outlineHandler = other.outlineHandler;
         this.charset = other.charset;
         this.metaInfo = other.metaInfo;
-        this.targetCounterEnabled = other.targetCounterEnabled;
         this.limitOfLayouts = other.limitOfLayouts;
     }
 
@@ -224,26 +218,6 @@ public class ConverterProperties {
      */
     public ConverterProperties setLimitOfLayouts(int limitOfLayouts) {
         this.limitOfLayouts = limitOfLayouts;
-        return this;
-    }
-
-    /**
-     * Checks if target-counter is enabled.
-     *
-     * @return true if target-counter shall be processed, false otherwise
-     */
-    public boolean isTargetCounterEnabled() {
-        return targetCounterEnabled;
-    }
-
-    /**
-     * Sets the targetCounterEnabled flag.
-     *
-     * @param targetCounterEnabled true if target-counter shall be processed, false otherwise
-     * @return the {@link ConverterProperties} instance
-     */
-    public ConverterProperties setTargetCounterEnabled(boolean targetCounterEnabled) {
-        this.targetCounterEnabled = targetCounterEnabled;
         return this;
     }
 
