@@ -53,7 +53,6 @@ public class WordBreakTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO: update cmp file after implementing DEVSIX-1438
     public void wordBreakCommonScenarioTest() throws IOException, InterruptedException {
         FontProvider fontProvider = new DefaultFontProvider();
         fontProvider.addFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
@@ -68,7 +67,6 @@ public class WordBreakTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO: update cmp file after implementing DEVSIX-1438
     public void overflowXWordBreakTest() throws IOException, InterruptedException {
         FontProvider fontProvider = new DefaultFontProvider();
         fontProvider.addFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
@@ -83,7 +81,6 @@ public class WordBreakTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO: update cmp file after implementing DEVSIX-1438
     public void whiteSpaceAndWordBreakTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "whiteSpaceAndWordBreak.html"),
                 new File(destinationFolder + "whiteSpaceAndWordBreak.pdf"));
@@ -92,7 +89,6 @@ public class WordBreakTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO: update cmp file after implementing DEVSIX-1438
     public void wordBreakMidNumbersTest() throws IOException, InterruptedException {
         FontProvider fontProvider = new DefaultFontProvider();
         fontProvider.addFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
@@ -107,7 +103,6 @@ public class WordBreakTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO: update cmp file after implementing DEVSIX-1438
     public void wordBreakMidPunctuationTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "wordBreakMidPunctuation.html"),
                 new File(destinationFolder + "wordBreakMidPunctuation.pdf"));
@@ -116,7 +111,6 @@ public class WordBreakTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO: update cmp file after implementing DEVSIX-1438
     public void wordBreakAllAndFloatTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "wordBreakAllAndFloat.html"),
                 new File(destinationFolder + "wordBreakAllAndFloat.pdf"));
@@ -127,7 +121,6 @@ public class WordBreakTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant
             .TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 3)})
-    // TODO: update cmp file after implementing DEVSIX-1438
     public void wordBreakTableScenarioTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "wordBreakTableScenario.html"),
                 new File(destinationFolder + "wordBreakTableScenario.pdf"));

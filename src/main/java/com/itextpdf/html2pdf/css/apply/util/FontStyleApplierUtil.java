@@ -62,8 +62,11 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.TransparentColor;
 import com.itextpdf.layout.property.Underline;
 import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.splitting.DefaultSplitCharacters;
 import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+import com.itextpdf.layout.splitting.BreakAllSplitCharacters;
+import com.itextpdf.layout.splitting.KeepAllSplitCharacters;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
@@ -173,6 +176,23 @@ public final class FontStyleApplierUtil {
                 element.setProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.BREAK_WORD);
             } else {
                 element.setProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.NORMAL);
+            }
+
+            String wordBreak = cssProps.get(CssConstants.WORD_BREAK);
+            if (CssConstants.BREAK_ALL.equals(wordBreak)) {
+                element.setProperty(Property.SPLIT_CHARACTERS, new BreakAllSplitCharacters());
+            } else if (CssConstants.KEEP_ALL.equals(wordBreak)) {
+                element.setProperty(Property.SPLIT_CHARACTERS, new KeepAllSplitCharacters());
+            } else if (CssConstants.BREAK_WORD.equals(wordBreak)) {
+                // CSS specification cite that describes the reason for overflow-wrap overriding:
+                // "For compatibility with legacy content, the word-break property also supports
+                //  a deprecated break-word keyword. When specified, this has the same effect
+                //  as word-break: normal and overflow-wrap: anywhere, regardless of the actual value
+                //  of the overflow-wrap property."
+                element.setProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.BREAK_WORD);
+                element.setProperty(Property.SPLIT_CHARACTERS, new DefaultSplitCharacters());
+            } else {
+                element.setProperty(Property.SPLIT_CHARACTERS, new DefaultSplitCharacters());
             }
         }
 
