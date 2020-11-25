@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Minimum Example</title>
+    <style>
+      @page {
+          size: A5 portrait;
+
+          @bottom-center {
+              content: element(margin-footer);
+          }
+      }
+
+      div.footer {
+          width: 100%;
+          display: block;
+          position: running(margin-footer);
+      }
+
+      input.short {
+          width: initial;
+      }
+
+      .page-counter:after {
+          content: counter(page) "/" counter(pages);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="footer">
+      <h5>Page (<span class="page-counter"></span> )</h5>
+    </div>
+
+    <div>
+      <h1>Hello, iText!!!</h1>
+      <h5>Form with radiobuttons+page-counter should take place no less than 2 pages</h5>
+    </div>
+
+    <form>
+        Question 1
+              <label for="q1_a">
+                <input class="short" name="q1" type="radio" id="q1_a" value="a"/>a
+              </label>
+              <label for="q1_b">
+                <input class="short" name="q1" type="radio" id="q1_b" value="b"/>b
+              </label>
+              <label for="q1_c">
+                <input class="short" name="q1" type="radio" id="q1_c" value="c"/>c
+              </label>
+              <label for="q1_d">
+                <input class="short" name="q1" type="radio" id="q1_d" value="d"/>d
+              </label><br/>
+        Question 2
+              <label for="q2_a">
+                <input class="short" name="q2" type="radio" id="q2_a" value="a"/>a
+              </label>
+              <label for="q2_b">
+                <input class="short" name="q2" type="radio" id="q2_b" value="b"/>b
+              </label>
+              <label for="q2_c">
+                <input class="short" name="q2" type="radio" id="q2_c" value="c"/>c
+              </label>
+              <label for="q2_d">
+                <input class="short" name="q2" type="radio" id="q2_d" value="d"/>d
+              </label><br/>
+        Question 3
+              <label for="q3_a">
+                <input class="short" name="q3" type="radio" id="q3_a" value="a"/>a
+              </label>
+              <label for="q3_b">
+                <input class="short" name="q3" type="radio" id="q3_b" value="b"/>b
+              </label>
+              <label for="q3_c">
+                <input class="short" name="q3" type="radio" id="q3_c" value="c"/>c
+              </label>
+              <label for="q3_d">
+                <input class="short" name="q3" type="radio" id="q3_d" value="d"/>d
+              </label><br/>
+        Question 4
+              <label for="q4_a">
+                <input class="short" name="q4" type="radio" id="q4_a" value="a"/>a
+              </label>
+              <label for="q4_b">
+                <input class="short" name="q4" type="radio" id="q4_b" value="b"/>b
+              </label>
+              <label for="q4_c">
+                <input class="short" name="q4" type="radio" id="q4_c" value="c"/>c
+              </label>
+              <label for="q4_d">
+                <input class="short" name="q4" type="radio" id="q4_d" value="d"/>d
+              </label><br/>
+        Question 5
+              <label for="q5_a">
+                <input class="short" name="q5" type="radio" id="q5_a" value="a"/>a
+              </label>
+              <label for="q5_b">
+                <input class="short" name="q5" type="radio" id="q5_b" value="b"/>b
+              </label>
+              <label for="q5_c">
+                <input class="short" name="q5" type="radio" id="q5_c" value="c"/>c
+              </label>
+              <label for="q5_d">
+                <input class="short" name="q5" type="radio" id="q5_d" value="d"/>d
+              </label><br/>
+        Question 6
+              <label for="q6_a">
+                <input class="short" name="q6" type="radio" id="q6_a" value="a"/>a
+              </label>
+              <label for="q6_b">
+                <input class="short" name="q6" type="radio" id="q6_b" value="b"/>b
+              </label>
+              <label for="q6_c">
+                <input class="short" name="q6" type="radio" id="q6_c" value="c"/>c
+              </label>
+              <label for="q6_d">
+                <input class="short" name="q6" type="radio" id="q6_d" value="d"/>d
+              </label><br/>
+        Question 7
+              <label for="q7_a">
+                <input class="short" name="q7" type="radio" id="q7_a" value="a"/>a
+              </label>
+              <label for="q7_b">
+                <input class="short" name="q7" type="radio" id="q7_b" value="b"/>b
+              </label>
+              <label for="q7_c">
+                <input class="short" name="q7" type="radio" id="q7_c" value="c"/>c
+              </label>
+              <label for="q7_d">
+                <input class="short" name="q7" type="radio" id="q7_d" value="d"/>d
+              </label><br/>
+        Question 8
+              <label for="q8_a">
+                <input class="short" name="q8" type="radio" id="q8_a" value="a"/>a
+              </label>
+              <label for="q8_b">
+                <input class="short" name="q8" type="radio" id="q8_b" value="b"/>b
+              </label>
+              <label for="q8_c">
+                <input class="short" name="q8" type="radio" id="q8_c" value="c"/>c
+              </label>
+              <label for="q8_d">
+                <input class="short" name="q8" type="radio" id="q8_d" value="d"/>d
+              </label><br/>
+        Question 9
+              <label for="q9_a">
+                <input class="short" name="q9" type="radio" id="q9_a" value="a"/>a
+              </label>
+              <label for="q9_b">
+                <input class="short" name="q9" type="radio" id="q9_b" value="b"/>b
+              </label>
+              <label for="q9_c">
+                <input class="short" name="q9" type="radio" id="q9_c" value="c"/>c
+              </label>
+              <label for="q9_d">
+                <input class="short" name="q9" type="radio" id="q9_d" value="d"/>d
+              </label><br/>
+        Question 10
+              <label for="q10_a">
+                <input class="short" name="q10" type="radio" id="q10_a" value="a"/>a
+              </label>
+              <label for="q10_b">
+                <input class="short" name="q10" type="radio" id="q10_b" value="b"/>b
+              </label>
+              <label for="q10_c">
+                <input class="short" name="q10" type="radio" id="q10_c" value="c"/>c
+              </label>
+              <label for="q10_d">
+                <input class="short" name="q10" type="radio" id="q10_d" value="d"/>d
+              </label><br/>
+        Question 11
+              <label for="q11_a">
+                <input class="short" name="q11" type="radio" id="q11_a" value="a"/>a
+              </label>
+              <label for="q11_b">
+                <input class="short" name="q11" type="radio" id="q11_b" value="b"/>b
+              </label>
+              <label for="q11_c">
+                <input class="short" name="q11" type="radio" id="q11_c" value="c"/>c
+              </label>
+              <label for="q11_d">
+                <input class="short" name="q11" type="radio" id="q11_d" value="d"/>d
+              </label><br/>
+        Question 12
+              <label for="q12_a">
+                <input class="short" name="q12" type="radio" id="q12_a" value="a"/>a
+              </label>
+              <label for="q12_b">
+                <input class="short" name="q12" type="radio" id="q12_b" value="b"/>b
+              </label>
+              <label for="q12_c">
+                <input class="short" name="q12" type="radio" id="q12_c" value="c"/>c
+              </label>
+              <label for="q12_d">
+                <input class="short" name="q12" type="radio" id="q12_d" value="d"/>d
+              </label><br/>
+        Question 13
+              <label for="q13_a">
+                <input class="short" name="q13" type="radio" id="q13_a" value="a"/>a
+              </label>
+              <label for="q13_b">
+                <input class="short" name="q13" type="radio" id="q13_b" value="b"/>b
+              </label>
+              <label for="q13_c">
+                <input class="short" name="q13" type="radio" id="q13_c" value="c"/>c
+              </label>
+              <label for="q13_d">
+                <input class="short" name="q13" type="radio" id="q13_d" value="d"/>d
+              </label><br/>
+        Question 14
+              <label for="q14_a">
+                <input class="short" name="q14" type="radio" id="q14_a" value="a"/>a
+              </label>
+              <label for="q14_b">
+                <input class="short" name="q14" type="radio" id="q14_b" value="b"/>b
+              </label>
+              <label for="q14_c">
+                <input class="short" name="q14" type="radio" id="q14_c" value="c"/>c
+              </label>
+              <label for="q14_d">
+                <input class="short" name="q14" type="radio" id="q14_d" value="d"/>d
+              </label><br/>
+        Question 15
+              <label for="q15_a">
+                <input class="short" name="q15" type="radio" id="q15_a" value="a"/>a
+              </label>
+              <label for="q15_b">
+                <input class="short" name="q15" type="radio" id="q15_b" value="b"/>b
+              </label>
+              <label for="q15_c">
+                <input class="short" name="q15" type="radio" id="q15_c" value="c"/>c
+              </label>
+              <label for="q15_d">
+                <input class="short" name="q15" type="radio" id="q15_d" value="d"/>d
+              </label><br/>
+        Question 16
+              <label for="q16_a">
+                <input class="short" name="q16" type="radio" id="q16_a" value="a"/>a
+              </label>
+              <label for="q16_b">
+                <input class="short" name="q16" type="radio" id="q16_b" value="b"/>b
+              </label>
+              <label for="q16_c">
+                <input class="short" name="q16" type="radio" id="q16_c" value="c"/>c
+              </label>
+              <label for="q16_d">
+                <input class="short" name="q16" type="radio" id="q16_d" value="d"/>d
+              </label><br/>
+        Question 17
+              <label for="q17_a">
+                <input class="short" name="q17" type="radio" id="q17_a" value="a"/>a
+              </label>
+              <label for="q17_b">
+                <input class="short" name="q17" type="radio" id="q17_b" value="b"/>b
+              </label>
+              <label for="q17_c">
+                <input class="short" name="q17" type="radio" id="q17_c" value="c"/>c
+              </label>
+              <label for="q17_d">
+                <input class="short" name="q17" type="radio" id="q17_d" value="d"/>d
+              </label><br/>
+        Question 18
+              <label for="q18_a">
+                <input class="short" name="q18" type="radio" id="q18_a" value="a"/>a
+              </label>
+              <label for="q18_b">
+                <input class="short" name="q18" type="radio" id="q18_b" value="b"/>b
+              </label>
+              <label for="q18_c">
+                <input class="short" name="q18" type="radio" id="q18_c" value="c"/>c
+              </label>
+              <label for="q18_d">
+                <input class="short" name="q18" type="radio" id="q18_d" value="d"/>d
+              </label><br/>
+        Question 19
+              <label for="q19_a">
+                <input class="short" name="q19" type="radio" id="q19_a" value="a"/>a
+              </label>
+              <label for="q19_b">
+                <input class="short" name="q19" type="radio" id="q19_b" value="b"/>b
+              </label>
+              <label for="q19_c">
+                <input class="short" name="q19" type="radio" id="q19_c" value="c"/>c
+              </label>
+              <label for="q19_d">
+                <input class="short" name="q19" type="radio" id="q19_d" value="d"/>d
+              </label><br/>
+        Question 20
+              <label for="q20_a">
+                <input class="short" name="q20" type="radio" id="q20_a" value="a"/>a
+              </label>
+              <label for="q20_b">
+                <input class="short" name="q20" type="radio" id="q20_b" value="b"/>b
+              </label>
+              <label for="q20_c">
+                <input class="short" name="q20" type="radio" id="q20_c" value="c"/>c
+              </label>
+              <label for="q20_d">
+                <input class="short" name="q20" type="radio" id="q20_d" value="d"/>d
+              </label><br/>
+        Question 21
+              <label for="q21_a">
+                <input class="short" name="q21" type="radio" id="q21_a" value="a"/>a
+              </label>
+              <label for="q21_b">
+                <input class="short" name="q21" type="radio" id="q21_b" value="b"/>b
+              </label>
+              <label for="q21_c">
+                <input class="short" name="q21" type="radio" id="q21_c" value="c"/>c
+              </label>
+              <label for="q21_d">
+                <input class="short" name="q21" type="radio" id="q21_d" value="d"/>d
+              </label><br/>
+        Question 22
+              <label for="q22_a">
+                <input class="short" name="q22" type="radio" id="q22_a" value="a"/>a
+              </label>
+              <label for="q22_b">
+                <input class="short" name="q22" type="radio" id="q22_b" value="b"/>b
+              </label>
+              <label for="q22_c">
+                <input class="short" name="q22" type="radio" id="q22_c" value="c"/>c
+              </label>
+              <label for="q22_d">
+                <input class="short" name="q22" type="radio" id="q22_d" value="d"/>d
+              </label><br/>
+        Question 23
+              <label for="q23_a">
+                <input class="short" name="q23" type="radio" id="q23_a" value="a"/>a
+              </label>
+              <label for="q23_b">
+                <input class="short" name="q23" type="radio" id="q23_b" value="b"/>b
+              </label>
+              <label for="q23_c">
+                <input class="short" name="q23" type="radio" id="q23_c" value="c"/>c
+              </label>
+              <label for="q23_d">
+                <input class="short" name="q23" type="radio" id="q23_d" value="d"/>d
+              </label><br/>
+        Question 24
+              <label for="q24_a">
+                <input class="short" name="q24" type="radio" id="q24_a" value="a"/>a
+              </label>
+              <label for="q24_b">
+                <input class="short" name="q24" type="radio" id="q24_b" value="b"/>b
+              </label>
+              <label for="q24_c">
+                <input class="short" name="q24" type="radio" id="q24_c" value="c"/>c
+              </label>
+              <label for="q24_d">
+                <input class="short" name="q24" type="radio" id="q24_d" value="d"/>d
+              </label><br/>
+        Question 25
+              <label for="q25_a">
+                <input class="short" name="q25" type="radio" id="q25_a" value="a"/>a
+              </label>
+              <label for="q25_b">
+                <input class="short" name="q25" type="radio" id="q25_b" value="b"/>b
+              </label>
+              <label for="q25_c">
+                <input class="short" name="q25" type="radio" id="q25_c" value="c"/>c
+              </label>
+              <label for="q25_d">
+                <input class="short" name="q25" type="radio" id="q25_d" value="d"/>d
+              </label><br/>
+        Question 26
+              <label for="q26_a">
+                <input class="short" name="q26" type="radio" id="q26_a" value="a"/>a
+              </label>
+              <label for="q26_b">
+                <input class="short" name="q26" type="radio" id="q26_b" value="b"/>b
+              </label>
+              <label for="q26_c">
+                <input class="short" name="q26" type="radio" id="q26_c" value="c"/>c
+              </label>
+              <label for="q26_d">
+                <input class="short" name="q26" type="radio" id="q26_d" value="d"/>d
+              </label><br/>
+        Question 27
+              <label for="q27_a">
+                <input class="short" name="q27" type="radio" id="q27_a" value="a"/>a
+              </label>
+              <label for="q27_b">
+                <input class="short" name="q27" type="radio" id="q27_b" value="b"/>b
+              </label>
+              <label for="q27_c">
+                <input class="short" name="q27" type="radio" id="q27_c" value="c"/>c
+              </label>
+              <label for="q27_d">
+                <input class="short" name="q27" type="radio" id="q27_d" value="d"/>d
+              </label><br/>
+        Question 28
+              <label for="q28_a">
+                <input class="short" name="q28" type="radio" id="q28_a" value="a"/>a
+              </label>
+              <label for="q28_b">
+                <input class="short" name="q28" type="radio" id="q28_b" value="b"/>b
+              </label>
+              <label for="q28_c">
+                <input class="short" name="q28" type="radio" id="q28_c" value="c"/>c
+              </label>
+              <label for="q28_d">
+                <input class="short" name="q28" type="radio" id="q28_d" value="d"/>d
+              </label><br/>
+            Question 29
+              <label for="q29_a">
+                <input class="short" name="q29" type="radio" id="q29_a" value="a"/>a
+              </label>
+              <label for="q29_b">
+                <input class="short" name="q29" type="radio" id="q29_b" value="b"/>b
+              </label>
+              <label for="q29_c">
+                <input class="short" name="q29" type="radio" id="q29_c" value="c"/>c
+              </label>
+              <label for="q29_d">
+                <input class="short" name="q29" type="radio" id="q29_d" value="d"/>d
+              </label><br/>
+        Question 30
+              <label for="q30_a">
+                <input class="short" name="q30" type="radio" id="q30_a" value="a"/>a
+              </label>
+              <label for="q30_b">
+                <input class="short" name="q30" type="radio" id="q30_b" value="b"/>b
+              </label>
+              <label for="q30_c">
+                <input class="short" name="q30" type="radio" id="q30_c" value="c"/>c
+              </label>
+              <label for="q30_d">
+                <input class="short" name="q30" type="radio" id="q30_d" value="d"/>d
+              </label><br/>
+        Question 31
+              <label for="q31_a">
+                <input class="short" name="q31" type="radio" id="q31_a" value="a"/>a
+              </label>
+              <label for="q31_b">
+                <input class="short" name="q31" type="radio" id="q31_b" value="b"/>b
+              </label>
+              <label for="q31_c">
+                <input class="short" name="q31" type="radio" id="q31_c" value="c"/>c
+              </label>
+              <label for="q31_d">
+                <input class="short" name="q31" type="radio" id="q31_d" value="d"/>d
+              </label><br/>
+        Question 32
+              <label for="q32_a">
+                <input class="short" name="q32" type="radio" id="q32_a" value="a"/>a
+              </label>
+              <label for="q32_b">
+                <input class="short" name="q32" type="radio" id="q32_b" value="b"/>b
+              </label>
+              <label for="q32_c">
+                <input class="short" name="q32" type="radio" id="q32_c" value="c"/>c
+              </label>
+              <label for="q32_d">
+                <input class="short" name="q32" type="radio" id="q32_d" value="d"/>d
+              </label><br/>
+        Question 33
+              <label for="q33_a">
+                <input class="short" name="q33" type="radio" id="q33_a" value="a"/>a
+              </label>
+              <label for="q33_b">
+                <input class="short" name="q33" type="radio" id="q33_b" value="b"/>b
+              </label>
+              <label for="q33_c">
+                <input class="short" name="q33" type="radio" id="q33_c" value="c"/>c
+              </label>
+              <label for="q33_d">
+                <input class="short" name="q33" type="radio" id="q33_d" value="d"/>d
+              </label><br/>
+        Question 34
+              <label for="q34_a">
+                <input class="short" name="q34" type="radio" id="q34_a" value="a"/>a
+              </label>
+              <label for="q34_b">
+                <input class="short" name="q34" type="radio" id="q34_b" value="b"/>b
+              </label>
+              <label for="q34_c">
+                <input class="short" name="q34" type="radio" id="q34_c" value="c"/>c
+              </label>
+              <label for="q34_d">
+                <input class="short" name="q34" type="radio" id="q34_d" value="d"/>d
+              </label><br/>
+        Question 35
+              <label for="q35_a">
+                <input class="short" name="q35" type="radio" id="q35_a" value="a"/>a
+              </label>
+              <label for="q35_b">
+                <input class="short" name="q35" type="radio" id="q35_b" value="b"/>b
+              </label>
+              <label for="q35_c">
+                <input class="short" name="q35" type="radio" id="q35_c" value="c"/>c
+              </label>
+              <label for="q35_d">
+                <input class="short" name="q35" type="radio" id="q35_d" value="d"/>d
+              </label><br/>
+        Question 36
+              <label for="q36_a">
+                <input class="short" name="q36" type="radio" id="q36_a" value="a"/>a
+              </label>
+              <label for="q36_b">
+                <input class="short" name="q36" type="radio" id="q36_b" value="b"/>b
+              </label>
+              <label for="q36_c">
+                <input class="short" name="q36" type="radio" id="q36_c" value="c"/>c
+              </label>
+              <label for="q36_d">
+                <input class="short" name="q36" type="radio" id="q36_d" value="d"/>d
+              </label><br/>
+        Question 37
+              <label for="q37_a">
+                <input class="short" name="q37" type="radio" id="q37_a" value="a"/>a
+              </label>
+              <label for="q37_b">
+                <input class="short" name="q37" type="radio" id="q37_b" value="b"/>b
+              </label>
+              <label for="q37_c">
+                <input class="short" name="q37" type="radio" id="q37_c" value="c"/>c
+              </label>
+              <label for="q37_d">
+                <input class="short" name="q37" type="radio" id="q37_d" value="d"/>d
+              </label><br/>
+        Question 38
+              <label for="q38_a">
+                <input class="short" name="q38" type="radio" id="q38_a" value="a"/>a
+              </label>
+              <label for="q38_b">
+                <input class="short" name="q38" type="radio" id="q38_b" value="b"/>b
+              </label>
+              <label for="q38_c">
+                <input class="short" name="q38" type="radio" id="q38_c" value="c"/>c
+              </label>
+              <label for="q38_d">
+                <input class="short" name="q38" type="radio" id="q38_d" value="d"/>d
+              </label><br/>
+        Question 39
+              <label for="q39_a">
+                <input class="short" name="q39" type="radio" id="q39_a" value="a"/>a
+              </label>
+              <label for="q39_b">
+                <input class="short" name="q39" type="radio" id="q39_b" value="b"/>b
+              </label>
+              <label for="q39_c">
+                <input class="short" name="q39" type="radio" id="q39_c" value="c"/>c
+              </label>
+              <label for="q39_d">
+                <input class="short" name="q39" type="radio" id="q39_d" value="d"/>d
+              </label><br/>
+        Question 40
+              <label for="q40_a">
+                <input class="short" name="q40" type="radio" id="q40_a" value="a"/>a
+              </label>
+              <label for="q40_b">
+                <input class="short" name="q40" type="radio" id="q40_b" value="b"/>b
+              </label>
+              <label for="q40_c">
+                <input class="short" name="q40" type="radio" id="q40_c" value="c"/>c
+              </label>
+              <label for="q40_d">
+                <input class="short" name="q40" type="radio" id="q40_d" value="d"/>d
+              </label>
+    </form>
+  </body>
+</html>

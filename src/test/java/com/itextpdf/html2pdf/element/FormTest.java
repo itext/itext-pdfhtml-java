@@ -46,6 +46,7 @@ import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -191,6 +192,47 @@ public class FormTest extends ExtendedITextTest {
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, count = 3))
     public void selectTest02() throws IOException, InterruptedException {
         runTest("select02", false);
+    }
+
+    @Test
+    //TODO: update cmpfile after DEVSIX-4772 will be fixed
+    public void radioButtonWithPageCounterAtBottonTest() throws IOException, InterruptedException {
+        String html = sourceFolder + "radioButtonWithPageCounterAtBotton.html";
+        String pdf = destinationFolder + "radioButtonWithPageCounterAtBotton.pdf";
+
+        HtmlConverter.convertToPdf(new File(html), new File(pdf), new ConverterProperties().setCreateAcroForm(true));
+
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(html) + "\n");
+
+        Assert.assertNull(new CompareTool().compareByContent(
+                pdf, sourceFolder + "cmp_radioButtonWithPageCounterAtBotton.pdf", destinationFolder));
+    }
+
+    @Test
+    //TODO: update cmpfile after DEVSIX-4772 will be fixed
+    public void radioButtonWithPageCounterOnTopTest() throws IOException, InterruptedException {
+        String html = sourceFolder + "radioButtonWithPageCounterOnTop.html";
+        String pdf = destinationFolder + "radioButtonWithPageCounterOnTop.pdf";
+
+        HtmlConverter.convertToPdf(new File(html), new File(pdf), new ConverterProperties().setCreateAcroForm(true));
+
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(html) + "\n");
+
+        Assert.assertNull(new CompareTool().compareByContent(
+                pdf, sourceFolder + "cmp_radioButtonWithPageCounterOnTop.pdf", destinationFolder));
+    }
+
+    @Test
+    public void radioButtonNoPageCounterTest() throws IOException, InterruptedException {
+        String html = sourceFolder + "radioButtonNoPageCounter.html";
+        String pdf = destinationFolder + "radioButtonNoPageCounter.pdf";
+
+        HtmlConverter.convertToPdf(new File(html), new File(pdf), new ConverterProperties().setCreateAcroForm(true));
+
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(html) + "\n");
+
+        Assert.assertNull(new CompareTool().compareByContent(
+                pdf, sourceFolder + "cmp_radioButtonNoPageCounter.pdf", destinationFolder));
     }
 
     private void runTest(String name) throws IOException, InterruptedException {
