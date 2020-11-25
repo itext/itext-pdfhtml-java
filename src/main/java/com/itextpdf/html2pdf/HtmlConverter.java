@@ -318,7 +318,7 @@ public class HtmlConverter {
     public static Document convertToDocument(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) {
         ReflectionUtils.scheduledLicenseCheck();
         if (pdfDocument.getReader() != null) {
-            throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
+            throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
         }
         IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(html);
@@ -339,7 +339,7 @@ public class HtmlConverter {
     public static Document convertToDocument(InputStream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
         ReflectionUtils.scheduledLicenseCheck();
         if (pdfDocument.getReader() != null) {
-            throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
+            throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
         }
         IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);

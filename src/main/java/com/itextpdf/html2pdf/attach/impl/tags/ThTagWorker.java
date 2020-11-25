@@ -87,7 +87,8 @@ public class ThTagWorker extends TdTagWorker {
                     properties.addAttributes(new PdfStructureAttributes(attributes));
                 } else {
                     Logger logger = LoggerFactory.getLogger(ThTagWorker.class);
-                    logger.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, scope));
+                    logger.warn(MessageFormatUtil.format(
+                            Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, scope));
                 }
 
             }

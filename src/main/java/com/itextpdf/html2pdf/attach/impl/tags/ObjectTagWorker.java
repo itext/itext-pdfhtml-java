@@ -119,8 +119,12 @@ public class ObjectTagWorker implements ITagWorker {
             } catch (SvgProcessingException spe) {
                 LOGGER.error(spe.getMessage());
             } catch (IOException | URISyntaxException ie) {
-                LOGGER.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI,
-                        context.getBaseUri(), element.getAttribute(AttributeConstants.DATA), ie));
+                LOGGER.error(
+                        MessageFormatUtil.format(
+                                Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI,
+                                context.getBaseUri(),
+                                element.getAttribute(AttributeConstants.DATA),
+                                ie));
             }
         }
     }

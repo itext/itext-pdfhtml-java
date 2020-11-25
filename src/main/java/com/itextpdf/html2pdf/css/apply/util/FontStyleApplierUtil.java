@@ -248,7 +248,8 @@ public final class FontStyleApplierUtil {
                 if (textIndentValue.isPointValue()) {
                     element.setProperty(Property.FIRST_LINE_INDENT, textIndentValue.getValue());
                 } else {
-                    logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.TEXT_INDENT));
+                    logger.error(MessageFormatUtil.format(
+                            Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.TEXT_INDENT));
                 }
             }
         }

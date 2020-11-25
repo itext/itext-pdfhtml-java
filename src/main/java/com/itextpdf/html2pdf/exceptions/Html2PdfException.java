@@ -47,6 +47,17 @@ package com.itextpdf.html2pdf.exceptions;
  */
 public class Html2PdfException extends RuntimeException {
 
+    /** Message in case one tries to write to a PDF document that isn't in writing mode. */
+    public static final String PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE = "PdfDocument should be created "
+            + "in writing mode. Reading and stamping is not allowed";
+    
+    /** Message in case the font provider doesn't know about any fonts. */
+    public static final String FONT_PROVIDER_CONTAINS_ZERO_FONTS = "Font Provider contains zero fonts. "
+            + "At least one font shall be present";
+    
+    /** The Constant UnsupportedEncodingException. */
+    public static final String UNSUPPORTED_ENCODING_EXCEPTION = "Unsupported encoding exception.";
+
     /**
      * Creates a new {@link Html2PdfException} instance.
      *
@@ -55,14 +66,4 @@ public class Html2PdfException extends RuntimeException {
     public Html2PdfException(String message) {
         super(message);
     }
-
-    /** Message in case one tries to write to a PDF document that isn't in writing mode. */
-    public static final String PdfDocumentShouldBeInWritingMode = "PdfDocument should be created in writing mode. Reading and stamping is not allowed";
-    
-    /** Message in case the font provider doesn't know about any fonts. */
-    public static final String FontProviderContainsZeroFonts = "Font Provider contains zero fonts. At least one font shall be present";
-    
-    /** The Constant UnsupportedEncodingException. */
-    public static final String UnsupportedEncodingException = "Unsupported encoding exception.";
-    
 }

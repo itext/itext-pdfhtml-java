@@ -110,7 +110,10 @@ public class InputButtonRenderer extends AbstractOneLineTextFieldRenderer {
                 flatBBox.setWidth(drawnLine.getOccupiedArea().getBBox().getWidth());
             }
         } else {
-            LoggerFactory.getLogger(getClass()).error(MessageFormatUtil.format(Html2PdfLogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "button"));
+            LoggerFactory.getLogger(getClass()).error(
+                    MessageFormatUtil.format(
+                            Html2PdfLogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE,
+                            "button"));
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
             flatBBox.setY(flatBBox.getTop()).setHeight(0);
         }

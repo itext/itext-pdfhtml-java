@@ -132,7 +132,8 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         if (!flatLines.isEmpty() && font != null) {
             cropContentLines(flatLines, flatBBox);
         } else {
-            LoggerFactory.getLogger(getClass()).error(MessageFormatUtil.format(Html2PdfLogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "text area"));
+            LoggerFactory.getLogger(getClass()).error(MessageFormatUtil.format(
+                    Html2PdfLogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "text area"));
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
             flatBBox.setHeight(0);
         }

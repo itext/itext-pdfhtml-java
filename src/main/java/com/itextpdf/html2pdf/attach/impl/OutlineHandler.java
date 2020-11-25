@@ -288,7 +288,8 @@ public class OutlineHandler {
                 tagWorker.getElementResult().setProperty(Property.DESTINATION, content);
             } else {
                 Logger logger = LoggerFactory.getLogger(OutlineHandler.class);
-                logger.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG, tagName));
+                logger.warn(MessageFormatUtil.format(
+                        Html2PdfLogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG, tagName));
             }
         }
         return this;

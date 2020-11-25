@@ -49,6 +49,9 @@ import com.itextpdf.io.util.MessageFormatUtil;
  */
 public class CssApplierInitializationException extends RuntimeException {
 
+    /** The message template in case reflection failed. */
+    public static final String REFLECTION_FAILED = "Could not instantiate CssApplier-class {0} for tag {1}.";
+
     /**
      * Creates a new {@link CssApplierInitializationException} instance.
      *
@@ -59,8 +62,4 @@ public class CssApplierInitializationException extends RuntimeException {
     public CssApplierInitializationException(String message, String className, String tag) {
         super(MessageFormatUtil.format(message, className, tag));
     }
-
-    /** The message template in case reflection failed. */
-    public static final String ReflectionFailed = "Could not instantiate CssApplier-class {0} for tag {1}.";
-
 }

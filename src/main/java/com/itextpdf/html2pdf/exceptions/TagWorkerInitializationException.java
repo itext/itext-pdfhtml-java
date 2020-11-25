@@ -49,6 +49,10 @@ import com.itextpdf.io.util.MessageFormatUtil;
  */
 public class TagWorkerInitializationException extends RuntimeException {
 
+    /** Template for the error message in case a tag worker couldn't be instantiated. */
+    public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not "
+            + "instantiate TagWorker-class {0} for tag {1}.";
+
     /**
      * Creates a {@link TagWorkerInitializationException} instance.
      *
@@ -71,8 +75,4 @@ public class TagWorkerInitializationException extends RuntimeException {
     public TagWorkerInitializationException(String message, String classNames, String tag, Throwable cause) {
         super(MessageFormatUtil.format(message,classNames,tag), cause);
     }
-
-    /** Template for the error message in case a tag worker couldn't be instantiated. */
-    public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
-
 }

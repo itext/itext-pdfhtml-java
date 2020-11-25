@@ -239,7 +239,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
         context.reset(pdfDocument);
         if (!context.hasFonts()) {
-            throw new Html2PdfException(Html2PdfException.FontProviderContainsZeroFonts);
+            throw new Html2PdfException(Html2PdfException.FONT_PROVIDER_CONTAINS_ZERO_FONTS);
         }
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context);
@@ -316,7 +316,10 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             ITagWorker tagWorker = context.getTagWorkerFactory().getTagWorker(element, context);
             if (tagWorker == null) {
                 if (!ignoredTags.contains(element.name())) {
-                    logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).name()));
+                    logger.error(
+                            MessageFormatUtil.format(
+                                    Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG,
+                                    element.name()));
                 }
             } else {
                 context.getState().push(tagWorker);
@@ -357,8 +360,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                     boolean childProcessed = context.getState().top().processTagChild(tagWorker, context);
                     PageBreakApplierUtil.addPageBreakElementAfter(context, context.getState().top(), element, tagWorker);
                     if (!childProcessed && !ignoredChildTags.contains(element.name())) {
-                        logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
-                                context.getState().top().getClass().getName(), tagWorker.getClass().getName()));
+                        logger.error(
+                                MessageFormatUtil.format(
+                                        Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
+                                        context.getState().top().getClass().getName(),
+                                        tagWorker.getClass().getName()));
                     }
                 } else if (tagWorker.getElementResult() != null) {
                     roots.add(tagWorker.getElementResult());
@@ -373,8 +379,10 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 if (!context.getState().empty()) {
                     boolean contentProcessed = context.getState().top().processContent(content, context);
                     if (!contentProcessed) {
-                        logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT,
-                                context.getState().top().getClass().getName()));
+                        logger.error(
+                                MessageFormatUtil.format(
+                                        Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT,
+                                        context.getState().top().getClass().getName()));
                     }
                 } else {
                     logger.error(Html2PdfLogMessageConstant.NO_CONSUMER_FOUND_FOR_CONTENT);
@@ -388,7 +396,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(element);
         if (cssApplier == null) {
             if (!ignoredCssTags.contains(element.name())) {
-                logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
+                logger.error(MessageFormatUtil.format(
+                        Html2PdfLogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
             }
         } else {
             cssApplier.apply(context, element, tagWorker);
@@ -451,7 +460,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                     }
                 }
                 if (!findSupportedSrc) {
-                    logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace));
+                    logger.error(MessageFormatUtil.format(
+                            Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace));
                 }
             }
         }

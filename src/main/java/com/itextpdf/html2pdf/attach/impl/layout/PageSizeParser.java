@@ -105,7 +105,8 @@ class PageSizeParser {
                 pageSize = pageSizeBasedOnLength;
             } else {
                 Logger logger = LoggerFactory.getLogger(PageSizeParser.class);
-                logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
+                logger.error(MessageFormatUtil.format(
+                        Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
             }
         } else {
             Boolean landscape = null;
@@ -139,7 +140,8 @@ class PageSizeParser {
                 }
             } else {
                 Logger logger = LoggerFactory.getLogger(PageSizeParser.class);
-                logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
+                logger.error(MessageFormatUtil.format(
+                        Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
             }
         }
 

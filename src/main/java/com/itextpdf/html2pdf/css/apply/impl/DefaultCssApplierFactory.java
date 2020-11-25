@@ -87,7 +87,8 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
                 try {
                     return (ICssApplier) cssApplierClass.newInstance();
                 } catch (Exception e) {
-                    throw new CssApplierInitializationException(CssApplierInitializationException.ReflectionFailed, cssApplierClass.getName(), tag.name());
+                    throw new CssApplierInitializationException(
+                            CssApplierInitializationException.REFLECTION_FAILED, cssApplierClass.getName(), tag.name());
                 }
             }
         }

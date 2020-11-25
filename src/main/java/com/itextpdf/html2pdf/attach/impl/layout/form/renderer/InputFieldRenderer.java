@@ -128,7 +128,10 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
         if (!flatLines.isEmpty() && font != null) {
             cropContentLines(flatLines, flatBBox);
         } else {
-            LoggerFactory.getLogger(getClass()).error(MessageFormatUtil.format(Html2PdfLogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE, "text input"));
+            LoggerFactory.getLogger(getClass()).error(
+                    MessageFormatUtil.format(
+                            Html2PdfLogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE,
+                            "text input"));
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
             flatBBox.setY(flatBBox.getTop()).setHeight(0);
         }

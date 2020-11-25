@@ -133,7 +133,7 @@ public class FontFaceTest extends ExtendedITextTest {
             exception = e.getMessage();
         }
         Assert.assertEquals("Font Provider with zero fonts shall fail",
-                Html2PdfException.FontProviderContainsZeroFonts, exception);
+                Html2PdfException.FONT_PROVIDER_CONTAINS_ZERO_FONTS, exception);
     }
 
     @Test
