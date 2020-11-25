@@ -537,6 +537,12 @@ public class TableTest extends ExtendedITextTest {
         runTest("tableRowAndCellBackgroundColorConflictTest");
     }
 
+    @Test
+    // TODO DEVSIX-4806
+    public void cellWithRowspanShouldBeConsideredWhileCalculatingColumnWidths() throws IOException, InterruptedException {
+        runTest("cellWithRowspanShouldBeConsideredWhileCalculatingColumnWidths");
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         runTest(testName, false);
     }
