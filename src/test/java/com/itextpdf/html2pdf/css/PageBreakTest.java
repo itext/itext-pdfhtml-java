@@ -165,14 +165,14 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     // TODO: DEVSIX-4720 short text div invalid layout on page break
-    // TODO: DEVSIX-4721 simple text layout to the left of the left float
+    // TODO: DEVSIX-1270 simple text layout to the left of the left float
     public void pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivWithShortTextTest()
             throws IOException, InterruptedException {
         runTest("pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivWithShortTextTest");
     }
 
     @Test
-    // TODO: DEVSIX-4721 simple text layout to the left of the left float
+    // TODO: DEVSIX-1270 simple text layout to the left of the left float
     public void pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivsWithShortAndLongTextsTest()
             throws IOException, InterruptedException {
         runTest("pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivsWithShortAndLongTextsTest");
