@@ -42,6 +42,7 @@ import org.junit.experimental.categories.Category;
 
 @Category(UnitTest.class)
 public class SvgTagWorkerTest extends ExtendedITextTest {
+
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_PROCESS_SVG_ELEMENT, logLevel = LogLevelConstants.ERROR)
@@ -67,5 +68,17 @@ public class SvgTagWorkerTest extends ExtendedITextTest {
 
         SvgTagWorker svgTagWorker = new SvgTagWorker(null, context);
         Assert.assertNull(svgTagWorker.getElementResult());
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_PROCESS_SVG_ELEMENT, count = 1)})
+    public void unableToProcessSvgImageTest() {
+        IElementNode elementNode = new JsoupElementNode(
+                new Element(Tag.valueOf(TagConstants.FIGURE), TagConstants.FIGURE));
+        ConverterProperties properties = new ConverterProperties();
+        ProcessorContext context = new ProcessorContext(properties);
+        SvgTagWorker tagWorker = new SvgTagWorker(elementNode, context);
+        Assert.assertNull(tagWorker.getElementResult());
     }
 }

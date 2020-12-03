@@ -57,7 +57,7 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
     private static final ICssApplierFactory INSTANCE = new DefaultCssApplierFactory();
 
     /** The default mapping of CSS keywords and CSS appliers. */
-    private TagProcessorMapping defaultMapping;
+    TagProcessorMapping defaultMapping;
 
     /**
      * Creates a new {@link DefaultCssApplierFactory} instance.
