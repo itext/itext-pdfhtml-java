@@ -27,9 +27,6 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 // TODO DEVSIX-4603 background-attachment not supported
-@LogMessages(messages = {
-        @LogMessage(messageTemplate =  com.itextpdf.io.LogMessageConstant.CLIP_ELEMENT)
-})
 public class BackgroundAttachment353Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
