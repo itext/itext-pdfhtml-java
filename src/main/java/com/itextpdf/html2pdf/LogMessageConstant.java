@@ -115,8 +115,15 @@ public final class LogMessageConstant {
     public static final String HSL_COLOR_NOT_SUPPORTED = "Hsl colors are not supported";
     /** The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE. */
     public static final String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
-    /** The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG */
+    /**
+     * The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG.
+     *
+     * @deprecated will be removed in iText 7.2, use {@link #UNABLE_TO_PROCESS_SVG_ELEMENT}
+     */
+    @Deprecated
     public static final String UNABLE_TO_PROCESS_IMAGE_AS_SVG = "Unable to process image found at {0} as an SVG";
+    /** The Constant UNABLE_TO_PROCESS_SVG  */
+    public static final String UNABLE_TO_PROCESS_SVG_ELEMENT = "Unable to process an SVG element";
     /** The Constant UNABLE_TO_RESOLVE_COUNTER. */
     public static final String UNABLE_TO_RESOLVE_COUNTER = "Unable to resolve counter \"{0}\"";
     /** The Constant UNABLE_TO_RETRIEVE_FONT. */
