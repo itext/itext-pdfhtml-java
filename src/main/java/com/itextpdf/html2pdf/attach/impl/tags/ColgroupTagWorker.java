@@ -47,7 +47,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.wrapelement.ColgroupWrapper;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
@@ -65,7 +65,7 @@ public class ColgroupTagWorker implements ITagWorker {
      * @param context the context
      */
     public ColgroupTagWorker(IElementNode element, ProcessorContext context) {
-        Integer span = CssUtils.parseInteger(element.getAttribute(AttributeConstants.SPAN));
+        Integer span = CssDimensionParsingUtils.parseInteger(element.getAttribute(AttributeConstants.SPAN));
         colgroup = new ColgroupWrapper(span != null ? (int)span : 1);
         colgroup.setLang(element.getAttribute(AttributeConstants.LANG));
     }

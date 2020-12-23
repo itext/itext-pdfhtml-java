@@ -1,0 +1,63 @@
+<html>
+<body>
+<style>
+.svgimg {
+    width: 200px;
+    height: 200px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="200"> <polygon points="100,10 40,198 190,78 10,78 160,198" style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;" /></svg>');
+}
+</style>
+<p>Document with svg images. Some of them are corrupted</p>
+<p>+ style</p>
+<div class="svgimg"></div>
+<p>+</p>
+<img type='image/svg+xml' src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgICB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgd2lkdGg9IjUwMCIgaGVpZ2h0PSI1MDAiPiAgICA8bGluZSB4MT0iMCIgeTE9IjEwMCIgeDI9IjUwMCIgeTI9IjEwMCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIyIiAgLz4gICAgPGxpbmUgeDE9IjAiIHkxPSIyMDAiIHgyPSI1MDAiIHkyPSIyMDAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgIC8+ICAgIDxsaW5lIHgxPSIwIiB5MT0iMzAwIiB4Mj0iNTAwIiB5Mj0iMzAwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiICAvPiAgICA8bGluZSB4MT0iMCIgeTE9IjQwMCIgeDI9IjUwMCIgeTI9IjQwMCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIyIiAgLz4gICAgPGxpbmUgeDE9IjEwMCIgeTE9IjAiIHgyPSIxMDAiIHkyPSI1MDAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgIC8+ICAgIDxsaW5lIHgxPSIyMDAiIHkxPSIwIiB4Mj0iMjAwIiB5Mj0iNTAwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiICAvPiAgICA8bGluZSB4MT0iMzAwIiB5MT0iMCIgeDI9IjMwMCIgeTI9IjUwMCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIyIiAgLz4gICAgPGxpbmUgeDE9IjQwMCIgeTE9IjAiIHgyPSI0MDAiIHkyPSI1MDAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgIC8+PC9zdmc+'/>
+<p>- Corrupted</p>
+<img type='image/svg+xml' src='data:image/svg+xml;utf8,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICAgICB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5v'>
+<p>+;utf8,</p>
+<img type='image/svg+xml' src='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="200">
+  <polygon points="100,10 40,198 190,78 10,78 160,198"
+  style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;" /></svg>'>
+<p>+</p>
+<img type='image/svg+xml' src='data:image/svg+xml;UTF-8,<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="200">
+  <polygon points="100,10 40,198 190,78 10,78 160,198"
+  style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;" /></svg>'>
+<p>+ utf8</p>
+<img type='image/svg+xml' src='data:image/svg+xml  ;  utf8  ,  <svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="200">
+  <polygon points="100,10 40,198 190,78 10,78 160,198"
+  style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;" /></svg>'>
+<p>+;,</p>
+<img type='image/svg+xml' src='  data:image/svg+xml;,<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="200">
+  <polygon points="100,10 40,198 190,78 10,78 160,198"
+  style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;" /></svg>'>
+<p>+ fake base64</p>
+<img type='image/svg+xml' src='data:image/svg+xml; fakebase64 ,<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="200">
+  <polygon points="100,10 40,198 190,78 10,78 160,198"
+  style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;" /></svg>'>
+<p>- base 64</p>
+<img type='image/svg+xml' src='data:image/svg+xml; base64 ,<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="200">
+  <polygon points="100,10 40,198 190,78 10,78 160,198"
+  style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;" /></svg>'>
+<p>-e</p>
+<img type='image/svg+xml' src='data:image/svg+xml; , e <svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="200">
+  <polygon points="100,10 40,198 190,78 10,78 160,198"
+  style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;" /></svg>'>
+<p>+,</p>
+<img type='image/svg+xml' src='data:image/svg+xml,  <svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="200">
+  <polygon points="100,10 40,198 190,78 10,78 160,198"
+  style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;" /></svg>'>
+<p>-;</p>
+<img type='image/svg+xml' src='data:image/svg+xml;  <svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="200">
+  <polygon points="100,10 40,198 190,78 10,78 160,198"
+  style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;" /></svg>'>
+</body>
+</html>

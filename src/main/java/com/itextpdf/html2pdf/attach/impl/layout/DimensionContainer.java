@@ -43,10 +43,9 @@
 package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.styledxmlparser.css.CssContextNode;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 
 /**
  * Container class for grouping necessary values used in dimension calculation
@@ -73,8 +72,8 @@ abstract class DimensionContainer {
     }
 
     float parseDimension(CssContextNode node, String content, float maxAvailableDimension, float additionalWidthFix) {
-        float fontSize = CssUtils.parseAbsoluteFontSize(node.getStyles().get(CssConstants.FONT_SIZE));
-        UnitValue unitValue = CssUtils.parseLengthValueToPt(content, fontSize, 0);
+        float fontSize = CssDimensionParsingUtils.parseAbsoluteFontSize(node.getStyles().get(CssConstants.FONT_SIZE));
+        UnitValue unitValue = CssDimensionParsingUtils.parseLengthValueToPt(content, fontSize, 0);
         if (unitValue == null) {
             return 0;
         }

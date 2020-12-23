@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -130,7 +131,12 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant BLOCK. */
     public static final String BLOCK = "block";
 
-    /** The Constant BREAK_WORD. */
+    /**
+     * The Constant BREAK_WORD.
+     *
+     * @deprecated use {@link CommonCssConstants#BREAK_WORD} instead
+     * */
+    @Deprecated
     public static final String BREAK_WORD = "break-word";
 
     /** The Constant CAPITALIZE. */
@@ -253,8 +259,8 @@ public class CssConstants extends CommonCssConstants {
     // properties possible values
 
     /** The Constant OVERFLOW_VALUES. */
-    public static final Set<String> OVERFLOW_VALUES = new HashSet<>(
-            Arrays.asList(new String[] {CommonCssConstants.VISIBLE, HIDDEN, SCROLL, AUTO}));
+    public static final Set<String> OVERFLOW_VALUES = Collections.unmodifiableSet(new HashSet<>(
+            Arrays.asList(CommonCssConstants.VISIBLE, HIDDEN, SCROLL, AUTO)));
 
     // pseudo-elements
 
@@ -287,6 +293,12 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant RUNNING. */
     public static final String RUNNING = "running";
+
+    /** The Constant TARGET_COUNTER. */
+    public static final String TARGET_COUNTER = "target-counter";
+
+    /** The Constant TARGET_COUNTERS. */
+    public static final String TARGET_COUNTERS = "target-counters";
 
     // units of resolution
 

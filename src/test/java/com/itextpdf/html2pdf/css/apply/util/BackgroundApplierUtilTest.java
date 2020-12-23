@@ -41,6 +41,7 @@ import com.itextpdf.layout.property.BackgroundRepeat.BackgroundRepeatValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
@@ -55,9 +56,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 @Category(UnitTest.class)
 public class BackgroundApplierUtilTest extends ExtendedITextTest {
@@ -293,7 +291,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
         final String otterFontSize = "15px";
         IPropertyContainer container = new BodyHtmlStylesContainer() {
             final List<String> gradientsArray = CssUtils.splitStringWithComma(gradients);
-            final float fontSize = CssUtils.parseAbsoluteLength(otterFontSize);
+            final float fontSize = CssDimensionParsingUtils.parseAbsoluteLength(otterFontSize);
 
             @Override
             public void setProperty(int property, Object value) {
@@ -330,7 +328,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
         final String otterFontSize = "15px";
         IPropertyContainer container = new BodyHtmlStylesContainer() {
             final String gradient = otterGradient;
-            final float fontSize = CssUtils.parseAbsoluteLength(otterFontSize);
+            final float fontSize = CssDimensionParsingUtils.parseAbsoluteLength(otterFontSize);
 
             @Override
             public void setProperty(int property, Object propertyValue) {

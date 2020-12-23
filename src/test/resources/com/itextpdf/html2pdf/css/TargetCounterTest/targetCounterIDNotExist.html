@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            counter-reset: section;
+        }
+        .x::before {
+            counter-increment: section;
+            content: "Another section: " counter(section) " ";
+        }
+        .before::before {
+            content: target-counter(url('#notExistedId'), section) " ";
+        }
+    </style>
+</head>
+<body>
+
+<p class="before"> - section</p>
+<div>
+    <div class="x">x</div>
+    <div class="x">x</div>
+    <div class="x">target</div>
+</div>
+</body>
+</html>

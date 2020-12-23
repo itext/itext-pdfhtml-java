@@ -56,61 +56,61 @@ import java.io.IOException;
 @Category(IntegrationTest.class)
 public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/TextDecorationTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/TextDecorationTest/";
+    public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/TextDecorationTest/";
+    public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/TextDecorationTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
     public void textDecoration01Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationTest01", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void textDecoration02Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationTest02", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void textDecoration03Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationTest03", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationTest03", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     //Text decoration property is in defaults.css for a[href], should be replaced by css.
     @Test
     public void textDecoration04Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationTest04", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationTest04", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     // TODO DEVSIX-2532
     public void textDecoration05Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationTest05", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationTest05", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     //TODO update after DEVSIX-4063 is closed
     public void textDecorationShorthandAllValuesTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationShorthandAllValues", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationShorthandAllValues", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void textDecorationShorthandOneValueTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationShorthandOneValue", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationShorthandOneValue", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     //TODO update after DEVSIX-4063 is closed
     public void textDecorationShorthandTwoValuesTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationShorthandTwoValues", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationShorthandTwoValues", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void textDecorationWithChildElementTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationWithChildElement", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationWithChildElement", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
@@ -118,38 +118,56 @@ public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
     @LogMessages(messages = {
             @LogMessage(messageTemplate = LogMessageConstant.HSL_COLOR_NOT_SUPPORTED)})
     public void textDecorationColorTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationColor", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationColor", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void textDecorationColorWithTransparencyTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationColorWithTransparency", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationColorWithTransparency", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void textDecorationLineTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationLine", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationLine", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void textDecorationLineNoneAndUnderlineTogetherTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationLineNoneAndUnderlineTogether", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationLineNoneAndUnderlineTogether", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     //TODO update after DEVSIX-4063 is closed
     public void textDecorationStyleTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("textDecorationStyle", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("textDecorationStyle", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     //TODO update after DEVSIX-4063 is closed
     public void shorthandAndSpecificTextDecorPropsTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("shorthandAndSpecificTextDecorProps", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("shorthandAndSpecificTextDecorProps", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void combinationOfLinesInTextDecorationTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("combinationOfLinesInTextDecoration", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("combinationOfLinesInTextDecoration", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    // TODO DEVSIX-4719 replace cmp files once the issue is fixed
+    public void textDecorationColorEffectOnNestedElements01Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationColorEffectOnNestedElements01", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    // TODO DEVSIX-4719 replace cmp files once the issue is fixed
+    public void textDecorationColorEffectOnNestedElements02Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationColorEffectOnNestedElements02", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    // TODO DEVSIX-4719 replace cmp files once the issue is fixed
+    public void textDecorationColorEffectOnNestedElements03Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationColorEffectOnNestedElements03", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 }

@@ -210,6 +210,11 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
         testLineHeight("inlineBlockFloatAndLineHeight");
     }
 
+    @Test
+    public void lineHeightMathJaxMathFontNormalTest() throws IOException, InterruptedException {
+        testLineHeight("lineHeightMathJaxMathFontNormalTest");
+    }
+
     void testLineHeight(String name) throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + name + ".html";
         String destinationPdf = DESTINATION_FOLDER + name + ".pdf";

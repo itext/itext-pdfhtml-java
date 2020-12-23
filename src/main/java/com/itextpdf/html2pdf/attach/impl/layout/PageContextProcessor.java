@@ -63,12 +63,14 @@ import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.layout.LayoutArea;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
+import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -179,13 +181,13 @@ class PageContextProcessor {
      */
     PageContextProcessor reset(PageSize defaultPageSize, float[] defaultPageMargins) {
         Map<String, String> styles = properties.getResolvedPageContextNode().getStyles();
-        float em = CssUtils.parseAbsoluteLength(styles.get(CssConstants.FONT_SIZE));
+        float em = CssDimensionParsingUtils.parseAbsoluteLength(styles.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
 
 
         pageSize = PageSizeParser.fetchPageSize(styles.get(CssConstants.SIZE), em, rem, defaultPageSize);
 
-        UnitValue bleedValue = CssUtils.parseLengthValueToPt(styles.get(CssConstants.BLEED), em, rem);
+        UnitValue bleedValue = CssDimensionParsingUtils.parseLengthValueToPt(styles.get(CssConstants.BLEED), em, rem);
         if (bleedValue != null && bleedValue.isPointValue()) {
             bleed = bleedValue.getValue();
         }
@@ -247,7 +249,25 @@ class PageContextProcessor {
     void processNewPage(PdfPage page) {
         setBleed(page);
         drawMarks(page);
-        drawPageBackgroundAndBorders(page);
+        drawPageBorders(page);
+    }
+
+    /**
+     * Draws page background.
+     *
+     * @param page the page
+     * @return pdfCanvas instance if there was a background to draw, otherwise returns null
+     */
+    PdfCanvas drawPageBackground(PdfPage page) {
+        PdfCanvas pdfCanvas = null;
+        if (pageBackgroundSimulation != null) {
+            pdfCanvas = new PdfCanvas(page.newContentStreamBefore(), page.getResources(),page.getDocument());
+            Canvas canvas = new Canvas(pdfCanvas, page.getBleedBox());
+            canvas.enableAutoTagging(page);
+            canvas.add(pageBackgroundSimulation);
+            canvas.close();
+        }
+        return pdfCanvas;
     }
 
     /**
@@ -396,16 +416,15 @@ class PageContextProcessor {
     }
 
     /**
-     * Draws page background and borders.
+     * Draws page border.
      *
      * @param page the page
      */
-    private void drawPageBackgroundAndBorders(PdfPage page) {
-        Canvas canvas = new Canvas(new PdfCanvas(page), page.getBleedBox());
-        canvas.enableAutoTagging(page);
-        canvas.add(pageBackgroundSimulation);
-        canvas.close();
-        canvas = new Canvas(new PdfCanvas(page), page.getTrimBox());
+    private void drawPageBorders(PdfPage page) {
+        if (pageBordersSimulation == null) {
+            return;
+        }
+        Canvas canvas = new Canvas(new PdfCanvas(page), page.getTrimBox());
         canvas.enableAutoTagging(page);
         canvas.add(pageBordersSimulation);
         canvas.close();
@@ -502,7 +521,14 @@ class PageContextProcessor {
         pageBackgroundSimulation = new Div().setFillAvailableArea(true);
         BackgroundApplierUtil.applyBackground(styles, context, pageBackgroundSimulation);
         pageBackgroundSimulation.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
-
+        if (!pageBackgroundSimulation.hasOwnProperty(Property.BACKGROUND)
+                && !pageBackgroundSimulation.hasOwnProperty(Property.BACKGROUND_IMAGE)) {
+            pageBackgroundSimulation = null;
+        }
+        if (borders[0] == null && borders[1] == null && borders[2] == null && borders[3] == null) {
+            pageBordersSimulation = null;
+            return;
+        }
         pageBordersSimulation = new Div().setFillAvailableArea(true);
         pageBordersSimulation.setMargins(margins[0], margins[1], margins[2], margins[3]);
         pageBordersSimulation.setBorderTop(borders[0]);

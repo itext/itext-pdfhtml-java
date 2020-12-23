@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            counter-reset: section;
+        }
+        .x::before {
+            counter-increment: section;
+            content: "Counter " counter(section) ": ";
+        }
+        .p::before {
+            content: "Target counter " target-counter(url('#id1'), section) ": ";
+        }
+    </style>
+</head>
+<body>
+
+<p class="p">p</p>
+<div>
+    <div class="x">x</div>
+    <div class="x">x</div>
+    <div class="x">x</div>
+</div>
+<div>
+    <div>
+        <div id="id1">
+            <div>
+                <div>
+                    div
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="x">x</div>
+    <div class="x">x</div>
+    <div class="x">x</div>
+</div>
+</body>
+</html>

@@ -50,8 +50,14 @@ public final class LogMessageConstant {
     /** The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT. */
     public static final String ACROFORM_NOT_SUPPORTED_FOR_SELECT = "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will be flattened instead.";
     public static final String ANCHOR_LINK_NOT_HANDLED = "The anchor link was not handled. Could not create a destination for element \"{0}\" with ID \"{1}\", which is processed by \"{2}\" tag worker class.";
+    /** The Constant CANNOT_RESOLVE_TARGET_COUNTER_VALUE. */
+    public static final String CANNOT_RESOLVE_TARGET_COUNTER_VALUE
+            = "Cannot resolve target-counter value with given target \"{0}\"";
     /** The Constant CONTENT_PROPERTY_INVALID. */
     public static final String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
+    /** The Constant CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT. */
+    public static final String CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT = "A custom renderer which doesn't extend " +
+            "HtmlDocumentRenderer is set for HtmlDocument. Counters and target-counters may be displayed incorrectly.";
     /** The Constant CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED. */
     public static final String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
     public static final String DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN = "Default value of the css property \"{0}\" is unknown.";
@@ -65,6 +71,10 @@ public final class LogMessageConstant {
     public static final String ERROR_WHILE_LAYOUT_OF_FORM_FIELD = "Cannot layout form field field. It won't be displayed";
     /** The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE. */
     public static final String ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE = "Error during layout of form filed with type {0}.";
+    /** The Constant EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS. */
+    public static final String EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS = "Exceeded the maximum number of relayouts. " +
+            "The resultant document may look not as expected. " +
+            "Because of the content being dynamic iText performs several relayouts to produce correct document.";
     /** The Constant INPUT_FIELD_DOES_NOT_FIT. */
     public static final String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";
     /** The Constant INPUT_TYPE_IS_INVALID. */

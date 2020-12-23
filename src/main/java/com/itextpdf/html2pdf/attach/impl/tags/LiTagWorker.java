@@ -58,7 +58,7 @@ import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
@@ -90,12 +90,12 @@ public class LiTagWorker implements ITagWorker {
     public LiTagWorker(IElementNode element, ProcessorContext context) {
         listItem = new ListItem();
         if (element.getAttribute(AttributeConstants.VALUE)!=null){
-            Integer indexValue = (Integer)CssUtils.parseInteger(element.getAttribute(AttributeConstants.VALUE));
+            Integer indexValue = (Integer) CssDimensionParsingUtils.parseInteger(element.getAttribute(AttributeConstants.VALUE));
             if (indexValue  != null) listItem.setListSymbolOrdinalValue(indexValue.intValue() );
         }
         if (!(context.getState().top() instanceof UlOlTagWorker)) {
             listItem.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
-            float em = CssUtils.parseAbsoluteLength(element.getStyles().get(CssConstants.FONT_SIZE));
+            float em = CssDimensionParsingUtils.parseAbsoluteLength(element.getStyles().get(CssConstants.FONT_SIZE));
             if (TagConstants.LI.equals(element.name())) {
                 ListStyleApplierUtil.setDiscStyle(listItem, em);
             } else {

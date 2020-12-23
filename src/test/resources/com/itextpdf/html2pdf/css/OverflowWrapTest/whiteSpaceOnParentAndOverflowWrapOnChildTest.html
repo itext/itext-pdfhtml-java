@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p { 
+   	width: 100px;
+	border: 1px solid red;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
+.pre {
+	white-space: pre;
+} 
+
+.anywhere {
+	overflow-wrap: anywhere;
+}
+
+.breakWord {
+	overflow-wrap: break-word;
+}
+</style>
+</head>
+<body>
+<h3>1. nowrapBreakWord</h3>
+<p class="nowrap"><span class="break-word">ametconsecteturadipiscingelitseddoeiusmodtempor</span></p>
+
+<h3>2. preBreakWord</h3>
+<p class="pre"><span class="break-word">ametconsecteturadipiscingelitseddoeiusmodtempor</span></p>
+
+<h3>3. nowrapAnywhere</h3> 
+<p class="nowrap"><span class="anywhere">ametconsecteturadipiscingelitseddoeiusmodtempor</span></p>
+
+<h3>4. preAnywhere</h3> 
+<p class="pre"><span class="anywhere">ametconsecteturadipiscingelitseddoeiusmodtempor</span></p>
+</body>
+</html>

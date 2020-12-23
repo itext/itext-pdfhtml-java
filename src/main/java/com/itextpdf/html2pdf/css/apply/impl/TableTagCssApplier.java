@@ -49,7 +49,7 @@ import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.BorderCollapsePropertyValue;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
 /**
@@ -79,11 +79,11 @@ public class TableTagCssApplier extends BlockCssApplier {
             if (null != borderSpacing) {
                 String[] props = borderSpacing.split("\\s+");
                 if (1 == props.length) {
-                    table.setHorizontalBorderSpacing(CssUtils.parseAbsoluteLength(props[0]));
-                    table.setVerticalBorderSpacing(CssUtils.parseAbsoluteLength(props[0]));
+                    table.setHorizontalBorderSpacing(CssDimensionParsingUtils.parseAbsoluteLength(props[0]));
+                    table.setVerticalBorderSpacing(CssDimensionParsingUtils.parseAbsoluteLength(props[0]));
                 } else if (2 == props.length) {
-                    table.setHorizontalBorderSpacing(CssUtils.parseAbsoluteLength(props[0]));
-                    table.setVerticalBorderSpacing(CssUtils.parseAbsoluteLength(props[1]));
+                    table.setHorizontalBorderSpacing(CssDimensionParsingUtils.parseAbsoluteLength(props[0]));
+                    table.setVerticalBorderSpacing(CssDimensionParsingUtils.parseAbsoluteLength(props[1]));
                 }
             }
         }

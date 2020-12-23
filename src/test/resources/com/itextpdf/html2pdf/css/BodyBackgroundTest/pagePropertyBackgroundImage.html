@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<title>CSS Backgrounds and Borders Test: body background not propagating when html does</title>
+<link rel="author" title="Rune Lillesveen" href="mailto:futhark@chromium.org">
+<link rel="help" href="https://drafts.csswg.org/css-backgrounds/#body-background">
+<link rel="match" href="background-color-body-propagation-ref.html">
+<style>
+  @page  {
+    background-image: url("image.png");
+  }
+  html {
+    background-color: mistyrose;
+  }
+  body {
+    background-color: red;
+    margin: 0;
+  }
+  div {
+      width:200px;
+      height:300px;
+      border:2px solid #000;
+  }
+</style>
+<div>This is a rectangle!</div>

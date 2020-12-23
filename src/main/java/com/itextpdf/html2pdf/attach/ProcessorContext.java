@@ -160,6 +160,8 @@ public class ProcessorContext {
      */
     private boolean processingInlineSvg;
 
+    private final int limitOfLayouts;
+
     /**
      * Instantiates a new {@link ProcessorContext} instance.
      *
@@ -203,6 +205,7 @@ public class ProcessorContext {
 
         resourceResolver = new HtmlResourceResolver(baseUri, this, converterProperties.getResourceRetriever());
 
+        limitOfLayouts = converterProperties.getLimitOfLayouts();
         cssContext = new CssContext();
         linkContext = new LinkContext();
 
@@ -212,6 +215,15 @@ public class ProcessorContext {
         immediateFlush = converterProperties.isImmediateFlush();
         metaInfo = converterProperties.getEventCountingMetaInfo();
         processingInlineSvg = false;
+    }
+
+    /**
+     * Gets maximum number of layouts.
+     *
+     * @return layouts limit
+     */
+    public int getLimitOfLayouts() {
+        return limitOfLayouts;
     }
 
     /**

@@ -1,0 +1,2436 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)file:///D:/Downloads/media%20print/123.html -->
+<html lang="en-US" prefix="og: http://ogp.me/ns#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="generator" content="HTML Tidy for HTML5 for Windows version 5.3.1">
+    
+    <title>
+      How To Set Up A Print Style Sheet – Smashing Magazine
+    </title>
+    <link rel="dns-prefetch" href="https://media-mediatemple.netdna-ssl.com/">
+    <link rel="dns-prefetch" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/https//auslieferung.commindo-media-resourcen.de/">
+    <link rel="preconnect" href="https://media-mediatemple.netdna-ssl.com/">
+    <link rel="preconnect" href="https://auslieferung.commindo-media-resourcen.de/">
+    
+    <link rel="stylesheet" id="smash-above-the-fold-css" href="./smashing_files/above-the-fold.css" type="text/css" media="all">
+    <link rel="stylesheet" id="smash-main-css" href="./smashing_files/main.min.css" type="text/css" media="all">
+    <link rel="stylesheet" id="smash-article-only-css" href="./smashing_files/articles-only.min.css" type="text/css" media="all">
+    <link rel="stylesheet" id="smash-below-articles-css" href="./smashing_files/below-articles.min.css" type="text/css" media="all">
+    <link rel="stylesheet" id="smash-comments-css" href="./smashing_files/comments.min.css" type="text/css" media="all">
+    <link rel="stylesheet" id="smash-print-css" href="./smashing_files/print.min.css" type="text/css" media="print">
+    
+    <!-- This site is optimized with the Yoast SEO Premium plugin v3.5.2 - https://yoast.com/wordpress/plugins/seo/ -->
+    <meta name="description" content="In a time when everyone seems to have an iPad it might seem odd to write about the long-forgotten habit of printing a Web page, i.e. print style sheets.">
+    <link rel="canonical" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/">
+    <link rel="publisher" href="https://plus.google.com/+SmashingMagazine%E2%80%8E">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How To Set Up A Print Style Sheet – Smashing Magazine">
+    <meta property="og:description" content="In a time when everyone seems to have an iPad it might seem odd to write about the long-forgotten habit of printing a Web page, i.e. print style sheets.">
+    <meta property="og:url" content="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/">
+    <meta property="og:site_name" content="Smashing Magazine">
+    <meta property="article:publisher" content="https://www.facebook.com/smashmag">
+    <meta property="article:tag" content="CSS">
+    <meta property="article:tag" content="Print">
+    <meta property="article:tag" content="Techniques">
+    <meta property="article:section" content="Coding">
+    <meta property="article:published_time" content="2011-11-24T02:18:03+01:00">
+    <meta property="article:modified_time" content="2016-10-15T10:25:01+02:00">
+    <meta property="og:updated_time" content="2016-10-15T10:25:01+02:00">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/09/1.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/09/21.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/09/print_stylesheet_33.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/09/print_stylesheet_52.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/09/6.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/09/7.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/09/8.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/a-list-apart-screenshot.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/a-list-apart-printview.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/lost-worlds-fairs.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/lost-worlds-fairs-print.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/the-morning-news.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/morning-news-print.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/infinitum-screenshot.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/infinitum-print.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/t-crunch-main.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/t-crunch-print.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/r-g-a-fwd-main.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/r-g-a-fwd-print.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/studio-mister-mainpage.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/studio-mister-print.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/bottlerocket-main.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/bottlerocket-printview.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/omniti-main.jpg">
+    <meta property="og:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/10/omniti-print.jpg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:description" content="In a time when everyone seems to have an iPad it might seem odd to write about the long-forgotten habit of printing a Web page, i.e. print style sheets.">
+    <meta name="twitter:title" content="How To Set Up A Print Style Sheet – Smashing Magazine">
+    <meta name="twitter:site" content="@smashingmag">
+    <meta name="twitter:image" content="https://www.smashingmagazine.com/wp-content/uploads/2011/09/1.jpg">
+    <meta name="twitter:creator" content="@edge0703">
+    <meta property="DC.date.issued" content="2011-11-24T02:18:03+01:00"><!-- / Yoast SEO Premium plugin. -->
+    <link rel="alternate" type="application/rss+xml" title="Smashing Magazine » Feed" href="https://www.smashingmagazine.com/feed/">
+    <link rel="alternate" type="application/rss+xml" title="Smashing Magazine » Comments Feed" href="https://www.smashingmagazine.com/comments/feed/">
+    <link rel="alternate" type="application/rss+xml" title="Smashing Magazine » How To Set Up A Print Style Sheet Comments Feed" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/feed/">
+    
+    <link rel="https://api.w.org/" href="https://www.smashingmagazine.com/wp-json/">
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.smashingmagazine.com/xmlrpc.php?rsd">
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.smashingmagazine.com/wp-includes/wlwmanifest.xml">
+    <link rel="shortlink" href="https://www.smashingmagazine.com/?p=106631">
+    <link rel="alternate" type="application/json+oembed" href="https://www.smashingmagazine.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.smashingmagazine.com%2F2011%2F11%2Fhow-to-set-up-a-print-style-sheet%2F">
+    <link rel="alternate" type="text/xml+oembed" href="https://www.smashingmagazine.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.smashingmagazine.com%2F2011%2F11%2Fhow-to-set-up-a-print-style-sheet%2F&amp;format=xml">
+    <!-- Stream WordPress user activity plugin v3.0.7 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="mask-icon" href="https://www.smashingmagazine.com/wp-content/themes/smashing-magazine/assets/images/s.svg" color="#e53b2c" sizes="any">
+    <!--[if IE]><link href="https://www.smashingmagazine.com/wp-content/themes/smashing-magazine/assets/images/favicon.ico" rel="icon" /><![endif]-->
+    <link rel="icon" href="https://www.smashingmagazine.com/wp-content/themes/smashing-magazine/assets/images/favicon.png">
+    <meta name="application-name" content="Smashing Magazine">
+    <meta name="msapplication-TileColor" content="#fff">
+    <meta name="msapplication-square70x70logo" content="https://www.smashingmagazine.com/wp-content/themes/smashing-magazine/assets/images/smashing-windows-icon-70-70.png">
+    <meta name="msapplication-square150x150logo" content="https://www.smashingmagazine.com/wp-content/themes/smashing-magazine/assets/images/smashing-windows-icon-150-150.png">
+    <meta name="msapplication-wide310x150logo" content="https://www.smashingmagazine.com/wp-content/themes/smashing-magazine/assets/images/smashing-windows-icon-310-150.png">
+    <meta name="msapplication-square310x310logo" content="https://www.smashingmagazine.com/wp-content/themes/smashing-magazine/assets/images/smashing-windows-icon-310-310.png">
+    <meta name="msapplication-notification" content="frequency=30;polling-uri1=http://notifications.buildmypinnedsite.com/?feed=https://www.smashingmagazine.com/feed/&amp;id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=https://www.smashingmagazine.com/feed/&amp;id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=https://www.smashingmagazine.com/feed/&amp;id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=https://www.smashingmagazine.com/feed/&amp;id=4;cycle=1">
+    <link rel="apple-touch-icon-precomposed" href="https://www.smashingmagazine.com/wp-content/themes/smashing-magazine/assets/images/apple-touch-icon-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://www.smashingmagazine.com/wp-content/themes/smashing-magazine/assets/images/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://www.smashingmagazine.com/wp-content/themes/smashing-magazine/assets/images/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://www.smashingmagazine.com/wp-content/themes/smashing-magazine/assets/images/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.smashingmagazine.com/wp-content/themes/smashing-magazine/assets/images/apple-touch-icon-144x144-precomposed.png">
+  </head>
+  <body id="top" class="single single-post postid-106631 single-format-standard www-section">
+    <div class="mnb">
+      <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#mn" class="ntb js-toggle-btn" title="Jump to the main navigation">Menu</a> <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#ms" class="stb js-toggle-btn" title="Jump to the search">Search</a>
+    </div><a class="sr" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#content">Jump to the
+    content</a>
+    <header class="h" role="banner">
+      <h1 class="logo">
+        <span class="sr">Smashing Magazine</span> <a href="https://www.smashingmagazine.com/"><img src="./smashing_files/logo.png" alt="Smashing Magazine Logo" srcset="https://media-mediatemple.netdna-ssl.com/wp-content/themes/smashing-magazine/assets/images/logo.svg"></a>
+      </h1>
+    </header>
+    <nav class="mn" id="mn" role="navigation menu">
+      <h2>
+        Smashing Pages:
+      </h2>
+      <ul id="menu-smashing-mobile-network" class="mnu">
+        <li id="menu-item-218248" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-218248 menu-item-books">
+          <a href="https://www.smashingmagazine.com/books/">Books</a>
+        </li>
+        <li id="menu-item-218247" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-218247 menu-item-ebooks">
+          <a href="https://www.smashingmagazine.com/ebooks/">eBooks</a>
+        </li>
+        <li id="menu-item-218249" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-218249 menu-item-tickets">
+          <a href="https://www.smashingmagazine.com/workshops/">Tickets</a>
+        </li>
+        <li id="menu-item-219109" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-219109 menu-item-shop">
+          <a href="https://shop.smashingmagazine.com/">Shop</a>
+        </li>
+        <li id="menu-item-188959" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-188959 menu-item-email-newsletter">
+          <a href="https://www.smashingmagazine.com/the-smashing-newsletter/">Email Newsletter</a>
+        </li>
+        <li id="menu-item-188961" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-188961 menu-item-jobs">
+          <a href="http://jobs.smashingmagazine.com/">Jobs</a>
+        </li>
+        <li id="menu-item-188958" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-188958 menu-item-about-us-impressum">
+          <a href="https://www.smashingmagazine.com/about/">About us / Impressum</a>
+        </li>
+      </ul>
+      <h2>
+        Categories:
+      </h2>
+      <ul id="menu-mobile-categories" class="mnu">
+        <li id="menu-item-181575" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-181575 menu-item-coding">
+          <a href="https://www.smashingmagazine.com/category/coding/">Coding</a>
+        </li>
+        <li id="menu-item-181576" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-181576 menu-item-design">
+          <a href="https://www.smashingmagazine.com/category/design/">Design</a>
+        </li>
+        <li id="menu-item-181580" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-181580 menu-item-mobile">
+          <a href="https://www.smashingmagazine.com/category/mobile/">Mobile</a>
+        </li>
+        <li id="menu-item-181579" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-181579 menu-item-graphics">
+          <a href="https://www.smashingmagazine.com/category/graphics/">Graphics</a>
+        </li>
+        <li id="menu-item-181577" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-181577 menu-item-ux-design">
+          <a href="https://www.smashingmagazine.com/category/uxdesign/">UX Design</a>
+        </li>
+        <li id="menu-item-181578" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-181578 menu-item-wordpress">
+          <a href="https://www.smashingmagazine.com/category/wordpress/"><span class="long"><span>Word</span><span>Press</span></span><span class="short">WP</span></a>
+        </li>
+      </ul>
+    </nav><a class="mnc js-toggle-btn" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#top" data-toggle-target="mn" title="Close the navigation">X</a>
+    <div class="ms" id="ms" role="search">
+      <form id="mobile-searching" class="sfm clearfix" method="get" action="https://www.smashingmagazine.com/search-results/" target="_top" name="mobile-searching">
+        <label for="mobile-search-input">Search on Smashing Magazine</label> <input name="q" id="mobile-search-input" type="text" placeholder="e.g. CSS"> <button class="submit" type="submit">Search</button> <input type="hidden" name="cx" value="partner-pub-6779860845561969:5884617103"> <input type="hidden" name="cof" value="FORID:10"> <input type="hidden" name="ie" value="UTF-8">
+      </form>
+    </div><a role="button" class="msc js-toggle-btn" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#top" data-toggle-target="ms" title="Close the search">X</a>
+    <nav class="tn clearfix" role="navigation">
+      <ul id="menu-network-menu" class="nw clearfix">
+        <li class="current">
+          <a href="https://www.smashingmagazine.com/"><img src="./smashing_files/logo.png" alt="Smashing Magazine" srcset="https://media-mediatemple.netdna-ssl.com/wp-content/themes/smashing-magazine/assets/images/logo.svg"></a>
+        </li>
+        <li id="menu-item-218245" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-218245 menu-item-books">
+          <a href="https://www.smashingmagazine.com/books/">Books</a>
+        </li>
+        <li id="menu-item-231721" class="cody menu-item menu-item-type-custom menu-item-object-custom menu-item-231721 menu-item-ebooks">
+          <a href="https://shop.smashingmagazine.com/products/the-smashing-library">eBooks</a>
+        </li>
+        <li id="menu-item-218696" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-218696 menu-item-tickets">
+          <a href="https://www.smashingmagazine.com/smashing-workshops/">Tickets</a>
+        </li>
+        <li id="menu-item-231722" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-231722 menu-item-shop">
+          <a href="https://shop.smashingmagazine.com/">Shop</a>
+        </li>
+        <li id="menu-item-2" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2 menu-item-jobs">
+          <a href="http://jobs.smashingmagazine.com/">Jobs</a>
+        </li>
+      </ul>
+      <nav id="social-media-nav" role="menu">
+        <ul class="ch">
+          <li class="rss">
+            <a href="https://www.smashingmagazine.com/feed/" title="Subscribe to our RSS-feed (120K)">RSS</a>
+          </li>
+          <li class="fb">
+            <a href="https://www.facebook.com/smashmag" title="Join our Facebook page! (267k)">Facebook</a>
+          </li>
+          <li class="tw">
+            <a href="https://twitter.com/smashingmag" title="Follow us on Twitter! (956k)">Twitter</a>
+          </li>
+          <li class="nl">
+            <a href="https://www.smashingmagazine.com/the-smashing-newsletter/" title="Subscribe to our Email Newsletter (180k)">Newsletter</a>
+          </li>
+        </ul>
+      </nav>
+    </nav>
+    <main>
+      <div class="cc">
+        <div class="fluid clearfix">
+          <div class="grid clearfix">
+            <section class="mise sf clearfix" role="search">
+              <form id="search_1" method="get" action="https://www.smashingmagazine.com/search-results/" target="_top" name="search_1">
+                <label class="sl" for="searching_1">Search on Smashing Magazine</label> <input id="searching_1" name="q" type="text" placeholder="e.g. JavaScript"> <button class="search_submit" type="submit">Search</button> <input type="hidden" name="cx" value="partner-pub-6779860845561969:5884617103"> <input type="hidden" name="cof" value="FORID:10"> <input type="hidden" name="ie" value="UTF-8">
+              </form>
+            </section>
+            <div class="col sn">
+              <div class="sct">
+                <ul id="menu-category-menu" class="clearfix">
+                  <li id="menu-item-116" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-116 menu-item-coding">
+                    <a href="https://www.smashingmagazine.com/category/coding/">Coding</a>
+                    <ul class="sub-menu">
+                      <li id="menu-item-2014" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-2014 menu-item-css">
+                        <a href="https://www.smashingmagazine.com/tag/css/">CSS</a>
+                      </li>
+                      <li id="menu-item-134810" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-134810 menu-item-html">
+                        <a href="https://www.smashingmagazine.com/tag/html/">HTML</a>
+                      </li>
+                      <li id="menu-item-2015" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-2015 menu-item-javascript">
+                        <a href="https://www.smashingmagazine.com/tag/javascript/">JavaScript</a>
+                      </li>
+                      <li id="menu-item-2016" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-2016 menu-item-techniques">
+                        <a href="https://www.smashingmagazine.com/tag/techniques/">Techniques</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li id="menu-item-117" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-117 menu-item-design">
+                    <a href="https://www.smashingmagazine.com/category/design/">Design</a>
+                    <ul class="sub-menu">
+                      <li id="menu-item-2017" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-2017 menu-item-web-design">
+                        <a href="https://www.smashingmagazine.com/tag/web-design/">Web Design</a>
+                      </li>
+                      <li id="menu-item-231166" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-231166 menu-item-responsive">
+                        <a title="Responsive Web Design" href="https://www.smashingmagazine.com/tag/responsive-web-design/">Responsive</a>
+                      </li>
+                      <li id="menu-item-2032" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-2032 menu-item-typography">
+                        <a href="https://www.smashingmagazine.com/tag/typography/">Typography</a>
+                      </li>
+                      <li id="menu-item-2063" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-2063 menu-item-inspiration">
+                        <a href="https://www.smashingmagazine.com/tag/inspiration/">Inspiration</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li id="menu-item-119" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-119 menu-item-mobile">
+                    <a href="https://www.smashingmagazine.com/category/mobile/">Mobile</a>
+                    <ul class="sub-menu">
+                      <li id="menu-item-142132" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-142132 menu-item-iphone-ipad">
+                        <a href="https://www.smashingmagazine.com/tag/ios/">iPhone &amp; iPad</a>
+                      </li>
+                      <li id="menu-item-143596" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-143596 menu-item-android">
+                        <a href="https://www.smashingmagazine.com/tag/android/">Android</a>
+                      </li>
+                      <li id="menu-item-143608" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-143608 menu-item-design-patterns">
+                        <a href="https://www.smashingmagazine.com/tag/design-patterns/">Design Patterns</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li id="menu-item-118" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-118 menu-item-graphics">
+                    <a href="https://www.smashingmagazine.com/category/graphics/">Graphics</a>
+                    <ul class="sub-menu">
+                      <li id="menu-item-2264" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-2264 menu-item-photoshop">
+                        <a href="https://www.smashingmagazine.com/tag/photoshop/">Photoshop</a>
+                      </li>
+                      <li id="menu-item-160" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-160 menu-item-fireworks">
+                        <a href="https://www.smashingmagazine.com/category/fireworks/">Fireworks</a>
+                      </li>
+                      <li id="menu-item-2283" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-2283 menu-item-wallpapers">
+                        <a href="https://www.smashingmagazine.com/tag/wallpapers/">Wallpapers</a>
+                      </li>
+                      <li id="menu-item-2305" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-2305 menu-item-freebies">
+                        <a href="https://www.smashingmagazine.com/tag/freebies/">Freebies</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li id="menu-item-120" class="menu-item-uxdesign menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-120 menu-item-ux-design">
+                    <a href="https://www.smashingmagazine.com/category/uxdesign/">UX Design</a>
+                    <ul class="sub-menu">
+                      <li id="menu-item-143609" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-143609 menu-item-usability">
+                        <a href="https://www.smashingmagazine.com/tag/usability/">Usability</a>
+                      </li>
+                      <li id="menu-item-143610" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-143610 menu-item-user-experience">
+                        <a href="https://www.smashingmagazine.com/tag/user-experience/">User Experience</a>
+                      </li>
+                      <li id="menu-item-143611" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-143611 menu-item-ui-design">
+                        <a href="https://www.smashingmagazine.com/tag/ui/">UI Design</a>
+                      </li>
+                      <li id="menu-item-143612" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-143612 menu-item-e-commerce">
+                        <a href="https://www.smashingmagazine.com/tag/e-commerce/">E-Commerce</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li id="menu-item-121" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-121 menu-item-wordpress">
+                    <a href="https://www.smashingmagazine.com/category/wordpress/"><span class="long"><span>Word</span><span>Press</span></span><span class="short">WP</span></a>
+                    <ul class="sub-menu">
+                      <li id="menu-item-143677" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-143677 menu-item-essentials">
+                        <a href="https://www.smashingmagazine.com/tag/essentials/">Essentials</a>
+                      </li>
+                      <li id="menu-item-143678" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-143678 menu-item-techniques">
+                        <a href="https://www.smashingmagazine.com/tag/techniques-wp/">Techniques</a>
+                      </li>
+                      <li id="menu-item-143679" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-143679 menu-item-plugins">
+                        <a href="https://www.smashingmagazine.com/tag/plugins/">Plugins</a>
+                      </li>
+                      <li id="menu-item-143680" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-143680 menu-item-themes">
+                        <a href="https://www.smashingmagazine.com/tag/themes/">Themes</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div id="content" class="col main">
+              <div id="blocked" class="blocked clearfix">
+                <p style="font-size: calc(1em + ((0.4vw + 0.25vh) / 2));">
+                  <a href="https://www.smashingmagazine.com/inclusive-design-patterns"><img src="./smashing_files/inclusive-design-pattners-250px.png" style="float:right;max-width: 25% !important;margin-left:1em;max-height:180px;margin-top: 0;"></a> Today, too many
+                  websites are still inaccessible. In our new book <em>Inclusive Design Patterns</em>, we explore how to craft
+                  <strong>flexible front-end design patterns</strong> and make <strong>future-proof and accessible interfaces
+                  without extra effort</strong>. Hardcover, 312 pages. <a href="https://www.smashingmagazine.com/inclusive-design-patterns">Get the book now →</a>
+                </p>
+              </div>
+              <article class="post-106631 post type-post status-publish format-standard hentry category-coding tag-css tag-print tag-techniques" vocab="http://schema.org/" typeof="TechArticle">
+                <h2>
+                  <a property="url" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/" rel="bookmark" title="Read &#39;How To Set Up A Print Style Sheet&#39;"><span property="name">How To Set Up A Print Style
+                  Sheet</span></a>
+                </h2>
+                <ul class="pmd clearfix">
+                  <li class="a" property="author" typeof="person" resource="#authorname">By <a href="https://www.smashingmagazine.com/author/christian-krammer/" title="Posts by Christian Krammer" rel="author">Christian Krammer</a>
+                  </li>
+                  <li class="rd" property="datePublished" content="November 24th, 2011">November 24th, 2011
+                  </li>
+                  <li class="tags" property="keywords">
+                    <a href="https://www.smashingmagazine.com/tag/css/">CSS</a><a href="https://www.smashingmagazine.com/tag/print/">Print</a><a href="https://www.smashingmagazine.com/tag/techniques/">Techniques</a>
+                  </li>
+                  <li class="comments" property="discussionUrl">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comments" title="Comment on How To Set Up A Print Style Sheet">38 Comments</a>
+                  </li>
+                </ul>
+                <div class="ad ed">
+                  <div class="oa_zone--ad cad" id="cad" data-ad-name="Medium Rectangle" data-ad-zone="22" data-ad-media="all">
+                  </div>
+                </div>
+                <p>
+                  In a time when everyone seems to have a tablet, which makes it possible to consume everything digitally, and the
+                  only real paper we use is bathroom tissue, it might seem odd to write about the long-forgotten habit of printing
+                  a Web page. Nevertheless, as odd as it might seem to visionaries and tablet manufacturers, we’re still far from
+                  the reality of a paperless world.
+                </p>
+                <p>
+                  <em>Related Post: Rachel Andrew’s up-to-date <a href="https://www.smashingmagazine.com/2015/01/designing-for-print-with-css/">article</a><sup class="po" id="note-1"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#1">1</a></sup> on
+                  using Print Style Sheets.</em>
+                </p>
+                <p>
+                  In fact, tons of paper float out of printers worldwide every day, because not everyone has a tablet yet and a
+                  computer isn’t always in reach. Moreover, many of us feel that written text is just better consumed offline.
+                  Because I love to cook, sometimes I print recipes at home, or emails and screenshots at work, even though I do so
+                  as rarely as possible out of consideration for the environment.
+                </p>
+                <p>
+                  Print style sheets are useful and sometimes even necessary. Some readers might want to store your information
+                  locally as a well-formatted PDF to refer to the information later on, when they don’t have an Internet
+                  connection. However, <a href="http://evolt.org/ResponsiveWebAndPrint">print styles are often
+                  forgotten</a><sup class="po" id="note-2"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#2">2</a></sup> in the age of
+                  responsive Web design. The good news is that a print style sheet is actually very easy to craft: you can follow a
+                  couple of simple <a href="https://www.smashingmagazine.com/responsive-web-design-guidelines-tutorials/">CSS
+                  techniques to create a good experience</a><sup class="po" id="note-3"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#3">3</a></sup> for readers and show
+                  them that you’ve gone the extra mile to deliver just a slightly better user experience. So, how do we start?
+                </p>
+                <h3 id="getting-started">
+                  Getting Started <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#getting-started" aria-label="Link to section &#39;Getting Started&#39;" class="sr hsl">Link</a>
+                </h3>
+                <p>
+                  Let’s look at the process of setting up a print style sheet. The best method is to start from scratch and rely
+                  on the default style sheet of the browser, which takes care of the printed output pretty well by default. In this
+                  case, insert all declarations for printing at the end of your main style sheet, and enclose them with this
+                  distinct rule:
+                </p>
+                <pre><code class="language-css">@media print {
+   …
+}
+</code>
+</pre>
+                <p>
+                  For this to work, we have to prepare two things:
+                </p>
+                <ol>
+                  <li>Include all screen styles in the separate <code>@media screen {…}</code> rule;
+                  </li>
+                  <li>Omit the media type for the condensed style sheet: <code>&lt;link rel="stylesheet"
+                  href="css/style.css"/&gt;</code>
+                  </li>
+                </ol>
+                <p>
+                  In rare cases, using screen styles for printing is the way to approach the design of the print style sheet.
+                  Although making the two outputs similar in appearance would be easier this way, the solution is not optimal
+                  because screen and print are different kettles of fish. Many elements will need to be reset or styled differently
+                  so that they look normal on a sheet of paper. But the biggest constraints are the limited page width and the need
+                  for an uncluttered, clear output. Building print styles separately from screen styles is better. This is what we
+                  will do throughout this article.
+                </p>
+                <p>
+                  Of course, you could separate the declarations for screen and print into two CSS files. Just set the media type
+                  for the screen output to <code>media="screen"</code> and the media type for printing to
+                  <code>media="print"</code>, omitting it for the first one if you want to build on the screen style sheet.
+                </p>
+                <p>
+                  To illustrate, I have set up a simple�website of the fictional <a href="http://www.css3files.com/smashing-winery">Smashing Winery</a><sup class="po" id="note-4"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#4">4</a></sup>.
+                </p>
+                <p>
+                  <a href="http://www.css3files.com/smashing-winery"><img src="./smashing_files/1.jpg" alt="screenshot" width="500"></a><sup class="po" id="note-5"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#5">5</a></sup><br>
+                  <em>Our example website.</em>
+                </p>
+                <p>
+                  Everything needed for a proper screen display is in place. But as soon as the environment changes from virtual
+                  pixels to real paper, the only thing that matters is the actual content.
+                </p>
+                <p>
+                  <img src="./smashing_files/21.jpg" alt="screenshot" width="500"><br>
+                  <em>The two pages of the unaltered print preview. The header is not yet optimal, and both the main navigation and
+                  footer are superfluous.</em>
+                </p>
+                <p>
+                  Therefore, as a first task, we will hide all the clutter: namely, the main navigation and footer.
+                </p>
+                <pre><code class="language-css">header nav, footer {
+display: none;
+}
+</code></pre>
+                <p>
+                  Depending on the type of website, you could also consider hiding images by default. If the images are big, this
+                  would be wise, to save your users some printing costs. But if the images mainly support the content, and removing
+                  them would compromise the meaning, just leave them in. Whatever you decide, limit the images to a certain width,
+                  so that they don’t bleed off the paper. I’ve found that 500 pixels is a good compromise.
+                </p>
+                <pre><code class="language-css">img {
+max-width: 500px;
+}
+</code></pre>
+                <p>
+                  Alternatively you could also rely on the tried and trusted <code>max-width: 100%</code>, which displays images at
+                  their maximum size but not bigger than the page width.
+                </p>
+                <p>
+                  You might want to use a simple trick to get high-quality images when printing. Just provide a higher-resolution
+                  version of every image needed and resize it to the original size with CSS. Read more about this technique in the
+                  article “<a href="http://www.alistapart.com/articles/hiresprinting/">High-Resolution Image
+                  Printing</a><sup class="po" id="note-6"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#6">6</a></sup>” on A List Apart.
+                </p>
+                <p>
+                  Of course, we should hide video and other interactive elements, because they are useless on paper. These include
+                  <code>&lt;video&gt;</code>, <code>&lt;audio&gt;</code>, <code>&lt;object&gt;</code> and
+                  <code>&lt;embed&gt;</code> elements. You might want to consider replacing each video element with an image in the
+                  print style sheet, too.
+                </p>
+                <p>
+                  <img src="./smashing_files/print_stylesheet_33.jpg" alt="screenshot" width="500"><br>
+                  <em>With the main navigation, footer and images gone, the actual text is getting ever closer to center stage. But
+                  work remains to be done, especially with the header.</em>
+                </p>
+                <h3 id="adjusting-to-the-right-size">
+                  Adjusting To The Right Size <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#adjusting-to-the-right-size" aria-label="Link to section &#39;Adjusting To The Right Size&#39;" class="sr hsl">Link</a>
+                </h3>
+                <p>
+                  To define page margins, you can use <code>@page</code> rule to simply apply a margin all the way around the page.
+                  E.g.:
+                </p>
+                <pre><code class="language-css">@page {
+margin: 0.5cm;
+}
+</code></pre>
+                <p>
+                  will set the page margin on all sides to 0.5cm. You can also adjust the margins for every other page. The
+                  following code sets the left page (1, 3, 5, etc.) and right page (2, 4, 6, etc.) margins independently.
+                </p>
+                <pre><code class="language-css">@page :left {
+margin: 0.5cm;
+}
+
+@page :right {
+margin: 0.8cm;
+}
+</code></pre>
+                <p>
+                  You can also use the <code>:first</code> page pseudo-class that describes the styling of the first page when
+                  printing a document:
+                </p>
+                <pre><code class="language-css">@page :first {
+  margin: 1cm 2cm;
+}
+</code></pre>
+                <p>
+                  Unfortunately, <code>@page</code> is not supported in Firefox, but supported in Chrome 2.0+, IE 8.0+, Opera 6.0+
+                  and Safari 5.0+. <code>@page :first</code> is supported only in IE8+ and Opera 9.2+. (<em>thanks for the tip,
+                  <a href="http://designshack.net/articles/css/6-thinks-i-learned-about-print-stylesheets-from-html5-boilerplate/">Designshack</a><sup class="po" id="note-7"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#7">7</a></sup></em>)
+                </p>
+                <p>
+                  Now let’s tweak some general settings for the fonts. Most browsers set the default to Times New Roman, because
+                  serif fonts are considered to be easier on the eyes when read on paper. We can use Georgia at 12-point font size
+                  and a slightly higher line height for better legibility.
+                </p>
+                <pre><code class="language-css">body {
+font: 12pt Georgia, "Times New Roman", Times, serif;
+line-height: 1.3;
+}
+</code></pre>
+                <p>
+                  However, to retain some control, we should explicitly set the font sizes below. The <a href="http://reeddesign.co.uk/test/points-pixels.html">chart on ReedDesign</a><sup class="po" id="note-8"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#8">8</a></sup> gives us a feel for
+                  this; but with all of the screen sizes and resolutions out there, these are only rough estimates.
+                </p>
+                <pre><code class="language-css">h1 {
+font-size: 24pt;
+}
+
+h2 {
+font-size: 14pt;
+margin-top: 25px;
+}
+
+aside h2 {
+font-size: 18pt;
+}
+</code></pre>
+                <p>
+                  Apart from special cases (like the <code>&lt;h2&gt;</code> heading, which would otherwise be too close to the
+                  preceding paragraph), we don’t need to touch the margins or appearance of any elements, because they are
+                  handled quite nicely by the default settings. If you don’t like that certain elements are indented, such as
+                  <code>&lt;blockquote&gt;</code>, <code>&lt;ul&gt;</code> and <code>&lt;figure&gt;</code>, you could always reset
+                  their margins:
+                </p>
+                <pre><code class="language-css">blockquote, ul {
+margin: 0;
+}
+</code></pre>
+                <p>
+                  Or you could override the default bullet style in unordered lists…
+                </p>
+                <pre><code class="language-css">ul {list-style: none}
+</code></pre>
+                <p>
+                  …and replace it with a custom one; for example, a double arrow (and a blank space to give it some room):
+                </p>
+                <pre><code class="language-css">li {
+content: "» ";
+}
+</code></pre>
+                <p>
+                  You could also make <code>&lt;blockquote&gt;</code> stand out a bit by enlarging it and italicizing the text.
+                </p>
+                <section>
+                  <div class="oa_zone--ad icad" id="cad-middle" data-ad-name="Content Ad Middle" data-ad-zone="110" data-ad-media="all"></div>
+                </section>
+                <h3 id="the-header">
+                  The Header <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#the-header" aria-label="Link to section &#39;The Header&#39;" class="sr hsl">Link</a>
+                </h3>
+                <p>
+                  Currently, the remaining things to be dealt with in the header are the <code>&lt;h1&gt;</code> title and the
+                  logo. The first is there just for <a href="https://shop.smashingmagazine.com/products/pre-release-inclusive-design-patterns-by-heydon-pickering">accessibility</a><sup class="po" id="note-9"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#9">9</a></sup>
+                  purposes and is hidden for screen display using CSS. While we could use it as a sort of header in the print-out
+                  to indicate the source of the content, let’s try something more attractive. Wouldn’t it be nice to display
+                  the actual logo, instead of the boring text?
+                </p>
+                <p>
+                  Unfortunately, the “Winery” part of the logo is white and therefore not ideal for printing on light-colored
+                  paper. That’s why two versions of the logo are in the source code, one for screen display, one for printing.
+                  The latter image has no <code>alt</code> text, otherwise screen readers would repeat reading out “Smashing
+                  Winery.”
+                </p>
+                <pre><code class="language-markup">&lt;a href="/" title="Home" class="logo"&gt;
+   &lt;img src="img/logo.png" alt="Smashing Winery" class="screen"/&gt;
+   &lt;img src="img/logo_print.png" alt="" class="print"/&gt;
+&lt;/a&gt;
+</code></pre>
+                <p>
+                  First, we need to hide the screen logo and the <code>&lt;h1&gt;</code> heading. Depending on the relevance of the
+                  images, we might have already decided to hide them along with other unneeded elements:
+                </p>
+                <pre><code class="language-css">header h1, header nav, footer, img {
+display: none;
+}
+</code></pre>
+                <p>
+                  In this case, we have to bring back the print logo. Of course, you could use the adjacent sibling selector for
+                  the job (<code>header img + img</code>) to save the class name and live with it not working in Internet Explorer
+                  6.
+                </p>
+                <pre><code class="language-css">header .print {
+display: block;
+}
+</code></pre>
+                <p>
+                  Otherwise, you could just use <code>header .screen</code> (or <code>header :first-child</code>) to hide the main
+                  logo. And then the second logo would remain. Keep in mind that in print layouts, only images embedded via the
+                  <code>&lt;img&gt;</code> tag are displayed. Background images are not.
+                </p>
+                <p>
+                  Voilà! Now we have a nice header for our print-out that clearly shows the source of everything. Alternatively,
+                  you could still remove the second logo from the source code and use the header’s <code>&lt;h1&gt;</code>
+                  heading that we switched off earlier (in other words, remove it from the <code>display: none</code> line).
+                  Perhaps you’ll need to hide the remaining logo as we did before. Additionally, the font size could be enlarged
+                  so that it is clearly recognized as the title of the website.
+                </p>
+                <pre><code class="language-css">header h1 {
+font-size: 30pt;
+}
+</code></pre>
+                <p>
+                  As a little extra, the header in the print-out could show the URL of the website. This is done by applying the
+                  <code>:after</code> pseudo-element to the <code>&lt;header&gt;</code> tag, which unfortunately won’t work in IE
+                  prior to version 8; but because this is just a little bonus, we can live with IE’s shortcoming.
+                </p>
+                <pre><code class="language-css">header:after {
+content: "www.smashing-winery.com";
+}
+</code></pre>
+                <p>
+                  To see what else these pseudo-elements can do, read the <a href="https://developer.mozilla.org/en/CSS/Pseudo-elements">description on the Mozilla Developer
+                  Network</a><sup class="po" id="note-10"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#10">10</a></sup>.
+                </p>
+                <p>
+                  Another thing about IE 6 to 8 is that HTML5 tags can’t be printed. Because we’re using these tags on the
+                  example website, we’ll have to apply Remy Sharp’s <a href="http://code.google.com/p/html5shiv/">HTML5shiv</a><sup class="po" id="note-11"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#11">11</a></sup> in the header. The
+                  shiv allows you not only to style HTML5 tags but to print them as well. If you’re already using <a href="http://modernizr.com/">Modernizr</a><sup class="po" id="note-12"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#12">12</a></sup>, that’s perfect,
+                  because the shiv is included in it.
+                </p>
+                <pre><code class="language-markup">&lt;script src="js/html5.js"&gt;&lt;/script&gt;
+</code></pre>
+                <p>
+                  Unfortunately, the behavior of the IEs is still a bit buggy even when this shiv is applied. HTML5 tags that were
+                  styled for the screen layout need to be reset, or else the styling will be adopted for the print-out.
+                </p>
+                <p>
+                  Some developers add a short message as a supplement (or an alternative) to the displayed URL, reminding users
+                  where they were when they printed the page and to check back for fresh content. We can do this with the
+                  <code>:before</code> pseudo-element, so that it appears before the logo. Again, this won’t work in IE 6 or 7.
+                </p>
+                <pre><code class="language-css">header:before {
+display: block;
+content: "Thank you for printing our content at www.smashing-winery.com. Please check back soon for new offers on delicious wine from our winery.";
+margin-bottom: 10px;
+border: 1px solid #bbb;
+padding: 3px 5px;
+font-style: italic;
+}
+</code></pre>
+                <p>
+                  To distinguish it from the actual content, we’ve given it a gray border, a bit of padding and italics. Lastly,
+                  I’ve made it a block element, so that the border goes all around it, and given the logo a margin.
+                </p>
+                <p>
+                  To make it more discreet, we could move this message to the bottom of the page and append it to main container of
+                  the page, which has the <code>.content</code> class. If so, we would use the <code>:after</code> element and a
+                  top margin to keep it distinct from the sidebar’s content. As far as I’m concerned, the URL is indication
+                  enough, so I would rely on that and omit the message.
+                </p>
+                <p>
+                  Finally, we need to remove the border of the logo to prevent it from showing in legacy browsers, and move the
+                  <code>&lt;header&gt;</code> away from the content:
+                </p>
+                <pre><code class="language-css">img {
+border: 0;
+}
+
+header {
+margin-bottom: 40px;
+}
+</code></pre>
+                <p>
+                  <img src="./smashing_files/print_stylesheet_52.jpg" alt="screenshot" width="500"><br>
+                  <em>The header shown two different ways, one with a logo and simple URL, and the other with a message and the
+                  title in plain text.</em>
+                </p>
+                <h3 id="the-missing-link">
+                  The Missing Link <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#the-missing-link" aria-label="Link to section &#39;The Missing Link&#39;" class="sr hsl">Link</a>
+                </h3>
+                <p>
+                  Obviously, on paper, links aren’t clickable and so are pretty useless. You could try to build a workaround,
+                  replacing links with QR codes on the fly, but the solution may not be feasible. To put the links to use, you
+                  could display the URL after each string of anchor text. But text littered with URLs can be distracting and can
+                  impair the reading experience; and sparing the reader excessive information where possible is advisable.
+                </p>
+                <p>
+                  The best solution is the <code>:after</code> pseudo-element. It displays the URL after each anchor text,
+                  surrounded by brackets. And the font size is reduced to make it less intrusive.
+                </p>
+                <pre><code class="language-css">p a:after {
+content: " (" attr(href) ")";
+font-size: 80%;
+}
+</code></pre>
+                <p>
+                  We’ve limited this technique to links within <code>&lt;p&gt;</code> elements as a precaution. To go a step
+                  further, we could choose to show only the URLs of external links. An <a href="https://developer.mozilla.org/en/CSS/Attribute_selectors">attribute selector</a><sup class="po" id="note-13"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#13">13</a></sup>
+                  is perfect for this:
+                </p>
+                <pre><code class="language-css">p a[href^="http://"]:after {
+content: " (" attr(href) ")";
+font-size: 90%;
+}
+</code></pre>
+                <p>
+                  The possibilities for links in printed documents seem to be almost endless, so let’s try some more. To
+                  distinguish all internal links, let’s precede them with the website’s domain (omitting all the other
+                  properties, to keep things concise and clear):
+                </p>
+                <pre><code class="language-css">p a:after {
+content: " " attr(href) ")";
+}
+</code></pre>
+                <p>
+                  Then, we can hide internal links (<code>#</code>), because there is not much to display:
+                </p>
+                <pre><code class="language-css">p a[href^="#"]:after {
+display: none;
+}
+</code></pre>
+                <p>
+                  Also, external links will be appended as is, like above. Let’s consider SSL-secured websites, too (i.e. ones
+                  that begin with <code>https://</code>):
+                </p>
+                <pre><code class="language-css">p a[href^="http://"]:after, a[href^="https://"]:after {
+content: " (" attr(href) ")";
+}
+</code></pre>
+                <p>
+                  But there is one thing to remember, especially with external links. Some are very long, such as the ones in the
+                  <a href="http://developer.apple.com/library/safari/#documentation/AppleApplications/Reference/SafariCSSRef/Articles/StandardCSSProperties.html#//apple_ref/doc/uid/TP30001266--webkit-border-radius">
+                  Safari Developer Library</a><sup class="po" id="note-14"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#14">14</a></sup>. Such links can
+                  easily break a layout, like at the screen output. Luckily, a special property takes care of this:
+                </p>
+                <pre><code class="language-css">p a {
+word-wrap: break-word;
+}
+</code></pre>
+                <p>
+                  This breaks long URLs when they reach a certain limit or, as in our case, when they exceed the page’s width.
+                  Just add this property to the first of the above declarations. Although this property is basically supported in a
+                  wide range of browsers — even IE 6 — it works only in Chrome when printing. While Firefox automatically
+                  breaks long URLs, Internet Explorer has no capability for this.
+                </p>
+                <p>
+                  Finally, we set the link color to black to improve the experience for readers.
+                </p>
+                <pre><code class="language-css">a {
+color: #000;
+}
+</code></pre>
+                <p>
+                  <img src="./smashing_files/6.jpg" alt="screenshot" width="500"><br>
+                  <em>URLs, whether internal or external, now show up beside links with special treatment.</em>
+                </p>
+                <p>
+                  Aaron Gustafson went one step further and built the little script Footnote Links. According to the description:
+                </p>
+                <blockquote>
+                  <p>
+                    This script builds a list of URIs from any tags within a specified container and appends the list as footnotes
+                    to the document in a specified location. Any referenced elements are given a dynamically-assigned number which
+                    corresponds to the link in the footnote list.
+                  </p>
+                </blockquote>
+                <p>
+                  Aaron’s article on A List Apart “<a href="http://www.alistapart.com/articles/improvingprint/">Improving Link
+                  Display for Print</a><sup class="po" id="note-15"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#15">15</a></sup>” gives more
+                  insight into the idea behind this script.
+                </p>
+                <p>
+                  While we’re at it, letting readers know where quotes come from, such as those wrapped in
+                  <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code> tags, would be thoughtful. Just append the
+                  <code>cite</code> attribute (which will be the URL) after quotation marks, like so:
+                </p>
+                <pre><code class="language-css">q:after {
+content: " (Source: " attr(cite) ")";
+}
+</code></pre>
+                <h3 id="side-by-side">
+                  Side By Side <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#side-by-side" aria-label="Link to section &#39;Side By Side&#39;" class="sr hsl">Link</a>
+                </h3>
+                <p>
+                  We haven’t yet dealt with the sidebar content. Even though it appears after the main content by default,
+                  let’s give it some special treatment. To keep it distinct, we’ll give the sidebar a gray top border and a
+                  safe buffer of 30 pixels. The last property, <code>display: block</code>, ensures that the border shows up
+                  properly.
+                </p>
+                <pre><code class="language-css">aside {
+border-top: 1px solid #bbb;
+margin-top: 30px;
+display: block;
+}
+</code></pre>
+                <p>
+                  To separate it even more, we could set a special print property:
+                </p>
+                <pre><code class="language-css">page-break-before: always;
+</code></pre>
+                <p>
+                  This will move the contents of the sidebar to a new page when printed. If we do this, we can omit all of the
+                  other properties.
+                </p>
+                <p>
+                  <img src="./smashing_files/7.jpg" alt="screenshot" width="500"><br>
+                  <em>The sidebar on screen (left) and printed out (right). I’ve grayed out everything else to make it more
+                  obvious here.</em>
+                </p>
+                <p>
+                  We could do the same for comments. Comments don’t appear in the example, but they’re still worth touching on.
+                  Because they sometimes run long, omitting them in the print-out might be reasonable (just set <code>display:
+                  none</code> for the whole container). If you do want to show the comments, at least set
+                  <code>page-break-before</code>. You can also use <code>page-break-after: always</code> if there is content to
+                  print on a new page. The <code>page-break-before</code> and <code>page-break-after</code> properties are
+                  supported in all major browsers.
+                </p>
+                <p>
+                  We can also use <code>widows</code> and <code>orphans</code> properties. The terms derive from traditional
+                  printing, and they take numbers as values. The <code>widows</code> property sets the minimum number of lines in a
+                  paragraph to leave at the top of a page before moving them entirely to a new page. The <code>orphans</code>
+                  property sets the number of lines for the bottom of the page. The <code>orphans</code> and <code>widows</code>
+                  properties are supported in IE 8+ and Opera 9.2+, but unfortunately not in Firefox, Safari or Chrome.
+                </p>
+                <p>
+                  Now that we have taken care of the sidebar, the print style sheet is ready! You can <a href="http://www.css3files.com/smashing-winery/css/print.css">download it here</a><sup class="po" id="note-16"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#16">16</a></sup>.
+                  The file is fully documented and so can serve as a helpful reference or starting point.
+                </p>
+                <p>
+                  <img class="alignnone size-full wp-image-106667" src="./smashing_files/8.jpg" alt="screenshot" width="550" height="380"><br>
+                  <em>The completed print style sheet.</em>
+                </p>
+                <h3 id="just-for-fun">
+                  Just For Fun <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#just-for-fun" aria-label="Link to section &#39;Just For Fun&#39;" class="sr hsl">Link</a>
+                </h3>
+                <p>
+                  You might be asking, “Why can’t we just put the sidebar next to the main content, like on the website
+                  itself?” Well, the screen and print outputs are a bit different. Unlike the former, print-outs aren’t very
+                  wide and thus don’t have much space to fill. But depending on the font size, the line length could exceed the
+                  maximum of 75 characters and so be <a href="http://baymard.com/blog/line-length-readability">more difficult to
+                  read</a><sup class="po" id="note-17"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#17">17</a></sup>.
+                </p>
+                <p>
+                  In this case, we could, of course, limit the width of the main content (preferably not too much — we
+                  shouldn’t set the line length to fall below about 55 characters) and then absolutely position the sidebar just
+                  below it, just like in the screen display. But describing this method falls beyond the scope of this article, so
+                  please consult the <a href="http://css3files.com/smashing-winery/css/style.css">screen style sheet</a><sup class="po" id="note-18"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#18">18</a></sup> of the example
+                  website (line numbers 112 and 141 and down).
+                </p>
+                <p>
+                  In my humble opinion, avoid such experiments. While in principle, print layouts have endless possibilities,
+                  focusing on the content and removing everything else is better. The better way to ensure an optimal line length
+                  is just to shrink the page’s width or enlarge the font size.
+                </p>
+                <h4 id="preview-made-easy">
+                  Preview Made Easy <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#preview-made-easy" aria-label="Link to section &#39;Preview Made Easy&#39;" class="sr hsl">Link</a>
+                </h4>
+                <p>
+                  <a href="https://github.com/etimbo/jquery-print-preview-plugin">Print Preview</a><sup class="po" id="note-19"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#19">19</a></sup>
+                  by Tim Connell is a handy little jQuery plugin that replicates the built-in print-preview function, but with one
+                  difference. Instead of opening a separate page, it shows a sleek overlay, with “Close” and “Print”
+                  buttons at the top. It also has the convenient “P” shortcut. You might want to check out the <a href="http://etimbo.github.com/jquery-print-preview-plugin/example/index.html">demo page</a><sup class="po" id="note-20"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#20">20</a></sup>,
+                  too.
+                </p>
+                <h3 id="a-missed-opportunity">
+                  A Missed Opportunity <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#a-missed-opportunity" aria-label="Link to section &#39;A Missed Opportunity&#39;" class="sr hsl">Link</a>
+                </h3>
+                <p>
+                  Imagine that you were able to visit any page, hit “Print” and get an optimized version of the page to enjoy
+                  on paper. Unfortunately, we don’t live in this perfect world. Some websites still rely on JavaScript to
+                  generate print versions, and many other designers simply don’t care. But this is a missed opportunity. A
+                  carefully composed print style sheet could be used not only for printing but to optimize legibility for screen
+                  reading.
+                </p>
+                <p>
+                  As the website owner, you can determine the images to display (if any), the optimal font and size, and the
+                  presentation of other elements. You could make the content more appealing than the versions produced by
+                  Instapaper and Readability by giving the print version the extra attention it deserves.
+                </p>
+                <h4 id="the-future">
+                  The Future <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#the-future" aria-label="Link to section &#39;The Future&#39;" class="sr hsl">Link</a>
+                </h4>
+                <p>
+                  While using CSS3 for screen layouts is pretty common nowadays, it hasn’t quite established itself in the print
+                  environment yet. The W3C has an extensive description of “<a href="http://www.w3.org/TR/css3-page/">Paged
+                  Media</a><sup class="po" id="note-21"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#21">21</a></sup>,” but
+                  unfortunately support is very limited at the moment, Opera and Chrome being the only browsers that enable a few
+                  of its related properties. With decent support, it would be possible to use the <code>@page</code> rule to set
+                  the dimensions of the page, switch to a landscape view, alter the margins, and do much more. Even <a href="http://www.w3.org/TR/css3-page/#page-size-media-query">media queries</a><sup class="po" id="note-22"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#22">22</a></sup> are were conceived
+                  to respond to different page sizes.
+                </p>
+                <h3 id="websites-designed-well-for-print">
+                  Websites Designed Well For Print <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#websites-designed-well-for-print" aria-label="Link to section &#39;Websites Designed Well For Print&#39;" class="sr hsl">Link</a>
+                </h3>
+                <p>
+                  Let’s take a look at some examples of websites optimized for print.
+                </p>
+                <p>
+                  <a href="http://alistapart.com/">A List Apart</a><sup class="po" id="note-23"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#23">23</a></sup><br>
+                  The slick multi-column design is simplified into a single column, full width, which intuitively mirrors the
+                  website’s sensible hierarchy. Article titles and authors are no longer active links. And beautiful clean
+                  typography is kept intact, thanks to the compatible fonts and simple colors;�no font change is necessary,
+                  although the font-size value increases slightly. Advertising and affiliate styles are hidden, and the result is a
+                  simple, clean printed page that easily conforms well to any printer or page set-up in the document. A List Apart
+                  is exemplary, save for one important point: the logo does not appear anywhere in the print-out.
+                </p>
+                <p>
+                  <a href="http://www.alistapart.com/articles/a-checklist-for-content-work/"><img class="alignnone size-full wp-image-93162" src="./smashing_files/a-list-apart-screenshot.jpg" alt="A List Apart" width="500" height="282"></a><sup class="po" id="note-24"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#24">24</a></sup>
+                </p>
+                <p>
+                  <a href="http://www.alistapart.com/articles/a-checklist-for-content-work/"><img class="alignnone size-full wp-image-93163" src="./smashing_files/a-list-apart-printview.jpg" alt="A List Apart" width="500" height="278"></a><sup class="po" id="note-25"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#25">25</a></sup>
+                </p>
+                <p>
+                  <a href="http://lostworldsfairs.com/">Lost World’s Fairs</a><sup class="po" id="note-26"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#26">26</a></sup><br>
+                  The smooth printed page helps to carry the visuals of the website for Lost World’s Fairs. The main title and
+                  its colorful background are swapped for a simplified version in the print-preview style. However, some images
+                  could be removed to save some expensive printer ink. (<em>Updated</em>).
+                </p>
+                <p>
+                  <a href="http://lostworldsfairs.com/"><img class="alignnone size-full wp-image-93208" src="./smashing_files/lost-worlds-fairs.jpg" alt="Lost World&#39;s Fairs" width="500" height="350"></a><sup class="po" id="note-27"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#27">27</a></sup>
+                </p>
+                <p>
+                  <a href="http://lostworldsfairs.com/"><img class="alignnone size-full wp-image-93209" src="./smashing_files/lost-worlds-fairs-print.jpg" alt="Lost World&#39;s Fairs" width="500" height="381"></a><sup class="po" id="note-28"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#28">28</a></sup>
+                </p>
+                <p>
+                  <a href="http://www.themorningnews.org/">The Morning News</a><sup class="po" id="note-29"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#29">29</a></sup><br>
+                  One would expect most news websites to employ the print-preview function, yet that isn’t the case. The Morning
+                  News has prepared its content for print without much concern, happily excluding background images and color,
+                  while still getting its message across.
+                </p>
+                <p>
+                  <a href="http://www.themorningnews.org/"><img class="alignnone size-full wp-image-93210" src="./smashing_files/the-morning-news.jpg" alt="The Morning News" width="500" height="313"></a><sup class="po" id="note-30"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#30">30</a></sup>
+                </p>
+                <p>
+                  <a href="http://www.themorningnews.org/"><img class="alignnone size-full wp-image-93210" src="./smashing_files/morning-news-print.jpg" alt="The Morning News" width="500" height="275"></a><sup class="po" id="note-31"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#31">31</a></sup>
+                </p>
+                <p>
+                  James Li<br>
+                  James Li has designed his personal website exceptionally well for this purpose, carefully preserving all spacing
+                  and key elements. The logo is a part of the printed product, whereas the navigation links are not: very clever,
+                  because navigation has no value on a printed page unless it is informative in and of itself. Non-Web fonts are
+                  converted to simple printable ones (see “Other Stuff…”). Brilliantly executed for print.
+                </p>
+                <p>
+                  <img class="alignnone size-full wp-image-93212" src="./smashing_files/infinitum-screenshot.jpg" alt="Infinitum" width="500" height="384">
+                </p>
+                <p>
+                  <img class="alignnone size-full wp-image-93213" src="./smashing_files/infinitum-print.jpg" alt="Infinitum" width="500" height="409">
+                </p>
+                <p>
+                  <a href="http://www.techcrunch.com/">TechCrunch</a><sup class="po" id="note-32"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#32">32</a></sup><br>
+                  TechCrunch’s recent redesign tweaked not only the visual design of the site, but also the small details that
+                  have to be considered when the site is viewed on mobile or printed out. The print layout is very clean and
+                  minimalistic, without unnecessary details, yet also without links to the actual page that was printed out. The
+                  TechCrunch logo is omitted as well.
+                </p>
+                <p>
+                  <a href="http://www.techcrunch.com/"><img class="alignnone size-full wp-image-93212" src="./smashing_files/t-crunch-main.jpg" alt="TechCrunch" width="500" height="278"></a><sup class="po" id="note-33"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#33">33</a></sup>
+                </p>
+                <p>
+                  <a href="http://www.techcrunch.com/"><img class="alignnone size-full wp-image-93212" src="./smashing_files/t-crunch-print.jpg" alt="TechCrunch" width="500" height="349"></a><sup class="po" id="note-34"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#34">34</a></sup>
+                </p>
+                <p>
+                  R/GA<br>
+                  Although the logo isn’t present in the printed version of this website, attention is paid to the spacing of the
+                  content within. While the Web version has simple lines and a clean space, the printed page tightens up elements
+                  in order to best use the space. A strong grid and effective typography add to the effect. In this example, some
+                  images could be removed as well.
+                </p>
+                <p>
+                  <img class="alignnone size-full wp-image-93214" src="./smashing_files/r-g-a-fwd-main.jpg" alt="r/ga" width="500" height="257">
+                </p>
+                <p>
+                  <img class="alignnone size-full wp-image-93214" src="./smashing_files/r-g-a-fwd-print.jpg" alt="r/ga" width="500" height="464">
+                </p>
+                <p>
+                  <a href="http://www.studiomister.com/index.php">Studio Mister</a><sup class="po" id="note-35"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#35">35</a></sup><br>
+                  An excellent job of the print-preview function. The page has been meticulously designed to a grid and requires
+                  little in order to prepare it for print;�some attention to the background color of text and not much else.
+                  Unfortunately, though, the logo is a background image and thus excluded.
+                </p>
+                <p>
+                  <a href="http://www.studiomister.com/index.php"><img class="alignnone size-full wp-image-93216" src="./smashing_files/studio-mister-mainpage.jpg" alt="Studio Mister" width="500" height="292"></a><sup class="po" id="note-36"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#36">36</a></sup>
+                </p>
+                <p>
+                  <a href="http://www.studiomister.com/index.php"><img class="alignnone size-full wp-image-93217" src="./smashing_files/studio-mister-print.jpg" alt="Studio Mister" width="500" height="343"></a><sup class="po" id="note-37"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#37">37</a></sup>
+                </p>
+                <p>
+                  Bottlerocket Creative<br>
+                  Although this logo isn’t represented in the print-out either, the folks at Bottlerocket Creative have done very
+                  well to adapt their typographic style for offline viewing. Assuming the design was created mainly with images
+                  would be easy, but meticulous attention to type is evident upon closer inspection.
+                </p>
+                <p>
+                  <img class="alignnone size-full wp-image-93218" src="./smashing_files/bottlerocket-main.jpg" alt="Bottle Rocket" width="500" height="370">
+                </p>
+                <p>
+                  <img class="alignnone size-full wp-image-93219" src="./smashing_files/bottlerocket-printview.jpg" alt="Bottle Rocket" width="500" height="283">
+                </p>
+                <p>
+                  <a href="http://omniti.com/">OmniTI</a><sup class="po" id="note-38"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#38">38</a></sup><br>
+                  OmniTI has optimized its content for print not by shrinking the main column, but by increasing the size of the
+                  text and not crowding the images together. The playful look adheres to good spacing. The only drawback? Many of
+                  the line breaks have been eliminated, causing some words and sentences to run into each other.
+                </p>
+                <p>
+                  <a href="http://omniti.com/"><img class="alignnone size-full wp-image-93225" src="./smashing_files/omniti-main.jpg" alt="Omni TI" width="500" height="300"></a><sup class="po" id="note-39"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#39">39</a></sup>
+                </p>
+                <p>
+                  <a href="http://omniti.com/"><img class="alignnone size-full wp-image-93226" src="./smashing_files/omniti-print.jpg" alt="Omni TI" width="500" height="414"></a><sup class="po" id="note-40"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#40">40</a></sup>
+                </p>
+                <h4 id="in-conclusion">
+                  In Conclusion <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#in-conclusion" aria-label="Link to section &#39;In Conclusion&#39;" class="sr hsl">Link</a>
+                </h4>
+                <p>
+                  There’s a lot to consider when preparing your website to be printed out by readers. The process forces you to
+                  scrutinize every element of your content like never before, all because someone will want a hard copy of your
+                  work. Yet most of all, it’s important to recognize the difference between printing and actually reading.
+                  Perhaps these techniques hold merit in helping you visualize content for mobile devices. What better way to kill
+                  two birds with one stone than to work out your layout for the mobile while considering printing view at the same
+                  time to make sure that your content prints flawlessly for offline archival? The time you invest could double in
+                  value.
+                </p>
+                <p>
+                  For more information on preparing content for print, including by modifying CSS, check out the following
+                  articles:
+                </p>
+                <ul>
+                  <li>“<a href="http://www.webcredible.co.uk/user-friendly-resources/css/print-stylesheet.shtml">Print Style
+                  Sheet: The Definitive Guide</a><sup class="po" id="note-41"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#41">41</a></sup>,” Trenton Moss,
+                  Webcredible
+                  </li>
+                  <li>
+                    <a href="http://designshack.net/articles/css/6-thinks-i-learned-about-print-stylesheets-from-html5-boilerplate/">“6
+                    Things I Learned About Print Stylesheets From HTML5 Boilerplate</a><sup class="po" id="note-42"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#42">42</a></sup>,” Joshua
+                    Johnson, DesignShack
+                  </li>
+                  <li>“<a href="http://www.alistapart.com/articles/goingtoprint/">CSS Design: Going to Print</a><sup class="po" id="note-43"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#43">43</a></sup>,” Eric Meyer, A
+                  List Apart
+                  </li>
+                  <li>“<a href="http://css-tricks.com/css-tricks-finally-gets-a-print-stylesheet/">CSS-Tricks Finally Gets a
+                  Print Style Sheet</a><sup class="po" id="note-44"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#44">44</a></sup>,” Chris Coyier,
+                  CSS-Tricks
+                  </li>
+                  <li>“<a href="http://www.w3.org/TR/css-print/">CSS Print Profile</a><sup class="po" id="note-45"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#45">45</a></sup>,” W3C
+                  </li>
+                  <li>“<a href="http://www.w3.org/TR/css3-mediaqueries/">Media Queries</a><sup class="po" id="note-46"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#46">46</a></sup>,” W3C
+                  </li>
+                </ul>
+                <p>
+                  <em>(al) (vf) (il)</em>
+                </p>
+                <h4 class="po" id="footnotes">
+                  Footnotes <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#footnotes" aria-label="Link to section &#39;Footnotes&#39;" class="sr hsl">Link</a>
+                </h4>
+                <ol class="po">
+                  <li id="#1">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-1">1
+                    https://www.smashingmagazine.com/2015/01/designing-for-print-with-css/</a>
+                  </li>
+                  <li id="#2">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-2">2
+                    http://evolt.org/ResponsiveWebAndPrint</a>
+                  </li>
+                  <li id="#3">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-3">3
+                    https://www.smashingmagazine.com/responsive-web-design-guidelines-tutorials/</a>
+                  </li>
+                  <li id="#4">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-4">4
+                    http://www.css3files.com/smashing-winery</a>
+                  </li>
+                  <li id="#5">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-5">5
+                    http://www.css3files.com/smashing-winery</a>
+                  </li>
+                  <li id="#6">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-6">6
+                    http://www.alistapart.com/articles/hiresprinting/</a>
+                  </li>
+                  <li id="#7">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-7">7
+                    http://designshack.net/articles/css/6-thinks-i-learned-about-print-stylesheets-from-html5-boilerplate/</a>
+                  </li>
+                  <li id="#8">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-8">8
+                    http://reeddesign.co.uk/test/points-pixels.html</a>
+                  </li>
+                  <li id="#9">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-9">9
+                    https://shop.smashingmagazine.com/products/pre-release-inclusive-design-patterns-by-heydon-pickering</a>
+                  </li>
+                  <li id="#10">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-10">10
+                    https://developer.mozilla.org/en/CSS/Pseudo-elements</a>
+                  </li>
+                  <li id="#11">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-11">11
+                    http://code.google.com/p/html5shiv/</a>
+                  </li>
+                  <li id="#12">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-12">12
+                    http://modernizr.com</a>
+                  </li>
+                  <li id="#13">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-13">13
+                    https://developer.mozilla.org/en/CSS/Attribute_selectors</a>
+                  </li>
+                  <li id="#14">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-14">14
+                    http://developer.apple.com/library/safari/#documentation/AppleApplications/Reference/SafariCSSRef/Articles/StandardCSSProperties.html#//apple_ref/doc/uid/TP30001266--webkit-border-radius</a>
+                  </li>
+                  <li id="#15">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-15">15
+                    http://www.alistapart.com/articles/improvingprint/</a>
+                  </li>
+                  <li id="#16">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-16">16
+                    http://www.css3files.com/smashing-winery/css/print.css</a>
+                  </li>
+                  <li id="#17">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-17">17
+                    http://baymard.com/blog/line-length-readability</a>
+                  </li>
+                  <li id="#18">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-18">18
+                    http://css3files.com/smashing-winery/css/style.css</a>
+                  </li>
+                  <li id="#19">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-19">19
+                    https://github.com/etimbo/jquery-print-preview-plugin</a>
+                  </li>
+                  <li id="#20">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-20">20
+                    http://etimbo.github.com/jquery-print-preview-plugin/example/index.html</a>
+                  </li>
+                  <li id="#21">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-21">21
+                    http://www.w3.org/TR/css3-page/</a>
+                  </li>
+                  <li id="#22">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-22">22
+                    http://www.w3.org/TR/css3-page/#page-size-media-query</a>
+                  </li>
+                  <li id="#23">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-23">23
+                    http://alistapart.com/</a>
+                  </li>
+                  <li id="#24">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-24">24
+                    http://www.alistapart.com/articles/a-checklist-for-content-work/</a>
+                  </li>
+                  <li id="#25">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-25">25
+                    http://www.alistapart.com/articles/a-checklist-for-content-work/</a>
+                  </li>
+                  <li id="#26">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-26">26
+                    http://lostworldsfairs.com/</a>
+                  </li>
+                  <li id="#27">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-27">27
+                    http://lostworldsfairs.com/</a>
+                  </li>
+                  <li id="#28">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-28">28
+                    http://lostworldsfairs.com/</a>
+                  </li>
+                  <li id="#29">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-29">29
+                    http://www.themorningnews.org/</a>
+                  </li>
+                  <li id="#30">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-30">30
+                    http://www.themorningnews.org/</a>
+                  </li>
+                  <li id="#31">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-31">31
+                    http://www.themorningnews.org/</a>
+                  </li>
+                  <li id="#32">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-32">32
+                    http://www.techcrunch.com</a>
+                  </li>
+                  <li id="#33">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-33">33
+                    http://www.techcrunch.com/</a>
+                  </li>
+                  <li id="#34">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-34">34
+                    http://www.techcrunch.com/</a>
+                  </li>
+                  <li id="#35">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-35">35
+                    http://www.studiomister.com/index.php</a>
+                  </li>
+                  <li id="#36">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-36">36
+                    http://www.studiomister.com/index.php</a>
+                  </li>
+                  <li id="#37">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-37">37
+                    http://www.studiomister.com/index.php</a>
+                  </li>
+                  <li id="#38">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-38">38
+                    http://omniti.com</a>
+                  </li>
+                  <li id="#39">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-39">39
+                    http://omniti.com/</a>
+                  </li>
+                  <li id="#40">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-40">40
+                    http://omniti.com/</a>
+                  </li>
+                  <li id="#41">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-41">41
+                    http://www.webcredible.co.uk/user-friendly-resources/css/print-stylesheet.shtml</a>
+                  </li>
+                  <li id="#42">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-42">42
+                    http://designshack.net/articles/css/6-thinks-i-learned-about-print-stylesheets-from-html5-boilerplate/</a>
+                  </li>
+                  <li id="#43">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-43">43
+                    http://www.alistapart.com/articles/goingtoprint/</a>
+                  </li>
+                  <li id="#44">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-44">44
+                    http://css-tricks.com/css-tricks-finally-gets-a-print-stylesheet/</a>
+                  </li>
+                  <li id="#45">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-45">45
+                    http://www.w3.org/TR/css-print/</a>
+                  </li>
+                  <li id="#46">
+                    <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#note-46">46
+                    http://www.w3.org/TR/css3-mediaqueries/</a>
+                  </li>
+                </ol>
+                <div class="lt">
+                  <a href="https://www.smashingmagazine.com/tag/css/">CSS</a><a href="https://www.smashingmagazine.com/tag/print/">Print</a><a href="https://www.smashingmagazine.com/tag/techniques/">Techniques</a>
+                </div>
+                <p>
+                  <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#top" class="top">↑ Back to
+                  top</a> <a onclick="clicky.log(&#39;#sharelink-clicked&#39;);" class="sot single" href="https://twitter.com/intent/tweet?original_referer=https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/&amp;source=tweetbutton&amp;text=How%20To%20Set%20Up%20A%20Print%20Style%20Sheet&amp;url=https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/&amp;via=smashingmag">
+                  Tweet it</a><a onclick="clicky.log(&#39;#sharelink-clicked&#39;);" class="sot single" href="http://www.facebook.com/sharer/sharer.php?u=https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/">Share
+                  on Facebook</a>
+                </p>
+                <div class="degreed ed">
+                  <small class="declare">Advertisement</small> 
+                </div>
+              </article>
+              <div class="bio clearfix">
+                <div class="grv">
+                </div>
+                <div class="about">
+                  <a rel="author" class="poa" href="https://www.smashingmagazine.com/author/christian-krammer/?rel=author" title="Posts by Christian Krammer">Christian Krammer</a>
+                  <p>
+                    <a href="http://twitter.com/#!/edge0703">Christian Krammer</a> is web designer at one of Austria's biggest
+                    Newspaper called "<a href="http://www.kleinezeitung.at/">Kleine Zeitung</a>" where he worked for nearly ten
+                    years. He also is the proud owner of <a href="http://css3files.com/">css3files.com</a>, a comprehensive website
+                    about CSS3. A large range of properties is explained there for you to learn and look up. Besides that he is the
+                    proud father of a 4 years old boy and a passionate gamer.
+                  </p>
+                </div>
+              </div>
+              <div class="ras clearfix">
+                <h2>
+                  Related Articles
+                </h2>
+                <div class="ra clearfix">
+                  <a class="pp" href="https://www.smashingmagazine.com/2016/11/css-grids-flexbox-and-box-alignment-our-new-system-for-web-layout/"><img data-src="https://www.smashingmagazine.com/wp-content/uploads/2016/11/Flexbox-Equal-Height-Columns-CodePen-screenshot-opt-178x118.png" width="178" height="178" alt="118" class="wp-post-image">
+                  <h3>
+                    CSS Grid, Flexbox And Box Alignment: Our New System For Web Layout
+                  </h3></a>
+                </div>
+                <div class="ra clearfix">
+                  <a class="pp" href="https://www.smashingmagazine.com/2016/11/building-shaders-with-babylon-js/"><img data-src="https://www.smashingmagazine.com/wp-content/uploads/2016/09/babylon-1-preview-opt-178x118.png" width="178" height="178" alt="118" class="wp-post-image">
+                  <h3>
+                    Building Shaders With Babylon.js
+                  </h3></a>
+                </div>
+                <div class="ra clearfix">
+                  <a class="pp" href="https://www.smashingmagazine.com/2016/10/building-topple-trump-an-interactive-web-based-quiz-game-case-study/"><img data-src="https://www.smashingmagazine.com/wp-content/uploads/2016/10/Topple-Trump-start-preview-opt-178x118.png" width="178" height="178" alt="118" class="wp-post-image">
+                  <h3>
+                    Building “Topple Trump”, An Interactive Web-Based Quiz Game (Case Study)
+                  </h3></a>
+                </div>
+              </div>
+              <div class="adv">
+                <div class="oa_zone--ad commentspnsrtarget" id="commentspnsrtarget" data-ad-name="Comment Sponsor" data-ad-zone="26" data-ad-media="all"></div>
+              </div>
+              <ul id="comments" class="sub-tabs clearfix">
+                <li>
+                  <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#show-comments" class="active">38 Comments</a>
+                </li>
+              </ul>
+              <div id="discussion" class="subtab-pages discussion">
+                <div id="show-comments">
+                  <ol id="comments-overview" class="cl">
+                    <li class="comment even thread-even depth-1 clearfix">
+                      <span class="cn">1</span>
+                      <div class="c" id="comment-206907">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              Tomaz
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206907" title="Jump to Commentlink #1">November 24, 2011 4:07 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            SWinery? Oink? :)
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206907" class="rating__value rating__value--positive">
+                              4
+                            </div>
+                            <div class="rating__stars" data-comment_id="206907">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="40af5c05aa" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="4fa70278e4" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li><!-- #comment-## -->
+                    <li class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+                      <span class="cn">2</span>
+                      <div class="c" id="comment-206908">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              Vladimir Carrer
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206908" title="Jump to Commentlink #2">November 24, 2011 4:21 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            Great article about print CSS. It is true we often forget about the print CSS that is actually very
+                            easy to set.
+                          </p>
+                          <p>
+                            Like 4 years ago I made CSS Framework for Printing called Hartija. the code still is valid for almost
+                            every browser but soon I plan to make new update with some new cool CSS3 features.
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206908" class="rating__value rating__value--positive">
+                              4
+                            </div>
+                            <div class="rating__stars" data-comment_id="206908">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="68374e79d7" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="ec56338b73" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li><!-- #comment-## -->
+                    <li class="comment even thread-even depth-1 clearfix">
+                      <span class="cn">3</span>
+                      <div class="c" id="comment-206911">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              joramoudenaarde
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206911" title="Jump to Commentlink #3">November 24, 2011 8:15 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            To me, the biggest gripe I tend to have with Print Style Sheets, is that some (not all luckily)
+                            companies/designers/coders tend to leave out too much. Personally, although I’ve met plenty of people
+                            who feel the same way, I always appreciate the attention webdesigners have to save us some valuable
+                            ink… on a 100grams piece of paper we don’t need to see a full coloured background of the website
+                            itself. Besides the fact that the paper would get soggy, it just won’t add anything to the
+                            readability to the actual article/web page.
+                          </p>
+                          <p>
+                            Having said that, I do believe that even with a Print Style Sheet, we need (a black-white if needed) to
+                            see the logo of the site we want to print, and some design elements if possible such as font-size,
+                            lines and such… maybe even some grayscale headers or bulletpoints like Bottlerocket Creative has
+                            :).<br>
+                            Even when I save PDF’s or prints of websites, I always like to make sure I can remember where I got
+                            it from. So a printed website that basically looks like a CSS-free HTML-page won’t help us much… I
+                            think Lost World’s Fairs and James Li (for example) have done very well with keeping the overall
+                            design and feel of the website intact in that aspect :)
+                          </p>
+                          <p>
+                            … Plus, ink nowadays is so cheap, what viewer really cares to print out a few photos of a small
+                            coloured logo of a web page :) If you’re a company wanting to print a web page, you probably have a
+                            decent printer available, and ink is tax-deductible in that case. If you’re a consumer and want to
+                            print a page at home, those $80 printers have ink cartridges of ±$8 bucks a piece, so it’s not
+                            really a problem these days. Up till a bunch of years ago (I’m guessing ±8y if I’m correct) ink
+                            was a bit more expensive and printers were slower and less efficient. But now? I’d rather print in
+                            color to help me remember where I got that print from then print a page that looks like the 1990’s :)
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206911" class="rating__value rating__value--positive">
+                              1
+                            </div>
+                            <div class="rating__stars" data-comment_id="206911">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="8c37224a70" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="426df5307b" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <ul class="children">
+                        <li class="comment odd alt depth-2 clearfix">
+                          <span class="cn">4</span>
+                          <div class="c" id="comment-206917">
+                            <div class="cau clearfix">
+                              <div class="aum">
+                                <h3>
+                                  Rob
+                                </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206917" title="Jump to Commentlink #4">November 27, 2011 11:57 am</a></span>
+                              </div>
+                            </div>
+                            <div class="ctx">
+                              <p>
+                                Good points.
+                              </p>
+                              <p>
+                                I am currently building a new website for my folks business, which is a small family run
+                                collectibles store now with auctions every other Sunday. The Print style sheet I plan to make will
+                                be very specific. The site will be run via a hosted WordPress install, and the printout of the main
+                                page will actually be just name of the business, phone number, address, owners and a google map to
+                                the location, perhaps some additional information about the business and a TinyURL to the full
+                                Google Map as well. People don’t need the website header, footer, list of articles and sidebar.
+                              </p>
+                              <p>
+                                The actual article pages will have no goggle map (though the TinyURL would remain), a condensed
+                                form of the address, phone number, etc, and then the article in question.
+                              </p>
+                              <p>
+                                However, I do believe that web designers shouldn’t ignore print style sheets as a way of making a
+                                nice, clean external version of their website. When I redesign my own businesses website (a small
+                                12 room motel), I plan to make the print-outs of my site be very information rich, easy to read,
+                                and have only the information that is required on a sheet of paper.
+                              </p>
+                            </div>
+                            <div class="com">
+                              <div class="reply"></div>
+                              <div class="rating__container clearfix" aria-live="polite">
+                                <div id="rating__value--206917" class="rating__value rating__value--negative">
+                                  -1
+                                </div>
+                                <div class="rating__stars" data-comment_id="206917">
+                                  <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="a1c3bbf45b" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="273d745d54" title="Vote down!"></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li><!-- #comment-## -->
+                        <li class="comment even depth-2 clearfix">
+                          <span class="cn">5</span>
+                          <div class="c" id="comment-206941">
+                            <div class="cau clearfix">
+                              <div class="aum">
+                                <h3>
+                                  Sweetwater
+                                </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206941" title="Jump to Commentlink #5">August 26, 2013 5:57 am</a></span>
+                              </div>
+                            </div>
+                            <div class="ctx">
+                              <p>
+                                Ego is a bad designer.<br>
+                                Start asking yourself why an user need to print a web page. Probably he need to re-use main
+                                contents and info in the “offline world”.<br>
+                                Try to identify those contents and serve them in the best, clear and cheap way, because users
+                                (nearly always) doesn’t need to attach to wall and admire your beautiful design.
+                              </p>
+                              <p>
+                                Wipe away all the needless!
+                              </p>
+                            </div>
+                            <div class="com">
+                              <div class="reply"></div>
+                              <div class="rating__container clearfix" aria-live="polite">
+                                <div id="rating__value--206941" class="rating__value rating__value--positive">
+                                  2
+                                </div>
+                                <div class="rating__stars" data-comment_id="206941">
+                                  <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="fa0f8d8d26" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="a2e4183bbe" title="Vote down!"></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li><!-- #comment-## -->
+                      </ul><!-- .children -->
+                    </li><!-- #comment-## -->
+                    <li class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+                      <span class="cn">6</span>
+                      <div class="c" id="comment-206909">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              Nicolas Gallagher
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206909" title="Jump to Commentlink #6">November 24, 2011 5:42 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            I’m not convinced that some of the examples are actually well designed for print. Multi-coloured
+                            print outs (Lost World’s Fair) or those with large images (OmniTI) are not very “print
+                            friendly/optimised”. I wouldn’t be too happy to have my expensive printer ink wasted on a giant
+                            rocket or nearly 20 video preview images (as happens with the R/GA example).
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206909" class="rating__value">
+                              0
+                            </div>
+                            <div class="rating__stars" data-comment_id="206909">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="03221c4350" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="b5b145d66e" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <ul class="children">
+                        <li class="comment even depth-2 clearfix">
+                          <span class="cn">7</span>
+                          <div class="c" id="comment-206910">
+                            <div class="cau clearfix">
+                              <div class="aum">
+                                <h3>
+                                  Stephen Moor
+                                </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206910" title="Jump to Commentlink #7">November 24, 2011 6:19 am</a></span>
+                              </div>
+                            </div>
+                            <div class="ctx">
+                              <p>
+                                Agree. The good thing is that you can select “black/white” for printing, too. In general,
+                                Nicolas is right. The more text and the fewer images, the better.
+                              </p>
+                            </div>
+                            <div class="com">
+                              <div class="reply"></div>
+                              <div class="rating__container clearfix" aria-live="polite">
+                                <div id="rating__value--206910" class="rating__value">
+                                  0
+                                </div>
+                                <div class="rating__stars" data-comment_id="206910">
+                                  <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="9529b65b95" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="412df49202" title="Vote down!"></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li><!-- #comment-## -->
+                      </ul><!-- .children -->
+                    </li><!-- #comment-## -->
+                    <li class="comment odd alt thread-even depth-1 clearfix">
+                      <span class="cn">8</span>
+                      <div class="c" id="comment-206912">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              mike ilz
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206912" title="Jump to Commentlink #8">November 24, 2011 8:30 pm</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            The HTML5 Boilerplate has a decent setup for print stylesheets, I use that as my base and customize it
+                            from there for each job.
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206912" class="rating__value">
+                              0
+                            </div>
+                            <div class="rating__stars" data-comment_id="206912">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="248e6fda18" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="ef717d372b" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li><!-- #comment-## -->
+                    <li class="comment even thread-odd thread-alt depth-1 clearfix">
+                      <span class="cn">9</span>
+                      <div class="c" id="comment-206913">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              Steve
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206913" title="Jump to Commentlink #9">November 25, 2011 2:56 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            Nice post.
+                          </p>
+                          <p>
+                            But who prints anymore? I guess it depends on website’s purpose and readers.
+                          </p>
+                          <p>
+                            I’d include a message about being green and reading it in the screen.
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206913" class="rating__value">
+                              0
+                            </div>
+                            <div class="rating__stars" data-comment_id="206913">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="4c0c3dd6da" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="eac4857646" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <ul class="children">
+                        <li class="comment odd alt depth-2 clearfix">
+                          <span class="cn">10</span>
+                          <div class="c" id="comment-206915">
+                            <div class="cau clearfix">
+                              <div class="aum">
+                                <h3>
+                                  mdhp
+                                </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206915" title="Jump to Commentlink #10">November 26, 2011 4:35 am</a></span>
+                              </div>
+                            </div>
+                            <div class="ctx">
+                              <p>
+                                Customers print, unbeliveable but true. They want a nice high-end webpage and if they have it, they
+                                print the page… crazy !<br>
+                                I see this since many years, thats why i automaticly create a simple print.css which hide all
+                                things that are not needed.
+                              </p>
+                            </div>
+                            <div class="com">
+                              <div class="reply"></div>
+                              <div class="rating__container clearfix" aria-live="polite">
+                                <div id="rating__value--206915" class="rating__value">
+                                  0
+                                </div>
+                                <div class="rating__stars" data-comment_id="206915">
+                                  <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="d8677c3e72" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="e35e2a1fb2" title="Vote down!"></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li><!-- #comment-## -->
+                        <li class="comment even depth-2 clearfix">
+                          <span class="cn">11</span>
+                          <div class="c" id="comment-206918">
+                            <div class="cau clearfix">
+                              <div class="aum">
+                                <h3>
+                                  Elliot
+                                </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206918" title="Jump to Commentlink #11">November 27, 2011 3:18 pm</a></span>
+                              </div>
+                            </div>
+                            <div class="ctx">
+                              <p>
+                                Your “but who prints anymore” statement is a sentiment that I held until recently.
+                              </p>
+                              <p>
+                                I recently finished a website for a large superannuation / pension fund in Australia. I was asked
+                                to develop a print style sheet for an extremely complex site. My initial thoughts were “ummm why?
+                                Who the hell is gonna print the site?”.
+                              </p>
+                              <p>
+                                It turns out that many of the documents (web pages) on the site have valuable information for their
+                                members (who would have thought right?) which they need to print for reference.
+                              </p>
+                              <p>
+                                Crazy huh?
+                              </p>
+                            </div>
+                            <div class="com">
+                              <div class="reply"></div>
+                              <div class="rating__container clearfix" aria-live="polite">
+                                <div id="rating__value--206918" class="rating__value">
+                                  0
+                                </div>
+                                <div class="rating__stars" data-comment_id="206918">
+                                  <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="49fba3a91d" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="a825e52772" title="Vote down!"></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li><!-- #comment-## -->
+                        <li class="comment odd alt depth-2 clearfix">
+                          <span class="cn">12</span>
+                          <div class="c" id="comment-206924">
+                            <div class="cau clearfix">
+                              <div class="aum">
+                                <h3>
+                                  OrangeJuice
+                                </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206924" title="Jump to Commentlink #12">November 28, 2011 8:15 am</a></span>
+                              </div>
+                            </div>
+                            <div class="ctx">
+                              <p>
+                                Yes, right. And sometimes, think for example in ecommerce pages. Customers are mostly used to print
+                                the confirmation section with the details, or in aeroplanes companies or hotel companies, they are
+                                very used to print the valuable information so they can have it with them.
+                              </p>
+                            </div>
+                            <div class="com">
+                              <div class="reply"></div>
+                              <div class="rating__container clearfix" aria-live="polite">
+                                <div id="rating__value--206924" class="rating__value">
+                                  0
+                                </div>
+                                <div class="rating__stars" data-comment_id="206924">
+                                  <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="c968a4acd7" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="62f6c90f52" title="Vote down!"></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li><!-- #comment-## -->
+                      </ul><!-- .children -->
+                    </li><!-- #comment-## -->
+                    <li class="comment even thread-even depth-1 clearfix">
+                      <span class="cn">13</span>
+                      <div class="c" id="comment-206914">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              Jimmy
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206914" title="Jump to Commentlink #13">November 25, 2011 6:37 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            Actually, I’m coming at this matter from the opposite angle – I want to try typesetting with HTML
+                            and CSS. I’ve some help material that I want to roll out both on the web and on paper (because a
+                            physical manual is one of the client’s expected deliverables). Does anyone have any further resources
+                            on more complex typesetting with CSS? Because we’ll be responsible for choosing the UA that creates
+                            the PDF output, CSS3 print attributes are a possibility.
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206914" class="rating__value">
+                              0
+                            </div>
+                            <div class="rating__stars" data-comment_id="206914">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="3125b01503" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="a97ab131ec" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li><!-- #comment-## -->
+                    <li class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+                      <span class="cn">14</span>
+                      <div class="c" id="comment-206916">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              Sarah Bird
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206916" title="Jump to Commentlink #14">November 27, 2011 5:08 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            This is a very useful read. So far, I have been simply ignoring Print CSS. I am planning to make a mini
+                            print CSS framework for my website surveyrobo.com. This article will help me with make it compatible
+                            for different browsers. Your article has tot me a great deal about CSS3 features. Thank you so much for
+                            sharing :)
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206916" class="rating__value">
+                              0
+                            </div>
+                            <div class="rating__stars" data-comment_id="206916">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="f37e0309b1" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="e83234bbca" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li><!-- #comment-## -->
+                    <li class="comment even thread-even depth-1 clearfix">
+                      <span class="cn">15</span>
+                      <div class="c" id="comment-206919">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              KeepItHamsta
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206919" title="Jump to Commentlink #15">November 27, 2011 6:01 pm</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            the only 3 lines you need to to make your site printer-friendly:
+                          </p>
+                          <p>
+                            @media print {<br>
+                            * {display:none}<br>
+                            }
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206919" class="rating__value rating__value--positive">
+                              1
+                            </div>
+                            <div class="rating__stars" data-comment_id="206919">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="8fde74bd1b" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="225d7e8f5f" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <ul class="children">
+                        <li class="comment odd alt depth-2 clearfix">
+                          <span class="cn">16</span>
+                          <div class="c" id="comment-206933">
+                            <div class="cau clearfix">
+                              <div class="aum">
+                                <h3>
+                                  Linsey
+                                </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206933" title="Jump to Commentlink #16">May 17, 2012 12:46 pm</a></span>
+                              </div>
+                            </div>
+                            <div class="ctx">
+                              <p>
+                                You saved me!!! I just needed a rough draft of a print friendly… Wow! The above post made it
+                                really complicated. Thanks.
+                              </p>
+                            </div>
+                            <div class="com">
+                              <div class="reply"></div>
+                              <div class="rating__container clearfix" aria-live="polite">
+                                <div id="rating__value--206933" class="rating__value">
+                                  0
+                                </div>
+                                <div class="rating__stars" data-comment_id="206933">
+                                  <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="2b68af3603" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="2941c769aa" title="Vote down!"></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li><!-- #comment-## -->
+                      </ul><!-- .children -->
+                    </li><!-- #comment-## -->
+                    <li class="comment even thread-odd thread-alt depth-1 clearfix">
+                      <span class="cn">17</span>
+                      <div class="c" id="comment-206920">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              NikeJordans
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206920" title="Jump to Commentlink #17">November 27, 2011 7:05 pm</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            Awesome article!Thanks for ur nice sharing!!
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206920" class="rating__value">
+                              0
+                            </div>
+                            <div class="rating__stars" data-comment_id="206920">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="47804b111d" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="9e9b788639" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li><!-- #comment-## -->
+                    <li class="comment odd alt thread-even depth-1 clearfix">
+                      <span class="cn">18</span>
+                      <div class="c" id="comment-206921">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              HeriNXI
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206921" title="Jump to Commentlink #18">November 27, 2011 7:55 pm</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            how to break table properly if the table is longer than 1 page?
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206921" class="rating__value">
+                              0
+                            </div>
+                            <div class="rating__stars" data-comment_id="206921">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="86639edcab" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="fe3cc03fe5" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <ul class="children">
+                        <li class="comment byuser comment-author-admin even depth-2 clearfix">
+                          <span class="cn">19</span>
+                          <div class="c" id="comment-206922">
+                            <div class="cau clearfix">
+                              <div class="aum">
+                                <h3>
+                                  Christian Krammer
+                                </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206922" title="Jump to Commentlink #19">November 28, 2011 1:15 am</a></span>
+                              </div>
+                            </div>
+                            <div class="ctx">
+                              <p>
+                                Let it span across two or multiple pages. As long as a line doesn’t get cut into halves at the
+                                transition of the pages I can see no problem here.
+                              </p>
+                            </div>
+                            <div class="com">
+                              <div class="reply"></div>
+                              <div class="rating__container clearfix" aria-live="polite">
+                                <div id="rating__value--206922" class="rating__value">
+                                  0
+                                </div>
+                                <div class="rating__stars" data-comment_id="206922">
+                                  <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="01f2da2548" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="1f813b784a" title="Vote down!"></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <ul class="children">
+                            <li class="comment odd alt depth-3 clearfix">
+                              <span class="cn">20</span>
+                              <div class="c" id="comment-206937">
+                                <div class="cau clearfix">
+                                  <div class="aum">
+                                    <h3>
+                                      Clifford Heath
+                                    </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206937" title="Jump to Commentlink #20">November 5, 2012 1:48 pm</a></span>
+                                  </div>
+                                </div>
+                                <div class="ctx">
+                                  <p>
+                                    In a multi-page table containing, for example, the items of an invoice, it’s often necessary
+                                    to add a “continued…” or sub-total line (table header row) before breaking the page, and
+                                    a “Carried forward” line at the top of the new page. How is it possible to cause these rows
+                                    to be emitted in the correct place?
+                                  </p>
+                                  <p>
+                                    That leaves aside the problem of how to calculate and format the subtotal to that point – I
+                                    assume you’d have to emit every possible subtotal in a cell that will only be displayed in
+                                    case of a break at that point?
+                                  </p>
+                                </div>
+                                <div class="com">
+                                  <div class="reply"></div>
+                                  <div class="rating__container clearfix" aria-live="polite">
+                                    <div id="rating__value--206937" class="rating__value rating__value--positive">
+                                      1
+                                    </div>
+                                    <div class="rating__stars" data-comment_id="206937">
+                                      <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="e284a503c0" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="4108588783" title="Vote down!"></a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </li><!-- #comment-## -->
+                          </ul><!-- .children -->
+                        </li><!-- #comment-## -->
+                      </ul><!-- .children -->
+                    </li><!-- #comment-## -->
+                    <li class="comment even thread-odd thread-alt depth-1 clearfix">
+                      <span class="cn">21</span>
+                      <div class="c" id="comment-206923">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              Dzinepress
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206923" title="Jump to Commentlink #21">November 28, 2011 2:14 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            getting lot of help from your helping article. thanks for sharing
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206923" class="rating__value">
+                              0
+                            </div>
+                            <div class="rating__stars" data-comment_id="206923">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="1a30c47c49" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="108eae6342" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li><!-- #comment-## -->
+                    <li class="comment odd alt thread-even depth-1 clearfix">
+                      <span class="cn">22</span>
+                      <div class="c" id="comment-206925">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              OrangeJuice
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206925" title="Jump to Commentlink #22">November 28, 2011 8:16 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            Excelent article!!!! Thanks for sharing!! and the link of the jquery plugin was wonderfull!!!
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206925" class="rating__value">
+                              0
+                            </div>
+                            <div class="rating__stars" data-comment_id="206925">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="bb3e9ced58" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="4365143ac8" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li><!-- #comment-## -->
+                    <li class="comment even thread-odd thread-alt depth-1 clearfix">
+                      <span class="cn">23</span>
+                      <div class="c" id="comment-206926">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              David
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206926" title="Jump to Commentlink #23">November 29, 2011 10:14 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            Interesting that an article about printing a web age does not have a print option to print content and
+                            ignore the ads.
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206926" class="rating__value rating__value--positive">
+                              1
+                            </div>
+                            <div class="rating__stars" data-comment_id="206926">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="4470b64c72" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="09403c797d" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <ul class="children">
+                        <li class="comment byuser comment-author-admin odd alt depth-2 clearfix">
+                          <span class="cn">24</span>
+                          <div class="c" id="comment-206928">
+                            <div class="cau clearfix">
+                              <div class="aum">
+                                <h3>
+                                  Christian Krammer
+                                </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206928" title="Jump to Commentlink #24">November 30, 2011 12:27 am</a></span>
+                              </div>
+                            </div>
+                            <div class="ctx">
+                              <p>
+                                If you would have read the article you would know that a web page does not need such an option. ;)
+                                The browser’s build-in print option takes care of that.
+                              </p>
+                            </div>
+                            <div class="com">
+                              <div class="reply"></div>
+                              <div class="rating__container clearfix" aria-live="polite">
+                                <div id="rating__value--206928" class="rating__value rating__value--positive">
+                                  3
+                                </div>
+                                <div class="rating__stars" data-comment_id="206928">
+                                  <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="60676e6c2e" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="05f58246d0" title="Vote down!"></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li><!-- #comment-## -->
+                      </ul><!-- .children -->
+                    </li><!-- #comment-## -->
+                    <li class="comment even thread-even depth-1 clearfix">
+                      <span class="cn">25</span>
+                      <div class="c" id="comment-206927">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              Sundar
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206927" title="Jump to Commentlink #25">November 30, 2011 12:09 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            Very useful information for me.. iam running webdesign company in india name of S dream Works. its very
+                            useful for me…<br>
+                            Thanks
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206927" class="rating__value">
+                              0
+                            </div>
+                            <div class="rating__stars" data-comment_id="206927">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="8bf12a3e7c" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="cd3cc29921" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li><!-- #comment-## -->
+                    <li class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+                      <span class="cn">26</span>
+                      <div class="c" id="comment-206929">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              Marc Haunschild
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206929" title="Jump to Commentlink #26">December 7, 2011 12:43 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            I would not print the sidebar. The sidebar should contain further information. If there are links
+                            given, the user should follow the links and print the linked articles to read them offline.<br>
+                            Necessary information in a sidebar is wrong!
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206929" class="rating__value rating__value--negative">
+                              -2
+                            </div>
+                            <div class="rating__stars" data-comment_id="206929">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="802231c4f5" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="1a65d33213" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li><!-- #comment-## -->
+                    <li class="comment even thread-even depth-1 clearfix">
+                      <span class="cn">27</span>
+                      <div class="c" id="comment-206930">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              Sal
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206930" title="Jump to Commentlink #27">December 14, 2011 7:02 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            This is a great resource. I’ve learnt a lot of from this article. A couple of points though that
+                            I’ve experienced making a print CSS myself;
+                          </p>
+                          <p>
+                            1) p a[href^=”#”]:after {display: none;} hides meaningful bookmarks such as the ones on a FAQ page,
+                            for instance.<br>
+                            2) This article could also include a way to customize content for “mailto:” links. E.g. using p
+                            a[href^=”mailto:”]:after {} perhaps?
+                          </p>
+                          <p>
+                            Otherwise, a great article. Cheers.
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206930" class="rating__value">
+                              0
+                            </div>
+                            <div class="rating__stars" data-comment_id="206930">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="3ba837419a" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="b90208817a" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li><!-- #comment-## -->
+                    <li class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+                      <span class="cn">28</span>
+                      <div class="c" id="comment-206931">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              michelangelo
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206931" title="Jump to Commentlink #28">December 16, 2011 6:38 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            How do you prevent the last line of text on a page to be cut off? It seems to happen a lot. I have been
+                            able to avoid it only with “unstyled” HTML pages.
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206931" class="rating__value">
+                              0
+                            </div>
+                            <div class="rating__stars" data-comment_id="206931">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="84764be9b0" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="ed3ff99dd6" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li><!-- #comment-## -->
+                    <li class="comment even thread-even depth-1 clearfix">
+                      <span class="cn">29</span>
+                      <div class="c" id="comment-206932">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              Vish
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206932" title="Jump to Commentlink #29">December 22, 2011 9:19 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            I really appreciate the @media print guide review, but the examples provided below, some of the sites
+                            did not stand up to the results when I tested the same in firefox print preview option. The header,
+                            images, etc.. were all chopped off in most of the sites. Can you please suggest some more links.
+                          </p>
+                          <p>
+                            Thank you,<br>
+                            Vish
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206932" class="rating__value">
+                              0
+                            </div>
+                            <div class="rating__stars" data-comment_id="206932">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="fcae481b97" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="f9772fbd8d" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li><!-- #comment-## -->
+                    <li class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+                      <span class="cn">30</span>
+                      <div class="c" id="comment-206934">
+                        <div class="cau clearfix">
+                          <div class="aum">
+                            <h3>
+                              Nisha
+                            </h3><span class="dati"><a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#comment-206934" title="Jump to Commentlink #30">June 29, 2012 8:25 am</a></span>
+                          </div>
+                        </div>
+                        <div class="ctx">
+                          <p>
+                            Thanks alot !! It was very useful……
+                          </p>
+                        </div>
+                        <div class="com">
+                          <div class="reply"></div>
+                          <div class="rating__container clearfix" aria-live="polite">
+                            <div id="rating__value--206934" class="rating__value">
+                              0
+                            </div>
+                            <div class="rating__stars" data-comment_id="206934">
+                              <a class="rating__button rating__button--up" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="1" data-nonce="924f189584" title="Vote up!"></a> <a class="rating__button rating__button--down" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#" data-id="-1" data-nonce="f65c73092d" title="Vote down!"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li><!-- #comment-## -->
+                  </ol>
+                  <div class="pgn clearfix">
+                    <div class="prv"></div>
+                    <div class="pgs clearfix">
+                      <a class="page-numbers" href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/comment-page-2/#comments">2</a>
+                    </div>
+                    <div class="nxt">
+                      <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/comment-page-2/#comments">Next
+                      »</a>
+                    </div>
+                  </div><br>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>
+            <a href="https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/#top" class="top" title="Jump to the top of the page">↑ Back to top</a>
+          </p>
+        </div>
+      </div>
+    </main>
+    <aside id="wpsidebar" class="sb" role="complementary">
+      <div class="col side">
+        <section class="mise sf clearfix" role="search">
+          <form id="search_2" method="get" action="https://www.smashingmagazine.com/search-results/" target="_top" name="search_2">
+            <label class="sl" for="searching_2">Search on Smashing Magazine</label> <input id="searching_2" name="q" type="text" placeholder="e.g. JavaScript"> <button class="search_submit" type="submit">Search</button> <input type="hidden" name="cx" value="partner-pub-6779860845561969:5884617103"> <input type="hidden" name="cof" value="FORID:10"> <input type="hidden" name="ie" value="UTF-8">
+          </form>
+        </section>
+        <section class="bw faw">
+          <p class="awithus">
+            <a class="ed-us" href="mailto:sponsoring@smashingmagazine.com">Become a sponsor!</a>
+          </p>
+          <div id="spnsrlist-a" class="oa_zone--sponsor" data-sponsor-lines="1"></div>
+        </section>
+        <section class="sf wg">
+          <h3>
+            <a href="https://www.smashingmagazine.com/the-smashing-newsletter/"><img src="./smashing_files/smnl.png" alt="198,064 fine folks have signed up to our Newsletter already, when will you?"> Smashing Newsletter</a>
+          </h3>
+          <p>
+            Subscribe to our email newsletter for useful tips and valuable resources, sent out every second Tuesday.
+          </p>
+          <div id="mc_embed_signup" class="mcf">
+            <form action="https://smashingmagazine.us1.list-manage.com/subscribe/post?u=16b832d9ad4b28edf261f34df&amp;id=a1666656e0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate">
+              <label for="mcer-EMAIL" class="sr">Please provide us with your email address:</label> <input id="mcer-EMAIL" name="EMAIL" type="text" placeholder="email address"> <button id="mc-embedded-subscribe" name="subscribe" class="submit" type="submit">Subscribe</button>
+            </form><a href="https://www.smashingmagazine.com/the-smashing-newsletter/"><img class="mcc" src="file:///D:/Downloads/media%20print/123_files/mc-counter.svg" alt="Currently, we have 191728 subscribers to our newsletter"></a>
+          </div>
+        </section>
+        <section class="bw">
+          <div id="spnsrlist-b" class="oa_zone--sponsor" data-sponsor-lines="3"></div>
+        </section>
+        <section class="so wg">
+          <div class="fir">
+            <a href="https://www.smashingmagazine.com/2015/03/31/real-life-responsive-web-design-smashing-book-5/?utm_source=magazine&amp;utm_medium=sidebar-ad&amp;utm_campaign=sb5" style="border:0;"><img src="./smashing_files/sidebar-sb5.png" alt="The Smashing Book #5" width="94" height="135"></a>
+            <p>
+              Smashing Book 5: "Real-Life Responsive Web Design", our playbook to master all the tricky facets and hurdles of
+              <strong>responsive web design</strong>. Gorgeous hardcover with 584 pages. The eBook is included. Free worldwide
+              shipping. <a href="https://www.smashingmagazine.com/2015/03/31/real-life-responsive-web-design-smashing-book-5/?utm_source=magazine&amp;utm_medium=sidebar-ad&amp;utm_campaign=sb5">
+              Get your book now!</a>
+            </p>
+          </div>
+          <div class="sec">
+            <a href="https://www.smashingmagazine.com/inclusive-design-patterns" style="border: 0;"><img src="./smashing_files/inclusive-design-patterns.png" alt="Inclusive Design Patterns by Heydon Pickering" width="94" height="135"></a>
+            <p>
+              Today, too many websites are still inaccessible. In our new book <em>Inclusive Design Patterns</em>, we explore how
+              to craft <strong>flexible front-end design patterns</strong> and make future-proof and accessible interfaces without
+              extra effort. Hardcover, 312 pages. <a href="https://www.smashingmagazine.com/inclusive-design-patterns">Get the book
+              →</a>
+            </p>
+          </div>
+          <div class="thi">
+            <a href="https://www.smashingmagazine.com/books/#hardboiled-webdesign" style="border:0;"><img src="./smashing_files/hardboiled-web-design-left.png" alt="Hardboiled Web Design by Andy Clarke" width="94" height="135"></a>
+            <p>
+              With responsive design, creating Photoshop mock-ups is just inefficient. In the new anniversary edition of <a href="https://www.smashingmagazine.com/books/#hardboiled-webdesign">Hardboiled Web Design</a>,�Andy Clarke shows how to
+              improve workflow, craft better front-end, establish style guides and reduce wasted time. <a href="https://www.smashingmagazine.com/books/#hardboiled-webdesign">Get the book</a>.
+            </p>
+          </div>
+        </section>
+        <section class="bw">
+          <div id="spnsrlist-c" class="oa_zone--sponsor" data-sponsor-lines="2"></div>
+        </section>
+        <section class="mt wg">
+          <a href="http://mediatemple.net/"><img data-src="https://www.smashingmagazine.com/wp-content/themes/smashing-magazine/assets/images/mediatemple.svg" alt="Media Temple Logo" width="94" height="94"></a>
+          <p>
+            We are proudly hosted on<br>
+            <a href="http://mediatemple.net/webhosting/vps/dedicated-server/">Media Temple Dedicated Servers</a>. Performance
+            matters.
+          </p>
+        </section>
+        <section>
+          <div class="oa_zone--ad" id="sidebar_special-1" data-ad-name="Sidebar Special 1" data-ad-zone="72"></div>
+        </section>
+        <section>
+          <div class="oa_zone--ad" id="sidebar_special-2" data-ad-name="Sidebar Special 2" data-ad-zone="72"></div>
+        </section>
+        <section>
+          <div class="oa_zone--ad" id="sidebar_special-3" data-ad-name="Sidebar Special 3" data-ad-zone="72"></div>
+        </section>
+        <section>
+          <div class="oa_zone--ad" id="sidebar_special-4" data-ad-name="Sidebar Special 4" data-ad-zone="72"></div>
+        </section>
+        <section class="wg">
+          <div id="jobs">
+            <h3>
+              <a href="http://jobs.smashingmagazine.com/?pk_campaign=sm&amp;piwik_kwd=widget"><span>Smashing Job Board</span>
+              <img data-src="https://www.smashingmagazine.com/wp-content/themes/smashing-magazine/assets/images/sm-jobs.png" alt="Smashing Jobs" width="36" height="34"></a>
+            </h3>
+            <ul class="tl">
+              <li class="clearfix">
+                <a href="http://feedproxy.google.com/~r/smjobs/~3/s_xQu2IlbUk/2445392">Full Stack JavaScript Developer - Wolters
+                Kluwer - (Alphen aan den Rijn) - FullTime</a>
+                <p>
+                  Job Summary Want to be a part of fast growing agile team? We are using best tools and practices available today
+                  and we are passionate about what we are ...
+                </p>
+              </li>
+              <li class="clearfix">
+                <a href="http://feedproxy.google.com/~r/smjobs/~3/kKe_ZxYvf9A/2445189">Full Stacked Growth Engineer - Casumo -
+                (Malta) - FullTime</a>
+                <p>
+                  WHAT WOULD BE YOUR ROLE? Here at Casumo, we have our lovingly crafted desktop app, our award-winning mobile app,
+                  and a suite of bespoke tools to support...
+                </p>
+              </li>
+            </ul><a class="cr" href="http://jobs.smashingmagazine.com/?pk_campaign=sm&amp;piwik_kwd=widget">View more job
+            openings…</a>
+          </div>
+        </section>
+        <section class="clearfix">
+          <div class="oa_zone--ad sidebar_sky" id="sidebar_sky-1" data-ad-name="Sidebar 1" data-ad-zone="40"></div>
+        </section>
+        <section class="clearfix">
+          <div class="oa_zone--ad sidebar_sky" id="sidebar_sky-2" data-ad-name="Sidebar 2" data-ad-zone="40"></div>
+        </section>
+        <section class="bw">
+          <div id="spnsrlist-d" class="oa_zone--sponsor" data-sponsor-lines="2"></div>
+        </section>
+        <section class="clearfix">
+          <div class="oa_zone--ad sidebar_sky" id="sidebar_sky-3" data-ad-name="Sidebar 3" data-ad-zone="40"></div>
+        </section>
+      </div>
+    </aside>
+    <footer class="f" id="footer" role="contentinfo">
+      <p class="stmt">
+        <em>With a commitment to quality content for the design community.</em><br>
+        Founded by Vitaly Friedman and Sven Lennartz. 2006-2011.<br>
+        Made in Germany. <span class="flinks">✎ <a href="https://www.smashingmagazine.com/write-for-us/">Write for us</a> –
+        <a href="https://www.smashingmagazine.com/contact/">Contact us</a> – <a href="https://www.smashingmagazine.com/privacy-policy-2/">Datenschutzerklärung</a> – <a href="https://www.smashingmagazine.com/about/">Impressum</a>.</span>
+      </p>
+    </footer>
+    <p>
+      <img alt="Clicky" width="1" height="1" src="./smashing_files/2727ns.gif">
+    </p>
+  
+
+</body></html>

@@ -50,7 +50,8 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.layout.LayoutPosition;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -103,7 +104,7 @@ public final class PositionApplierUtil {
      * @param position the position
      */
     private static void applyLeftRightTopBottom(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element, String position) {
-        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
         if (CssConstants.RELATIVE.equals(position) && cssProps.containsKey(CssConstants.LEFT) && cssProps.containsKey(CssConstants.RIGHT)) {
             // When both the right CSS property and the left CSS property are defined, the position of the element is overspecified.
@@ -134,7 +135,7 @@ public final class PositionApplierUtil {
      */
     private static void applyLeftProperty(Map<String, String> cssProps, IPropertyContainer element, float em, float rem, int layoutPropertyMapping) {
         String left = cssProps.get(CssConstants.LEFT);
-        UnitValue leftVal = CssUtils.parseLengthValueToPt(left, em, rem);
+        UnitValue leftVal = CssDimensionParsingUtils.parseLengthValueToPt(left, em, rem);
         if (leftVal != null) {
             if (leftVal.isPointValue()) {
                 element.setProperty(layoutPropertyMapping, leftVal.getValue());
@@ -155,7 +156,7 @@ public final class PositionApplierUtil {
      */
     private static void applyRightProperty(Map<String, String> cssProps, IPropertyContainer element, float em, float rem, int layoutPropertyMapping) {
         String right = cssProps.get(CssConstants.RIGHT);
-        UnitValue rightVal = CssUtils.parseLengthValueToPt(right, em, rem);
+        UnitValue rightVal = CssDimensionParsingUtils.parseLengthValueToPt(right, em, rem);
         if (rightVal != null) {
             if (rightVal.isPointValue()) {
                 element.setProperty(layoutPropertyMapping, rightVal.getValue());
@@ -176,7 +177,7 @@ public final class PositionApplierUtil {
      */
     private static void applyTopProperty(Map<String, String> cssProps, IPropertyContainer element, float em, float rem, int layoutPropertyMapping) {
         String top = cssProps.get(CssConstants.TOP);
-        UnitValue topVal = CssUtils.parseLengthValueToPt(top, em, rem);
+        UnitValue topVal = CssDimensionParsingUtils.parseLengthValueToPt(top, em, rem);
         if (topVal != null) {
             if (topVal.isPointValue()) {
                 element.setProperty(layoutPropertyMapping, topVal.getValue());
@@ -197,7 +198,7 @@ public final class PositionApplierUtil {
      */
     private static void applyBottomProperty(Map<String, String> cssProps, IPropertyContainer element, float em, float rem, int layoutPropertyMapping) {
         String bottom = cssProps.get(CssConstants.BOTTOM);
-        UnitValue bottomVal = CssUtils.parseLengthValueToPt(bottom, em, rem);
+        UnitValue bottomVal = CssDimensionParsingUtils.parseLengthValueToPt(bottom, em, rem);
         if (bottomVal != null) {
             if (bottomVal.isPointValue()) {
                 element.setProperty(layoutPropertyMapping, bottomVal.getValue());

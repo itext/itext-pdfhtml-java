@@ -42,13 +42,12 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
-
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.page.CssRunningManager;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
 import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 
 /**
  * Class that bundles all the CSS context properties.
@@ -56,13 +55,16 @@ import com.itextpdf.styledxmlparser.css.util.CssUtils;
 public class CssContext extends AbstractCssContext {
 
     /** The root font size value in pt. */
-    private float rootFontSize = CssUtils.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
+    private float rootFontSize = CssDimensionParsingUtils.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
 
     /** The counter manager. */
     private CssCounterManager counterManager = new CssCounterManager();
 
-    /** Indicates if a pages counter is present. */
-    private boolean pagesCounterPresent = false;
+    /** Indicates if a pages counter or page(s) target-counter is present. */
+    private boolean pagesCounterOrTargetCounterPresent = false;
+
+    /** Indicates if a non-page(s) target-counter(s) is present. */
+    private boolean nonPagesTargetCounterPresent = false;
 
     /** The running elements manager. */
     private CssRunningManager runningManager = new CssRunningManager();
@@ -91,7 +93,7 @@ public class CssContext extends AbstractCssContext {
      * @param fontSizeStr the new root font size
      */
     public void setRootFontSize(String fontSizeStr) {
-        this.rootFontSize = CssUtils.parseAbsoluteFontSize(fontSizeStr);
+        this.rootFontSize = CssDimensionParsingUtils.parseAbsoluteFontSize(fontSizeStr);
     }
 
     /**
@@ -104,21 +106,39 @@ public class CssContext extends AbstractCssContext {
     }
 
     /**
-     * Sets the presence of a page counter.
+     * Sets the presence of a pages counter or page(s) target counter.
      *
-     * @param pagesCounterPresent the new pages counter present
+     * @param pagesCounterOrTargetCounterPresent the new pages counter or page(s) target-counter present
      */
-    public void setPagesCounterPresent(boolean pagesCounterPresent) {
-        this.pagesCounterPresent = pagesCounterPresent;
+    public void setPagesCounterPresent(boolean pagesCounterOrTargetCounterPresent) {
+        this.pagesCounterOrTargetCounterPresent = pagesCounterOrTargetCounterPresent;
     }
 
     /**
-     * Checks if a pages counter is present.
+     * Checks if a pages counter or page(s) target-counter is present.
      *
-     * @return true, if is pages counter present
+     * @return true, if pages counter or page(s) target-counter present
      */
     public boolean isPagesCounterPresent() {
-        return pagesCounterPresent;
+        return pagesCounterOrTargetCounterPresent;
+    }
+
+    /**
+     * Sets the presence of a non-page(s) target-counter(s).
+     *
+     * @param nonPagesTargetCounterPresent the new non-page(s) target-counter(s) present
+     */
+    public void setNonPagesTargetCounterPresent(boolean nonPagesTargetCounterPresent) {
+        this.nonPagesTargetCounterPresent = nonPagesTargetCounterPresent;
+    }
+
+    /**
+     * Checks if a non-page(s) target-counter(s) is present.
+     *
+     * @return true, if non-page(s) target-counter(s) present
+     */
+    public boolean isNonPagesTargetCounterPresent() {
+        return nonPagesTargetCounterPresent;
     }
 
     public CssRunningManager getRunningManager() {

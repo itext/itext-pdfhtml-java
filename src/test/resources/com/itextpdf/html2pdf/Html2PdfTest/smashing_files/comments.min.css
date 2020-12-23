@@ -1,0 +1,248 @@
+.bo08, .sub-tabs {
+    border: .08em solid rgba(0, 0, 0, .1)
+}
+.cau img, .dati {
+    float: left
+}
+.children, .com, .commentspnsrtarget, .ctx, .dati, .sub-tabs {
+    clear: both
+}
+.bobo08 {
+    border-bottom: .08em solid rgba(0, 0, 0, .1)
+}
+.boto08 {
+    border-top: .08em solid rgba(0, 0, 0, .1)
+}
+.adv {
+    margin: 0 5.5%
+}
+.sub-tabs {
+    max-width: 15.625em;
+    margin: 4em 5.5%;
+    border-top: 0
+}
+.sub-tabs a {
+    position: relative;
+    display: block;
+    text-align: center;
+    padding: 1em 0;
+    background-color: #fff;
+    color: #333;
+    -webkit-transition: all .3;
+    transition: all .3
+}
+.sub-tabs a:focus, .sub-tabs a:hover {
+    color: #333;
+    background-color: #ff6
+}
+.sub-tabs .active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 46%;
+    width: 0;
+    border: .625em solid transparent;
+    border-bottom-color: #e5e5e5
+}
+.discussion {
+    padding: 0 5.5% 1em
+}
+.cl {
+    list-style: none;
+    padding: 0
+}
+.cl li {
+    margin-bottom: 4em
+}
+.children {
+    margin: 2em 0 0 5.5%;
+    padding-top: 1em
+}
+.cau, .cau img {
+    margin-right: 1em
+}
+.children li {
+    margin-bottom: 0
+}
+.children>li:not(:first-child) {
+    margin-bottom: 3em
+}
+.cn {
+    font-size: 3.5em;
+    position: absolute;
+    right: 0;
+    color: #e5e5e5;
+    z-index: 1
+}
+.bypostauthor>.c .cau h3::after {
+    content: "post author";
+    font-size: .58333333333333em;
+    color: #f3a48f;
+    padding-left: .25em
+}
+.bypostauthor>.c .ctx {
+    border-color: rgba(233, 92, 51, .5);
+    background: rgba(233, 92, 51, .1)
+}
+.bypostauthor>.cn {
+    color: rgba(233, 92, 51, .5)
+}
+.cau {
+    padding-bottom: .5em
+}
+.cau h3 {
+    padding: 0;
+    line-height: 1.5
+}
+.cau h3 a {
+    padding-bottom: 0
+}
+.dati {
+    margin-top: .3125em
+}
+.ctx {
+    font-size: 1.125em;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    padding: 0 10% 0 2.5%;
+    border: .08em solid rgba(0, 0, 0, .1)
+}
+.ctx * {
+    position: relative;
+    z-index: 15
+}
+.ctx p:first-child {
+    padding-top: 1em
+}
+.ctx p:last-child {
+    padding-bottom: 1em
+}
+.com {
+    padding: .5em 0 0 5%
+}
+.reply {
+    top: .25em;
+    float: right;
+    margin-left: 1.25em;
+    z-index: 4
+}
+.infofield {
+    font-family: 'Noto Serif';
+    font-style: normal;
+    font-weight: 400
+}
+.comment-respond {
+    margin: 0 5.5% 2em
+}
+.comment-respond div, .comment-respond form {
+    position: static;
+    margin-top: 1em
+}
+.comment-respond p strong {
+    color: #e53b2c;
+    display: inline-block
+}
+.comment-respond label {
+    padding-bottom: .5em
+}
+.comment-form {
+    margin-bottom: 4em
+}
+.comment-form label {
+    font-family: 'Noto Serif';
+    font-weight: 700;
+    font-style: normal
+}
+.comment-form [type=text] {
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: .5em
+}
+.ccr {
+    position: absolute;
+    right: 0;
+    top: 2.5em
+}
+.rating__container {
+    font-family: 'Noto Serif';
+    font-style: normal;
+    font-weight: 700;
+    position: absolute;
+    right: 3.5em
+}
+.rating__value {
+    margin-left: .375em;
+    top: .25em;
+    float: right
+}
+.rating__value--positive {
+    color: #41B411
+}
+.rating__value--negative {
+    color: red
+}
+.rating__stars {
+    float: left;
+    margin: .3em .6em 0 0
+}
+.rating__button {
+    display: inline-block;
+    width: 1.25em;
+    height: 1.25em;
+    background: url(../images/rating-sprite.svg) top left no-repeat;
+    background-size: 3.125em 3.125em;
+    opacity: .3;
+    -webkit-transition: all .3;
+    transition: all .3
+}
+.rating__button--down:focus, .rating__button--down:hover, .rating__button--up:focus, .rating__button--up:hover {
+    opacity: .6
+}
+.rating__button:active, .rating__button:focus, .rating__button:hover, .rating__button:link {
+    border: 0
+}
+.rating__button--down {
+    background-position: -.125em -.9em
+}
+.rating__button--up {
+    background-position: -1.875em -1em;
+    margin-right: .6em
+}
+.rating__alert {
+    padding: 0
+}
+@media screen and (min-width:38.125em) {
+    .cau h3, .cau img {
+        font-size: 1.5em;
+        line-height: 1.583333;
+        margin: 0 1em 0 0
+    }
+    .cau h3 {
+        float: left
+    }
+    .cau .dati {
+        line-height: 2.375;
+        float: none;
+        clear: none;
+        display: inline-block
+    }
+    .cn {
+        top: -.4em
+    }
+}
+@media screen and (min-width:50em) {
+    .ctx p:first-child {
+        padding-top: 1.5em
+    }
+    .ctx p:last-child {
+        padding-bottom: 1.5em
+    }
+}
+@media screen and (min-width:76.25em) {
+    .adv, .comment-respond, .sub-tabs {
+        margin-left: 0
+    }
+    .discussion {
+        padding-left: 0
+    }
+}

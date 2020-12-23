@@ -39,12 +39,93 @@ import java.util.Collection;
  */
 public class CssStyleSheetAnalyzer {
 
+    private static final int TARGET_COUNTER_MIN_PARAMS_SIZE = 2;
+    private static final int TARGET_COUNTERS_MIN_PARAMS_SIZE = 3;
+
     private CssStyleSheetAnalyzer() {
+    }
+
+    /**
+     * Helper method to check if non-page(s) target-counter(s) is present anywhere in the CSS.
+     * If presence is detected, it may require additional treatment
+     *
+     * @param styleSheet CSS stylesheet to analyze
+     * @return <code>true</code> in case any non-page(s) target-counter(s) are present in CSS declarations,
+     * or <code>false</code> otherwise
+     */
+    public static boolean checkNonPagesTargetCounterPresence(CssStyleSheet styleSheet) {
+        return checkNonPagesTargetCounterPresence(styleSheet.getStatements());
+    }
+
+    private static boolean checkNonPagesTargetCounterPresence(Collection<CssStatement> statements) {
+        boolean nonPagesTargetCounterPresent = false;
+        for (final CssStatement statement : statements) {
+            boolean checkNonPagesTargetCounterPresenceResult = false;
+            if (statement instanceof CssMarginRule) {
+                checkNonPagesTargetCounterPresenceResult =
+                        checkNonPagesTargetCounterPresence(((CssMarginRule) statement).getStatements());
+            } else if (statement instanceof CssMediaRule) {
+                checkNonPagesTargetCounterPresenceResult =
+                        checkNonPagesTargetCounterPresence(((CssMediaRule) statement).getStatements());
+            } else if (statement instanceof CssPageRule) {
+                checkNonPagesTargetCounterPresenceResult =
+                        checkNonPagesTargetCounterPresence(((CssPageRule) statement).getStatements());
+            } else if (statement instanceof CssRuleSet) {
+                checkNonPagesTargetCounterPresenceResult =
+                        checkNonPagesTargetCounterPresence((CssRuleSet) statement);
+            }
+            nonPagesTargetCounterPresent = nonPagesTargetCounterPresent || checkNonPagesTargetCounterPresenceResult;
+        }
+        return nonPagesTargetCounterPresent;
+    }
+
+    private static boolean checkNonPagesTargetCounterPresence(CssRuleSet ruleSet) {
+        boolean pagesCounterPresent = false;
+        for (final CssDeclaration declaration : ruleSet.getImportantDeclarations()) {
+            pagesCounterPresent = pagesCounterPresent || checkNonPagesTargetCounterPresence(declaration);
+        }
+        for (final CssDeclaration declaration : ruleSet.getNormalDeclarations()) {
+            pagesCounterPresent = pagesCounterPresent || checkNonPagesTargetCounterPresence(declaration);
+        }
+        return pagesCounterPresent;
+    }
+
+    private static boolean checkNonPagesTargetCounterPresence(CssDeclaration declaration) {
+        boolean nonPagesTargetCounterPresent = false;
+
+        if (CssConstants.CONTENT.equals(declaration.getProperty())) {
+            CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(declaration.getExpression());
+            CssDeclarationValueTokenizer.Token token;
+
+            while ((token = tokenizer.getNextValidToken()) != null) {
+                if (token.isString()) {
+                    continue;
+                }
+                if (token.getValue().startsWith(CssConstants.TARGET_COUNTER + "(")) {
+                    final String paramsStr = token.getValue()
+                            .substring(CssConstants.TARGET_COUNTER.length() + 1, token.getValue().length() - 1);
+                    final String[] params = paramsStr.split(",");
+                    nonPagesTargetCounterPresent = nonPagesTargetCounterPresent ||
+                            (params.length >= TARGET_COUNTER_MIN_PARAMS_SIZE &&
+                                    !checkTargetCounterParamsForPageOrPagesReferencePresence(params));
+                } else if (token.getValue().startsWith(CssConstants.TARGET_COUNTERS + "(")) {
+                    final String paramsStr = token.getValue()
+                            .substring(CssConstants.TARGET_COUNTERS.length() + 1, token.getValue().length() - 1);
+                    final String[] params = paramsStr.split(",");
+                    nonPagesTargetCounterPresent = nonPagesTargetCounterPresent ||
+                            (params.length >= TARGET_COUNTERS_MIN_PARAMS_SIZE &&
+                                    !checkTargetCounterParamsForPageOrPagesReferencePresence(params));
+                }
+            }
+        }
+
+        return nonPagesTargetCounterPresent;
     }
 
     /**
      * Helper method to check if counter(pages) or counters(pages) is present anywhere in the CSS.
      * If the presence is detected, it may require additional treatment
+     *
      * @param styleSheet CSS stylesheet to analyze
      * @return <code>true</code> in case any "pages" counters are present in CSS declarations,
      * or <code>false</code> otherwise
@@ -91,16 +172,31 @@ public class CssStyleSheetAnalyzer {
             CssDeclarationValueTokenizer.Token token;
 
             while ((token = tokenizer.getNextValidToken()) != null) {
-                if (!token.isString()) {
-                    if (token.getValue().startsWith(CssConstants.COUNTERS + "(")) {
-                        String paramsStr = token.getValue().substring(CssConstants.COUNTERS.length() + 1, token.getValue().length() - 1);
-                        String[] params = paramsStr.split(",");
-                        pagesCounterPresent = pagesCounterPresent || checkCounterFunctionParamsForPagesReferencePresence(params);
-                    } else if (token.getValue().startsWith(CssConstants.COUNTER + "(")) {
-                        String paramsStr = token.getValue().substring(CssConstants.COUNTER.length() + 1, token.getValue().length() - 1);
-                        String[] params = paramsStr.split(",");
-                        pagesCounterPresent = pagesCounterPresent || checkCounterFunctionParamsForPagesReferencePresence(params);
-                    }
+                if (token.isString()) {
+                    continue;
+                }
+                if (token.getValue().startsWith(CssConstants.COUNTERS + "(")) {
+                    String paramsStr = token.getValue().substring(CssConstants.COUNTERS.length() + 1, token.getValue().length() - 1);
+                    String[] params = paramsStr.split(",");
+                    pagesCounterPresent = pagesCounterPresent || checkCounterFunctionParamsForPagesReferencePresence(params);
+                } else if (token.getValue().startsWith(CssConstants.COUNTER + "(")) {
+                    String paramsStr = token.getValue().substring(CssConstants.COUNTER.length() + 1, token.getValue().length() - 1);
+                    String[] params = paramsStr.split(",");
+                    pagesCounterPresent = pagesCounterPresent || checkCounterFunctionParamsForPagesReferencePresence(params);
+                } else if (token.getValue().startsWith(CssConstants.TARGET_COUNTER + "(")) {
+                    final String paramsStr = token.getValue()
+                            .substring(CssConstants.TARGET_COUNTER.length() + 1, token.getValue().length() - 1);
+                    final String[] params = paramsStr.split(",");
+                    pagesCounterPresent = pagesCounterPresent ||
+                            (params.length >= TARGET_COUNTER_MIN_PARAMS_SIZE &&
+                                    checkTargetCounterParamsForPageOrPagesReferencePresence(params));
+                } else if (token.getValue().startsWith(CssConstants.TARGET_COUNTERS + "(")) {
+                    final String paramsStr = token.getValue()
+                            .substring(CssConstants.TARGET_COUNTERS.length() + 1, token.getValue().length() - 1);
+                    final String[] params = paramsStr.split(",");
+                    pagesCounterPresent = pagesCounterPresent ||
+                            (params.length >= TARGET_COUNTERS_MIN_PARAMS_SIZE &&
+                                    checkTargetCounterParamsForPageOrPagesReferencePresence(params));
                 }
             }
         }
@@ -110,6 +206,10 @@ public class CssStyleSheetAnalyzer {
 
     private static boolean checkCounterFunctionParamsForPagesReferencePresence(String[] params) {
         return params.length > 0 && CssConstants.PAGES.equals(params[0].trim());
+    }
+
+    private static boolean checkTargetCounterParamsForPageOrPagesReferencePresence(String[] params) {
+        return CssConstants.PAGE.equals(params[1].trim()) || CssConstants.PAGES.equals(params[1].trim());
     }
 
 }

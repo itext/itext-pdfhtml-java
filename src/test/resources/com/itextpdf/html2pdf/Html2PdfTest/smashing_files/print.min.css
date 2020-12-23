@@ -1,0 +1,208 @@
+.cahe, h2 {
+    padding-bottom: 0
+}
+.cc .fluid, .post {
+    border: 0
+}
+*, a, a:visited {
+    color: #444!important
+}
+blockquote, img, pre {
+    page-break-inside: avoid
+}
+@page {
+    padding: 1.5cm
+}
+* {
+    background: 0 0!important;
+    text-shadow: none!important;
+    box-shadow: none!important
+}
+.po {
+    display: block
+}
+body {
+    max-width: auto
+}
+body, button, input, textarea {
+    font-size: 100%;
+    line-height: 1.4em
+}
+.h {
+    margin-left: 0
+}
+.cc {
+    margin-right: 0
+}
+.post {
+    margin-bottom: 1em!important;
+    padding: 0
+}
+h2 {
+    font-size: 2em;
+    line-height: 1.3em;
+    margin-bottom: .25em
+}
+h2 a {
+    text-decoration: none
+}
+.cahe {
+    line-height: 1.75em;
+    letter-spacing: .08em
+}
+h3 {
+    font-size: 1.75em;
+    margin: 0 0 .15em;
+    line-height: 1.2em
+}
+h4 {
+    letter-spacing: .125em;
+    padding: 1.5em 0 0;
+    margin-bottom: 0
+}
+h4.po {
+    margin: 3em 0 1em
+}
+blockquote, h2, h3, h4, p {
+    orphans: 3;
+    widows: 3
+}
+h2, h3 {
+    page-break-after: avoid
+}
+blockquote {
+    border: 0;
+    border-bottom: .08em solid #efefef;
+    font-size: .9em
+}
+a, a:visited {
+    text-decoration: underline;
+    border: 0!important
+}
+.pmd a, .tags a, sup.po a {
+    text-decoration: none
+}
+p {
+    font-size: .875em
+}
+p a {
+    border-bottom: .08em solid rgba(0, 0, 0, .1);
+    padding-bottom: .08em
+}
+sup {
+    font-size: .65em;
+    vertical-align: top;
+    position: relative;
+    left: -1px;
+    top: -4px
+}
+img {
+    max-width: 31.25em;
+    margin: .3em 0
+}
+code, pre {
+    background: #fefeec;
+    line-height: 1.1em
+}
+.cat {
+    border-bottom: .3125em solid #eee
+}
+ul {
+    list-style-type: disc
+}
+ol {
+    list-style-type: decimal
+}
+li {
+    padding: .5em 0
+}
+ol, ul {
+    margin: 0 1.5em
+}
+.pmd {
+    font-size: .9em;
+    padding: 0 0 1em;
+    margin: 0 0 2em;
+    border-bottom: 1px solid #e3e3e3;
+    color: #fafafa
+}
+.pmd a {
+    border: 0
+}
+.pmd li {
+    display: inline
+}
+.pmd .a {
+    display: block;
+    font-size: 1.3em;
+    font-style: italic;
+    font-family: 'Noto Serif';
+    font-weight: 400;
+    width: 100%;
+    padding: 1em 0!important
+}
+.tags a, sup.po {
+    display: inline
+}
+.pmd .comments, .pmd .date, .pmd .tags {
+    float: left;
+    padding: 1em 0 0;
+    margin: 0 0 0 .27em
+}
+.date {
+    margin-left: 2em
+}
+.date:before {
+    content: "Published on ";
+    white-space: pre;
+    color: #ccc
+}
+.date:after {
+    content: " in ";
+    color: #ccc
+}
+.tags a {
+    color: #fafafa
+}
+.tags:after {
+    content: " with ";
+    color: #ccc
+}
+.bio {
+    margin: 2em 0 0;
+    padding: 1.5em 2.5%;
+    border-top: 5px solid #ccc
+}
+.about, .grv {
+    float: left
+}
+.grv {
+    width: 20%;
+    padding: 1.25em 0
+}
+.about {
+    padding: 1.25em 0 0;
+    width: 80%
+}
+.about, .f, .grv {
+    margin-left: 0;
+    margin-right: 0
+}
+.f {
+    padding-left: 0
+}
+.stmt {
+    clear: both
+}
+.stmt:after {
+    clear: both;
+    content: "http://www.smashingmagazine.com"
+}
+ol.po {
+    list-style-type: none;
+    padding: 0 .5em;
+    margin: 0
+}
+#discussion, #respond, #textadtarget, .ad, .adv, .ch, .flinks, .fo-na, .fp, .logoedtarget, .lt, .mise, .mnb, .nl-ad, .pgn, .pmd .edit, .post-pagination .pages, .post-pagination h4, .ras, .sb, .sfcp, .sn, .sot, .stmt a, .sub-tabs, .top, iframe {
+    display: none
+}

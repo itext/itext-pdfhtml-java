@@ -63,8 +63,9 @@ import com.itextpdf.layout.property.BackgroundRepeat.BackgroundRepeatValue;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
+import com.itextpdf.styledxmlparser.css.util.CssBackgroundUtils;
 import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
-import com.itextpdf.styledxmlparser.css.util.CssMappingUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
 
@@ -116,7 +117,7 @@ public final class BackgroundApplierUtil {
         final List<String> backgroundBlendModeArray = CssUtils.splitStringWithComma(backgroundBlendModeStr);
 
         final String fontSize = cssProps.get(CssConstants.FONT_SIZE);
-        final float em = fontSize == null ? 0 : CssUtils.parseAbsoluteLength(fontSize);
+        final float em = fontSize == null ? 0 : CssDimensionParsingUtils.parseAbsoluteLength(fontSize);
         final float rem = context.getCssContext().getRootFontSize();
 
         final List<String> backgroundClipArray = CssUtils.splitStringWithComma(backgroundClipStr);
@@ -269,7 +270,7 @@ public final class BackgroundApplierUtil {
                     position.setPositionX(BackgroundPosition.PositionX.CENTER);
                     break;
                 default:
-                    final UnitValue unitValue = CssUtils.parseLengthValueToPt(value, em, rem);
+                    final UnitValue unitValue = CssDimensionParsingUtils.parseLengthValueToPt(value, em, rem);
                     if (unitValue != null) {
                         position.setXShift(unitValue);
                     }
@@ -290,7 +291,7 @@ public final class BackgroundApplierUtil {
                     position.setPositionY(BackgroundPosition.PositionY.CENTER);
                     break;
                 default:
-                    final UnitValue unitValue = CssUtils.parseLengthValueToPt(value, em, rem);
+                    final UnitValue unitValue = CssDimensionParsingUtils.parseLengthValueToPt(value, em, rem);
                     if (unitValue != null) {
                         position.setYShift(unitValue);
                     }
@@ -308,12 +309,12 @@ public final class BackgroundApplierUtil {
                 } else if (CommonCssConstants.REPEAT_Y.equals(repeatProps[0])) {
                     return new BackgroundRepeat(BackgroundRepeatValue.NO_REPEAT, BackgroundRepeatValue.REPEAT);
                 } else {
-                    BackgroundRepeatValue value = CssMappingUtils.parseBackgroundRepeat(repeatProps[0]);
+                    BackgroundRepeatValue value = CssBackgroundUtils.parseBackgroundRepeat(repeatProps[0]);
                     return new BackgroundRepeat(value);
                 }
             } else if (repeatProps.length == 2) {
-                return new BackgroundRepeat(CssMappingUtils.parseBackgroundRepeat(repeatProps[0]),
-                        CssMappingUtils.parseBackgroundRepeat(repeatProps[1]));
+                return new BackgroundRepeat(CssBackgroundUtils.parseBackgroundRepeat(repeatProps[0]),
+                        CssBackgroundUtils.parseBackgroundRepeat(repeatProps[1]));
             }
         }
         // Valid cases are processed by the block above, and in invalid
@@ -332,7 +333,7 @@ public final class BackgroundApplierUtil {
     private static void applyBackgroundColor(final String backgroundColorStr, final IPropertyContainer element,
             BackgroundBox clip) {
         if (backgroundColorStr != null && !CssConstants.TRANSPARENT.equals(backgroundColorStr)) {
-            float[] rgbaColor = CssUtils.parseRgbaColor(backgroundColorStr);
+            float[] rgbaColor = CssDimensionParsingUtils.parseRgbaColor(backgroundColorStr);
             Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
             float opacity = rgbaColor[3];
             final Background backgroundColor = new Background(color, opacity, clip);
@@ -410,7 +411,8 @@ public final class BackgroundApplierUtil {
             }
             return;
         }
-        image.getBackgroundSize().setBackgroundSizeToValues(CssUtils.parseLengthValueToPt(widthValue, em, rem), null);
+        image.getBackgroundSize().setBackgroundSizeToValues(
+                CssDimensionParsingUtils.parseLengthValueToPt(widthValue, em, rem), null);
     }
 
     private static void applyBackgroundWidthHeight(final List<String> backgroundSizeValues,
@@ -418,7 +420,7 @@ public final class BackgroundApplierUtil {
         String widthValue = backgroundSizeValues.get(0);
         if (CommonCssConstants.BACKGROUND_SIZE_VALUES.contains(widthValue)) {
             if (widthValue.equals(CommonCssConstants.AUTO)) {
-                UnitValue height = CssUtils.parseLengthValueToPt(backgroundSizeValues.get(1), em, rem);
+                UnitValue height = CssDimensionParsingUtils.parseLengthValueToPt(backgroundSizeValues.get(1), em, rem);
                 if (height != null) {
                     image.getBackgroundSize().setBackgroundSizeToValues(null, height);
                 }
@@ -426,8 +428,8 @@ public final class BackgroundApplierUtil {
             return;
         }
         image.getBackgroundSize().setBackgroundSizeToValues(
-                CssUtils.parseLengthValueToPt(backgroundSizeValues.get(0), em, rem),
-                CssUtils.parseLengthValueToPt(backgroundSizeValues.get(1), em, rem));
+                CssDimensionParsingUtils.parseLengthValueToPt(backgroundSizeValues.get(0), em, rem),
+                CssDimensionParsingUtils.parseLengthValueToPt(backgroundSizeValues.get(1), em, rem));
     }
 
     /**

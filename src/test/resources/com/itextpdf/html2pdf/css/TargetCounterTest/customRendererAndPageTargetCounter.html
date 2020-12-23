@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        p::before {
+            content: target-counter(url('#id1'), page) ' ';
+        }
+    </style>
+</head>
+<body style="font-size: 100px;">
+<p id="id1">P</p>
+</body>
+</html>

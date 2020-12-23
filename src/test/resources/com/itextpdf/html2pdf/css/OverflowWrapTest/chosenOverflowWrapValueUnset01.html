@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		.bar {
+		  overflow-wrap: anywhere;
+		}
+		p {
+		  overflow-wrap: break-word;
+		}
+		.bar p {
+		  overflow-wrap: unset;
+		}
+	</style>
+</head>
+<body>
+<p>paragraph</p>
+<div class="bar">div
+	<p>paragraph</p>
+</div>
+</body>
+</html>

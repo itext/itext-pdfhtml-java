@@ -52,7 +52,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
@@ -76,7 +76,7 @@ public class SelectTagWorker implements ITagWorker, IDisplayAware {
         String name = context.getFormFieldNameResolver().resolveFormName(element.getAttribute(AttributeConstants.NAME));
 
         boolean multipleAttr = element.getAttribute(AttributeConstants.MULTIPLE) != null;
-        Integer sizeAttr = CssUtils.parseInteger(element.getAttribute(AttributeConstants.SIZE));
+        Integer sizeAttr = CssDimensionParsingUtils.parseInteger(element.getAttribute(AttributeConstants.SIZE));
         int size = getSelectSize(sizeAttr, multipleAttr);
 
         if (size > 1 || multipleAttr) {

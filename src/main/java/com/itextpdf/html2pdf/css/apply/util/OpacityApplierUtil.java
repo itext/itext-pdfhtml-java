@@ -46,7 +46,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 
 import java.util.Map;
 
@@ -68,7 +68,7 @@ public class OpacityApplierUtil {
      * @param container the container element
      */
     public static void applyOpacity(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer container) {
-        Float opacity = CssUtils.parseFloat(cssProps.get(CssConstants.OPACITY));
+        Float opacity = CssDimensionParsingUtils.parseFloat(cssProps.get(CssConstants.OPACITY));
         if (opacity != null) {
             container.setProperty(Property.OPACITY, opacity);
         }

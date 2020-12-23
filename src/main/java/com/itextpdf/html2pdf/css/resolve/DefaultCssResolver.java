@@ -51,7 +51,6 @@ import com.itextpdf.html2pdf.exception.Html2PdfException;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.io.util.DecimalFormatUtil;
-import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
 import com.itextpdf.styledxmlparser.css.CssRuleSet;
@@ -68,6 +67,8 @@ import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
 import com.itextpdf.styledxmlparser.css.resolve.CssInheritance;
 import com.itextpdf.styledxmlparser.css.resolve.IStyleInheritance;
+import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IDataNode;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
@@ -77,7 +78,6 @@ import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.styledxmlparser.util.StyleUtil;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -138,6 +138,30 @@ public class DefaultCssResolver implements ICssResolver {
         collectFonts();
     }
 
+    /**
+     * Gets the list of fonts.
+     *
+     * @return the list of {@link CssFontFaceRule} instances
+     */
+    public List<CssFontFaceRule> getFonts() {
+        return fonts;
+    }
+
+    /**
+     * Resolves content and counter(s) styles of a node given the passed context.
+     *
+     * @param node the node
+     * @param context the CSS context (RootFontSize, etc.)
+     */
+    public void resolveContentAndCountersStyles(INode node, CssContext context) {
+        final Map<String, String> elementStyles = resolveElementsStyles(node);
+        CounterProcessorUtil.processCounters(elementStyles, context);
+        resolveContentProperty(elementStyles, node, context);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, String> resolveStyles(INode element, AbstractCssContext context) {
         if (context instanceof CssContext) {
@@ -150,23 +174,7 @@ public class DefaultCssResolver implements ICssResolver {
      * @see com.itextpdf.html2pdf.css.resolve.ICssResolver#resolveStyles(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.resolve.CssContext)
      */
     private Map<String, String> resolveStyles(INode element, CssContext context) {
-        List<CssRuleSet> ruleSets = new ArrayList<>();
-        ruleSets.add(new CssRuleSet(null, UserAgentCss.getStyles(element)));
-
-        if (element instanceof IElementNode) {
-            ruleSets.add(new CssRuleSet(null, HtmlStylesToCssConverter.convert((IElementNode) element)));
-        }
-
-        ruleSets.addAll(cssStyleSheet.getCssRuleSets(element, deviceDescription));
-
-        if (element instanceof IElementNode) {
-            String styleAttribute = ((IElementNode) element).getAttribute(AttributeConstants.STYLE);
-            if (styleAttribute != null) {
-                ruleSets.add(new CssRuleSet(null, CssRuleSetParser.parsePropertyDeclarations(styleAttribute)));
-            }
-        }
-
-        Map<String, String> elementStyles = CssStyleSheet.extractStylesFromRuleSets(ruleSets);
+        Map<String, String> elementStyles = resolveElementsStyles(element);
 
         if (CssConstants.CURRENTCOLOR.equals(elementStyles.get(CssConstants.COLOR))) {
             // css-color-3/#currentcolor:
@@ -197,22 +205,21 @@ public class DefaultCssResolver implements ICssResolver {
         }
 
         String elementFontSize = elementStyles.get(CssConstants.FONT_SIZE);
-        if (CssUtils.isRelativeValue(elementFontSize) || CssConstants.LARGER.equals(elementFontSize) || CssConstants.SMALLER.equals(elementFontSize)) {
+        if (CssTypesValidationUtils.isRelativeValue(elementFontSize) || CssConstants.LARGER.equals(elementFontSize)
+                || CssConstants.SMALLER.equals(elementFontSize)) {
             float baseFontSize;
-            if (CssUtils.isRemValue(elementFontSize)) {
+            if (CssTypesValidationUtils.isRemValue(elementFontSize)) {
                 baseFontSize = context.getRootFontSize();
+            } else if (parentFontSizeStr == null) {
+                baseFontSize = CssDimensionParsingUtils.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
             } else {
-                if (parentFontSizeStr == null) {
-                    baseFontSize = CssUtils.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
-                } else {
-                    baseFontSize = CssUtils.parseAbsoluteLength(parentFontSizeStr);
-                }
+                baseFontSize = CssDimensionParsingUtils.parseAbsoluteLength(parentFontSizeStr);
             }
-            float absoluteFontSize = CssUtils.parseRelativeFontSize(elementFontSize, baseFontSize);
+            float absoluteFontSize = CssDimensionParsingUtils.parseRelativeFontSize(elementFontSize, baseFontSize);
             // Format to 4 decimal places to prevent differences between Java and C#
             elementStyles.put(CssConstants.FONT_SIZE, DecimalFormatUtil.formatNumber(absoluteFontSize, "0.####") + CssConstants.PT);
         } else {
-            elementStyles.put(CssConstants.FONT_SIZE, Float.toString(CssUtils.parseAbsoluteFontSize(elementFontSize)) + CssConstants.PT);
+            elementStyles.put(CssConstants.FONT_SIZE, Float.toString(CssDimensionParsingUtils.parseAbsoluteFontSize(elementFontSize)) + CssConstants.PT);
         }
 
         // Update root font size
@@ -232,19 +239,26 @@ public class DefaultCssResolver implements ICssResolver {
         }
 
         // This is needed for correct resolving of content property, so doing it right here
-        CounterProcessorUtil.processCounters(elementStyles, context, element);
+        CounterProcessorUtil.processCounters(elementStyles, context);
         resolveContentProperty(elementStyles, element, context);
 
         return elementStyles;
     }
 
-    /**
-     * Gets the list of fonts.
-     *
-     * @return the list of {@link CssFontFaceRule} instances
-     */
-    public List<CssFontFaceRule> getFonts() {
-        return fonts;
+    private Map<String, String> resolveElementsStyles(INode element) {
+        List<CssRuleSet> ruleSets = new ArrayList<>();
+        ruleSets.add(new CssRuleSet(null, UserAgentCss.getStyles(element)));
+        if (element instanceof IElementNode) {
+            ruleSets.add(new CssRuleSet(null, HtmlStylesToCssConverter.convert((IElementNode) element)));
+        }
+        ruleSets.addAll(cssStyleSheet.getCssRuleSets(element, deviceDescription));
+        if (element instanceof IElementNode) {
+            String styleAttribute = ((IElementNode) element).getAttribute(AttributeConstants.STYLE);
+            if (styleAttribute != null) {
+                ruleSets.add(new CssRuleSet(null, CssRuleSetParser.parsePropertyDeclarations(styleAttribute)));
+            }
+        }
+        return CssStyleSheet.extractStylesFromRuleSets(ruleSets);
     }
 
     /**
@@ -262,6 +276,10 @@ public class DefaultCssResolver implements ICssResolver {
                     contentContainer.addChild(child);
                 }
             }
+        }
+        if (contentContainer instanceof IElementNode) {
+            context.getCounterManager().addTargetCounterIfRequired((IElementNode) contentContainer);
+            context.getCounterManager().addTargetCountersIfRequired((IElementNode) contentContainer);
         }
     }
 
@@ -310,16 +328,29 @@ public class DefaultCssResolver implements ICssResolver {
                 }
             }
         }
-        checkIfPagesCounterMentioned(cssStyleSheet, cssContext);
+        enablePagesCounterIfMentioned(cssStyleSheet, cssContext);
+        enableNonPageTargetCounterIfMentioned(cssStyleSheet, cssContext);
     }
 
     /**
-     * Check if a pages counter is mentioned.
+     * Check if a non-page(s) target-counter(s) is mentioned and enables it.
      *
      * @param styleSheet the stylesheet to analyze
      * @param cssContext the CSS context
      */
-    private void checkIfPagesCounterMentioned(CssStyleSheet styleSheet, CssContext cssContext) {
+    private static void enableNonPageTargetCounterIfMentioned(CssStyleSheet styleSheet, CssContext cssContext) {
+        if (CssStyleSheetAnalyzer.checkNonPagesTargetCounterPresence(styleSheet)) {
+            cssContext.setNonPagesTargetCounterPresent(true);
+        }
+    }
+
+    /**
+     * Check if a pages counter is mentioned and enables it.
+     *
+     * @param styleSheet the stylesheet to analyze
+     * @param cssContext the CSS context
+     */
+    private static void enablePagesCounterIfMentioned(CssStyleSheet styleSheet, CssContext cssContext) {
         // The presence of counter(pages) means that theoretically relayout may be needed.
         // We don't know it yet because that selector might not even be used, but
         // when we know it for sure, it's too late because the Document is created right in the start.

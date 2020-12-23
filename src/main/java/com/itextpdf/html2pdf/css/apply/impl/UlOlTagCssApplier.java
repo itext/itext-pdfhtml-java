@@ -52,7 +52,7 @@ import com.itextpdf.layout.property.BaseDirection;
 import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
 import java.util.Map;
@@ -88,9 +88,10 @@ public class UlOlTagCssApplier extends BlockCssApplier {
         // process the padding considering the direction
         boolean isRtl = BaseDirection.RIGHT_TO_LEFT.equals(list.<BaseDirection>getProperty(Property.BASE_DIRECTION));
         if ((isRtl && !list.hasProperty(Property.PADDING_RIGHT)) || (!isRtl && !list.hasProperty(Property.PADDING_LEFT))) {
-            float em = CssUtils.parseAbsoluteLength(css.get(CssConstants.FONT_SIZE));
+            float em = CssDimensionParsingUtils.parseAbsoluteLength(css.get(CssConstants.FONT_SIZE));
             float rem = context.getCssContext().getRootFontSize();
-            UnitValue startPadding = CssUtils.parseLengthValueToPt(css.get(CssConstants.PADDING_INLINE_START), em, rem);
+            UnitValue startPadding = CssDimensionParsingUtils
+                    .parseLengthValueToPt(css.get(CssConstants.PADDING_INLINE_START), em, rem);
             list.setProperty(isRtl ? Property.PADDING_RIGHT : Property.PADDING_LEFT, startPadding);
         }
     }

@@ -56,7 +56,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 import java.util.regex.Pattern;
@@ -102,7 +102,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
         // Default input type is text
         if (inputType == null || AttributeConstants.TEXT.equals(inputType) || AttributeConstants.EMAIL.equals(inputType)
                 || AttributeConstants.PASSWORD.equals(inputType) || AttributeConstants.NUMBER.equals(inputType)) {
-            Integer size = CssUtils.parseInteger(element.getAttribute(AttributeConstants.SIZE));
+            Integer size = CssDimensionParsingUtils.parseInteger(element.getAttribute(AttributeConstants.SIZE));
             formElement = new InputField(name);
 
             value = preprocessInputValue(value, inputType);

@@ -50,7 +50,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
@@ -83,8 +83,8 @@ public class TextAreaTagWorker implements ITagWorker, IDisplayAware {
         }
         name = context.getFormFieldNameResolver().resolveFormName(name);
         textArea = new TextArea(name);
-        Integer rows = CssUtils.parseInteger(element.getAttribute(AttributeConstants.ROWS));
-        Integer cols = CssUtils.parseInteger(element.getAttribute(AttributeConstants.COLS));
+        Integer rows = CssDimensionParsingUtils.parseInteger(element.getAttribute(AttributeConstants.ROWS));
+        Integer cols = CssDimensionParsingUtils.parseInteger(element.getAttribute(AttributeConstants.COLS));
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_ROWS, rows);
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_COLS, cols);
         textArea.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());

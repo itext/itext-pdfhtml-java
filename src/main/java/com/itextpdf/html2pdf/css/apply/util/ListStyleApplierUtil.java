@@ -67,6 +67,7 @@ import com.itextpdf.layout.property.ListNumberingType;
 import com.itextpdf.layout.property.ListSymbolPosition;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
 import com.itextpdf.styledxmlparser.node.IElementNode;
@@ -133,7 +134,7 @@ public final class ListStyleApplierUtil {
         PdfXObject imageXObject = null;
         if (listStyleImageStr != null && !CssConstants.NONE.equals(listStyleImageStr)) {
             if (CssGradientUtil.isCssLinearGradientValue(listStyleImageStr)) {
-                float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+                float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
                 float rem = context.getCssContext().getRootFontSize();
                 try {
                     StrategyBasedLinearGradientBuilder gradientBuilder =
@@ -184,7 +185,7 @@ public final class ListStyleApplierUtil {
      * @param element the element
      */
     public static void applyListStyleTypeProperty(IStylesContainer stylesContainer, Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
-        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
 
         String style = cssProps.get(CssConstants.LIST_STYLE_TYPE);
         if (CssConstants.DISC.equals(style)) {

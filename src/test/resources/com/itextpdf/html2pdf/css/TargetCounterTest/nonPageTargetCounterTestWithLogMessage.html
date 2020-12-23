@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            /* This is done to trigger the log message */
+            background-repeat: aaaa;
+            counter-reset: section;
+        }
+        .x::before {
+            counter-increment: section;
+            content: "Section " counter(section) ": ";
+        }
+        .before::before {
+            content: target-counter(url('#id1'), section) " ";
+        }
+        .after::after {
+            content: " " target-counter(url('#id1'), section);
+        }
+    </style>
+</head>
+<body>
+<p class="before"> - counter</p>
+<div>
+    <div class="x">x</div>
+    <div class="x">x</div>
+    <div class="x" id="id1">target</div>
+</div>
+<p class="after">counter: </p>
+</body>
+</html>

@@ -46,10 +46,9 @@ import com.itextpdf.html2pdf.attach.wrapelement.ColWrapper;
 import com.itextpdf.html2pdf.attach.wrapelement.ColgroupWrapper;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
-import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
 
 import java.util.ArrayList;
 
@@ -146,8 +145,8 @@ public class WaitingColgroupsHelper {
                     applyColStyles(element, rowColHelper);
                     rowColHelper.newRow();
                 } else if (TagConstants.TH.equals(element.name()) || TagConstants.TD.equals(element.name())) {
-                    Integer colspan = CssUtils.parseInteger(element.getAttribute(AttributeConstants.COLSPAN));
-                    Integer rowspan = CssUtils.parseInteger(element.getAttribute(AttributeConstants.ROWSPAN));
+                    Integer colspan = CssDimensionParsingUtils.parseInteger(element.getAttribute(AttributeConstants.COLSPAN));
+                    Integer rowspan = CssDimensionParsingUtils.parseInteger(element.getAttribute(AttributeConstants.ROWSPAN));
                     colspan = colspan != null ? colspan : 1;
                     rowspan = rowspan != null ? rowspan : 1;
                     col = rowColHelper.moveToNextEmptyCol();

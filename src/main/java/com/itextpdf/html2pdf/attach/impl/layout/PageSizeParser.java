@@ -47,7 +47,9 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -178,7 +180,7 @@ class PageSizeParser {
      * @return the value as a float
      */
     private static Float tryParsePageLengthValue(String valueChunk, float em, float rem) {
-        UnitValue unitValue = CssUtils.parseLengthValueToPt(valueChunk, em, rem);
+        UnitValue unitValue = CssDimensionParsingUtils.parseLengthValueToPt(valueChunk, em, rem);
         if (unitValue == null || unitValue.isPercentValue()) {
             return null;
         }
@@ -192,7 +194,7 @@ class PageSizeParser {
      * @return true, if the string represents a length value
      */
     private static boolean isLengthValue(String pageSizeChunk) {
-        return CssUtils.isMetricValue(pageSizeChunk) || CssUtils.isRelativeValue(pageSizeChunk);
+        return CssTypesValidationUtils.isMetricValue(pageSizeChunk) || CssTypesValidationUtils.isRelativeValue(pageSizeChunk);
     }
 
     /**

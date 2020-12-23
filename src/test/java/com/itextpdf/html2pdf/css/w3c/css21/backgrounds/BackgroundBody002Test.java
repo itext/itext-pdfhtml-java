@@ -24,7 +24,7 @@ package com.itextpdf.html2pdf.css.w3c.css21.backgrounds;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-// TODO DEVSIX-4390 The text should be within the green box
+// TODO DEVSIX-4732 background image should be around the content
 public class BackgroundBody002Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

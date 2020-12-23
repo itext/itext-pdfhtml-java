@@ -1,20 +1,24 @@
 %PDF-1.7
 %âãÏÓ
+7 0 obj
+<</Filter/FlateDecode/Length 178>>stream
+xœmÏ»Ã Ğ^S0Ì/#K$ÎşE,d*Kë>é£Œ²ê÷…`ôT:­NAŞ×¢÷ûHï®~2ø=÷v™Îğ7\Ì^°‰ÓĞ´‰|FÉUö8a¥o2h2…|·ËÒeP‘ŠóEÌ²Â`-ÂÈF¯q0%İTgf‡sîÀúÄ*ºQxö.$><¨ö?IhprÚRm¸Pf‡™N/XÌî4Œ´ûœÎñˆŠüi‡
+endstream
+endobj
 5 0 obj
-<</Filter/FlateDecode/Length 462>>stream
-xœ‘Án£0†ï~Š9v¥Š…Hr­Ô½®*ñ¦LÀ•±‰1›¶O¿ƒ¼Y)RDfä™ïÿgæÂbˆ!S³,vNItÈ eYšÁ”KÊsÿ¾ÿ$KşyJ7İ’Ù»¬ØØ÷MÛ#ÿ•
-­Ü‡{X;9™ÑoéÆFÈ]ÚpÀ`ü@fcaÆ&&lFÔx8Dº—Œúö;ŠOåû9HWïiİ<£\½'cÜJİE¹æÖkN ‚,œ)XÉÜm™ÕnãL¸µ„‡¼ìç¯’gv<Í)-7…¢r'qOEƒ¡oô +(84Úˆo­,— …BĞg°H‰{èt/¬Ğ
-Çj{ET`«;(µ©Ğ¸úì	Æïkñ?;»S”vJ9 >«ê>J#êÆBmFm*}vµøiQUBÕÀ¥tuWşïí£n’,Ê7½¨häYw¶fµË%­“ö~°ªoµ¯1‚ßÓöİã´¾v CåC~â$:~ŞQY:Wµº‘ü‚«°P‹î3ô£AnAĞ¯§ÍğwKe¼ÔĞW¦“tôËÀºÒüäô?¼ë›¸]n5-@(E[n-è¿HRFH
+<</Filter/FlateDecode/Length 306>>stream
+xœ‘ÁjÃ0†ï~
+;(^“µ]wl×1È(µ»x¶k+k»§Ÿ“¶Ù=ƒàCú¬/^+ñø^@QBÕˆÍF®àyù$Ë%TJ, ?±³JS$HÚwVAM€ }4?Ş1Z°Æø˜rÁÆR‚à“aãõ4ˆ°&` öQQxMÕNÌ ß*ñ)ö·tÊ¹œèÔ¶£ÜèèÔíÆPGÓj†6ö³3:X:29e\híÀğßkS¬äzb“ŒÊ_¾Î½ª±jK£Ï>¤Ú?6`K>.ÛÓ>Ñe}_]ªïòYr3ñÙ’ã—ú—‘=ÁÁ°6nœ;‡Ô"ƒÉ7åÍà–3†µÿ¦3ÕÅ`sèû#è>ëü.&>aL€<fuY€q.'6f$ÇÖ¿YôÆ³
 endstream
 endobj
 4 0 obj
-<</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
+<</Contents[7 0 R 5 0 R]/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
 endobj
 1 0 obj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20200817115512+03'00')/ModDate(D:20200817115512+03'00')/Producer(iText® 7.1.13-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Background propagation on <body> and <html> - canvas positioning)>>
+<</CreationDate(D:20201020180545+03'00')/ModDate(D:20201020180545+03'00')/Producer(iText® 7.1.13-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Background propagation on <body> and <html> - canvas positioning)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,17 +27,18 @@ endobj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
 endobj
 xref
-0 7
+0 8
 0000000000 65535 f 
-0000000677 00000 n 
-0000001061 00000 n 
-0000000722 00000 n 
-0000000544 00000 n 
+0000000773 00000 n 
+0000001157 00000 n 
+0000000818 00000 n 
+0000000633 00000 n 
+0000000260 00000 n 
+0000001067 00000 n 
 0000000015 00000 n 
-0000000971 00000 n 
 trailer
-<</ID [<ff830b11e6437cae9a160f8f64c33c18><ff830b11e6437cae9a160f8f64c33c18>]/Info 3 0 R/Root 1 0 R/Size 7>>
+<</ID [<8afc4b2c5b3ff7a994aa47a870b14689><8afc4b2c5b3ff7a994aa47a870b14689>]/Info 3 0 R/Root 1 0 R/Size 8>>
 %iText-7.1.13-SNAPSHOT
 startxref
-1112
+1208
 %%EOF

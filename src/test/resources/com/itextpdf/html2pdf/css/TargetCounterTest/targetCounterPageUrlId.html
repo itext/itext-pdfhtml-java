@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        p::before {
+            content: target-counter(url('#href_2'), page) ' ';
+        }
+        p::after {
+            content: ' ' target-counter(url('#href_1'), page);
+        }
+        .x::after {
+            content: ' ' target-counter(url('#href_1'), pages);
+        }
+        @page:first{
+            @bottom-right {
+                content: target-counter(url('#href_2'), page);
+            }
+        }
+    </style>
+</head>
+<body style="font-size: 100px; margin: 20px">
+<div style="width: 160pt; border: solid 2px">
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div style="page-break-inside: avoid">
+        <div id="href_1" class="x">A</div>
+        <div>F</div>
+    </div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <p>F</p>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div id="href_2">A</div>
+</div>
+</body>
+</html>

@@ -139,7 +139,6 @@ public class SpanTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO DEVSIX-1438
     public void spanTest08() throws IOException, InterruptedException {
         testWithSuffix("08");
     }

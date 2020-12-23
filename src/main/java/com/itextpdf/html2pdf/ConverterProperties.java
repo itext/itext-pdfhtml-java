@@ -57,6 +57,11 @@ import com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever;
 public class ConverterProperties {
 
     /**
+     * Default maximum number of layouts.
+     */
+    private static final int DEFAULT_LIMIT_OF_LAYOUTS = 10;
+
+    /**
      * The media device description.
      */
     private MediaDeviceDescription mediaDeviceDescription;
@@ -103,11 +108,16 @@ public class ConverterProperties {
 
     /**
      * Indicates whether the document should be opened in immediate flush or not
-     **/
+     */
     private boolean immediateFlush = true;
 
     /**
-     * Meta info that will be added to the events thrown by html2Pdf
+     * Maximum number of layouts.
+     */
+    private int limitOfLayouts = DEFAULT_LIMIT_OF_LAYOUTS;
+
+    /**
+     * Meta info that will be added to the events thrown by html2Pdf.
      */
     private IMetaInfo metaInfo;
 
@@ -134,6 +144,7 @@ public class ConverterProperties {
         this.outlineHandler = other.outlineHandler;
         this.charset = other.charset;
         this.metaInfo = other.metaInfo;
+        this.limitOfLayouts = other.limitOfLayouts;
     }
 
     /**
@@ -187,6 +198,26 @@ public class ConverterProperties {
      */
     public ConverterProperties setFontProvider(FontProvider fontProvider) {
         this.fontProvider = fontProvider;
+        return this;
+    }
+
+    /**
+     * Gets maximum number of layouts.
+     *
+     * @return layouts limit
+     */
+    public int getLimitOfLayouts() {
+        return limitOfLayouts;
+    }
+
+    /**
+     * Sets maximum number of layouts.
+     *
+     * @param limitOfLayouts layouts limit
+     * @return the {@link ConverterProperties} instance
+     */
+    public ConverterProperties setLimitOfLayouts(int limitOfLayouts) {
+        this.limitOfLayouts = limitOfLayouts;
         return this;
     }
 

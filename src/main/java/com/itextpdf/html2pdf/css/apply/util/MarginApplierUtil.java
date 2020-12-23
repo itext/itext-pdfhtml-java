@@ -51,7 +51,8 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -101,7 +102,7 @@ public final class MarginApplierUtil {
         boolean isBlock = element instanceof IBlockElement || CssConstants.BLOCK.equals(cssProps.get(CssConstants.DISPLAY));
         boolean isImage = element instanceof Image;
         
-        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
 
         if (isBlock || isImage) {
@@ -158,7 +159,7 @@ public final class MarginApplierUtil {
      * @return the margin value as a {@link Float}
      */
     private static Float parseMarginValue(String marginValString, float em, float rem, float baseValue) {
-        UnitValue marginUnitVal = CssUtils.parseLengthValueToPt(marginValString, em, rem);
+        UnitValue marginUnitVal = CssDimensionParsingUtils.parseLengthValueToPt(marginValString, em, rem);
         if (marginUnitVal != null) {
             if (!marginUnitVal.isPointValue()) {
                 if (baseValue != 0.0f) {

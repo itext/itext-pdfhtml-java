@@ -128,6 +128,7 @@ public class ATagWorker extends SpanTagWorker {
             String name = element.getAttribute(AttributeConstants.NAME);
             IPropertyContainer firstElement = getAllElements().get(0);
             firstElement.setProperty(Property.DESTINATION, name);
+            firstElement.setProperty(Property.ID, name);
         }
     }
 }

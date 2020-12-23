@@ -60,7 +60,8 @@ import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,7 +88,7 @@ public class OutlineApplierUtil {
      * @param element  the element
      */
     public static void applyOutlines(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
-        float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
 
         Border outline = getCertainBorder(cssProps.get(CssConstants.OUTLINE_WIDTH),
@@ -97,7 +98,8 @@ public class OutlineApplierUtil {
         }
 
         if (cssProps.get(CssConstants.OUTLINE_OFFSET) != null && element.<Border>getProperty(Property.OUTLINE) != null) {
-            UnitValue unitValue = CssUtils.parseLengthValueToPt(cssProps.get(CssConstants.OUTLINE_OFFSET), em, rem);
+            UnitValue unitValue = CssDimensionParsingUtils
+                    .parseLengthValueToPt(cssProps.get(CssConstants.OUTLINE_OFFSET), em, rem);
             if (unitValue != null) {
                 if (unitValue.isPercentValue())
                     LOGGER.error("outline-width in percents is not supported");
@@ -137,7 +139,7 @@ public class OutlineApplierUtil {
             }
         }
 
-        UnitValue unitValue = CssUtils.parseLengthValueToPt(outlineWidth, em, rem);
+        UnitValue unitValue = CssDimensionParsingUtils.parseLengthValueToPt(outlineWidth, em, rem);
         if (unitValue == null) {
             return null;
         }
@@ -153,7 +155,7 @@ public class OutlineApplierUtil {
             float opacity = 1f;
             if (outlineColor != null) {
                 if (!CssConstants.TRANSPARENT.equals(outlineColor)) {
-                    float[] rgbaColor = CssUtils.parseRgbaColor(outlineColor);
+                    float[] rgbaColor = CssDimensionParsingUtils.parseRgbaColor(outlineColor);
                     color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
                     opacity = rgbaColor[3];
                 } else {

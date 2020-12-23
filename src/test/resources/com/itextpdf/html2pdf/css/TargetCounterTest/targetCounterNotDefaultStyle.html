@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        p::before {
+            content: target-counter(url('#href_2'), page, upper-roman) ' ' counter(page, upper-latin) ' ';
+        }
+        p::after {
+            content: ' ' target-counter(url('#href_1'), page, lower-roman) ' ' counter(page, lower-greek);
+        }
+        .x::after {
+            content: ' ' target-counter(url('#href_1'), page, disc) ' ' counter(page, georgian);
+        }
+        @page:first{
+            @bottom-right {
+                content: target-counter(url('#href_2'), page, square) ' ' counter(page, armenian);
+            }
+        }
+    </style>
+</head>
+<body style="font-size: 100px; margin: 20px;">
+<div>
+    <div>F</div>
+    <div>F</div>
+    <div id="href_1" class="x">A</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <p>F</p>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div>F</div>
+    <div id="href_2">A</div>
+</div>
+</body>
+</html>

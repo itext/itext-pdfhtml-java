@@ -139,9 +139,43 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //Test will fail after fix in DEVSIX-2332
-    public void pageBreakInsideAvoidTest01() throws IOException, InterruptedException {
-        runTest("pageBreakInsideAvoidTest01");
+    public void pageBreakInsideAvoidWithFloatsWidth100PercentAndInnerClearBothTest()
+            throws IOException, InterruptedException {
+        runTest("pageBreakInsideAvoidWithFloatsWidth100PercentAndInnerClearBothTest");
+    }
+
+    @Test
+    public void pageBreakInsideAvoidWithFloatsWidth100PercentAndInnerClearBothWithTextTest()
+            throws IOException, InterruptedException {
+        runTest("pageBreakInsideAvoidWithFloatsWidth100PercentAndInnerClearBothWithTextTest");
+    }
+
+    @Test
+    // TODO: DEVSIX-4720 short text div invalid layout on page break
+    public void pageBreakInsideAvoidWithFloatsWidth100PercentAndInnerDivWithShortTextTest()
+            throws IOException, InterruptedException {
+        runTest("pageBreakInsideAvoidWithFloatsWidth100PercentAndInnerDivWithShortTextTest");
+    }
+
+    @Test
+    public void pageBreakInsideAvoidWithFloatsWidth100PercentAndInnerDivsWithShortAndLongTextsTest()
+            throws IOException, InterruptedException {
+        runTest("pageBreakInsideAvoidWithFloatsWidth100PercentAndInnerDivsWithShortAndLongTextsTest");
+    }
+
+    @Test
+    // TODO: DEVSIX-4720 short text div invalid layout on page break
+    // TODO: DEVSIX-1270 simple text layout to the left of the left float
+    public void pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivWithShortTextTest()
+            throws IOException, InterruptedException {
+        runTest("pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivWithShortTextTest");
+    }
+
+    @Test
+    // TODO: DEVSIX-1270 simple text layout to the left of the left float
+    public void pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivsWithShortAndLongTextsTest()
+            throws IOException, InterruptedException {
+        runTest("pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivsWithShortAndLongTextsTest");
     }
 
     @Test

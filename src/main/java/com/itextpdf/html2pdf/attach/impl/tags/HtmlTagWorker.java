@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
+import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocument;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
@@ -83,9 +84,10 @@ public class HtmlTagWorker implements ITagWorker {
      */
     public HtmlTagWorker(IElementNode element, ProcessorContext context) {
         // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
-        boolean immediateFlush = context.isImmediateFlush() && !context.getCssContext().isPagesCounterPresent();
+        boolean immediateFlush =
+                context.isImmediateFlush() && !context.getCssContext().isPagesCounterPresent();
         PdfDocument pdfDocument = context.getPdfDocument();
-        document = new Document(pdfDocument, pdfDocument.getDefaultPageSize(), immediateFlush);
+        document = new HtmlDocument(pdfDocument, pdfDocument.getDefaultPageSize(), immediateFlush);
         document.setRenderer(new HtmlDocumentRenderer(document, immediateFlush));
 
         DefaultHtmlProcessor.setConvertedRootElementProperties(element.getStyles(), context, document);

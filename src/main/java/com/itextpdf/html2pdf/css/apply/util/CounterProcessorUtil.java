@@ -45,7 +45,8 @@ package com.itextpdf.html2pdf.css.apply.util;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 
 import java.util.Map;
@@ -59,37 +60,82 @@ public class CounterProcessorUtil {
      * Processes counters.
      *
      * @param cssProps the CSS properties
-     * @param context the processor context
-     * @param scope the scope
+     * @param context  the processor context
+     * @param scope    the scope
+     * @deprecated This method need to be removed in 7.2
      */
+    @Deprecated
     public static void processCounters(Map<String, String> cssProps, CssContext context, INode scope) {
+        processCounters(cssProps, context);
+    }
+
+    /**
+     * Processes counters.
+     *
+     * @param cssProps the CSS properties
+     * @param context  the processor context
+     */
+    public static void processCounters(Map<String, String> cssProps, CssContext context) {
         String counterReset = cssProps.get(CssConstants.COUNTER_RESET);
+        processReset(counterReset, context);
+
+        String counterIncrement = cssProps.get(CssConstants.COUNTER_INCREMENT);
+        processIncrement(counterIncrement, context);
+    }
+
+    /**
+     * Starts processing counters. Pushes current counter values to counters if necessary.
+     * Usually it is expected that this method should be called before processing children of the element.
+     *
+     * @param context the processor context
+     * @param element the element which counters shall be processed
+     */
+    public static void startProcessingCounters(CssContext context, IElementNode element) {
+        final CssCounterManager counterManager = context.getCounterManager();
+        counterManager.pushEveryCounterToCounters(element);
+    }
+
+    /**
+     * Ends processing counters. Pops values of given counter list from counters if necessary.
+     * Usually it is expected that this method should be called after processing cheldren of the element.
+     *
+     * @param context        the processor context
+     * @param element the element which counters shall be processed
+     */
+    public static void endProcessingCounters(CssContext context, IElementNode element) {
+        final CssCounterManager counterManager = context.getCounterManager();
+        counterManager.popEveryCounterFromCounters(element);
+    }
+
+    private static void processReset(String counterReset, CssContext context) {
         if (counterReset != null) {
-            CssCounterManager counterManager = context.getCounterManager();
-            String[] params = counterReset.split(" ");
+            final CssCounterManager counterManager = context.getCounterManager();
+            final String[] params = counterReset.split(" ");
             for (int i = 0; i < params.length; i++) {
-                String counterName = params[i];
-                Integer possibleCounterValue;
-                if (i + 1 < params.length && (possibleCounterValue = CssUtils.parseInteger(params[i + 1])) != null) {
-                    counterManager.resetCounter(counterName, (int)possibleCounterValue, scope);
+                final String counterName = params[i];
+                final Integer possibleCounterValue;
+                if (i + 1 < params.length && (possibleCounterValue = CssDimensionParsingUtils.parseInteger(params[i + 1])) != null) {
+                    counterManager.resetCounter(counterName, (int) possibleCounterValue);
                     i++;
                 } else {
-                    counterManager.resetCounter(counterName, scope);
+                    counterManager.resetCounter(counterName);
                 }
             }
         }
-        String counterIncrement = cssProps.get(CssConstants.COUNTER_INCREMENT);
+    }
+
+    private static void processIncrement(String counterIncrement, CssContext context) {
         if (counterIncrement != null) {
-            CssCounterManager counterManager = context.getCounterManager();
-            String[] params = counterIncrement.split(" ");
+            final CssCounterManager counterManager = context.getCounterManager();
+            final String[] params = counterIncrement.split(" ");
             for (int i = 0; i < params.length; i++) {
-                String counterName = params[i];
-                Integer possibleIncrementValue;
-                if (i + 1 < params.length && (possibleIncrementValue = CssUtils.parseInteger(params[i + 1])) != null) {
-                    counterManager.incrementCounter(counterName, (int)possibleIncrementValue, scope);
+                final String counterName = params[i];
+                final Integer possibleIncrementValue;
+                if (i + 1 < params.length && (possibleIncrementValue = CssDimensionParsingUtils.parseInteger(params[i + 1])) != null) {
+                    counterManager.incrementCounter(counterName, (int) possibleIncrementValue);
                     i++;
                 } else {
-                    counterManager.incrementCounter(counterName, scope);
+                    counterManager.incrementCounter(counterName);
                 }
             }
         }
