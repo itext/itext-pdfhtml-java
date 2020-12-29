@@ -230,7 +230,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         relayoutRenderer.firstPageProc = firstPageProc.reset(defaultPageSize, defaultPageMargins);
         relayoutRenderer.leftPageProc = leftPageProc.reset(defaultPageSize, defaultPageMargins);
         relayoutRenderer.rightPageProc = rightPageProc.reset(defaultPageSize, defaultPageMargins);
-        relayoutRenderer.estimatedNumberOfPages = currentPageNumber - simulateTrimLastPage();
+        relayoutRenderer.estimatedNumberOfPages = currentArea.getPageNumber() - simulateTrimLastPage();
         relayoutRenderer.marginBoxesHandler = marginBoxesHandler.setHtmlDocumentRenderer(relayoutRenderer);
         relayoutRenderer.targetCounterHandler = new TargetCounterHandler(targetCounterHandler);
         return relayoutRenderer;
@@ -266,7 +266,6 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
                 // Remove blank page that was added just to have area for elements to layout on.
                 // Now we will add a page with dimensions and all the stuff that is requested by page-break-before
                 document.getPdfDocument().removePage(1);
-                currentPageNumber = 0;
                 overflowResult = null;
                 currentArea = null;
                 shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
@@ -287,19 +286,19 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
                 return nextArea;
             } else if (HtmlPageBreakType.LEFT.equals(htmlPageBreakType)) {
                 LayoutArea nextArea = currentArea;
-                if (anythingAddedToCurrentArea || currentArea == null || !isPageLeft(currentPageNumber)) {
+                if (anythingAddedToCurrentArea || currentArea == null || !isPageLeft(currentArea.getPageNumber())) {
                     do {
                         nextArea = super.updateCurrentArea(overflowResult);
-                    } while (!isPageLeft(currentPageNumber));
+                    } while (!isPageLeft(currentArea.getPageNumber()));
                 }
                 anythingAddedToCurrentArea = false;
                 return nextArea;
             } else if (HtmlPageBreakType.RIGHT.equals(htmlPageBreakType)) {
                 LayoutArea nextArea = currentArea;
-                if (anythingAddedToCurrentArea || currentArea == null || !isPageRight(currentPageNumber)) {
+                if (anythingAddedToCurrentArea || currentArea == null || !isPageRight(currentArea.getPageNumber())) {
                     do {
                         nextArea = super.updateCurrentArea(overflowResult);
-                    } while (!isPageRight(currentPageNumber));
+                    } while (!isPageRight(currentArea.getPageNumber()));
                 }
                 anythingAddedToCurrentArea = false;
                 return nextArea;
