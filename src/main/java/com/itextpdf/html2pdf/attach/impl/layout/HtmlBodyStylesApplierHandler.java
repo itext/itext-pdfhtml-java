@@ -60,7 +60,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This handler draws backgrounds and borders for html, body and @page styles.
+ * This handler draws backgrounds and borders for html, body and page-annotation styles.
  */
 class HtmlBodyStylesApplierHandler implements IEventHandler {
 
