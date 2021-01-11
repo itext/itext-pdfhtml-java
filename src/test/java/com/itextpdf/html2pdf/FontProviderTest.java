@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf;
 
+import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
@@ -61,8 +62,6 @@ public class FontProviderTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/FontProviderTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/FontProviderTest/";
 
-    private static final String TYPOGRAPHY_WARNING = "Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties";
-
     @BeforeClass
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
@@ -70,7 +69,7 @@ public class FontProviderTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = TYPOGRAPHY_WARNING, count = 4)
+            @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 4)
     })
     public void hebrewTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hebrew.html"), new File(destinationFolder + "hebrew.pdf"));
