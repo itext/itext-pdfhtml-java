@@ -221,7 +221,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     @LogMessages(messages = {
             @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)
     })
-    public void attemptToProcessBySvgProcessingUtilSvgWithImageTest() throws IOException {
+    public void attemptToProcessBySvgProcessingUtilSvgWithImageTest() {
         // TODO review this test in the scope of DEVSIX-4107
         String fileName = "svgWithImage.svg";
         ProcessorContext context = new ProcessorContext(new ConverterProperties());
@@ -246,7 +246,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     @LogMessages(messages = {
             @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)
     })
-    public void attemptToProcessBySvgProcessingUtilSvgWithSvgTest() throws IOException {
+    public void attemptToProcessBySvgProcessingUtilSvgWithSvgTest() {
         // TODO review this test in the scope of DEVSIX-4107
         String fileName = "svgWithSvg.svg";
         ProcessorContext context = new ProcessorContext(new ConverterProperties());

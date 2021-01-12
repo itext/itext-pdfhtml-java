@@ -56,7 +56,6 @@ import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.processors.impl.SvgConverterProperties;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 import java.net.URL;
@@ -163,7 +162,7 @@ public class HtmlResourceResolver extends ResourceResolver {
         return null;
     }
 
-    private static PdfFormXObject processAsSvg(InputStream stream, ProcessorContext context, String parentDir) throws IOException {
+    private static PdfFormXObject processAsSvg(InputStream stream, ProcessorContext context, String parentDir) {
         SvgConverterProperties svgConverterProperties = ContextMappingHelper.mapToSvgConverterProperties(context);
         if (parentDir != null) {
             svgConverterProperties.setBaseUri(parentDir);

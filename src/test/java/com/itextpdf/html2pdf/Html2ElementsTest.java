@@ -233,7 +233,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
     }
 
     @Test
-    public void bodyFontFamilyTest() throws IOException {
+    public void bodyFontFamilyTest() {
         String html = "<!DOCTYPE html>\n"
                 + "<html>\n"
                 + "<body style=\"font-family: monospace\">\n"
