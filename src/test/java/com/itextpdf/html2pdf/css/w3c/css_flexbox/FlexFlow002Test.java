@@ -23,6 +23,9 @@
 package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
+import com.itextpdf.styledxmlparser.LogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-1315 Initial support for flex display:flex CSS property
 public class FlexFlow002Test extends W3CCssTest {
