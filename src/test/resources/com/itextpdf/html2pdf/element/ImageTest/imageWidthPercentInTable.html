@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<style>
+table, td, tr, div {
+border: 1px solid black;
+}
+table {
+border-collapse: collapse;
+}
+body {
+font-family: Helvetica;
+}
+</style>
+<body>
+<p>
+During min-max-width calculations percent width should be ignored. But it should be applied during layout.
+The max-width of such image is set to its original width.
+The min-width is set to 0. 
+</p>
+
+<table>
+<tr>
+<td>
+The image should be on next line. The blank has 100px length.
+<img src="100x100placeholder.png" style="width: 100%">
+</td>
+</tr>
+</table>
+
+<div style="width: 75px">
+<table>
+<tr>
+<td>
+Table in div with width less than 100px. Image doesn't affect table's min-width.
+<img src="100x100placeholder.png" style="width: 100%">
+</td>
+</tr>
+</table>
+</div>
+
+<table style="width: 75px">
+<tr>
+<td>
+Table in with width less than 100px. Image doesn't affect table's min-width.
+<img src="100x100placeholder.png" style="width: 100%">
+</td>
+</tr>
+</table>
+</body>
+</html>

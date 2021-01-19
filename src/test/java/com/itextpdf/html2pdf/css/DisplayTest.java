@@ -352,4 +352,9 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
         HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "inlineBlockInsideTableCellTest.html"), pdfDocument, props);
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "inlineBlockInsideTableCellTest.pdf", sourceFolder + "cmp_inlineBlockInsideTableCell.pdf", destinationFolder, "diffinlineBlockInsideTableCellTest_"));
     }
+
+    @Test
+    public void displayValuesInsideImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("displayValuesInsideImage", sourceFolder, destinationFolder);
+    }
 }

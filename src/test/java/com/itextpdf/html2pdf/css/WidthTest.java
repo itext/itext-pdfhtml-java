@@ -103,4 +103,9 @@ public class WidthTest extends ExtendedHtmlConversionITextTest {
     public void relativeInlineBlockWidthWithTextIndentTest03() throws IOException, InterruptedException {
         convertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest03", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void imageWidthInPercentValueTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imageWidthInPercentValue", sourceFolder, destinationFolder);
+    }
 }
