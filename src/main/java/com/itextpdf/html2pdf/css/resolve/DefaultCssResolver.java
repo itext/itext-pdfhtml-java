@@ -84,6 +84,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -199,6 +200,14 @@ public class DefaultCssResolver implements ICssResolver {
                     elementStyles = StyleUtil
                             .mergeParentStyleDeclaration(elementStyles, entry.getKey(), entry.getValue(), parentStyles.get(
                             CommonCssConstants.FONT_SIZE), inheritanceRules);
+
+                    // If the parent has display: flex, the flex item is blockified
+                    // no matter what display value is set for it.
+                    // See CSS Flexible Box Layout Module Level 1,
+                    // W3C Candidate Recommendation, 19 November 2018: 4. Flex Items.
+                    if (isFlexItem(entry, elementStyles.get(CssConstants.DISPLAY))) {
+                        elementStyles.put(CssConstants.DISPLAY, CssConstants.BLOCK);
+                    }
                 }
                 parentFontSizeStr = parentStyles.get(CssConstants.FONT_SIZE);
             }
@@ -330,6 +339,12 @@ public class DefaultCssResolver implements ICssResolver {
         }
         enablePagesCounterIfMentioned(cssStyleSheet, cssContext);
         enableNonPageTargetCounterIfMentioned(cssStyleSheet, cssContext);
+    }
+
+    private static boolean isFlexItem(Entry<String, String> parentEntry, String currentElementDisplay) {
+        return CssConstants.DISPLAY.equals(parentEntry.getKey())
+                && CssConstants.FLEX.equals(parentEntry.getValue())
+                && !CssConstants.FLEX.equals(currentElementDisplay);
     }
 
     /**

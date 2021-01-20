@@ -44,24 +44,27 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.FlexApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FloatApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.OrphansWidowsApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OutlineApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OverflowApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PageBreakApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.OrphansWidowsApplierUtil;
-import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.TransformationApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
+import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
 
 import java.util.Map;
 
@@ -86,7 +89,6 @@ public class BlockCssApplier implements ICssApplier {
             FontStyleApplierUtil.applyFontStyles(cssProps, context, stylesContainer, container);
             BorderStyleApplierUtil.applyBorders(cssProps, context, container);
             HyphenationApplierUtil.applyHyphenation(cssProps, context, stylesContainer, container);
-            FloatApplierUtil.applyFloating(cssProps, context, container);
             PositionApplierUtil.applyPosition(cssProps, context, container);
             OpacityApplierUtil.applyOpacity(cssProps, context, container);
             PageBreakApplierUtil.applyPageBreakProperties(cssProps, context, container);
@@ -94,6 +96,24 @@ public class BlockCssApplier implements ICssApplier {
             TransformationApplierUtil.applyTransformation(cssProps, context, container);
             OutlineApplierUtil.applyOutlines(cssProps, context, container);
             OrphansWidowsApplierUtil.applyOrphansAndWidows(cssProps, container);
+            if (isFlexItem(stylesContainer)) {
+                FlexApplierUtil.applyFlexItemProperties(cssProps, context, container);
+            } else {
+                // Floating doesn't work for flex items.
+                // See CSS Flexible Box Layout Module Level 1 W3C Candidate Recommendation, 19 November 2018,
+                // 3. Flex Containers: the flex and inline-flex display values
+                FloatApplierUtil.applyFloating(cssProps, context, container);
+            }
         }
+    }
+
+    private static boolean isFlexItem(IStylesContainer stylesContainer) {
+        if (stylesContainer instanceof JsoupElementNode
+                && ((JsoupElementNode) stylesContainer).parentNode() instanceof JsoupElementNode) {
+            final Map<String, String> parentStyles = ((JsoupElementNode) ((JsoupElementNode) stylesContainer)
+                    .parentNode()).getStyles();
+            return CssConstants.FLEX.equals(parentStyles.get(CssConstants.DISPLAY));
+        }
+        return false;
     }
 }

@@ -24,7 +24,8 @@ package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-//TODO DEVSIX-1315 Initial support for flex display:flex CSS property
+//TODO DEVSIX-5040 support justify-content
+//TODO DEVSIX-5137 support margin collapse
 public class JustifyContentHoriz001aTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

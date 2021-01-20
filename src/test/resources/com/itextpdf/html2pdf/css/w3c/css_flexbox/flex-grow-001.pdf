@@ -1,11 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 137>>stream
-xœuÏK…0Ğ9«è
-H?ºŒ·u¢İÿÀšø6˜Z’ËÃ}Î
-£P#a¦°CN¶Şj-x—\ß…õÑdøÁñŠ-¡¤p´¤Ğ„ı€~¸?Ğş¬¡n]¯EßªvlñTİÁ|ZÁòá!Å4±£æ\û
-çl†'KäÇşbwk#‹ç_ˆá^×
+<</Filter/FlateDecode/Length 144>>stream
+xœuÏA!Ğ½§ğ°`=FÑvÓYÌÜQL¦Jòyà s¼S•Ò8ßqŞ¡¯?Z·2JÑw{„Ì+=Ò~‰‘0²	x²q/ó€yø>¡í\Ã\]/¢Wƒ[Wªíà>m`ıãì²P‰´ïÆùxºá8b*’ÅbèçM·¶!ú¾Şÿ,^¯
 endstream
 endobj
 4 0 obj
@@ -15,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20210116113517+03'00')/ModDate(D:20210116113517+03'00')/Producer(iText® 7.1.15-SNAPSHOT ©2000-2021 iText Group NV \(AGPL-version\))/Title(CSS Test: Flex-grow Property of Block-level Flex Items)/assert('flex-grow' property specifies the flex grow factor, which determines how much the flex item will grow relative to the rest of the flex items in the flex container when positive free space is distributed.)/flags()>>
+<</CreationDate(D:20210218175919+03'00')/ModDate(D:20210218175919+03'00')/Producer(iText® 7.1.15-SNAPSHOT ©2000-2021 iText Group NV \(AGPL-version\))/Title(CSS Test: Flex-grow Property of Block-level Flex Items)/assert('flex-grow' property specifies the flex grow factor, which determines how much the flex item will grow relative to the rest of the flex items in the flex container when positive free space is distributed.)/flags()>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -23,14 +20,14 @@ endobj
 xref
 0 6
 0000000000 65535 f 
-0000000334 00000 n 
-0000000829 00000 n 
-0000000379 00000 n 
-0000000219 00000 n 
+0000000341 00000 n 
+0000000836 00000 n 
+0000000386 00000 n 
+0000000226 00000 n 
 0000000015 00000 n 
 trailer
-<</ID [<507895407563b2c6732f698890ddb1ae><507895407563b2c6732f698890ddb1ae>]/Info 3 0 R/Root 1 0 R/Size 6>>
+<</ID [<479ffc496b9f0cdef56ad262f514daee><479ffc496b9f0cdef56ad262f514daee>]/Info 3 0 R/Root 1 0 R/Size 6>>
 %iText-7.1.15-SNAPSHOT
 startxref
-880
+887
 %%EOF

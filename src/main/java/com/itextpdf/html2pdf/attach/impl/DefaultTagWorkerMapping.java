@@ -51,6 +51,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.ButtonTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.CaptionTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ColTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ColgroupTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.DisplayFlexTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.DisplayTableRowTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.DisplayTableTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
@@ -209,7 +210,8 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.DIV, CssConstants.INLINE, SpanTagWorker.class);
         workerMapping.putMapping(TagConstants.DIV, CssConstants.INLINE_TABLE, DisplayTableTagWorker.class);
         workerMapping.putMapping(TagConstants.DIV, CssConstants.TABLE_CELL, TdTagWorker.class);
-
+        workerMapping.putMapping(TagConstants.DIV, CssConstants.FLEX, DisplayFlexTagWorker.class);
+        workerMapping.putMapping(TagConstants.SPAN, CssConstants.FLEX, DisplayFlexTagWorker.class);
 
         // pseudo elements mapping
         String beforePseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.BEFORE);

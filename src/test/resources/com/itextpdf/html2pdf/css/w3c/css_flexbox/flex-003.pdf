@@ -1,9 +1,11 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 211>>stream
-xœuA
-Â0E÷9Å_*H4mMìVĞ½T;­‘ÒjooÒBÕŠ3Ì›Ç¿±­fË½€H +–J¨MÊU]²™&çq-œ#SÁŸÉŒCgÚº!›;ÁÒÉıÚµ‘AC•_¼¡Î†ë'Vš87OøÆ;XSŸãC[Îõ…ÍûN³»ı†“9Ï‡pcš¶îãÌñâZÔÄ?L«P¶î-BòI²Fªø:|³ªg"!¾5E‚†ËL­ä(“*çÙ@ı·É5Šl®ÿğÖÕnğ
+<</Filter/FlateDecode/Length 209>>stream
+xœA
+Â0E÷9Å_*H4iMÛ­ {!¨vZ#¥Õ$
+ŞŞ¤‚VEa†yóøg¶Òl¾ºf‰B–'<K¡+6Ñä<N¥sä`jøY‚q(áL×´„]{!XÚûrXû.2h©ö³ÔÛpc•‰s{ƒïa¼ƒ5Í!>tÕTÙ±¯5Û²ów8Uğâî™¦ëƒ»ÂÕ8³{…8•ñ‘I`Ê6ƒEæ¼€”K$_†oVL$Ä#„äŸT0q•fõğ‰4×ßøXª
+ÁÓÿ¥¿ğ;× p6
 endstream
 endobj
 4 0 obj
@@ -13,7 +15,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20210115225914+03'00')/ModDate(D:20210115225914+03'00')/Producer(iText® 7.1.15-SNAPSHOT ©2000-2021 iText Group NV \(AGPL-version\))/Title(CSS Test: Comparing two different elements using different values for the 'flex-grow' sub-property on the 'flex' shorthand)/assert(This test checks that the flex items with a different flex grow factor have different flexibilities.)/flags()>>
+<</CreationDate(D:20210217122528+03'00')/ModDate(D:20210217122528+03'00')/Producer(iText® 7.1.15-SNAPSHOT ©2000-2021 iText Group NV \(AGPL-version\))/Title(CSS Test: Comparing two different elements using different values for the 'flex-grow' sub-property on the 'flex' shorthand)/assert(This test checks that the flex items with a different flex grow factor have different flexibilities.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,15 +26,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000426 00000 n 
-0000000975 00000 n 
-0000000471 00000 n 
-0000000293 00000 n 
+0000000424 00000 n 
+0000000973 00000 n 
+0000000469 00000 n 
+0000000291 00000 n 
 0000000015 00000 n 
-0000000885 00000 n 
+0000000883 00000 n 
 trailer
-<</ID [<b8cfe41df0b1f19bed55499d81ac80c7><b8cfe41df0b1f19bed55499d81ac80c7>]/Info 3 0 R/Root 1 0 R/Size 7>>
+<</ID [<db20de45c3d583f7ba22a0f5c18670f7><db20de45c3d583f7ba22a0f5c18670f7>]/Info 3 0 R/Root 1 0 R/Size 7>>
 %iText-7.1.15-SNAPSHOT
 startxref
-1026
+1024
 %%EOF

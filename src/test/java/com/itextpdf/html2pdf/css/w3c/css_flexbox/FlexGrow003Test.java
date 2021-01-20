@@ -27,8 +27,8 @@ import com.itextpdf.styledxmlparser.LogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-//TODO DEVSIX-1315 Initial support for flex display:flex CSS property
 @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+//TODO DEVSIX-5137 support margin collapse
 public class FlexGrow003Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

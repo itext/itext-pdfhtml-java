@@ -24,7 +24,10 @@ package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-//TODO DEVSIX-1315 Initial support for flex display:flex CSS property
+//TODO DEVSIX-5086 Support flex-wrap property
+//TODO DEVSIX-5003 support case when flex-direction is vertical
+//TODO DEVSIX-5137 support margin collapse
+//TODO DEVSIX-5087 Support floating for FlexContainerRenderer
 public class FlexWrapVert002Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

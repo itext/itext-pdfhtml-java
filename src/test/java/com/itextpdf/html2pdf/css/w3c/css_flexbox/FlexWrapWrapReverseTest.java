@@ -27,10 +27,11 @@ import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-//TODO DEVSIX-1315 Initial support for flex display:flex CSS property
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 18)
+        @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 54)
 })
+//TODO DEVSIX-5086 Support flex-wrap property
+//TODO DEVSIX-5137 support margin collapse
 public class FlexWrapWrapReverseTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

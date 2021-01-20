@@ -24,7 +24,10 @@ package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-//TODO DEVSIX-1315 Initial support for flex display:flex CSS property
+//TODO DEVSIX-5087 support layout properties for FlexContainerRenderer
+//TODO DEVSIX-5137 support margin collapse
+//TODO DEVSIX-5155 Fix processing of empty flex item with flex-grow
+//TODO DEVSIX-5040 support justify-content and align-items
 public class OverflowHoriz004Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

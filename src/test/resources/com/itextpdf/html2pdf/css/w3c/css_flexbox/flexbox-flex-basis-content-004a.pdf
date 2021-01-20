@@ -1,33 +1,0 @@
-%PDF-1.7
-%âãÏÓ
-5 0 obj
-<</Filter/FlateDecode/Length 263>>stream
-xœ•“Mƒ0…÷9…'p¢¢Çè%ÚM»°÷_4æqS“7¦lÆvD;­T¾¿·7â°Ø‡ÿıÄZ}|µzM^eÁß_æi¶s*cA45XÄ	!áĞ@‰…>•8^»ƒàsäÊvÓ9Z2¼Èê¸¿Å²ßLå%–	ñ8ï@¡ÍdÓãé£k^ÙŸ*V)L‰¿¾Ñ@:Ô`gY±I)±Ğ¥–¨vÁGÈÏ5V1!aº€$øûåzX¤CqBH84Pb¡O%×î ú¦z°»Né¦rEVÇõøh=ØLå%–	ñ8ï@¡ÍdÓãÙôAúRş
-endstream
-endobj
-4 0 obj
-<</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<<>>/TrimBox[0 0 595 842]/Type/Page>>
-endobj
-1 0 obj
-<</Pages 2 0 R/Type/Catalog>>
-endobj
-3 0 obj
-<</CreationDate(D:20210111201009+03'00')/ModDate(D:20210111201009+03'00')/Producer(iText® 7.1.15-SNAPSHOT ©2000-2021 iText Group NV \(AGPL-version\))/Title(\n    CSS Test: Testing that explicit "flex-basis: content" is treated as\n    "max-content" when calculating flex base size\n  )>>
-endobj
-2 0 obj
-<</Count 1/Kids[4 0 R]/Type/Pages>>
-endobj
-xref
-0 6
-0000000000 65535 f 
-0000000460 00000 n 
-0000000808 00000 n 
-0000000505 00000 n 
-0000000345 00000 n 
-0000000015 00000 n 
-trailer
-<</ID [<60aa02db5535c7f453380f9465cb9d3b><60aa02db5535c7f453380f9465cb9d3b>]/Info 3 0 R/Root 1 0 R/Size 6>>
-%iText-7.1.15-SNAPSHOT
-startxref
-859
-%%EOF

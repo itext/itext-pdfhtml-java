@@ -1,9 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 165>>stream
-xœ…ÎA
-Â0Ğıœb–º‰ÍÄ&f+è^È™ÔJ©6©÷7U¥ef÷Ÿ?ÀÑÁî,QºJ£9(aöèlç>gÎØF¯œÛŒcÛu°IÌ=æáéKàû€[wƒ“ƒŸ^úö’&¡å²»¿câ°öó²õÊ‹•X•KÍ4W[%M=}bˆoPbQWÒê#¡<¨ÌohçF¹d/ËLÈ
+<</Filter/FlateDecode/Length 166>>stream
+xœ}ÎÁ‚0Ğû~ÅõRi±-\MônÒhÂ1¥ÅÿPÂìŞæe2=]nRÁÊl‘{†«èà8xû”8¡	M‚GhÚ–+Ô‘¹Cê?~|Wáètut§ş×«ş½Ê(aäº»{!rµõËUê+*‘ëyn¦…‚ÕÓG¦0ƒ1:“¥Ù0¥Ä.ÔÅ”Ï4·û´\:åš}^áM
 endstream
 endobj
 4 0 obj
@@ -13,13 +12,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20210115231755+03'00')/ModDate(D:20210115231755+03'00')/Producer(iText® 7.1.15-SNAPSHOT ©2000-2021 iText Group NV \(AGPL-version\))/Title(CSS Flexbox Test: flex-basis - negative number\(width specified\))/assert(The 'flex-basis' property set negative number, the actual width of tested element is\nsame as the value of 'width' property specified.)/flags()>>
-endobj
-7 0 obj
-<</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20210217122536+03'00')/ModDate(D:20210217122536+03'00')/Producer(iText® 7.1.15-SNAPSHOT ©2000-2021 iText Group NV \(AGPL-version\))/Title(CSS Flexbox Test: flex-basis - negative number\(width specified\))/assert(The 'flex-basis' property set negative number, the actual width of tested element is\nsame as the value of 'width' property specified.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+7 0 obj
+<</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +26,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000389 00000 n 
-0000001004 00000 n 
-0000000434 00000 n 
-0000000247 00000 n 
+0000000390 00000 n 
+0000001005 00000 n 
+0000000435 00000 n 
+0000000248 00000 n 
 0000000015 00000 n 
-0000000914 00000 n 
-0000000825 00000 n 
+0000000826 00000 n 
+0000000916 00000 n 
 trailer
-<</ID [<eb3d55d24d54e9d8eccf0538bc75537f><eb3d55d24d54e9d8eccf0538bc75537f>]/Info 3 0 R/Root 1 0 R/Size 8>>
+<</ID [<ddcd2c77c9eb6b0175357be0539be184><ddcd2c77c9eb6b0175357be0539be184>]/Info 3 0 R/Root 1 0 R/Size 8>>
 %iText-7.1.15-SNAPSHOT
 startxref
-1055
+1056
 %%EOF

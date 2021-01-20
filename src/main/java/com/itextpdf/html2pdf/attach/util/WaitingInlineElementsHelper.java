@@ -51,6 +51,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.FlexContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
@@ -192,6 +193,10 @@ public class WaitingInlineElementsHelper {
                         ((Paragraph) container).add((IBlockElement) leafElement);
                     }
                 }
+            } else if (container instanceof FlexContainer) {
+                final Div div = new Div();
+                div.add(p);
+                ((FlexContainer) container).add(div);
             } else if (container instanceof Div) {
                 ((Div) container).add(p);
             } else if (container instanceof Cell) {
