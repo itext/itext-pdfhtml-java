@@ -142,6 +142,21 @@ public class FormTest extends ExtendedITextTest {
     }
 
     @Test
+    public void colsAttributeInTextareaTest() throws IOException, InterruptedException {
+        runTest("colsTextArea01");
+    }
+
+    @Test
+    public void colsAttributeWithBigValueInTextareaTest() throws IOException, InterruptedException {
+        runTest("colsTextArea02");
+    }
+
+    @Test
+    public void colsAttributeWithSmallValueInTextareaTest() throws IOException, InterruptedException {
+        runTest("colsTextArea03");
+    }
+
+    @Test
     public void checkbox1Test() throws IOException, InterruptedException {
         runTest("checkbox1");
     }

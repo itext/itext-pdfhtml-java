@@ -71,4 +71,17 @@ public class CaptionTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "captionTest01.html"), new File(destinationFolder + "captionTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "captionTest01.pdf", sourceFolder + "cmp_captionTest01.pdf", destinationFolder, "diff01_"));
     }
+
+    @Test
+    public void figCaption01Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "figCaption01.html"), new File(destinationFolder + "figCaption01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "figCaption01.pdf", sourceFolder + "cmp_figCaption01.pdf", destinationFolder, "diff01_"));
+    }
+
+    @Test
+    // TODO DEVSIX-5010 Incorrect offset of Caption after generating PDF from HTML
+    public void figCaption02Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "figCaption02.html"), new File(destinationFolder + "figCaption02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "figCaption02.pdf", sourceFolder + "cmp_figCaption02.pdf", destinationFolder, "diff02_"));
+    }
 }
