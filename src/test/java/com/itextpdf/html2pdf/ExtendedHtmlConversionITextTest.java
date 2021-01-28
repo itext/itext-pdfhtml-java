@@ -133,9 +133,6 @@ public abstract class ExtendedHtmlConversionITextTest extends ExtendedITextTest 
         String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
         String cmpPdfPathAcro = sourceFolder + "cmp_" + name + "_acro.pdf";
         String cmpPdfPathAcroFlatten = sourceFolder + "cmp_" + name + "_acro_flatten.pdf";
-        String diff1 = "diff1_" + name;
-        String diff2 = "diff2_" + name;
-        String diff3 = "diff3_" + name;
 
         //convert tagged PDF without acroform (from html with form elements)
         PdfWriter taggedWriter = new PdfWriter(outPdfPath);
@@ -164,9 +161,9 @@ public abstract class ExtendedHtmlConversionITextTest extends ExtendedITextTest 
         document.close();
 
         //compare with cmp
-        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff1));
-        Assert.assertNull(new CompareTool().compareByContent(outPdfPathAcro, cmpPdfPathAcro, destinationFolder, diff2));
-        Assert.assertNull(new CompareTool().compareByContent(outPdfPathFlatted, cmpPdfPathAcroFlatten, destinationFolder, diff3));
+        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder));
+        Assert.assertNull(new CompareTool().compareByContent(outPdfPathAcro, cmpPdfPathAcro, destinationFolder));
+        Assert.assertNull(new CompareTool().compareByContent(outPdfPathFlatted, cmpPdfPathAcroFlatten, destinationFolder));
 
         //compare tags structure if tagged
         if (tagged) {

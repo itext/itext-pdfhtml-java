@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
@@ -55,7 +56,7 @@ import java.io.File;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
-public class LabelTest extends ExtendedITextTest {
+public class LabelTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/LabelTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/LabelTest/";
@@ -67,26 +68,27 @@ public class LabelTest extends ExtendedITextTest {
 
     @Test
     public void label01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "labelTest01.html"), new File(destinationFolder + "labelTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelTest01.pdf", sourceFolder + "cmp_labelTest01.pdf", destinationFolder, "diff01_"));
+        convertToPdfAndCompare("labelTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void labelDisplayBlock01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "labelDisplayBlockTest01.html"), new File(destinationFolder + "labelDisplayBlockTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelDisplayBlockTest01.pdf", sourceFolder + "cmp_labelDisplayBlockTest01.pdf", destinationFolder, "diffBlock01_"));
+        convertToPdfAndCompare("labelDisplayBlockTest01", sourceFolder, destinationFolder);
     }
 
     @Test
     public void labelDisplayBlock02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "labelDisplayBlockTest02.html"), new File(destinationFolder + "labelDisplayBlockTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelDisplayBlockTest02.pdf", sourceFolder + "cmp_labelDisplayBlockTest02.pdf", destinationFolder, "diffBlock02_"));
+        convertToPdfAndCompare("labelDisplayBlockTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void labelBackground01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "labelBackground01Test.html"), new File(destinationFolder + "labelBackground01Test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "labelBackground01Test.pdf", sourceFolder + "cmp_labelBackground01Test.pdf", destinationFolder, "diffBackground01_"));
+        convertToPdfAndCompare("labelBackground01Test", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void labelInlineBlockRelativeWidthTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("labelInlineBlockRelativeWidthTest", sourceFolder, destinationFolder);
     }
 
 }

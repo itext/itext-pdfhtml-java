@@ -202,6 +202,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.A, CssConstants.TABLE_CELL, ABlockTagWorker.class);
 
         workerMapping.putMapping(TagConstants.LABEL, CssConstants.BLOCK, DivTagWorker.class);
+        workerMapping.putMapping(TagConstants.LABEL, CssConstants.INLINE_BLOCK, DivTagWorker.class);
 
         workerMapping.putMapping(TagConstants.DIV, CssConstants.TABLE, DisplayTableTagWorker.class);
         workerMapping.putMapping(TagConstants.DIV, CssConstants.TABLE_ROW, DisplayTableRowTagWorker.class);

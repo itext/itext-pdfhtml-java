@@ -163,6 +163,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.A, CssConstants.TABLE_CELL, BlockCssApplier.class);
 
         mapping.putMapping(TagConstants.LABEL, CssConstants.BLOCK, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.LABEL, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
 
         mapping.putMapping(TagConstants.DIV, CssConstants.TABLE, TableTagCssApplier.class);
         mapping.putMapping(TagConstants.DIV, CssConstants.TABLE_CELL, TdTagCssApplier.class);
