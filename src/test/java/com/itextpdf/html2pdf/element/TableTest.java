@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.PdfException;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -57,14 +58,19 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.FileOutputStream;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import org.junit.rules.ExpectedException;
 
 @Category(IntegrationTest.class)
 public class TableTest extends ExtendedITextTest {
@@ -76,6 +82,9 @@ public class TableTest extends ExtendedITextTest {
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
     }
+
+    @Rule
+    public ExpectedException junitExpectedException = ExpectedException.none();
 
     @Test
     public void helloTableDocumentTest() throws IOException, InterruptedException {
@@ -541,6 +550,29 @@ public class TableTest extends ExtendedITextTest {
     // TODO DEVSIX-4806
     public void cellWithRowspanShouldBeConsideredWhileCalculatingColumnWidths() throws IOException, InterruptedException {
         runTest("cellWithRowspanShouldBeConsideredWhileCalculatingColumnWidths");
+    }
+
+    @Test
+    public void tagsFlushingErrorWhenConvertedFromHtmlTest() throws IOException {
+        String file = sourceFolder + "tagsFlushingErrorWhenConvertedFromHtml.html";
+
+        List<IElement> elements = HtmlConverter.convertToElements(new FileInputStream(file),
+                new ConverterProperties().setCreateAcroForm(true));
+
+        PdfDocument pdf = new PdfDocument(new PdfWriter(new FileOutputStream(
+                destinationFolder + "tagsFlushingErrorWhenConvertedFromHtml.pdf")));
+        pdf.setTagged();
+
+        Document document = new Document(pdf);
+        document.setMargins(10, 50, 10, 50);
+
+        for (IElement element : elements) {
+            document.add((IBlockElement) element);
+        }
+
+        junitExpectedException.expect(PdfException.class);
+        junitExpectedException.expectMessage("Tag structure flushing failed: it might be corrupted.");
+        document.close();
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {
