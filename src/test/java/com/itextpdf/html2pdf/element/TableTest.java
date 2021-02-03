@@ -78,13 +78,13 @@ public class TableTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/TableTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/TableTest/";
 
+    @Rule
+    public ExpectedException junitExpectedException = ExpectedException.none();
+
     @BeforeClass
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
     }
-
-    @Rule
-    public ExpectedException junitExpectedException = ExpectedException.none();
 
     @Test
     public void helloTableDocumentTest() throws IOException, InterruptedException {
@@ -544,6 +544,13 @@ public class TableTest extends ExtendedITextTest {
     // TODO DEVSIX-4247
     public void tableRowAndCellBackgroundColorConflictTest() throws IOException, InterruptedException {
         runTest("tableRowAndCellBackgroundColorConflictTest");
+    }
+
+    @Test
+    // TODO DEVSIX-5036
+    public void collapsedBorderWithWrongRowspanTableTest() throws IOException, InterruptedException {
+        junitExpectedException.expect(RuntimeException.class);
+        runTest("collapsedBorderWithWrongRowspanTable", false, new PageSize(PageSize.A5).rotate());
     }
 
     @Test
