@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.boxtest {
+			box-sizing: border-box;
+		}
+		.borders {
+			border: 20pt solid green;
+			padding: 10pt;
+			margin: 10pt;
+		}
+		@page {
+			size: 400pt;
+		}
+	</style>
+</head>
+  <body>
+  <div style="width: 300pt; border: solid blue">
+	<div class="borders" style="width: 200pt; height: 100pt;">Next box shall overflow to the next page with image drawn on next page. It's height should be exactly 250pt including borders.</div>
+	<div class="boxtest borders" style="width: 200pt; height: 250pt;">text before img <img src="image.gif" style="height:100pt; border: solid;"></div>
+  </div>
+  </body>
+</html>
