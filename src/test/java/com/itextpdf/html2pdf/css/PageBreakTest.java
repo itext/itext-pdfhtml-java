@@ -99,6 +99,11 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void pageBreakAfter04Test() throws IOException, InterruptedException {
+        runTest("page-break-after04");
+    }
+
+    @Test
     public void pageBreakAfter05Test() throws IOException, InterruptedException {
         runTest("page-break-after05");
     }
@@ -119,6 +124,11 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void pageBreakBefore04Test() throws IOException, InterruptedException {
+        runTest("page-break-before04");
+    }
+
+    @Test
     public void pageBreakBeforeAfter01Test() throws IOException, InterruptedException {
         runTest("page-break-before-after01");
     }
@@ -136,6 +146,11 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void pageBreakBeforeTable01Test() throws IOException, InterruptedException {
         runTest("page-break-before-table01");
+    }
+
+    @Test
+    public void pageBreakInsideAvoidInParaTest() throws IOException, InterruptedException {
+        runTest("pageBreakInsideAvoidInPara");
     }
 
     @Test
