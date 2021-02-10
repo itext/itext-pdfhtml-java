@@ -87,7 +87,7 @@ public class ImgTagWorker implements ITagWorker {
      */
     public ImgTagWorker(IElementNode element, ProcessorContext context) {
         String src = element.getAttribute(AttributeConstants.SRC);
-        PdfXObject imageXObject = context.getResourceResolver().retrieveImageExtended(src);
+        PdfXObject imageXObject = context.getResourceResolver().retrieveImage(src);
         if (imageXObject != null) {
             if (imageXObject instanceof PdfImageXObject) {
                 image = new HtmlImage((PdfImageXObject) imageXObject);

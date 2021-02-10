@@ -107,14 +107,14 @@ public class HtmlResourceResolver extends ResourceResolver {
     }
 
     @Override
-    public PdfXObject retrieveImageExtended(String src) {
+    public PdfXObject retrieveImage(String src) {
         if (src != null && src.trim().startsWith(SVG_PREFIX) && SVG_IDENTIFIER_PATTERN.matcher(src).find()) {
             PdfXObject imageXObject = tryResolveSvgImageSource(src);
             if (imageXObject != null) {
                 return imageXObject;
             }
         }
-        return super.retrieveImageExtended(src);
+        return super.retrieveImage(src);
     }
 
     /**

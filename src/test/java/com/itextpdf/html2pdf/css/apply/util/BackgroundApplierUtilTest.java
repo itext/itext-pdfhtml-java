@@ -100,7 +100,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                     BackgroundImage image = (BackgroundImage) value;
                     PdfImageXObject pdfImage = image.getImage();
                     Assert.assertNotNull(pdfImage);
-                    PdfXObject expectedImage = innerContext.getResourceResolver().retrieveImageExtended(
+                    PdfXObject expectedImage = innerContext.getResourceResolver().retrieveImage(
                             CssUtils.extractUrl(innerImage));
                     Assert.assertTrue(expectedImage instanceof PdfImageXObject);
                     Assert.assertEquals(Arrays.toString(((PdfImageXObject) expectedImage).getImageBytes()),
@@ -208,7 +208,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                     BackgroundImage image = (BackgroundImage) value;
                     PdfImageXObject pdfImage = image.getImage();
                     Assert.assertNotNull(pdfImage);
-                    PdfXObject expectedImage = innerContext.getResourceResolver().retrieveImageExtended(
+                    PdfXObject expectedImage = innerContext.getResourceResolver().retrieveImage(
                             CssUtils.extractUrl(imagesArray[i]));
                     Assert.assertTrue(expectedImage instanceof PdfImageXObject);
                     Assert.assertEquals(Arrays.toString(((PdfImageXObject) expectedImage).getImageBytes()),

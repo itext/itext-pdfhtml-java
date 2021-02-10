@@ -198,7 +198,7 @@ public final class BackgroundApplierUtil {
                 imageApplied = applyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem,
                         repeat, clip, origin);
             } else {
-                final PdfXObject image = context.getResourceResolver().retrieveImageExtended(
+                final PdfXObject image = context.getResourceResolver().retrieveImage(
                         CssUtils.extractUrl(backgroundImage));
                 imageApplied = applyBackgroundImage(image, backgroundImagesList, repeat, blendMode, position, clip,
                         origin);

@@ -63,7 +63,7 @@ public class ExternalImageTest extends ExternalExtendedITextTest {
     @Test
     public void test() throws IOException {
         ResourceResolver resourceResolver = new ResourceResolver("");
-        PdfXObject externalImage = resourceResolver.retrieveImageExtended(
+        PdfXObject externalImage = resourceResolver.retrieveImage(
                 "https://raw.githubusercontent.com/itext/itext7/develop/layout/src/test/resources/com/itextpdf/layout/ImageTest/itis.jpg");
 
         Assert.assertNotNull(externalImage);

@@ -46,24 +46,24 @@ public class HtmlResourceResolverUnitTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI))
-    public void retrieveImageExtendedNullTest() {
+    public void retrieveImageNullTest() {
         HtmlResourceResolver resourceResolver = createResolver();
-        PdfXObject image = resourceResolver.retrieveImageExtended(null);
+        PdfXObject image = resourceResolver.retrieveImage(null);
         Assert.assertNull(image);
     }
 
     @Test
-    public void retrieveImageExtendedBase64Test() {
+    public void retrieveImageBase64Test() {
         HtmlResourceResolver resourceResolver = createResolver();
-        PdfXObject image = resourceResolver.retrieveImageExtended(bLogo);
+        PdfXObject image = resourceResolver.retrieveImage(bLogo);
         Assert.assertNotNull(image);
     }
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI))
-    public void retrieveImageExtendedIncorrectBase64Test() {
+    public void retrieveImageIncorrectBase64Test() {
         HtmlResourceResolver resourceResolver = createResolver();
-        PdfXObject image = resourceResolver.retrieveImageExtended(bLogoCorruptedData);
+        PdfXObject image = resourceResolver.retrieveImage(bLogoCorruptedData);
         Assert.assertNull(image);
     }
 

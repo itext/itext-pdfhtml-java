@@ -158,7 +158,7 @@ public final class ListStyleApplierUtil {
                             Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, listStyleImageStr));
                 }
             } else {
-                imageXObject = context.getResourceResolver().retrieveImageExtended(CssUtils.extractUrl(listStyleImageStr));
+                imageXObject = context.getResourceResolver().retrieveImage(CssUtils.extractUrl(listStyleImageStr));
             }
 
             if (imageXObject != null) {
