@@ -62,8 +62,8 @@ public class VerticalAlignmentTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO: DEVSIX-3757 ('top' and 'bottom' values are not supported)
     public void verticalAlignmentTest01() throws IOException, InterruptedException {
-        // TODO 'top' and 'bottom' values are not supported for now
         convertToPdfAndCompare("verticalAlignmentTest01", sourceFolder, destinationFolder);
     }
     
@@ -75,6 +75,12 @@ public class VerticalAlignmentTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void verticalAlignmentTest03() throws IOException, InterruptedException {
         convertToPdfAndCompare("verticalAlignmentTest03", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO: DEVSIX-3757 ('top' and 'bottom' values are not supported)
+    public void verticalAlignmentImgTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("verticalAlignmentImgTest", sourceFolder, destinationFolder);
     }
     
     @Test
