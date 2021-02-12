@@ -111,4 +111,54 @@ public class ClearTest extends ExtendedHtmlConversionITextTest {
     public void clear11Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("clear11Test", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void imageFloatParagraphClearTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imageFloatParagraphClear", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void clearInTableWithImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("clearInTableWithImage", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void imgFloatAmongParaWithClearPropTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgFloatAmongParaWithClearProp", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void imgFloatAmongParaWithSpanTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgFloatAmongParaWithSpan", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void paraFloatLeftImgClearLeftTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("paraFloatLeftImgClearLeft", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void paraFloatImgClearAndDisplayBlockTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("paraFloatImgClearAndDisplayBlock", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void paraFloatImgWideBorderClearAndDisplayBlockTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("paraFloatImgWideBorderClearAndDisplayBlock", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void imgFloatWideBorderAmongParaWithClearTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgFloatWideBorderAmongParaWithClear", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void imgWideBorderFloatAmongParaWithSpanTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgWideBorderFloatAmongParaWithSpan", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void imgWideBorderClearAndDisplayBlockParaFloatTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgWideBorderClearAndDisplayBlockParaFloat", sourceFolder, destinationFolder);
+    }
 }
