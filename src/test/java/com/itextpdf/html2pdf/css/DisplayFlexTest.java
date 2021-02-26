@@ -456,6 +456,26 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("flexItemEmptyFlexBasis", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    @Test
+    public void flexItemsContentHeightBiggerThanContainersTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("flexItemsContentHeightBiggerThanContainers", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void flexItemsOccupyByWidthMoreThanContainerTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("flexItemsOccupyByWidthMoreThanContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void flexEndOnFlexItemResultsInTopBeingOverflownTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("flexEndOnFlexItemResultsInTopBeingOverflown", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void paragraphAndDivItemsOverflowBottomTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("paragraphAndDivItemsOverflowBottom", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
     private static void assertDiv(IElement element, String text) {
         Assert.assertTrue(element instanceof Div);
         Assert.assertEquals(1, ((Div) element).getChildren().size());

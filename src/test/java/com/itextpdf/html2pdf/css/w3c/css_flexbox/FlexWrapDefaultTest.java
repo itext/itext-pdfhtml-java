@@ -24,8 +24,8 @@ package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-//TODO DEVSIX-5098 border is not closed by flex item
 //TODO DEVSIX-5137 support margin collapse
+//TODO DEVSIX-5040 empty divs are not stretched by default
 public class FlexWrapDefaultTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
