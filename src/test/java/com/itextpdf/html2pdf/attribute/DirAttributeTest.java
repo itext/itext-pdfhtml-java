@@ -91,6 +91,15 @@ public class DirAttributeTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    //TODO: DEVSIX-2438 html2Pdf: float + rtl works incorrectly for element placement
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 16),
+    })
+    public void floatedTableInRtlDocumentTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("floatedTableInRtlDocument", sourceFolder, destinationFolder, false);
+    }
+
+    @Test
     //TODO: DEVSIX-2435 Process several elements which do not respect the specified direction
     @LogMessages(messages = {
             @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 4),
@@ -140,5 +149,14 @@ public class DirAttributeTest extends ExtendedHtmlConversionITextTest {
     //TODO DEVSIX-2437 dir ltr is ignored in rtl documents
     public void spansOfDifferentDirsInsideParagraphTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("spansOfDifferentDirsInsideParagraph", sourceFolder, destinationFolder, false);
+    }
+
+    @Test
+    //TODO DEVSIX-3069 pdfHTML: RTL tables are not aligned correctly if there is no enough space
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 32),
+            @LogMessage(messageTemplate = LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)})
+    public void tableAlignedToWrongSideInCaseOfNotEnoughSpaceTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tableAlignedToWrongSideInCaseOfNotEnoughSpace", sourceFolder, destinationFolder);
     }
 }
