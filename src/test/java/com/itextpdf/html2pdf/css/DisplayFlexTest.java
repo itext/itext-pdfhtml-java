@@ -25,13 +25,8 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
-import com.itextpdf.html2pdf.attach.ITagWorker;
-import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreak;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.TextArea;
-import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.FlexContainer;
 import com.itextpdf.layout.element.IElement;
@@ -40,9 +35,6 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.FileInputStream;
@@ -71,7 +63,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void displayFlexCommonTest() throws IOException, InterruptedException {
+    public void displayFlexCommonTest() throws IOException {
         String name = "displayFlexCommon";
         List<IElement> elements = convertToElements(name);
         IElement flexContainer = elements.get(0);
@@ -127,7 +119,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void nestedDivTest() throws IOException, InterruptedException {
+    public void nestedDivTest() throws IOException {
         String name = "nestedDiv";
         String sourceHtml = SOURCE_FOLDER + name + ".html";
 
@@ -151,7 +143,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void flexItemWhiteSpacePreTest() throws IOException, InterruptedException {
+    public void flexItemWhiteSpacePreTest() throws IOException {
         String name = "flexItemWhiteSpacePre";
         String sourceHtml = SOURCE_FOLDER + name + ".html";
 
@@ -171,7 +163,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void anonymousBlockInTheEndTest() throws IOException, InterruptedException {
+    public void anonymousBlockInTheEndTest() throws IOException {
         String name = "anonymousBlockInTheEnd";
         String sourceHtml = SOURCE_FOLDER + name + ".html";
 
@@ -193,7 +185,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void brTagTest() throws IOException, InterruptedException {
+    public void brTagTest() throws IOException {
         String name = "brTag";
         String sourceHtml = SOURCE_FOLDER + name + ".html";
 
@@ -213,7 +205,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     //TODO DEVSIX-5086 change this test when working on the ticket
-    public void flexWrapTest() throws IOException, InterruptedException {
+    public void flexWrapTest() throws IOException {
         String name = "flexWrap";
         String sourceHtml = SOURCE_FOLDER + name + ".html";
 
@@ -231,7 +223,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     //TODO DEVSIX-5087 remove this test when working on the ticket
-    public void floatAtFlexContainerTest() throws IOException, InterruptedException {
+    public void floatAtFlexContainerTest() throws IOException {
         String name = "floatAtFlexContainer";
         String sourceHtml = SOURCE_FOLDER + name + ".html";
 
@@ -250,7 +242,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     //TODO DEVSIX-5087 remove this test when working on the ticket
-    public void overflowAtFlexContainerTest() throws IOException, InterruptedException {
+    public void overflowAtFlexContainerTest() throws IOException {
         String name = "overflowAtFlexContainer";
         String sourceHtml = SOURCE_FOLDER + name + ".html";
 
@@ -285,7 +277,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void overflowAtFlexItemTest() throws IOException, InterruptedException {
+    public void overflowAtFlexItemTest() throws IOException {
         String name = "overflowAtFlexItem";
         String sourceHtml = SOURCE_FOLDER + name + ".html";
 
@@ -305,7 +297,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void displayFlexSpanContainerTest() throws IOException, InterruptedException {
+    public void displayFlexSpanContainerTest() throws IOException {
         String name = "displayFlexSpanContainer";
         String sourceHtml = SOURCE_FOLDER + name + ".html";
 
@@ -322,7 +314,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     //TODO DEVSIX-5087 remove this test when working on the ticket
-    public void tempDisablePropertiesTest() throws IOException, InterruptedException {
+    public void tempDisablePropertiesTest() throws IOException {
         List<IElement> elements = convertToElements("tempDisableProperties");
         Assert.assertEquals(1, elements.size());
         Assert.assertTrue(elements.get(0) instanceof FlexContainer);
@@ -337,7 +329,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void disableFlexItemPropertiesTest() throws IOException, InterruptedException {
+    public void disableFlexItemPropertiesTest() throws IOException {
         List<IElement> elements = convertToElements("disableFlexItemProperties");
         IElement flexItem = ((FlexContainer) elements.get(0)).getChildren().get(0);
         Assert.assertFalse(flexItem.hasProperty(Property.FLOAT));
@@ -414,37 +406,52 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void flexJustifyContentAlignItemsFlexStartTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("flexJustifyContentAlignItemsFlexStart", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void flexJustifyContentAlignItemsFlexEndTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("flexJustifyContentAlignItemsFlexEnd", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void flexJustifyContentAlignItemsCenterTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("flexJustifyContentAlignItemsCenter", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void flexAlignItemsStretchTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("flexAlignItemsStretch", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
     // TODO DEVSIX-5137	flex: support margin collapse
     public void checkboxTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("checkbox", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    // TODO DEVSIX-5040 change cmp after finishing this ticket
     public void flexItemHeightTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("flexItemHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    //TODO DEVSIX-5149 Fix indent in element nested to the flex item
     public void flexItemContentTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("flexItemContent", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    //TODO DEVSIX-5150 Fix processing of min-width at flex item element
     public void flexItemMinWidthTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("flexItemMinWidth", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    //TODO DEVSIX-5155 Fix processing of empty flex item
     public void flexItemEmptyTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("flexItemEmpty", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    //TODO DEVSIX-5155 Fix processing of empty flex item
     public void flexItemEmptyFlexBasisTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("flexItemEmptyFlexBasis", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

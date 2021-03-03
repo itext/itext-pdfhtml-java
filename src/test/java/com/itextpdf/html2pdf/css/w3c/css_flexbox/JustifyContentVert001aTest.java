@@ -24,9 +24,10 @@ package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-//TODO DEVSIX-5040 support justify-content
 //TODO DEVSIX-5003 support case when flex-direction is vertical
 //TODO DEVSIX-5137 support margin collapse
+//TODO DEVSIX-5163 support more complex justify-content values
+//TODO DEVSIX-5087 Support floating for FlexContainerRenderer
 public class JustifyContentVert001aTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

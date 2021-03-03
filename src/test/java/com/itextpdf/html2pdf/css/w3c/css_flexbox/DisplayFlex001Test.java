@@ -24,9 +24,7 @@ package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-//TODO DEVSIX-5040 support align-items
 //TODO DEVSIX-5137 support margin collapse
-//TODO DEVSIX-5155 Fix processing of empty flex item
 public class DisplayFlex001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

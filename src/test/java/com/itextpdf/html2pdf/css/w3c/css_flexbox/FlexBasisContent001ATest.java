@@ -24,10 +24,8 @@ package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-//TODO DEVSIX-5040 support justify-content
+//TODO DEVSIX-5163 support more complex justify-content values
 //TODO DEVSIX-5137 support margin collapse
-//TODO DEVSIX-5040 fix flex items height
-//TODO DEVSIX-5149 Fix indent in element nested to the flex item
 public class FlexBasisContent001ATest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

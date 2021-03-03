@@ -45,6 +45,8 @@ package com.itextpdf.html2pdf.css.apply.util;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.property.AlignmentPropertyValue;
+import com.itextpdf.layout.property.JustifyContent;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
@@ -103,6 +105,99 @@ final public class FlexApplierUtil {
         } else {
             // The case when we don't set the flex-basis property should be identified
             // as flex-basis: content
+        }
+    }
+
+    /**
+     * Applies properties to a flex container.
+     *
+     * @param cssProps the CSS properties
+     * @param element  the element
+     */
+    public static void applyFlexContainerProperties(Map<String, String> cssProps, IPropertyContainer element) {
+        applyAlignItems(cssProps, element);
+        applyJustifyContent(cssProps, element);
+    }
+
+    private static void applyAlignItems(Map<String, String> cssProps, IPropertyContainer element) {
+        final String alignItemsString = cssProps.get(CommonCssConstants.ALIGN_ITEMS);
+        if (alignItemsString != null) {
+            AlignmentPropertyValue alignItems;
+            switch (alignItemsString) {
+                case CommonCssConstants.NORMAL:
+                    alignItems = AlignmentPropertyValue.NORMAL;
+                    break;
+                case CommonCssConstants.START:
+                    alignItems = AlignmentPropertyValue.START;
+                    break;
+                case CommonCssConstants.END:
+                    alignItems = AlignmentPropertyValue.END;
+                    break;
+                case CommonCssConstants.FLEX_START:
+                    alignItems = AlignmentPropertyValue.FLEX_START;
+                    break;
+                case CommonCssConstants.FLEX_END:
+                    alignItems = AlignmentPropertyValue.FLEX_END;
+                    break;
+                case CommonCssConstants.CENTER:
+                    alignItems = AlignmentPropertyValue.CENTER;
+                    break;
+                case CommonCssConstants.SELF_START:
+                    alignItems = AlignmentPropertyValue.SELF_START;
+                    break;
+                case CommonCssConstants.SELF_END:
+                    alignItems = AlignmentPropertyValue.SELF_END;
+                    break;
+                case CommonCssConstants.BASELINE:
+                    alignItems = AlignmentPropertyValue.BASELINE;
+                    break;
+                case CommonCssConstants.STRETCH:
+                default:
+                    alignItems = AlignmentPropertyValue.STRETCH;
+                    break;
+            }
+            element.setProperty(Property.ALIGN_ITEMS, alignItems);
+        }
+    }
+
+    private static void applyJustifyContent(Map<String, String> cssProps, IPropertyContainer element) {
+        final String justifyContentString = cssProps.get(CommonCssConstants.JUSTIFY_CONTENT);
+        if (justifyContentString != null) {
+            JustifyContent justifyContent;
+            switch (justifyContentString) {
+                case CommonCssConstants.NORMAL:
+                    justifyContent = JustifyContent.NORMAL;
+                    break;
+                case CommonCssConstants.START:
+                    justifyContent = JustifyContent.START;
+                    break;
+                case CommonCssConstants.END:
+                    justifyContent = JustifyContent.END;
+                    break;
+                case CommonCssConstants.FLEX_END:
+                    justifyContent = JustifyContent.FLEX_END;
+                    break;
+                case CommonCssConstants.SELF_START:
+                    justifyContent = JustifyContent.SELF_START;
+                    break;
+                case CommonCssConstants.SELF_END:
+                    justifyContent = JustifyContent.SELF_END;
+                    break;
+                case CommonCssConstants.LEFT:
+                    justifyContent = JustifyContent.LEFT;
+                    break;
+                case CommonCssConstants.RIGHT:
+                    justifyContent = JustifyContent.RIGHT;
+                    break;
+                case CommonCssConstants.CENTER:
+                    justifyContent = JustifyContent.CENTER;
+                    break;
+                case CommonCssConstants.FLEX_START:
+                default:
+                    justifyContent = JustifyContent.FLEX_START;
+                    break;
+            }
+            element.setProperty(Property.JUSTIFY_CONTENT, justifyContent);
         }
     }
 }

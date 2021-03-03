@@ -32,7 +32,6 @@ import com.itextpdf.test.annotations.LogMessages;
         @LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 1),
 })
 //TODO DEVSIX-5096 support flex-direction: column
-//TODO DEVSIX-5040 layout: support justify-content and align-items
 //TODO DEVSIX-5004 improve support of flex-items with intrinsic aspect ratio
 public class FlexAspectRatioImgColumn007Test extends W3CCssTest {
     @Override

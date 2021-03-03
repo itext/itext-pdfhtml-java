@@ -27,6 +27,8 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.property.AlignmentPropertyValue;
+import com.itextpdf.layout.property.JustifyContent;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.test.ExtendedITextTest;
@@ -132,5 +134,77 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
         FlexApplierUtil.applyFlexItemProperties(cssProps, context, element);
         Assert.assertEquals(UnitValue.createPointValue(20.45f),
                 element.<UnitValue>getProperty(Property.FLEX_BASIS));
+        Assert.assertEquals(UnitValue.createPointValue(20.45f), element.<UnitValue>getProperty(Property.FLEX_BASIS));
+    }
+
+
+    @Test
+    public void applyAlignItemsTest() {
+        String[] alignItemsStrings = {
+                CssConstants.START,
+                CssConstants.END,
+                CssConstants.CENTER,
+                CssConstants.FLEX_START,
+                CssConstants.FLEX_END,
+                CssConstants.SELF_START,
+                CssConstants.SELF_END,
+                CssConstants.BASELINE,
+                CssConstants.STRETCH,
+                CssConstants.NORMAL
+        };
+        AlignmentPropertyValue[] alignItemsValues = {
+                AlignmentPropertyValue.START,
+                AlignmentPropertyValue.END,
+                AlignmentPropertyValue.CENTER,
+                AlignmentPropertyValue.FLEX_START,
+                AlignmentPropertyValue.FLEX_END,
+                AlignmentPropertyValue.SELF_START,
+                AlignmentPropertyValue.SELF_END,
+                AlignmentPropertyValue.BASELINE,
+                AlignmentPropertyValue.STRETCH,
+                AlignmentPropertyValue.NORMAL
+        };
+        for (int i = 0; i < alignItemsStrings.length; ++i) {
+            Map<String, String> cssProps = new HashMap<>();
+            cssProps.put(CssConstants.ALIGN_ITEMS, alignItemsStrings[i]);
+            IElement element = new Div();
+            FlexApplierUtil.applyFlexContainerProperties(cssProps, element);
+            Assert.assertEquals(alignItemsValues[i], (AlignmentPropertyValue) element.<AlignmentPropertyValue>getProperty(Property.ALIGN_ITEMS));
+        }
+    }
+
+    @Test
+    public void applyJustifyContentTest() {
+        String[] justifyContentStrings = {
+                CssConstants.START,
+                CssConstants.END,
+                CssConstants.CENTER,
+                CssConstants.FLEX_START,
+                CssConstants.FLEX_END,
+                CssConstants.SELF_START,
+                CssConstants.SELF_END,
+                CssConstants.LEFT,
+                CssConstants.RIGHT,
+                CssConstants.NORMAL
+        };
+        JustifyContent[] justifyContentValues = {
+                JustifyContent.START,
+                JustifyContent.END,
+                JustifyContent.CENTER,
+                JustifyContent.FLEX_START,
+                JustifyContent.FLEX_END,
+                JustifyContent.SELF_START,
+                JustifyContent.SELF_END,
+                JustifyContent.LEFT,
+                JustifyContent.RIGHT,
+                JustifyContent.NORMAL
+        };
+        for (int i = 0; i < justifyContentStrings.length; ++i) {
+            Map<String, String> cssProps = new HashMap<>();
+            cssProps.put(CssConstants.JUSTIFY_CONTENT, justifyContentStrings[i]);
+            IElement element = new Div();
+            FlexApplierUtil.applyFlexContainerProperties(cssProps, element);
+            Assert.assertEquals(justifyContentValues[i], (JustifyContent) element.<JustifyContent>getProperty(Property.JUSTIFY_CONTENT));
+        }
     }
 }

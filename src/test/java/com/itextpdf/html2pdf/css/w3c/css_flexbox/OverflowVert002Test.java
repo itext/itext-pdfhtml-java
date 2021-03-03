@@ -26,8 +26,6 @@ import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 //TODO DEVSIX-5087 support layout properties for FlexContainerRenderer
 //TODO DEVSIX-5137 support margin collapse
-//TODO DEVSIX-5155 Fix processing of empty flex item
-//TODO DEVSIX-5040 support justify-content and align-items
 //TODO DEVSIX-5003 support case when flex-direction is vertical
 public class OverflowVert002Test extends W3CCssTest {
     @Override

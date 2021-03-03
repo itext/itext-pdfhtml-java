@@ -26,7 +26,6 @@ import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 //TODO DEVSIX-5086 support flex-wrap
 //TODO DEVSIX-5137 support margin collapse
-//TODO DEVSIX-5150 Fix processing of min-width at flex item element
 public class FlexWrapFlexingTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

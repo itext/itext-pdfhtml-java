@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.css.apply.impl;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
+import com.itextpdf.html2pdf.css.apply.util.FlexApplierUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
@@ -58,6 +59,7 @@ public class DisplayFlexTagCssApplier extends BlockCssApplier {
         super.apply(context, stylesContainer, tagWorker);
         final IPropertyContainer container = tagWorker.getElementResult();
         if (container != null) {
+            FlexApplierUtil.applyFlexContainerProperties(stylesContainer.getStyles(), container);
             //TODO DEVSIX-5087 remove these lines when working on a ticket
             container.setProperty(Property.COLLAPSING_MARGINS, null);
             container.deleteOwnProperty(Property.FLOAT);
