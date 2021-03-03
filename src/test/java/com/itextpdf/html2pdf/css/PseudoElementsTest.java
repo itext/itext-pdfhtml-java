@@ -119,6 +119,17 @@ public class PseudoElementsTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void beforeAfterPseudoTest08() throws IOException, InterruptedException {
+        convertToPdfAndCompare("beforeAfterPseudoTest08", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2))
+    public void beforeAfterPseudoTest09() throws IOException, InterruptedException {
+        convertToPdfAndCompare("beforeAfterPseudoTest09", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
     public void beforeAfterPseudoTest10() throws IOException, InterruptedException {
         convertToPdfAndCompare("beforeAfterPseudoTest10", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -267,5 +278,43 @@ public class PseudoElementsTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void pseudoDisplayTable02Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("pseudoDisplayTable02", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void imgPseudoBeforeDivTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgPseudoBeforeDiv", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void imgPseudoBeforeDivDisplayBlockTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgPseudoBeforeDivDisplayBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)
+    })
+    public void imgPseudoBeforeImgTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgPseudoBeforeImg", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void imgPseudoBeforeWithTextTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgPseudoBeforeWithText", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void imgPseudoBeforeInSeveralDivsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgPseudoBeforeInSeveralDivs", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void imgPseudoWithPageRuleTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgPseudoWithPageRule", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void nonNormalizedAfterBeforeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("nonNormalizedAfterBefore", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 }
