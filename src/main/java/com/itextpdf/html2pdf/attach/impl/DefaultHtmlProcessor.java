@@ -220,10 +220,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         for (IPropertyContainer propertyContainer : bodyDiv.getChildren()) {
             if (propertyContainer instanceof com.itextpdf.layout.element.IElement) {
                 setConvertedRootElementProperties(body.getStyles(), context, propertyContainer);
-                // TODO DEVSIX-5087 remove this when working on a ticket
-                if (((IElement) propertyContainer).getRenderer() instanceof FlexContainerRenderer) {
-                    propertyContainer.setProperty(Property.COLLAPSING_MARGINS, null);
-                }
                 elements.add((com.itextpdf.layout.element.IElement) propertyContainer);
             }
         }

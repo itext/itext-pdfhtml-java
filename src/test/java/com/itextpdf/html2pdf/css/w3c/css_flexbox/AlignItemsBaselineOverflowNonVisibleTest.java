@@ -25,7 +25,6 @@ package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 //TODO DEVSIX-5167 support align-items: baseline
-//TODO DEVSIX-5137 support margin collapse
 public class AlignItemsBaselineOverflowNonVisibleTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

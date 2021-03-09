@@ -27,7 +27,6 @@ import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 //TODO DEVSIX-5087 support layout properties for FlexContainerRenderer
 //TODO DEVSIX-5086 support flex-wrap property
 //TODO DEVSIX-5164 support align-content
-//TODO DEVSIX-5137 support margin collapse
 public class OverflowHoriz005Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

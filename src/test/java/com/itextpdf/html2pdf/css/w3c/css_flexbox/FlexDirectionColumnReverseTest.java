@@ -32,7 +32,6 @@ import com.itextpdf.test.annotations.LogMessages;
 })
 // TODO DEVSIX-5003 support case when flex-direction is vertical
 // TODO DEVSIX-5086 support flex-wrap
-//TODO DEVSIX-5137 support margin collapse
 public class FlexDirectionColumnReverseTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

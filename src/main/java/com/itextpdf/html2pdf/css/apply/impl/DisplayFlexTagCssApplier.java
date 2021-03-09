@@ -61,7 +61,6 @@ public class DisplayFlexTagCssApplier extends BlockCssApplier {
         if (container != null) {
             FlexApplierUtil.applyFlexContainerProperties(stylesContainer.getStyles(), container);
             //TODO DEVSIX-5087 remove these lines when working on a ticket
-            container.setProperty(Property.COLLAPSING_MARGINS, null);
             container.deleteOwnProperty(Property.FLOAT);
             container.deleteOwnProperty(Property.CLEAR);
             container.deleteOwnProperty(Property.OVERFLOW_X);

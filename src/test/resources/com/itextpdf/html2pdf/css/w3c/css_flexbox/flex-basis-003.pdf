@@ -1,9 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 158>>stream
-xœ}ÎÁ
-Â0Ðû~Åõ›Ä4ö*è]È²©•RmRÿß¶*”"²{›Ç0=íÎRÁEÒ%ìA»‡´qœ<|ÎœÑDWNŒ&Ã#6mËubîû§ßlÝNŽ.Ô¿{Õ§W•J”rÙÝÝ‘8¬ýw‡ªÌÊ‹•(ÆKõ<·0BÁšéSœÁSÈª\1mÅ_hõ”ÿ¢/7SE3
+<</Filter/FlateDecode/Length 159>>stream
+xœ}ÎÍ
+Â0àû>ÅõMb{ô.äÙÔJ©6©ïoê”"²{›a:8Úœ$¤‚‹¤ì^»ƒ´rœGÜ}ÎœÑFŒNŒ6Ã#¶]ÇMbî‘‡‡/ïÖîJGGgÞ½êÓ«ŒFÎ»û‡¥ÿîPuµðbF%¶åR3Í5µ
+¶š>1Å(±¨¶²6¦­ø­.ùOú;¬EE
 endstream
 endobj
 4 0 obj
@@ -13,7 +14,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20210217122534+03'00')/ModDate(D:20210217122534+03'00')/Producer(iText® 7.1.15-SNAPSHOT ©2000-2021 iText Group NV \(AGPL-version\))/Title(CSS Flexbox Test: flex-basis - negative number\(width not specified\))/assert(The 'flex-basis' property set negative number, the tested element is not shown when width not set either.)/flags()>>
+<</CreationDate(D:20210311205511+03'00')/ModDate(D:20210311205511+03'00')/Producer(iText® 7.1.15-SNAPSHOT ©2000-2021 iText Group NV \(AGPL-version\))/Title(CSS Flexbox Test: flex-basis - negative number\(width not specified\))/assert(The 'flex-basis' property set negative number, the tested element is not shown when width not set either.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -27,16 +28,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000382 00000 n 
-0000000972 00000 n 
-0000000427 00000 n 
-0000000240 00000 n 
+0000000383 00000 n 
+0000000973 00000 n 
+0000000428 00000 n 
+0000000241 00000 n 
 0000000015 00000 n 
-0000000793 00000 n 
-0000000883 00000 n 
+0000000794 00000 n 
+0000000884 00000 n 
 trailer
-<</ID [<70f1f0d7e29e6dc8c9e52a7114987c32><70f1f0d7e29e6dc8c9e52a7114987c32>]/Info 3 0 R/Root 1 0 R/Size 8>>
+<</ID [<4d34b426266319540837abce212e4c82><4d34b426266319540837abce212e4c82>]/Info 3 0 R/Root 1 0 R/Size 8>>
 %iText-7.1.15-SNAPSHOT
 startxref
-1023
+1024
 %%EOF

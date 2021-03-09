@@ -28,7 +28,6 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-5096 support flex-flow
-//TODO DEVSIX-5137 support margin collapse
 //TODO DEVSIX-5087 Support floating for flex containers
 public class FlexFlow002Test extends W3CCssTest {
     @Override

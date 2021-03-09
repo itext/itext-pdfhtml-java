@@ -71,6 +71,7 @@ final public class FlexApplierUtil {
      */
     public static void applyFlexItemProperties(Map<String, String> cssProps, ProcessorContext context,
             IPropertyContainer element) {
+        element.setProperty(Property.COLLAPSING_MARGINS, null);
         final String flexGrow = cssProps.get(CommonCssConstants.FLEX_GROW);
         if (flexGrow != null) {
             final Float flexGrowValue = CssDimensionParsingUtils.parseFloat(flexGrow);

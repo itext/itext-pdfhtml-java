@@ -32,7 +32,6 @@ import com.itextpdf.test.annotations.LogMessages;
 })
 //TODO DEVSIX-5096 support flex-direction: row-reverse
 //TODO DEVSIX-5086 support flex-wrap
-//TODO DEVSIX-5137 support margin collapse
 public class FlexDirectionRowReverseTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

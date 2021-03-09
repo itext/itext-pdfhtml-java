@@ -27,6 +27,7 @@ import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreak;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.TextArea;
+import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
@@ -35,6 +36,8 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.FlexContainerRenderer;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.FileInputStream;
@@ -323,9 +326,6 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         Assert.assertFalse(elements.get(0).hasProperty(Property.OVERFLOW_Y));
         Assert.assertFalse(elements.get(0).hasProperty(Property.FLOAT));
         Assert.assertFalse(elements.get(0).hasProperty(Property.CLEAR));
-
-        Assert.assertTrue(elements.get(0).hasProperty(Property.COLLAPSING_MARGINS));
-        Assert.assertNull(elements.get(0).<Object>getProperty(Property.COLLAPSING_MARGINS));
     }
 
     @Test
@@ -362,7 +362,6 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-5137	flex: support margin collapse
     public void flexGrowTest() throws IOException, InterruptedException {
         String name = "flexGrow";
         convertToPdfAndCompare(name, SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -395,7 +394,6 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-5135 flex item with nested floating element processed incorrectly
     public void flexContainerHeightTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("flexContainerHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -426,7 +424,6 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-5137	flex: support margin collapse
     public void checkboxTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("checkbox", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -485,6 +482,39 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     public void smallHeightAndBigMaxHeightOnContainerAnonymousFlexItemTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("smallHeightAndBigMaxHeightOnContainerAnonymousFlexItem",
                 SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void marginsCollapseFlexContainerAndFlexItemStretchTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("marginsCollapseFlexContainerAndFlexItemStretch", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void marginsCollapseFlexContainerAndSiblingsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("marginsCollapseFlexContainerAndSiblings", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT))
+    public void marginsCollapseFlexContainerAndParentTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("marginsCollapseFlexContainerAndParent", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void marginsCollapseInsideFlexContainerTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("marginsCollapseInsideFlexContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void marginsCollapseFlexContainerAndItsChildTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("marginsCollapseFlexContainerAndItsChild", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    // TODO DEVSIX-5196 Support collapsing margins for flex item's children
+    public void marginsCollapseInsideFlexItemTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("marginsCollapseInsideFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     private static void assertDiv(IElement element, String text) {

@@ -31,7 +31,6 @@ import com.itextpdf.test.annotations.LogMessages;
         @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 54)
 })
 //TODO DEVSIX-5086 Support flex-wrap property
-//TODO DEVSIX-5137 support margin collapse
 public class FlexWrapWrapReverseTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

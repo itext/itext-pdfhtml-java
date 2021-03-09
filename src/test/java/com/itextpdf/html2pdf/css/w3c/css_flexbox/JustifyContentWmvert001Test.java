@@ -25,7 +25,6 @@ package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 //TODO DEVSIX-5096 support flex-direction: row-reverse
-//TODO DEVSIX-5137 support margin collapse
 //TODO DEVSIX-5163 support more complex justify-content values
 //TODO DEVSIX-5087 Support floating for FlexContainerRenderer
 public class JustifyContentWmvert001Test extends W3CCssTest {

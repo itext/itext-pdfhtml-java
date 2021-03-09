@@ -1,9 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 143>>stream
-xœ]Ë
-Â0D÷÷+f©›Ø¤èVĞ½p ›)­MêÿQ¡”aVs8ÌLg¦ÃUCp ºƒ=ÖÊ6`O;–¼àér–Œ°Ü%	b†CˆÃ }‘ç—+ƒ=öü Óæ¯×ü¼¦3ªÓk÷8!‰ßòÿæÔnxµB5ª’Ôî6U«l‹º4	…B¼w>4i
+<</Filter/FlateDecode/Length 142>>stream
+xœ]A
+Â0D÷ÿ³ÔM4‰MìVĞ½òS#¥š¤Şßˆ
+¥³šÇc2í.RÁEÒö¨…=ÀÚ8®3¾V®Hó#UxÄ40æ	5¿|ü°uw:;ºRşzÕÏ«ŒF.İÓ…ÃšÿÿP}·âÅ•Ø·”ásW÷Z(Øºµ0ÅF¼w±4o
 endstream
 endobj
 4 0 obj
@@ -13,13 +14,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20210217122542+03'00')/ModDate(D:20210217122542+03'00')/Producer(iText® 7.1.15-SNAPSHOT ©2000-2021 iText Group NV \(AGPL-version\))/Title(CSS Flexbox Test: Indefinite % flex-basis should cause height to be ignored)>>
-endobj
-6 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20210311205519+03'00')/ModDate(D:20210311205519+03'00')/Producer(iText® 7.1.15-SNAPSHOT ©2000-2021 iText Group NV \(AGPL-version\))/Title(CSS Flexbox Test: Indefinite % flex-basis should cause height to be ignored)>>
 endobj
 7 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+6 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +28,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000367 00000 n 
-0000000841 00000 n 
-0000000412 00000 n 
-0000000225 00000 n 
+0000000366 00000 n 
+0000000840 00000 n 
+0000000411 00000 n 
+0000000224 00000 n 
 0000000015 00000 n 
-0000000662 00000 n 
-0000000752 00000 n 
+0000000750 00000 n 
+0000000661 00000 n 
 trailer
-<</ID [<33ed78acc7b46288c2d2e1208f3a55de><33ed78acc7b46288c2d2e1208f3a55de>]/Info 3 0 R/Root 1 0 R/Size 8>>
+<</ID [<e5d6cca5cee91d6a45d1067795e78e6e><e5d6cca5cee91d6a45d1067795e78e6e>]/Info 3 0 R/Root 1 0 R/Size 8>>
 %iText-7.1.15-SNAPSHOT
 startxref
-892
+891
 %%EOF
