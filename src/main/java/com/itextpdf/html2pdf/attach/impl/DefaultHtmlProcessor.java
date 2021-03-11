@@ -72,13 +72,14 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.FlexContainer;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.font.FontFamilySplitter;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.Range;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.RenderingMode;
 import com.itextpdf.layout.renderer.DocumentRenderer;
+import com.itextpdf.layout.renderer.FlexContainerRenderer;
 import com.itextpdf.styledxmlparser.css.CssDeclaration;
 import com.itextpdf.styledxmlparser.css.font.CssFontFace;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
@@ -220,7 +221,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             if (propertyContainer instanceof com.itextpdf.layout.element.IElement) {
                 setConvertedRootElementProperties(body.getStyles(), context, propertyContainer);
                 // TODO DEVSIX-5087 remove this when working on a ticket
-                if (propertyContainer instanceof FlexContainer) {
+                if (((IElement) propertyContainer).getRenderer() instanceof FlexContainerRenderer) {
                     propertyContainer.setProperty(Property.COLLAPSING_MARGINS, null);
                 }
                 elements.add((com.itextpdf.layout.element.IElement) propertyContainer);

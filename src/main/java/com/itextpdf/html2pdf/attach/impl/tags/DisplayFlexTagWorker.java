@@ -49,12 +49,13 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.AreaBreak;
-import com.itextpdf.layout.element.FlexContainer;
+import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.renderer.FlexContainerRenderer;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 import java.util.Map;
@@ -67,7 +68,7 @@ public class DisplayFlexTagWorker implements ITagWorker, IDisplayAware {
 
     private static final Pattern ANY_SYMBOL_PATTERN;
 
-    private final FlexContainer flexContainer;
+    private final Div flexContainer;
 
     private final WaitingInlineElementsHelper inlineHelper;
 
@@ -82,7 +83,8 @@ public class DisplayFlexTagWorker implements ITagWorker, IDisplayAware {
      * @param context the context of the converter processor
      */
     public DisplayFlexTagWorker(IElementNode element, ProcessorContext context) {
-        flexContainer = new FlexContainer();
+        flexContainer = new Div();
+        flexContainer.setNextRenderer(new FlexContainerRenderer(flexContainer));
         final Map<String, String> styles = element.getStyles();
         inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE),
                 styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM));

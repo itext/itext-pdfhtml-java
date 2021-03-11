@@ -28,13 +28,13 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreak;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.TextArea;
 import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.FlexContainer;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.renderer.FlexContainerRenderer;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.FileInputStream;
@@ -68,8 +68,8 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         List<IElement> elements = convertToElements(name);
         IElement flexContainer = elements.get(0);
 
-        Assert.assertTrue(flexContainer instanceof FlexContainer);
-        List<IElement> flexContainerChildren = ((FlexContainer) flexContainer).getChildren();
+        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
+        List<IElement> flexContainerChildren = ((Div) flexContainer).getChildren();
         Assert.assertEquals(11, flexContainerChildren.size());
 
         IElement element0 = flexContainerChildren.get(0);
@@ -131,10 +131,10 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         }
 
         IElement flexContainer = elements.get(0);
-        Assert.assertTrue(flexContainer instanceof FlexContainer);
-        Assert.assertEquals(1, ((FlexContainer) flexContainer).getChildren().size());
+        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
+        Assert.assertEquals(1, ((Div) flexContainer).getChildren().size());
 
-        IElement element = ((FlexContainer) flexContainer).getChildren().get(0);
+        IElement element = ((Div) flexContainer).getChildren().get(0);
         Assert.assertTrue(element instanceof Div);
         Assert.assertEquals(3, ((Div) element).getChildren().size());
         Assert.assertTrue(((Div) element).getChildren().get(0) instanceof Paragraph);
@@ -155,10 +155,10 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         }
 
         IElement flexContainer = elements.get(0);
-        Assert.assertTrue(flexContainer instanceof FlexContainer);
-        Assert.assertEquals(1, ((FlexContainer) flexContainer).getChildren().size());
+        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
+        Assert.assertEquals(1, ((Div) flexContainer).getChildren().size());
 
-        IElement element = ((FlexContainer) flexContainer).getChildren().get(0);
+        IElement element = ((Div) flexContainer).getChildren().get(0);
         assertDiv(element, "\u200Dthe best   world");
     }
 
@@ -175,12 +175,12 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         }
 
         IElement flexContainer = elements.get(0);
-        Assert.assertTrue(flexContainer instanceof FlexContainer);
-        Assert.assertEquals(2, ((FlexContainer) flexContainer).getChildren().size());
+        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
+        Assert.assertEquals(2, ((Div) flexContainer).getChildren().size());
 
-        Assert.assertTrue(((FlexContainer) flexContainer).getChildren().get(0) instanceof Div);
+        Assert.assertTrue(((Div) flexContainer).getChildren().get(0) instanceof Div);
 
-        IElement element = ((FlexContainer) flexContainer).getChildren().get(1);
+        IElement element = ((Div) flexContainer).getChildren().get(1);
         assertDiv(element, "anonymous block");
     }
 
@@ -197,9 +197,9 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         }
 
         IElement flexContainer = elements.get(0);
-        Assert.assertTrue(flexContainer instanceof FlexContainer);
-        Assert.assertEquals(1, ((FlexContainer) flexContainer).getChildren().size());
-        IElement element = ((FlexContainer) flexContainer).getChildren().get(0);
+        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
+        Assert.assertEquals(1, ((Div) flexContainer).getChildren().size());
+        IElement element = ((Div) flexContainer).getChildren().get(0);
         assertDiv(element, "hello");
     }
 
@@ -217,7 +217,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         }
 
         IElement flexContainer = elements.get(0);
-        Assert.assertTrue(flexContainer instanceof FlexContainer);
+        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
         Assert.assertFalse(flexContainer.hasProperty(Property.FLEX_WRAP));
     }
 
@@ -235,7 +235,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         }
 
         IElement flexContainer = elements.get(0);
-        Assert.assertTrue(flexContainer instanceof FlexContainer);
+        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
         Assert.assertFalse(flexContainer.hasProperty(Property.FLOAT));
         Assert.assertFalse(flexContainer.hasProperty(Property.CLEAR));
     }
@@ -254,7 +254,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         }
 
         IElement flexContainer = elements.get(0);
-        Assert.assertTrue(flexContainer instanceof FlexContainer);
+        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
         Assert.assertFalse(flexContainer.hasProperty(Property.OVERFLOW_X));
         Assert.assertFalse(flexContainer.hasProperty(Property.OVERFLOW_Y));
     }
@@ -272,7 +272,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         }
 
         IElement flexContainer = elements.get(0);
-        Assert.assertTrue(flexContainer instanceof FlexContainer);
+        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
         Assert.assertTrue(flexContainer.hasProperty(Property.COLLAPSING_MARGINS));
     }
 
@@ -289,11 +289,11 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         }
 
         IElement flexContainer = elements.get(0);
-        Assert.assertTrue(flexContainer instanceof FlexContainer);
-        Assert.assertEquals(1, ((FlexContainer) flexContainer).getChildren().size());
+        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
+        Assert.assertEquals(1, ((Div) flexContainer).getChildren().size());
 
-        Assert.assertTrue(((FlexContainer) flexContainer).getChildren().get(0).hasProperty(Property.OVERFLOW_X));
-        Assert.assertTrue(((FlexContainer) flexContainer).getChildren().get(0).hasProperty(Property.OVERFLOW_Y));
+        Assert.assertTrue(((Div) flexContainer).getChildren().get(0).hasProperty(Property.OVERFLOW_X));
+        Assert.assertTrue(((Div) flexContainer).getChildren().get(0).hasProperty(Property.OVERFLOW_Y));
     }
 
     @Test
@@ -309,7 +309,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         }
 
         IElement flexContainer = elements.get(0);
-        Assert.assertTrue(flexContainer instanceof FlexContainer);
+        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
     }
 
     @Test
@@ -317,7 +317,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     public void tempDisablePropertiesTest() throws IOException {
         List<IElement> elements = convertToElements("tempDisableProperties");
         Assert.assertEquals(1, elements.size());
-        Assert.assertTrue(elements.get(0) instanceof FlexContainer);
+        Assert.assertTrue(elements.get(0).getRenderer() instanceof FlexContainerRenderer);
 
         Assert.assertFalse(elements.get(0).hasProperty(Property.OVERFLOW_X));
         Assert.assertFalse(elements.get(0).hasProperty(Property.OVERFLOW_Y));
@@ -331,7 +331,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void disableFlexItemPropertiesTest() throws IOException {
         List<IElement> elements = convertToElements("disableFlexItemProperties");
-        IElement flexItem = ((FlexContainer) elements.get(0)).getChildren().get(0);
+        IElement flexItem = ((Div) elements.get(0)).getChildren().get(0);
         Assert.assertFalse(flexItem.hasProperty(Property.FLOAT));
         Assert.assertFalse(flexItem.hasProperty(Property.CLEAR));
         Assert.assertFalse(flexItem.hasProperty(Property.VERTICAL_ALIGNMENT));
@@ -350,9 +350,9 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         }
 
         IElement flexContainer = elements.get(0);
-        Assert.assertTrue(flexContainer instanceof FlexContainer);
-        Assert.assertEquals(1, ((FlexContainer) flexContainer).getChildren().size());
-        IElement flexItem = ((FlexContainer) flexContainer).getChildren().get(0);
+        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
+        Assert.assertEquals(1, ((Div) flexContainer).getChildren().size());
+        IElement flexItem = ((Div) flexContainer).getChildren().get(0);
         Float flexGrow = flexItem.<Float>getProperty(Property.FLEX_GROW);
         Float flexShrink = flexItem.<Float>getProperty(Property.FLEX_SHRINK);
         Assert.assertEquals(2f, (float) flexGrow, EPS);

@@ -51,13 +51,13 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.FlexContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.renderer.FlexContainerRenderer;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.util.WhiteSpaceUtil;
 
@@ -193,10 +193,10 @@ public class WaitingInlineElementsHelper {
                         ((Paragraph) container).add((IBlockElement) leafElement);
                     }
                 }
-            } else if (container instanceof FlexContainer) {
+            } else if (((IElement) container).getRenderer() instanceof FlexContainerRenderer) {
                 final Div div = new Div();
                 div.add(p);
-                ((FlexContainer) container).add(div);
+                ((Div) container).add(div);
             } else if (container instanceof Div) {
                 ((Div) container).add(p);
             } else if (container instanceof Cell) {
