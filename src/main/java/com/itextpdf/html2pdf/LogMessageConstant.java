@@ -75,6 +75,9 @@ public final class LogMessageConstant {
     public static final String EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS = "Exceeded the maximum number of relayouts. " +
             "The resultant document may look not as expected. " +
             "Because of the content being dynamic iText performs several relayouts to produce correct document.";
+    /** The constant FLEX_PROPERTY_IS_NOT_SUPPORTED_YET. */
+    public static final String FLEX_PROPERTY_IS_NOT_SUPPORTED_YET =
+            "Flex related property {0}: {1} is not supported yet.";
     /** The Constant INPUT_FIELD_DOES_NOT_FIT. */
     public static final String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";
     /** The Constant INPUT_TYPE_IS_INVALID. */

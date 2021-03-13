@@ -42,8 +42,10 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.property.AlignmentPropertyValue;
 import com.itextpdf.layout.property.JustifyContent;
@@ -51,13 +53,20 @@ import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Utilities class to apply flex properties.
  */
 final public class FlexApplierUtil {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(FlexApplierUtil.class);
 
     private FlexApplierUtil() {
     }
@@ -72,6 +81,9 @@ final public class FlexApplierUtil {
     public static void applyFlexItemProperties(Map<String, String> cssProps, ProcessorContext context,
             IPropertyContainer element) {
         element.setProperty(Property.COLLAPSING_MARGINS, null);
+
+        logWarningIfThereAreNotSupportedPropertyValues(createSupportedFlexItemPropertiesAndValuesMap(), cssProps);
+
         final String flexGrow = cssProps.get(CommonCssConstants.FLEX_GROW);
         if (flexGrow != null) {
             final Float flexGrowValue = CssDimensionParsingUtils.parseFloat(flexGrow);
@@ -106,6 +118,8 @@ final public class FlexApplierUtil {
         } else {
             // The case when we don't set the flex-basis property should be identified
             // as flex-basis: content
+            LOGGER.warn(MessageFormatUtil.format(LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET,
+                    CommonCssConstants.FLEX_BASIS, CommonCssConstants.CONTENT));
         }
     }
 
@@ -116,6 +130,7 @@ final public class FlexApplierUtil {
      * @param element  the element
      */
     public static void applyFlexContainerProperties(Map<String, String> cssProps, IPropertyContainer element) {
+        logWarningIfThereAreNotSupportedPropertyValues(createSupportedFlexContainerPropertiesAndValuesMap(), cssProps);
         applyAlignItems(cssProps, element);
         applyJustifyContent(cssProps, element);
     }
@@ -149,11 +164,12 @@ final public class FlexApplierUtil {
                 case CommonCssConstants.SELF_END:
                     alignItems = AlignmentPropertyValue.SELF_END;
                     break;
-                case CommonCssConstants.BASELINE:
-                    alignItems = AlignmentPropertyValue.BASELINE;
-                    break;
                 case CommonCssConstants.STRETCH:
+                    alignItems = AlignmentPropertyValue.STRETCH;
+                    break;
                 default:
+                    LOGGER.warn(MessageFormatUtil.format(LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET,
+                            CommonCssConstants.ALIGN_ITEMS, alignItemsString));
                     alignItems = AlignmentPropertyValue.STRETCH;
                     break;
             }
@@ -193,12 +209,79 @@ final public class FlexApplierUtil {
                 case CommonCssConstants.CENTER:
                     justifyContent = JustifyContent.CENTER;
                     break;
+                case CommonCssConstants.STRETCH:
+                    justifyContent = JustifyContent.STRETCH;
+                    break;
                 case CommonCssConstants.FLEX_START:
+                    justifyContent = JustifyContent.FLEX_START;
+                    break;
                 default:
+                    LOGGER.warn(MessageFormatUtil.format(LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET,
+                        CommonCssConstants.JUSTIFY_CONTENT, justifyContentString));
                     justifyContent = JustifyContent.FLEX_START;
                     break;
             }
             element.setProperty(Property.JUSTIFY_CONTENT, justifyContent);
         }
+    }
+
+    private static void logWarningIfThereAreNotSupportedPropertyValues(Map<String, Set<String>> supportedPairs,
+                                                                       Map<String, String> cssProps) {
+        for (Map.Entry<String, Set<String>> entry : supportedPairs.entrySet()) {
+            String supportedPair = entry.getKey();
+            Set<String> supportedValues = entry.getValue();
+            String propertyValue = cssProps.get(supportedPair);
+            if (propertyValue != null && !supportedValues.contains(propertyValue)) {
+                LOGGER.warn(MessageFormatUtil.format(
+                        LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, supportedPair, propertyValue));
+            }
+        }
+    }
+
+    private static Map<String, Set<String>> createSupportedFlexItemPropertiesAndValuesMap() {
+        final Map<String, Set<String>> supportedPairs = new HashMap<>();
+
+        final Set<String> supportedAlignSelfValues = new HashSet<>();
+        supportedAlignSelfValues.add(CommonCssConstants.AUTO);
+
+        supportedPairs.put(CommonCssConstants.ALIGN_SELF, supportedAlignSelfValues);
+
+        final Set<String> supportedOrderValues = new HashSet<>();
+
+        supportedPairs.put(CommonCssConstants.ORDER, supportedOrderValues);
+
+        return supportedPairs;
+    }
+
+    private static Map<String, Set<String>> createSupportedFlexContainerPropertiesAndValuesMap() {
+        final Map<String, Set<String>> supportedPairs = new HashMap<>();
+
+        final Set<String> supportedFlexDirectionValues = new HashSet<>();
+        supportedFlexDirectionValues.add(CommonCssConstants.ROW);
+
+        supportedPairs.put(CommonCssConstants.FLEX_DIRECTION, supportedFlexDirectionValues);
+
+        final Set<String> supportedFlexWrapValues = new HashSet<>();
+        supportedFlexWrapValues.add(CommonCssConstants.NOWRAP);
+
+        supportedPairs.put(CommonCssConstants.FLEX_WRAP, supportedFlexWrapValues);
+
+        final Set<String> supportedAlignContentValues = new HashSet<>();
+        supportedAlignContentValues.add(CommonCssConstants.STRETCH);
+        supportedAlignContentValues.add(CommonCssConstants.NORMAL);
+
+        supportedPairs.put(CommonCssConstants.ALIGN_CONTENT, supportedAlignContentValues);
+
+        final Set<String> supportedRowGapValues = new HashSet<>();
+        supportedRowGapValues.add(CommonCssConstants.NORMAL);
+
+        supportedPairs.put(CommonCssConstants.ROW_GAP, supportedRowGapValues);
+
+        final Set<String> supportedColumnGapValues = new HashSet<>();
+        supportedColumnGapValues.add(CommonCssConstants.NORMAL);
+
+        supportedPairs.put(CommonCssConstants.COLUMN_GAP, supportedColumnGapValues);
+
+        return supportedPairs;
     }
 }

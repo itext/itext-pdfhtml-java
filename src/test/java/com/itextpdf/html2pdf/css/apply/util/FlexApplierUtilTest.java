@@ -23,6 +23,7 @@
 package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.element.Div;
@@ -31,7 +32,10 @@ import com.itextpdf.layout.property.AlignmentPropertyValue;
 import com.itextpdf.layout.property.JustifyContent;
 import com.itextpdf.layout.property.Property;
 import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.UnitTest;
 
 import java.util.HashMap;
@@ -114,6 +118,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
     public void applyFlexBasisContentWidthTest() {
         ProcessorContext context = new ProcessorContext(new ConverterProperties());
         Map<String, String> cssProps = new HashMap<>();
@@ -139,6 +144,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
 
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
     public void applyAlignItemsTest() {
         String[] alignItemsStrings = {
                 CssConstants.START,
@@ -160,7 +166,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
                 AlignmentPropertyValue.FLEX_END,
                 AlignmentPropertyValue.SELF_START,
                 AlignmentPropertyValue.SELF_END,
-                AlignmentPropertyValue.BASELINE,
+                AlignmentPropertyValue.STRETCH,
                 AlignmentPropertyValue.STRETCH,
                 AlignmentPropertyValue.NORMAL
         };
@@ -185,7 +191,8 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
                 CssConstants.SELF_END,
                 CssConstants.LEFT,
                 CssConstants.RIGHT,
-                CssConstants.NORMAL
+                CssConstants.NORMAL,
+                CssConstants.STRETCH
         };
         JustifyContent[] justifyContentValues = {
                 JustifyContent.START,
@@ -197,7 +204,8 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
                 JustifyContent.SELF_END,
                 JustifyContent.LEFT,
                 JustifyContent.RIGHT,
-                JustifyContent.NORMAL
+                JustifyContent.NORMAL,
+                JustifyContent.STRETCH
         };
         for (int i = 0; i < justifyContentStrings.length; ++i) {
             Map<String, String> cssProps = new HashMap<>();
@@ -206,5 +214,104 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
             FlexApplierUtil.applyFlexContainerProperties(cssProps, element);
             Assert.assertEquals(justifyContentValues[i], (JustifyContent) element.<JustifyContent>getProperty(Property.JUSTIFY_CONTENT));
         }
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void applyAlignItemsUnsupportedValuesTest() {
+        Map<String, String> cssProps = new HashMap<>();
+        cssProps.put(CommonCssConstants.ALIGN_ITEMS, CssConstants.SAFE + " " + CommonCssConstants.FLEX_END);
+        IElement element = new Div();
+        FlexApplierUtil.applyFlexContainerProperties(cssProps, element);
+        Assert.assertEquals(AlignmentPropertyValue.STRETCH, (AlignmentPropertyValue) element.<AlignmentPropertyValue>getProperty(Property.ALIGN_ITEMS));
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void applyJustifyContentUnsupportedValuesTest() {
+        Map<String, String> cssProps = new HashMap<>();
+        cssProps.put(CssConstants.JUSTIFY_CONTENT, CommonCssConstants.SPACE_BETWEEN);
+        IElement element = new Div();
+        FlexApplierUtil.applyFlexContainerProperties(cssProps, element);
+        Assert.assertEquals(JustifyContent.FLEX_START, (JustifyContent) element.<JustifyContent>getProperty(Property.JUSTIFY_CONTENT));
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 5))
+    public void applyFlexContainerUnsupportedPropertiesUnsupportedValuesTest() {
+        String[] unsupportedProperties = {
+                CssConstants.FLEX_WRAP,
+                CssConstants.FLEX_DIRECTION,
+                CssConstants.ROW_GAP,
+                CssConstants.COLUMN_GAP,
+                CssConstants.ALIGN_CONTENT
+        };
+        String[] unsupportedValues = {
+                CssConstants.WRAP_REVERSE,
+                CssConstants.COLUMN,
+                "20px",
+                "10em",
+                CssConstants.SPACE_AROUND
+        };
+        for (int i = 0; i < unsupportedValues.length; ++i) {
+            Map<String, String> cssProps = new HashMap<>();
+            cssProps.put(unsupportedProperties[i], unsupportedValues[i]);
+            IElement element = new Div();
+            FlexApplierUtil.applyFlexContainerProperties(cssProps, element);
+        }
+
+        // This test checks that there are log messages so assertions are not required
+        Assert.assertTrue(true);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
+    public void applyFlexItemUnsupportedPropertiesUnsupportedValuesTest() {
+        ProcessorContext context = new ProcessorContext(new ConverterProperties());
+        Map<String, String> cssProps = new HashMap<>();
+        cssProps.put(CssConstants.ORDER, "1");
+        cssProps.put(CssConstants.ALIGN_SELF, CssConstants.STRETCH);
+        IElement element = new Div();
+
+        FlexApplierUtil.applyFlexItemProperties(cssProps, context, element);
+
+        // This test checks that there are log messages so assertions are not required
+        Assert.assertTrue(true);
+    }
+
+    @Test
+    public void applyFlexContainerUnsupportedPropertiesSupportedValuesTest() {
+        String[] unsupportedProperties = {
+                CssConstants.FLEX_WRAP,
+                CssConstants.FLEX_DIRECTION,
+                CssConstants.ALIGN_CONTENT
+        };
+        String[] supportedValues = {
+                CssConstants.NOWRAP,
+                CssConstants.ROW,
+                CssConstants.STRETCH
+        };
+        for (int i = 0; i < supportedValues.length; ++i) {
+            Map<String, String> cssProps = new HashMap<>();
+            cssProps.put(unsupportedProperties[i], supportedValues[i]);
+            IElement element = new Div();
+            FlexApplierUtil.applyFlexContainerProperties(cssProps, element);
+        }
+
+        // This test checks that there are no log messages so assertions are not required
+        Assert.assertTrue(true);
+    }
+
+    @Test
+    public void applyFlexItemUnsupportedPropertiesSupportedValuesTest() {
+        ProcessorContext context = new ProcessorContext(new ConverterProperties());
+        Map<String, String> cssProps = new HashMap<>();
+        cssProps.put(CssConstants.ALIGN_SELF, CssConstants.AUTO);
+        IElement element = new Div();
+
+        FlexApplierUtil.applyFlexItemProperties(cssProps, context, element);
+
+        // This test checks that there are no log messages so assertions are not required
+        Assert.assertTrue(true);
     }
 }

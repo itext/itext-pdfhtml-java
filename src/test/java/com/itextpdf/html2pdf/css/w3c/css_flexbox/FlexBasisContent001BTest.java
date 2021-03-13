@@ -22,9 +22,13 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 
+import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-5163 support more complex justify-content values
+@LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 15))
 public class FlexBasisContent001BTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
