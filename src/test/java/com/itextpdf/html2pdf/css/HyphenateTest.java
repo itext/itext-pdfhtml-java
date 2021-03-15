@@ -72,6 +72,12 @@ public class HyphenateTest extends ExtendedITextTest {
     }
 
     @Test
+    public void test02() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hyphenateTest02.html"), new File(destinationFolder + "hyphenateTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hyphenateTest02.pdf", sourceFolder + "cmp_hyphenateTest02.pdf", destinationFolder, "diff01_"));
+    }
+
+    @Test
     public void test03() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hyphenateTest03.html"), new File(destinationFolder + "hyphenateTest03.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hyphenateTest03.pdf", sourceFolder + "cmp_hyphenateTest03.pdf", destinationFolder, "diff03_"));

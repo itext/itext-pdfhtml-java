@@ -170,4 +170,19 @@ public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
     public void textDecorationColorEffectOnNestedElements03Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationColorEffectOnNestedElements03", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
+
+    @Test
+    public void textDecorationNoneOnNestedElementsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationNoneOnNestedElements", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void textDecorationWithDisplayInlineBlockTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationWithDisplayInlineBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void textDecorationInNodeStyleAttributeVsStyleTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationInNodeStyleAttributeVsStyle", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
 }

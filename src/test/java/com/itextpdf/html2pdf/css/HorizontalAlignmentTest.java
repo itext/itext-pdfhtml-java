@@ -68,6 +68,11 @@ public class HorizontalAlignmentTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void alignAttribute02() throws IOException, InterruptedException {
+        convertToPdfAndCompare("alignAttribute02", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void alignAttribute03() throws IOException, InterruptedException {
         convertToPdfAndCompare("alignAttribute03", sourceFolder, destinationFolder);
     }
@@ -86,5 +91,10 @@ public class HorizontalAlignmentTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void marginsAutoInlines() throws IOException, InterruptedException {
         convertToPdfAndCompare("marginsAutoInlines", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void marginsAutoImagesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("marginsAutoImages", sourceFolder, destinationFolder);
     }
 }
