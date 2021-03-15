@@ -174,10 +174,10 @@ public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     //TODO DEVSIX-5086 Support flex-wrap property
-    public void ltWidthGrow0Shrink1Item2MarginBorderPadding30JustifyContentFlexStartAndNotValidAlignItemsFlexStartAndNotValidTest01()
+    public void ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexStartTest()
             throws IOException, InterruptedException {
         convertToPdfAndCompare(
-                "ltWidthGrow0Shrink1Item2MarginBorderPadding30JustifyContentFlexStartAndNotValidAlignItemsFlexStartAndNotValidTest01",
+                "ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexStartTest",
                 SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
