@@ -60,16 +60,16 @@ public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void differentBasisGrow1Shrink0MarginBorderPaddingOnContainerTest01()
+    public void differentBasisGrow1Shrink0MBPOnContainerTest01()
             throws IOException, InterruptedException {
-        convertToPdfAndCompare("differentBasisGrow1Shrink0MarginBorderPaddingOnContainerTest01", SOURCE_FOLDER,
+        convertToPdfAndCompare("differentBasisGrow1Shrink0MBPOnContainerTest01", SOURCE_FOLDER,
                 DESTINATION_FOLDER);
     }
 
     @Test
-    public void differentBasisGrow1Shrink0MarginBorderPaddingOnContainerNoWidthTest01()
+    public void differentBasisGrow1Shrink0MBPOnContainerNoWidthTest01()
             throws IOException, InterruptedException {
-        convertToPdfAndCompare("differentBasisGrow1Shrink0MarginBorderPaddingOnContainerNoWidthTest01", SOURCE_FOLDER,
+        convertToPdfAndCompare("differentBasisGrow1Shrink0MBPOnContainerNoWidthTest01", SOURCE_FOLDER,
                 DESTINATION_FOLDER);
     }
 
@@ -134,66 +134,57 @@ public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void differentBasisSumLtWidthGrow1Shrink0Item2MarginBorderPadding30Test01()
-            throws IOException, InterruptedException {
-        convertToPdfAndCompare("differentBasisSumLtWidthGrow1Shrink0Item2MarginBorderPadding30Test01", SOURCE_FOLDER,
+    public void differentBasisSumLtWidthGrow1Shrink0Item2MBP30Test01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("differentBasisSumLtWidthGrow1Shrink0Item2MBP30Test01", SOURCE_FOLDER,
                 DESTINATION_FOLDER);
     }
 
     @Test
-    public void differentBasisSumLtWidthGrow1Shrink1Item2MarginBorderPadding30Test01()
-            throws IOException, InterruptedException {
-        convertToPdfAndCompare("differentBasisSumLtWidthGrow1Shrink1Item2MarginBorderPadding30Test01", SOURCE_FOLDER,
-                DESTINATION_FOLDER);
-    }
-
-    @Test
-    //TODO DEVSIX-5086 Support flex-wrap property
-    public void ltWidthGrow0Shrink1Item2MarginBorderPadding30Test01() throws IOException, InterruptedException {
-        convertToPdfAndCompare("ltWidthGrow0Shrink1Item2MarginBorderPadding30Test01", SOURCE_FOLDER,
+    public void differentBasisSumLtWidthGrow1Shrink1Item2MBP30Test01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("differentBasisSumLtWidthGrow1Shrink1Item2MBP30Test01", SOURCE_FOLDER,
                 DESTINATION_FOLDER);
     }
 
     @Test
     //TODO DEVSIX-5086 Support flex-wrap property
-    public void ltWidthGrow0Shrink1Item2MarginBorderPadding30JustifyContentCenterAlignItemsCenterTest01()
+    public void ltWidthGrow0Shrink1Item2MBP30Test01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30Test01", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    //TODO DEVSIX-5086 Support flex-wrap property
+    public void ltWidthGrow0Shrink1Item2MBP30JustifyContentCenterAlignItemsCenterTest01()
             throws IOException, InterruptedException {
-        convertToPdfAndCompare(
-                "ltWidthGrow0Shrink1Item2MarginBorderPadding30JustifyContentCenterAlignItemsCenterTest01",
+        convertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30JustifyContentCenterAlignItemsCenterTest01", SOURCE_FOLDER,
+                DESTINATION_FOLDER);
+    }
+
+    @Test
+    //TODO DEVSIX-5086 Support flex-wrap property
+    public void ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexEndAlignItemsFlexEndTest01()
+            throws IOException, InterruptedException {
+        convertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexEndAlignItemsFlexEndTest01",
                 SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     //TODO DEVSIX-5086 Support flex-wrap property
-    public void ltWidthGrow0Shrink1Item2MarginBorderPadding30JustifyContentFlexEndAlignItemsFlexEndTest01()
-            throws IOException, InterruptedException {
-        convertToPdfAndCompare(
-                "ltWidthGrow0Shrink1Item2MarginBorderPadding30JustifyContentFlexEndAlignItemsFlexEndTest01",
-                SOURCE_FOLDER, DESTINATION_FOLDER);
+    public void ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexStartTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexStartTest", SOURCE_FOLDER,
+                DESTINATION_FOLDER);
     }
 
     @Test
     //TODO DEVSIX-5086 Support flex-wrap property
-    public void ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexStartTest()
-            throws IOException, InterruptedException {
-        convertToPdfAndCompare(
-                "ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexStartTest",
-                SOURCE_FOLDER, DESTINATION_FOLDER);
+    public void ltWidthGrow0Shrink1Item2MBP30AlignItemsStretchAndNormalTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30AlignItemsStretchAndNormal", SOURCE_FOLDER,
+                DESTINATION_FOLDER);
     }
 
     @Test
-    //TODO DEVSIX-5086 Support flex-wrap property
-    public void ltWidthGrow0Shrink1Item2MarginBorderPadding30AlignItemsStretchAndNormalTest01()
+    public void ltWidthGrow0Shrink0Item2MBP30JustifyContentCenterAlignItemsCenterDontFitTest()
             throws IOException, InterruptedException {
-        convertToPdfAndCompare("ltWidthGrow0Shrink1Item2MarginBorderPadding30AlignItemsStretchAndNormalTest01",
-                SOURCE_FOLDER, DESTINATION_FOLDER);
-    }
-
-    @Test
-    public void ltWidthGrow0Shrink0Item2MarginBorderPadding30JustifyContentCenterAlignItemsCenterDontFitTest01()
-            throws IOException, InterruptedException {
-        convertToPdfAndCompare(
-                "ltWidthGrow0Shrink0Item2MarginBorderPadding30JustifyContentCenterAlignItemsCenterDontFitTest01",
+        convertToPdfAndCompare("ltWidthGrow0Shrink0Item2MBP30JustifyContentCenterAlignItemsCenterDontFit",
                 SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
