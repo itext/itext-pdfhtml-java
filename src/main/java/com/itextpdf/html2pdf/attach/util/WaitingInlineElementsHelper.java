@@ -195,6 +195,7 @@ public class WaitingInlineElementsHelper {
                 }
             } else if (((IElement) container).getRenderer() instanceof FlexContainerRenderer) {
                 final Div div = new Div();
+                OverflowApplierUtil.applyOverflow(map, div);
                 div.add(p);
                 ((Div) container).add(div);
             } else if (container instanceof Div) {

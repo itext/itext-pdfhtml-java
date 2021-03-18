@@ -481,6 +481,12 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("smallHeightAndBigMaxHeightOnContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    @Test
+    public void smallHeightAndBigMaxHeightOnContainerAnonymousFlexItemTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("smallHeightAndBigMaxHeightOnContainerAnonymousFlexItem",
+                SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
     private static void assertDiv(IElement element, String text) {
         Assert.assertTrue(element instanceof Div);
         Assert.assertEquals(1, ((Div) element).getChildren().size());
