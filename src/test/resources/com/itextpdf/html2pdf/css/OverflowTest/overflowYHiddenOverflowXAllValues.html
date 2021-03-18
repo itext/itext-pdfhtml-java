@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+	background-color: #fff;
+	color: #000;
+	line-height: 1.25;
+	padding: 0;
+	margin: 0 10px 10px 10px;
+}
+.box {
+	padding: 9px;
+	border: 10px solid #9c9;
+	width: 119px;
+	height: 119px;
+	w\idth: 81px;
+	he\ight: 81px;
+}
+.uno, .due {
+	border: 1px solid;
+}
+.uno {
+	margin-left: 20px;
+	width: 121px;
+	height: 21px;
+	w\idth: 119px;
+	he\ight: 19px;
+	background: #bbf;
+	border-color: #00f;
+}
+.due {
+	margin-top: -1px;
+	width: 21px;
+	height: 121px;
+	w\idth: 19px;
+	he\ight: 119px;
+	background: #fbb;
+	border-color: #f00;
+}
+.sho {
+	width: 41px;
+	w\idth: 39px;
+}
+.shv {
+	height: 41px;
+	he\ight: 39px;
+}
+.xv {
+	overflow-x: visible;
+}
+.xh {
+	overflow-x: hidden;
+}
+.xs {
+	overflow-x: scroll;
+}
+.xa {
+	overflow-x: auto;
+}
+.yh .box {
+	overflow-y: hidden;
+}
+.wr {
+	width: 120px;
+	height: 120px;
+}
+.wb {
+	width: 160px;
+	height: 160px;
+}
+table {
+	font-size: 1em;
+	border-collapse: collapse;
+	margin: 2em 0;
+}
+td, th {
+	border: 2px solid #aaa;
+}
+td {
+	background: #f8f8f8 30px 30px;
+	padding: 10px;
+	vertical-align: top;
+}
+th {
+	font-weight: normal;
+	text-align: center;
+	padding: 4px;
+	line-height: 1.2;
+}
+</style>
+</head>
+
+<body>
+<h1>Overflow-y: hidden and overflow-x with all possible values</h1>
+<table>
+<tr>
+	<th></th>
+	<th>overflow-x: visible</th>
+	<th>overflow-x: hidden</th>
+	<th>overflow-x: scroll</th>
+	<th colspan="4">overflow-x: auto</th>
+</tr>
+
+<tr class="yh">
+	<th>overflow-y:<br> hidden</th>
+	<td><div class="wb">
+		<div class="box xv">
+			<div class="uno"></div>
+			<div class="due"></div>
+		</div>
+	</div></td>
+	<td><div class="wb">
+		<div class="box xh">
+			<div class="uno"></div>
+			<div class="due"></div>
+		</div>
+	</div></td>
+	<td><div class="wr">
+		<div class="box xs">
+			<div class="uno"></div>
+			<div class="due"></div>
+		</div>
+	</div></td>
+	<td><div class="wr">
+		<div class="box xa">
+			<div class="uno sho"></div>
+			<div class="due"></div>
+		</div>
+	</div></td>
+	<td><div class="wr">
+		<div class="box xa">
+			<div class="uno"></div>
+			<div class="due shv"></div>
+		</div>
+	</div></td>
+	<td><div class="wr">
+		<div class="box xa">
+			<div class="uno"></div>
+			<div class="due"></div>
+		</div>
+	</div></td>
+	<td><div class="wr">
+		<div class="box xa">
+			<div class="uno sho"></div>
+			<div class="due shv"></div>
+		</div>
+	</div></td>
+</tr>
+</table>
+</body>
+</html>
