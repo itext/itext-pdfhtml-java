@@ -29,11 +29,10 @@ import com.itextpdf.test.annotations.LogMessages;
 
 
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 1),
         @LogMessage(messageTemplate = com.itextpdf.html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)
 })
 //TODO DEVSIX-5096 support flex-direction: column
-//TODO DEVSIX-5004 improve support of flex-items with intrinsic aspect ratio
+// TODO DEVSIX-5269 ImageRenderer#getMinMaxWidth does not return initial image width
 public class FlexAspectRatioImgColumn007Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
