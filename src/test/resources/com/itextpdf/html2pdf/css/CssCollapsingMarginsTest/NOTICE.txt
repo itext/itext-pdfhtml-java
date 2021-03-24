@@ -1,0 +1,3 @@
+This image is under the following licenses:
+
+pepper.jpg  | GPLv3 | GPLv3.txt | This image is created by GIMP tool which is licensed under GPLv3. The resource for that image can be found here https://gitlab.gnome.org/GNOME/gimp/-/blob/master/data/brushes/Fun/pepper.gbr
