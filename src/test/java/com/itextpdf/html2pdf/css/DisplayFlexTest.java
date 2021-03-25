@@ -495,7 +495,6 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("marginsCollapseFlexContainerAndSiblings", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.CLIP_ELEMENT))
     public void marginsCollapseFlexContainerAndParentTest() throws IOException, InterruptedException {
@@ -526,6 +525,14 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         Assert.assertTrue(((Paragraph) ((Div) element).getChildren().get(0)).getChildren().get(0) instanceof Text);
         Assert.assertEquals(text,
                 ((Text) ((Paragraph) ((Div) element).getChildren().get(0)).getChildren().get(0)).getText());
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)
+    })
+    public void resultOccupiedAreaNullSplitRenderersNotTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("resultOccupiedAreaNullSplitRenderersNot", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     private static List<IElement> convertToElements(String name) throws IOException {
