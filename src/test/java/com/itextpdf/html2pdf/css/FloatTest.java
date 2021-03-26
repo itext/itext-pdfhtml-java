@@ -165,6 +165,11 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
+    public void floatRightClearRightInTableTest() throws IOException, InterruptedException {
+        runTest("floatRightClearRightInTable", "diff18_");
+    }
+
+    @Test
     public void float19Test() throws IOException, InterruptedException {
         runTest("float19Test", "diff19_");
     }
@@ -212,9 +217,8 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1269")
+    // TODO DEVSIX-1269 update cmp file after fixing
     public void float28Test() throws IOException, InterruptedException {
-        // TODO DEVSIX-1269
         runTest("float28Test", "diff28_");
     }
 
@@ -224,43 +228,38 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1269")
+    // TODO DEVSIX-1269 and DEVSIX-1270 update cmp file after fixing
     public void float30Test() throws IOException, InterruptedException {
-        // TODO DEVSIX-1269 and DEVSIX-1270
         runTest("float30Test", "diff30_");
     }
 
     @Test
-    @Ignore("DEVSIX-1269")
+    // TODO DEVSIX-1269 and DEVSIX-1270 update cmp file after fixing
     public void float31Test() throws IOException, InterruptedException {
-        // TODO DEVSIX-1269 and DEVSIX-1270
         runTest("float31Test", "diff31_");
     }
 
     @Test
-    @Ignore("DEVSIX-1269")
+    // TODO DEVSIX-1269 update cmp file after fixing
     public void float32Test() throws IOException, InterruptedException {
-        // TODO DEVSIX-1269
         runTest("float32Test", "diff32_");
     }
 
     @Test
-    @Ignore("DEVSIX-1269")
+    // TODO DEVSIX-1269 update cmp file after fixing
     public void float33Test() throws IOException, InterruptedException {
         runTest("float33Test", "diff33_");
     }
 
     @Test
-    @Ignore("DEVSIX-1269")
+    // TODO DEVSIX-1269 update cmp file after fixing
     public void float34Test() throws IOException, InterruptedException {
-        // TODO DEVSIX-1269
         runTest("float34Test", "diff34_");
     }
 
     @Test
-    @Ignore("DEVSIX-1269")
+    // TODO DEVSIX-1269 update cmp file after fixing
     public void float35Test() throws IOException, InterruptedException {
-        // TODO DEVSIX-1269
         runTest("float35Test", "diff35_");
     }
 
@@ -282,15 +281,14 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
-    // todo DEVSIX-1270, DEVSIX-1269
+    // TODO DEVSIX-1270, DEVSIX-1269
     public void float39Test() throws IOException, InterruptedException {
         runTest("float39Test", "diff39_");
     }
 
     @Test
-    @Ignore("DEVSIX-1269")
+    // TODO DEVSIX-1269 update cmp file after fixing
     public void float40Test() throws IOException, InterruptedException {
-        // TODO DEVSIX-1269
         runTest("float40Test", "diff40_");
     }
 
@@ -351,6 +349,21 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
+    public void floatLeftInNestedDivTest() throws IOException, InterruptedException {
+        // TODO: DEVSIX-1372 content of floating div is NOT below parent content top edge.
+        // This happens when parent's margin gets bigger from collapsing with it's first kid.
+        runTest("floatLeftInNestedDiv", "diff52_");
+    }
+
+    @Test
+    public void floatedLeftDivTest() throws IOException, InterruptedException {
+        // TODO: DEVSIX-1372 both floating and first non-floating element are direct kids of the <body> tag.
+        // It seems that in html there is some kind of root block, and it's
+        // top margin and first kid's top-margin are collapsing. This is different from iText layout mechanism.
+        runTest("floatedLeftDiv", "diff53_");
+    }
+
+    @Test
     public void float54Test() throws IOException, InterruptedException {
         runTest("float54Test", "diff54_");
     }
@@ -361,13 +374,24 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
+    public void floatedRightNestedDivTest() throws IOException, InterruptedException {
+        runTest("floatedRightNestedDiv", "diff56_");
+    }
+
+    @Test
     public void float57Test() throws IOException, InterruptedException {
         runTest("float57Test", "diff57_");
     }
 
-    @Test@Ignore("DEVSIX-1372")
+    @Test
     public void float58Test() throws IOException, InterruptedException {
+        // TODO: DEVSIX-1372
         runTest("float58Test", "diff58_");
+    }
+
+    @Test
+    public void floatedDivsPlacingTest() throws IOException, InterruptedException {
+        runTest("floatedDivsPlacing", "diff59_");
     }
 
    @Test
@@ -381,6 +405,26 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
+    public void floatPropertyInListTest() throws IOException, InterruptedException {
+        runTest("floatPropertyInListTest", "diff62_");
+    }
+
+    @Test
+    public void floatLeftDisplayInlineBlockInListTest() throws IOException, InterruptedException {
+        runTest("floatLeftDisplayInlineBlockInList", "diff63_");
+    }
+
+    @Test
+    public void floatLeftInListsNestedInDivsTest() throws IOException, InterruptedException {
+        runTest("floatLeftInListsNestedInDivs", "diff64_");
+    }
+
+    @Test
+    public void floatedLeftParagraphsInFloatedRightDivsTest() throws IOException, InterruptedException {
+        runTest("floatedLeftParagraphsInFloatedRightDivs", "diff65_");
+    }
+
+    @Test
     public void float66Test() throws IOException, InterruptedException {
         runTest("float66Test", "diff66_");
     }
@@ -388,6 +432,21 @@ public class FloatTest extends ExtendedITextTest {
     @Test
     public void float67Test() throws IOException, InterruptedException {
         runTest("float67Test", "diff67_");
+    }
+
+    @Test
+    public void diffFloatValueInPInsideFloatedRightDivTest() throws IOException, InterruptedException {
+        runTest("diffFloatValueInPInsideFloatedRightDiv", "diff68_");
+    }
+
+    @Test
+    public void diffFloatValuesInListsTest() throws IOException, InterruptedException {
+        runTest("diffFloatValuesInLists", "diff69_");
+    }
+
+    @Test
+    public void displayInlineBlockPInsideFloatedDivTest() throws IOException, InterruptedException {
+        runTest("displayInlineBlockPInsideFloatedDiv", "diff70_");
     }
 
     @Test
@@ -441,15 +500,155 @@ public class FloatTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1316")
+    public void floatLeftImageTest() throws IOException, InterruptedException {
+        runTest("floatLeftImage", "diffImages01_");
+    }
+
+    @Test
+    public void floatRightImageTest() throws IOException, InterruptedException {
+        runTest("floatRightImage", "diffImages02_");
+    }
+
+    @Test
+    public void floatedImagesAmongParagraphsTest() throws IOException, InterruptedException {
+        runTest("floatedImagesAmongParagraphs", "diffImages03_");
+    }
+
+    @Test
+    public void severalFloatedImagesAmongParagraphsTest() throws IOException, InterruptedException {
+        runTest("severalFloatedImagesAmongParagraphs", "diffImages04_");
+    }
+
+    @Test
+    public void floatedLeftImageInParagraphTest() throws IOException, InterruptedException {
+        runTest("floatedLeftImageInParagraph", "diffImages05_");
+    }
+
+    @Test
+    public void floatedImagesInDivTest() throws IOException, InterruptedException {
+        runTest("floatedImagesInDiv", "diffImages06_");
+    }
+
+    @Test
+    public void nestedFloatedImagesWithDisplayBlockTest() throws IOException, InterruptedException {
+        runTest("nestedFloatedImagesWithDisplayBlock", "diffImages07_");
+    }
+
+    @Test
+    public void nestedFloatedImagesTest() throws IOException, InterruptedException {
+        runTest("nestedFloatedImages", "diffImages08_");
+    }
+
+    @Test
+    public void severalNestedFloatedImagesTest() throws IOException, InterruptedException {
+        runTest("severalNestedFloatedImages", "diffImages09_");
+    }
+
+    @Test
+    public void floatedImageInsideLongTextTest() throws IOException, InterruptedException {
+        runTest("floatedImageInsideLongText", "diffImages10_");
+    }
+
+    @Test
+    public void longTextAfterFloatedImageTest() throws IOException, InterruptedException {
+        runTest("longTextAfterFloatedImage", "diffImages11_");
+    }
+
+    @Test
+    public void nestedFloatedImagesInsideLongTextTest() throws IOException, InterruptedException {
+        runTest("nestedFloatedImagesInsideLongText", "diffImages12_");
+    }
+
+    @Test
+    public void floatedImagesWithTextInNarrowDivTest() throws IOException, InterruptedException {
+        runTest("floatedImagesWithTextInNarrowDiv", "diffImages13_");
+    }
+
+    @Test
+    //TODO: DEVSIX-1316 update cmp file after fixing
     public void floatImage14Test() throws IOException, InterruptedException {
         runTest("floatImage14Test", "diffImages14_");
+    }
+
+    @Test
+    public void floatLeftInSpanTest() throws IOException, InterruptedException {
+        runTest("floatLeftInSpan", "diffInline01_");
+    }
+
+    @Test
+    public void floatSpanInNarrowPTest() throws IOException, InterruptedException {
+        runTest("floatSpanInNarrowP", "diffInline02_");
+    }
+
+    @Test
+    public void floatSpanInWidePTest() throws IOException, InterruptedException {
+        runTest("floatSpanInWideP", "diffInline03_");
+    }
+
+    @Test
+    public void floatSpanNestedInFloatDivTest() throws IOException, InterruptedException {
+        runTest("floatSpanNestedInFloatDiv", "diffInline04_");
+    }
+
+    @Test
+    public void floatSpanNestedInBlockElementsOfDiffWidth01Test() throws IOException, InterruptedException {
+        runTest("floatSpanNestedInBlockElementsOfDiffWidth01", "diffInline05_");
+    }
+
+    @Test
+    public void floatSpanNestedInBlockElementsOfDiffWidth02Test() throws IOException, InterruptedException {
+        runTest("floatSpanNestedInBlockElementsOfDiffWidth02", "diffInline06_");
+    }
+
+    @Test
+    public void floatSpanNestedInBlockElementsOfDiffWidth03Test() throws IOException, InterruptedException {
+        runTest("floatSpanNestedInBlockElementsOfDiffWidth03", "diffInline07_");
+    }
+
+    @Test
+    public void floatRightSpanInParagraphTest() throws IOException, InterruptedException {
+        runTest("floatRightSpanInParagraph", "diffInline08_");
     }
 
     @Test
     public void floatInline09Test() throws IOException, InterruptedException {
         // TODO DEVSIX-1269
         runTest("floatInline09Test", "diffImages09_");
+    }
+
+    @Test
+    public void floatImgInParagraphWIthMarginTest() throws IOException, InterruptedException {
+        runTest("floatImgInParagraphWIthMargin", "diffInline10_");
+    }
+
+    @Test
+    public void nestedFloatedSpansInParagraphTest() throws IOException, InterruptedException {
+        runTest("nestedFloatedSpansInParagraph", "diffInline11_");
+    }
+
+    @Test
+    public void floatSpanInNonFloatedParagraphTest() throws IOException, InterruptedException {
+        runTest("floatSpanInNonFloatedParagraph", "diffInline12_");
+    }
+
+    @Test
+    public void floatSpanInNonFloatedParagraphLongTextTest() throws IOException, InterruptedException {
+        runTest("floatSpanInNonFloatedParagraphLongText", "diffInline13_");
+    }
+
+    @Test
+    public void nestedFloatedSpansTest() throws IOException, InterruptedException {
+        runTest("nestedFloatedSpans", "diffInline14_");
+    }
+
+    @Test
+    public void nestedSpansWithDiffFloatCombinationTest() throws IOException, InterruptedException {
+        runTest("nestedSpansWithDiffFloatCombination", "diffInline15_");
+    }
+
+    @Test
+    public void floatSpanNestedInBlockElementsOfDiffWidth04Test() throws IOException, InterruptedException {
+        runTest("floatSpanNestedInBlockElementsOfDiffWidth04", "diffInline16_");
     }
 
     @Test
