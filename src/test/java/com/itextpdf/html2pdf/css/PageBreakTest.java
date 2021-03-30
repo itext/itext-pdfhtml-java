@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2020 iText Group NV
+    Copyright (c) 1998-2021 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -99,6 +99,11 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void pageBreakAfter04Test() throws IOException, InterruptedException {
+        runTest("page-break-after04");
+    }
+
+    @Test
     public void pageBreakAfter05Test() throws IOException, InterruptedException {
         runTest("page-break-after05");
     }
@@ -119,6 +124,11 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void pageBreakBefore04Test() throws IOException, InterruptedException {
+        runTest("page-break-before04");
+    }
+
+    @Test
     public void pageBreakBeforeAfter01Test() throws IOException, InterruptedException {
         runTest("page-break-before-after01");
     }
@@ -136,6 +146,11 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void pageBreakBeforeTable01Test() throws IOException, InterruptedException {
         runTest("page-break-before-table01");
+    }
+
+    @Test
+    public void pageBreakInsideAvoidInParaTest() throws IOException, InterruptedException {
+        runTest("pageBreakInsideAvoidInPara");
     }
 
     @Test
@@ -176,6 +191,12 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
     public void pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivsWithShortAndLongTextsTest()
             throws IOException, InterruptedException {
         runTest("pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivsWithShortAndLongTextsTest");
+    }
+
+    @Test
+    public void pageBreakAlwaysInsidePageBreakAvoidTest()
+            throws IOException, InterruptedException {
+        runTest("pageBreakAlwaysInsidePageBreakAvoidTest");
     }
 
     @Test

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+<style>
+    #content {
+        display: flex;
+        width: 500px;
+    }
+
+    #content div {
+        flex-basis: 120px;
+        border: 3px solid rgba(0,0,0,.2);
+    }
+
+    .box {
+        flex-shrink: 1;
+    }
+
+    .box1 {
+        flex-shrink: 2;
+    }
+</style>
+<p>The width of content is 500px; the flex-basis of the flex items is 120px.</p>
+<p>A, B, C have flex-shrink:1 set. D and E have flex-shrink:2 set</p>
+<p>The width of D and E is less than the others.</p>
+<div id="content">
+    <div class="box" style="background-color:red;">A</div>
+    <div class="box" style="background-color:lightblue;">B</div>
+    <div class="box" style="background-color:yellow;">C</div>
+    <div class="box1" style="background-color:brown;">D</div>
+    <div class="box1" style="background-color:lightgreen;">E</div>
+</div>
+</body>
+</html>

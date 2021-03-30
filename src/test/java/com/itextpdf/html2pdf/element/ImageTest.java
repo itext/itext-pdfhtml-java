@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2020 iText Group NV
+    Copyright (c) 1998-2021 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -43,10 +43,15 @@
 package com.itextpdf.html2pdf.element;
 
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.FileInputStream;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -104,4 +109,113 @@ public class ImageTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "checkImageBorderRadius.pdf", sourceFolder + "cmp_checkImageBorderRadius.pdf", destinationFolder));
     }
 
+    @Test
+    public void imageFileDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "smallWidthImagePlacement.html"),
+                new File(destinationFolder + "smallWidthImagePlacement.pdf"));
+
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "smallWidthImagePlacement.pdf",
+                sourceFolder + "cmp_smallWidthImagePlacement.pdf", destinationFolder));
+    }
+
+    @Test
+    public void imageUrlDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "imageUrl.html"),
+                new File(destinationFolder + "imageUrlDocument.pdf"));
+
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imageUrlDocument.pdf",
+                sourceFolder + "cmp_imageUrlDocument.pdf", destinationFolder));
+    }
+
+    @Test
+    public void imageWithIncorrectBase64Test() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "imageWithIncorrectBase64.html"),
+                new File(destinationFolder + "imageWithIncorrectBase64.pdf"));
+
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imageWithIncorrectBase64.pdf",
+                sourceFolder + "cmp_imageWithIncorrectBase64.pdf", destinationFolder));
+    }
+
+    @Test
+    public void imageBase64DifferentFormatsTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "imageBase64DifferentFormats.html"),
+                new File(destinationFolder + "imageBase64DifferentFormats.pdf"));
+
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imageBase64DifferentFormats.pdf",
+                sourceFolder + "cmp_imageBase64DifferentFormats.pdf", destinationFolder));
+    }
+
+    @Test
+    public void smallImageTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "smallImageTest.html"),
+                new File(destinationFolder + "smallImageTest.pdf"));
+
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "smallImageTest.pdf",
+                sourceFolder + "cmp_smallImageTest.pdf", destinationFolder));
+    }
+
+    @Test
+    // TODO: DEVSIX-2485
+    public void imageInSpanTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "imageInSpan.html"),
+                new File(destinationFolder + "imageInSpan.pdf"));
+
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imageInSpan.pdf",
+                sourceFolder + "cmp_imageInSpan.pdf", destinationFolder));
+    }
+
+    @Test
+    public void caseSensitiveBase64DataInCssNormalizationTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "caseSensitiveBase64DataInCssNormalization.html"),
+                new File(destinationFolder + "caseSensitiveBase64DataInCssNormalization.pdf"));
+
+        Assert.assertNull(new CompareTool().compareByContent(
+                destinationFolder + "caseSensitiveBase64DataInCssNormalization.pdf",
+                sourceFolder + "cmp_caseSensitiveBase64DataInCssNormalization.pdf", destinationFolder));
+    }
+
+    @Test
+    public void inlineBlockImageTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "inlineBlockImage.html"),
+                new File(destinationFolder + "inlineBlockImage.pdf"));
+
+        Assert.assertNull(new CompareTool().compareByContent(
+                destinationFolder + "inlineBlockImage.pdf",
+                sourceFolder + "cmp_inlineBlockImage.pdf", destinationFolder));
+    }
+
+    /**
+     * Important: the name of the resource in this test is "base64.svg".
+     * This is done deliberately and tests for a bug that was present before -
+     * image was only fetched as base64 value and not as resource link
+     */
+    @Test
+    public void svgExternalResourceCornerCaseTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "svgExternalResourceCornerCase.html"),
+                new File(destinationFolder + "svgExternalResourceCornerCase.pdf"));
+
+        Assert.assertNull(new CompareTool().compareByContent(
+                destinationFolder + "svgExternalResourceCornerCase.pdf",
+                sourceFolder + "cmp_svgExternalResourceCornerCase.pdf", destinationFolder));
+    }
+
+    @Test
+    public void imageAltTextTest() throws IOException, InterruptedException {
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "imageAltText.pdf"));
+        pdfDocument.setTagged();
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "imageAltText.html")) {
+            HtmlConverter.convertToPdf(fileInputStream, pdfDocument, new ConverterProperties().setBaseUri(sourceFolder));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imageAltText.pdf",
+                sourceFolder + "cmp_imageAltText.pdf", destinationFolder));
+    }
+
+    @Test
+    public void imageUrlExternalDocumentTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "externalUrlImage.html"),
+                new File(destinationFolder + "externalUrlImage.pdf"));
+
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "externalUrlImage.pdf",
+                sourceFolder + "cmp_externalUrlImage.pdf", destinationFolder));
+    }
 }

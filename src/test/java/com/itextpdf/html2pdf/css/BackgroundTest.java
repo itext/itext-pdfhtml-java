@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2020 iText Group NV
+    Copyright (c) 1998-2021 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -316,4 +316,53 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("clipOriginRepeatRound", sourceFolder, destinationFolder);
     }
 
+    @Test
+    public void bckgImageInSimpleDivTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bckgImageInSimpleDiv", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void bckgImageRepeatInDivTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bckgImageRepeatInDiv", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void bckgImageNoRepeatInDivTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bckgImageNoRepeatInDiv", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void bckgImageRepeatYInDivTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bckgImageRepeatYInDiv", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void bckgImageRepeatXInDivTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bckgImageRepeatXInDiv", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void bckgBase64Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bckgBase64", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void bckgShorthandThreeSizedImagesRepeatPositionTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bckgShorthandThreeSizedImagesRepeatPosition", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void bckgPositionInDivTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bckgPositionInDiv", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void bckgPositionInDivDiffValuesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bckgPositionInDivDiffValues", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void svgBase64Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("svgBase64", sourceFolder, destinationFolder);
+    }
 }

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2020 iText Group NV
+    Copyright (c) 1998-2021 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -76,6 +76,33 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void textAlignJustifyTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textAlignJustifyTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void justifiedTextWithCharSpacingTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("justifiedTextWithCharSpacingTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void justifiedTextWithCharAndWordSpacingTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("justifiedTextWithCharAndWordSpacingTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void justifiedTextWithCharPositiveAndWordSpacingNegativeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare(
+                "justifiedTextWithCharPositiveAndWordSpacingNegativeTest",sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void justifiedTextWithCharAndWordSpacingNegativeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare(
+                "justifiedTextWithCharAndWordSpacingNegativeTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED)})
     public void textDecorationTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationTest01", sourceFolder, destinationFolder);
@@ -112,6 +139,11 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void lineHeightTest03() throws IOException, InterruptedException {
         convertToPdfAndCompare("lineHeightTest03", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void lineHeightInHyperlinkTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("lineHeightInHyperlink", sourceFolder, destinationFolder);
     }
 
     @Test

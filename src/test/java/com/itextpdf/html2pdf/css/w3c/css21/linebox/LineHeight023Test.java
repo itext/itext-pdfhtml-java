@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2020 iText Group NV
+    Copyright (c) 1998-2021 iText Group NV
     Authors: iText Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -23,7 +23,11 @@
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
+import com.itextpdf.styledxmlparser.LogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 
+@LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
 public class LineHeight023Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

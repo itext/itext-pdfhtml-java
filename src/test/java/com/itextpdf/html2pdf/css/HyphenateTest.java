@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2020 iText Group NV
+    Copyright (c) 1998-2021 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -69,6 +69,12 @@ public class HyphenateTest extends ExtendedITextTest {
     public void test01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hyphenateTest01.html"), new File(destinationFolder + "hyphenateTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hyphenateTest01.pdf", sourceFolder + "cmp_hyphenateTest01.pdf", destinationFolder, "diff01_"));
+    }
+
+    @Test
+    public void test02() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(sourceFolder + "hyphenateTest02.html"), new File(destinationFolder + "hyphenateTest02.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hyphenateTest02.pdf", sourceFolder + "cmp_hyphenateTest02.pdf", destinationFolder, "diff01_"));
     }
 
     @Test

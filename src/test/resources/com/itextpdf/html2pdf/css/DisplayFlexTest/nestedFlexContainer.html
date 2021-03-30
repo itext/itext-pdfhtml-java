@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+<style>
+    div {
+        border: dashed black 1px;
+    }
+</style>
+<div style="display: flex; width: 200px">
+    <div>flex item 1</div>
+    <div>flex item 2</div>
+    <div style="display: flex; flex-grow: 0; flex-shrink: 1; flex-basis: 100px">
+        <div>nested flex item 1</div>
+        <div>nested flex item 2</div>
+    </div>
+</div>
+</body>
+</html>

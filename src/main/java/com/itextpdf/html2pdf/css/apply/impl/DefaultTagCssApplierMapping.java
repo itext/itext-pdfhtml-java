@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2020 iText Group NV
+    Copyright (c) 1998-2021 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -163,10 +163,13 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.A, CssConstants.TABLE_CELL, BlockCssApplier.class);
 
         mapping.putMapping(TagConstants.LABEL, CssConstants.BLOCK, BlockCssApplier.class);
+        mapping.putMapping(TagConstants.LABEL, CssConstants.INLINE_BLOCK, BlockCssApplier.class);
 
         mapping.putMapping(TagConstants.DIV, CssConstants.TABLE, TableTagCssApplier.class);
         mapping.putMapping(TagConstants.DIV, CssConstants.TABLE_CELL, TdTagCssApplier.class);
         mapping.putMapping(TagConstants.DIV, CssConstants.TABLE_ROW, DisplayTableRowTagCssApplier.class);
+        mapping.putMapping(TagConstants.DIV, CssConstants.FLEX, DisplayFlexTagCssApplier.class);
+        mapping.putMapping(TagConstants.SPAN, CssConstants.FLEX, DisplayFlexTagCssApplier.class);
 
         // pseudo elements mapping
         String beforePseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.BEFORE);

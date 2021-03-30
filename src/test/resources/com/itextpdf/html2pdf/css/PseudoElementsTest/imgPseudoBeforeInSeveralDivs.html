@@ -1,0 +1,26 @@
+<html>
+<head>
+<style type="text/css">
+	div::before {
+		width:200;
+		height: 500;
+        border: 15px solid blue; 
+    }
+    #content-list::before {
+        content: "before url" url("pepperImage.jpg") "after url";
+    }
+    #content-replacement::before {
+        content: url("pepperImage.jpg");
+    }
+    img {
+        width: 100px;
+    }
+</style>
+</head>
+<body>
+<div id="content-list">div text</div>
+<br/>
+<br/>
+<div id="content-replacement">div text</div>
+</body>
+</html>

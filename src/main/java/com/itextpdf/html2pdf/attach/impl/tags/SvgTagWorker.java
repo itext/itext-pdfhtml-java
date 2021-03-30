@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2020 iText Group NV
+    Copyright (c) 1998-2021 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -57,12 +57,15 @@ import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.processors.impl.DefaultSvgProcessor;
 import com.itextpdf.svg.processors.impl.SvgConverterProperties;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * TagWorker class for the {@code svg} element.
  */
 public class SvgTagWorker implements ITagWorker {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SvgTagWorker.class);
+
     private Image svgImage;
     private ISvgProcessorResult processingResult;
 
@@ -74,13 +77,13 @@ public class SvgTagWorker implements ITagWorker {
      */
     public SvgTagWorker(IElementNode element, ProcessorContext context) {
         svgImage = null;
+        SvgConverterProperties props = ContextMappingHelper.mapToSvgConverterProperties(context);
         try {
-            SvgConverterProperties props = ContextMappingHelper.mapToSvgConverterProperties(context);
             processingResult = new DefaultSvgProcessor().process((INode) element, props);
-            context.startProcessingInlineSvg();
-        } catch (SvgProcessingException pe) {
-            LoggerFactory.getLogger(SvgTagWorker.class).error(LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, pe);
+        } catch (SvgProcessingException spe) {
+            LOGGER.error(LogMessageConstant.UNABLE_TO_PROCESS_SVG_ELEMENT, spe);
         }
+        context.startProcessingInlineSvg();
     }
 
     @Override

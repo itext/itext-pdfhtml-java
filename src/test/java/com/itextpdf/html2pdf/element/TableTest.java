@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2020 iText Group NV
+    Copyright (c) 1998-2021 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.PdfException;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -57,20 +58,28 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.FileOutputStream;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import org.junit.rules.ExpectedException;
 
 @Category(IntegrationTest.class)
 public class TableTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/TableTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/TableTest/";
+
+    @Rule
+    public ExpectedException junitExpectedException = ExpectedException.none();
 
     @BeforeClass
     public static void beforeClass() {
@@ -535,6 +544,42 @@ public class TableTest extends ExtendedITextTest {
     // TODO DEVSIX-4247
     public void tableRowAndCellBackgroundColorConflictTest() throws IOException, InterruptedException {
         runTest("tableRowAndCellBackgroundColorConflictTest");
+    }
+
+    @Test
+    // TODO DEVSIX-5036
+    public void collapsedBorderWithWrongRowspanTableTest() throws IOException, InterruptedException {
+        junitExpectedException.expect(RuntimeException.class);
+        runTest("collapsedBorderWithWrongRowspanTable", false, new PageSize(PageSize.A5).rotate());
+    }
+
+    @Test
+    // TODO DEVSIX-4806
+    public void cellWithRowspanShouldBeConsideredWhileCalculatingColumnWidths() throws IOException, InterruptedException {
+        runTest("cellWithRowspanShouldBeConsideredWhileCalculatingColumnWidths");
+    }
+
+    @Test
+    public void tagsFlushingErrorWhenConvertedFromHtmlTest() throws IOException {
+        String file = sourceFolder + "tagsFlushingErrorWhenConvertedFromHtml.html";
+
+        List<IElement> elements = HtmlConverter.convertToElements(new FileInputStream(file),
+                new ConverterProperties().setCreateAcroForm(true));
+
+        PdfDocument pdf = new PdfDocument(new PdfWriter(new FileOutputStream(
+                destinationFolder + "tagsFlushingErrorWhenConvertedFromHtml.pdf")));
+        pdf.setTagged();
+
+        Document document = new Document(pdf);
+        document.setMargins(10, 50, 10, 50);
+
+        for (IElement element : elements) {
+            document.add((IBlockElement) element);
+        }
+
+        junitExpectedException.expect(PdfException.class);
+        junitExpectedException.expectMessage("Tag structure flushing failed: it might be corrupted.");
+        document.close();
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {

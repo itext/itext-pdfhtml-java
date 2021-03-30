@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2020 iText Group NV
+    Copyright (c) 1998-2021 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -69,5 +69,40 @@ public class CssOpacityTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void nestedInSpanTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("nestedInSpanTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void spanOpacityTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("spanOpacity", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void imageOpacityTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imageOpacity", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void pOpacityTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("pOpacity", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void divOpacityTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("divOpacity", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void tableOpacityTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tableOpacity", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void opacityInListsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("opacityInLists", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void innerDivOpacityTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("innerDivOpacity", sourceFolder, destinationFolder);
     }
 }

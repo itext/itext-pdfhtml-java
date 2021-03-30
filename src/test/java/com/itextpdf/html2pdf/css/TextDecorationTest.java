@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2020 iText Group NV
+    Copyright (c) 1998-2021 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -169,5 +169,20 @@ public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
     // TODO DEVSIX-4719 replace cmp files once the issue is fixed
     public void textDecorationColorEffectOnNestedElements03Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationColorEffectOnNestedElements03", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void textDecorationNoneOnNestedElementsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationNoneOnNestedElements", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void textDecorationWithDisplayInlineBlockTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationWithDisplayInlineBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void textDecorationInNodeStyleAttributeVsStyleTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationInNodeStyleAttributeVsStyle", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 }

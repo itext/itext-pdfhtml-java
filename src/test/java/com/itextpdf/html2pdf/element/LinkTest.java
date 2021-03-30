@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2020 iText Group NV
+    Copyright (c) 1998-2021 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -126,6 +126,16 @@ public class LinkTest extends ExtendedITextTest {
             HtmlConverter.convertToPdf(fileInputStream, outDoc);
         }
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest07.pdf", sourceFolder + "cmp_linkTest07.pdf", destinationFolder, "diff07_"));
+    }
+
+    @Test
+    public void linkTest08() throws IOException, InterruptedException {
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest08.pdf"));
+        pdfDocument.setTagged();
+        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "linkTest08.html")) {
+            HtmlConverter.convertToPdf(fileInputStream, pdfDocument, new ConverterProperties().setBaseUri(sourceFolder));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest08.pdf", sourceFolder + "cmp_linkTest08.pdf", destinationFolder, "diff08_"));
     }
 
     @Test

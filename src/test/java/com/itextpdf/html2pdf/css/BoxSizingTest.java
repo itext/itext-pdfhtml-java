@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2020 iText Group NV
+    Copyright (c) 1998-2021 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -76,6 +76,11 @@ public class BoxSizingTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void boxSizingCellContentImgTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("boxSizingCellContentImg", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void boxSizingCellTest01() throws IOException, InterruptedException {
         // TODO Result of processing of this html is different from what browsers show.
         // Height of cells is always border-box-like at least if DOCTYPE "html" is not specified.
@@ -130,6 +135,11 @@ public class BoxSizingTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void boxSizingDivWithImgTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("boxSizingDivWithImg", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void boxSizingDiv03Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("boxSizingDiv03Test", sourceFolder, destinationFolder);
     }
@@ -147,6 +157,11 @@ public class BoxSizingTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void boxSizingParaWithImgTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("boxSizingParaWithImg", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void boxSizingPara03Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("boxSizingPara03Test", sourceFolder, destinationFolder);
     }
@@ -160,6 +175,11 @@ public class BoxSizingTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void boxSizingTable02Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("boxSizingTable02Test", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void boxSizingTableWithImgTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("boxSizingTableWithImg", sourceFolder, destinationFolder);
     }
 
     @Test
@@ -215,5 +235,10 @@ public class BoxSizingTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void boxSizingLiTest02() throws IOException, InterruptedException {
         convertToPdfAndCompare("boxSizingLiTest02", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void boxSizingImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("boxSizingImage", sourceFolder, destinationFolder);
     }
 }

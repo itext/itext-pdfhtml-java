@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2020 iText Group NV
+    Copyright (c) 1998-2021 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -57,6 +57,7 @@ import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.renderer.FlexContainerRenderer;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.util.WhiteSpaceUtil;
 
@@ -192,6 +193,11 @@ public class WaitingInlineElementsHelper {
                         ((Paragraph) container).add((IBlockElement) leafElement);
                     }
                 }
+            } else if (((IElement) container).getRenderer() instanceof FlexContainerRenderer) {
+                final Div div = new Div();
+                OverflowApplierUtil.applyOverflow(map, div);
+                div.add(p);
+                ((Div) container).add(div);
             } else if (container instanceof Div) {
                 ((Div) container).add(p);
             } else if (container instanceof Cell) {
