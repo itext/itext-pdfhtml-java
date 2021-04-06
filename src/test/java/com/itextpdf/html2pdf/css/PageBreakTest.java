@@ -46,12 +46,24 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.CompressionConstants;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfVersion;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.WriterProperties;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.FileInputStream;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -207,6 +219,48 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
         runTest("pageBreakInConstrainedDivTest");
     }
 
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)})
+    // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
+    public void pageBreakInsideAvoidInTdWithBrInsideTest() throws IOException, InterruptedException {
+        convertToElements("pageBreakInsideAvoidInTdWithBrInside");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)})
+    // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
+    public void pageBreakInsideAvoidInTdWithSpanInsideTest() throws IOException, InterruptedException {
+        convertToElements("pageBreakInsideAvoidInTdWithSpanInside");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)})
+    // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
+    public void pageBreakInsideAvoidInTdWithHeadingsTest() throws IOException, InterruptedException {
+        convertToElements("pageBreakInsideAvoidInTdWithHeadings");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)})
+    // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
+    public void pageBreakInsideAvoidInTdWithParaTest() throws IOException, InterruptedException {
+        convertToElements("pageBreakInsideAvoidInTdWithPara");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)})
+    // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
+    public void pageBreakInsideAvoidInTdWithTableTest() throws IOException, InterruptedException {
+        convertToElements("pageBreakInsideAvoidInTdWithTable");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)})
+    // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
+    public void pageBreakInsideAvoidInTdWithDivTest() throws IOException, InterruptedException {
+        convertToElements("pageBreakInsideAvoidInTdWithDiv");
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
@@ -215,6 +269,25 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
 
         HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath), new ConverterProperties().setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
         Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+    }
+
+    private void convertToElements(String name) throws IOException, InterruptedException {
+        String html = sourceFolder + name + ".html";
+        String output = destinationFolder + name + ".pdf";
+        String cmp = sourceFolder + "cmp_" + name + ".pdf";
+
+        try (FileInputStream fileStream = new FileInputStream(html);
+                PdfDocument pdf = new PdfDocument(new PdfWriter(output));
+                Document document = new Document(pdf, PageSize.LETTER)) {
+            document.setMargins(55, 56, 57, 45.35f);
+
+            List<IElement> elements = HtmlConverter.convertToElements(fileStream);
+            for (IElement element : elements) {
+                document.add((IBlockElement) element);
+            }
+        }
+
+        Assert.assertNull(new CompareTool().compareByContent(output, cmp, destinationFolder));
     }
 
 }
