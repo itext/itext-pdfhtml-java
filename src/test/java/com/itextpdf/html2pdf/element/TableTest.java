@@ -559,6 +559,13 @@ public class TableTest extends ExtendedITextTest {
         runTest("cellWithRowspanShouldBeConsideredWhileCalculatingColumnWidths");
     }
 
+
+    @Test
+    // TODO DEVSIX-5290 change cmp after the correction
+    public void emptyTrRowspanBorderCollapsingTest() throws IOException, InterruptedException {
+        runTest("emptyTrRowspanBorderCollapsing");
+    }
+
     @Test
     public void tagsFlushingErrorWhenConvertedFromHtmlTest() throws IOException {
         String file = sourceFolder + "tagsFlushingErrorWhenConvertedFromHtml.html";
