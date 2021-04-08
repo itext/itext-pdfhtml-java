@@ -707,6 +707,12 @@ public class FloatTest extends ExtendedITextTest {
         runTest("plainTextIndentAfterBlockAndFloat", "diff_plainTextIndentAfterBlockAndFloat_");
     }
 
+    @Test
+    //TODO DEVSIX-5291 change cmp file
+    public void floatElementInDivTest() throws IOException, InterruptedException {
+        runTest("floatElementInDiv", "diff_floatElementInDiv_");
+    }
+
     private void runTest(String testName, String diff) throws IOException, InterruptedException {
         String htmlName = sourceFolder + testName + ".html";
         String outFileName = destinationFolder + testName + ".pdf";
