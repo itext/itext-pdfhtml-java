@@ -54,6 +54,7 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The default {@link BasicFontProvider} for pdfHTML, that, as opposed to
@@ -177,10 +178,8 @@ public class DefaultFontProvider extends BasicFontProvider {
         if (klass != null) {
             try {
                 Method m = klass.getMethod(methodName);
-                ArrayList<byte[]> fontStreams = (ArrayList<byte[]>) m.invoke(null, null);
-                for (byte[] font : fontStreams) {
-                    this.calligraphyFontsTempList.add(font);
-                }
+                Map<String, byte[]> fontStreams = (Map<String, byte[]>) m.invoke(null, null);
+                this.calligraphyFontsTempList.addAll(fontStreams.values());
                 // here we return a unicode range that excludes the loaded from the calligraph module fonts
                 // i.e. the unicode range that is to be rendered with standard or shipped free fonts
                 return FREE_FONT_RANGE;
