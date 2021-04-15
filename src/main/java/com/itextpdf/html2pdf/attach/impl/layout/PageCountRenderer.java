@@ -44,6 +44,10 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
 import com.itextpdf.html2pdf.html.HtmlUtils;
+import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.font.otf.GlyphLine;
+import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
@@ -55,6 +59,8 @@ import com.itextpdf.layout.renderer.TextRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * {@link TextRenderer} implementation for the page count.
@@ -70,7 +76,12 @@ class PageCountRenderer extends TextRenderer {
      */
     PageCountRenderer(PageCountElement textElement) {
         super(textElement);
-        digitsGlyphStyle = textElement.getDigitsGlyphStyle();
+        this.digitsGlyphStyle = textElement.getDigitsGlyphStyle();
+    }
+
+    protected PageCountRenderer(TextRenderer other) {
+        super(other);
+        this.digitsGlyphStyle = ((PageCountRenderer)other).digitsGlyphStyle;
     }
 
     /* (non-Javadoc)
@@ -109,6 +120,33 @@ class PageCountRenderer extends TextRenderer {
             setText(previousText);
         }
         return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public IRenderer getNextRenderer() {
+        if (PageCountRenderer.class != this.getClass()) {
+            Logger logger = LoggerFactory.getLogger(PageCountRenderer.class);
+            logger.error(MessageFormatUtil.format(
+                    com.itextpdf.io.LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
+        }
+        return new PageCountRenderer((PageCountElement) modelElement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected TextRenderer createCopy(GlyphLine gl, PdfFont font) {
+        if (PageCountRenderer.class != this.getClass()) {
+            Logger logger = LoggerFactory.getLogger(PageCountRenderer.class);
+            logger.error(MessageFormatUtil.format(LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN));
+        }
+        PageCountRenderer copy = new PageCountRenderer(this);
+        copy.setProcessedGlyphLineAndFont(gl, font);
+        return copy;
     }
 
     /* (non-Javadoc)

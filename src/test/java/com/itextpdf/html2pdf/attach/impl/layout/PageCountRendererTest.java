@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
+import com.itextpdf.html2pdf.attach.impl.layout.PageTargetCountRendererTest.CustomPageTargetCountRenderer;
 import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.io.font.otf.Glyph;
 import com.itextpdf.io.font.otf.GlyphLine;
@@ -40,38 +41,35 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(UnitTest.class)
-public class PageTargetCountRendererTest extends ExtendedITextTest {
+public class PageCountRendererTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN)
     })
     public void getNextRendererShouldBeOverriddenTest() {
-        PageTargetCountRenderer pageTargetCountRenderer =
-                new PageTargetCountRenderer(new PageTargetCountElement("test")) {
+        PageCountRenderer pageCountRenderer = new PageCountRenderer(new PageCountElement()) {
             // Nothing is overridden
         };
 
-        Assert.assertEquals(PageTargetCountRenderer.class, pageTargetCountRenderer.getNextRenderer().getClass());
+        Assert.assertEquals(PageCountRenderer.class, pageCountRenderer.getNextRenderer().getClass());
     }
-
 
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN)
     })
-    public void createCopyShouldBeOverriddenTest() {
-        PageTargetCountRenderer pageTargetCountRenderer =
-                new CustomPageTargetCountRenderer(new PageTargetCountElement("test"));
+    public void createCopyShouldBeOverriddenTest() throws IOException {
+        PageCountRenderer pageCountRenderer = new CustomPageCountRenderer(new PageCountElement());
 
-        Assert.assertEquals(CustomPageTargetCountRenderer.class, pageTargetCountRenderer.getNextRenderer().getClass());
+        Assert.assertEquals(CustomPageCountRenderer.class, pageCountRenderer.getNextRenderer().getClass());
 
         // This test checks for the log message being sent, so we should get there
         Assert.assertTrue(true);
     }
 
-    static class CustomPageTargetCountRenderer extends PageTargetCountRenderer {
-        public CustomPageTargetCountRenderer(PageTargetCountElement textElement) {
+    static class CustomPageCountRenderer extends PageCountRenderer {
+        public CustomPageCountRenderer(PageCountElement textElement) {
             super(textElement);
         }
 
@@ -87,8 +85,7 @@ public class PageTargetCountRendererTest extends ExtendedITextTest {
             } catch (IOException e) {
                 Assert.fail("We do not expect PdfFontFactory#createFont() to throw an exception here.");
             }
-            return new CustomPageTargetCountRenderer((PageTargetCountElement) this.modelElement);
+            return new CustomPageCountRenderer((PageCountElement) this.modelElement);
         }
     }
-
 }
