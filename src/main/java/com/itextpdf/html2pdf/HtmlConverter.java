@@ -128,11 +128,11 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an {@link InputStream} to objects that
+     * Converts a {@link String} containing HTML to objects that
      * will be added to a {@link PdfDocument}, using specific {@link ConverterProperties}.
      *
-     * @param html the html in the form of a {@link String}
-     * @param pdfDocument the {@link PdfDocument} instance
+     * @param html                the html in the form of a {@link String}
+     * @param pdfDocument         the {@link PdfDocument} instance
      * @param converterProperties a {@link ConverterProperties} instance
      */
     public static void convertToPdf(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) {
@@ -252,7 +252,7 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an {@link InputStream} to content that
+     * Converts a {@link String} containing HTML to content that
      * will be written to a {@link PdfWriter}, returning a {@link Document} instance.
      *
      * @param html the html in the form of a {@link String}
@@ -277,7 +277,7 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an {@link InputStream} to content that
+     * Converts a {@link String} containing HTML to content that
      * will be written to a {@link PdfWriter}, using specific
      * {@link ConverterProperties}, returning a {@link Document} instance.
      *
@@ -306,7 +306,7 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an {@link InputStream} to objects that
+     * Converts a {@link String} containing HTML to objects that
      * will be added to a {@link PdfDocument}, using specific {@link ConverterProperties},
      * returning a {@link Document} instance.
      *
