@@ -1,0 +1,32 @@
+These fonts are under the following licenses:
+
+NotoSansArabic-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSansArabic-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSansGurmukhi-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSansGurmukhi-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSansMyanmar-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSansMyanmar-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSansOriya-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSansOriya-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifBengali-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifBengali-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifDevanagari-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifDevanagari-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifGujarati-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifGujarati-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifHebrew-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifHebrew-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifKannada-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifKannada-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifKhmer-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifKhmer-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifMalayalam-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifMalayalam-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifMyanmar-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifMyanmar-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifTamil-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifTamil-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifTelugu-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifTelugu-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifThai-Bold.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
+NotoSerifThai-Regular.ttf  | SIL Open Font License v1.1 | LICENSE_OFL.txt
