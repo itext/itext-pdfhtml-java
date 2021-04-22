@@ -51,6 +51,7 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -64,15 +65,15 @@ import org.junit.rules.ExpectedException;
 // Actually the results are invalid because there is no pdfCalligraph.
 @Category(IntegrationTest.class)
 public class FontProviderTest extends ExtendedITextTest {
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/FontProviderTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/FontProviderTest/";
+    public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/FontProviderTest/";
+    public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/FontProviderTest/";
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
@@ -80,83 +81,95 @@ public class FontProviderTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 4)
     })
     public void hebrewTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "hebrew.html"), new File(destinationFolder + "hebrew.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hebrew.pdf", sourceFolder + "cmp_hebrew.pdf", destinationFolder, "diffHebrew_"));
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "hebrew.html"), new File(DESTINATION_FOLDER + "hebrew.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "hebrew.pdf", SOURCE_FOLDER + "cmp_hebrew.pdf",
+                DESTINATION_FOLDER, "diffHebrew_"));
     }
 
     @Test
     public void devanagariTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "devanagari.html"), new File(destinationFolder + "devanagari.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "devanagari.pdf", sourceFolder + "cmp_devanagari.pdf", destinationFolder, "diffDevanagari_"));
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "devanagari.html"), new File(DESTINATION_FOLDER + "devanagari.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "devanagari.pdf", SOURCE_FOLDER + "cmp_devanagari.pdf",
+                DESTINATION_FOLDER, "diffDevanagari_"));
     }
 
     @Test
     //For more specific tests see FontSelectorTimesFontTest in html2pdf and FontSelectorHelveticaFontTest in html2pdf-private
     public void convertStandardFonts() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "convertStandardFonts.html"), new File(destinationFolder + "convertStandardFonts.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "convertStandardFonts.pdf", sourceFolder + "cmp_convertStandardFonts", destinationFolder, "difffontstand_"));
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "convertStandardFonts.html"), new File(DESTINATION_FOLDER + "convertStandardFonts.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "convertStandardFonts.pdf", SOURCE_FOLDER
+                + "cmp_convertStandardFonts", DESTINATION_FOLDER, "difffontstand_"));
     }
 
     @Test
     public void notoSansMonoItalicTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "notoSansMonoItalic.html"), new File(destinationFolder + "notoSansMonoItalic.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "notoSansMonoItalic.pdf", sourceFolder + "cmp_notoSansMonoItalic.pdf", destinationFolder, "diffnotoSansMonoItalic_"));
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "notoSansMonoItalic.html"), new File(DESTINATION_FOLDER + "notoSansMonoItalic.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "notoSansMonoItalic.pdf", SOURCE_FOLDER
+                + "cmp_notoSansMonoItalic.pdf", DESTINATION_FOLDER, "diffnotoSansMonoItalic_"));
 
     }
 
     @Test
     public void notoSansMonoBoldItalicTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "notoSansMonoBoldItalic.html"), new File(destinationFolder + "notoSansMonoBoldItalic.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "notoSansMonoBoldItalic.pdf", sourceFolder + "cmp_notoSansMonoBoldItalic.pdf", destinationFolder, "diffnotoSansMonoBoldItalic_"));
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "notoSansMonoBoldItalic.html"), new File(
+                DESTINATION_FOLDER + "notoSansMonoBoldItalic.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "notoSansMonoBoldItalic.pdf", SOURCE_FOLDER
+                + "cmp_notoSansMonoBoldItalic.pdf", DESTINATION_FOLDER, "diffnotoSansMonoBoldItalic_"));
 
     }
 
     @Test
-    // TODO: DEVSIX-4017 (Combination of default and pdfCalligraph fonts with italic style and
-    // '"courier new", courier, monospace' family reproduces comparator exception.
+    // TODO: DEVSIX-4017 (Combination of default and pdfCalligraph fonts with italic style and '"courier new", courier,
+    // monospace' family reproduces comparator exception. Update test after fixing.)
     public void comparatorErrorTest() throws IOException, InterruptedException {
         ConverterProperties properties = new ConverterProperties();
 
         FontProvider pro = new DefaultFontProvider();
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSansArabic-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSansArabic-Bold.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSansGurmukhi-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSansGurmukhi-Bold.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSansMyanmar-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSansMyanmar-Bold.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSansOriya-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSansOriya-Bold.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifBengali-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifBengali-Bold.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifDevanagari-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifDevanagari-Bold.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifGujarati-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifGujarati-Bold.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifHebrew-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifHebrew-Bold.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifKannada-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifKannada-Bold.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifKhmer-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifKhmer-Bold.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifMalayalam-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifMalayalam-Bold.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifMyanmar-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifMyanmar-Bold.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifTamil-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifTamil-Bold.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifTelugu-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifTelugu-Bold.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifThai-Regular.ttf"));
-        pro.addFont(FontProgramFactory.createFont(sourceFolder + "NotoSerifThai-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSansArabic-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSansArabic-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSansGurmukhi-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSansGurmukhi-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSansMyanmar-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSansMyanmar-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSansOriya-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSansOriya-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifBengali-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifBengali-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifDevanagari-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifDevanagari-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifGujarati-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifGujarati-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifHebrew-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifHebrew-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifKannada-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifKannada-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifKhmer-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifKhmer-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifMalayalam-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifMalayalam-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifMyanmar-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifMyanmar-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifTamil-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifTamil-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifTelugu-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifTelugu-Bold.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifThai-Regular.ttf"));
+        pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSerifThai-Bold.ttf"));
 
         properties.setFontProvider(pro);
 
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Comparison method violates its general contract!");
-        HtmlConverter.convertToPdf(new File(sourceFolder + "comparatorError.html"),
-                new File(destinationFolder + "comparatorError.pdf"), properties);
+        boolean isExceptionThrown = false;
+        try {
+            HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "comparatorError.html"),
+                    new File(DESTINATION_FOLDER + "comparatorError.pdf"), properties);
+        } catch (IllegalArgumentException e) {
+            Assert.assertEquals("Comparison method violates its general contract!", e.getMessage());
+            isExceptionThrown = true;
+        }
 
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "comparatorError.pdf",
-                sourceFolder + "cmp_comparatorError.pdf", destinationFolder));
+        if (!isExceptionThrown) {
+            Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "comparatorError.pdf",
+                    SOURCE_FOLDER + "cmp_comparatorError.pdf", DESTINATION_FOLDER));
+        }
     }
 }
