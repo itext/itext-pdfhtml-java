@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.html2pdf.actions.events.PdfHtmlProductEvent;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
@@ -67,30 +68,33 @@ import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.kernel.actions.EventManager;
+import com.itextpdf.kernel.actions.sequence.AbstractIdentifiableElement;
+import com.itextpdf.kernel.actions.sequence.SequenceId;
+import com.itextpdf.kernel.actions.sequence.SequenceIdManager;
 import com.itextpdf.kernel.counter.EventCounterHandler;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.IAbstractElement;
+import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.font.FontFamilySplitter;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.Range;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.RenderingMode;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.styledxmlparser.css.CssDeclaration;
-import com.itextpdf.styledxmlparser.css.font.CssFontFace;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
 import com.itextpdf.styledxmlparser.css.ICssResolver;
+import com.itextpdf.styledxmlparser.css.font.CssFontFace;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.ITextNode;
 import com.itextpdf.styledxmlparser.util.FontFamilySplitterUtil;
-
-import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,7 +103,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The default implementation to process HTML.
@@ -196,6 +203,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     @Override
     public List<com.itextpdf.layout.element.IElement> processElements(INode root) {
         ReflectionUtils.scheduledLicenseCheck();
+        final SequenceId sequenceId = new SequenceId();
 
         context.reset();
         roots = new ArrayList<>();
@@ -223,6 +231,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
         cssResolver = null;
         roots = null;
+        for (IElement element : elements) {
+            updateSequenceId(element, sequenceId);
+        }
+        EventManager.getInstance().onEvent(new PdfHtmlProductEvent(sequenceId,
+                context.getEventCountingMetaInfo(), PdfHtmlProductEvent.CONVERT_ELEMENTS));
         EventCounterHandler.getInstance().onEvent(PdfHtmlEvent.CONVERT, context.getEventCountingMetaInfo(), getClass());
         return elements;
     }
@@ -615,5 +628,32 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
     private boolean isPlaceholder(IElementNode element) {
         return element instanceof CssPseudoElementNode && CssConstants.PLACEHOLDER.equals(((CssPseudoElementNode) element).getPseudoElementName());
+    }
+
+    private static void updateSequenceId(IElement element, SequenceId sequenceId) {
+        if (element instanceof AbstractIdentifiableElement) {
+            final AbstractIdentifiableElement identifiableElement = (AbstractIdentifiableElement) element;
+
+            if (SequenceIdManager.getSequenceId(identifiableElement) == sequenceId) {
+                // potential cyclic reference case: element has been processed already
+                return;
+            }
+
+            SequenceIdManager.setSequenceId(identifiableElement, sequenceId);
+
+            if (identifiableElement instanceof IAbstractElement) {
+                IAbstractElement abstractElement = (IAbstractElement) identifiableElement;
+                updateChildren(abstractElement.getChildren(), sequenceId);
+            }
+        }
+    }
+
+    private static void updateChildren(List<IElement> children, SequenceId sequenceId) {
+        if (children == null) {
+            return;
+        }
+        for (IElement child : children) {
+            updateSequenceId(child, sequenceId);
+        }
     }
 }

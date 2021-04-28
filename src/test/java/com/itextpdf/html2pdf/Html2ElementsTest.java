@@ -42,14 +42,22 @@
  */
 package com.itextpdf.html2pdf;
 
+import com.itextpdf.html2pdf.actions.events.PdfHtmlProductEvent;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.actions.EventManager;
+import com.itextpdf.kernel.actions.IBaseEvent;
+import com.itextpdf.kernel.actions.IBaseEventHandler;
+import com.itextpdf.kernel.actions.sequence.AbstractIdentifiableElement;
+import com.itextpdf.kernel.actions.sequence.SequenceId;
+import com.itextpdf.kernel.actions.sequence.SequenceIdManager;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.AreaBreak;
+import com.itextpdf.layout.element.IAbstractElement;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
@@ -67,6 +75,7 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -266,5 +275,57 @@ public class Html2ElementsTest extends ExtendedITextTest {
 
         IElement normalParagraph = elements.get(1);
         Assert.assertEquals(new Leading(Leading.MULTIPLIED, 1.2f), normalParagraph.<Leading>getProperty(Property.LEADING));
+    }
+
+    @Test
+    public void eventGenerationTest() {
+        StoreEventsHandler handler = new StoreEventsHandler();
+        try {
+            EventManager.getInstance().register(handler);
+            String html = "<table><tr><td>123</td><td><456></td></tr><tr><td>789</td></tr></table><p>Hello world!</p>";
+            List<IElement> elements = HtmlConverter.convertToElements(html);
+
+            Assert.assertEquals(1, handler.getEvents().size());
+            Assert.assertTrue(handler.getEvents().get(0) instanceof PdfHtmlProductEvent);
+
+            SequenceId expectedSequenceId = ((PdfHtmlProductEvent)handler.getEvents().get(0)).getSequenceId();
+            int validationsCount = validateSequenceIds(expectedSequenceId, elements);
+            // Table                                     1
+            //      Cell -> Paragraph -> Text [123]      3
+            //      Cell -> Paragraph -> Text [456]      3
+            //      Cell -> Paragraph -> Text [789]      3
+            // Paragraph -> Text [Hello world!]          2
+            //--------------------------------------------
+            //                                          12
+            Assert.assertEquals(12, validationsCount);
+        } finally {
+            EventManager.getInstance().unregister(handler);
+        }
+    }
+
+    private static int validateSequenceIds(SequenceId expectedSequenceId, List<IElement> elements) {
+        int validationCount = 0;
+        for (IElement element: elements) {
+            Assert.assertTrue(element instanceof AbstractIdentifiableElement);
+            Assert.assertTrue(element instanceof IAbstractElement);
+            Assert.assertEquals(expectedSequenceId, SequenceIdManager.getSequenceId((AbstractIdentifiableElement) element));
+            validationCount += 1;
+            validationCount += validateSequenceIds(expectedSequenceId, ((IAbstractElement) element).getChildren());
+        }
+        return validationCount;
+    }
+
+    private static class StoreEventsHandler implements IBaseEventHandler {
+
+        private List<IBaseEvent> events = new ArrayList<>();
+
+        public List<IBaseEvent> getEvents() {
+            return events;
+        }
+
+        @Override
+        public void onEvent(IBaseEvent event) {
+            events.add(event);
+        }
     }
 }
