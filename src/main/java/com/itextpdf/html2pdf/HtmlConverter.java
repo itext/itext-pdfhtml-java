@@ -136,8 +136,8 @@ public class HtmlConverter {
      * @param converterProperties a {@link ConverterProperties} instance
      */
     public static void convertToPdf(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) {
-        Document document = convertToDocument(html, pdfDocument, converterProperties);
-        document.close();
+        try(Document document = convertToDocument(html, pdfDocument, converterProperties)) {
+        }
     }
 
     /**
@@ -247,8 +247,8 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
-        Document document = convertToDocument(htmlStream, pdfDocument, converterProperties);
-        document.close();
+        try(Document document = convertToDocument(htmlStream, pdfDocument, converterProperties)){
+        }
     }
 
     /**
