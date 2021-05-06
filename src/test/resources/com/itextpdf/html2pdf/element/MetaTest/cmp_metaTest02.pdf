@@ -12,13 +12,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</Author(Bruno Lowagie)/CreationDate(D:20200312110625+03'00')/Keywords(metadata, keywords, test)/ModDate(D:20200312110625+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Subject(This is the description of the page)/Title(Metadata)/generator(Eugenerator Onegenerator)/subject(Trying to break iText and write pdf's Subject with subject instead of description name)>>
-endobj
-7 0 obj
-<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</Author(Bruno Lowagie)/CreationDate(D:20210506111717+03'00')/Keywords(metadata, keywords, test)/ModDate(D:20210506111717+03'00')/Producer(iText® Core 7.1.16-SNAPSHOT \(AGPL version\) ©1998-2021 iText Group NV)/Subject(This is the description of the page)/Title(Metadata)/generator(Eugenerator Onegenerator)/subject(Trying to break iText and write pdf's Subject with subject instead of description name)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+7 0 obj
+<</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,15 +27,15 @@ xref
 0 8
 0000000000 65535 f 
 0000000352 00000 n 
-0000000993 00000 n 
+0000000998 00000 n 
 0000000397 00000 n 
 0000000210 00000 n 
 0000000015 00000 n 
-0000000904 00000 n 
-0000000814 00000 n 
+0000000819 00000 n 
+0000000908 00000 n 
 trailer
-<</ID [<1ef7d299f65a2c442f597663c3439165><1ef7d299f65a2c442f597663c3439165>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.11-SNAPSHOT
+<</ID [<1c970368302c36956b9f5d9dccaa1401><1c970368302c36956b9f5d9dccaa1401>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-7.1.16-SNAPSHOT
 startxref
-1044
+1049
 %%EOF
