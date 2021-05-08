@@ -44,7 +44,7 @@ import java.util.List;
 /**
  * {@link TextRenderer} implementation for the page target-counter.
  */
-public class PageTargetCountRenderer extends TextRenderer {
+class PageTargetCountRenderer extends TextRenderer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PageTargetCountRenderer.class);
 

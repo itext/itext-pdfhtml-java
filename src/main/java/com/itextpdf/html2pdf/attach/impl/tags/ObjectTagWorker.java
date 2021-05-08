@@ -55,6 +55,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.exceptions.SvgProcessingException;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
@@ -109,7 +110,7 @@ public class ObjectTagWorker implements ITagWorker {
             try (InputStream svgStream = context.getResourceResolver().retrieveResourceAsInputStream(dataValue)) {
                 if (svgStream != null) {
                     SvgConverterProperties props = ContextMappingHelper.mapToSvgConverterProperties(context);
-                    if (!context.getResourceResolver().isDataSrc(dataValue)) {
+                    if (!ResourceResolver.isDataSrc(dataValue)) {
                         URL fullURL = context.getResourceResolver().resolveAgainstBaseUri(dataValue);
                         String dir = FileUtil.parentDirectory(fullURL);
                         props.setBaseUri(dir);

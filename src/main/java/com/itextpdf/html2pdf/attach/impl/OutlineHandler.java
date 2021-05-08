@@ -218,7 +218,7 @@ public class OutlineHandler {
     }
 
     /**
-     * Generate the unique outline name.
+     * Generate the outline name.
      *
      * This method is used in the {@link #addOutlineAndDestToDocument} method.
      * You can override this method to set your own way to generate the outline names.
@@ -226,7 +226,7 @@ public class OutlineHandler {
      * @param element the element
      * @return the unique destination name
      */
-    protected String generateUniqueOutlineName(IElementNode element) {
+    protected String generateOutlineName(IElementNode element) {
         String tagName = element.name();
         String content = ((JsoupElementNode) element).text();
         if (content.isEmpty()) {
@@ -258,7 +258,7 @@ public class OutlineHandler {
                 parent = parent.getParent();
                 levelsInProcess.pop();
             }
-            PdfOutline outline = parent.addOutline(generateUniqueOutlineName(element));
+            PdfOutline outline = parent.addOutline(generateOutlineName(element));
             String destination = generateUniqueDestinationName(element);
             outline.addDestination(PdfDestination.makeDestination(new PdfString(destination)));
 
@@ -299,7 +299,7 @@ public class OutlineHandler {
      * Gets the unique ID.
      *
      * This method is used in the {@link #generateUniqueDestinationName} method to generate the unique
-     * destination names and in the {@link #generateUniqueOutlineName} method to generate the unique
+     * destination names and in the {@link #generateOutlineName} method to generate the unique
      * outline names. The {@link #destCounter} map serves to achieve the uniqueness of an ID.
      *
      * @param key the key

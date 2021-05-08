@@ -162,10 +162,10 @@ public class HtmlConverter {
      */
     public static void convertToPdf(File htmlFile, File pdfFile, ConverterProperties converterProperties) throws IOException {
         if (converterProperties == null) {
-            String baseUri = FileUtil.getParentDirectory(htmlFile);
+            String baseUri = FileUtil.getParentDirectoryUri(htmlFile);
             converterProperties = new ConverterProperties().setBaseUri(baseUri);
         } else if (converterProperties.getBaseUri() == null) {
-            String baseUri = FileUtil.getParentDirectory(htmlFile);
+            String baseUri = FileUtil.getParentDirectoryUri(htmlFile);
             converterProperties = new ConverterProperties(converterProperties).setBaseUri(baseUri);
         }
         try (FileInputStream fileInputStream = new FileInputStream(htmlFile.getAbsolutePath());
