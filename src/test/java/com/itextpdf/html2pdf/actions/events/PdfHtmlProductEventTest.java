@@ -24,6 +24,7 @@ package com.itextpdf.html2pdf.actions.events;
 
 import com.itextpdf.html2pdf.actions.data.PdfHtmlProductData;
 import com.itextpdf.kernel.actions.ProductNameConstant;
+import com.itextpdf.kernel.actions.events.EventConfirmationType;
 import com.itextpdf.kernel.actions.sequence.SequenceId;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
@@ -35,13 +36,14 @@ import org.junit.experimental.categories.Category;
 @Category(UnitTest.class)
 public class PdfHtmlProductEventTest extends ExtendedITextTest {
     @Test
-    public void sequenceIdEventCreationTest() {
+    public void convertElementsEventTest() {
         SequenceId sequenceId = new SequenceId();
-        PdfHtmlProductEvent event = new PdfHtmlProductEvent(sequenceId, new PdfHtmlTestMetaInfo("meta data"), "test event");
+        PdfHtmlProductEvent event = PdfHtmlProductEvent.createConvertHtmlEvent(sequenceId, new PdfHtmlTestMetaInfo("meta data"));
 
-        Assert.assertEquals("test event", event.getEventType());
+        Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, event.getEventType());
         Assert.assertEquals(ProductNameConstant.PDF_HTML, event.getProductName());
         Assert.assertEquals("meta data", ((PdfHtmlTestMetaInfo)event.getMetaInfo()).getMetaData());
+        Assert.assertEquals(EventConfirmationType.ON_CLOSE, event.getConfirmationType());
         Assert.assertEquals(sequenceId, event.getSequenceId());
 
         Assert.assertEquals(PdfHtmlProductData.getInstance().getPublicProductName(), event.getProductData().getPublicProductName());

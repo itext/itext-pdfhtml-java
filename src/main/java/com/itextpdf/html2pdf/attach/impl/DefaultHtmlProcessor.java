@@ -234,8 +234,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         for (IElement element : elements) {
             updateSequenceId(element, sequenceId);
         }
-        EventManager.getInstance().onEvent(new PdfHtmlProductEvent(sequenceId,
-                context.getEventCountingMetaInfo(), PdfHtmlProductEvent.CONVERT_ELEMENTS));
+        EventManager.getInstance().onEvent(PdfHtmlProductEvent.createConvertHtmlEvent(sequenceId,
+                context.getEventCountingMetaInfo()));
         EventCounterHandler.getInstance().onEvent(PdfHtmlEvent.CONVERT, context.getEventCountingMetaInfo(), getClass());
         return elements;
     }

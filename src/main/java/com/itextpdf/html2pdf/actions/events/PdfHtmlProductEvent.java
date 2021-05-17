@@ -24,18 +24,20 @@ package com.itextpdf.html2pdf.actions.events;
 
 import com.itextpdf.html2pdf.actions.data.PdfHtmlProductData;
 import com.itextpdf.kernel.actions.ProductNameConstant;
-import com.itextpdf.kernel.actions.events.AbstractITextProductEvent;
+import com.itextpdf.kernel.actions.events.AbstractProductProcessITextEvent;
+import com.itextpdf.kernel.actions.events.EventConfirmationType;
 import com.itextpdf.kernel.actions.sequence.SequenceId;
 import com.itextpdf.kernel.counter.event.IMetaInfo;
 
 /**
  * Class represents events registered in iText pdfHTML module.
  */
-public class PdfHtmlProductEvent extends AbstractITextProductEvent {
+public class PdfHtmlProductEvent extends AbstractProductProcessITextEvent {
     /**
-     * Convert elements event type.
+     * Convert html event type.
      */
-    public static final String CONVERT_ELEMENTS = "convert-elements-event";
+    // TODO DEVSIX-5466 rename constant value
+    public static final String CONVERT_HTML = "convert-elements-event";
 
     private final String eventType;
 
@@ -46,9 +48,21 @@ public class PdfHtmlProductEvent extends AbstractITextProductEvent {
      * @param metaInfo   is an additional meta info
      * @param eventType  is a string description of the event
      */
-    public PdfHtmlProductEvent(SequenceId sequenceId, IMetaInfo metaInfo, String eventType) {
-        super(sequenceId, PdfHtmlProductData.getInstance(), metaInfo);
+    private PdfHtmlProductEvent(SequenceId sequenceId, IMetaInfo metaInfo, String eventType) {
+        super(sequenceId, PdfHtmlProductData.getInstance(), metaInfo, EventConfirmationType.ON_CLOSE);
         this.eventType = eventType;
+    }
+
+    /**
+     * Creates a convert html event which associated with a general identifier and additional meta data.
+     *
+     * @param sequenceId is an identifier associated with the event
+     * @param metaInfo is an additional meta info
+     *
+     * @return the convert html event
+     */
+    public static PdfHtmlProductEvent createConvertHtmlEvent(SequenceId sequenceId, IMetaInfo metaInfo) {
+        return new PdfHtmlProductEvent(sequenceId, metaInfo, CONVERT_HTML);
     }
 
     @Override
