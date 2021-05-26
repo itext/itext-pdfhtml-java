@@ -36,6 +36,8 @@ import org.junit.experimental.categories.Category;
 @Category(IntegrationTest.class)
 public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
 
+    private static boolean s = true;
+
     /* To see unit tests for flex algorithm go to FlexUtilTest in layout module:
     - these test were created as unit tests for flex algo at first
     - the htmls were used to compare the widths, returned by the algo
@@ -45,7 +47,7 @@ public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
     time they might change and we will not maintain such correspondance */
 
     private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/FlexAlgoTest/";
-    public static final String DESTINATION_FOLDER = "./target/test/resources/com/itextpdf/html2pdf/css/FlexAlgoTest/";
+    public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/FlexAlgoTest/";
 
     @BeforeClass
     public static void beforeClass() {
@@ -496,7 +498,6 @@ public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO
     public void differentBasisSumLtWidthGrow1Shrink1Item2MarginsTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("differentBasisSumLtWidthGrow1Shrink1Item2MarginsTest01", SOURCE_FOLDER,
                 DESTINATION_FOLDER);
