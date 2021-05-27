@@ -74,8 +74,7 @@ public class BlockFormattingContextTest extends ExtendedHtmlConversionITextTest 
 
     @Test
     public void bfcOwnerAbsolute_floatsAndClear() throws IOException, InterruptedException {
-        // Positioning and handling floats and clearance is exactly correct,
-        // however TODO absolutely positioned elements shall be drawn on the same z-level as floats.
+        // TODO: DEVSIX-5470
         convertToPdfAndCompare("bfcOwnerAbsolute_floatsAndClear", sourceFolder, destinationFolder);
     }
 
@@ -98,13 +97,7 @@ public class BlockFormattingContextTest extends ExtendedHtmlConversionITextTest 
 
     @Test
     public void bfcOwnerOverflowHidden_floatsAndClear() throws IOException, InterruptedException {
-        // TODO overflow:hidden with display:block behaves curiously: it completely moves away from float horizontally.
-        // We don't handle it in such way and it's unclear right now, based on what it behaves like this.
-        // How would it behave if it would have 100% width or width:auto?
-        //
-        // Now, we basically working incorrectly, since overflow:hidden requires it's inner floats to be placed
-        // not taking into account any other floats outside parent. However right now this would result in
-        // content overlap if we would behave like this.
+        // TODO: DEVSIX-5471
         convertToPdfAndCompare("bfcOwnerOverflowHidden_floatsAndClear", sourceFolder, destinationFolder);
     }
 

@@ -82,9 +82,7 @@ public class BoxSizingTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void boxSizingCellTest01() throws IOException, InterruptedException {
-        // TODO Result of processing of this html is different from what browsers show.
-        // Height of cells is always border-box-like at least if DOCTYPE "html" is not specified.
-        // See also boxSizingCellTest03.
+        // TODO: DEVSIX-5468 update cmp file after fixing
         convertToPdfAndCompare("boxSizingCellTest01", sourceFolder, destinationFolder);
     }
 
@@ -95,12 +93,7 @@ public class BoxSizingTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void boxSizingCellTest03() throws IOException, InterruptedException {
-        // This test is exactly the same as boxSizingCellTest01, except DOCTYPE "html" is used:
-        // cells height is different in browsers depending on box-sizing.
-
-        // TODO: we don't include half of the borders in height calculation when border-box is set
-        // because we apply borders on table level. However, this seems to be not very important for heights,
-        // height will only be bigger and it's not that crucial in comparison to width calculations.
+        // TODO: DEVSIX-5468 update cmp file after fixing
         convertToPdfAndCompare("boxSizingCellTest03", sourceFolder, destinationFolder);
     }
 
@@ -146,8 +139,9 @@ public class BoxSizingTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void boxSizingDiv04Test() throws IOException, InterruptedException {
-        // TODO inner div still doesn't fit, because it's height is increased every time page split occurs by margins borders padding
-        // Thus, if parent height was manually fixed to include child with fixed height and if page split occurs - child might not fit.
+        // Inner div still doesn't fit, because it's height is increased every time page split occurs by margins
+        // borders padding. Thus, if parent height was manually fixed to include child with fixed height and if
+        // page split occurs - child might not fit.
         convertToPdfAndCompare("boxSizingDiv04Test", sourceFolder, destinationFolder);
     }
 
@@ -219,12 +213,13 @@ public class BoxSizingTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void boxSizingFormTest02() throws IOException, InterruptedException {
-        convertToPdfAndCompare("boxSizingFormTest02", sourceFolder, destinationFolder); // TODO we don't apply height to textarea yet
+        convertToPdfAndCompare("boxSizingFormTest02", sourceFolder, destinationFolder);
     }
 
     @Test
     public void boxSizingFormTest03() throws IOException, InterruptedException {
-        convertToPdfAndCompare("boxSizingFormTest03", sourceFolder, destinationFolder); // TODO at least in chrome, borders of buttons are always included to width and height (just as with border-box)
+        // At least in chrome, borders of buttons are always included to width and height (just as with border-box)
+        convertToPdfAndCompare("boxSizingFormTest03", sourceFolder, destinationFolder);
     }
 
     @Test
