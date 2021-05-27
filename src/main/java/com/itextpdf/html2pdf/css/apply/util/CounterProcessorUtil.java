@@ -61,19 +61,6 @@ public class CounterProcessorUtil {
      *
      * @param cssProps the CSS properties
      * @param context  the processor context
-     * @param scope    the scope
-     * @deprecated This method need to be removed in 7.2
-     */
-    @Deprecated
-    public static void processCounters(Map<String, String> cssProps, CssContext context, INode scope) {
-        processCounters(cssProps, context);
-    }
-
-    /**
-     * Processes counters.
-     *
-     * @param cssProps the CSS properties
-     * @param context  the processor context
      */
     public static void processCounters(Map<String, String> cssProps, CssContext context) {
         String counterReset = cssProps.get(CssConstants.COUNTER_RESET);

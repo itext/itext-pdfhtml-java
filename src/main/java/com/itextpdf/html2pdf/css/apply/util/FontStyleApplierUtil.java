@@ -283,7 +283,7 @@ public final class FontStyleApplierUtil {
 
     private static void setLineHeight(IPropertyContainer elementToSet, String lineHeight, float em, float rem) {
         if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight) && !CssConstants.AUTO.equals(lineHeight)) {
-            if (CssTypesValidationUtils.isNumericValue(lineHeight)) {
+            if (CssTypesValidationUtils.isNumber(lineHeight)) {
                 Float number = CssDimensionParsingUtils.parseFloat(lineHeight);
                 if (number != null) {
                     elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createMultipliedValue((float)number));
@@ -310,7 +310,7 @@ public final class FontStyleApplierUtil {
         // nevertheless some browsers compute it as normal so we apply the same behaviour.
         // What's more, it's basically the same thing as if lineHeight is not set in the first place
         if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight) && !CssConstants.AUTO.equals(lineHeight)) {
-            if (CssTypesValidationUtils.isNumericValue(lineHeight)) {
+            if (CssTypesValidationUtils.isNumber(lineHeight)) {
                 Float mult = CssDimensionParsingUtils.parseFloat(lineHeight);
                 if (mult != null) {
                     element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));

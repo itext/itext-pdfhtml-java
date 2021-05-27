@@ -263,7 +263,7 @@ public class VerticalAlignmentApplierUtil {
             } else {
                 UnitValue lineHeightValue = CssDimensionParsingUtils
                         .parseLengthValueToPt(lineHeightStr, fontSize, rootFontSize);
-                if (CssTypesValidationUtils.isNumericValue(lineHeightStr)) {
+                if (CssTypesValidationUtils.isNumber(lineHeightStr)) {
                     lineHeightActualValue = fontSize * lineHeightValue.getValue();
                 } else if (lineHeightValue.isPointValue()) {
                     lineHeightActualValue = lineHeightValue.getValue();
