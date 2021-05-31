@@ -30,7 +30,6 @@ import com.itextpdf.kernel.actions.data.ProductData;
  */
 public class PdfHtmlProductData {
     private static final String PDF_HTML_PUBLIC_PRODUCT_NAME = "pdfHTML";
-    // TODO: DEVSIX-5304 during integration new licensekey mechanism with html2pdf provide more flexible version setup
     private static final String PDF_HTML_VERSION = "3.0.5-SNAPSHOT";
     private static final int PDF_HTML_COPYRIGHT_SINCE = 1998;
     private static final int PDF_HTML_COPYRIGHT_TO = 2021;

@@ -440,8 +440,7 @@ public class ConverterProperties {
     /**
      * Gets html meta info.
      * <p>
-     * This meta info will be passed with to {@link com.itextpdf.kernel.counter.EventCounter}
-     * with {@link com.itextpdf.html2pdf.events.PdfHtmlEvent} and can be used to determine event origin.
+     * This meta info will be used to determine event origin.
      *
      * @return converter's {@link IMetaInfo}
      */
@@ -452,8 +451,7 @@ public class ConverterProperties {
     /**
      * Sets html meta info.
      * <p>
-     * This meta info will be passed with to {@link com.itextpdf.kernel.counter.EventCounter}
-     * with {@link com.itextpdf.html2pdf.events.PdfHtmlEvent} and can be used to determine event origin.
+     * This meta info will be used to determine event origin.
      *
      * @param metaInfo meta info to set
      * @return the {@link ConverterProperties} instance

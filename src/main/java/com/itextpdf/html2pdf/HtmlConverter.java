@@ -316,7 +316,6 @@ public class HtmlConverter {
      * @return a {@link Document} instance
      */
     public static Document convertToDocument(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) {
-        ReflectionUtils.scheduledLicenseCheck();
         if (pdfDocument.getReader() != null) {
             throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
         }
@@ -337,7 +336,6 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static Document convertToDocument(InputStream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
-        ReflectionUtils.scheduledLicenseCheck();
         if (pdfDocument.getReader() != null) {
             throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
         }
@@ -379,7 +377,6 @@ public class HtmlConverter {
      * @return a list of iText building blocks
      */
     public static List<IElement> convertToElements(String html, ConverterProperties converterProperties) {
-        ReflectionUtils.scheduledLicenseCheck();
         IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(html);
         return Attacher.attach(doc, converterProperties);
@@ -396,7 +393,6 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static List<IElement> convertToElements(InputStream htmlStream, ConverterProperties converterProperties) throws IOException {
-        ReflectionUtils.scheduledLicenseCheck();
         IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
         return Attacher.attach(doc, converterProperties);

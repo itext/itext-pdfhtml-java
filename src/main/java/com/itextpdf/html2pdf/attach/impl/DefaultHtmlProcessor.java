@@ -63,7 +63,6 @@ import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.events.PdfHtmlEvent;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
 import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.html2pdf.util.ReflectionUtils;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
@@ -72,7 +71,6 @@ import com.itextpdf.kernel.actions.EventManager;
 import com.itextpdf.kernel.actions.sequence.AbstractIdentifiableElement;
 import com.itextpdf.kernel.actions.sequence.SequenceId;
 import com.itextpdf.kernel.actions.sequence.SequenceIdManager;
-import com.itextpdf.kernel.counter.EventCounterHandler;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
@@ -202,8 +200,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      */
     @Override
     public List<com.itextpdf.layout.element.IElement> processElements(INode root) {
-        ReflectionUtils.scheduledLicenseCheck();
         final SequenceId sequenceId = new SequenceId();
+        EventManager.getInstance().onEvent(PdfHtmlProductEvent.createConvertHtmlEvent(sequenceId,
+                context.getEventCountingMetaInfo()));
 
         context.reset();
         roots = new ArrayList<>();
@@ -234,9 +233,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         for (IElement element : elements) {
             updateSequenceId(element, sequenceId);
         }
-        EventManager.getInstance().onEvent(PdfHtmlProductEvent.createConvertHtmlEvent(sequenceId,
-                context.getEventCountingMetaInfo()));
-        EventCounterHandler.getInstance().onEvent(PdfHtmlEvent.CONVERT, context.getEventCountingMetaInfo(), getClass());
         return elements;
     }
 
@@ -245,7 +241,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      */
     @Override
     public Document processDocument(INode root, PdfDocument pdfDocument) {
-        ReflectionUtils.scheduledLicenseCheck();
+        EventManager.getInstance().onEvent(PdfHtmlProductEvent.createConvertHtmlEvent(pdfDocument.getDocumentIdWrapper(),
+                context.getEventCountingMetaInfo()));
 
         context.reset(pdfDocument);
         if (!context.hasFonts()) {
@@ -283,7 +280,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
         cssResolver = null;
         roots = null;
-        EventCounterHandler.getInstance().onEvent(PdfHtmlEvent.CONVERT, context.getEventCountingMetaInfo(), getClass());
         return doc;
     }
 
