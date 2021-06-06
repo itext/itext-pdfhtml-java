@@ -52,7 +52,6 @@ public class HtmlDocument extends Document {
     public void relayout() {
         if (rootRenderer instanceof HtmlDocumentRenderer) {
             ((HtmlDocumentRenderer) rootRenderer).removeEventHandlers();
-            ((HtmlDocumentRenderer) rootRenderer).getTargetCounterHandler().prepareHandlerToRelayout();
             super.relayout();
             ((HtmlDocumentRenderer) rootRenderer).processWaitingElement();
         }
