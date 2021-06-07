@@ -22,7 +22,6 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
-import com.itextpdf.html2pdf.attach.impl.layout.PageTargetCountRendererTest.CustomPageTargetCountRenderer;
 import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.io.font.otf.Glyph;
 import com.itextpdf.io.font.otf.GlyphLine;
