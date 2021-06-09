@@ -254,8 +254,6 @@ public class PageRuleTest extends ExtendedITextTest {
         @Override
         public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             if (childTagWorker.getElementResult() instanceof Image) {
-                // TODO Since iText 7.2 release it is ("it will be" for now, see PageMarginBoxDummyElement class) possible
-                // to get current page margin box name and dimensions from the "element" IElementNode passed to the constructor of this tag worker.
                 ((Image) childTagWorker.getElementResult()).setAutoScale(true);
             }
             return super.processTagChild(childTagWorker, context);
@@ -305,8 +303,7 @@ public class PageRuleTest extends ExtendedITextTest {
 
     @Test
     public void marginBoxOutlinePropertyTest01() {
-        // TODO Outlines are currently not supported for page margin boxes, because of the outlines handling specificity (they are handled on renderer's parent level).
-        //      See com.itextpdf.html2pdf.attach.impl.layout.PageContextProcessor.
+        // TODO DEVSIX-5725 support 'ouline' property for page margin boxes
         runTest("marginBoxOutlinePropertyTest01");
     }
 
@@ -327,7 +324,8 @@ public class PageRuleTest extends ExtendedITextTest {
 
     @Test
     public void marginBoxRunningTest04() {
-        // TODO This tests shows wrong result, because running element name is custom-ident which shall be case sensitive, while iText treats it as case-insensitive.
+        // TODO DEVSIX-2430 This tests shows wrong result, because running element name is custom-ident which
+        //  shall be case sensitive, while iText treats it as case-insensitive.
         runTest("marginBoxRunningTest04");
     }
 
@@ -639,7 +637,7 @@ public class PageRuleTest extends ExtendedITextTest {
         ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
         Document doc = HtmlConverter.convertToDocument(new FileInputStream(htmlPath), new PdfWriter(pdfPath), converterProperties);
 
-        // TODO This is kinda a workaround, because calling document.close() would close the whole document,
+        // This is kinda a workaround, because calling document.close() would close the whole document,
         // which would forbid any further operations with it, however in html2pdf some things are waiting for document to be closed and finished:
         // - adding last waiting element (connected with keep_with_previous functionality);
         // - drawing margin boxes for the last page.

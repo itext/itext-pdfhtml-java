@@ -573,9 +573,7 @@ class HtmlStylesToCssConverter {
             } else if (TagConstants.CAPTION.equals(element.name())) {
                 result.add(new CssDeclaration(CssConstants.CAPTION_SIDE, value));
             } else {
-                // TODO in fact, align attribute also affects horizontal alignment of all child blocks (not only direct children),
-                // however this effect conflicts in queer manner with 'text-align' property if it set on the same blocks explicitly via CSS
-                // (see HorizontalAlignmentTest#alignAttribute01)
+                // TODO DEVSIX-5518 fix conflicts of 'align' and 'text-align'
                 result.add(new CssDeclaration(CssConstants.TEXT_ALIGN, value));
             }
             return result;

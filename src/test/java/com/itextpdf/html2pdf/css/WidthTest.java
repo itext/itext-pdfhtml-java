@@ -83,9 +83,15 @@ public class WidthTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //Todo: the width for table currently set incorrect.
+    // TODO DEVSIX-5726 the width for table currently set incorrect.
     public void percentMarginTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("percentMarginTest", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO DEVSIX-5726 the width for table currently set incorrect.
+    public void percentMarginTableTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("percentMarginTable", sourceFolder, destinationFolder);
     }
 
     @Test
