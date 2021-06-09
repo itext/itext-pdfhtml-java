@@ -108,4 +108,9 @@ public class WidthTest extends ExtendedHtmlConversionITextTest {
     public void imageWidthInPercentValueTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("imageWidthInPercentValue", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void maxWidthInPixelForTableTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("maxWidthForChildTablesInPixels", sourceFolder, destinationFolder);
+    }
 }
