@@ -25,10 +25,13 @@ package com.itextpdf.html2pdf.actions;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.actions.events.PdfHtmlProductEvent;
+import com.itextpdf.html2pdf.actions.events.PdfHtmlTestProductEvent;
 import com.itextpdf.io.source.ByteArrayOutputStream;
+import com.itextpdf.kernel.KernelLogMessageConstant;
 import com.itextpdf.kernel.actions.EventManager;
 import com.itextpdf.kernel.actions.IBaseEvent;
 import com.itextpdf.kernel.actions.IBaseEventHandler;
+import com.itextpdf.kernel.actions.ProductNameConstant;
 import com.itextpdf.kernel.actions.events.AbstractProductProcessITextEvent;
 import com.itextpdf.kernel.actions.events.ConfirmEvent;
 import com.itextpdf.kernel.actions.events.ConfirmedEventWrapper;
@@ -36,8 +39,9 @@ import com.itextpdf.kernel.actions.events.EventConfirmationType;
 import com.itextpdf.kernel.actions.processors.DefaultITextProductEventProcessor;
 import com.itextpdf.kernel.actions.producer.ProducerBuilder;
 import com.itextpdf.kernel.actions.sequence.SequenceId;
-import com.itextpdf.kernel.counter.NamespaceConstant;
+import com.itextpdf.kernel.counter.event.IMetaInfo;
 import com.itextpdf.kernel.counter.event.ITextCoreEvent;
+import com.itextpdf.kernel.pdf.DocumentProperties;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -48,8 +52,9 @@ import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Text;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.ByteArrayInputStream;
@@ -85,7 +90,7 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
     }
 
     @BeforeClass
-    public static void beforeClass(){
+    public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
 
@@ -107,7 +112,6 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
             addElementsToDocument(document, lstSecond);
         }
 
-
         List<AbstractProductProcessITextEvent> events = CONFIGURATION_ACCESS.getPublicEvents(docSequenceId);
         // Confirmed 3 events, but only 2 events (1 core + 1 pdfHtml) will be reported because
         // ReportingHandler don't report similar events for one sequenceId
@@ -128,8 +132,9 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
         Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
         Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
 
-        try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(new ByteArrayInputStream(baos.toByteArray())))){
-            String expectedProdLine = createExpectedProducerLine(new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
+        try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(new ByteArrayInputStream(baos.toByteArray())))) {
+            String expectedProdLine = createExpectedProducerLine(
+                    new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
             Assert.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
         }
     }
@@ -161,8 +166,9 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
         Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
         Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
 
-        try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(new ByteArrayInputStream(baos.toByteArray())))){
-            String expectedProdLine = createExpectedProducerLine(new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
+        try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(new ByteArrayInputStream(baos.toByteArray())))) {
+            String expectedProdLine = createExpectedProducerLine(
+                    new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
             Assert.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
         }
     }
@@ -190,7 +196,8 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
         Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
 
         try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(DESTINATION_FOLDER + outFileName))) {
-            String expectedProdLine = createExpectedProducerLine(new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
+            String expectedProdLine = createExpectedProducerLine(
+                    new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
             Assert.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
         }
     }
@@ -231,7 +238,8 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
         Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
 
         try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(DESTINATION_FOLDER + outFileName))) {
-            String expectedProdLine = createExpectedProducerLine(new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
+            String expectedProdLine = createExpectedProducerLine(
+                    new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
             Assert.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
         }
     }
@@ -264,14 +272,15 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
         List<ConfirmEvent> events = handler.getEvents();
         Assert.assertEquals(2, events.size());
 
-        AbstractProductProcessITextEvent  event = events.get(0).getConfirmedEvent();
+        AbstractProductProcessITextEvent event = events.get(0).getConfirmedEvent();
         Assert.assertEquals(ITextCoreEvent.PROCESS_PDF, event.getEventType());
 
         event = events.get(1).getConfirmedEvent();
         Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, event.getEventType());
 
         try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(DESTINATION_FOLDER + outFileName))) {
-            String expectedProdLine = createExpectedProducerLine(new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
+            String expectedProdLine = createExpectedProducerLine(
+                    new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
             Assert.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
         }
     }
@@ -308,9 +317,62 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
         Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
         Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
 
-        try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(new ByteArrayInputStream(baos.toByteArray())))){
-            String expectedProdLine = createExpectedProducerLine(new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
+        try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(new ByteArrayInputStream(baos.toByteArray())))) {
+            String expectedProdLine = createExpectedProducerLine(
+                    new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
             Assert.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
+        }
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = KernelLogMessageConstant.UNCONFIRMED_EVENT)})
+    public void unreportedCoreEventTest() throws Exception {
+        String outFileName = DESTINATION_FOLDER + "unreportedCoreEvent.pdf";
+        String html = "<html><head></head>" +
+                "<body style=\"font-size:12.0pt; font-family:Arial\">" +
+                "<p>Text in paragraph</p>" +
+                "</body></html>";
+
+        try (PdfDocument document = new PdfDocument(new PdfWriter(outFileName),
+                new DocumentProperties().setEventCountingMetaInfo(new HtmlTestMetaInfo()))) {
+            document.addNewPage();
+
+            HtmlConverter.convertToDocument(html, document, new ConverterProperties());
+
+            ITextCoreEvent coreEvent = ITextCoreEvent.createProcessPdfEvent(
+                    document.getDocumentIdWrapper(), null, EventConfirmationType.ON_DEMAND);
+            EventManager.getInstance().onEvent(coreEvent);
+        }
+
+        String expectedProdLine = createExpectedProducerLine(new ConfirmedEventWrapper[] {getPdfHtmlEvent()});
+        validatePdfProducerLine(outFileName, expectedProdLine);
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = KernelLogMessageConstant.UNCONFIRMED_EVENT)})
+    public void unreportedPdfHtmlEventTest() throws Exception {
+        String outFileName = DESTINATION_FOLDER + "unreportedPdfHtmlEvent.pdf";
+
+        try (PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFileName))) {
+            pdfDocument.addNewPage();
+
+            PdfHtmlTestProductEvent event = new PdfHtmlTestProductEvent(
+                    pdfDocument.getDocumentIdWrapper(), "event data", EventConfirmationType.ON_DEMAND);
+
+            EventManager.getInstance().onEvent(event);
+        }
+
+        String expectedProdLine = createExpectedProducerLine(new ConfirmedEventWrapper[] {getCoreEvent()});
+        validatePdfProducerLine(outFileName, expectedProdLine);
+    }
+
+    private static class HtmlTestMetaInfo implements IMetaInfo {}
+
+    private void validatePdfProducerLine(String filePath, String expected) throws IOException {
+        try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(filePath))) {
+            Assert.assertEquals(expected, pdfDocument.getDocumentInfo().getProducer());
         }
     }
 
@@ -320,7 +382,8 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
     }
 
     private static ConfirmedEventWrapper getPdfHtmlEvent() {
-        DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor(NamespaceConstant.PDF_HTML);
+        DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor(
+                ProductNameConstant.PDF_HTML);
         return new ConfirmedEventWrapper(
                 PdfHtmlProductEvent.createConvertHtmlEvent(new SequenceId(), null),
                 processor.getUsageType(),
@@ -328,7 +391,8 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
     }
 
     private static ConfirmedEventWrapper getCoreEvent() {
-        DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor(NamespaceConstant.ITEXT);
+        DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor(
+                ProductNameConstant.ITEXT_CORE);
         return new ConfirmedEventWrapper(
                 ITextCoreEvent.createProcessPdfEvent(new SequenceId(), null, EventConfirmationType.ON_CLOSE),
                 processor.getUsageType(),
@@ -338,13 +402,14 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
     private static void addElementsToDocument(Document document, List<IElement> elements) {
         for (IElement elem : elements) {
             if (elem instanceof IBlockElement) {
-                document.add((IBlockElement)elem);
+                document.add((IBlockElement) elem);
             } else if (elem instanceof Image) {
-                document.add((Image)elem);
+                document.add((Image) elem);
             } else if (elem instanceof AreaBreak) {
                 document.add((AreaBreak) elem);
             } else {
-                Assert.fail("The #convertToElements method gave element which is unsupported as root element, it's unexpected.");
+                Assert.fail(
+                        "The #convertToElements method gave element which is unsupported as root element, it's unexpected.");
             }
         }
     }
