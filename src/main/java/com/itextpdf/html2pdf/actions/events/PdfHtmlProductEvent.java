@@ -36,8 +36,7 @@ public class PdfHtmlProductEvent extends AbstractProductProcessITextEvent {
     /**
      * Convert html event type.
      */
-    // TODO DEVSIX-5466 rename constant value
-    public static final String CONVERT_HTML = "convert-elements-event";
+    public static final String CONVERT_HTML = "convert-html";
 
     private final String eventType;
 

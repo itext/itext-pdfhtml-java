@@ -36,6 +36,7 @@ import com.itextpdf.kernel.actions.events.EventConfirmationType;
 import com.itextpdf.kernel.actions.processors.DefaultITextProductEventProcessor;
 import com.itextpdf.kernel.actions.producer.ProducerBuilder;
 import com.itextpdf.kernel.actions.sequence.SequenceId;
+import com.itextpdf.kernel.counter.NamespaceConstant;
 import com.itextpdf.kernel.counter.event.ITextCoreEvent;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
@@ -319,7 +320,7 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
     }
 
     private static ConfirmedEventWrapper getPdfHtmlEvent() {
-        DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor("pdfHtml");
+        DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor(NamespaceConstant.PDF_HTML);
         return new ConfirmedEventWrapper(
                 PdfHtmlProductEvent.createConvertHtmlEvent(new SequenceId(), null),
                 processor.getUsageType(),
@@ -327,7 +328,7 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
     }
 
     private static ConfirmedEventWrapper getCoreEvent() {
-        DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor("itext7-core");
+        DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor(NamespaceConstant.ITEXT);
         return new ConfirmedEventWrapper(
                 ITextCoreEvent.createProcessPdfEvent(new SequenceId(), null, EventConfirmationType.ON_CLOSE),
                 processor.getUsageType(),
