@@ -52,9 +52,11 @@ import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.io.util.MessageFormatUtil;
 import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.css.page.PageMarginRunningElementNode;
 import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer;
+import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer.Token;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.styledxmlparser.css.resolve.CssQuotes;
 import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
@@ -164,7 +166,12 @@ class CssContentPropertyResolver {
                 if (params.size() < TARGET_COUNTER_MIN_PARAMS_SIZE) {
                     return errorFallback(contentStr);
                 }
-                final String target = CssUtils.extractUrl(params.get(0));
+                final String target = params.get(0).startsWith(CommonCssConstants.ATTRIBUTE + "(") ? CssUtils
+                        .extractAttributeValue(params.get(0), (IElementNode) contentContainer.parentNode())
+                        : CssUtils.extractUrl(params.get(0));
+                if (target == null) {
+                    return errorFallback(contentStr);
+                }
                 final String counterName = params.get(1).trim();
                 final CounterDigitsGlyphStyle listStyleType = HtmlUtils.convertStringCounterGlyphStyleToEnum(
                         params.size() > TARGET_COUNTER_MIN_PARAMS_SIZE ?
@@ -188,7 +195,12 @@ class CssContentPropertyResolver {
                 if (params.size() < TARGET_COUNTERS_MIN_PARAMS_SIZE) {
                     return errorFallback(contentStr);
                 }
-                final String target = CssUtils.extractUrl(params.get(0));
+                final String target = params.get(0).startsWith(CommonCssConstants.ATTRIBUTE + "(") ? CssUtils
+                        .extractAttributeValue(params.get(0), (IElementNode) contentContainer.parentNode())
+                        : CssUtils.extractUrl(params.get(0));
+                if (target == null) {
+                    return errorFallback(contentStr);
+                }
                 final String counterName = params.get(1).trim();
                 String counterSeparator = params.get(2).trim();
                 counterSeparator = counterSeparator.substring(1, counterSeparator.length() - 1);
@@ -220,18 +232,14 @@ class CssContentPropertyResolver {
                         + CssConstants.HEIGHT + ":" + CssConstants.INHERIT + ";"
                         + CssConstants.WIDTH + ":" + CssConstants.INHERIT + ";");
                 result.add(new CssContentElementNode(contentContainer, TagConstants.DIV, attributes));
-            } else if (token.getValue().startsWith("attr(") && contentContainer instanceof CssPseudoElementNode) {
-                int endBracket = token.getValue().indexOf(')');
-                if (endBracket > 5) {
-                    String attrName = token.getValue().substring(5, endBracket);
-                    if (attrName.contains("(") || attrName.contains(" ")
-                            || attrName.contains("'") || attrName.contains("\"")) {
-                        return errorFallback(contentStr);
-                    }
-                    IElementNode element = (IElementNode) contentContainer.parentNode();
-                    String value = element.getAttribute(attrName);
-                    result.add(new ContentTextNode(contentContainer, value == null ? "" : value));
+            } else if (token.getValue().startsWith(CommonCssConstants.ATTRIBUTE + "(")
+                    && contentContainer instanceof CssPseudoElementNode) {
+                String value = CssUtils
+                        .extractAttributeValue(token.getValue(), (IElementNode) contentContainer.parentNode());
+                if (value == null) {
+                    return errorFallback(contentStr);
                 }
+                    result.add(new ContentTextNode(contentContainer, value));
             } else if (token.getValue().endsWith("quote") && contentContainer instanceof IStylesContainer) {
                 if (quotes == null) {
                     quotes = CssQuotes.createQuotes(styles.get(CssConstants.QUOTES), true);

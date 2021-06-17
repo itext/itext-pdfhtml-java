@@ -380,6 +380,12 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-5091 change cmp file when working on the thicket
+    public void flexBasisContentMaxWidth() throws IOException, InterruptedException {
+        convertToPdfAndCompare("flexBasisContentMaxWidth", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
     public void floatAtFlexItemTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("floatAtFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

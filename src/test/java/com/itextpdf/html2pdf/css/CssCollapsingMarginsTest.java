@@ -350,6 +350,21 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
         test("collapsingMarginsFloatTest09.html", "collapsingMarginsFloatTest09.pdf", "diff_");
     }
 
+    @Test
+    public void collapsingMarginsImageTest() throws IOException, InterruptedException {
+        test("collapsingMarginsImage.html", "collapsingMarginsImage.pdf", "diff_");
+    }
+
+    @Test
+    public void collapsingMarginsImgInNestedDivsTest() throws IOException, InterruptedException {
+        test("collapsingMarginsImgInNestedDivs.html", "collapsingMarginsImgInNestedDivs.pdf", "diff_");
+    }
+
+    @Test
+    public void selfCollapsingWithImageTest() throws IOException, InterruptedException {
+        test("selfCollapsingWithImage.html", "selfCollapsingWithImage.pdf", "diff_");
+    }
+
     private void test(String in, String out, String diff) throws IOException, InterruptedException {
         String outPdf = destinationFolder + out;
         String cmpPdf = sourceFolder + "cmp_" + out;

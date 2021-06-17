@@ -25,7 +25,9 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
 import com.itextpdf.html2pdf.html.HtmlUtils;
+import com.itextpdf.io.font.otf.GlyphLine;
 import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
 import com.itextpdf.layout.property.Property;
@@ -62,6 +64,12 @@ public class PageTargetCountRenderer extends TextRenderer {
         target = textElement.getTarget();
     }
 
+    protected PageTargetCountRenderer(TextRenderer other) {
+        super(other);
+        this.digitsGlyphStyle = ((PageTargetCountRenderer)other).digitsGlyphStyle;
+        this.target = ((PageTargetCountRenderer)other).target;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -95,7 +103,27 @@ public class PageTargetCountRenderer extends TextRenderer {
      */
     @Override
     public IRenderer getNextRenderer() {
-        return this;
+        if (PageTargetCountRenderer.class != this.getClass()) {
+            Logger logger = LoggerFactory.getLogger(PageTargetCountRenderer.class);
+            logger.error(MessageFormatUtil.format(
+                    com.itextpdf.io.LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
+        }
+        return new PageTargetCountRenderer((PageTargetCountElement) modelElement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected TextRenderer createCopy(GlyphLine gl, PdfFont font) {
+        if (PageTargetCountRenderer.class != this.getClass()) {
+            Logger logger = LoggerFactory.getLogger(PageTargetCountRenderer.class);
+            logger.error(MessageFormatUtil.format(
+                    com.itextpdf.io.LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN));
+        }
+        PageTargetCountRenderer copy = new PageTargetCountRenderer(this);
+        copy.setProcessedGlyphLineAndFont(gl, font);
+        return copy;
     }
 
     /**

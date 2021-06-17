@@ -168,7 +168,7 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+    //In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
     //See BlocksMetadataPadding001Test in io for decompression details
     public void w3cProblemTest01() throws IOException, InterruptedException {
         runTest("w3cProblemTest01");
@@ -187,7 +187,7 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    //TODO: silently omitted, decompression should fail.
+    //Silently omitted, decompression should fail.
     //See HeaderFlavor001Test in io for decompression details
     public void w3cProblemTest03() throws IOException, InterruptedException {
         runTest("w3cProblemTest03");
@@ -195,7 +195,7 @@ public class FontFaceTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.FONT_SUBSET_ISSUE)})
-    //TODO: silently omitted, decompression should fail. Browser loads font but don't draw glyph.
+    //Silently omitted, decompression should fail. Browser loads font but don't draw glyph.
     //See HeaderFlavor002Test in io for decompression details
     public void w3cProblemTest04() throws IOException, InterruptedException {
         //NOTE, iText fails on subsetting as expected.
@@ -203,14 +203,14 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+    //In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
     //See HeaderReserved001Test in io for decompression details
     public void w3cProblemTest05() throws IOException, InterruptedException {
         runTest("w3cProblemTest05");
     }
 
     @Test
-    //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+    //In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
     //See TabledataHmtxTransform003Test in io for decompression details
     public void w3cProblemTest06() throws IOException, InterruptedException {
         runTest("w3cProblemTest06");

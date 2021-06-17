@@ -89,21 +89,20 @@ public class ClearTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1269")
+    // TODO: DEVSIX-1269, DEVSIX-5474 update cmp file after fixing issues
     public void clear08Test() throws IOException, InterruptedException {
-        // TODO behaving differently from browser in some cases of selfcollapsing margins
         convertToPdfAndCompare("clear08Test", sourceFolder, destinationFolder);
     }
 
     @Test
+    // TODO: DEVSIX-5474 update cmp file after fixing
     public void clear09Test() throws IOException, InterruptedException {
-        // TODO behaving differently from browser in some cases of selfcollapsing margins
         convertToPdfAndCompare("clear09Test", sourceFolder, destinationFolder);
     }
 
     @Test
+    // TODO: DEVSIX-5474 update cmp file after fixing
     public void clear10Test() throws IOException, InterruptedException {
-        // TODO behaving differently from browser in some cases of selfcollapsing margins
         convertToPdfAndCompare("clear10Test", sourceFolder, destinationFolder);
     }
 

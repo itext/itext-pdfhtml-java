@@ -90,4 +90,10 @@ public class CounterTest extends ExtendedHtmlConversionITextTest{
     public void pageCounterSpacesInDeclarationTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("page_counter_spaces_in_declaration", sourceFolder, destinationFolder);
     }
+
+    @Test
+    // TODO fix cmp after DEVSIX-5509 is done; currently total page count is incorrect
+    public void pageCounterWithTrimmedLastPageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("page_counter_with_trimmed_last_page", sourceFolder, destinationFolder);
+    }
 }

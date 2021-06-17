@@ -22,8 +22,19 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
+import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.font.otf.Glyph;
+import com.itextpdf.io.font.otf.GlyphLine;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.layout.renderer.IRenderer;
+import com.itextpdf.layout.renderer.TextRenderer;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.UnitTest;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -32,8 +43,52 @@ import org.junit.experimental.categories.Category;
 public class PageTargetCountRendererTest extends ExtendedITextTest {
 
     @Test
-    public void getNextRendererTest() {
-        PageTargetCountRenderer renderer = new PageTargetCountRenderer(new PageTargetCountElement("target"));
-        Assert.assertEquals(renderer, renderer.getNextRenderer());
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN)
+    })
+    public void getNextRendererShouldBeOverriddenTest() {
+        PageTargetCountRenderer pageTargetCountRenderer =
+                new PageTargetCountRenderer(new PageTargetCountElement("test")) {
+            // Nothing is overridden
+        };
+
+        Assert.assertEquals(PageTargetCountRenderer.class, pageTargetCountRenderer.getNextRenderer().getClass());
     }
+
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN)
+    })
+    public void createCopyShouldBeOverriddenTest() {
+        PageTargetCountRenderer pageTargetCountRenderer =
+                new CustomPageTargetCountRenderer(new PageTargetCountElement("test"));
+
+        Assert.assertEquals(CustomPageTargetCountRenderer.class, pageTargetCountRenderer.getNextRenderer().getClass());
+
+        // This test checks for the log message being sent, so we should get there
+        Assert.assertTrue(true);
+    }
+
+    static class CustomPageTargetCountRenderer extends PageTargetCountRenderer {
+        public CustomPageTargetCountRenderer(PageTargetCountElement textElement) {
+            super(textElement);
+        }
+
+        @Override
+        public IRenderer getNextRenderer() {
+            try {
+                // In Java protected methods could be accessed within the same package as default ones,
+                // but .NET works differently. Hence to test a log about #copyText being not overridden
+                // we need to call it from inside the class.
+                TextRenderer copy = createCopy(new GlyphLine(new ArrayList<Glyph>()),
+                        PdfFontFactory.createFont());
+                Assert.assertNotNull(copy);
+            } catch (IOException e) {
+                Assert.fail("We do not expect PdfFontFactory#createFont() to throw an exception here.");
+            }
+            return new CustomPageTargetCountRenderer((PageTargetCountElement) this.modelElement);
+        }
+    }
+
 }

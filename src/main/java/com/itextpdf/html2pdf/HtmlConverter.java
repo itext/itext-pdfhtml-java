@@ -128,15 +128,15 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an {@link InputStream} to objects that
+     * Converts a {@link String} containing HTML to objects that
      * will be added to a {@link PdfDocument}, using specific {@link ConverterProperties}.
      *
-     * @param html the html in the form of a {@link String}
-     * @param pdfDocument the {@link PdfDocument} instance
+     * @param html                the html in the form of a {@link String}
+     * @param pdfDocument         the {@link PdfDocument} instance
      * @param converterProperties a {@link ConverterProperties} instance
      */
     public static void convertToPdf(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) {
-        Document document = convertToDocument(html, pdfDocument, converterProperties);
+        final Document document = convertToDocument(html, pdfDocument, converterProperties);
         document.close();
     }
 
@@ -247,12 +247,12 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
-        Document document = convertToDocument(htmlStream, pdfDocument, converterProperties);
+        final Document document = convertToDocument(htmlStream, pdfDocument, converterProperties);
         document.close();
     }
 
     /**
-     * Converts HTML obtained from an {@link InputStream} to content that
+     * Converts a {@link String} containing HTML to content that
      * will be written to a {@link PdfWriter}, returning a {@link Document} instance.
      *
      * @param html the html in the form of a {@link String}
@@ -277,7 +277,7 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an {@link InputStream} to content that
+     * Converts a {@link String} containing HTML to content that
      * will be written to a {@link PdfWriter}, using specific
      * {@link ConverterProperties}, returning a {@link Document} instance.
      *
@@ -306,7 +306,7 @@ public class HtmlConverter {
     }
 
     /**
-     * Converts HTML obtained from an {@link InputStream} to objects that
+     * Converts a {@link String} containing HTML to objects that
      * will be added to a {@link PdfDocument}, using specific {@link ConverterProperties},
      * returning a {@link Document} instance.
      *

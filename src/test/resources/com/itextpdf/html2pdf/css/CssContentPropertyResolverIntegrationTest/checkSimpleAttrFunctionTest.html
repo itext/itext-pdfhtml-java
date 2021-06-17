@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<style>
+[data-foo]::before {
+  content: attr(data-foo) " ";
+}
+</style>
+<body>
+<p data-foo="hello">world</p>
+</body>
+</html>

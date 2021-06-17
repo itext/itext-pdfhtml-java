@@ -1,0 +1,16 @@
+<html>
+<head>
+    <style>
+        @page {
+            @top-left {
+                content: "Page " counter(page) " / " counter(pages);
+            }
+        }</style>
+</head>
+
+<body>
+<div><span>Text on first page</span></div>
+<div style="page-break-after:always"></div>
+<div></div>
+</body>
+</html>

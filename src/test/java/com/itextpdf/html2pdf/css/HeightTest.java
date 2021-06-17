@@ -155,6 +155,11 @@ public class HeightTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void heightWithCollapsingMarginsTest02() throws IOException, InterruptedException {
+        convertToPdfAndCompare("heightWithCollapsingMarginsTest02", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void heightWithCollapsingMarginsTest03() throws IOException, InterruptedException {
         convertToPdfAndCompare("heightWithCollapsingMarginsTest03", sourceFolder, destinationFolder);
     }
@@ -163,6 +168,11 @@ public class HeightTest extends ExtendedHtmlConversionITextTest {
     public void heightWithCollapsingMarginsTest04() throws IOException, InterruptedException {
         // second paragraph should not be drawn in pdf, as it doesn't fit with it's margins
         convertToPdfAndCompare("heightWithCollapsingMarginsTest04", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void heightWithCollapsingMarginsTest05() throws IOException, InterruptedException {
+        convertToPdfAndCompare("heightWithCollapsingMarginsTest05", sourceFolder, destinationFolder);
     }
 
     @Test

@@ -26,6 +26,8 @@ import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageTargetCountElementNode;
+import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.ITextNode;
 import com.itextpdf.test.ExtendedITextTest;
@@ -116,5 +118,29 @@ public class CssContentPropertyResolverTest extends ExtendedITextTest {
         Assert.assertNotNull(result);
         Assert.assertEquals(1, result.size());
         Assert.assertTrue(result.get(0) instanceof ITextNode);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 1))
+    public void resolveContentWrongTargetCounterTest(){
+        Map<String,String> styles = new HashMap<>();
+        styles.put(CssConstants.CONTENT,"target-counter(attr(), pages)");
+        CssContext context = new CssContext();
+        IElementNode iNode = new CssPseudoElementNode(null, "test");
+
+        List<INode> result = CssContentPropertyResolver.resolveContent(styles,iNode,context);
+        Assert.assertNull(result);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 1))
+    public void resolveContentWrongTargetCountersTest(){
+        Map<String,String> styles = new HashMap<>();
+        styles.put(CssConstants.CONTENT,"target-counters(attr(), pages)");
+        CssContext context = new CssContext();
+        IElementNode iNode = new CssPseudoElementNode(null, "test");
+
+        List<INode> result = CssContentPropertyResolver.resolveContent(styles,iNode,context);
+        Assert.assertNull(result);
     }
 }

@@ -1,0 +1,23 @@
+<html>
+
+<head>
+  <style>
+    .toc-row a::after {
+      content: " " target-counter(attr(href url), page);
+    }
+  </style>
+</head>
+<body>
+
+<div class="toc-container">
+  <div class="toc-row"><a href="#one">Link To Page One</a></div>
+  <div class="toc-row"><a href="#two">Link To Page Two</a></div>
+</div>
+
+<div class="content-container">
+  <div class="page" id="one">Page One Content Here</div>
+  <div class="page" id="two" style="page-break-before: always">Page Two Content Here</div>
+</div>
+
+</body>
+</html>

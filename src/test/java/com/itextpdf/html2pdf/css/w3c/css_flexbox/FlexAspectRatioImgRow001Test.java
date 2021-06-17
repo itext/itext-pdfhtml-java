@@ -30,7 +30,7 @@ import com.itextpdf.test.annotations.LogMessages;
 @LogMessages(messages = {
         @LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 1),
 })
-//TODO DEVSIX-5004 improve support of flex-items with intrinsic aspect ratio
+// TODO DEVSIX-5087 Image is not displayed correctly when overflow happens
 public class FlexAspectRatioImgRow001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

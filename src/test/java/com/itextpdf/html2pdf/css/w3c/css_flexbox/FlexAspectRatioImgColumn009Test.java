@@ -28,7 +28,6 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-5096 support flex-direction: column
-//TODO DEVSIX-5004 improve support of flex-items with intrinsic aspect ratio
 @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
 public class FlexAspectRatioImgColumn009Test extends W3CCssTest {
     @Override
