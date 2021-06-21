@@ -46,7 +46,11 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.attach.ITagWorker;
+import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
+import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.geom.PageSize;
@@ -57,6 +61,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -64,9 +69,12 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -261,6 +269,56 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
     public void checkboxTaggingTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("checkboxTagging", sourceFolder, destinationFolder, true);
     }
+
+    @Test
+    // TODO DEVSIX-5571 Update cmp after the ticket is closed
+    @LogMessages(ignore = true, messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
+            @LogMessage(messageTemplate = LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT),
+
+    })
+    public void checkboxFullWidthDisplayBlockTest() throws IOException, InterruptedException {
+        runTest("checkboxFullWidthDisplayBlockTest");
+    }
+
+    @Test
+    @Ignore("DEVSIX-5572 iText gets into an infinite loop")
+    // TODO DEVSIX-5572 The test could be improved to a layout one without checkboxes, however,
+    // I suggest leaving it as it is until the ticket is picked up: perhaps there are some other
+    // points which one should pay attention to
+    public void longInputValueCausesNothingTest() throws IOException, InterruptedException {
+        ConverterProperties converterProperties = new ConverterProperties();
+        converterProperties.setTagWorkerFactory(new CustomTextInputTagWorkerFactory());
+        convertToPdfAndCompare("longInputValueCausesNothingTest", sourceFolder, destinationFolder,
+                false, converterProperties);
+    }
+
+    private static class CustomTextInputTagWorkerFactory extends DefaultTagWorkerFactory {
+        @Override
+        public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
+            switch (tag.name().toLowerCase()) {
+                case "input":
+                    switch (tag.getAttribute("type").toLowerCase()) {
+                        case "text":
+                            Map<String, String> map = new HashMap<String, String>();
+                            map.put("page-break-inside", "avoid");
+                            tag.addAdditionalHtmlStyles(map);
+                            return new CustomInputDivTagWorker(tag, context);
+                    }
+                    break;
+            }
+            return null;
+        }
+    }
+
+    private static class CustomInputDivTagWorker extends DivTagWorker {
+        public CustomInputDivTagWorker(IElementNode element, ProcessorContext context) {
+            super(element, context);
+            String value = element.getAttribute("value");
+            processContent(value, context);
+        }
+    }
+
 
     private void runTest(String name) throws IOException, InterruptedException {
         convertToPdfAndCompare(name, sourceFolder, destinationFolder);
