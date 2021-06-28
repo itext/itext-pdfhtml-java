@@ -47,9 +47,9 @@ import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.layout.LayoutPosition;
-import com.itextpdf.layout.property.FloatPropertyValue;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.FloatPropertyValue;
+import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.util.WhiteSpaceUtil;
 
 import java.util.ArrayList;

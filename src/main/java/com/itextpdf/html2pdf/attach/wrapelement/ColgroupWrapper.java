@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.wrapelement;
 
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.UnitValue;
 
 import java.util.ArrayList;
 import java.util.Collections;

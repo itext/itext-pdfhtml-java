@@ -61,8 +61,8 @@ import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.property.FloatPropertyValue;
-import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.properties.FloatPropertyValue;
+import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
 import java.util.Map;
