@@ -275,17 +275,15 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
     @LogMessages(ignore = true, messages = {
             @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
             @LogMessage(messageTemplate = LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT),
-
     })
     public void checkboxFullWidthDisplayBlockTest() throws IOException, InterruptedException {
         runTest("checkboxFullWidthDisplayBlockTest");
     }
 
     @Test
-    @Ignore("DEVSIX-5572 iText gets into an infinite loop")
-    // TODO DEVSIX-5572 The test could be improved to a layout one without checkboxes, however,
-    // I suggest leaving it as it is until the ticket is picked up: perhaps there are some other
-    // points which one should pay attention to
+    @LogMessages(ignore = true, messages = {
+            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)
+    })
     public void longInputValueCausesNothingTest() throws IOException, InterruptedException {
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setTagWorkerFactory(new CustomTextInputTagWorkerFactory());
