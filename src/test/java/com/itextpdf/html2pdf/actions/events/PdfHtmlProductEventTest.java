@@ -42,7 +42,6 @@ public class PdfHtmlProductEventTest extends ExtendedITextTest {
 
         Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, event.getEventType());
         Assert.assertEquals(ProductNameConstant.PDF_HTML, event.getProductName());
-        Assert.assertEquals("meta data", ((PdfHtmlTestMetaInfo)event.getMetaInfo()).getMetaData());
         Assert.assertEquals(EventConfirmationType.ON_CLOSE, event.getConfirmationType());
         Assert.assertEquals(sequenceId, event.getSequenceId());
 

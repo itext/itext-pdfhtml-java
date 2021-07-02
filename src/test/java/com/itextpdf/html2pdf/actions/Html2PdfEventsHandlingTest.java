@@ -32,7 +32,7 @@ import com.itextpdf.kernel.actions.EventManager;
 import com.itextpdf.kernel.actions.IBaseEvent;
 import com.itextpdf.kernel.actions.IBaseEventHandler;
 import com.itextpdf.kernel.actions.ProductNameConstant;
-import com.itextpdf.kernel.actions.events.AbstractProductProcessITextEvent;
+import com.itextpdf.kernel.actions.AbstractProductProcessITextEvent;
 import com.itextpdf.kernel.actions.events.ConfirmEvent;
 import com.itextpdf.kernel.actions.events.ConfirmedEventWrapper;
 import com.itextpdf.kernel.actions.events.EventConfirmationType;

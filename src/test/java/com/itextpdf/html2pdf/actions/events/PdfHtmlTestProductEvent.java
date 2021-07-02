@@ -24,7 +24,7 @@
 package com.itextpdf.html2pdf.actions.events;
 
 import com.itextpdf.html2pdf.actions.data.PdfHtmlProductData;
-import com.itextpdf.kernel.actions.events.AbstractProductProcessITextEvent;
+import com.itextpdf.kernel.actions.AbstractProductProcessITextEvent;
 import com.itextpdf.kernel.actions.events.EventConfirmationType;
 import com.itextpdf.kernel.actions.sequence.SequenceId;
 

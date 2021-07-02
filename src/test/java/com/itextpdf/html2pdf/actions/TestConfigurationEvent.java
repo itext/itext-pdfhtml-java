@@ -23,7 +23,7 @@
 package com.itextpdf.html2pdf.actions;
 
 import com.itextpdf.kernel.actions.AbstractITextConfigurationEvent;
-import com.itextpdf.kernel.actions.events.AbstractProductProcessITextEvent;
+import com.itextpdf.kernel.actions.AbstractProductProcessITextEvent;
 import com.itextpdf.kernel.actions.sequence.SequenceId;
 
 import java.util.List;
