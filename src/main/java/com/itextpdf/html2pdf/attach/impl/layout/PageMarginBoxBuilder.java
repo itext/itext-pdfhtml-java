@@ -134,10 +134,9 @@ class PageMarginBoxBuilder {
     }
 
     private IElement processMarginBoxContent(PageMarginBoxContextNode marginBoxContentNode, int pageNumber, ProcessorContext context) {
-        IElementNode dummyMarginBoxNode = new PageMarginBoxDummyElement();
-        dummyMarginBoxNode.setStyles(marginBoxContentNode.getStyles());
+        marginBoxContentNode.setStyles(marginBoxContentNode.getStyles());
         DefaultCssResolver cssResolver = new DefaultCssResolver(marginBoxContentNode, context);
-        ITagWorker marginBoxWorker = context.getTagWorkerFactory().getTagWorker(dummyMarginBoxNode, context);
+        ITagWorker marginBoxWorker = context.getTagWorkerFactory().getTagWorker(marginBoxContentNode, context);
         for (int i = 0; i < marginBoxContentNode.childNodes().size(); i++) {
             INode childNode = marginBoxContentNode.childNodes().get(i);
             if (childNode instanceof ITextNode) {
@@ -168,13 +167,13 @@ class PageMarginBoxBuilder {
             }
         }
 
-        marginBoxWorker.processEnd(dummyMarginBoxNode, context);
+        marginBoxWorker.processEnd(marginBoxContentNode, context);
 
         if (!(marginBoxWorker.getElementResult() instanceof IElement)) {
             throw new IllegalStateException("Custom tag worker implementation for margin boxes shall return IElement for #getElementResult() call.");
         }
 
-        ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(dummyMarginBoxNode);
+        ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(marginBoxContentNode);
         cssApplier.apply(context, marginBoxContentNode, marginBoxWorker);
 
         return (IElement) marginBoxWorker.getElementResult();
