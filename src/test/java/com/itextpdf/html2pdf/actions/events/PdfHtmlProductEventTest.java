@@ -46,7 +46,7 @@ public class PdfHtmlProductEventTest extends ExtendedITextTest {
         Assert.assertEquals(sequenceId, event.getSequenceId());
 
         Assert.assertEquals(PdfHtmlProductData.getInstance().getPublicProductName(), event.getProductData().getPublicProductName());
-        Assert.assertEquals(PdfHtmlProductData.getInstance().getModuleName(), event.getProductData().getModuleName());
+        Assert.assertEquals(PdfHtmlProductData.getInstance().getProductName(), event.getProductData().getProductName());
         Assert.assertEquals(PdfHtmlProductData.getInstance().getVersion(), event.getProductData().getVersion());
         Assert.assertEquals(PdfHtmlProductData.getInstance().getSinceCopyrightYear(), event.getProductData().getSinceCopyrightYear());
         Assert.assertEquals(PdfHtmlProductData.getInstance().getToCopyrightYear(), event.getProductData().getToCopyrightYear());
