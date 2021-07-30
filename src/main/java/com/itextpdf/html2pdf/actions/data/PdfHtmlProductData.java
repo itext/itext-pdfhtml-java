@@ -30,7 +30,7 @@ import com.itextpdf.kernel.actions.data.ProductData;
  */
 public class PdfHtmlProductData {
     private static final String PDF_HTML_PUBLIC_PRODUCT_NAME = "pdfHTML";
-    private static final String PDF_HTML_VERSION = "3.0.5-SNAPSHOT";
+    private static final String PDF_HTML_VERSION = "4.0.0-SNAPSHOT";
     private static final int PDF_HTML_COPYRIGHT_SINCE = 1998;
     private static final int PDF_HTML_COPYRIGHT_TO = 2021;
 

@@ -43,7 +43,6 @@
 package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.ConverterProperties;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.actions.events.PdfHtmlProductEvent;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
@@ -60,9 +59,9 @@ import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
 import com.itextpdf.html2pdf.css.apply.util.PageBreakApplierUtil;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
-import com.itextpdf.html2pdf.events.PdfHtmlEvent;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
 import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
@@ -77,7 +76,6 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IAbstractElement;
 import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.font.FontFamilySplitter;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.Range;
 import com.itextpdf.layout.properties.Property;
