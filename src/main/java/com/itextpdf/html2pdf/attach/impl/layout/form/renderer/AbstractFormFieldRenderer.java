@@ -170,7 +170,7 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer {
         drawContext.getCanvas().saveState();
         boolean flatten = isFlatten();
         if (flatten) {
-            drawContext.getCanvas().rectangle(applyBorderBox(occupiedArea.getBBox(), false)).clip().newPath();
+            drawContext.getCanvas().rectangle(applyBorderBox(occupiedArea.getBBox(), false)).clip().endPath();
             flatRenderer.draw(drawContext);
         } else {
             applyAcroField(drawContext);
