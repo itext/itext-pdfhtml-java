@@ -65,11 +65,6 @@ public class PdfHtmlProductEvent extends AbstractProductProcessITextEvent {
     }
 
     @Override
-    public String getProductName() {
-        return ProductNameConstant.PDF_HTML;
-    }
-
-    @Override
     public String getEventType() {
         return eventType;
     }
