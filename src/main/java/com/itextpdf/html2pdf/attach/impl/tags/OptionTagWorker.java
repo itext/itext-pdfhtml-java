@@ -78,7 +78,7 @@ public class OptionTagWorker extends DivTagWorker {
         if (labelAttrVal != null) {
             if (element.childNodes().isEmpty()) {
                 // workaround to ensure that processContent method is called
-                element.addChild(new JsoupTextNode(new TextNode("", "")));
+                element.addChild(new JsoupTextNode(new TextNode("")));
                 fakedContent = true;
             }
         }
