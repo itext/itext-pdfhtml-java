@@ -22,8 +22,8 @@
  */
 package com.itextpdf.html2pdf.actions.data;
 
+import com.itextpdf.events.data.ProductData;
 import com.itextpdf.kernel.actions.ProductNameConstant;
-import com.itextpdf.kernel.actions.data.ProductData;
 
 /**
  * Stores an instance of {@link ProductData} related to iText pdfHTML module.
