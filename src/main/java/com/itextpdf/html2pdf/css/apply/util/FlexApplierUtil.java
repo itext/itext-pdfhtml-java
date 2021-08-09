@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.css.apply.util;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.events.util.MessageFormatUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.properties.AlignmentPropertyValue;
 import com.itextpdf.layout.properties.JustifyContent;

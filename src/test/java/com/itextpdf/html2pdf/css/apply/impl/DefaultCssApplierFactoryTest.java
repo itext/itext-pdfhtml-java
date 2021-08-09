@@ -23,7 +23,7 @@
 package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.exceptions.CssApplierInitializationException;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.events.util.MessageFormatUtil;
 import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
 import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;

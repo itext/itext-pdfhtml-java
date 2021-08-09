@@ -51,7 +51,7 @@ import com.itextpdf.html2pdf.attach.impl.layout.form.element.CheckBox;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Radio;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.events.util.MessageFormatUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
