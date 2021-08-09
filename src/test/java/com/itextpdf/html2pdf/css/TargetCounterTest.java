@@ -167,10 +167,27 @@ public class TargetCounterTest extends ExtendedHtmlConversionITextTest {
             @Override
             public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
                 if (TagConstants.HTML.equals(tag.name())) {
-                    return new HtmlTagWorker(tag, context) {
+                    return new ITagWorker() {
+                        private HtmlTagWorker htmlTagWorker = new HtmlTagWorker(tag, context);
+
+                        @Override
+                        public void processEnd(IElementNode element, ProcessorContext context) {
+                            htmlTagWorker.processEnd(element, context);
+                        }
+
+                        @Override
+                        public boolean processContent(String content, ProcessorContext context) {
+                            return htmlTagWorker.processContent(content, context);
+                        }
+
+                        @Override
+                        public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+                            return htmlTagWorker.processTagChild(childTagWorker, context);
+                        }
+
                         @Override
                         public IPropertyContainer getElementResult() {
-                            Document document = (Document) super.getElementResult();
+                            Document document = (Document) htmlTagWorker.getElementResult();
                             document.setRenderer(new DocumentRenderer(document));
                             return document;
                         }

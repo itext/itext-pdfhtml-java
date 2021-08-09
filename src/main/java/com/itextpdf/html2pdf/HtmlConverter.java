@@ -52,6 +52,8 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.renderer.MetaInfoContainer;
 import com.itextpdf.styledxmlparser.IXmlParser;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
@@ -123,7 +125,7 @@ public class HtmlConverter {
      * @param converterProperties a {@link ConverterProperties} instance
      */
     public static void convertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
-        convertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())), converterProperties);
+        convertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(getPdf2HtmlMetaInfo())), converterProperties);
     }
 
     /**
@@ -136,6 +138,7 @@ public class HtmlConverter {
      */
     public static void convertToPdf(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) {
         final Document document = convertToDocument(html, pdfDocument, converterProperties);
+        document.setProperty(Property.META_INFO, new MetaInfoContainer(getPdf2HtmlMetaInfo()));
         document.close();
     }
 
@@ -219,7 +222,7 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
-        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())));
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(getPdf2HtmlMetaInfo())));
     }
 
     /**
@@ -233,7 +236,7 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
-        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())), converterProperties);
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(getPdf2HtmlMetaInfo())), converterProperties);
     }
 
     /**
@@ -247,6 +250,7 @@ public class HtmlConverter {
      */
     public static void convertToPdf(InputStream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
         final Document document = convertToDocument(htmlStream, pdfDocument, converterProperties);
+        document.setProperty(Property.META_INFO, new MetaInfoContainer(getPdf2HtmlMetaInfo()));
         document.close();
     }
 
@@ -395,6 +399,10 @@ public class HtmlConverter {
         IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
         return Attacher.attach(doc, converterProperties);
+    }
+
+    static IMetaInfo getPdf2HtmlMetaInfo() {
+        return new HtmlMetaInfo();
     }
 
     private static class HtmlMetaInfo implements IMetaInfo {

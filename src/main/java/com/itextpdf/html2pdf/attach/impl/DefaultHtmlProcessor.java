@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.ProcessorContextCreator;
 import com.itextpdf.html2pdf.actions.events.PdfHtmlProductEvent;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
@@ -81,6 +82,7 @@ import com.itextpdf.layout.font.Range;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.RenderingMode;
 import com.itextpdf.layout.renderer.DocumentRenderer;
+import com.itextpdf.layout.renderer.MetaInfoContainer;
 import com.itextpdf.styledxmlparser.css.CssDeclaration;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
 import com.itextpdf.styledxmlparser.css.ICssResolver;
@@ -167,7 +169,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      * @param converterProperties the converter properties
      */
     public DefaultHtmlProcessor(ConverterProperties converterProperties) {
-        this.context = new ProcessorContext(converterProperties);
+        this.context = ProcessorContextCreator.createProcessorContext(converterProperties);
     }
 
     /**
@@ -200,7 +202,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     public List<com.itextpdf.layout.element.IElement> processElements(INode root) {
         final SequenceId sequenceId = new SequenceId();
         EventManager.getInstance().onEvent(PdfHtmlProductEvent.createConvertHtmlEvent(sequenceId,
-                context.getEventCountingMetaInfo()));
+                context.getMetaInfoContainer().getMetaInfo()));
 
         context.reset();
         roots = new ArrayList<>();
@@ -240,7 +242,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
     @Override
     public Document processDocument(INode root, PdfDocument pdfDocument) {
         EventManager.getInstance().onEvent(PdfHtmlProductEvent.createConvertHtmlEvent(pdfDocument.getDocumentIdWrapper(),
-                context.getEventCountingMetaInfo()));
+                context.getMetaInfoContainer().getMetaInfo()));
 
         context.reset(pdfDocument);
         if (!context.hasFonts()) {
@@ -328,6 +330,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             } else {
                 context.getState().push(tagWorker);
             }
+            if (context.getState().getStack().size() == 1 && tagWorker != null && tagWorker.getElementResult() != null) {
+                tagWorker.getElementResult().setProperty(Property.META_INFO, new MetaInfoContainer(context.getMetaInfoContainer().getMetaInfo()));
+            }
             if (tagWorker instanceof HtmlTagWorker) {
                 ((HtmlTagWorker) tagWorker).processPageRules(node, cssResolver, context);
             }
@@ -351,6 +356,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
             if (tagWorker != null) {
                 tagWorker.processEnd(element, context);
+                if (context.getState().getStack().size() == 1 && tagWorker.getElementResult() != null) {
+                    tagWorker.getElementResult().deleteOwnProperty(Property.META_INFO);
+                }
                 LinkHelper.createDestination(tagWorker, element, context);
                 context.getOutlineHandler().setDestinationToElement(tagWorker, element);
                 context.getState().pop();

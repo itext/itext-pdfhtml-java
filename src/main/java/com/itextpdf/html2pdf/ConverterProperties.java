@@ -444,8 +444,8 @@ public class ConverterProperties {
      *
      * @return converter's {@link IMetaInfo}
      */
-    public IMetaInfo getEventCountingMetaInfo() {
-        return metaInfo;
+    IMetaInfo getEventMetaInfo() {
+        return metaInfo == null ? HtmlConverter.getPdf2HtmlMetaInfo() : metaInfo;
     }
 
     /**
@@ -456,7 +456,7 @@ public class ConverterProperties {
      * @param metaInfo meta info to set
      * @return the {@link ConverterProperties} instance
      */
-    public ConverterProperties setEventCountingMetaInfo(IMetaInfo metaInfo) {
+    public ConverterProperties setEventMetaInfo(IMetaInfo metaInfo) {
         this.metaInfo = metaInfo;
         return this;
     }

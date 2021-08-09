@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.attach;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
+import com.itextpdf.html2pdf.attach.impl.HtmlMetaInfoContainer;
 import com.itextpdf.html2pdf.attach.impl.LinkContext;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
@@ -213,7 +214,6 @@ public class ProcessorContext {
         formFieldNameResolver = new FormFieldNameResolver();
         radioCheckResolver = new RadioCheckResolver();
         immediateFlush = converterProperties.isImmediateFlush();
-        metaInfo = converterProperties.getEventCountingMetaInfo();
         processingInlineSvg = false;
     }
 
@@ -463,14 +463,23 @@ public class ProcessorContext {
     }
 
     /**
-     * Gets html meta info.
+     * Gets html meta info container.
      * <p>
-     * This meta info will be used to determine event origin.
+     * Meta info will be used to determine event origin.
      *
-     * @return html meta info
+     * @return html meta info container
      */
-    public IMetaInfo getEventCountingMetaInfo() {
-        return metaInfo;
+    public HtmlMetaInfoContainer getMetaInfoContainer() {
+        return new HtmlMetaInfoContainer(metaInfo);
+    }
+
+    /**
+     * Sets IMetaInfo to processor context.
+     *
+     * @param metaInfo the IMetaInfo object
+     */
+    public void setMetaInfo(IMetaInfo metaInfo) {
+        this.metaInfo = metaInfo;
     }
 
     /**

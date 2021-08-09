@@ -45,13 +45,16 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.html2pdf.actions.events.PdfHtmlProductEvent;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.PdfException;
 import com.itextpdf.kernel.actions.EventManager;
 import com.itextpdf.events.IBaseEvent;
 import com.itextpdf.events.IBaseEventHandler;
 import com.itextpdf.events.sequence.AbstractIdentifiableElement;
 import com.itextpdf.events.sequence.SequenceId;
 import com.itextpdf.events.sequence.SequenceIdManager;
+import com.itextpdf.kernel.exceptions.KernelExceptionMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
@@ -74,6 +77,7 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -300,6 +304,41 @@ public class Html2ElementsTest extends ExtendedITextTest {
             Assert.assertEquals(12, validationsCount);
         } finally {
             EventManager.getInstance().unregister(handler);
+        }
+    }
+
+    @Test
+    public void convertToElementsAndCreateTwoDocumentsTest() throws FileNotFoundException {
+        String html = "This text is directly in body. It should have the same default LEADING property as everything else.\n"
+                + "<p>This text is in paragraph.</p>";
+        List<IElement> iElementList =  HtmlConverter.convertToElements(html);
+
+        try (PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
+                Document document = new Document(pdfDocument)) {
+            addElementsToDocument(document, iElementList);
+        }
+
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
+        Document document = new Document(pdfDocument);
+        addElementsToDocument(document, iElementList);
+
+        // TODO DEVSIX-5753 error should not be thrown here
+        Exception e = Assert.assertThrows(PdfException.class, () -> document.close());
+        Assert.assertEquals(KernelExceptionMessageConstant.PDF_INDIRECT_OBJECT_BELONGS_TO_OTHER_PDF_DOCUMENT, e.getMessage());
+    }
+
+    private static void addElementsToDocument(Document document, List<IElement> elements) {
+        for (IElement elem : elements) {
+            if (elem instanceof IBlockElement) {
+                document.add((IBlockElement) elem);
+            } else if (elem instanceof Image) {
+                document.add((Image) elem);
+            } else if (elem instanceof AreaBreak) {
+                document.add((AreaBreak) elem);
+            } else {
+                Assert.fail(
+                        "The #convertToElements method gave element which is unsupported as root element, it's unexpected.");
+            }
         }
     }
 
