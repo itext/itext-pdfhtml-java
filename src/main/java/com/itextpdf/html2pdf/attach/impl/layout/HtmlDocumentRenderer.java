@@ -230,7 +230,8 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         relayoutRenderer.firstPageProc = firstPageProc.reset(defaultPageSize, defaultPageMargins);
         relayoutRenderer.leftPageProc = leftPageProc.reset(defaultPageSize, defaultPageMargins);
         relayoutRenderer.rightPageProc = rightPageProc.reset(defaultPageSize, defaultPageMargins);
-        relayoutRenderer.estimatedNumberOfPages = currentArea.getPageNumber() - simulateTrimLastPage();
+        relayoutRenderer.estimatedNumberOfPages = currentArea == null ? estimatedNumberOfPages :
+                currentArea.getPageNumber() - simulateTrimLastPage();
         relayoutRenderer.marginBoxesHandler = marginBoxesHandler.setHtmlDocumentRenderer(relayoutRenderer);
         relayoutRenderer.targetCounterHandler = new TargetCounterHandler(targetCounterHandler);
         return relayoutRenderer;

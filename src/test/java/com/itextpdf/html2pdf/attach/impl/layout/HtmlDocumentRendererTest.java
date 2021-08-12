@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
+import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -49,6 +50,7 @@ import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -91,5 +93,24 @@ public class HtmlDocumentRendererTest extends ExtendedITextTest {
         documentRenderer.trimLastPageIfNecessary();
         Assert.assertEquals(2, pdfDocument.getNumberOfPages());
     }
-    
+
+    @Test
+    public void estimatedNumberOfPagesInNextRendererEmptyDocumentTest() {
+        Document document = HtmlConverter.convertToDocument("<html></html>",
+                new PdfWriter(new ByteArrayOutputStream()));
+        HtmlDocumentRenderer documentRenderer = (HtmlDocumentRenderer) document.getRenderer();
+
+        HtmlDocumentRenderer nextRenderer = (HtmlDocumentRenderer) documentRenderer.getNextRenderer();
+        Assert.assertEquals(0, nextRenderer.getEstimatedNumberOfPages());
+    }
+
+    @Test
+    public void estimatedNumberOfPagesInNextRendererDocumentWithTextChunkTest() {
+        Document document = HtmlConverter.convertToDocument("<html>text</html>",
+                new PdfWriter(new ByteArrayOutputStream()));
+        HtmlDocumentRenderer documentRenderer = (HtmlDocumentRenderer) document.getRenderer();
+
+        HtmlDocumentRenderer nextRenderer = (HtmlDocumentRenderer) documentRenderer.getNextRenderer();
+        Assert.assertEquals(1, nextRenderer.getEstimatedNumberOfPages());
+    }
 }
