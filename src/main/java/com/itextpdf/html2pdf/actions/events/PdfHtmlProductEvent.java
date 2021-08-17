@@ -23,10 +23,10 @@
 package com.itextpdf.html2pdf.actions.events;
 
 import com.itextpdf.html2pdf.actions.data.PdfHtmlProductData;
-import com.itextpdf.kernel.actions.AbstractProductProcessITextEvent;
-import com.itextpdf.kernel.actions.events.EventConfirmationType;
+import com.itextpdf.events.AbstractProductProcessITextEvent;
+import com.itextpdf.events.confirmations.EventConfirmationType;
 import com.itextpdf.events.sequence.SequenceId;
-import com.itextpdf.kernel.counter.event.IMetaInfo;
+import com.itextpdf.events.contexts.IMetaInfo;
 
 /**
  * Class represents events registered in iText pdfHTML module.

@@ -48,7 +48,7 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.PdfException;
-import com.itextpdf.kernel.actions.EventManager;
+import com.itextpdf.events.EventManager;
 import com.itextpdf.events.IBaseEvent;
 import com.itextpdf.events.IBaseEventHandler;
 import com.itextpdf.events.sequence.AbstractIdentifiableElement;

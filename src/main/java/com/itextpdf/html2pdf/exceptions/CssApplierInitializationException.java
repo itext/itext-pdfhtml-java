@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.exceptions;
 
-import com.itextpdf.events.util.MessageFormatUtil;
+import com.itextpdf.events.utils.MessageFormatUtil;
 
 /**
  * Runtime exception in case a CSS applier can't be initialized.

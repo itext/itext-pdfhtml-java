@@ -22,7 +22,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
-import com.itextpdf.kernel.counter.event.IMetaInfo;
+import com.itextpdf.events.contexts.IMetaInfo;
 
 /**
  * Class to store metaInfo that will be used for html operations.

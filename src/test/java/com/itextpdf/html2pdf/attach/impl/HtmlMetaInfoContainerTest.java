@@ -23,10 +23,10 @@
 package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.events.NamespaceConstant;
+import com.itextpdf.events.contexts.IMetaInfo;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ProcessorContextCreator;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.kernel.counter.event.IMetaInfo;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 

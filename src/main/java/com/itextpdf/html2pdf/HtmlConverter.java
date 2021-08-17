@@ -46,7 +46,7 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.html2pdf.attach.Attacher;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
 import com.itextpdf.io.util.FileUtil;
-import com.itextpdf.kernel.counter.event.IMetaInfo;
+import com.itextpdf.events.contexts.IMetaInfo;
 import com.itextpdf.kernel.pdf.DocumentProperties;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;

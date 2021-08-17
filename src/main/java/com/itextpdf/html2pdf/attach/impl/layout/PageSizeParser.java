@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.events.util.MessageFormatUtil;
+import com.itextpdf.events.utils.MessageFormatUtil;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
