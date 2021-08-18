@@ -42,11 +42,11 @@
  */
 package com.itextpdf.html2pdf.resolver.resource;
 
+import com.itextpdf.events.utils.Base64;
+import com.itextpdf.events.utils.FileUtil;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.ContextMappingHelper;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
-import com.itextpdf.io.codec.Base64;
-import com.itextpdf.io.util.FileUtil;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever;
@@ -57,7 +57,6 @@ import com.itextpdf.svg.processors.impl.SvgConverterProperties;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
