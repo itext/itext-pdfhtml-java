@@ -22,8 +22,8 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
-import com.itextpdf.events.NamespaceConstant;
-import com.itextpdf.events.contexts.IMetaInfo;
+import com.itextpdf.commons.actions.NamespaceConstant;
+import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ProcessorContextCreator;
 import com.itextpdf.html2pdf.attach.ProcessorContext;

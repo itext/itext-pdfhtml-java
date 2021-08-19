@@ -42,8 +42,8 @@
  */
 package com.itextpdf.html2pdf;
 
-import com.itextpdf.events.NamespaceConstant;
-import com.itextpdf.events.contexts.IMetaInfo;
+import com.itextpdf.commons.actions.NamespaceConstant;
+import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 

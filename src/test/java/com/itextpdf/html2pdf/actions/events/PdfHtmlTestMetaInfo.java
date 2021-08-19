@@ -22,7 +22,7 @@
  */
 package com.itextpdf.html2pdf.actions.events;
 
-import com.itextpdf.events.contexts.IMetaInfo;
+import com.itextpdf.commons.actions.contexts.IMetaInfo;
 
 public class PdfHtmlTestMetaInfo implements IMetaInfo {
     private final String metaData;

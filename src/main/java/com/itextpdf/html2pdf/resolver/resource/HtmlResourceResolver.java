@@ -42,8 +42,8 @@
  */
 package com.itextpdf.html2pdf.resolver.resource;
 
-import com.itextpdf.events.utils.Base64;
-import com.itextpdf.events.utils.FileUtil;
+import com.itextpdf.commons.utils.Base64;
+import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.ContextMappingHelper;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
