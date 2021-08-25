@@ -42,6 +42,11 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
+import com.itextpdf.commons.actions.EventManager;
+import com.itextpdf.commons.actions.sequence.AbstractIdentifiableElement;
+import com.itextpdf.commons.actions.sequence.SequenceId;
+import com.itextpdf.commons.actions.sequence.SequenceIdManager;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ProcessorContextCreator;
 import com.itextpdf.html2pdf.actions.events.PdfHtmlProductEvent;
@@ -66,11 +71,6 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
-import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.commons.actions.EventManager;
-import com.itextpdf.commons.actions.sequence.AbstractIdentifiableElement;
-import com.itextpdf.commons.actions.sequence.SequenceId;
-import com.itextpdf.commons.actions.sequence.SequenceIdManager;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
@@ -358,9 +358,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
             if (tagWorker != null) {
                 tagWorker.processEnd(element, context);
-                if (context.getState().getStack().size() == 1 && tagWorker.getElementResult() != null) {
-                    tagWorker.getElementResult().deleteOwnProperty(Property.META_INFO);
-                }
                 LinkHelper.createDestination(tagWorker, element, context);
                 context.getOutlineHandler().setDestinationToElement(tagWorker, element);
                 context.getState().pop();
