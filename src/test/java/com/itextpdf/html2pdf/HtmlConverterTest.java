@@ -62,4 +62,5 @@ public class HtmlConverterTest extends ExtendedITextTest {
         pdfDocument = new PdfDocument(new PdfReader(new ByteArrayInputStream(outputStream.toByteArray())));
         return pdfDocument;
     }
+
 }
