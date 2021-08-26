@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -19,6 +20,11 @@ import org.junit.experimental.categories.Category;
 public class FloatAndFlexTest extends ExtendedHtmlConversionITextTest {
     private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/FloatAndFlexTest/";
     private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/FloatAndFlexTest/";
+
+    @BeforeClass
+    public static void beforeClass() {
+        createOrClearDestinationFolder(DESTINATION_FOLDER);
+    }
 
     @Test
     //TODO DEVSIX-5087 remove this test when working on the ticket
@@ -57,5 +63,11 @@ public class FloatAndFlexTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void floatAtFlexItemNestedTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("floatAtFlexItemNested", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void floatsPositioningInsideAndOutsideFlexTest() throws IOException, InterruptedException {
+        // TODO DEVSIX-5135 floating elements inside flex container are incorrectly positioned
+        convertToPdfAndCompare("floatsPositioningInsideAndOutsideFlex", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 }
