@@ -125,7 +125,8 @@ public class HtmlConverter {
      * @param converterProperties a {@link ConverterProperties} instance
      */
     public static void convertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
-        convertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(getPdf2HtmlMetaInfo())), converterProperties);
+        convertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties()
+                .setEventCountingMetaInfo(resolveMetaInfo(converterProperties))), converterProperties);
     }
 
     /**
@@ -138,7 +139,7 @@ public class HtmlConverter {
      */
     public static void convertToPdf(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) {
         final Document document = convertToDocument(html, pdfDocument, converterProperties);
-        document.setProperty(Property.META_INFO, new MetaInfoContainer(getPdf2HtmlMetaInfo()));
+        document.setProperty(Property.META_INFO, new MetaInfoContainer(resolveMetaInfo(converterProperties)));
         document.close();
     }
 
@@ -222,7 +223,8 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
-        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(getPdf2HtmlMetaInfo())));
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(
+                createPdf2HtmlMetaInfo())));
     }
 
     /**
@@ -236,7 +238,8 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
-        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(getPdf2HtmlMetaInfo())), converterProperties);
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(
+                resolveMetaInfo(converterProperties))), converterProperties);
     }
 
     /**
@@ -250,7 +253,8 @@ public class HtmlConverter {
      */
     public static void convertToPdf(InputStream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
         final Document document = convertToDocument(htmlStream, pdfDocument, converterProperties);
-        document.setProperty(Property.META_INFO, new MetaInfoContainer(getPdf2HtmlMetaInfo()));
+        IMetaInfo metaInfo = resolveMetaInfo(converterProperties);
+        document.setProperty(Property.META_INFO, new MetaInfoContainer(metaInfo));
         document.close();
     }
 
@@ -401,11 +405,16 @@ public class HtmlConverter {
         return Attacher.attach(doc, converterProperties);
     }
 
-    static IMetaInfo getPdf2HtmlMetaInfo() {
+    static IMetaInfo createPdf2HtmlMetaInfo() {
         return new HtmlMetaInfo();
     }
 
-    private static class HtmlMetaInfo implements IMetaInfo {
+    private static IMetaInfo resolveMetaInfo(ConverterProperties converterProperties) {
+        return converterProperties == null
+                ? createPdf2HtmlMetaInfo()
+                : converterProperties.getEventMetaInfo();
+    }
 
+    private static class HtmlMetaInfo implements IMetaInfo {
     }
 }

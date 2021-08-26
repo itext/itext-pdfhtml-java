@@ -445,7 +445,7 @@ public class ConverterProperties {
      * @return converter's {@link IMetaInfo}
      */
     IMetaInfo getEventMetaInfo() {
-        return metaInfo == null ? HtmlConverter.getPdf2HtmlMetaInfo() : metaInfo;
+        return metaInfo == null ? HtmlConverter.createPdf2HtmlMetaInfo() : metaInfo;
     }
 
     /**
