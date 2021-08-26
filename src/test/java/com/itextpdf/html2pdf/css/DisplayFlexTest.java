@@ -227,25 +227,6 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     //TODO DEVSIX-5087 remove this test when working on the ticket
-    public void floatAtFlexContainerTest() throws IOException {
-        String name = "floatAtFlexContainer";
-        String sourceHtml = SOURCE_FOLDER + name + ".html";
-
-        ConverterProperties converterProperties = new ConverterProperties().setBaseUri(SOURCE_FOLDER);
-
-        List<IElement> elements;
-        try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
-            elements = HtmlConverter.convertToElements(fileInputStream, converterProperties);
-        }
-
-        IElement flexContainer = elements.get(0);
-        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
-        Assert.assertFalse(flexContainer.hasProperty(Property.FLOAT));
-        Assert.assertFalse(flexContainer.hasProperty(Property.CLEAR));
-    }
-
-    @Test
-    //TODO DEVSIX-5087 remove this test when working on the ticket
     public void overflowAtFlexContainerTest() throws IOException {
         String name = "overflowAtFlexContainer";
         String sourceHtml = SOURCE_FOLDER + name + ".html";
@@ -383,26 +364,6 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     // TODO DEVSIX-5091 change cmp file when working on the thicket
     public void flexBasisContentMaxWidth() throws IOException, InterruptedException {
         convertToPdfAndCompare("flexBasisContentMaxWidth", SOURCE_FOLDER, DESTINATION_FOLDER);
-    }
-
-    @Test
-    public void floatAtFlexItemTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("floatAtFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER);
-    }
-
-    @Test
-    public void clearAtFlexItemTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("clearAtFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER);
-    }
-
-    @Test
-    public void floatAtFlexItemNestedTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("floatAtFlexItemNested", SOURCE_FOLDER, DESTINATION_FOLDER);
-    }
-
-    @Test
-    public void flexContainerHeightTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("flexContainerHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
