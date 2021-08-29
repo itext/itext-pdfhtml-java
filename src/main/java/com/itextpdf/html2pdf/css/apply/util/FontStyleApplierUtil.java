@@ -62,6 +62,7 @@ import com.itextpdf.layout.properties.TransparentColor;
 import com.itextpdf.layout.properties.Underline;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.splitting.DefaultSplitCharacters;
+import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.layout.splitting.BreakAllSplitCharacters;
@@ -172,7 +173,7 @@ public final class FontStyleApplierUtil {
             String overflowWrap = cssProps.get(CssConstants.OVERFLOW_WRAP);
             if (CssConstants.ANYWHERE.equals(overflowWrap)) {
                 element.setProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.ANYWHERE);
-            } else if (CssConstants.BREAK_WORD.equals(overflowWrap)) {
+            } else if (CommonCssConstants.BREAK_WORD.equals(overflowWrap)) {
                 element.setProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.BREAK_WORD);
             } else {
                 element.setProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.NORMAL);
@@ -183,7 +184,7 @@ public final class FontStyleApplierUtil {
                 element.setProperty(Property.SPLIT_CHARACTERS, new BreakAllSplitCharacters());
             } else if (CssConstants.KEEP_ALL.equals(wordBreak)) {
                 element.setProperty(Property.SPLIT_CHARACTERS, new KeepAllSplitCharacters());
-            } else if (CssConstants.BREAK_WORD.equals(wordBreak)) {
+            } else if (CommonCssConstants.BREAK_WORD.equals(wordBreak)) {
                 // CSS specification cite that describes the reason for overflow-wrap overriding:
                 // "For compatibility with legacy content, the word-break property also supports
                 //  a deprecated break-word keyword. When specified, this has the same effect

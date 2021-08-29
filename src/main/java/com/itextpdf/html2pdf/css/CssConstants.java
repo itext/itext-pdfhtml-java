@@ -131,14 +131,6 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant BLOCK. */
     public static final String BLOCK = "block";
 
-    /**
-     * The Constant BREAK_WORD.
-     *
-     * @deprecated use {@link CommonCssConstants#BREAK_WORD} instead
-     * */
-    @Deprecated
-    public static final String BREAK_WORD = "break-word";
-
     /** The Constant CAPITALIZE. */
     public static final String CAPITALIZE = "capitalize";
 

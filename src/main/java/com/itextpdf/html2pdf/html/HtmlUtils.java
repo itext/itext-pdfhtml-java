@@ -114,19 +114,6 @@ public final class HtmlUtils {
     }
 
     /**
-     * Checks if an {@link IElementNode} represents a style sheet link.
-     *
-     * @param headChildElement the head child element
-     * @return true, if the element node represents a style sheet link
-     * @deprecated Will be replaced by the
-     * {@link CssUtils#isStyleSheetLink(IElementNode)} in update 7.2.
-     */
-    @Deprecated
-    public static boolean isStyleSheetLink(IElementNode headChildElement) {
-        return CssUtils.isStyleSheetLink(headChildElement);
-    }
-
-    /**
      * Converts number according to given glyph style.
      *
      * @param glyphStyle style of the glyphs

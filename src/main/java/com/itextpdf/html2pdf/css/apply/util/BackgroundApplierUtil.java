@@ -135,41 +135,6 @@ public final class BackgroundApplierUtil {
         }
     }
 
-    /**
-     * Splits the provided {@link String} by comma with respect of brackets.
-     *
-     * @param value to split
-     * @return the split result
-     * @deprecated use {@link CssUtils#splitStringWithComma(String)}
-     */
-    @Deprecated
-    static String[] splitStringWithComma(final String value) {
-        if (value == null) {
-            return new String[0];
-        }
-        final List<String> resultList = new ArrayList<>();
-        int lastComma = 0;
-        int notClosedBrackets = 0;
-        for (int i = 0; i < value.length(); ++i) {
-            if (value.charAt(i) == ',' && notClosedBrackets == 0) {
-                resultList.add(value.substring(lastComma, i).trim());
-                lastComma = i + 1;
-            }
-            if (value.charAt(i) == '(') {
-                ++notClosedBrackets;
-            }
-            if (value.charAt(i) == ')') {
-                --notClosedBrackets;
-                notClosedBrackets = Math.max(notClosedBrackets, 0);
-            }
-        }
-        final String lastToken = value.substring(lastComma);
-        if (!lastToken.isEmpty()) {
-            resultList.add(lastToken.trim());
-        }
-        return resultList.toArray(new String[0]);
-    }
-
     private static List<BackgroundImage> getBackgroundImagesList(List<String> backgroundImagesArray,
             ProcessorContext context, float em, float rem,
             List<String> backgroundPositionXArray, List<String> backgroundPositionYArray,
