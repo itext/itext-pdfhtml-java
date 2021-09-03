@@ -45,12 +45,10 @@ package com.itextpdf.html2pdf.attach.impl;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.exceptions.TagWorkerInitializationException;
+import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerMapping.ITagWorkerCreator;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.styledxmlparser.node.IElementNode;
-
-import java.lang.reflect.Constructor;
 
 /**
  * The default implementation of a tag worker factory, mapping tags to
@@ -61,13 +59,13 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
     private static final ITagWorkerFactory INSTANCE = new DefaultTagWorkerFactory();
 
     /** The default mapping. */
-    private final TagProcessorMapping defaultMapping;
+    private final TagProcessorMapping<ITagWorkerCreator> defaultMapping;
 
     /**
      * Instantiates a new default tag worker factory.
      */
     public DefaultTagWorkerFactory() {
-        this.defaultMapping = DefaultTagWorkerMapping.getDefaultTagWorkerMapping();
+        this.defaultMapping = new DefaultTagWorkerMapping().getDefaultTagWorkerMapping();
     }
 
     /**
@@ -86,46 +84,40 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
         ITagWorker tagWorker = getCustomTagWorker(tag, context);
 
         if (tagWorker == null ) {
-            Class<?> tagWorkerClass = getTagWorkerClass(this.defaultMapping, tag);
+            final ITagWorkerCreator tagWorkerCreator = getTagWorkerCreator(this.defaultMapping, tag);
 
-            if (tagWorkerClass == null) {
+            if (tagWorkerCreator == null) {
                 return null;
             }
 
-            // Use reflection to create an instance
-            try {
-                Constructor ctor = tagWorkerClass.getDeclaredConstructor(new Class<?>[]{IElementNode.class, ProcessorContext.class});
-                ITagWorker res = (ITagWorker) ctor.newInstance(new Object[]{tag, context});
-                return res;
-            } catch (Exception e) {
-                throw new TagWorkerInitializationException(TagWorkerInitializationException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED, tagWorkerClass.getName(), tag.name(), e);
-            }
+            return tagWorkerCreator.create(tag, context);
         }
 
         return tagWorker;
     }
 
-    TagProcessorMapping getDefaultMapping() {
+    TagProcessorMapping<ITagWorkerCreator> getDefaultMapping() {
         return defaultMapping;
     }
 
     /**
-     * Gets the tag worker class for a specific element node.
+     * Gets the tag worker creator for a specific element node.
      *
      * @param mapping the mapping
      * @param tag the element node
-     * @return the tag worker class
+     * @return the tag worker class creator
      */
-    private Class<?> getTagWorkerClass(TagProcessorMapping mapping, IElementNode tag) {
-        Class<?> tagWorkerClass = null;
+    private static ITagWorkerCreator getTagWorkerCreator(TagProcessorMapping<ITagWorkerCreator> mapping,
+                                                         IElementNode tag) {
+        ITagWorkerCreator tagWorkerCreator = null;
         String display = tag.getStyles() != null ? tag.getStyles().get(CssConstants.DISPLAY) : null;
         if (display != null) {
-            tagWorkerClass = mapping.getMapping(tag.name(), display);
+            tagWorkerCreator = (ITagWorkerCreator) mapping.getMapping(tag.name(), display);
         }
-        if (tagWorkerClass == null) {
-            tagWorkerClass = mapping.getMapping(tag.name());
+        if (tagWorkerCreator == null) {
+            tagWorkerCreator = (ITagWorkerCreator) mapping.getMapping(tag.name());
         }
-        return tagWorkerClass;
+        return tagWorkerCreator;
     }
 
     /**

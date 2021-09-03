@@ -23,15 +23,20 @@
 package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.exceptions.TagWorkerInitializationException;
 import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerMapping.ITagWorkerCreator;
+import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
 import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.UnitTest;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -45,24 +50,37 @@ public class DefaultTagWorkerFactoryTest extends ExtendedITextTest {
 
     @Test
     public void cannotGetTagWorkerForCustomTagViaReflection() {
-        String tag = "custom-tag";
-        String className = "com.itextpdf.html2pdf.attach.impl.TestClass";
-
-        junitExpectedException.expect(TagWorkerInitializationException.class);
-        junitExpectedException.expectMessage(MessageFormatUtil
-                .format(TagWorkerInitializationException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED,
-                        className, tag));
-
-        new TestTagWorkerFactory().getTagWorker(new JsoupElementNode(new Element(Tag.valueOf("custom-tag"), "")),
+        ITagWorker tagWorker = new TestTagWorkerFactory().getTagWorker(new JsoupElementNode(new Element(Tag.valueOf("custom-tag"), "")),
                 new ProcessorContext(new ConverterProperties()));
+        Assert.assertEquals(TestClass.class, tagWorker.getClass());
     }
 }
 
 class TestTagWorkerFactory extends DefaultTagWorkerFactory {
     public TestTagWorkerFactory() {
-        getDefaultMapping().putMapping("custom-tag", TestClass.class);
+        getDefaultMapping().putMapping("custom-tag", (lhs, rhs) -> new TestClass());
     }
 }
 
-class TestClass {
+class TestClass implements ITagWorker {
+    @Override
+    public void processEnd(IElementNode element, ProcessorContext context) {
+
+    }
+
+    @Override
+    public boolean processContent(String content, ProcessorContext context) {
+        return false;
+    }
+
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        return false;
+    }
+
+    @Override
+    public IPropertyContainer getElementResult() {
+        return null;
+    }
+
 }
