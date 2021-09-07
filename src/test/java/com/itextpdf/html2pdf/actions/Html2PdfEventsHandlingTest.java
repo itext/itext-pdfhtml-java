@@ -39,7 +39,7 @@ import com.itextpdf.commons.actions.processors.DefaultITextProductEventProcessor
 import com.itextpdf.commons.actions.producer.ProducerBuilder;
 import com.itextpdf.commons.actions.sequence.SequenceId;
 import com.itextpdf.commons.actions.contexts.IMetaInfo;
-import com.itextpdf.kernel.counter.event.ITextCoreEvent;
+import com.itextpdf.kernel.counter.event.ITextCoreProductEvent;
 import com.itextpdf.kernel.logs.KernelLogMessageConstant;
 import com.itextpdf.kernel.pdf.DocumentProperties;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -119,8 +119,8 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
 
         Assert.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
         ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper) events.get(0);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreEvent);
-        Assert.assertEquals(ITextCoreEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
+        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
+        Assert.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
 
         Assert.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
         confirmedEventWrapper = (ConfirmedEventWrapper) events.get(1);
@@ -158,8 +158,8 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
 
         Assert.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
         ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper) events.get(0);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreEvent);
-        Assert.assertEquals(ITextCoreEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
+        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
+        Assert.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
 
         Assert.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
         confirmedEventWrapper = (ConfirmedEventWrapper) events.get(1);
@@ -187,8 +187,8 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
 
         Assert.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
         ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper) events.get(0);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreEvent);
-        Assert.assertEquals(ITextCoreEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
+        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
+        Assert.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
 
         Assert.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
         confirmedEventWrapper = (ConfirmedEventWrapper) events.get(1);
@@ -224,8 +224,8 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
 
         Assert.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
         ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper) events.get(0);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreEvent);
-        Assert.assertEquals(ITextCoreEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
+        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
+        Assert.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
 
         Assert.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
         confirmedEventWrapper = (ConfirmedEventWrapper) events.get(1);
@@ -273,7 +273,7 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
         Assert.assertEquals(2, events.size());
 
         AbstractProductProcessITextEvent event = events.get(0).getConfirmedEvent();
-        Assert.assertEquals(ITextCoreEvent.PROCESS_PDF, event.getEventType());
+        Assert.assertEquals(ITextCoreProductEvent.PROCESS_PDF, event.getEventType());
 
         event = events.get(1).getConfirmedEvent();
         Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, event.getEventType());
@@ -309,8 +309,8 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
 
         Assert.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
         ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper) events.get(0);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreEvent);
-        Assert.assertEquals(ITextCoreEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
+        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
+        Assert.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
 
         Assert.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
         confirmedEventWrapper = (ConfirmedEventWrapper) events.get(1);
@@ -340,7 +340,7 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
 
             HtmlConverter.convertToDocument(html, document, new ConverterProperties());
 
-            ITextCoreEvent coreEvent = ITextCoreEvent.createProcessPdfEvent(
+            ITextCoreProductEvent coreEvent = ITextCoreProductEvent.createProcessPdfEvent(
                     document.getDocumentIdWrapper(), null, EventConfirmationType.ON_DEMAND);
             EventManager.getInstance().onEvent(coreEvent);
         }
@@ -394,7 +394,7 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
         DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor(
                 ProductNameConstant.ITEXT_CORE);
         return new ConfirmedEventWrapper(
-                ITextCoreEvent.createProcessPdfEvent(new SequenceId(), null, EventConfirmationType.ON_CLOSE),
+                ITextCoreProductEvent.createProcessPdfEvent(new SequenceId(), null, EventConfirmationType.ON_CLOSE),
                 processor.getUsageType(),
                 processor.getProducer());
     }
