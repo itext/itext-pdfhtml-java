@@ -236,4 +236,105 @@ public class BorderTest extends ExtendedHtmlConversionITextTest {
     public void tfootBorderCollapseTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("tfootBorderCollapse", sourceFolder, destinationFolder);
     }
+
+    @Test
+    // TODO DEVSIX-5914 Currently border-style: hidden works like border-style: none
+    public void tableBorderStyleHiddenTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tableBorderStyleHidden", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO DEVSIX-5914 This test could be used as a reference while testing border-style: hidden
+    public void tableBorderStyleNoneTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tableBorderStyleNone", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO DEVSIX-5915 border-style is not considered while collapsing: in browsers one can see,
+    //  that top border of the cell below always wins the bottom border of the cell above
+    public void tableBorderStyleCollapsingPriorityTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tableBorderStyleCollapsingPriority", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO DEVSIX-5524 Left border is drawn underneath, but should overlap top and bottom
+    public void tableWithCellsOfDifferentBorderColorsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tableWithCellsOfDifferentBorderColors", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO DEVSIX-5524 Left border is drawn underneath, but should overlap top and bottom
+    public void cellDifferentBorderColorsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("cellDifferentBorderColors", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void borderCollapseWithZeroWidthBorderTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderCollapseWithZeroWidthBorder", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void bigRowspanCollapseTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bigRowspanCollapse", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void cellBorderCollapseTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("cellBorderCollapse", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void headerBodyFooterTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("headerBodyFooter", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO DEVSIX-5524 Content should be placed over rather than under overlapped border
+    public void bodyCellContentOverlapsBorder2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bodyCellContentOverlapsBorder2", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void bordersOfDifferentWidthsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bordersOfDifferentWidths", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void headerBodyFooterBottomBorderCollapseTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("headerBodyFooterBottomBorderCollapse", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO DEVSIX-5524 ?
+    public void bodyCellContentOverlapsBorderTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bodyCellContentOverlapsBorder", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO DEVSIX-5524 Left border is drawn underneath, but should overlap top and bottom
+    public void bottomBorderCellAndTableCollapseTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bottomBorderCellAndTableCollapse", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void footerContentOverlapsFooterBorderTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("footerContentOverlapsFooterBorder", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO DEVSIX-5524 min-width is not respected
+    public void cellBordersDifferentWidthsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("cellBordersDifferentWidths", sourceFolder, destinationFolder);
+    }
+
+
+    @Test
+    public void cornerWidthHorizontalBorderWinsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("cornerWidthHorizontalBorderWins", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void cornerWidthVerticalBorderWinsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("cornerWidthVerticalBorderWins", sourceFolder, destinationFolder);
+    }
 }
