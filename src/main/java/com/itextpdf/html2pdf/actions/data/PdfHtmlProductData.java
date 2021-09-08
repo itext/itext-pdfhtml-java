@@ -28,7 +28,7 @@ import com.itextpdf.commons.actions.ProductNameConstant;
 /**
  * Stores an instance of {@link ProductData} related to iText pdfHTML module.
  */
-public class PdfHtmlProductData {
+public final class PdfHtmlProductData {
     private static final String PDF_HTML_PUBLIC_PRODUCT_NAME = "pdfHTML";
     private static final String PDF_HTML_VERSION = "4.0.0-SNAPSHOT";
     private static final int PDF_HTML_COPYRIGHT_SINCE = 2000;
@@ -36,6 +36,10 @@ public class PdfHtmlProductData {
 
     private static final ProductData PDF_HTML_PRODUCT_DATA = new ProductData(PDF_HTML_PUBLIC_PRODUCT_NAME,
             ProductNameConstant.PDF_HTML, PDF_HTML_VERSION, PDF_HTML_COPYRIGHT_SINCE, PDF_HTML_COPYRIGHT_TO);
+
+    private PdfHtmlProductData() {
+        // Empty constructor.
+    }
 
     /**
      * Getter for an instance of {@link ProductData} related to iText pdfHTML module.

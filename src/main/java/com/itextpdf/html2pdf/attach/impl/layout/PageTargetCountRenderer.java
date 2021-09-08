@@ -93,7 +93,8 @@ class PageTargetCountRenderer extends TextRenderer {
     @Override
     public void draw(DrawContext drawContext) {
         if (!TargetCounterHandler.isValueDefinedForThisId(this, target)) {
-            LOGGER.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, target));
+            LOGGER.warn(MessageFormatUtil.format(
+                    Html2PdfLogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, target));
         }
         super.draw(drawContext);
     }

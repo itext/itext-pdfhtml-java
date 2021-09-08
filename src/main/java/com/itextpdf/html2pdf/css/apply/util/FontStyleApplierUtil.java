@@ -242,7 +242,7 @@ public final class FontStyleApplierUtil {
             element.setProperty(Property.UNDERLINE, underlineList);
         }
 
-        String textIndent = cssProps.get(CssConstants.TEXT_INDENT);
+        String textIndent = cssProps.get(CommonCssConstants.TEXT_INDENT);
         if (textIndent != null) {
             UnitValue textIndentValue = CssDimensionParsingUtils.parseLengthValueToPt(textIndent, em, rem);
             if (textIndentValue != null) {
@@ -250,7 +250,8 @@ public final class FontStyleApplierUtil {
                     element.setProperty(Property.FIRST_LINE_INDENT, textIndentValue.getValue());
                 } else {
                     logger.error(MessageFormatUtil.format(
-                            Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.TEXT_INDENT));
+                            Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                            CommonCssConstants.TEXT_INDENT));
                 }
             }
         }

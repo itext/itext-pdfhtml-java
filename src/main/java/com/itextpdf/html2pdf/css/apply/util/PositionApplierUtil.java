@@ -50,6 +50,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.layout.LayoutPosition;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.UnitValue;
+import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 
 import org.slf4j.Logger;
@@ -141,7 +142,7 @@ public final class PositionApplierUtil {
                 element.setProperty(layoutPropertyMapping, leftVal.getValue());
             } else {
                 logger.error(MessageFormatUtil.format(
-                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.LEFT));
+                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CommonCssConstants.LEFT));
             }
         }
     }
@@ -163,7 +164,7 @@ public final class PositionApplierUtil {
                 element.setProperty(layoutPropertyMapping, rightVal.getValue());
             } else {
                 logger.error(MessageFormatUtil.format(
-                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.RIGHT));
+                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CommonCssConstants.RIGHT));
             }
         }
     }
@@ -185,7 +186,7 @@ public final class PositionApplierUtil {
                 element.setProperty(layoutPropertyMapping, topVal.getValue());
             } else {
                 logger.error(MessageFormatUtil.format(
-                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.TOP));
+                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CommonCssConstants.TOP));
             }
         }
     }
@@ -207,7 +208,7 @@ public final class PositionApplierUtil {
                 element.setProperty(layoutPropertyMapping, bottomVal.getValue());
             } else {
                 logger.error(MessageFormatUtil.format(
-                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.BOTTOM));
+                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CommonCssConstants.BOTTOM));
             }
         }
     }

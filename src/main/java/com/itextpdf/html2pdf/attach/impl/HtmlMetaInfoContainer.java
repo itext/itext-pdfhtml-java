@@ -41,7 +41,7 @@ public class HtmlMetaInfoContainer {
     }
 
     /**
-     * Return the IMetaInfo object
+     * Return the IMetaInfo object.
      *
      * @return returns IMetaInfo
      */

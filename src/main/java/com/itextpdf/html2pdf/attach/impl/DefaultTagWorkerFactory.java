@@ -61,7 +61,7 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
     private static final ITagWorkerFactory INSTANCE = new DefaultTagWorkerFactory();
 
     /** The default mapping. */
-    TagProcessorMapping defaultMapping;
+    private final TagProcessorMapping defaultMapping;
 
     /**
      * Instantiates a new default tag worker factory.
@@ -103,6 +103,10 @@ public class DefaultTagWorkerFactory implements ITagWorkerFactory {
         }
 
         return tagWorker;
+    }
+
+    TagProcessorMapping getDefaultMapping() {
+        return defaultMapping;
     }
 
     /**

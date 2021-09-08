@@ -126,7 +126,7 @@ public class ProcessorContext {
 
     /**
      * Indicates whether the document should be opened in immediate flush or not
-     **/
+     */
     private boolean immediateFlush;
 
     // Variable fields
@@ -464,8 +464,8 @@ public class ProcessorContext {
 
     /**
      * Gets html meta info container.
-     * <p>
-     * Meta info will be used to determine event origin.
+     *
+     * <p>Meta info will be used to determine event origin.
      *
      * @return html meta info container
      */
@@ -484,6 +484,7 @@ public class ProcessorContext {
 
     /**
      * Check if the processor is currently processing an inline svg
+     *
      * @return True if the processor is processing an inline Svg, false otherwise.
      */
     public boolean isProcessingInlineSvg() {

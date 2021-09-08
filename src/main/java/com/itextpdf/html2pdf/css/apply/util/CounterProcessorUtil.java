@@ -47,7 +47,6 @@ import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
 
 import java.util.Map;
 

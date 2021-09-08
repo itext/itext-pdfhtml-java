@@ -45,7 +45,6 @@ package com.itextpdf.html2pdf.css.resolve.func.counter;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
 
 import java.util.ArrayList;
 import java.util.Deque;

@@ -60,7 +60,7 @@ public class DefaultTagWorkerFactoryTest extends ExtendedITextTest {
 
 class TestTagWorkerFactory extends DefaultTagWorkerFactory {
     public TestTagWorkerFactory() {
-        defaultMapping.putMapping("custom-tag", TestClass.class);
+        getDefaultMapping().putMapping("custom-tag", TestClass.class);
     }
 }
 

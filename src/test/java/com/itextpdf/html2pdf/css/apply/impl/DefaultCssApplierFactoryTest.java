@@ -56,7 +56,7 @@ public class DefaultCssApplierFactoryTest extends ExtendedITextTest {
 
 class TestCssApplierFactory extends DefaultCssApplierFactory {
     public TestCssApplierFactory() {
-        defaultMapping.putMapping("custom-tag", TestClass.class);
+        getDefaultMapping().putMapping("custom-tag", TestClass.class);
     }
 }
 

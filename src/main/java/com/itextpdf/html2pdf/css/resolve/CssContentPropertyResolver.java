@@ -238,7 +238,7 @@ class CssContentPropertyResolver {
                 if (value == null) {
                     return errorFallback(contentStr);
                 }
-                    result.add(new ContentTextNode(contentContainer, value));
+                result.add(new ContentTextNode(contentContainer, value));
             } else if (token.getValue().endsWith("quote") && contentContainer instanceof IStylesContainer) {
                 if (quotes == null) {
                     quotes = CssQuotes.createQuotes(styles.get(CssConstants.QUOTES), true);

@@ -31,7 +31,7 @@ import com.itextpdf.commons.actions.contexts.IMetaInfo;
 /**
  * Class represents events registered in iText pdfHTML module.
  */
-public class PdfHtmlProductEvent extends AbstractProductProcessITextEvent {
+public final class PdfHtmlProductEvent extends AbstractProductProcessITextEvent {
     /**
      * Convert html event type.
      */

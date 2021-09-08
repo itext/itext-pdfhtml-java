@@ -241,8 +241,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      */
     @Override
     public Document processDocument(INode root, PdfDocument pdfDocument) {
-        EventManager.getInstance().onEvent(PdfHtmlProductEvent.createConvertHtmlEvent(pdfDocument.getDocumentIdWrapper(),
-                context.getMetaInfoContainer().getMetaInfo()));
+        EventManager.getInstance().onEvent(PdfHtmlProductEvent.createConvertHtmlEvent(
+                pdfDocument.getDocumentIdWrapper(), context.getMetaInfoContainer().getMetaInfo()));
 
         context.reset(pdfDocument);
         if (!context.hasFonts()) {
@@ -269,8 +269,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                     ++counter;
                     doc.relayout();
                     if (counter >= context.getLimitOfLayouts()) {
-                        logger.warn(
-                                MessageFormatUtil.format(Html2PdfLogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS));
+                        logger.warn(MessageFormatUtil.format(
+                                Html2PdfLogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS));
                         break;
                     }
                 } while (((DocumentRenderer) doc.getRenderer()).isRelayoutRequired());
@@ -330,8 +330,10 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             } else {
                 context.getState().push(tagWorker);
             }
-            if (context.getState().getStack().size() == 1 && tagWorker != null && tagWorker.getElementResult() != null) {
-                tagWorker.getElementResult().setProperty(Property.META_INFO, new MetaInfoContainer(context.getMetaInfoContainer().getMetaInfo()));
+            if (context.getState().getStack().size() == 1 &&
+                    tagWorker != null && tagWorker.getElementResult() != null) {
+                tagWorker.getElementResult().setProperty(
+                        Property.META_INFO, new MetaInfoContainer(context.getMetaInfoContainer().getMetaInfo()));
             }
             if (tagWorker instanceof HtmlTagWorker) {
                 ((HtmlTagWorker) tagWorker).processPageRules(node, cssResolver, context);
