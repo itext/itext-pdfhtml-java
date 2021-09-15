@@ -47,11 +47,11 @@ import com.itextpdf.io.util.ResourceUtil;
 import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.layout.font.Range;
 import com.itextpdf.layout.font.RangeBuilder;
+import com.itextpdf.layout.renderer.TypographyUtils;
 import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -170,15 +170,9 @@ public class DefaultFontProvider extends BasicFontProvider {
      * i.e. the unicode range that is to be rendered with any other font contained in this FontProvider
      */
     protected Range addCalligraphFonts() {
-        String methodName = "loadShippedFonts";
-        Class<?> klass = null;
-        try {
-            klass = getTypographyUtilsClass();
-        } catch (ClassNotFoundException ignored) { }
-        if (klass != null) {
+        if (TypographyUtils.isPdfCalligraphAvailable()) {
             try {
-                Method m = klass.getMethod(methodName);
-                Map<String, byte[]> fontStreams = (Map<String, byte[]>) m.invoke(null, null);
+                Map<String, byte[]> fontStreams = TypographyUtils.loadShippedFonts();
                 this.calligraphyFontsTempList.addAll(fontStreams.values());
                 // here we return a unicode range that excludes the loaded from the calligraph module fonts
                 // i.e. the unicode range that is to be rendered with standard or shipped free fonts
@@ -188,10 +182,5 @@ public class DefaultFontProvider extends BasicFontProvider {
             }
         }
         return null;
-    }
-
-    private static Class<?> getTypographyUtilsClass() throws ClassNotFoundException {
-        String typographyClassFullName = "com.itextpdf.typography.util.TypographyShippedFontsUtil";
-        return Class.forName(typographyClassFullName);
     }
 }
