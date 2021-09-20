@@ -39,7 +39,7 @@ import com.itextpdf.commons.actions.processors.DefaultITextProductEventProcessor
 import com.itextpdf.commons.actions.producer.ProducerBuilder;
 import com.itextpdf.commons.actions.sequence.SequenceId;
 import com.itextpdf.commons.actions.contexts.IMetaInfo;
-import com.itextpdf.kernel.counter.event.ITextCoreProductEvent;
+import com.itextpdf.kernel.actions.events.ITextCoreProductEvent;
 import com.itextpdf.kernel.logs.KernelLogMessageConstant;
 import com.itextpdf.kernel.pdf.DocumentProperties;
 import com.itextpdf.kernel.pdf.PdfDocument;
