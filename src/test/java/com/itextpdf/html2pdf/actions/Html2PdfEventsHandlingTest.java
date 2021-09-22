@@ -29,8 +29,8 @@ import com.itextpdf.html2pdf.actions.events.PdfHtmlTestProductEvent;
 import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.commons.actions.AbstractProductProcessITextEvent;
 import com.itextpdf.commons.actions.EventManager;
-import com.itextpdf.commons.actions.IBaseEvent;
-import com.itextpdf.commons.actions.IBaseEventHandler;
+import com.itextpdf.commons.actions.IEvent;
+import com.itextpdf.commons.actions.IEventHandler;
 import com.itextpdf.commons.actions.ProductNameConstant;
 import com.itextpdf.commons.actions.confirmations.ConfirmEvent;
 import com.itextpdf.commons.actions.confirmations.ConfirmedEventWrapper;
@@ -414,7 +414,7 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
         }
     }
 
-    private static class StoreEventsHandler implements IBaseEventHandler {
+    private static class StoreEventsHandler implements IEventHandler {
         private List<ConfirmEvent> events = new ArrayList<>();
 
         public List<ConfirmEvent> getEvents() {
@@ -422,7 +422,7 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
         }
 
         @Override
-        public void onEvent(IBaseEvent event) {
+        public void onEvent(IEvent event) {
             if (event instanceof ConfirmEvent) {
                 events.add((ConfirmEvent) event);
             }

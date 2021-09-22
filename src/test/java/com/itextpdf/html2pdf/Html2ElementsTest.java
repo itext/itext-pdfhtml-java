@@ -49,8 +49,8 @@ import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.PdfException;
 import com.itextpdf.commons.actions.EventManager;
-import com.itextpdf.commons.actions.IBaseEvent;
-import com.itextpdf.commons.actions.IBaseEventHandler;
+import com.itextpdf.commons.actions.IEvent;
+import com.itextpdf.commons.actions.IEventHandler;
 import com.itextpdf.commons.actions.sequence.AbstractIdentifiableElement;
 import com.itextpdf.commons.actions.sequence.SequenceId;
 import com.itextpdf.commons.actions.sequence.SequenceIdManager;
@@ -354,16 +354,16 @@ public class Html2ElementsTest extends ExtendedITextTest {
         return validationCount;
     }
 
-    private static class StoreEventsHandler implements IBaseEventHandler {
+    private static class StoreEventsHandler implements IEventHandler {
 
-        private List<IBaseEvent> events = new ArrayList<>();
+        private List<IEvent> events = new ArrayList<>();
 
-        public List<IBaseEvent> getEvents() {
+        public List<IEvent> getEvents() {
             return events;
         }
 
         @Override
-        public void onEvent(IBaseEvent event) {
+        public void onEvent(IEvent event) {
             events.add(event);
         }
     }
