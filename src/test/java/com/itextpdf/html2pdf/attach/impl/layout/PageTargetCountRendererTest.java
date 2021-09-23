@@ -22,7 +22,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.font.otf.Glyph;
 import com.itextpdf.io.font.otf.GlyphLine;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -44,7 +44,7 @@ public class PageTargetCountRendererTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN)
+            @LogMessage(messageTemplate = IoLogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN)
     })
     public void getNextRendererShouldBeOverriddenTest() {
         PageTargetCountRenderer pageTargetCountRenderer =
@@ -58,7 +58,7 @@ public class PageTargetCountRendererTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN)
+            @LogMessage(messageTemplate = IoLogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN)
     })
     public void createCopyShouldBeOverriddenTest() {
         PageTargetCountRenderer pageTargetCountRenderer =

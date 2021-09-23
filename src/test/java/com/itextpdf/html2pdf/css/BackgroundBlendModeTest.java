@@ -23,7 +23,7 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.styledxmlparser.LogMessageConstant;
+import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -166,7 +166,7 @@ public class BackgroundBlendModeTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION,
+    @LogMessages(messages = {@LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION,
                     logLevel = LogLevelConstants.WARN, count = 3)})
     public void invalidBackgroundBlendModeTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("invalidBackgroundBlendMode", sourceFolder, destinationFolder);
@@ -184,7 +184,7 @@ public class BackgroundBlendModeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION,
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION,
                     logLevel = LogLevelConstants.WARN)
     })
     public void invalidBackgroundBlendModeValueTest() throws IOException, InterruptedException {

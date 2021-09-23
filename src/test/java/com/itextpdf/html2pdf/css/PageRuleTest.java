@@ -55,7 +55,7 @@ import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.impl.PageMarginBoxCssApplier;
 import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
@@ -215,7 +215,7 @@ public class PageRuleTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count= 4, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count= 4, logLevel = LogLevelConstants.WARN)
     })
     public void linearGradientOnPageMarginWithAutoWidthAndHeightTest() {
         runTest("linearGradientOnPageMarginWithAutoWidthAndHeightTest", new ConverterProperties().setTagWorkerFactory(new PageMarginBoxImagesTagWorkerFactory()));
@@ -224,14 +224,14 @@ public class PageRuleTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count= 2, logLevel = LogLevelConstants.WARN)})
+            @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count= 2, logLevel = LogLevelConstants.WARN)})
     public void linearGradientOnPageMarginWithPercentWidthAndHeightTest() {
         runTest("linearGradientOnPageMarginWithPercentWidthAndHeightTest", new ConverterProperties().setTagWorkerFactory(new PageMarginBoxImagesTagWorkerFactory()));
     }
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count= 2, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count= 2, logLevel = LogLevelConstants.WARN)
     })
     public void linearGradientOnPageMarginWithWidthAndHeightTest() {
         runTest("linearGradientOnPageMarginWithWidthAndHeightTest", new ConverterProperties().setTagWorkerFactory(new PageMarginBoxImagesTagWorkerFactory()));
@@ -655,7 +655,7 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, count = 6))
+    @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, count = 6))
     public void marginBoxRunningNoImmediateFlush04() throws IOException, InterruptedException {
         String name = "marginBoxRunningNoImmediateFlush04";
         String htmlPath = SOURCE_FOLDER + name + ".html";

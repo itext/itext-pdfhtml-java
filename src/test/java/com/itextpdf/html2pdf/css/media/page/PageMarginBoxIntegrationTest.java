@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.css.media.page;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -355,7 +355,7 @@ public class PageMarginBoxIntegrationTest extends ExtendedHtmlConversionITextTes
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT)})
+    @LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT)})
     public void tableInsideOfPageMarginNotFittingIntoDedicatedSpace() throws IOException, InterruptedException {
         junitExpectedException.expect(NullPointerException.class);
         convertToPdfAndCompare("tableInsideOfPageMarginNotFittingIntoDedicatedSpace", sourceFolder, destinationFolder);

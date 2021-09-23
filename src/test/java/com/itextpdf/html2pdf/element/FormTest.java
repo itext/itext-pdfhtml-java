@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.element;
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -174,7 +174,7 @@ public class FormTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
+            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
     })
     public void buttonSplit02Test() throws IOException, InterruptedException {
         runTest("buttonSplit02");
@@ -182,7 +182,7 @@ public class FormTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
+            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
     })
     public void buttonSplit03Test() throws IOException, InterruptedException {
         runTest("buttonSplit03");

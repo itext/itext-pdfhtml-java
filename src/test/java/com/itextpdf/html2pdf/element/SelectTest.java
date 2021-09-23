@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
@@ -180,7 +180,7 @@ public class SelectTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH))
+    @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH))
     public void selectMinMaxWidthCalculationTest01() throws IOException, InterruptedException {
         runTest("selectMinMaxWidthCalculationTest01");
     }
@@ -274,13 +274,13 @@ public class SelectTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA))
+    @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA))
     public void selectNotFittingTest02() throws IOException, InterruptedException {
         runTest("selectNotFittingTest02");
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA))
+    @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA))
     public void selectNotFittingTest03() throws IOException, InterruptedException {
         runTest("selectNotFittingTest03");
     }

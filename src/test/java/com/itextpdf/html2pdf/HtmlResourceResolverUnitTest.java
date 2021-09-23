@@ -25,7 +25,7 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.resolver.resource.HtmlResourceResolver;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
-import com.itextpdf.styledxmlparser.LogMessageConstant;
+import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -45,7 +45,7 @@ public class HtmlResourceResolverUnitTest extends ExtendedITextTest {
 
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI))
+    @LogMessages(messages = @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI))
     public void retrieveImageNullTest() {
         HtmlResourceResolver resourceResolver = createResolver();
         PdfXObject image = resourceResolver.retrieveImage(null);
@@ -60,7 +60,7 @@ public class HtmlResourceResolverUnitTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI))
+    @LogMessages(messages = @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI))
     public void retrieveImageIncorrectBase64Test() {
         HtmlResourceResolver resourceResolver = createResolver();
         PdfXObject image = resourceResolver.retrieveImage(bLogoCorruptedData);

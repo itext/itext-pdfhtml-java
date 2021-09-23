@@ -23,7 +23,7 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
@@ -101,7 +101,7 @@ public class OverflowWrapTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant
+    @LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant
             .TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 2)})
     public void overflowWrapTableScenarioTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "overflowWrapTableScenario.html"),

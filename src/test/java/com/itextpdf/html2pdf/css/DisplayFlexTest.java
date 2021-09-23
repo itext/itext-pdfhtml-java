@@ -28,7 +28,7 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreak;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.TextArea;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
@@ -464,7 +464,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT))
+    @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT))
     public void marginsCollapseFlexContainerAndParentTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("marginsCollapseFlexContainerAndParent", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -497,7 +497,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)
+            @LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)
     })
     public void resultOccupiedAreaNullSplitRenderersNotTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("resultOccupiedAreaNullSplitRenderersNot", SOURCE_FOLDER, DESTINATION_FOLDER);

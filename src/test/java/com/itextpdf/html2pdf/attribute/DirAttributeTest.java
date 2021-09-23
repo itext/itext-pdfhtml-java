@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.attribute;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -67,7 +67,7 @@ public class DirAttributeTest extends ExtendedHtmlConversionITextTest {
     @Test
     // TODO DEVSIX-5034 Direction of the contents of description list items with dir = "rtl" is wrong
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 8),
+            @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 8),
     })
     public void differentDirsOfDlsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("differentDirsOfDls", sourceFolder, destinationFolder, false);
@@ -76,7 +76,7 @@ public class DirAttributeTest extends ExtendedHtmlConversionITextTest {
     @Test
     // TODO DEVSIX-5070 Process dots of ordered list items in the specified direction
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 18),
+            @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 18),
     })
     public void differentDirsOfOrderedListsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("differentDirsOfOrderedLists", sourceFolder, destinationFolder);
@@ -84,7 +84,7 @@ public class DirAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 18),
+            @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 18),
     })
     public void differentDirsOfUnorderedListsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("differentDirsOfUnorderedLists", sourceFolder, destinationFolder);
@@ -93,7 +93,7 @@ public class DirAttributeTest extends ExtendedHtmlConversionITextTest {
     @Test
     //TODO: DEVSIX-2438 html2Pdf: float + rtl works incorrectly for element placement
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 16),
+            @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 16),
     })
     public void floatedTableInRtlDocumentTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("floatedTableInRtlDocument", sourceFolder, destinationFolder, false);
@@ -102,7 +102,7 @@ public class DirAttributeTest extends ExtendedHtmlConversionITextTest {
     @Test
     //TODO: DEVSIX-2435 Process several elements which do not respect the specified direction
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 4),
+            @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 4),
     })
     public void paragraphsOfDifferentDirsWithImageTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("paragraphsOfDifferentDirsWithImage", sourceFolder, destinationFolder, false);
@@ -111,7 +111,7 @@ public class DirAttributeTest extends ExtendedHtmlConversionITextTest {
     @Test
     //TODO: DEVSIX-2435 Process several elements which do not respect the specified direction
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 4),
+            @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 4),
     })
     public void rtlDirectionOfLinkTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("rtlDirectionOfLink", sourceFolder, destinationFolder);
@@ -120,7 +120,7 @@ public class DirAttributeTest extends ExtendedHtmlConversionITextTest {
     @Test
     //TODO: DEVSIX-2435 Process several elements which do not respect the specified direction
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 26),
+            @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 26),
     })
     public void rtlDirectionOfListInsideListTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("rtlDirectionOfListInsideList", sourceFolder, destinationFolder, false);
@@ -129,7 +129,7 @@ public class DirAttributeTest extends ExtendedHtmlConversionITextTest {
     @Test
     //TODO: DEVSIX-2435 Process several elements which do not respect the specified direction
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 4),
+            @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 4),
     })
     public void rtlDirectionOfSpanTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("rtlDirectionOfSpan", sourceFolder, destinationFolder);
@@ -154,8 +154,8 @@ public class DirAttributeTest extends ExtendedHtmlConversionITextTest {
     @Test
     //TODO DEVSIX-3069 pdfHTML: RTL tables are not aligned correctly if there is no enough space
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 32),
-            @LogMessage(messageTemplate = LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)})
+            @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 32),
+            @LogMessage(messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)})
     public void tableAlignedToWrongSideInCaseOfNotEnoughSpaceTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("tableAlignedToWrongSideInCaseOfNotEnoughSpace", sourceFolder, destinationFolder);
     }

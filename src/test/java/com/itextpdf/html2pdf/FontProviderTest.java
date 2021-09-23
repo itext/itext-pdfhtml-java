@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.font.FontProvider;
@@ -78,7 +78,7 @@ public class FontProviderTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 4)
+            @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 4)
     })
     public void hebrewTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "hebrew.html"), new File(DESTINATION_FOLDER + "hebrew.pdf"));

@@ -24,7 +24,7 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
 import com.itextpdf.html2pdf.html.HtmlUtils;
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.font.otf.GlyphLine;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.commons.utils.MessageFormatUtil;
@@ -108,7 +108,7 @@ class PageTargetCountRenderer extends TextRenderer {
         if (PageTargetCountRenderer.class != this.getClass()) {
             Logger logger = LoggerFactory.getLogger(PageTargetCountRenderer.class);
             logger.error(MessageFormatUtil.format(
-                    LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
+                    IoLogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
         }
         return new PageTargetCountRenderer((PageTargetCountElement) modelElement);
     }
@@ -121,7 +121,7 @@ class PageTargetCountRenderer extends TextRenderer {
         if (PageTargetCountRenderer.class != this.getClass()) {
             Logger logger = LoggerFactory.getLogger(PageTargetCountRenderer.class);
             logger.error(MessageFormatUtil.format(
-                    LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN));
+                    IoLogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN));
         }
         PageTargetCountRenderer copy = new PageTargetCountRenderer(this);
         copy.setProcessedGlyphLineAndFont(gl, font);

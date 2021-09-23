@@ -23,14 +23,14 @@
 package com.itextpdf.html2pdf.css.w3c.css_backgrounds.bg_att_local;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 // TODO DEVSIX-4398 border-radius is not supported for double borders
 // TODO DEVSIX-4400 overflow: hidden is not working with border-radius
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = LogMessageConstant.METHOD_IS_NOT_IMPLEMENTED_BY_DEFAULT_OTHER_METHOD_WILL_BE_USED, count = 4)
+        @LogMessage(messageTemplate = IoLogMessageConstant.METHOD_IS_NOT_IMPLEMENTED_BY_DEFAULT_OTHER_METHOD_WILL_BE_USED, count = 4)
 })
 public class AttLClipC6RefTest extends W3CCssTest {
     @Override

@@ -45,10 +45,11 @@ package com.itextpdf.html2pdf.element;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.styledxmlparser.LogMessageConstant;
+import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.svg.logs.SvgLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
@@ -109,7 +110,7 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
+            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
     })
     public void convert_inline_Svg_path_in_HTML() throws IOException, InterruptedException {
         String name = "HTML_with_inline_svg_path";
@@ -119,7 +120,7 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
+            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
     })
     // TODO: Update cmp_ file when DEVSIX-2719 resolved
     public void convert_inline_Svg_polygon_in_HTML() throws IOException, InterruptedException {
@@ -130,7 +131,7 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
+            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
     })
     public void convert_namespace_Svg_in_HTML() throws IOException, InterruptedException {
         String name = "namespace_svg";
@@ -267,7 +268,7 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI),
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
     })
     public void externalImageNonExistentRefTest() throws IOException, InterruptedException {
@@ -298,7 +299,7 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 66),
+            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 66),
     })
     public void externalObjectWithGoogleCharts() throws IOException, InterruptedException {
         //TODO update after DEVSIX-2239
@@ -309,7 +310,7 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI),
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
     })
     public void externalObjectNonExistentRefTest() throws IOException, InterruptedException {
@@ -321,7 +322,7 @@ public class SvgTest extends ExtendedITextTest {
     @Test
     //TODO: Update cmp_ file when DEVSIX-2731 resolved
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
     })
     public void htmlWithSvgBackground() throws IOException, InterruptedException {
         String name = "HTML_with_svg_background";
@@ -332,7 +333,7 @@ public class SvgTest extends ExtendedITextTest {
     @Test
     //TODO: Update cmp_ file when DEVSIX-2731 resolved
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
     })
     public void htmlWithSvgBackgroundNoViewbox() throws IOException, InterruptedException {
         String name = "Html_with_svg_background_no_viewbox";

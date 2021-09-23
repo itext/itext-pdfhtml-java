@@ -46,7 +46,7 @@ import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.styledxmlparser.LogMessageConstant;
+import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -130,7 +130,7 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.ONLY_THE_LAST_BACKGROUND_CAN_INCLUDE_BACKGROUND_COLOR)
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.ONLY_THE_LAST_BACKGROUND_CAN_INCLUDE_BACKGROUND_COLOR)
     })
     public void backgroundImageAndColorNotLastTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("background_image_and_color_not_last", sourceFolder, destinationFolder);

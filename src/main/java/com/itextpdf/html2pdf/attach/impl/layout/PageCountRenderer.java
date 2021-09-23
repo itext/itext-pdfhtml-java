@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
 import com.itextpdf.html2pdf.html.HtmlUtils;
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.font.otf.GlyphLine;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.kernel.font.PdfFont;
@@ -130,7 +130,7 @@ class PageCountRenderer extends TextRenderer {
         if (PageCountRenderer.class != this.getClass()) {
             Logger logger = LoggerFactory.getLogger(PageCountRenderer.class);
             logger.error(MessageFormatUtil.format(
-                    LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
+                    IoLogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
         }
         return new PageCountRenderer((PageCountElement) modelElement);
     }
@@ -142,7 +142,7 @@ class PageCountRenderer extends TextRenderer {
     protected TextRenderer createCopy(GlyphLine gl, PdfFont font) {
         if (PageCountRenderer.class != this.getClass()) {
             Logger logger = LoggerFactory.getLogger(PageCountRenderer.class);
-            logger.error(MessageFormatUtil.format(LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN));
+            logger.error(MessageFormatUtil.format(IoLogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN));
         }
         PageCountRenderer copy = new PageCountRenderer(this);
         copy.setProcessedGlyphLineAndFont(gl, font);

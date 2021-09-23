@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -109,7 +109,7 @@ public class AbsolutePositionTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, count = 1),
+            @LogMessage(messageTemplate = IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, count = 1),
     })
     public void absolutePosition09Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("absolutePositionTest09", sourceFolder, destinationFolder);

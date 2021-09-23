@@ -50,7 +50,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.pdfa.PdfAConformanceLogMessageConstant;
+import com.itextpdf.pdfa.logs.PdfAConformanceLogMessageConstant;
 import com.itextpdf.pdfa.PdfADocument;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;

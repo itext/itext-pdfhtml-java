@@ -25,7 +25,7 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
-import com.itextpdf.io.LogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.test.ExtendedITextTest;
@@ -119,7 +119,7 @@ public class WordBreakTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant
+    @LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant
             .TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 3)})
     public void wordBreakTableScenarioTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "wordBreakTableScenario.html"),

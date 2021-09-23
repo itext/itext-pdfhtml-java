@@ -46,6 +46,7 @@ import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -53,9 +54,9 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.styledxmlparser.IXmlParser;
+import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
-import com.itextpdf.styledxmlparser.LogMessageConstant;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
 import com.itextpdf.test.ExtendedITextTest;
@@ -140,7 +141,7 @@ public class Html2PdfTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, count = 1),
+    @LogMessages(messages = {@LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, count = 1),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1)})
     public void htmlObjectIncorrectBase64Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "objectTag_incorrectBase64svg.html"), new File(destinationFolder + "objectTag_incorrectBase64svg.pdf"));
@@ -168,12 +169,12 @@ public class Html2PdfTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(ignore = true, messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.RULE_IS_NOT_SUPPORTED),
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.RULE_IS_NOT_SUPPORTED),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR),
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED),
+            @LogMessage(messageTemplate = IoLogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED),
     })
     public void batchConversionTest() throws IOException, InterruptedException {
         ConverterProperties properties = new ConverterProperties().setBaseUri(sourceFolder)
