@@ -51,6 +51,7 @@ import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
 import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
+import com.itextpdf.io.LogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.geom.PageSize;
@@ -74,7 +75,6 @@ import java.util.List;
 import java.util.Map;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -273,7 +273,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
     @Test
     // TODO DEVSIX-5571 Update cmp after the ticket is closed
     @LogMessages(ignore = true, messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
+            @LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT),
     })
     public void checkboxFullWidthDisplayBlockTest() throws IOException, InterruptedException {
@@ -282,7 +282,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(ignore = true, messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)
+            @LogMessage(messageTemplate = LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)
     })
     public void longInputValueCausesNothingTest() throws IOException, InterruptedException {
         ConverterProperties converterProperties = new ConverterProperties();

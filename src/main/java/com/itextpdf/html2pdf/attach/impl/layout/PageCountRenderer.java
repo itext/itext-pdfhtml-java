@@ -130,7 +130,7 @@ class PageCountRenderer extends TextRenderer {
         if (PageCountRenderer.class != this.getClass()) {
             Logger logger = LoggerFactory.getLogger(PageCountRenderer.class);
             logger.error(MessageFormatUtil.format(
-                    com.itextpdf.io.LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
+                    LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
         }
         return new PageCountRenderer((PageCountElement) modelElement);
     }

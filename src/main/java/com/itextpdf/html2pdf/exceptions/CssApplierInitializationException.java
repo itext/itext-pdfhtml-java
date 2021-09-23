@@ -42,12 +42,13 @@
  */
 package com.itextpdf.html2pdf.exceptions;
 
+import com.itextpdf.commons.exceptions.ITextException;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 
 /**
  * Runtime exception in case a CSS applier can't be initialized.
  */
-public class CssApplierInitializationException extends RuntimeException {
+public class CssApplierInitializationException extends ITextException {
 
     /** The message template in case reflection failed. */
     public static final String REFLECTION_FAILED = "Could not instantiate CssApplier-class {0} for tag {1}.";

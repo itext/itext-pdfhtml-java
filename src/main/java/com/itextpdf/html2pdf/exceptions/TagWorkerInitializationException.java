@@ -42,12 +42,13 @@
  */
 package com.itextpdf.html2pdf.exceptions;
 
+import com.itextpdf.commons.exceptions.ITextException;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 
 /**
  * Runtime exception that gets thrown if a tag worker can't be initialized.
  */
-public class TagWorkerInitializationException extends RuntimeException {
+public class TagWorkerInitializationException extends ITextException {
 
     /** Template for the error message in case a tag worker couldn't be instantiated. */
     public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not "

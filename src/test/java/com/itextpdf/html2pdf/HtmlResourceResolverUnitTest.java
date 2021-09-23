@@ -45,7 +45,7 @@ public class HtmlResourceResolverUnitTest extends ExtendedITextTest {
 
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI))
+    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI))
     public void retrieveImageNullTest() {
         HtmlResourceResolver resourceResolver = createResolver();
         PdfXObject image = resourceResolver.retrieveImage(null);

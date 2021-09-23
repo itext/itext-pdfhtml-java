@@ -42,10 +42,12 @@
  */
 package com.itextpdf.html2pdf.exceptions;
 
+import com.itextpdf.commons.exceptions.ITextException;
+
 /**
  * Runtime exception that gets thrown if something goes wrong in the HTML to PDF conversion.
  */
-public class Html2PdfException extends RuntimeException {
+public class Html2PdfException extends ITextException {
 
     /** Message in case one tries to write to a PDF document that isn't in writing mode. */
     public static final String PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE = "PdfDocument should be created "
