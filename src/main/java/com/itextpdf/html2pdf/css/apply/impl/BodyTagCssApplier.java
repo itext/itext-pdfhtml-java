@@ -53,8 +53,6 @@ import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.RenderingMode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
 import java.util.Map;

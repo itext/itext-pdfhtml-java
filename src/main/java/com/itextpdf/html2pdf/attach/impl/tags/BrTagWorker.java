@@ -48,7 +48,7 @@ import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.font.FontFamilySplitter;
+import com.itextpdf.styledxmlparser.util.FontFamilySplitterUtil;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import java.util.List;
 
@@ -71,7 +71,7 @@ public class BrTagWorker implements ITagWorker {
         // because only font-family should be applied to <br /> element.
         String fontFamily = element.getStyles().get(CssConstants.FONT_FAMILY);
         // TODO DEVSIX-2534
-        List<String> splitFontFamily = FontFamilySplitter.splitFontFamily(fontFamily);
+        List<String> splitFontFamily = FontFamilySplitterUtil.splitFontFamily(fontFamily);
         newLine.setFontFamily(splitFontFamily.toArray(new String[splitFontFamily.size()]));
 
         AccessiblePropHelper.trySetLangAttribute(newLine, element);

@@ -44,8 +44,9 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -54,7 +55,6 @@ import java.io.File;
 import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -102,7 +102,7 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
     @Test
     // TODO DEVSIX-4426 support rotateZ() - remove log message after fixing
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)})
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)})
     public void backgroundTransformedRootTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("backgroundTransformedRoot", sourceFolder, destinationFolder);
     }
@@ -130,14 +130,14 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.ONLY_THE_LAST_BACKGROUND_CAN_INCLUDE_BACKGROUND_COLOR)
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.ONLY_THE_LAST_BACKGROUND_CAN_INCLUDE_BACKGROUND_COLOR)
     })
     public void backgroundImageAndColorNotLastTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("background_image_and_color_not_last", sourceFolder, destinationFolder);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
     public void backgroundImageAndColorsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("background_image_and_colors", sourceFolder, destinationFolder);
     }

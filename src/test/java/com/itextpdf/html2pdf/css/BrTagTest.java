@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.properties.Property;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 

@@ -44,15 +44,16 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.Attacher;
-import com.itextpdf.html2pdf.exception.Html2PdfException;
-import com.itextpdf.html2pdf.util.ReflectionUtils;
-import com.itextpdf.io.util.FileUtil;
-import com.itextpdf.kernel.counter.event.IMetaInfo;
+import com.itextpdf.html2pdf.exceptions.Html2PdfException;
+import com.itextpdf.commons.utils.FileUtil;
+import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.kernel.pdf.DocumentProperties;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.renderer.MetaInfoContainer;
 import com.itextpdf.styledxmlparser.IXmlParser;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
@@ -124,7 +125,8 @@ public class HtmlConverter {
      * @param converterProperties a {@link ConverterProperties} instance
      */
     public static void convertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
-        convertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())), converterProperties);
+        convertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties()
+                .setEventCountingMetaInfo(resolveMetaInfo(converterProperties))), converterProperties);
     }
 
     /**
@@ -137,6 +139,7 @@ public class HtmlConverter {
      */
     public static void convertToPdf(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) {
         final Document document = convertToDocument(html, pdfDocument, converterProperties);
+        document.setProperty(Property.META_INFO, new MetaInfoContainer(resolveMetaInfo(converterProperties)));
         document.close();
     }
 
@@ -162,10 +165,10 @@ public class HtmlConverter {
      */
     public static void convertToPdf(File htmlFile, File pdfFile, ConverterProperties converterProperties) throws IOException {
         if (converterProperties == null) {
-            String baseUri = FileUtil.getParentDirectory(htmlFile);
+            String baseUri = FileUtil.getParentDirectoryUri(htmlFile);
             converterProperties = new ConverterProperties().setBaseUri(baseUri);
         } else if (converterProperties.getBaseUri() == null) {
-            String baseUri = FileUtil.getParentDirectory(htmlFile);
+            String baseUri = FileUtil.getParentDirectoryUri(htmlFile);
             converterProperties = new ConverterProperties(converterProperties).setBaseUri(baseUri);
         }
         try (FileInputStream fileInputStream = new FileInputStream(htmlFile.getAbsolutePath());
@@ -220,7 +223,8 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
-        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())));
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(
+                createPdf2HtmlMetaInfo())));
     }
 
     /**
@@ -234,7 +238,8 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
-        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(new HtmlMetaInfo())), converterProperties);
+        convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(
+                resolveMetaInfo(converterProperties))), converterProperties);
     }
 
     /**
@@ -248,6 +253,8 @@ public class HtmlConverter {
      */
     public static void convertToPdf(InputStream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
         final Document document = convertToDocument(htmlStream, pdfDocument, converterProperties);
+        IMetaInfo metaInfo = resolveMetaInfo(converterProperties);
+        document.setProperty(Property.META_INFO, new MetaInfoContainer(metaInfo));
         document.close();
     }
 
@@ -316,9 +323,8 @@ public class HtmlConverter {
      * @return a {@link Document} instance
      */
     public static Document convertToDocument(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) {
-        ReflectionUtils.scheduledLicenseCheck();
         if (pdfDocument.getReader() != null) {
-            throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
+            throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
         }
         IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(html);
@@ -337,9 +343,8 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static Document convertToDocument(InputStream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
-        ReflectionUtils.scheduledLicenseCheck();
         if (pdfDocument.getReader() != null) {
-            throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
+            throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
         }
         IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
@@ -379,7 +384,6 @@ public class HtmlConverter {
      * @return a list of iText building blocks
      */
     public static List<IElement> convertToElements(String html, ConverterProperties converterProperties) {
-        ReflectionUtils.scheduledLicenseCheck();
         IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(html);
         return Attacher.attach(doc, converterProperties);
@@ -396,14 +400,21 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static List<IElement> convertToElements(InputStream htmlStream, ConverterProperties converterProperties) throws IOException {
-        ReflectionUtils.scheduledLicenseCheck();
         IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
         return Attacher.attach(doc, converterProperties);
     }
 
-    private static class HtmlMetaInfo implements IMetaInfo {
+    static IMetaInfo createPdf2HtmlMetaInfo() {
+        return new HtmlMetaInfo();
+    }
 
-        private static final long serialVersionUID = -295587336698550627L;
+    private static IMetaInfo resolveMetaInfo(ConverterProperties converterProperties) {
+        return converterProperties == null
+                ? createPdf2HtmlMetaInfo()
+                : converterProperties.getEventMetaInfo();
+    }
+
+    private static class HtmlMetaInfo implements IMetaInfo {
     }
 }

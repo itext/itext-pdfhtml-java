@@ -42,11 +42,11 @@
  */
 package com.itextpdf.html2pdf.resolver.resource;
 
+import com.itextpdf.commons.utils.Base64;
+import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.ContextMappingHelper;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
-import com.itextpdf.io.codec.Base64;
-import com.itextpdf.io.util.FileUtil;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever;
@@ -56,9 +56,7 @@ import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.processors.impl.SvgConverterProperties;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
@@ -108,14 +106,14 @@ public class HtmlResourceResolver extends ResourceResolver {
     }
 
     @Override
-    public PdfXObject retrieveImageExtended(String src) {
+    public PdfXObject retrieveImage(String src) {
         if (src != null && src.trim().startsWith(SVG_PREFIX) && SVG_IDENTIFIER_PATTERN.matcher(src).find()) {
             PdfXObject imageXObject = tryResolveSvgImageSource(src);
             if (imageXObject != null) {
                 return imageXObject;
             }
         }
-        return super.retrieveImageExtended(src);
+        return super.retrieveImage(src);
     }
 
     /**
@@ -163,7 +161,7 @@ public class HtmlResourceResolver extends ResourceResolver {
         return null;
     }
 
-    private static PdfFormXObject processAsSvg(InputStream stream, ProcessorContext context, String parentDir) throws IOException {
+    private static PdfFormXObject processAsSvg(InputStream stream, ProcessorContext context, String parentDir) {
         SvgConverterProperties svgConverterProperties = ContextMappingHelper.mapToSvgConverterProperties(context);
         if (parentDir != null) {
             svgConverterProperties.setBaseUri(parentDir);

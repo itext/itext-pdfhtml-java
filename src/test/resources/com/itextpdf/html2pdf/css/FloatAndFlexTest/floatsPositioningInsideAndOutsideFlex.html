@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+	@page {
+		size: 11.69in 8.27in;
+		margin: 10px;
+	}
+
+	.mainDiv .borDiv {
+		border: 1px solid black;
+	}
+	</style>
+</head>
+
+<body>
+<div class="mainDiv">
+    <div class="borDiv" style="width:100%;height: 25px;float: left;text-align: center">Float left with width 100%</div>
+    <div class="borDiv" style="display: flex;">
+        <div style="width:9%;float:left;border-right: 1px solid black;"><span style="width:100px;height:80px;display:inline-block; background-color: red;">Inner float 1</span></div>
+        <div style="width:90%;float:left;">
+            Inner float 2
+        </div>
+    </div>
+    <div class="borDiv">Plain text after flex container.</div>
+</body>
+
+</html>

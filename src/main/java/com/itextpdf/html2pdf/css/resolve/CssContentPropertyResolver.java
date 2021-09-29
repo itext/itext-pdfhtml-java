@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
@@ -50,13 +50,12 @@ import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageTargetCountElementNode;
 import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
 import com.itextpdf.html2pdf.css.page.PageMarginRunningElementNode;
 import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer;
-import com.itextpdf.styledxmlparser.css.parse.CssDeclarationValueTokenizer.Token;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.styledxmlparser.css.resolve.CssQuotes;
 import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
@@ -239,7 +238,7 @@ class CssContentPropertyResolver {
                 if (value == null) {
                     return errorFallback(contentStr);
                 }
-                    result.add(new ContentTextNode(contentContainer, value));
+                result.add(new ContentTextNode(contentContainer, value));
             } else if (token.getValue().endsWith("quote") && contentContainer instanceof IStylesContainer) {
                 if (quotes == null) {
                     quotes = CssQuotes.createQuotes(styles.get(CssConstants.QUOTES), true);
@@ -281,7 +280,7 @@ class CssContentPropertyResolver {
             contentStr = contentStr.substring(0, logMessageParameterMaxLength) + ".....";
         }
 
-        LOGGER.error(MessageFormatUtil.format(LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
+        LOGGER.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
         return null;
     }
 

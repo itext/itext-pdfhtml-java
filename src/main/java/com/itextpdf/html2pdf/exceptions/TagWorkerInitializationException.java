@@ -2,7 +2,7 @@
     This file is part of the iText (R) project.
     Copyright (c) 1998-2021 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
-    
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
     as published by the Free Software Foundation with the addition of the
@@ -10,7 +10,7 @@
     FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
     ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
     OF THIRD PARTY RIGHTS
-    
+
     This program is distributed in the hope that it will be useful, but
     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
     or FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,15 +20,15 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA, 02110-1301 USA, or download the license from the following URL:
     http://itextpdf.com/terms-of-use/
-    
+
     The interactive user interfaces in modified source and object code versions
     of this program must display Appropriate Legal Notices, as required under
     Section 5 of the GNU Affero General Public License.
-    
+
     In accordance with Section 7(b) of the GNU Affero General Public License,
     a covered work must retain the producer line in every PDF that is created
     or manipulated using iText.
-    
+
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the iText software without
@@ -36,25 +36,44 @@
     These activities include: offering paid services to customers as an ASP,
     serving PDFs on the fly in a web application, shipping iText with a closed
     source product.
-    
+
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
+package com.itextpdf.html2pdf.exceptions;
 
-package com.itextpdf.html2pdf;
+import com.itextpdf.commons.exceptions.ITextException;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 
 /**
- * Product info about this iText add-on.
+ * Runtime exception that gets thrown if a tag worker can't be initialized.
  */
-// TODO refactor? move to local fields in order to hide it?
-public class Html2PdfProductInfo {
-    
-    /** The product name. */
-    public static final String PRODUCT_NAME = "pdfHtml";
-    
-    /** The major version number. */
-    public static final int MAJOR_VERSION = 3;
-    
-    /** The minor version number. */
-    public static final int MINOR_VERSION = 0;
+public class TagWorkerInitializationException extends ITextException {
+
+    /** Template for the error message in case a tag worker couldn't be instantiated. */
+    public static final String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not "
+            + "instantiate TagWorker-class {0} for tag {1}.";
+
+    /**
+     * Creates a {@link TagWorkerInitializationException} instance.
+     *
+     * @param message    the message
+     * @param classNames the class names
+     * @param tag        the tag
+     */
+    public TagWorkerInitializationException(String message, String classNames, String tag) {
+        super(MessageFormatUtil.format(message,classNames,tag));
+    }
+
+    /**
+     *  Creates a {@link TagWorkerInitializationException} instance.
+     *
+     * @param message the message
+     * @param classNames the class names
+     * @param tag the tag
+     * @param cause the cause
+     */
+    public TagWorkerInitializationException(String message, String classNames, String tag, Throwable cause) {
+        super(MessageFormatUtil.format(message,classNames,tag), cause);
+    }
 }

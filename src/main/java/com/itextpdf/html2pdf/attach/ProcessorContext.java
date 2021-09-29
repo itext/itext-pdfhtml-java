@@ -44,6 +44,7 @@ package com.itextpdf.html2pdf.attach;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
+import com.itextpdf.html2pdf.attach.impl.HtmlMetaInfoContainer;
 import com.itextpdf.html2pdf.attach.impl.LinkContext;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
@@ -54,7 +55,7 @@ import com.itextpdf.html2pdf.resolver.form.FormFieldNameResolver;
 import com.itextpdf.html2pdf.resolver.form.RadioCheckResolver;
 import com.itextpdf.html2pdf.resolver.resource.HtmlResourceResolver;
 import com.itextpdf.io.font.FontProgram;
-import com.itextpdf.kernel.counter.event.IMetaInfo;
+import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.FontProvider;
@@ -125,7 +126,7 @@ public class ProcessorContext {
 
     /**
      * Indicates whether the document should be opened in immediate flush or not
-     **/
+     */
     private boolean immediateFlush;
 
     // Variable fields
@@ -213,7 +214,6 @@ public class ProcessorContext {
         formFieldNameResolver = new FormFieldNameResolver();
         radioCheckResolver = new RadioCheckResolver();
         immediateFlush = converterProperties.isImmediateFlush();
-        metaInfo = converterProperties.getEventCountingMetaInfo();
         processingInlineSvg = false;
     }
 
@@ -463,17 +463,28 @@ public class ProcessorContext {
     }
 
     /**
-     * Gets html meta info. This meta info will be passed with to {@link com.itextpdf.kernel.counter.EventCounter}
-     * with {@link com.itextpdf.html2pdf.events.PdfHtmlEvent} and can be used to determine event origin.
+     * Gets html meta info container.
      *
-     * @return html meta info
+     * <p>Meta info will be used to determine event origin.
+     *
+     * @return html meta info container
      */
-    public IMetaInfo getEventCountingMetaInfo() {
-        return metaInfo;
+    public HtmlMetaInfoContainer getMetaInfoContainer() {
+        return new HtmlMetaInfoContainer(metaInfo);
+    }
+
+    /**
+     * Sets IMetaInfo to processor context.
+     *
+     * @param metaInfo the IMetaInfo object
+     */
+    public void setMetaInfo(IMetaInfo metaInfo) {
+        this.metaInfo = metaInfo;
     }
 
     /**
      * Check if the processor is currently processing an inline svg
+     *
      * @return True if the processor is processing an inline Svg, false otherwise.
      */
     public boolean isProcessingInlineSvg() {

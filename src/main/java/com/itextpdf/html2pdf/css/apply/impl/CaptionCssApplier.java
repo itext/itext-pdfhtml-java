@@ -47,8 +47,8 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.property.CaptionSide;
-import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.properties.CaptionSide;
+import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
 import java.util.Map;

@@ -44,24 +44,23 @@ package com.itextpdf.html2pdf.element;
 
 
 import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.ExternalExtendedITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import java.io.File;
-import java.io.IOException;
-
 @Category(IntegrationTest.class)
-public class ImageTest extends ExtendedITextTest {
+public class ImageTest extends ExternalExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/ImageTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/ImageTest/";

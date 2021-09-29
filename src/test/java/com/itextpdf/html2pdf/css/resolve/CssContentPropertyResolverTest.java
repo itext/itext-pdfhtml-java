@@ -22,7 +22,7 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageTargetCountElementNode;
@@ -69,7 +69,7 @@ public class CssContentPropertyResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 4))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, count = 4))
     public void resolveContentInvalidParamsTest() {
         Map<String, String> styles = new HashMap<>();
         styles.put(CssConstants.CONTENT, "target-counter(url('#some_target'))");
@@ -121,7 +121,7 @@ public class CssContentPropertyResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 1))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, count = 1))
     public void resolveContentWrongTargetCounterTest(){
         Map<String,String> styles = new HashMap<>();
         styles.put(CssConstants.CONTENT,"target-counter(attr(), pages)");
@@ -133,7 +133,7 @@ public class CssContentPropertyResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 1))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, count = 1))
     public void resolveContentWrongTargetCountersTest(){
         Map<String,String> styles = new HashMap<>();
         styles.put(CssConstants.CONTENT,"target-counters(attr(), pages)");

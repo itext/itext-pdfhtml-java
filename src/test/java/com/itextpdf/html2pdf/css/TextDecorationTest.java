@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -116,7 +116,7 @@ public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
     @Test
     //TODO: DEVSIX-4201
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.HSL_COLOR_NOT_SUPPORTED)})
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.HSL_COLOR_NOT_SUPPORTED)})
     public void textDecorationColorTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationColor", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

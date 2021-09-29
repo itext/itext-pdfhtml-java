@@ -25,16 +25,17 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreak;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.TextArea;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.renderer.FlexContainerRenderer;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -207,7 +208,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
     //TODO DEVSIX-5086 change this test when working on the ticket
     public void flexWrapTest() throws IOException {
         String name = "flexWrap";
@@ -223,25 +224,6 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         IElement flexContainer = elements.get(0);
         Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
         Assert.assertFalse(flexContainer.hasProperty(Property.FLEX_WRAP));
-    }
-
-    @Test
-    //TODO DEVSIX-5087 remove this test when working on the ticket
-    public void floatAtFlexContainerTest() throws IOException {
-        String name = "floatAtFlexContainer";
-        String sourceHtml = SOURCE_FOLDER + name + ".html";
-
-        ConverterProperties converterProperties = new ConverterProperties().setBaseUri(SOURCE_FOLDER);
-
-        List<IElement> elements;
-        try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
-            elements = HtmlConverter.convertToElements(fileInputStream, converterProperties);
-        }
-
-        IElement flexContainer = elements.get(0);
-        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
-        Assert.assertFalse(flexContainer.hasProperty(Property.FLOAT));
-        Assert.assertFalse(flexContainer.hasProperty(Property.CLEAR));
     }
 
     @Test
@@ -386,26 +368,6 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void floatAtFlexItemTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("floatAtFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER);
-    }
-
-    @Test
-    public void clearAtFlexItemTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("clearAtFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER);
-    }
-
-    @Test
-    public void floatAtFlexItemNestedTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("floatAtFlexItemNested", SOURCE_FOLDER, DESTINATION_FOLDER);
-    }
-
-    @Test
-    public void flexContainerHeightTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("flexContainerHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
-    }
-
-    @Test
     public void nestedFlexContainerTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("nestedFlexContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -502,7 +464,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.CLIP_ELEMENT))
+    @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT))
     public void marginsCollapseFlexContainerAndParentTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("marginsCollapseFlexContainerAndParent", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -535,7 +497,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)
+            @LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)
     })
     public void resultOccupiedAreaNullSplitRenderersNotTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("resultOccupiedAreaNullSplitRenderersNot", SOURCE_FOLDER, DESTINATION_FOLDER);

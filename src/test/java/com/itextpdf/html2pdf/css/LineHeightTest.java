@@ -31,8 +31,8 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.font.FontProvider;
-import com.itextpdf.layout.property.Leading;
-import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.properties.Leading;
+import com.itextpdf.layout.properties.Property;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.FileInputStream;

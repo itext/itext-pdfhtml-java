@@ -45,7 +45,7 @@ package com.itextpdf.html2pdf.css.apply.impl;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
-import com.itextpdf.html2pdf.exception.CssApplierInitializationException;
+import com.itextpdf.html2pdf.css.apply.impl.DefaultTagCssApplierMapping.ICssApplierCreator;
 import com.itextpdf.html2pdf.util.TagProcessorMapping;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
@@ -57,13 +57,13 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
     private static final ICssApplierFactory INSTANCE = new DefaultCssApplierFactory();
 
     /** The default mapping of CSS keywords and CSS appliers. */
-    private TagProcessorMapping defaultMapping;
+    private final TagProcessorMapping<ICssApplierCreator> defaultMapping;
 
     /**
      * Creates a new {@link DefaultCssApplierFactory} instance.
      */
     public DefaultCssApplierFactory() {
-        defaultMapping = DefaultTagCssApplierMapping.getDefaultCssApplierMapping();
+        defaultMapping = new DefaultTagCssApplierMapping().getDefaultCssApplierMapping();
     }
 
     /**
@@ -82,14 +82,13 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
         ICssApplier cssApplier = getCustomCssApplier(tag);
 
         if (cssApplier == null) {
-            Class<?> cssApplierClass = getCssApplierClass(defaultMapping, tag);
-            if ( cssApplierClass != null ) {
-                try {
-                    return (ICssApplier) cssApplierClass.newInstance();
-                } catch (Exception e) {
-                    throw new CssApplierInitializationException(CssApplierInitializationException.ReflectionFailed, cssApplierClass.getName(), tag.name());
-                }
+            final ICssApplierCreator cssApplierCreator = getCssApplierCreator(defaultMapping, tag);
+
+            if (cssApplierCreator == null) {
+                return null;
             }
+
+            return cssApplierCreator.create();
         }
 
         return cssApplier;
@@ -107,23 +106,28 @@ public class DefaultCssApplierFactory implements ICssApplierFactory {
         return null;
     }
 
+    TagProcessorMapping<ICssApplierCreator> getDefaultMapping() {
+        return defaultMapping;
+    }
+
     /**
      * Gets the css applier class.
      *
      * @param mapping the mapping
      * @param tag the tag
-     * @return the css applier class
+     * @return the css applier class creator
      */
-    private static Class<?> getCssApplierClass(TagProcessorMapping mapping, IElementNode tag) {
-        Class<?> cssApplierClass = null;
+    private static ICssApplierCreator getCssApplierCreator(TagProcessorMapping<ICssApplierCreator> mapping,
+                                                           IElementNode tag) {
+        ICssApplierCreator cssApplierCreator = null;
         String display = tag.getStyles() != null ? tag.getStyles().get(CssConstants.DISPLAY) : null;
         if (display != null) {
-            cssApplierClass = mapping.getMapping(tag.name(), display);
+            cssApplierCreator = (ICssApplierCreator) mapping.getMapping(tag.name(), display);
         }
-        if (cssApplierClass == null) {
-            cssApplierClass = mapping.getMapping(tag.name());
+        if (cssApplierCreator == null) {
+            cssApplierCreator = (ICssApplierCreator) mapping.getMapping(tag.name());
         }
-        return cssApplierClass;
+        return cssApplierCreator;
     }
 
 }

@@ -42,8 +42,14 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
+import com.itextpdf.commons.actions.EventManager;
+import com.itextpdf.commons.actions.sequence.AbstractIdentifiableElement;
+import com.itextpdf.commons.actions.sequence.SequenceId;
+import com.itextpdf.commons.actions.sequence.SequenceIdManager;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.html2pdf.ConverterProperties;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.ProcessorContextCreator;
+import com.itextpdf.html2pdf.actions.events.PdfHtmlProductEvent;
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
@@ -59,40 +65,34 @@ import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
 import com.itextpdf.html2pdf.css.apply.util.PageBreakApplierUtil;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
-import com.itextpdf.html2pdf.events.PdfHtmlEvent;
-import com.itextpdf.html2pdf.exception.Html2PdfException;
+import com.itextpdf.html2pdf.exceptions.Html2PdfException;
 import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.html2pdf.util.ReflectionUtils;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
-import com.itextpdf.io.util.MessageFormatUtil;
-import com.itextpdf.kernel.counter.EventCounterHandler;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.IAbstractElement;
 import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.font.FontFamilySplitter;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.Range;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.RenderingMode;
+import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.RenderingMode;
 import com.itextpdf.layout.renderer.DocumentRenderer;
-import com.itextpdf.layout.renderer.FlexContainerRenderer;
+import com.itextpdf.layout.renderer.MetaInfoContainer;
 import com.itextpdf.styledxmlparser.css.CssDeclaration;
-import com.itextpdf.styledxmlparser.css.font.CssFontFace;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
 import com.itextpdf.styledxmlparser.css.ICssResolver;
+import com.itextpdf.styledxmlparser.css.font.CssFontFace;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementNode;
 import com.itextpdf.styledxmlparser.css.pseudo.CssPseudoElementUtil;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.ITextNode;
-
-import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.itextpdf.styledxmlparser.util.FontFamilySplitterUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -101,7 +101,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The default implementation to process HTML.
@@ -166,7 +169,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      * @param converterProperties the converter properties
      */
     public DefaultHtmlProcessor(ConverterProperties converterProperties) {
-        this.context = new ProcessorContext(converterProperties);
+        this.context = ProcessorContextCreator.createProcessorContext(converterProperties);
     }
 
     /**
@@ -186,7 +189,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
 
         // TODO DEVSIX-2534
-        List<String> fontFamilies = FontFamilySplitter.splitFontFamily(cssProperties.get(CssConstants.FONT_FAMILY));
+        List<String> fontFamilies = FontFamilySplitterUtil.splitFontFamily(cssProperties.get(CssConstants.FONT_FAMILY));
         if (fontFamilies != null && !propertyContainer.hasOwnProperty(Property.FONT)) {
             propertyContainer.setProperty(Property.FONT, fontFamilies.toArray(new String[0]));
         }
@@ -197,7 +200,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      */
     @Override
     public List<com.itextpdf.layout.element.IElement> processElements(INode root) {
-        ReflectionUtils.scheduledLicenseCheck();
+        final SequenceId sequenceId = new SequenceId();
+        EventManager.getInstance().onEvent(PdfHtmlProductEvent.createConvertHtmlEvent(sequenceId,
+                context.getMetaInfoContainer().getMetaInfo()));
 
         context.reset();
         roots = new ArrayList<>();
@@ -225,7 +230,9 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
         cssResolver = null;
         roots = null;
-        EventCounterHandler.getInstance().onEvent(PdfHtmlEvent.CONVERT, context.getEventCountingMetaInfo(), getClass());
+        for (IElement element : elements) {
+            updateSequenceId(element, sequenceId);
+        }
         return elements;
     }
 
@@ -234,11 +241,12 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      */
     @Override
     public Document processDocument(INode root, PdfDocument pdfDocument) {
-        ReflectionUtils.scheduledLicenseCheck();
+        EventManager.getInstance().onEvent(PdfHtmlProductEvent.createConvertHtmlEvent(
+                pdfDocument.getDocumentIdWrapper(), context.getMetaInfoContainer().getMetaInfo()));
 
         context.reset(pdfDocument);
         if (!context.hasFonts()) {
-            throw new Html2PdfException(Html2PdfException.FontProviderContainsZeroFonts);
+            throw new Html2PdfException(Html2PdfException.FONT_PROVIDER_CONTAINS_ZERO_FONTS);
         }
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context);
@@ -261,18 +269,17 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                     ++counter;
                     doc.relayout();
                     if (counter >= context.getLimitOfLayouts()) {
-                        logger.warn(
-                                MessageFormatUtil.format(LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS));
+                        logger.warn(MessageFormatUtil.format(
+                                Html2PdfLogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS));
                         break;
                     }
                 } while (((DocumentRenderer) doc.getRenderer()).isRelayoutRequired());
             } else {
-                logger.warn(LogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT);
+                logger.warn(Html2PdfLogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT);
             }
         }
         cssResolver = null;
         roots = null;
-        EventCounterHandler.getInstance().onEvent(PdfHtmlEvent.CONVERT, context.getEventCountingMetaInfo(), getClass());
         return doc;
     }
 
@@ -315,10 +322,18 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             ITagWorker tagWorker = context.getTagWorkerFactory().getTagWorker(element, context);
             if (tagWorker == null) {
                 if (!ignoredTags.contains(element.name())) {
-                    logger.error(MessageFormatUtil.format(LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).name()));
+                    logger.error(
+                            MessageFormatUtil.format(
+                                    Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG,
+                                    element.name()));
                 }
             } else {
                 context.getState().push(tagWorker);
+            }
+            if (context.getState().getStack().size() == 1 &&
+                    tagWorker != null && tagWorker.getElementResult() != null) {
+                tagWorker.getElementResult().setProperty(
+                        Property.META_INFO, new MetaInfoContainer(context.getMetaInfoContainer().getMetaInfo()));
             }
             if (tagWorker instanceof HtmlTagWorker) {
                 ((HtmlTagWorker) tagWorker).processPageRules(node, cssResolver, context);
@@ -356,8 +371,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                     boolean childProcessed = context.getState().top().processTagChild(tagWorker, context);
                     PageBreakApplierUtil.addPageBreakElementAfter(context, context.getState().top(), element, tagWorker);
                     if (!childProcessed && !ignoredChildTags.contains(element.name())) {
-                        logger.error(MessageFormatUtil.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
-                                context.getState().top().getClass().getName(), tagWorker.getClass().getName()));
+                        logger.error(
+                                MessageFormatUtil.format(
+                                        Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
+                                        context.getState().top().getClass().getName(),
+                                        tagWorker.getClass().getName()));
                     }
                 } else if (tagWorker.getElementResult() != null) {
                     roots.add(tagWorker.getElementResult());
@@ -372,11 +390,13 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 if (!context.getState().empty()) {
                     boolean contentProcessed = context.getState().top().processContent(content, context);
                     if (!contentProcessed) {
-                        logger.error(MessageFormatUtil.format(LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT,
-                                context.getState().top().getClass().getName()));
+                        logger.error(
+                                MessageFormatUtil.format(
+                                        Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT,
+                                        context.getState().top().getClass().getName()));
                     }
                 } else {
-                    logger.error(LogMessageConstant.NO_CONSUMER_FOUND_FOR_CONTENT);
+                    logger.error(Html2PdfLogMessageConstant.NO_CONSUMER_FOUND_FOR_CONTENT);
                 }
 
             }
@@ -387,7 +407,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(element);
         if (cssApplier == null) {
             if (!ignoredCssTags.contains(element.name())) {
-                logger.error(MessageFormatUtil.format(LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
+                logger.error(MessageFormatUtil.format(
+                        Html2PdfLogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.name()));
             }
         } else {
             cssApplier.apply(context, element, tagWorker);
@@ -450,7 +471,8 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                     }
                 }
                 if (!findSupportedSrc) {
-                    logger.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace));
+                    logger.error(MessageFormatUtil.format(
+                            Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace));
                 }
             }
         }
@@ -607,5 +629,32 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
 
     private boolean isPlaceholder(IElementNode element) {
         return element instanceof CssPseudoElementNode && CssConstants.PLACEHOLDER.equals(((CssPseudoElementNode) element).getPseudoElementName());
+    }
+
+    private static void updateSequenceId(IElement element, SequenceId sequenceId) {
+        if (element instanceof AbstractIdentifiableElement) {
+            final AbstractIdentifiableElement identifiableElement = (AbstractIdentifiableElement) element;
+
+            if (SequenceIdManager.getSequenceId(identifiableElement) == sequenceId) {
+                // potential cyclic reference case: element has been processed already
+                return;
+            }
+
+            SequenceIdManager.setSequenceId(identifiableElement, sequenceId);
+
+            if (identifiableElement instanceof IAbstractElement) {
+                IAbstractElement abstractElement = (IAbstractElement) identifiableElement;
+                updateChildren(abstractElement.getChildren(), sequenceId);
+            }
+        }
+    }
+
+    private static void updateChildren(List<IElement> children, SequenceId sequenceId) {
+        if (children == null) {
+            return;
+        }
+        for (IElement child : children) {
+            updateSequenceId(child, sequenceId);
+        }
     }
 }

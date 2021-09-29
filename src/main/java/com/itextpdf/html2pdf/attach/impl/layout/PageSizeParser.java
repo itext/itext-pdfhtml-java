@@ -42,11 +42,11 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.kernel.geom.PageSize;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 
@@ -105,7 +105,8 @@ class PageSizeParser {
                 pageSize = pageSizeBasedOnLength;
             } else {
                 Logger logger = LoggerFactory.getLogger(PageSizeParser.class);
-                logger.error(MessageFormatUtil.format(LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
+                logger.error(MessageFormatUtil.format(
+                        Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
             }
         } else {
             Boolean landscape = null;
@@ -139,7 +140,8 @@ class PageSizeParser {
                 }
             } else {
                 Logger logger = LoggerFactory.getLogger(PageSizeParser.class);
-                logger.error(MessageFormatUtil.format(LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
+                logger.error(MessageFormatUtil.format(
+                        Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
             }
         }
 

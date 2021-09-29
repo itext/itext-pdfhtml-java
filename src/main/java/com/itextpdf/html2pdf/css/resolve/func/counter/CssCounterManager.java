@@ -45,7 +45,6 @@ package com.itextpdf.html2pdf.css.resolve.func.counter;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.HtmlUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -252,20 +251,6 @@ public class CssCounterManager {
      *
      * @param counterName    the counter name
      * @param listSymbolType the list symbol type
-     * @param node           current element
-     * @return the counter value as a {@link String}
-     * @deprecated Need to be removed in 7.2
-     */
-    @Deprecated
-    public String resolveCounter(String counterName, String listSymbolType, INode node) {
-        return resolveCounter(counterName, HtmlUtils.convertStringCounterGlyphStyleToEnum(listSymbolType));
-    }
-
-    /**
-     * Resolves a counter.
-     *
-     * @param counterName    the counter name
-     * @param listSymbolType the list symbol type
      * @return the counter value as a {@link String}
      */
     public String resolveCounter(String counterName, CounterDigitsGlyphStyle listSymbolType) {
@@ -278,22 +263,6 @@ public class CssCounterManager {
             }
         }
         return HtmlUtils.convertNumberAccordingToGlyphStyle(listSymbolType, (int) result);
-    }
-
-    /**
-     * Resolves counters.
-     *
-     * @param counterName         the counter name
-     * @param counterSeparatorStr the counter separator
-     * @param listSymbolType      the list symbol type
-     * @param node                current element
-     * @return the counters as a {@link String}
-     * @deprecated Need to be removed in 7.2
-     */
-    @Deprecated
-    public String resolveCounters(String counterName, String counterSeparatorStr, String listSymbolType, INode node) {
-        return resolveCounters(counterName,
-                counterSeparatorStr, HtmlUtils.convertStringCounterGlyphStyleToEnum(listSymbolType));
     }
 
     /**
@@ -327,31 +296,6 @@ public class CssCounterManager {
      * Resets the counter.
      *
      * @param counterName the counter name
-     * @param node        current element
-     * @deprecated Need to be removed in 7.2
-     */
-    @Deprecated
-    public void resetCounter(String counterName, INode node) {
-        resetCounter(counterName, DEFAULT_COUNTER_VALUE);
-    }
-
-    /**
-     * Resets the counter.
-     *
-     * @param counterName the counter name
-     * @param value       the new value
-     * @param node        current element
-     * @deprecated Need to be removed in 7.2
-     */
-    @Deprecated
-    public void resetCounter(String counterName, int value, INode node) {
-        resetCounter(counterName, value);
-    }
-
-    /**
-     * Resets the counter.
-     *
-     * @param counterName the counter name
      */
     public void resetCounter(String counterName) {
         resetCounter(counterName, DEFAULT_COUNTER_VALUE);
@@ -365,31 +309,6 @@ public class CssCounterManager {
      */
     public void resetCounter(String counterName, int value) {
         counterValues.put(counterName, value);
-    }
-
-    /**
-     * Increments the counter.
-     *
-     * @param counterName the counter name
-     * @param node        current element.
-     * @deprecated Need to be removed in 7.2
-     */
-    @Deprecated
-    public void incrementCounter(String counterName, INode node) {
-        incrementCounter(counterName, DEFAULT_INCREMENT_VALUE);
-    }
-
-    /**
-     * Increments the counter.
-     *
-     * @param counterName    the counter name
-     * @param incrementValue the increment value
-     * @param node           current element
-     * @deprecated Need to be removed in 7.2
-     */
-    @Deprecated
-    public void incrementCounter(String counterName, int incrementValue, INode node) {
-        incrementCounter(counterName, incrementValue);
     }
 
     /**

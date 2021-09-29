@@ -49,13 +49,13 @@ import java.util.Map;
  * Class that allows to map keys (html tags, css attributes) to the
  * corresponding tag processors (a tag worker or a CSS applier).
  */
-public class TagProcessorMapping {
+public class TagProcessorMapping<T> {
 
     /** The default display key. */
     private static String DEFAULT_DISPLAY_KEY = "defaultKey";
 
     /** The actual mapping. */
-    private Map<String, Map<String, Class<?>>> mapping;
+    private Map<String, Map<String, T>> mapping;
 
     /**
      * Creates a new {@link TagProcessorMapping} instance.
@@ -68,10 +68,10 @@ public class TagProcessorMapping {
      * Add a new tag to the map.
      *
      * @param tag the key
-     * @param mappingClass the class that maps to the tag
+     * @param mapping the class instance that maps to the tag
      */
-    public void putMapping(String tag, Class<?> mappingClass) {
-        ensureMappingExists(tag).put(DEFAULT_DISPLAY_KEY, mappingClass);
+    public void putMapping(String tag, T mapping) {
+        ensureMappingExists(tag).put(DEFAULT_DISPLAY_KEY, mapping);
     }
 
     /**
@@ -79,10 +79,10 @@ public class TagProcessorMapping {
      *
      * @param tag the key
      * @param display the display value
-     * @param mappingClass the class that maps to the tag
+     * @param mapping the class instance that maps to the tag
      */
-    public void putMapping(String tag, String display, Class<?> mappingClass) {
-        ensureMappingExists(tag).put(display, mappingClass);
+    public void putMapping(String tag, String display, T mapping) {
+        ensureMappingExists(tag).put(display, mapping);
     }
 
     /**
@@ -91,7 +91,7 @@ public class TagProcessorMapping {
      * @param tag the key
      * @return the class that maps to the tag
      */
-    public Class<?> getMapping(String tag) {
+    public Object getMapping(String tag) {
         return getMapping(tag, DEFAULT_DISPLAY_KEY);
     }
 
@@ -102,8 +102,8 @@ public class TagProcessorMapping {
      * @param display the display value
      * @return the class that maps to the tag
      */
-    public Class<?> getMapping(String tag, String display) {
-        Map<String, Class<?>> tagMapping = mapping.get(tag);
+    public Object getMapping(String tag, String display) {
+        Map<String, T> tagMapping = mapping.get(tag);
         if (tagMapping == null) {
             return null;
         } else {
@@ -117,11 +117,11 @@ public class TagProcessorMapping {
      * @param tag the key
      * @return the map
      */
-    private Map<String, Class<?>> ensureMappingExists(String tag) {
+    private Map<String, T> ensureMappingExists(String tag) {
         if (mapping.containsKey(tag)) {
             return mapping.get(tag);
         } else {
-            Map<String, Class<?>> tagMapping = new HashMap<String, Class<?>>();
+            Map<String, T> tagMapping = new HashMap<>();
             mapping.put(tag, tagMapping);
             return tagMapping;
         }

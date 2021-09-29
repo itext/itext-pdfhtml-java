@@ -63,7 +63,7 @@ public class HorizontalAlignmentTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void alignAttribute01() throws IOException, InterruptedException {
-        // TODO result is somewhat different from what browsers render; see TODO in HtmlStylesToCssConverter.AlignAttributeConverter
+        // TODO DEVSIX-5518 result is somewhat different from what browsers render
         convertToPdfAndCompare("alignAttribute01", sourceFolder, destinationFolder);
     }
 
@@ -79,7 +79,6 @@ public class HorizontalAlignmentTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void alignAttribute04() throws IOException, InterruptedException {
-        // TODO result is somewhat different from what browsers render; see TODO in HtmlStylesToCssConverter.AlignAttributeConverter
         convertToPdfAndCompare("alignAttribute04", sourceFolder, destinationFolder);
     }
 

@@ -60,22 +60,22 @@ import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class MetaTest extends ExtendedITextTest {
-
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/MetaTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/MetaTest/";
+    private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/element/MetaTest/";
+    private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/element/MetaTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
     public void meta01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "metaTest01.html"), new File(destinationFolder + "metaTest01.pdf"));
-        PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(destinationFolder + "metaTest01.pdf")).getDocumentInfo();
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "metaTest01.html"), new File(DESTINATION_FOLDER + "metaTest01.pdf"));
+        PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(DESTINATION_FOLDER + "metaTest01.pdf")).getDocumentInfo();
         CompareTool compareTool = new CompareTool();
-        Assert.assertNull(compareTool.compareDocumentInfo(destinationFolder + "metaTest01.pdf", sourceFolder + "cmp_metaTest01.pdf"));
-        Assert.assertNull(compareTool.compareByContent(destinationFolder + "metaTest01.pdf", sourceFolder + "cmp_metaTest01.pdf", destinationFolder, "diff01_"));
+        Assert.assertNull(compareTool.compareByContent(DESTINATION_FOLDER + "metaTest01.pdf", SOURCE_FOLDER + "cmp_metaTest01.pdf",
+                DESTINATION_FOLDER, "diff01_"));
+        Assert.assertNull(compareTool.compareDocumentInfo(DESTINATION_FOLDER + "metaTest01.pdf", SOURCE_FOLDER + "cmp_metaTest01.pdf"));
         Assert.assertEquals(pdfDocInfo.getMoreInfo("test"), "the test content");
     }
 
@@ -83,11 +83,12 @@ public class MetaTest extends ExtendedITextTest {
     // In this test we also check that it's not possible to override description name content
     // (which iText converts to pdf's Subject content) with Subject name content
     public void meta02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "metaTest02.html"), new File(destinationFolder + "metaTest02.pdf"));
-        PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(destinationFolder + "metaTest02.pdf")).getDocumentInfo();
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "metaTest02.html"), new File(DESTINATION_FOLDER + "metaTest02.pdf"));
+        PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(DESTINATION_FOLDER + "metaTest02.pdf")).getDocumentInfo();
         CompareTool compareTool = new CompareTool();
-        Assert.assertNull(compareTool.compareDocumentInfo(destinationFolder + "metaTest02.pdf", sourceFolder + "cmp_metaTest02.pdf"));
-        Assert.assertNull(compareTool.compareByContent(destinationFolder + "metaTest02.pdf", sourceFolder + "cmp_metaTest02.pdf", destinationFolder, "diff02_"));
+        Assert.assertNull(compareTool.compareByContent(DESTINATION_FOLDER + "metaTest02.pdf", SOURCE_FOLDER + "cmp_metaTest02.pdf",
+                DESTINATION_FOLDER, "diff02_"));
+        Assert.assertNull(compareTool.compareDocumentInfo(DESTINATION_FOLDER + "metaTest02.pdf", SOURCE_FOLDER + "cmp_metaTest02.pdf"));
         Assert.assertEquals(pdfDocInfo.getAuthor(), "Bruno Lowagie");
         Assert.assertEquals(pdfDocInfo.getKeywords(), "metadata, keywords, test");
         Assert.assertEquals(pdfDocInfo.getSubject(), "This is the description of the page");
@@ -97,9 +98,10 @@ public class MetaTest extends ExtendedITextTest {
 
     @Test
     public void meta03Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "metaTest03.html"), new File(destinationFolder + "metaTest03.pdf"));
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "metaTest03.html"), new File(DESTINATION_FOLDER + "metaTest03.pdf"));
         CompareTool compareTool = new CompareTool();
-        Assert.assertNull(compareTool.compareDocumentInfo(destinationFolder + "metaTest03.pdf", sourceFolder + "cmp_metaTest03.pdf"));
-        Assert.assertNull(compareTool.compareByContent(destinationFolder + "metaTest03.pdf", sourceFolder + "cmp_metaTest03.pdf", destinationFolder, "diff03_"));
+        Assert.assertNull(compareTool.compareByContent(DESTINATION_FOLDER + "metaTest03.pdf", SOURCE_FOLDER + "cmp_metaTest03.pdf",
+                DESTINATION_FOLDER, "diff03_"));
+        Assert.assertNull(compareTool.compareDocumentInfo(DESTINATION_FOLDER + "metaTest03.pdf", SOURCE_FOLDER + "cmp_metaTest03.pdf"));
     }
 }

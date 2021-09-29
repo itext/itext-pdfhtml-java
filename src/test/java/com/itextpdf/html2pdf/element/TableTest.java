@@ -44,9 +44,10 @@ package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.kernel.PdfException;
+import com.itextpdf.kernel.exceptions.PdfException;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -58,19 +59,18 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.FileOutputStream;
-import java.util.List;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.rules.ExpectedException;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import org.junit.rules.ExpectedException;
+import java.util.List;
 
 @Category(IntegrationTest.class)
 public class TableTest extends ExtendedITextTest {
@@ -163,13 +163,13 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, count = 3))
+    @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, count = 3))
     public void helloTableFixedLackOfTableWidthTest03() throws IOException, InterruptedException {
         runTest("helloTableFixedLackOfTableWidthTest03", false, new PageSize(PageSize.A3).rotate());
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, count = 3))
+    @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, count = 3))
     public void helloTableFixedLackOfTableWidthTest03A() throws IOException, InterruptedException {
         runTest("helloTableFixedLackOfTableWidthTest03A", false, new PageSize(PageSize.A3).rotate());
     }
@@ -267,8 +267,8 @@ public class TableTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate =  com.itextpdf.io.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE),
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)
+            @LogMessage(messageTemplate =  IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE),
+            @LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)
     })
     //TODO update after DEVSIX-2395 and DEVSIX-2399
     public void checkHeaderFooterTaggedTables() throws IOException, InterruptedException {
@@ -276,7 +276,7 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, count = 3)})
+    @LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)})
     //TODO update after DEVSIX-2395 and DEVSIX-2399
     public void checkFloatInTdTagged() throws IOException, InterruptedException {
         runTest("checkFloatInTdTagged");
@@ -290,8 +290,8 @@ public class TableTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate =  com.itextpdf.io.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 3),
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2)
+            @LogMessage(messageTemplate =  IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 3),
+            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2)
     })
     //TODO update after DEVSIX-2382
     public void checkLargeImagesInTable() throws IOException, InterruptedException {
@@ -339,13 +339,13 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, count = 2))
     public void thTagTest() throws IOException, InterruptedException {
         runTest("thTag", true);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, count = 2))
     public void theadTagTest() throws IOException, InterruptedException {
         runTest("theadTagTest", true);
     }
@@ -516,14 +516,14 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, count = 4)})
+    @LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, count = 4)})
     //TODO: DEVSIX-2895 - inconsistency in table width between pdf and html
     public void tableWidthMoreThan100PercentTest() throws IOException, InterruptedException {
         runTest("tableWidthMoreThan100Percent");
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED, count = 63)})
+    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED, count = 63)})
     //https://codepen.io/heypablete/pen/qdIsm
     //TODO: update after DEVSIX-1101
     public void checkResponsiveTableExample() throws IOException, InterruptedException {
@@ -532,8 +532,8 @@ public class TableTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
-            @LogMessage(messageTemplate = LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, count = 2),
+            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, count = 2),
     })
     //TODO: DEVSIX-3022 - Inputs bigger than enclosing cell force table to split
     public void tableWithChildrenBiggerThanCellTest() throws IOException, InterruptedException {

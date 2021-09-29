@@ -43,7 +43,7 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
@@ -76,7 +76,7 @@ public class ObjectFitTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate =
-            LogMessageConstant.UNEXPECTED_VALUE_OF_OBJECT_FIT))
+            Html2PdfLogMessageConstant.UNEXPECTED_VALUE_OF_OBJECT_FIT))
     public void objectFitUnexpectedValueTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "objectFit_test_unexpected.html"),
                 new File(destinationFolder + "objectFit_test_unexpected.pdf"));

@@ -23,6 +23,7 @@
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
@@ -39,7 +40,7 @@ public class VerticalAlignSuper001Test extends W3CCssTest {
     // TODO DEVSIX-3757 update cmp file after completing the ticket
     @Override
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, count = 2),
+            @LogMessage(messageTemplate = IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, count = 2),
     })
     public void test() throws IOException, InterruptedException {
         super.test();

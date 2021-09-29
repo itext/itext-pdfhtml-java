@@ -42,14 +42,15 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.layout.LayoutPosition;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.UnitValue;
+import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 
 import org.slf4j.Logger;
@@ -140,7 +141,8 @@ public final class PositionApplierUtil {
             if (leftVal.isPointValue()) {
                 element.setProperty(layoutPropertyMapping, leftVal.getValue());
             } else {
-                logger.error(MessageFormatUtil.format(LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.LEFT));
+                logger.error(MessageFormatUtil.format(
+                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CommonCssConstants.LEFT));
             }
         }
     }
@@ -161,7 +163,8 @@ public final class PositionApplierUtil {
             if (rightVal.isPointValue()) {
                 element.setProperty(layoutPropertyMapping, rightVal.getValue());
             } else {
-                logger.error(MessageFormatUtil.format(LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.RIGHT));
+                logger.error(MessageFormatUtil.format(
+                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CommonCssConstants.RIGHT));
             }
         }
     }
@@ -182,7 +185,8 @@ public final class PositionApplierUtil {
             if (topVal.isPointValue()) {
                 element.setProperty(layoutPropertyMapping, topVal.getValue());
             } else {
-                logger.error(MessageFormatUtil.format(LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.TOP));
+                logger.error(MessageFormatUtil.format(
+                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CommonCssConstants.TOP));
             }
         }
     }
@@ -203,7 +207,8 @@ public final class PositionApplierUtil {
             if (bottomVal.isPointValue()) {
                 element.setProperty(layoutPropertyMapping, bottomVal.getValue());
             } else {
-                logger.error(MessageFormatUtil.format(LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.BOTTOM));
+                logger.error(MessageFormatUtil.format(
+                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CommonCssConstants.BOTTOM));
             }
         }
     }

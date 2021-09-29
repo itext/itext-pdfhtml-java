@@ -42,11 +42,11 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
 import com.itextpdf.kernel.geom.Rectangle;
@@ -62,10 +62,10 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.property.IListSymbolFactory;
-import com.itextpdf.layout.property.ListNumberingType;
-import com.itextpdf.layout.property.ListSymbolPosition;
-import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.properties.IListSymbolFactory;
+import com.itextpdf.layout.properties.ListNumberingType;
+import com.itextpdf.layout.properties.ListSymbolPosition;
+import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
@@ -155,10 +155,10 @@ public final class ListStyleApplierUtil {
                     }
                 } catch (StyledXMLParserException e) {
                     LOGGER.warn(MessageFormatUtil.format(
-                            LogMessageConstant.INVALID_GRADIENT_DECLARATION, listStyleImageStr));
+                            Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, listStyleImageStr));
                 }
             } else {
-                imageXObject = context.getResourceResolver().retrieveImageExtended(CssUtils.extractUrl(listStyleImageStr));
+                imageXObject = context.getResourceResolver().retrieveImage(CssUtils.extractUrl(listStyleImageStr));
             }
 
             if (imageXObject != null) {
@@ -213,7 +213,7 @@ public final class ListStyleApplierUtil {
         } else {
             if (style != null) {
                 Logger logger = LoggerFactory.getLogger(ListStyleApplierUtil.class);
-                logger.error(MessageFormatUtil.format(LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
+                logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
             }
 
             // Fallback style

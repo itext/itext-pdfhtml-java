@@ -42,13 +42,13 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_color_4;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 // Color values as in this test are considered for now as invalid. E.g. Chrome does the same.
-@LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
+@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
 public class Rgba003Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

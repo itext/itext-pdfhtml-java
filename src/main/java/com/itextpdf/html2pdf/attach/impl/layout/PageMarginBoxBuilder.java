@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
@@ -54,8 +54,8 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.minmaxwidth.MinMaxWidthUtils;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.renderer.AreaBreakRenderer;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
@@ -134,10 +134,9 @@ class PageMarginBoxBuilder {
     }
 
     private IElement processMarginBoxContent(PageMarginBoxContextNode marginBoxContentNode, int pageNumber, ProcessorContext context) {
-        IElementNode dummyMarginBoxNode = new PageMarginBoxDummyElement();
-        dummyMarginBoxNode.setStyles(marginBoxContentNode.getStyles());
+        marginBoxContentNode.setStyles(marginBoxContentNode.getStyles());
         DefaultCssResolver cssResolver = new DefaultCssResolver(marginBoxContentNode, context);
-        ITagWorker marginBoxWorker = context.getTagWorkerFactory().getTagWorker(dummyMarginBoxNode, context);
+        ITagWorker marginBoxWorker = context.getTagWorkerFactory().getTagWorker(marginBoxContentNode, context);
         for (int i = 0; i < marginBoxContentNode.childNodes().size(); i++) {
             INode childNode = marginBoxContentNode.childNodes().get(i);
             if (childNode instanceof ITextNode) {
@@ -164,17 +163,17 @@ class PageMarginBoxBuilder {
                     marginBoxWorker.processTagChild(runningElement.getProcessedElementWorker(), context);
                 }
             } else {
-                LoggerFactory.getLogger(this.getClass()).error(LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
+                LoggerFactory.getLogger(this.getClass()).error(Html2PdfLogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
             }
         }
 
-        marginBoxWorker.processEnd(dummyMarginBoxNode, context);
+        marginBoxWorker.processEnd(marginBoxContentNode, context);
 
         if (!(marginBoxWorker.getElementResult() instanceof IElement)) {
             throw new IllegalStateException("Custom tag worker implementation for margin boxes shall return IElement for #getElementResult() call.");
         }
 
-        ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(dummyMarginBoxNode);
+        ICssApplier cssApplier = context.getCssApplierFactory().getCssApplier(marginBoxContentNode);
         cssApplier.apply(context, marginBoxContentNode, marginBoxWorker);
 
         return (IElement) marginBoxWorker.getElementResult();

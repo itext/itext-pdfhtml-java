@@ -48,7 +48,7 @@ import com.itextpdf.html2pdf.attach.util.WaitingColgroupsHelper;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.UnitValue;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -46,7 +46,7 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
-import com.itextpdf.kernel.counter.event.IMetaInfo;
+import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever;
@@ -440,25 +440,23 @@ public class ConverterProperties {
     /**
      * Gets html meta info.
      * <p>
-     * This meta info will be passed with to {@link com.itextpdf.kernel.counter.EventCounter}
-     * with {@link com.itextpdf.html2pdf.events.PdfHtmlEvent} and can be used to determine event origin.
+     * This meta info will be used to determine event origin.
      *
      * @return converter's {@link IMetaInfo}
      */
-    public IMetaInfo getEventCountingMetaInfo() {
-        return metaInfo;
+    IMetaInfo getEventMetaInfo() {
+        return metaInfo == null ? HtmlConverter.createPdf2HtmlMetaInfo() : metaInfo;
     }
 
     /**
      * Sets html meta info.
      * <p>
-     * This meta info will be passed with to {@link com.itextpdf.kernel.counter.EventCounter}
-     * with {@link com.itextpdf.html2pdf.events.PdfHtmlEvent} and can be used to determine event origin.
+     * This meta info will be used to determine event origin.
      *
      * @param metaInfo meta info to set
      * @return the {@link ConverterProperties} instance
      */
-    public ConverterProperties setEventCountingMetaInfo(IMetaInfo metaInfo) {
+    public ConverterProperties setEventMetaInfo(IMetaInfo metaInfo) {
         this.metaInfo = metaInfo;
         return this;
     }

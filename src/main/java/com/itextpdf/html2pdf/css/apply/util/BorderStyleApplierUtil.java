@@ -56,9 +56,9 @@ import com.itextpdf.layout.borders.OutsetBorder;
 import com.itextpdf.layout.borders.RidgeBorder;
 import com.itextpdf.layout.borders.RoundDotsBorder;
 import com.itextpdf.layout.borders.SolidBorder;
-import com.itextpdf.layout.property.BorderRadius;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.BorderRadius;
+import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 

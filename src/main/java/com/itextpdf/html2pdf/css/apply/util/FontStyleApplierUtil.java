@@ -42,33 +42,34 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.font.FontFamilySplitter;
-import com.itextpdf.layout.property.BaseDirection;
-import com.itextpdf.layout.property.HorizontalAlignment;
-import com.itextpdf.layout.property.Leading;
-import com.itextpdf.layout.property.LineHeight;
-import com.itextpdf.layout.property.OverflowWrapPropertyValue;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.TextAlignment;
-import com.itextpdf.layout.property.TransparentColor;
-import com.itextpdf.layout.property.Underline;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.BaseDirection;
+import com.itextpdf.layout.properties.HorizontalAlignment;
+import com.itextpdf.layout.properties.Leading;
+import com.itextpdf.layout.properties.LineHeight;
+import com.itextpdf.layout.properties.OverflowWrapPropertyValue;
+import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.TransparentColor;
+import com.itextpdf.layout.properties.Underline;
+import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.splitting.DefaultSplitCharacters;
+import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.layout.splitting.BreakAllSplitCharacters;
 import com.itextpdf.layout.splitting.KeepAllSplitCharacters;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
+import com.itextpdf.styledxmlparser.util.FontFamilySplitterUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +111,7 @@ public final class FontStyleApplierUtil {
 
         if (cssProps.get(CssConstants.FONT_FAMILY) != null) {
             // TODO DEVSIX-2534
-            List<String> fontFamilies = FontFamilySplitter.splitFontFamily(cssProps.get(CssConstants.FONT_FAMILY));
+            List<String> fontFamilies = FontFamilySplitterUtil.splitFontFamily(cssProps.get(CssConstants.FONT_FAMILY));
             element.setProperty(Property.FONT, fontFamilies.toArray(new String[fontFamilies.size()]));
         }
         if (cssProps.get(CssConstants.FONT_WEIGHT) != null) {
@@ -172,7 +173,7 @@ public final class FontStyleApplierUtil {
             String overflowWrap = cssProps.get(CssConstants.OVERFLOW_WRAP);
             if (CssConstants.ANYWHERE.equals(overflowWrap)) {
                 element.setProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.ANYWHERE);
-            } else if (CssConstants.BREAK_WORD.equals(overflowWrap)) {
+            } else if (CommonCssConstants.BREAK_WORD.equals(overflowWrap)) {
                 element.setProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.BREAK_WORD);
             } else {
                 element.setProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.NORMAL);
@@ -183,7 +184,7 @@ public final class FontStyleApplierUtil {
                 element.setProperty(Property.SPLIT_CHARACTERS, new BreakAllSplitCharacters());
             } else if (CssConstants.KEEP_ALL.equals(wordBreak)) {
                 element.setProperty(Property.SPLIT_CHARACTERS, new KeepAllSplitCharacters());
-            } else if (CssConstants.BREAK_WORD.equals(wordBreak)) {
+            } else if (CommonCssConstants.BREAK_WORD.equals(wordBreak)) {
                 // CSS specification cite that describes the reason for overflow-wrap overriding:
                 // "For compatibility with legacy content, the word-break property also supports
                 //  a deprecated break-word keyword. When specified, this has the same effect
@@ -210,7 +211,7 @@ public final class FontStyleApplierUtil {
             }
         } else {
             if (textDecorationColorProp.startsWith("hsl")) {
-                logger.error(LogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
+                logger.error(Html2PdfLogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
                 textDecorationColor = ColorConstants.BLACK;
             } else {
                 colors = CssDimensionParsingUtils.parseRgbaColor(textDecorationColorProp);
@@ -225,7 +226,7 @@ public final class FontStyleApplierUtil {
             List<Underline> underlineList = new ArrayList<>();
             for (String textDecorationLine : textDecorationLines) {
                 if (CssConstants.BLINK.equals(textDecorationLine)) {
-                    logger.error(LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
+                    logger.error(Html2PdfLogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
                 } else if (CssConstants.LINE_THROUGH.equals(textDecorationLine)) {
                     underlineList.add(new Underline(textDecorationColor, opacity, .75f, 0, 0, 1 / 4f, PdfCanvasConstants.LineCapStyle.BUTT));
                 } else if (CssConstants.OVERLINE.equals(textDecorationLine)) {
@@ -241,14 +242,16 @@ public final class FontStyleApplierUtil {
             element.setProperty(Property.UNDERLINE, underlineList);
         }
 
-        String textIndent = cssProps.get(CssConstants.TEXT_INDENT);
+        String textIndent = cssProps.get(CommonCssConstants.TEXT_INDENT);
         if (textIndent != null) {
             UnitValue textIndentValue = CssDimensionParsingUtils.parseLengthValueToPt(textIndent, em, rem);
             if (textIndentValue != null) {
                 if (textIndentValue.isPointValue()) {
                     element.setProperty(Property.FIRST_LINE_INDENT, textIndentValue.getValue());
                 } else {
-                    logger.error(MessageFormatUtil.format(LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants.TEXT_INDENT));
+                    logger.error(MessageFormatUtil.format(
+                            Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
+                            CommonCssConstants.TEXT_INDENT));
                 }
             }
         }
@@ -282,7 +285,7 @@ public final class FontStyleApplierUtil {
 
     private static void setLineHeight(IPropertyContainer elementToSet, String lineHeight, float em, float rem) {
         if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight) && !CssConstants.AUTO.equals(lineHeight)) {
-            if (CssTypesValidationUtils.isNumericValue(lineHeight)) {
+            if (CssTypesValidationUtils.isNumber(lineHeight)) {
                 Float number = CssDimensionParsingUtils.parseFloat(lineHeight);
                 if (number != null) {
                     elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createMultipliedValue((float)number));
@@ -309,7 +312,7 @@ public final class FontStyleApplierUtil {
         // nevertheless some browsers compute it as normal so we apply the same behaviour.
         // What's more, it's basically the same thing as if lineHeight is not set in the first place
         if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight) && !CssConstants.AUTO.equals(lineHeight)) {
-            if (CssTypesValidationUtils.isNumericValue(lineHeight)) {
+            if (CssTypesValidationUtils.isNumber(lineHeight)) {
                 Float mult = CssDimensionParsingUtils.parseFloat(lineHeight);
                 if (mult != null) {
                     element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));

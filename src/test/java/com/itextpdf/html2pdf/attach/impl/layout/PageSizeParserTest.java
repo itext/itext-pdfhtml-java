@@ -42,8 +42,11 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.UnitTest;
 import org.junit.Assert;
 import org.junit.Test;
@@ -82,9 +85,16 @@ public class PageSizeParserTest extends ExtendedITextTest {
         assertSizesAreSame(expected, actual);
     }
 
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, count = 1),})
+    public void incorrectPageSizeNameTest() {
+        PageSize expected = PageSize.LEDGER;
+        PageSize actual = PageSizeParser.fetchPageSize("INCORRECT_PAGE_SIZE", 10, 10, PageSize.LEDGER);
+        assertSizesAreSame(expected, actual);
+    }
+
     private void assertSizesAreSame(PageSize a, PageSize b) {
         Assert.assertEquals(a.getWidth(), b.getWidth(), EPS);
         Assert.assertEquals(a.getHeight(), b.getHeight(), EPS);
     }
-
 }

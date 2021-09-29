@@ -47,9 +47,9 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.layout.property.VerticalAlignment;
+import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.UnitValue;
+import com.itextpdf.layout.properties.VerticalAlignment;
 import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
@@ -263,7 +263,7 @@ public class VerticalAlignmentApplierUtil {
             } else {
                 UnitValue lineHeightValue = CssDimensionParsingUtils
                         .parseLengthValueToPt(lineHeightStr, fontSize, rootFontSize);
-                if (CssTypesValidationUtils.isNumericValue(lineHeightStr)) {
+                if (CssTypesValidationUtils.isNumber(lineHeightStr)) {
                     lineHeightActualValue = fontSize * lineHeightValue.getValue();
                 } else if (lineHeightValue.isPointValue()) {
                     lineHeightActualValue = lineHeightValue.getValue();

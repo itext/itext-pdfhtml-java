@@ -42,58 +42,52 @@
  */
 package com.itextpdf.html2pdf.element;
 
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.IOException;
-
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class DivTest extends ExtendedITextTest {
+public class DivTest extends ExtendedHtmlConversionITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/DivTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/DivTest/";
+    public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/element/DivTest/";
+    public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/element/DivTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
     public void divTest01() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "divTest01.html"), new File(destinationFolder + "divTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "divTest01.pdf", sourceFolder + "cmp_divTest01.pdf", destinationFolder, "diff01_"));
+        convertToPdfAndCompare("divTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void divTest02() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "divTest02.html"), new File(destinationFolder + "divTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "divTest02.pdf", sourceFolder + "cmp_divTest02.pdf", destinationFolder, "diff02_"));
+        convertToPdfAndCompare("divTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void divTest03() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "divTest03.html"), new File(destinationFolder + "divTest03.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "divTest03.pdf", sourceFolder + "cmp_divTest03.pdf", destinationFolder, "diff03_"));
+        convertToPdfAndCompare("divTest03", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void divTest04() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "divTest04.html"), new File(destinationFolder + "divTest04.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "divTest04.pdf", sourceFolder + "cmp_divTest04.pdf", destinationFolder, "diff04_"));
+        convertToPdfAndCompare("divTest04", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void divInTablePercentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "divInTablePercent.html"), new File(destinationFolder + "divInTablePercent.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "divInTablePercent.pdf", sourceFolder + "cmp_divInTablePercent.pdf", destinationFolder, "diff05_"));
+        convertToPdfAndCompare("divInTablePercent", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    @Test
+    public void divInTableDataCellTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("divInTableDataCell", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
 }

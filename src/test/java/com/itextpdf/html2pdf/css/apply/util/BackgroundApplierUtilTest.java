@@ -23,23 +23,23 @@
 package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.html2pdf.ConverterProperties;
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.BodyHtmlStylesContainer;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.colors.gradients.AbstractLinearGradientBuilder;
 import com.itextpdf.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.property.Background;
-import com.itextpdf.layout.property.BackgroundBox;
-import com.itextpdf.layout.property.BackgroundImage;
-import com.itextpdf.layout.property.BackgroundPosition;
-import com.itextpdf.layout.property.BackgroundRepeat.BackgroundRepeatValue;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.Background;
+import com.itextpdf.layout.properties.BackgroundBox;
+import com.itextpdf.layout.properties.BackgroundImage;
+import com.itextpdf.layout.properties.BackgroundPosition;
+import com.itextpdf.layout.properties.BackgroundRepeat.BackgroundRepeatValue;
+import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
@@ -100,7 +100,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                     BackgroundImage image = (BackgroundImage) value;
                     PdfImageXObject pdfImage = image.getImage();
                     Assert.assertNotNull(pdfImage);
-                    PdfXObject expectedImage = innerContext.getResourceResolver().retrieveImageExtended(
+                    PdfXObject expectedImage = innerContext.getResourceResolver().retrieveImage(
                             CssUtils.extractUrl(innerImage));
                     Assert.assertTrue(expectedImage instanceof PdfImageXObject);
                     Assert.assertEquals(Arrays.toString(((PdfImageXObject) expectedImage).getImageBytes()),
@@ -116,7 +116,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)
     })
     public void backgroundInvalidImageTest() {
         final String image = "url(img.jpg)";
@@ -208,7 +208,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                     BackgroundImage image = (BackgroundImage) value;
                     PdfImageXObject pdfImage = image.getImage();
                     Assert.assertNotNull(pdfImage);
-                    PdfXObject expectedImage = innerContext.getResourceResolver().retrieveImageExtended(
+                    PdfXObject expectedImage = innerContext.getResourceResolver().retrieveImage(
                             CssUtils.extractUrl(imagesArray[i]));
                     Assert.assertTrue(expectedImage instanceof PdfImageXObject);
                     Assert.assertEquals(Arrays.toString(((PdfImageXObject) expectedImage).getImageBytes()),

@@ -42,19 +42,20 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.ContextMappingHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
-import com.itextpdf.io.util.FileUtil;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.commons.utils.FileUtil;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.exceptions.SvgProcessingException;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
@@ -109,7 +110,7 @@ public class ObjectTagWorker implements ITagWorker {
             try (InputStream svgStream = context.getResourceResolver().retrieveResourceAsInputStream(dataValue)) {
                 if (svgStream != null) {
                     SvgConverterProperties props = ContextMappingHelper.mapToSvgConverterProperties(context);
-                    if (!context.getResourceResolver().isDataSrc(dataValue)) {
+                    if (!ResourceResolver.isDataSrc(dataValue)) {
                         URL fullURL = context.getResourceResolver().resolveAgainstBaseUri(dataValue);
                         String dir = FileUtil.parentDirectory(fullURL);
                         props.setBaseUri(dir);
@@ -119,8 +120,12 @@ public class ObjectTagWorker implements ITagWorker {
             } catch (SvgProcessingException spe) {
                 LOGGER.error(spe.getMessage());
             } catch (IOException | URISyntaxException ie) {
-                LOGGER.error(MessageFormatUtil.format(LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI,
-                        context.getBaseUri(), element.getAttribute(AttributeConstants.DATA), ie));
+                LOGGER.error(
+                        MessageFormatUtil.format(
+                                Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI,
+                                context.getBaseUri(),
+                                element.getAttribute(AttributeConstants.DATA),
+                                ie));
             }
         }
     }
@@ -142,7 +147,7 @@ public class ObjectTagWorker implements ITagWorker {
             }
 
         } else {
-            LOGGER.error(LogMessageConstant.PDF_DOCUMENT_NOT_PRESENT);
+            LOGGER.error(Html2PdfLogMessageConstant.PDF_DOCUMENT_NOT_PRESENT);
         }
     }
 

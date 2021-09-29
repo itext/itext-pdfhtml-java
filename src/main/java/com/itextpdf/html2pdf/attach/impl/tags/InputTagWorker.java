@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
@@ -51,7 +51,7 @@ import com.itextpdf.html2pdf.attach.impl.layout.form.element.CheckBox;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Radio;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
@@ -93,7 +93,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
         if (!AttributeConstants.INPUT_TYPE_VALUES.contains(inputType)) {
             if (null != inputType && 0 != inputType.length()) {
                 Logger logger = LoggerFactory.getLogger(InputTagWorker.class);
-                logger.warn(MessageFormatUtil.format(LogMessageConstant.INPUT_TYPE_IS_INVALID, inputType));
+                logger.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.INPUT_TYPE_IS_INVALID, inputType));
             }
             inputType = AttributeConstants.TEXT;
         }
@@ -146,7 +146,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
             }
         } else {
             Logger logger = LoggerFactory.getLogger(InputTagWorker.class);
-            logger.error(MessageFormatUtil.format(LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
+            logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
         }
         if (formElement != null) {
             formElement.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());

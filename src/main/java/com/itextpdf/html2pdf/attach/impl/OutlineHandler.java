@@ -42,15 +42,15 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.PdfOutline;
 import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.kernel.pdf.navigation.PdfDestination;
 import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
 
@@ -218,7 +218,7 @@ public class OutlineHandler {
     }
 
     /**
-     * Generate the unique outline name.
+     * Generate the outline name.
      *
      * This method is used in the {@link #addOutlineAndDestToDocument} method.
      * You can override this method to set your own way to generate the outline names.
@@ -226,7 +226,7 @@ public class OutlineHandler {
      * @param element the element
      * @return the unique destination name
      */
-    protected String generateUniqueOutlineName(IElementNode element) {
+    protected String generateOutlineName(IElementNode element) {
         String tagName = element.name();
         String content = ((JsoupElementNode) element).text();
         if (content.isEmpty()) {
@@ -258,7 +258,7 @@ public class OutlineHandler {
                 parent = parent.getParent();
                 levelsInProcess.pop();
             }
-            PdfOutline outline = parent.addOutline(generateUniqueOutlineName(element));
+            PdfOutline outline = parent.addOutline(generateOutlineName(element));
             String destination = generateUniqueDestinationName(element);
             outline.addDestination(PdfDestination.makeDestination(new PdfString(destination)));
 
@@ -288,7 +288,8 @@ public class OutlineHandler {
                 tagWorker.getElementResult().setProperty(Property.DESTINATION, content);
             } else {
                 Logger logger = LoggerFactory.getLogger(OutlineHandler.class);
-                logger.warn(MessageFormatUtil.format(LogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG, tagName));
+                logger.warn(MessageFormatUtil.format(
+                        Html2PdfLogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG, tagName));
             }
         }
         return this;
@@ -298,7 +299,7 @@ public class OutlineHandler {
      * Gets the unique ID.
      *
      * This method is used in the {@link #generateUniqueDestinationName} method to generate the unique
-     * destination names and in the {@link #generateUniqueOutlineName} method to generate the unique
+     * destination names and in the {@link #generateOutlineName} method to generate the unique
      * outline names. The {@link #destCounter} map serves to achieve the uniqueness of an ID.
      *
      * @param key the key

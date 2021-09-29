@@ -63,15 +63,6 @@ public class SvgProcessingUtil {
     private ResourceResolver resourceResolver;
 
     /**
-     * Creates a new {@link SvgProcessingUtil} instance.
-     * @deprecated will be removed in next major release
-     */
-    @Deprecated
-    public SvgProcessingUtil() {
-        resourceResolver = new ResourceResolver(null);
-    }
-
-    /**
      * Creates a new {@link SvgProcessingUtil} instance based on {@link ResourceResolver}
      * which is used to resolve a variety of resources.
      *

@@ -22,15 +22,16 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
 import com.itextpdf.html2pdf.html.HtmlUtils;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.font.otf.GlyphLine;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.TargetCounterHandler;
@@ -44,7 +45,7 @@ import java.util.List;
 /**
  * {@link TextRenderer} implementation for the page target-counter.
  */
-public class PageTargetCountRenderer extends TextRenderer {
+class PageTargetCountRenderer extends TextRenderer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PageTargetCountRenderer.class);
 
@@ -93,7 +94,8 @@ public class PageTargetCountRenderer extends TextRenderer {
     @Override
     public void draw(DrawContext drawContext) {
         if (!TargetCounterHandler.isValueDefinedForThisId(this, target)) {
-            LOGGER.warn(MessageFormatUtil.format(LogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, target));
+            LOGGER.warn(MessageFormatUtil.format(
+                    Html2PdfLogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, target));
         }
         super.draw(drawContext);
     }
@@ -106,7 +108,7 @@ public class PageTargetCountRenderer extends TextRenderer {
         if (PageTargetCountRenderer.class != this.getClass()) {
             Logger logger = LoggerFactory.getLogger(PageTargetCountRenderer.class);
             logger.error(MessageFormatUtil.format(
-                    com.itextpdf.io.LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
+                    IoLogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
         }
         return new PageTargetCountRenderer((PageTargetCountElement) modelElement);
     }
@@ -119,7 +121,7 @@ public class PageTargetCountRenderer extends TextRenderer {
         if (PageTargetCountRenderer.class != this.getClass()) {
             Logger logger = LoggerFactory.getLogger(PageTargetCountRenderer.class);
             logger.error(MessageFormatUtil.format(
-                    com.itextpdf.io.LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN));
+                    IoLogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN));
         }
         PageTargetCountRenderer copy = new PageTargetCountRenderer(this);
         copy.setProcessedGlyphLineAndFont(gl, font);

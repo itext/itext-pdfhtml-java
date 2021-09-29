@@ -44,7 +44,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
@@ -55,6 +55,7 @@ import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.impl.DefaultCssApplierFactory;
 import com.itextpdf.html2pdf.css.apply.impl.PageMarginBoxCssApplier;
 import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
@@ -146,7 +147,7 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, count = 3))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, count = 3))
     public void invalidCompoundSizePageRuleTest() {
         runTest("invalidCompoundSizePageRuleTest");
     }
@@ -167,7 +168,7 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID, count = 3))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, count = 3))
     public void marginBoxTest01() {
         runTest("marginBoxTest01");
     }
@@ -214,7 +215,7 @@ public class PageRuleTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.CLIP_ELEMENT, count= 4, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count= 4, logLevel = LogLevelConstants.WARN)
     })
     public void linearGradientOnPageMarginWithAutoWidthAndHeightTest() {
         runTest("linearGradientOnPageMarginWithAutoWidthAndHeightTest", new ConverterProperties().setTagWorkerFactory(new PageMarginBoxImagesTagWorkerFactory()));
@@ -223,14 +224,14 @@ public class PageRuleTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.CLIP_ELEMENT, count= 2, logLevel = LogLevelConstants.WARN)})
+            @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count= 2, logLevel = LogLevelConstants.WARN)})
     public void linearGradientOnPageMarginWithPercentWidthAndHeightTest() {
         runTest("linearGradientOnPageMarginWithPercentWidthAndHeightTest", new ConverterProperties().setTagWorkerFactory(new PageMarginBoxImagesTagWorkerFactory()));
     }
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.CLIP_ELEMENT, count= 2, logLevel = LogLevelConstants.WARN)
+            @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count= 2, logLevel = LogLevelConstants.WARN)
     })
     public void linearGradientOnPageMarginWithWidthAndHeightTest() {
         runTest("linearGradientOnPageMarginWithWidthAndHeightTest", new ConverterProperties().setTagWorkerFactory(new PageMarginBoxImagesTagWorkerFactory()));
@@ -254,8 +255,6 @@ public class PageRuleTest extends ExtendedITextTest {
         @Override
         public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             if (childTagWorker.getElementResult() instanceof Image) {
-                // TODO Since iText 7.2 release it is ("it will be" for now, see PageMarginBoxDummyElement class) possible
-                // to get current page margin box name and dimensions from the "element" IElementNode passed to the constructor of this tag worker.
                 ((Image) childTagWorker.getElementResult()).setAutoScale(true);
             }
             return super.processTagChild(childTagWorker, context);
@@ -305,8 +304,7 @@ public class PageRuleTest extends ExtendedITextTest {
 
     @Test
     public void marginBoxOutlinePropertyTest01() {
-        // TODO Outlines are currently not supported for page margin boxes, because of the outlines handling specificity (they are handled on renderer's parent level).
-        //      See com.itextpdf.html2pdf.attach.impl.layout.PageContextProcessor.
+        // TODO DEVSIX-5725 support 'ouline' property for page margin boxes
         runTest("marginBoxOutlinePropertyTest01");
     }
 
@@ -327,7 +325,8 @@ public class PageRuleTest extends ExtendedITextTest {
 
     @Test
     public void marginBoxRunningTest04() {
-        // TODO This tests shows wrong result, because running element name is custom-ident which shall be case sensitive, while iText treats it as case-insensitive.
+        // TODO DEVSIX-2430 This tests shows wrong result, because running element name is custom-ident which
+        //  shall be case sensitive, while iText treats it as case-insensitive.
         runTest("marginBoxRunningTest04");
     }
 
@@ -342,7 +341,7 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CONTENT_PROPERTY_INVALID))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID))
     public void marginBoxRunningTest07() {
         runTest("marginBoxRunningTest07");
     }
@@ -639,7 +638,7 @@ public class PageRuleTest extends ExtendedITextTest {
         ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
         Document doc = HtmlConverter.convertToDocument(new FileInputStream(htmlPath), new PdfWriter(pdfPath), converterProperties);
 
-        // TODO This is kinda a workaround, because calling document.close() would close the whole document,
+        // This is kinda a workaround, because calling document.close() would close the whole document,
         // which would forbid any further operations with it, however in html2pdf some things are waiting for document to be closed and finished:
         // - adding last waiting element (connected with keep_with_previous functionality);
         // - drawing margin boxes for the last page.
@@ -656,7 +655,7 @@ public class PageRuleTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, count = 6))
+    @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, count = 6))
     public void marginBoxRunningNoImmediateFlush04() throws IOException, InterruptedException {
         String name = "marginBoxRunningNoImmediateFlush04";
         String htmlPath = SOURCE_FOLDER + name + ".html";

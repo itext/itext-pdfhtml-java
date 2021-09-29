@@ -42,8 +42,8 @@
  */
 package com.itextpdf.html2pdf.resolver.resource;
 
+import com.itextpdf.html2pdf.ExternalExtendedITextTest;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import org.junit.Assert;
@@ -51,7 +51,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class ExternalResourcesTest extends ExtendedITextTest {
+public class ExternalResourcesTest extends ExternalExtendedITextTest {
     @Test
     public void externalStylesheetTest() {
         ResourceResolver resourceResolver = new ResourceResolver("");

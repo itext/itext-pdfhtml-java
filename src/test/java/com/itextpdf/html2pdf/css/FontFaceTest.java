@@ -44,9 +44,10 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.LogMessageConstant;
-import com.itextpdf.html2pdf.exception.Html2PdfException;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.html2pdf.exceptions.Html2PdfException;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.font.FontProvider;
@@ -112,7 +113,7 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)})
+    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)})
     public void fontFaceGrammarTest() throws IOException, InterruptedException {
         runTest("fontFaceGrammarTest");
     }
@@ -133,7 +134,7 @@ public class FontFaceTest extends ExtendedITextTest {
             exception = e.getMessage();
         }
         Assert.assertEquals("Font Provider with zero fonts shall fail",
-                Html2PdfException.FontProviderContainsZeroFonts, exception);
+                Html2PdfException.FONT_PROVIDER_CONTAINS_ZERO_FONTS, exception);
     }
 
     @Test
@@ -148,7 +149,7 @@ public class FontFaceTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_FONT)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT)
     })
     public void fontFaceTtcTest() throws IOException, InterruptedException {
         runTest("fontFaceTtcTest");
@@ -161,7 +162,7 @@ public class FontFaceTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.UNABLE_TO_RETRIEVE_FONT)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT)
     })
     public void fontFaceWoff2TtcTest() throws IOException, InterruptedException {
         runTest("fontFaceWoff2TtcTest");
@@ -194,7 +195,7 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.io.LogMessageConstant.FONT_SUBSET_ISSUE)})
+    @LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.FONT_SUBSET_ISSUE)})
     //Silently omitted, decompression should fail. Browser loads font but don't draw glyph.
     //See HeaderFlavor002Test in io for decompression details
     public void w3cProblemTest04() throws IOException, InterruptedException {

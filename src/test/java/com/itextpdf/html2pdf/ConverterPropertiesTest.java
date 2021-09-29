@@ -40,50 +40,40 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.util;
+package com.itextpdf.html2pdf;
 
-import com.itextpdf.html2pdf.Html2PdfProductInfo;
-import com.itextpdf.kernel.Version;
+import com.itextpdf.commons.actions.NamespaceConstant;
+import com.itextpdf.commons.actions.contexts.IMetaInfo;
+import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.UnitTest;
 
-/**
- * Utility class for handling operation related to reflections.
- */
-public final class ReflectionUtils {
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-    private static final String LICENSEKEY_PACKAGE = "com.itextpdf.licensekey.";
+@Category(UnitTest.class)
+public class ConverterPropertiesTest extends ExtendedITextTest {
 
-    private static final String LICENSEKEY = "LicenseKey";
-    private static final String LICENSEKEY_PRODUCT = "LicenseKeyProduct";
+    @Test
+    public void getDefaultMetaInfoTest() {
+        ConverterProperties properties = new ConverterProperties();
 
-    private static final String CHECK_LICENSEKEY_METHOD = "scheduledCheck";
+        IMetaInfo metaInfo = properties.getEventMetaInfo();
 
-
-    private ReflectionUtils() {
+        Assert.assertTrue(metaInfo.getClass().getName().startsWith(NamespaceConstant.PDF_HTML + "."));
     }
 
-    /**
-     * Performs a scheduled license check.
-     */
-    public static void scheduledLicenseCheck() {
-        try {
-            Class licenseKeyProductClass = getClass(LICENSEKEY_PACKAGE + LICENSEKEY_PRODUCT);
-            Class[] params = new Class[] {
-                    String.class, String.class, String.class,
-            };
-            Object licenseKeyProductObject = licenseKeyProductClass.getConstructor(params).newInstance(
-                    Html2PdfProductInfo.PRODUCT_NAME, String.valueOf(Html2PdfProductInfo.MAJOR_VERSION),
-                    String.valueOf(Html2PdfProductInfo.MINOR_VERSION)
-            );
-            getClass(LICENSEKEY_PACKAGE + LICENSEKEY).getMethod(CHECK_LICENSEKEY_METHOD, licenseKeyProductClass)
-                    .invoke(null, licenseKeyProductObject);
-        } catch (Exception e) {
-            if (!Version.isAGPLVersion()) {
-                throw new RuntimeException(e.getCause());
-            }
-        }
+    @Test
+    public void setEventMetaInfoAndGetTest() {
+        ConverterProperties properties = new ConverterProperties();
+        TestMetaInfo testMetaInfo = new TestMetaInfo();
+
+        properties.setEventMetaInfo(testMetaInfo);
+        IMetaInfo metaInfo = properties.getEventMetaInfo();
+
+        Assert.assertSame(testMetaInfo, metaInfo);
     }
 
-    private static Class<?> getClass(String className) throws ClassNotFoundException {
-        return Class.forName(className);
+    private static class TestMetaInfo implements IMetaInfo {
     }
 }

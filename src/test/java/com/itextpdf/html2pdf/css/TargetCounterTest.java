@@ -24,7 +24,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
@@ -74,7 +74,7 @@ public class TargetCounterTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS))
     public void targetCounterManyRelayoutsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("targetCounterManyRelayouts");
     }
@@ -90,19 +90,19 @@ public class TargetCounterTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, count = 2))
     public void targetCounterNotExistingTargetTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("targetCounterNotExistingTarget");
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
     public void pageTargetCounterTestWithLogMessageTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("pageTargetCounterTestWithLogMessage");
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
     // There should be only one log message here, but we have two because we resolve css styles twice.
     public void nonPageTargetCounterTestWithLogMessageTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("nonPageTargetCounterTestWithLogMessage");
@@ -145,14 +145,14 @@ public class TargetCounterTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS))
     public void targetCounterCannotBeResolvedTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("targetCounterCannotBeResolved");
     }
 
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = LogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT))
     public void customRendererAndPageTargetCounterTest() throws IOException, InterruptedException {
         convertToPdfWithCustomRendererAndCompare("customRendererAndPageTargetCounter");
     }
@@ -167,10 +167,27 @@ public class TargetCounterTest extends ExtendedHtmlConversionITextTest {
             @Override
             public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
                 if (TagConstants.HTML.equals(tag.name())) {
-                    return new HtmlTagWorker(tag, context) {
+                    return new ITagWorker() {
+                        private HtmlTagWorker htmlTagWorker = new HtmlTagWorker(tag, context);
+
+                        @Override
+                        public void processEnd(IElementNode element, ProcessorContext context) {
+                            htmlTagWorker.processEnd(element, context);
+                        }
+
+                        @Override
+                        public boolean processContent(String content, ProcessorContext context) {
+                            return htmlTagWorker.processContent(content, context);
+                        }
+
+                        @Override
+                        public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+                            return htmlTagWorker.processTagChild(childTagWorker, context);
+                        }
+
                         @Override
                         public IPropertyContainer getElementResult() {
-                            Document document = (Document) super.getElementResult();
+                            Document document = (Document) htmlTagWorker.getElementResult();
                             document.setRenderer(new DocumentRenderer(document));
                             return document;
                         }

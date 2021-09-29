@@ -42,22 +42,35 @@
  */
 package com.itextpdf.html2pdf;
 
+import com.itextpdf.html2pdf.actions.events.PdfHtmlProductEvent;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.exceptions.PdfException;
+import com.itextpdf.commons.actions.EventManager;
+import com.itextpdf.commons.actions.IEvent;
+import com.itextpdf.commons.actions.IEventHandler;
+import com.itextpdf.commons.actions.sequence.AbstractIdentifiableElement;
+import com.itextpdf.commons.actions.sequence.SequenceId;
+import com.itextpdf.commons.actions.sequence.SequenceIdManager;
+import com.itextpdf.kernel.exceptions.KernelExceptionMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.AreaBreak;
+import com.itextpdf.layout.element.IAbstractElement;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.property.Leading;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.Leading;
+import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.UnitValue;
+import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -65,7 +78,9 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -187,9 +202,9 @@ public class Html2ElementsTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = com.itextpdf.styledxmlparser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, count = 1),
-            @LogMessage(messageTemplate = LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1),
-            @LogMessage(messageTemplate = LogMessageConstant.PDF_DOCUMENT_NOT_PRESENT, count = 1),
+    @LogMessages(messages = {@LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, count = 1),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.PDF_DOCUMENT_NOT_PRESENT, count = 1),
     })
     public void htmlObjectMalformedUrlTest() {
         String html = "<object data ='htt://as' type='image/svg+xml'></object>";
@@ -232,7 +247,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
     }
 
     @Test
-    public void bodyFontFamilyTest() throws IOException {
+    public void bodyFontFamilyTest() {
         String html = "<!DOCTYPE html>\n"
                 + "<html>\n"
                 + "<body style=\"font-family: monospace\">\n"
@@ -265,5 +280,92 @@ public class Html2ElementsTest extends ExtendedITextTest {
 
         IElement normalParagraph = elements.get(1);
         Assert.assertEquals(new Leading(Leading.MULTIPLIED, 1.2f), normalParagraph.<Leading>getProperty(Property.LEADING));
+    }
+
+    @Test
+    public void eventGenerationTest() {
+        StoreEventsHandler handler = new StoreEventsHandler();
+        try {
+            EventManager.getInstance().register(handler);
+            String html = "<table><tr><td>123</td><td><456></td></tr><tr><td>789</td></tr></table><p>Hello world!</p>";
+            List<IElement> elements = HtmlConverter.convertToElements(html);
+
+            Assert.assertEquals(1, handler.getEvents().size());
+            Assert.assertTrue(handler.getEvents().get(0) instanceof PdfHtmlProductEvent);
+
+            SequenceId expectedSequenceId = ((PdfHtmlProductEvent)handler.getEvents().get(0)).getSequenceId();
+            int validationsCount = validateSequenceIds(expectedSequenceId, elements);
+            // Table                                     1
+            //      Cell -> Paragraph -> Text [123]      3
+            //      Cell -> Paragraph -> Text [456]      3
+            //      Cell -> Paragraph -> Text [789]      3
+            // Paragraph -> Text [Hello world!]          2
+            //--------------------------------------------
+            //                                          12
+            Assert.assertEquals(12, validationsCount);
+        } finally {
+            EventManager.getInstance().unregister(handler);
+        }
+    }
+
+    @Test
+    public void convertToElementsAndCreateTwoDocumentsTest() throws FileNotFoundException {
+        String html = "This text is directly in body. It should have the same default LEADING property as everything else.\n"
+                + "<p>This text is in paragraph.</p>";
+        List<IElement> iElementList =  HtmlConverter.convertToElements(html);
+
+        try (PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
+                Document document = new Document(pdfDocument)) {
+            addElementsToDocument(document, iElementList);
+        }
+
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
+        Document document = new Document(pdfDocument);
+        addElementsToDocument(document, iElementList);
+
+        // TODO DEVSIX-5753 error should not be thrown here
+        Exception e = Assert.assertThrows(PdfException.class, () -> document.close());
+        Assert.assertEquals(KernelExceptionMessageConstant.PDF_INDIRECT_OBJECT_BELONGS_TO_OTHER_PDF_DOCUMENT, e.getMessage());
+    }
+
+    private static void addElementsToDocument(Document document, List<IElement> elements) {
+        for (IElement elem : elements) {
+            if (elem instanceof IBlockElement) {
+                document.add((IBlockElement) elem);
+            } else if (elem instanceof Image) {
+                document.add((Image) elem);
+            } else if (elem instanceof AreaBreak) {
+                document.add((AreaBreak) elem);
+            } else {
+                Assert.fail(
+                        "The #convertToElements method gave element which is unsupported as root element, it's unexpected.");
+            }
+        }
+    }
+
+    private static int validateSequenceIds(SequenceId expectedSequenceId, List<IElement> elements) {
+        int validationCount = 0;
+        for (IElement element: elements) {
+            Assert.assertTrue(element instanceof AbstractIdentifiableElement);
+            Assert.assertTrue(element instanceof IAbstractElement);
+            Assert.assertEquals(expectedSequenceId, SequenceIdManager.getSequenceId((AbstractIdentifiableElement) element));
+            validationCount += 1;
+            validationCount += validateSequenceIds(expectedSequenceId, ((IAbstractElement) element).getChildren());
+        }
+        return validationCount;
+    }
+
+    private static class StoreEventsHandler implements IEventHandler {
+
+        private List<IEvent> events = new ArrayList<>();
+
+        public List<IEvent> getEvents() {
+            return events;
+        }
+
+        @Override
+        public void onEvent(IEvent event) {
+            events.add(event);
+        }
     }
 }

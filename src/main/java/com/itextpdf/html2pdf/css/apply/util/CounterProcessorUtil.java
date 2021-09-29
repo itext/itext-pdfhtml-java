@@ -47,7 +47,6 @@ import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
 
 import java.util.Map;
 
@@ -55,19 +54,6 @@ import java.util.Map;
  * Utilities class to process counters.
  */
 public class CounterProcessorUtil {
-
-    /**
-     * Processes counters.
-     *
-     * @param cssProps the CSS properties
-     * @param context  the processor context
-     * @param scope    the scope
-     * @deprecated This method need to be removed in 7.2
-     */
-    @Deprecated
-    public static void processCounters(Map<String, String> cssProps, CssContext context, INode scope) {
-        processCounters(cssProps, context);
-    }
 
     /**
      * Processes counters.

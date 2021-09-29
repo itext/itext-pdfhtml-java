@@ -50,7 +50,7 @@ import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
 import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
 import java.util.Map;

@@ -5,12 +5,12 @@
   <parent>
     <groupId>com.itextpdf</groupId>
     <artifactId>root</artifactId>
-    <version>7.1.16</version>
+    <version>7.2.0</version>
     <relativePath />
   </parent>
 
   <artifactId>html2pdf</artifactId>
-  <version>3.0.5</version>
+  <version>4.0.0</version>
 
   <name>pdfHTML</name>
   <description>pdfHTML is an iText 7 add-on that lets you to parse (X)HTML snippets and the associated CSS and converts
@@ -102,9 +102,6 @@
         <configuration>
           <sourceFileExcludes>
             <sourceFileExclude>com/itextpdf/html2pdf/attach/impl/layout/BodyHtmlStylesContainer.java</sourceFileExclude>
-
-            <!-- ProductInfo -->
-            <sourceFileExclude>**/Html2PdfProductInfo.java</sourceFileExclude>
           </sourceFileExcludes>
           <groups>
             <group>

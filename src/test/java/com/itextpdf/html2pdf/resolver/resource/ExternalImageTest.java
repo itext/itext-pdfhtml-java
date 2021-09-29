@@ -42,13 +42,13 @@
  */
 package com.itextpdf.html2pdf.resolver.resource;
 
+import com.itextpdf.html2pdf.ExternalExtendedITextTest;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
@@ -57,13 +57,13 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class ExternalImageTest extends ExtendedITextTest {
+public class ExternalImageTest extends ExternalExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/resolver/resource/ExternalImageTest/";
 
     @Test
     public void test() throws IOException {
         ResourceResolver resourceResolver = new ResourceResolver("");
-        PdfXObject externalImage = resourceResolver.retrieveImageExtended(
+        PdfXObject externalImage = resourceResolver.retrieveImage(
                 "https://raw.githubusercontent.com/itext/itext7/develop/layout/src/test/resources/com/itextpdf/layout/ImageTest/itis.jpg");
 
         Assert.assertNotNull(externalImage);

@@ -42,7 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.AbstractSelectField;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
@@ -51,8 +51,8 @@ import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.layout.layout.LayoutArea;
 import com.itextpdf.layout.layout.LayoutContext;
 import com.itextpdf.layout.layout.LayoutResult;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.renderer.BlockRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
@@ -79,7 +79,7 @@ public abstract class AbstractSelectFieldRenderer extends BlockRenderer {
         if (!isFlatten()) {
             // TODO DEVSIX-1901
             Logger logger = LoggerFactory.getLogger(AbstractSelectFieldRenderer.class);
-            logger.warn(LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT);
+            logger.warn(Html2PdfLogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT);
             setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, Boolean.TRUE);
         }
     }

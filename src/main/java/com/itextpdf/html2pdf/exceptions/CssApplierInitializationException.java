@@ -1,7 +1,7 @@
 /*
     This file is part of the iText (R) project.
     Copyright (c) 1998-2021 iText Group NV
-    Authors: iText Software.
+    Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License version 3
@@ -40,79 +40,27 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com
  */
-package com.itextpdf.html2pdf.attach.impl.layout;
+package com.itextpdf.html2pdf.exceptions;
 
-import com.itextpdf.styledxmlparser.css.page.PageMarginBoxContextNode;
-import com.itextpdf.styledxmlparser.node.IAttributes;
-import com.itextpdf.styledxmlparser.node.ICustomElementNode;
-import com.itextpdf.styledxmlparser.node.IElementNode;
-import com.itextpdf.styledxmlparser.node.INode;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import com.itextpdf.commons.exceptions.ITextException;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 
 /**
- * @deprecated To be removed in next major pdfHTML version once {@link PageMarginBoxContextNode} implements
- *            {@link IElementNode} so that it can be used directly instead of creating dummy node.
+ * Runtime exception in case a CSS applier can't be initialized.
  */
-@Deprecated
-class PageMarginBoxDummyElement implements IElementNode, ICustomElementNode {
+public class CssApplierInitializationException extends ITextException {
 
-    /** The resolved styles. */
-    private Map<String, String> elementResolvedStyles;
+    /** The message template in case reflection failed. */
+    public static final String REFLECTION_FAILED = "Could not instantiate CssApplier-class {0} for tag {1}.";
 
-    @Override
-    public String name() {
-        return PageMarginBoxContextNode.PAGE_MARGIN_BOX_TAG;
-    }
-
-    @Override
-    public IAttributes getAttributes() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String getAttribute(String key) {
-        return null;
-    }
-
-    @Override
-    public List<Map<String, String>> getAdditionalHtmlStyles() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void addAdditionalHtmlStyles(Map<String, String> styles) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String getLang() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<INode> childNodes() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void addChild(INode node) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public INode parentNode() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void setStyles(Map<String, String> stringStringMap) {
-        elementResolvedStyles = stringStringMap;
-    }
-
-    @Override
-    public Map<String, String> getStyles() {
-        return elementResolvedStyles == null ? Collections.<String,String>emptyMap() : elementResolvedStyles;
+    /**
+     * Creates a new {@link CssApplierInitializationException} instance.
+     *
+     * @param message   the message
+     * @param className the class name of the CSS applier
+     * @param tag       the key
+     */
+    public CssApplierInitializationException(String message, String className, String tag) {
+        super(MessageFormatUtil.format(message, className, tag));
     }
 }

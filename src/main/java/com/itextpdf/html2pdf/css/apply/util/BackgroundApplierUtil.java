@@ -42,10 +42,10 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.io.util.MessageFormatUtil;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
@@ -53,15 +53,15 @@ import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.property.Background;
-import com.itextpdf.layout.property.BackgroundImage;
-import com.itextpdf.layout.property.BackgroundPosition;
-import com.itextpdf.layout.property.BackgroundBox;
-import com.itextpdf.layout.property.BackgroundRepeat;
-import com.itextpdf.layout.property.BlendMode;
-import com.itextpdf.layout.property.BackgroundRepeat.BackgroundRepeatValue;
-import com.itextpdf.layout.property.Property;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.Background;
+import com.itextpdf.layout.properties.BackgroundImage;
+import com.itextpdf.layout.properties.BackgroundPosition;
+import com.itextpdf.layout.properties.BackgroundBox;
+import com.itextpdf.layout.properties.BackgroundRepeat;
+import com.itextpdf.layout.properties.BlendMode;
+import com.itextpdf.layout.properties.BackgroundRepeat.BackgroundRepeatValue;
+import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssBackgroundUtils;
 import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
@@ -135,41 +135,6 @@ public final class BackgroundApplierUtil {
         }
     }
 
-    /**
-     * Splits the provided {@link String} by comma with respect of brackets.
-     *
-     * @param value to split
-     * @return the split result
-     * @deprecated use {@link CssUtils#splitStringWithComma(String)}
-     */
-    @Deprecated
-    static String[] splitStringWithComma(final String value) {
-        if (value == null) {
-            return new String[0];
-        }
-        final List<String> resultList = new ArrayList<>();
-        int lastComma = 0;
-        int notClosedBrackets = 0;
-        for (int i = 0; i < value.length(); ++i) {
-            if (value.charAt(i) == ',' && notClosedBrackets == 0) {
-                resultList.add(value.substring(lastComma, i).trim());
-                lastComma = i + 1;
-            }
-            if (value.charAt(i) == '(') {
-                ++notClosedBrackets;
-            }
-            if (value.charAt(i) == ')') {
-                --notClosedBrackets;
-                notClosedBrackets = Math.max(notClosedBrackets, 0);
-            }
-        }
-        final String lastToken = value.substring(lastComma);
-        if (!lastToken.isEmpty()) {
-            resultList.add(lastToken.trim());
-        }
-        return resultList.toArray(new String[0]);
-    }
-
     private static List<BackgroundImage> getBackgroundImagesList(List<String> backgroundImagesArray,
             ProcessorContext context, float em, float rem,
             List<String> backgroundPositionXArray, List<String> backgroundPositionYArray,
@@ -198,7 +163,7 @@ public final class BackgroundApplierUtil {
                 imageApplied = applyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem,
                         repeat, clip, origin);
             } else {
-                final PdfXObject image = context.getResourceResolver().retrieveImageExtended(
+                final PdfXObject image = context.getResourceResolver().retrieveImage(
                         CssUtils.extractUrl(backgroundImage));
                 imageApplied = applyBackgroundImage(image, backgroundImagesList, repeat, blendMode, position, clip,
                         origin);
@@ -373,7 +338,7 @@ public final class BackgroundApplierUtil {
                 return true;
             }
         } catch (StyledXMLParserException e) {
-            LOGGER.warn(MessageFormatUtil.format(LogMessageConstant.INVALID_GRADIENT_DECLARATION, image));
+            LOGGER.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, image));
         }
         return false;
     }
@@ -490,16 +455,6 @@ public final class BackgroundApplierUtil {
 
         @Override
         public float getImageHeight() {
-            return (float) (image.getHeight() * dimensionMultiplier);
-        }
-
-        @Override
-        public float getWidth() {
-            return (float) (image.getWidth() * dimensionMultiplier);
-        }
-
-        @Override
-        public float getHeight() {
             return (float) (image.getHeight() * dimensionMultiplier);
         }
     }

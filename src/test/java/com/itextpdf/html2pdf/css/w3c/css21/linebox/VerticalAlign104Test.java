@@ -22,7 +22,7 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css21.linebox;
 
-import com.itextpdf.html2pdf.LogMessageConstant;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -40,7 +40,7 @@ public class VerticalAlign104Test extends W3CCssTest {
     // TODO DEVSIX-3757 update cmp file after completing the ticket
     @Override
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED)
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED)
     })
     public void test() throws IOException, InterruptedException {
         super.test();

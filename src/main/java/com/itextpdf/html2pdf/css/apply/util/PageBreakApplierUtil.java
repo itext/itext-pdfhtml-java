@@ -50,7 +50,7 @@ import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreakType;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
-import com.itextpdf.layout.property.Property;
+import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 import java.util.Map;
