@@ -25,9 +25,9 @@ package com.itextpdf.html2pdf.css.w3c.css_backgrounds;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 // TODO DEVSIX-4525 pdfHtml: calculate border-radius according to background-clip
-public class BackgroundClipPaddingBoxWithBorderRadiusTest extends W3CCssTest {
+public class BgClipPadBoxWithBRTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
-        return "background-clip-padding-box-with-border-radius.html";
+        return "bg-clip-pad-box-with-b-r.html";
     }
 }

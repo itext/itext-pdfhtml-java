@@ -20,13 +20,14 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package com.itextpdf.html2pdf.css.w3c.css_backgrounds.reference;
+package com.itextpdf.html2pdf.css.w3c.css_backgrounds;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class BoxShadowOutsetSpreadWithoutBRTest extends W3CCssTest {
+// TODO DEVSIX-4384 box-shadow is not supported
+public class BoxShadOutSpreadWithoutBRTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
-        return "box-shadow-outset-spread-without-border-radius.html";
+        return "box-shad-out-spread-without-b-r.html";
     }
 }

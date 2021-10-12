@@ -20,13 +20,13 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package com.itextpdf.html2pdf.css.w3c.css_backgrounds;
+package com.itextpdf.html2pdf.css.w3c.css_backgrounds.reference;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class BgColorAppliedToRoundedInlineElementTest extends W3CCssTest {
+public class BoxShadOutsetSpreadWithoutBRTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
-        return "background-color-applied-to-rounded-inline-element.htm";
+        return "box-shad-out-spread-without-b-r.html";
     }
 }
