@@ -127,7 +127,7 @@ public class TableTest extends ExtendedITextTest {
         runTest("hello_table_fixed5");
     }
 
-    @Test  //TODO this test could be improved, somehow.
+    @Test  //TODO: DEVSIX-5967 Incorrect cell content layout for 'table-layout: fixed' tag.
     public void helloTableFixed6DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_fixed6");
     }
@@ -194,7 +194,7 @@ public class TableTest extends ExtendedITextTest {
         runTest("hello_table_auto4");
     }
 
-    @Test //TODO this test should be improved, incorrect widths. Each cell shall have its max width.
+    @Test //TODO: DEVSIX-5969 Incorrect text wrapping for 'table-layout: auto' tag.
     public void helloTableAuto5DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_auto5");
     }
@@ -219,7 +219,7 @@ public class TableTest extends ExtendedITextTest {
         runTest("hello_table_auto9");
     }
 
-    @Test //TODO this test should be improved, incorrect widths.
+    @Test
     public void helloTableAuto10DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_auto10");
     }

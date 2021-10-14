@@ -77,6 +77,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+// TODO: DEVSIX-5968 Add new tests in HtmlResourceResolverTest
 @Category(IntegrationTest.class)
 public class HtmlResourceResolverTest extends ExtendedITextTest {
 
@@ -448,8 +449,4 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
     }
-
-
-    // TODO test with absolute http links for resources?
-    // TODO test with http base URI?
 }
