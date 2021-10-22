@@ -88,4 +88,9 @@ public class FontSizeTest extends ExtendedHtmlConversionITextTest {
     public void spacesInFontSizeValueTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("spacesInFontSizeValueTest", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void defaultFontDiffFontSizeSpanTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("defaultFontDiffFontSizeSpan", sourceFolder, destinationFolder);
+    }
 }

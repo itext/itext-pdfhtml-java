@@ -186,4 +186,10 @@ public class HeightTest extends ExtendedHtmlConversionITextTest {
         // TODO DEVSIX-1895: height differs from the browser rendering due to incorrect resolving of max-height/height properties
         convertToPdfAndCompare("heightLesserThanMaxHeight01", sourceFolder, destinationFolder);
     }
+
+    @Test
+    // TODO DEVSIX-6078 print log message about invalid height
+    public void heightNumberWithoutUnitTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("heightNumberWithoutUnit", sourceFolder, destinationFolder);
+    }
 }

@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -61,7 +62,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
-public class BrTest extends ExtendedITextTest {
+public class BrTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/BrTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/BrTest/";
@@ -97,5 +98,16 @@ public class BrTest extends ExtendedITextTest {
     public void brInsideDifferentTagsTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "brInsideDifferentTagsTest01.html"), new File(destinationFolder + "brInsideDifferentTagsTest01.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brInsideDifferentTagsTest01.pdf", sourceFolder + "cmp_brInsideDifferentTagsTest01.pdf", destinationFolder, "diff04_"));
+    }
+
+    @Test
+    // TODO DEVSIX-6070 <br> tag create too much space with a small font size
+    public void brSmallFontSizeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("brSmallFontSize", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void brClearNoneTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("brClearNone", sourceFolder, destinationFolder);
     }
 }

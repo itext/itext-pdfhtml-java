@@ -567,6 +567,19 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
+    // TODO DEVSIX-6068 support empty td tag
+    public void emptyTdTest() throws IOException, InterruptedException {
+        runTest("emptyTd");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate =
+            IoLogMessageConstant.UNEXPECTED_BEHAVIOUR_DURING_TABLE_ROW_COLLAPSING, count = 2)})
+    public void emptyTrTest() throws IOException, InterruptedException {
+        runTest("emptyTr");
+    }
+
+    @Test
     public void tagsFlushingErrorWhenConvertedFromHtmlTest() throws IOException {
         String file = sourceFolder + "tagsFlushingErrorWhenConvertedFromHtml.html";
 
@@ -587,6 +600,11 @@ public class TableTest extends ExtendedITextTest {
         junitExpectedException.expect(PdfException.class);
         junitExpectedException.expectMessage("Tag structure flushing failed: it might be corrupted.");
         document.close();
+    }
+
+    @Test
+    public void imageScaleTest() throws IOException, InterruptedException {
+        runTest("imageScale");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {
