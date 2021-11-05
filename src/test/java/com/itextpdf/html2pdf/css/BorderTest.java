@@ -337,4 +337,24 @@ public class BorderTest extends ExtendedHtmlConversionITextTest {
     public void cornerWidthVerticalBorderWinsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("cornerWidthVerticalBorderWins", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void shorthandBorderBottomInThTdTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("shorthandBorderBottomInThTd", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void shorthandBorderTopInThTdTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("shorthandBorderTopInThTd", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void shorthandBorderRightInThTdTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("shorthandBorderRightInThTd", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void shorthandBorderLeftInThTdTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("shorthandBorderLeftInThTd", sourceFolder, destinationFolder);
+    }
 }
