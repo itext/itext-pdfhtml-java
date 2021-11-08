@@ -607,6 +607,34 @@ public class TableTest extends ExtendedITextTest {
         runTest("imageScale");
     }
 
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE),
+            @LogMessage(messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH),
+    })
+    // TODO This test should be considered during DEVSIX-1655. After the ticket is fixed, the cmp might get updated
+    public void tableSplitAndNotInitializedAreaTest() throws IOException, InterruptedException {
+        runTest("tableSplitAndNotInitializedArea");
+    }
+
+    @Test
+    public void repeatFooterHeaderInComplexTableTest() throws IOException, InterruptedException {
+        runTest("repeatFooterHeaderInComplexTable");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, count = 2)
+    })
+    public void thTagConvertToElementTest() throws IOException, InterruptedException {
+        runConvertToElements("thTagConvertToElement", false);
+    }
+
+    @Test
+    public void thTagConvertToPdfTest() throws IOException, InterruptedException {
+        runTest("thTagConvertToPdf");
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         runTest(testName, false);
     }

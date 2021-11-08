@@ -91,7 +91,6 @@ public class Html2PdfTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO DEVSIX-1124
     public void helloParagraphTableTest() throws IOException, InterruptedException {
         convertAndCompare(sourceFolder + "hello_paragraph_table.html", destinationFolder + "hello_paragraph_table.pdf",
                 sourceFolder + "cmp_hello_paragraph_table.pdf", destinationFolder, "diff02_");
@@ -110,7 +109,6 @@ public class Html2PdfTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO DEVSIX-1124
     public void helloParagraphNestedInTableDocumentTest() throws IOException, InterruptedException {
         convertAndCompare(sourceFolder + "hello_paragraph_nested_in_table.html", destinationFolder + "hello_paragraph_nested_in_table.pdf",
                 sourceFolder + "cmp_hello_paragraph_nested_in_table.pdf", destinationFolder, "diff03_");

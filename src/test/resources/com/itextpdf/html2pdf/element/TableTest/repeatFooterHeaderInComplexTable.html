@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h2 style="page-break-before: always;">Complex table: header, footer, caption and alignment</h2>
+<p>Table with styles:</p>
+<ul>
+    <li>repeat-header:yes</li>
+    <li>repeat-footer:yes</li>
+    <li>margin:50px</li>
+</ul>
+<p><strong>Note:</strong> repeat-header and repeat-footer are NOT real CSS attributes, but only work in combination with
+    this XMLWorker. These two styles are used by iText to repeat headers and footers of large tables that are split over
+    several pages.</p>
+<p>Different row types:</p>
+<ul>
+    <li>header</li>
+    <li>body</li>
+    <li>footer</li>
+    <li>caption</li>
+</ul>
+<p>Cells with styles</p>
+<ul>
+    <li>padding</li>
+    <li>text-align</li>
+    <li>vertical-align</li>
+</ul>
+<table style="margin: 10px; repeat-header: yes; repeat-footer: yes; border: 1px solid black;">
+    <caption style="caption-side: bottom;">This is the caption of this table</caption>
+    <tfoot>
+    <tr>
+        <td style="padding: 5px; border: 1px solid black;">Footer 1,1</td>
+        <td style="padding: 5px; border: 1px solid black;">Footer 1,2</td>
+        <td style="padding: 5px; border: 1px solid black;">Footer 1,3</td>
+        <td style="padding: 5px; border: 1px solid black;">Footer 1,4</td>
+    </tr>
+    <tr>
+        <td style="padding: 5px; border: 1px solid black;">Footer 2,1</td>
+        <td style="padding: 5px; border: 1px solid black;">Footer 2,2</td>
+        <td style="padding: 5px; border: 1px solid black;">Footer 2,3</td>
+        <td style="padding: 5px; border: 1px solid black;">Footer 2,4</td>
+    </tr>
+    </tfoot>
+    <thead>
+    <tr>
+        <td style="padding: 5px; border: 1px solid black;">Header 1,1</td>
+        <td style="padding: 5px; border: 1px solid black;">Header 1,2</td>
+        <td style="padding: 5px; border: 1px solid black;">Header 1,3</td>
+        <td style="padding: 5px; border: 1px solid black;">Header 1,4</td>
+    </tr>
+    <tr>
+        <td style="padding: 5px; border: 1px solid black;">Header 2,1</td>
+        <td style="padding: 5px; border: 1px solid black;">Header 2,2</td>
+        <td style="padding: 5px; border: 1px solid black;">Header 2,3</td>
+        <td style="padding: 5px; border: 1px solid black;">Header 2,4</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td style="padding: 5px; border: 1px solid black;">Cell 1,1<br/>Let's<br/><br/>push<br/><br/>Row 3<br/><br/>to
+            the<br/><br/>next<br/><br/>page
+        </td>
+        <td style="padding: 5px; border: 1px solid black;">Cell 1,2 with some content</td>
+        <td style="padding: 5px; border: 1px solid black;">Cell 1,3 with some content</td>
+        <td style="padding: 5px; border: 1px solid black;">Cell 1,4 with some content</td>
+    </tr>
+    <tr>
+        <td style="padding: 5px; border: 1px solid black;">Cell 2,1<br/>I'll<br/>help.<br/><br/>Push!<br/><br/>PUSH!
+        </td>
+        <td style="padding: 5px; border: 1px solid black; vertical-align: top;">Cell 2,2 I'm at the top!</td>
+        <td style="padding: 5px; border: 1px solid black; vertical-align: bottom;">Cell 2,3 I'm down :(</td>
+        <td style="padding: 5px; border: 1px solid black; vertical-align: top; text-align: right;">Cell 2,4<br/>Weirdo's<br/>I'll
+            hide up here
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 25px; border: 1px solid black;">Cell 3,1 with larger padding</td>
+        <td style="padding: 5px; border: 1px solid black;">Cell 3,2</td>
+        <td style="padding: 5px; border: 1px solid black; text-align: center;">Cell 3,3<br/>Centered</td>
+        <td style="padding: 5px; border: 1px solid black; text-align: right;">Cell 3,4<br/>I'm always right</td>
+    </tr>
+    <tr>
+        <td style="padding: 5px; border: 1px solid black;">Cell 4,1</td>
+        <td style="padding: 5px; border: 1px solid black;">Cell 4,2</td>
+        <td style="padding: 5px; border: 1px solid black;">Cell 4,3</td>
+        <td style="padding: 5px; border: 1px solid black;">Cell 4,4</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
