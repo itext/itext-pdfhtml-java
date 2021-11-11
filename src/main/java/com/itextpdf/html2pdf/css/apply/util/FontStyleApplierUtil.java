@@ -139,10 +139,16 @@ public final class FontStyleApplierUtil {
         String direction = cssProps.get(CssConstants.DIRECTION);
         if (CssConstants.RTL.equals(direction)) {
             element.setProperty(Property.BASE_DIRECTION, BaseDirection.RIGHT_TO_LEFT);
-            element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.RIGHT);
+            // For list items default behaviour differs from other elements:
+            // only the list symbol should be aligned differently
+            if (!CssConstants.LIST_ITEM.equals(cssProps.get(CssConstants.DISPLAY))){
+                element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.RIGHT);
+            }
         } else if (CssConstants.LTR.equals(direction)) {
             element.setProperty(Property.BASE_DIRECTION, BaseDirection.LEFT_TO_RIGHT);
-            element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.LEFT);
+            if (!CssConstants.LIST_ITEM.equals(cssProps.get(CssConstants.DISPLAY))){
+                element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.LEFT);
+            }
         }
 
         if (stylesContainer instanceof IElementNode && ((IElementNode) stylesContainer).parentNode() instanceof IElementNode &&
