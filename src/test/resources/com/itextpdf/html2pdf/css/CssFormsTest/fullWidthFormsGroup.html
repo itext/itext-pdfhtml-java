@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <style>
+       .bs-example {
+        position: relative;
+        padding: 45px 15px 15px;
+        margin: 0 -15px 15px;
+        border-color: #e5e5e5 #eee #eee;
+        border-style: solid;
+        border-width: 1px;
+      }
+
+      * {
+          box-sizing: border-box;
+      }
+
+      div {
+          display: block;
+      }
+
+      body {
+          font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+          font-size: 14px;
+          line-height: 1.42857143;
+          color: #333;
+          background-color: #fff;
+      }
+
+      .form-group {
+          margin-bottom: 15px;
+      }
+
+      .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0,0,0,0);
+          border: 0;
+      }
+
+      label {
+          display: inline-block;
+          max-width: 100%;
+          font-weight: 700;
+      }
+
+      .form-inline {
+          display: inline-table;
+          vertical-align: middle;
+      }
+
+      .input-group {
+          position: relative;
+          display: table;
+          border-collapse: separate;
+      }
+
+      .input-group-addon:first-child {
+          border-right: 0;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+      }
+
+      .input-group-addon {
+          width: 1%;
+          padding: 6px 12px;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1;
+          color: #555;
+          text-align: center;
+          background-color: #eee;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          white-space: nowrap;
+          vertical-align: middle;
+          display: table-cell;
+      }
+
+      .input-group .form-control:not(:first-child):not(:last-child) {
+          border-radius: 0;
+      }
+
+      .input-group .form-control {
+          display: table-cell;
+          position: relative;
+          z-index: 2;
+          float: left;
+          width: 100%;
+          margin-bottom: 0;
+      }
+
+      .form-control {
+          height: 34px;
+          padding: 6px 12px;
+          font-size: 14px;
+          line-height: 1.42857143;
+          color: #555;
+          background-color: #fff;
+          background-image: none;
+          border: 1px solid #ccc;
+          box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+          transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+      }
+
+      input {
+          margin: 0;
+          font: inherit;
+          font-family: inherit;
+      }
+
+      .input-group-addon:last-child {
+          border-left: 0;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+      }
+
+      .input-group-addon {
+          padding: 6px 12px;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1;
+          color: #555;
+          text-align: center;
+          background-color: #eee;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          width: 1%;
+          white-space: nowrap;
+          vertical-align: middle;
+          display: table-cell;
+      }
+
+      .btn-primary {
+          color: #fff;
+          background-color: #337ab7;
+          border-color: #2e6da4;
+      }
+
+      .btn {
+          display: inline-block;
+          padding: 6px 12px;
+          margin-bottom: 0;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1.42857143;
+          text-align: center;
+          white-space: nowrap;
+          vertical-align: middle;
+          touch-action: manipulation;
+          cursor: pointer;
+          user-select: none;
+          background-image: none;
+          border: 1px solid transparent;
+          border-radius: 4px;
+      }
+
+      button {
+          font-family: inherit;
+          -webkit-appearance: button;
+          text-transform: none;
+          overflow: visible;
+          margin: 0;
+          font: inherit;
+          -webkit-writing-mode: horizontal-tb !important;
+          text-rendering: auto;
+          letter-spacing: normal;
+          word-spacing: normal;
+          text-indent: 0px;
+          text-shadow: none;
+          align-items: flex-start;
+      }
+  </style>
+
+  <body>
+  <div class="bs-example">
+        <form class="form-inline">
+          <div class="form-group">
+            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+            <div class="input-group">
+              <div class="input-group-addon">$</div>
+              <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
+              <div class="input-group-addon">.00</div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Transfer cash</button>
+        </form>
+      </div>
+  </body>
+</html>

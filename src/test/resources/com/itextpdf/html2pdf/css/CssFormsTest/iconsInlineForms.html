@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <style>
+.bs-example {
+    position: relative;
+    padding: 45px 15px 15px;
+    margin: 0 -15px 15px;
+    border-color: #e5e5e5 #eee #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.form-inline .form-group {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+.has-feedback {
+    position: relative;
+}
+
+.form-inline .control-label {
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.has-success .control-label {
+    color: #3c763d;
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    font-weight: 700;
+}
+
+.form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+
+.has-success .form-control {
+    border-color: #3c763d;
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+}
+.has-feedback .form-control {
+    padding-right: 42.5px;
+}
+
+.form-control {
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+input {
+    font-family: inherit;
+    margin: 0;
+    font: inherit;
+}
+.form-inline .has-feedback .form-control-feedback {
+    top: 0;
+}
+.has-success .form-control-feedback {
+    color: #3c763d;
+}
+
+.form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    pointer-events: none;
+}
+ @font-face {
+      font-family: "Icons";
+      src: url("open-iconic.ttf");
+  }
+  .icon-ok::before {
+      content: "\e033";
+  }
+
+:before {
+    box-sizing: border-box;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+.form-inline .input-group {
+    display: inline-table;
+    vertical-align: middle;
+}
+.input-group {
+    position: relative;
+    border-collapse: separate;
+}
+
+.form-inline .input-group .input-group-addon {
+    width: auto;
+}
+.input-group-addon:first-child {
+    border-right: 0;
+	border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.has-success .input-group-addon {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #3c763d;
+}
+.input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.input-group-addon, .input-group-btn {
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.input-group .form-control, .input-group-addon, .input-group-btn {
+    display: table-cell;
+}
+.input-group .form-control:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-inline .input-group>.form-control {
+    width: 100%;
+}
+.input-group .form-control, .input-group-addon, .input-group-btn {
+    display: table-cell;
+}
+.input-group .form-control {
+    position: relative;
+    z-index: 2;
+    float: left;
+    margin-bottom: 0;
+}
+.form-inline .form-control {
+    vertical-align: middle;
+}
+.has-success .form-control {
+    border-color: #3c763d;
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+}
+.has-feedback .form-control {
+    padding-right: 42.5px;
+}
+.form-inline .has-feedback .form-control-feedback {
+    top: 0;
+}
+.has-success .form-control-feedback {
+    color: #3c763d;
+}
+.form-control-feedback {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    pointer-events: none;
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+  </style>
+  <body>
+<h4>Icons in inline forms</h4>
+<div class="bs-example">
+        <form class="form-inline">
+          <div class="form-group has-success has-feedback">
+            <label class="control-label" for="inputSuccess4">Input with success</label>
+            <input type="text" class="form-control" id="inputSuccess4" aria-describedby="inputSuccess4Status">
+            <span class="icon icon-ok form-control-feedback" style="font-family: 'Icons'" aria-hidden="true"></span>
+            <span id="inputSuccess4Status" class="sr-only">(success)</span>
+          </div>
+        </form>
+        <br>
+        <form class="form-inline">
+          <div class="form-group has-success has-feedback">
+            <label class="control-label" for="inputGroupSuccess3">Input group with success</label>
+            <div class="input-group">
+              <span class="input-group-addon">@</span>
+              <input type="text" class="form-control" id="inputGroupSuccess3" aria-describedby="inputGroupSuccess3Status">
+            </div>
+            <span class="icon icon-ok form-control-feedback" style="font-family: 'Icons'" aria-hidden="true"></span>
+            <span id="inputGroupSuccess3Status" class="sr-only">(success)</span>
+          </div>
+        </form>
+      </div>
+  </body>
+</html>
