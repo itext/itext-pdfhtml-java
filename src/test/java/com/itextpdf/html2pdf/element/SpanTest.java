@@ -130,6 +130,7 @@ public class SpanTest extends ExtendedITextTest {
     }
 
     @Test
+    //TODO DEVSIX-2485: Margins-applying currently doesn't work in html way for spans inside other spans.
     public void spanTest07() throws IOException, InterruptedException {
         testWithSuffix("07");
     }
@@ -204,5 +205,42 @@ public class SpanTest extends ExtendedITextTest {
     @Test
     public void spanWithBackgroundImageTest() throws IOException, InterruptedException {
         test("spanWithBackgroundImageTest");
+    }
+
+    @Test
+    //TODO DEVSIX-2485: Border-applying currently doesn't work in html way for spans inside other spans.
+    public void spanBorderDottedInsideSolidSpanTest() throws IOException, InterruptedException {
+        test("spanBorderDottedInsideSolidSpan");
+    }
+
+    @Test
+    //TODO DEVSIX-2485: Border-applying currently doesn't work in html way for spans inside other spans.
+    public void spanBorderNoneInsideDoubleSpanTest() throws IOException, InterruptedException {
+        test("spanBorderNoneInsideDoubleSpan");
+    }
+
+    @Test
+    //TODO DEVSIX-2485: Border-applying currently doesn't work in html way for spans inside other spans.
+    public void spanBorderMixedInsideSolidSpanTest() throws IOException, InterruptedException {
+        test("spanBorderMixedInsideSolidSpan");
+    }
+
+
+    @Test
+    //TODO DEVSIX-2485: Margins-applying currently doesn't work in html way for spans inside other spans.
+    public void spanMarginRightInsideSpanTest() throws IOException, InterruptedException {
+        test("spanMarginRightInsideSpan");
+    }
+
+    @Test
+    //TODO DEVSIX-2485: Margins-applying currently doesn't work in html way for spans inside other spans.
+    public void spanMarginLeftInsideSpanTest() throws IOException, InterruptedException {
+        test("spanMarginLeftInsideSpanTest");
+    }
+
+    @Test
+    //TODO DEVSIX-2485: Margins-applying currently doesn't work in html way for spans inside other spans.
+    public void spanMarginLeftInsideRightSpanTest() throws IOException, InterruptedException {
+        test("spanMarginLeftInsideRightSpan");
     }
 }
