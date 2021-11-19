@@ -133,6 +133,31 @@ public class CssFormsTest extends ExtendedITextTest {
         runTest("readOnlyInput");
     }
 
+    @Test
+    public void activeAndDisabledStateOfButtonTest() throws IOException, InterruptedException {
+        runTest("activeAndDisabledStateOfButton");
+    }
+
+    @Test
+    public void blockLevelButtonsTest() throws IOException, InterruptedException {
+        runTest("blockLevelButtons");
+    }
+
+    @Test
+    public void buttonOnElementsTest() throws IOException, InterruptedException {
+        runTest("buttonOnElements");
+    }
+
+    @Test
+    public void buttonSizesTest() throws IOException, InterruptedException {
+        runTest("buttonSizes");
+    }
+
+    @Test
+    public void styledButtonsTest() throws IOException, InterruptedException {
+        runTest("styledButtons");
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         String htmlName = SOURCE_FOLDER + testName + ".html";
         String outFileName = DESTINATION_FOLDER + testName + ".pdf";
