@@ -291,6 +291,11 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
                 false, converterProperties);
     }
 
+    @Test
+    public void inputMinWidthTest() throws IOException, InterruptedException {
+       runTest("inputMinWidth");
+    }
+
     private static class CustomTextInputTagWorkerFactory extends DefaultTagWorkerFactory {
         @Override
         public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
