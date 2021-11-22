@@ -53,4 +53,12 @@ public class MediaRuleIntegrationTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("mediaPrint", SOURCE_FOLDER, DESTINATION_FOLDER, false,
                 converterProperties);
     }
+
+    @Test
+    public void mediaPrintAttributeTest() throws IOException, InterruptedException {
+        ConverterProperties converterProperties = new ConverterProperties()
+                .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT));
+        convertToPdfAndCompare("mediaPrintAttribute", SOURCE_FOLDER, DESTINATION_FOLDER, false,
+                converterProperties);
+    }
 }
