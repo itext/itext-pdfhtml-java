@@ -154,6 +154,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.UL, CssConstants.INLINE, () -> new SpanTagCssApplier());
         mapping.putMapping(TagConstants.LI, CssConstants.INLINE, () -> new SpanTagCssApplier());
         mapping.putMapping(TagConstants.LI, CssConstants.INLINE_BLOCK, () -> new BlockCssApplier());
+        mapping.putMapping(TagConstants.LI, CssConstants.BLOCK, () -> new BlockCssApplier());
         mapping.putMapping(TagConstants.DD, CssConstants.INLINE, () -> new SpanTagCssApplier());
         mapping.putMapping(TagConstants.DT, CssConstants.INLINE, () -> new SpanTagCssApplier());
 

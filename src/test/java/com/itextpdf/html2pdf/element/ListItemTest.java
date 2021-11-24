@@ -82,10 +82,64 @@ public class ListItemTest extends ExtendedITextTest {
 	}
 
 	@Test
+	@LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 12)})
+	public void drawBulletRtlTest() throws IOException, InterruptedException {
+		String name = "drawBulletRtl";
+		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
+		                           new File(destinationFolder + name +".pdf"));
+		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
+		                                                     sourceFolder + "cmp_" + name + ".pdf",
+		                                                     destinationFolder, "diff01_"));
+	}
+
+	@Test
 	@LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 16)})
-	public void differentListItemsInsideDifferentListsWithDifferentDirections() throws IOException, InterruptedException {
-		String name = "differentListItemsInsideDifferentListsWithDifferentDirections";
- 		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
+	public void drawBulletLtrTest() throws IOException, InterruptedException {
+		String name = "drawBulletLtr";
+		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
+		                           new File(destinationFolder + name +".pdf"));
+		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
+		                                                     sourceFolder + "cmp_" + name + ".pdf",
+		                                                     destinationFolder, "diff01_"));
+	}
+
+	@Test
+	@LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 8)})
+	public void bulletsAreNotDrawnAsTheyAreInPageMarginsTest() throws IOException, InterruptedException {
+		String name = "bulletsAreNotDrawnAsTheyAreInPageMargins";
+		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
+		                           new File(destinationFolder + name +".pdf"));
+		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
+		                                                     sourceFolder + "cmp_" + name + ".pdf",
+		                                                     destinationFolder, "diff01_"));
+	}
+
+	@Test
+	@LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 20)})
+	public void rltListItemWithDifferentMarginsTest() throws IOException, InterruptedException {
+		String name = "rltListItemWithDifferentMargins";
+		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
+		                           new File(destinationFolder + name +".pdf"));
+		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
+		                                                     sourceFolder + "cmp_" + name + ".pdf",
+		                                                     destinationFolder, "diff01_"));
+	}
+
+	@Test
+	@LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 16)})
+	public void diffListItemsInsideDiffListsWithDiffDirectionsWithoutWidthTest() throws IOException, InterruptedException {
+		String name = "diffListItemsInsideDiffListsWithDiffDirectionsWithoutWidth";
+		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
+		                           new File(destinationFolder + name +".pdf"));
+		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
+		                                                     sourceFolder + "cmp_" + name + ".pdf",
+		                                                     destinationFolder, "diff01_"));
+	}
+
+	@Test
+	public void listItemWithBlockDisplayTest() throws IOException, InterruptedException {
+		String name = "listItemWithBlockDisplay";
+		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
 		                           new File(destinationFolder + name +".pdf"));
 		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
 		                                                     sourceFolder + "cmp_" + name + ".pdf",
