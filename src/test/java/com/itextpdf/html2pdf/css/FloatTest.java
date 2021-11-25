@@ -60,19 +60,18 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class FloatTest extends ExtendedITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/FloatTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/FloatTest/";
+    public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/FloatTest/";
+    public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/FloatTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createOrClearDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
@@ -713,15 +712,6 @@ public class FloatTest extends ExtendedITextTest {
         runTest("floatElementInDiv", "diff_floatElementInDiv_");
     }
 
-    private void runTest(String testName, String diff) throws IOException, InterruptedException {
-        String htmlName = sourceFolder + testName + ".html";
-        String outFileName = destinationFolder + testName + ".pdf";
-        String cmpFileName = sourceFolder + "cmp_" + testName + ".pdf";
-        HtmlConverter.convertToPdf(new File(htmlName), new File(outFileName));
-        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlName) + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, destinationFolder, diff));
-    }
-
     @Test
     public void responsiveIText() throws IOException, InterruptedException {
         PageSize[] pageSizes = {
@@ -731,7 +721,7 @@ public class FloatTest extends ExtendedITextTest {
                 new PageSize(PageSize.A5.getWidth(), PageSize.A4.getHeight())
         };
 
-        String htmlSource = sourceFolder + "responsiveIText.html";
+        String htmlSource = SOURCE_FOLDER + "responsiveIText.html";
 
         for (PageSize pageSize : pageSizes) {
             Float pxWidth = null;
@@ -739,7 +729,7 @@ public class FloatTest extends ExtendedITextTest {
                 pxWidth = CssDimensionParsingUtils.parseAbsoluteLength(String.valueOf(pageSize.getWidth()));
             }
             String outName = "responsiveIText" + (pxWidth != null ? "_" + (int)(float)pxWidth : "") + ".pdf";
-            PdfWriter writer = new PdfWriter(destinationFolder + outName);
+            PdfWriter writer = new PdfWriter(DESTINATION_FOLDER + outName);
             PdfDocument pdfDoc = new PdfDocument(writer);
             ConverterProperties converterProperties = new ConverterProperties();
             if (pageSize != null) {
@@ -762,7 +752,32 @@ public class FloatTest extends ExtendedITextTest {
             String outName = "responsiveIText" + (pxWidth != null ? "_" + (int)(float)pxWidth : "") + ".pdf";
             String cmpName = "cmp_" + outName;
 
-            Assert.assertNull(new CompareTool().compareByContent(destinationFolder + outName, sourceFolder + cmpName, destinationFolder, "diffResponsive_"));
+            Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + outName, SOURCE_FOLDER + cmpName,
+                    DESTINATION_FOLDER, "diffResponsive_"));
         }
+    }
+
+    @Test
+    public void splitFloatedListsTest() throws IOException, InterruptedException {
+        String htmlName = SOURCE_FOLDER + "splitFloatedLists.html";
+        String outFileName = DESTINATION_FOLDER + "splitFloatedLists.pdf";
+        String cmpFileName = SOURCE_FOLDER + "cmp_splitFloatedLists.pdf";
+
+        PdfDocument doc =new PdfDocument(new PdfWriter(outFileName));
+        doc.setDefaultPageSize(PageSize.A5.rotate());
+
+        HtmlConverter.convertToPdf(new FileInputStream(htmlName), doc, new ConverterProperties().setBaseUri(SOURCE_FOLDER));
+        printPathToConsole(htmlName, "html: ");
+
+        Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER));
+    }
+
+    private void runTest(String testName, String diff) throws IOException, InterruptedException {
+        String htmlName = SOURCE_FOLDER + testName + ".html";
+        String outFileName = DESTINATION_FOLDER + testName + ".pdf";
+        String cmpFileName = SOURCE_FOLDER + "cmp_" + testName + ".pdf";
+        HtmlConverter.convertToPdf(new File(htmlName), new File(outFileName));
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlName) + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER, diff));
     }
 }

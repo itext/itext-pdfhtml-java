@@ -44,7 +44,6 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.logs.IoLogMessageConstant;
-import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
@@ -158,13 +157,18 @@ public class CssFormsTest extends ExtendedITextTest {
         runTest("styledButtons");
     }
 
+    @Test
+    public void iconsInButtonsOfDifferentSizeTest() throws IOException, InterruptedException {
+        runTest("iconsInButtonsOfDifferentSize");
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         String htmlName = SOURCE_FOLDER + testName + ".html";
         String outFileName = DESTINATION_FOLDER + testName + ".pdf";
         String cmpFileName = SOURCE_FOLDER + "cmp_" + testName + ".pdf";
 
         HtmlConverter.convertToPdf(new File(htmlName), new File(outFileName));
-        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlName) + "\n");
+        printPathToConsole(htmlName, "html: ");
 
         Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER));
     }

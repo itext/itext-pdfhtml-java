@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .btn-toolbar {
+        margin-left: -5px;
+    }
+    * {
+        box-sizing: border-box;
+    }
+    .btn-toolbar:before {
+        display: table;
+        content: " ";
+    }
+    :before, :after {
+        box-sizing: border-box;
+    }
+    .btn-toolbar:after {
+        clear: both;
+        display: table;
+        content: " ";
+    }
+    .btn-toolbar>.btn{
+        margin-left: 5px;
+    }
+    .btn-toolbar .btn {
+        float: left;
+    }
+    .btn-lg {
+         padding: 10px 16px;
+         font-size: 18px;
+         line-height: 1.3333333;
+         border-radius: 6px;
+        }
+    .btn-sm {
+         padding: 5px 10px;
+         font-size: 12px;
+         line-height: 1.5;
+         border-radius: 3px;
+        }
+    .btn-xs {
+         padding: 1px 5px;
+         font-size: 12px;
+         line-height: 1.5;
+         border-radius: 3px;
+        }
+    .btn-default {
+         padding: 6px 12px;
+         color: #333;
+         background-color: #fff;
+         line-height: 1.42857143;
+         font-size: 14px;
+         border-radius: 4px;
+        }
+    .btn {
+        display: inline-block;
+        margin-bottom: 0;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        touch-action: manipulation;
+        cursor: pointer;
+        user-select: none;
+        background-image: none;
+        border: 1px solid #ccc;
+    }
+    button {
+        text-transform: none;
+        overflow: visible;
+        margin: 0;
+    }
+    @font-face {
+          font-family: "Icons";
+          src: url("open-iconic.ttf");
+        }
+    .icon {
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1;
+    }
+    .icon-star:before {
+        content: "\e0c2";
+    }
+ </style>
+<body>
+<form>
+    <div class="btn-toolbar" role="toolbar">
+        <button type="button" class="btn btn-lg"><span class="icon icon-star" style="font-family: 'Icons'" aria-hidden="true"></span> Large</button>
+        <button type="button" class="btn btn-default"><span class="icon icon-star" style="font-family: 'Icons'" aria-hidden="true"></span> Default</button>
+        <button type="button" class="btn btn-sm"><span class="icon icon-star" style="font-family: 'Icons'" aria-hidden="true"></span> Small</button>
+        <button type="button" class="btn btn-xs"><span class="icon icon-star" style="font-family: 'Icons'" aria-hidden="true"></span> Extra small</button>
+    </div>
+</form>
+
+</body>
+</html>

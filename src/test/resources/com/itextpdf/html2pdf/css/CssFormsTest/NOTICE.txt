@@ -13,6 +13,7 @@ List of HTML files is below* | CC-BY-3.0, MIT | MITLicense.txt, CreativeCommons.
 * formWithIcons.html
 * fullWidthFormsGroup.html
 * iconsInHorizontalForms.html
+* iconsInButtonsOfDifferentSize.html
 * iconsInlineForms.html
 * inlineCheckboxesAndRadios.html
 * minWidthInlineFormsGroup.html
