@@ -42,9 +42,9 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -55,19 +55,50 @@ import java.io.File;
 import java.io.IOException;
 
 @Category(IntegrationTest.class)
-public class ListCssTest extends ExtendedITextTest {
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/ListCSSTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/ListCSSTest/";
+public class ListCssTest extends ExtendedHtmlConversionITextTest {
+    private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/ListCSSTest/";
+    private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/ListCSSTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
     public void listCSSStartTest01() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "orderedList.html"), new File(destinationFolder + "orderedList01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "orderedList01.pdf", sourceFolder + "cmp_orderedList01.pdf", destinationFolder, "diff02_"));
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "orderedList.html"), new File(DESTINATION_FOLDER + "orderedList01.pdf"));
+        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "orderedList01.pdf", SOURCE_FOLDER + "cmp_orderedList01.pdf", DESTINATION_FOLDER, "diff02_"));
+    }
 
+    @Test
+    public void lowercaseATypeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("aType", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void uppercaseATypeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("aAType", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void lowercaseITypeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("iType", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void uppercaseITypeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("iIType", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void digitTypeTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("1Type", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO: DEVSIX-6128 NullPointerException when trying to convert html with non-existing ol type.
+    @Test
+    public void unsupportedType() {
+        Assert.assertThrows(NullPointerException.class,
+                () -> convertToPdfAndCompare("unsupportedType", SOURCE_FOLDER, DESTINATION_FOLDER));
     }
 }
