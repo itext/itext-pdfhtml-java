@@ -101,4 +101,9 @@ public class ListCssTest extends ExtendedHtmlConversionITextTest {
         Assert.assertThrows(NullPointerException.class,
                 () -> convertToPdfAndCompare("unsupportedType", SOURCE_FOLDER, DESTINATION_FOLDER));
     }
+
+    @Test
+    public void horizontalDescriptionListTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("horizontalDescriptionList", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
 }
