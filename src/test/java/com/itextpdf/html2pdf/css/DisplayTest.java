@@ -178,6 +178,12 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    //TODO DEVSIX-6163 Image is converted in outPdf as inline element when display: block is set
+    public void displayBlockInsideImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("displayBlockInsideImage", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
     public void displayInline01Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("display_inline01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
