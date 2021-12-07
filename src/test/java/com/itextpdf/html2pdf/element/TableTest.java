@@ -635,6 +635,16 @@ public class TableTest extends ExtendedITextTest {
         runTest("thTagConvertToPdf");
     }
 
+    @Test
+    public void inlineWithInlineBlockAsTdChildTest() throws IOException, InterruptedException {
+        runTest("inlineWithInlineBlockAsTdChild");
+    }
+
+    @Test
+    public void inlineWithInlineBlockAsTdChildWrappedTest() throws IOException, InterruptedException {
+        runTest("inlineWithInlineBlockAsTdChildWrapped");
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         runTest(testName, false);
     }
