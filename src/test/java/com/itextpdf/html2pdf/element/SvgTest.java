@@ -45,10 +45,10 @@ package com.itextpdf.html2pdf.element;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.svg.logs.SvgLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
@@ -110,7 +110,7 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
     })
     public void convert_inline_Svg_path_in_HTML() throws IOException, InterruptedException {
         String name = "HTML_with_inline_svg_path";
@@ -120,7 +120,7 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
     })
     // TODO: Update cmp_ file when DEVSIX-2719 resolved
     public void convert_inline_Svg_polygon_in_HTML() throws IOException, InterruptedException {
@@ -131,7 +131,7 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
     })
     public void convert_namespace_Svg_in_HTML() throws IOException, InterruptedException {
         String name = "namespace_svg";
@@ -299,7 +299,7 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 66),
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 66),
     })
     public void externalObjectWithGoogleCharts() throws IOException, InterruptedException {
         //TODO update after DEVSIX-2239

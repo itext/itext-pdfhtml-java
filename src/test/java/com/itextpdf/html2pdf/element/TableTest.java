@@ -55,6 +55,7 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -291,7 +292,7 @@ public class TableTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate =  IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 3),
-            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2)
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2)
     })
     //TODO update after DEVSIX-2382
     public void checkLargeImagesInTable() throws IOException, InterruptedException {
@@ -532,7 +533,7 @@ public class TableTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, count = 2),
     })
     //TODO: DEVSIX-3022 - Inputs bigger than enclosing cell force table to split

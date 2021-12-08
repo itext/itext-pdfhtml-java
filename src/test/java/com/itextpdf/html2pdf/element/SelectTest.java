@@ -47,6 +47,7 @@ import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -274,13 +275,13 @@ public class SelectTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA))
+    @LogMessages(messages = @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA))
     public void selectNotFittingTest02() throws IOException, InterruptedException {
         runTest("selectNotFittingTest02");
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA))
+    @LogMessages(messages = @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA))
     public void selectNotFittingTest03() throws IOException, InterruptedException {
         runTest("selectNotFittingTest03");
     }

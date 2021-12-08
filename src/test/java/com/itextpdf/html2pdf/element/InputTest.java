@@ -51,7 +51,6 @@ import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
 import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
-import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.geom.PageSize;
@@ -62,6 +61,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -273,7 +273,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
     @Test
     // TODO DEVSIX-5571 Update cmp after the ticket is closed
     @LogMessages(ignore = true, messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT),
     })
     public void checkboxFullWidthDisplayBlockTest() throws IOException, InterruptedException {
@@ -282,7 +282,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(ignore = true, messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)
     })
     public void longInputValueCausesNothingTest() throws IOException, InterruptedException {
         ConverterProperties converterProperties = new ConverterProperties();
