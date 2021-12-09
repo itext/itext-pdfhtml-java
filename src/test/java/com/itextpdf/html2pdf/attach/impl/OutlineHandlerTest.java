@@ -125,4 +125,18 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
         Assert.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER, "diff_defaultOutlineHandlerWithHTagHavingIdTest"));
     }
 
+    @Test
+    public void resetOutlineHandlerTest() throws IOException, InterruptedException {
+        OutlineHandler outlineHandler = OutlineHandler.createStandardHandler();
+
+        for (int i = 1; i <= 3; i++) {
+            String srcHtml = SOURCE_FOLDER + "outlines0" + i + ".html";
+            String outPdf = DESTINATION_FOLDER + "outlines0" + i + ".pdf";
+            String cmpPdf = SOURCE_FOLDER + "cmp_outlines0" + i + ".pdf";
+
+            HtmlConverter.convertToPdf(new File(srcHtml), new File(outPdf),
+                    new ConverterProperties().setOutlineHandler(outlineHandler));
+            Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER, "diff_" + i));
+        }
+    }
 }
