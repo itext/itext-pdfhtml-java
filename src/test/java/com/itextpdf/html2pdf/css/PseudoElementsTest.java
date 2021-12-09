@@ -317,4 +317,10 @@ public class PseudoElementsTest extends ExtendedHtmlConversionITextTest {
     public void nonNormalizedAfterBeforeTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("nonNormalizedAfterBefore", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
+
+    @Test
+    // TODO: update cmp file after DEVSIX-6192 will be fixed
+    public void pseudoElementsWithMarginTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("pseudoElementsWithMargin", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
 }

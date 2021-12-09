@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -58,29 +59,54 @@ import org.junit.experimental.categories.Category;
 @Category(IntegrationTest.class)
 public class SupSubTest extends ExtendedITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/SupSubTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/SupSubTest/";
+    public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/element/SupSubTest/";
+    public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/element/SupSubTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
     public void supSub01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "supSubTest01.html"), new File(destinationFolder + "supSubTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "supSubTest01.pdf", sourceFolder + "cmp_supSubTest01.pdf", destinationFolder, "diff01_"));
+        runTest("supSubTest01");
     }
 
     @Test
     public void supSub02Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "supSubTest02.html"), new File(destinationFolder + "supSubTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "supSubTest02.pdf", sourceFolder + "cmp_supSubTest02.pdf", destinationFolder, "diff02_"));
+        runTest("supSubTest02");
     }
 
     @Test
     public void supSub03Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "supSubTest03.html"), new File(destinationFolder + "supSubTest03.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "supSubTest03.pdf", sourceFolder + "cmp_supSubTest03.pdf", destinationFolder, "diff03_"));
+        runTest("supSubTest03");
+    }
+
+    @Test
+    // TODO: update cmp file after DEVSIX-6193 will be fixed
+    public void supWithTopVerticalAlignForImageTest() throws IOException, InterruptedException {
+        runTest("supWithTopVerticalAlignForImage");
+    }
+
+    @Test
+    // TODO: update cmp file after DEVSIX-6193 will be fixed
+    public void supWithTopVerticalAlignForLinkTest() throws IOException, InterruptedException {
+        runTest("supWithTopVerticalAlignForLink");
+    }
+
+    @Test
+    public void supWithDisplayNoneTest() throws IOException, InterruptedException {
+        runTest("supWithDisplayNone");
+    }
+
+    private void runTest(String testName) throws IOException, InterruptedException {
+        String htmlName = SOURCE_FOLDER + testName + ".html";
+        String outFileName = DESTINATION_FOLDER + testName + ".pdf";
+        String cmpFileName = SOURCE_FOLDER + "cmp_" + testName + ".pdf";
+
+        HtmlConverter.convertToPdf(new File(htmlName), new File(outFileName));
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlName) + "\n");
+
+        Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER));
     }
 }

@@ -772,6 +772,12 @@ public class FloatTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER));
     }
 
+    @Test
+    // TODO: update cmp file after DEVSIX-4381 will be fixed
+    public void floatLeftWithPaddingInLiTest() throws IOException, InterruptedException {
+        runTest("floatLeftWithPaddingInLi", "diff_floatLeftWithPaddingInLi_");
+    }
+
     private void runTest(String testName, String diff) throws IOException, InterruptedException {
         String htmlName = SOURCE_FOLDER + testName + ".html";
         String outFileName = DESTINATION_FOLDER + testName + ".pdf";

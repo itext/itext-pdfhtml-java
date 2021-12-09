@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -58,17 +59,32 @@ import org.junit.experimental.categories.Category;
 @Category(IntegrationTest.class)
 public class EmTest extends ExtendedITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/EmTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/EmTest/";
+    public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/element/EmTest/";
+    public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/element/EmTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
     public void em01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "emTest01.html"), new File(destinationFolder + "emTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "emTest01.pdf", sourceFolder + "cmp_emTest01.pdf", destinationFolder, "diff01_"));
+        runTest("emTest01");
+    }
+
+    @Test
+    public void emWithNotLocallyLoadedFontTest() throws IOException, InterruptedException {
+        runTest("emWithNotLocallyLoadedFont");
+    }
+
+    private void runTest(String testName) throws IOException, InterruptedException {
+        String htmlName = SOURCE_FOLDER + testName + ".html";
+        String outFileName = DESTINATION_FOLDER + testName + ".pdf";
+        String cmpFileName = SOURCE_FOLDER + "cmp_" + testName + ".pdf";
+
+        HtmlConverter.convertToPdf(new File(htmlName), new File(outFileName));
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlName) + "\n");
+
+        Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER));
     }
 }
