@@ -90,4 +90,9 @@ public class DivTest extends ExtendedHtmlConversionITextTest {
     public void divInTableDataCellTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("divInTableDataCell", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
+
+    @Test
+    public void divColumnCountTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("divColumnCount", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
 }
