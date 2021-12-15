@@ -42,11 +42,12 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
-import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -54,211 +55,204 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.pdfa.PdfADocument;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.junit.rules.ExpectedException;
 
 @Category(IntegrationTest.class)
-public class ListTest extends ExtendedITextTest {
+public class ListTest extends ExtendedHtmlConversionITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/ListTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/ListTest/";
-
-    @Rule
-    public ExpectedException junitExpectedException = ExpectedException.none();
+    public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/element/ListTest/";
+    public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/element/ListTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createOrClearDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest01() throws IOException, InterruptedException {
-        runTest("listTest01");
+        convertToPdfAndCompare("listTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest02() throws IOException, InterruptedException {
-        runTest("listTest02");
+        convertToPdfAndCompare("listTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest03() throws IOException, InterruptedException {
-        runTest("listTest03");
+        convertToPdfAndCompare("listTest03", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest04() throws IOException, InterruptedException {
-        runTest("listTest04");
+        convertToPdfAndCompare("listTest04", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, count = 32)})
     public void listTest05() throws IOException, InterruptedException {
-        runTest("listTest05");
+        convertToPdfAndCompare("listTest05", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest06() throws IOException, InterruptedException {
-        runTest("listTest06");
+        convertToPdfAndCompare("listTest06", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest07() throws IOException, InterruptedException {
-        runTest("listTest07");
+        convertToPdfAndCompare("listTest07", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest08() throws IOException, InterruptedException {
-        runTest("listTest08");
+        convertToPdfAndCompare("listTest08", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest09() throws IOException, InterruptedException {
-        runTest("listTest09");
+        convertToPdfAndCompare("listTest09", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest10() throws IOException, InterruptedException {
-        runTest("listTest10");
+        convertToPdfAndCompare("listTest10", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest11() throws IOException, InterruptedException {
-        runTest("listTest11");
+        convertToPdfAndCompare("listTest11", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest12() throws IOException, InterruptedException {
-        runTest("listTest12");
+        convertToPdfAndCompare("listTest12", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest13() throws IOException, InterruptedException {
-        runTest("listTest13");
+        convertToPdfAndCompare("listTest13", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest14() throws IOException, InterruptedException {
-        runTest("listTest14");
+        convertToPdfAndCompare("listTest14", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest15() throws IOException, InterruptedException {
-        runTest("listTest15");
+        convertToPdfAndCompare("listTest15", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest16() throws IOException, InterruptedException {
-        runTest("listTest16");
+        convertToPdfAndCompare("listTest16", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest17() throws IOException, InterruptedException {
-        runTest("listTest17");
+        convertToPdfAndCompare("listTest17", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest18() throws IOException, InterruptedException {
-        runTest("listTest18");
+        convertToPdfAndCompare("listTest18", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest19() throws IOException, InterruptedException {
-        runTest("listTest19");
+        convertToPdfAndCompare("listTest19", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listTest20() throws IOException, InterruptedException {
-        runTest("listTest20");
+        convertToPdfAndCompare("listTest20", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listLiValuePropertyTest() throws IOException, InterruptedException {
-        runTest("listLiValuePropertyTest");
+        convertToPdfAndCompare("listLiValuePropertyTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listStartPropertyTest() throws IOException, InterruptedException {
-        runTest("listStartPropertyTest");
+        convertToPdfAndCompare("listStartPropertyTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listItemValueTest() throws IOException, InterruptedException {
-        runTest("listItemValueTest");
+        convertToPdfAndCompare("listItemValueTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void listItemValueTest01() throws IOException, InterruptedException {
-        runTest("listItemValueTest01");
+        convertToPdfAndCompare("listItemValueTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
     @Test
     public void listItemValueTest02() throws IOException, InterruptedException {
-        runTest("listItemValueTest02");
+        convertToPdfAndCompare("listItemValueTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
     @Test
     public void descendingListTest() throws IOException, InterruptedException {
-        runTest("descendingListTest");
+        convertToPdfAndCompare("descendingListTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @Ignore("DEVSIX-2431")
+    //TODO DEVSIX-2431 Positioned elements (e.g. absolute positioning) are lost when block is split across pages
     public void listItemAbsolutePositionTest() throws IOException, InterruptedException {
-        runTest("list-item-absolute");
+        convertToPdfAndCompare("list-item-absolute", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     //TODO: update after fix of DEVSIX-2537
     //http://www.timrivera.com/tests/ol-start.html
     public void checkOrderedListStartAndValue() throws IOException, InterruptedException {
-        runTest("checkOrderedListStartAndValue");
+        convertToPdfAndCompare("checkOrderedListStartAndValue", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
     @Test
     //TODO: update after fix of DEVSIX-2538
-    public void checkOrderedListNestedLists() throws IOException, InterruptedException {
-        junitExpectedException.expect(IllegalArgumentException.class);
-        junitExpectedException.expectMessage(MessageFormatUtil.format("The parameter must be a positive integer"));
-        runTest("checkOrderedListNestedLists");
+    public void checkOrderedListNestedLists() {
+        String expectedMessage = MessageFormatUtil.format("The parameter must be a positive integer");
+        Exception exception = Assert.assertThrows(IllegalArgumentException.class,
+                () -> convertToPdfAndCompare("checkOrderedListNestedLists", SOURCE_FOLDER, DESTINATION_FOLDER));
+        Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 6)
     })
-        //TODO: update after DEVSIX-2093, DEVSIX-2092, DEVSIX-2091 fixes
-        public void listsWithInlineChildren() throws IOException, InterruptedException {
-            runTest("listsWithInlineChildren");
+    //TODO: update after DEVSIX-2093, DEVSIX-2092, DEVSIX-2091 fixes
+    public void listsWithInlineChildren() throws IOException, InterruptedException {
+        convertToPdfAndCompare("listsWithInlineChildren", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void inlineWithInlineBlockAsLiChildTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("inlineWithInlineBlockAsLiChild", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, count = 32)})
     public void listToPdfaTest() throws IOException, InterruptedException {
-        InputStream is = new FileInputStream(sourceFolder + "sRGB Color Space Profile.icm");
-        PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "listToPdfa.pdf"), PdfAConformanceLevel.PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", is));
-        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "listToPdfa.html")) {
+        InputStream is = new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm");
+        PdfADocument pdfADocument = new PdfADocument(new PdfWriter(DESTINATION_FOLDER + "listToPdfa.pdf"), PdfAConformanceLevel.PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", is));
+        try (FileInputStream fileInputStream = new FileInputStream(SOURCE_FOLDER + "listToPdfa.html")) {
             HtmlConverter.convertToPdf(fileInputStream, pdfADocument, new ConverterProperties()
                     .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT))
                     .setFontProvider(new DefaultFontProvider(false, true, false)));
         }
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "listToPdfa.pdf", sourceFolder + "cmp_listToPdfa.pdf", destinationFolder, "diff99_"));
+        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "listToPdfa.pdf", SOURCE_FOLDER + "cmp_listToPdfa.pdf",
+                DESTINATION_FOLDER, "diff99_"));
     }
-
-    private void runTest(String testName) throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".html"), new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
-    }
-
 }
