@@ -196,6 +196,7 @@ class DefaultTagWorkerMapping {
         workerMapping.putMapping(TagConstants.UL, CssConstants.INLINE, (lhs, rhs) -> new SpanTagWorker(lhs, rhs));
         workerMapping.putMapping(TagConstants.LI, CssConstants.INLINE, (lhs, rhs) -> new SpanTagWorker(lhs, rhs));
         workerMapping.putMapping(TagConstants.LI, CssConstants.INLINE_BLOCK, (lhs, rhs) -> new DivTagWorker(lhs, rhs));
+        workerMapping.putMapping(TagConstants.LI, CssConstants.BLOCK, (lhs, rhs) -> new DivTagWorker(lhs, rhs));
         workerMapping.putMapping(TagConstants.DD, CssConstants.INLINE, (lhs, rhs) -> new SpanTagWorker(lhs, rhs));
         workerMapping.putMapping(TagConstants.DT, CssConstants.INLINE, (lhs, rhs) -> new SpanTagWorker(lhs, rhs));
 

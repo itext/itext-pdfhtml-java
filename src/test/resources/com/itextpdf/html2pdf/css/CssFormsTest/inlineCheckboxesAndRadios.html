@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+      .bs-example {
+        position: relative;
+        padding: 45px 15px 15px;
+        margin: 0 -15px 15px;
+        border-color: #e5e5e5 #eee #eee;
+        border-style: solid;
+        border-width: 1px;
+    }
+
+    div {
+        display: block;
+    }
+
+    * {
+        box-sizing: border-box;
+      }
+
+    body {
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333;
+        background-color: #fff;
+    }
+
+    .checkbox-inline, .radio-inline {
+        position: relative;
+        display: inline-block;
+        padding-left: 20px;
+        margin-bottom: 0;
+        font-weight: 400;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    label {
+        max-width: 100%;
+    }
+
+    input[type=checkbox], input[type=radio] {
+        margin: 4px 0 0;
+        line-height: normal;
+    }
+
+    input[type=checkbox], input[type=radio] {
+        box-sizing: border-box;
+        padding: 0;
+    }
+
+    input {
+        -webkit-writing-mode: horizontal-tb !important;
+        font-family: inherit;
+        font-size: inherit;
+        font: inherit;
+        color: inherit;
+        text-rendering: auto;
+        letter-spacing: normal;
+        word-spacing: normal;
+        text-transform: none;
+        text-indent: 0px;
+        text-shadow: none;
+        display: inline-block;
+        text-align: start;
+        -webkit-rtl-ordering: logical;
+    }
+
+    .checkbox-inline+.checkbox-inline {
+        margin-top: 0;
+        margin-left: 10px;
+    }
+
+    .radio-inline+.radio-inline {
+        margin-top: 0;
+        margin-left: 10px;
+    }
+
+    .checkbox-inline input[type=checkbox] {
+        position: absolute;
+        margin-left: -20px;
+    }
+
+    .radio-inline input[type=radio] {
+        position: absolute;
+        margin-left: -20px;
+    }
+</style>
+<body>
+    <h4>Inline checkboxes and radios</h4>
+    <div class="bs-example">
+        <form>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+            </label>
+        </form>
+        <br>
+        <form>
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3
+            </label>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+This software uses the following test resources under the following licenses:
+
+List of HTML files is below* | CC-BY-3.0, MIT | MITLicense.txt, CreativeCommons.txt | Code released under the MIT license and Docs released under Creative Commons 3.0. These HTML files embed parts of bootstrap 3.3.7 code and documentation:
+* inputMinWidth.html
+
+

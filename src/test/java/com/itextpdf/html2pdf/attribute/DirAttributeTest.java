@@ -74,7 +74,6 @@ public class DirAttributeTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-5070 Process dots of ordered list items in the specified direction
     @LogMessages(messages = {
             @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 18),
     })

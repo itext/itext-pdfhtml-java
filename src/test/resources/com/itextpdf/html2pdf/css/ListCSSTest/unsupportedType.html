@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    ol > li:before {
+        content: "(" counter(item) ") ";
+        counter-increment: item; }
+    ol.upper[type="aa"] > li:before {
+        content: "(" counter(item, upper-latin) ") ";
+    }
+</style>
+<body>
+<div>
+    <ol type="A">
+        <li>This is a test</li>
+        <ol type="aa">
+            <li>This is an inner test</li>
+        </ol>
+    </ol>
+</div>
+</body>
+</html>

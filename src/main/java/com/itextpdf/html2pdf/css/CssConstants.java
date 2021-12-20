@@ -76,6 +76,9 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant DISPLAY. */
     public static final String DISPLAY = "display";
 
+    /** The Constant LIST_ITEM. */
+    public static final String LIST_ITEM = "list-item";
+
     /** The Constant MARKS. */
     public static final String MARKS = "marks";
 

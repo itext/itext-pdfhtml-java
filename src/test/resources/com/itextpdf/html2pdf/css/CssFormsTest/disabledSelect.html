@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            max-width: 100%;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        * {
+            box-sizing: border-box;
+        }
+         .form-control {
+            cursor: not-allowed;
+        }
+         .form-control {
+            background-color: #eee;
+            opacity: 1;
+        }
+        .form-control {
+            display: block;
+            width: 100%;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+    </style>
+</head>
+    <body>
+        <form>
+            <div class="form-group">
+              <label for="disabledSelect">Disabled select menu</label>
+              <select disabled id="disabledSelect" class="form-control">
+                <option>Disabled select</option>
+              </select>
+            </div>
+        </form>
+    </body>
+</html>

@@ -128,11 +128,9 @@ public class SpanTagCssApplier implements ICssApplier {
     protected void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context, IStylesContainer stylesContainer) {
         FontStyleApplierUtil.applyFontStyles(css, context, stylesContainer, element);
         BackgroundApplierUtil.applyBackground(css, context, element);
-        //TODO: Border-applying currently doesn't work in html way for spans inside other spans.
         BorderStyleApplierUtil.applyBorders(css, context, element);
         OutlineApplierUtil.applyOutlines(css, context, element);
         HyphenationApplierUtil.applyHyphenation(css, context, stylesContainer, element);
-        //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
         MarginApplierUtil.applyMargins(css, context, element);
         PositionApplierUtil.applyPosition(css, context, element);
         FloatApplierUtil.applyFloating(css, context, element);

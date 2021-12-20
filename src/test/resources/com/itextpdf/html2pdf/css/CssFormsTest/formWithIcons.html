@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <style>
+  .bs-example {
+      position: relative;
+      padding: 45px 15px 15px;
+      margin: 0 -15px 15px;
+      border-color: #e5e5e5 #eee #eee;
+      border-style: solid;
+      border-width: 1px;
+  }
+  * {
+      box-sizing: border-box;
+  }
+  .has-feedback {
+      position: relative;
+  }
+  .form-group {
+      margin-bottom: 15px;
+  }
+  .has-success .control-label {
+      color: #3c763d;
+  }
+  label {
+      display: inline-block;
+      max-width: 100%;
+      margin-bottom: 5px;
+      font-weight: 700;
+  }
+  .has-success .form-control {
+      border-color: #3c763d;
+      box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+  }
+  .has-feedback .form-control {
+      padding-right: 42.5px;
+  }
+  .form-control {
+      display: block;
+      width: 100%;
+      height: 34px;
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  }
+  input {
+      margin: 0;
+  }
+  .has-feedback label~.form-control-feedback {
+      top: 25px;
+  }
+  .has-success .form-control-feedback {
+      color: #3c763d;
+  }
+  .form-control-feedback {
+      position: absolute;
+      right: 0;
+      z-index: 2;
+      display: block;
+      width: 34px;
+      height: 34px;
+      line-height: 34px;
+      text-align: center;
+      pointer-events: none;
+  }
+  @font-face {
+      font-family: "Icons";
+      src: url("open-iconic.ttf");
+  }
+  .icon-ok::before {
+      content: "\e033";
+  }
+  :before {
+      box-sizing: border-box;
+  }
+  .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+  }
+  label {
+      display: inline-block;
+      max-width: 100%;
+      margin-bottom: 5px;
+      font-weight: 700;
+  }
+  .has-feedback .form-control {
+      padding-right: 42.5px;
+  }
+  .has-feedback label~.form-control-feedback {
+      top: 25px;
+  }
+  .has-feedback .form-control {
+      padding-right: 42.5px;
+  }
+  .has-success .control-label {
+      color: #3c763d;
+  }
+  .input-group {
+      position: relative;
+      display: table;
+      border-collapse: separate;
+  }
+  .input-group-addon:first-child {
+      border-right: 0;
+  }
+  .input-group-addon:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+  }
+  .has-success .input-group-addon {
+      color: #3c763d;
+      background-color: #dff0d8;
+      border-color: #3c763d;
+  }
+  .input-group-addon {
+      padding: 6px 12px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+  }
+  .input-group-addon {
+      width: 1%;
+      white-space: nowrap;
+      vertical-align: middle;
+  }
+  .input-group-addon {
+      display: table-cell;
+  }
+  .input-group .form-control:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+  }
+  .input-group .form-control, .input-group-addon, .input-group-btn {
+      display: table-cell;
+  }
+  .input-group .form-control {
+      position: relative;
+      z-index: 2;
+      float: left;
+      width: 100%;
+      margin-bottom: 0;
+  }
+  .has-success .form-control {
+      border-color: #3c763d;
+      box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+  }
+  </style>
+  <body>
+  <div class="bs-example">
+    <form>
+      <div class="form-group has-success has-feedback">
+              <label class="control-label" for="inputGroupSuccess1">Input group with success</label>
+        <div class="input-group">
+                <span class="input-group-addon">@</span>
+                <input type="text" class="form-control" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status">
+        </div>
+              <span class="icon icon-ok form-control-feedback" style="font-family: 'Icons'" aria-hidden="true"></span>
+              <span id="inputGroupSuccess1Status" class="sr-only">(success)</span>
+      </div>
+    </form>
+  </div>
+ </body>
+</html>

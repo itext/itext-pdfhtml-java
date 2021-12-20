@@ -55,6 +55,7 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -127,7 +128,7 @@ public class TableTest extends ExtendedITextTest {
         runTest("hello_table_fixed5");
     }
 
-    @Test  //TODO this test could be improved, somehow.
+    @Test  //TODO: DEVSIX-5967 Incorrect cell content layout for 'table-layout: fixed' tag.
     public void helloTableFixed6DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_fixed6");
     }
@@ -194,7 +195,7 @@ public class TableTest extends ExtendedITextTest {
         runTest("hello_table_auto4");
     }
 
-    @Test //TODO this test should be improved, incorrect widths. Each cell shall have its max width.
+    @Test //TODO: DEVSIX-5969 Incorrect text wrapping for 'table-layout: auto' tag.
     public void helloTableAuto5DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_auto5");
     }
@@ -219,7 +220,7 @@ public class TableTest extends ExtendedITextTest {
         runTest("hello_table_auto9");
     }
 
-    @Test //TODO this test should be improved, incorrect widths.
+    @Test
     public void helloTableAuto10DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_auto10");
     }
@@ -291,7 +292,7 @@ public class TableTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate =  IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 3),
-            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2)
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2)
     })
     //TODO update after DEVSIX-2382
     public void checkLargeImagesInTable() throws IOException, InterruptedException {
@@ -532,7 +533,7 @@ public class TableTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, count = 2),
     })
     //TODO: DEVSIX-3022 - Inputs bigger than enclosing cell force table to split
@@ -567,6 +568,19 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
+    // TODO DEVSIX-6068 support empty td tag
+    public void emptyTdTest() throws IOException, InterruptedException {
+        runTest("emptyTd");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate =
+            IoLogMessageConstant.UNEXPECTED_BEHAVIOUR_DURING_TABLE_ROW_COLLAPSING, count = 2)})
+    public void emptyTrTest() throws IOException, InterruptedException {
+        runTest("emptyTr");
+    }
+
+    @Test
     public void tagsFlushingErrorWhenConvertedFromHtmlTest() throws IOException {
         String file = sourceFolder + "tagsFlushingErrorWhenConvertedFromHtml.html";
 
@@ -587,6 +601,49 @@ public class TableTest extends ExtendedITextTest {
         junitExpectedException.expect(PdfException.class);
         junitExpectedException.expectMessage("Tag structure flushing failed: it might be corrupted.");
         document.close();
+    }
+
+    @Test
+    public void imageScaleTest() throws IOException, InterruptedException {
+        runTest("imageScale");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE),
+            @LogMessage(messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH),
+    })
+    // TODO This test should be considered during DEVSIX-1655. After the ticket is fixed, the cmp might get updated
+    public void tableSplitAndNotInitializedAreaTest() throws IOException, InterruptedException {
+        runTest("tableSplitAndNotInitializedArea");
+    }
+
+    @Test
+    public void repeatFooterHeaderInComplexTableTest() throws IOException, InterruptedException {
+        runTest("repeatFooterHeaderInComplexTable");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, count = 2)
+    })
+    public void thTagConvertToElementTest() throws IOException, InterruptedException {
+        runConvertToElements("thTagConvertToElement", false);
+    }
+
+    @Test
+    public void thTagConvertToPdfTest() throws IOException, InterruptedException {
+        runTest("thTagConvertToPdf");
+    }
+
+    @Test
+    public void inlineWithInlineBlockAsTdChildTest() throws IOException, InterruptedException {
+        runTest("inlineWithInlineBlockAsTdChild");
+    }
+
+    @Test
+    public void inlineWithInlineBlockAsTdChildWrappedTest() throws IOException, InterruptedException {
+        runTest("inlineWithInlineBlockAsTdChildWrapped");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {

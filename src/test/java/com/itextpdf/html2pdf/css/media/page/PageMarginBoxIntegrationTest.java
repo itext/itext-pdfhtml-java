@@ -361,4 +361,8 @@ public class PageMarginBoxIntegrationTest extends ExtendedHtmlConversionITextTes
         convertToPdfAndCompare("tableInsideOfPageMarginNotFittingIntoDedicatedSpace", sourceFolder, destinationFolder);
     }
 
+    @Test
+    public void pageSizeLetterMarginZeroTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("pageSizeLetterMarginZero", sourceFolder, destinationFolder);
+    }
 }

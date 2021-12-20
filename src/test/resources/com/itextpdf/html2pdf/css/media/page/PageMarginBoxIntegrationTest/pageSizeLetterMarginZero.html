@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+        }
+
+        .CssPage {
+            width: 600pt;
+            min-height: 780pt;
+            padding: 50pt;
+            margin: 2pt auto;
+            border: 2pt black solid;
+        }
+
+        .CssBody {
+            border: 3pt green solid;
+            height: 550pt;
+        }
+
+        @page {
+            size: letter;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="CssPage">
+        <div class="CssBody">
+            <p> Page 1</p>
+        </div>
+    </div>
+    <div class="CssPage">
+        <div class="CssBody">Page 2</div>
+    </div>
+</div>
+</body>
+</html>

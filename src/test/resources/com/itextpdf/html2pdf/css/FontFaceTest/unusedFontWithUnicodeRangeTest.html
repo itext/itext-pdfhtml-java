@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+<!-- U+6A is 'j', U+75 is 'u' -->
+        @font-face {
+            font-family: 'Droid Italic';
+            src: url("web-fonts/droid-serif-italic.ttf");
+            unicode-range:U+6A;
+        }
+
+        @font-face {
+            font-family: 'Droid Bold';
+            src: url("web-fonts/droid-serif-bold.ttf");
+            unicode-range:U+75;
+        }
+
+        div.droiditalic {
+            font-family: 'Droid Italic';
+        }
+
+        div.droidbold {
+            font-family: 'Droid Bold';
+        }
+
+        div {
+            font-size: 4em;
+        }
+    </style>
+</head>
+<body>
+<div class="droidbold">j</div>
+<div class="droiditalic">u</div>
+
+</body>
+</html>

@@ -49,8 +49,6 @@ import com.itextpdf.kernel.numbering.EnglishAlphabetNumbering;
 import com.itextpdf.kernel.numbering.GeorgianNumbering;
 import com.itextpdf.kernel.numbering.GreekAlphabetNumbering;
 import com.itextpdf.kernel.numbering.RomanNumbering;
-import com.itextpdf.styledxmlparser.css.util.CssUtils;
-import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
  * Utilities class with HTML-related functionality.
@@ -122,7 +120,7 @@ public final class HtmlUtils {
      */
     public static String convertNumberAccordingToGlyphStyle(CounterDigitsGlyphStyle glyphStyle, int number) {
         if (glyphStyle == null) {
-            return String.valueOf(number);
+            return convertNumberDefault(number);
         }
         switch (glyphStyle) {
             case NONE:
@@ -135,28 +133,33 @@ public final class HtmlUtils {
                 return CIRCLE_SYMBOL;
             case UPPER_ALPHA_AND_LATIN:
                 return number > 0 ? EnglishAlphabetNumbering.toLatinAlphabetNumberUpperCase(number)
-                        : String.valueOf(number);
+                        : convertNumberDefault(number);
             case LOWER_ALPHA_AND_LATIN:
                 return number > 0 ? EnglishAlphabetNumbering.toLatinAlphabetNumberLowerCase(number)
-                        : String.valueOf(number);
+                        : convertNumberDefault(number);
             case LOWER_GREEK:
                 return number > 0 ? GreekAlphabetNumbering.toGreekAlphabetNumberLowerCase(number)
-                        : String.valueOf(number);
+                        : convertNumberDefault(number);
             case LOWER_ROMAN:
                 return number <= MAX_ROMAN_NUMBER ? RomanNumbering.toRomanLowerCase(number)
-                        : String.valueOf(number);
+                        : convertNumberDefault(number);
             case UPPER_ROMAN:
                 return number <= MAX_ROMAN_NUMBER ? RomanNumbering.toRomanUpperCase(number)
-                        : String.valueOf(number);
+                        : convertNumberDefault(number);
             case DECIMAL_LEADING_ZERO:
-                return (number < 10 ? "0" : "") + String.valueOf(number);
+                return (number < 10 ? "0" : "") + convertNumberDefault(number);
             case GEORGIAN:
                 return GeorgianNumbering.toGeorgian(number);
             case ARMENIAN:
                 return ArmenianNumbering.toArmenian(number);
+            case DEFAULT:
             default:
-                return String.valueOf(number); //TODO
+                return convertNumberDefault(number);
         }
+    }
+
+    private static String convertNumberDefault(int number) {
+        return String.valueOf(number);
     }
 
     /**

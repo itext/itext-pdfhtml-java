@@ -43,10 +43,12 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -54,21 +56,28 @@ import org.junit.experimental.categories.Category;
 @Category(IntegrationTest.class)
 public class MarginTest extends ExtendedHtmlConversionITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/MarginTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/MarginTest/";
+    public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/MarginTest/";
+    public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/MarginTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
     public void marginAutoImageInsideDiv01Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("marginAutoImageInsideDiv01", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("marginAutoImageInsideDiv01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void marginAutoImageInsideDiv02Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("marginAutoImageInsideDiv02", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("marginAutoImageInsideDiv02", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    //TODO DEVSIX-1101 Layout + Html2pdf: Support margin value in percents
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED))
+    public void marginLeftInPercentRelativeDivWidthTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("marginLeftInPercentRelativeDivWidth", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 }

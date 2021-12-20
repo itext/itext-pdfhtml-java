@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+	div {
+	position: relative;
+	text-align:left;
+	width:100pt;
+	}
+	th {
+	page-break-inside:avoid;
+	page-break-after:auto
+	}
+	tr { 
+	page-break-inside:avoid;
+	page-break-after:auto;
+	}
+	td {
+	page-break-inside:avoid;
+	page-break-after:auto;
+	}
+	body {
+	white-space:nowrap;
+	font-size:9pt;
+	}
+	#remaining_sections {
+	top:255pt;
+	width:540pt;
+	}
+    </style>
+</head>
+<body>
+<div>
+    <table style="border: 2px solid blue;">
+        <tbody>
+        <tr>
+            <td>
+                <div style="border: 2px solid red;">
+                    </br></br></br></br></br></br></br></br>
+                    </br></br></br></br></br></br></br></br>
+                </div>
+                <div id="remaining_sections" style="border: 2px solid green;">
+                    <div style="border: 2px solid black;">
+                        </br></br></br></br></br></br></br></br></br></br></br>
+                        </br></br></br></br></br></br></br></br></br></br></br>
+                        </br></br></br></br></br></br></br></br></br></br></br>
+                        </br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+                        <table cellspacing='0' cellpadding='0'>
+                            <thead>
+                            </br>
+                            <tr>
+                                <th>iText<br>iText</th>
+                                <th>iText<br>iText</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>iText</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </br>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</HTML>

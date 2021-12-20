@@ -291,6 +291,16 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT),
+    })
+    // TODO DEVSIX-2054
+    public void doNotDownloadUnusedFontTest() throws IOException, InterruptedException {
+        runTest("doNotDownloadUnusedFontTest");
+    }
+
+    @Test
     //TODO: update after DEVSIX-2052
     public void correctUrlWithUsedUnicodeRangeTest() throws IOException, InterruptedException {
         runTest("correctUrlWithUsedUnicodeRangeTest");
@@ -300,6 +310,32 @@ public class FontFaceTest extends ExtendedITextTest {
     //TODO: update after DEVSIX-2052
     public void correctUnicodeRangeSignificantTest() throws IOException, InterruptedException {
         runTest("correctUnicodeRangeSignificantTest");
+    }
+
+    @Test
+    // TODO DEVSIX-2052
+    public void overwrittenUnicodeRangeTextInLineTest() throws IOException, InterruptedException {
+        runTest("overwrittenUnicodeRangeTextInLineTest");
+    }
+
+    @Test
+    public void overwrittenUnicodeRangeTextInSomeLinesTest() throws IOException, InterruptedException {
+        runTest("overwrittenUnicodeRangeTextInSomeLinesTest");
+    }
+
+    @Test
+    public void fontFaceWithUnicodeRangeTest() throws IOException, InterruptedException {
+        runTest("fontFaceWithUnicodeRangeTest");
+    }
+
+    @Test
+    public void incorrectUnicodeRangesTest() throws IOException, InterruptedException {
+        runTest("incorrectUnicodeRangesTest");
+    }
+
+    @Test
+    public void unusedFontWithUnicodeRangeTest() throws IOException, InterruptedException {
+        runTest("unusedFontWithUnicodeRangeTest");
     }
 
     private void runTest(String name) throws IOException, InterruptedException {

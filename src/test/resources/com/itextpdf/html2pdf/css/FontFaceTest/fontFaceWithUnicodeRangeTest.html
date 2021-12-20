@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+<!-- U+006a is 'j', U+0070 is 'p', U+75 is 'u' -->
+        @font-face {
+            font-family: 'Ampersand';
+            src: url("web-fonts/droid-serif-bold.ttf");
+            unicode-range:U+006a, U+0070;
+        }
+        @font-face {
+            font-family: 'Ampersand';
+            src: url("web-fonts/droid-serif-italic.ttf");
+            unicode-range:U+75;
+            }
+        div {
+            font-size: 4em;
+            font-family: Ampersand;
+        }
+    </style>
+</head>
+<body>
+<div>j<br>u<br>m<br>p</div>
+</body>
+</html>
