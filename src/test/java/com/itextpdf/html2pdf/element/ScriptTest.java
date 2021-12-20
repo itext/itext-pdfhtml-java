@@ -61,19 +61,31 @@ import org.junit.experimental.categories.Category;
 @Category(IntegrationTest.class)
 public class ScriptTest extends ExtendedITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/ScriptTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/ScriptTest/";
+    public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/element/ScriptTest/";
+    public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/element/ScriptTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)})
     public void script01Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "scriptTest01.html"), new File(destinationFolder + "scriptTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "scriptTest01.pdf", sourceFolder + "cmp_scriptTest01.pdf", destinationFolder, "diff01_"));
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "scriptTest01.html"),
+                new File(DESTINATION_FOLDER + "scriptTest01.pdf"));
+
+        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "scriptTest01.pdf",
+                SOURCE_FOLDER + "cmp_scriptTest01.pdf", DESTINATION_FOLDER, "diff01_"));
     }
 
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)})
+    public void noScriptTagTest() throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "noScriptTag.html"),
+                new File(DESTINATION_FOLDER + "noScriptTag.pdf"));
+
+        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "noScriptTag.pdf",
+                SOURCE_FOLDER + "cmp_noScriptTag.pdf", DESTINATION_FOLDER, "diff01_"));
+    }
 }
