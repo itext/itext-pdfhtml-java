@@ -134,7 +134,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             TagConstants.LINK,
             TagConstants.META,
             TagConstants.TITLE,
-            // Content from <tr> is thrown upwards to parent, in other cases CSS is inherited anyway
             TagConstants.TR)));
 
     /**
@@ -145,7 +144,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             TagConstants.LINK,
             TagConstants.META,
             TagConstants.SCRIPT,
-            TagConstants.TITLE // TODO implement
+            TagConstants.TITLE
     )));
 
     /**
