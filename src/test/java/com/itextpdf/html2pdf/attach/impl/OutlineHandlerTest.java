@@ -139,4 +139,17 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
             Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER, "diff_" + i));
         }
     }
+
+    @Test
+    public void capitalHeadingLevelTest() throws IOException, InterruptedException {
+        String inFile = SOURCE_FOLDER + "capitalHeadingLevel.html";
+        String outFile = DESTINATION_FOLDER + "capitalHeadingLevel.pdf";
+        String cmpFile = SOURCE_FOLDER + "cmp_capitalHeadingLevel.pdf";
+
+        OutlineHandler outlineHandler = OutlineHandler.createStandardHandler();
+        HtmlConverter.convertToPdf(new File(inFile), new File(outFile),
+                new ConverterProperties().setOutlineHandler(outlineHandler));
+        Assert.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER,
+                "diff_capitalHeadingLevelOne"));
+    }
 }
