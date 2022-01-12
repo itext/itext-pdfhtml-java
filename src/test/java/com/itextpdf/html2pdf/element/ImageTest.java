@@ -170,4 +170,9 @@ public class ImageTest extends ExtendedHtmlConversionITextTest {
     public void sourceMediaTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("sourceMedia", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
+
+    @Test
+    public void resolutionInfoStructOf8bimHeaderImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("resolutionInfoStructOf8bimHeaderImage", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
 }
