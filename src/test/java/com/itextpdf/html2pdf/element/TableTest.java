@@ -532,11 +532,6 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, count = 2),
-    })
-    //TODO: DEVSIX-3022 - Inputs bigger than enclosing cell force table to split
     public void tableWithChildrenBiggerThanCellTest() throws IOException, InterruptedException {
         runTest("tableWithChildrenBiggerThanCell");
     }

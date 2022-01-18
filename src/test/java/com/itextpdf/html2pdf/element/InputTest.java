@@ -271,13 +271,43 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-5571 Update cmp after the ticket is closed
-    @LogMessages(ignore = true, messages = {
-            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT),
-    })
+    public void checkboxInTableTest() throws IOException, InterruptedException {
+        runTest("checkboxInTable");
+    }
+
+    @Test
+    public void checkboxDisplayBlockInTableTest() throws IOException, InterruptedException {
+        runTest("checkboxDisplayBlockInTable");
+    }
+
+    @Test
+    public void checkboxFullWidthDisplayBlockInTableTest() throws IOException, InterruptedException {
+        runTest("checkboxFullWidthDisplayBlockInTable");
+    }
+
+    @Test
+    public void checkboxDiffWidthDisplayBlockInTableTest() throws IOException, InterruptedException {
+        runTest("checkboxDiffWidthDisplayBlockInTable");
+    }
+
+    @Test
+    public void checkboxTest() throws IOException, InterruptedException {
+        runTest("checkbox");
+    }
+
+    @Test
+    public void checkboxDisplayBlockTest() throws IOException, InterruptedException {
+        runTest("checkboxDisplayBlock");
+    }
+
+    @Test
     public void checkboxFullWidthDisplayBlockTest() throws IOException, InterruptedException {
-        runTest("checkboxFullWidthDisplayBlockTest");
+        runTest("checkboxFullWidthDisplayBlock");
+    }
+
+    @Test
+    public void checkboxDiffWidthDisplayBlockTest() throws IOException, InterruptedException {
+        runTest("checkboxDiffWidthDisplayBlock");
     }
 
     @Test

@@ -57,6 +57,7 @@ import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.layout.LayoutContext;
+import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
@@ -95,7 +96,8 @@ public class CheckBoxRenderer extends AbstractFormFieldRenderer {
                 .setWidth(DEFAULT_SIZE)
                 .setHeight(DEFAULT_SIZE)
                 .setBorder(new SolidBorder(DEFAULT_BORDER_COLOR, DEFAULT_BORDER_WIDTH))
-                .setBackgroundColor(DEFAULT_BACKGROUND_COLOR);
+                .setBackgroundColor(DEFAULT_BACKGROUND_COLOR)
+                .setHorizontalAlignment(HorizontalAlignment.CENTER);
         return new FlatParagraphRenderer(paragraph);
     }
 

@@ -231,7 +231,9 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer {
         if (occupiedArea == null) {
             return false;
         }
-        return availableHeight >= occupiedArea.getBBox().getHeight() && availableWidth >= occupiedArea.getBBox().getWidth();
+        return availableHeight >= occupiedArea.getBBox().getHeight() &&
+                ((availableWidth >= occupiedArea.getBBox().getWidth()) ||
+                        (this.<OverflowPropertyValue>getProperty(Property.OVERFLOW_X) == OverflowPropertyValue.VISIBLE));
     }
 
     /**
