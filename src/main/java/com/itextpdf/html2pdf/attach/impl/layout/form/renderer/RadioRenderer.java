@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.forms.fields.PdfButtonFormField;
 import com.itextpdf.forms.fields.PdfFormField;
+import com.itextpdf.forms.fields.RadioFormFieldBuilder;
 import com.itextpdf.forms.util.DrawingUtil;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Radio;
@@ -140,14 +141,15 @@ public class RadioRenderer extends AbstractFormFieldRenderer {
         PdfButtonFormField radioGroup = (PdfButtonFormField) form.getField(groupName);
         boolean addNew = false;
         if (null == radioGroup) {
-            radioGroup = PdfFormField.createRadioGroup(doc, groupName, "on");
+            radioGroup = new RadioFormFieldBuilder(doc, groupName).createRadioGroup();
+            radioGroup.setValue("on");
             addNew = true;
         }
         if (isBoxChecked()) {
             radioGroup.setValue(getModelId());
         }
 
-        PdfFormField radio = PdfFormField.createRadioButton(doc, area, radioGroup, getModelId());
+        PdfFormField radio = new RadioFormFieldBuilder(doc).setWidgetRectangle(area).createRadioButton(radioGroup, getModelId());
         radio.setCheckType(PdfFormField.TYPE_CIRCLE);
 
         if (addNew) {

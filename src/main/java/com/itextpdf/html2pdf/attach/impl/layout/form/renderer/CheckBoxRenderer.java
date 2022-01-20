@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
 import com.itextpdf.forms.PdfAcroForm;
+import com.itextpdf.forms.fields.CheckBoxFormFieldBuilder;
 import com.itextpdf.forms.fields.PdfButtonFormField;
 import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.forms.util.DrawingUtil;
@@ -128,7 +129,9 @@ public class CheckBoxRenderer extends AbstractFormFieldRenderer {
         PdfDocument doc = drawContext.getDocument();
         Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
         PdfPage page = doc.getPage(occupiedArea.getPageNumber());
-        PdfButtonFormField checkBox = PdfFormField.createCheckBox(doc, area, name, isBoxChecked() ? "Yes" : "Off");
+        PdfButtonFormField checkBox = new CheckBoxFormFieldBuilder(doc, name)
+                .setWidgetRectangle(area).createCheckBox();
+        checkBox.setValue(isBoxChecked() ? "Yes" : "Off", true);
         PdfAcroForm.getAcroForm(doc, true).addField(checkBox, page);
 
         writeAcroFormFieldLangAttribute(doc);

@@ -46,6 +46,7 @@ import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.forms.fields.FormsMetaInfoStaticContainer;
 import com.itextpdf.forms.fields.PdfButtonFormField;
 import com.itextpdf.forms.fields.PdfFormField;
+import com.itextpdf.forms.fields.PushButtonFormFieldBuilder;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputButton;
@@ -153,8 +154,9 @@ public class InputButtonRenderer extends AbstractOneLineTextFieldRenderer {
         final float fontSizeValue = fontSize.getValue();
 
         FormsMetaInfoStaticContainer.useMetaInfoDuringTheAction(getMetaInfo(), () -> {
-            final PdfButtonFormField button =
-                    PdfFormField.createPushButton(doc, area, name, value, font, fontSizeValue);
+            final PdfButtonFormField button = new PushButtonFormFieldBuilder(doc, name)
+                    .setWidgetRectangle(area).setCaption(value).createPushButton();
+            button.setFont(font).setFontSize(fontSizeValue);
             if (backgroundColor != null) {
                 button.setBackgroundColor(backgroundColor);
             }

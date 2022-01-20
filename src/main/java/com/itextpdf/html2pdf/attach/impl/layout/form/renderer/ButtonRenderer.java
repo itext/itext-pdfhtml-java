@@ -46,6 +46,7 @@ import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.forms.fields.FormsMetaInfoStaticContainer;
 import com.itextpdf.forms.fields.PdfButtonFormField;
 import com.itextpdf.forms.fields.PdfFormField;
+import com.itextpdf.forms.fields.PushButtonFormFieldBuilder;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
@@ -100,8 +101,9 @@ public class ButtonRenderer extends BlockRenderer {
 
             FormsMetaInfoStaticContainer.useMetaInfoDuringTheAction(
                     this.<MetaInfoContainer>getProperty(Property.META_INFO), () -> {
-                        final PdfButtonFormField button =
-                                PdfFormField.createPushButton(doc, area, name, value, font, fontSizeValue);
+                        final PdfButtonFormField button = new PushButtonFormFieldBuilder(doc, name)
+                                .setWidgetRectangle(area).setCaption(value).createPushButton();
+                        button.setFont(font).setFontSize(fontSizeValue);
                         button.getWidgets().get(0).setHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
                         button.setBorderWidth(0);
                         button.setBackgroundColor(null);

@@ -45,6 +45,7 @@ package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.forms.fields.FormsMetaInfoStaticContainer;
 import com.itextpdf.forms.fields.PdfFormField;
+import com.itextpdf.forms.fields.TextFormFieldBuilder;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.TextArea;
@@ -181,7 +182,8 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         final PdfString defaultValue = new PdfString(getDefaultValue());
 
         FormsMetaInfoStaticContainer.useMetaInfoDuringTheAction(getMetaInfo(), () -> {
-            final PdfFormField inputField = PdfFormField.createText(doc, area, name, value, font, fontSizeValue);
+            final PdfFormField inputField = new TextFormFieldBuilder(doc, name).setWidgetRectangle(area).createText()
+                    .setFont(font).setFontSize(fontSizeValue).setValue(value);
             inputField.setFieldFlag(PdfFormField.FF_MULTILINE, true);
             inputField.setDefaultValue(defaultValue);
             applyDefaultFieldProperties(inputField);
