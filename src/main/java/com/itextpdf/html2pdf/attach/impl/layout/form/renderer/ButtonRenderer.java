@@ -43,11 +43,14 @@
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
 import com.itextpdf.forms.PdfAcroForm;
+import com.itextpdf.forms.fields.FormsMetaInfoStaticContainer;
 import com.itextpdf.forms.fields.PdfButtonFormField;
 import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
+import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
@@ -60,6 +63,7 @@ import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.renderer.BlockRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
+import com.itextpdf.layout.renderer.MetaInfoContainer;
 
 import java.util.List;
 
@@ -88,19 +92,28 @@ public class ButtonRenderer extends BlockRenderer {
             Rectangle area = getOccupiedArea().getBBox().clone();
             applyMargins(area, false);
             PdfPage page = doc.getPage(occupiedArea.getPageNumber());
-            PdfButtonFormField button = PdfFormField.createPushButton(doc, area, name, value, doc.getDefaultFont(), fontSize.getValue());
-            button.getWidgets().get(0).setHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
-            button.setBorderWidth(0);
-            button.setBackgroundColor(null);
-            TransparentColor color = getPropertyAsTransparentColor(Property.FONT_COLOR);
-            if (color != null) {
-                button.setColor(color.getColor());
-            }
-            PdfAcroForm forms = PdfAcroForm.getAcroForm(doc, true);
-            //Add fields only if it isn't already added. This can happen on split.
-            if (forms.getField(name) == null) {
-                forms.addField(button, page);
-            }
+
+            final TransparentColor transparentColor = getPropertyAsTransparentColor(Property.FONT_COLOR);
+            final Color color = transparentColor == null ? null : transparentColor.getColor();
+            final float fontSizeValue = fontSize.getValue();
+            final PdfFont font = doc.getDefaultFont();
+
+            FormsMetaInfoStaticContainer.useMetaInfoDuringTheAction(
+                    this.<MetaInfoContainer>getProperty(Property.META_INFO), () -> {
+                        final PdfButtonFormField button =
+                                PdfFormField.createPushButton(doc, area, name, value, font, fontSizeValue);
+                        button.getWidgets().get(0).setHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
+                        button.setBorderWidth(0);
+                        button.setBackgroundColor(null);
+                        if (color != null) {
+                            button.setColor(color);
+                        }
+                        PdfAcroForm forms = PdfAcroForm.getAcroForm(doc, true);
+                        //Add fields only if it isn't already added. This can happen on split.
+                        if (forms.getField(name) == null) {
+                            forms.addField(button, page);
+                        }
+                    });
 
             if (doc.isTagged()) {
                 TagTreePointer formParentPointer = doc.getTagStructureContext().getAutoTaggingPointer();

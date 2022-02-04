@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
 import com.itextpdf.forms.PdfAcroForm;
+import com.itextpdf.forms.fields.FormsMetaInfoStaticContainer;
 import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
@@ -176,11 +177,16 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
         PdfDocument doc = drawContext.getDocument();
         Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
         PdfPage page = doc.getPage(occupiedArea.getPageNumber());
-        PdfFormField inputField = PdfFormField.createText(doc, area, name, value, font, fontSize.getValue());
-        inputField.setFieldFlag(PdfFormField.FF_MULTILINE, true);
-        inputField.setDefaultValue(new PdfString(getDefaultValue()));
-        applyDefaultFieldProperties(inputField);
-        PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
+        final float fontSizeValue = fontSize.getValue();
+        final PdfString defaultValue = new PdfString(getDefaultValue());
+
+        FormsMetaInfoStaticContainer.useMetaInfoDuringTheAction(getMetaInfo(), () -> {
+            final PdfFormField inputField = PdfFormField.createText(doc, area, name, value, font, fontSizeValue);
+            inputField.setFieldFlag(PdfFormField.FF_MULTILINE, true);
+            inputField.setDefaultValue(defaultValue);
+            applyDefaultFieldProperties(inputField);
+            PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
+        });
 
         writeAcroFormFieldLangAttribute(doc);
     }

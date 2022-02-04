@@ -60,6 +60,7 @@ import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.renderer.BlockRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
+import com.itextpdf.layout.renderer.MetaInfoContainer;
 import com.itextpdf.layout.tagging.IAccessibleElement;
 
 import java.util.List;
@@ -261,6 +262,10 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer {
             }
             formParentPointer.moveToParent();
         }
+    }
+
+    MetaInfoContainer getMetaInfo() {
+        return this.<MetaInfoContainer>getProperty(Property.META_INFO);
     }
 
     private void processLangAttribute() {
