@@ -77,6 +77,15 @@ public class FontFaceTest extends ExtendedITextTest {
         createOrClearDestinationFolder(destinationFolder);
     }
 
+
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT) })
+    @Test
+    public void emptyFontDefinitionTest() throws IOException, InterruptedException {
+        runTest("emptyWebFontCssTest");
+    }
+
+
     @Test
     public void droidSerifWebFontTest() throws IOException, InterruptedException {
         runTest("droidSerifWebFontTest");
