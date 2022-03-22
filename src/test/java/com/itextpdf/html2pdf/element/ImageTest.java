@@ -160,6 +160,7 @@ public class ImageTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // Android-Ignore (TODO DEVSIX-6459 fix the SecurityException(Permission denied) from UrlUtil method)
     public void imageUrlExternalDocumentTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("externalUrlImage", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

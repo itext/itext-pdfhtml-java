@@ -44,9 +44,9 @@ package com.itextpdf.html2pdf.resolver.resource;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.ContextMappingHelper;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
 import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.io.util.UrlUtil;
@@ -69,15 +69,14 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 // TODO: DEVSIX-5968 Add new tests in HtmlResourceResolverTest
 @Category(IntegrationTest.class)
@@ -106,6 +105,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, count = 2)
     })
+    // Android-Ignore (TODO DEVSIX-6456 fix the java.net.URLConnection#getHeaderField which is used by UrlUtil)
     public void resourceResolverHtmlWithSvgTest02() throws IOException, InterruptedException {
         String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces/";
         String outPdf = DESTINATION_FOLDER + "resourceResolverHtmlWithSvgTest02.pdf";
@@ -115,6 +115,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    // Android-Ignore (TODO DEVSIX-6456 fix the java.net.URLConnection#getHeaderField which is used by UrlUtil)
     public void resourceResolverTest07() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverTest07.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverTest07.pdf";
@@ -127,6 +128,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG))
+    // Android-Ignore (TODO DEVSIX-6460 fix different behavior of java.net.URL#URL)
     public void resourceResolverTest07A() throws IOException, InterruptedException {
         String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces/";
         String outPdf = DESTINATION_FOLDER + "resourceResolverTest07A.pdf";
@@ -136,6 +138,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    // Android-Ignore (TODO DEVSIX-6456 fix the java.net.URLConnection#getHeaderField which is used by UrlUtil)
     public void resourceResolverTest07B() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverTest07B.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverTest07B.pdf";
@@ -148,6 +151,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    // Android-Ignore (TODO DEVSIX-6456 fix the java.net.URLConnection#getHeaderField which is used by UrlUtil)
     @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG))
     public void resourceResolverTest07C() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverTest07C.pdf";
@@ -161,6 +165,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    // Android-Ignore (TODO DEVSIX-6460 fix different behavior of java.net.URL#URL)
     public void resourceResolverHtmlWithSvgTest03() throws IOException, InterruptedException {
         String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces/";
         String outPdf = DESTINATION_FOLDER + "resourceResolverHtmlWithSvgTest03.pdf";
@@ -170,6 +175,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    // Android-Ignore (TODO DEVSIX-6456 fix the java.net.URLConnection#getHeaderField which is used by UrlUtil)
     public void resourceResolverHtmlWithSvgTest04() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverHtmlWithSvgTest04.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverHtmlWithSvgTest04.pdf";
@@ -179,6 +185,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
     @Test
     //TODO: update after DEVSIX-2239 fix
+    // Android-Ignore (TODO DEVSIX-6456 fix the java.net.URLConnection#getHeaderField which is used by UrlUtil)
     public void resourceResolverCssWithSvg() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverCssWithSvg.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverCssWithSvg.pdf";
@@ -418,6 +425,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    // Android-Ignore (TODO DEVSIX-6460 fix different behavior of java.net.URL#URL)
     public void convertToPdfWithAbsoluteBaseUriTest() throws IOException, InterruptedException {
         String baseUri = PathUtil.getAbsolutePathToResourcesForHtmlResourceResolverTest();
         String outPdf = DESTINATION_FOLDER + "convertToPdfWithAbsoluteBaseUriTest.pdf";
@@ -428,6 +436,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    // Android-Ignore (TODO DEVSIX-6460 fix different behavior of java.net.URL#URL)
     public void convertToPdfWithBaseUriFromUriTest() throws IOException, InterruptedException {
         String baseUri = PathUtil.getUriToResourcesForHtmlResourceResolverTest();
         String outPdf = DESTINATION_FOLDER + "convertToPdfWithBaseUriFromUriTest.pdf";

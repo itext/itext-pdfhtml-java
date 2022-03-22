@@ -53,6 +53,7 @@ import org.junit.experimental.categories.Category;
 @Category(IntegrationTest.class)
 public class ExternalResourcesTest extends ExtendedITextTest {
     @Test
+    // Android-Ignore (TODO DEVSIX-6459 fix the SecurityException(Permission denied) from UrlUtil method)
     public void externalStylesheetTest() {
         ResourceResolver resourceResolver = new ResourceResolver("");
 
