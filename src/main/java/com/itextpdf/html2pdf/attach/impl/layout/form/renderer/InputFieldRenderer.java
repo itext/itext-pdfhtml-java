@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2021 iText Group NV
+    Copyright (c) 1998-2022 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
 import com.itextpdf.forms.PdfAcroForm;
+import com.itextpdf.forms.fields.FormsMetaInfoStaticContainer;
 import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
@@ -159,7 +160,8 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
     @Override
     protected void applyAcroField(DrawContext drawContext) {
         font.setSubset(false);
-        String value = getDefaultValue();
+        boolean password = isPassword();
+        final String value = password ? "" : getDefaultValue();
         String name = getModelId();
         UnitValue fontSize = (UnitValue) this.getPropertyAsUnitValue(Property.FONT_SIZE);
         if (!fontSize.isPointValue()) {
@@ -167,21 +169,21 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
             logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
                     Property.FONT_SIZE));
         }
-        PdfDocument doc = drawContext.getDocument();
-        Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
-        PdfPage page = doc.getPage(occupiedArea.getPageNumber());
-        boolean password = isPassword();
-        if (password) {
-            value = "";
-        }
-        PdfFormField inputField = PdfFormField.createText(doc, area, name, value, font, fontSize.getValue());
-        if (password) {
-            inputField.setFieldFlag(PdfFormField.FF_PASSWORD, true);
-        } else {
-            inputField.setDefaultValue(new PdfString(value));
-        }
-        applyDefaultFieldProperties(inputField);
-        PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
+        final PdfDocument doc = drawContext.getDocument();
+        final Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
+        final PdfPage page = doc.getPage(occupiedArea.getPageNumber());
+        final float fontSizeValue = fontSize.getValue();
+
+        FormsMetaInfoStaticContainer.useMetaInfoDuringTheAction(getMetaInfo(), () -> {
+            final PdfFormField inputField = PdfFormField.createText(doc, area, name, value, font, fontSizeValue);
+            if (password) {
+                inputField.setFieldFlag(PdfFormField.FF_PASSWORD, true);
+            } else {
+                inputField.setDefaultValue(new PdfString(value));
+            }
+            applyDefaultFieldProperties(inputField);
+            PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
+        });
 
         writeAcroFormFieldLangAttribute(doc);
     }

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2021 iText Group NV
+    Copyright (c) 1998-2022 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -134,7 +134,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             TagConstants.LINK,
             TagConstants.META,
             TagConstants.TITLE,
-            // Content from <tr> is thrown upwards to parent, in other cases CSS is inherited anyway
             TagConstants.TR)));
 
     /**
@@ -145,7 +144,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             TagConstants.LINK,
             TagConstants.META,
             TagConstants.SCRIPT,
-            TagConstants.TITLE // TODO implement
+            TagConstants.TITLE
     )));
 
     /**

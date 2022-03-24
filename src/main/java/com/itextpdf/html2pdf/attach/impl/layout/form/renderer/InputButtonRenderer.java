@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2021 iText Group NV
+    Copyright (c) 1998-2022 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.attach.impl.layout.form.renderer;
 
 import com.itextpdf.forms.PdfAcroForm;
+import com.itextpdf.forms.fields.FormsMetaInfoStaticContainer;
 import com.itextpdf.forms.fields.PdfButtonFormField;
 import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
@@ -50,6 +51,7 @@ import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputButton;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.io.logs.IoLogMessageConstant;
+import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
@@ -145,13 +147,20 @@ public class InputButtonRenderer extends AbstractOneLineTextFieldRenderer {
         Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
         applyPaddings(area, true);
         PdfPage page = doc.getPage(occupiedArea.getPageNumber());
-        PdfButtonFormField button = PdfFormField.createPushButton(doc, area, name, value, font, fontSize.getValue());
+
         Background background = this.<Background>getProperty(Property.BACKGROUND);
-        if (background != null && background.getColor() != null) {
-            button.setBackgroundColor(background.getColor());
-        }
-        applyDefaultFieldProperties(button);
-        PdfAcroForm.getAcroForm(doc, true).addField(button, page);
+        final Color backgroundColor = background == null ? null : background.getColor();
+        final float fontSizeValue = fontSize.getValue();
+
+        FormsMetaInfoStaticContainer.useMetaInfoDuringTheAction(getMetaInfo(), () -> {
+            final PdfButtonFormField button =
+                    PdfFormField.createPushButton(doc, area, name, value, font, fontSizeValue);
+            if (backgroundColor != null) {
+                button.setBackgroundColor(backgroundColor);
+            }
+            applyDefaultFieldProperties(button);
+            PdfAcroForm.getAcroForm(doc, true).addField(button, page);
+        });
 
         writeAcroFormFieldLangAttribute(doc);
     }

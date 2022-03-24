@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2021 iText Group NV
+    Copyright (c) 1998-2022 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,8 +42,8 @@
  */
 package com.itextpdf.html2pdf.resolver.resource;
 
-import com.itextpdf.html2pdf.ExternalExtendedITextTest;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
+import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import org.junit.Assert;
@@ -51,7 +51,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class ExternalResourcesTest extends ExternalExtendedITextTest {
+public class ExternalResourcesTest extends ExtendedITextTest {
     @Test
     public void externalStylesheetTest() {
         ResourceResolver resourceResolver = new ResourceResolver("");

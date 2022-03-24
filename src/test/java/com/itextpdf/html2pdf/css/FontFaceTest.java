@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2021 iText Group NV
+    Copyright (c) 1998-2022 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -76,6 +76,15 @@ public class FontFaceTest extends ExtendedITextTest {
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
     }
+
+
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT) })
+    @Test
+    public void emptyFontDefinitionTest() throws IOException, InterruptedException {
+        runTest("emptyWebFontCssTest");
+    }
+
 
     @Test
     public void droidSerifWebFontTest() throws IOException, InterruptedException {

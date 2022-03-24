@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2021 iText Group NV
+    Copyright (c) 1998-2022 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
+import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
@@ -116,12 +117,12 @@ public class OutlineHandler {
      */
     public static OutlineHandler createStandardHandler() {
         OutlineHandler handler = new OutlineHandler();
-        handler.putTagPriorityMapping("h1", 1);
-        handler.putTagPriorityMapping("h2", 2);
-        handler.putTagPriorityMapping("h3", 3);
-        handler.putTagPriorityMapping("h4", 4);
-        handler.putTagPriorityMapping("h5", 5);
-        handler.putTagPriorityMapping("h6", 6);
+        handler.putTagPriorityMapping(TagConstants.H1, 1);
+        handler.putTagPriorityMapping(TagConstants.H2, 2);
+        handler.putTagPriorityMapping(TagConstants.H3, 3);
+        handler.putTagPriorityMapping(TagConstants.H4, 4);
+        handler.putTagPriorityMapping(TagConstants.H5, 5);
+        handler.putTagPriorityMapping(TagConstants.H6, 6);
         return handler;
     }
 

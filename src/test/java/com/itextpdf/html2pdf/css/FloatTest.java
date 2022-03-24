@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2021 iText Group NV
+    Copyright (c) 1998-2022 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -770,6 +770,12 @@ public class FloatTest extends ExtendedITextTest {
         printPathToConsole(htmlName, "html: ");
 
         Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER));
+    }
+
+    @Test
+    // TODO: update cmp file after DEVSIX-4381 will be fixed
+    public void floatLeftWithPaddingInLiTest() throws IOException, InterruptedException {
+        runTest("floatLeftWithPaddingInLi", "diff_floatLeftWithPaddingInLi_");
     }
 
     private void runTest(String testName, String diff) throws IOException, InterruptedException {

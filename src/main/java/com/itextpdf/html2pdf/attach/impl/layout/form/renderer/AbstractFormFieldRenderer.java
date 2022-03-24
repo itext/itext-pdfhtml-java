@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2021 iText Group NV
+    Copyright (c) 1998-2022 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -60,6 +60,7 @@ import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.renderer.BlockRenderer;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
+import com.itextpdf.layout.renderer.MetaInfoContainer;
 import com.itextpdf.layout.tagging.IAccessibleElement;
 
 import java.util.List;
@@ -231,7 +232,9 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer {
         if (occupiedArea == null) {
             return false;
         }
-        return availableHeight >= occupiedArea.getBBox().getHeight() && availableWidth >= occupiedArea.getBBox().getWidth();
+        return availableHeight >= occupiedArea.getBBox().getHeight() &&
+                ((availableWidth >= occupiedArea.getBBox().getWidth()) ||
+                        (this.<OverflowPropertyValue>getProperty(Property.OVERFLOW_X) == OverflowPropertyValue.VISIBLE));
     }
 
     /**
@@ -259,6 +262,10 @@ public abstract class AbstractFormFieldRenderer extends BlockRenderer {
             }
             formParentPointer.moveToParent();
         }
+    }
+
+    MetaInfoContainer getMetaInfo() {
+        return this.<MetaInfoContainer>getProperty(Property.META_INFO);
     }
 
     private void processLangAttribute() {

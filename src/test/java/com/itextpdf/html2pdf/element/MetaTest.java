@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2021 iText Group NV
+    Copyright (c) 1998-2022 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,24 +42,23 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfDocumentInfo;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class MetaTest extends ExtendedITextTest {
+public class MetaTest extends ExtendedHtmlConversionITextTest {
     private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/element/MetaTest/";
     private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/element/MetaTest/";
 
@@ -103,5 +102,17 @@ public class MetaTest extends ExtendedITextTest {
         Assert.assertNull(compareTool.compareByContent(DESTINATION_FOLDER + "metaTest03.pdf", SOURCE_FOLDER + "cmp_metaTest03.pdf",
                 DESTINATION_FOLDER, "diff03_"));
         Assert.assertNull(compareTool.compareDocumentInfo(DESTINATION_FOLDER + "metaTest03.pdf", SOURCE_FOLDER + "cmp_metaTest03.pdf"));
+    }
+
+    @Test
+    public void metaApplicationNameTest() throws IOException, InterruptedException {
+        String srcHtml = SOURCE_FOLDER + "metaApplicationName.html";
+        String outPdf = DESTINATION_FOLDER + "metaApplicationName.pdf";
+        String cmpPdf = SOURCE_FOLDER + "cmp_metaApplicationName.pdf";
+        HtmlConverter.convertToPdf(new File(srcHtml), new File(outPdf));
+        PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(outPdf)).getDocumentInfo();
+        CompareTool compareTool = new CompareTool();
+        Assert.assertNull(compareTool.compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER, "metaAppName_"));
+        Assert.assertEquals("iText", pdfDocInfo.getCreator());
     }
 }

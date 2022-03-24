@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2021 iText Group NV
+    Copyright (c) 1998-2022 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -43,144 +43,105 @@
 package com.itextpdf.html2pdf.element;
 
 
-import com.itextpdf.html2pdf.ConverterProperties;
-import com.itextpdf.html2pdf.ExternalExtendedITextTest;
-import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class ImageTest extends ExternalExtendedITextTest {
+public class ImageTest extends ExtendedHtmlConversionITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/ImageTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/ImageTest/";
+    private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/element/ImageTest/";
+    private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/element/ImageTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
     public void imagesInBodyTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "imagesInBody.html"), new File(destinationFolder + "imagesInBody.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imagesInBody.pdf", sourceFolder + "cmp_imagesInBody.pdf", destinationFolder, "diff18_"));
+        convertToPdfAndCompare("imagesInBody", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void imagesWithWideBorders() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "imagesWithWideBorders.html"), new File(destinationFolder + "imagesWithWideBorders.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imagesWithWideBorders.pdf", sourceFolder + "cmp_imagesWithWideBorders.pdf", destinationFolder));
+        convertToPdfAndCompare("imagesWithWideBorders", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void imagesWithWideMargins() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "imagesWithWideMargins.html"), new File(destinationFolder + "imagesWithWideMargins.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imagesWithWideMargins.pdf", sourceFolder + "cmp_imagesWithWideMargins.pdf", destinationFolder));
+        convertToPdfAndCompare("imagesWithWideMargins", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     // TODO DEVSIX-2467
     public void imagesWithWidePaddings() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "imagesWithWidePaddings.html"), new File(destinationFolder + "imagesWithWidePaddings.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imagesWithWidePaddings.pdf", sourceFolder + "cmp_imagesWithWidePaddings.pdf", destinationFolder));
+        convertToPdfAndCompare("imagesWithWidePaddings", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     // TODO DEVSIX-2467
     public void imagesWithWidePaddingsBordersMargins() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "imagesWithWidePaddingsBordersMargins.html"), new File(destinationFolder + "imagesWithWidePaddingsBordersMargins.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imagesWithWidePaddingsBordersMargins.pdf", sourceFolder + "cmp_imagesWithWidePaddingsBordersMargins.pdf", destinationFolder));
+        convertToPdfAndCompare("imagesWithWidePaddingsBordersMargins", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void checkImageBorderRadius() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "checkImageBorderRadius.html"), new File(destinationFolder + "checkImageBorderRadius.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "checkImageBorderRadius.pdf", sourceFolder + "cmp_checkImageBorderRadius.pdf", destinationFolder));
+        convertToPdfAndCompare("checkImageBorderRadius", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void imageFileDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "smallWidthImagePlacement.html"),
-                new File(destinationFolder + "smallWidthImagePlacement.pdf"));
-
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "smallWidthImagePlacement.pdf",
-                sourceFolder + "cmp_smallWidthImagePlacement.pdf", destinationFolder));
+        convertToPdfAndCompare("smallWidthImagePlacement", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void imageUrlDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "imageUrl.html"),
-                new File(destinationFolder + "imageUrlDocument.pdf"));
-
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imageUrlDocument.pdf",
-                sourceFolder + "cmp_imageUrlDocument.pdf", destinationFolder));
+        convertToPdfAndCompare("imageUrlDocument", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void imageWithIncorrectBase64Test() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "imageWithIncorrectBase64.html"),
-                new File(destinationFolder + "imageWithIncorrectBase64.pdf"));
+        convertToPdfAndCompare("imageWithIncorrectBase64", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
 
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imageWithIncorrectBase64.pdf",
-                sourceFolder + "cmp_imageWithIncorrectBase64.pdf", destinationFolder));
+    @Test
+    //TODO DEVSIX-6190 pdfHtml: Embedded image from html doesn't present in out pdf
+    public void embeddedImageBase64Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("embeddedImageBase64", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void imageBase64DifferentFormatsTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "imageBase64DifferentFormats.html"),
-                new File(destinationFolder + "imageBase64DifferentFormats.pdf"));
-
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imageBase64DifferentFormats.pdf",
-                sourceFolder + "cmp_imageBase64DifferentFormats.pdf", destinationFolder));
+        convertToPdfAndCompare("imageBase64DifferentFormats", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void smallImageTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "smallImageTest.html"),
-                new File(destinationFolder + "smallImageTest.pdf"));
-
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "smallImageTest.pdf",
-                sourceFolder + "cmp_smallImageTest.pdf", destinationFolder));
+        convertToPdfAndCompare("smallImageTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     // TODO: DEVSIX-2485
     public void imageInSpanTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "imageInSpan.html"),
-                new File(destinationFolder + "imageInSpan.pdf"));
-
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imageInSpan.pdf",
-                sourceFolder + "cmp_imageInSpan.pdf", destinationFolder));
+        convertToPdfAndCompare("imageInSpan", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void caseSensitiveBase64DataInCssNormalizationTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "caseSensitiveBase64DataInCssNormalization.html"),
-                new File(destinationFolder + "caseSensitiveBase64DataInCssNormalization.pdf"));
-
-        Assert.assertNull(new CompareTool().compareByContent(
-                destinationFolder + "caseSensitiveBase64DataInCssNormalization.pdf",
-                sourceFolder + "cmp_caseSensitiveBase64DataInCssNormalization.pdf", destinationFolder));
+        convertToPdfAndCompare("caseSensitiveBase64DataInCssNormalization", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void inlineBlockImageTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "inlineBlockImage.html"),
-                new File(destinationFolder + "inlineBlockImage.pdf"));
-
-        Assert.assertNull(new CompareTool().compareByContent(
-                destinationFolder + "inlineBlockImage.pdf",
-                sourceFolder + "cmp_inlineBlockImage.pdf", destinationFolder));
+        convertToPdfAndCompare("inlineBlockImage", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     /**
@@ -190,31 +151,28 @@ public class ImageTest extends ExternalExtendedITextTest {
      */
     @Test
     public void svgExternalResourceCornerCaseTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "svgExternalResourceCornerCase.html"),
-                new File(destinationFolder + "svgExternalResourceCornerCase.pdf"));
-
-        Assert.assertNull(new CompareTool().compareByContent(
-                destinationFolder + "svgExternalResourceCornerCase.pdf",
-                sourceFolder + "cmp_svgExternalResourceCornerCase.pdf", destinationFolder));
+        convertToPdfAndCompare("svgExternalResourceCornerCase", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void imageAltTextTest() throws IOException, InterruptedException {
-        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "imageAltText.pdf"));
-        pdfDocument.setTagged();
-        try (FileInputStream fileInputStream = new FileInputStream(sourceFolder + "imageAltText.html")) {
-            HtmlConverter.convertToPdf(fileInputStream, pdfDocument, new ConverterProperties().setBaseUri(sourceFolder));
-        }
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "imageAltText.pdf",
-                sourceFolder + "cmp_imageAltText.pdf", destinationFolder));
+        convertToPdfAndCompare("imageAltText", SOURCE_FOLDER, DESTINATION_FOLDER, true);
     }
 
     @Test
     public void imageUrlExternalDocumentTest() throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(sourceFolder + "externalUrlImage.html"),
-                new File(destinationFolder + "externalUrlImage.pdf"));
+        convertToPdfAndCompare("externalUrlImage", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
 
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "externalUrlImage.pdf",
-                sourceFolder + "cmp_externalUrlImage.pdf", destinationFolder));
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 3))
+    //To see the result in html, just increase the size
+    public void sourceMediaTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("sourceMedia", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void resolutionInfoStructOf8bimHeaderImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("resolutionInfoStructOf8bimHeaderImage", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 }

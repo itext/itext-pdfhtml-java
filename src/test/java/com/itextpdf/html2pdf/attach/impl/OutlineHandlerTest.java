@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2021 iText Group NV
+    Copyright (c) 1998-2022 iText Group NV
     Authors: iText Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -138,5 +138,18 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
                     new ConverterProperties().setOutlineHandler(outlineHandler));
             Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER, "diff_" + i));
         }
+    }
+
+    @Test
+    public void capitalHeadingLevelTest() throws IOException, InterruptedException {
+        String inFile = SOURCE_FOLDER + "capitalHeadingLevel.html";
+        String outFile = DESTINATION_FOLDER + "capitalHeadingLevel.pdf";
+        String cmpFile = SOURCE_FOLDER + "cmp_capitalHeadingLevel.pdf";
+
+        OutlineHandler outlineHandler = OutlineHandler.createStandardHandler();
+        HtmlConverter.convertToPdf(new File(inFile), new File(outFile),
+                new ConverterProperties().setOutlineHandler(outlineHandler));
+        Assert.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER,
+                "diff_capitalHeadingLevelOne"));
     }
 }

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2021 iText Group NV
+    Copyright (c) 1998-2022 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -532,11 +532,6 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, count = 2),
-    })
-    //TODO: DEVSIX-3022 - Inputs bigger than enclosing cell force table to split
     public void tableWithChildrenBiggerThanCellTest() throws IOException, InterruptedException {
         runTest("tableWithChildrenBiggerThanCell");
     }
