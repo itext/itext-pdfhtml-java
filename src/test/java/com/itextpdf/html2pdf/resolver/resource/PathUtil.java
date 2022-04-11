@@ -44,18 +44,36 @@ package com.itextpdf.html2pdf.resolver.resource;
 
 import java.nio.file.Paths;
 
- final class PathUtil{
+final class PathUtil{
+    private static boolean isRunOnJava = false;
+
+// Android-Excise-Start
+    static {
+        isRunOnJava = true;
+    }
+// Android-Excise-End
+
     private PathUtil() {}
 
     static String getAbsolutePathToResourcesForHtmlResourceResolverTest() {
-        return Paths.get("").toAbsolutePath().toString() + "/src/test/resources/com/itextpdf/html2pdf/"
-                + "resolver/resource/HtmlResourceResolverTest/res";
+        if (isRunOnJava) {
+            return Paths.get("").toAbsolutePath().toString() + "/src/test/resources/com/itextpdf/html2pdf/"
+                    + "resolver/resource/HtmlResourceResolverTest/res";
+        }
+        // Test is run on Android, so "./src/test/resources" substring will be replaced as abosulte path.
+        return "./src/test/resources/com/itextpdf/html2pdf/resolver/resource/HtmlResourceResolverTest/res";
     }
 
     static String getUriToResourcesForHtmlResourceResolverTest() {
+        if (isRunOnJava) {
+            // It is important to put a trailing slash in the end: if you specify base URI via absolute URI string,
+            // you need to follow URI standards, in which a path without trailing slash is referring to a file.
+            return Paths.get("").toUri() + "src/test/resources/com/itextpdf/html2pdf/resolver/"
+                    + "resource/HtmlResourceResolverTest/res/";
+        }
+        // Test is run on Android, so "./src/test/resources" substring will be replaced as abosulte path.
         // It is important to put a trailing slash in the end: if you specify base URI via absolute URI string,
         // you need to follow URI standards, in which a path without trailing slash is referring to a file.
-        return Paths.get("").toUri() + "src/test/resources/com/itextpdf/html2pdf/resolver/"
-                + "resource/HtmlResourceResolverTest/res/";
+        return "./src/test/resources/com/itextpdf/html2pdf/resolver/resource/HtmlResourceResolverTest/res/";
     }
 }

@@ -129,7 +129,11 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG))
     public void resourceResolverTest07A() throws IOException, InterruptedException {
-        String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces/";
+        // Due to the fact that on Android "./src/test/resources" substring will be replaced as abosulte path,
+        // base URI resolving will be different from Java. To don't lose the last folder in base URI path after
+        // resolving, write back slash (it isn't lost because on Unix system backslash isn't file separator).
+        // TODO DEVSIX-6576 Fix base URI resolving in UriResolver class
+        String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces\\";
         String outPdf = DESTINATION_FOLDER + "resourceResolverTest07A.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverTest07A.pdf";
 
@@ -165,7 +169,11 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
     @Test
     public void resourceResolverHtmlWithSvgTest03() throws IOException, InterruptedException {
-        String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces/";
+        // Due to the fact that on Android "./src/test/resources" substring will be replaced as abosulte path,
+        // base URI resolving will be different from Java. To don't lose the last folder in base URI path after
+        // resolving, write back slash (it isn't lost because on Unix system backslash isn't file separator).
+        // TODO DEVSIX-6576 Fix base URI resolving in UriResolver class
+        String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces\\";
         String outPdf = DESTINATION_FOLDER + "resourceResolverHtmlWithSvgTest03.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverHtmlWithSvgTest03.pdf";
 
