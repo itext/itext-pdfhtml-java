@@ -128,7 +128,6 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG))
-    // Android-Ignore (TODO DEVSIX-6460 fix different behavior of java.net.URL#URL)
     public void resourceResolverTest07A() throws IOException, InterruptedException {
         String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces/";
         String outPdf = DESTINATION_FOLDER + "resourceResolverTest07A.pdf";
@@ -165,7 +164,6 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    // Android-Ignore (TODO DEVSIX-6460 fix different behavior of java.net.URL#URL)
     public void resourceResolverHtmlWithSvgTest03() throws IOException, InterruptedException {
         String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces/";
         String outPdf = DESTINATION_FOLDER + "resourceResolverHtmlWithSvgTest03.pdf";
@@ -425,7 +423,6 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    // Android-Ignore (TODO DEVSIX-6460 fix different behavior of java.net.URL#URL)
     public void convertToPdfWithAbsoluteBaseUriTest() throws IOException, InterruptedException {
         String baseUri = PathUtil.getAbsolutePathToResourcesForHtmlResourceResolverTest();
         String outPdf = DESTINATION_FOLDER + "convertToPdfWithAbsoluteBaseUriTest.pdf";
@@ -436,7 +433,6 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    // Android-Ignore (TODO DEVSIX-6460 fix different behavior of java.net.URL#URL)
     public void convertToPdfWithBaseUriFromUriTest() throws IOException, InterruptedException {
         String baseUri = PathUtil.getUriToResourcesForHtmlResourceResolverTest();
         String outPdf = DESTINATION_FOLDER + "convertToPdfWithBaseUriFromUriTest.pdf";
