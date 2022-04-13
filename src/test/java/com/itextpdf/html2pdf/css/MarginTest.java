@@ -75,6 +75,12 @@ public class MarginTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    //TODO DEVSIX-5002 pdfHTML: support 'margin: auto'
+    public void autoMarginTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("autoMargin", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
     //TODO DEVSIX-1101 Layout + Html2pdf: Support margin value in percents
     @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED))
     public void marginLeftInPercentRelativeDivWidthTest() throws IOException, InterruptedException {
