@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<style>
+		*[parent]:not([parent~="z"]) {
+			display: flex;
+		}
+		*[child1]:not([child1~="z"]) {
+			display: none;
+		}
+        *[child2]:not([child2~="z"]) {
+			display: block;
+		}
+	</style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="fieldLabel" parent="v"> FlexParent
+	<div class="fieldLabe2" child1="w"> , NoneChild </div>
+    <div class="fieldLabe2" child2="x"> , BlockChild </div>
+</div>
+<div class="fieldLabe3"> NoneChild should be unvisible </div>
+</body>
+</html>
