@@ -138,9 +138,15 @@ public class BorderStyleApplierUtil {
         float borderWidthValue;
         if (CssConstants.BORDER_WIDTH_VALUES.contains(borderWidth)) {
             switch (borderWidth) {
-                case CssConstants.THIN -> borderWidth = "1px";
-                case CssConstants.MEDIUM -> borderWidth = "2px";
-                case CssConstants.THICK -> borderWidth = "3px";
+                case CssConstants.THIN:
+                    borderWidth = "1px";
+                    break;
+                case CssConstants.MEDIUM:
+                    borderWidth = "2px";
+                    break;
+                case CssConstants.THICK:
+                    borderWidth = "3px";
+                    break;
             }
         }
 
@@ -169,19 +175,32 @@ public class BorderStyleApplierUtil {
                     || CssConstants.INSET.equals(borderStyle) || CssConstants.OUTSET.equals(borderStyle)) {
                 color = new DeviceRgb(212, 208, 200);
             }
-            border = switch (borderStyle) {
-                case CssConstants.SOLID -> new SolidBorder(color, borderWidthValue, opacity);
-                case CssConstants.DASHED -> new DashedBorder(color, borderWidthValue, opacity);
-                case CssConstants.DOTTED -> new RoundDotsBorder(color, borderWidthValue, opacity);
-                case CssConstants.DOUBLE -> new DoubleBorder(color, borderWidthValue, opacity);
-                case CssConstants.GROOVE -> new GrooveBorder(color, borderWidthValue, opacity);
-                case CssConstants.RIDGE -> new RidgeBorder(color, borderWidthValue, opacity);
-                case CssConstants.INSET -> new InsetBorder(color, borderWidthValue, opacity);
-                case CssConstants.OUTSET -> new OutsetBorder(color, borderWidthValue, opacity);
-                default -> null;
-            };
+            border = getBorder(borderStyle, borderWidthValue, color, opacity);
         }
         return border;
+    }
+
+    private static Border getBorder(String borderStyle, float borderWidthValue, DeviceRgb color, float opacity) {
+        switch (borderStyle) {
+            case CssConstants.SOLID:
+                return new SolidBorder(color, borderWidthValue, opacity);
+            case CssConstants.DASHED:
+                return new DashedBorder(color, borderWidthValue, opacity);
+            case CssConstants.DOTTED:
+                return new RoundDotsBorder(color, borderWidthValue, opacity);
+            case CssConstants.DOUBLE:
+                return new DoubleBorder(color, borderWidthValue, opacity);
+            case CssConstants.GROOVE:
+                return new GrooveBorder(color, borderWidthValue, opacity);
+            case CssConstants.RIDGE:
+                return new RidgeBorder(color, borderWidthValue, opacity);
+            case CssConstants.INSET:
+                return new InsetBorder(color, borderWidthValue, opacity);
+            case CssConstants.OUTSET:
+                return new OutsetBorder(color, borderWidthValue, opacity);
+            default:
+                return null;
+        }
     }
 
     /**
