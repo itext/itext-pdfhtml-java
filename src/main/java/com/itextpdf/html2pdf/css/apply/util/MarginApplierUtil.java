@@ -163,7 +163,7 @@ public final class MarginApplierUtil {
         if (marginUnitVal != null) {
             if (!marginUnitVal.isPointValue()) {
                 if (baseValue != 0.0f) {
-                    return new Float(baseValue * marginUnitVal.getValue() * 0.01);
+                    return baseValue * marginUnitVal.getValue() * 0.01f;
                 }
                 logger.error(Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 return null;

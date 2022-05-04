@@ -44,6 +44,9 @@ package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.util.enums.BorderEnum;
+import com.itextpdf.html2pdf.css.apply.util.enums.BorderRadii;
+import com.itextpdf.html2pdf.css.apply.util.enums.RgbaColorProperty;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.layout.IPropertyContainer;
@@ -63,6 +66,7 @@ import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Utilities class to apply border styles.
@@ -86,39 +90,8 @@ public class BorderStyleApplierUtil {
         float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
 
-        Border[] bordersArray = getBordersArray(cssProps, em, rem);
-        if (bordersArray[0] != null) {
-            element.setProperty(Property.BORDER_TOP, bordersArray[0]);
-        }
-
-        if (bordersArray[1] != null) {
-            element.setProperty(Property.BORDER_RIGHT, bordersArray[1]);
-        }
-
-        if (bordersArray[2] != null) {
-            element.setProperty(Property.BORDER_BOTTOM, bordersArray[2]);
-        }
-
-        if (bordersArray[3] != null) {
-            element.setProperty(Property.BORDER_LEFT, bordersArray[3]);
-        }
-
-        BorderRadius[] borderRadii = getBorderRadiiArray(cssProps, em, rem);
-        if (borderRadii[0] != null) {
-            element.setProperty(Property.BORDER_TOP_LEFT_RADIUS, borderRadii[0]);
-        }
-
-        if (borderRadii[1] != null) {
-            element.setProperty(Property.BORDER_TOP_RIGHT_RADIUS, borderRadii[1]);
-        }
-
-        if (borderRadii[2] != null) {
-            element.setProperty(Property.BORDER_BOTTOM_RIGHT_RADIUS, borderRadii[2]);
-        }
-
-        if (borderRadii[3] != null) {
-            element.setProperty(Property.BORDER_BOTTOM_LEFT_RADIUS, borderRadii[3]);
-        }
+        setBorderProperties(cssProps, element, em, rem);
+        setBorderRadiusProperties(cssProps, element, em, rem);
     }
 
     /**
@@ -131,21 +104,14 @@ public class BorderStyleApplierUtil {
      */
     public static Border[] getBordersArray(Map<String, String> styles, float em, float rem) {
         Border[] borders = new Border[4];
-        Border topBorder = getCertainBorder(styles.get(CssConstants.BORDER_TOP_WIDTH),
-                styles.get(CssConstants.BORDER_TOP_STYLE), getSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_TOP_COLOR), em, rem);
-        borders[0] = topBorder;
-
-        Border rightBorder = getCertainBorder(styles.get(CssConstants.BORDER_RIGHT_WIDTH),
-                styles.get(CssConstants.BORDER_RIGHT_STYLE), getSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_RIGHT_COLOR), em, rem);
-        borders[1] = rightBorder;
-
-        Border bottomBorder = getCertainBorder(styles.get(CssConstants.BORDER_BOTTOM_WIDTH),
-                styles.get(CssConstants.BORDER_BOTTOM_STYLE), getSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_BOTTOM_COLOR), em, rem);
-        borders[2] = bottomBorder;
-
-        Border leftBorder = getCertainBorder(styles.get(CssConstants.BORDER_LEFT_WIDTH),
-                styles.get(CssConstants.BORDER_LEFT_STYLE), getSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_LEFT_COLOR), em, rem);
-        borders[3] = leftBorder;
+        borders[BorderEnum.TOP.ordinal()] = getCertainBorder(CssConstants.BORDER_TOP_WIDTH, CssConstants.BORDER_TOP_STYLE,
+                CssConstants.BORDER_TOP_COLOR, em, rem, styles);
+        borders[BorderEnum.RIGHT.ordinal()] = getCertainBorder(CssConstants.BORDER_RIGHT_WIDTH, CssConstants.BORDER_RIGHT_STYLE,
+                CssConstants.BORDER_RIGHT_COLOR, em, rem, styles);
+        borders[BorderEnum.BOTTOM.ordinal()] = getCertainBorder(CssConstants.BORDER_BOTTOM_WIDTH, CssConstants.BORDER_BOTTOM_STYLE,
+                CssConstants.BORDER_BOTTOM_COLOR, em, rem, styles);
+        borders[BorderEnum.LEFT.ordinal()] = getCertainBorder(CssConstants.BORDER_LEFT_WIDTH, CssConstants.BORDER_LEFT_STYLE,
+                CssConstants.BORDER_LEFT_COLOR, em, rem, styles);
 
         return borders;
     }
@@ -161,30 +127,25 @@ public class BorderStyleApplierUtil {
      * @return the border
      */
     public static Border getCertainBorder(String borderWidth, String borderStyle, String borderColor, float em, float rem) {
-        if (borderStyle == null || CssConstants.NONE.equals(borderStyle)) {
+        if (Objects.isNull(borderStyle) || CssConstants.NONE.equals(borderStyle)) {
             return null;
         }
 
-        if (borderWidth == null) {
+        if (Objects.isNull(borderWidth)) {
             borderWidth = CssDefaults.getDefaultValue(CssConstants.BORDER_WIDTH);
         }
 
         float borderWidthValue;
         if (CssConstants.BORDER_WIDTH_VALUES.contains(borderWidth)) {
-            if (CssConstants.THIN.equals(borderWidth)) {
-                borderWidth = "1px";
-            } else if (CssConstants.MEDIUM.equals(borderWidth)) {
-                borderWidth = "2px";
-            } else if (CssConstants.THICK.equals(borderWidth)) {
-                borderWidth = "3px";
+            switch (borderWidth) {
+                case CssConstants.THIN -> borderWidth = "1px";
+                case CssConstants.MEDIUM -> borderWidth = "2px";
+                case CssConstants.THICK -> borderWidth = "3px";
             }
         }
 
         UnitValue unitValue = CssDimensionParsingUtils.parseLengthValueToPt(borderWidth, em, rem);
-        if (unitValue == null) {
-            return null;
-        }
-        if (unitValue.isPercentValue()) {
+        if (Objects.isNull(unitValue) || unitValue.isPercentValue()) {
             return null;
         }
 
@@ -196,8 +157,11 @@ public class BorderStyleApplierUtil {
             if (borderColor != null) {
                 if (!CssConstants.TRANSPARENT.equals(borderColor)) {
                     float[] rgbaColor = CssDimensionParsingUtils.parseRgbaColor(borderColor);
-                    color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
-                    opacity = rgbaColor[3];
+                    color = new DeviceRgb(rgbaColor[
+                            RgbaColorProperty.RED.ordinal()],
+                            rgbaColor[RgbaColorProperty.GREEN.ordinal()],
+                            rgbaColor[RgbaColorProperty.BLUE.ordinal()]);
+                    opacity = rgbaColor[RgbaColorProperty.ALPHA.ordinal()];
                 } else {
                     opacity = 0f;
                 }
@@ -205,35 +169,17 @@ public class BorderStyleApplierUtil {
                     || CssConstants.INSET.equals(borderStyle) || CssConstants.OUTSET.equals(borderStyle)) {
                 color = new DeviceRgb(212, 208, 200);
             }
-            switch (borderStyle) {
-                case CssConstants.SOLID:
-                    border = new SolidBorder(color, borderWidthValue, opacity);
-                    break;
-                case CssConstants.DASHED:
-                    border = new DashedBorder(color, borderWidthValue, opacity);
-                    break;
-                case CssConstants.DOTTED:
-                    border = new RoundDotsBorder(color, borderWidthValue, opacity);
-                    break;
-                case CssConstants.DOUBLE:
-                    border = new DoubleBorder(color, borderWidthValue, opacity);
-                    break;
-                case CssConstants.GROOVE:
-                    border = new GrooveBorder(color, borderWidthValue, opacity);
-                    break;
-                case CssConstants.RIDGE:
-                    border = new RidgeBorder(color, borderWidthValue, opacity);
-                    break;
-                case CssConstants.INSET:
-                    border = new InsetBorder(color, borderWidthValue, opacity);
-                    break;
-                case CssConstants.OUTSET:
-                    border = new OutsetBorder(color, borderWidthValue, opacity);
-                    break;
-                default:
-                    border = null;
-                    break;
-            }
+            border = switch (borderStyle) {
+                case CssConstants.SOLID -> new SolidBorder(color, borderWidthValue, opacity);
+                case CssConstants.DASHED -> new DashedBorder(color, borderWidthValue, opacity);
+                case CssConstants.DOTTED -> new RoundDotsBorder(color, borderWidthValue, opacity);
+                case CssConstants.DOUBLE -> new DoubleBorder(color, borderWidthValue, opacity);
+                case CssConstants.GROOVE -> new GrooveBorder(color, borderWidthValue, opacity);
+                case CssConstants.RIDGE -> new RidgeBorder(color, borderWidthValue, opacity);
+                case CssConstants.INSET -> new InsetBorder(color, borderWidthValue, opacity);
+                case CssConstants.OUTSET -> new OutsetBorder(color, borderWidthValue, opacity);
+                default -> null;
+            };
         }
         return border;
     }
@@ -252,30 +198,17 @@ public class BorderStyleApplierUtil {
         BorderRadius borderRadius = null;
         UnitValue borderRadiusUV = CssDimensionParsingUtils
                 .parseLengthValueToPt(styles.get(CssConstants.BORDER_RADIUS), em, rem);
-        if (null != borderRadiusUV) {
+        if (Objects.nonNull(borderRadiusUV)) {
             borderRadius = new BorderRadius(borderRadiusUV);
         }
-
-        UnitValue[] borderTopLeftRadiusUV = CssDimensionParsingUtils
-                .parseSpecificCornerBorderRadius(styles.get(CssConstants.BORDER_TOP_LEFT_RADIUS), em, rem);
-        borderRadii[0] = null == borderTopLeftRadiusUV
-                ? borderRadius
-                : new BorderRadius(borderTopLeftRadiusUV[0], borderTopLeftRadiusUV[1]);
-        UnitValue[] borderTopRightRadiusUV = CssDimensionParsingUtils
-                .parseSpecificCornerBorderRadius(styles.get(CssConstants.BORDER_TOP_RIGHT_RADIUS), em, rem);
-        borderRadii[1] = null == borderTopRightRadiusUV
-                ? borderRadius
-                : new BorderRadius(borderTopRightRadiusUV[0], borderTopRightRadiusUV[1]);
-        UnitValue[] borderBottomRightRadiusUV = CssDimensionParsingUtils
-                .parseSpecificCornerBorderRadius(styles.get(CssConstants.BORDER_BOTTOM_RIGHT_RADIUS), em, rem);
-        borderRadii[2] = null == borderBottomRightRadiusUV
-                ? borderRadius
-                : new BorderRadius(borderBottomRightRadiusUV[0], borderBottomRightRadiusUV[1]);
-        UnitValue[] borderBottomLeftRadiusUV = CssDimensionParsingUtils
-                .parseSpecificCornerBorderRadius(styles.get(CssConstants.BORDER_BOTTOM_LEFT_RADIUS), em, rem);
-        borderRadii[3] = null == borderBottomLeftRadiusUV
-                ? borderRadius
-                : new BorderRadius(borderBottomLeftRadiusUV[0], borderBottomLeftRadiusUV[1]);
+        borderRadii[BorderRadii.TOP_LEFT.ordinal()] = getBorderRadius(CssConstants.BORDER_TOP_LEFT_RADIUS,
+                borderRadius, em, rem, styles);
+        borderRadii[BorderRadii.TOP_RIGHT.ordinal()] = getBorderRadius(CssConstants.BORDER_TOP_RIGHT_RADIUS,
+                borderRadius, em, rem, styles);
+        borderRadii[BorderRadii.BOTTOM_RIGHT.ordinal()] = getBorderRadius(CssConstants.BORDER_BOTTOM_RIGHT_RADIUS,
+                borderRadius, em, rem, styles);
+        borderRadii[BorderRadii.BOTTOM_LEFT.ordinal()] = getBorderRadius(CssConstants.BORDER_BOTTOM_LEFT_RADIUS,
+                borderRadius, em, rem, styles);
 
         return borderRadii;
     }
@@ -286,6 +219,56 @@ public class BorderStyleApplierUtil {
             borderColor = styles.get(CssConstants.COLOR);
         }
         return borderColor;
+    }
+
+    private static Border getCertainBorder(String widthConstant, String styleConstant, String colorConstant,
+                                           float em, float rem, Map<String, String> styles) {
+        String widthCssValue = styles.get(widthConstant);
+        String styleCssValue = styles.get(styleConstant);
+        String colorCssValue = getSpecificBorderColorOrDefaultColor(styles, colorConstant);
+        return getCertainBorder(widthCssValue, styleCssValue, colorCssValue, em, rem);
+    }
+
+    private static BorderRadius getBorderRadius(UnitValue[] borderRadiusUnitValue, BorderRadius borderRadius) {
+        if(Objects.isNull(borderRadiusUnitValue)) {
+            return borderRadius;
+        }
+        return new BorderRadius(borderRadiusUnitValue[0], borderRadiusUnitValue[1]);
+    }
+
+    private static BorderRadius getBorderRadius(String cssConstant, BorderRadius borderRadius, float em, float rem,
+                                                Map<String, String> cssProps) {
+        UnitValue[] borderRadiusUnitValue = CssDimensionParsingUtils
+                .parseSpecificCornerBorderRadius(cssProps.get(cssConstant), em, rem);
+        return getBorderRadius(borderRadiusUnitValue, borderRadius);
+    }
+
+    private static void setBorderRadiusProperties(Map<String, String> cssProps, IPropertyContainer element, float em, float rem) {
+        BorderRadius[] borderRadii = getBorderRadiiArray(cssProps, em, rem);
+        setBorderRadiusProperty(element, borderRadii[BorderRadii.TOP_LEFT.ordinal()], Property.BORDER_TOP_LEFT_RADIUS);
+        setBorderRadiusProperty(element, borderRadii[BorderRadii.TOP_RIGHT.ordinal()], Property.BORDER_TOP_RIGHT_RADIUS);
+        setBorderRadiusProperty(element, borderRadii[BorderRadii.BOTTOM_RIGHT.ordinal()], Property.BORDER_BOTTOM_RIGHT_RADIUS);
+        setBorderRadiusProperty(element, borderRadii[BorderRadii.BOTTOM_LEFT.ordinal()], Property.BORDER_BOTTOM_LEFT_RADIUS);
+    }
+
+    private static void setBorderProperties(Map<String, String> cssProps, IPropertyContainer element, float em, float rem) {
+        Border[] borders = getBordersArray(cssProps, em, rem);
+        setBorderProperty(element, borders[BorderEnum.TOP.ordinal()], Property.BORDER_TOP);
+        setBorderProperty(element, borders[BorderEnum.RIGHT.ordinal()], Property.BORDER_RIGHT);
+        setBorderProperty(element, borders[BorderEnum.BOTTOM.ordinal()], Property.BORDER_BOTTOM);
+        setBorderProperty(element, borders[BorderEnum.LEFT.ordinal()], Property.BORDER_LEFT);
+    }
+
+    private static void setBorderRadiusProperty(IPropertyContainer element, BorderRadius borderRadius, int propertyValue) {
+        if(Objects.nonNull(borderRadius)) {
+            element.setProperty(propertyValue, borderRadius);
+        }
+    }
+
+    private static void setBorderProperty(IPropertyContainer element, Border border, int propertyValue) {
+        if (Objects.nonNull(border)) {
+            element.setProperty(propertyValue, border);
+        }
     }
 
 }
