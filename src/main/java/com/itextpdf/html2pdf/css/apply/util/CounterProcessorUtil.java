@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.util.enums.CssCounterManagerOperation;
 import com.itextpdf.html2pdf.css.resolve.CssContext;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CssCounterManager;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
@@ -63,10 +64,10 @@ public class CounterProcessorUtil {
      */
     public static void processCounters(Map<String, String> cssProps, CssContext context) {
         String counterReset = cssProps.get(CssConstants.COUNTER_RESET);
-        processReset(counterReset, context);
+        processCounter(counterReset, context, CssCounterManagerOperation.RESET);
 
         String counterIncrement = cssProps.get(CssConstants.COUNTER_INCREMENT);
-        processIncrement(counterIncrement, context);
+        processCounter(counterIncrement, context, CssCounterManagerOperation.INCREMENT);
     }
 
     /**
@@ -93,38 +94,37 @@ public class CounterProcessorUtil {
         counterManager.popEveryCounterFromCounters(element);
     }
 
-    private static void processReset(String counterReset, CssContext context) {
-        if (counterReset != null) {
+    private static void processCounter(String counter, CssContext context, CssCounterManagerOperation operation) {
+        if (counter != null) {
             final CssCounterManager counterManager = context.getCounterManager();
-            final String[] params = counterReset.split(" ");
+            final String[] params = counter.split(" ");
             for (int i = 0; i < params.length; i++) {
                 final String counterName = params[i];
                 final Integer possibleCounterValue;
                 if (i + 1 < params.length && (possibleCounterValue = CssDimensionParsingUtils.parseInteger(params[i + 1])) != null) {
-                    counterManager.resetCounter(counterName, (int) possibleCounterValue);
+                    processCounter(counterManager, counterName, operation, possibleCounterValue);
                     i++;
                 } else {
-                    counterManager.resetCounter(counterName);
+                    processCounter(counterManager, counterName, operation);
                 }
             }
         }
     }
 
-    private static void processIncrement(String counterIncrement, CssContext context) {
-        if (counterIncrement != null) {
-            final CssCounterManager counterManager = context.getCounterManager();
-            final String[] params = counterIncrement.split(" ");
-            for (int i = 0; i < params.length; i++) {
-                final String counterName = params[i];
-                final Integer possibleIncrementValue;
-                if (i + 1 < params.length && (possibleIncrementValue = CssDimensionParsingUtils.parseInteger(params[i + 1])) != null) {
-                    counterManager.incrementCounter(counterName, (int) possibleIncrementValue);
-                    i++;
-                } else {
-                    counterManager.incrementCounter(counterName);
-                }
-            }
+    private static void processCounter(CssCounterManager counterManager, String counterName,
+                                       CssCounterManagerOperation operation, Integer possibleCounterValue) {
+        switch (operation) {
+            case RESET:
+                counterManager.resetCounter(counterName, possibleCounterValue);
+                break;
+            case INCREMENT:
+                counterManager.incrementCounter(counterName, possibleCounterValue);
         }
+    }
+
+    private static void processCounter(CssCounterManager counterManager, String counterName,
+                                       CssCounterManagerOperation operation) {
+        processCounter(counterManager, counterName, operation, null);
     }
 
 }

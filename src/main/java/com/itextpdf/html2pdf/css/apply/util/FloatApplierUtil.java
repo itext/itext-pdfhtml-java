@@ -72,22 +72,28 @@ public class FloatApplierUtil {
     public static void applyFloating(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         String floatValue = cssProps.get(CssConstants.FLOAT);
         if (floatValue != null) {
-            if (CssConstants.LEFT.equals(floatValue)) {
-                element.setProperty(Property.FLOAT, FloatPropertyValue.LEFT);
-
-            } else if (CssConstants.RIGHT.equals(floatValue)) {
-                element.setProperty(Property.FLOAT, FloatPropertyValue.RIGHT);
+            switch (floatValue) {
+                case CssConstants.LEFT:
+                    element.setProperty(Property.FLOAT, FloatPropertyValue.LEFT);
+                    break;
+                case CssConstants.RIGHT:
+                    element.setProperty(Property.FLOAT, FloatPropertyValue.RIGHT);
+                    break;
             }
         }
 
         String clearValue = cssProps.get(CssConstants.CLEAR);
         if (clearValue != null) {
-            if(CssConstants.LEFT.equals(clearValue)) {
-                element.setProperty(Property.CLEAR, ClearPropertyValue.LEFT);
-            } else if (CssConstants.RIGHT.equals(clearValue)) {
-                element.setProperty(Property.CLEAR, ClearPropertyValue.RIGHT);
-            } else if (CssConstants.BOTH.equals(clearValue)) {
-                element.setProperty(Property.CLEAR, ClearPropertyValue.BOTH);
+            switch (clearValue) {
+                case CssConstants.LEFT:
+                    element.setProperty(Property.CLEAR, ClearPropertyValue.LEFT);
+                    break;
+                case CssConstants.RIGHT:
+                    element.setProperty(Property.CLEAR, ClearPropertyValue.RIGHT);
+                    break;
+                case CssConstants.BOTH:
+                    element.setProperty(Property.CLEAR, ClearPropertyValue.BOTH);
+                    break;
             }
         }
     }

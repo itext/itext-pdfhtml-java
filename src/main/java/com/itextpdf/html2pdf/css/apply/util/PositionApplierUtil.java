@@ -81,18 +81,22 @@ public final class PositionApplierUtil {
      */
     public static void applyPosition(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         String position = cssProps.get(CssConstants.POSITION);
-        if (CssConstants.ABSOLUTE.equals(position)) {
-            element.setProperty(Property.POSITION, LayoutPosition.ABSOLUTE);
-            applyLeftRightTopBottom(cssProps, context, element, position);
-        } else if (CssConstants.RELATIVE.equals(position)) {
-            element.setProperty(Property.POSITION, LayoutPosition.RELATIVE);
-            applyLeftRightTopBottom(cssProps, context, element, position);
-        } else if (CssConstants.FIXED.equals(position)) {
+        switch (position) {
+            case CssConstants.ABSOLUTE:
+                element.setProperty(Property.POSITION, LayoutPosition.ABSOLUTE);
+                applyLeftRightTopBottom(cssProps, context, element, position);
+                break;
+            case CssConstants.RELATIVE:
+                element.setProperty(Property.POSITION, LayoutPosition.RELATIVE);
+                applyLeftRightTopBottom(cssProps, context, element, position);
+                break;
+            case CssConstants.FIXED:
 //            element.setProperty(Property.POSITION, LayoutPosition.FIXED);
 //            float em = CssUtils.parseAbsoluteLength(cssProps.get(CommonCssConstants.FONT_SIZE));
 //            applyLeftProperty(cssProps, element, em, Property.X);
 //            applyTopProperty(cssProps, element, em, Property.Y);
-            // TODO DEVSIX-4104 support "fixed" value of position property
+                // TODO DEVSIX-4104 support "fixed" value of position property
+                break;
         }
     }
 
@@ -135,16 +139,7 @@ public final class PositionApplierUtil {
      * @param layoutPropertyMapping the layout property mapping
      */
     private static void applyLeftProperty(Map<String, String> cssProps, IPropertyContainer element, float em, float rem, int layoutPropertyMapping) {
-        String left = cssProps.get(CssConstants.LEFT);
-        UnitValue leftVal = CssDimensionParsingUtils.parseLengthValueToPt(left, em, rem);
-        if (leftVal != null) {
-            if (leftVal.isPointValue()) {
-                element.setProperty(layoutPropertyMapping, leftVal.getValue());
-            } else {
-                logger.error(MessageFormatUtil.format(
-                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CommonCssConstants.LEFT));
-            }
-        }
+        applyProperty(cssProps, element, em, rem, layoutPropertyMapping, CssConstants.LEFT, CommonCssConstants.LEFT);
     }
 
     /**
@@ -157,16 +152,7 @@ public final class PositionApplierUtil {
      * @param layoutPropertyMapping the layout property mapping
      */
     private static void applyRightProperty(Map<String, String> cssProps, IPropertyContainer element, float em, float rem, int layoutPropertyMapping) {
-        String right = cssProps.get(CssConstants.RIGHT);
-        UnitValue rightVal = CssDimensionParsingUtils.parseLengthValueToPt(right, em, rem);
-        if (rightVal != null) {
-            if (rightVal.isPointValue()) {
-                element.setProperty(layoutPropertyMapping, rightVal.getValue());
-            } else {
-                logger.error(MessageFormatUtil.format(
-                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CommonCssConstants.RIGHT));
-            }
-        }
+        applyProperty(cssProps, element, em, rem, layoutPropertyMapping, CssConstants.RIGHT, CommonCssConstants.RIGHT);
     }
 
     /**
@@ -179,16 +165,7 @@ public final class PositionApplierUtil {
      * @param layoutPropertyMapping the layout property mapping
      */
     private static void applyTopProperty(Map<String, String> cssProps, IPropertyContainer element, float em, float rem, int layoutPropertyMapping) {
-        String top = cssProps.get(CssConstants.TOP);
-        UnitValue topVal = CssDimensionParsingUtils.parseLengthValueToPt(top, em, rem);
-        if (topVal != null) {
-            if (topVal.isPointValue()) {
-                element.setProperty(layoutPropertyMapping, topVal.getValue());
-            } else {
-                logger.error(MessageFormatUtil.format(
-                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CommonCssConstants.TOP));
-            }
-        }
+        applyProperty(cssProps, element, em, rem, layoutPropertyMapping, CssConstants.TOP, CommonCssConstants.TOP);
     }
 
     /**
@@ -201,14 +178,19 @@ public final class PositionApplierUtil {
      * @param layoutPropertyMapping the layout property mapping
      */
     private static void applyBottomProperty(Map<String, String> cssProps, IPropertyContainer element, float em, float rem, int layoutPropertyMapping) {
-        String bottom = cssProps.get(CssConstants.BOTTOM);
-        UnitValue bottomVal = CssDimensionParsingUtils.parseLengthValueToPt(bottom, em, rem);
-        if (bottomVal != null) {
-            if (bottomVal.isPointValue()) {
-                element.setProperty(layoutPropertyMapping, bottomVal.getValue());
+        applyProperty(cssProps, element, em, rem, layoutPropertyMapping, CssConstants.BOTTOM, CommonCssConstants.BOTTOM);
+    }
+
+    private static void applyProperty(Map<String, String> cssProps, IPropertyContainer element, float em, float rem,
+                                      int layoutPropertyMapping, String cssConstant, String commonCssConstant) {
+        String value = cssProps.get(cssConstant);
+        UnitValue val = CssDimensionParsingUtils.parseLengthValueToPt(value, em, rem);
+        if (val != null) {
+            if (val.isPointValue()) {
+                element.setProperty(layoutPropertyMapping, val.getValue());
             } else {
                 logger.error(MessageFormatUtil.format(
-                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CommonCssConstants.BOTTOM));
+                        Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, commonCssConstant));
             }
         }
     }

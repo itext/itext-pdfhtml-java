@@ -132,12 +132,16 @@ public class PageBreakApplierUtil {
      */
     private static HtmlPageBreak createHtmlPageBreak(String pageBreakVal) {
         HtmlPageBreak pageBreak = null;
-        if (CssConstants.ALWAYS.equals(pageBreakVal)) {
-            pageBreak = new HtmlPageBreak(HtmlPageBreakType.ALWAYS);
-        } else if (CssConstants.LEFT.equals(pageBreakVal)) {
-            pageBreak = new HtmlPageBreak(HtmlPageBreakType.LEFT);
-        } else if (CssConstants.RIGHT.equals(pageBreakVal)) {
-            pageBreak = new HtmlPageBreak(HtmlPageBreakType.RIGHT);
+        switch (pageBreakVal) {
+            case CssConstants.ALWAYS:
+                pageBreak = new HtmlPageBreak(HtmlPageBreakType.ALWAYS);
+                break;
+            case CssConstants.LEFT:
+                pageBreak = new HtmlPageBreak(HtmlPageBreakType.LEFT);
+                break;
+            case CssConstants.RIGHT:
+                pageBreak = new HtmlPageBreak(HtmlPageBreakType.RIGHT);
+                break;
         }
         return pageBreak;
     }

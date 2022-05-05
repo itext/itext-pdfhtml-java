@@ -58,7 +58,7 @@ public class OrphansWidowsApplierUtil {
                 Integer minWidows = CssDimensionParsingUtils.parseInteger(cssProps.get(CssConstants.WIDOWS));
                 if (minWidows != null && minWidows > 0) {
                     element.setProperty(Property.WIDOWS_CONTROL,
-                            new ParagraphWidowsControl(minWidows.intValue(), MAX_LINES_TO_MOVE, OVERFLOW_PARAGRAPH_ON_VIOLATION));
+                            new ParagraphWidowsControl(minWidows, MAX_LINES_TO_MOVE, OVERFLOW_PARAGRAPH_ON_VIOLATION));
                 }
             }
 
@@ -66,7 +66,7 @@ public class OrphansWidowsApplierUtil {
                 Integer minOrphans = CssDimensionParsingUtils.parseInteger(cssProps.get(CssConstants.ORPHANS));
                 if (minOrphans != null && minOrphans > 0) {
                     element.setProperty(Property.ORPHANS_CONTROL,
-                            new ParagraphOrphansControl(minOrphans.intValue()));
+                            new ParagraphOrphansControl(minOrphans));
                 }
             }
         }

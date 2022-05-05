@@ -168,7 +168,6 @@ public final class MarginApplierUtil {
                 logger.error(Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 return null;
             }
-
             return marginUnitVal.getValue();
         } else {
             return null;

@@ -130,12 +130,16 @@ public class OutlineApplierUtil {
 
         float outlineWidthValue;
         if (CssConstants.BORDER_WIDTH_VALUES.contains(outlineWidth)) {
-            if (CssConstants.THIN.equals(outlineWidth)) {
-                outlineWidth = "1px";
-            } else if (CssConstants.MEDIUM.equals(outlineWidth)) {
-                outlineWidth = "2px";
-            } else if (CssConstants.THICK.equals(outlineWidth)) {
-                outlineWidth = "3px";
+            switch (outlineWidth) {
+                case CssConstants.THIN:
+                    outlineWidth = "1px";
+                    break;
+                case CssConstants.MEDIUM:
+                    outlineWidth = "2px";
+                    break;
+                case CssConstants.THICK:
+                    outlineWidth = "3px";
+                    break;
             }
         }
 

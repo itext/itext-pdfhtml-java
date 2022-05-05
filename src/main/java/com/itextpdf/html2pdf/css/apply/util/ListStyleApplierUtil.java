@@ -188,43 +188,56 @@ public final class ListStyleApplierUtil {
         float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
 
         String style = cssProps.get(CssConstants.LIST_STYLE_TYPE);
-        if (CssConstants.DISC.equals(style)) {
-            setDiscStyle(element, em);
-        } else if (CssConstants.CIRCLE.equals(style)) {
-            setCircleStyle(element, em);
-        } else if (CssConstants.SQUARE.equals(style)) {
-            setSquareStyle(element, em);
-        } else if (CssConstants.DECIMAL.equals(style)) {
-            setListSymbol(element, ListNumberingType.DECIMAL);
-        } else if (CssConstants.DECIMAL_LEADING_ZERO.equals(style)) {
-            setListSymbol(element, ListNumberingType.DECIMAL_LEADING_ZERO);
-        } else if (CssConstants.UPPER_ALPHA.equals(style) || CssConstants.UPPER_LATIN.equals(style)) {
-            setListSymbol(element, ListNumberingType.ENGLISH_UPPER);
-        } else if (CssConstants.LOWER_ALPHA.equals(style) || CssConstants.LOWER_LATIN.equals(style)) {
-            setListSymbol(element, ListNumberingType.ENGLISH_LOWER);
-        } else if (CssConstants.UPPER_ROMAN.equals(style)) {
-            setListSymbol(element, ListNumberingType.ROMAN_UPPER);
-        } else if (CssConstants.LOWER_ROMAN.equals(style)) {
-            setListSymbol(element, ListNumberingType.ROMAN_LOWER);
-        } else if (CssConstants.LOWER_GREEK.equals(style)) {
-            element.setProperty(Property.LIST_SYMBOL, new HtmlAlphabetSymbolFactory(GREEK_LOWERCASE));
-        } else if (CssConstants.NONE.equals(style)) {
-            setListSymbol(element, new Text(""));
-        } else {
-            if (style != null) {
+        switch (style) {
+            case CssConstants.DISC:
+                setDiscStyle(element, em);
+                break;
+            case CssConstants.CIRCLE:
+                setCircleStyle(element, em);
+                break;
+            case CssConstants.SQUARE:
+                setSquareStyle(element, em);
+                break;
+            case CssConstants.DECIMAL:
+                setListSymbol(element, ListNumberingType.DECIMAL);
+                break;
+            case CssConstants.DECIMAL_LEADING_ZERO:
+                setListSymbol(element, ListNumberingType.DECIMAL_LEADING_ZERO);
+                break;
+            case CssConstants.UPPER_ALPHA:
+            case CssConstants.UPPER_LATIN:
+                setListSymbol(element, ListNumberingType.ENGLISH_UPPER);
+                break;
+            case CssConstants.LOWER_ALPHA:
+            case CssConstants.LOWER_LATIN:
+                setListSymbol(element, ListNumberingType.ENGLISH_LOWER);
+                break;
+            case CssConstants.LOWER_ROMAN:
+                setListSymbol(element, ListNumberingType.ROMAN_LOWER);
+                break;
+            case CssConstants.UPPER_ROMAN:
+                setListSymbol(element, ListNumberingType.ROMAN_UPPER);
+                break;
+            case CssConstants.LOWER_GREEK:
+                element.setProperty(Property.LIST_SYMBOL, new HtmlAlphabetSymbolFactory(GREEK_LOWERCASE));
+                break;
+            case CssConstants.NONE:
+                setListSymbol(element, new Text(""));
+                break;
+            default:
                 Logger logger = LoggerFactory.getLogger(ListStyleApplierUtil.class);
                 logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
-            }
 
-            // Fallback style
-            if (stylesContainer instanceof IElementNode) {
-                String elementName = ((IElementNode)stylesContainer).name();
-                if (TagConstants.UL.equals(elementName)) {
-                    setDiscStyle(element, em);
-                } else if (TagConstants.OL.equals(elementName)) {
-                    setListSymbol(element, ListNumberingType.DECIMAL);
+                // Fallback style
+                if (stylesContainer instanceof IElementNode) {
+                    String elementName = ((IElementNode)stylesContainer).name();
+                    if (TagConstants.UL.equals(elementName)) {
+                        setDiscStyle(element, em);
+                    } else if (TagConstants.OL.equals(elementName)) {
+                        setListSymbol(element, ListNumberingType.DECIMAL);
+                    }
                 }
-            }
+                break;
         }
     }
 
@@ -334,8 +347,7 @@ public final class ListStyleApplierUtil {
         public IElement createSymbol(int index, IPropertyContainer list, IPropertyContainer listItem) {
             Object preValue = getListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_PRE_TEXT);
             Object postValue = getListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_POST_TEXT);
-            Text result = new Text(preValue + AlphabetNumbering.toAlphabetNumber(index, alphabet) + postValue);
-            return result;
+            return new Text(preValue + AlphabetNumbering.toAlphabetNumber(index, alphabet) + postValue);
         }
 
         /**

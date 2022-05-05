@@ -171,7 +171,6 @@ final public class FlexApplierUtil {
                     LOGGER.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET,
                             CommonCssConstants.ALIGN_ITEMS, alignItemsString));
                     alignItems = AlignmentPropertyValue.STRETCH;
-                    break;
             }
             element.setProperty(Property.ALIGN_ITEMS, alignItems);
         }
