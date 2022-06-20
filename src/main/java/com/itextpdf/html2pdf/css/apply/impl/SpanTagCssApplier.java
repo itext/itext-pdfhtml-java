@@ -95,7 +95,6 @@ public class SpanTagCssApplier implements ICssApplier {
             }
         }
 
-        // TODO as for now spans are flattened, let's at least make kids of floating spans floating too
         String floatVal = cssStyles.get(CssConstants.FLOAT);
         if (floatVal != null && !CssConstants.NONE.equals(floatVal)) {
             for (IPropertyContainer elem : spanTagWorker.getAllElements()) {

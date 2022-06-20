@@ -485,6 +485,11 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("marginsCollapseInsideFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    @Test
+    public void resolveStylesIfParentHasDisplayFlexStyleTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("displayNoneTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
     private static void assertDiv(IElement element, String text) {
         Assert.assertTrue(element instanceof Div);
         Assert.assertEquals(1, ((Div) element).getChildren().size());
