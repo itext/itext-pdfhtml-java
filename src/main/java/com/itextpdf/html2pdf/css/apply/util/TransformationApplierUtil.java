@@ -51,6 +51,7 @@ import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 
 import java.util.Map;
+import java.util.Objects;
 
 import static java.lang.Math.toRadians;
 import static java.lang.Math.cos;
@@ -73,11 +74,10 @@ public class TransformationApplierUtil {
      * @param element  the element
      */
     public static void applyTransformation(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
-        String transformationFunction;
-        if (cssProps.get(CssConstants.TRANSFORM) != null)
-            transformationFunction = cssProps.get(CssConstants.TRANSFORM).toLowerCase();
-        else
+        if(Objects.isNull(cssProps.get(CssConstants.TRANSFORM))) {
             return;
+        }
+        String transformationFunction = cssProps.get(CssConstants.TRANSFORM).toLowerCase();
         String[] components = transformationFunction.split("\\)");
         Transform multipleFunction = new Transform(components.length);
         for (String component : components) {
@@ -226,7 +226,7 @@ public class TransformationApplierUtil {
      *
      * @param floats the transformation matrix (flattened) as array
      */
-    private static Transform.SingleTransform getSingleTransform(float floats[]) {
+    private static Transform.SingleTransform getSingleTransform(float[] floats) {
         return new Transform.SingleTransform(floats[0], floats[1], floats[2], floats[3],
                 new UnitValue(UnitValue.POINT, floats[4]), new UnitValue(UnitValue.POINT, floats[5]));
     }

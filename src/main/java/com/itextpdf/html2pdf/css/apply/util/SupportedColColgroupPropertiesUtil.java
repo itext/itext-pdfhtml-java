@@ -134,6 +134,6 @@ public class SupportedColColgroupPropertiesUtil {
                 }
             }
         }
-        return result.size() > 0 ? result : null;
+        return !result.isEmpty() ? result : null;
     }
 }

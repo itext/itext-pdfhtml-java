@@ -85,16 +85,21 @@ public final class HyphenationApplierUtil {
         if (value == null) {
             value = CssDefaults.getDefaultValue(CssConstants.HYPHENS);
         }
-
-        if (CssConstants.NONE.equals(value)) {
-            element.setProperty(Property.HYPHENATION, null);
-        } else if (CssConstants.MANUAL.equals(value)) {
-            element.setProperty(Property.HYPHENATION, new HyphenationConfig(HYPHENATE_BEFORE, HYPHENATE_AFTER));
-        } else if (CssConstants.AUTO.equals(value) && stylesContainer instanceof IElementNode) {
-            String lang = ((IElementNode)stylesContainer).getLang();
-            if (lang != null && lang.length() > 0) {
-                element.setProperty(Property.HYPHENATION, new HyphenationConfig(lang.substring(0, 2), "", HYPHENATE_BEFORE, HYPHENATE_AFTER));
-            }
+        switch (value) {
+            case CssConstants.NONE:
+                element.setProperty(Property.HYPHENATION, null);
+                break;
+            case CssConstants.MANUAL:
+                element.setProperty(Property.HYPHENATION, new HyphenationConfig(HYPHENATE_BEFORE, HYPHENATE_AFTER));
+                break;
+            case CssConstants.AUTO:
+                if(stylesContainer instanceof IElementNode) {
+                    String lang = ((IElementNode)stylesContainer).getLang();
+                    if (lang != null && !lang.isEmpty()) {
+                        element.setProperty(Property.HYPHENATION, new HyphenationConfig(lang.substring(0, 2), "", HYPHENATE_BEFORE, HYPHENATE_AFTER));
+                    }
+                }
+                break;
         }
     }
 

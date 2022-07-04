@@ -90,57 +90,26 @@ public final class PaddingApplierUtil {
      * @param baseValueVertical value used by default for vertical dimension
      */
     public static void applyPaddings(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element, float baseValueVertical, float baseValueHorizontal) {
-        String paddingTop = cssProps.get(CssConstants.PADDING_TOP);
-        String paddingBottom = cssProps.get(CssConstants.PADDING_BOTTOM);
-        String paddingLeft = cssProps.get(CssConstants.PADDING_LEFT);
-        String paddingRight = cssProps.get(CssConstants.PADDING_RIGHT);
 
         float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
-        UnitValue paddingTopVal = CssDimensionParsingUtils.parseLengthValueToPt(paddingTop, em, rem);
-        UnitValue paddingBottomVal = CssDimensionParsingUtils.parseLengthValueToPt(paddingBottom, em, rem);
-        UnitValue paddingLeftVal = CssDimensionParsingUtils.parseLengthValueToPt(paddingLeft, em, rem);
-        UnitValue paddingRightVal = CssDimensionParsingUtils.parseLengthValueToPt(paddingRight, em, rem);
+        applyPaddings(cssProps, CssConstants.PADDING_TOP, em, rem, Property.PADDING_TOP, element, baseValueVertical);
+        applyPaddings(cssProps, CssConstants.PADDING_BOTTOM, em, rem, Property.PADDING_BOTTOM, element, baseValueVertical);
+        applyPaddings(cssProps, CssConstants.PADDING_LEFT, em, rem, Property.PADDING_LEFT, element, baseValueHorizontal);
+        applyPaddings(cssProps, CssConstants.PADDING_RIGHT, em, rem, Property.PADDING_RIGHT, element, baseValueHorizontal);
+    }
 
-        if (paddingTopVal != null) {
-            if (paddingTopVal.isPointValue()) {
-                element.setProperty(Property.PADDING_TOP, paddingTopVal);
+    private static void applyPaddings(Map<String, String> cssProps, String cssConstants,
+                                     float em, float rem, int paddingProperty,
+                                     IPropertyContainer element, float baseValue) {
+        String paddingPropertyValue = cssProps.get(cssConstants);
+        UnitValue paddingVal = CssDimensionParsingUtils.parseLengthValueToPt(paddingPropertyValue, em, rem);
+        if (paddingVal != null) {
+            if (paddingVal.isPointValue()) {
+                element.setProperty(paddingProperty, paddingVal);
             } else {
-                if (baseValueVertical != 0.0f)
-                    element.setProperty(Property.PADDING_TOP, new UnitValue(UnitValue.POINT, baseValueVertical * paddingTopVal.getValue() * 0.01f));
-                else
-                    logger.error(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
-            }
-        }
-
-        if (paddingBottomVal != null) {
-            if (paddingBottomVal.isPointValue()) {
-                element.setProperty(Property.PADDING_BOTTOM, paddingBottomVal);
-            } else {
-                if (baseValueVertical != 0.0f)
-                    element.setProperty(Property.PADDING_BOTTOM, new UnitValue(UnitValue.POINT, baseValueVertical * paddingBottomVal.getValue() * 0.01f));
-                else
-                    logger.error(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
-            }
-        }
-
-        if (paddingLeftVal != null) {
-            if (paddingLeftVal.isPointValue()) {
-                element.setProperty(Property.PADDING_LEFT, paddingLeftVal);
-            } else {
-                if (baseValueHorizontal != 0.0f)
-                    element.setProperty(Property.PADDING_LEFT, new UnitValue(UnitValue.POINT, baseValueHorizontal * paddingLeftVal.getValue() * 0.01f));
-                else
-                    logger.error(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
-            }
-        }
-
-        if (paddingRightVal != null) {
-            if (paddingRightVal.isPointValue()) {
-                element.setProperty(Property.PADDING_RIGHT, paddingRightVal);
-            } else {
-                if (baseValueHorizontal != 0.0f)
-                    element.setProperty(Property.PADDING_RIGHT, new UnitValue(UnitValue.POINT, baseValueHorizontal * paddingRightVal.getValue() * 0.01f));
+                if (baseValue != 0.0f)
+                    element.setProperty(paddingProperty, new UnitValue(UnitValue.POINT, baseValue * paddingVal.getValue() * 0.01f));
                 else
                     logger.error(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
