@@ -125,9 +125,9 @@ public final class FontStyleApplierUtil {
         if (cssColorPropValue != null) {
             TransparentColor transparentColor;
             if (!CssConstants.TRANSPARENT.equals(cssColorPropValue)) {
-                float[] rgbaColor = CssDimensionParsingUtils.parseRgbaColor(cssColorPropValue);
-                Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
-                float opacity = rgbaColor[3];
+                TransparentColor tColor = CssDimensionParsingUtils.parseColor(cssColorPropValue);
+                Color color = tColor.getColor();
+                float opacity = tColor.getOpacity();
                 transparentColor = new TransparentColor(color, opacity);
             } else {
                 transparentColor = new TransparentColor(ColorConstants.BLACK, 0f);
@@ -203,7 +203,7 @@ public final class FontStyleApplierUtil {
             }
         }
 
-        float [] colors = new float[4];
+        TransparentColor tColor;
         Color textDecorationColor;
         float opacity = 1f;
         String textDecorationColorProp = cssProps.get(CssConstants.TEXT_DECORATION_COLOR);
@@ -220,9 +220,9 @@ public final class FontStyleApplierUtil {
                 logger.error(Html2PdfLogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
                 textDecorationColor = ColorConstants.BLACK;
             } else {
-                colors = CssDimensionParsingUtils.parseRgbaColor(textDecorationColorProp);
-                textDecorationColor = new DeviceRgb(colors[0], colors[1], colors[2]);;
-                opacity = colors[3];
+                tColor = CssDimensionParsingUtils.parseColor(textDecorationColorProp);
+                textDecorationColor = tColor.getColor();
+                opacity = tColor.getOpacity();
             }
         }
 

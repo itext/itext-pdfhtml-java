@@ -44,7 +44,9 @@ package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.colors.DeviceCmyk;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.borders.Border;
@@ -58,6 +60,7 @@ import com.itextpdf.layout.borders.RoundDotsBorder;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.properties.BorderRadius;
 import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.TransparentColor;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
@@ -191,13 +194,13 @@ public class BorderStyleApplierUtil {
         borderWidthValue = unitValue.getValue();
         Border border = null;
         if (borderWidthValue > 0) {
-            DeviceRgb color = (DeviceRgb) ColorConstants.BLACK;
+            Color color = ColorConstants.BLACK;
             float opacity = 1f;
             if (borderColor != null) {
                 if (!CssConstants.TRANSPARENT.equals(borderColor)) {
-                    float[] rgbaColor = CssDimensionParsingUtils.parseRgbaColor(borderColor);
-                    color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
-                    opacity = rgbaColor[3];
+                    TransparentColor tColor = CssDimensionParsingUtils.parseColor(borderColor);
+                    color = tColor.getColor();
+                    opacity = tColor.getOpacity();
                 } else {
                     opacity = 0f;
                 }
@@ -219,16 +222,36 @@ public class BorderStyleApplierUtil {
                     border = new DoubleBorder(color, borderWidthValue, opacity);
                     break;
                 case CssConstants.GROOVE:
-                    border = new GrooveBorder(color, borderWidthValue, opacity);
+                    if (color instanceof DeviceRgb) {
+                        border = new GrooveBorder((DeviceRgb)color, borderWidthValue, opacity);
+                    }
+                    if (color instanceof DeviceCmyk) {
+                        border = new GrooveBorder((DeviceCmyk)color, borderWidthValue, opacity);
+                    }
                     break;
                 case CssConstants.RIDGE:
-                    border = new RidgeBorder(color, borderWidthValue, opacity);
+                    if (color instanceof DeviceRgb) {
+                        border = new RidgeBorder((DeviceRgb)color, borderWidthValue, opacity);
+                    }
+                    if (color instanceof DeviceCmyk) {
+                        border = new RidgeBorder((DeviceCmyk)color, borderWidthValue, opacity);
+                    }
                     break;
                 case CssConstants.INSET:
-                    border = new InsetBorder(color, borderWidthValue, opacity);
+                    if (color instanceof DeviceRgb) {
+                        border = new InsetBorder((DeviceRgb)color, borderWidthValue, opacity);
+                    }
+                    if (color instanceof DeviceCmyk) {
+                        border = new InsetBorder((DeviceCmyk)color, borderWidthValue, opacity);
+                    }
                     break;
                 case CssConstants.OUTSET:
-                    border = new OutsetBorder(color, borderWidthValue, opacity);
+                    if (color instanceof DeviceRgb) {
+                        border = new OutsetBorder((DeviceRgb)color, borderWidthValue, opacity);
+                    }
+                    if (color instanceof DeviceCmyk) {
+                        border = new OutsetBorder((DeviceCmyk)color, borderWidthValue, opacity);
+                    }
                     break;
                 default:
                     border = null;
