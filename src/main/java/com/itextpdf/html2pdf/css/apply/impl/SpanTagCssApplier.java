@@ -81,7 +81,7 @@ public class SpanTagCssApplier implements ICssApplier {
         Map<String, String> cssStyles = stylesContainer.getStyles();
         for (IPropertyContainer child : spanTagWorker.getOwnLeafElements()) {
             // Workaround for form fields so that SpanTagCssApplier does not apply its font-size to the child.
-            // Form fields have their own CSS applier // TODO remove when form fields are not leaf elements anymore
+            // Form fields have their own CSS applier
             if (!(child instanceof IFormField)) {
                 applyChildElementStyles(child, cssStyles, context, stylesContainer);
             }
