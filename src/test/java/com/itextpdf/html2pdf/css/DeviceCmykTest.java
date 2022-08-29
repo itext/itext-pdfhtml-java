@@ -24,6 +24,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.styledxmlparser.css.validate.CssDeclarationValidationMaster;
 import com.itextpdf.styledxmlparser.css.validate.impl.CssDefaultValidator;
 import com.itextpdf.styledxmlparser.css.validate.impl.CssDeviceCmykAwareValidator;
@@ -104,6 +105,12 @@ public class DeviceCmykTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void borderColorTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("borderColor", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE, count = 3))
+    public void borderShorthandTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderShorthand", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test

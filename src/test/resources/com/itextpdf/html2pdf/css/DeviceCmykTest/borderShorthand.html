@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <h3>BorderColorShorthandResolver tests:</h3>
+        <div style="border-color: device-cmyk(70%, 0%, 100%, 40% / .5); border-style: solid; border-width: 1px;">
+            border should be half visible and green
+        </div>
+        <div style="border-color: device-cmyk(70%, 0%, 100%, 40%); border-style: solid; border-width: 1px;">
+            border should be green
+        </div>
+        <div style="border-color: device-cmyk(70% 0% 100% 40%); border-style: solid; border-width: 1px;">
+            border should be green
+        </div>
+        <br>
+
+        <h3>BorderShorthandResolver tests:</h3>
+        <div style="border: 1px solid device-cmyk(70% 0% 100% 40% / .5);">
+            border should be half visible and green
+        </div>
+        <div style="border: 1px solid device-cmyk(70%, 0%, 100%, 40% / .5);">
+            border should be half visible and green
+        </div>
+        <div style="border: 1px solid device-cmyk(70% 0% 100% 40%);">
+            border should be green
+        </div>
+        <br>
+
+        <h3>BorderBottomShorthandResolver tests:</h3>
+        <div style="border-bottom: 1px dashed device-cmyk(70% 0% 100% 40%);">
+            bottom border should be green and dashed
+        </div>
+        <div style="border-width: 1px; border-bottom-style: solid; border-bottom-color: device-cmyk(70% 0% 100% 40%);">
+            bottom border should be green
+        </div>
+        <br>
+
+        <h3>BorderLeftShorthandResolver tests:</h3>
+        <div style="border-width: 1px; border-left-style: solid; border-left-color: device-cmyk(70% 0% 100% 40%);">
+            left border should be green
+        </div>
+        <div style="border-left: 1px dashed device-cmyk(70% 0% 100% 40%);">
+            left border should be green and dashed
+        </div>
+        <br>
+
+        <h3>BorderRightShorthandResolver tests:</h3>
+        <div style="border-right: 1px dashed device-cmyk(70% 0% 100% 40%);">
+            right border should be green and dashed
+        </div>
+        <div style="border-width: 1px; border-right-style: solid; border-right-color: device-cmyk(70% 0% 100% 40%);">
+            right border should be green
+        </div>
+        <br>
+
+        <h3>BorderTopShorthandResolver tests:</h3>
+        <div style="border-top: 1px dashed device-cmyk(70% 0% 100% 40%);">
+            top border should be green and dashed
+        </div>
+        <div style="border-width: 1px; border-top-style: solid; border-top-color: device-cmyk(70% 0% 100% 40%);">
+            top border should be green
+        </div>
+        <br>
+
+        <h3>BorderRadiusShorthandResolver tests:</h3>
+        <div style="border-radius: 10px; border: 2px solid device-cmyk(0 81% 81% 30%/ .5 rgb(178 34 34));padding: 2px;">
+            device-cmyk with border-radius (half visible)
+        </div>
+        <div style="border-bottom-left-radius: 10px; border: 2px solid device-cmyk(0 81% 81% 30%/ .5 rgb(178 34 34));padding: 2px;">
+            device-cmyk with border-bottom-left-radius (half visible)
+        </div>
+        <div style="border-bottom-right-radius: 10px; border: 2px solid device-cmyk(0, 81%, 81%, 30%/ .5);padding: 2px;">
+            device-cmyk with border-bottom-right-radius (half visible)
+        </div>
+        <div style="border-top-right-radius: 10px; border: 2px solid device-cmyk(0 81% 81% 30%);padding: 2px;">
+            device-cmyk with border-top-right-radius
+        </div>
+        <div style="border-top-left-radius: 10px; border: 2px solid device-cmyk(0, 81%, 81%, 30%);padding: 2px;">
+            device-cmyk with border-top-left-radius
+        </div>
+        <br>
+
+        <h3>TableRenderer "border-collapse: separate" with CMYK colors tests:</h3>
+        <table style="border: 1px solid device-cmyk(70% 0% 100% 40% / .5); border-collapse: separate">
+            <tr>
+                <th style="border: 1px solid device-cmyk(70% 0% 100% 40% / .5);">first column</th>
+                <th style="border: 1px solid device-cmyk(70% 0% 100% 40% / .5);">second column
+                <th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid device-cmyk(70% 0% 100% 40% / .5);">border collapse</td>
+                <td style="border: 1px solid device-cmyk(70% 0% 100% 40% / .5);">with device-cmyk</td>
+            </tr>
+        </table>
+        <h3>TableRenderer "border-collapse: collapse" with CMYK colors tests:</h3>
+        <table style="border: 1px solid device-cmyk(70% 0% 100% 40% / .5); border-collapse: collapse">
+            <tr>
+                <th style="border: 1px solid device-cmyk(70% 0% 100% 40% / .5);">first column</th>
+                <th style="border: 1px solid device-cmyk(70% 0% 100% 40% / .5);">second column
+                <th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid device-cmyk(70% 0% 100% 40% / .5);">border collapse</td>
+                <td style="border: 1px solid device-cmyk(70% 0% 100% 40% / .5);">with device-cmyk</td>
+            </tr>
+        </table>
+        <h3>TableRenderer "border-collapse: collapse" with RGB colors tests:</h3>
+        <table style="border: 1px solid rgb(255, 128, 128); border-collapse: collapse">
+            <tr>
+                <th style="border: 1px solid rgb(255, 128, 128);">first column</th>
+                <th style="border: 1px solid rgb(255, 128, 128);">second column
+                <th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid rgb(255, 128, 128);">border collapse</td>
+                <td style="border: 1px solid rgb(255, 128, 128);">with rgb</td>
+            </tr>
+        </table>
+        <br>
+    </body>
+</html>
