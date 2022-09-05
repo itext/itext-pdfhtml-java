@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style type="text/css">
+
+.inline {
+    margin: 2px;
+    border: 1px dashed;
+    padding: 2px;
+    display: inline-block;
+    width: 1.7in;
+
+}
+
+.v-center {
+    vertical-align: middle;
+}
+
+.v-top {
+    vertical-align: top;
+}
+
+.v-bottom {
+    vertical-align: bottom;
+}
+
+.sv-aip-content-box {
+    border: 1px dashed;
+}
+
+</style>
+</head>
+<body>
+    <div class="sv-aip-content-box">
+        <form>
+            <img height="100" width="100" class="inline v-center" src="sqpurple.gif"/>
+            <input type="text" class="v-bottom"> <span class="v-bottom">bottom aligned</span>
+            <input type="radio" span class="v-top"> <span span class="v-top">top aligned</span>
+            <input type="submit" value="middle aligned">
+        </form>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <h1>Expected result</h1>
+    <img height="150" width="700" src="form_ExpectedResult.png"/>
+</body>
+</html>

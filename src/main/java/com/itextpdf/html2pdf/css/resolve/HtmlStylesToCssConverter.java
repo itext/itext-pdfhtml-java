@@ -42,13 +42,13 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
-import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.styledxmlparser.css.CssDeclaration;
 import com.itextpdf.styledxmlparser.css.resolve.shorthand.impl.BorderShorthandResolver;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.node.IAttribute;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
@@ -565,7 +565,8 @@ class HtmlStylesToCssConverter {
                 }
             } else if (TagConstants.TABLE.equals(element.name()) || TagConstants.IMG.equals(element.name())) {
                 if (TagConstants.IMG.equals(element.name())
-                        && (AttributeConstants.TOP.equals(value) || AttributeConstants.MIDDLE.equals(value) || AttributeConstants.BOTTOM.equals(value))) {
+                        && (AttributeConstants.TOP.equals(value) || AttributeConstants.MIDDLE.equals(value))) {
+                    // No BOTTOM here because VERTICAL_ALIGN is deprecated and BOTTOM is translated to nothing
                     result.add(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
 
                 } else if (AttributeConstants.LEFT.equals(value) || AttributeConstants.RIGHT.equals(value)) {

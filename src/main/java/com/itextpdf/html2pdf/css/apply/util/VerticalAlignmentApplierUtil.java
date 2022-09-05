@@ -47,11 +47,13 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.properties.InlineVerticalAlignment;
+import com.itextpdf.layout.properties.InlineVerticalAlignmentType;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.properties.VerticalAlignment;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
@@ -94,6 +96,55 @@ public class VerticalAlignmentApplierUtil {
                 element.setProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.MIDDLE);
             } else if (CssConstants.BOTTOM.equals(vAlignVal)) {
                 element.setProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.BOTTOM);
+            }
+        }
+    }
+
+
+    /**
+     * Apply vertical alignment to inline elements.
+     *
+     * @param cssProps the CSS properties
+     * @param element the styles container
+     * @param isInlineTag whether the origin is a tag that defaults to inline
+     */
+    public static void applyVerticalAlignmentForBlocks(Map<String, String> cssProps, IPropertyContainer element,
+            boolean isInlineTag ) {
+        String display = cssProps.get(CssConstants.DISPLAY);
+        if (isInlineTag || CssConstants.INLINE_BLOCK.equals(display)) {
+            String vAlignVal = cssProps.get(CssConstants.VERTICAL_ALIGN);
+            if (CssConstants.MIDDLE.equals(vAlignVal)) {
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT,
+                        new InlineVerticalAlignment(InlineVerticalAlignmentType.MIDDLE));
+            } else if (CssConstants.BOTTOM.equals(vAlignVal)) {
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                        new InlineVerticalAlignment(InlineVerticalAlignmentType.BOTTOM));
+            } else if (CssConstants.TOP.equals(vAlignVal)) {
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                        new InlineVerticalAlignment(InlineVerticalAlignmentType.TOP));
+            } else if (CssConstants.TEXT_BOTTOM.equals(vAlignVal)) {
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                        new InlineVerticalAlignment(InlineVerticalAlignmentType.TEXT_BOTTOM));
+            } else if (CssConstants.TEXT_TOP.equals(vAlignVal)) {
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                        new InlineVerticalAlignment(InlineVerticalAlignmentType.TEXT_TOP));
+            } else if ( CssConstants.SUPER.equals((vAlignVal))) {
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                        new InlineVerticalAlignment(InlineVerticalAlignmentType.SUPER));
+            } else if ( CssConstants.SUB.equals((vAlignVal))) {
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                        new InlineVerticalAlignment(InlineVerticalAlignmentType.SUB));
+            } else if ( CssTypesValidationUtils.isPercentageValue(vAlignVal) ) {
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                        new InlineVerticalAlignment(InlineVerticalAlignmentType.FRACTION,
+                        CssDimensionParsingUtils.parseRelativeValue(vAlignVal,1)));
+            } else if ( CssTypesValidationUtils.isValidNumericValue(vAlignVal) ) {
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                        new InlineVerticalAlignment(InlineVerticalAlignmentType.FIXED,
+                        CssDimensionParsingUtils.parseAbsoluteLength(vAlignVal)));
+            } else {
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                        new InlineVerticalAlignment(InlineVerticalAlignmentType.BASELINE));
             }
         }
     }

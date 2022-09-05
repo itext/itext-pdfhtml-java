@@ -137,6 +137,9 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant CAPITALIZE. */
     public static final String CAPITALIZE = "capitalize";
 
+    /** The Constant CONTENTS. */
+    public static final String CONTENTS = "contents";
+
     /** The Constant COLLAPSE. */
     public static final String COLLAPSE = "collapse";
 
@@ -155,11 +158,21 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant FIRST_EXCEPT. */
     public static final String FIRST_EXCEPT = "first-except";
 
+    /** The Constant GRID. */
+    public static final String GRID = "grid";
+
     /** The Constant INLINE. */
     public static final String INLINE = "inline";
 
     /** The Constant INLINE_BLOCK. */
     public static final String INLINE_BLOCK = "inline-block";
+
+    /** The Constant INLINE_FLEX. */
+    public static final String INLINE_FLEX = "INLINE_FLEX";
+    
+    
+    /** The Constant INLINE_GRID. */
+    public static final String INLINE_GRID = "INLINE_GRID";
 
     /** The Constant INLINE_TABLE. */
     public static final String INLINE_TABLE = "inline-table";
@@ -215,6 +228,9 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant RELATIVE. */
     public static final String RELATIVE = "relative";
 
+    /** The Constant RUN_IN. */
+    public static final String RUN_IN = "run-in";
+    
     /** The Constant RTL. */
     public static final String RTL = "rtl";
 
@@ -232,12 +248,30 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant TABLE. */
     public static final String TABLE = "table";
+    
+    /** The Constant TABLE_CAPTION. */
+    public static final String TABLE_CAPTION = "table-caption";
 
     /** The Constant TABLE_CELL. */
     public static final String TABLE_CELL = "table-cell";
+    
+    /** The Constant TABLE_COLUMN. */
+    public static final String TABLE_COLUMN = "table-column";
+    
+    /** The Constant TABLE_COLUMN_GROUP. */
+    public static final String TABLE_COLUMN_GROUP = "table-column-group";
+    
+    /** The Constant TABLE_FOOTER_GROUP. */
+    public static final String TABLE_FOOTER_GROUP = "table-footer-group";
+    
+    /** The Constant TABLE_HEADER_GROUP. */
+    public static final String TABLE_HEADER_GROUP = "table-header-group";
 
     /** The Constant TABLE_ROW. */
     public static final String TABLE_ROW = "table-row";
+
+    /** The Constant TABLE_ROW_GROUP. */
+    public static final String TABLE_ROW_GROUP = "table-row-group";
 
     /** The Constant TEXT_BOTTOM. */
     public static final String TEXT_BOTTOM = "text-bottom";

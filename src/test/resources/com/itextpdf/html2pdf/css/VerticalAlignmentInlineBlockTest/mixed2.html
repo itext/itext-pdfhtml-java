@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style type="text/css">
+
+.inline {
+    margin: 2px;
+    border: 1px dashed;
+    padding: 2px;
+    display: inline-block;
+    width: 1.7in;
+
+}
+
+.v-center {
+    vertical-align: middle;
+}
+
+.v-top {
+    vertical-align: top;
+}
+
+.v-bottom {
+    vertical-align: bottom;
+}
+
+.sv-aip-content-box {
+    border: 1px dashed;
+}
+
+</style>
+</head>
+<body>
+    <div class="sv-aip-content-box">
+        <div class="inline v-center">div aligned center</div>
+        <img height="100" width="100" class="inline v-center" src="sqpurple.gif"/>
+        <span class="sv-aip-content-box" style="vertical-align:top;">Span aligned top</span>
+        <div class="inline v-top">div isn't aligned</div>
+        <a class="sv-aip-content-box" style="vertical-align:middle;" href="">Link aligned middle</a>
+        <img height="100" width="100" class="inline v-center" src="sqpurple.gif"/>
+        <img height="50" width="50" src="sqpurple.gif"/>
+        <span style="vertical-align:middle;">Span aligned middle</span>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <h1>Expected result</h1>
+    <img height="400" width="700" src="mixed2_ExpectedResult.png"/>
+</body>
+</html>

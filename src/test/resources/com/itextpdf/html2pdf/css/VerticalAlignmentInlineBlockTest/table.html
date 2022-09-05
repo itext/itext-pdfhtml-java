@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style type="text/css">
+
+.inline {
+    margin: 2px;
+    border: 1px dashed;
+    padding: 2px;
+    display: inline-block;
+    width: 1.7in;
+
+}
+
+.v-center {
+    vertical-align: middle;
+}
+
+.v-top {
+    vertical-align: top;
+}
+
+.v-bottom {
+    vertical-align: bottom;
+}
+
+.sv-aip-content-box {
+    border: 1px dashed;
+}
+
+</style>
+</head>
+<body>
+
+    <table border="1">
+        <col width="150" valign="top">
+        <col width="250" valign="top">
+        <tr>
+            <td><img height="100" width="100" class="inline v-center" src="sqpurple.gif"/></td>
+            <td class="inline v-top">second td aligned top</td>
+            <td class="inline v-bottom">third td aligned bottom</td>
+            <td class="inline v-center">fourth td aligned middle</td>
+        </tr>
+        <tr>
+            <td class="inline v-top">first td aligned top</td>
+            <td class="inline v-bottom">second td aligned bottom</td>
+            <td class="inline v-middle">third td aligned middle</td>
+            <td>fourth td isn't aligned</td>
+
+        </tr>
+       </table>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <h1>Expected result</h1>
+    <img height="300" width="700" src="table_ExpectedResult.png"/>
+</body>
+</html>

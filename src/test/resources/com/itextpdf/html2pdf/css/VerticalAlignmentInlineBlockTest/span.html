@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style type="text/css">
+
+span.a {
+  margin: 2px;
+  display: inline-block; /* the default for span */
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+  border: 1px dotted;  
+  vertical-align: middle;
+}
+
+span.b {
+  margin: 2px;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+  border: 1px dotted;    
+  vertical-align: top;
+
+}
+
+span.c {
+  margin: 2px;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+  border: 1px dotted;    
+  vertical-align: bottom;
+}
+
+.sv-aip-content-box {
+    border: 1px dashed;
+}
+
+</style>
+</head>
+<body>
+    <div id="div1" class="sv-aip-content-box">
+        <span class="a">Test text 1</span>
+        <span class="b">Test text 2</span>
+        <span class="c">Test text 3</span>
+        <span class="c" style="vertical-align: top;">Test text 4</span>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <h1>Expected result</h1>
+    <img height="150" width="700" src="span_ExpectedResult.png"/>
+</body>
+</html>

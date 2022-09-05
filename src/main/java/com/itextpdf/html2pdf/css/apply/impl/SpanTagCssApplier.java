@@ -86,7 +86,10 @@ public class SpanTagCssApplier implements ICssApplier {
                 applyChildElementStyles(child, cssStyles, context, stylesContainer);
             }
         }
-        VerticalAlignmentApplierUtil.applyVerticalAlignmentForInlines(cssStyles, context, stylesContainer, spanTagWorker.getAllElements());
+
+        VerticalAlignmentApplierUtil.applyVerticalAlignmentForInlines(cssStyles, context, stylesContainer,
+                spanTagWorker.getAllElements());
+
         if (cssStyles.containsKey(CssConstants.OPACITY)) {
             for (IPropertyContainer elem : spanTagWorker.getAllElements()) {
                 if (elem instanceof Text && !elem.hasProperty(Property.OPACITY)) {
