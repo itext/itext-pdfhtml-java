@@ -145,6 +145,7 @@ public class ConverterProperties {
         this.charset = other.charset;
         this.metaInfo = other.metaInfo;
         this.limitOfLayouts = other.limitOfLayouts;
+        this.immediateFlush = other.immediateFlush;
     }
 
     /**
