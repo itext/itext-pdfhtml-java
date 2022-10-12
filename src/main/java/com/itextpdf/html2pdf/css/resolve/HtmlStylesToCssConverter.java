@@ -477,7 +477,7 @@ class HtmlStylesToCssConverter {
             return TagConstants.HR.equals(elementName) || TagConstants.IMG.equals(elementName)
                     || TagConstants.TABLE.equals(elementName) || TagConstants.TD.equals(elementName)
                     || TagConstants.TH.equals(elementName) || TagConstants.COLGROUP.equals(elementName)
-                    || TagConstants.COL.equals(elementName);
+                    || TagConstants.COL.equals(elementName) || TagConstants.OBJECT.equals(elementName);
         }
 
         /* (non-Javadoc)
@@ -504,7 +504,8 @@ class HtmlStylesToCssConverter {
          */
         @Override
         public boolean isSupportedForElement(String elementName) {
-            return TagConstants.IMG.equals(elementName) || TagConstants.TD.equals(elementName);
+            return TagConstants.IMG.equals(elementName) || TagConstants.TD.equals(elementName)
+                    || TagConstants.OBJECT.equals(elementName);
         }
 
         /* (non-Javadoc)
