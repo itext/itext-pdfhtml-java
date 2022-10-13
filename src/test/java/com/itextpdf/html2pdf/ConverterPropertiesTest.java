@@ -74,6 +74,24 @@ public class ConverterPropertiesTest extends ExtendedITextTest {
         Assert.assertSame(testMetaInfo, metaInfo);
     }
 
+    @Test
+    public void checkDefaultsTest() {
+        ConverterProperties properties = new ConverterProperties();
+
+        Assert.assertTrue(properties.isImmediateFlush());
+        Assert.assertFalse(properties.isCreateAcroForm());
+        Assert.assertEquals(10, properties.getLimitOfLayouts());
+
+        properties.setImmediateFlush(false);
+        properties.setCreateAcroForm(true);
+        properties.setLimitOfLayouts(20);
+        ConverterProperties propertiesCopied = new ConverterProperties(properties);
+
+        Assert.assertFalse(propertiesCopied.isImmediateFlush());
+        Assert.assertTrue(propertiesCopied.isCreateAcroForm());
+        Assert.assertEquals(20, propertiesCopied.getLimitOfLayouts());
+    }
+
     private static class TestMetaInfo implements IMetaInfo {
     }
 }

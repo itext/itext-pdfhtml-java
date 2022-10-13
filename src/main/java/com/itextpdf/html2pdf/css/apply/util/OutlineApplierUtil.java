@@ -44,7 +44,9 @@ package com.itextpdf.html2pdf.css.apply.util;
 
 
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.colors.DeviceCmyk;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.borders.Border;
@@ -57,6 +59,7 @@ import com.itextpdf.layout.borders.OutsetBorder;
 import com.itextpdf.layout.borders.RidgeBorder;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.TransparentColor;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
@@ -151,13 +154,13 @@ public class OutlineApplierUtil {
         outlineWidthValue = unitValue.getValue();
         Border outline = null;
         if (outlineWidthValue > 0) {
-            DeviceRgb color = (DeviceRgb) ColorConstants.BLACK;
+            Color color = ColorConstants.BLACK;
             float opacity = 1f;
             if (outlineColor != null) {
                 if (!CssConstants.TRANSPARENT.equals(outlineColor)) {
-                    float[] rgbaColor = CssDimensionParsingUtils.parseRgbaColor(outlineColor);
-                    color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
-                    opacity = rgbaColor[3];
+                    TransparentColor tColor = CssDimensionParsingUtils.parseColor(outlineColor);
+                    color = tColor.getColor();
+                    opacity = tColor.getOpacity();
                 } else {
                     opacity = 0f;
                 }
@@ -180,16 +183,36 @@ public class OutlineApplierUtil {
                     outline = new DoubleBorder(color, outlineWidthValue, opacity);
                     break;
                 case CssConstants.GROOVE:
-                    outline = new GrooveBorder(color, outlineWidthValue, opacity);
+                    if (color instanceof DeviceRgb) {
+                        outline = new GrooveBorder((DeviceRgb)color, outlineWidthValue, opacity);
+                    }
+                    if (color instanceof DeviceCmyk) {
+                        outline = new GrooveBorder((DeviceCmyk)color, outlineWidthValue, opacity);
+                    }
                     break;
                 case CssConstants.RIDGE:
-                    outline = new RidgeBorder(color, outlineWidthValue, opacity);
+                    if (color instanceof DeviceRgb) {
+                        outline = new RidgeBorder((DeviceRgb)color, outlineWidthValue, opacity);
+                    }
+                    if (color instanceof DeviceCmyk) {
+                        outline = new RidgeBorder((DeviceCmyk)color, outlineWidthValue, opacity);
+                    }
                     break;
                 case CssConstants.INSET:
-                    outline = new InsetBorder(color, outlineWidthValue, opacity);
+                    if (color instanceof DeviceRgb) {
+                        outline = new InsetBorder((DeviceRgb)color, outlineWidthValue, opacity);
+                    }
+                    if (color instanceof DeviceCmyk) {
+                        outline = new InsetBorder((DeviceCmyk)color, outlineWidthValue, opacity);
+                    }
                     break;
                 case CssConstants.OUTSET:
-                    outline = new OutsetBorder(color, outlineWidthValue, opacity);
+                    if (color instanceof DeviceRgb) {
+                        outline = new OutsetBorder((DeviceRgb)color, outlineWidthValue, opacity);
+                    }
+                    if (color instanceof DeviceCmyk) {
+                        outline = new OutsetBorder((DeviceCmyk)color, outlineWidthValue, opacity);
+                    }
                     break;
                 default:
                     outline = null;

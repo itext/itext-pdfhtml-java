@@ -431,20 +431,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             return tagWorker;
         }
 
-        // TODO For now the whole ITagWorker of the running element is preserved inside RunningElementContainer
-        // for the sake of future processing in page margin box. This is somewhat a workaround and storing
-        // tag workers might be easily seen as something undesirable, however at least for now it seems to be
-        // most suitable solution because:
-        // - in any case, processing of the whole running element with it's children should be done in
-        //   "normal flow", i.e. in DefaultHtmlProcessor, based on the spec that says that element should be
-        //   processed as it was still in the same position in DOM, but visually as if "display: none" was set.
-        // - the whole process would need to be repeated in PageContextProcessor again, so it's a double work;
-        //   also currently there is still no convenient way for unifying the processing here and in
-        //   PageContextProcessor, currently only running elements require processing of the whole hierarchy of
-        //   children outside of the default DOM processing and also it's unclear whether this code would be suitable
-        //   for the simplified approach of processing all other children of page margin boxes.
-        // - ITagWorker is only publicly passed to the constructor, but there is no exposed way to get it out of
-        //   RunningElementContainer, so it would be fairly easy to change this approach in future if needed.
         RunningElementContainer runningElementContainer = new RunningElementContainer(element, tagWorker);
         context.getCssContext().getRunningManager().addRunningElement(runningElemName, runningElementContainer);
 
@@ -455,7 +441,6 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
      * Adds @font-face fonts to the FontProvider.
      */
     private void addFontFaceFonts() {
-        //TODO Shall we add getFonts() to ICssResolver?
         if (cssResolver instanceof DefaultCssResolver) {
             for (CssFontFaceRule fontFace : ((DefaultCssResolver) cssResolver).getFonts()) {
                 boolean findSupportedSrc = false;

@@ -45,6 +45,9 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.logs.IoLogMessageConstant;
+import com.itextpdf.styledxmlparser.css.validate.CssDeclarationValidationMaster;
+import com.itextpdf.styledxmlparser.css.validate.impl.CssDefaultValidator;
+import com.itextpdf.styledxmlparser.css.validate.impl.CssDeviceCmykAwareValidator;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -128,6 +131,16 @@ public class BorderTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void border3DTest02() throws IOException, InterruptedException {
         convertToPdfAndCompare("border3DTest02", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void border3DCmykTest() throws IOException, InterruptedException {
+        try {
+            CssDeclarationValidationMaster.setValidator(new CssDeviceCmykAwareValidator());
+            convertToPdfAndCompare("border3DCmykTest", sourceFolder, destinationFolder);
+        } finally {
+            CssDeclarationValidationMaster.setValidator(new CssDefaultValidator());
+        }
     }
 
     @Test

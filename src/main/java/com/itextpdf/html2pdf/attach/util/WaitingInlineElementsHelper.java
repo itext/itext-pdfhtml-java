@@ -237,9 +237,7 @@ public class WaitingInlineElementsHelper {
                 }
             }
             if (runningElementsOnly) {
-                // TODO this might be avoided in future if we will come up with removing of completely empty
-                // (both in terms of content and possible properties like background and borders) tags from
-                // logical structure of resultant PDF documents
+                // TODO DEVSIX-7008 Remove completely empty tags from logical structure of resultant PDF documents
                 p.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
             }
             return p;

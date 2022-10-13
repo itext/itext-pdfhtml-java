@@ -29,8 +29,8 @@ import com.itextpdf.test.annotations.LogMessages;
 
 // TODO DEVSIX-2431 Positioned elements are lost when block is split across pages.
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES, count = 3),
-        @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 18),
+        @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES, count = 2),
+        @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 19),
         @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.ONLY_THE_LAST_BACKGROUND_CAN_INCLUDE_BACKGROUND_COLOR)
 })
 public class BackgroundPosition203Test extends W3CCssTest {

@@ -61,6 +61,7 @@ import com.itextpdf.layout.properties.BackgroundRepeat;
 import com.itextpdf.layout.properties.BlendMode;
 import com.itextpdf.layout.properties.BackgroundRepeat.BackgroundRepeatValue;
 import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.TransparentColor;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssBackgroundUtils;
@@ -298,10 +299,8 @@ public final class BackgroundApplierUtil {
     private static void applyBackgroundColor(final String backgroundColorStr, final IPropertyContainer element,
             BackgroundBox clip) {
         if (backgroundColorStr != null && !CssConstants.TRANSPARENT.equals(backgroundColorStr)) {
-            float[] rgbaColor = CssDimensionParsingUtils.parseRgbaColor(backgroundColorStr);
-            Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
-            float opacity = rgbaColor[3];
-            final Background backgroundColor = new Background(color, opacity, clip);
+            TransparentColor color = CssDimensionParsingUtils.parseColor(backgroundColorStr);
+            final Background backgroundColor = new Background(color.getColor(), color.getOpacity(), clip);
             element.setProperty(Property.BACKGROUND, backgroundColor);
         }
     }

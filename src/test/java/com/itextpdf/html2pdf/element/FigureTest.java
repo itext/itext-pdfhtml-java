@@ -23,6 +23,12 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.utils.ImageSizeMeasuringListener;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfName;
+import com.itextpdf.kernel.pdf.PdfReader;
+import com.itextpdf.kernel.pdf.canvas.parser.PdfCanvasProcessor;
+import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -60,5 +66,24 @@ public class FigureTest extends ExtendedITextTest {
     public void figureInSpanTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "figureInSpan.html"), new File(destinationFolder + "figureInSpan.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "figureInSpan.pdf", sourceFolder + "cmp_figureInSpan.pdf", destinationFolder, "diff04_"));
+    }
+
+    @Test
+    //TODO DEVSIX-6985: change 1 to 2 in "PdfImageXObject image = doc.getPage(1).getResources()", change the assert
+    //  from "Assert.assertTrue(isImageCropped)" to assertFalse
+    public void checkImageRemainsUncutWithFigureTagTest() throws IOException {
+        File pdfFile = new File(destinationFolder + "imageInFigure.pdf");
+        HtmlConverter.convertToPdf(new File(sourceFolder + "imageInFigure.html"),
+                pdfFile);
+        try (PdfDocument doc = new PdfDocument(new PdfReader(pdfFile))) {
+            PdfImageXObject image = doc.getPage(1).getResources()
+                    .getImage(new PdfName("Im1"));
+            Assert.assertNotNull(image);
+            ImageSizeMeasuringListener listener = new ImageSizeMeasuringListener(1);
+            PdfCanvasProcessor processor = new PdfCanvasProcessor(listener);
+            processor.processPageContent(doc.getPage(1));
+            boolean isImageCropped = listener.bbox.getY() < 0;
+            Assert.assertTrue(isImageCropped);
+        }
     }
 }
