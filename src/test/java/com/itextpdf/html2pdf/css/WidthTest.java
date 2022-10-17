@@ -101,7 +101,6 @@ public class WidthTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void relativeInlineBlockWidthWithTextIndentTest02() throws IOException, InterruptedException {
-        // TODO DEVSIX-1823: inline blocks with relative widths (width:100%) do not wrap to the next line
         convertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest02", sourceFolder, destinationFolder);
     }
 

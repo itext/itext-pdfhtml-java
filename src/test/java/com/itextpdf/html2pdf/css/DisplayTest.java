@@ -280,7 +280,6 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-6143 Elements with display: inline-block and width: 100% are not wrapped on a new line
     public void displayInlineBlockAndWidthInDivTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("displayInlineBlockAndWidthInDiv", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
