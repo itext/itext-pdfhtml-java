@@ -196,7 +196,7 @@ public final class FontStyleApplierUtil {
                 //  a deprecated break-word keyword. When specified, this has the same effect
                 //  as word-break: normal and overflow-wrap: anywhere, regardless of the actual value
                 //  of the overflow-wrap property."
-                element.setProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.BREAK_WORD);
+                element.setProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.ANYWHERE);
                 element.setProperty(Property.SPLIT_CHARACTERS, new DefaultSplitCharacters());
             } else {
                 element.setProperty(Property.SPLIT_CHARACTERS, new DefaultSplitCharacters());
