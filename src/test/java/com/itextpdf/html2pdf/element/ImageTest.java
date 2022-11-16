@@ -175,4 +175,10 @@ public class ImageTest extends ExtendedHtmlConversionITextTest {
     public void resolutionInfoStructOf8bimHeaderImageTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("resolutionInfoStructOf8bimHeaderImage", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
+
+    @Test
+    public void htmlImgBase64SVGTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgTag_base64svg", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
 }
