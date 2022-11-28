@@ -508,6 +508,11 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("resultOccupiedAreaNullSplitRenderersNot", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    @Test
+    public void splitFlexContainersTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("flexSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
     private static List<IElement> convertToElements(String name) throws IOException {
         String sourceHtml = SOURCE_FOLDER + name + ".html";
         ConverterProperties converterProperties = new ConverterProperties().setBaseUri(SOURCE_FOLDER);
