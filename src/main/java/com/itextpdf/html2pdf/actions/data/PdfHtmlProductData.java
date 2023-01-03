@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2022 iText Group NV
+    Copyright (c) 1998-2023 iText Group NV
     Authors: iText Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -32,7 +32,7 @@ public final class PdfHtmlProductData {
     private static final String PDF_HTML_PUBLIC_PRODUCT_NAME = "pdfHTML";
     private static final String PDF_HTML_VERSION = "5.0.0-SNAPSHOT";
     private static final int PDF_HTML_COPYRIGHT_SINCE = 2000;
-    private static final int PDF_HTML_COPYRIGHT_TO = 2022;
+    private static final int PDF_HTML_COPYRIGHT_TO = 2023;
 
     private static final ProductData PDF_HTML_PRODUCT_DATA = new ProductData(PDF_HTML_PUBLIC_PRODUCT_NAME,
             ProductNameConstant.PDF_HTML, PDF_HTML_VERSION, PDF_HTML_COPYRIGHT_SINCE, PDF_HTML_COPYRIGHT_TO);
