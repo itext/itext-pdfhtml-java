@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2022 iText Group NV
+    Copyright (c) 1998-2023 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
     
     This program is free software; you can redistribute it and/or modify
@@ -44,6 +44,8 @@ package com.itextpdf.html2pdf.css.apply.impl;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.impl.tags.ImgTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.BackgroundApplierUtil;
@@ -61,6 +63,7 @@ import com.itextpdf.html2pdf.css.apply.util.PaddingApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PageBreakApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.PositionApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.TransformationApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.VerticalAlignmentApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.WidthHeightApplierUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
@@ -96,6 +99,7 @@ public class BlockCssApplier implements ICssApplier {
             TransformationApplierUtil.applyTransformation(cssProps, context, container);
             OutlineApplierUtil.applyOutlines(cssProps, context, container);
             OrphansWidowsApplierUtil.applyOrphansAndWidows(cssProps, container);
+            VerticalAlignmentApplierUtil.applyVerticalAlignmentForBlocks(cssProps, container, isInlineItem(tagWorker));
             if (isFlexItem(stylesContainer)) {
                 FlexApplierUtil.applyFlexItemProperties(cssProps, context, container);
             } else {
@@ -105,6 +109,11 @@ public class BlockCssApplier implements ICssApplier {
                 FloatApplierUtil.applyFloating(cssProps, context, container);
             }
         }
+    }
+
+    private static boolean isInlineItem(ITagWorker tagWorker) {
+        return tagWorker instanceof SpanTagWorker ||
+                tagWorker instanceof ImgTagWorker;
     }
 
     private static boolean isFlexItem(IStylesContainer stylesContainer) {

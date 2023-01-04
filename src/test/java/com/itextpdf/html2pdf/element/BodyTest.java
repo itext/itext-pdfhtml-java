@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2022 iText Group NV
+    Copyright (c) 1998-2023 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,6 +42,7 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
@@ -56,7 +57,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
-public class BodyTest extends ExtendedITextTest {
+public class BodyTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/BodyTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/BodyTest/";
@@ -122,4 +123,9 @@ public class BodyTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(sourceFolder + "bodyTest09.html"), new File(destinationFolder + "bodyTest09.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "bodyTest09.pdf", sourceFolder + "cmp_bodyTest09.pdf", destinationFolder, "diff09_"));
     }
+    @Test
+    public void helloMalformedDocumentTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("hello_malformed", sourceFolder, destinationFolder);
+    }
+
 }

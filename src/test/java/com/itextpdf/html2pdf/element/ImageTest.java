@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2022 iText Group NV
+    Copyright (c) 1998-2023 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -175,4 +175,10 @@ public class ImageTest extends ExtendedHtmlConversionITextTest {
     public void resolutionInfoStructOf8bimHeaderImageTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("resolutionInfoStructOf8bimHeaderImage", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
+
+    @Test
+    public void htmlImgBase64SVGTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgTag_base64svg", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
 }

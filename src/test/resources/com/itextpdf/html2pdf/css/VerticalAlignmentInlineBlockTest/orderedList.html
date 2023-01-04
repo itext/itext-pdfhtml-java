@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style type="text/css">
+
+.inline {
+    margin: 2px;
+    border: 1px dashed;
+    padding: 2px;
+    display: inline-block;
+    width: 1.7in;
+
+}
+
+.v-center {
+    vertical-align: middle;
+}
+
+.v-top {
+    vertical-align: top;
+}
+
+.v-bottom {
+    vertical-align: bottom;
+}
+
+.sv-aip-content-box {
+    border: 1px dashed;
+}
+
+</style>
+</head>
+<body>
+    <div class="sv-aip-content-box">
+       <ol>
+        <li class="inline v-center">Li center aligned</li>
+        <li class="inline v-top">Li top aligned</li>
+        <li class="inline v-bottom">Li bottom aligned</li>
+       </ol>
+    </div>
+    <div class="sv-aip-content-box">
+        <ol>
+         <img height="100" width="100"  class="inline v-center" src="sqpurple.gif"/>
+         <li class="inline v-center">Li center aligned</li>
+         <li class="inline v-top">Li top aligned</li>
+         <img height="100" width="100"  class="inline v-center" src="sqpurple.gif"/>
+         <li class="inline v-bottom">Li bottom aligned</li>
+         <li class="inline v-middle">Li middle aligned</li>
+        </ol>
+     </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <h1>Expected result</h1>
+    <img height="300" width="700" src="orderedList_ExpectedResult.png"/>
+</body>
+</html>

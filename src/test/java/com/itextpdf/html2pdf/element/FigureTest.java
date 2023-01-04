@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2022 iText Group NV
+    Copyright (c) 1998-2023 iText Group NV
     Authors: iText Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -69,21 +69,18 @@ public class FigureTest extends ExtendedITextTest {
     }
 
     @Test
-    //TODO DEVSIX-6985: change 1 to 2 in "PdfImageXObject image = doc.getPage(1).getResources()", change the assert
-    //  from "Assert.assertTrue(isImageCropped)" to assertFalse
     public void checkImageRemainsUncutWithFigureTagTest() throws IOException {
         File pdfFile = new File(destinationFolder + "imageInFigure.pdf");
-        HtmlConverter.convertToPdf(new File(sourceFolder + "imageInFigure.html"),
-                pdfFile);
+        HtmlConverter.convertToPdf(new File(sourceFolder + "imageInFigure.html"), pdfFile);
         try (PdfDocument doc = new PdfDocument(new PdfReader(pdfFile))) {
-            PdfImageXObject image = doc.getPage(1).getResources()
-                    .getImage(new PdfName("Im1"));
+            final int pageNr = 2;
+            PdfImageXObject image = doc.getPage(pageNr).getResources().getImage(new PdfName("Im1"));
             Assert.assertNotNull(image);
-            ImageSizeMeasuringListener listener = new ImageSizeMeasuringListener(1);
+            ImageSizeMeasuringListener listener = new ImageSizeMeasuringListener(pageNr);
             PdfCanvasProcessor processor = new PdfCanvasProcessor(listener);
-            processor.processPageContent(doc.getPage(1));
+            processor.processPageContent(doc.getPage(pageNr));
             boolean isImageCropped = listener.bbox.getY() < 0;
-            Assert.assertTrue(isImageCropped);
+            Assert.assertFalse(isImageCropped);
         }
     }
 }

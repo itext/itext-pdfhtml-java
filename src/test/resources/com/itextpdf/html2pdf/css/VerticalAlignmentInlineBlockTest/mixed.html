@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style type="text/css">
+
+.inline {
+    margin: 2px;
+    border: 1px dashed;
+    padding: 2px;
+    display: inline-block;
+    width: 1.7in;
+
+}
+
+.v-center {
+    vertical-align: middle;
+}
+
+.v-top {
+    vertical-align: top;
+}
+
+.v-bottom {
+    vertical-align: bottom;
+}
+
+.sv-aip-content-box {
+    border: 1px dashed;
+}
+
+</style>
+</head>
+<body>
+    <div id="div2" class="sv-aip-content-box">
+        <div id="div2.1" class="inline v-center">element 1</div>
+        <div id="div2.2" class="inline v-top">element 2</div>
+        <img id="img2.3" height="100" width="100"  class="inline v-center" src="sqpurple.gif"/>
+        <div id="div2.4" class="inline v-center">element 4 super long content 1 label 2 with lots of text hopefully causing this to wrap and flow neatly </div>
+        <div id="div2.5" class="inline v-bottom">element 5</div>
+        <img id="img2.6" height="100" width="100"  class="inline v-top" src="sqpurple.gif"/>
+        <img id="img2.7" height="100" width="100"  class="inline v-bottom" src="sqpurple.gif"/>
+        <img id="img2.8" height="120" width="100"  class="inline" src="sqpurple.gif"/>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <h1>Expected result</h1>
+    <img height="400" width="700" src="mixed_ExpectedResult.png"/>
+</body>
+</html>

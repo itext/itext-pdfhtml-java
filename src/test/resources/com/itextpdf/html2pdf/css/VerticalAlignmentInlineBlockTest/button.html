@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style type="text/css">
+
+.inline {
+    margin: 2px;
+    border: 1px dashed;
+    padding: 2px;
+    display: inline-block;
+    width: 1.7in;
+
+}
+
+.v-center {
+    vertical-align: middle;
+}
+
+.v-top {
+    vertical-align: top;
+}
+
+.v-bottom {
+    vertical-align: bottom;
+}
+
+.sv-aip-content-box {
+    border: 1px dashed;
+}
+
+</style>
+</head>
+<body>
+    <div class="sv-aip-content-box">
+        <img height="100" width="100" class="inline v-center" src="sqpurple.gif"/>
+        <button class="inline v-bottom">button 1 aligned bottom</button>
+        <button class="inline v-top">button 2 aligned top</button>
+        <button class="inline v-middle">button 3 aligned middle</button>
+        <button>button 4 isn't aligned</button>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <h1>Expected result</h1>
+    <img height="200" width="700" src="button_ExpectedResult.png"/>
+</body>
+</html>

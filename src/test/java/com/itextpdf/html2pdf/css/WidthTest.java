@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2022 iText Group NV
+    Copyright (c) 1998-2023 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -101,7 +101,6 @@ public class WidthTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void relativeInlineBlockWidthWithTextIndentTest02() throws IOException, InterruptedException {
-        // TODO DEVSIX-1823: inline blocks with relative widths (width:100%) do not wrap to the next line
         convertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest02", sourceFolder, destinationFolder);
     }
 

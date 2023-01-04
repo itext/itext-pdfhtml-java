@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2022 iText Group NV
+    Copyright (c) 1998-2023 iText Group NV
     Authors: Bruno Lowagie, Paulo Soares, et al.
 
     This program is free software; you can redistribute it and/or modify
@@ -42,13 +42,13 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
-import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.styledxmlparser.css.CssDeclaration;
 import com.itextpdf.styledxmlparser.css.resolve.shorthand.impl.BorderShorthandResolver;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.node.IAttribute;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
@@ -477,7 +477,7 @@ class HtmlStylesToCssConverter {
             return TagConstants.HR.equals(elementName) || TagConstants.IMG.equals(elementName)
                     || TagConstants.TABLE.equals(elementName) || TagConstants.TD.equals(elementName)
                     || TagConstants.TH.equals(elementName) || TagConstants.COLGROUP.equals(elementName)
-                    || TagConstants.COL.equals(elementName);
+                    || TagConstants.COL.equals(elementName) || TagConstants.OBJECT.equals(elementName);
         }
 
         /* (non-Javadoc)
@@ -504,7 +504,8 @@ class HtmlStylesToCssConverter {
          */
         @Override
         public boolean isSupportedForElement(String elementName) {
-            return TagConstants.IMG.equals(elementName) || TagConstants.TD.equals(elementName);
+            return TagConstants.IMG.equals(elementName) || TagConstants.TD.equals(elementName)
+                    || TagConstants.OBJECT.equals(elementName);
         }
 
         /* (non-Javadoc)
@@ -564,7 +565,8 @@ class HtmlStylesToCssConverter {
                 }
             } else if (TagConstants.TABLE.equals(element.name()) || TagConstants.IMG.equals(element.name())) {
                 if (TagConstants.IMG.equals(element.name())
-                        && (AttributeConstants.TOP.equals(value) || AttributeConstants.MIDDLE.equals(value) || AttributeConstants.BOTTOM.equals(value))) {
+                        && (AttributeConstants.TOP.equals(value) || AttributeConstants.MIDDLE.equals(value))) {
+                    // No BOTTOM here because VERTICAL_ALIGN is deprecated and BOTTOM is translated to nothing
                     result.add(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
 
                 } else if (AttributeConstants.LEFT.equals(value) || AttributeConstants.RIGHT.equals(value)) {

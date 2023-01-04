@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style type="text/css">
+      .td {
+
+      }
+
+      .inline {
+          margin: 2px;
+          border: 1px dashed;
+          padding: 2px;
+          display: inline-block;
+          width: 1.6in;
+      }
+
+      .smallinline {
+          margin: 2px;
+          border: 1px dashed;
+          padding: 2px;
+          display: inline-block;
+          width: 0.43in;
+      }
+
+      .borderlessInline {
+          display: inline-block;
+      }
+
+
+      .baseline {
+          vertical-align: baseline;
+      }
+
+      .top {
+          vertical-align: top;
+      }
+
+      .bottom {
+          vertical-align: bottom;
+      }
+
+      .text-bottom {
+          vertical-align: text-bottom;
+      }
+
+      .text-top {
+          vertical-align: text-top;
+      }
+
+      .middle {
+          vertical-align: middle;
+      }
+
+      .fixed {
+          vertical-align: 10pt;
+      }
+
+      .percentage {
+          vertical-align: 20%;
+      }
+
+      .super {
+          vertical-align: super;
+      }
+
+      .sub {
+          vertical-align: sub;
+      }
+
+      .container {
+          border: 1px solid;
+          width: 200pt;
+      }
+
+      .tall {
+          height: 2em;
+          padding: 0.25em;
+          box-sizing: border-box;
+          background: #e6e6e6;
+          display: inline-block;
+          width:1em;
+      }
+
+      .expected {
+          padding-left:20px;
+          height: 120px;
+          padding-top: 3px;
+      }
+
+      .mediumBorder {
+          border: 5px solid blue;
+      }
+
+      .largeBorder {
+          border: 10px solid green;
+      }
+
+      .mediumPadding {
+          background: blue;
+          padding : 5px;
+      }
+
+      .largePadding {
+          background: green;
+          padding : 10px;
+      }
+
+
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <td>
+            <h1>test object</h1>
+        </td>
+        <td>
+            <h1>expected result</h1>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>baseline</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                <img height="100" width="100" class="inline baseline" src="sqpurple.gif"/>xXj
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesBaselineRef.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>top</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                <img height="100" width="100" class="inline top" src="sqpurple.gif"/>xXj
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesTopRef.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>bottom</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                <img height="100" width="100" class="inline bottom" src="sqpurple.gif"/>xXj
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesBottomRef.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>text-top</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                <img height="100" width="100" class="inline text-top" src="sqpurple.gif"/>xXj
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesTextTopRef.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>text-bottom</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                <img height="100" width="100" class="inline text-bottom" src="sqpurple.gif"/>xXj
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesTextBottomRef.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>middle</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                <img height="100" width="100" class="inline middle" src="sqpurple.gif"/>xXj
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesMiddleRef.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>fixed</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                <img height="100" width="100" class="inline fixed" src="sqpurple.gif"/>xXj
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesFixedRef.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>percentage</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                <img height="100" width="100" class="inline percentage" src="sqpurple.gif"/>xXj
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesPercentageRef.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>super</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                xXj(reference)<span class="borderlessInline super">super</span>
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesSuperRef.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>sub</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                xXj(reference)<span class="borderlessInline sub">sub</span>
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesSubRef.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>Mixed</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                xXj(b)
+                <div class="smallinline top">xXj(t)</div>
+                <span class="smallinline bottom">xXj(b)</span>
+                <span class="smallinline middle">xXj(m)</span>
+                <img height="100" class="smallinline middle" src="sqpurple.gif"/>
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesMixedRef.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>Mixed 2 </h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                <span class="middle">We need</span>
+                <span class="tall text-bottom"> </span>
+                <span class="top">to talk</span>
+                <span class="tall text-top"> </span>
+                <span class="bottom">about this!</span>
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesMixed2Ref.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>Mixed Borders </h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                <span class="mediumBorder">We need</span>
+                <span>to talk</span>
+                <span class="largeBorder">about this!</span>
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesMixedBordersRef.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>Mixed Borders and alignment </h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                <span class="tall"> </span>
+                <span class="mediumBorder bottom">We need</span>
+                <span>to talk</span>
+                <span class="largeBorder top">about this!</span>
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesMixedBordersAlignmentRef.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>Mixed Padding</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                <span class="mediumPadding">We need</span>
+                <span>to talk</span>
+                <span class="largePadding">about this!</span>
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesMixedPaddingRef.png"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h2>Mixed Padding and alignment </h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="container">
+                <span class="tall"> </span>
+                <span class="mediumPadding bottom">We need</span>
+                <span>to talk</span>
+                <span class="largePadding top">about this!</span>
+            </div>
+        </td>
+        <td>
+            <div class="expected">
+                <img width="268.2" src="AllStylesMixedPaddingAlignmentRef.png"/>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

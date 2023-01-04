@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2022 iText Group NV
+    Copyright (c) 1998-2023 iText Group NV
     Authors: iText Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -506,6 +506,11 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     })
     public void resultOccupiedAreaNullSplitRenderersNotTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("resultOccupiedAreaNullSplitRenderersNot", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void splitFlexContainersTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("flexSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     private static List<IElement> convertToElements(String name) throws IOException {

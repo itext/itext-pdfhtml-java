@@ -5,41 +5,52 @@
 			border: solid 1px;
 		}
 		.normal {
-		    break-word: normal;
+		    word-break: normal;
 		}
-		.breakAll {
-		    break-word: break-all;
+		.break-all {
+		    word-break: break-all;
 		}
-		.keepAll {
-		    break-word: keep-all;
+		.break-word {
+		    word-break: break-word;
 		}
-		
+		.keep-all {
+		    word-break: keep-all;
+		}
+
 	</style>
 </head>
 <body>
-<h3>Break-word: normal</h3>
-<table cellspacing="0">	
+<h3>Word-break: normal</h3>
+<table cellspacing="0">
    <tr>
     <td style="width: 20%">Lorem ipsum dolor sit <span class="normal">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
     <td style="width: 30%">Lorem ipsum dolor sit <span class="normal">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
     <td style="width: 50%">Lorem ipsum dolor sit <span class="normal">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
    </tr>
 </table>
-<h3>Break-word: break-all</h3>
-<table cellspacing="0">	
+<h3>Word-break: break-all</h3>
+<table cellspacing="0" style="">
    <tr>
     <td style="width: 20%">Lorem ipsum dolor sit <span class="break-all">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
     <td style="width: 30%">Lorem ipsum dolor sit <span class="break-all">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
     <td style="width: 50%">Lorem ipsum dolor sit <span class="break-all">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
    </tr>
 </table>
-<h3>Break-word: keep-all;</h3>
-<table cellspacing="0">	
-   <tr>
-    <td style="width: 20%">Lorem ipsum dolor sit <span class="keep-all">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
-    <td style="width: 30%">Lorem ipsum dolor sit <span class="keep-all">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
-    <td style="width: 50%">Lorem ipsum dolor sit <span class="keep-all">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
-   </tr>
+<h3>Word-break: keep-all;</h3>
+<table cellspacing="0">
+    <tr>
+        <td style="width: 20%">Lorem ipsum dolor sit <span class="keep-all">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
+        <td style="width: 30%">Lorem ipsum dolor sit <span class="keep-all">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
+        <td style="width: 50%">Lorem ipsum dolor sit <span class="keep-all">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
+    </tr>
+</table>
+<h3>Word-break: break-word;</h3>
+<table cellspacing="0">
+    <tr>
+        <td style="width: 20%">Lorem ipsum dolor sit <span class="keep-all">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
+        <td style="width: 30%">Lorem ipsum dolor sit <span class="keep-all">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
+        <td style="width: 50%">Lorem ipsum dolor sit <span class="keep-all">ametconsecteturadipiscingelitseddoeiusmodtempor</span> incididunt ut labore et dolore magna aliqua</td>
+    </tr>
 </table>
 </body>
 </html>

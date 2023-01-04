@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style type="text/css">
+
+
+.sv-aip-content {
+    margin: 2px;
+    border: 1px dashed;
+    padding: 2px;
+    display: inline-block;
+    width: 1.6in;
+    vertical-align: bottom;
+}
+
+.sv-aip-content-box {
+    border: 1px dashed;
+}
+
+</style>
+</head>
+<div class="sv-aip-content-box">
+    <div class="sv-aip-content-box">
+        <img width="50" height="50" src="sqpurple.gif" alt=""/>
+        <span>no alignment specified</span>
+        <span style="vertical-align:top;">span top aligned</span>
+    </div>
+    <div class="sv-aip-content-box">
+        <img width="50" height="50" src="sqpurple.gif" alt="" style="vertical-align:top;"/>
+        <span>image top aligned</span>
+        <span style="vertical-align:top;">span top aligned</span>
+        <span style="vertical-align:middle;">span middle aligned</span>
+        <span style="vertical-align:bottom;">span bottom aligned</span>
+    </div>
+    <div class="sv-aip-content-box">
+        <img width="50" height="50" src="sqpurple.gif" alt="" style="vertical-align:bottom;"/>
+        <span>image bot aligned</span>
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<h1>Expected result</h1>
+<img height="160" width="700" src="styleAlignment_ExpectedResult.png"/>
+</body>
+</html>

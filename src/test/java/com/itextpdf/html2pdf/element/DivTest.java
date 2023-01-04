@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2022 iText Group NV
+    Copyright (c) 1998-2023 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -95,4 +95,9 @@ public class DivTest extends ExtendedHtmlConversionITextTest {
     public void divColumnCountTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("divColumnCount", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
+    @Test
+    public void helloDivDocumentTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("hello_div", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
 }
