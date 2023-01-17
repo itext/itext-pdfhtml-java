@@ -48,8 +48,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.ColorConstants;
-import com.itextpdf.kernel.colors.DeviceRgb;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants.LineCapStyle;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.properties.BaseDirection;
 import com.itextpdf.layout.properties.HorizontalAlignment;
@@ -83,10 +82,16 @@ import org.slf4j.LoggerFactory;
  */
 public final class FontStyleApplierUtil {
 
-    /** The logger. */
+    /**
+     * The logger.
+     */
     private static final Logger logger = LoggerFactory.getLogger(FontStyleApplierUtil.class);
 
     private static final float DEFAULT_LINE_HEIGHT = 1.2f;
+    private static final float TEXT_DECORATION_LINE_DEFAULT_THICKNESS = .75F;
+    private static final float TEXT_DECORATION_LINE_THROUGH_Y_POS = 1 / 4F;
+    private static final float TEXT_DECORATION_LINE_OVER_Y_POS = 9 / 10F;
+    private static final float TEXT_DECORATION_LIN_UNDER_Y_POS = -1 / 10F;
 
     /**
      * Creates a {@link FontStyleApplierUtil} instance.
@@ -97,12 +102,13 @@ public final class FontStyleApplierUtil {
     /**
      * Applies font styles to an element.
      *
-     * @param cssProps the CSS props
-     * @param context the processor context
+     * @param cssProps        the CSS props
+     * @param context         the processor context
      * @param stylesContainer the styles container
-     * @param element the element
+     * @param element         the element
      */
-    public static void applyFontStyles(Map<String, String> cssProps, ProcessorContext context, IStylesContainer stylesContainer, IPropertyContainer element) {
+    public static void applyFontStyles(Map<String, String> cssProps, ProcessorContext context,
+            IStylesContainer stylesContainer, IPropertyContainer element) {
         float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         float rem = context.getCssContext().getRootFontSize();
         if (em != 0) {
@@ -141,18 +147,20 @@ public final class FontStyleApplierUtil {
             element.setProperty(Property.BASE_DIRECTION, BaseDirection.RIGHT_TO_LEFT);
             // For list items default behaviour differs from other elements:
             // only the list symbol should be aligned differently
-            if (!CssConstants.LIST_ITEM.equals(cssProps.get(CssConstants.DISPLAY))){
+            if (!CssConstants.LIST_ITEM.equals(cssProps.get(CssConstants.DISPLAY))) {
                 element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.RIGHT);
             }
         } else if (CssConstants.LTR.equals(direction)) {
             element.setProperty(Property.BASE_DIRECTION, BaseDirection.LEFT_TO_RIGHT);
-            if (!CssConstants.LIST_ITEM.equals(cssProps.get(CssConstants.DISPLAY))){
+            if (!CssConstants.LIST_ITEM.equals(cssProps.get(CssConstants.DISPLAY))) {
                 element.setProperty(Property.TEXT_ALIGNMENT, TextAlignment.LEFT);
             }
         }
 
-        if (stylesContainer instanceof IElementNode && ((IElementNode) stylesContainer).parentNode() instanceof IElementNode &&
-                CssConstants.RTL.equals(((IElementNode) ((IElementNode) stylesContainer).parentNode()).getStyles().get(CssConstants.DIRECTION)) &&
+        if (stylesContainer instanceof IElementNode
+                && ((IElementNode) stylesContainer).parentNode() instanceof IElementNode &&
+                CssConstants.RTL.equals(((IElementNode) ((IElementNode) stylesContainer).parentNode()).getStyles()
+                        .get(CssConstants.DIRECTION)) &&
                 !element.hasProperty(Property.HORIZONTAL_ALIGNMENT)) {
             // We should only apply horizontal alignment if parent has dir attribute or direction property
             element.setProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.RIGHT);
@@ -202,51 +210,7 @@ public final class FontStyleApplierUtil {
                 element.setProperty(Property.SPLIT_CHARACTERS, new DefaultSplitCharacters());
             }
         }
-
-        TransparentColor tColor;
-        Color textDecorationColor;
-        float opacity = 1f;
-        String textDecorationColorProp = cssProps.get(CssConstants.TEXT_DECORATION_COLOR);
-        if (textDecorationColorProp == null || CssConstants.CURRENTCOLOR.equals(textDecorationColorProp)) {
-            if (element.<TransparentColor>getProperty(Property.FONT_COLOR) != null) {
-                TransparentColor transparentColor = element.<TransparentColor>getProperty(Property.FONT_COLOR);
-                textDecorationColor = transparentColor.getColor();
-                opacity = transparentColor.getOpacity();
-            } else {
-                textDecorationColor = ColorConstants.BLACK;
-            }
-        } else {
-            if (textDecorationColorProp.startsWith("hsl")) {
-                logger.error(Html2PdfLogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
-                textDecorationColor = ColorConstants.BLACK;
-            } else {
-                tColor = CssDimensionParsingUtils.parseColor(textDecorationColorProp);
-                textDecorationColor = tColor.getColor();
-                opacity = tColor.getOpacity();
-            }
-        }
-
-        String textDecorationLineProp = cssProps.get(CssConstants.TEXT_DECORATION_LINE);
-        if (textDecorationLineProp != null) {
-            String[] textDecorationLines = textDecorationLineProp.split("\\s+");
-            List<Underline> underlineList = new ArrayList<>();
-            for (String textDecorationLine : textDecorationLines) {
-                if (CssConstants.BLINK.equals(textDecorationLine)) {
-                    logger.error(Html2PdfLogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
-                } else if (CssConstants.LINE_THROUGH.equals(textDecorationLine)) {
-                    underlineList.add(new Underline(textDecorationColor, opacity, .75f, 0, 0, 1 / 4f, PdfCanvasConstants.LineCapStyle.BUTT));
-                } else if (CssConstants.OVERLINE.equals(textDecorationLine)) {
-                    underlineList.add(new Underline(textDecorationColor, opacity, .75f, 0, 0, 9 / 10f, PdfCanvasConstants.LineCapStyle.BUTT));
-                } else if (CssConstants.UNDERLINE.equals(textDecorationLine)) {
-                    underlineList.add(new Underline(textDecorationColor, opacity, .75f, 0, 0, -1 / 10f, PdfCanvasConstants.LineCapStyle.BUTT));
-                } else if (CssConstants.NONE.equals(textDecorationLine)) {
-                    underlineList = null;
-                    // if none and any other decoration are used together, none is displayed
-                    break;
-                }
-            }
-            element.setProperty(Property.UNDERLINE, underlineList);
-        }
+        setTextDecoration(element, cssProps);
 
         String textIndent = cssProps.get(CommonCssConstants.TEXT_INDENT);
         if (textIndent != null) {
@@ -289,21 +253,99 @@ public final class FontStyleApplierUtil {
         setLineHeightByLeading(element, lineHeight, em, rem);
     }
 
+    private static void setTextDecoration(IPropertyContainer element, Map<String, String> cssProps) {
+
+        String[] props = new String[] {null};
+        final String unparsedProps = cssProps.get(CommonCssConstants.TEXT_DECORATION_COLOR);
+        if (unparsedProps != null && !unparsedProps.trim().isEmpty()) {
+            props = cssProps.get(CommonCssConstants.TEXT_DECORATION_COLOR).split("\\s+");
+        }
+
+        final List<Float> opacityList = new ArrayList<>(props.length);
+        final List<Color> colorList = new ArrayList<>(props.length);
+
+        for (final String textDecorationColorProp : props) {
+            TransparentColor tColor;
+            Color textDecorationColor;
+            float opacity = 1f;
+            if (textDecorationColorProp == null || CommonCssConstants.CURRENTCOLOR.equals(textDecorationColorProp)) {
+                if (element.<TransparentColor>getProperty(Property.FONT_COLOR) != null) {
+                    TransparentColor transparentColor = element.<TransparentColor>getProperty(Property.FONT_COLOR);
+                    textDecorationColor = transparentColor.getColor();
+                    opacity = transparentColor.getOpacity();
+                } else {
+                    textDecorationColor = ColorConstants.BLACK;
+                }
+            } else {
+                if (textDecorationColorProp.startsWith("hsl")) {
+                    logger.error(Html2PdfLogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
+                    textDecorationColor = ColorConstants.BLACK;
+                } else {
+                    tColor = CssDimensionParsingUtils.parseColor(textDecorationColorProp);
+                    textDecorationColor = tColor.getColor();
+                    opacity = tColor.getOpacity();
+                }
+            }
+            opacityList.add(opacity);
+            colorList.add(textDecorationColor);
+        }
+
+        final String textDecorationLineProp = cssProps.get(CommonCssConstants.TEXT_DECORATION_LINE);
+        if (textDecorationLineProp == null) {
+            return;
+        }
+
+        final String[] textDecorationArray = textDecorationLineProp.split("\\s+");
+        List<Underline> underlineList = new ArrayList<>();
+
+        for (int currentIndex = 0; currentIndex < textDecorationArray.length; currentIndex++) {
+            final float opacity = opacityList.size() - 1 > currentIndex ? opacityList.get(currentIndex)
+                    : opacityList.get(opacityList.size() - 1);
+            final Color color = colorList.size() - 1 > currentIndex ? colorList.get(currentIndex)
+                    : colorList.get(colorList.size() - 1);
+            final String line = textDecorationArray[currentIndex];
+
+            if (CommonCssConstants.BLINK.equals(line)) {
+                logger.error(Html2PdfLogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
+            } else if (CommonCssConstants.LINE_THROUGH.equals(line)) {
+                underlineList.add(new Underline(color, opacity, TEXT_DECORATION_LINE_DEFAULT_THICKNESS, 0, 0,
+                        TEXT_DECORATION_LINE_THROUGH_Y_POS,
+                        LineCapStyle.BUTT));
+            } else if (CommonCssConstants.OVERLINE.equals(line)) {
+                underlineList.add(new Underline(color, opacity, TEXT_DECORATION_LINE_DEFAULT_THICKNESS, 0, 0,
+                        TEXT_DECORATION_LINE_OVER_Y_POS,
+                        LineCapStyle.BUTT));
+            } else if (CommonCssConstants.UNDERLINE.equals(line)) {
+                underlineList.add(new Underline(color, opacity, TEXT_DECORATION_LINE_DEFAULT_THICKNESS, 0, 0,
+                        TEXT_DECORATION_LIN_UNDER_Y_POS,
+                        LineCapStyle.BUTT));
+            } else if (CommonCssConstants.NONE.equals(line)) {
+                underlineList = null;
+                // if none and any other decoration are used together, none is displayed
+                break;
+            }
+        }
+        element.setProperty(Property.UNDERLINE, underlineList);
+    }
+
+
     private static void setLineHeight(IPropertyContainer elementToSet, String lineHeight, float em, float rem) {
         if (lineHeight != null && !CssConstants.NORMAL.equals(lineHeight) && !CssConstants.AUTO.equals(lineHeight)) {
             if (CssTypesValidationUtils.isNumber(lineHeight)) {
                 Float number = CssDimensionParsingUtils.parseFloat(lineHeight);
                 if (number != null) {
-                    elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createMultipliedValue((float)number));
+                    elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createMultipliedValue((float) number));
                 } else {
                     elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createNormalValue());
                 }
             } else {
                 UnitValue lineHeightValue = CssDimensionParsingUtils.parseLengthValueToPt(lineHeight, em, rem);
                 if (lineHeightValue != null && lineHeightValue.isPointValue()) {
-                    elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createFixedValue(lineHeightValue.getValue()));
+                    elementToSet.setProperty(Property.LINE_HEIGHT,
+                            LineHeight.createFixedValue(lineHeightValue.getValue()));
                 } else if (lineHeightValue != null) {
-                    elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createMultipliedValue(lineHeightValue.getValue() / 100f));
+                    elementToSet.setProperty(Property.LINE_HEIGHT,
+                            LineHeight.createMultipliedValue(lineHeightValue.getValue() / 100f));
                 } else {
                     elementToSet.setProperty(Property.LINE_HEIGHT, LineHeight.createNormalValue());
                 }
@@ -321,19 +363,21 @@ public final class FontStyleApplierUtil {
             if (CssTypesValidationUtils.isNumber(lineHeight)) {
                 Float mult = CssDimensionParsingUtils.parseFloat(lineHeight);
                 if (mult != null) {
-                    element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));
+                    element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float) mult));
                 }
             } else {
                 UnitValue lineHeightValue = CssDimensionParsingUtils.parseLengthValueToPt(lineHeight, em, rem);
                 if (lineHeightValue != null && lineHeightValue.isPointValue()) {
                     element.setProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.getValue()));
                 } else if (lineHeightValue != null) {
-                    element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.getValue() / 100));
+                    element.setProperty(Property.LEADING,
+                            new Leading(Leading.MULTIPLIED, lineHeightValue.getValue() / 100));
                 }
             }
         } else {
             element.setProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, DEFAULT_LINE_HEIGHT));
         }
     }
-
 }
+
+

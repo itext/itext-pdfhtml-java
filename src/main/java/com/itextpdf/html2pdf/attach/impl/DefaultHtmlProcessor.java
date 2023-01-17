@@ -64,6 +64,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
 import com.itextpdf.html2pdf.css.apply.util.PageBreakApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.TextDecorationApplierUtil;
 import com.itextpdf.html2pdf.css.resolve.DefaultCssResolver;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
 import com.itextpdf.html2pdf.html.TagConstants;
@@ -343,7 +344,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
             }
 
             context.getOutlineHandler().addOutlineAndDestToDocument(tagWorker, element, context);
-
+            TextDecorationApplierUtil.propagateTextDecorationProperties(element);
             CounterProcessorUtil.startProcessingCounters(context.getCssContext(), element);
             visit(createPseudoElement(element, tagWorker, CssConstants.BEFORE));
             visit(createPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER));

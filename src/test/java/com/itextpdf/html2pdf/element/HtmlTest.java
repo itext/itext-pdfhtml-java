@@ -122,6 +122,7 @@ public class HtmlTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "htmlTest08.pdf", sourceFolder + "cmp_htmlTest08.pdf", destinationFolder, "diff08_"));
     }
 
+    //TODO replace cmp file when fixing DEVSIX-7303
     @Test
     public void html09Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "htmlTest09.html"), new File(destinationFolder + "htmlTest09.pdf"));

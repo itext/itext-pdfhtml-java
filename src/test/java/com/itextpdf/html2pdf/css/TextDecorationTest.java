@@ -154,21 +154,23 @@ public class TextDecorationTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-4719 replace cmp files once the issue is fixed
     public void textDecorationColorEffectOnNestedElements01Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationColorEffectOnNestedElements01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    // TODO DEVSIX-4719 replace cmp files once the issue is fixed
     public void textDecorationColorEffectOnNestedElements02Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationColorEffectOnNestedElements02", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    // TODO DEVSIX-4719 replace cmp files once the issue is fixed
     public void textDecorationColorEffectOnNestedElements03Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("textDecorationColorEffectOnNestedElements03", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void textDecorationColorEffectOnNestedElements04Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textDecorationColorEffectOnNestedElements04", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
