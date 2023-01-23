@@ -126,7 +126,7 @@ public abstract class AbstractTextFieldRenderer extends AbstractFormFieldRendere
      */
     void applyDefaultFieldProperties(PdfFormField inputField) {
         inputField.getWidgets().get(0).setHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
-        inputField.setBorderWidth(0);
+        inputField.getFirstFormAnnotation().setBorderWidth(0);
         TransparentColor color = getPropertyAsTransparentColor(Property.FONT_COLOR);
         if (color != null) {
             inputField.setColor(color.getColor());
