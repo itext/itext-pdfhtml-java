@@ -177,7 +177,8 @@ public class InputFieldRenderer extends AbstractOneLineTextFieldRenderer {
 
         FormsMetaInfoStaticContainer.useMetaInfoDuringTheAction(getMetaInfo(), () -> {
             final PdfFormField inputField = new TextFormFieldBuilder(doc, name).setWidgetRectangle(area).createText()
-                    .setFont(font).setFontSize(fontSizeValue).setValue(value);
+                    .setValue(value);
+            inputField.setFont(font).setFontSize(fontSizeValue);
             if (password) {
                 inputField.setFieldFlag(PdfFormField.FF_PASSWORD, true);
             } else {

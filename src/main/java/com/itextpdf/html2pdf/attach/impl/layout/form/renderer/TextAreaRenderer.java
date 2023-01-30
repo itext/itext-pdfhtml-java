@@ -183,7 +183,8 @@ public class TextAreaRenderer extends AbstractTextFieldRenderer {
 
         FormsMetaInfoStaticContainer.useMetaInfoDuringTheAction(getMetaInfo(), () -> {
             final PdfFormField inputField = new TextFormFieldBuilder(doc, name).setWidgetRectangle(area).createText()
-                    .setFont(font).setFontSize(fontSizeValue).setValue(value);
+                    .setValue(value);
+            inputField.setFont(font).setFontSize(fontSizeValue);
             inputField.setFieldFlag(PdfFormField.FF_MULTILINE, true);
             inputField.setDefaultValue(defaultValue);
             applyDefaultFieldProperties(inputField);
