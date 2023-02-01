@@ -106,10 +106,10 @@ public class PdfHtmlAcroformDocumentEventTest extends ExtendedITextTest {
         FileOutputStream pdfStream = new FileOutputStream(pdfOutput);
 
         final List<IElement> elements = HtmlConverter
-                .convertToElements("<input type='text' name='h' value='test header field value here'/>",
+                .convertToElements("<input type='text' name='header' value='test header field value here'/>",
                         converterProperties);
         final List<IElement> footer = HtmlConverter
-                .convertToElements("<input type='text' name='h' value='test footer field value here'/>",
+                .convertToElements("<input type='text' name='footer' value='test footer field value here'/>",
                         converterProperties);
         PdfWriter writer = new PdfWriter(pdfStream);
         PdfDocument pdfDocument = new PdfDocument(writer);
