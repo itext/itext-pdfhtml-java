@@ -42,6 +42,8 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.forms.form.element.InputField;
+import com.itextpdf.forms.logs.FormsLogMessageConstants;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
@@ -49,7 +51,6 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
 import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.colors.ColorConstants;
@@ -116,7 +117,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(ignore = true, messages = {
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT),
+            @LogMessage(messageTemplate = FormsLogMessageConstants.INPUT_FIELD_DOES_NOT_FIT),
     })
     public void input06Test() throws IOException, InterruptedException {
         String htmlPath = sourceFolder + "inputTest06.html";

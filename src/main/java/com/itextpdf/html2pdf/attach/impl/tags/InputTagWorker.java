@@ -42,14 +42,14 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.forms.form.FormProperty;
+import com.itextpdf.forms.form.element.CheckBox;
+import com.itextpdf.forms.form.element.InputButton;
+import com.itextpdf.forms.form.element.InputField;
+import com.itextpdf.forms.form.element.Radio;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputButton;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.CheckBox;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputField;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.Radio;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.layout.IPropertyContainer;
@@ -121,36 +121,36 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
                 }
                 ((InputField) formElement).setPlaceholder(paragraph.setMargin(0));
             }
-            formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
-            formElement.setProperty(Html2PdfProperty.FORM_FIELD_SIZE, size);
+            formElement.setProperty(FormProperty.FORM_FIELD_VALUE, value);
+            formElement.setProperty(FormProperty.FORM_FIELD_SIZE, size);
             if (AttributeConstants.PASSWORD.equals(inputType)) {
-                formElement.setProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG, true);
+                formElement.setProperty(FormProperty.FORM_FIELD_PASSWORD_FLAG, true);
             }
         } else if (AttributeConstants.SUBMIT.equals(inputType) || AttributeConstants.BUTTON.equals(inputType)) {
             formElement = new InputButton(name);
-            formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
+            formElement.setProperty(FormProperty.FORM_FIELD_VALUE, value);
         } else if (AttributeConstants.CHECKBOX.equals(inputType)) {
             formElement = new CheckBox(name);
             String checked = element.getAttribute(AttributeConstants.CHECKED);
             if (null != checked) {
-                formElement.setProperty(Html2PdfProperty.FORM_FIELD_CHECKED, checked); // has attribute == is checked
+                formElement.setProperty(FormProperty.FORM_FIELD_CHECKED, checked); // has attribute == is checked
             }
         } else if (AttributeConstants.RADIO.equals(inputType)) {
             formElement = new Radio(name);
             String radioGroupName = element.getAttribute(AttributeConstants.NAME);
-            formElement.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, radioGroupName);
+            formElement.setProperty(FormProperty.FORM_FIELD_VALUE, radioGroupName);
             String checked = element.getAttribute(AttributeConstants.CHECKED);
             if (null != checked) {
                 context.getRadioCheckResolver().checkField(radioGroupName, (Radio) formElement);
-                formElement.setProperty(Html2PdfProperty.FORM_FIELD_CHECKED, checked); // has attribute == is checked
+                formElement.setProperty(FormProperty.FORM_FIELD_CHECKED, checked); // has attribute == is checked
             }
         } else {
             Logger logger = LoggerFactory.getLogger(InputTagWorker.class);
             logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
         }
         if (formElement != null) {
-            formElement.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
-            formElement.setProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+            formElement.setProperty(FormProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
+            formElement.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
         }
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }

@@ -43,6 +43,7 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.forms.PdfAcroForm;
+import com.itextpdf.forms.logs.FormsLogMessageConstants;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.UrlUtil;
@@ -199,13 +200,13 @@ public class FormTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = FormsLogMessageConstants.ACROFORM_NOT_SUPPORTED_FOR_SELECT, count = 2))
     public void selectTest01() throws IOException, InterruptedException {
         runTest("select01", false);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, count = 3))
+    @LogMessages(messages = @LogMessage(messageTemplate = FormsLogMessageConstants.ACROFORM_NOT_SUPPORTED_FOR_SELECT, count = 3))
     public void selectTest02() throws IOException, InterruptedException {
         runTest("select02", false);
     }

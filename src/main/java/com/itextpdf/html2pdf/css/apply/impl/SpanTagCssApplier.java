@@ -42,9 +42,9 @@
  */
 package com.itextpdf.html2pdf.css.apply.impl;
 
+import com.itextpdf.forms.form.element.IFormField;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;

@@ -42,10 +42,10 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.forms.form.FormProperty;
+import com.itextpdf.forms.form.element.TextArea;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.TextArea;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.html2pdf.html.AttributeConstants;
@@ -85,10 +85,10 @@ public class TextAreaTagWorker implements ITagWorker, IDisplayAware {
         textArea = new TextArea(name);
         Integer rows = CssDimensionParsingUtils.parseInteger(element.getAttribute(AttributeConstants.ROWS));
         Integer cols = CssDimensionParsingUtils.parseInteger(element.getAttribute(AttributeConstants.COLS));
-        textArea.setProperty(Html2PdfProperty.FORM_FIELD_ROWS, rows);
-        textArea.setProperty(Html2PdfProperty.FORM_FIELD_COLS, cols);
-        textArea.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
-        textArea.setProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, element.getAttribute(AttributeConstants.LANG));
+        textArea.setProperty(FormProperty.FORM_FIELD_ROWS, rows);
+        textArea.setProperty(FormProperty.FORM_FIELD_COLS, cols);
+        textArea.setProperty(FormProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
+        textArea.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, element.getAttribute(AttributeConstants.LANG));
         String placeholder = element.getAttribute(AttributeConstants.PLACEHOLDER);
         if (null != placeholder) {
             Paragraph paragraph;
@@ -123,7 +123,7 @@ public class TextAreaTagWorker implements ITagWorker, IDisplayAware {
         } else if (content.startsWith("\r") || content.startsWith("\n")) {
             content = content.substring(1);
         }
-        textArea.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, content);
+        textArea.setProperty(FormProperty.FORM_FIELD_VALUE, content);
         return true;
     }
 

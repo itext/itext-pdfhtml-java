@@ -42,12 +42,12 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.forms.form.FormProperty;
+import com.itextpdf.forms.form.element.Button;
+import com.itextpdf.forms.form.element.IFormField;
+import com.itextpdf.forms.form.element.InputButton;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.InputButton;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.Button;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.layout.IPropertyContainer;
@@ -124,7 +124,7 @@ public class ButtonTagWorker extends DivTagWorker {
         if (formField == null) {
             if (hasChildren) {
                 Button button = new Button(name);
-                button.setProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+                button.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
                 Div div = (Div) super.getElementResult();
                 for (IElement element : div.getChildren()) {
                     if (element instanceof IAccessibleElement) {
@@ -140,12 +140,12 @@ public class ButtonTagWorker extends DivTagWorker {
                 formField = button;
             } else {
                 InputButton inputButton = new InputButton(name);
-                inputButton.setProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
-                inputButton.setProperty(Html2PdfProperty.FORM_FIELD_VALUE, fallbackContent.toString().trim());
+                inputButton.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+                inputButton.setProperty(FormProperty.FORM_FIELD_VALUE, fallbackContent.toString().trim());
                 formField = inputButton;
             }
         }
-        formField.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, flatten);
+        formField.setProperty(FormProperty.FORM_FIELD_FLATTEN, flatten);
         return formField;
     }
 }

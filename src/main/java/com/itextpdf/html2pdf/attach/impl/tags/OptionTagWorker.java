@@ -42,9 +42,9 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.forms.form.FormProperty;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.styledxmlparser.jsoup.nodes.TextNode;
 import com.itextpdf.styledxmlparser.node.IElementNode;
@@ -71,7 +71,7 @@ public class OptionTagWorker extends DivTagWorker {
     public OptionTagWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
         boolean selectedAttr = element.getAttribute(AttributeConstants.SELECTED) != null;
-        getElementResult().setProperty(Html2PdfProperty.FORM_FIELD_SELECTED, selectedAttr);
+        getElementResult().setProperty(FormProperty.FORM_FIELD_SELECTED, selectedAttr);
         actualOptionTextContent = new StringBuilder();
 
         labelAttrVal = element.getAttribute(AttributeConstants.LABEL);
@@ -99,8 +99,8 @@ public class OptionTagWorker extends DivTagWorker {
             valueAttr = content;
         }
 
-        getElementResult().setProperty(Html2PdfProperty.FORM_FIELD_VALUE, valueAttr);
-        getElementResult().setProperty(Html2PdfProperty.FORM_FIELD_LABEL, labelAttr);
+        getElementResult().setProperty(FormProperty.FORM_FIELD_VALUE, valueAttr);
+        getElementResult().setProperty(FormProperty.FORM_FIELD_LABEL, labelAttr);
     }
 
     @Override

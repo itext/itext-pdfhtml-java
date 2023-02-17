@@ -42,9 +42,9 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.forms.form.FormProperty;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
@@ -72,7 +72,7 @@ public class OptGroupTagWorker extends DivTagWorker {
         if (label == null || label.isEmpty()) {
             label = "\u00A0";
         }
-        getElementResult().setProperty(Html2PdfProperty.FORM_FIELD_LABEL, label);
+        getElementResult().setProperty(FormProperty.FORM_FIELD_LABEL, label);
         Paragraph p = new Paragraph(label).setMargin(0);
         p.setProperty(Property.OVERFLOW_X, OverflowPropertyValue.VISIBLE);
         p.setProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);

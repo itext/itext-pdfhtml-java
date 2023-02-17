@@ -22,11 +22,11 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.forms.form.element.TextArea;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreak;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.TextArea;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.layout.element.Div;

@@ -56,11 +56,6 @@ public final class Html2PdfLogMessageConstant {
             "A custom renderer which doesn't extend HtmlDocumentRenderer is set for HtmlDocument. Counters and "
                     + "target-counters may be displayed incorrectly.";
 
-    /** The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT. */
-    public static final String ACROFORM_NOT_SUPPORTED_FOR_SELECT =
-            "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will "
-                    + "be flattened instead.";
-
     public static final String ANCHOR_LINK_NOT_HANDLED =
             "The anchor link was not handled. Could not create a destination for element \"{0}\" with ID \"{1}\", "
                     + "which is processed by \"{2}\" tag worker class.";
@@ -85,10 +80,6 @@ public final class Html2PdfLogMessageConstant {
     public static final String ERROR_RESOLVING_PARENT_STYLES =
             "Element parent styles are not resolved. Styles for current element might be incorrect.";
 
-    /** The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD. */
-    public static final String ERROR_WHILE_LAYOUT_OF_FORM_FIELD =
-            "Cannot layout form field field. It won't be displayed";
-
     /** The Constant EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS. */
     public static final String EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS =
             "Exceeded the maximum number of relayouts. The resultant document may look not as expected. Because of the"
@@ -97,13 +88,6 @@ public final class Html2PdfLogMessageConstant {
     /** The constant FLEX_PROPERTY_IS_NOT_SUPPORTED_YET. */
     public static final String FLEX_PROPERTY_IS_NOT_SUPPORTED_YET =
             "Flex related property {0}: {1} is not supported yet.";
-
-    /** The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE. */
-    public static final String ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE =
-            "Error during layout of form filed with type {0}.";
-
-    /** The Constant INPUT_FIELD_DOES_NOT_FIT. */
-    public static final String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";
 
     /** The Constant INPUT_TYPE_IS_INVALID. */
     public static final String INPUT_TYPE_IS_INVALID =

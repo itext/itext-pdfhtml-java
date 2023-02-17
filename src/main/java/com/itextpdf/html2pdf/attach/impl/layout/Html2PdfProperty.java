@@ -56,45 +56,12 @@ public class Html2PdfProperty {
     /** The Constant PAGE_COUNT_TYPE. */
     public static final int PAGE_COUNT_TYPE = PROPERTY_START + 2;
 
-    /** The Constant FORM_FIELD_FLATTEN for form related properties. */
-    public static final int FORM_FIELD_FLATTEN = PROPERTY_START + 3;
-
-    /** The Constant FORM_FIELD_SIZE. */
-    public static final int FORM_FIELD_SIZE = PROPERTY_START + 4;
-
-    /** The Constant FORM_FIELD_VALUE. */
-    public static final int FORM_FIELD_VALUE = PROPERTY_START + 5;
-
-    /** The Constant FORM_FIELD_PASSWORD_FLAG. */
-    public static final int FORM_FIELD_PASSWORD_FLAG = PROPERTY_START + 6;
-
-    /** The Constant FORM_FIELD_COLS. */
-    public static final int FORM_FIELD_COLS = PROPERTY_START + 7;
-
-    /** The Constant FORM_FIELD_ROWS. */
-    public static final int FORM_FIELD_ROWS = PROPERTY_START + 8;
-
-    /** The Constant FORM_FIELD_CHECKED. */
-    public static final int FORM_FIELD_CHECKED = PROPERTY_START + 9;
-
     /** The Constant BODY_STYLING. */
-    public static final int BODY_STYLING = PROPERTY_START + 10;
+    public static final int BODY_STYLING = PROPERTY_START + 3;
 
     /** The Constant HTML_STYLING. */
-    public static final int HTML_STYLING = PROPERTY_START + 11;
-
-    /** The Constant FORM_FIELD_MULTIPLE. */
-    public static final int FORM_FIELD_MULTIPLE = PROPERTY_START + 12;
-
-    /** The Constant FORM_FIELD_SELECTED. */
-    public static final int FORM_FIELD_SELECTED = PROPERTY_START + 13;
-
-    /** The Constant FORM_FIELD_SELECTED. */
-    public static final int FORM_FIELD_LABEL = PROPERTY_START + 14;
-
-    /** The Constant FORM_ACCESSIBILITY_LANGUAGE. */
-    public static final int FORM_ACCESSIBILITY_LANGUAGE = PROPERTY_START + 15;
+    public static final int HTML_STYLING = PROPERTY_START + 4;
 
     /** The Constant CAPITALIZE_ELEMENT indicates if an inline element needs to be capitalized. */
-    public static final int CAPITALIZE_ELEMENT = PROPERTY_START + 16;
+    public static final int CAPITALIZE_ELEMENT = PROPERTY_START + 5;
 }

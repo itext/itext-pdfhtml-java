@@ -43,8 +43,8 @@ package com.itextpdf.html2pdf.resolver.form;
     address: sales@itextpdf.com
  */
 
-import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.Radio;
+import com.itextpdf.forms.form.FormProperty;
+import com.itextpdf.forms.form.element.Radio;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -74,7 +74,7 @@ public class RadioCheckResolver {
     public void checkField(String radioGroupName, Radio checkedField) {
         Radio previouslyChecked = checked.get(radioGroupName);
         if (null != previouslyChecked) {
-            previouslyChecked.deleteOwnProperty(Html2PdfProperty.FORM_FIELD_CHECKED);
+            previouslyChecked.deleteOwnProperty(FormProperty.FORM_FIELD_CHECKED);
         }
         checked.put(radioGroupName, checkedField);
     }

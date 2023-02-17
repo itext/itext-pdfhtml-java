@@ -42,12 +42,12 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.forms.form.FormProperty;
+import com.itextpdf.forms.form.element.AbstractSelectField;
+import com.itextpdf.forms.form.element.ComboBoxField;
+import com.itextpdf.forms.form.element.ListBoxField;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
-import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.AbstractSelectField;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.ComboBoxField;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.ListBoxField;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.html2pdf.html.AttributeConstants;
@@ -85,8 +85,8 @@ public class SelectTagWorker implements ITagWorker, IDisplayAware {
             selectElement = new ComboBoxField(name);
         }
         String lang = element.getAttribute(AttributeConstants.LANG);
-        selectElement.setProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
-        selectElement.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
+        selectElement.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+        selectElement.setProperty(FormProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
