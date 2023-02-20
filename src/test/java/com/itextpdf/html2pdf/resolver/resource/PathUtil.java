@@ -47,11 +47,11 @@ import java.nio.file.Paths;
 final class PathUtil{
     private static boolean isRunOnJava = false;
 
-// Android-Excise-Start
+// Android-Conversion-Skip-Block-Start (during Android conversion relative paths "./src/test/resources" will be replaced with absolute paths)
     static {
         isRunOnJava = true;
     }
-// Android-Excise-End
+// Android-Conversion-Skip-Block-End
 
     private PathUtil() {}
 

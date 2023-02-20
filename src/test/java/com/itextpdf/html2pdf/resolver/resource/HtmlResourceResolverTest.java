@@ -105,7 +105,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, count = 2)
     })
-    // Android-Ignore (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     public void resourceResolverHtmlWithSvgTest02() throws IOException, InterruptedException {
         String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces/";
         String outPdf = DESTINATION_FOLDER + "resourceResolverHtmlWithSvgTest02.pdf";
@@ -115,7 +115,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    // Android-Ignore (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     public void resourceResolverTest07() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverTest07.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverTest07.pdf";
@@ -141,7 +141,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    // Android-Ignore (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG))
     public void resourceResolverTest07A() throws IOException, InterruptedException {
         // Due to the fact that on Android "./src/test/resources" substring will be replaced as abosulte path,
@@ -156,7 +156,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    // Android-Ignore (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     public void resourceResolverTest07B() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverTest07B.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverTest07B.pdf";
@@ -169,7 +169,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    // Android-Ignore (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG))
     public void resourceResolverTest07C() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverTest07C.pdf";
@@ -183,7 +183,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    // Android-Ignore (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     public void resourceResolverHtmlWithSvgTest03() throws IOException, InterruptedException {
         // Due to the fact that on Android "./src/test/resources" substring will be replaced as abosulte path,
         // base URI resolving will be different from Java. To don't lose the last folder in base URI path after
@@ -210,7 +210,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    // Android-Ignore (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     public void resourceResolverHtmlWithSvgTest04() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverHtmlWithSvgTest04.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverHtmlWithSvgTest04.pdf";
@@ -220,7 +220,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
     @Test
     //TODO: update after DEVSIX-2239 fix
-    // Android-Ignore (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     public void resourceResolverCssWithSvg() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverCssWithSvg.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverCssWithSvg.pdf";

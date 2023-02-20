@@ -45,13 +45,13 @@ package com.itextpdf.html2pdf.element;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.kernel.pdf.PdfAConformanceLevel; // Android-Skip
+import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.pdfa.logs.PdfAConformanceLogMessageConstant; // Android-Skip
-import com.itextpdf.pdfa.PdfADocument; // Android-Skip
+import com.itextpdf.pdfa.logs.PdfAConformanceLogMessageConstant; // Android-Conversion-Skip-Line (TODO DEVSIX-7372 investigate why a few tests related to PdfA in iTextCore and PdfHtml were cut)
+import com.itextpdf.pdfa.PdfADocument; // Android-Conversion-Skip-Line (TODO DEVSIX-7372 investigate why a few tests related to PdfA in iTextCore and PdfHtml were cut)
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -148,7 +148,7 @@ public class LinkTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest09.pdf", sourceFolder + "cmp_linkTest09.pdf", destinationFolder, "diff09_"));
     }
 
-    // Android-Excise-Start
+    // Android-Conversion-Skip-Block-Start (TODO DEVSIX-7372 investigate why a few tests related to PdfA in iTextCore and PdfHtml were cut)
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = PdfAConformanceLogMessageConstant.CATALOG_SHOULD_CONTAIN_LANG_ENTRY)})
     public void linkTest10ToPdfa() throws IOException, InterruptedException {
@@ -161,7 +161,7 @@ public class LinkTest extends ExtendedITextTest {
 
         Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "linkTest10.pdf", sourceFolder + "cmp_linkTest10.pdf", destinationFolder, "diff10_"));
     }
-    // Android-Excise-End
+    // Android-Conversion-Skip-Block-End
 
     @Test
     public void linkTest11() throws IOException, InterruptedException {

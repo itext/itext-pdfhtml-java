@@ -52,7 +52,7 @@ import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.pdfa.PdfADocument; // Android-Skip
+import com.itextpdf.pdfa.PdfADocument; // Android-Conversion-Skip-Line (TODO DEVSIX-7372 investigate why a few tests related to PdfA in iTextCore and PdfHtml were cut)
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.itextpdf.test.annotations.LogMessage;
@@ -242,7 +242,7 @@ public class ListTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("inlineWithInlineBlockAsLiChild", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    // Android-Excise-Start
+    // Android-Conversion-Skip-Block-Start (TODO DEVSIX-7372 investigate why a few tests related to PdfA in iTextCore and PdfHtml were cut)
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, count = 32)})
     public void listToPdfaTest() throws IOException, InterruptedException {
@@ -256,5 +256,5 @@ public class ListTest extends ExtendedHtmlConversionITextTest {
         Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "listToPdfa.pdf", SOURCE_FOLDER + "cmp_listToPdfa.pdf",
                 DESTINATION_FOLDER, "diff99_"));
     }
-    // Android-Excise-End
+    // Android-Conversion-Skip-Block-End
 }

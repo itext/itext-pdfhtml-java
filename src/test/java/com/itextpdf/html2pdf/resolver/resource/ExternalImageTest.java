@@ -61,7 +61,7 @@ public class ExternalImageTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/resolver/resource/ExternalImageTest/";
 
     @Test
-    // Android-Ignore (TODO DEVSIX-6459 fix the SecurityException(Permission denied) from UrlUtil method)
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6459 fix the SecurityException(Permission denied) from UrlUtil method)
     public void test() throws IOException {
         ResourceResolver resourceResolver = new ResourceResolver("");
         PdfXObject externalImage = resourceResolver.retrieveImage(
