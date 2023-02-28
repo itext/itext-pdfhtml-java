@@ -242,6 +242,12 @@ public class ListTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("inlineWithInlineBlockAsLiChild", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    @Test
+    //TODO: update after DEVSIX-6982 is fixed
+    public void convertingListOver2PagesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("listOver2Pages", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
     // Android-Conversion-Skip-Block-Start (TODO DEVSIX-7372 investigate why a few tests related to PdfA in iTextCore and PdfHtml were cut)
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, count = 32)})
