@@ -52,7 +52,10 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.borders.Border;
+import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.html2pdf.html.AttributeConstants;
@@ -70,6 +73,8 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
 
     private static final Pattern NUMBER_INPUT_ALLOWED_VALUES =
             Pattern.compile("^(((-?[0-9]+)(\\.[0-9]+)?)|(-?\\.[0-9]+))$");
+
+    private static int radioNameIdx = 0;
 
     /**
      * The form element.
@@ -133,17 +138,28 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
             formElement = new CheckBox(name);
             String checked = element.getAttribute(AttributeConstants.CHECKED);
             if (null != checked) {
-                formElement.setProperty(FormProperty.FORM_FIELD_CHECKED, checked); // has attribute == is checked
+                formElement.setProperty(FormProperty.FORM_FIELD_CHECKED, true); // has attribute == is checked
             }
         } else if (AttributeConstants.RADIO.equals(inputType)) {
-            formElement = new Radio(name);
             String radioGroupName = element.getAttribute(AttributeConstants.NAME);
-            formElement.setProperty(FormProperty.FORM_FIELD_VALUE, radioGroupName);
+            if (radioGroupName == null || radioGroupName.isEmpty()) {
+                ++radioNameIdx;
+                radioGroupName = "radio" + radioNameIdx;
+            }
+            Radio radio = new Radio(name, radioGroupName);
+
+            // Gray circle border
+            Border border = new SolidBorder(1);
+            border.setColor(ColorConstants.LIGHT_GRAY);
+            radio.setBorder(border);
+
             String checked = element.getAttribute(AttributeConstants.CHECKED);
             if (null != checked) {
-                context.getRadioCheckResolver().checkField(radioGroupName, (Radio) formElement);
-                formElement.setProperty(FormProperty.FORM_FIELD_CHECKED, checked); // has attribute == is checked
+                context.getRadioCheckResolver().checkField(radioGroupName, radio);
+                radio.setChecked(true);
             }
+
+            formElement = radio;
         } else {
             Logger logger = LoggerFactory.getLogger(InputTagWorker.class);
             logger.error(MessageFormatUtil.format(Html2PdfLogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
