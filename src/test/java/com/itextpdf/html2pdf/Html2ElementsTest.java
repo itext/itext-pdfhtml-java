@@ -72,6 +72,7 @@ import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -326,6 +327,19 @@ public class Html2ElementsTest extends ExtendedITextTest {
         // TODO DEVSIX-5753 error should not be thrown here
         Exception e = Assert.assertThrows(PdfException.class, () -> document.close());
         Assert.assertEquals(KernelExceptionMessageConstant.PDF_INDIRECT_OBJECT_BELONGS_TO_OTHER_PDF_DOCUMENT, e.getMessage());
+    }
+
+    @Test
+    //TODO: DEVSIX-3891 change the Assert after supporting the svg tag
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, logLevel = LogLevelConstants.ERROR)
+    })
+    public void htmlToElementsSvgTest() {
+        String html = "<svg height=\"100\" width=\"100\">"
+                + "<circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"red\" />"
+                + "</svg>";
+        List<IElement> lst = HtmlConverter.convertToElements(html);
+        Assert.assertEquals(0, lst.size());
     }
 
     private static void addElementsToDocument(Document document, List<IElement> elements) {
