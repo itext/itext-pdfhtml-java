@@ -45,7 +45,6 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.forms.form.FormProperty;
 import com.itextpdf.forms.form.element.Button;
 import com.itextpdf.forms.form.element.IFormField;
-import com.itextpdf.forms.form.element.InputButton;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
@@ -139,9 +138,9 @@ public class ButtonTagWorker extends DivTagWorker {
                 div.getChildren().clear();
                 formField = button;
             } else {
-                InputButton inputButton = new InputButton(name);
+                Button inputButton = new Button(name);
                 inputButton.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
-                inputButton.setProperty(FormProperty.FORM_FIELD_VALUE, fallbackContent.toString().trim());
+                inputButton.setValue(fallbackContent.toString().trim());
                 formField = inputButton;
             }
         }

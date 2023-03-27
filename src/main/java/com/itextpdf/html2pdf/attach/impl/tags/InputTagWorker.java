@@ -45,8 +45,8 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.commons.utils.ExperimentalFeatures;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.forms.form.FormProperty;
+import com.itextpdf.forms.form.element.Button;
 import com.itextpdf.forms.form.element.CheckBox;
-import com.itextpdf.forms.form.element.InputButton;
 import com.itextpdf.forms.form.element.InputField;
 import com.itextpdf.forms.form.element.Radio;
 import com.itextpdf.html2pdf.attach.ITagWorker;
@@ -138,8 +138,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
                 formElement.setProperty(FormProperty.FORM_FIELD_PASSWORD_FLAG, true);
             }
         } else if (AttributeConstants.SUBMIT.equals(inputType) || AttributeConstants.BUTTON.equals(inputType)) {
-            formElement = new InputButton(name);
-            formElement.setProperty(FormProperty.FORM_FIELD_VALUE, value);
+            formElement = new Button(name).setSingleLineValue(value);
         } else if (AttributeConstants.CHECKBOX.equals(inputType)) {
             CheckBox cb = new CheckBox(name);
             String checked = element.getAttribute(AttributeConstants.CHECKED);
