@@ -60,6 +60,7 @@ import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
@@ -110,6 +111,10 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
                 || AttributeConstants.PASSWORD.equals(inputType) || AttributeConstants.NUMBER.equals(inputType)) {
             Integer size = CssDimensionParsingUtils.parseInteger(element.getAttribute(AttributeConstants.SIZE));
             formElement = new InputField(name);
+
+            // Default html2pdf input field appearance differs from the default one for form fields.
+            // That's why we need to get rid of all properties we set by default during InputField instance creation.
+            formElement.deleteOwnProperty(Property.BOX_SIZING);
 
             value = preprocessInputValue(value, inputType);
             // process placeholder instead
