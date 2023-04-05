@@ -22,12 +22,12 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.commons.utils.ExperimentalFeatures;
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.forms.logs.FormsLogMessageConstants;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -94,12 +94,26 @@ public class FormTest extends ExtendedITextTest {
 
     @Test
     public void fieldsetTest() throws IOException, InterruptedException {
-        runTest("fieldset");
+        // TODO: DEVSIX-7423 - remove flag
+        final boolean experimentalRenderingPreviousValue = ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING;
+        ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = false;
+        try {
+            runTest("fieldset");
+        } finally {
+            ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = experimentalRenderingPreviousValue;
+        }
     }
 
     @Test
     public void fieldsetLegendTest() throws IOException, InterruptedException {
-        runTest("fieldsetLegend");
+        // TODO: DEVSIX-7423 - remove flag
+        final boolean experimentalRenderingPreviousValue = ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING;
+        ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = false;
+        try {
+            runTest("fieldsetLegend");
+        } finally {
+            ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = experimentalRenderingPreviousValue;
+        }
     }
 
     @Test
@@ -115,7 +129,14 @@ public class FormTest extends ExtendedITextTest {
 
     @Test
     public void inputDisplayTest() throws IOException, InterruptedException {
-        runTest("inputDisplay");
+        // TODO: DEVSIX-7423 - remove flag
+        final boolean experimentalRenderingPreviousValue = ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING;
+        ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = false;
+        try {
+            runTest("inputDisplay");
+        } finally {
+            ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = experimentalRenderingPreviousValue;
+        }
     }
 
     @Test
