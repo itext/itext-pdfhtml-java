@@ -94,26 +94,12 @@ public class FormTest extends ExtendedITextTest {
 
     @Test
     public void fieldsetTest() throws IOException, InterruptedException {
-        // TODO: DEVSIX-7423 - remove flag
-        final boolean experimentalRenderingPreviousValue = ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING;
-        ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = false;
-        try {
-            runTest("fieldset");
-        } finally {
-            ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = experimentalRenderingPreviousValue;
-        }
+        runTest("fieldset");
     }
 
     @Test
     public void fieldsetLegendTest() throws IOException, InterruptedException {
-        // TODO: DEVSIX-7423 - remove flag
-        final boolean experimentalRenderingPreviousValue = ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING;
-        ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = false;
-        try {
-            runTest("fieldsetLegend");
-        } finally {
-            ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = experimentalRenderingPreviousValue;
-        }
+        runTest("fieldsetLegend");
     }
 
     @Test
@@ -129,14 +115,7 @@ public class FormTest extends ExtendedITextTest {
 
     @Test
     public void inputDisplayTest() throws IOException, InterruptedException {
-        // TODO: DEVSIX-7423 - remove flag
-        final boolean experimentalRenderingPreviousValue = ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING;
-        ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = false;
-        try {
-            runTest("inputDisplay");
-        } finally {
-            ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = experimentalRenderingPreviousValue;
-        }
+        runTest("inputDisplay");
     }
 
     @Test
