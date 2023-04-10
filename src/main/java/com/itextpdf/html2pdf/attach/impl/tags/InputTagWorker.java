@@ -93,7 +93,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
             formElement = new InputField(name);
 
             // Default html2pdf input field appearance differs from the default one for form fields.
-            // That's why we need to get rid of all properties we set by default during InputField instance creation.
+            // That's why we need to get rid of several properties we set by default during InputField instance creation.
             formElement.deleteOwnProperty(Property.BOX_SIZING);
 
             value = preprocessInputValue(value, inputType);

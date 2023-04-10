@@ -76,7 +76,7 @@ public class TextAreaTagWorker implements ITagWorker, IDisplayAware {
         textArea.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, element.getAttribute(AttributeConstants.LANG));
 
         // Default html2pdf text area appearance differs from the default one for form fields.
-        // That's why we need to get rid of all properties we set by default during TextArea instance creation.
+        // That's why we need to get rid of several properties we set by default during TextArea instance creation.
         textArea.deleteOwnProperty(Property.BOX_SIZING);
         
         String placeholder = element.getAttribute(AttributeConstants.PLACEHOLDER);
