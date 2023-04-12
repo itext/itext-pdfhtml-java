@@ -22,7 +22,6 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.commons.utils.ExperimentalFeatures;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.forms.form.FormProperty;
 import com.itextpdf.forms.form.element.Button;
@@ -122,16 +121,14 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
         } else if (AttributeConstants.CHECKBOX.equals(inputType)) {
             CheckBox cb = new CheckBox(name);
             String checked = element.getAttribute(AttributeConstants.CHECKED);
-            if (ExperimentalFeatures.ENABLE_EXPERIMENTAL_CHECKBOX_RENDERING) {
-                // so in the previous implementation the width was 8.25 and the borders .75,
-                // but the borders got drawn on the outside of the box, so the actual size was 9.75
-                // because 8.25 + 2 * .75 = 9.75
-                final float widthWithBordersOnTheInside = 9.75f;
-                final float defaultBorderWith = 0.75f;
-                cb.setSize(widthWithBordersOnTheInside);
-                cb.setBorder(new SolidBorder(ColorConstants.DARK_GRAY, defaultBorderWith));
-                cb.setBackgroundColor(ColorConstants.WHITE);
-            }
+            // so in the previous implementation the width was 8.25 and the borders .75,
+            // but the borders got drawn on the outside of the box, so the actual size was 9.75
+            // because 8.25 + 2 * .75 = 9.75
+            final float widthWithBordersOnTheInside = 9.75f;
+            final float defaultBorderWith = .75f;
+            cb.setSize(widthWithBordersOnTheInside);
+            cb.setBorder(new SolidBorder(ColorConstants.DARK_GRAY, defaultBorderWith));
+            cb.setBackgroundColor(ColorConstants.WHITE);
             // has attribute == is checked
             cb.setChecked(checked != null);
             formElement = cb;
