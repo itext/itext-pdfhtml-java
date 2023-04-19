@@ -22,7 +22,6 @@
  */
 package com.itextpdf.html2pdf.element;
 
-import com.itextpdf.commons.utils.ExperimentalFeatures;
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.forms.logs.FormsLogMessageConstants;
 import com.itextpdf.html2pdf.ConverterProperties;
