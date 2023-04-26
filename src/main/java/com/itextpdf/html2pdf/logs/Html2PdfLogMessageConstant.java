@@ -1,44 +1,24 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2023 iText Group NV
-    Authors: Bruno Lowagie, Paulo Soares, et al.
+    Copyright (c) 1998-2023 Apryse Group NV
+    Authors: Apryse Software.
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License version 3
-    as published by the Free Software Foundation with the addition of the
-    following permission added to Section 15 as permitted in Section 7(a):
-    FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
-    ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
-    OF THIRD PARTY RIGHTS
+    This program is offered under a commercial and under the AGPL license.
+    For commercial licensing, contact us at https://itextpdf.com/sales.  For AGPL licensing, see below.
 
-    This program is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-    or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
+    AGPL licensing:
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
     You should have received a copy of the GNU Affero General Public License
-    along with this program; if not, see http://www.gnu.org/licenses or write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA, 02110-1301 USA, or download the license from the following URL:
-    http://itextpdf.com/terms-of-use/
-
-    The interactive user interfaces in modified source and object code versions
-    of this program must display Appropriate Legal Notices, as required under
-    Section 5 of the GNU Affero General Public License.
-
-    In accordance with Section 7(b) of the GNU Affero General Public License,
-    a covered work must retain the producer line in every PDF that is created
-    or manipulated using iText.
-
-    You can be released from the requirements of the license by purchasing
-    a commercial license. Buying such a license is mandatory as soon as you
-    develop commercial activities involving the iText software without
-    disclosing the source code of your own applications.
-    These activities include: offering paid services to customers as an ASP,
-    serving PDFs on the fly in a web application, shipping iText with a closed
-    source product.
-
-    For more information, please contact iText Software Corp. at this
-    address: sales@itextpdf.com
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 package com.itextpdf.html2pdf.logs;
 
@@ -55,11 +35,6 @@ public final class Html2PdfLogMessageConstant {
     public static final String CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT =
             "A custom renderer which doesn't extend HtmlDocumentRenderer is set for HtmlDocument. Counters and "
                     + "target-counters may be displayed incorrectly.";
-
-    /** The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT. */
-    public static final String ACROFORM_NOT_SUPPORTED_FOR_SELECT =
-            "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will "
-                    + "be flattened instead.";
 
     public static final String ANCHOR_LINK_NOT_HANDLED =
             "The anchor link was not handled. Could not create a destination for element \"{0}\" with ID \"{1}\", "
@@ -85,10 +60,6 @@ public final class Html2PdfLogMessageConstant {
     public static final String ERROR_RESOLVING_PARENT_STYLES =
             "Element parent styles are not resolved. Styles for current element might be incorrect.";
 
-    /** The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD. */
-    public static final String ERROR_WHILE_LAYOUT_OF_FORM_FIELD =
-            "Cannot layout form field field. It won't be displayed";
-
     /** The Constant EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS. */
     public static final String EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS =
             "Exceeded the maximum number of relayouts. The resultant document may look not as expected. Because of the"
@@ -97,13 +68,6 @@ public final class Html2PdfLogMessageConstant {
     /** The constant FLEX_PROPERTY_IS_NOT_SUPPORTED_YET. */
     public static final String FLEX_PROPERTY_IS_NOT_SUPPORTED_YET =
             "Flex related property {0}: {1} is not supported yet.";
-
-    /** The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE. */
-    public static final String ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE =
-            "Error during layout of form filed with type {0}.";
-
-    /** The Constant INPUT_FIELD_DOES_NOT_FIT. */
-    public static final String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";
 
     /** The Constant INPUT_TYPE_IS_INVALID. */
     public static final String INPUT_TYPE_IS_INVALID =

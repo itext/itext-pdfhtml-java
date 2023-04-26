@@ -1,52 +1,32 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2023 iText Group NV
-    Authors: iText Software.
+    Copyright (c) 1998-2023 Apryse Group NV
+    Authors: Apryse Software.
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License version 3
-    as published by the Free Software Foundation with the addition of the
-    following permission added to Section 15 as permitted in Section 7(a):
-    FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
-    ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
-    OF THIRD PARTY RIGHTS
+    This program is offered under a commercial and under the AGPL license.
+    For commercial licensing, contact us at https://itextpdf.com/sales.  For AGPL licensing, see below.
 
-    This program is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-    or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
+    AGPL licensing:
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
     You should have received a copy of the GNU Affero General Public License
-    along with this program; if not, see http://www.gnu.org/licenses or write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA, 02110-1301 USA, or download the license from the following URL:
-    http://itextpdf.com/terms-of-use/
-
-    The interactive user interfaces in modified source and object code versions
-    of this program must display Appropriate Legal Notices, as required under
-    Section 5 of the GNU Affero General Public License.
-
-    In accordance with Section 7(b) of the GNU Affero General Public License,
-    a covered work must retain the producer line in every PDF that is created
-    or manipulated using iText.
-
-    You can be released from the requirements of the license by purchasing
-    a commercial license. Buying such a license is mandatory as soon as you
-    develop commercial activities involving the iText software without
-    disclosing the source code of your own applications.
-    These activities include: offering paid services to customers as an ASP,
-    serving PDFs on the fly in a web application, shipping iText with a closed
-    source product.
-
-    For more information, please contact iText Software Corp. at this
-    address: sales@itextpdf.com
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 package com.itextpdf.html2pdf.resolver.resource;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.ContextMappingHelper;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
 import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.io.util.UrlUtil;
@@ -69,15 +49,14 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 // TODO: DEVSIX-5968 Add new tests in HtmlResourceResolverTest
 @Category(IntegrationTest.class)
@@ -106,6 +85,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, count = 2)
     })
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     public void resourceResolverHtmlWithSvgTest02() throws IOException, InterruptedException {
         String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces/";
         String outPdf = DESTINATION_FOLDER + "resourceResolverHtmlWithSvgTest02.pdf";
@@ -115,6 +95,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     public void resourceResolverTest07() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverTest07.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverTest07.pdf";
@@ -127,8 +108,27 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG))
+    public void resourceResolverWithoutSharpSymbolTest07A() throws IOException, InterruptedException {
+        // Due to the fact that on Android "./src/test/resources" substring will be replaced as abosulte path,
+        // base URI resolving will be different from Java. To don't lose the last folder in base URI path after
+        // resolving, write back slash (it isn't lost because on Unix system backslash isn't file separator).
+        // TODO DEVSIX-6576 Fix base URI resolving in UriResolver class
+        String baseUri = SOURCE_FOLDER + "r%e%2525s@o%25urces\\";
+        String outPdf = DESTINATION_FOLDER + "resourceResolverWithoutSharpSymbolTest07A.pdf";
+        String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverTest07A.pdf";
+
+        convertHtmlStreamToPdf(SOURCE_FOLDER + "resourceResolverWithoutSharpSymbolTest07A.html", outPdf, cmpPdf, baseUri);
+    }
+
+    @Test
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG))
     public void resourceResolverTest07A() throws IOException, InterruptedException {
-        String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces/";
+        // Due to the fact that on Android "./src/test/resources" substring will be replaced as abosulte path,
+        // base URI resolving will be different from Java. To don't lose the last folder in base URI path after
+        // resolving, write back slash (it isn't lost because on Unix system backslash isn't file separator).
+        // TODO DEVSIX-6576 Fix base URI resolving in UriResolver class
+        String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces\\";
         String outPdf = DESTINATION_FOLDER + "resourceResolverTest07A.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverTest07A.pdf";
 
@@ -136,6 +136,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     public void resourceResolverTest07B() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverTest07B.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverTest07B.pdf";
@@ -148,6 +149,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG))
     public void resourceResolverTest07C() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverTest07C.pdf";
@@ -161,8 +163,13 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     public void resourceResolverHtmlWithSvgTest03() throws IOException, InterruptedException {
-        String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces/";
+        // Due to the fact that on Android "./src/test/resources" substring will be replaced as abosulte path,
+        // base URI resolving will be different from Java. To don't lose the last folder in base URI path after
+        // resolving, write back slash (it isn't lost because on Unix system backslash isn't file separator).
+        // TODO DEVSIX-6576 Fix base URI resolving in UriResolver class
+        String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces\\";
         String outPdf = DESTINATION_FOLDER + "resourceResolverHtmlWithSvgTest03.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverHtmlWithSvgTest03.pdf";
 
@@ -170,6 +177,20 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
+    public void resourceResolverHtmlWithSvgWithoutSharpSymbolTest03() throws IOException, InterruptedException {
+        // Due to the fact that on Android "./src/test/resources" substring will be replaced as abosulte path,
+        // base URI resolving will be different from Java. To don't lose the last folder in base URI path after
+        // resolving, write back slash (it isn't lost because on Unix system backslash isn't file separator).
+        // TODO DEVSIX-6576 Fix base URI resolving in UriResolver class
+        String baseUri = SOURCE_FOLDER + "r%e%2525s@o%25urces\\";
+        String outPdf = DESTINATION_FOLDER + "resourceResolverHtmlWithSvgWithoutSharpSymbolTest03.pdf";
+        String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverHtmlWithSvgTest03.pdf";
+
+        convertHtmlStreamToPdf(SOURCE_FOLDER + "resourceResolverHtmlWithSvgWithoutSharpSymbolTest03.html", outPdf, cmpPdf, baseUri);
+    }
+
+    @Test
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     public void resourceResolverHtmlWithSvgTest04() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverHtmlWithSvgTest04.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverHtmlWithSvgTest04.pdf";
@@ -179,6 +200,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
     @Test
     //TODO: update after DEVSIX-2239 fix
+    // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     public void resourceResolverCssWithSvg() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverCssWithSvg.pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverCssWithSvg.pdf";

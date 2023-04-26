@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        span {
+            display: inline-block
+        }
+
+        .u {
+            text-decoration: underline
+        }
+
+        .o {
+            text-decoration: overline
+        }
+
+        .lt {
+            text-decoration: line-through
+        }
+
+        .n {
+            text-decoration: none
+        }
+
+        .i {
+            text-decoration: inherit
+        }
+    </style>
+
+</head>
+<body>
+<div class="u">
+    <div class="o">
+        <p>2. div in div with 'overline'</p>
+        <p class="n">3. p in div with 'none'<span class="lt">span in paragraph with 'line-through'</span></p>
+        <span class="lt">3. span in div with 'line-through'</span><br>
+        <br>
+        <br>
+        <br>
+        <div class="n">
+            <p>3. div in div in div with 'none'</p>
+            <p class="lt">4. paragraph in div with 'line-through'</p>
+            <span class="lt">4. span in div with 'line-through'<span
+                    class="u">span in span with 'underline'</span></span>
+        </div>
+    </div>
+</div>
+<!--
+<div class="u">
+    <p>1. div with 'underline'</p>
+    <p class="o">
+        2. paragraph in div with 'overline'<span class="lt">span in paragraph with 'line-through'
+        <span class="n">span in span with 'none'</span></span>
+    </p>
+    <span class="n">2. span in div with 'none'</span>
+</div>
+<hr>
+
+
+
+
+<div class="n">
+    <p>3. div in div in div with 'none'</p>
+    <p class="lt">4. paragraph in div with 'line-through'</p>
+    <span class="lt">4. span in div with 'line-through'<span class="u">span in span with 'underline'</span></span>
+</div>
+</div>
+
+
+<style>
+    * {
+        text-decoration-color: red;
+    }
+</style>-->
+<!--
+<div style="text-decoration-color: red; text-decoration-line: line-through; text-decoration-style: dotted">
+    <div>some text 1</div>
+    <div style="text-decoration-color: blue; text-decoration-line: underline"> name 2</div>
+    <div style="text-decoration-color: yellow; text-decoration-line: overline ">Hello there</div>
+    <div style="text-decoration-color: #00b050; text-decoration-line: line-through ">Hello there</div>
+</div>-->
+</body>
+</html>

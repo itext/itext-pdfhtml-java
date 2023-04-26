@@ -1,52 +1,32 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2023 iText Group NV
-    Authors: iText Software.
+    Copyright (c) 1998-2023 Apryse Group NV
+    Authors: Apryse Software.
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License version 3
-    as published by the Free Software Foundation with the addition of the
-    following permission added to Section 15 as permitted in Section 7(a):
-    FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
-    ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
-    OF THIRD PARTY RIGHTS
+    This program is offered under a commercial and under the AGPL license.
+    For commercial licensing, contact us at https://itextpdf.com/sales.  For AGPL licensing, see below.
 
-    This program is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-    or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
+    AGPL licensing:
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
     You should have received a copy of the GNU Affero General Public License
-    along with this program; if not, see http://www.gnu.org/licenses or write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA, 02110-1301 USA, or download the license from the following URL:
-    http://itextpdf.com/terms-of-use/
-
-    The interactive user interfaces in modified source and object code versions
-    of this program must display Appropriate Legal Notices, as required under
-    Section 5 of the GNU Affero General Public License.
-
-    In accordance with Section 7(b) of the GNU Affero General Public License,
-    a covered work must retain the producer line in every PDF that is created
-    or manipulated using iText.
-
-    You can be released from the requirements of the license by purchasing
-    a commercial license. Buying such a license is mandatory as soon as you
-    develop commercial activities involving the iText software without
-    disclosing the source code of your own applications.
-    These activities include: offering paid services to customers as an ASP,
-    serving PDFs on the fly in a web application, shipping iText with a closed
-    source product.
-
-    For more information, please contact iText Software Corp. at this
-    address: sales@itextpdf.com
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.forms.PdfAcroForm;
+import com.itextpdf.forms.logs.FormsLogMessageConstants;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -174,7 +154,8 @@ public class FormTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 4),
+            @LogMessage(messageTemplate = FormsLogMessageConstants.INPUT_FIELD_DOES_NOT_FIT, count = 2)
     })
     public void buttonSplit02Test() throws IOException, InterruptedException {
         runTest("buttonSplit02");
@@ -183,6 +164,7 @@ public class FormTest extends ExtendedITextTest {
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2),
+            @LogMessage(messageTemplate = FormsLogMessageConstants.INPUT_FIELD_DOES_NOT_FIT, count = 2)
     })
     public void buttonSplit03Test() throws IOException, InterruptedException {
         runTest("buttonSplit03");
@@ -199,13 +181,13 @@ public class FormTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = FormsLogMessageConstants.ACROFORM_NOT_SUPPORTED_FOR_SELECT, count = 2))
     public void selectTest01() throws IOException, InterruptedException {
         runTest("select01", false);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, count = 3))
+    @LogMessages(messages = @LogMessage(messageTemplate = FormsLogMessageConstants.ACROFORM_NOT_SUPPORTED_FOR_SELECT, count = 3))
     public void selectTest02() throws IOException, InterruptedException {
         runTest("select02", false);
     }
