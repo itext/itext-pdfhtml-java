@@ -32,6 +32,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
@@ -61,6 +62,12 @@ public class SelectTagWorker implements ITagWorker, IDisplayAware {
 
         if (size > 1 || multipleAttr) {
             selectElement = new ListBoxField(name, size, multipleAttr);
+
+            // Remove some properties which are set in ListBoxField constructor
+            selectElement.deleteOwnProperty(Property.PADDING_LEFT);
+            selectElement.deleteOwnProperty(Property.PADDING_RIGHT);
+            selectElement.deleteOwnProperty(Property.PADDING_TOP);
+            selectElement.deleteOwnProperty(Property.PADDING_BOTTOM);
         } else {
             selectElement = new ComboBoxField(name);
         }
