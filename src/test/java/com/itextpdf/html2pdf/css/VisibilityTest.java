@@ -22,22 +22,18 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.forms.logs.FormsLogMessageConstants;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.File;
+import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.io.File;
-import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class VisibilityTest extends ExtendedHtmlConversionITextTest {
@@ -98,8 +94,6 @@ public class VisibilityTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage
-            (messageTemplate = FormsLogMessageConstants.ACROFORM_NOT_SUPPORTED_FOR_SELECT)})
     //TODO update cmp-file after DEVSIX-2090 and DEVSIX-1901 done
     public void visiblePropertyInFormDropdownListTest() throws IOException, InterruptedException {
         String htmlFile = sourceFolder + "visiblePropertyInFormDropdownListTest.html";

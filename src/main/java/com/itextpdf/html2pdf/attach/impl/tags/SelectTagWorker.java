@@ -26,12 +26,13 @@ import com.itextpdf.forms.form.FormProperty;
 import com.itextpdf.forms.form.element.AbstractSelectField;
 import com.itextpdf.forms.form.element.ComboBoxField;
 import com.itextpdf.forms.form.element.ListBoxField;
+import com.itextpdf.forms.form.element.SelectFieldItem;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
-import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
@@ -41,10 +42,14 @@ import com.itextpdf.styledxmlparser.node.IElementNode;
  */
 public class SelectTagWorker implements ITagWorker, IDisplayAware {
 
-    /** The form element. */
+    /**
+     * The form element.
+     */
     private AbstractSelectField selectElement;
 
-    /** The display. */
+    /**
+     * The display.
+     */
     private String display;
 
     /**
@@ -91,7 +96,10 @@ public class SelectTagWorker implements ITagWorker, IDisplayAware {
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         if (childTagWorker instanceof OptionTagWorker || childTagWorker instanceof OptGroupTagWorker) {
             if (childTagWorker.getElementResult() instanceof IBlockElement) {
-                selectElement.addOption((IBlockElement) childTagWorker.getElementResult());
+                IBlockElement blockElement = (IBlockElement) childTagWorker.getElementResult();
+                String label = blockElement.getProperty(FormProperty.FORM_FIELD_LABEL);
+                SelectFieldItem item = new SelectFieldItem(label, blockElement);
+                selectElement.addOption(item);
                 return true;
             }
         }

@@ -22,11 +22,13 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.forms.logs.FormsLogMessageConstants;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -59,6 +61,9 @@ public class OptionTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = FormsLogMessageConstants.DUPLICATE_EXPORT_VALUE, count = 1)
+    })
     public void optionLabelValueTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("optionLabelValueTest01", sourceFolder, destinationFolder);
     }

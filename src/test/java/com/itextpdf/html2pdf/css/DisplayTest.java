@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.forms.logs.FormsLogMessageConstants;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
@@ -152,6 +153,7 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
     //TODO: update after DEVSIX-2445 fix
     @LogMessages(messages = {
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 6),
+            @LogMessage(messageTemplate = FormsLogMessageConstants.DUPLICATE_EXPORT_VALUE, count = 2)
     })
     public void displayBlockInsideParagraphTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("displayBlockInsideParagraph", SOURCE_FOLDER, DESTINATION_FOLDER);

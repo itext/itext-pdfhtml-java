@@ -40,7 +40,6 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -180,9 +179,8 @@ public class FormTest extends ExtendedITextTest {
     public void radiobox2Test() throws IOException, InterruptedException {
         runTest("radiobox2");
     }
-
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = FormsLogMessageConstants.ACROFORM_NOT_SUPPORTED_FOR_SELECT),
+    @LogMessages(messages = {
             @LogMessage(messageTemplate = IoLogMessageConstant.MULTIPLE_VALUES_ON_A_NON_MULTISELECT_FIELD)})
     public void selectTest01() throws IOException, InterruptedException {
         runTest("select01", true);
