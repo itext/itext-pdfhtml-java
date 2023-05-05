@@ -23,10 +23,11 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.kernel.exceptions.PdfException;
 import com.itextpdf.kernel.exceptions.KernelExceptionMessageConstant;
+import com.itextpdf.kernel.exceptions.PdfException;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
+import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -34,8 +35,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.rules.ExpectedException;
-
-import java.io.IOException;
 import org.xml.sax.SAXException;
 
 @Category(IntegrationTest.class)
@@ -83,21 +82,18 @@ public class TaggedPdfFormTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1901")
     public void simpleSelectTagged()
             throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         convertToPdfAcroformFlattenAndCompare("simpleSelect", sourceFolder, destinationFolder, true);
     }
 
     @Test
-    @Ignore("DEVSIX-1901")
     public void listBoxSelectTagged()
             throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         convertToPdfAcroformFlattenAndCompare("listBoxSelect", sourceFolder, destinationFolder, true);
     }
 
     @Test
-    @Ignore("DEVSIX-1901")
     public void listBoxOptGroupSelectTagged()
             throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         convertToPdfAcroformFlattenAndCompare("listBoxOptGroupSelect", sourceFolder,
@@ -105,7 +101,7 @@ public class TaggedPdfFormTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1901")
+    @Ignore("DEVSIX-7523 5px padding causes the radiobutton to be clipped")
     public void simpleRadioFormTagged()
             throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         convertToPdfAcroformFlattenAndCompare("simpleRadioForm", sourceFolder, destinationFolder, true);

@@ -95,7 +95,8 @@ public class OptionTagWorker extends DivTagWorker {
             super.processContent(content, context);
         }
         if (!fakedContent) {
-            actualOptionTextContent.append(content); // TODO DEVSIX-1901: spaces are not collapsed according to white-space property in here
+            // TODO DEVSIX-2443: spaces are not collapsed according to white-space property in here
+            actualOptionTextContent.append(content);
         }
         return true;
     }

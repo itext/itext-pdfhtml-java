@@ -94,7 +94,7 @@ public class VisibilityTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO update cmp-file after DEVSIX-2090 and DEVSIX-1901 done
+    //TODO update cmp-file after DEVSIX-2090
     public void visiblePropertyInFormDropdownListTest() throws IOException, InterruptedException {
         String htmlFile = sourceFolder + "visiblePropertyInFormDropdownListTest.html";
         String outAcroPdf = destinationFolder + "visiblePropertyInFormDropdownListTest.pdf";
