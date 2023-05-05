@@ -31,17 +31,22 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * TagWorker class for the {@code select} element.
  */
 public class SelectTagWorker implements ITagWorker, IDisplayAware {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SelectTagWorker.class);
     /**
      * The form element.
      */
@@ -97,9 +102,15 @@ public class SelectTagWorker implements ITagWorker, IDisplayAware {
         if (childTagWorker instanceof OptionTagWorker || childTagWorker instanceof OptGroupTagWorker) {
             if (childTagWorker.getElementResult() instanceof IBlockElement) {
                 IBlockElement blockElement = (IBlockElement) childTagWorker.getElementResult();
-                String label = blockElement.getProperty(FormProperty.FORM_FIELD_LABEL);
+                String label = blockElement.<String>getProperty(FormProperty.FORM_FIELD_LABEL);
                 SelectFieldItem item = new SelectFieldItem(label, blockElement);
                 selectElement.addOption(item);
+
+                Boolean isFlattenFromProperty = selectElement.<Boolean>getProperty(FormProperty.FORM_FIELD_FLATTEN);
+                if (childTagWorker instanceof OptGroupTagWorker && !Boolean.TRUE.equals(isFlattenFromProperty)) {
+                    LOGGER.warn(Html2PdfLogMessageConstant.OPTGROUP_NOT_SUPPORTED_IN_INTERACTIVE_SELECT);
+                }
+
                 return true;
             }
         }
