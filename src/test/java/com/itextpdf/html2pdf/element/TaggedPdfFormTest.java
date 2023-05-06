@@ -107,7 +107,6 @@ public class TaggedPdfFormTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-7523 5px padding causes the radiobutton to be clipped")
     public void simpleRadioFormTagged()
             throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         convertToPdfAcroformFlattenAndCompare("simpleRadioForm", sourceFolder, destinationFolder, true);
