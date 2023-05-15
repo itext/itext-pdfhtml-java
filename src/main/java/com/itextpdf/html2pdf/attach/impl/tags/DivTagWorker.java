@@ -30,6 +30,7 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.AreaBreak;
+import com.itextpdf.layout.element.ColumnContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
@@ -43,6 +44,11 @@ import java.util.Map;
  * TagWorker class for the {@code div} element.
  */
 public class DivTagWorker implements ITagWorker, IDisplayAware {
+
+    /**
+     * Column container element.
+     */
+    private ColumnContainer columnContainer;
 
     /** The div element. */
     private Div div;
@@ -62,6 +68,10 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
     public DivTagWorker(IElementNode element, ProcessorContext context) {
         div = new Div();
         Map<String, String> styles = element.getStyles();
+        if (styles != null && styles.containsKey(CssConstants.COLUMN_COUNT)) {
+            columnContainer = new ColumnContainer();
+            columnContainer.add(div);
+        }
         inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE),
                 styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM));
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
@@ -132,7 +142,7 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public IPropertyContainer getElementResult() {
-        return div;
+        return columnContainer == null ? div : columnContainer;
     }
 
     /* (non-Javadoc)

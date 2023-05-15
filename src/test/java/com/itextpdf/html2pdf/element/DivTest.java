@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
@@ -73,7 +74,8 @@ public class DivTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void divColumnCountTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("divColumnCount", SOURCE_FOLDER, DESTINATION_FOLDER);
+        convertToPdfAndCompare("divColumnCount",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
     }
     @Test
     public void helloDivDocumentTest() throws IOException, InterruptedException {

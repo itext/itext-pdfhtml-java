@@ -100,6 +100,9 @@ public class ConverterProperties {
      */
     private IMetaInfo metaInfo;
 
+    //TODO: DEVSIX-7594 remove this property
+    private boolean multicolEnabled = true;
+
     /**
      * Instantiates a new {@link ConverterProperties} instance.
      */
@@ -125,6 +128,7 @@ public class ConverterProperties {
         this.metaInfo = other.metaInfo;
         this.limitOfLayouts = other.limitOfLayouts;
         this.immediateFlush = other.immediateFlush;
+        this.multicolEnabled = other.multicolEnabled;
     }
 
     /**
@@ -438,6 +442,25 @@ public class ConverterProperties {
      */
     public ConverterProperties setEventMetaInfo(IMetaInfo metaInfo) {
         this.metaInfo = metaInfo;
+        return this;
+    }
+
+    //TODO: DEVSIX-7594 remove this property
+    /**
+     * check if multi-column layout is enabled
+     *
+     * @return true if enabled, false otherwise
+     */
+    public boolean isMulticolEnabled() {
+        return multicolEnabled;
+    }
+
+    //TODO: DEVSIX-7594 remove this property
+    /**
+     * set multi-column layout support
+     */
+    public ConverterProperties setMulticolEnabled(boolean multicolEnabled) {
+        this.multicolEnabled = multicolEnabled;
         return this;
     }
 }

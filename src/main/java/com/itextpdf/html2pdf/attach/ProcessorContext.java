@@ -143,6 +143,9 @@ public class ProcessorContext {
 
     private final int limitOfLayouts;
 
+    //TODO: DEVSIX-7594 remove this property
+    private boolean multicolEnabled;
+
     /**
      * Instantiates a new {@link ProcessorContext} instance.
      *
@@ -195,6 +198,7 @@ public class ProcessorContext {
         radioCheckResolver = new RadioCheckResolver();
         immediateFlush = converterProperties.isImmediateFlush();
         processingInlineSvg = false;
+        multicolEnabled = converterProperties.isMulticolEnabled();
     }
 
     /**
@@ -483,5 +487,13 @@ public class ProcessorContext {
      */
     public void endProcessingInlineSvg(){
         processingInlineSvg = false;
+    }
+
+    /**
+     * check if multicol layout is enabled
+     * @return true if it's enabled, false otherwise
+     */
+    public boolean isMulticolEnabled() {
+        return multicolEnabled;
     }
 }

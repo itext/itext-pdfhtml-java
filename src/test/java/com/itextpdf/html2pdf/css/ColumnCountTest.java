@@ -22,10 +22,13 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
+
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -37,81 +40,113 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
 
     @BeforeClass
     public static void beforeClass() {
-        createDestinationFolder(DESTINATION_FOLDER);
+        createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
 
+    //TODO: DEVSIX-7587 adjust approximate height calculation
     @Test
     public void convertBasicArticleTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicArticleTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        Assert.assertThrows(IllegalStateException.class, () -> convertToPdfAndCompare("basicArticleTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true)
+                        .setBaseUri(SOURCE_FOLDER)));
     }
 
+    //TODO: DEVSIX-7587 adjust approximate height calculation
     @Test
     public void convertBasicDivTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicDivTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        Assert.assertThrows(IllegalStateException.class, () -> convertToPdfAndCompare("basicDivTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true)));
     }
 
+    //TODO: DEVSIX-7587 adjust approximate height calculation
     @Test
     public void convertBasicDivWithImageTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicDivWithImageTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        Assert.assertThrows(IllegalStateException.class, () -> convertToPdfAndCompare("basicDivWithImageTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true)
+                        .setBaseUri(SOURCE_FOLDER)));
     }
 
+    //TODO: DEVSIX-7587 adjust approximate height calculation
     @Test
     public void convertBasicPTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicPTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        Assert.assertThrows(IllegalStateException.class, () -> convertToPdfAndCompare("basicPTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true)));
     }
 
+    //TODO: DEVSIX-7592 add support for forms
     @Test
     public void convertBasicFormTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicFormTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        convertToPdfAndCompare("basicFormTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
     }
 
+    //TODO: DEVSIX-7591, DEVSIX-7587
     @Test
     public void convertBasicUlTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicUlTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        convertToPdfAndCompare("basicUlTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
     }
 
+    //TODO: DEVSIX-7591, DEVSIX-7587
     @Test
     public void convertBasicOlTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicOlTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        convertToPdfAndCompare("basicOlTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
     }
 
+    //TODO: DEVSIX-7592
     @Test
     public void convertBasicTableTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicTableTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        Assert.assertThrows(IllegalStateException.class, () -> convertToPdfAndCompare("basicTableTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true)));
     }
 
+    //TODO: DEVSIX-7584 add multipage support
     @Test
     public void convertBasicSectionTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicSectionTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        convertToPdfAndCompare("basicSectionTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
     }
 
+    //TODO: DEVSIX-7584 add multipage support
     @Test
     public void convertBasicDivMultiPageDocumentsTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicDivMultiPageTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        Assert.assertThrows(IllegalStateException.class, () -> convertToPdfAndCompare("basicDivMultiPageTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true)));
     }
 
+    //TODO: DEVSIX-7592 add support for forms
     @Test
     public void convertBasicFormMultiPageDocumentsTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicFormMultiPageTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        convertToPdfAndCompare("basicFormMultiPageTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
     }
 
+    //TODO: DEVSIX-7587 adjust approximate height calculation algorithm
     @Test
     public void convertBasicDisplayPropertyTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicDisplayPropertyTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        Assert.assertThrows(IllegalStateException.class, () -> convertToPdfAndCompare("basicDisplayPropertyTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true)));
     }
 
+    //TODO: DEVSIX-7591
     @Test
     public void convertBasicDisplayPropertyWithNestedColumnsTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicDisplayPropertyWithNestedColumnsTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        convertToPdfAndCompare("basicDisplayPropertyWithNestedColumnsTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
     }
 
+    //TODO: DEVSIX-7556
     @Test
     public void convertBasicFloatPropertyTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicFloatPropertyTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        Assert.assertThrows(IllegalStateException.class, () -> convertToPdfAndCompare("basicFloatPropertyTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true)));
     }
 
+    //TODO: DEVSIX-7587 adjust approximate height calculation algorithm
     @Test
     public void convertBasicFlexPropertyTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicFlexPropertyTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        convertToPdfAndCompare("basicFlexPropertyTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
     }
 }

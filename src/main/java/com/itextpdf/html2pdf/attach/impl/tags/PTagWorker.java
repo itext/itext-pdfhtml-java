@@ -28,6 +28,7 @@ import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.ColumnContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
@@ -71,6 +72,11 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
      */
     public PTagWorker(IElementNode element, ProcessorContext context) {
         lastParagraph = new Paragraph();
+
+        if (element.getStyles().get(CssConstants.COLUMN_COUNT) != null ) {
+            elementsContainer = new ColumnContainer();
+            elementsContainer.add(lastParagraph);
+        }
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE),
                 element.getStyles().get(CssConstants.TEXT_TRANSFORM));
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
@@ -159,6 +165,7 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
         return display;
     }
 
+    //TODO: DEVSIX-7592 rework column count support when elements container is not empty and contains several elements
     private void processBlockElement(IElement propertyContainer) {
         if (elementsContainer == null) {
             elementsContainer = new Div();

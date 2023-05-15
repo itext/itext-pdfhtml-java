@@ -46,5 +46,6 @@ public class DisplayFlexTagCssApplier extends BlockCssApplier {
             container.deleteOwnProperty(Property.OVERFLOW_X);
             container.deleteOwnProperty(Property.OVERFLOW_Y);
         }
+        ColumnCssApplierUtil.applyColumnCount(stylesContainer.getStyles(), context, container);
     }
 }

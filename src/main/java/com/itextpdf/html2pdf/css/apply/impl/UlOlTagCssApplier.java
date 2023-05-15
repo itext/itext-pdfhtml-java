@@ -27,6 +27,8 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
+import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.ColumnContainer;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.properties.BaseDirection;
 import com.itextpdf.layout.properties.ListSymbolPosition;
@@ -47,12 +49,12 @@ public class UlOlTagCssApplier extends BlockCssApplier {
      */
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
-        if (!(tagWorker.getElementResult() instanceof List)) {
+        if (!(tagWorker.getElementResult() instanceof List || tagWorker.getElementResult() instanceof ColumnContainer)) {
             return;
         }
         Map<String, String> css = stylesContainer.getStyles();
 
-        List list = (List) tagWorker.getElementResult();
+        IPropertyContainer list = tagWorker.getElementResult();
 
         if (CssConstants.INSIDE.equals(css.get(CssConstants.LIST_STYLE_POSITION))) {
             list.setProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
@@ -62,6 +64,7 @@ public class UlOlTagCssApplier extends BlockCssApplier {
 
         ListStyleApplierUtil.applyListStyleTypeProperty(stylesContainer, css, context, list);
         ListStyleApplierUtil.applyListStyleImageProperty(css, context, list);
+        ColumnCssApplierUtil.applyColumnCount(css, context, list);
 
         super.apply(context, stylesContainer, tagWorker);
 
