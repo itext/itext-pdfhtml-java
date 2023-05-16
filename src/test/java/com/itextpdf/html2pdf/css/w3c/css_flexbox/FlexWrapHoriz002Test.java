@@ -27,9 +27,7 @@ import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-//TODO DEVSIX-5086 support flex-wrap
 //TODO DEVSIX-5135 flex container width shall be different according to float properties
-@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 4))
 public class FlexWrapHoriz002Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

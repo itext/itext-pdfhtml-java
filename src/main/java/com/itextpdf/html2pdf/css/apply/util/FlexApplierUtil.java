@@ -28,6 +28,7 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.properties.AlignmentPropertyValue;
+import com.itextpdf.layout.properties.FlexWrapPropertyValue;
 import com.itextpdf.layout.properties.JustifyContent;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.UnitValue;
@@ -113,6 +114,29 @@ final public class FlexApplierUtil {
         logWarningIfThereAreNotSupportedPropertyValues(createSupportedFlexContainerPropertiesAndValuesMap(), cssProps);
         applyAlignItems(cssProps, element);
         applyJustifyContent(cssProps, element);
+        applyWrap(cssProps, element);
+    }
+
+    private static void applyWrap(Map<String, String> cssProps, IPropertyContainer element) {
+        final String wrapString = cssProps.get(CommonCssConstants.FLEX_WRAP);
+        if (wrapString != null) {
+            FlexWrapPropertyValue wrap;
+            switch (wrapString) {
+                case CommonCssConstants.WRAP:
+                    wrap = FlexWrapPropertyValue.WRAP;
+                    break;
+                case CommonCssConstants.WRAP_REVERSE:
+                    wrap = FlexWrapPropertyValue.WRAP_REVERSE;
+                    break;
+                case CommonCssConstants.NOWRAP:
+                    wrap = FlexWrapPropertyValue.NOWRAP;
+                    break;
+                default:
+                    wrap = FlexWrapPropertyValue.NOWRAP;
+                    break;
+            }
+            element.setProperty(Property.FLEX_WRAP, wrap);
+        }
     }
 
     private static void applyAlignItems(Map<String, String> cssProps, IPropertyContainer element) {
@@ -240,11 +264,6 @@ final public class FlexApplierUtil {
         supportedFlexDirectionValues.add(CommonCssConstants.ROW);
 
         supportedPairs.put(CommonCssConstants.FLEX_DIRECTION, supportedFlexDirectionValues);
-
-        final Set<String> supportedFlexWrapValues = new HashSet<>();
-        supportedFlexWrapValues.add(CommonCssConstants.NOWRAP);
-
-        supportedPairs.put(CommonCssConstants.FLEX_WRAP, supportedFlexWrapValues);
 
         final Set<String> supportedAlignContentValues = new HashSet<>();
         supportedAlignContentValues.add(CommonCssConstants.STRETCH);

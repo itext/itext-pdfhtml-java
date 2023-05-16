@@ -29,6 +29,7 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.properties.AlignmentPropertyValue;
+import com.itextpdf.layout.properties.FlexWrapPropertyValue;
 import com.itextpdf.layout.properties.JustifyContent;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.UnitValue;
@@ -217,6 +218,27 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
     }
 
     @Test
+    public void applyFlexWrapTest() {
+        String[] wrapStrings = {
+                CssConstants.NOWRAP,
+                CssConstants.WRAP,
+                CssConstants.WRAP_REVERSE,
+        };
+        FlexWrapPropertyValue[] wrapValues = {
+                FlexWrapPropertyValue.NOWRAP,
+                FlexWrapPropertyValue.WRAP,
+                FlexWrapPropertyValue.WRAP_REVERSE,
+        };
+        for (int i = 0; i < wrapStrings.length; ++i) {
+            Map<String, String> cssProps = new HashMap<>();
+            cssProps.put(CssConstants.FLEX_WRAP, wrapStrings[i]);
+            IElement element = new Div();
+            FlexApplierUtil.applyFlexContainerProperties(cssProps, element);
+            Assert.assertEquals(wrapValues[i], (FlexWrapPropertyValue) element.<FlexWrapPropertyValue>getProperty(Property.FLEX_WRAP));
+        }
+    }
+
+    @Test
     @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
     public void applyAlignItemsUnsupportedValuesTest() {
         Map<String, String> cssProps = new HashMap<>();
@@ -237,17 +259,15 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 5))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 4))
     public void applyFlexContainerUnsupportedPropertiesUnsupportedValuesTest() {
         String[] unsupportedProperties = {
-                CssConstants.FLEX_WRAP,
                 CssConstants.FLEX_DIRECTION,
                 CssConstants.ROW_GAP,
                 CssConstants.COLUMN_GAP,
                 CssConstants.ALIGN_CONTENT
         };
         String[] unsupportedValues = {
-                CssConstants.WRAP_REVERSE,
                 CssConstants.COLUMN,
                 "20px",
                 "10em",
@@ -282,12 +302,10 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
     @Test
     public void applyFlexContainerUnsupportedPropertiesSupportedValuesTest() {
         String[] unsupportedProperties = {
-                CssConstants.FLEX_WRAP,
                 CssConstants.FLEX_DIRECTION,
                 CssConstants.ALIGN_CONTENT
         };
         String[] supportedValues = {
-                CssConstants.NOWRAP,
                 CssConstants.ROW,
                 CssConstants.STRETCH
         };

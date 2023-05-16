@@ -22,14 +22,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-5087 support layout properties for FlexContainerRenderer
-//TODO DEVSIX-5086 support flex-wrap property
-@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
 public class OverflowHoriz004Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

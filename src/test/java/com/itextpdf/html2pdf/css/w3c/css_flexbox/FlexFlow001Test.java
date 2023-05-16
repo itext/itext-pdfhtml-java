@@ -29,7 +29,7 @@ import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-5096 support flex-flow
 //TODO DEVSIX-5087 Support floating for flex containers
-@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 33))
+@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 15))
 public class FlexFlow001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
