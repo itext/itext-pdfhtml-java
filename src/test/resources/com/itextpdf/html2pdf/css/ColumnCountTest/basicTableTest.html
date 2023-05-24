@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      td {
+        border: 1px solid black;
+      }
+
+      .columnized-content {
+        column-count: 5;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+      }
+
+      .columnized-cell {
+        column-count: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Basic Div test</h2>
+    <h3>Columnized content in table</h3>
+    <table>
+      <tr>
+        <td>
+          <div class="columnized-content">
+            <p>Paragraph 1</p>
+            <p>Paragraph 2</p>
+            <p>Paragraph 3</p>
+            <p>Paragraph 4</p>
+            <p>Paragraph 5</p>
+            <p>Paragraph 6</p>
+            <p>Paragraph 7</p>
+            <p>Paragraph 8</p>
+            <p>Paragraph 9</p>
+            <p>Paragraph 10</p>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <h3>Table with Columnized Cells and Cell Header(th)</h3>
+    <table>
+      <tr>
+        <th style="column-count: 2">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          cursus consequat arcu, nec facilisis tellus malesuada vitae. Sed
+          consectetur mauris nec eleifend mattis.
+        </th>
+        <th>Header 2</th>
+        <th>Header 3</th>
+      </tr>
+      <tr>
+        <td>Cell 1</td>
+        <td class="columnized-cell">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          cursus consequat arcu, nec facilisis tellus malesuada vitae. Sed
+          consectetur mauris nec eleifend mattis.
+        </td>
+        <td>Cell 3</td>
+      </tr>
+      <tr>
+        <td class="columnized-cell">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec nisi
+          et risus pharetra suscipit. Sed dapibus metus ac tortor ultrices
+          venenatis. Sed et maximus turpis.
+        </td>
+        <td>Cell 5</td>
+        <td>Cell 6</td>
+      </tr>
+      <tr>
+        <td>Cell 7</td>
+        <td>Cell 8</td>
+        <td style="column-count: 3">
+          Sed tincidunt odio ac leo consequat tempus. Sed sagittis efficitur
+          massa, nec molestie arcu accumsan at. Phasellus a magna sed turpis
+          luctus varius.
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

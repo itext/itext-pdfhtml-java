@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .columnized-container {
+        column-count: 3;
+      }
+
+      .columnized-item-inline-block {
+        display: inline-block;
+        background-color: lightgray;
+      }
+
+      .columnized-item-display-none {
+        display: none;
+        background-color: lightgray;
+      }
+
+      .columnized-item-grid {
+        display: grid;
+        background-color: lightgray;
+      }
+
+      .columnized-paragraph {
+        column-count: 2;
+      }
+    </style>
+    <title>Columnized Elements</title>
+  </head>
+  <body>
+    <h2>Basic Display Property with nested columns test</h2>
+    <h3>column-count: 3, for nested P column-count: 2</h3>
+    <div class="columnized-container">
+      <div class="columnized-item-inline-block">
+        <h2>Element 1</h2>
+        <p>Content for Element 1</p>
+      </div>
+      <div class="columnized-item-inline-block">
+        <h2>Element 2</h2>
+        <p>Content for Element 2</p>
+      </div>
+      <div class="columnized-item-display-none">
+        <h2>Element 3</h2>
+        <p>Content for Element 3</p>
+      </div>
+      <div class="columnized-item-inline-block">
+        <h2>Element 4</h2>
+        <p>Content for Element 4</p>
+        <p style="column-count: 2">
+          Nullam ac ultricies quam, nec maximus sem. Proin eget est at metus
+          efficitur efficitur sed ut nunc. Aliquam tristique malesuada
+          fermentum. Nulla id volutpat ipsum. Nunc iaculis odio ac sapien
+          varius, at sollicitudin lectus porttitor. Etiam bibendum odio non mi
+          feugiat, a consequat ex consequat.
+        </p>
+      </div>
+      <div class="columnized-item-inline-block">
+        <h2>Element 5</h2>
+        <p>Content for Element 5</p>
+      </div>
+      <div class="columnized-item-inline-block">
+        <h2>Element 6</h2>
+        <p>Content for Element 6</p>
+      </div>
+      <div class="columnized-item-display-none">
+        <h2>Element 7</h2>
+        <p>Content for Element 7</p>
+      </div>
+      <div class="columnized-item-grid">
+        <h2>Element 8</h2>
+        <p>Content for Element 8</p>
+      </div>
+      <div class="columnized-item-grid">
+        <h2>Element 9</h2>
+        <p>Content for Element 9</p>
+        <p class="columnized-paragraph">
+          This is a paragraph with column count 2. It will be divided into two
+          columns within the container.
+        </p>
+        <p class="columnized-paragraph">
+          This is another paragraph with column count 2. It will also be divided
+          into two columns within the container.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
