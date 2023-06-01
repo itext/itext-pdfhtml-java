@@ -29,7 +29,7 @@ import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-5163 support more complex justify-content values
 //This test should be verified in firefox as far as chrome doesn't support some justify-content values
-@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 36))
+@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 9))
 public class JustifyContentHoriz006Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

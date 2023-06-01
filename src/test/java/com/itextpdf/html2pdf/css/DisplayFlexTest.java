@@ -541,6 +541,31 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("wrappedReverseFlexEndSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    @Test
+    public void splitWrappedFlexContainersTest7() throws IOException, InterruptedException {
+        convertToPdfAndCompare("wrappedRowReverseFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void splitWrappedFlexContainersTest8() throws IOException, InterruptedException {
+        convertToPdfAndCompare("wrappedRowReverseFlexEndSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, ignore = true)
+    })
+    public void splitWrappedFlexContainersTest9() throws IOException, InterruptedException {
+        convertToPdfAndCompare("wrappedRowReverseRtlFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, ignore = true)
+    })
+    public void splitWrappedFlexContainersTest10() throws IOException, InterruptedException {
+        convertToPdfAndCompare("wrappedRowRtlFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
     private static List<IElement> convertToElements(String name) throws IOException {
         String sourceHtml = SOURCE_FOLDER + name + ".html";
         ConverterProperties converterProperties = new ConverterProperties().setBaseUri(SOURCE_FOLDER);
