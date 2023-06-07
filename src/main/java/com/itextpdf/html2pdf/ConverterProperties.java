@@ -101,7 +101,7 @@ public class ConverterProperties {
     private IMetaInfo metaInfo;
 
     //TODO: DEVSIX-7594 remove this property
-    private boolean multicolEnabled = true;
+    private boolean multicolEnabled = false;
 
     /**
      * Instantiates a new {@link ConverterProperties} instance.
@@ -458,6 +458,8 @@ public class ConverterProperties {
     //TODO: DEVSIX-7594 remove this property
     /**
      * set multi-column layout support
+     * @param multicolEnabled sets multi-column layout support
+     * @return ConverterProperties
      */
     public ConverterProperties setMulticolEnabled(boolean multicolEnabled) {
         this.multicolEnabled = multicolEnabled;
