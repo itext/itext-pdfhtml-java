@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #main {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #main div {
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="main">
+    <img src="itis.jpg" style="flex-basis: 50px; max-height: 40px">
+    <div style="background-color:blue; flex-basis: 30px">1</div>
+</div>
+
+</body>
+</html>

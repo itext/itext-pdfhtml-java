@@ -65,6 +65,162 @@ public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void basis100Grow0Shrink0ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis100Grow0Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void basis100Grow1Shrink0ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis100Grow1Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void basis100Grow01Shrink0ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis100Grow01Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void basis200Grow0Shrink1ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis200Grow0Shrink1ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void basis100Grow0CustomShrinkContainerHeight50ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis100Grow0CustomShrinkContainerHeight50ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void basis200Grow0CustomShrinkColumnTest1() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis200Grow0CustomShrinkColumnTest1", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void basis200Grow0Shrink01ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis200Grow0Shrink01ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void basis200Height150Grow0Shrink1ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis200Height150Grow0Shrink1ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void basis100Height150Grow1Shrink0ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis100Height150Grow1Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void basis100Height50Grow1Shrink0ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis100Height50Grow1Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void basis100MaxHeight100Grow1Shrink0ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis100MaxHeight100Grow1Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void basis200MinHeight150Grow0Shrink1ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis200MinHeight150Grow0Shrink1ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void usualDirectionColumnWithDefiniteWidthTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("usualDirectionColumnWithDefiniteWidthTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void usualDirectionColumnWithDefiniteMaxWidthTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("usualDirectionColumnWithDefiniteMaxWidthTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void usualDirectionColumnWithDefiniteMinWidthTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("usualDirectionColumnWithDefiniteMinWidthTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void directionColumnWithoutBasisWithDefiniteHeightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithoutBasisWithDefiniteHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void directionColumnWithWrapElementsToGrowTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithWrapElementsToGrowTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void directionColumnWithWrapElementsNotToGrowTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithWrapElementsNotToGrowTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void directionColumnWithWrapElementsToShrinkTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithWrapElementsToShrinkTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void directionColumnWithWrapElementsNotToShrinkTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithWrapElementsNotToShrinkTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void directionColumnWithWrapDefiniteWidthAndHeightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithWrapDefiniteWidthAndHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void directionColumnWithWrapWithAlignItemsAndJustifyContentTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithWrapWithAlignItemsAndJustifyContentTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void directionColumnWithAlignItemsAndJustifyContentTest1() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithAlignItemsAndJustifyContentTest1", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void directionColumnWithAlignItemsAndJustifyContentTest2() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithAlignItemsAndJustifyContentTest2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void directionColumnWithAlignItemsAndJustifyContentTest3() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithAlignItemsAndJustifyContentTest3", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    public void imgAsFlexItemTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgAsFlexItemTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
     public void differentBasisGrow1Shrink0MBPOnContainerTest01()
             throws IOException, InterruptedException {
         convertToPdfAndCompare("differentBasisGrow1Shrink0MBPOnContainerTest01", SOURCE_FOLDER,
