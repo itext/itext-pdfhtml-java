@@ -89,7 +89,12 @@ public class FloatAndFlexTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void floatsPositioningInsideAndOutsideFlexTest() throws IOException, InterruptedException {
-        // TODO DEVSIX-5135 floating elements inside flex container are incorrectly positioned
         convertToPdfAndCompare("floatsPositioningInsideAndOutsideFlex", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void floatFlexContainerTest() throws IOException, InterruptedException {
+        // TODO DEVSIX-7603 Flex container float property is ignored, so width is incorrect
+        convertToPdfAndCompare("floatFlexContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 }

@@ -758,6 +758,11 @@ public class FloatTest extends ExtendedITextTest {
         runTest("floatLeftWithPaddingInLi", "diff_floatLeftWithPaddingInLi_");
     }
 
+    @Test
+    public void floatsPositioningOutsideBfcTest() throws IOException, InterruptedException {
+        runTest("floatsPositioningOutsideBfc", "diff_floatsPositioningOutsideBfc_");
+    }
+
     private void runTest(String testName, String diff) throws IOException, InterruptedException {
         String htmlName = SOURCE_FOLDER + testName + ".html";
         String outFileName = DESTINATION_FOLDER + testName + ".pdf";

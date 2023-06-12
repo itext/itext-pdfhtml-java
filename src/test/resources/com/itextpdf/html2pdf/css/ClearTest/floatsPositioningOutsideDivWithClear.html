@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @page {
+            margin: 10px;
+        }
+
+        .mainDiv .borDiv {
+            border: 3px solid black;
+        }
+    </style>
+</head>
+
+<body>
+<div class="mainDiv">
+    <div class="borDiv" style="width:51%;height: 25px;float: left;text-align: center">Float left shouldn't be included into div with clear: left</div>
+    <div class="borDiv" style="width:51%;height: 25px;float: right;text-align: center">Float right should be included into div with clear: left</div>
+    <div style="background: #d5ffd7; clear: left">Div with clear: left.</div>
+    <br>
+    <div class="borDiv" style="width:51%;height: 25px;float: right;text-align: center">Float right shouldn't be included into div with clear: right</div>
+    <div class="borDiv" style="width:51%;height: 25px;float: left;text-align: center">Float left should be included into div with clear: right</div>
+    <div style="background: #e9d7ff; clear: right">Div with clear: right.</div>
+    <br>
+    <div class="borDiv" style="width:51%;height: 25px;float: left;text-align: center">Float left shouldn't be included into div with clear: both</div>
+    <div class="borDiv" style="width:51%;height: 25px;float: right;text-align: center">Float right shouldn't be included into div with clear: both</div>
+    <div style="background: #c5f0ff; clear: both">Div with clear: both.</div>
+</div>
+</body>
+
+</html>

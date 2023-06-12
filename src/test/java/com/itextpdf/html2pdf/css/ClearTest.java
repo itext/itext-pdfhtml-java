@@ -140,4 +140,22 @@ public class ClearTest extends ExtendedHtmlConversionITextTest {
     public void imgWideBorderClearAndDisplayBlockParaFloatTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("imgWideBorderClearAndDisplayBlockParaFloat", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void floatsPositioningOutsideDivWithClearTest() throws IOException, InterruptedException {
+        // TODO DEVSIX-7602 Css right and left clear property is processed incorrectly if floats "intersect" by x
+        convertToPdfAndCompare("floatsPositioningOutsideDivWithClear", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void wideFloatsPositioningOutsideDivWithClearTest() throws IOException, InterruptedException {
+        // TODO DEVSIX-7602 Css right and left clear property is processed incorrectly for wide floats
+        convertToPdfAndCompare("wideFloatsPositioningOutsideDivWithClear", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void floatsWithClearInsideFlexElementTest() throws IOException, InterruptedException {
+        // TODO DEVSIX-7602 Flex element width is incorrect in case clear property is applied to floats inside it
+        convertToPdfAndCompare("floatsWithClearInsideFlexElement", sourceFolder, destinationFolder);
+    }
 }
