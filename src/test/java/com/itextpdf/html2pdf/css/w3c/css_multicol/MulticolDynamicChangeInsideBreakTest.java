@@ -24,9 +24,9 @@ package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
 
-public class MulticolDynamicChangeInsideBreakInsideAvoidTest extends W3CCssMulticolTest {
+public class MulticolDynamicChangeInsideBreakTest extends W3CCssMulticolTest {
     @Override
     protected String getHtmlFileName() {
-        return "multicol-dynamic-change-inside-break-inside-avoid.html";
+        return "multicol-dynamic-change-inside-break.html";
     }
 }

@@ -24,9 +24,9 @@ package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
 
-public class FixedInNestedMulticolWithViewportContainerTest extends W3CCssMulticolTest {
+public class FixedInNestedMulticolWithViewportTest extends W3CCssMulticolTest {
     @Override
     protected String getHtmlFileName() {
-        return "fixed-in-nested-multicol-with-viewport-container.html";
+        return "fixed-in-nested-multicol-with-viewport.html";
     }
 }
