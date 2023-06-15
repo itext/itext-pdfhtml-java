@@ -30,7 +30,7 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.AreaBreak;
-import com.itextpdf.layout.element.ColumnContainer;
+import com.itextpdf.layout.element.MulticolContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
@@ -48,7 +48,7 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
     /**
      * Column container element.
      */
-    private ColumnContainer columnContainer;
+    private MulticolContainer columnContainer;
 
     /** The div element. */
     private Div div;
@@ -69,7 +69,7 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
         div = new Div();
         Map<String, String> styles = element.getStyles();
         if (styles != null && styles.containsKey(CssConstants.COLUMN_COUNT)) {
-            columnContainer = new ColumnContainer();
+            columnContainer = new MulticolContainer();
             columnContainer.add(div);
         }
         inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE),

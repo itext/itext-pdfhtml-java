@@ -29,8 +29,8 @@ import com.itextpdf.test.annotations.LogMessages;
 
 import org.junit.Ignore;
 
-@Ignore("DEVSIX-7587")
-@LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 2))
+
+@LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 13))
 public class MulticolSpanAll008Test extends W3CCssMulticolTest {
     @Override
     protected String getHtmlFileName() {

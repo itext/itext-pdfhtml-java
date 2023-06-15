@@ -24,13 +24,18 @@ package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
+import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 import org.junit.Ignore;
 
-@Ignore("DEVSIX-7587")
-@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
+
+
+@LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE,
+        logLevel = LogLevelConstants.ERROR),
+        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)})
 public class MulticolGapNegative001Test extends W3CCssMulticolTest {
     @Override
     protected String getHtmlFileName() {

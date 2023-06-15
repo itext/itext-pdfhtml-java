@@ -24,13 +24,16 @@ package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
 import com.itextpdf.io.logs.IoLogMessageConstant;
+import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 import org.junit.Ignore;
 
-@Ignore("DEVSIX-7587")
-@LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.FONT_PROPERTY_MUST_BE_PDF_FONT_OBJECT))
+
+@LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.FONT_PROPERTY_MUST_BE_PDF_FONT_OBJECT),
+        @LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE,
+                logLevel = LogLevelConstants.ERROR)})
 public class MulticolContaining001Test extends W3CCssMulticolTest {
     @Override
     protected String getHtmlFileName() {

@@ -26,10 +26,10 @@ import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
 
 import org.junit.Ignore;
 
-@Ignore("DEVSIX-7587")
+
 public class MozMulticol3ColumnBalancingBreakInsideAvoid1RefTest extends W3CCssMulticolTest {
     @Override
     protected String getHtmlFileName() {
-        return "moz-multicol3-column-balancing-break-inside-avoid-1-ref.html";
+        return "column-break-inside-avoid-1-ref.html";
     }
 }

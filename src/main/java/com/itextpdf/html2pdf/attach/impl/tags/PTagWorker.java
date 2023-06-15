@@ -28,7 +28,7 @@ import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.ColumnContainer;
+import com.itextpdf.layout.element.MulticolContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
@@ -74,7 +74,7 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
         lastParagraph = new Paragraph();
 
         if (element.getStyles().get(CssConstants.COLUMN_COUNT) != null ) {
-            elementsContainer = new ColumnContainer();
+            elementsContainer = new MulticolContainer();
             elementsContainer.add(lastParagraph);
         }
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE),

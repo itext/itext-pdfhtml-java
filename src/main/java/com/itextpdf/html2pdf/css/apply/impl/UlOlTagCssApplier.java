@@ -28,7 +28,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.ColumnContainer;
+import com.itextpdf.layout.element.MulticolContainer;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.properties.BaseDirection;
 import com.itextpdf.layout.properties.ListSymbolPosition;
@@ -49,7 +49,7 @@ public class UlOlTagCssApplier extends BlockCssApplier {
      */
     @Override
     public void apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker) {
-        if (!(tagWorker.getElementResult() instanceof List || tagWorker.getElementResult() instanceof ColumnContainer)) {
+        if (!(tagWorker.getElementResult() instanceof List || tagWorker.getElementResult() instanceof MulticolContainer)) {
             return;
         }
         Map<String, String> css = stylesContainer.getStyles();

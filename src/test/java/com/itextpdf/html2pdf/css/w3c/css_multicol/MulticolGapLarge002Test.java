@@ -26,7 +26,7 @@ import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
 
 import org.junit.Ignore;
 
-@Ignore("DEVSIX-7587")
+@Ignore("DEVSIX-7609")
 public class MulticolGapLarge002Test extends W3CCssMulticolTest {
     @Override
     protected String getHtmlFileName() {

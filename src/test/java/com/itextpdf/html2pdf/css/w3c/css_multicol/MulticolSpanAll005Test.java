@@ -29,7 +29,7 @@ import com.itextpdf.test.annotations.LogMessages;
 
 import org.junit.Ignore;
 
-@Ignore("DEVSIX-7587")
+
 @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG))
 public class MulticolSpanAll005Test extends W3CCssMulticolTest {
     @Override

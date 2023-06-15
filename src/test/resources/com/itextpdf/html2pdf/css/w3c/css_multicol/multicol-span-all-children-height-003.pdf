@@ -1,8 +1,12 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 240>>stream
-xœ•’Mn!…÷>…—í†˜±1Ã¶R»¯Äš4©Ôæ§™Ş_*43L@£Fa¶0ß{2>§â-’	œNùğ¬¨Ò‡L>íÖå}ØÂ^áœ’Š„S”ŸãöÔ™Îá¸Ê÷ÀÂ&§šc‚ºæ?ú2^]…¿xnÄî¡h5´(YSx³KÂÜ$;TàKl‹éÛf_n™ÅÑüQOV/©¶Ã¸K}°&Œïğ°ŞŸ6_ö1~Âs«ï%B/>ùHƒQûf+GÒáj"„XŠĞÏ÷Ûñ¸®”ÿV×ŞğÏ$F®üw…úŞ”
+<</Filter/FlateDecode/Length 340>>stream
+xœ’ËNÃ0E÷ş
+/acÆ?â-ì‘ò<Z$hÿ/1®dœTMÓ¬fûÌõ½s œ·AKPé“}ß}
+ô2˜ Œ“Î 
+Nv±/â˜î^‚ì«t#¦3˜ti/œs©(ıúH§ŠĞ¥à7v—Ø5l€Ô…\´ò1SËø„ÛU=º0Ã,šÂÁƒÑ6„°Ë!ånI	§¢,*w{Nx?>ï„Ÿ´eÈŠ)ºÊ×¾Íp-ÉÖ$·ñ±ÏtÔÈvÛŸŒZÅ(Ûq÷¶ûyÿÖ÷í—xj—ò21(·>2:/²§Ç–&oˆö¦Ôä‡³}d,r‘ƒ+¥³9úºÕ?CÏ’2×cNsø˜Rşgé_Êkã|hlr»±ÀäşD‡Õ¦OW×¦×—ÓT°§„ÿ~_‡MÇ"*B¼bq
+êÍ1öÙ
 endstream
 endobj
 4 0 obj
@@ -12,7 +16,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20230611161556+03'00')/ModDate(D:20230611161556+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test a multi-column container with percentage height children)/assert(This test checks the percentage height children under multicol container compute the percentage relative to the entire multicol, not just the part after the column-span.)>>
+<</CreationDate(D:20230619113146+03'00')/ModDate(D:20230619113146+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test a multi-column container with percentage height children)/assert(This test checks the percentage height children under multicol container compute the percentage relative to the entire multicol, not just the part after the column-span.)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,15 +27,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000455 00000 n 
-0000001042 00000 n 
-0000000500 00000 n 
-0000000322 00000 n 
+0000000555 00000 n 
+0000001142 00000 n 
+0000000600 00000 n 
+0000000422 00000 n 
 0000000015 00000 n 
-0000000952 00000 n 
+0000001052 00000 n 
 trailer
-<</ID [<cddfc35c14217cba9d56659edab826bc7bd2b4dc3944a6ffb968056c5b1cc30eedf56e0bd57003134a596f3e173c63f28eb854e601e30a688ab7ba9ea4288dce><cddfc35c14217cba9d56659edab826bc7bd2b4dc3944a6ffb968056c5b1cc30eedf56e0bd57003134a596f3e173c63f28eb854e601e30a688ab7ba9ea4288dce>]/Info 3 0 R/Root 1 0 R/Size 7>>
+<</ID [<62c7763b96b3efccc77c5227e0788fdd36bc11525b6b8aeb253b039cace59825a5706c6073e64075ad7694d2701153a38def68b0a7aad360e4194e7f578ba429><62c7763b96b3efccc77c5227e0788fdd36bc11525b6b8aeb253b039cace59825a5706c6073e64075ad7694d2701153a38def68b0a7aad360e4194e7f578ba429>]/Info 3 0 R/Root 1 0 R/Size 7>>
 %iText-pdfHTML-5.0.1-SNAPSHOT
 startxref
-1093
+1193
 %%EOF

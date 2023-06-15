@@ -27,7 +27,7 @@ import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
 import org.junit.Ignore;
 
 
-@Ignore("DEVSIX-7587")
+
 public class MulticolMarginChild001Test extends W3CCssMulticolTest {
     @Override
     protected String getHtmlFileName() {

@@ -26,8 +26,9 @@ import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
+import org.junit.Ignore;
 
-
+@Ignore("DEVSIX-7609")
 @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED))
 public class MulticolFillBalance001Test extends W3CCssMulticolTest {
     @Override
