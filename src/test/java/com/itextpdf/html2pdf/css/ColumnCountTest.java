@@ -141,4 +141,34 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("basicFlexPropertyTest",
                 SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
     }
+
+
+    @Test
+    public void paddingsMarginsBorderBackgrounds() throws IOException, InterruptedException {
+        convertToPdfAndCompare("paddingsMarginsBorderBackgrounds",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+
+    @Test
+    public void borderOnlyTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("borderOnly",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+
+    @Test
+    public void paddingOnlyTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("paddingOnly",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+
+    @Test
+    public void marginOnlyTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("marginOnly",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+
 }
