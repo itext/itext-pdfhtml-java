@@ -27,7 +27,6 @@ import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -162,6 +161,39 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void marginOnlyTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("marginOnly",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+
+    @Test
+    public void splitInnerParagraphBetweenColumns() throws IOException, InterruptedException {
+        convertToPdfAndCompare("splitInnerParagraphBetweenColumns",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+    @Test
+    public void splitInnerParagraphWithoutMarginBetweenColumns() throws IOException, InterruptedException {
+        convertToPdfAndCompare("splitInnerParagraphWithoutMarginBetweenColumns",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+    @Test
+    public void splitEmptyBlockElementsBetweenColumns() throws IOException, InterruptedException {
+        convertToPdfAndCompare("splitEmptyBlockElementsBetweenColumns",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+
+    @Test
+    public void splitEmptyParagraphElementsBetweenColumns() throws IOException, InterruptedException {
+        convertToPdfAndCompare("splitEmptyParagraphElementsBetweenColumns",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+
+    @Test
+    public void splitEmptyContinuousBlockElementBetweenColumns() throws IOException, InterruptedException {
+        convertToPdfAndCompare("splitEmptyContinuousBlockElementBetweenColumns",
                 SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
     }
 
