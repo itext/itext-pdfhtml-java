@@ -61,7 +61,13 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("basicPTest");
     }
 
-    //TODO: DEVSIX-7592 add support for forms
+    @Test
+    public void diffElementsInsidePTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("diffElementsInsidePTest", SOURCE_FOLDER, DESTINATION_FOLDER, false,
+                new ConverterProperties().setMulticolEnabled(true).setBaseUri(SOURCE_FOLDER));
+    }
+
+    //TODO: DEVSIX-7591 support nested multicol layouting
     @Test
     public void convertBasicFormTest() throws IOException, InterruptedException {
         runTest("basicFormTest");
@@ -72,19 +78,36 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("basicUlTest");
     }
 
-    //TODO: DEVSIX-7591
+    //TODO: DEVSIX-7591 Support nested multicol layouting
     @Test
     public void convertBasicOlTest() throws IOException, InterruptedException {
         runTest("basicOlTest");
     }
 
-    //TODO: DEVSIX-7592
     @Test
     public void convertBasicTableTest() throws IOException, InterruptedException {
         runTest("basicTableTest");
     }
 
-    //TODO: DEVSIX-7584 add multipage support
+    @Test
+    public void tableColspanTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tableColspanTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+    @Test
+    public void tableRowspanTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tableRowspanTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+    @Test
+    public void tableColspanRowspanTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tableColspanRowspanTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+    //TODO: DEVSIX-7591 Support nested multicol layouting
     @Test
     public void convertBasicSectionTest() throws IOException, InterruptedException {
         runTest("basicSectionTest");
@@ -96,7 +119,7 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("basicDivMultiPageTest");
     }
 
-    //TODO: DEVSIX-7592 add support for forms
+    //TODO: DEVSIX-7584 add multipage support
     @Test
     public void convertBasicFormMultiPageDocumentsTest() throws IOException, InterruptedException {
         runTest("basicFormMultiPageTest");
@@ -107,7 +130,7 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("basicDisplayPropertyTest");
     }
 
-    //TODO: DEVSIX-7591
+    //TODO: DEVSIX-7591 Support nested multicol layouting
     @Test
     public void convertBasicDisplayPropertyWithNestedColumnsTest() throws IOException, InterruptedException {
         runTest("basicDisplayPropertyWithNestedColumnsTest");
@@ -190,12 +213,39 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
                 SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
     }
 
-
     @Test
     public void splitEmptyContinuousBlockElementBetweenColumns() throws IOException, InterruptedException {
         convertToPdfAndCompare("splitEmptyContinuousBlockElementBetweenColumns",
                 SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
     }
 
+    @Test
+    public void basicHiTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basicHiTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
 
+    @Test
+    public void basicFooterHeaderTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basicFooterHeaderTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+    @Test
+    public void basicDlTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basicDlTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+    @Test
+    public void basicInlineElementsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basicInlineElementsTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+    @Test
+    public void basicBlockquoteTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basicBlockquoteTest",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
 }

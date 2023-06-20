@@ -28,12 +28,12 @@ import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.MulticolContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.MulticolContainer;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
@@ -58,6 +58,9 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
     /** The container which handles the elements that are present in the &lt;p&gt; tag. */
     private Div elementsContainer;
 
+    /** Container for the result in case of multicol layouting */
+    private MulticolContainer multicolContainer;
+
     /** Helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
 
@@ -74,8 +77,8 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
         lastParagraph = new Paragraph();
 
         if (element.getStyles().get(CssConstants.COLUMN_COUNT) != null ) {
-            elementsContainer = new MulticolContainer();
-            elementsContainer.add(lastParagraph);
+            multicolContainer = new MulticolContainer();
+            multicolContainer.add(lastParagraph);
         }
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE),
                 element.getStyles().get(CssConstants.TEXT_TRANSFORM));
@@ -157,7 +160,10 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public IPropertyContainer getElementResult() {
-        return null == elementsContainer ? (IPropertyContainer) lastParagraph : (IPropertyContainer) elementsContainer;
+        if (multicolContainer == null) {
+            return null == elementsContainer ? (IPropertyContainer) lastParagraph : (IPropertyContainer) elementsContainer;
+        }
+        return multicolContainer;
     }
 
     @Override
@@ -165,11 +171,14 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
         return display;
     }
 
-    //TODO: DEVSIX-7592 rework column count support when elements container is not empty and contains several elements
     private void processBlockElement(IElement propertyContainer) {
         if (elementsContainer == null) {
             elementsContainer = new Div();
             elementsContainer.add(lastParagraph);
+            if (multicolContainer != null) {
+                multicolContainer.getChildren().clear();
+                multicolContainer.add(elementsContainer);
+            }
         }
         inlineHelper.flushHangingLeaves(lastParagraph);
 

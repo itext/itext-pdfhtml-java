@@ -216,6 +216,51 @@ public class ColumnWidthTest extends ExtendedHtmlConversionITextTest {
         runTest("columnWidthEqualsImagesTest");
     }
 
+    @Test
+    public void diffElementsInsidePTest() throws IOException, InterruptedException {
+        runTest("diffElementsInsidePTest");
+    }
+
+    @Test
+    public void tableColspanTest() throws IOException, InterruptedException {
+        runTest("tableColspanTest");
+    }
+
+    @Test
+    public void tableRowspanTest() throws IOException, InterruptedException {
+        runTest("tableRowspanTest");
+    }
+
+    @Test
+    public void tableColspanRowspanTest() throws IOException, InterruptedException {
+        runTest("tableColspanRowspanTest");
+    }
+
+    @Test
+    public void basicHiTest() throws IOException, InterruptedException {
+        runTest("basicHiTest");
+    }
+
+    @Test
+    public void basicFooterHeaderTest() throws IOException, InterruptedException {
+        runTest("basicFooterHeaderTest");
+    }
+
+    @Test
+    public void basicDlTest() throws IOException, InterruptedException {
+        runTest("basicDlTest");
+    }
+
+    @Test
+    public void basicInlineElementsTest() throws IOException, InterruptedException {
+        runTest("basicInlineElementsTest");
+    }
+
+    @Test
+    public void basicBlockquoteTest() throws IOException, InterruptedException {
+        runTest("basicBlockquoteTest");
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         convertToPdfAndCompare(testName,
                 SOURCE_FOLDER, DESTINATION_FOLDER, false,

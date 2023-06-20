@@ -29,12 +29,11 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.MulticolContainer;
-import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
+import com.itextpdf.layout.element.MulticolContainer;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
@@ -50,7 +49,7 @@ public class UlOlTagWorker implements ITagWorker {
      */
     private List list;
 
-    private Div elementsContainer;
+    private MulticolContainer multicolContainer;
 
     /**
      * Helper class for waiting inline elements.
@@ -67,8 +66,8 @@ public class UlOlTagWorker implements ITagWorker {
         list = new List().setListSymbol("");
 
         if (element.getStyles().get(CssConstants.COLUMN_COUNT) != null ) {
-            elementsContainer = new MulticolContainer();
-            elementsContainer.add(list);
+            multicolContainer = new MulticolContainer();
+            multicolContainer.add(list);
         }
 
         //In the case of an ordered list, see if the start attribute can be found
@@ -132,10 +131,7 @@ public class UlOlTagWorker implements ITagWorker {
      */
     @Override
     public IPropertyContainer getElementResult() {
-        if (elementsContainer == null) {
-            return list;
-        }
-        return elementsContainer;
+        return multicolContainer == null ? (IPropertyContainer) list : (IPropertyContainer) multicolContainer;
     }
 
     /**

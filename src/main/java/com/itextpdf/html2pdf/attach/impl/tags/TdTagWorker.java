@@ -27,13 +27,18 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.css.apply.impl.ColumnCssApplierUtil;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
-import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.layout.element.MulticolContainer;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
+
+import java.util.Map;
 
 /**
  * TagWorker class for the {@code td} element.
@@ -41,13 +46,16 @@ import com.itextpdf.styledxmlparser.node.IElementNode;
 public class TdTagWorker implements ITagWorker, IDisplayAware {
 
     /** The cell. */
-    private Cell cell;
+    private final Cell cell;
+
+    /** Container for cell children in case of multicol layouting */
+    private Div childOfMulticolContainer;
 
     /** The inline helper. */
-    private WaitingInlineElementsHelper inlineHelper;
+    private final WaitingInlineElementsHelper inlineHelper;
 
     /** The display. */
-    private String display;
+    private final String display;
 
     /**
      * Creates a new {@link TdTagWorker} instance.
@@ -63,8 +71,19 @@ public class TdTagWorker implements ITagWorker, IDisplayAware {
 
         cell = new Cell((int)rowspan, (int)colspan);
         cell.setPadding(0);
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
-        display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
+
+        Map<String, String> styles = element.getStyles();
+        if (styles.containsKey(CssConstants.COLUMN_COUNT)) {
+            MulticolContainer multicolContainer = new MulticolContainer();
+            childOfMulticolContainer = new Div();
+            multicolContainer.add(childOfMulticolContainer);
+            // TODO DEVSIX-7564, DEVSIX-7562 apply other multicol properties
+            ColumnCssApplierUtil.applyColumnCount(styles, context, multicolContainer);
+            cell.add(multicolContainer);
+        }
+
+        inlineHelper = new WaitingInlineElementsHelper(styles.get(CssConstants.WHITE_SPACE), styles.get(CssConstants.TEXT_TRANSFORM));
+        display = styles.get(CssConstants.DISPLAY);
 
         AccessiblePropHelper.trySetLangAttribute(cell, element);
     }
@@ -74,7 +93,7 @@ public class TdTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        inlineHelper.flushHangingLeaves(cell);
+        inlineHelper.flushHangingLeaves(getCellContainer());
     }
 
     /* (non-Javadoc)
@@ -121,7 +140,7 @@ public class TdTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public IPropertyContainer getElementResult() {
-        return cell;
+        return (IPropertyContainer) cell;
     }
 
     /* (non-Javadoc)
@@ -140,11 +159,19 @@ public class TdTagWorker implements ITagWorker, IDisplayAware {
      */
     private boolean processChild(IPropertyContainer propertyContainer) {
         boolean processed = false;
-        inlineHelper.flushHangingLeaves(cell);
+        inlineHelper.flushHangingLeaves(getCellContainer());
         if (propertyContainer instanceof IBlockElement) {
-            cell.add((IBlockElement) propertyContainer);
+            if (childOfMulticolContainer == null) {
+                cell.add((IBlockElement) propertyContainer);
+            } else {
+                childOfMulticolContainer.add((IBlockElement) propertyContainer);
+            }
             processed = true;
         }
         return processed;
+    }
+
+    private IPropertyContainer getCellContainer() {
+        return childOfMulticolContainer == null ? (IPropertyContainer) cell : (IPropertyContainer) childOfMulticolContainer;
     }
 }
