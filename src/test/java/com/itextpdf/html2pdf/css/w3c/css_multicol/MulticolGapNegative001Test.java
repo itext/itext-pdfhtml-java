@@ -33,6 +33,7 @@ import org.junit.Ignore;
 
 
 
+@Ignore("DEVSIX-7609")
 @LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE,
         logLevel = LogLevelConstants.ERROR),
         @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)})

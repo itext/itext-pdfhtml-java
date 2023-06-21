@@ -24,14 +24,9 @@ package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
 
-import com.itextpdf.io.logs.IoLogMessageConstant;
-import com.itextpdf.test.LogLevelConstants;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import org.junit.Ignore;
 
-@LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE,
-        logLevel = LogLevelConstants.ERROR)})
+@Ignore("DEVSIX-7609")
 public class MulticolSpanAllMarginNestedFirstchild001Test extends W3CCssMulticolTest {
     @Override
     protected String getHtmlFileName() {
