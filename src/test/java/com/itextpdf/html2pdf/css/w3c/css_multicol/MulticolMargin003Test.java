@@ -24,9 +24,6 @@ package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
 
-import org.junit.Ignore;
-
-@Ignore("DEVSIX-7601")
 public class MulticolMargin003Test extends W3CCssMulticolTest {
     @Override
     protected String getHtmlFileName() {

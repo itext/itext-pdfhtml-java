@@ -28,13 +28,9 @@ import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-import org.junit.Ignore;
-
-
-@Ignore("DEVSIX-7609")
-@LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.FONT_PROPERTY_MUST_BE_PDF_FONT_OBJECT),
-        @LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE,
-                logLevel = LogLevelConstants.ERROR)})
+@LogMessages(messages = {
+        @LogMessage(messageTemplate = IoLogMessageConstant.FONT_PROPERTY_MUST_BE_PDF_FONT_OBJECT, logLevel = LogLevelConstants.ERROR)
+})
 public class MulticolContaining001Test extends W3CCssMulticolTest {
     @Override
     protected String getHtmlFileName() {

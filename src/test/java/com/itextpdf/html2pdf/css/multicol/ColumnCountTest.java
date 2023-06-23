@@ -24,7 +24,9 @@ package com.itextpdf.html2pdf.css.multicol;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
+import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
@@ -244,5 +246,32 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void imagesWithParagraphMultipageTest() throws IOException, InterruptedException {
         runTest("imagesWithParagraphMultipageTest");
+    }
+
+    @Test
+    public void basicOrphans1Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basicOrphans1Test",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+    @Test
+    public void basicOrphans2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basicOrphans2Test",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED, logLevel = LogLevelConstants.WARN, count = 2)
+    })
+    public void basicWidows1Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basicWidows1Test",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+    }
+
+    @Test
+    public void basicWidows2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basicWidows2Test",
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
     }
 }
