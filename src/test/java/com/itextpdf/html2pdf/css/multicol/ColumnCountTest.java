@@ -24,6 +24,9 @@ package com.itextpdf.html2pdf.css.multicol;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.layout.logs.LayoutLogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
@@ -109,16 +112,19 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("basicSectionTest");
     }
 
-    //TODO: DEVSIX-7584 add multipage support
     @Test
     public void convertBasicDivMultiPageDocumentsTest() throws IOException, InterruptedException {
         runTest("basicDivMultiPageTest");
     }
 
-    //TODO: DEVSIX-7584 add multipage support
     @Test
     public void convertBasicFormMultiPageDocumentsTest() throws IOException, InterruptedException {
         runTest("basicFormMultiPageTest");
+    }
+
+    @Test
+    public void convertBigFormMultiPageDocumentsTest() throws IOException, InterruptedException {
+        runTest("bigFormMultiPageTest");
     }
 
     @Test
@@ -134,6 +140,7 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
 
     //TODO: DEVSIX-7556
     @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)})
     public void convertBasicFloatPropertyTest() throws IOException, InterruptedException {
         runTest("basicFloatPropertyTest");
     }
@@ -143,7 +150,6 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("basicFlexPropertyTest");
     }
 
-    //TODO: DEVSIX-7587 adjust approximate height calculation
     @Test
     public void convertImagesWithDifferentColValuesTest() throws IOException, InterruptedException {
         runTest("imagesWithDifferentColValuesTest");
@@ -228,5 +234,15 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare(testName,
                 SOURCE_FOLDER, DESTINATION_FOLDER, false,
                 new ConverterProperties().setMulticolEnabled(true).setBaseUri(SOURCE_FOLDER));
+    }
+
+    @Test
+    public void imagesMultipageTest() throws IOException, InterruptedException {
+        runTest("imagesMultipageTest");
+    }
+
+    @Test
+    public void imagesWithParagraphMultipageTest() throws IOException, InterruptedException {
+        runTest("imagesWithParagraphMultipageTest");
     }
 }

@@ -1,9 +1,10 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 87>>stream
-xœË±€0ÀŞSxŸMl9ƒ!€:Ù¿ ¹ƒuÒé;©<UZ™á·‹
-Ş`l¡<:i§>²ú:WOÅÂjŠ¹XQÉÿÊ€uÿ–7Í?!V
+<</Filter/FlateDecode/Length 89>>stream
+xœË»€0EÑŞSxËvüIÆ` Nö/ˆJ$^÷¤{&0yX
+2¶‡ï_7´Àğ@!GqÆuÂÌ"»UÜ-9
+³Œ(¤#w]NSş‡¦ôK>5!ú
 endstream
 endobj
 4 0 obj
@@ -13,7 +14,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20230621104346+02'00')/ModDate(D:20230621104346+02'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test the column rules' block-size with nested balancing multicol container)/assert(This test verifies that the column-rules are extended to the content block-end edges of their corresponding inner and outer multicol container, where the inner container has height: auto.)>>
+<</CreationDate(D:20230629101921+03'00')/ModDate(D:20230629101921+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test the column rules' block-size with nested balancing multicol container)/assert(This test verifies that the column-rules are extended to the content block-end edges of their corresponding inner and outer multicol container, where the inner container has height: auto.)>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -21,14 +22,14 @@ endobj
 xref
 0 6
 0000000000 65535 f 
-0000000283 00000 n 
-0000000811 00000 n 
-0000000328 00000 n 
-0000000168 00000 n 
+0000000285 00000 n 
+0000000813 00000 n 
+0000000330 00000 n 
+0000000170 00000 n 
 0000000015 00000 n 
 trailer
-<</ID [<a9fe7121bcf15052a9eccc6fdb522a5a97fcd757a8b6fe288bcd8272a6486e44112e525bed822465ad1184f9ba88d4554229e0eb488cb41a8aa29f6a655ee1bb><a9fe7121bcf15052a9eccc6fdb522a5a97fcd757a8b6fe288bcd8272a6486e44112e525bed822465ad1184f9ba88d4554229e0eb488cb41a8aa29f6a655ee1bb>]/Info 3 0 R/Root 1 0 R/Size 6>>
+<</ID [<121698581360a4645cf66d040a285ed3b8a51457ca0df6b79576b2a3dbe55260ab4644a85c2bf4eb7f1ea2d34003809310b4e6280e6f36c945f39a262ef8a19e><121698581360a4645cf66d040a285ed3b8a51457ca0df6b79576b2a3dbe55260ab4644a85c2bf4eb7f1ea2d34003809310b4e6280e6f36c945f39a262ef8a19e>]/Info 3 0 R/Root 1 0 R/Size 6>>
 %iText-pdfHTML-5.0.1-SNAPSHOT
 startxref
-862
+864
 %%EOF

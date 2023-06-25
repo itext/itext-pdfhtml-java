@@ -1,18 +1,19 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 341>>stream
-xœ“»nÃ0Ew}ÇvQDÉ¢ì±i“ôİğ'´	P¤C’ÿ*:ÑÃ(dëN6|tHäQ(P€pÚ‹ÅæŒ°?Cà¨•¬6`œ8}‹ØŠ£ÀŒÕW–,%´*±Ş+­Âü‰!‡ğ;ó‡pş?^äb[öb±F@ınè°³è¿ÄÍç¶ÿ«ş?ê:itNC‰di«¶ä¥$•ÎéI)ÅÚ÷œ)ÕujcíÎÌïÛºNM¬½â¥ZÒˆ”êX{Í)¡ä;Ñ“Rko83¿¯ª:¥.Ö~äLK3zRêbí'N	µVvmN¥¨Pš6égN×ô{T³Áœæú…SÄo®Ú‚ N³ıÊ)â¦•ª©Z…`NşÆ)âörûÌiÊß93—Q±Aœ&ıƒ3#®Ø‹ NÓşÉ)ß²7UËq5g#¿åDü®P9
+<</Filter/FlateDecode/Length 374>>stream
+xœ”ÍnÂ0„ï~
+ÛËâßµs,-Ğÿ)Ğ‚TÑğşR½ÇFí6Ÿ'ŞÉh÷BI%µ<lÅluÔr{ep(½±•<|ŠX‹½Ğg2‡Zj« xé|Aç½˜-Ó?Fö›ë<h'ûquCºî¿Ä¢ÿ†¬©iÉ‘dUÆæ$ÖA™šş×Çwß’&Lqú¦Zi°±êÄâÎAhŠ —Á$·”kÊ!;—é–$Ş9]ÙqaÔµ±TH}i©NFK+w£¨ÆğÎÎ%{Ò”sKxy¼ñ$	·MM2Ö€¶õx$÷6¥‘ËxO$ÉÙ7¥‘ËxÏ$Ç¡k©’£*™.€–Õ¹Iõ¾J{¼Ò¦SéŒ3Ì©vßù`ú½«Lv#tñ0P´ó|°äûBb—‹W]Ûç8—x_I¬±KÆm.=^á4eÜPM‹âÅ’{'±x‡`lã¢?9—éÖ¤ÿØj…
 endstream
 endobj
 4 0 obj
-<</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</ExtGState<</Gs1 7 0 R/Gs2 8 0 R>>/Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
+<</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</ExtGState<</Gs1 7 0 R/Gs2 8 0 R/Gs3 9 0 R/Gs4 10 0 R>>/Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
 endobj
 1 0 obj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20230621104307+02'00')/ModDate(D:20230621104307+02'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Test: breaking of a multicolumn)>>
+<</CreationDate(D:20230629101908+03'00')/ModDate(D:20230629101908+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Test: breaking of a multicolumn)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -26,20 +27,28 @@ endobj
 8 0 obj
 <</ca 0.3>>
 endobj
+9 0 obj
+<</ca 0.3>>
+endobj
+10 0 obj
+<</ca 0.3>>
+endobj
 xref
-0 9
+0 11
 0000000000 65535 f 
-0000000590 00000 n 
-0000000943 00000 n 
-0000000635 00000 n 
-0000000423 00000 n 
+0000000644 00000 n 
+0000000997 00000 n 
+0000000689 00000 n 
+0000000456 00000 n 
 0000000015 00000 n 
-0000000853 00000 n 
-0000000994 00000 n 
-0000001021 00000 n 
+0000000907 00000 n 
+0000001048 00000 n 
+0000001075 00000 n 
+0000001102 00000 n 
+0000001129 00000 n 
 trailer
-<</ID [<d0b0cb0e6c7c775f58825e20c0569c11090282461bc4bafe9535adc8437256c19db16d9a1c1089c8f195287abc10bff427e2fa0a586edb961f533111ace60acc><d0b0cb0e6c7c775f58825e20c0569c11090282461bc4bafe9535adc8437256c19db16d9a1c1089c8f195287abc10bff427e2fa0a586edb961f533111ace60acc>]/Info 3 0 R/Root 1 0 R/Size 9>>
+<</ID [<022a2e801b384d71544fe8c2113f97f0b474dadef9f77e8da7a8daf2bd9881eff3e0ab8cc25df11f3143901991e2b4bdd766ce3e117de85aa75fa4f98b009204><022a2e801b384d71544fe8c2113f97f0b474dadef9f77e8da7a8daf2bd9881eff3e0ab8cc25df11f3143901991e2b4bdd766ce3e117de85aa75fa4f98b009204>]/Info 3 0 R/Root 1 0 R/Size 11>>
 %iText-pdfHTML-5.0.1-SNAPSHOT
 startxref
-1048
+1157
 %%EOF

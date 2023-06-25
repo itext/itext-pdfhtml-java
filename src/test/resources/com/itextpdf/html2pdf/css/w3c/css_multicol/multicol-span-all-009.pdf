@@ -1,9 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 317>>stream
-xœ¥’ÁNÄ †ï<G=ìÈ@)p5Ñ»I_À¨51ívwÕøú–R:ÀâîÁ4¡üÍÌ7ÿÌôÈî;v÷ˆ%ïz¦ZnœÓğî•İLß_»©ßõÃôsÛ}°‡=±cHÏ‘(@©9/$}÷û·Ó‹ù	çË8ËõôîıYÑò‘ií–Ûào`´ş50¥A¦²]ãú½‘"  Œ5`-Ñ¼FU¡Sİ
-o¥ŒË#1ø)©¦Ø‚I˜‘ú(ûËñieO‹<Œ<‡à|×Û=ÌAØYK0HÜM¶ÚçÔœtŒ ±R©Œ¿‚OD“%yÓÉé8jÔb+ôú$Âo¥l­‰K³I[“Â¶‰¦Ìs›Ú¨Æ:°šÀ^c¥Nf¢Î]Q´·ˆ^=h’¹‘?¶VÀƒ‘³îóJ¥ş˜;ñÊ
+<</Filter/FlateDecode/Length 258>>stream
+xœuĞÍNÄ ğ;OÁQ;2P \MônÂS¶»«Æ×
+,Ö4iù7ğ›ÎäŞ’»G¤È©uD(ª=QûJnÖï¯ÃênYníy°ä‰œÓNq6•3Ú€QÛ™ÏÓóñøviö#eáIï~°myy'g¦¨'RšmµÄhCü,DHàmTyŸÛè«T€Di-@`Õ´æ ÷ôZwÇËŠOf1õ3‚m®{³2¾Î1Î×ómå¨‹g0Ş»'Qò2›Cæ ›¶¯QÕ­®W{©ÊZÂŒ2Û«4vòŸ¸|·™.ÃrÍ}'îïu´ji`½/ÒÖà/æûÚ
 endstream
 endobj
 4 0 obj
@@ -13,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20230621172122+02'00')/ModDate(D:20230621172122+02'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test the multicol element is the containing block of absolute elements)/assert(This test checks the multicol element, not the column boxes divided by column-span, is the containing block of absolute elements.)>>
-endobj
-7 0 obj
-<</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20230629101923+03'00')/ModDate(D:20230629101923+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test the multicol element is the containing block of absolute elements)/assert(This test checks the multicol element, not the column boxes divided by column-span, is the containing block of absolute elements.)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+7 0 obj
+<</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -27,16 +27,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000541 00000 n 
-0000001186 00000 n 
-0000000586 00000 n 
-0000000399 00000 n 
+0000000482 00000 n 
+0000001127 00000 n 
+0000000527 00000 n 
+0000000340 00000 n 
 0000000015 00000 n 
-0000001096 00000 n 
-0000001007 00000 n 
+0000000948 00000 n 
+0000001038 00000 n 
 trailer
-<</ID [<25e94d4ecb0c474cc3a812a7b6d676689f3f839bc538fd35bc6358cbfba4f3024c34db409401f1c4b4f96750465a183fe121a6277e6becc64b223fe79b5751ab><25e94d4ecb0c474cc3a812a7b6d676689f3f839bc538fd35bc6358cbfba4f3024c34db409401f1c4b4f96750465a183fe121a6277e6becc64b223fe79b5751ab>]/Info 3 0 R/Root 1 0 R/Size 8>>
+<</ID [<2f98a57e2d78bae7faab40ca99d2f7af913fb63a449795778dc08b4124558eddb51b86cb10df28e8841982e71f3f3e829596442694747a4830ac0b5e0996f54d><2f98a57e2d78bae7faab40ca99d2f7af913fb63a449795778dc08b4124558eddb51b86cb10df28e8841982e71f3f3e829596442694747a4830ac0b5e0996f54d>]/Info 3 0 R/Root 1 0 R/Size 8>>
 %iText-pdfHTML-5.0.1-SNAPSHOT
 startxref
-1237
+1178
 %%EOF
