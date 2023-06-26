@@ -63,8 +63,7 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void diffElementsInsidePTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("diffElementsInsidePTest", SOURCE_FOLDER, DESTINATION_FOLDER, false,
-                new ConverterProperties().setMulticolEnabled(true).setBaseUri(SOURCE_FOLDER));
+        runTest("diffElementsInsidePTest");
     }
 
     //TODO: DEVSIX-7591 support nested multicol layouting
@@ -91,20 +90,17 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void tableColspanTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("tableColspanTest",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("tableColspanTest");
     }
 
     @Test
     public void tableRowspanTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("tableRowspanTest",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("tableRowspanTest");
     }
 
     @Test
     public void tableColspanRowspanTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("tableColspanRowspanTest",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("tableColspanRowspanTest");
     }
 
     //TODO: DEVSIX-7591 Support nested multicol layouting
@@ -153,99 +149,84 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("imagesWithDifferentColValuesTest");
     }
 
-    private void runTest(String testName) throws IOException, InterruptedException {
-        convertToPdfAndCompare(testName,
-                SOURCE_FOLDER, DESTINATION_FOLDER, false,
-                new ConverterProperties().setMulticolEnabled(true).setBaseUri(SOURCE_FOLDER));
-    }
-
-
     @Test
     public void paddingsMarginsBorderBackgrounds() throws IOException, InterruptedException {
-        convertToPdfAndCompare("paddingsMarginsBorderBackgrounds",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("paddingsMarginsBorderBackgrounds");
     }
 
 
     @Test
     public void borderOnlyTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("borderOnly",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("borderOnly");
     }
 
 
     @Test
     public void paddingOnlyTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("paddingOnly",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("paddingOnly");
     }
 
 
     @Test
     public void marginOnlyTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("marginOnly",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("marginOnly");
     }
 
 
     @Test
     public void splitInnerParagraphBetweenColumns() throws IOException, InterruptedException {
-        convertToPdfAndCompare("splitInnerParagraphBetweenColumns",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("splitInnerParagraphBetweenColumns");
     }
 
     @Test
     public void splitInnerParagraphWithoutMarginBetweenColumns() throws IOException, InterruptedException {
-        convertToPdfAndCompare("splitInnerParagraphWithoutMarginBetweenColumns",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("splitInnerParagraphWithoutMarginBetweenColumns");
     }
 
     @Test
     public void splitEmptyBlockElementsBetweenColumns() throws IOException, InterruptedException {
-        convertToPdfAndCompare("splitEmptyBlockElementsBetweenColumns",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("splitEmptyBlockElementsBetweenColumns");
     }
 
 
     @Test
     public void splitEmptyParagraphElementsBetweenColumns() throws IOException, InterruptedException {
-        convertToPdfAndCompare("splitEmptyParagraphElementsBetweenColumns",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("splitEmptyParagraphElementsBetweenColumns");
     }
 
     @Test
     public void splitEmptyContinuousBlockElementBetweenColumns() throws IOException, InterruptedException {
-        convertToPdfAndCompare("splitEmptyContinuousBlockElementBetweenColumns",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("splitEmptyContinuousBlockElementBetweenColumns");
     }
 
     @Test
     public void basicHiTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicHiTest",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("basicHiTest");
     }
 
     @Test
     public void basicFooterHeaderTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicFooterHeaderTest",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("basicFooterHeaderTest");
     }
 
     @Test
     public void basicDlTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicDlTest",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("basicDlTest");
     }
 
     @Test
     public void basicInlineElementsTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicInlineElementsTest",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("basicInlineElementsTest");
     }
 
     @Test
     public void basicBlockquoteTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicBlockquoteTest",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("basicBlockquoteTest");
+    }
+
+    private void runTest(String testName) throws IOException, InterruptedException {
+        convertToPdfAndCompare(testName,
+                SOURCE_FOLDER, DESTINATION_FOLDER, false,
+                new ConverterProperties().setMulticolEnabled(true).setBaseUri(SOURCE_FOLDER));
     }
 }
