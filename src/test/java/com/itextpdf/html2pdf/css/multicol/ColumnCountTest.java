@@ -33,12 +33,14 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
-    public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/multicol/ColumnCountTest/";
+    public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/multicol"
+            + "/ColumnCountTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/multicol/ColumnCountTest/";
 
     @BeforeClass
@@ -266,7 +268,8 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED, logLevel = LogLevelConstants.WARN, count = 2)
+            @LogMessage(messageTemplate = IoLogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED, logLevel =
+                    LogLevelConstants.WARN, count = 2)
     })
     public void basicWidows1Test() throws IOException, InterruptedException {
         runTest("basicWidows1Test");
@@ -275,6 +278,110 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void basicWidows2Test() throws IOException, InterruptedException {
         runTest("basicWidows2Test");
+    }
+
+    @Test
+    public void heightTest() throws IOException, InterruptedException {
+        runTest("height");
+    }
+
+    @Test
+    public void heightToSmallToFitAllClipped() throws IOException, InterruptedException {
+        runTest("heightToSmallToFitAllClipped");
+    }
+
+    @Test
+    public void minHeightToSmallSoEverythingShows() throws IOException, InterruptedException {
+        runTest("minHeightToSmallSoEverythingShows");
+    }
+
+    @Test
+    public void minHeightBiggerSoExtraGap() throws IOException, InterruptedException {
+        runTest("minHeightBiggerSoExtraGap");
+    }
+
+    @Test
+    public void widthTest() throws IOException, InterruptedException {
+        runTest("width");
+    }
+
+    @Test
+    @Ignore("DEVSIX-7630")
+    public void widthToBigSoOverflowsOnXAxisIntoInfinity() throws IOException, InterruptedException {
+        runTest("widthToBigSoOverflowsOnXAxisIntoInfinity");
+    }
+
+    @Test
+    public void minWidthBigJustOverflows() throws IOException, InterruptedException {
+        runTest("minWidthBigJustOverflows");
+    }
+
+    @Test
+    public void minWidthContained() throws IOException, InterruptedException {
+        runTest("minWidthToLittleSoJustNormalWidth");
+    }
+
+    @Test
+    public void maxWidthToBig() throws IOException, InterruptedException {
+        runTest("maxWidthToBig");
+    }
+
+    @Test
+    public void maxWidthToSmall() throws IOException, InterruptedException {
+        runTest("maxWidthToSmall");
+    }
+
+    @Test
+    @Ignore("DEVSIX-7630")
+    public void widthToBigWrapped() throws IOException, InterruptedException {
+        runTest("widthToBigWrapped");
+    }
+
+    @Test
+    public void maxWidthToBigWrapped() throws IOException, InterruptedException {
+        runTest("maxWidthToBigWrapped");
+    }
+
+    @Test
+    public void multiColLimitedArea() throws IOException, InterruptedException {
+        runTest("multicolLimitedArea");
+    }
+
+    @Test
+    public void multiColLimitedArea2() throws IOException, InterruptedException {
+        runTest("multicolLimitedArea2");
+    }
+
+    @Test
+    @Ignore("DEVSIX-7630")
+    public void multiColLimitedArea3() throws IOException, InterruptedException {
+        runTest("multicolLimitedArea3");
+    }
+
+    @Test
+    public void multiColLimitedArea4() throws IOException, InterruptedException {
+        runTest("multicolLimitedArea4");
+    }
+
+    @Test
+    public void multipleAttributes() throws IOException, InterruptedException {
+        runTest("multiple_attributes");
+    }
+
+    @Test
+    public void multipleAttributes1() throws IOException, InterruptedException {
+        runTest("multiple_attributes1");
+    }
+
+    @Test
+    public void multipleAttributes2() throws IOException, InterruptedException {
+        runTest("multiple_attributes2");
+    }
+
+    @Test
+    @Ignore("DEVSIX-7630")
+    public void heightMultiPage() throws IOException, InterruptedException {
+        runTest("height_multipage");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {

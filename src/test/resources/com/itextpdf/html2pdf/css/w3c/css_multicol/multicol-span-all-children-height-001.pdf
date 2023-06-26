@@ -1,10 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 234>>stream
-xœuÐË‚0Ðý|E—º©´ÐN»5Ñ½IÀ&
-(øÿ‰”çjXÐ›LÎí´†½ƒÝQ0!™Ë!Õ­â˜1wƒÍ¥x__bëžppp‚z=k·ýì÷s®ª{óoXZäjeK2ž0ÿ5ïšD³”²Ý©ð'ŽÊÿ+ U\Ò¨‡¹<”F §OÍ¬!"×iDŸ{#Þ ”Ýú£Øßg	Ò<Ïæ«m)Ù÷.÷yÚ<kbÔ¬ä²ÅÆ÷©h“éŒ6ZBNQO“‘2Ú¶gõS‘’ð
-q¸£¦×ÌÂmU´„^!²?‡æå²a©öÚfS È
+<</Filter/FlateDecode/Length 216>>stream
+xœ}ÐM‚0àýœ¢KÝTZhK·&º7éüÃDïŸÈ@±CAÃ‚yÉË7llö‚	É\©fÆ*n2æ.°:•ÏóC¬ÝvÐÌ»¹àvè¾_Çº¾¶¿Ê"ŸË’”†O{C5O4« õS‰7
+¾º¬¸¤qì‘4¡´"”V=±@ÿÃ¨ X½S4ûbLÉÁsGxÇXÉe'çgd0Ú …š‘šœg4†kµ°€._"{¦¿vý'Å ÉßêÂÍÄó[ã§|:Õ>¾N™ì
 endstream
 endobj
 4 0 obj
@@ -14,7 +13,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20230621104411+02'00')/ModDate(D:20230621104411+02'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test a multi-column container with percentage height children)/assert(This test checks the the percentage height children under multicol container is rendered correctly.)>>
+<</CreationDate(D:20230710111223+02'00')/ModDate(D:20230710111223+02'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test a multi-column container with percentage height children)/assert(This test checks the the percentage height children under multicol container is rendered correctly.)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -25,15 +24,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000449 00000 n 
-0000000966 00000 n 
-0000000494 00000 n 
-0000000316 00000 n 
+0000000431 00000 n 
+0000000948 00000 n 
+0000000476 00000 n 
+0000000298 00000 n 
 0000000015 00000 n 
-0000000876 00000 n 
+0000000858 00000 n 
 trailer
-<</ID [<2cb1c893dbdb135fcb5b05fdd3745fc0197707f6b308f46c562bb2855a70549460d9de65190dec06df2150973de168a3d611558619d4fd5d4c912161d34927a2><2cb1c893dbdb135fcb5b05fdd3745fc0197707f6b308f46c562bb2855a70549460d9de65190dec06df2150973de168a3d611558619d4fd5d4c912161d34927a2>]/Info 3 0 R/Root 1 0 R/Size 7>>
+<</ID [<72b2a6f8f601c53e72563060c438034e3de64c797bb9453f09ad8115cd180bf1fa5e4bdbead02a20b1923e6c08a710d601abdfc87e70a130bf4fe668245ba3df><72b2a6f8f601c53e72563060c438034e3de64c797bb9453f09ad8115cd180bf1fa5e4bdbead02a20b1923e6c08a710d601abdfc87e70a130bf4fe668245ba3df>]/Info 3 0 R/Root 1 0 R/Size 7>>
 %iText-pdfHTML-5.0.1-SNAPSHOT
 startxref
-1017
+999
 %%EOF

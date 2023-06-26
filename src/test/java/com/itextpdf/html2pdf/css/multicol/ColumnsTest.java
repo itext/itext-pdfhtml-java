@@ -106,6 +106,8 @@ public class ColumnsTest extends ExtendedHtmlConversionITextTest {
         runTest("outsidePageContentTest");
     }
 
+
+
     private void runTest(String testName) throws IOException, InterruptedException {
         convertToPdfAndCompare(testName,
                 SOURCE_FOLDER, DESTINATION_FOLDER, false,
