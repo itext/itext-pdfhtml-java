@@ -23,12 +23,8 @@
 package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-5166 change after align-self: baseline is implemented
-@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, count = 1))
 public class FlexboxBaselineAlignSelfBaselineVert001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
