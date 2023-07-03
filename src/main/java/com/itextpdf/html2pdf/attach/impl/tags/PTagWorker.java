@@ -58,8 +58,10 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
     /** The container which handles the elements that are present in the &lt;p&gt; tag. */
     private Div elementsContainer;
 
-    /** Container for the result in case of multicol layouting */
-    private MulticolContainer multicolContainer;
+    /**
+     * Container for the result in case of multicol layouting
+     */
+    protected MulticolContainer multicolContainer;
 
     /** Helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;

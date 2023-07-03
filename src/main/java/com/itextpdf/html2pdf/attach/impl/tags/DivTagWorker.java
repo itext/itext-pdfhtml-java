@@ -30,12 +30,12 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.AreaBreak;
-import com.itextpdf.layout.element.MulticolContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.MulticolContainer;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 import java.util.Map;
@@ -48,7 +48,7 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
     /**
      * Column container element.
      */
-    private MulticolContainer columnContainer;
+    protected MulticolContainer multicolContainer;
 
     /** The div element. */
     private Div div;
@@ -69,8 +69,8 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
         div = new Div();
         Map<String, String> styles = element.getStyles();
         if (styles != null && styles.containsKey(CssConstants.COLUMN_COUNT)) {
-            columnContainer = new MulticolContainer();
-            columnContainer.add(div);
+            multicolContainer = new MulticolContainer();
+            multicolContainer.add(div);
         }
         inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE),
                 styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM));
@@ -142,7 +142,7 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public IPropertyContainer getElementResult() {
-        return columnContainer == null ? div : columnContainer;
+        return multicolContainer == null ? div : multicolContainer;
     }
 
     /* (non-Javadoc)

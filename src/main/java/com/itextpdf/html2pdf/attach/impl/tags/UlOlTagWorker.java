@@ -49,7 +49,7 @@ public class UlOlTagWorker implements ITagWorker {
      */
     private List list;
 
-    private MulticolContainer multicolContainer;
+    protected MulticolContainer multicolContainer;
 
     /**
      * Helper class for waiting inline elements.

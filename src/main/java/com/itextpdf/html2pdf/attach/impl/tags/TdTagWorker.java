@@ -45,16 +45,29 @@ import java.util.Map;
  */
 public class TdTagWorker implements ITagWorker, IDisplayAware {
 
-    /** The cell. */
+    /**
+     * The cell.
+     */
     private final Cell cell;
 
-    /** Container for cell children in case of multicol layouting */
+    /**
+     * Container for cell children in case of multicol layouting
+     */
     private Div childOfMulticolContainer;
 
-    /** The inline helper. */
+    /**
+     * Container for children in case of multicol layouting
+     */
+    protected MulticolContainer multicolContainer;
+
+    /**
+     * The inline helper.
+     */
     private final WaitingInlineElementsHelper inlineHelper;
 
-    /** The display. */
+    /**
+     * The display.
+     */
     private final String display;
 
     /**
@@ -74,7 +87,7 @@ public class TdTagWorker implements ITagWorker, IDisplayAware {
 
         Map<String, String> styles = element.getStyles();
         if (styles.containsKey(CssConstants.COLUMN_COUNT)) {
-            MulticolContainer multicolContainer = new MulticolContainer();
+            multicolContainer = new MulticolContainer();
             childOfMulticolContainer = new Div();
             multicolContainer.add(childOfMulticolContainer);
             // TODO DEVSIX-7564, DEVSIX-7562 apply other multicol properties
