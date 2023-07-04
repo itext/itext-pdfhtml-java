@@ -24,6 +24,10 @@ package com.itextpdf.html2pdf.css.multicol;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.layout.logs.LayoutLogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
@@ -51,6 +55,9 @@ public class ColumnWidthTest extends ExtendedHtmlConversionITextTest {
         runTest("columnWidthAutoTest");
     }
 
+    //TODO: DEVSIX-3596 add support of relative units that currently are not supported
+    @LogMessages(messages =
+    @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
     @Test
     public void convertDifferentUnitsTest() throws IOException, InterruptedException {
         runTest("differentUnitsTest");
@@ -131,6 +138,7 @@ public class ColumnWidthTest extends ExtendedHtmlConversionITextTest {
         runTest("overlaidFlexContentInColumnContainerTest");
     }
 
+    @LogMessages(messages = {@LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)})
     @Test
     public void convertBasicFloatPropertyTest() throws IOException, InterruptedException {
         runTest("basicFloatPropertyTest");
@@ -221,16 +229,19 @@ public class ColumnWidthTest extends ExtendedHtmlConversionITextTest {
         runTest("diffElementsInsidePTest");
     }
 
+    //TODO: DEVSIX-7630
     @Test
     public void tableColspanTest() throws IOException, InterruptedException {
         runTest("tableColspanTest");
     }
 
+    //TODO: DEVSIX-7630
     @Test
     public void tableRowspanTest() throws IOException, InterruptedException {
         runTest("tableRowspanTest");
     }
 
+    //TODO: DEVSIX-7630
     @Test
     public void tableColspanRowspanTest() throws IOException, InterruptedException {
         runTest("tableColspanRowspanTest");
@@ -260,6 +271,20 @@ public class ColumnWidthTest extends ExtendedHtmlConversionITextTest {
     public void basicBlockquoteTest() throws IOException, InterruptedException {
         runTest("basicBlockquoteTest");
     }
+
+
+    @LogMessages(messages =
+    @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 3))
+    @Test
+    public void invalidMulticolValuesTest() throws IOException, InterruptedException {
+        runTest("invalidMulticolValuesTest");
+    }
+
+    @Test
+    public void columnWidthPercentageTest() throws IOException, InterruptedException {
+        runTest("columnWidthPercentageTest");
+    }
+
 
     private void runTest(String testName) throws IOException, InterruptedException {
         convertToPdfAndCompare(testName,

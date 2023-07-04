@@ -65,7 +65,8 @@ public class UlOlTagWorker implements ITagWorker {
     public UlOlTagWorker(IElementNode element, ProcessorContext context) {
         list = new List().setListSymbol("");
 
-        if (element.getStyles().get(CssConstants.COLUMN_COUNT) != null ) {
+        if (element.getStyles().get(CssConstants.COLUMN_COUNT) != null
+                || element.getStyles().containsKey(CssConstants.COLUMN_WIDTH)) {
             multicolContainer = new MulticolContainer();
             multicolContainer.add(list);
         }

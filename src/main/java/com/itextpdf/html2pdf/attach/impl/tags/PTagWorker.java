@@ -78,7 +78,7 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
     public PTagWorker(IElementNode element, ProcessorContext context) {
         lastParagraph = new Paragraph();
 
-        if (element.getStyles().get(CssConstants.COLUMN_COUNT) != null ) {
+        if (element.getStyles().get(CssConstants.COLUMN_COUNT) != null || element.getStyles().get(CssConstants.COLUMN_WIDTH) != null) {
             multicolContainer = new MulticolContainer();
             multicolContainer.add(lastParagraph);
         }

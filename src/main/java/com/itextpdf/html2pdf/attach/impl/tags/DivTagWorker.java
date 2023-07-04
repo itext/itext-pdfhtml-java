@@ -68,7 +68,7 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
     public DivTagWorker(IElementNode element, ProcessorContext context) {
         div = new Div();
         Map<String, String> styles = element.getStyles();
-        if (styles != null && styles.containsKey(CssConstants.COLUMN_COUNT)) {
+        if (styles != null && (styles.containsKey(CssConstants.COLUMN_COUNT) || styles.containsKey(CssConstants.COLUMN_WIDTH))) {
             multicolContainer = new MulticolContainer();
             multicolContainer.add(div);
         }

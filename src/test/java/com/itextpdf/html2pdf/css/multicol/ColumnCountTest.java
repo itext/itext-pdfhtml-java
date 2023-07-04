@@ -269,7 +269,7 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = IoLogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED, logLevel =
-                    LogLevelConstants.WARN, count = 2)
+                    LogLevelConstants.WARN)
     })
     public void basicWidows1Test() throws IOException, InterruptedException {
         runTest("basicWidows1Test");

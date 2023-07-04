@@ -71,6 +71,7 @@ public class ColumnGapTest extends ExtendedHtmlConversionITextTest {
         runTest("floatColumnGapValueTest");
     }
 
+    //TODO: DEVSIX-3596 add support of relative units that currently are not supported
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate =
             Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))

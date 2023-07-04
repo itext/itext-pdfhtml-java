@@ -26,9 +26,9 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 
 import java.util.Map;
 
@@ -51,6 +51,29 @@ public class ColumnCssApplierUtil {
             Integer columnCount = CssDimensionParsingUtils.parseInteger(cssProps.get(CssConstants.COLUMN_COUNT));
             if (columnCount != null) {
                 element.setProperty(Property.COLUMN_COUNT, columnCount);
+            }
+
+            final float emValue = CssDimensionParsingUtils.parseAbsoluteFontSize(cssProps.get(CssConstants.FONT_SIZE));
+            final float remValue = context.getCssContext().getRootFontSize();
+
+            UnitValue width = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_WIDTH), emValue, remValue);
+            if (width != null) {
+                element.setProperty(Property.COLUMN_WIDTH,  width.getValue());
+            }
+
+            UnitValue gap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_GAP), emValue, remValue);
+            if (gap != null) {
+                element.setProperty(Property.COLUMN_GAP,  gap.getValue());
+            }
+
+            //Set default colum-gap to 1em
+            if (!element.hasProperty(Property.COLUMN_GAP)) {
+                element.setProperty(Property.COLUMN_GAP,  CssDimensionParsingUtils.parseRelativeValue("1em", emValue));
+            }
+            if (!element.hasProperty(Property.COLUMN_COUNT) && !element.hasProperty(Property.COLUMN_WIDTH)
+                    && (CommonCssConstants.AUTO.equals(cssProps.get(CssConstants.COLUMN_COUNT))
+                    || CommonCssConstants.AUTO.equals(cssProps.get(CssConstants.COLUMN_WIDTH)))) {
+                element.setProperty(Property.COLUMN_COUNT, 1);
             }
         }
     }

@@ -86,7 +86,7 @@ public class TdTagWorker implements ITagWorker, IDisplayAware {
         cell.setPadding(0);
 
         Map<String, String> styles = element.getStyles();
-        if (styles.containsKey(CssConstants.COLUMN_COUNT)) {
+        if (styles.containsKey(CssConstants.COLUMN_COUNT) || styles.containsKey(CssConstants.COLUMN_WIDTH)) {
             multicolContainer = new MulticolContainer();
             childOfMulticolContainer = new Div();
             multicolContainer.add(childOfMulticolContainer);
