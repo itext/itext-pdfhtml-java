@@ -71,7 +71,6 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("diffElementsInsidePTest");
     }
 
-    //TODO: DEVSIX-7591 support nested multicol layouting
     @Test
     public void convertBasicFormTest() throws IOException, InterruptedException {
         runTest("basicFormTest");
@@ -82,7 +81,6 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("basicUlTest");
     }
 
-    //TODO: DEVSIX-7591 Support nested multicol layouting
     @Test
     public void convertBasicOlTest() throws IOException, InterruptedException {
         runTest("basicOlTest");
@@ -108,7 +106,6 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("tableColspanRowspanTest");
     }
 
-    //TODO: DEVSIX-7591 Support nested multicol layouting
     @Test
     public void convertBasicSectionTest() throws IOException, InterruptedException {
         runTest("basicSectionTest");
@@ -134,7 +131,6 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("basicDisplayPropertyTest");
     }
 
-    //TODO: DEVSIX-7591 Support nested multicol layouting
     @Test
     public void convertBasicDisplayPropertyWithNestedColumnsTest() throws IOException, InterruptedException {
         runTest("basicDisplayPropertyWithNestedColumnsTest");
@@ -218,6 +214,22 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void tripleNestingTest() throws IOException, InterruptedException {
+        runTest("tripleNestingTest");
+    }
+
+    @Test
+    public void nestingBetweenPagesTest() throws IOException, InterruptedException {
+        runTest("nestingBetweenPagesTest");
+    }
+
+    @Test
+    // TODO DEVSIX-7628 Investigate problem with border near to end of the page in multicol layouting
+    public void tripleNestingBetweenPagesTest() throws IOException, InterruptedException {
+        runTest("tripleNestingBetweenPagesTest");
+    }
+
+    @Test
     public void basicDlTest() throws IOException, InterruptedException {
         runTest("basicDlTest");
     }
@@ -232,12 +244,6 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("basicBlockquoteTest");
     }
 
-    private void runTest(String testName) throws IOException, InterruptedException {
-        convertToPdfAndCompare(testName,
-                SOURCE_FOLDER, DESTINATION_FOLDER, false,
-                new ConverterProperties().setMulticolEnabled(true).setBaseUri(SOURCE_FOLDER));
-    }
-
     @Test
     public void imagesMultipageTest() throws IOException, InterruptedException {
         runTest("imagesMultipageTest");
@@ -250,14 +256,12 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void basicOrphans1Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicOrphans1Test",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("basicOrphans1Test");
     }
 
     @Test
     public void basicOrphans2Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicOrphans2Test",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("basicOrphans2Test");
     }
 
     @Test
@@ -265,13 +269,17 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
             @LogMessage(messageTemplate = IoLogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED, logLevel = LogLevelConstants.WARN, count = 2)
     })
     public void basicWidows1Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicWidows1Test",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("basicWidows1Test");
     }
 
     @Test
     public void basicWidows2Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicWidows2Test",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        runTest("basicWidows2Test");
+    }
+
+    private void runTest(String testName) throws IOException, InterruptedException {
+        convertToPdfAndCompare(testName,
+                SOURCE_FOLDER, DESTINATION_FOLDER, false,
+                new ConverterProperties().setMulticolEnabled(true).setBaseUri(SOURCE_FOLDER));
     }
 }
