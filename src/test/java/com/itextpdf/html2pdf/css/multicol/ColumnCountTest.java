@@ -33,7 +33,6 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -306,7 +305,7 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-7630")
+    // TODO DEVSIX-7630 Multicol width&height advanced support
     public void widthToBigSoOverflowsOnXAxisIntoInfinity() throws IOException, InterruptedException {
         runTest("widthToBigSoOverflowsOnXAxisIntoInfinity");
     }
@@ -332,7 +331,6 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-7630")
     public void widthToBigWrapped() throws IOException, InterruptedException {
         runTest("widthToBigWrapped");
     }
@@ -353,7 +351,7 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-7630")
+    // TODO DEVSIX-7630 Multicol width&height advanced support
     public void multiColLimitedArea3() throws IOException, InterruptedException {
         runTest("multicolLimitedArea3");
     }
@@ -379,9 +377,34 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-7630")
+    // TODO DEVSIX-7630 Multicol width&height advanced support
     public void heightMultiPage() throws IOException, InterruptedException {
         runTest("height_multipage");
+    }
+
+    @Test
+    public void biggerThanColumnDivTest() throws IOException, InterruptedException {
+        runTest("biggerThanColumnDivTest");
+    }
+
+    @Test
+    public void biggerThanColumnImageTest() throws IOException, InterruptedException {
+        runTest("biggerThanColumnImageTest");
+    }
+
+    @Test
+    public void biggerThanColumnImageOverflowHiddenTest() throws IOException, InterruptedException {
+        runTest("biggerThanColumnImageOverflowHiddenTest");
+    }
+
+    @Test
+    public void biggerThanColumnImageOverflowScrollTest() throws IOException, InterruptedException {
+        runTest("biggerThanColumnImageOverflowScrollTest");
+    }
+
+    @Test
+    public void overflowOnMulticolContainerTest() throws IOException, InterruptedException {
+        runTest("overflowOnMulticolContainerTest");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {

@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20230711120940+03'00')/ModDate(D:20230711120940+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test the column rules' block-size with nested balancing multicol container)/assert(This test verifies that the column-rules are extended to the content block-end edges of their corresponding inner and outer multicol container, where the inner container has height: auto.)>>
+<</CreationDate(D:20230712115952+03'00')/ModDate(D:20230712115952+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test the column rules' block-size with nested balancing multicol container)/assert(This test verifies that the column-rules are extended to the content block-end edges of their corresponding inner and outer multicol container, where the inner container has height: auto.)>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -26,7 +26,7 @@ xref
 0000000165 00000 n 
 0000000015 00000 n 
 trailer
-<</ID [<3e0cfcd845cd9406b14521309c2fc9d9dd112317e97ed27f75f87ec9c9c696403dbe57db579a637c63c93c0a542e1f5227f65ffaf2ebddd91bf70096f537608f><3e0cfcd845cd9406b14521309c2fc9d9dd112317e97ed27f75f87ec9c9c696403dbe57db579a637c63c93c0a542e1f5227f65ffaf2ebddd91bf70096f537608f>]/Info 3 0 R/Root 1 0 R/Size 6>>
+<</ID [<6881eb53caad6a8046ec5b54a56c7e085c5ed0552d3c144664e1b70244a1ce725e2a7622943149c2a15e3a601f5abfc1a3c4bd21c1f23081f13c461d67a6ab09><6881eb53caad6a8046ec5b54a56c7e085c5ed0552d3c144664e1b70244a1ce725e2a7622943149c2a15e3a601f5abfc1a3c4bd21c1f23081f13c461d67a6ab09>]/Info 3 0 R/Root 1 0 R/Size 6>>
 %iText-pdfHTML-5.0.1-SNAPSHOT
 startxref
 859

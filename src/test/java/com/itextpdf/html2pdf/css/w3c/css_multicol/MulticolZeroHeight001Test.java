@@ -23,9 +23,10 @@
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
+
 import org.junit.Ignore;
 
-@Ignore("DEVSIX-7588")
+@Ignore("DEVSIX-7630 Multicol width&height advanced support")
 public class MulticolZeroHeight001Test extends W3CCssMulticolTest {
     @Override
     protected String getHtmlFileName() {

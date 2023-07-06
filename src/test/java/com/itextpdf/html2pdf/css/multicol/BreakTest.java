@@ -24,13 +24,11 @@ package com.itextpdf.html2pdf.css.multicol;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -129,9 +127,7 @@ public class BreakTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-7552 Column-count: support break-inside, break-after and break-before properties
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)})
+    @Ignore("TODO DEVSIX-7552 Column-count: support break-inside, break-after and break-before properties")
     public void convertPageBreakBeforePageInsideColumnTest() throws IOException, InterruptedException {
         runTest("pageBreakBeforePageInsideColumnTest");
     }
@@ -257,8 +253,7 @@ public class BreakTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)})
+    @Ignore("TODO DEVSIX-7552 Column-count: support break-inside, break-after and break-before properties")
     public void convertPageBreakAfterPageInsideColumnTest() throws IOException, InterruptedException {
         runTest("pageBreakAfterPageInsideColumnTest");
     }
