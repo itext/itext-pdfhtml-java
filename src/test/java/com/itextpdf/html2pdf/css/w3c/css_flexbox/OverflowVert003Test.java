@@ -29,8 +29,7 @@ import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-5087 support layout properties for FlexContainerRenderer
 //TODO DEVSIX-5163 support more complex justify-content values
-//TODO DEVSIX-5003 support case when flex-direction is vertical
-@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 4))
+@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
 public class OverflowVert003Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

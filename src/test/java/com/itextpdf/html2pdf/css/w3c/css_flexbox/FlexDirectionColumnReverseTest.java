@@ -28,10 +28,8 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 54),
-        @LogMessage(messageTemplate = com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 1)
+        @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 36)
 })
-// TODO DEVSIX-5003 support case when flex-direction is vertical
 public class FlexDirectionColumnReverseTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

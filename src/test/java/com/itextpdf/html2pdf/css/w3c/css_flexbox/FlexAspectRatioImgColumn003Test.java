@@ -27,9 +27,8 @@ import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-//TODO DEVSIX-5096 support flex-direction: column
 //TODO DEVSIX-5166 flex: Support align-self property
-@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
+@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 1))
 public class FlexAspectRatioImgColumn003Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

@@ -566,6 +566,22 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     public void splitWrappedFlexContainersTest10() throws IOException, InterruptedException {
         convertToPdfAndCompare("wrappedRowRtlFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
+
+    @Test
+    public void endlessColumnFlexContainerWithPercentFlexBasisTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("endlessColumnFlexContainerWithPercentFlexBasis", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void definiteMainSizeColumnFlexContainerWithPercentFlexBasisTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("definiteMainSizeColumnFlexContainerWithPercentFlexBasis", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void imageStretchColumnFlexContainerTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imageStretchColumnFlexContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
     private static List<IElement> convertToElements(String name) throws IOException {
         String sourceHtml = SOURCE_FOLDER + name + ".html";
         ConverterProperties converterProperties = new ConverterProperties().setBaseUri(SOURCE_FOLDER);

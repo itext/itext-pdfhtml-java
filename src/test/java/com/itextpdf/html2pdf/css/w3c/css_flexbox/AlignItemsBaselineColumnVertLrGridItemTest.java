@@ -28,9 +28,8 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-5167 change after align-items:baseline is supported
-//TODO DEVSIX-5096 change after flex-direction: column is supported
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2),
+        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 1),
         @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 3)
 })
 public class AlignItemsBaselineColumnVertLrGridItemTest extends W3CCssTest {

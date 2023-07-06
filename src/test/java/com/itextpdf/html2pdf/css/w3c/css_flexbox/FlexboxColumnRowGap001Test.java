@@ -30,9 +30,8 @@ import com.itextpdf.test.annotations.LogMessages;
 //TODO DEVSIX-7554 change after column-gap is supported
 //TODO DEVSIX-7616 change after row-gap is supported
 //TODO DEVSIX-5164 change after align-content: space-around is supported
-//TODO DEVSIX-5096 change after flex-direction: column is supported
 //TODO DEVSIX-5163 change after more complex justify-content values are supported
-@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 9))
+@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 8))
 public class FlexboxColumnRowGap001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

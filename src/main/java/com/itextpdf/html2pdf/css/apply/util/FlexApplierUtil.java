@@ -79,29 +79,19 @@ final public class FlexApplierUtil {
         }
 
         final String flexBasis = cssProps.get(CommonCssConstants.FLEX_BASIS);
-        if (flexBasis == null || CommonCssConstants.AUTO.equals(flexBasis)) {
-            // TODO DEVSIX-5003 use height as the main size if flex-direction: column.
-            // we use main size property as a flex-basis value (when flex-basis: auto) in
-            // corresponding with documentation https://www.w3.org/TR/css-flexbox-1/#valdef-flex-flex-basis
-            final String flexElementWidth = cssProps.get(CommonCssConstants.WIDTH);
-            if (flexElementWidth != null) {
+        if (flexBasis != null && !CommonCssConstants.AUTO.equals(flexBasis)) {
+            if (!CommonCssConstants.CONTENT.equals(flexBasis)) {
                 final float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
                 final float rem = context.getCssContext().getRootFontSize();
-                final UnitValue flexElementWidthAbsoluteLength = CssDimensionParsingUtils
-                        .parseLengthValueToPt(flexElementWidth, em, rem);
-                element.setProperty(Property.FLEX_BASIS, flexElementWidthAbsoluteLength);
+                final UnitValue flexBasisAbsoluteLength = CssDimensionParsingUtils
+                        .parseLengthValueToPt(flexBasis, em, rem);
+                element.setProperty(Property.FLEX_BASIS, flexBasisAbsoluteLength);
+            } else {
+                // The case when we don't set the flex-basis property should be identified
+                // as flex-basis: content
+                LOGGER.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET,
+                        CommonCssConstants.FLEX_BASIS, CommonCssConstants.CONTENT));
             }
-        } else if (!CommonCssConstants.CONTENT.equals(flexBasis)) {
-            final float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
-            final float rem = context.getCssContext().getRootFontSize();
-            final UnitValue flexBasisAbsoluteLength = CssDimensionParsingUtils
-                    .parseLengthValueToPt(flexBasis, em, rem);
-            element.setProperty(Property.FLEX_BASIS, flexBasisAbsoluteLength);
-        } else {
-            // The case when we don't set the flex-basis property should be identified
-            // as flex-basis: content
-            LOGGER.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET,
-                    CommonCssConstants.FLEX_BASIS, CommonCssConstants.CONTENT));
         }
     }
 
@@ -151,6 +141,12 @@ final public class FlexApplierUtil {
                     break;
                 case CommonCssConstants.ROW_REVERSE:
                     direction = FlexDirectionPropertyValue.ROW_REVERSE;
+                    break;
+                case CommonCssConstants.COLUMN:
+                    direction = FlexDirectionPropertyValue.COLUMN;
+                    break;
+                case CommonCssConstants.COLUMN_REVERSE:
+                    direction = FlexDirectionPropertyValue.COLUMN_REVERSE;
                     break;
                 default:
                     direction = FlexDirectionPropertyValue.ROW;
@@ -285,6 +281,9 @@ final public class FlexApplierUtil {
         supportedFlexDirectionValues.add(CommonCssConstants.ROW);
         supportedFlexDirectionValues.add(CommonCssConstants.ROW_REVERSE);
 
+        supportedFlexDirectionValues.add(CommonCssConstants.COLUMN);
+        supportedFlexDirectionValues.add(CommonCssConstants.COLUMN_REVERSE);
+
         supportedPairs.put(CommonCssConstants.FLEX_DIRECTION, supportedFlexDirectionValues);
 
         final Set<String> supportedAlignContentValues = new HashSet<>();
@@ -306,3 +305,4 @@ final public class FlexApplierUtil {
         return supportedPairs;
     }
 }
+

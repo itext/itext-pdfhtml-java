@@ -83,19 +83,6 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
     }
 
     @Test
-    public void applyFlexBasisNullWidthTest() {
-        ProcessorContext context = new ProcessorContext(new ConverterProperties());
-        Map<String, String> cssProps = new HashMap<>();
-        cssProps.put(CssConstants.FLEX_BASIS, null);
-        cssProps.put(CssConstants.WIDTH, "20.45pt");
-        cssProps.put(CssConstants.FONT_SIZE, "0");
-        IElement element = new Div();
-        FlexApplierUtil.applyFlexItemProperties(cssProps, context, element);
-        Assert.assertEquals(UnitValue.createPointValue(20.45f),
-                element.<UnitValue>getProperty(Property.FLEX_BASIS));
-    }
-
-    @Test
     public void applyFlexBasisAutoTest() {
         ProcessorContext context = new ProcessorContext(new ConverterProperties());
         Map<String, String> cssProps = new HashMap<>();
@@ -103,19 +90,6 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
         IElement element = new Div();
         FlexApplierUtil.applyFlexItemProperties(cssProps, context, element);
         Assert.assertNull(element.<UnitValue>getProperty(Property.FLEX_BASIS));
-    }
-
-    @Test
-    public void applyFlexBasisAutoWidthTest() {
-        ProcessorContext context = new ProcessorContext(new ConverterProperties());
-        Map<String, String> cssProps = new HashMap<>();
-        cssProps.put(CssConstants.FLEX_BASIS, CssConstants.AUTO);
-        cssProps.put(CssConstants.WIDTH, "20.45pt");
-        cssProps.put(CssConstants.FONT_SIZE, "0");
-        IElement element = new Div();
-        FlexApplierUtil.applyFlexItemProperties(cssProps, context, element);
-        Assert.assertEquals(UnitValue.createPointValue(20.45f),
-                element.<UnitValue>getProperty(Property.FLEX_BASIS));
     }
 
     @Test
@@ -259,7 +233,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 4))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 3))
     public void applyFlexContainerUnsupportedPropertiesUnsupportedValuesTest() {
         String[] unsupportedProperties = {
                 CssConstants.FLEX_DIRECTION,
