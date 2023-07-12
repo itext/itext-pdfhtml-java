@@ -407,6 +407,11 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("overflowOnMulticolContainerTest");
     }
 
+    @Test
+    public void shortHandResolverTest01() throws IOException, InterruptedException {
+        runTest("shortHandResolverTest01");
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         convertToPdfAndCompare(testName,
                 SOURCE_FOLDER, DESTINATION_FOLDER, false,
