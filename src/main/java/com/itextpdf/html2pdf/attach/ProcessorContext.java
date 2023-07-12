@@ -143,8 +143,10 @@ public class ProcessorContext {
 
     private final int limitOfLayouts;
 
-    //TODO: DEVSIX-7594 remove this property
-    private boolean multicolEnabled;
+    /**
+     * enables continuous container for all elements.
+     */
+    private boolean continuousContainerEnabled;
 
     /**
      * Instantiates a new {@link ProcessorContext} instance.
@@ -198,7 +200,7 @@ public class ProcessorContext {
         radioCheckResolver = new RadioCheckResolver();
         immediateFlush = converterProperties.isImmediateFlush();
         processingInlineSvg = false;
-        multicolEnabled = converterProperties.isMulticolEnabled();
+        continuousContainerEnabled = converterProperties.isContinuousContainerEnabled();
     }
 
     /**
@@ -489,11 +491,13 @@ public class ProcessorContext {
         processingInlineSvg = false;
     }
 
+
     /**
-     * check if multicol layout is enabled
-     * @return true if it's enabled, false otherwise
+     * check if continuous container is enabled.
+     *
+     * @return true if enabled, false otherwise
      */
-    public boolean isMulticolEnabled() {
-        return multicolEnabled;
+    public boolean isContinuousContainerEnabled() {
+        return continuousContainerEnabled;
     }
 }

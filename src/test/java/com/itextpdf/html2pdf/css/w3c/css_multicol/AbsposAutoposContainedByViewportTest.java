@@ -22,9 +22,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class AbsposAutoposContainedByViewportTest extends W3CCssMulticolTest {
+public class AbsposAutoposContainedByViewportTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "abspos-autopos-contained-by-viewport-000.html";

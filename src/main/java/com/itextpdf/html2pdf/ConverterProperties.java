@@ -100,8 +100,10 @@ public class ConverterProperties {
      */
     private IMetaInfo metaInfo;
 
-    //TODO: DEVSIX-7594 remove this property
-    private boolean multicolEnabled = false;
+    /**
+     * enables continuous container for all elements.
+     */
+    private boolean continuousContainerEnabled;
 
     /**
      * Instantiates a new {@link ConverterProperties} instance.
@@ -128,7 +130,7 @@ public class ConverterProperties {
         this.metaInfo = other.metaInfo;
         this.limitOfLayouts = other.limitOfLayouts;
         this.immediateFlush = other.immediateFlush;
-        this.multicolEnabled = other.multicolEnabled;
+        this.continuousContainerEnabled = other.continuousContainerEnabled;
     }
 
     /**
@@ -445,24 +447,23 @@ public class ConverterProperties {
         return this;
     }
 
-    //TODO: DEVSIX-7594 remove this property
     /**
-     * check if multi-column layout is enabled
+     * check if continuous container is enabled.
      *
      * @return true if enabled, false otherwise
      */
-    public boolean isMulticolEnabled() {
-        return multicolEnabled;
+    public boolean isContinuousContainerEnabled() {
+        return continuousContainerEnabled;
     }
 
-    //TODO: DEVSIX-7594 remove this property
     /**
-     * set multi-column layout support
-     * @param multicolEnabled sets multi-column layout support
-     * @return ConverterProperties
+     * Sets continuous container support.
+     *
+     * @param value true to set continuous container, false otherwise
+     * @return the {@link ConverterProperties} instance
      */
-    public ConverterProperties setMulticolEnabled(boolean multicolEnabled) {
-        this.multicolEnabled = multicolEnabled;
+    public ConverterProperties setContinuousContainerEnabled(boolean value) {
+        continuousContainerEnabled = value;
         return this;
     }
 }

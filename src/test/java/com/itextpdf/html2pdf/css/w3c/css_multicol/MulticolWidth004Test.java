@@ -22,12 +22,10 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
-
-import org.junit.Ignore;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 
-public class MulticolWidth004Test extends W3CCssMulticolTest {
+public class MulticolWidth004Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "multicol-width-004.html";

@@ -22,16 +22,14 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-import org.junit.Ignore;
-
 
 @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG))
-public class MulticolSpanAll005Test extends W3CCssMulticolTest {
+public class MulticolSpanAll005Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "multicol-span-all-005.html";

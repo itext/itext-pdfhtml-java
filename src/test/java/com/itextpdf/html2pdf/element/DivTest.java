@@ -74,8 +74,7 @@ public class DivTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void divColumnCountTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("divColumnCount",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().setMulticolEnabled(true));
+        convertToPdfAndCompare("divColumnCount", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
     @Test
     public void helloDivDocumentTest() throws IOException, InterruptedException {

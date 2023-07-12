@@ -22,9 +22,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class BalanceBreakAvoidance2Test extends W3CCssMulticolTest {
+public class BalanceBreakAvoidance2Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "balance-break-avoidance-002.html";

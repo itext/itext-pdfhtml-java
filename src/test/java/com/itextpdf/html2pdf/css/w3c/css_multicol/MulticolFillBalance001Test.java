@@ -22,14 +22,14 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 
 @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED))
-public class MulticolFillBalance001Test extends W3CCssMulticolTest {
+public class MulticolFillBalance001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "multicol-fill-balance-001.xht";

@@ -22,11 +22,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-import org.junit.Ignore;
-
-public class BalanceGridContainerRefTest extends W3CCssMulticolTest {
+public class BalanceGridContainerRefTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "balance-grid-container-ref.html";

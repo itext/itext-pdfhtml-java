@@ -22,7 +22,7 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
@@ -31,7 +31,7 @@ import com.itextpdf.test.annotations.LogMessages;
 @LogMessages(messages = {
         @LogMessage(messageTemplate = IoLogMessageConstant.FONT_PROPERTY_MUST_BE_PDF_FONT_OBJECT, logLevel = LogLevelConstants.ERROR)
 })
-public class MulticolContaining001Test extends W3CCssMulticolTest {
+public class MulticolContaining001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "multicol-containing-001.xht";

@@ -22,9 +22,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class MulticolDynamicChangeInsideBreakTest extends W3CCssMulticolTest {
+public class MulticolDynamicChangeInsideBreakTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "multicol-dynamic-change-inside-break.html";

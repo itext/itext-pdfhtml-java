@@ -22,9 +22,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class MulticolSpanAllListItem002Test extends W3CCssMulticolTest {
+public class MulticolSpanAllListItem002Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "multicol-span-all-list-item-002.html";

@@ -22,14 +22,14 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 @LogMessages(messages = @LogMessage(messageTemplate =
         Html2PdfLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN, count = 3))
-public class MulticolRuleColorInherit002Test extends W3CCssMulticolTest {
+public class MulticolRuleColorInherit002Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "multicol-rule-color-inherit-002.xht";

@@ -22,13 +22,13 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 4))
-public class MulticolSpanAll011RefTest extends W3CCssMulticolTest {
+public class MulticolSpanAll011RefTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "multicol-span-all-011-ref.html";

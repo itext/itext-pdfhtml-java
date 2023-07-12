@@ -22,9 +22,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class FixedInNestedMulticolWithViewportTest extends W3CCssMulticolTest {
+public class FixedInNestedMulticolWithViewportTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "fixed-in-nested-multicol-with-viewport.html";

@@ -415,6 +415,6 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
     private void runTest(String testName) throws IOException, InterruptedException {
         convertToPdfAndCompare(testName,
                 SOURCE_FOLDER, DESTINATION_FOLDER, false,
-                new ConverterProperties().setMulticolEnabled(true).setBaseUri(SOURCE_FOLDER));
+                new ConverterProperties().setBaseUri(SOURCE_FOLDER));
     }
 }

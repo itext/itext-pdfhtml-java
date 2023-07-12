@@ -47,34 +47,32 @@ public class ColumnCssApplierUtil {
      * @param element the styles container
      */
     public static void applyColumnCount(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
-        if (context.isMulticolEnabled()) {
-            Integer columnCount = CssDimensionParsingUtils.parseInteger(cssProps.get(CssConstants.COLUMN_COUNT));
-            if (columnCount != null) {
-                element.setProperty(Property.COLUMN_COUNT, columnCount);
-            }
+        Integer columnCount = CssDimensionParsingUtils.parseInteger(cssProps.get(CssConstants.COLUMN_COUNT));
+        if (columnCount != null) {
+            element.setProperty(Property.COLUMN_COUNT, columnCount);
+        }
 
-            final float emValue = CssDimensionParsingUtils.parseAbsoluteFontSize(cssProps.get(CssConstants.FONT_SIZE));
-            final float remValue = context.getCssContext().getRootFontSize();
+        final float emValue = CssDimensionParsingUtils.parseAbsoluteFontSize(cssProps.get(CssConstants.FONT_SIZE));
+        final float remValue = context.getCssContext().getRootFontSize();
 
-            UnitValue width = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_WIDTH), emValue, remValue);
-            if (width != null) {
-                element.setProperty(Property.COLUMN_WIDTH,  width.getValue());
-            }
+        UnitValue width = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_WIDTH), emValue, remValue);
+        if (width != null) {
+            element.setProperty(Property.COLUMN_WIDTH,  width.getValue());
+        }
 
-            UnitValue gap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_GAP), emValue, remValue);
-            if (gap != null) {
-                element.setProperty(Property.COLUMN_GAP,  gap.getValue());
-            }
+        UnitValue gap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_GAP), emValue, remValue);
+        if (gap != null) {
+            element.setProperty(Property.COLUMN_GAP,  gap.getValue());
+        }
 
-            //Set default colum-gap to 1em
-            if (!element.hasProperty(Property.COLUMN_GAP)) {
-                element.setProperty(Property.COLUMN_GAP,  CssDimensionParsingUtils.parseRelativeValue("1em", emValue));
-            }
-            if (!element.hasProperty(Property.COLUMN_COUNT) && !element.hasProperty(Property.COLUMN_WIDTH)
-                    && (CommonCssConstants.AUTO.equals(cssProps.get(CssConstants.COLUMN_COUNT))
-                    || CommonCssConstants.AUTO.equals(cssProps.get(CssConstants.COLUMN_WIDTH)))) {
-                element.setProperty(Property.COLUMN_COUNT, 1);
-            }
+        //Set default colum-gap to 1em
+        if (!element.hasProperty(Property.COLUMN_GAP)) {
+            element.setProperty(Property.COLUMN_GAP,  CssDimensionParsingUtils.parseRelativeValue("1em", emValue));
+        }
+        if (!element.hasProperty(Property.COLUMN_COUNT) && !element.hasProperty(Property.COLUMN_WIDTH)
+                && (CommonCssConstants.AUTO.equals(cssProps.get(CssConstants.COLUMN_COUNT))
+                || CommonCssConstants.AUTO.equals(cssProps.get(CssConstants.COLUMN_WIDTH)))) {
+            element.setProperty(Property.COLUMN_COUNT, 1);
         }
     }
 }

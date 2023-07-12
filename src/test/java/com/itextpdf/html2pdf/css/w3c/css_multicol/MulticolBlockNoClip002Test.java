@@ -22,11 +22,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-import org.junit.Ignore;
-
-public class MulticolBlockNoClip002Test extends W3CCssMulticolTest {
+public class MulticolBlockNoClip002Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "multicol-block-no-clip-002.xht";

@@ -22,9 +22,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
-import com.itextpdf.html2pdf.css.w3c.W3CCssMulticolTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class FixedInMulticolWithTransformContainerTest extends W3CCssMulticolTest {
+public class FixedInMulticolWithTransformContainerTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "fixed-in-multicol-with-transform-container.html";
