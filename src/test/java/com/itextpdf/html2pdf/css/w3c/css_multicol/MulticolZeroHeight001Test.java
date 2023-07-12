@@ -26,7 +26,7 @@ import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 import org.junit.Ignore;
 
-@Ignore("DEVSIX-7630 Multicol width&height advanced support")
+@Ignore("DEVSIX-7556 Support multicol+float elements on basic level")
 public class MulticolZeroHeight001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
