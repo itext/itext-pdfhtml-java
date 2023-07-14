@@ -13,7 +13,7 @@
   <version>5.0.1-SNAPSHOT</version>
 
   <name>pdfHTML</name>
-  <description>pdfHTML is an iText 7 add-on that lets you to parse (X)HTML snippets and the associated CSS and converts
+  <description>pdfHTML is an iText add-on that lets you to parse (X)HTML snippets and the associated CSS and converts
     them to PDF.</description>
 
   <scm>
