@@ -27,7 +27,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.html2pdf.css.apply.impl.ColumnCssApplierUtil;
+import com.itextpdf.html2pdf.css.apply.impl.MultiColumnCssApplierUtil;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Cell;
@@ -91,7 +91,7 @@ public class TdTagWorker implements ITagWorker, IDisplayAware {
             childOfMulticolContainer = new Div();
             multicolContainer.add(childOfMulticolContainer);
             // TODO DEVSIX-7564, DEVSIX-7562 apply other multicol properties
-            ColumnCssApplierUtil.applyColumnCount(styles, context, multicolContainer);
+            MultiColumnCssApplierUtil.applyMultiCol(styles, context, multicolContainer);
             cell.add(multicolContainer);
         }
 

@@ -24,12 +24,15 @@ package com.itextpdf.html2pdf.css.multicol;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import static com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION;
 
 @Category(IntegrationTest.class)
 public class ColumnRuleTest extends ExtendedHtmlConversionITextTest {
@@ -102,6 +105,9 @@ public class ColumnRuleTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = INVALID_CSS_PROPERTY_DECLARATION, count = 2)
+    })
     public void convertRuleWidthIncorrectValuesTest() throws IOException, InterruptedException {
         runTest("ruleWidthIncorrectValuesTest");
     }
@@ -117,6 +123,9 @@ public class ColumnRuleTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = INVALID_CSS_PROPERTY_DECLARATION, count = 5)
+    })
     public void convertRuleColorHslaTest() throws IOException, InterruptedException {
         runTest("ruleColorHslaTest");
     }
@@ -131,6 +140,28 @@ public class ColumnRuleTest extends ExtendedHtmlConversionITextTest {
         runTest("ruleShorthandTest");
     }
     
+
+    @Test
+    public void basicWidthTest() throws IOException, InterruptedException {
+        runTest("basicWidthTest");
+    }
+
+    @Test
+    public void thinMediumThickTest() throws IOException, InterruptedException {
+        runTest("thinMediumThick");
+    }
+
+    @Test
+    public void basicColorTest() throws IOException, InterruptedException {
+        runTest("basicColorTest");
+    }
+
+    @Test
+    public void basicStyleTest() throws IOException, InterruptedException {
+        runTest("basicStyleTest");
+    }
+
+
     private void runTest(String testName) throws IOException, InterruptedException {
         convertToPdfAndCompare(testName,
                 SOURCE_FOLDER, DESTINATION_FOLDER, false,

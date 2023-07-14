@@ -28,8 +28,8 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.html2pdf.css.apply.util.ListStyleApplierUtil;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.MulticolContainer;
 import com.itextpdf.layout.element.List;
+import com.itextpdf.layout.element.MulticolContainer;
 import com.itextpdf.layout.properties.BaseDirection;
 import com.itextpdf.layout.properties.ListSymbolPosition;
 import com.itextpdf.layout.properties.Property;
@@ -64,7 +64,7 @@ public class UlOlTagCssApplier extends BlockCssApplier {
 
         ListStyleApplierUtil.applyListStyleTypeProperty(stylesContainer, css, context, list);
         ListStyleApplierUtil.applyListStyleImageProperty(css, context, list);
-        ColumnCssApplierUtil.applyColumnCount(css, context, list);
+        MultiColumnCssApplierUtil.applyMultiCol(css, context, list);
 
         super.apply(context, stylesContainer, tagWorker);
 
