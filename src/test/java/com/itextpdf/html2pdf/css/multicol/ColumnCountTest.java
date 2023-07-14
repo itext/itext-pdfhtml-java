@@ -137,7 +137,7 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("basicDisplayPropertyWithNestedColumnsTest");
     }
 
-    //TODO: DEVSIX-7556
+    //TODO: DEVSIX-7556 Support multicol+float elements on basic level
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)})
     public void convertBasicFloatPropertyTest() throws IOException, InterruptedException {
@@ -225,9 +225,27 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-7628 Investigate problem with border near to end of the page in multicol layouting
+    // TODO DEVSIX-7628 During calculating occupied area of multicol container take into account children border\padding\margin
     public void tripleNestingBetweenPagesTest() throws IOException, InterruptedException {
         runTest("tripleNestingBetweenPagesTest");
+    }
+
+    @Test
+    // TODO DEVSIX-7628 During calculating occupied area of multicol container take into account children border\padding\margin
+    public void childBorderTest() throws IOException, InterruptedException {
+        runTest("childBorderTest");
+    }
+
+    @Test
+    // TODO DEVSIX-7628 During calculating occupied area of multicol container take into account children border\padding\margin
+    public void childMarginTest() throws IOException, InterruptedException {
+        runTest("childMarginTest");
+    }
+
+    @Test
+    // TODO DEVSIX-7628 During calculating occupied area of multicol container take into account children border\padding\margin
+    public void childPaddingTest() throws IOException, InterruptedException {
+        runTest("childPaddingTest");
     }
 
     @Test
@@ -341,6 +359,7 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-7702 Support content overflowing for multicol layouting in case of limited available area
     public void multiColLimitedArea() throws IOException, InterruptedException {
         runTest("multicolLimitedArea");
     }
@@ -357,11 +376,13 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-7702 Support content overflowing for multicol layouting in case of limited available area
     public void multiColLimitedArea4() throws IOException, InterruptedException {
         runTest("multicolLimitedArea4");
     }
 
     @Test
+    // TODO DEVSIX-7702 Support content overflowing for multicol layouting in case of limited available area
     public void multipleAttributes() throws IOException, InterruptedException {
         runTest("multiple_attributes");
     }
