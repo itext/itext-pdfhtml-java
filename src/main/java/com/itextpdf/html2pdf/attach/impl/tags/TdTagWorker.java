@@ -90,7 +90,6 @@ public class TdTagWorker implements ITagWorker, IDisplayAware {
             multicolContainer = new MulticolContainer();
             childOfMulticolContainer = new Div();
             multicolContainer.add(childOfMulticolContainer);
-            // TODO DEVSIX-7564, DEVSIX-7562 apply other multicol properties
             MultiColumnCssApplierUtil.applyMultiCol(styles, context, multicolContainer);
             cell.add(multicolContainer);
         }

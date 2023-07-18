@@ -37,7 +37,7 @@ import java.util.Map;
 /**
  * Utility class to apply column-count values.
  */
-public class MultiColumnCssApplierUtil {
+public final class MultiColumnCssApplierUtil {
     private MultiColumnCssApplierUtil() {
     }
 
@@ -58,14 +58,14 @@ public class MultiColumnCssApplierUtil {
         final float emValue = CssDimensionParsingUtils.parseAbsoluteFontSize(cssProps.get(CssConstants.FONT_SIZE));
         final float remValue = context.getCssContext().getRootFontSize();
 
-        UnitValue width = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_WIDTH),
+        final UnitValue width = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_WIDTH),
                 emValue, remValue);
         if (width != null) {
             element.setProperty(Property.COLUMN_WIDTH, width.getValue());
         }
 
-        UnitValue gap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_GAP), emValue,
-                remValue);
+        final UnitValue gap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_GAP),
+                emValue, remValue);
         if (gap != null) {
             element.setProperty(Property.COLUMN_GAP, gap.getValue());
         }
@@ -80,8 +80,7 @@ public class MultiColumnCssApplierUtil {
             element.setProperty(Property.COLUMN_COUNT, 1);
         }
 
-        String cssPropsColumnRuleWidth = cssProps.get(CssConstants.COLUMN_RULE_WIDTH);
-        Border borderFromCssProperties = BorderStyleApplierUtil.getCertainBorder(
+        final Border borderFromCssProperties = BorderStyleApplierUtil.getCertainBorder(
                 cssProps.get(CssConstants.COLUMN_RULE_WIDTH), cssProps.get(CssConstants.COLUMN_RULE_STYLE),
                 getColumnGapColorOrDefault(cssProps), emValue, remValue);
         element.setProperty(Property.COLUMN_GAP_BORDER, borderFromCssProperties);
