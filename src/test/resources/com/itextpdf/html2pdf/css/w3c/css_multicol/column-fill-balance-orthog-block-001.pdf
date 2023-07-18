@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20230713163640+03'00')/ModDate(D:20230713163640+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Writing Modes Test: 'column-fill: balance' of a vertical writing mode block in orthogonal context)/assert(This test checks if a multi-column container with 'column-fill' set to 'balance' will not break an unbreakable run of text and will honor min-content inline size of a block that has its writing mode set to 'vertical-rl'. In this test, the word 'TEXT' should not break, even if div#multi-col's 'height' is set to '49px'.)/flags()>>
+<</CreationDate(D:20230718202848+03'00')/ModDate(D:20230718202848+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Writing Modes Test: 'column-fill: balance' of a vertical writing mode block in orthogonal context)/assert(This test checks if a multi-column container with 'column-fill' set to 'balance' will not break an unbreakable run of text and will honor min-content inline size of a block that has its writing mode set to 'vertical-rl'. In this test, the word 'TEXT' should not break, even if div#multi-col's 'height' is set to '49px'.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -30,7 +30,7 @@ xref
 0000000015 00000 n 
 0000001048 00000 n 
 trailer
-<</ID [<51939e6d78457ea13a905390756d59f20ebf897bdf7646c715d7b62c12ea5062731f9b8760c7c6137379ace2450dab59f2957bc97e1fdd98dcf32298006e834b><51939e6d78457ea13a905390756d59f20ebf897bdf7646c715d7b62c12ea5062731f9b8760c7c6137379ace2450dab59f2957bc97e1fdd98dcf32298006e834b>]/Info 3 0 R/Root 1 0 R/Size 7>>
+<</ID [<9be40443c895a4b6afd643f4ac3852a5e0294d666b822f8c88ce91e42cf8790823c1d2c24681614ed0f5f9ad442b273cfc01b5da700cb14a751711023b3adfb8><9be40443c895a4b6afd643f4ac3852a5e0294d666b822f8c88ce91e42cf8790823c1d2c24681614ed0f5f9ad442b273cfc01b5da700cb14a751711023b3adfb8>]/Info 3 0 R/Root 1 0 R/Size 7>>
 %iText-pdfHTML-5.0.1-SNAPSHOT
 startxref
 1189

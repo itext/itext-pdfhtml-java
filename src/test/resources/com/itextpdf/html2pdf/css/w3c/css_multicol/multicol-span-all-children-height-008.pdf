@@ -15,7 +15,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20230712115954+03'00')/ModDate(D:20230712115954+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test the borders drawing for a block split by column-span)/assert(This test verifies that the borders of block container with an auto block-size, split by column-span, are skipped on the sides adjacent to column-span.)>>
+<</CreationDate(D:20230718202855+03'00')/ModDate(D:20230718202855+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test the borders drawing for a block split by column-span)/assert(This test verifies that the borders of block container with an auto block-size, split by column-span, are skipped on the sides adjacent to column-span.)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -33,7 +33,7 @@ xref
 0000000015 00000 n 
 0000000957 00000 n 
 trailer
-<</ID [<47ae24c3922be014ca2a0a3c0d0b83ea4b4331f486f05585ead47c602669b661093f9f6deba984666d7c157ecd83f94c7f146523334aa6a36ef39b5953b72a02><47ae24c3922be014ca2a0a3c0d0b83ea4b4331f486f05585ead47c602669b661093f9f6deba984666d7c157ecd83f94c7f146523334aa6a36ef39b5953b72a02>]/Info 3 0 R/Root 1 0 R/Size 7>>
+<</ID [<e8dc35e977f141180221808e7eb41cbf5fc15bcabfc9c1f9f1e31bdcebb8dbc8c934e5b3bb7d2de351cc1715c2d0f82dd4ee2a022e94ff960e0a13538b042697><e8dc35e977f141180221808e7eb41cbf5fc15bcabfc9c1f9f1e31bdcebb8dbc8c934e5b3bb7d2de351cc1715c2d0f82dd4ee2a022e94ff960e0a13538b042697>]/Info 3 0 R/Root 1 0 R/Size 7>>
 %iText-pdfHTML-5.0.1-SNAPSHOT
 startxref
 1098

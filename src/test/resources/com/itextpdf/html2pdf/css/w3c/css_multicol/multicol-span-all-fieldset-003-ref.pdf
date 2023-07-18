@@ -14,13 +14,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20230718150133+02'00')/ModDate(D:20230718150133+02'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test a overflow:hidden and position:absolute multi-column container on fieldset works with a column-span:all child and position:fixed boxes)>>
-endobj
-7 0 obj
-<</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20230718202848+03'00')/ModDate(D:20230718202848+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test a overflow:hidden and position:absolute multi-column container on fieldset works with a column-span:all child and position:fixed boxes)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+7 0 obj
+<</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -33,10 +33,10 @@ xref
 0000000698 00000 n 
 0000000511 00000 n 
 0000000015 00000 n 
-0000001139 00000 n 
 0000001050 00000 n 
+0000001140 00000 n 
 trailer
-<</ID [<67da5210ed208a1eb8a2821976c931f77731ad7d73b8d83293e85254146e39760551d21e0062a4c2e7b998cc07f436a57a82a6fd46e96c4f685326ca7ec5f6c1><67da5210ed208a1eb8a2821976c931f77731ad7d73b8d83293e85254146e39760551d21e0062a4c2e7b998cc07f436a57a82a6fd46e96c4f685326ca7ec5f6c1>]/Info 3 0 R/Root 1 0 R/Size 8>>
+<</ID [<5e69d13824d698c92c94500fe72209f268cdc9aadff8f9f0b5a1179fb2fc986f9f7f4ac881d5fd75efbc6709d9b931643f06361e96ab45233e7bf977cd924012><5e69d13824d698c92c94500fe72209f268cdc9aadff8f9f0b5a1179fb2fc986f9f7f4ac881d5fd75efbc6709d9b931643f06361e96ab45233e7bf977cd924012>]/Info 3 0 R/Root 1 0 R/Size 8>>
 %iText-pdfHTML-5.0.1-SNAPSHOT
 startxref
 1280

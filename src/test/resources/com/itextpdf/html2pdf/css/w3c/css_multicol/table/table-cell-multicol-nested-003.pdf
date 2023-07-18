@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20230713171105+03'00')/ModDate(D:20230713171105+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/assert(Test that a balanced multicol table cell inside another fragmentation context is sized and fragmented correctly, and that it gets stretched by the specified height, which is larger than the intrinsic size)>>
+<</CreationDate(D:20230718202821+03'00')/ModDate(D:20230718202821+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/assert(Test that a balanced multicol table cell inside another fragmentation context is sized and fragmented correctly, and that it gets stretched by the specified height, which is larger than the intrinsic size)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -34,7 +34,7 @@ xref
 0000000872 00000 n 
 0000000962 00000 n 
 trailer
-<</ID [<4ba23e41e96ae198d6b084ceee2731a9eefefbb89c2ebb5822bf3f7fbc83b4af214d359ec04c2e16e7b77d6e724d462113389531eef1fda586a2f4209f2232c2><4ba23e41e96ae198d6b084ceee2731a9eefefbb89c2ebb5822bf3f7fbc83b4af214d359ec04c2e16e7b77d6e724d462113389531eef1fda586a2f4209f2232c2>]/Info 3 0 R/Root 1 0 R/Size 8>>
+<</ID [<78fe724064cb538c85b2b3f0fa7860a21bade6fbe1476df97202056a6b2246b1a1c7f81577405f43b45b065e52bf9ed504dd31d2d568a5ea036089f156d5d5d8><78fe724064cb538c85b2b3f0fa7860a21bade6fbe1476df97202056a6b2246b1a1c7f81577405f43b45b065e52bf9ed504dd31d2d568a5ea036089f156d5d5d8>]/Info 3 0 R/Root 1 0 R/Size 8>>
 %iText-pdfHTML-5.0.1-SNAPSHOT
 startxref
 1102
