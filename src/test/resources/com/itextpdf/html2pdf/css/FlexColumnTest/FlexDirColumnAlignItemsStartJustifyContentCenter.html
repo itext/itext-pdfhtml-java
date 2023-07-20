@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #main {
+            width: 100px;
+            height: 400px;
+            background-color: white;
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+			justify-content: center;
+			align-items: start;
+        }
+
+        #main div {
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="main">
+    <div style="background-color:blue">1</div>
+    <div style="background-color:red">2</div>
+    <div style="background-color:green">3</div>
+</div>
+
+</body>
+</html>

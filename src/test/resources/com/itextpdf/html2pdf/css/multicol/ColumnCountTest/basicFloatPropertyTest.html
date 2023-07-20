@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .float-item-left {
+        float: left;
+        background-color: lightgray;
+        border: solid;
+      }
+
+      .float-item-right {
+        float: right;
+        background-color: lightgray;
+        border: solid;
+      }
+
+      .columnized-paragraph {
+        column-count: 2;
+      }
+      .columnized-content {
+        column-count: 3;
+      }
+    </style>
+    <title>Float Elements with Column Count</title>
+  </head>
+  <body>
+    <div class="columnized-content">
+      <h2>Basic column-count test with flex elements</h2>
+      <p>This is the first paragraph of the columnized content.</p>
+      <p>This is the second paragraph of the columnized content.</p>
+      <p class="float-item-right">Third P, float right</p>
+      <p>This is the fourth paragraph of the columnized content.</p>
+      <p>This is the fifth paragraph of the columnized content.</p>
+      <p>This is the sixth paragraph of the columnized content.</p>
+      <p>This is the seventh paragraph of the columnized content.</p>
+      <p>This is the eighth paragraph of the columnized content.</p>
+      <p class="float-item-left">Ninth P, float left</p>
+      <p>This is the tenth paragraph of the columnized content.</p>
+    </div>
+  </body>
+</html>

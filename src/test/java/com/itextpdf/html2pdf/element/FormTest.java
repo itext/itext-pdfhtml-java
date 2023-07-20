@@ -23,9 +23,11 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.forms.PdfAcroForm;
+import com.itextpdf.forms.fields.PdfFormCreator;
 import com.itextpdf.forms.logs.FormsLogMessageConstants;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
@@ -39,7 +41,6 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -179,17 +180,16 @@ public class FormTest extends ExtendedITextTest {
     public void radiobox2Test() throws IOException, InterruptedException {
         runTest("radiobox2");
     }
-
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = FormsLogMessageConstants.ACROFORM_NOT_SUPPORTED_FOR_SELECT, count = 2))
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.MULTIPLE_VALUES_ON_A_NON_MULTISELECT_FIELD)})
     public void selectTest01() throws IOException, InterruptedException {
-        runTest("select01", false);
+        runTest("select01", true);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = FormsLogMessageConstants.ACROFORM_NOT_SUPPORTED_FOR_SELECT, count = 3))
     public void selectTest02() throws IOException, InterruptedException {
-        runTest("select02", false);
+        runTest("select02", true);
     }
 
     @Test
@@ -251,7 +251,7 @@ public class FormTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(htmlPath), new File(outAcroPdfPath), new ConverterProperties().setCreateAcroForm(true));
         if (flattenPdfAcroFormFields) {
             PdfDocument document = new PdfDocument(new PdfReader(outAcroPdfPath), new PdfWriter(outAcroFlattenPdfPath));
-            PdfAcroForm acroForm = PdfAcroForm.getAcroForm(document, false);
+            PdfAcroForm acroForm = PdfFormCreator.getAcroForm(document, false);
             acroForm.flattenFields();
             document.close();
         }

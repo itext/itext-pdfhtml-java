@@ -101,6 +101,11 @@ public class ConverterProperties {
     private IMetaInfo metaInfo;
 
     /**
+     * enables continuous container for all elements.
+     */
+    private boolean continuousContainerEnabled;
+
+    /**
      * Instantiates a new {@link ConverterProperties} instance.
      */
     public ConverterProperties() {
@@ -125,6 +130,7 @@ public class ConverterProperties {
         this.metaInfo = other.metaInfo;
         this.limitOfLayouts = other.limitOfLayouts;
         this.immediateFlush = other.immediateFlush;
+        this.continuousContainerEnabled = other.continuousContainerEnabled;
     }
 
     /**
@@ -438,6 +444,26 @@ public class ConverterProperties {
      */
     public ConverterProperties setEventMetaInfo(IMetaInfo metaInfo) {
         this.metaInfo = metaInfo;
+        return this;
+    }
+
+    /**
+     * check if continuous container is enabled.
+     *
+     * @return true if enabled, false otherwise
+     */
+    public boolean isContinuousContainerEnabled() {
+        return continuousContainerEnabled;
+    }
+
+    /**
+     * Sets continuous container support.
+     *
+     * @param value true to set continuous container, false otherwise
+     * @return the {@link ConverterProperties} instance
+     */
+    public ConverterProperties setContinuousContainerEnabled(boolean value) {
+        continuousContainerEnabled = value;
         return this;
     }
 }

@@ -28,10 +28,8 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 54),
-        @LogMessage(messageTemplate = com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)
+        @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, count = 54)
 })
-// TODO DEVSIX-5086 support flex-wrap
 public class FlexDirectionDefaultTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+    <ignored>
+        <java>
+            <fileset reason="The Iterator pattern in Java is equivalent to IEnumerable in .NET, but we cannot map them on each other.">
+                <file path="com/itextpdf/html2pdf/css/resolve/CssContentElementNode.java"/>
+            </fileset>
+            <fileset reason="The ignore is added here because the work with absolute path and URI is not autoportable.">
+                <file path="com/itextpdf/html2pdf/resolver/resource/PathUtil.java"/>
+            </fileset>
+            <fileset reason="Added mto ignored because ExecutorService and usage of Futures are not autoportable">
+                <file path="com/itextpdf/html2pdf/HtmlConverterMultiThreadedTest.java"/>
+            </fileset>
+        </java>
+        <resource>
+            <file path="com/itextpdf/html2pdf/css/w3c/css21/text/text-transform-uppercase-002.pdf" />
+        </resource>
+    </ignored>
+</configuration>

@@ -23,9 +23,6 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
@@ -62,6 +59,136 @@ public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void item1BasisGtWidthGrow0Shrink01Test01() throws IOException, InterruptedException {
         convertToPdfAndCompare("item1BasisGtWidthGrow0Shrink01Test01", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void basis100Grow0Shrink0ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis100Grow0Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void basis100Grow1Shrink0ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis100Grow1Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void basis100Grow01Shrink0ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis100Grow01Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void basis200Grow0Shrink1ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis200Grow0Shrink1ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void basis100Grow0CustomShrinkContainerHeight50ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis100Grow0CustomShrinkContainerHeight50ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void basis200Grow0CustomShrinkColumnTest1() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis200Grow0CustomShrinkColumnTest1", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void basis200Grow0Shrink01ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis200Grow0Shrink01ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void basis200Height150Grow0Shrink1ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis200Height150Grow0Shrink1ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void basis100Height150Grow1Shrink0ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis100Height150Grow1Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void basis100Height50Grow1Shrink0ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis100Height50Grow1Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void basis100MaxHeight100Grow1Shrink0ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis100MaxHeight100Grow1Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void basis200MinHeight150Grow0Shrink1ColumnTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("basis200MinHeight150Grow0Shrink1ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void usualDirectionColumnWithDefiniteWidthTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("usualDirectionColumnWithDefiniteWidthTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void usualDirectionColumnWithDefiniteMaxWidthTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("usualDirectionColumnWithDefiniteMaxWidthTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void usualDirectionColumnWithDefiniteMinWidthTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("usualDirectionColumnWithDefiniteMinWidthTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void directionColumnWithoutBasisWithDefiniteHeightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithoutBasisWithDefiniteHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void directionColumnWithWrapElementsToGrowTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithWrapElementsToGrowTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void directionColumnWithWrapElementsNotToGrowTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithWrapElementsNotToGrowTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void directionColumnWithWrapElementsToShrinkTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithWrapElementsToShrinkTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void directionColumnWithWrapElementsNotToShrinkTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithWrapElementsNotToShrinkTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void directionColumnWithWrapDefiniteWidthAndHeightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithWrapDefiniteWidthAndHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void directionColumnWithWrapWithAlignItemsAndJustifyContentTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithWrapWithAlignItemsAndJustifyContentTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void directionColumnWithAlignItemsAndJustifyContentTest1() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithAlignItemsAndJustifyContentTest1", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void directionColumnWithAlignItemsAndJustifyContentTest2() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithAlignItemsAndJustifyContentTest2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void directionColumnWithAlignItemsAndJustifyContentTest3() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionColumnWithAlignItemsAndJustifyContentTest3", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void imgAsFlexItemTest01() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imgAsFlexItemTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
@@ -151,15 +278,12 @@ public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void ltWidthGrow0Shrink1Item2MBP30Test01() throws IOException, InterruptedException {
         convertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30Test01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
+    //TODO DEVSIX-5164 support align-content
     public void ltWidthGrow0Shrink1Item2MBP30JustifyContentCenterAlignItemsCenterTest01()
             throws IOException, InterruptedException {
         convertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30JustifyContentCenterAlignItemsCenterTest01", SOURCE_FOLDER,
@@ -167,8 +291,6 @@ public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexEndAlignItemsFlexEndTest01()
             throws IOException, InterruptedException {
         convertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexEndAlignItemsFlexEndTest01",
@@ -176,16 +298,13 @@ public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
+    //TODO DEVSIX-5164 support align-content
     public void ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexStartTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexStartTest", SOURCE_FOLDER,
                 DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void ltWidthGrow0Shrink1Item2MBP30AlignItemsStretchAndNormalTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30AlignItemsStretchAndNormal", SOURCE_FOLDER,
                 DESTINATION_FOLDER);
@@ -271,16 +390,12 @@ public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void differentBasisSumEqWidthGrow1Shrink1Item2Basis0Test01() throws IOException, InterruptedException {
         convertToPdfAndCompare("differentBasisSumEqWidthGrow1Shrink1Item2Basis0Test01", SOURCE_FOLDER,
                 DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void differentBasisSumEqWidthGrow1Shrink1Item2Basis0NoContentTest02()
             throws IOException, InterruptedException {
         convertToPdfAndCompare("differentBasisSumEqWidthGrow1Shrink1Item2Basis0NoContentTest02", SOURCE_FOLDER,
@@ -345,73 +460,53 @@ public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void basis250SumGtWidthGrow0Shrink1WrapTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("basis250SumGtWidthGrow0Shrink1WrapTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void differentBasisSumGtWidthGrow0Shrink1WrapTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("differentBasisSumGtWidthGrow0Shrink1WrapTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void differentBasisSumGtWidthGrow0Shrink05WrapTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("differentBasisSumGtWidthGrow0Shrink05WrapTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void differentBasisSumGtWidthGrow0Shrink01WrapTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("differentBasisSumGtWidthGrow0Shrink01WrapTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void differentBasisSumGtWidthGrow0Shrink5WrapTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("differentBasisSumGtWidthGrow0Shrink5WrapTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void differentBasisSumGtWidthGrow1Shrink1WrapTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("differentBasisSumGtWidthGrow1Shrink1WrapTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void differentBasisSumGtWidthGrow1Shrink1Item3Shrink50WrapTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("differentBasisSumGtWidthGrow1Shrink1Item3Shrink50WrapTest01", SOURCE_FOLDER,
                 DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void differentBasisSumGtWidthGrow1Shrink1Item3Shrink5WrapTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("differentBasisSumGtWidthGrow1Shrink1Item3Shrink5WrapTest01", SOURCE_FOLDER,
                 DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void differentBasisSumGtWidthGrow0Shrink0WrapTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("differentBasisSumGtWidthGrow0Shrink0WrapTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 Support flex-wrap property
     public void differentBasisSumGtWidthGrow1Shrink0WrapTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("differentBasisSumGtWidthGrow1Shrink0WrapTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

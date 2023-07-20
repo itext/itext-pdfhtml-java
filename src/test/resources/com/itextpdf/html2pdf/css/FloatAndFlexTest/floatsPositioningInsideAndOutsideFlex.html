@@ -3,27 +3,60 @@
 
 <head>
     <style>
-	@page {
-		size: 11.69in 8.27in;
-		margin: 10px;
-	}
+        @page {
+            margin: 10px;
+        }
 
-	.mainDiv .borDiv {
-		border: 1px solid black;
-	}
-	</style>
+        .mainDiv .borDiv {
+            border: 3px solid black;
+        }
+
+        .floatDiv {
+            border: 1px solid #2f4f79;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
 <div class="mainDiv">
-    <div class="borDiv" style="width:100%;height: 25px;float: left;text-align: center">Float left with width 100%</div>
-    <div class="borDiv" style="display: flex;">
-        <div style="width:9%;float:left;border-right: 1px solid black;"><span style="width:100px;height:80px;display:inline-block; background-color: red;">Inner float 1</span></div>
-        <div style="width:90%;float:left;">
+    <div>Floats positioning inside or outside flex formatting context:</div>
+    <br>
+    <div class="borDiv" style="width:100%; height: 25px; float: left; text-align: center">
+        Float left shouldn't intersect with flex container
+    </div>
+    <div style="display: flex; border: 5px solid #fffba7;">
+        <div style="width:20%; float:left; background-color: rgba(255,251,167,0.6); border: 1px solid #635347">
+            <span style="width:100px; height:80px; display:inline-block">Inner float 1</span>
+        </div>
+        <div style="width:20%; float:left; background-color: rgba(255,251,167,0.2); border: 1px solid #635347">
             Inner float 2
         </div>
     </div>
     <div class="borDiv">Plain text after flex container.</div>
+    <br>
+    <div style="display: flex; border: 5px solid #6ba3ff;">
+        <div class="floatDiv" style="float:left; background-color: rgba(108,161,255,0.75)">Float left 1</div>
+        <div class="floatDiv" style="float:right; background-color: rgba(107,163,255,0.60)">Float right 1</div>
+        <div class="floatDiv" style="float:left; background-color: rgba(107,163,255,0.45)">Float left 2</div>
+        <div class="floatDiv" style="float:right; background-color: rgba(107,163,255,0.30)">Float right 2</div>
+        <div class="floatDiv" style="float:left; background-color: rgba(107,163,255,0.15);">Float left 3</div>
+    </div>
+    <br>
+    <div class="floatDiv" style="float:left; background-color: rgba(108,161,255,0.75)">Float left 1</div>
+    <div class="floatDiv" style="float:right; background-color: rgba(107,163,255,0.60)">Float right 1</div>
+    <div style="display: flex; border: 5px solid #fffba7;">
+        Flex container added after floats 1
+    </div>
+    <div class="floatDiv" style="float:left; background-color: rgba(107,163,255,0.45)">Float left 2</div>
+    <div class="floatDiv" style="float:right; background-color: rgba(107,163,255,0.30)">Float right 2</div>
+    <div class="floatDiv" style="float:left; background-color: rgba(107,163,255,0.15);">Float left 3</div>
+    <div style="display: flex; border: 5px solid #fffba7;">
+        Flex container added after float 3
+    </div>
+</div>
 </body>
 
 </html>

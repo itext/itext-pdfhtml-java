@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @page {
+            margin: 10px;
+        }
+
+        .mainDiv .borDiv {
+            border: 3px solid black;
+        }
+    </style>
+</head>
+
+<body>
+<div class="mainDiv">
+    <div style="display: flex; border: 5px solid darkgreen">
+        <div style="border: 5px solid darkseagreen">
+            <div style="float: right; border: 5px solid darkgreen">
+                float: right
+            </div>
+            <div style="float: left; border: 5px solid darkgreen; clear: both">
+                float: left; clear: both
+            </div>
+            <div style="float: right; border: 5px solid darkgreen; clear: left">
+                float: right; clear: left
+            </div>
+            <div style="float: left; border: 5px solid darkgreen; clear: both">
+                float: left; clear: right
+            </div>
+            <div style="float: left; border: 5px solid darkgreen">
+                float: left
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

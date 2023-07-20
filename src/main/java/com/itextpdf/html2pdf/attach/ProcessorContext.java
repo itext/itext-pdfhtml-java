@@ -144,6 +144,11 @@ public class ProcessorContext {
     private final int limitOfLayouts;
 
     /**
+     * enables continuous container for all elements.
+     */
+    private boolean continuousContainerEnabled;
+
+    /**
      * Instantiates a new {@link ProcessorContext} instance.
      *
      * @param converterProperties a {@link ConverterProperties} instance
@@ -195,6 +200,7 @@ public class ProcessorContext {
         radioCheckResolver = new RadioCheckResolver();
         immediateFlush = converterProperties.isImmediateFlush();
         processingInlineSvg = false;
+        continuousContainerEnabled = converterProperties.isContinuousContainerEnabled();
     }
 
     /**
@@ -483,5 +489,15 @@ public class ProcessorContext {
      */
     public void endProcessingInlineSvg(){
         processingInlineSvg = false;
+    }
+
+
+    /**
+     * check if continuous container is enabled.
+     *
+     * @return true if enabled, false otherwise
+     */
+    public boolean isContinuousContainerEnabled() {
+        return continuousContainerEnabled;
     }
 }

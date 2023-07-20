@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      td {
+        border: 1px solid black;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h3>Table with Columnized Cell Header(th) which is colspanned to 2 cells</h3>
+    <table>
+      <tr>
+        <th colspan="2" style="column-count: 3;">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          cursus consequat arcu, nec facilisis tellus malesuada vitae. Sed
+          consectetur mauris nec eleifend mattis.
+        </th>
+        <th>Header 2</th>
+      </tr>
+      <tr>
+        <td>Cell 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          cursus consequat arcu, nec facilisis tellus malesuada vitae.</td>
+        <td>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          cursus consequat arcu, nec facilisis tellus malesuada vitae. Sed
+          consectetur mauris nec eleifend mattis.
+        </td>
+        <td style="column-count: 2;"> Cell 3 Vivamus
+          cursus consequat arcu, nec facilisis tellus malesuada vitae. Sed
+          consectetur mauris nec eleifend mattis.</td>
+      </tr>
+    </table>
+  </body>
+</html>

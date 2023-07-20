@@ -360,6 +360,11 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
                 } else if (tagWorker.getElementResult() != null) {
                     roots.add(tagWorker.getElementResult());
                 }
+
+                if (tagWorker.getElementResult() != null && context.isContinuousContainerEnabled()) {
+                    tagWorker.getElementResult().setProperty(Property.COLLAPSING_MARGINS, Boolean.FALSE);
+                    tagWorker.getElementResult().setProperty(Property.TREAT_AS_CONTINUOUS_CONTAINER, true);
+                }
             }
 
             element.setStyles(null);

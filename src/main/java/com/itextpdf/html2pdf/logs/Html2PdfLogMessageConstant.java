@@ -165,8 +165,12 @@ public final class Html2PdfLogMessageConstant {
     /** The Constant WORKER_UNABLE_TO_PROCESS_OTHER_WORKER. */
     public static final String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
 
-    /** The Constant ELEMENT_DOES_NOT_FIT_CURRENT_AREA. */
+    /**
+     * The Constant ELEMENT_DOES_NOT_FIT_CURRENT_AREA.
+     */
     public static final String ELEMENT_DOES_NOT_FIT_CURRENT_AREA = "Element does not fit current area";
+    public static final String OPTGROUP_NOT_SUPPORTED_IN_INTERACTIVE_SELECT = "Option groups are not supported in "
+            + "interactive mode";
 
     private Html2PdfLogMessageConstant() {
         //Private constructor will prevent the instantiation of this class directly

@@ -23,10 +23,14 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.kernel.exceptions.PdfException;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.exceptions.KernelExceptionMessageConstant;
+import com.itextpdf.kernel.exceptions.PdfException;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
+import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -34,8 +38,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.rules.ExpectedException;
-
-import java.io.IOException;
 import org.xml.sax.SAXException;
 
 @Category(IntegrationTest.class)
@@ -43,14 +45,13 @@ public class TaggedPdfFormTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/TaggedPdfFormTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/TaggedPdfFormTest/";
+    @Rule
+    public ExpectedException junitExpectedException = ExpectedException.none();
 
     @BeforeClass
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
-
-    @Rule
-    public ExpectedException junitExpectedException = ExpectedException.none();
 
     @Test
     public void simpleTextFieldTagged()
@@ -83,21 +84,22 @@ public class TaggedPdfFormTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1901")
     public void simpleSelectTagged()
             throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         convertToPdfAcroformFlattenAndCompare("simpleSelect", sourceFolder, destinationFolder, true);
     }
 
     @Test
-    @Ignore("DEVSIX-1901")
     public void listBoxSelectTagged()
             throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         convertToPdfAcroformFlattenAndCompare("listBoxSelect", sourceFolder, destinationFolder, true);
     }
 
     @Test
-    @Ignore("DEVSIX-1901")
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.OPTGROUP_NOT_SUPPORTED_IN_INTERACTIVE_SELECT,
+                    count = 2)
+    })
     public void listBoxOptGroupSelectTagged()
             throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         convertToPdfAcroformFlattenAndCompare("listBoxOptGroupSelect", sourceFolder,
@@ -105,7 +107,6 @@ public class TaggedPdfFormTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1901")
     public void simpleRadioFormTagged()
             throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         convertToPdfAcroformFlattenAndCompare("simpleRadioForm", sourceFolder, destinationFolder, true);
@@ -130,7 +131,8 @@ public class TaggedPdfFormTest extends ExtendedHtmlConversionITextTest {
     public void inputFormPrematureFlush()
             throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         junitExpectedException.expect(PdfException.class);
-        junitExpectedException.expectMessage(KernelExceptionMessageConstant.TAG_STRUCTURE_FLUSHING_FAILED_IT_MIGHT_BE_CORRUPTED);
+        junitExpectedException.expectMessage(
+                KernelExceptionMessageConstant.TAG_STRUCTURE_FLUSHING_FAILED_IT_MIGHT_BE_CORRUPTED);
 
         convertToPdfAcroformFlattenAndCompare("inputFormPrematureFlush",
                 sourceFolder, destinationFolder, true);

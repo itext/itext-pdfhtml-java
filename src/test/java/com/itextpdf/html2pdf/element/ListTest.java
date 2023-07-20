@@ -223,7 +223,6 @@ public class ListTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO: update after DEVSIX-6982 is fixed
     public void convertingListOver2PagesTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("listOver2Pages", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

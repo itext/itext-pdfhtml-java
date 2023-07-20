@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .item-inline-block {
+        display: inline-block;
+        background-color: lightgray;
+      }
+
+      .item-display-none {
+        display: none;
+        background-color: lightgray;
+      }
+
+      .item-grid {
+        display: grid;
+        background-color: lightgray;
+      }
+    </style>
+    <title>Columnized Elements</title>
+  </head>
+  <body>
+    <h2>Basic Display Property with nested columns test</h2>
+    <h3>column-width: 250px, for nested elements 100px, 80px</h3>
+    <div style="column-width: 250px">
+      <div class="item-inline-block">
+        <h2>Element 1</h2>
+        <p>Content for Element 1</p>
+      </div>
+      <div class="item-inline-block">
+        <h2>Element 2</h2>
+        <p>Content for Element 2</p>
+      </div>
+      <div class="item-display-none">
+        <h2>Element 3</h2>
+        <p>Content for Element 3</p>
+      </div>
+      <div class="item-inline-block">
+        <h2>Element 4</h2>
+        <p>Content for Element 4 column-width: 80px</p>
+        <p style="column-width: 80px">
+          Nullam ac ultricies quam, nec maximus sem. Proin eget est at metus
+          efficitur efficitur sed ut nunc. Aliquam tristique malesuada
+          fermentum. Nulla id volutpat ipsum. Nunc iaculis odio ac sapien
+          varius, at sollicitudin lectus porttitor. Etiam bibendum odio non mi
+          feugiat, a consequat ex consequat.
+        </p>
+      </div>
+      <div class="item-inline-block">
+        <h2>Element 5</h2>
+        <p>Content for Element 5</p>
+      </div>
+      <div class="item-inline-block">
+        <h2>Element 6</h2>
+        <p>Content for Element 6</p>
+      </div>
+      <div class="item-display-none">
+        <h2>Element 7</h2>
+        <p>Content for Element 7</p>
+      </div>
+      <div class="item-grid">
+        <h2>Element 8</h2>
+        <p>Content for Element 8</p>
+      </div>
+      <div class="item-grid">
+        <h2>Element 9</h2>
+        <p>Content for Element 9</p>
+        <p style="column-width: 100px">
+          This is a paragraph with column-width: 100px. It will be divided into
+          two columns within the container.
+        </p>
+        <p style="column-width: 100px">
+          This is another paragraph column-width: 100px. It will also be divided
+          into two columns within the container.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

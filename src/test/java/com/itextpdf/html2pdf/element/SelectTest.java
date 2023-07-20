@@ -22,9 +22,10 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.forms.logs.FormsLogMessageConstants;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
@@ -32,6 +33,7 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
 import java.io.File;
 import java.io.IOException;
 import org.junit.Assert;
@@ -110,7 +112,11 @@ public class SelectTest extends ExtendedITextTest {
         runTest("selectMultipleSizeTest01");
     }
 
+
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = FormsLogMessageConstants.DUPLICATE_EXPORT_VALUE, count = 2),
+    })
     public void selectPlaceholderTest01() throws IOException, InterruptedException {
         runTest("selectPlaceholderTest01");
     }

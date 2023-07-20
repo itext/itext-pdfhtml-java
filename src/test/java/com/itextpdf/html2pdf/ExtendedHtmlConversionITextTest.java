@@ -23,6 +23,7 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.forms.PdfAcroForm;
+import com.itextpdf.forms.fields.PdfFormCreator;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
@@ -149,7 +150,7 @@ public abstract class ExtendedHtmlConversionITextTest extends ExtendedITextTest 
 
         //flatted created tagged PDF with acroform
         PdfDocument document = new PdfDocument(new PdfReader(outPdfPathAcro), new PdfWriter(outPdfPathFlatted));
-        PdfAcroForm acroForm = PdfAcroForm.getAcroForm(document, false);
+        PdfAcroForm acroForm = PdfFormCreator.getAcroForm(document, false);
         acroForm.flattenFields();
         document.close();
 

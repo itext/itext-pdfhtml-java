@@ -1,8 +1,8 @@
 %PDF-1.7
 %‚„œ”
 5 0 obj
-<</Filter/FlateDecode/Length 116>>stream
-xúÃªÇ@F·~û‚/±YXWj£&ñ&Û√≈›¡Ç∑s⁄/'—I®ºz¯=§£p7¡Ò“R!j>—L}áÂ•Y—ÊiXÒÃ™,}cV∑ì7]ÑÓîàkT[Å]çˇ0TéÒ©ºçÁy3?u%/
+<</Filter/FlateDecode/Length 138>>stream
+xúÕ±¬ ‡˝äu°•ÿ’®â£	/@Ùß∂±≠@|{isÎwwëNé™´Ñl‡){T¬‡û¥sú||Œú—,/Nå>cûﬁ?xtâyBé_üXÏ›@Gwäd5ÍeÖ∆:®jaÒ©∫çÁy3]À÷ò∫ı◊¥J4(›≠óòBÅ!ª'Ä
 endstream
 endobj
 4 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20210329231125+03'00')/ModDate(D:20210329231125+03'00')/Producer(iTextÆ 7.1.15-SNAPSHOT ©2000-2021 iText Group NV \(AGPL-version\))/Title(css-flexbox: Tests that we use the aspect ratio to compute the main size)>>
+<</CreationDate(D:20230706093501+03'00')/ModDate(D:20230706093501+03'00')/Producer(iTextÆ pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(css-flexbox: Tests that we use the aspect ratio to compute the main size)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -29,16 +29,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000353 00000 n 
-0000000735 00000 n 
-0000000398 00000 n 
-0000000198 00000 n 
+0000000375 00000 n 
+0000000765 00000 n 
+0000000420 00000 n 
+0000000220 00000 n 
 0000000015 00000 n 
-0000000645 00000 n 
-0000000786 00000 n 
+0000000675 00000 n 
+0000000816 00000 n 
 trailer
-<</ID [<36f31100aa30d8bfb8ac373ddbed47c0><36f31100aa30d8bfb8ac373ddbed47c0>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.15-SNAPSHOT
+<</ID [<a39bee907bcc8ad0c4147987d5cd0fe2649d2ed1ac09080b9ac99fecb9da445b8791c6a72ac6013c0571cfe64c06b6b04f717d78798713e89bfbe9b7263e04b2><a39bee907bcc8ad0c4147987d5cd0fe2649d2ed1ac09080b9ac99fecb9da445b8791c6a72ac6013c0571cfe64c06b6b04f717d78798713e89bfbe9b7263e04b2>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-pdfHTML-5.0.1-SNAPSHOT
 startxref
-1653
+1683
 %%EOF

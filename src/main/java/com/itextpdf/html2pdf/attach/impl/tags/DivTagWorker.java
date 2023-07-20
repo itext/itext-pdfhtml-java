@@ -35,6 +35,7 @@ import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.MulticolContainer;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 import java.util.Map;
@@ -43,6 +44,11 @@ import java.util.Map;
  * TagWorker class for the {@code div} element.
  */
 public class DivTagWorker implements ITagWorker, IDisplayAware {
+
+    /**
+     * Column container element.
+     */
+    protected MulticolContainer multicolContainer;
 
     /** The div element. */
     private Div div;
@@ -62,6 +68,10 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
     public DivTagWorker(IElementNode element, ProcessorContext context) {
         div = new Div();
         Map<String, String> styles = element.getStyles();
+        if (styles != null && (styles.containsKey(CssConstants.COLUMN_COUNT) || styles.containsKey(CssConstants.COLUMN_WIDTH))) {
+            multicolContainer = new MulticolContainer();
+            multicolContainer.add(div);
+        }
         inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.get(CssConstants.WHITE_SPACE),
                 styles == null ? null : styles.get(CssConstants.TEXT_TRANSFORM));
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
@@ -132,7 +142,7 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public IPropertyContainer getElementResult() {
-        return div;
+        return multicolContainer == null ? div : multicolContainer;
     }
 
     /* (non-Javadoc)

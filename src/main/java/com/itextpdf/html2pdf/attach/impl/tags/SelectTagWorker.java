@@ -26,24 +26,35 @@ import com.itextpdf.forms.form.FormProperty;
 import com.itextpdf.forms.form.element.AbstractSelectField;
 import com.itextpdf.forms.form.element.ComboBoxField;
 import com.itextpdf.forms.form.element.ListBoxField;
+import com.itextpdf.forms.form.element.SelectFieldItem;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
-import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * TagWorker class for the {@code select} element.
  */
 public class SelectTagWorker implements ITagWorker, IDisplayAware {
 
-    /** The form element. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(SelectTagWorker.class);
+    /**
+     * The form element.
+     */
     private AbstractSelectField selectElement;
 
-    /** The display. */
+    /**
+     * The display.
+     */
     private String display;
 
     /**
@@ -61,6 +72,12 @@ public class SelectTagWorker implements ITagWorker, IDisplayAware {
 
         if (size > 1 || multipleAttr) {
             selectElement = new ListBoxField(name, size, multipleAttr);
+
+            // Remove some properties which are set in ListBoxField constructor
+            selectElement.deleteOwnProperty(Property.PADDING_LEFT);
+            selectElement.deleteOwnProperty(Property.PADDING_RIGHT);
+            selectElement.deleteOwnProperty(Property.PADDING_TOP);
+            selectElement.deleteOwnProperty(Property.PADDING_BOTTOM);
         } else {
             selectElement = new ComboBoxField(name);
         }
@@ -84,7 +101,16 @@ public class SelectTagWorker implements ITagWorker, IDisplayAware {
     public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
         if (childTagWorker instanceof OptionTagWorker || childTagWorker instanceof OptGroupTagWorker) {
             if (childTagWorker.getElementResult() instanceof IBlockElement) {
-                selectElement.addOption((IBlockElement) childTagWorker.getElementResult());
+                IBlockElement blockElement = (IBlockElement) childTagWorker.getElementResult();
+                String label = blockElement.<String>getProperty(FormProperty.FORM_FIELD_LABEL);
+                SelectFieldItem item = new SelectFieldItem(label, blockElement);
+                selectElement.addOption(item);
+
+                Boolean isFlattenFromProperty = selectElement.<Boolean>getProperty(FormProperty.FORM_FIELD_FLATTEN);
+                if (childTagWorker instanceof OptGroupTagWorker && !Boolean.TRUE.equals(isFlattenFromProperty)) {
+                    LOGGER.warn(Html2PdfLogMessageConstant.OPTGROUP_NOT_SUPPORTED_IN_INTERACTIVE_SELECT);
+                }
+
                 return true;
             }
         }

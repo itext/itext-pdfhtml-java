@@ -208,8 +208,6 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
-    //TODO DEVSIX-5086 change this test when working on the ticket
     public void flexWrapTest() throws IOException {
         String name = "flexWrap";
         String sourceHtml = SOURCE_FOLDER + name + ".html";
@@ -223,7 +221,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
 
         IElement flexContainer = elements.get(0);
         Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
-        Assert.assertFalse(flexContainer.hasProperty(Property.FLEX_WRAP));
+        Assert.assertTrue(flexContainer.hasProperty(Property.FLEX_WRAP));
     }
 
     @Test
@@ -511,6 +509,77 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void splitFlexContainersTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("flexSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void splitWrappedFlexContainersTest1() throws IOException, InterruptedException {
+        convertToPdfAndCompare("wrappedFlexStretchSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void splitWrappedFlexContainersTest2() throws IOException, InterruptedException {
+        convertToPdfAndCompare("wrappedFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void splitWrappedFlexContainersTest3() throws IOException, InterruptedException {
+        convertToPdfAndCompare("wrappedFlexEndSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void splitWrappedFlexContainersTest4() throws IOException, InterruptedException {
+        convertToPdfAndCompare("wrappedFlexCenterSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void splitWrappedFlexContainersTest5() throws IOException, InterruptedException {
+        convertToPdfAndCompare("wrappedReverseFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void splitWrappedFlexContainersTest6() throws IOException, InterruptedException {
+        convertToPdfAndCompare("wrappedReverseFlexEndSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void splitWrappedFlexContainersTest7() throws IOException, InterruptedException {
+        convertToPdfAndCompare("wrappedRowReverseFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void splitWrappedFlexContainersTest8() throws IOException, InterruptedException {
+        convertToPdfAndCompare("wrappedRowReverseFlexEndSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, ignore = true)
+    })
+    public void splitWrappedFlexContainersTest9() throws IOException, InterruptedException {
+        convertToPdfAndCompare("wrappedRowReverseRtlFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, ignore = true)
+    })
+    public void splitWrappedFlexContainersTest10() throws IOException, InterruptedException {
+        convertToPdfAndCompare("wrappedRowRtlFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void endlessColumnFlexContainerWithPercentFlexBasisTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("endlessColumnFlexContainerWithPercentFlexBasis", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void definiteMainSizeColumnFlexContainerWithPercentFlexBasisTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("definiteMainSizeColumnFlexContainerWithPercentFlexBasis", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void imageStretchColumnFlexContainerTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("imageStretchColumnFlexContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     private static List<IElement> convertToElements(String name) throws IOException {

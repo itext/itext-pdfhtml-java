@@ -33,6 +33,7 @@ import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.MulticolContainer;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
@@ -57,6 +58,11 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
     /** The container which handles the elements that are present in the &lt;p&gt; tag. */
     private Div elementsContainer;
 
+    /**
+     * Container for the result in case of multicol layouting
+     */
+    protected MulticolContainer multicolContainer;
+
     /** Helper class for waiting inline elements. */
     private WaitingInlineElementsHelper inlineHelper;
 
@@ -71,6 +77,11 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
      */
     public PTagWorker(IElementNode element, ProcessorContext context) {
         lastParagraph = new Paragraph();
+
+        if (element.getStyles().get(CssConstants.COLUMN_COUNT) != null || element.getStyles().get(CssConstants.COLUMN_WIDTH) != null) {
+            multicolContainer = new MulticolContainer();
+            multicolContainer.add(lastParagraph);
+        }
         inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE),
                 element.getStyles().get(CssConstants.TEXT_TRANSFORM));
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
@@ -151,7 +162,10 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
      */
     @Override
     public IPropertyContainer getElementResult() {
-        return null == elementsContainer ? (IPropertyContainer) lastParagraph : (IPropertyContainer) elementsContainer;
+        if (multicolContainer == null) {
+            return null == elementsContainer ? (IPropertyContainer) lastParagraph : (IPropertyContainer) elementsContainer;
+        }
+        return multicolContainer;
     }
 
     @Override
@@ -163,6 +177,10 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
         if (elementsContainer == null) {
             elementsContainer = new Div();
             elementsContainer.add(lastParagraph);
+            if (multicolContainer != null) {
+                multicolContainer.getChildren().clear();
+                multicolContainer.add(elementsContainer);
+            }
         }
         inlineHelper.flushHangingLeaves(lastParagraph);
 

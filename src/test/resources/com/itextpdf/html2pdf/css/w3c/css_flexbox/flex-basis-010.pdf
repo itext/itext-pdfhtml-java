@@ -1,10 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 142>>stream
-xœ]A
-Â0D÷ÿ³ÔM4‰MìVĞ½òS#¥š¤Şßˆ
-¥³šÇc2í.RÁEÒö¨…=ÀÚ8®3¾V®Hó#UxÄ40æ	5¿|ü°uw:;ºRşzÕÏ«ŒF.İÓ…ÃšÿÿP}·âÅ•Ø·”ásW÷Z(Øºµ0ÅF¼w±4o
+<</Filter/FlateDecode/Length 151>>stream
+xœA
+Â0D÷ÿ³ÔMlR“š­ {!ä§VJµI½¿)*”.DfvóxÌHGG»³„Tp‘jƒæP‹fhã8Oxøœ9£‹˜®œ]†GìúÚÄ< O_?lİN.4¾½êãUF	#—îáÄaÍ(«W¼X UIjç»ÆÖB¡ÑsSü(³Ğ•´æö«Bí
 endstream
 endobj
 4 0 obj
@@ -14,13 +13,13 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20210311205519+03'00')/ModDate(D:20210311205519+03'00')/Producer(iText® 7.1.15-SNAPSHOT ©2000-2021 iText Group NV \(AGPL-version\))/Title(CSS Flexbox Test: Indefinite % flex-basis should cause height to be ignored)>>
-endobj
-7 0 obj
-<</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+<</CreationDate(D:20230704141844+03'00')/ModDate(D:20230704141844+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Flexbox Test: Indefinite % flex-basis should cause height to be ignored)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
+endobj
+7 0 obj
+<</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
 endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
@@ -28,16 +27,16 @@ endobj
 xref
 0 8
 0000000000 65535 f 
-0000000366 00000 n 
-0000000840 00000 n 
-0000000411 00000 n 
-0000000224 00000 n 
+0000000375 00000 n 
+0000000857 00000 n 
+0000000420 00000 n 
+0000000233 00000 n 
 0000000015 00000 n 
-0000000750 00000 n 
-0000000661 00000 n 
+0000000678 00000 n 
+0000000768 00000 n 
 trailer
-<</ID [<e5d6cca5cee91d6a45d1067795e78e6e><e5d6cca5cee91d6a45d1067795e78e6e>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-7.1.15-SNAPSHOT
+<</ID [<56d2237af2eace5c8e669e1315b7a0f1e9fafa525a8d4548197be20c5b4ea96645645add169794a8dfb788f2321179ba3001e90550ce025c434ac6ace9ea0996><56d2237af2eace5c8e669e1315b7a0f1e9fafa525a8d4548197be20c5b4ea96645645add169794a8dfb788f2321179ba3001e90550ce025c434ac6ace9ea0996>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-pdfHTML-5.0.1-SNAPSHOT
 startxref
-891
+908
 %%EOF

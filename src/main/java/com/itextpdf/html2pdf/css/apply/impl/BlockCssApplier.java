@@ -80,6 +80,7 @@ public class BlockCssApplier implements ICssApplier {
             OutlineApplierUtil.applyOutlines(cssProps, context, container);
             OrphansWidowsApplierUtil.applyOrphansAndWidows(cssProps, container);
             VerticalAlignmentApplierUtil.applyVerticalAlignmentForBlocks(cssProps, container, isInlineItem(tagWorker));
+            MultiColumnCssApplierUtil.applyMultiCol(cssProps, context, container);
             if (isFlexItem(stylesContainer)) {
                 FlexApplierUtil.applyFlexItemProperties(cssProps, context, container);
             } else {

@@ -160,6 +160,11 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void flexWithButtonsTest() throws IOException, InterruptedException {
+        runTest("flexWithButtons");
+    }
+
+    @Test
     public void buttonWithDisplayBlockTest() throws IOException, InterruptedException {
         runTest("buttonWithDisplayBlock");
     }

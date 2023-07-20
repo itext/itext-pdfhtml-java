@@ -22,14 +22,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
-//TODO DEVSIX-5096 support flex-direction: column
-//TODO DEVSIX-5135 Flex item with nested floating element processed incorrectly
-@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 9))
+// TODO DEVSIX-7603 Flex container float property is ignored
 public class SizingVert001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

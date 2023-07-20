@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.forms.logs.FormsLogMessageConstants;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
@@ -30,13 +31,12 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
+import java.io.File;
+import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.io.File;
-import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class ParagraphTest extends ExtendedHtmlConversionITextTest {
@@ -126,6 +126,9 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = FormsLogMessageConstants.DUPLICATE_EXPORT_VALUE, count = 2),
+    })
     public void paragraphWithButtonInputLabelSelectTextareaTest() throws IOException, InterruptedException {
         //TODO: update after DEVSIX-2445 fix
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithButtonInputLabelSelectTextareaTest.html"),
