@@ -24,6 +24,9 @@ package com.itextpdf.html2pdf.css.multicol;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
@@ -68,6 +71,19 @@ public class BreakTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void convertPageBreakBeforeAlwaysTest() throws IOException, InterruptedException {
         runTest("pageBreakBeforeAlwaysTest");
+    }
+
+    //TODO: DEVSIX-7740 Support page-break inside multicol container
+    @Test
+    public void convertPageBreakBeforeInnerElementAlwaysTest() throws IOException, InterruptedException {
+        runTest("pageBreakBeforeInnerElementAlwaysTest");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)})
+    public void convertPageBreakBeforeInnerElementDivAlwaysTest() throws IOException, InterruptedException {
+        runTest("pageBreakBeforeInnerElementDivAlwaysTest");
     }
 
     @Test
@@ -127,9 +143,15 @@ public class BreakTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("TODO DEVSIX-7552 Column-count: support break-inside, break-after and break-before properties")
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)})
     public void convertPageBreakBeforePageInsideColumnTest() throws IOException, InterruptedException {
         runTest("pageBreakBeforePageInsideColumnTest");
+    }
+
+    @Test
+    public void convertPageBreakBeforePageColumnTest() throws IOException, InterruptedException {
+        runTest("pageBreakBeforePageColumnTest");
     }
 
     @Test
@@ -194,6 +216,19 @@ public class BreakTest extends ExtendedHtmlConversionITextTest {
         runTest("pageBreakAfterAlwaysTest");
     }
 
+    //TODO: DEVSIX-7740 Support page-break inside multicol container
+    @Test
+    public void convertPageBreakAfterInnerElementAlwaysTest() throws IOException, InterruptedException {
+        runTest("pageBreakAfterInnerElementAlwaysTest");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)})
+    public void convertPageBreakAfterInnerElementDivAlwaysTest() throws IOException, InterruptedException {
+        runTest("pageBreakAfterInnerElementDivAlwaysTest");
+    }
+
     @Test
     // TODO DEVSIX-3819 support break-after, break-before, break-inside CSS properties
     public void convertBreakAfterAvoidTest() throws IOException, InterruptedException {
@@ -201,7 +236,6 @@ public class BreakTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-7552 Column-count: support break-inside, break-after and break-before properties
     public void convertPageBreakAfterAvoidTest() throws IOException, InterruptedException {
         runTest("pageBreakAfterAvoidTest");
     }
@@ -253,9 +287,15 @@ public class BreakTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("TODO DEVSIX-7552 Column-count: support break-inside, break-after and break-before properties")
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)})
     public void convertPageBreakAfterPageInsideColumnTest() throws IOException, InterruptedException {
         runTest("pageBreakAfterPageInsideColumnTest");
+    }
+
+    @Test
+    public void convertPageBreakAfterPageColumnTest() throws IOException, InterruptedException {
+        runTest("pageBreakAfterPageColumnTest");
     }
     
     @Test
@@ -310,8 +350,8 @@ public class BreakTest extends ExtendedHtmlConversionITextTest {
         runTest("breakInsideAvoidTest");
     }
 
+    //TODO: DEVSIX-7740 Support page-break inside multicol container
     @Test
-    // TODO DEVSIX-7552 Column-count: support break-inside, break-after and break-before properties
     public void convertPageBreakInsideAvoidTest() throws IOException, InterruptedException {
         runTest("pageBreakInsideAvoidTest");
     }
