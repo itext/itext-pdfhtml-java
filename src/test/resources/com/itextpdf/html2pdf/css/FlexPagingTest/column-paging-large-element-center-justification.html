@@ -5,16 +5,15 @@
 .flex-container {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
   background-color: DodgerBlue;
   margin: 10px;
-  min-height: 500px;
+  justify-content: center;
 }
 
 .flex-container > div {
   background-color: #f1f1f1;
   width: 100px;
-  height: 60px;
   margin: 10px;
 
   text-align: center;
@@ -27,22 +26,18 @@
 </style>
 </head>
 <body>
-<h1>Flexible Boxes Single page muliple column layout</h1>
+<h1>Flexible Boxes Multiple pages single column layout</h1>
 
 <div class="flex-container">
   <div>1</div>
   <div>2</div>
   <div>3</div>  
   <div>4</div>
-  <div style="width:250px">5</div>
+  <div>5</div>
   <div>6</div>  
   <div>7</div>
   <div>8</div>
-  <div>9</div>
-  <div>10</div>
-  <div>11</div>
-  <div>12</div>
-
+  <div style="width:250px; height: 1200px;">9</div>
 </div>
 </body>
 </html>

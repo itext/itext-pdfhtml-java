@@ -1,8 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 132>>stream
-xœÌ1‚@Ð~OñK(@Ö&Ú›lI3êlÀ,Ì:³½½¾¼·;{·»6hðÁµúS[÷Gø§+<[F"36L_YaÌ²*º}úT™bDœf†ÊfŠmÊ#R¤DçŠRRI:QfØC%Æ;©Aä‘é¿ËÂCY—þå.ÞÝÜQ+.+
+<</Filter/FlateDecode/Length 172>>stream
+xœ…Ï»Â0DÑ~¿bÊP$$qÔHÐ#¹Lc`A›µð÷<J ?ºš9Ó\ÓtY¡ª¡-©ýL}½¥LsL&FŽ-îþ‚Èë/‚®·<çàÆ#Cü5bÈ®cÚ#8“¬—cnBd4‰7â[‰ð'¤=Ã™gÝŸx˜} …¦©D…²{O©UQ£­šÂd¿D×wEÿ[¨òO£}þ<YIÉ
 endstream
 endobj
 4 0 obj
@@ -12,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20210303014134+03'00')/ModDate(D:20210303014134+03'00')/Producer(iText® 7.1.15-SNAPSHOT ©2000-2021 iText Group NV \(AGPL-version\))/Title(CSS Test: nested flex containers with definite max-height)>>
+<</CreationDate(D:20230728034424+03'00')/ModDate(D:20230728034424+03'00')/Producer(iText® pdfHTML 5.0.2-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Test: nested flex containers with definite max-height)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -23,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000347 00000 n 
-0000000714 00000 n 
-0000000392 00000 n 
-0000000214 00000 n 
+0000000387 00000 n 
+0000000762 00000 n 
+0000000432 00000 n 
+0000000254 00000 n 
 0000000015 00000 n 
-0000000624 00000 n 
+0000000672 00000 n 
 trailer
-<</ID [<086ad51cc5fccfbe6e3ca3dbb02f9b8d><086ad51cc5fccfbe6e3ca3dbb02f9b8d>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.15-SNAPSHOT
+<</ID [<fb6ce8d3ebd1f25f50bd5e6cd960898e07b267750d7481e38bcbd9313c216635a37eddcdc2c0e993ba81d8715f9aa248b580582b29dc2564940ee941d0104787><fb6ce8d3ebd1f25f50bd5e6cd960898e07b267750d7481e38bcbd9313c216635a37eddcdc2c0e993ba81d8715f9aa248b580582b29dc2564940ee941d0104787>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-pdfHTML-5.0.2-SNAPSHOT
 startxref
-765
+813
 %%EOF
