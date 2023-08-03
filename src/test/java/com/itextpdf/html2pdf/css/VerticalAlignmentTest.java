@@ -105,19 +105,16 @@ public class VerticalAlignmentTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1750")
     public void verticalAlignmentTest13() throws IOException, InterruptedException {
         convertToPdfAndCompare("verticalAlignmentTest13", sourceFolder, destinationFolder);
     }
 
     @Test
-    @Ignore("DEVSIX-1750")
     public void verticalAlignmentTest14() throws IOException, InterruptedException {
         convertToPdfAndCompare("verticalAlignmentTest14", sourceFolder, destinationFolder);
     }
 
     @Test
-    @Ignore("DEVSIX-1750")
     public void verticalAlignmentTest15() throws IOException, InterruptedException {
         convertToPdfAndCompare("verticalAlignmentTest15", sourceFolder, destinationFolder);
     }
