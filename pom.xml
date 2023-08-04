@@ -17,8 +17,8 @@
     them to PDF.</description>
 
   <scm>
-    <connection>scm:git:ssh://git@git.itextsupport.com:7999/i7j/html2pdf.git</connection>
-    <url>https://git.itextsupport.com/projects/I7J/repos/html2pdf</url>
+    <connection>git@github.com:itext/i7j-pdfhtml.git</connection>
+    <url>https://github.com/itext/i7j-pdfhtml</url>
   </scm>
 
   <properties>

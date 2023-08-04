@@ -38,7 +38,7 @@ public class ExternalResourcesTest extends ExtendedITextTest {
         ResourceResolver resourceResolver = new ResourceResolver("");
 
         byte[] exByteArray = resourceResolver.retrieveBytesFromResource(
-                "https://git.itextsupport.com/projects/I7J/repos/html2pdf/browse/src/test/resources/com/itextpdf/html2pdf/styles.css");
+                "https://raw.githubusercontent.com/itext/i7j-pdfhtml/develop/src/test/resources/com/itextpdf/html2pdf/styles.css");
 
         Assert.assertNotNull(exByteArray);
     }
