@@ -23,17 +23,16 @@
 package com.itextpdf.html2pdf.element;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.kernel.exceptions.PdfException;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.IOException;
+import javax.xml.parsers.ParserConfigurationException;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.rules.ExpectedException;
 import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class TagsInsideButtonTest extends ExtendedHtmlConversionITextTest {
@@ -87,7 +86,6 @@ public class TagsInsideButtonTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void buttonInsideMoreThanTwoAreas()
             throws IOException, InterruptedException, ParserConfigurationException, SAXException {
-        junitExpectedException.expect(PdfException.class);
         convertToPdfAcroformFlattenAndCompare("buttonInsideMoreThanTwoAreas", sourceFolder,
                 destinationFolder, true);
     }

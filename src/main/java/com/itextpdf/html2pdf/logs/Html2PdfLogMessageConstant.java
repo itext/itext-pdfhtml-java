@@ -172,6 +172,7 @@ public final class Html2PdfLogMessageConstant {
     public static final String ELEMENT_DOES_NOT_FIT_CURRENT_AREA = "Element does not fit current area";
     public static final String OPTGROUP_NOT_SUPPORTED_IN_INTERACTIVE_SELECT = "Option groups are not supported in "
             + "interactive mode";
+    public static final String IMMEDIATE_FLUSH_DISABLED = "Setting createAcroForm disables immediateFlush property";
 
     private Html2PdfLogMessageConstant() {
         //Private constructor will prevent the instantiation of this class directly

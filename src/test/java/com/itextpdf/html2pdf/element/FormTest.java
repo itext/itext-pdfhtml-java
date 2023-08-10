@@ -27,7 +27,9 @@ import com.itextpdf.forms.fields.PdfFormCreator;
 import com.itextpdf.forms.logs.FormsLogMessageConstants;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.logs.IoLogMessageConstant;
+import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
@@ -35,11 +37,13 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -66,6 +70,41 @@ public class FormTest extends ExtendedITextTest {
     public void textFieldWithPlaceholderTest() throws IOException, InterruptedException {
         runTest("textFieldWithPlaceholder");
     }
+
+    @Test
+    public void textFieldHeadersFootersTest() throws IOException, InterruptedException {
+        runTest("textFieldHeadersFooters");
+    }
+
+    @Test
+    public void textFieldHeadersFootersWithValueTest() throws IOException, InterruptedException {
+        runTest("textFieldHeadersFootersWithValue");
+    }
+
+    @Test
+    public void textAreaHeadersFootersWithValueTest() throws IOException, InterruptedException {
+        runTest("textAreaHeadersFooters");
+    }
+
+
+    @Test
+    public void checkBoxHeadersFootersWithValueTest() throws IOException, InterruptedException {
+        //TODO DEVSIX-7760 Adding formfield elements to header generates strange results
+        runTest("checkBoxHeadersFooters");
+    }
+
+    @Test
+    public void radioHeadersFootersWithValueTest() throws IOException, InterruptedException {
+        //TODO DEVSIX-7760 Adding formfield elements to header generates strange results
+        runTest("radioHeadersFooters");
+    }
+
+
+    @Test
+    public void dropDownHeadersFootersWithValueTest() throws IOException, InterruptedException {
+        runTest("dropDownHeadersFooters");
+    }
+
 
     @Test
     public void splitTextFieldTest() throws IOException, InterruptedException {
@@ -185,6 +224,7 @@ public class FormTest extends ExtendedITextTest {
     public void radiobox2Test() throws IOException, InterruptedException {
         runTest("radiobox2");
     }
+
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = IoLogMessageConstant.MULTIPLE_VALUES_ON_A_NON_MULTISELECT_FIELD)})
@@ -238,6 +278,57 @@ public class FormTest extends ExtendedITextTest {
                 pdf, sourceFolder + "cmp_radioButtonNoPageCounter.pdf", destinationFolder));
     }
 
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.IMMEDIATE_FLUSH_DISABLED, logLevel =
+                    LogLevelConstants.INFO)})
+    public void checkLogInfo() throws IOException {
+        String html = sourceFolder + "radiobox1.html";
+        try (FileInputStream fileInputStream = new FileInputStream(html);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            HtmlConverter.convertToPdf(fileInputStream, baos,
+                    new ConverterProperties().setCreateAcroForm(true));
+        }
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.IMMEDIATE_FLUSH_DISABLED, logLevel =
+                    LogLevelConstants.INFO, count = 0)})
+    public void checkLogInfoNoAcroForm() throws IOException {
+        String html = sourceFolder + "radiobox1.html";
+        try (FileInputStream fileInputStream = new FileInputStream(html);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            HtmlConverter.convertToPdf(fileInputStream, baos,
+                    new ConverterProperties().setCreateAcroForm(false));
+        }
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.IMMEDIATE_FLUSH_DISABLED, logLevel =
+                    LogLevelConstants.INFO, count = 0)})
+    public void checkLogInfoAcroFormFlushDisabled() throws IOException {
+        String html = sourceFolder + "radiobox1.html";
+        try (FileInputStream fileInputStream = new FileInputStream(html);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            HtmlConverter.convertToPdf(fileInputStream, baos,
+                    new ConverterProperties().setCreateAcroForm(true).setImmediateFlush(false));
+        }
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.IMMEDIATE_FLUSH_DISABLED, logLevel =
+                    LogLevelConstants.INFO, count = 0)})
+    public void checkLogInfoDefault() throws IOException {
+        String html = sourceFolder + "radiobox1.html";
+        try (FileInputStream fileInputStream = new FileInputStream(html);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            HtmlConverter.convertToPdf(fileInputStream, baos);
+        }
+    }
+
     private void runTest(String name) throws IOException, InterruptedException {
         runTest(name, true);
     }
@@ -253,7 +344,8 @@ public class FormTest extends ExtendedITextTest {
         String diff = "diff_" + name + "_";
 
         HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath));
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(outAcroPdfPath), new ConverterProperties().setCreateAcroForm(true));
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(outAcroPdfPath),
+                new ConverterProperties().setCreateAcroForm(true));
         if (flattenPdfAcroFormFields) {
             PdfDocument document = new PdfDocument(new PdfReader(outAcroPdfPath), new PdfWriter(outAcroFlattenPdfPath));
             PdfAcroForm acroForm = PdfFormCreator.getAcroForm(document, false);
@@ -264,7 +356,9 @@ public class FormTest extends ExtendedITextTest {
         Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));
         Assert.assertNull(new CompareTool().compareByContent(outAcroPdfPath, cmpAcroPdfPath, destinationFolder, diff));
         if (flattenPdfAcroFormFields) {
-            Assert.assertNull(new CompareTool().compareByContent(outAcroFlattenPdfPath, cmpAcroFlattenPdfPath, destinationFolder, diff));
+            Assert.assertNull(
+                    new CompareTool().compareByContent(outAcroFlattenPdfPath, cmpAcroFlattenPdfPath, destinationFolder,
+                            diff));
         }
     }
 }
