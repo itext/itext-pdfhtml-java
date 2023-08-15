@@ -36,6 +36,8 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.properties.ObjectFit;
 import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.svg.element.SvgImage;
+import com.itextpdf.svg.xobject.SvgImageXObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,6 +73,8 @@ public class ImgTagWorker implements ITagWorker {
         if (imageXObject != null) {
             if (imageXObject instanceof PdfImageXObject) {
                 image = new HtmlImage((PdfImageXObject) imageXObject);
+            } else if (imageXObject instanceof SvgImageXObject) {
+                image = new SvgImage((SvgImageXObject) imageXObject);
             } else if (imageXObject instanceof PdfFormXObject) {
                 image = new HtmlImage((PdfFormXObject) imageXObject);
             } else {

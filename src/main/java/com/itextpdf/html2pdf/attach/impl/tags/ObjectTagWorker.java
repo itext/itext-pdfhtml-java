@@ -31,7 +31,6 @@ import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
 import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.node.IElementNode;
@@ -117,17 +116,10 @@ public class ObjectTagWorker implements ITagWorker {
 
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        if (context.getPdfDocument() != null) {
-            PdfDocument document = context.getPdfDocument();
-            //Create Image object
-
-            if (res != null) {
-                image = processUtil.createImageFromProcessingResult(res, document);
-                AccessiblePropHelper.trySetLangAttribute(image, element);
-            }
-
-        } else {
-            LOGGER.error(Html2PdfLogMessageConstant.PDF_DOCUMENT_NOT_PRESENT);
+        // Create Image object
+        if (res != null) {
+            image = processUtil.createSvgImageFromProcessingResult(res);
+            AccessiblePropHelper.trySetLangAttribute(image, element);
         }
     }
 

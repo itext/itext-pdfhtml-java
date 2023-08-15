@@ -36,9 +36,11 @@ import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.Document;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.svg.SvgConstants;
 import com.itextpdf.svg.converter.SvgConverter;
+import com.itextpdf.svg.element.SvgImage;
 import com.itextpdf.svg.exceptions.SvgExceptionMessageConstant;
 import com.itextpdf.svg.processors.ISvgConverterProperties;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
@@ -226,9 +228,6 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)
-    })
     public void attemptToProcessBySvgProcessingUtilSvgWithImageTest() {
         // TODO review this test in the scope of DEVSIX-4107
         String fileName = "svgWithImage.svg";
@@ -238,22 +237,19 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
         ISvgConverterProperties svgConverterProperties = ContextMappingHelper.mapToSvgConverterProperties(context);
         ISvgProcessorResult res = SvgConverter.parseAndProcess(resourceResolver.retrieveResourceAsInputStream(fileName), svgConverterProperties);
         ISvgNodeRenderer imageRenderer = ((SvgTagSvgNodeRenderer) res.getRootRenderer()).getChildren().get(0);
-        // Remove the previous result of the resource resolving in order to demonstrate that the resource will not be
-        // resolved due to not setting of baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method.
-        imageRenderer.setAttribute(SvgConstants.Attributes.XLINK_HREF, "doggo.jpg");
+        // Remove the previous result of the resource resolving in order to demonstrate that the resource will be
+        // resolved due to setting of baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method.
+        imageRenderer.setAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/doggo.jpg");
 
         SvgProcessingUtil processingUtil = new SvgProcessingUtil(resourceResolver);
-        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
-        PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, pdfDocument);
+        PdfDocument document = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
+        PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, document);
         PdfDictionary resources = (PdfDictionary) pdfFormXObject.getResources().getPdfObject().get(PdfName.XObject);
         PdfDictionary fm1Dict = (PdfDictionary) resources.get(new PdfName("Fm1"));
-        Assert.assertFalse(((PdfDictionary) fm1Dict.get(PdfName.Resources)).containsKey(PdfName.XObject));
+        Assert.assertTrue(((PdfDictionary) fm1Dict.get(PdfName.Resources)).containsKey(PdfName.XObject));
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)
-    })
     public void attemptToProcessBySvgProcessingUtilSvgWithSvgTest() {
         // TODO review this test in the scope of DEVSIX-4107
         String fileName = "svgWithSvg.svg";
@@ -264,24 +260,47 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
         ISvgProcessorResult res = SvgConverter
                 .parseAndProcess(resourceResolver.retrieveResourceAsInputStream(fileName), svgConverterProperties);
         ISvgNodeRenderer imageRenderer = ((SvgTagSvgNodeRenderer) res.getRootRenderer()).getChildren().get(1);
-        // Remove the previous result of the resource resolving in order to demonstrate that the resource will not be
-        // resolved due to not setting of baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method.
-        // But even if set baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method, the SVG will not
-        // be processed, because in the createXObjectFromProcessingResult method we create ResourceResolver, not HtmlResourceResolver.
-        imageRenderer.setAttribute(SvgConstants.Attributes.XLINK_HREF, "res\\itextpdf.com\\lines.svg");
+        // Remove the previous result of the resource resolving in order to demonstrate that the resource will be
+        // resolved due to setting of baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method.
+        imageRenderer.setAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/lines.svg");
 
         SvgProcessingUtil processingUtil = new SvgProcessingUtil(resourceResolver);
-        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
-        PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, pdfDocument);
+        PdfDocument document = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
+        PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, document);
         PdfDictionary resources = (PdfDictionary) pdfFormXObject.getResources().getPdfObject().get(PdfName.XObject);
         PdfDictionary fm1Dict = (PdfDictionary) resources.get(new PdfName("Fm1"));
-        Assert.assertFalse(((PdfDictionary) fm1Dict.get(PdfName.Resources)).containsKey(PdfName.XObject));
+        Assert.assertTrue(((PdfDictionary) fm1Dict.get(PdfName.Resources)).containsKey(PdfName.XObject));
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)
-    })
+    public void svgInsideSvgTest() throws IOException, InterruptedException {
+        String svgFileName = "svgInsideSvg.svg";
+        String cmpFileName = SOURCE_FOLDER + "cmp_svgInsideSvg.pdf";
+        String outFileName = DESTINATION_FOLDER + "svgInsideSvg.pdf";
+
+        try (Document document = new Document(new PdfDocument(new PdfWriter(outFileName)))) {
+            ProcessorContext context = new ProcessorContext(new ConverterProperties());
+            HtmlResourceResolver resourceResolver = new HtmlResourceResolver(SOURCE_FOLDER, context);
+            ISvgConverterProperties svgConverterProperties = ContextMappingHelper.mapToSvgConverterProperties(context);
+            ISvgProcessorResult result = SvgConverter.parseAndProcess(
+                    resourceResolver.retrieveResourceAsInputStream(svgFileName), svgConverterProperties);
+
+            ISvgNodeRenderer imageRenderer = ((SvgTagSvgNodeRenderer) result.getRootRenderer()).getChildren().get(0);
+            ISvgNodeRenderer svgRenderer = ((SvgTagSvgNodeRenderer) result.getRootRenderer()).getChildren().get(2);
+            // Remove the previous result of the resource resolving in order to demonstrate that the resource will be
+            // resolved due to setting of baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method.
+            // TODO DEVSIX-4107 However the SVG will not be displayed since it is expected to be drawn during
+            //  HtmlResourceResolver#processAsSvg call, but document is null, so SvgProcessingUtil#
+            //  createSvgImageFromProcessingResult method is called instead of createXObjectFromProcessingResult.
+            imageRenderer.setAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/doggo.jpg");
+            svgRenderer.setAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/lines.svg");
+
+            document.add(new SvgProcessingUtil(resourceResolver).createSvgImageFromProcessingResult(result));
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER, "diff"));
+    }
+
+    @Test
     public void resourceResolverSvgEmbeddedSvg() throws IOException, InterruptedException {
         // TODO review this test in the scope of DEVSIX-4107
         String outPdf = DESTINATION_FOLDER + "resourceResolverSvgEmbeddedSvg.pdf";
@@ -291,9 +310,6 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)
-    })
     public void resourceResolverObjectWithSvgEmbeddedSvg() throws IOException, InterruptedException {
         // TODO review this test in the scope of DEVSIX-4107
         String outPdf = DESTINATION_FOLDER + "resourceResolverObjectWithSvgEmbeddedSvg.pdf";

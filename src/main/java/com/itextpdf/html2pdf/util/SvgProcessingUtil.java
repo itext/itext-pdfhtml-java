@@ -24,17 +24,14 @@ package com.itextpdf.html2pdf.util;
 
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.svg.converter.SvgConverter;
+import com.itextpdf.svg.element.SvgImage;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
-import com.itextpdf.svg.processors.impl.SvgProcessorResult;
 import com.itextpdf.svg.renderers.ISvgNodeRenderer;
-import com.itextpdf.svg.renderers.SvgDrawContext;
-import com.itextpdf.svg.renderers.impl.PdfRootSvgNodeRenderer;
-import com.itextpdf.svg.utils.SvgCssUtils;
+import com.itextpdf.svg.xobject.SvgImageXObject;
 
 /**
  * Utility class for handling operations related to SVG
@@ -53,45 +50,48 @@ public class SvgProcessingUtil {
     }
 
     /**
-     * Create an {@code Image} layout object tied to the passed {@code PdfDocument} using the SVG processing result.
-     * @param result Processing result containing the SVG information
+     * Create {@code SvgImage} layout object tied to the passed {@code PdfDocument} using the SVG processing result.
+     *
+     * @param result      processing result containing the SVG information
      * @param pdfDocument pdf that shall contain the image
-     * @return image layout object
+     *
+     * @return SVG image layout object
      */
     public Image createImageFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument) {
-        PdfFormXObject xObject = createXObjectFromProcessingResult(result, pdfDocument);
-        return new Image(xObject);
+        SvgImageXObject xObject = (SvgImageXObject) createXObjectFromProcessingResult(result, pdfDocument);
+        return new SvgImage(xObject);
+    }
+
+    /**
+     * Create {@code SvgImage} layout object using the SVG processing result.
+     *
+     * @param result processing result containing the SVG information
+     *
+     * @return SVG image layout object
+     */
+    public Image createSvgImageFromProcessingResult(ISvgProcessorResult result) {
+        return createImageFromProcessingResult(result, null);
     }
 
     /**
      * Create an {@link PdfFormXObject} tied to the passed {@code PdfDocument} using the SVG processing result.
-     * @param result Processing result containing the SVG information
-     * @param pdfDocument pdf that shall contain the image
-     * @return PdfFormXObject instance
+     *
+     * @param result      processing result containing the SVG information
+     * @param pdfDocument pdf that shall contain the SVG image
+     *
+     * @return {@link SvgImageXObject} instance
      */
-    public PdfFormXObject createXObjectFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument){
+    public PdfFormXObject createXObjectFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument) {
         ISvgNodeRenderer topSvgRenderer = result.getRootRenderer();
         float width, height;
         float[] wh = SvgConverter.extractWidthAndHeight(topSvgRenderer);
         width = wh[0];
         height = wh[1];
-        PdfFormXObject pdfForm = new PdfFormXObject(new Rectangle(0, 0, width, height));
-        PdfCanvas canvas = new PdfCanvas(pdfForm, pdfDocument);
-
-        ResourceResolver tempResolver = new ResourceResolver(null, resourceResolver.getRetriever());
-        // TODO DEVSIX-4107 pass the resourceResolver variable (not tempResolver variable) to the
-        //  SvgDrawContext constructor so that the SVG inside the SVG is processed.
-        SvgDrawContext context = new SvgDrawContext(tempResolver, result.getFontProvider());
-        if (result instanceof SvgProcessorResult) {
-            context.setCssContext(((SvgProcessorResult) result).getContext().getCssContext());
+        SvgImageXObject svgImageXObject =
+                new SvgImageXObject(new Rectangle(0, 0, width, height), result, resourceResolver);
+        if (pdfDocument != null) {
+            svgImageXObject.generate(pdfDocument);
         }
-        context.addNamedObjects(result.getNamedObjects());
-        context.pushCanvas(canvas);
-
-        ISvgNodeRenderer root = new PdfRootSvgNodeRenderer(topSvgRenderer);
-
-        root.draw(context);
-
-        return pdfForm;
+        return svgImageXObject;
     }
 }

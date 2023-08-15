@@ -32,6 +32,7 @@ import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.svg.converter.SvgConverter;
+import com.itextpdf.svg.element.SvgImage;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.processors.impl.SvgConverterProperties;
 
@@ -49,7 +50,7 @@ public class HtmlResourceResolver extends ResourceResolver {
     private static final String SVG_PREFIX = "data:image/svg+xml";
     private static final Pattern SVG_IDENTIFIER_PATTERN = Pattern.compile(",[\\s]*(<svg )");
 
-    private ProcessorContext context;
+    private final ProcessorContext context;
 
     /**
      * Creates a new {@link HtmlResourceResolver} instance.
@@ -108,7 +109,7 @@ public class HtmlResourceResolver extends ResourceResolver {
         if (fixedSrc.startsWith(SVG_PREFIX)) {
             fixedSrc = fixedSrc.substring(fixedSrc.indexOf(BASE64_IDENTIFIER) + BASE64_IDENTIFIER.length() + 1);
             try (ByteArrayInputStream stream = new ByteArrayInputStream(Base64.decode(fixedSrc))) {
-                PdfFormXObject xObject = processAsSvg(stream, context, null);
+                PdfFormXObject xObject = HtmlResourceResolver.processAsSvg(stream, context, null);
                 if (xObject != null) {
                     return xObject;
                 }
@@ -131,7 +132,7 @@ public class HtmlResourceResolver extends ResourceResolver {
 
     private PdfXObject tryResolveSvgImageSource(String src) {
         try (ByteArrayInputStream stream = new ByteArrayInputStream(src.getBytes(StandardCharsets.UTF_8))) {
-            PdfFormXObject xObject = processAsSvg(stream, context, null);
+            PdfFormXObject xObject = HtmlResourceResolver.processAsSvg(stream, context, null);
             if (xObject != null) {
                 return xObject;
             }
@@ -147,11 +148,7 @@ public class HtmlResourceResolver extends ResourceResolver {
             svgConverterProperties.setBaseUri(parentDir);
         }
         ISvgProcessorResult res = SvgConverter.parseAndProcess(stream, svgConverterProperties);
-        if (context.getPdfDocument() != null) {
-            SvgProcessingUtil processingUtil = new SvgProcessingUtil(context.getResourceResolver());
-            return processingUtil.createXObjectFromProcessingResult(res, context.getPdfDocument());
-        } else {
-            return null;
-        }
+        SvgProcessingUtil processingUtil = new SvgProcessingUtil(context.getResourceResolver());
+        return processingUtil.createXObjectFromProcessingResult(res, context.getPdfDocument());
     }
 }

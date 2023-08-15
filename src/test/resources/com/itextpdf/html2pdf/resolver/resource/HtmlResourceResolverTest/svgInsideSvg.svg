@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="1000">
+    <image x="50" y="50" width="250" height="250" xlink:href="res/itextpdf.com/doggo.jpg" />
+    <line x1="0" y1="400" x2="500" y2="900" stroke="black" stroke-width="2"/>
+    <image x="0" y="400" width="500" height="500" xlink:href="res/itextpdf.com/lines.svg" />
+</svg>
