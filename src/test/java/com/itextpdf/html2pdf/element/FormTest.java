@@ -63,6 +63,11 @@ public class FormTest extends ExtendedITextTest {
     }
 
     @Test
+    public void textFieldWithPlaceholderTest() throws IOException, InterruptedException {
+        runTest("textFieldWithPlaceholder");
+    }
+
+    @Test
     public void splitTextFieldTest() throws IOException, InterruptedException {
         runTest("splitTextField");
     }
