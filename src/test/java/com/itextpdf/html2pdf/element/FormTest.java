@@ -86,16 +86,18 @@ public class FormTest extends ExtendedITextTest {
         runTest("textAreaHeadersFooters");
     }
 
-
     @Test
     public void checkBoxHeadersFootersWithValueTest() throws IOException, InterruptedException {
-        //TODO DEVSIX-7760 Adding formfield elements to header generates strange results
         runTest("checkBoxHeadersFooters");
     }
 
     @Test
+    public void runningFormFieldsInHeader() throws IOException, InterruptedException {
+        runTest("runningFormFieldsInHeader");
+    }
+
+    @Test
     public void radioHeadersFootersWithValueTest() throws IOException, InterruptedException {
-        //TODO DEVSIX-7760 Adding formfield elements to header generates strange results
         runTest("radioHeadersFooters");
     }
 
