@@ -84,6 +84,10 @@ public class SelectTagWorker implements ITagWorker, IDisplayAware {
         String lang = element.getAttribute(AttributeConstants.LANG);
         selectElement.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
         selectElement.setProperty(FormProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
+        if (context.getPdfDocument() != null) {
+            selectElement.setProperty(FormProperty.FORM_CONFORMANCE_LEVEL,
+                    context.getPdfDocument().getConformanceLevel());
+        }
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 

@@ -30,23 +30,30 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfOutputIntent;
+import com.itextpdf.kernel.pdf.PdfVersion;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.WriterProperties;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
+import com.itextpdf.pdfa.PdfADocument;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+import com.itextpdf.test.pdfa.VeraPdfValidator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -63,6 +70,7 @@ import org.junit.experimental.categories.Category;
 public class InputTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/InputTest/";
+    public static final String sourceFolderResources = "./src/test/resources/com/itextpdf/html2pdf/fonts/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/InputTest/";
 
     @BeforeClass
@@ -312,6 +320,63 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
        runTest("inputMinWidth");
     }
 
+    @Test
+    public void inputPDFATest() throws IOException, InterruptedException {
+        runPDFATest("inputpdfa");
+    }
+
+    @Test
+    public void buttonPDFATest() throws IOException, InterruptedException {
+        runPDFATest("buttonpdfa");
+    }
+
+
+    @Test
+    public void inputPDFACheckbox() throws IOException, InterruptedException {
+        runPDFATest("inputpdfcheckbox");
+    }
+
+    @Test
+    public void inputPDFASelectTest() throws IOException, InterruptedException {
+        runPDFATest("inputpdfaselect");
+    }
+
+    @Test
+    public void inputPDFAradioTest() throws IOException, InterruptedException {
+        runPDFATest("inputpdfradio");
+    }
+
+    private void runPDFATest(String name) throws IOException, InterruptedException {
+        String sourceHtml = sourceFolder + name + ".html";
+        String cmpPdf = sourceFolder + "cmp_" + name + ".pdf";
+        String destinationPdf = destinationFolder + name + ".pdf";
+
+        ConverterProperties converterProperties = new ConverterProperties();
+        converterProperties.setCreateAcroForm(true);
+        PdfAFontProvider fontProvider = new PdfAFontProvider();
+        fontProvider.addFont(sourceFolderResources + "NotoSans-Regular.ttf");
+        converterProperties.setFontProvider(fontProvider);
+
+        PdfWriter writer = new PdfWriter(destinationPdf,
+                new WriterProperties()
+                        .setPdfVersion(PdfVersion.PDF_2_0));
+        PdfADocument pdfDocument = new PdfADocument(writer, PdfAConformanceLevel.PDF_A_4E,
+                new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
+                        new FileInputStream(sourceFolder + "sRGB Color Space Profile.icm")));
+
+        try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
+            HtmlConverter.convertToPdf(fileInputStream, pdfDocument, converterProperties);
+        }
+
+        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(sourceHtml) + "\n");
+        Assert.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, destinationFolder,
+                "diff_" + name + "_"));
+
+        VeraPdfValidator veraPdfValidator = new VeraPdfValidator();
+        Assert.assertNull(veraPdfValidator.validate(destinationPdf));
+
+    }
+
     private static class CustomTextInputTagWorkerFactory extends DefaultTagWorkerFactory {
         @Override
         public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
@@ -341,5 +406,9 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
 
     private void runTest(String name) throws IOException, InterruptedException {
         convertToPdfAndCompare(name, sourceFolder, destinationFolder);
+    }
+
+    private static class PdfAFontProvider extends FontProvider {
+
     }
 }
