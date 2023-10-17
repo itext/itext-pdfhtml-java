@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .flex-container {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+            background-color: pink;
+            margin: 10px;
+            height: 1500px;
+        }
+
+        .flex-container > div {
+            background-color: #f1f1f1;
+            width: 100px;
+            margin: 10px;
+
+            text-align: center;
+            font-size: 30px;
+            border: 1px solid black;
+            flex-grow: 2;
+            flex-basis: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="flex-container">
+    <div style="flex-grow: 3">1</div>
+    <div>2</div>
+    <div style="flex-grow: 0.5">3</div>
+    <div>4</div>
+    <div style="min-height: 350px">5</div>
+    <div style="height: 200px">6</div>
+    <div>7</div>
+</div>
+</body>
+</html>

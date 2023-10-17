@@ -68,9 +68,9 @@ public class SvgTagWorker implements ITagWorker {
 
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
-        if (context.getPdfDocument() != null && processingResult != null) {
+        if (processingResult != null) {
             SvgProcessingUtil util = new SvgProcessingUtil(context.getResourceResolver());
-            svgImage = util.createImageFromProcessingResult(processingResult, context.getPdfDocument());
+            svgImage = util.createSvgImageFromProcessingResult(processingResult);
 
             AccessiblePropHelper.trySetLangAttribute(svgImage, element);
             context.endProcessingInlineSvg();

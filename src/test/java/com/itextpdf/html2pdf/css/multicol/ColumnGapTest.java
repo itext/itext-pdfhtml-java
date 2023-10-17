@@ -62,11 +62,13 @@ public class ColumnGapTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-7631 Provide advanced support of percentage values for column-gap\width
     public void convertSmallColumnGapValueTest() throws IOException, InterruptedException {
         runTest("smallColumnGapValueTest");
     }
 
     @Test
+    // TODO DEVSIX-7631 Provide advanced support of percentage values for column-gap\width
     public void convertFloatColumnGapValueTest() throws IOException, InterruptedException {
         runTest("floatColumnGapValueTest");
     }

@@ -27,6 +27,7 @@ import com.itextpdf.styledxmlparser.node.IAttributes;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.type.UnitTest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +35,9 @@ import java.util.List;
 import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(UnitTest.class)
 public class TextDecorationApplierUtilTest extends ExtendedITextTest {
 
     private static IElementNode createNewNode(IElementNode parent, String color, String line, String decorationStyle) {

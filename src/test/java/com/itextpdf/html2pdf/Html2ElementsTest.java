@@ -22,19 +22,19 @@
  */
 package com.itextpdf.html2pdf;
 
-import com.itextpdf.html2pdf.actions.events.PdfHtmlProductEvent;
-import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.io.source.ByteArrayOutputStream;
-import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.kernel.exceptions.PdfException;
 import com.itextpdf.commons.actions.EventManager;
 import com.itextpdf.commons.actions.IEvent;
 import com.itextpdf.commons.actions.IEventHandler;
 import com.itextpdf.commons.actions.sequence.AbstractIdentifiableElement;
 import com.itextpdf.commons.actions.sequence.SequenceId;
 import com.itextpdf.commons.actions.sequence.SequenceIdManager;
+import com.itextpdf.html2pdf.actions.events.PdfHtmlProductEvent;
+import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.io.source.ByteArrayOutputStream;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.exceptions.KernelExceptionMessageConstant;
+import com.itextpdf.kernel.exceptions.PdfException;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
@@ -52,22 +52,19 @@ import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Category(IntegrationTest.class)
 public class Html2ElementsTest extends ExtendedITextTest {
@@ -184,8 +181,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
 
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, count = 1),
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 1),
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.PDF_DOCUMENT_NOT_PRESENT, count = 1),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)
     })
     public void htmlObjectMalformedUrlTest() {
         String html = "<object data ='htt://as' type='image/svg+xml'></object>";
@@ -211,9 +207,9 @@ public class Html2ElementsTest extends ExtendedITextTest {
 
         for (IElement elem : elements) {
             if (elem instanceof IBlockElement) {
-                document.add((IBlockElement)elem);
+                document.add((IBlockElement) elem);
             } else if (elem instanceof Image) {
-                document.add((Image)elem);
+                document.add((Image) elem);
             } else if (elem instanceof AreaBreak) {
                 document.add((AreaBreak) elem);
             } else {
@@ -241,10 +237,10 @@ public class Html2ElementsTest extends ExtendedITextTest {
         Assert.assertEquals(2, elements.size());
         IElement anonymousParagraph = elements.get(0);
 
-        Assert.assertArrayEquals(new String[] {"monospace"}, anonymousParagraph.<String[]>getProperty(Property.FONT));
+        Assert.assertArrayEquals(new String[]{"monospace"}, anonymousParagraph.<String[]>getProperty(Property.FONT));
 
         IElement normalParagraph = elements.get(1);
-        Assert.assertArrayEquals(new String[] {"monospace"}, normalParagraph.<String[]>getProperty(Property.FONT));
+        Assert.assertArrayEquals(new String[]{"monospace"}, normalParagraph.<String[]>getProperty(Property.FONT));
     }
 
     @Test
@@ -274,7 +270,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
             Assert.assertEquals(1, handler.getEvents().size());
             Assert.assertTrue(handler.getEvents().get(0) instanceof PdfHtmlProductEvent);
 
-            SequenceId expectedSequenceId = ((PdfHtmlProductEvent)handler.getEvents().get(0)).getSequenceId();
+            SequenceId expectedSequenceId = ((PdfHtmlProductEvent) handler.getEvents().get(0)).getSequenceId();
             int validationsCount = validateSequenceIds(expectedSequenceId, elements);
             // Table                                     1
             //      Cell -> Paragraph -> Text [123]      3
@@ -290,13 +286,13 @@ public class Html2ElementsTest extends ExtendedITextTest {
     }
 
     @Test
-    public void convertToElementsAndCreateTwoDocumentsTest() throws FileNotFoundException {
+    public void convertToElementsAndCreateTwoDocumentsTest() {
         String html = "This text is directly in body. It should have the same default LEADING property as everything else.\n"
                 + "<p>This text is in paragraph.</p>";
-        List<IElement> iElementList =  HtmlConverter.convertToElements(html);
+        List<IElement> iElementList = HtmlConverter.convertToElements(html);
 
         try (PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
-                Document document = new Document(pdfDocument)) {
+             Document document = new Document(pdfDocument)) {
             addElementsToDocument(document, iElementList);
         }
 
@@ -310,16 +306,79 @@ public class Html2ElementsTest extends ExtendedITextTest {
     }
 
     @Test
-    //TODO: DEVSIX-3891 change the Assert after supporting the svg tag
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, logLevel = LogLevelConstants.ERROR)
-    })
-    public void htmlToElementsSvgTest() {
+    public void htmlToElementsSvgTest() throws IOException, InterruptedException {
         String html = "<svg height=\"100\" width=\"100\">"
                 + "<circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"red\" />"
                 + "</svg>";
+        String cmpPdf = sourceFolder + "cmp_htmlToElementsSvg.pdf";
+        String outPdf = destinationFolder + "htmlToElementsSvg.pdf";
         List<IElement> lst = HtmlConverter.convertToElements(html);
-        Assert.assertEquals(0, lst.size());
+        Assert.assertEquals(1, lst.size());
+        try (Document document = new Document(new PdfDocument(new PdfWriter(outPdf)))) {
+            for (IElement element : lst) {
+                document.add((Image) element);
+            }
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+    }
+
+    @Test
+    public void htmlToElementsSvgInTheTableTest() throws IOException, InterruptedException {
+        String html =
+                "<table style=\"border: 1pt solid black\">\n" +
+                        "  <tr>\n" +
+                        "     <td>\n" +
+                        "        <svg height=\"100\" width=\"100\">\n" +
+                        "          <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"red\" />\n" +
+                        "        </svg>\n" +
+                        "     </td>\n" +
+                        "     <td>\n" +
+                        "        test\n" +
+                        "     </td>\n" +
+                        "  </tr>\n" +
+                        "</table>";
+        String cmpPdf = sourceFolder + "cmp_htmlToElementsSvgInTheTable.pdf";
+        String outPdf = destinationFolder + "htmlToElementsSvgInTheTable.pdf";
+
+        List<IElement> elements = HtmlConverter.convertToElements(html);
+        try (Document document = new Document(new PdfDocument(new PdfWriter(outPdf)))) {
+            for (IElement element : elements) {
+                document.add((IBlockElement) element);
+            }
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+    }
+
+    @Test
+    public void htmlToElementsSvgImgTest() throws IOException, InterruptedException {
+        String html = "<img src=\"lines.svg\" height=\"500\" width=\"500\"/>";
+        String cmpPdf = sourceFolder + "cmp_htmlToElementsSvgImg.pdf";
+        String outPdf = destinationFolder + "htmlToElementsSvgImg.pdf";
+
+        List<IElement> elements = HtmlConverter.convertToElements(html,
+                new ConverterProperties().setBaseUri(sourceFolder));
+        try (Document document = new Document(new PdfDocument(new PdfWriter(outPdf)))) {
+            for (IElement element : elements) {
+                document.add((IBlockElement) element);
+            }
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+    }
+
+    @Test
+    public void htmlToElementsSvgObjectTest() throws IOException, InterruptedException {
+        String html = "<object data ='lines.svg' type='image/svg+xml'></object>";
+        String cmpPdf = sourceFolder + "cmp_htmlToElementsSvgObject.pdf";
+        String outPdf = destinationFolder + "htmlToElementsSvgObject.pdf";
+
+        List<IElement> elements = HtmlConverter.convertToElements(html,
+                new ConverterProperties().setBaseUri(sourceFolder));
+        try (Document document = new Document(new PdfDocument(new PdfWriter(outPdf)))) {
+            for (IElement element : elements) {
+                document.add((Image) element);
+            }
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
     }
 
     private static void addElementsToDocument(Document document, List<IElement> elements) {
@@ -339,7 +398,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
 
     private static int validateSequenceIds(SequenceId expectedSequenceId, List<IElement> elements) {
         int validationCount = 0;
-        for (IElement element: elements) {
+        for (IElement element : elements) {
             Assert.assertTrue(element instanceof AbstractIdentifiableElement);
             Assert.assertTrue(element instanceof IAbstractElement);
             Assert.assertEquals(expectedSequenceId, SequenceIdManager.getSequenceId((AbstractIdentifiableElement) element));

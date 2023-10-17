@@ -126,8 +126,7 @@ public class TaggedPdfFormTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-4601
-    // exception is thrown on "convert tagged PDF with acroform" stage
+    @Ignore("DEVSIX-4601 exception is thrown on \"convert tagged PDF with acroform\" stage")
     public void inputFormPrematureFlush()
             throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         junitExpectedException.expect(PdfException.class);

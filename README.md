@@ -1,4 +1,4 @@
-**[pdfHtml][pdfHtml]** is an [iText 7][itext] add on.
+**[pdfHtml][pdfHtml]** is an [iText][itext] add on.
 
 This add on will allow you to easily convert HTML to PDF or iText objects. 
 
@@ -35,4 +35,4 @@ Contact [sales] for more info.
 [latest]: https://github.com/itext/i7j-pdfhtml/releases/latest
 [sales]: http://itextpdf.com/sales
 [gratis]: https://en.wikipedia.org/wiki/Gratis_versus_libre
-[pdfHtml]: http://itextpdf.com/itext7/pdfHtml
+[pdfHtml]: https://itextpdf.com/products/convert-html-css-to-pdf-pdfhtml

@@ -22,10 +22,10 @@
  */
 package com.itextpdf.html2pdf;
 
+import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever;
@@ -326,8 +326,11 @@ public class ConverterProperties {
      * If createAcroForm is set, then when the form is encountered in HTML, AcroForm will be created, otherwise
      * a visually identical, but not functional element will be created. Please bare in mind that the created
      * Acroform may visually differ a bit from the HTML one.
+     * <p>
+     * When enabling this acroform creation, it will disable the immediateFlushing property.
      *
      * @param createAcroForm true if an AcroForm needs to be created
+     *
      * @return the {@link ConverterProperties} instance
      */
     public ConverterProperties setCreateAcroForm(boolean createAcroForm) {

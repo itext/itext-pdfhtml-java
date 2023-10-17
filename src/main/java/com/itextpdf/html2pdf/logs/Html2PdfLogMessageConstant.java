@@ -119,6 +119,7 @@ public final class Html2PdfLogMessageConstant {
     public static final String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
 
     /** The Constant PDF_DOCUMENT_NOT_PRESENT. */
+    @Deprecated
     public static final String PDF_DOCUMENT_NOT_PRESENT = "PdfDocument is not present";
 
     /** The Constant QUOTES_PROPERTY_INVALID. */
@@ -171,6 +172,7 @@ public final class Html2PdfLogMessageConstant {
     public static final String ELEMENT_DOES_NOT_FIT_CURRENT_AREA = "Element does not fit current area";
     public static final String OPTGROUP_NOT_SUPPORTED_IN_INTERACTIVE_SELECT = "Option groups are not supported in "
             + "interactive mode";
+    public static final String IMMEDIATE_FLUSH_DISABLED = "Setting createAcroForm disables immediateFlush property";
 
     private Html2PdfLogMessageConstant() {
         //Private constructor will prevent the instantiation of this class directly

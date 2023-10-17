@@ -141,7 +141,7 @@ public class VerticalAlignmentApplierUtil {
         String vAlignVal = cssProps.get(CssConstants.VERTICAL_ALIGN);
         if (vAlignVal != null) {
 
-            // TODO DEVSIX-1750 for inline images and tables (inline-blocks) v-align is not supported
+            // TODO DEVSIX-1961 for inline images and tables (inline-blocks) v-align is not supported
 
             float textRise = 0;
 

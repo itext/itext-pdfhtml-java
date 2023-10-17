@@ -53,4 +53,23 @@ public class TableBodyTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("transparentBackgroundOfTableBody", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    @Test
+    public void bigRowspanWithRowsSplitBetweenPages1Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bigRowspanWithRowsSplitBetweenPages1", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void bigRowspanWithRowsSplitBetweenPages2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bigRowspanWithRowsSplitBetweenPages2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void bigRowspanWithRowsSplitBetweenPages3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bigRowspanWithRowsSplitBetweenPages3", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void bigRowspanWithRowsSplitBetweenPages4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("bigRowspanWithRowsSplitBetweenPages4", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
 }

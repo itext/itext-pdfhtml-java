@@ -78,7 +78,7 @@ public class FontProviderTest extends ExtendedITextTest {
     public void convertStandardFonts() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "convertStandardFonts.html"), new File(DESTINATION_FOLDER + "convertStandardFonts.pdf"));
         Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "convertStandardFonts.pdf", SOURCE_FOLDER
-                + "cmp_convertStandardFonts", DESTINATION_FOLDER, "difffontstand_"));
+                + "cmp_convertStandardFonts.pdf", DESTINATION_FOLDER, "difffontstand_"));
     }
 
     @Test
@@ -151,5 +151,18 @@ public class FontProviderTest extends ExtendedITextTest {
             Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "comparatorError.pdf",
                     SOURCE_FOLDER + "cmp_comparatorError.pdf", DESTINATION_FOLDER));
         }
+    }
+
+    @Test
+    public void differentFontFamiliesTest() throws IOException, InterruptedException {
+        ConverterProperties properties = new ConverterProperties();
+        FontProvider fontProvider = new DefaultFontProvider(false, false, false);
+        fontProvider.addDirectory(SOURCE_FOLDER + "Lato_fonts");
+        properties.setFontProvider(fontProvider);
+
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "differentFontFamilies.html"), new File(
+                DESTINATION_FOLDER + "differentFontFamilies.pdf"), properties);
+        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "differentFontFamilies.pdf", SOURCE_FOLDER
+                + "cmp_differentFontFamilies.pdf", DESTINATION_FOLDER, "diff_"));
     }
 }

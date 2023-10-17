@@ -31,6 +31,7 @@ import com.itextpdf.html2pdf.attach.impl.layout.HtmlDocumentRenderer;
 import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfString;
@@ -45,15 +46,24 @@ import com.itextpdf.styledxmlparser.css.ICssResolver;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * TagWorker class for the {@code html} element.
  */
 public class HtmlTagWorker implements ITagWorker {
 
-    /** The iText document instance. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(HtmlTagWorker.class);
+
+    /**
+     * The iText document instance.
+     */
     private Document document;
 
-    /** Helper class for waiting inline elements. */
+    /**
+     * Helper class for waiting inline elements.
+     */
     private WaitingInlineElementsHelper inlineHelper;
 
     /**
@@ -65,14 +75,19 @@ public class HtmlTagWorker implements ITagWorker {
     public HtmlTagWorker(IElementNode element, ProcessorContext context) {
         // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
         boolean immediateFlush =
-                context.isImmediateFlush() && !context.getCssContext().isPagesCounterPresent();
+                context.isImmediateFlush() && !context.getCssContext().isPagesCounterPresent()
+                        && !context.isCreateAcroForm();
+        if (context.isImmediateFlush() && context.isCreateAcroForm()) {
+            LOGGER.info(Html2PdfLogMessageConstant.IMMEDIATE_FLUSH_DISABLED);
+        }
         PdfDocument pdfDocument = context.getPdfDocument();
         document = new HtmlDocument(pdfDocument, pdfDocument.getDefaultPageSize(), immediateFlush);
         document.setRenderer(new HtmlDocumentRenderer(document, immediateFlush));
 
         DefaultHtmlProcessor.setConvertedRootElementProperties(element.getStyles(), context, document);
 
-        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE), element.getStyles().get(CssConstants.TEXT_TRANSFORM));
+        inlineHelper = new WaitingInlineElementsHelper(element.getStyles().get(CssConstants.WHITE_SPACE),
+                element.getStyles().get(CssConstants.TEXT_TRANSFORM));
 
         String lang = element.getAttribute(AttributeConstants.LANG);
         if (lang != null) {

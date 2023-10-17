@@ -53,6 +53,8 @@ import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
+import com.itextpdf.svg.element.SvgImage;
+import com.itextpdf.svg.xobject.SvgImageXObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -145,6 +147,8 @@ public final class ListStyleApplierUtil {
                 Image image = null;
                 if (imageXObject instanceof PdfImageXObject) {
                     image = new Image((PdfImageXObject) imageXObject);
+                } else if (imageXObject instanceof SvgImageXObject) {
+                    image = new SvgImage((SvgImageXObject) imageXObject);
                 } else if (imageXObject instanceof PdfFormXObject) {
                     image = new Image((PdfFormXObject) imageXObject);
                 } else {

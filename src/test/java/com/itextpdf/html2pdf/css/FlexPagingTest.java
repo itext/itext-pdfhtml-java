@@ -23,6 +23,9 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.io.logs.IoLogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
@@ -54,13 +57,11 @@ public class FlexPagingTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-7622 change files after paging is introduced
     public void columnPagingTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("column-paging", sourceFolder, destinationFolder);
     }
 
     @Test
-    //TODO DEVSIX-7622 change files after paging is introduced
     public void columnPagingMultiColumnTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("column-paging-multi-column", sourceFolder, destinationFolder);
     }
@@ -72,19 +73,73 @@ public class FlexPagingTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-7622 change files after paging is introduced
     public void columnReversePagingTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("column-reverse-paging", sourceFolder, destinationFolder);
     }
 
     @Test
-    //TODO DEVSIX-7622 change files after paging is introduced
     public void columnReversePagingMultiColumnTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("column-reverse-paging-multi-column", sourceFolder, destinationFolder);
     }
 
     @Test
+    public void columnPagingLargeElementTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("column-paging-large-element", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void columnPagingLargeElementFlexEndJustificationTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("column-paging-large-element-flex-end-justification", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void columnPagingLargeElementCenterJustificationTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("column-paging-large-element-center-justification", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void columnPagingLargeElementFixedHeightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("column-paging-large-element-fixed-height", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void columnReversePagingLargeElementTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("column-reverse-paging-large-element", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void columnWrapReverseNonPagingTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("column-wrap-reverse-non-paging", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT))
+    public void columnPagingInDivTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("column-paging-in-div", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void columnPagingFixedHeightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("column-paging-fixed-height", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void columnNoWrapPagingTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("column-nowrap-paging", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void columnFlexShrinkPagingTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("column-flex-shrink-paging", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void columnFlexGrowPagingTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("column-flex-grow-paging", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void columnFlexGrowPaging2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("column-flex-grow-paging-2", sourceFolder, destinationFolder);
     }
 }
