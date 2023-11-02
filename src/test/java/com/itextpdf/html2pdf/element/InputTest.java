@@ -57,6 +57,7 @@ import com.itextpdf.test.pdfa.VeraPdfValidator;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -352,20 +353,11 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
         String destinationPdf = destinationFolder + name + ".pdf";
 
         ConverterProperties converterProperties = new ConverterProperties();
-        converterProperties.setCreateAcroForm(true);
-        PdfAFontProvider fontProvider = new PdfAFontProvider();
-        fontProvider.addFont(sourceFolderResources + "NotoSans-Regular.ttf");
-        converterProperties.setFontProvider(fontProvider);
-
-        PdfWriter writer = new PdfWriter(destinationPdf,
-                new WriterProperties()
-                        .setPdfVersion(PdfVersion.PDF_2_0));
-        PdfADocument pdfDocument = new PdfADocument(writer, PdfAConformanceLevel.PDF_A_4E,
-                new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
-                        new FileInputStream(sourceFolder + "sRGB Color Space Profile.icm")));
-
+        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4);
+        converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
+                new FileInputStream(sourceFolder + "sRGB Color Space Profile.icm")));
         try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
-            HtmlConverter.convertToPdf(fileInputStream, pdfDocument, converterProperties);
+            HtmlConverter.convertToPdf(fileInputStream, new FileOutputStream(destinationPdf), converterProperties);
         }
 
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(sourceHtml) + "\n");
