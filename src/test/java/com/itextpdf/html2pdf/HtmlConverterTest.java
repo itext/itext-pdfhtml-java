@@ -24,15 +24,11 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
-import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfReader;
-import com.itextpdf.kernel.pdf.PdfVersion;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.WriterProperties;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
 import com.itextpdf.pdfa.PdfADocument;
@@ -44,7 +40,6 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import com.itextpdf.test.pdfa.VeraPdfValidator;
@@ -59,7 +54,6 @@ import org.junit.rules.ExpectedException;
 public class HtmlConverterTest extends ExtendedITextTest {
 
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/HtmlConverterTest/";
-    public static final String RESOURCES_SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/fonts/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/HtmlConverterTest/";
 
     @Rule
@@ -71,191 +65,35 @@ public class HtmlConverterTest extends ExtendedITextTest {
     }
 
     @Test
-    public void convertToPdfA3USimpleTest() throws IOException, InterruptedException {
+    public void convertToPdfA2SimpleTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "simple.html";
         String cmpPdf = SOURCE_FOLDER + "cmp_simple.pdf";
         String destinationPdf = DESTINATION_FOLDER + "simple.pdf";
         ConverterProperties converterProperties = new ConverterProperties();
-        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_2B);
         converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                 new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
         try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
             HtmlConverter.convertToPdf(fileInputStream, new PdfWriter(destinationPdf), converterProperties);
         }
 
-        compareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
+        compareAndCheckCompliance(destinationPdf, cmpPdf);
     }
 
     @Test
-    public void convertToPdfA3USimpleFromStringTest() throws IOException, InterruptedException {
+    public void convertToPdfASimpleTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "simple.html";
         String cmpPdf = SOURCE_FOLDER + "cmp_simple.pdf";
         String destinationPdf = DESTINATION_FOLDER + "simple.pdf";
         ConverterProperties converterProperties = new ConverterProperties();
-        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
-        converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
-                new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
-        HtmlConverter.convertToPdf("<html>\n" +
-                "<head><title>Test</title></head>\n" +
-                "<body >\n" +
-                "<form>\n" +
-                "    <p>Hello world!</p>\n" +
-                "</form>\n" +
-                "</body>\n" +
-                "</html>", new PdfWriter(destinationPdf), converterProperties);
-
-        compareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
-    }
-
-    @Test
-    public void convertToPdfA4LinearGradientTest() throws IOException, InterruptedException {
-        String sourceHtml = SOURCE_FOLDER + "gradient.html";
-        String cmpPdf = SOURCE_FOLDER + "cmp_pdfA4LinGradient.pdf";
-        String destinationPdf = DESTINATION_FOLDER + "pdfA4LinGradient.pdf";
-
-        ConverterProperties converterProperties = new ConverterProperties();
-        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4);
-        converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
-                new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
-        try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
-            HtmlConverter.convertToPdf(fileInputStream, new FileOutputStream(destinationPdf), converterProperties);
-        }
-        compareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
-    }
-
-    @Test
-    public void convertToPdfA3ASimpleTest() throws IOException, InterruptedException {
-        String sourceHtml = SOURCE_FOLDER + "simple.html";
-        String cmpPdf = SOURCE_FOLDER + "cmp_simple_a.pdf";
-        String destinationPdf = DESTINATION_FOLDER + "simple_a.pdf";
-        ConverterProperties converterProperties = new ConverterProperties();
-        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_1B);
         converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                 new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
         try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
             HtmlConverter.convertToPdf(fileInputStream, new PdfWriter(destinationPdf), converterProperties);
         }
 
-        compareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
-    }
-
-    @Test
-    public void convertToPdfA3UWithCustomFontProviderTest() throws IOException, InterruptedException {
-        String sourceHtml = SOURCE_FOLDER + "simple.html";
-        String cmpPdf = SOURCE_FOLDER + "cmp_simple_custom_font.pdf";
-        String destinationPdf = DESTINATION_FOLDER + "simple_custom_font.pdf";
-        ConverterProperties converterProperties = new ConverterProperties();
-        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
-        converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
-                new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
-        DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
-        fontProvider.addFont(RESOURCES_SOURCE_FOLDER + "NotoSans-Regular.ttf");
-        converterProperties.setFontProvider(fontProvider);
-        try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
-            HtmlConverter.convertToPdf(fileInputStream, new PdfWriter(destinationPdf), converterProperties);
-        }
-
-        compareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
-    }
-
-    @Test
-    public void convertToPdfA4SimpleTest() throws IOException, InterruptedException {
-        String sourceHtml = SOURCE_FOLDER + "simple.html";
-        String cmpPdf = SOURCE_FOLDER + "cmp_simpleA4.pdf";
-        String destinationPdf = DESTINATION_FOLDER + "simpleA4.pdf";
-        ConverterProperties converterProperties = new ConverterProperties();
-        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4);
-        converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
-                new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
-        try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
-            HtmlConverter.convertToPdf(fileInputStream, new FileOutputStream(destinationPdf), converterProperties);
-        }
-
-        compareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
-    }
-
-    @Test
-    public void convertToPdfAWithProvidingPdADocumentInstanceTest() throws IOException, InterruptedException {
-        String sourceHtml = SOURCE_FOLDER + "simple.html";
-        String cmpPdf = SOURCE_FOLDER + "cmp_simple_doc.pdf";
-        String destinationPdf = DESTINATION_FOLDER + "simple_doc.pdf";
-
-        PdfWriter writer = new PdfWriter(destinationPdf,
-                new WriterProperties()
-                        .setPdfVersion(PdfVersion.PDF_2_0));
-        PdfADocument pdfDocument = new PdfADocument(writer, PdfAConformanceLevel.PDF_A_4E,
-                new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
-                        new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
-
-        try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
-            HtmlConverter.convertToPdf(fileInputStream, pdfDocument);
-        }
-
-        compareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
-    }
-
-    @Test
-    public void convertToPdfAWithoutIcmProfileTest() throws IOException, InterruptedException {
-        String sourceHtml = SOURCE_FOLDER + "simple.html";
-        String destinationPdf = DESTINATION_FOLDER + "simple_without_icm.pdf";
-
-        ConverterProperties converterProperties = new ConverterProperties();
-        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4);
-
-        Exception e = Assert.assertThrows(PdfAConformanceException.class, () ->
-                HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), new FileOutputStream(destinationPdf), converterProperties));
-        Assert.assertEquals(MessageFormatUtil.format(PdfaExceptionMessageConstant.DEVICEGRAY_SHALL_ONLY_BE_USED_IF_CURRENT_PDFA_OUTPUT_INTENT_OR_DEFAULTGRAY_IN_USAGE_CONTEXT),
-                e.getMessage());
-
-    }
-
-    @Test
-    public void convertToPdfAWithProvidingPdADocumentAndCustomFontProviderTest() throws IOException, InterruptedException {
-        String sourceHtml = SOURCE_FOLDER + "simple.html";
-        String cmpPdf = SOURCE_FOLDER + "cmp_simple_doc_custom_font.pdf";
-        String destinationPdf = DESTINATION_FOLDER + "simple_doc_custom_font.pdf";
-
-        ConverterProperties properties = new ConverterProperties();
-        DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
-        fontProvider.addFont(RESOURCES_SOURCE_FOLDER + "NotoSans-Regular.ttf");
-        properties.setFontProvider(fontProvider);
-        PdfWriter writer = new PdfWriter(destinationPdf,
-                new WriterProperties()
-                        .setPdfVersion(PdfVersion.PDF_2_0));
-        PdfADocument pdfDocument = new PdfADocument(writer, PdfAConformanceLevel.PDF_A_4E,
-                new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
-                        new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
-
-        try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
-            HtmlConverter.convertToPdf(fileInputStream, pdfDocument, properties);
-        }
-
-        compareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
-    }
-
-    @Test
-    public void convertToPdfAWithProvidingPdADocumentInstanceWithDefinedConformanceTest() throws IOException, InterruptedException {
-        String sourceHtml = SOURCE_FOLDER + "simple.html";
-        String cmpPdf = SOURCE_FOLDER + "cmp_simple_doc.pdf";
-        String destinationPdf = DESTINATION_FOLDER + "simple_doc.pdf";
-
-        ConverterProperties converterProperties = new ConverterProperties();
-        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4);
-        converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
-                new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
-
-        PdfWriter writer = new PdfWriter(destinationPdf,
-                new WriterProperties()
-                        .setPdfVersion(PdfVersion.PDF_2_0));
-        PdfADocument pdfDocument = new PdfADocument(writer, PdfAConformanceLevel.PDF_A_4E,
-                new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
-                        new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
-
-        try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
-            HtmlConverter.convertToPdf(fileInputStream, pdfDocument, converterProperties);
-        }
-
-        compareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
+        compareAndCheckCompliance(destinationPdf, cmpPdf);
     }
 
     @Test
@@ -268,6 +106,52 @@ public class HtmlConverterTest extends ExtendedITextTest {
         Document document = HtmlConverter.convertToDocument("", pdfDocument, properties);
     }
 
+    @Test
+    public void convertHtmlToDocumentIncorrectConverterPropertiesTest() throws IOException {
+        String sourceHtml = SOURCE_FOLDER + "simple.html";
+        String destinationPdf = DESTINATION_FOLDER + "simpleA4.pdf";
+
+        ConverterProperties converterProperties = new ConverterProperties();
+        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+        converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
+                new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
+
+        PdfADocument pdfDocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformanceLevel.PDF_A_4E,
+                new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
+                        new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
+
+        Exception e = Assert.assertThrows(PdfAConformanceException.class, () -> {
+            HtmlConverter.convertToPdf(sourceHtml, pdfDocument, converterProperties);
+        });
+
+        Assert.assertEquals(MessageFormatUtil.format(
+                        PdfaExceptionMessageConstant.THE_FILE_HEADER_SHALL_CONTAIN_RIGHT_PDF_VERSION, "2"),
+                e.getMessage());
+    }
+
+    @Test
+    public void convertHtmlToDocumentWithDifferentColorProfileTest() throws IOException {
+        String sourceHtml = SOURCE_FOLDER + "simple.html";
+        String destinationPdf = DESTINATION_FOLDER + "simpleA4.pdf";
+
+        ConverterProperties converterProperties = new ConverterProperties();
+        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4E);
+        converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
+                new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
+
+        PdfADocument pdfDocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformanceLevel.PDF_A_4E,
+                new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
+                        new FileInputStream(SOURCE_FOLDER + "USWebUncoated.icc")));
+
+        Exception e = Assert.assertThrows(PdfAConformanceException.class, () -> {
+            HtmlConverter.convertToPdf(sourceHtml, pdfDocument, converterProperties);
+        });
+
+        Assert.assertEquals(MessageFormatUtil.format(
+                        PdfaExceptionMessageConstant.THE_FILE_HEADER_SHALL_CONTAIN_RIGHT_PDF_VERSION, "2"),
+                e.getMessage());
+    }
+
     private static PdfDocument createTempDoc() throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outputStream));
@@ -277,11 +161,9 @@ public class HtmlConverterTest extends ExtendedITextTest {
         return pdfDocument;
     }
 
-    private static void compareAndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf) throws IOException, InterruptedException {
-        System.out.println("html: " + UrlUtil.getNormalizedFileUriString(sourceHtml) + "\n");
+    protected static void compareAndCheckCompliance(String destinationPdf, String cmpPdf) throws IOException, InterruptedException {
         Assert.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER,
                 "diff_simple_"));
-
         VeraPdfValidator veraPdfValidator = new VeraPdfValidator();
         Assert.assertNull(veraPdfValidator.validate(destinationPdf));
     }
