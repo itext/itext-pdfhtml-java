@@ -23,7 +23,6 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.html2pdf.element.InputTest;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.util.UrlUtil;
@@ -45,7 +44,6 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -106,6 +104,22 @@ public class HtmlConverterTest extends ExtendedITextTest {
                 "</body>\n" +
                 "</html>", new PdfWriter(destinationPdf), converterProperties);
 
+        compareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
+    }
+
+    @Test
+    public void convertToPdfA4LinearGradientTest() throws IOException, InterruptedException {
+        String sourceHtml = SOURCE_FOLDER + "gradient.html";
+        String cmpPdf = SOURCE_FOLDER + "cmp_pdfA4LinGradient.pdf";
+        String destinationPdf = DESTINATION_FOLDER + "pdfA4LinGradient.pdf";
+
+        ConverterProperties converterProperties = new ConverterProperties();
+        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4);
+        converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
+                new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
+        try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
+            HtmlConverter.convertToPdf(fileInputStream, new FileOutputStream(destinationPdf), converterProperties);
+        }
         compareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
     }
 
