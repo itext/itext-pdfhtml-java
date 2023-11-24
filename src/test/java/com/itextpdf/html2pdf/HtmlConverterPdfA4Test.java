@@ -218,8 +218,10 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
     }
 
     @Test
-    public void convertToPdfA4EmojiTest() throws IOException {
+    public void convertToPdfA4EmojiTest() throws IOException, InterruptedException {
         String destinationPdf = DESTINATION_FOLDER + "pdfA4EmojiTest.pdf";
+        String cmpPdf = SOURCE_FOLDER + "cmp_pdfA4EmojiTest.pdf";
+
         String html = "<html>\n" +
                 "<head>"
                 + "<title>Test</title></head>\n" +
@@ -236,16 +238,11 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
         fontProvider.addFont(RESOURCES_SOURCE_FOLDER + "NotoEmoji-Regular.ttf");
         converterProperties.setFontProvider(fontProvider);
 
-        try (FileOutputStream fOutput = new FileOutputStream(destinationPdf)) {
-            //TODO DEVSIX-7924 change assertion when fixed
-            Exception e = Assert.assertThrows(PdfAConformanceException.class, () -> {
-                HtmlConverter.convertToPdf(html, fOutput, converterProperties);
-            });
+        FileOutputStream fOutput = new FileOutputStream(destinationPdf);
 
-            Assert.assertEquals(MessageFormatUtil.format(
-                            PdfaExceptionMessageConstant.EMBEDDED_FONTS_SHALL_DEFINE_ALL_REFERENCED_GLYPHS),
-                    e.getMessage());
-        }
+        HtmlConverter.convertToPdf(html, fOutput, converterProperties);
+
+        compareAndCheckCompliance(destinationPdf, cmpPdf);
     }
 
     @Test
