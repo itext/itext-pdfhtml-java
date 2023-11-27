@@ -60,7 +60,7 @@ public class ButtonTagWorker extends DivTagWorker {
 
     private boolean hasChildren = false;
 
-    private final PdfAConformanceLevel pdfAConformanceLevel;
+    private PdfAConformanceLevel pdfAConformanceLevel;
 
     /**
      * Creates a new {@link ButtonTagWorker} instance.
@@ -76,7 +76,9 @@ public class ButtonTagWorker extends DivTagWorker {
         }
         this.name = context.getFormFieldNameResolver().resolveFormName(name);
         flatten = !context.isCreateAcroForm();
-        pdfAConformanceLevel = context.getPdfDocument().getConformanceLevel();
+        if (context.getPdfDocument() != null) {
+            pdfAConformanceLevel = context.getPdfDocument().getConformanceLevel();
+        }
         lang = element.getAttribute(AttributeConstants.LANG);
     }
 

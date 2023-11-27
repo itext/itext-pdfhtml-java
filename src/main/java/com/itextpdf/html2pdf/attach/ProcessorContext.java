@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf.attach;
 
+import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.HtmlMetaInfoContainer;
@@ -35,7 +36,6 @@ import com.itextpdf.html2pdf.resolver.form.FormFieldNameResolver;
 import com.itextpdf.html2pdf.resolver.form.RadioCheckResolver;
 import com.itextpdf.html2pdf.resolver.resource.HtmlResourceResolver;
 import com.itextpdf.io.font.FontProgram;
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.FontProvider;
@@ -231,9 +231,9 @@ public class ProcessorContext {
     }
 
     /**
-     * Gets the PDF document.
+     * Gets the PDF document. If the PDF document is not set, null is returned.
      *
-     * @return the PDF document
+     * @return the PDF document or null
      */
     public PdfDocument getPdfDocument() {
         return pdfDocument;

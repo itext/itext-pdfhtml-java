@@ -55,16 +55,16 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class Html2ElementsTest extends ExtendedITextTest {
@@ -380,6 +380,23 @@ public class Html2ElementsTest extends ExtendedITextTest {
         }
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
     }
+
+    @Test
+    public void htmlToElementsFormTest() throws IOException, InterruptedException {
+        FileInputStream htmlFile = new FileInputStream(sourceFolder + "formelements.html");
+        String cmpPdf = sourceFolder + "cmp_htmlToElementsForms.pdf";
+        String outPdf = destinationFolder + "htmlToElementsForms.pdf";
+
+        List<IElement> elements = HtmlConverter.convertToElements(htmlFile,
+                new ConverterProperties().setBaseUri(sourceFolder));
+        try (Document document = new Document(new PdfDocument(new PdfWriter(outPdf)))) {
+            for (IElement element : elements) {
+                document.add((IBlockElement) element);
+            }
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+    }
+
 
     private static void addElementsToDocument(Document document, List<IElement> elements) {
         for (IElement elem : elements) {
