@@ -24,19 +24,17 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
-import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
-import java.io.IOException;
-import java.util.Arrays;
 import static com.itextpdf.html2pdf.HtmlConverterTest.compareAndCheckCompliance;
 
 @RunWith(Parameterized.class)
@@ -130,7 +128,7 @@ public class HtmlConverterPdfAParameterizedTest extends ExtendedHtmlConversionIT
         String cmpPdf = SOURCE_FOLDER + "cmp_" + testName + ".pdf";
         ConverterProperties converterProperties = new ConverterProperties().setBaseUri(SOURCE_FOLDER);
         converterProperties.setPdfAConformanceLevel(conformanceLevel);
-        converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
+        converterProperties.setDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                 new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
         try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
             HtmlConverter.convertToPdf(fileInputStream, new FileOutputStream(destinationPdf), converterProperties);

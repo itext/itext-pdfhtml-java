@@ -22,10 +22,10 @@
  */
 package com.itextpdf.html2pdf;
 
+import com.itextpdf.commons.actions.contexts.IMetaInfo;
+import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.html2pdf.attach.Attacher;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
-import com.itextpdf.commons.utils.FileUtil;
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.kernel.pdf.DocumentProperties;
 import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
@@ -37,10 +37,10 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.renderer.MetaInfoContainer;
+import com.itextpdf.pdfa.PdfADocument;
 import com.itextpdf.styledxmlparser.IXmlParser;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
-import com.itextpdf.pdfa.PdfADocument;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -123,7 +123,7 @@ public class HtmlConverter {
             return;
         }
         PdfDocument document = new PdfADocument(pdfWriter, converterProperties.getConformanceLevel(),
-                converterProperties.getOutputIntent(), new DocumentProperties()
+                converterProperties.getDocumentOutputIntent(), new DocumentProperties()
                 .setEventCountingMetaInfo(resolveMetaInfo(converterProperties)));
         converterProperties = setDefaultFontProviderForPdfA(document, converterProperties);
         if ("A".equals(converterProperties.getConformanceLevel().getConformance())) {
@@ -251,7 +251,7 @@ public class HtmlConverter {
             return;
         }
         PdfDocument document = new PdfADocument(pdfWriter, converterProperties.getConformanceLevel(),
-                converterProperties.getOutputIntent(), new DocumentProperties()
+                converterProperties.getDocumentOutputIntent(), new DocumentProperties()
                 .setEventCountingMetaInfo(resolveMetaInfo(converterProperties)));
         converterProperties = setDefaultFontProviderForPdfA(document, converterProperties);
         if ("A".equals(converterProperties.getConformanceLevel().getConformance())) {
@@ -405,6 +405,7 @@ public class HtmlConverter {
      * @return a list of iText building blocks
      */
     public static List<IElement> convertToElements(String html, ConverterProperties converterProperties) {
+        converterProperties = setDefaultFontProviderForPdfA(null, converterProperties);
         IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(html);
         return Attacher.attach(doc, converterProperties);
@@ -421,6 +422,7 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static List<IElement> convertToElements(InputStream htmlStream, ConverterProperties converterProperties) throws IOException {
+        converterProperties = setDefaultFontProviderForPdfA(null, converterProperties);
         IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
         return Attacher.attach(doc, converterProperties);
@@ -441,6 +443,10 @@ public class HtmlConverter {
             if (properties == null) {
                 properties = new ConverterProperties();
             }
+            if (properties.getFontProvider() == null) {
+                properties.setFontProvider(new DefaultFontProvider(false, true, false));
+            }
+        } else if (document == null && properties != null && properties.getConformanceLevel() != null) {
             if (properties.getFontProvider() == null) {
                 properties.setFontProvider(new DefaultFontProvider(false, true, false));
             }

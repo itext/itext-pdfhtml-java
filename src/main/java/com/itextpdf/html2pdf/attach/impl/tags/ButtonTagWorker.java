@@ -76,8 +76,8 @@ public class ButtonTagWorker extends DivTagWorker {
         }
         this.name = context.getFormFieldNameResolver().resolveFormName(name);
         flatten = !context.isCreateAcroForm();
-        if (context.getPdfDocument() != null) {
-            pdfAConformanceLevel = context.getPdfDocument().getConformanceLevel();
+        if (context.getConformanceLevel() != null) {
+            pdfAConformanceLevel = context.getConformanceLevel();
         }
         lang = element.getAttribute(AttributeConstants.LANG);
     }

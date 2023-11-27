@@ -36,6 +36,7 @@ import com.itextpdf.html2pdf.resolver.form.FormFieldNameResolver;
 import com.itextpdf.html2pdf.resolver.form.RadioCheckResolver;
 import com.itextpdf.html2pdf.resolver.resource.HtmlResourceResolver;
 import com.itextpdf.io.font.FontProgram;
+import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.FontProvider;
@@ -132,6 +133,11 @@ public class ProcessorContext {
     private PdfDocument pdfDocument;
 
     /**
+     * PDF/A conformance level from {@link ConverterProperties} instance.
+     */
+    private final PdfAConformanceLevel pdfAConformanceLevelFromProperties;
+
+    /**
      * The Processor meta info
      */
     private IMetaInfo metaInfo;
@@ -199,6 +205,7 @@ public class ProcessorContext {
         formFieldNameResolver = new FormFieldNameResolver();
         radioCheckResolver = new RadioCheckResolver();
         immediateFlush = converterProperties.isImmediateFlush();
+        pdfAConformanceLevelFromProperties = converterProperties.getConformanceLevel();
         processingInlineSvg = false;
         continuousContainerEnabled = converterProperties.isContinuousContainerEnabled();
     }
@@ -237,6 +244,15 @@ public class ProcessorContext {
      */
     public PdfDocument getPdfDocument() {
         return pdfDocument;
+    }
+
+    /**
+     * Get the PDF document conformance level if specified.
+     *
+     * @return the {@link PdfAConformanceLevel} will be null if the processing result won't follow PDF/A strictness
+     */
+    public PdfAConformanceLevel getConformanceLevel() {
+        return pdfDocument == null ? pdfAConformanceLevelFromProperties : pdfDocument.getConformanceLevel();
     }
 
     /**

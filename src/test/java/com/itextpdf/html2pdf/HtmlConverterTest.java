@@ -36,13 +36,12 @@ import com.itextpdf.pdfa.exceptions.PdfAConformanceException;
 import com.itextpdf.pdfa.exceptions.PdfaExceptionMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+import com.itextpdf.test.pdfa.VeraPdfValidator;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-
-import com.itextpdf.test.pdfa.VeraPdfValidator;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -71,7 +70,7 @@ public class HtmlConverterTest extends ExtendedITextTest {
         String destinationPdf = DESTINATION_FOLDER + "simple.pdf";
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_2B);
-        converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
+        converterProperties.setDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                 new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
         try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
             HtmlConverter.convertToPdf(fileInputStream, new PdfWriter(destinationPdf), converterProperties);
@@ -87,7 +86,7 @@ public class HtmlConverterTest extends ExtendedITextTest {
         String destinationPdf = DESTINATION_FOLDER + "simple.pdf";
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_1B);
-        converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
+        converterProperties.setDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                 new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
         try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
             HtmlConverter.convertToPdf(fileInputStream, new PdfWriter(destinationPdf), converterProperties);
@@ -113,7 +112,7 @@ public class HtmlConverterTest extends ExtendedITextTest {
 
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
-        converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
+        converterProperties.setDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                 new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
 
         PdfADocument pdfDocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformanceLevel.PDF_A_4E,
@@ -136,7 +135,7 @@ public class HtmlConverterTest extends ExtendedITextTest {
 
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4E);
-        converterProperties.setOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
+        converterProperties.setDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                 new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
 
         PdfADocument pdfDocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformanceLevel.PDF_A_4E,

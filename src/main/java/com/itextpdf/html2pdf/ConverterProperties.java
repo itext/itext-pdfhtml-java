@@ -32,6 +32,8 @@ import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever;
 
+import java.io.InputStream;
+
 /**
  * Properties that will be used by the {@link com.itextpdf.html2pdf.HtmlConverter}.
  */
@@ -409,14 +411,18 @@ public class ConverterProperties {
     }
 
     /**
-     * Sets pdf output intent (final destination device) to reproduce the color in the PDF.
+     * Sets pdf document output intent (final destination device) to reproduce the color in the PDF.
      * Required parameter, when converting to pdf/a one have to specify an explicit output intent.
+     *
+     * <p>
+     * Note, output intent isn't applicable for HtmlConverter#convertToElements methods
+     * (e.g. {@link HtmlConverter#convertToElements(InputStream, ConverterProperties)})
      *
      * @param outputIntent a {@link PdfOutputIntent} instance
      *
      * @return the {@link ConverterProperties} instance
      */
-    public ConverterProperties setOutputIntent(PdfOutputIntent outputIntent) {
+    public ConverterProperties setDocumentOutputIntent(PdfOutputIntent outputIntent) {
         this.outputIntent = outputIntent;
         return this;
     }
@@ -435,11 +441,15 @@ public class ConverterProperties {
     }
 
     /**
-     * Gets pdf output intent (final destination device) to reproduce the color in the PDF.
+     * Gets pdf document output intent (final destination device) to reproduce the color in the PDF.
+     *
+     * <p>
+     * Note, output intent isn't applicable for HtmlConverter#convertToElements methods
+     * (e.g. {@link HtmlConverter#convertToElements(InputStream, ConverterProperties)})
      *
      * @return pdf output intent
      */
-    public PdfOutputIntent getOutputIntent() {
+    public PdfOutputIntent getDocumentOutputIntent() {
         return outputIntent;
     }
 

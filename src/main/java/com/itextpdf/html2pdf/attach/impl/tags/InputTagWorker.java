@@ -161,9 +161,8 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
         if (formElement != null) {
             formElement.setProperty(FormProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
             formElement.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
-            if (context.getPdfDocument() != null) {
-                formElement.setProperty(FormProperty.FORM_CONFORMANCE_LEVEL,
-                        context.getPdfDocument().getConformanceLevel());
+            if (context.getConformanceLevel() != null) {
+                formElement.setProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.getConformanceLevel());
             }
         }
 
