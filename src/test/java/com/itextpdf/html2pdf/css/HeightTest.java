@@ -23,6 +23,9 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
@@ -171,5 +174,12 @@ public class HeightTest extends ExtendedHtmlConversionITextTest {
     // TODO DEVSIX-6078 print log message about invalid height
     public void heightNumberWithoutUnitTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("heightNumberWithoutUnit", sourceFolder, destinationFolder);
+    }
+
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)})
+    @Test
+    public void emptyTableOnCustomPageSizedDocumentTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("emptyTableOnCustomPageSizedDocument", sourceFolder, destinationFolder);
     }
 }
