@@ -29,7 +29,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
+import com.itextpdf.kernel.pdf.IConformanceLevel;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
@@ -60,7 +60,7 @@ public class ButtonTagWorker extends DivTagWorker {
 
     private boolean hasChildren = false;
 
-    private PdfAConformanceLevel pdfAConformanceLevel;
+    private IConformanceLevel pdfAConformanceLevel;
 
     /**
      * Creates a new {@link ButtonTagWorker} instance.

@@ -36,6 +36,7 @@ import com.itextpdf.html2pdf.resolver.form.FormFieldNameResolver;
 import com.itextpdf.html2pdf.resolver.form.RadioCheckResolver;
 import com.itextpdf.html2pdf.resolver.resource.HtmlResourceResolver;
 import com.itextpdf.io.font.FontProgram;
+import com.itextpdf.kernel.pdf.IConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.font.FontInfo;
@@ -251,7 +252,7 @@ public class ProcessorContext {
      *
      * @return the {@link PdfAConformanceLevel} will be null if the processing result won't follow PDF/A strictness
      */
-    public PdfAConformanceLevel getConformanceLevel() {
+    public IConformanceLevel getConformanceLevel() {
         return pdfDocument == null ? pdfAConformanceLevelFromProperties : pdfDocument.getConformanceLevel();
     }
 
