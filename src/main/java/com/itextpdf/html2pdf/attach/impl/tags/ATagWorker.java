@@ -100,7 +100,7 @@ public class ATagWorker extends SpanTagWorker {
                     }
                     getAllElements().set(i, simulatedDiv);
                 }
-                LinkHelper.applyLinkAnnotation(getAllElements().get(i), url);
+                LinkHelper.applyLinkAnnotation(getAllElements().get(i), url, context);
             }
         }
 

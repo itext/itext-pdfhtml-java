@@ -22,6 +22,8 @@
  */
 package com.itextpdf.html2pdf.attach.util;
 
+import com.itextpdf.commons.datastructures.Tuple2;
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
@@ -29,6 +31,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfArray;
+import com.itextpdf.kernel.pdf.PdfDictionary;
 import com.itextpdf.kernel.pdf.action.PdfAction;
 import com.itextpdf.kernel.pdf.annot.PdfAnnotation;
 import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
@@ -61,13 +64,33 @@ public class LinkHelper {
      *
      * @param container the containing object
      * @param url       the destination
+     * @deprecated in favour of
+     * {@code applyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context)}
      */
+    @Deprecated
     public static void applyLinkAnnotation(IPropertyContainer container, String url) {
+        // Fake context here
+        applyLinkAnnotation(container, url, new ProcessorContext(new ConverterProperties()));
+    }
+
+    /**
+     * Applies a link annotation.
+     *
+     * @param container the containing object.
+     * @param url       the destination.
+     * @param context   the processor context.
+     */
+    public static void applyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context) {
         if (container != null) {
             PdfLinkAnnotation linkAnnotation;
             if (url.startsWith("#")) {
-                String name = url.substring(1);
-                linkAnnotation = (PdfLinkAnnotation) new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createGoTo(name)).setFlags(PdfAnnotation.PRINT);
+                String id = url.substring(1);
+                linkAnnotation = context.getLinkContext().getLinkAnnotation(id);
+                if (linkAnnotation == null) {
+                    linkAnnotation = (PdfLinkAnnotation) new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0))
+                            .setAction(PdfAction.createGoTo(id)).setFlags(PdfAnnotation.PRINT);
+                    context.getLinkContext().addLinkAnnotation(id, linkAnnotation);
+                }
             } else {
                 linkAnnotation = (PdfLinkAnnotation) new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createURI(url)).setFlags(PdfAnnotation.PRINT);
             }
@@ -100,7 +123,16 @@ public class LinkHelper {
                         Html2PdfLogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.name(), id, tagWorkerClassName));
                 return;
             }
-            propertyContainer.setProperty(Property.DESTINATION, id);
+
+            PdfLinkAnnotation linkAnnotation = context.getLinkContext().getLinkAnnotation(id);
+            if (linkAnnotation == null) {
+                linkAnnotation = (PdfLinkAnnotation) new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0))
+                        .setAction(PdfAction.createGoTo(id)).setFlags(PdfAnnotation.PRINT);
+                context.getLinkContext().addLinkAnnotation(id, linkAnnotation);
+            }
+
+            propertyContainer.setProperty(Property.DESTINATION,
+                    new Tuple2<String, PdfDictionary>(id, linkAnnotation.getAction()));
         }
         if (propertyContainer != null) {
             propertyContainer.setProperty(Property.ID, id);

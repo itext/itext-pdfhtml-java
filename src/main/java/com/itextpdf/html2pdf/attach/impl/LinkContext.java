@@ -24,10 +24,13 @@ package com.itextpdf.html2pdf.attach.impl;
 
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -45,6 +48,11 @@ public class LinkContext {
      * the ids currently in use as valid link destinations
      */
     private Set<String> linkDestinations = new HashSet<>();
+    /**
+     * Link annotations per destination id. Used to cache link annotations to be able to pass the same annotation
+     * to different model elements.
+     */
+    private Map<String, PdfLinkAnnotation> linkAnnotations = new HashMap<>();
 
     /**
      * Construct an (empty) LinkContext
@@ -96,5 +104,25 @@ public class LinkContext {
      */
     public boolean isUsedLinkDestination(String linkDestination) {
         return linkDestinations.contains(linkDestination);
+    }
+
+    /**
+     * Add link annotation to the context.
+     *
+     * @param id link destination.
+     * @param annot link annotation to store.
+     */
+    public void addLinkAnnotation(String id, PdfLinkAnnotation annot) {
+        linkAnnotations.put(id, annot);
+    }
+
+    /**
+     * Get link annotation.
+     *
+     * @param id link destination.
+     * @return link annotation for the given link destination.
+     */
+    public PdfLinkAnnotation getLinkAnnotation(String id) {
+        return linkAnnotations.get(id);
     }
 }
