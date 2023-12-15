@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf;
 
+import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfDocumentInfo;
@@ -106,6 +107,25 @@ public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
          *    an alternate textual representation is not enclosed within Figure or Formula structure elements.
          */
         compareAndCheckCompliance(destinationPdf, cmpPdf, false);
+    }
+
+    @Test
+    public void simpleOutlineTest() throws IOException, InterruptedException, XMPException {
+        String sourceHtml = SOURCE_FOLDER + "simpleOutline.html";
+        String destinationPdf = DESTINATION_FOLDER + "simpleOutline.pdf";
+        String cmpPdf = SOURCE_FOLDER + "cmp_simpleOutline.pdf";
+
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf, new WriterProperties().setPdfVersion(
+                PdfVersion.PDF_2_0)));
+        createSimplePdfUA2Document(pdfDocument);
+
+        ConverterProperties converterProperties = new ConverterProperties();
+        FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+        converterProperties.setFontProvider(fontProvider);
+        converterProperties.setOutlineHandler(OutlineHandler.createStandardHandler());
+        HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
+
+        compareAndCheckCompliance(destinationPdf, cmpPdf, true);
     }
 
     private void createSimplePdfUA2Document(PdfDocument pdfDocument) throws IOException, XMPException {

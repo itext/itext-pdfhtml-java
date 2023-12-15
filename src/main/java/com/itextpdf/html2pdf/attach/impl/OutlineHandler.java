@@ -22,14 +22,15 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
+import com.itextpdf.commons.datastructures.Tuple2;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.itextpdf.kernel.pdf.PdfDictionary;
 import com.itextpdf.kernel.pdf.PdfOutline;
-import com.itextpdf.kernel.pdf.PdfString;
-import com.itextpdf.kernel.pdf.navigation.PdfDestination;
+import com.itextpdf.kernel.pdf.action.PdfAction;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.node.IElementNode;
@@ -72,7 +73,7 @@ public class OutlineHandler {
     /**
      * The destinations in process.
      */
-    private Deque<String> destinationsInProcess = new LinkedList<String>();
+    private Deque<Tuple2<String, PdfDictionary>> destinationsInProcess = new LinkedList<Tuple2<String, PdfDictionary>>();
 
     /**
      * The levels in process.
@@ -241,9 +242,9 @@ public class OutlineHandler {
             }
             PdfOutline outline = parent.addOutline(generateOutlineName(element));
             String destination = generateUniqueDestinationName(element);
-            outline.addDestination(PdfDestination.makeDestination(new PdfString(destination)));
-
-            destinationsInProcess.push(destination);
+            PdfAction action = PdfAction.createGoTo(destination);
+            outline.addAction(action);
+            destinationsInProcess.push(new Tuple2<String, PdfDictionary>(destination, action.getPdfObject()));
 
             levelsInProcess.push(level);
             currentOutline = outline;
@@ -264,7 +265,7 @@ public class OutlineHandler {
     OutlineHandler setDestinationToElement(ITagWorker tagWorker, IElementNode element) {
         String tagName = element.name();
         if (null != tagWorker && hasTagPriorityMapping(tagName) && destinationsInProcess.size() > 0) {
-            String content = destinationsInProcess.pop();
+            Tuple2<String, PdfDictionary> content = destinationsInProcess.pop();
             if (tagWorker.getElementResult() instanceof IElement) {
                 tagWorker.getElementResult().setProperty(Property.DESTINATION, content);
             } else {
