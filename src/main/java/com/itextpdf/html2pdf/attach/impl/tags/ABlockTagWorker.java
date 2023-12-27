@@ -71,7 +71,7 @@ public class ABlockTagWorker extends DivTagWorker {
                     }
             }
             ((Div) getElementResult()).getAccessibilityProperties().setRole(StandardRoles.LINK);
-            LinkHelper.applyLinkAnnotation(getElementResult(), url, context);
+            LinkHelper.applyLinkAnnotation(getElementResult(), url, context, element);
         }
 
         if (getElementResult() != null) {

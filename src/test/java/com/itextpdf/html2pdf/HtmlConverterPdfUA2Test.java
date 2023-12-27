@@ -76,10 +76,9 @@ public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
         converterProperties.setFontProvider(fontProvider);
         HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
 
-        /* TODO: DEVSIX-7996 - Links created from html2pdf are not ua-2 compliant
-         * Two verapdf errors are generated here:
-         * 1. clause="8.9.4.1", Link annotation neither has a Contents entry nor alternate description.
-         * 2. clause="8.5.1", Real content that does not possess the semantics of text objects and does not have
+        /* TODO: DEVSIX-5700 - Links created from html2pdf are not ua-2 compliant
+         * One verapdf error is generated here:
+         * 1. clause="8.5.1", Real content that does not possess the semantics of text objects and does not have
          *    an alternate textual representation is not enclosed within Figure or Formula structure elements.
          */
         compareAndCheckCompliance(destinationPdf, cmpPdf, false);
@@ -100,10 +99,33 @@ public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
         converterProperties.setFontProvider(fontProvider);
         HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
 
-        /* TODO: DEVSIX-7996 - Links created from html2pdf are not ua-2 compliant
-         * Two verapdf errors are generated here:
-         * 1. clause="8.9.4.1", Link annotation neither has a Contents entry nor alternate description.
-         * 2. clause="8.5.1", Real content that does not possess the semantics of text objects and does not have
+        /* TODO: DEVSIX-5700 - Links created from html2pdf are not ua-2 compliant
+         * One verapdf error is generated here:
+         * 1. clause="8.5.1", Real content that does not possess the semantics of text objects and does not have
+         *    an alternate textual representation is not enclosed within Figure or Formula structure elements.
+         */
+        compareAndCheckCompliance(destinationPdf, cmpPdf, false);
+    }
+
+    @Test
+    public void imageLinkTest() throws IOException, InterruptedException, XMPException {
+        String sourceHtml = SOURCE_FOLDER + "imageLink.html";
+        String cmpPdf = SOURCE_FOLDER + "cmp_imageLink.pdf";
+        String destinationPdf = DESTINATION_FOLDER + "imageLink.pdf";
+
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf, new WriterProperties().setPdfVersion(
+                PdfVersion.PDF_2_0)));
+        createSimplePdfUA2Document(pdfDocument);
+
+        ConverterProperties converterProperties = new ConverterProperties();
+        FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+        converterProperties.setFontProvider(fontProvider);
+        converterProperties.setBaseUri(SOURCE_FOLDER);
+        HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
+
+        /* TODO: DEVSIX-5700 - Links created from html2pdf are not ua-2 compliant
+         * One verapdf error is generated here:
+         * 1. clause="8.5.1", Real content that does not possess the semantics of text objects and does not have
          *    an alternate textual representation is not enclosed within Figure or Formula structure elements.
          */
         compareAndCheckCompliance(destinationPdf, cmpPdf, false);
