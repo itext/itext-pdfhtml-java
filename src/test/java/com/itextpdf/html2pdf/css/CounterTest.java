@@ -23,57 +23,69 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.layout.logs.LayoutLogMessageConstant;
+import com.itextpdf.test.LogLevelConstants;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.IOException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import java.io.IOException;
-
 @Category(IntegrationTest.class)
 public class CounterTest extends ExtendedHtmlConversionITextTest{
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CounterTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/CounterTest/";
+    public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/CounterTest/";
+    public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/CounterTest/";
 
     @BeforeClass
     public static void beforeClass() {
-        createOrClearDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
     public void counter01Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("counter01", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("counter01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void pageCounter01Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("page_counter01", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("page_counter01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void pageCounter02Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("page_counter02", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("page_counter02", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void pageCounter03Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("page_counter03", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("page_counter03", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void pageCounter04Test() throws IOException, InterruptedException {
-        convertToPdfAndCompare("page_counter04", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("page_counter04", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     public void pageCounterSpacesInDeclarationTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("page_counter_spaces_in_declaration", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("page_counter_spaces_in_declaration", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 2, logLevel = LogLevelConstants.WARN)
+    })
+    public void pageCounterAndKeepTogetherTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("pageCounterAndKeepTogetherTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     // TODO fix cmp after DEVSIX-5509 is done; currently total page count is incorrect
     public void pageCounterWithTrimmedLastPageTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("page_counter_with_trimmed_last_page", sourceFolder, destinationFolder);
+        convertToPdfAndCompare("page_counter_with_trimmed_last_page", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 }

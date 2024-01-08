@@ -1,0 +1,454 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"/>
+<style type='text/css'>
+    /*----------------------------------------------------------------------------------------------------------
+          Base styles
+       ----------------------------------------------------------------------------------------------------------*/
+    *, *:before, *:after {
+        box-sizing: border-box;
+    }
+
+    body {
+        color: #000;
+        font-size: 9pt;
+        font-weight: 200;
+        margin: 0;
+        line-height: 11pt;
+    }
+
+    /*----------------------------------------------------------------------------------------------------------
+            Text styling
+    ----------------------------------------------------------------------------------------------------------*/
+
+
+    strong, b {
+        color: #14143C;
+        font-weight: 700 !important;
+    }
+
+    table, tr, td, th, tbody, thead, tfoot, li, .EVH05 {
+        page-break-inside: avoid !important;
+    }
+
+    /*----------------------------------------------------------------------------------------------------------
+            Spacing - Boxes and tables
+     ----------------------------------------------------------------------------------------------------------*/
+    table + .lovhenvisning {
+        margin-top: 2.5mm;
+    }
+
+    /* 5mm (without texts' own padding) */
+    p + table {
+        margin-top: 4mm;
+    }
+
+    .EVH02 h2 + p {
+        margin-top: 3mm;
+    }
+    .EVH02 h2 + table {
+        margin-top: 2mm;
+    }
+    .EVH02 p + table {
+        margin-top: 2.5mm;
+    }
+
+    /* 3.5mm (without texts' own padding) */
+
+    .EVH05 h2 + table,
+    .EVH08 h2 + table,
+    .EVH07 h2 + table {
+        margin-top: 2.25mm;
+    }
+
+    .FVH03 h2 + * {
+        margin-top: 2mm;
+    }
+
+    .FVH02 h2 + *, .FVH03 h2 + *, .EVH03 h2 + *, .EVH04 h2 + *, .EVH05 h2 + p,
+    .EVH06 h2 + *, .EVH07 h2 + *, .EVH08 h2 + *, .EVH012 h2 + * {
+        margin-top: 1.5mm;
+    }
+
+    .FVH04 h3 + table {
+        margin-top: 1.15mm;
+    }
+
+    .EVH03 h2 + table,
+    .FVH01 h2 + table {
+        margin-top: -1mm;
+    }
+
+    .caption + table {
+        margin-top: 0;
+    }
+
+
+    /*----------------------------------------------------------------------------------------------------------
+        Page layout
+    ----------------------------------------------------------------------------------------------------------*/
+
+    section {
+        margin-left: 24mm;
+    }
+
+    section:not(.with-side-col) {
+        width: 162mm;
+    }
+
+    .with-side-col > div:first-child {
+        float: left;
+        width: 134mm;
+    }
+
+    .with-side-col > div:nth-child(2)  {
+        float: left;
+        vertical-align: top;
+        margin-left: 5mm;
+        width: 40mm;
+        color: #14143C;
+    }
+
+    .with-side-col > .sender-address {
+        font-size: 7pt;
+        line-height: 8.4pt;
+    }
+
+    .with-side-col > div:nth-child(2) .divider {
+        border-top: 1mm solid #14143C;
+        content: '';
+        display: block;
+        margin-top: 3.5mm;
+        margin-bottom: 3.5mm;
+        width: 13.5mm;
+    }
+
+    section::after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+    /*----------------------------------------------------------------------------------------------------------
+            Common table styling
+     ----------------------------------------------------------------------------------------------------------*/
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 5mm;
+    }
+
+    td:not(:first-child) {
+        border-left: solid 2mm white;
+    }
+
+    th:not(:first-child) {
+        padding-left: 2mm;
+    }
+
+    th {
+        font-weight: 700;
+        text-align: left;
+    }
+
+    th[scope=col] {
+        padding-right: 0;
+        color: #14143C;
+    }
+
+    td, th {
+        padding: 1mm 2.5mm 1mm 0;
+    }
+
+    td,
+    th[scope=row] {
+        vertical-align: middle;
+        word-break: break-word;
+        height: 6mm;
+        border-bottom: 0.75pt solid #E8E2E1;
+    }
+
+    th[scope=row] {
+        font-weight: 200;
+    }
+
+    .no-column-gaps td:not(:first-child){
+        border-left: none;
+    }
+
+    .no-column-gaps td[colspan="2"]{
+        border-color: #14143C;
+        border-width: 0.75pt;
+    }
+
+    /*----------------------------------------------------------------------------------------------------------
+            Box styling
+    ----------------------------------------------------------------------------------------------------------*/
+
+    /* Simple border - blue */
+    .EVH05 {
+        border: solid 1pt #14143C;
+        padding: 4.7mm 5mm 5mm 5mm;
+        position: relative;
+        margin-bottom: 1mm;
+        margin-top: 5mm;
+    }
+
+    .FVH01 + *:not(.lovhenvisning), .FVH02 + *:not(.lovhenvisning), .FVH03 + *:not(.lovhenvisning),
+    .FVH04 + *:not(.lovhenvisning), .FVH05 + *:not(.lovhenvisning), .FVH06 + *:not(.lovhenvisning),
+    .FVH07 + *:not(.lovhenvisning), .EVH02 + *:not(.lovhenvisning), .EVH03 + *:not(.lovhenvisning),
+    .EVH04 + *:not(.lovhenvisning), .EVH05 + *:not(.lovhenvisning), .EVH06 + *:not(.lovhenvisning),
+    .EVH07 + *:not(.lovhenvisning), .EVH08 + *:not(.lovhenvisning), .EVH09 + *:not(.lovhenvisning),
+    .EVH010 + *:not(.lovhenvisning), .EVH11 + *:not(.lovhenvisning), .EVH12 + *:not(.lovhenvisning) {
+        margin-top: 5mm;
+    }
+
+
+
+    /* Two columns */
+    .FVH04 table tr td:first-child,
+    .FVH04 table tr th[scope=row]:first-child,
+    .EVH02 table tr td:first-child,
+    .EVH02 table tr th[scope=row]:first-child,
+    .two-cols tr td:first-child {
+        width: 30% !important;
+    }
+
+    /* Lined table head */
+    .EVH05 table:not(.no-thead),
+    .EVH07 table:not(.no-thead),
+    .EVH08 table:not(.no-thead) {
+        border-top: solid 0.75pt #14143C;
+    }
+
+    .EVH05 th[scope=col],
+    .EVH07 th[scope=col],
+    .EVH08 th[scope=col] {
+        border-bottom: solid 3pt #434363;
+        padding-right: 2mm;
+    }
+
+    .EVH05 th[scope=col],
+    .EVH05 td,
+    .EVH07 th[scope=col],
+    .EVH07 td,
+    .EVH08 th[scope=col],
+    .EVH08 td {
+        padding-top: 2mm; /*2.5mm (without texts' own padding)*/
+        padding-bottom: 2mm; /*2.5mm (without texts' own padding)*/
+    }
+
+
+
+    /* Wide */
+    .EVH02, .EVH03, .EVH04, .EVH05, .EVH06, .EVH07, .EVH08,
+    .EVH09, .EVH10, .EVH11, .EVH12 {
+        margin-left: -5mm;
+        margin-right: -5mm;
+    }
+
+    /* ---------------------- FVH07 ---------------------- */
+
+    .FVH07 > svg {
+        position: absolute;
+        left: 2mm;
+        top: -4mm;
+        height: 8mm;
+        width: 8mm;
+    }
+
+    /* ---------------------- EVH05 ---------------------- */
+
+    .EVH05 th[scope=col] {
+        height: 8mm;
+    }
+
+    /* 5mm (without text's and table's own paddings) */
+    .EVH05 .no-thead {
+        margin-top: 3mm;
+    }
+
+    /* second table */
+    .EVH05 table ~ p + .no-thead {
+        margin-top: 1mm;
+    }
+
+    /*----------------------------------------------------------------------------------------------------------
+               Header/footer
+     ----------------------------------------------------------------------------------------------------------*/
+
+    .footer-right {
+        position: running(footer-right);
+        display: inline-block;
+        font-size: 6.5pt;
+        height: 25mm;
+        padding-top: 7mm;
+        text-align: left;
+        width: 48mm;
+        font-weight: 700;
+    }
+
+    #pagenumber:before {
+        content: counter(page);
+    }
+
+    #pagecount:before {
+        content: counter(pages);
+    }
+
+    .page-numbers:after {
+        border-bottom: solid 2.5mm #FF620C;
+        content: '';
+        display: block;
+        height: 4.7mm;
+        width: 33mm;
+    }
+
+
+    /*----------------------------------------------------------------------------------------------------------
+    Page
+    ----------------------------------------------------------------------------------------------------------*/
+
+    @page {
+        margin: 30mm 0 25mm 0;
+        size: A4;
+        @bottom-right {
+            vertical-align: text-top;
+            content: element(footer-right);
+        }
+    }
+
+</style>
+
+</head><body>
+<footer class="footer-right">
+    <span class="page-numbers">Side <span id="pagenumber"></span> af <span id="pagecount"></span></span>
+</footer>
+
+
+<section>
+<div>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+    <p><span>Vi har set på mulig anvendelse og udnyttelse af grunden ifølge plangrundlaget</span></p>
+
+
+
+</div>
+<div class="EVH05 sand-50">
+    <h2><span>Areal, der indgår i beregningen</span></h2>
+    <table class="two-cols">
+        <tbody>
+            <tr>
+                <td><span>Boligenhed <span>1</span><br>Etageareal - uden areal af bibygninger og annekser</span></td>
+                <td><span><span>60</span> m<sup>2</sup></span></td>
+            </tr>
+            <tr>
+                <td><span>Boligenhed <span>2</span><br>Etageareal - uden areal af bibygninger og annekser</span></td>
+                <td><span><span>61</span> m<sup>2</sup></span></td>
+            </tr>
+                <tr>
+                    <td><span>Annekser</span></td>
+                    <td><span><span>15</span> m<sup>2</sup></span></td>
+                </tr>
+                <tr>
+                    <td><span>Fordelt til boligenhed <span>1</span></span></td>
+                    <td><span><span>15</span> m<sup>2</sup></span></td>
+                </tr>
+                <tr>
+                    <td><span>Fordelt til boligenhed <span>2</span></span></td>
+                    <td><span><span>16</span> m<sup>2</sup></span></td>
+                </tr>
+                <tr>
+                    <td><span>Fordelt til boligenhed <span>1</span></span></td>
+                    <td><span><span>15</span> m<sup>2</sup></span></td>
+                </tr>
+                <tr>
+                    <td><span>Fordelt til boligenhed <span>2</span></span></td>
+                    <td><span><span>16</span> m<sup>2</sup></span></td>
+                </tr>
+            <tr>
+                <td><span>Begge boligenheders areal af bibygninger</span></td>
+                <td><span><span>120</span> m<sup>2</sup></span></td>
+            </tr>
+                <tr>
+                    <td><span>Fordelt til boligenhed <span>1</span><br>– som indgår i beregningen</span></td>
+                    <td><span><span>18</span> m<sup>2</sup></span></td>
+                </tr>
+                <tr>
+                    <td><span>Fordelt til boligenhed <span>2</span><br>– som indgår i beregningen</span></td>
+                    <td><span><span>19</span> m<sup>2</sup></span></td>
+                </tr>
+            <tr>
+                <td colspan="2"><em><span>Det samlede areal af bibygninger udgør 20 kvadratmeter eller mindre. Ifølge bygningsreglementets § 455, stk. 4, nr. 1, skal vi derfor opgøre arealet af bibygninger til 0 kvadratmeter, og det er det tal, der indgår i det samlede etageareal.</span></em></td>
+            </tr>
+            <tr>
+                <td colspan="2"><em><span>Det samlede areal af bibygninger udgør 50 kvadratmeter eller mindre. Ifølge bygningsreglementets § 455, stk. 4, nr. 2, skal vi derfor opgøre arealet af bibygninger til 0 kvadratmeter, og det er det tal, der indgår i det samlede etageareal.</span></em></td>
+            </tr>
+            <tr>
+                <td colspan="2"><em><span>Det samlede areal af bibygninger overstiger ikke 25 procent af det samlede areal fra BBR, vi har vist ovenfor. Ifølge bygningsreglementets § 455, stk. 4, nr. 3, skal vi derfor opgøre arealet af bibygninger til 0 kvadratmeter, og det er det tal, der indgår i det samlede etageareal.</span></em></td>
+            </tr>
+            <tr>
+                <td colspan="2"><em><span>Det areal af bibygninger, vi viser, er 20 kvadratmeter mindre end det, BBR viser for bibygninger. Det er det, fordi vi, ifølge bygningsreglementets § 455, stk. 4, nr. 1, skal trække 20 kvadratmeter fra på grund af den type bolig, du har.</span></em></td>
+            </tr>
+            <tr>
+                <td colspan="2"><em><span>Det areal af bibygninger, vi viser, er 50 kvadratmeter mindre end det, BBR viser for bibygninger. Det er det, fordi vi, ifølge bygningsreglementets § 455, stk. 4, nr. 2, skal trække 50 kvadratmeter fra på grund af den type bolig, du har.</span></em></td>
+            </tr>
+            <tr>
+                <td colspan="2"><em><span>Det areal af bibygninger, vi viser, er 25 procent mindre end det, BBR viser for bibygninger. Det er det, fordi vi, ifølge bygningsreglementets § 455, stk. 4, nr. 3, skal trække 25 procent af arealet fra på grund af den type bolig, du har.</span></em></td>
+            </tr>
+            <tr>
+                <td colspan="2"><span>Ejendommen er registreret med en anvendelseskode, som kan have betydet, at der er trukket et forkert areal for bibygninger fra i det faktiske etageareal. Der kan være trukket 20 kvadratmeter fra, hvor det burde være 50. Hvis det er tilfældet, og det påvirker værdien af grunden, korrigerer vi for det i afsnittet <em>Tillæg og nedslag, der påvirker værdien af grunden.</em></span></td>
+            </tr>
+            <tr>
+                <td><span>Faktisk etageareal for boligenhed <span>1</span></span></td>
+                <td><span><span>174</span> m<sup>2</sup></span></td>
+            </tr>
+            <tr>
+                <td><span>Faktisk etageareal for boligenhed <span>2</span></span></td>
+                <td><span><span>174</span> m<sup>2</sup></span></td>
+            </tr>
+        </tbody>
+    </table>
+        <p><span>Bibygninger, der er registreret på grunden:</span></p>
+    <table class="two-cols">
+        <tbody>
+                <tr>
+                    <td><span>Hønsehus</span></td>
+                    <td><span><span>70</span> m<sup>2</sup></span></td>
+                </tr>
+                <tr>
+                    <td><span>Skur</span></td>
+                    <td><span><span>50</span> m<sup>2</sup></span></td>
+                </tr>
+            <tr>
+                <td><span>Samlet faktisk areal af bibygninger</span></td>
+                <td><span><span>120</span> m<sup>2</sup></span></td>
+            </tr>
+        </tbody>
+    </table>
+    <p><em><span>Det faktiske etageareal har vi beregnet på baggrund af oplysninger fra BBR. Hvis der er flere bygninger med samme arealanvendelse på grunden, har vi lagt arealerne sammen. </span></em></p>
+</div>
+</section>
+</body></html>
