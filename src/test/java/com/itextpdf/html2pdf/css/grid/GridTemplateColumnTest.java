@@ -24,6 +24,9 @@ package com.itextpdf.html2pdf.css.grid;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.layout.logs.LayoutLogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
@@ -49,31 +52,42 @@ public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void autoRowFixedTest() throws IOException, InterruptedException {
+        runTest("auto-cols-fixed");
+    }
+
+    @Test
+    // TODO DEVSIX-8323
     public void templateColumnStartEndTest() throws IOException, InterruptedException {
         runTest("template-cols-column-start-end");
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateColumnWidthUnitsTest() throws IOException, InterruptedException {
         runTest("template-cols-different-width-units");
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateColumnFitContentTest() throws IOException, InterruptedException {
         runTest("template-cols-fit-content");
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateColumnFitContentAutoTest() throws IOException, InterruptedException {
         runTest("template-cols-fit-content-auto");
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateColumnFrTest() throws IOException, InterruptedException {
         runTest("template-cols-fr");
     }
 
     @Test
+    // TODO DEVSIX-8126
     public void templateColumnGridGapTest() throws IOException, InterruptedException {
         runTest("template-cols-grid-gap");
     }
@@ -89,16 +103,22 @@ public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateColumnMinMaxTest() throws IOException, InterruptedException {
         runTest("template-cols-minmax");
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateColumnMixedTest() throws IOException, InterruptedException {
         runTest("template-cols-mixed");
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)
+    })
+    // TODO DEVSIX-8324
     public void templateColumnMultiPageTest() throws IOException, InterruptedException {
         runTest("template-cols-enormous-size");
     }
@@ -114,16 +134,19 @@ public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateColumnRepeatTest() throws IOException, InterruptedException {
         runTest("template-cols-repeat");
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateColumnRepeatMinMaxTest() throws IOException, InterruptedException {
         runTest("template-cols-repeat-minmax");
     }
 
     @Test
+    // TODO DEVSIX-8126
     public void templateColumnColumnGapTest() throws IOException, InterruptedException {
         runTest("template-cols-column-gap");
     }
@@ -133,9 +156,14 @@ public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
         runTest("template-cols-without-other-props");
     }
 
+    @Test
+    public void templateColumnBasicTest2() throws IOException, InterruptedException {
+        runTest("template-cols-without-other-props-2");
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         convertToPdfAndCompare(testName,
                 SOURCE_FOLDER, DESTINATION_FOLDER, false,
-                new ConverterProperties().setBaseUri(SOURCE_FOLDER));
+                new ConverterProperties().setBaseUri(SOURCE_FOLDER).setCssGridEnabled(true));
     }
 }

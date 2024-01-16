@@ -66,7 +66,18 @@ public class DivTagWorker implements ITagWorker, IDisplayAware {
      * @param context the context
      */
     public DivTagWorker(IElementNode element, ProcessorContext context) {
-        div = new Div();
+        this(element, context, new Div());
+    }
+
+    /**
+     * Creates a new {@link DivTagWorker} instance.
+     *
+     * @param element the element
+     * @param context the context
+     * @param container div element container
+     */
+    protected DivTagWorker(IElementNode element, ProcessorContext context, Div container) {
+        div = container;
         Map<String, String> styles = element.getStyles();
         if (styles != null && (styles.containsKey(CssConstants.COLUMN_COUNT) || styles.containsKey(CssConstants.COLUMN_WIDTH))) {
             multicolContainer = new MulticolContainer();

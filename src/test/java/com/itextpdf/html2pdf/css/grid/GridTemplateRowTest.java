@@ -48,16 +48,23 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void autoRowFixedTest() throws IOException, InterruptedException {
+        runTest("auto-rows-fixed");
+    }
+
+    @Test
     public void templateRowBordersTest() throws IOException, InterruptedException {
         runTest("template-rows-borders");
     }
 
     @Test
+    // TODO DEVSIX-8126
     public void templateRowStartEndTest() throws IOException, InterruptedException {
         runTest("template-rows-start-end");
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateRowWidthUnitsTest() throws IOException, InterruptedException {
         runTest("template-rows-different-width-units");
     }
@@ -73,11 +80,13 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateRowFrTest() throws IOException, InterruptedException {
         runTest("template-rows-fr");
     }
 
     @Test
+    // TODO DEVSIX-8126
     public void templateRowGridGapTest() throws IOException, InterruptedException {
         runTest("template-rows-grid-gap");
     }
@@ -93,16 +102,19 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateRowMinMaxTest() throws IOException, InterruptedException {
         runTest("template-rows-minmax");
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateRowMixedTest() throws IOException, InterruptedException {
         runTest("template-rows-mixed");
     }
 
     @Test
+    // TODO DEVSIX-8331
     public void templateRowMultiPageTest() throws IOException, InterruptedException {
         runTest("template-rows-multipage");
     }
@@ -118,16 +130,19 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateRowRepeatTest() throws IOException, InterruptedException {
         runTest("template-rows-repeat");
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateRowRepeatMinMaxTest() throws IOException, InterruptedException {
         runTest("template-rows-repeat-minmax");
     }
 
     @Test
+    // TODO DEVSIX-8126
     public void templateRowRowGapTest() throws IOException, InterruptedException {
         runTest("template-rows-row-gap");
     }
@@ -140,6 +155,6 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     private void runTest(String testName) throws IOException, InterruptedException {
         convertToPdfAndCompare(testName,
                 SOURCE_FOLDER, DESTINATION_FOLDER, false,
-                new ConverterProperties().setBaseUri(SOURCE_FOLDER));
+                new ConverterProperties().setBaseUri(SOURCE_FOLDER).setCssGridEnabled(true));
     }
 }

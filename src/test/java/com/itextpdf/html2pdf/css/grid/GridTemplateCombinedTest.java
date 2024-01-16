@@ -26,6 +26,10 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 
 import java.io.IOException;
+
+import com.itextpdf.layout.logs.LayoutLogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
@@ -48,11 +52,13 @@ public class GridTemplateCombinedTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-8126
     public void templateCombinedGridColAndRowGapTest() throws IOException, InterruptedException {
         runTest("template-combined-grid-row-col-gap");
     }
 
     @Test
+    // TODO DEVSIX-8126
     public void templateCombinedGridStartEndTest() throws IOException, InterruptedException {
         runTest("template-combined-grid-start-end");
     }
@@ -63,16 +69,20 @@ public class GridTemplateCombinedTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateCombinedMinMaxTest() throws IOException, InterruptedException {
         runTest("template-combined-minmax");
     }
 
     @Test
+    // TODO DEVSIX-8324
+    @LogMessages(messages = @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA))
     public void templateCombinedMixedTest() throws IOException, InterruptedException {
         runTest("template-combined-mixed");
     }
 
     @Test
+    // TODO DEVSIX-8331
     public void templateCombinedMultiPageTest() throws IOException, InterruptedException {
         runTest("template-combined-multipage");
     }
@@ -83,6 +93,7 @@ public class GridTemplateCombinedTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-8324
     public void templateCombinedRepeatMinMaxTest() throws IOException, InterruptedException {
         runTest("template-combined-repeat-minmax");
     }
@@ -104,6 +115,6 @@ public class GridTemplateCombinedTest extends ExtendedHtmlConversionITextTest {
     private void runTest(String testName) throws IOException, InterruptedException {
         convertToPdfAndCompare(testName,
                 SOURCE_FOLDER, DESTINATION_FOLDER, false,
-                new ConverterProperties().setBaseUri(SOURCE_FOLDER));
+                new ConverterProperties().setBaseUri(SOURCE_FOLDER).setCssGridEnabled(true));
     }
 }

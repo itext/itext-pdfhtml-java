@@ -34,6 +34,7 @@ import com.itextpdf.html2pdf.attach.impl.tags.CaptionTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ColTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.ColgroupTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.DisplayFlexTagWorker;
+import com.itextpdf.html2pdf.attach.impl.tags.DisplayGridTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.DisplayTableRowTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.DisplayTableTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
@@ -204,6 +205,9 @@ class DefaultTagWorkerMapping {
                 (lhs, rhs) -> new DisplayFlexTagWorker(lhs, rhs));
         workerMapping.putMapping(TagConstants.SPAN, CssConstants.FLEX,
                 (lhs, rhs) -> new DisplayFlexTagWorker(lhs, rhs));
+        //TODO DEVSIX-8335 remove check for css grid enabled logic
+        workerMapping.putMapping(TagConstants.DIV, CssConstants.GRID,
+                (lhs, rhs) -> rhs.isCssGridEnabled() ? new DisplayGridTagWorker(lhs, rhs) : new DivTagWorker(lhs, rhs));
 
         // pseudo elements mapping
         String beforePseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.BEFORE);

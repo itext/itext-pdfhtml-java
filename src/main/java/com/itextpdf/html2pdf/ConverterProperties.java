@@ -110,6 +110,12 @@ public class ConverterProperties {
     private boolean continuousContainerEnabled;
 
     /**
+     * enables css grid processing for all elements.
+     */
+    //TODO DEVSIX-8335 remove this property
+    private boolean cssGridEnabled = false;
+
+    /**
      * Output intent for final destination device.
      */
     private PdfOutputIntent outputIntent;
@@ -526,6 +532,16 @@ public class ConverterProperties {
     }
 
     /**
+     * check if css grid support is enabled.
+     *
+     * @return true if enabled, false otherwise
+     */
+    //TODO DEVSIX-8335
+    public boolean isCssGridEnabled() {
+        return cssGridEnabled;
+    }
+
+    /**
      * Sets continuous container support.
      *
      * @param value true to set continuous container, false otherwise
@@ -533,6 +549,18 @@ public class ConverterProperties {
      */
     public ConverterProperties setContinuousContainerEnabled(boolean value) {
         continuousContainerEnabled = value;
+        return this;
+    }
+
+    //TODO DEVSIX-8335 remove this method
+    /**
+     * Sets css grid support.
+     *
+     * @param value true to enable css grid support, false otherwise
+     * @return the {@link ConverterProperties} instance
+     */
+    public ConverterProperties setCssGridEnabled(boolean value) {
+        cssGridEnabled = value;
         return this;
     }
 }

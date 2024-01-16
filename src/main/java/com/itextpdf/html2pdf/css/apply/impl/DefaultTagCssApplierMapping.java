@@ -152,6 +152,7 @@ class DefaultTagCssApplierMapping {
         mapping.putMapping(TagConstants.DIV, CssConstants.TABLE_ROW, () -> new DisplayTableRowTagCssApplier());
         mapping.putMapping(TagConstants.DIV, CssConstants.FLEX, () -> new DisplayFlexTagCssApplier());
         mapping.putMapping(TagConstants.SPAN, CssConstants.FLEX, () -> new DisplayFlexTagCssApplier());
+        mapping.putMapping(TagConstants.DIV, CssConstants.GRID, () -> new DisplayGridTagCssApplier());
 
         // pseudo elements mapping
         String beforePseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.BEFORE);
