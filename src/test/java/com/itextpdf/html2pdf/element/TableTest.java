@@ -537,7 +537,6 @@ public class TableTest extends ExtendedITextTest {
 
 
     @Test
-    // TODO DEVSIX-5290 change cmp after the correction
     public void emptyTrRowspanBorderCollapsingTest() throws IOException, InterruptedException {
         runTest("emptyTrRowspanBorderCollapsing");
     }
@@ -549,8 +548,6 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate =
-            IoLogMessageConstant.UNEXPECTED_BEHAVIOUR_DURING_TABLE_ROW_COLLAPSING, count = 2)})
     public void emptyTrTest() throws IOException, InterruptedException {
         runTest("emptyTr");
     }
@@ -619,6 +616,18 @@ public class TableTest extends ExtendedITextTest {
     @Test
     public void inlineWithInlineBlockAsTdChildWrappedTest() throws IOException, InterruptedException {
         runTest("inlineWithInlineBlockAsTdChildWrapped");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE, count = 2)})
+    public void emptyRowEliminationTest1() throws IOException, InterruptedException {
+        runTest("emptyRowElimination1");
+    }
+
+    @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)})
+    public void emptyRowEliminationTest2() throws IOException, InterruptedException {
+        runTest("emptyRowElimination2");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {
