@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2023 Apryse Group NV
+    Copyright (c) 1998-2024 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -35,8 +35,12 @@ import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.exceptions.KernelExceptionMessageConstant;
 import com.itextpdf.kernel.exceptions.PdfException;
+import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfOutputIntent;
+import com.itextpdf.kernel.pdf.PdfVersion;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.WriterProperties;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.AreaBreak;
@@ -50,21 +54,23 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.Leading;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.UnitValue;
+import com.itextpdf.pdfa.PdfADocument;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import com.itextpdf.test.pdfa.VeraPdfValidator;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class Html2ElementsTest extends ExtendedITextTest {
@@ -380,6 +386,48 @@ public class Html2ElementsTest extends ExtendedITextTest {
         }
         Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
     }
+
+    @Test
+    public void htmlToElementsFormTest() throws IOException, InterruptedException {
+        FileInputStream htmlFile = new FileInputStream(sourceFolder + "formelements.html");
+        String cmpPdf = sourceFolder + "cmp_htmlToElementsForms.pdf";
+        String outPdf = destinationFolder + "htmlToElementsForms.pdf";
+
+        List<IElement> elements = HtmlConverter.convertToElements(htmlFile,
+                new ConverterProperties().setBaseUri(sourceFolder));
+        try (Document document = new Document(new PdfDocument(new PdfWriter(outPdf)))) {
+            for (IElement element : elements) {
+                document.add((IBlockElement) element);
+            }
+        }
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+    }
+
+
+    @Test
+    public void htmlToElementsToPDFATest() throws IOException, InterruptedException {
+        FileInputStream htmlFile = new FileInputStream(sourceFolder + "formelements.html");
+        String cmpPdf = sourceFolder + "cmp_htmlToElementsFormsPDFA.pdf";
+        String outPdf = destinationFolder + "htmlToElementsFormsPDFA.pdf";
+
+        PdfOutputIntent intent = new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
+                new FileInputStream(sourceFolder + "sRGB Color Space Profile.icm"));
+        List<IElement> elements = HtmlConverter.convertToElements(htmlFile,
+                new ConverterProperties()
+                        .setBaseUri(sourceFolder)
+                        .setCreateAcroForm(true)
+                        .setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4));
+        try (Document document = new Document(
+                new PdfADocument(new PdfWriter(outPdf, new WriterProperties().setPdfVersion(PdfVersion.PDF_2_0)),
+                        PdfAConformanceLevel.PDF_A_4, intent))) {
+            for (IElement element : elements) {
+                document.add((IBlockElement) element);
+            }
+        }
+        Assert.assertNull(new VeraPdfValidator().validate(outPdf));
+        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+    }
+
 
     private static void addElementsToDocument(Document document, List<IElement> elements) {
         for (IElement elem : elements) {

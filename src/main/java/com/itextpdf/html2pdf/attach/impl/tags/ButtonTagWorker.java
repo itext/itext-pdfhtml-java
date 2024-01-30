@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2023 Apryse Group NV
+    Copyright (c) 1998-2024 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -29,6 +29,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.kernel.pdf.IConformanceLevel;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
@@ -59,6 +60,8 @@ public class ButtonTagWorker extends DivTagWorker {
 
     private boolean hasChildren = false;
 
+    private IConformanceLevel pdfAConformanceLevel;
+
     /**
      * Creates a new {@link ButtonTagWorker} instance.
      *
@@ -73,7 +76,9 @@ public class ButtonTagWorker extends DivTagWorker {
         }
         this.name = context.getFormFieldNameResolver().resolveFormName(name);
         flatten = !context.isCreateAcroForm();
-
+        if (context.getConformanceLevel() != null) {
+            pdfAConformanceLevel = context.getConformanceLevel();
+        }
         lang = element.getAttribute(AttributeConstants.LANG);
     }
 
@@ -125,6 +130,7 @@ public class ButtonTagWorker extends DivTagWorker {
             }
         }
         formField.setProperty(FormProperty.FORM_FIELD_FLATTEN, flatten);
+        formField.setProperty(FormProperty.FORM_CONFORMANCE_LEVEL, pdfAConformanceLevel);
         return formField;
     }
 }

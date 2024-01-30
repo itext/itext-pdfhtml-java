@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2023 Apryse Group NV
+    Copyright (c) 1998-2024 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -71,7 +71,7 @@ public class ABlockTagWorker extends DivTagWorker {
                     }
             }
             ((Div) getElementResult()).getAccessibilityProperties().setRole(StandardRoles.LINK);
-            LinkHelper.applyLinkAnnotation(getElementResult(), url);
+            LinkHelper.applyLinkAnnotation(getElementResult(), url, context, element);
         }
 
         if (getElementResult() != null) {

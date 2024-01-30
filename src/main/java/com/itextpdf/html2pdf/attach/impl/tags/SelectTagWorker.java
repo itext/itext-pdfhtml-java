@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2023 Apryse Group NV
+    Copyright (c) 1998-2024 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -84,6 +84,9 @@ public class SelectTagWorker implements ITagWorker, IDisplayAware {
         String lang = element.getAttribute(AttributeConstants.LANG);
         selectElement.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
         selectElement.setProperty(FormProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
+        if (context.getConformanceLevel() != null) {
+            selectElement.setProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.getConformanceLevel());
+        }
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 

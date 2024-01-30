@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2023 Apryse Group NV
+    Copyright (c) 1998-2024 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -22,12 +22,16 @@
  */
 package com.itextpdf.html2pdf.attach.util;
 
+import com.itextpdf.commons.datastructures.Tuple2;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageTargetCountElementNode;
 import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.kernel.pdf.PdfDictionary;
+import com.itextpdf.kernel.pdf.PdfName;
+import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.jsoup.nodes.Attributes;
 import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
@@ -52,7 +56,10 @@ public class LinkHelperTest extends ExtendedITextTest {
         ProcessorContext context = new ProcessorContext(new ConverterProperties());
         context.getLinkContext().scanForIds(elementNode);
         LinkHelper.createDestination(worker, elementNode, context);
-        Assert.assertEquals("some_id", worker.getElementResult().<String>getProperty(Property.DESTINATION));
+        Object destination = worker.getElementResult().<Object>getProperty(Property.DESTINATION);
+        Tuple2<String, PdfDictionary> destTuple = (Tuple2<String, PdfDictionary>)destination;
+        Assert.assertEquals("some_id", destTuple.getFirst());
+        Assert.assertEquals(new PdfString("some_id"), destTuple.getSecond().get(PdfName.D));
     }
 
     @Test

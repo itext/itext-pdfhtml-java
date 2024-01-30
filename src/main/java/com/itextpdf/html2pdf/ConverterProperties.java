@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2023 Apryse Group NV
+    Copyright (c) 1998-2024 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -26,9 +26,13 @@ import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
+import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
+import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever;
+
+import java.io.InputStream;
 
 /**
  * Properties that will be used by the {@link com.itextpdf.html2pdf.HtmlConverter}.
@@ -104,6 +108,16 @@ public class ConverterProperties {
      * enables continuous container for all elements.
      */
     private boolean continuousContainerEnabled;
+
+    /**
+     * Output intent for final destination device.
+     */
+    private PdfOutputIntent outputIntent;
+
+    /**
+     * Conformance level for conversion to pdf/a.
+     */
+    private PdfAConformanceLevel conformanceLevel;
 
     /**
      * Instantiates a new {@link ConverterProperties} instance.
@@ -394,6 +408,58 @@ public class ConverterProperties {
     public ConverterProperties setCharset(String charset) {
         this.charset = charset;
         return this;
+    }
+
+    /**
+     * Sets pdf document output intent (final destination device) to reproduce the color in the PDF.
+     * Required parameter, when converting to pdf/a one have to specify an explicit output intent.
+     *
+     * <p>
+     * Note, output intent isn't applicable for HtmlConverter#convertToElements methods
+     * (e.g. {@link HtmlConverter#convertToElements(InputStream, ConverterProperties)})
+     *
+     * @param outputIntent a {@link PdfOutputIntent} instance
+     *
+     * @return the {@link ConverterProperties} instance
+     */
+    public ConverterProperties setDocumentOutputIntent(PdfOutputIntent outputIntent) {
+        this.outputIntent = outputIntent;
+        return this;
+    }
+
+    /**
+     * Sets the generation and strictness level of the PDF/A that must be followed.
+     * Required parameter, when converting to pdf/a one have to specify an explicit pdf/a conformance level.
+     *
+     * @param conformanceLevel a {@link PdfAConformanceLevel} constant
+     *
+     * @return the {@link ConverterProperties} instance
+     */
+    public ConverterProperties setPdfAConformanceLevel(PdfAConformanceLevel conformanceLevel) {
+        this.conformanceLevel = conformanceLevel;
+        return this;
+    }
+
+    /**
+     * Gets pdf document output intent (final destination device) to reproduce the color in the PDF.
+     *
+     * <p>
+     * Note, output intent isn't applicable for HtmlConverter#convertToElements methods
+     * (e.g. {@link HtmlConverter#convertToElements(InputStream, ConverterProperties)})
+     *
+     * @return pdf output intent
+     */
+    public PdfOutputIntent getDocumentOutputIntent() {
+        return outputIntent;
+    }
+
+    /**
+     * Gets the generation and strictness level of the PDF/A that must be followed.
+     *
+     * @return pdf/a conformance level
+     */
+    public PdfAConformanceLevel getConformanceLevel() {
+        return conformanceLevel;
     }
 
     /**

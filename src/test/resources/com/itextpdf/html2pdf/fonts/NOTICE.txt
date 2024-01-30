@@ -3,6 +3,9 @@
  | NotoSansCJK font | OFL-1.1 | 
  | NotoSansCJKjp font | OFL-1.1 | 
  | Amaranth font | OFL-1.1 | 
+ | NotoNaskhArabic-Regular | OFL-1.1 | In development version of font based on commit 4cdde035fd5138d6653a2176ba728b5b6f8cc533 (30.10.2019) from repository: "https://github.com/googlefonts/noto-fonts"
+ | NotoEmoji-Regular | SIL Open Font License v1.1 | OFL.txt |
+
 
 ------------------------------------------------------------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2023 Apryse Group NV
+    Copyright (c) 1998-2024 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf.attach;
 
+import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.HtmlMetaInfoContainer;
@@ -35,7 +36,8 @@ import com.itextpdf.html2pdf.resolver.form.FormFieldNameResolver;
 import com.itextpdf.html2pdf.resolver.form.RadioCheckResolver;
 import com.itextpdf.html2pdf.resolver.resource.HtmlResourceResolver;
 import com.itextpdf.io.font.FontProgram;
-import com.itextpdf.commons.actions.contexts.IMetaInfo;
+import com.itextpdf.kernel.pdf.IConformanceLevel;
+import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.FontProvider;
@@ -132,6 +134,11 @@ public class ProcessorContext {
     private PdfDocument pdfDocument;
 
     /**
+     * PDF/A conformance level from {@link ConverterProperties} instance.
+     */
+    private final PdfAConformanceLevel pdfAConformanceLevelFromProperties;
+
+    /**
      * The Processor meta info
      */
     private IMetaInfo metaInfo;
@@ -199,6 +206,7 @@ public class ProcessorContext {
         formFieldNameResolver = new FormFieldNameResolver();
         radioCheckResolver = new RadioCheckResolver();
         immediateFlush = converterProperties.isImmediateFlush();
+        pdfAConformanceLevelFromProperties = converterProperties.getConformanceLevel();
         processingInlineSvg = false;
         continuousContainerEnabled = converterProperties.isContinuousContainerEnabled();
     }
@@ -231,12 +239,21 @@ public class ProcessorContext {
     }
 
     /**
-     * Gets the PDF document.
+     * Gets the PDF document. If the PDF document is not set, null is returned.
      *
-     * @return the PDF document
+     * @return the PDF document or null
      */
     public PdfDocument getPdfDocument() {
         return pdfDocument;
+    }
+
+    /**
+     * Get the PDF document conformance level if specified.
+     *
+     * @return the {@link PdfAConformanceLevel} will be null if the processing result won't follow PDF/A strictness
+     */
+    public IConformanceLevel getConformanceLevel() {
+        return pdfDocument == null ? pdfAConformanceLevelFromProperties : pdfDocument.getConformanceLevel();
     }
 
     /**

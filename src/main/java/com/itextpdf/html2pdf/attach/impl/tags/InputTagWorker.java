@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2023 Apryse Group NV
+    Copyright (c) 1998-2024 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -129,8 +129,10 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
             cb.setSize(widthWithBordersOnTheInside);
             cb.setBorder(new SolidBorder(ColorConstants.DARK_GRAY, defaultBorderWith));
             cb.setBackgroundColor(ColorConstants.WHITE);
+
             // has attribute == is checked
             cb.setChecked(checked != null);
+
             formElement = cb;
         } else if (AttributeConstants.RADIO.equals(inputType)) {
             String radioGroupName = element.getAttribute(AttributeConstants.NAME);
@@ -159,7 +161,11 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
         if (formElement != null) {
             formElement.setProperty(FormProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
             formElement.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+            if (context.getConformanceLevel() != null) {
+                formElement.setProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.getConformanceLevel());
+            }
         }
+
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
