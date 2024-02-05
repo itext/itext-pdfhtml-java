@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .wrapper {
+        display: grid;
+        grid-template-columns: 6ch auto minmax(50px, 160px);
+        grid-template-rows: 6ch auto minmax(50px, 160px);
+      }
+	  
+	  .wrapper > div {
+		border: 2px solid blue;
+	  }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+      <div>Four</div>
+      <div>Five</div>
+    </div>
+  </body>
+</html>

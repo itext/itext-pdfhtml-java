@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .wrapper {
+        display: grid;
+        grid-template-columns: 170px 200px;
+        grid-template-rows: 20% 1fr 200px;
+		background-color: #a68ad4;
+      }
+	  
+	  .wrapper > div {
+		height: 100px;
+		width: 250px;
+		border: 2px dotted white;
+		margin: 30px;
+		padding: 20px;
+		background-color: #4fb88c;
+	  }
+	  
+	  .wrapper > div:nth-of-type(3) {
+        grid-row-start: 2;
+        grid-row-end: 3;
+      }
+	  
+	  .wrapper > div:nth-of-type(4) {
+        grid-column-start: 1;
+        grid-column-end: 2;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div>One</div>
+      <div style = "background-color: #4fb8a4;" >Two</div>
+      <div>Three</div>
+      <div>Four</div>
+      <div>Five</div>
+    </div>
+  </body>
+</html>

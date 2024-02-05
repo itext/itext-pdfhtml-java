@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .wrapper {
+        display: grid;
+        grid-template-columns: 100px 5em 10% 1fr;
+		background-color: yellow;
+		width: 700px;
+      }
+	  
+	  .wrapper > div {
+		height: 100px;
+		width: 250px;
+		border: 2px dotted white;
+		margin: 30px;
+		padding: 20px;
+		background-color: #fcba03;
+	  }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div>One</div>
+      <div style = "background-color: #fc0366;" >Two</div>
+      <div>Three</div>
+      <div>Four</div>
+    </div>
+  </body>
+</html>
