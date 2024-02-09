@@ -22,17 +22,17 @@
  */
 package com.itextpdf.html2pdf.attach.impl;
 
+import com.itextpdf.commons.datastructures.Tuple2;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.tags.PTagWorker;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfOutline;
-import com.itextpdf.kernel.pdf.PdfString;
-import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.*;
+import com.itextpdf.kernel.pdf.action.PdfAction;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
 import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
@@ -65,7 +65,7 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
     public void defaultDestinationPrefixTest() {
         Map<String, Integer> priorityMappings = new HashMap<>();
         priorityMappings.put("p", 1);
-        OutlineHandler outlineHandler = new OutlineHandler().putAllTagPriorityMappings(priorityMappings);
+        OutlineHandler outlineHandler = new OutlineHandler().putAllMarksPriorityMappings(priorityMappings);
 
         ProcessorContext context = new ProcessorContext(new ConverterProperties().setOutlineHandler(outlineHandler));
         context.reset(new PdfDocument(new PdfWriter(new ByteArrayOutputStream())));
@@ -89,7 +89,7 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
     public void customDestinationPrefixTest() {
         Map<String, Integer> priorityMappings = new HashMap<>();
         priorityMappings.put("p", 1);
-        OutlineHandler outlineHandler = new OutlineHandler().putAllTagPriorityMappings(priorityMappings);
+        OutlineHandler outlineHandler = new OutlineHandler().putAllMarksPriorityMappings(priorityMappings);
 
         outlineHandler.setDestinationNamePrefix("prefix-");
         Assert.assertEquals("prefix-", outlineHandler.getDestinationNamePrefix());
@@ -151,5 +151,70 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
                 new ConverterProperties().setOutlineHandler(outlineHandler));
         Assert.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER,
                 "diff_capitalHeadingLevelOne"));
+    }
+
+    @Test
+    public void classBasedOutlineTest() throws IOException, InterruptedException {
+        String inFile = SOURCE_FOLDER + "htmlForClassBasedOutline.html";
+        String outFile = DESTINATION_FOLDER + "pdfWithClassBasedOutline.pdf";
+        String cmpFile = SOURCE_FOLDER + "cmp_pdfWithClassBasedOutline.pdf";
+        Map<String, Integer> priorityMappings = new HashMap<>();
+        priorityMappings.put("heading1", 1);
+        priorityMappings.put("heading2", 2);
+        OutlineHandler handler = OutlineHandler.createHandler(new ClassOutlineMarkExtractor())
+                .putAllMarksPriorityMappings(priorityMappings);
+        HtmlConverter.convertToPdf(new File(inFile), new File(outFile),
+                new ConverterProperties().setOutlineHandler(handler));
+        Assert.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER,
+                "diff_ClassBasedOutline"));
+    }
+
+    @Test
+    public void overrideOutlineHandlerTest() throws IOException, InterruptedException {
+        String inFile = SOURCE_FOLDER + "htmlForChangedOutlineHandler.html";
+        String outFile = DESTINATION_FOLDER + "changedOutlineHandlerDoc.pdf";
+        String cmpFile = SOURCE_FOLDER + "cmp_changedOutlineHandlerDoc.pdf";
+        OutlineHandler handler = new ChangedOutlineHandler();
+        HtmlConverter.convertToPdf(new File(inFile), new File(outFile),
+                new ConverterProperties().setOutlineHandler(handler));
+        Assert.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER,
+                "diff_ChangedOutlineHandler"));
+    }
+
+    public static class ChangedOutlineHandler extends OutlineHandler {
+        @Override
+        protected OutlineHandler addOutlineAndDestToDocument(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
+            String markName = markExtractor.getMark(element);
+            if (null != tagWorker && hasMarkPriorityMapping(markName) && context.getPdfDocument() != null
+                    && "customMark".equals(element.getAttribute("class"))) {
+                int level = (int) getMarkPriorityMapping(markName);
+                if (null == currentOutline) {
+                    currentOutline = context.getPdfDocument().getOutlines(false);
+                }
+                PdfOutline parent = currentOutline;
+                while (!levelsInProcess.isEmpty() && level <= levelsInProcess.getFirst()) {
+                    parent = parent.getParent();
+                    levelsInProcess.pop();
+                }
+                PdfOutline outline = parent.addOutline(generateOutlineName(element));
+                String destination = generateUniqueDestinationName(element);
+                PdfAction action = PdfAction.createGoTo(destination);
+                outline.addAction(action);
+                destinationsInProcess.push(new Tuple2<String, PdfDictionary>(destination, action.getPdfObject()));
+
+                levelsInProcess.push(level);
+                currentOutline = outline;
+            }
+            return this;
+        }
+        public ChangedOutlineHandler(){
+            markExtractor = new TagOutlineMarkExtractor();
+            putMarkPriorityMapping(TagConstants.H1, 1);
+            putMarkPriorityMapping(TagConstants.H2, 2);
+            putMarkPriorityMapping(TagConstants.H3, 3);
+            putMarkPriorityMapping(TagConstants.H4, 4);
+            putMarkPriorityMapping(TagConstants.H5, 5);
+            putMarkPriorityMapping(TagConstants.H6, 6);
+        }
     }
 }
