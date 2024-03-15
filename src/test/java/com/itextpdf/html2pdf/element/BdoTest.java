@@ -42,6 +42,7 @@ public class BdoTest extends ExtendedHtmlConversionITextTest {
         createDestinationFolder(destinationFolder);
     }
 
+    //TODO DEVSIX-2091: Change after fixing
     @Test
     public void bdo01Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("bdoTest01", sourceFolder, destinationFolder);}
