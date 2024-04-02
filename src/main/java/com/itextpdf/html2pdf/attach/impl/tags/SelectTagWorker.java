@@ -82,7 +82,7 @@ public class SelectTagWorker implements ITagWorker, IDisplayAware {
             selectElement = new ComboBoxField(name);
         }
         String lang = element.getAttribute(AttributeConstants.LANG);
-        selectElement.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+        selectElement.getAccessibilityProperties().setLanguage(lang);
         selectElement.setProperty(FormProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
         if (context.getConformanceLevel() != null) {
             selectElement.setProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.getConformanceLevel());

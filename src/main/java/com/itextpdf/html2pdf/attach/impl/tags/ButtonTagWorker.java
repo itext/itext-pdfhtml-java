@@ -108,7 +108,7 @@ public class ButtonTagWorker extends DivTagWorker {
         if (formField == null) {
             if (hasChildren) {
                 Button button = new Button(name);
-                button.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+                button.getAccessibilityProperties().setLanguage(lang);
                 Div div = (Div) super.getElementResult();
                 for (IElement element : div.getChildren()) {
                     if (element instanceof IAccessibleElement) {
@@ -124,7 +124,7 @@ public class ButtonTagWorker extends DivTagWorker {
                 formField = button;
             } else {
                 Button inputButton = new Button(name);
-                inputButton.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+                inputButton.getAccessibilityProperties().setLanguage(lang);
                 inputButton.setValue(fallbackContent.toString().trim());
                 formField = inputButton;
             }

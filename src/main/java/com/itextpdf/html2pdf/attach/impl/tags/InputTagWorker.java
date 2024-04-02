@@ -40,6 +40,7 @@ import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
@@ -160,7 +161,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
         }
         if (formElement != null) {
             formElement.setProperty(FormProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
-            formElement.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+            ((IAccessibleElement)formElement).getAccessibilityProperties().setLanguage(lang);
             if (context.getConformanceLevel() != null) {
                 formElement.setProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.getConformanceLevel());
             }
