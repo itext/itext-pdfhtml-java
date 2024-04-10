@@ -35,11 +35,13 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -601,6 +603,16 @@ public class TableTest extends ExtendedITextTest {
     })
     public void thTagConvertToElementTest() throws IOException, InterruptedException {
         runConvertToElements("thTagConvertToElement", false);
+    }
+
+    @Test
+    public void emptyRowsConvertToElementTest() throws IOException {
+        FileInputStream source = new FileInputStream(sourceFolder + "emptyRowsConvertToElement.html");
+
+        for (IElement element : HtmlConverter.convertToElements(source)) {
+            Assert.assertTrue(element instanceof Table);
+            Assert.assertEquals(4, ((Table) element).getNumberOfRows());
+        }
     }
 
     @Test
