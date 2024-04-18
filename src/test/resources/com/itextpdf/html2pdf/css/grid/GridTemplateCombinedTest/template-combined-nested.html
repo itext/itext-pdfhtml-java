@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .wrapper {
+        display: grid;
+        grid-template-columns: 350px 150px;
+        grid-template-rows: 150px 200px 180px;
+      }
+	  
+	  .wrapper > div {
+		border: 2px solid darkred;
+		background-color: #bf3b58;
+	  }
+	  
+	  .wrapper2 {
+        display: grid;
+        grid-template-columns: 100px 80px 150px;
+        grid-template-rows: 90px 50px;
+      }
+	  
+	  .wrapper2 > div {
+		border: 2px solid black;
+		background-color: #ab84bf;
+	  }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div>
+		<div class="wrapper2">
+		  <div>one</div>
+		  <div>Two</div>
+		  <div>Three</div>
+		  <div>Four</div>
+		  <div>Five</div>
+		</div>
+	  </div>
+      <div>Two</div>
+      <div>Three</div>
+      <div>Four</div>
+      <div>Five</div>
+    </div>
+  </body>
+</html>

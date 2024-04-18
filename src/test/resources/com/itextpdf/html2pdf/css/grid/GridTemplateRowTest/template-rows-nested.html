@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .wrapper {
+        display: grid;
+		width: 300px;
+        grid-template-rows: 220px 150px auto;
+      }
+	  
+	  .wrapper > div {
+		border: 2px solid orange;
+		background-color: yellow;
+	  }
+	  
+	  .wrapper2 {
+        display: grid;
+        grid-template-rows: 90px 30px 70px;
+		width: 200px;
+      }
+	  
+	  .wrapper2 > div {
+		border: 2px solid darkblue;
+		background-color: lightblue;
+	  }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div>
+		<div class="wrapper2">
+		  <div>one</div>
+		  <div>Two</div>
+		  <div>Three</div>
+		</div>
+	  </div>
+      <div>Two</div>
+      <div>Three</div>
+      <div>Four</div>
+    </div>
+  </body>
+</html>

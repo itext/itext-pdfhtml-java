@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .wrapper {
+        display: grid;
+        grid-template-columns: 
+			minmax(100px, 300px)
+			repeat(2, 200px);
+		grid-template-rows: 
+			repeat(2, minmax(100px, 300px));
+      }
+	  
+	  .wrapper > div {
+		border: 2px solid #6bc0e8;
+	  }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+      <div>Four</div>
+      <div>Five</div>
+    </div>
+  </body>
+</html>

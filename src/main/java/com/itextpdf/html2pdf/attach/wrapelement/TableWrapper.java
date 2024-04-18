@@ -269,14 +269,14 @@ public class TableWrapper implements IWrapElement {
         }
         if (rows != null) {
             for (int i = 0; i < rows.size(); i++) {
+                table.startNewRow();
+
                 if (isRtl) {
                     Collections.reverse(rows.get(i));
                 }
+
                 for (int j = 0; j < rows.get(i).size(); j++) {
                     table.addCell(rows.get(i).get(j).cell);
-                }
-                if (i != rows.size() - 1) {
-                    table.startNewRow();
                 }
             }
         }

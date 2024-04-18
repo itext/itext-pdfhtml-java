@@ -1,0 +1,425 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>
+		  e-FAKTURA KSeF
+   	</title>
+		<style type="text/css">
+body {
+	background-color: #FFFFFF;
+	color: #000000;
+	font-family: 'Arial', sans-serif, helvetica;
+	font-size: 11pt;
+	margin: 0;
+	padding: 1px 10px;
+}
+
+div.body {
+	width: 100%;
+	min-width: 480px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.deklaracja, div.zalacznik {
+	margin: 2em 0;
+}
+
+.tlo-zalacznika {
+	background-color: #FFFFDD;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+.normalna, .tytul-sekcja-blok {
+	width: 100%;
+}
+
+.naglowek {
+	background-color: #CCDDFF;
+}
+
+.kod-formularza {
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.naglowek .wartosc {
+	font-weight: bold;	
+}
+
+.tytul {
+	font-size: 2em;
+	font-weight: bold;
+	text-align: center;
+}
+
+.tytulformularza {
+	font-size: xx-large;
+	font-weight: bold;
+	text-align: center;
+}
+
+.okres {
+	display: block;
+	margin: 1em;
+	font-size: 1.2em;
+	text-align: center;
+	vertical-align: top;
+	clear: both; 
+}
+
+.data {
+	border: 1px solid black; 
+	padding: 2px 1.5em;
+	background-color: white;
+	font-weight: bold;
+	margin: 0 2em; 
+}
+
+.obok-daty {
+	text-align: right;
+	display: inline-block;
+	width: 45%;
+}
+
+.objasnienie {
+	border: 2px solid black;
+	padding: 0.25em 0.5em; 
+	font-size: 0.8em; 
+}
+
+.zalacznik-objasnienie {
+	background-color: #DDDDDD;	
+	border: 2px solid black;
+	font-size: 0.8em;
+	width:99.5%;
+}
+
+.prawne {
+	background-color: #DDDDDD;	
+	border: 2px solid black; 
+	font-size: 0.8em;
+}
+
+.prawne .etykieta {
+	min-width: 9em;
+}
+
+.wypelniane {
+	background-color: white;
+}
+
+.niewypelniane, .ukryte {
+	background-color: #DDDDDD;
+}
+
+.pouczenia td {
+	background-color: white;
+	border: 2px solid black;
+}
+
+.tytul-sekcja-blok {
+	background-color: #DDDDFF;
+	border: 2px solid black;
+	text-transform: uppercase;
+	width: 99.5%;
+}
+
+
+h1 {
+	font-size: 1.4em;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+h2 {
+	text-align: left;
+	font-size: 1.2em;
+	font-weight: bold; 
+}
+
+h3 {
+	text-align: left;
+	font-size: 1.2em;
+	font-weight: normal;
+}
+
+h4 {
+	text-align: left;
+	font-size: 1em;
+	font-weight: normal;
+}
+
+h1, h2, h3, h4 {
+	font-family: 'Arial', sans-serif, helvetica;
+	margin: 0;
+	padding: 1px;
+}
+
+.wypelniane {
+	border: 1px solid black; 
+	font-size: 1.2em;
+	padding: 1px; 
+	vertical-align: top;	
+	text-align: left;
+}
+
+	
+.puste {
+	background-color: #DDDDDD;
+	border: 1px solid black; 
+	font-size: 0.8em;
+	padding: 1px; 
+	height: 2em;
+	vertical-align: top;
+}
+
+.puste2 {
+	background-color: #DDDDDD;
+	border: 1px solid black; 
+	 font-size: 1.2em;
+	padding: 1px; 
+	height: 2em;
+	text-align: center;
+}
+
+.niewypelnianeopisy {
+	background-color: #DDDDDD;
+	border: 1px solid black;
+	font-size: 0.8em;
+	padding: 1px; 
+	height: 2em;
+	vertical-align: top;
+	text-align: left;
+}
+
+.center {
+	background-color: #DDDDDD;
+	border: 1px solid black; 
+	font-size: 0.8em;
+	padding: 1px; 
+	height: 2em;
+	vertical-align: top;
+	text-align: center;
+}
+
+.niewypelniane, .pouczenia td, .taknie {
+	border: 1px solid black;
+	font-size: 0.8em;
+	font-weight: bold;
+	padding: 1px; 
+	height: 2em;
+	vertical-align: top; 
+	text-align: center;
+}
+
+.kwota {
+	text-align: right;
+	padding-right: 0.2em;
+}
+
+.opisrubryki {
+	font-size: 0.5em;
+	margin-bottom: 0.2em;
+	text-align: left;
+	font-weight: bold;
+	text-transform: none; 
+}
+
+.opis-tekstowy{
+	font-size: 0.7em;
+	margin-bottom: 0.2em;
+	font-weight: bold;
+	text-transform: none; 
+}
+
+.czcionka td, .czcionka th {
+	font-size: 0.9em;
+	height: 1em;
+}
+
+.nazwa-dla-kodu {
+	font-size: 0.9em;
+}
+
+table.normalna, table.pouczenia, table.sposob-opodatkowania {
+	width: 100%;
+	margin: 0;
+	border: 1px solid black;
+}
+
+h2.tekst {
+	text-align: center;
+	margin: 0.5em auto;
+}
+
+.pouczenie {
+	padding: 0.5em 2em;
+	text-align: center;
+}
+
+p {
+	padding: 0;
+	margin: 0.2em 0;
+}
+
+.objasnienie ol {
+	list-style-type: decimal;
+}
+
+.objasnienie ol ul {
+	list-style-type: disc;
+}
+
+.taknie {
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.normalna-tekstowa {
+	width: 100%; 
+	border: 0px
+}
+
+ .tekst {
+	text-align: center;
+}
+
+.wartosc {
+	vertical-align: top;
+}
+
+.miesiac {
+	border: 1px solid black; 
+	font-size: 0.8em;
+	font-weight: bold;
+	padding: 1px; 
+	height: 2em;
+	vertical-align: middle; 
+	text-align: center;
+	background-color: #DDDDDD;
+}
+
+.podtytul {
+	font-size: medium;
+}
+
+.tytulzalacznika {
+	font-size: x-large;
+	font-weight: bold;
+	text-align: center;
+}
+
+.opis {
+	font-size: 1em;
+	padding: 4px; 
+}
+
+.opis-tabela {
+	font-size: 1em;
+	padding: 4px; 
+	border: 0;
+}
+
+.dodatkowe {
+	background-color: white; 
+	border: 0;
+}
+
+.wypunktowane {
+	font-size: 1em;
+	padding: 1px; 
+	vertical-align: top;
+}
+
+.tlo-formularza, .tlo-zalacznika {
+	padding-bottom: 1px;
+}
+
+@media print {
+	.lamstrone {
+		page-break-before: always;
+	}
+
+	.sekcja {
+		page-break-inside: avoid;
+	}
+}</style>
+		<style xmlns:tns="http://crd.gov.pl/wzor/2023/06/29/12648/" type="text/css">
+      
+    .tlo-formularza { background-color:#D3D3D3; }
+    table.wrapping, .break-word {
+    white-space: normal !important;
+    word-wrap: break-word;
+	}
+   
+	table {
+    width:100%;
+	}
+ 
+	.word-break {
+    width:100%;
+    word-break: break-all;
+	}
+
+    .lewa {	border: 1px solid black; font-size: 1.2em; padding: 1px; vertical-align: top; text-align: left;}
+    .srodek { border: 1px solid black; font-size: 1.2em; padding: 1px; vertical-align: top; text-align: center;}
+    .prawa { border: 1px solid black; font-size: 1.2em; padding: 1px; vertical-align: top; text-align: right;}
+   </style>
+	</head>
+	<body>
+		<div xmlns:tns="http://crd.gov.pl/wzor/2023/06/29/12648/" class="deklaracja">
+			<table class="break-word" width="60%">
+				<tr>
+					<td class="niewypelniane" width="12%">VAT</td>
+					<td class="niewypelniane" width="12%">Sum of net sales</td>
+					<td class="niewypelniane" width="12%">The amount of tax on the sum of net sales value</td>
+					<td class="niewypelniane" width="12%">The amount of tax on the sum of net sales value, calculated in accordance with the provisions of Section VI of the Act</td>
+					<td class="niewypelniane" width="12%">The amount of value added tax in the case of the special procedure referred to in Section XII, Chapter 6a of the Act</td>
+					<td>
+						<table width="10%">
+							<tbody>
+								<tr>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+				<tr>
+					<td class="wypelniane" width="12%" rowspan="3">oss</td>
+					<td class="prawa" width="12%">10000.0</td>
+					<td class="niewypelniane" width="12%"></td>
+					<td class="niewypelniane" width="12%"></td>
+					<td class="prawa" width="12%"></td>
+				</tr>
+				<tr>
+					<td class="prawa" width="12%">10000.0</td>
+					<td class="niewypelniane" width="12%"></td>
+					<td class="niewypelniane" width="12%"></td>
+					<td class="prawa" width="12%"></td>
+				</tr>
+				<tr>
+					<td class="prawa" width="12%">10000.0</td>
+					<td class="niewypelniane" width="12%"></td>
+					<td class="niewypelniane" width="12%"></td>
+					<td class="prawa" width="12%"></td>
+				</tr>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+			</table>
+	</body>
+</html>

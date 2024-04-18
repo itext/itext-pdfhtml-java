@@ -353,7 +353,6 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1851")
     public void wordCharSpacingJustifiedTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("wordCharSpacingJustifiedTest01", sourceFolder, destinationFolder);
     }

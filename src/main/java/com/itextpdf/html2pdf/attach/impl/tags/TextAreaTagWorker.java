@@ -73,7 +73,7 @@ public class TextAreaTagWorker implements ITagWorker, IDisplayAware {
         textArea.setProperty(FormProperty.FORM_FIELD_ROWS, rows);
         textArea.setProperty(FormProperty.FORM_FIELD_COLS, cols);
         textArea.setProperty(FormProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
-        textArea.setProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, element.getAttribute(AttributeConstants.LANG));
+        textArea.getAccessibilityProperties().setLanguage(element.getAttribute(AttributeConstants.LANG));
 
         // Default html2pdf text area appearance differs from the default one for form fields.
         // That's why we need to get rid of several properties we set by default during TextArea instance creation.

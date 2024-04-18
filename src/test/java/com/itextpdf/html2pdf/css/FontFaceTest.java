@@ -24,28 +24,29 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.font.FontProvider;
+import com.itextpdf.layout.font.selectorstrategy.BestMatchFontSelectorStrategy.BestMatchFontSelectorStrategyFactory;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.annotations.type.IntegrationTest;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 
 @Category(IntegrationTest.class)
 public class FontFaceTest extends ExtendedITextTest {
@@ -290,19 +291,20 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    //TODO: update after DEVSIX-2052
     public void correctUrlWithUsedUnicodeRangeTest() throws IOException, InterruptedException {
-        runTest("correctUrlWithUsedUnicodeRangeTest");
+        FontProvider fontProvider = new DefaultFontProvider();
+        fontProvider.setFontSelectorStrategyFactory(new BestMatchFontSelectorStrategyFactory());
+        runTest("correctUrlWithUsedUnicodeRangeTest", fontProvider);
     }
 
     @Test
-    //TODO: update after DEVSIX-2052
     public void correctUnicodeRangeSignificantTest() throws IOException, InterruptedException {
-        runTest("correctUnicodeRangeSignificantTest");
+        FontProvider fontProvider = new DefaultFontProvider();
+        fontProvider.setFontSelectorStrategyFactory(new BestMatchFontSelectorStrategyFactory());
+        runTest("correctUnicodeRangeSignificantTest", fontProvider);
     }
 
     @Test
-    // TODO DEVSIX-2052
     public void overwrittenUnicodeRangeTextInLineTest() throws IOException, InterruptedException {
         runTest("overwrittenUnicodeRangeTextInLineTest");
     }
@@ -327,7 +329,7 @@ public class FontFaceTest extends ExtendedITextTest {
         runTest("unusedFontWithUnicodeRangeTest");
     }
 
-    private void runTest(String name) throws IOException, InterruptedException {
+    private void runTest(String name, FontProvider fontProvider) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
@@ -336,9 +338,13 @@ public class FontFaceTest extends ExtendedITextTest {
 
         ConverterProperties converterProperties = new ConverterProperties()
                 .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT))
-                .setFontProvider(new DefaultFontProvider());
+                .setFontProvider(fontProvider);
         HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath), converterProperties);
         Assert.assertFalse("Temporary font was found.", converterProperties.getFontProvider().getFontSet().contains("droid serif"));
         Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+    }
+
+    private void runTest(String name) throws IOException, InterruptedException {
+        runTest(name, new DefaultFontProvider());
     }
 }

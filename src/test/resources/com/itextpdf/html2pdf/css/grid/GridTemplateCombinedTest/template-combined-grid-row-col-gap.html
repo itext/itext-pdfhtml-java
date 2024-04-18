@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+	  .wrapper, .wrapper2 {
+		display: grid;
+		grid-template-columns: 300px 150px;
+        grid-template-rows: 250px 50px 50px;
+	  }
+	
+      .wrapper {
+		grid-gap: 5px;
+      }
+	  
+	  .wrapper > div, .wrapper2 > div {
+		border: 2px solid darkblue;
+		background-color: lightblue;
+	  }
+	  
+	  .wrapper2 {
+		column-gap: 10px;
+		row-gap: 3px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+      <div>Four</div>
+      <div>Five</div>
+    </div>
+	<br>
+	<div class="wrapper2">
+      <div>Six</div>
+      <div>Seven</div>
+      <div>Eight</div>
+      <div>Nine</div>
+      <div>Ten</div>
+    </div>
+  </body>
+</html>
