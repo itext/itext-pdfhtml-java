@@ -23,8 +23,11 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,6 +52,22 @@ public class FontFamilyTest extends ExtendedITextTest {
         String cmpPdfPath = SOURCE_FOLDER + "cmp_hugeFontFamilyForDosAttackTest.pdf";
 
         HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
+        Assertions.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, DESTINATION_FOLDER, "diff_"));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT,
+                    count = 1)
+    })
+    public void selectFontFromTTCTest() throws IOException, InterruptedException {
+        String htmlPath = SOURCE_FOLDER + "selectFontInGroup.html";
+        String pdfPath = DESTINATION_FOLDER + "selectFontInGroup.pdf";
+        String cmpPdfPath = SOURCE_FOLDER + "cmp_selectFontInGroup.pdf";
+
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
+        //TODO DEVSIX-1104: Change cmp file after supporting ttc#id when selecting font from ttc
+        //Currently it will look for a font file where #{id} is part of the font path.
         Assertions.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, DESTINATION_FOLDER, "diff_"));
     }
 }

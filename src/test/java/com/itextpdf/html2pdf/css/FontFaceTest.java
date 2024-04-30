@@ -328,6 +328,12 @@ public class FontFaceTest extends ExtendedITextTest {
         runTest("unusedFontWithUnicodeRangeTest");
     }
 
+    @Test
+    //TODO DEVSIX-2114: Support bolder / Lighter font weight
+    public void bolderAndLighterFontWeightTest() throws IOException, InterruptedException {
+        runTest("bolderLighterFontWeightTest");
+    }
+
     private void runTest(String name, FontProvider fontProvider) throws IOException, InterruptedException {
         String htmlPath = sourceFolder + name + ".html";
         String pdfPath = destinationFolder + name + ".pdf";

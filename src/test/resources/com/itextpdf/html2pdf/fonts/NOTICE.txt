@@ -5,7 +5,13 @@
  | Amaranth font | OFL-1.1 | 
  | NotoNaskhArabic-Regular | OFL-1.1 | In development version of font based on commit 4cdde035fd5138d6653a2176ba728b5b6f8cc533 (30.10.2019) from repository: "https://github.com/googlefonts/noto-fonts"
  | NotoEmoji-Regular | SIL Open Font License v1.1 | OFL.txt |
-
+ | SpaceMono-Regular | SIL Open Font License v1.1 | OFL.txt |(29.04.2024)
+ | StyleScript-Regular | SIL Open Font License v1.1 | OFL.txt |(29.04.2024)
+ | Orbitron-Regular | SIL Open Font License v1.1 | OFL.txt |(29.04.2024)
+ | Bokor-Regular | SIL Open Font License v1.1 | OFL.txt |(30.04.2024)
+ | NotoSansJP-Bold.ttf | OFL-1.1 | OFL.txt |(07.05.2024)
+ | OpenSans-Regular.ttf | OFL-1.1 | OFL.txt |(07.05.2024)
+ | OpenSans-Bold.ttf | OFL-1.1 | OFL.txt |(07.05.2024)
 
 ------------------------------------------------------------------------------------------------------------------------
 
