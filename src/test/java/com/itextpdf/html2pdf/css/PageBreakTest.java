@@ -38,37 +38,31 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.FileInputStream;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.io.IOException;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class PageBreakTest extends ExtendedHtmlConversionITextTest {
-
-    @Rule
-    public ExpectedException junitExpectedException = ExpectedException.none();    //Member of testing class. Add if it isn't there.
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/PageBreakTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/PageBreakTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
     }
 
     @Test
-    @Ignore("DEVSIX-4521: test currently results in endless loop")
+    @Disabled("DEVSIX-4521: test currently results in endless loop")
     public void breakInsideAndBreakAfterTest() throws IOException, InterruptedException {
         runTest("breakInsideAndBreakAfter");
     }
@@ -192,9 +186,8 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT)})
     /* Test will fail after fix in DEVSIX-2024 */
-    public void pageBreakInConstrainedDivTest() throws IOException, InterruptedException {
-        junitExpectedException.expect(UnsupportedOperationException.class);
-        runTest("pageBreakInConstrainedDivTest");
+    public void pageBreakInConstrainedDivTest() {
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> runTest("pageBreakInConstrainedDivTest"));
     }
 
     @Test
@@ -249,7 +242,7 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
         String diffPrefix = "diff_" + name + "_";
 
         HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath), new ConverterProperties().setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
-        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+        Assertions.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
     }
 
     private void convertToElements(String name) throws IOException, InterruptedException {
@@ -268,7 +261,7 @@ public class PageBreakTest extends ExtendedHtmlConversionITextTest {
             }
         }
 
-        Assert.assertNull(new CompareTool().compareByContent(output, cmp, destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(output, cmp, destinationFolder));
     }
 
 }

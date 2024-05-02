@@ -28,22 +28,21 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.io.IOException;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class ListItemTest extends ExtendedITextTest {
 
 	public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/ListItemTest/";
 	public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/ListItemTest/";
 
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		createDestinationFolder(destinationFolder);
 	}
@@ -54,7 +53,7 @@ public class ListItemTest extends ExtendedITextTest {
 		String name = "rtlListItemInsideLtrOrderedListTest";
 		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
 		                           new File(destinationFolder + name +".pdf"));
-		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
+		Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
 		                                                     sourceFolder + "cmp_" + name + ".pdf",
 		                                                     destinationFolder, "diff01_"));
 	}
@@ -65,7 +64,7 @@ public class ListItemTest extends ExtendedITextTest {
 		String name = "listItemWithDifferentDirAndPositionInsideTest";
 		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
 		                           new File(destinationFolder + name +".pdf"));
-		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
+		Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
 		                                                     sourceFolder + "cmp_" + name + ".pdf",
 		                                                     destinationFolder, "diff01_"));
 	}
@@ -76,7 +75,7 @@ public class ListItemTest extends ExtendedITextTest {
 		String name = "rtlListItemInsideLtrUnorderedListTest";
 		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
 		                           new File(destinationFolder + name +".pdf"));
-		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
+		Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
 		                                                     sourceFolder + "cmp_" + name + ".pdf",
 		                                                     destinationFolder, "diff01_"));
 	}
@@ -87,7 +86,7 @@ public class ListItemTest extends ExtendedITextTest {
 		String name = "drawBulletRtl";
 		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
 		                           new File(destinationFolder + name +".pdf"));
-		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
+		Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
 		                                                     sourceFolder + "cmp_" + name + ".pdf",
 		                                                     destinationFolder, "diff01_"));
 	}
@@ -98,7 +97,7 @@ public class ListItemTest extends ExtendedITextTest {
 		String name = "drawBulletLtr";
 		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
 		                           new File(destinationFolder + name +".pdf"));
-		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
+		Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
 		                                                     sourceFolder + "cmp_" + name + ".pdf",
 		                                                     destinationFolder, "diff01_"));
 	}
@@ -109,7 +108,7 @@ public class ListItemTest extends ExtendedITextTest {
 		String name = "bulletsAreNotDrawnAsTheyAreInPageMargins";
 		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
 		                           new File(destinationFolder + name +".pdf"));
-		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
+		Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
 		                                                     sourceFolder + "cmp_" + name + ".pdf",
 		                                                     destinationFolder, "diff01_"));
 	}
@@ -120,7 +119,7 @@ public class ListItemTest extends ExtendedITextTest {
 		String name = "rltListItemWithDifferentMargins";
 		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
 		                           new File(destinationFolder + name +".pdf"));
-		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
+		Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
 		                                                     sourceFolder + "cmp_" + name + ".pdf",
 		                                                     destinationFolder, "diff01_"));
 	}
@@ -131,7 +130,7 @@ public class ListItemTest extends ExtendedITextTest {
 		String name = "diffListItemsInsideDiffListsWithDiffDirectionsWithoutWidth";
 		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
 		                           new File(destinationFolder + name +".pdf"));
-		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
+		Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
 		                                                     sourceFolder + "cmp_" + name + ".pdf",
 		                                                     destinationFolder, "diff01_"));
 	}
@@ -141,7 +140,7 @@ public class ListItemTest extends ExtendedITextTest {
 		String name = "listItemWithBlockDisplay";
 		HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"),
 		                           new File(destinationFolder + name +".pdf"));
-		Assert.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
+		Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf",
 		                                                     sourceFolder + "cmp_" + name + ".pdf",
 		                                                     destinationFolder, "diff01_"));
 	}

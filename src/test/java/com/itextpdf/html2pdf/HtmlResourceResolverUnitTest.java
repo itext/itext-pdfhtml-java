@@ -29,13 +29,12 @@ import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.UnitTest;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class HtmlResourceResolverUnitTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/ResourceResolverTest/";
 
@@ -49,14 +48,14 @@ public class HtmlResourceResolverUnitTest extends ExtendedITextTest {
     public void retrieveImageNullTest() {
         HtmlResourceResolver resourceResolver = createResolver();
         PdfXObject image = resourceResolver.retrieveImage(null);
-        Assert.assertNull(image);
+        Assertions.assertNull(image);
     }
 
     @Test
     public void retrieveImageBase64Test() {
         HtmlResourceResolver resourceResolver = createResolver();
         PdfXObject image = resourceResolver.retrieveImage(bLogo);
-        Assert.assertNotNull(image);
+        Assertions.assertNotNull(image);
     }
 
     @Test
@@ -64,7 +63,7 @@ public class HtmlResourceResolverUnitTest extends ExtendedITextTest {
     public void retrieveImageIncorrectBase64Test() {
         HtmlResourceResolver resourceResolver = createResolver();
         PdfXObject image = resourceResolver.retrieveImage(bLogoCorruptedData);
-        Assert.assertNull(image);
+        Assertions.assertNull(image);
     }
 
     private HtmlResourceResolver createResolver() {

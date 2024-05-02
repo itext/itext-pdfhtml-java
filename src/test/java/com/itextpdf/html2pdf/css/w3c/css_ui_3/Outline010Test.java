@@ -23,7 +23,7 @@
 package com.itextpdf.html2pdf.css.w3c.css_ui_3;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
 //There is a thin red "border" because of rendering issues
 public class Outline010Test extends W3CCssTest {

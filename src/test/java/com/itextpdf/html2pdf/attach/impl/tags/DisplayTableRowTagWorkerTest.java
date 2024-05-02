@@ -35,15 +35,13 @@ import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
 import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-@Category(UnitTest.class)
+@org.junit.jupiter.api.Tag("UnitTest")
 public class DisplayTableRowTagWorkerTest extends ExtendedITextTest {
 
     @Test
@@ -72,10 +70,10 @@ public class DisplayTableRowTagWorkerTest extends ExtendedITextTest {
         TdTagWorker childTagWorker = new TdTagWorker(childNode, processorContext);
         tagWorker.processTagChild(childTagWorker, processorContext);
         IPropertyContainer propertyContainer = tagWorker.getElementResult();
-        Assert.assertTrue(propertyContainer instanceof Table);
+        Assertions.assertTrue(propertyContainer instanceof Table);
         Cell cell = ((Table) propertyContainer).getCell(0, 0);
 
-        Assert.assertNotNull(cell);
-        Assert.assertEquals("en", cell.getAccessibilityProperties().getLanguage());
+        Assertions.assertNotNull(cell);
+        Assertions.assertEquals("en", cell.getAccessibilityProperties().getLanguage());
     }
 }

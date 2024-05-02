@@ -35,30 +35,24 @@ import com.itextpdf.pdfa.PdfADocument;
 import com.itextpdf.pdfa.exceptions.PdfAConformanceException;
 import com.itextpdf.pdfa.exceptions.PdfaExceptionMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 import com.itextpdf.test.pdfa.VeraPdfValidator;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class HtmlConverterTest extends ExtendedITextTest {
 
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/HtmlConverterTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/HtmlConverterTest/";
 
-    @Rule
-    public ExpectedException junitExpectedException = ExpectedException.none();
-
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(DESTINATION_FOLDER);
     }
@@ -97,12 +91,13 @@ public class HtmlConverterTest extends ExtendedITextTest {
 
     @Test
     public void cannotConvertHtmlToDocumentInReadingModeTest() throws IOException {
-        junitExpectedException.expect(Html2PdfException.class);
-        junitExpectedException.expectMessage(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
+        Exception exception = Assertions.assertThrows(Html2PdfException.class, () -> {
+            PdfDocument pdfDocument = createTempDoc();
+            ConverterProperties properties = new ConverterProperties();
+            Document document = HtmlConverter.convertToDocument("", pdfDocument, properties);
+        });
+        Assertions.assertEquals(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE, exception.getMessage());
 
-        PdfDocument pdfDocument = createTempDoc();
-        ConverterProperties properties = new ConverterProperties();
-        Document document = HtmlConverter.convertToDocument("", pdfDocument, properties);
     }
 
     @Test
@@ -119,11 +114,11 @@ public class HtmlConverterTest extends ExtendedITextTest {
                 new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                         new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
 
-        Exception e = Assert.assertThrows(PdfAConformanceException.class, () -> {
+        Exception e = Assertions.assertThrows(PdfAConformanceException.class, () -> {
             HtmlConverter.convertToPdf(sourceHtml, pdfDocument, converterProperties);
         });
 
-        Assert.assertEquals(MessageFormatUtil.format(
+        Assertions.assertEquals(MessageFormatUtil.format(
                         PdfaExceptionMessageConstant.THE_FILE_HEADER_SHALL_CONTAIN_RIGHT_PDF_VERSION, "2"),
                 e.getMessage());
     }
@@ -142,11 +137,11 @@ public class HtmlConverterTest extends ExtendedITextTest {
                 new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                         new FileInputStream(SOURCE_FOLDER + "USWebUncoated.icc")));
 
-        Exception e = Assert.assertThrows(PdfAConformanceException.class, () -> {
+        Exception e = Assertions.assertThrows(PdfAConformanceException.class, () -> {
             HtmlConverter.convertToPdf(sourceHtml, pdfDocument, converterProperties);
         });
 
-        Assert.assertEquals(MessageFormatUtil.format(
+        Assertions.assertEquals(MessageFormatUtil.format(
                         PdfaExceptionMessageConstant.THE_FILE_HEADER_SHALL_CONTAIN_RIGHT_PDF_VERSION, "2"),
                 e.getMessage());
     }
@@ -161,10 +156,10 @@ public class HtmlConverterTest extends ExtendedITextTest {
     }
 
     protected static void compareAndCheckCompliance(String destinationPdf, String cmpPdf) throws IOException, InterruptedException {
-        Assert.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER,
+        Assertions.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER,
                 "diff_simple_"));
         VeraPdfValidator veraPdfValidator = new VeraPdfValidator();
-        Assert.assertNull(veraPdfValidator.validate(destinationPdf));
+        Assertions.assertNull(veraPdfValidator.validate(destinationPdf));
     }
 
 }

@@ -33,23 +33,22 @@ import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.properties.Leading;
 import com.itextpdf.layout.properties.Property;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class LineHeightTest extends ExtendedHtmlConversionITextTest {
     private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/LineHeightTest/";
     private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/LineHeightTest/";
     private static final String RESOURCES = SOURCE_FOLDER + "fonts/";
 
-    @BeforeClass
+    @BeforeAll
     public static void init() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
         initConverterProperties();
@@ -171,7 +170,7 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void defaultLineHeightTest() {
         List<IElement> elements = HtmlConverter.convertToElements("<p>Lorem Ipsum</p>");
-        Assert.assertEquals(1.2f, elements.get(0).<Leading>getProperty(Property.LEADING).getValue(), 1e-10);
+        Assertions.assertEquals(1.2f, elements.get(0).<Leading>getProperty(Property.LEADING).getValue(), 1e-10);
     }
 
     @Test
@@ -225,7 +224,7 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
             HtmlConverter.convertToPdf(fileInputStream, pdfDocument, converterProperties);
         }
         System.out.println("html: file://" + UrlUtil.toNormalizedURI(sourceHtml).getPath() + "\n");
-        Assert.assertNull(
+        Assertions.assertNull(
                 new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER, "diff_" + name + "_"));
     }
 

@@ -28,22 +28,21 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.renderer.FlexContainerRenderer;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class FloatAndFlexTest extends ExtendedHtmlConversionITextTest {
     private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/FloatAndFlexTest/";
     private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/FloatAndFlexTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
@@ -62,9 +61,9 @@ public class FloatAndFlexTest extends ExtendedHtmlConversionITextTest {
         }
 
         IElement flexContainer = elements.get(0);
-        Assert.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
-        Assert.assertFalse(flexContainer.hasProperty(Property.FLOAT));
-        Assert.assertFalse(flexContainer.hasProperty(Property.CLEAR));
+        Assertions.assertTrue(flexContainer.getRenderer() instanceof FlexContainerRenderer);
+        Assertions.assertFalse(flexContainer.hasProperty(Property.FLOAT));
+        Assertions.assertFalse(flexContainer.hasProperty(Property.CLEAR));
     }
 
     @Test

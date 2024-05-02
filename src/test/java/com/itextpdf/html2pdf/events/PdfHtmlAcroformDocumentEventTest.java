@@ -40,22 +40,21 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class PdfHtmlAcroformDocumentEventTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/events/PdfHtmlAcroformDocumentEventTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/events/PdfHtmlAcroformDocumentEventTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void initDestinationFolder() {
         createOrClearDestinationFolder(destinationFolder);
     }
@@ -77,7 +76,7 @@ public class PdfHtmlAcroformDocumentEventTest extends ExtendedITextTest {
 
         pdfDocument.close();
 
-        Assert.assertNull(new CompareTool().compareByContent(pdfOutput, pdfComparison, destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(pdfOutput, pdfComparison, destinationFolder));
     }
 
     private PdfDocument addEventHandlersToPdfDocument(String pdfOutput, ConverterProperties converterProperties)

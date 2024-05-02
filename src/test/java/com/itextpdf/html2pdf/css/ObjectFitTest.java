@@ -28,22 +28,21 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class ObjectFitTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/ObjectFitTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/ObjectFitTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -51,7 +50,7 @@ public class ObjectFitTest extends ExtendedITextTest {
     @Test
     public void objectFitCasesTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "objectFit_test.html"), new File(destinationFolder + "objectFit_test.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "objectFit_test.pdf", sourceFolder + "cmp_objectFit_test.pdf", destinationFolder, "diff18_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "objectFit_test.pdf", sourceFolder + "cmp_objectFit_test.pdf", destinationFolder, "diff18_"));
     }
 
     @Test
@@ -60,7 +59,7 @@ public class ObjectFitTest extends ExtendedITextTest {
     public void objectFitUnexpectedValueTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "objectFit_test_unexpected.html"),
                 new File(destinationFolder + "objectFit_test_unexpected.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "objectFit_test_unexpected.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "objectFit_test_unexpected.pdf",
                 sourceFolder + "cmp_objectFit_test_unexpected.pdf", destinationFolder, "diff18_"));
     }
 

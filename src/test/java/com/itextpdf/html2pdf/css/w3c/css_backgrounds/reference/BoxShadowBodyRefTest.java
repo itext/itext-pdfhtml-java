@@ -25,9 +25,7 @@ package com.itextpdf.html2pdf.css.w3c.css_backgrounds.reference;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 import java.io.IOException;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 // TODO DEVSIX-4384 box-shadow is not supported
 public class BoxShadowBodyRefTest extends W3CCssTest {

@@ -31,15 +31,14 @@ import com.itextpdf.layout.renderer.TextRenderer;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.UnitTest;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class PageCountRendererTest extends ExtendedITextTest {
 
     @Test
@@ -51,7 +50,7 @@ public class PageCountRendererTest extends ExtendedITextTest {
             // Nothing is overridden
         };
 
-        Assert.assertEquals(PageCountRenderer.class, pageCountRenderer.getNextRenderer().getClass());
+        Assertions.assertEquals(PageCountRenderer.class, pageCountRenderer.getNextRenderer().getClass());
     }
 
     @Test
@@ -61,10 +60,10 @@ public class PageCountRendererTest extends ExtendedITextTest {
     public void createCopyShouldBeOverriddenTest() throws IOException {
         PageCountRenderer pageCountRenderer = new CustomPageCountRenderer(new PageCountElement());
 
-        Assert.assertEquals(CustomPageCountRenderer.class, pageCountRenderer.getNextRenderer().getClass());
+        Assertions.assertEquals(CustomPageCountRenderer.class, pageCountRenderer.getNextRenderer().getClass());
 
         // This test checks for the log message being sent, so we should get there
-        Assert.assertTrue(true);
+        Assertions.assertTrue(true);
     }
 
     static class CustomPageCountRenderer extends PageCountRenderer {
@@ -80,9 +79,9 @@ public class PageCountRendererTest extends ExtendedITextTest {
                 // we need to call it from inside the class.
                 TextRenderer copy = createCopy(new GlyphLine(new ArrayList<Glyph>()),
                         PdfFontFactory.createFont());
-                Assert.assertNotNull(copy);
+                Assertions.assertNotNull(copy);
             } catch (IOException e) {
-                Assert.fail("We do not expect PdfFontFactory#createFont() to throw an exception here.");
+                Assertions.fail("We do not expect PdfFontFactory#createFont() to throw an exception here.");
             }
             return new CustomPageCountRenderer((PageCountElement) this.modelElement);
         }

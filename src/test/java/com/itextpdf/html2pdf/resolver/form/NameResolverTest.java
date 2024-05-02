@@ -23,12 +23,11 @@
 package com.itextpdf.html2pdf.resolver.form;
 
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class NameResolverTest extends ExtendedITextTest {
 
     @Test
@@ -56,16 +55,16 @@ public class NameResolverTest extends ExtendedITextTest {
 
     private void runTest(String input, String expectedOutput) {
         FormFieldNameResolver nameResolver = new FormFieldNameResolver();
-        Assert.assertEquals(expectedOutput, nameResolver.resolveFormName(input));
+        Assertions.assertEquals(expectedOutput, nameResolver.resolveFormName(input));
     }
 
     private void runTest(String[] input, String[] expectedOutput) {
-        Assert.assertTrue("Input and output should be the same length", input.length == expectedOutput.length);
+        Assertions.assertTrue(input.length == expectedOutput.length, "Input and output should be the same length");
         FormFieldNameResolver nameResolver = new FormFieldNameResolver();
         String[] output = new String[input.length];
         for (int i = 0; i < input.length; ++i) {
             output[i] = nameResolver.resolveFormName(input[i]);
         }
-        Assert.assertArrayEquals(expectedOutput, output);
+        Assertions.assertArrayEquals(expectedOutput, output);
     }
 }

@@ -33,14 +33,14 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.test.ExtendedITextTest;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * This class is used for testing of pdfHTML conversion cases
@@ -79,7 +79,7 @@ public abstract class ExtendedHtmlConversionITextTest extends ExtendedITextTest 
                     null == converterProperties ? new ConverterProperties() : converterProperties);
         }
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(sourceHtml) + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, destinationFolder,
+        Assertions.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, destinationFolder,
                 "diff_" + name + "_"));
     }
 
@@ -111,7 +111,7 @@ public abstract class ExtendedHtmlConversionITextTest extends ExtendedITextTest 
             }
         }
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(sourceHtml) + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, destinationFolder, "diff_" + name + "_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, destinationFolder, "diff_" + name + "_"));
     }
 
     public void convertToPdfAcroformFlattenAndCompare(String name, String sourceFolder, String destinationFolder,
@@ -155,9 +155,9 @@ public abstract class ExtendedHtmlConversionITextTest extends ExtendedITextTest 
         document.close();
 
         //compare with cmp
-        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder));
-        Assert.assertNull(new CompareTool().compareByContent(outPdfPathAcro, cmpPdfPathAcro, destinationFolder));
-        Assert.assertNull(new CompareTool().compareByContent(outPdfPathFlatted, cmpPdfPathAcroFlatten,
+        Assertions.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdfPathAcro, cmpPdfPathAcro, destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdfPathFlatted, cmpPdfPathAcroFlatten,
                 destinationFolder));
 
         //compare tags structure if tagged
@@ -176,7 +176,7 @@ public abstract class ExtendedHtmlConversionITextTest extends ExtendedITextTest 
         if (tagStructureErrors != null) {
             resultMessage += tagStructureErrors + "\n";
         }
-        assertTrue(resultMessage, tagStructureErrors == null);
+        assertTrue(tagStructureErrors == null, resultMessage);
     }
 
     private ConverterProperties getConverterProperties(String fontsFolder) {

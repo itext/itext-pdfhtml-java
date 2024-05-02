@@ -27,20 +27,19 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 /**
  * @see <a href="https://github.com/w3c/csswg-test">https://github.com/w3c/csswg-test</a>
  */
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public abstract class W3CCssTest extends ExtendedITextTest {
 
     private static final String baseSourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/w3c/";
@@ -48,11 +47,11 @@ public abstract class W3CCssTest extends ExtendedITextTest {
 
     protected abstract String getHtmlFileName();
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
     }
 
-    @Before
+    @BeforeEach
     public void before() {
         createDestinationFolder(getDestinationFolder());
     }
@@ -66,7 +65,7 @@ public abstract class W3CCssTest extends ExtendedITextTest {
         String cmpFilePath = sourceFolder + getOutPdfFileName();
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlFilePath) + "\n");
         HtmlConverter.convertToPdf(new File(htmlFilePath), new File(outFilePath), getConverterProperties());
-        Assert.assertNull(new CompareTool().compareByContent(outFilePath, cmpFilePath, destinationFolder, "diff_"));
+        Assertions.assertNull(new CompareTool().compareByContent(outFilePath, cmpFilePath, destinationFolder, "diff_"));
     }
 
     protected ConverterProperties getConverterProperties() {

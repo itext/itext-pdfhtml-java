@@ -31,23 +31,22 @@ import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class WordBreakTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/WordBreakTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/WordBreakTest/";
     public static final String fontsFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CJKFonts/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -62,7 +61,7 @@ public class WordBreakTest extends ExtendedITextTest {
 
         HtmlConverter.convertToPdf(new File(sourceFolder + "wordBreakCommonScenario.html"),
                 new File(destinationFolder + "wordBreakCommonScenario.pdf"), converterProperties);
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "wordBreakCommonScenario.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "wordBreakCommonScenario.pdf",
                 sourceFolder + "cmp_wordBreakCommonScenario.pdf", destinationFolder));
     }
 
@@ -76,7 +75,7 @@ public class WordBreakTest extends ExtendedITextTest {
 
         HtmlConverter.convertToPdf(new File(sourceFolder + "overflowXWordBreak.html"),
                 new File(destinationFolder + "overflowXWordBreak.pdf"), converterProperties);
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "overflowXWordBreak.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "overflowXWordBreak.pdf",
                 sourceFolder + "cmp_overflowXWordBreak.pdf", destinationFolder));
     }
 
@@ -84,7 +83,7 @@ public class WordBreakTest extends ExtendedITextTest {
     public void whiteSpaceAndWordBreakTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "whiteSpaceAndWordBreak.html"),
                 new File(destinationFolder + "whiteSpaceAndWordBreak.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "whiteSpaceAndWordBreak.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "whiteSpaceAndWordBreak.pdf",
                 sourceFolder + "cmp_whiteSpaceAndWordBreak.pdf", destinationFolder));
     }
 
@@ -98,7 +97,7 @@ public class WordBreakTest extends ExtendedITextTest {
 
         HtmlConverter.convertToPdf(new File(sourceFolder + "wordBreakMidNumbers.html"),
                 new File(destinationFolder + "wordBreakMidNumbers.pdf"), converterProperties);
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "wordBreakMidNumbers.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "wordBreakMidNumbers.pdf",
                 sourceFolder + "cmp_wordBreakMidNumbers.pdf", destinationFolder));
     }
 
@@ -106,7 +105,7 @@ public class WordBreakTest extends ExtendedITextTest {
     public void wordBreakMidPunctuationTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "wordBreakMidPunctuation.html"),
                 new File(destinationFolder + "wordBreakMidPunctuation.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "wordBreakMidPunctuation.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "wordBreakMidPunctuation.pdf",
                 sourceFolder + "cmp_wordBreakMidPunctuation.pdf", destinationFolder));
     }
 
@@ -114,7 +113,7 @@ public class WordBreakTest extends ExtendedITextTest {
     public void wordBreakAllAndFloatTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "wordBreakAllAndFloat.html"),
                 new File(destinationFolder + "wordBreakAllAndFloat.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "wordBreakAllAndFloat.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "wordBreakAllAndFloat.pdf",
                 sourceFolder + "cmp_wordBreakAllAndFloat.pdf", destinationFolder));
     }
 
@@ -124,7 +123,7 @@ public class WordBreakTest extends ExtendedITextTest {
     public void wordBreakTableScenarioTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "wordBreakTableScenario.html"),
                 new File(destinationFolder + "wordBreakTableScenario.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "wordBreakTableScenario.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "wordBreakTableScenario.pdf",
                 sourceFolder + "cmp_wordBreakTableScenario.pdf", destinationFolder));
     }
 }

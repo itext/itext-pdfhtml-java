@@ -39,16 +39,15 @@ import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class OrphansWidowsUnitTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/OrphansWidowsUnitTest/";
@@ -58,11 +57,11 @@ public class OrphansWidowsUnitTest extends ExtendedITextTest {
         List<IElement> elements = convertToElements("orphansDefaultValue");
 
         Paragraph paragraph = (Paragraph) elements.get(0);
-        Assert.assertNotNull(paragraph);
+        Assertions.assertNotNull(paragraph);
 
         ParagraphOrphansControl orphansControl = paragraph.<ParagraphOrphansControl>getProperty(Property.ORPHANS_CONTROL);
-        Assert.assertNotNull(orphansControl);
-        Assert.assertEquals(2, orphansControl.getMinOrphans());
+        Assertions.assertNotNull(orphansControl);
+        Assertions.assertEquals(2, orphansControl.getMinOrphans());
     }
 
     @Test
@@ -70,11 +69,11 @@ public class OrphansWidowsUnitTest extends ExtendedITextTest {
        List<IElement> elements = convertToElements("orphansPropertyPresent");
 
        Paragraph paragraph = (Paragraph) elements.get(0);
-       Assert.assertNotNull(paragraph);
+       Assertions.assertNotNull(paragraph);
 
        ParagraphOrphansControl orphansControl = paragraph.<ParagraphOrphansControl>getProperty(Property.ORPHANS_CONTROL);
-       Assert.assertNotNull(orphansControl);
-       Assert.assertEquals(3, orphansControl.getMinOrphans());
+       Assertions.assertNotNull(orphansControl);
+       Assertions.assertEquals(3, orphansControl.getMinOrphans());
     }
 
     @Test
@@ -82,17 +81,17 @@ public class OrphansWidowsUnitTest extends ExtendedITextTest {
         List<IElement> elements = convertToElements("orphansPropertyInherited");
 
         Div div = (Div) elements.get(0);
-        Assert.assertNotNull(div);
+        Assertions.assertNotNull(div);
         ParagraphOrphansControl divOrphansControl = div.<ParagraphOrphansControl>getProperty(Property.ORPHANS_CONTROL);
-        Assert.assertNotNull(divOrphansControl);
-        Assert.assertEquals(3, divOrphansControl.getMinOrphans());
+        Assertions.assertNotNull(divOrphansControl);
+        Assertions.assertEquals(3, divOrphansControl.getMinOrphans());
 
         Paragraph paragraph = (Paragraph) div.getChildren().get(0);
-        Assert.assertNotNull(paragraph);
+        Assertions.assertNotNull(paragraph);
 
         ParagraphOrphansControl paragraphOrphansControl = paragraph.<ParagraphOrphansControl>getProperty(Property.ORPHANS_CONTROL);
-        Assert.assertNotNull(paragraphOrphansControl);
-        Assert.assertEquals(3, paragraphOrphansControl.getMinOrphans());
+        Assertions.assertNotNull(paragraphOrphansControl);
+        Assertions.assertEquals(3, paragraphOrphansControl.getMinOrphans());
 
     }
 
@@ -101,24 +100,24 @@ public class OrphansWidowsUnitTest extends ExtendedITextTest {
         List<IElement> elements = convertToElements("orphansPropertyOneInheritedOneRedefined");
 
         Div div = (Div) elements.get(0);
-        Assert.assertNotNull(div);
+        Assertions.assertNotNull(div);
         ParagraphOrphansControl divOrphansControl = div.<ParagraphOrphansControl>getProperty(Property.ORPHANS_CONTROL);
-        Assert.assertNotNull(divOrphansControl);
-        Assert.assertEquals(3, divOrphansControl.getMinOrphans());
+        Assertions.assertNotNull(divOrphansControl);
+        Assertions.assertEquals(3, divOrphansControl.getMinOrphans());
 
         Paragraph paragraph = (Paragraph) div.getChildren().get(0);
-        Assert.assertNotNull(paragraph);
+        Assertions.assertNotNull(paragraph);
 
         ParagraphOrphansControl paragraphOrphansControl = paragraph.<ParagraphOrphansControl>getProperty(Property.ORPHANS_CONTROL);
-        Assert.assertNotNull(paragraphOrphansControl);
-        Assert.assertEquals(3, paragraphOrphansControl.getMinOrphans());
+        Assertions.assertNotNull(paragraphOrphansControl);
+        Assertions.assertEquals(3, paragraphOrphansControl.getMinOrphans());
 
         Paragraph anotherParagraph = (Paragraph) div.getChildren().get(1);
-        Assert.assertNotNull(anotherParagraph);
+        Assertions.assertNotNull(anotherParagraph);
 
         ParagraphOrphansControl anotherParagraphOrphansControl = anotherParagraph.<ParagraphOrphansControl>getProperty(Property.ORPHANS_CONTROL);
-        Assert.assertNotNull(anotherParagraphOrphansControl);
-        Assert.assertEquals(4, anotherParagraphOrphansControl.getMinOrphans());
+        Assertions.assertNotNull(anotherParagraphOrphansControl);
+        Assertions.assertEquals(4, anotherParagraphOrphansControl.getMinOrphans());
     }
 
 
@@ -127,11 +126,11 @@ public class OrphansWidowsUnitTest extends ExtendedITextTest {
         List<IElement> elements = convertToElements("widowsDefaultValue");
 
         Paragraph paragraph = (Paragraph) elements.get(0);
-        Assert.assertNotNull(paragraph);
+        Assertions.assertNotNull(paragraph);
 
         ParagraphWidowsControl widowsControl = paragraph.<ParagraphWidowsControl>getProperty(Property.WIDOWS_CONTROL);
-        Assert.assertNotNull(widowsControl);
-        Assert.assertEquals(2, widowsControl.getMinWidows());
+        Assertions.assertNotNull(widowsControl);
+        Assertions.assertEquals(2, widowsControl.getMinWidows());
     }
 
     @Test
@@ -139,11 +138,11 @@ public class OrphansWidowsUnitTest extends ExtendedITextTest {
         List<IElement> elements = convertToElements("widowsPropertyPresent");
 
         Paragraph paragraph = (Paragraph) elements.get(0);
-        Assert.assertNotNull(paragraph);
+        Assertions.assertNotNull(paragraph);
 
         ParagraphWidowsControl widowsControl = paragraph.<ParagraphWidowsControl>getProperty(Property.WIDOWS_CONTROL);
-        Assert.assertNotNull(widowsControl);
-        Assert.assertEquals(3, widowsControl.getMinWidows());
+        Assertions.assertNotNull(widowsControl);
+        Assertions.assertEquals(3, widowsControl.getMinWidows());
     }
 
     @Test
@@ -151,17 +150,17 @@ public class OrphansWidowsUnitTest extends ExtendedITextTest {
         List<IElement> elements = convertToElements("widowsPropertyInherited");
 
         Div div = (Div) elements.get(0);
-        Assert.assertNotNull(div);
+        Assertions.assertNotNull(div);
         ParagraphWidowsControl divWidowsControl = div.<ParagraphWidowsControl>getProperty(Property.WIDOWS_CONTROL);
-        Assert.assertNotNull(divWidowsControl);
-        Assert.assertEquals(3, divWidowsControl.getMinWidows());
+        Assertions.assertNotNull(divWidowsControl);
+        Assertions.assertEquals(3, divWidowsControl.getMinWidows());
 
         Paragraph paragraph = (Paragraph) div.getChildren().get(0);
-        Assert.assertNotNull(paragraph);
+        Assertions.assertNotNull(paragraph);
 
         ParagraphWidowsControl paragraphWidowsControl = paragraph.<ParagraphWidowsControl>getProperty(Property.WIDOWS_CONTROL);
-        Assert.assertNotNull(paragraphWidowsControl);
-        Assert.assertEquals(3, paragraphWidowsControl.getMinWidows());
+        Assertions.assertNotNull(paragraphWidowsControl);
+        Assertions.assertEquals(3, paragraphWidowsControl.getMinWidows());
     }
 
     @Test
@@ -169,24 +168,24 @@ public class OrphansWidowsUnitTest extends ExtendedITextTest {
         List<IElement> elements = convertToElements("widowsPropertyOneInheritedOneRedefined");
 
         Div div = (Div) elements.get(0);
-        Assert.assertNotNull(div);
+        Assertions.assertNotNull(div);
         ParagraphWidowsControl divWidowsControl = div.<ParagraphWidowsControl>getProperty(Property.WIDOWS_CONTROL);
-        Assert.assertNotNull(divWidowsControl);
-        Assert.assertEquals(3, divWidowsControl.getMinWidows());
+        Assertions.assertNotNull(divWidowsControl);
+        Assertions.assertEquals(3, divWidowsControl.getMinWidows());
 
         Paragraph paragraph = (Paragraph) div.getChildren().get(0);
-        Assert.assertNotNull(paragraph);
+        Assertions.assertNotNull(paragraph);
 
         ParagraphWidowsControl paragraphWidowsControl = paragraph.<ParagraphWidowsControl>getProperty(Property.WIDOWS_CONTROL);
-        Assert.assertNotNull(paragraphWidowsControl);
-        Assert.assertEquals(3, paragraphWidowsControl.getMinWidows());
+        Assertions.assertNotNull(paragraphWidowsControl);
+        Assertions.assertEquals(3, paragraphWidowsControl.getMinWidows());
 
         Paragraph anotherParagraph = (Paragraph) div.getChildren().get(1);
-        Assert.assertNotNull(anotherParagraph);
+        Assertions.assertNotNull(anotherParagraph);
 
         ParagraphWidowsControl anotherParagraphWidowsControl = anotherParagraph.<ParagraphWidowsControl>getProperty(Property.WIDOWS_CONTROL);
-        Assert.assertNotNull(anotherParagraphWidowsControl);
-        Assert.assertEquals(4, anotherParagraphWidowsControl.getMinWidows());
+        Assertions.assertNotNull(anotherParagraphWidowsControl);
+        Assertions.assertEquals(4, anotherParagraphWidowsControl.getMinWidows());
     }
 
     @Test
@@ -194,40 +193,40 @@ public class OrphansWidowsUnitTest extends ExtendedITextTest {
         List<IElement> elements = convertToElements("orphansWidowsParallelInheritance");
 
         Div level1Div = (Div) elements.get(0);
-        Assert.assertNotNull(level1Div);
+        Assertions.assertNotNull(level1Div);
         ParagraphOrphansControl level1DivOrphansControl = level1Div.<ParagraphOrphansControl>getProperty(Property.ORPHANS_CONTROL);
-        Assert.assertNotNull(level1DivOrphansControl);
-        Assert.assertEquals(3, level1DivOrphansControl.getMinOrphans());
+        Assertions.assertNotNull(level1DivOrphansControl);
+        Assertions.assertEquals(3, level1DivOrphansControl.getMinOrphans());
         ParagraphWidowsControl level1DivWidowsControl = level1Div.<ParagraphWidowsControl>getProperty(Property.WIDOWS_CONTROL);
-        Assert.assertNull(level1DivWidowsControl);
+        Assertions.assertNull(level1DivWidowsControl);
 
 
         Div level2Div = (Div) level1Div.getChildren().get(0);
-        Assert.assertNotNull(level2Div);
+        Assertions.assertNotNull(level2Div);
         ParagraphOrphansControl level2DivOrphansControl = level2Div.<ParagraphOrphansControl>getProperty(Property.ORPHANS_CONTROL);
-        Assert.assertNotNull(level2DivOrphansControl);
-        Assert.assertEquals(3, level2DivOrphansControl.getMinOrphans());
+        Assertions.assertNotNull(level2DivOrphansControl);
+        Assertions.assertEquals(3, level2DivOrphansControl.getMinOrphans());
         ParagraphWidowsControl level2DivWidowsControl = level2Div.<ParagraphWidowsControl>getProperty(Property.WIDOWS_CONTROL);
-        Assert.assertNotNull(level2DivWidowsControl);
-        Assert.assertEquals(5, level2DivWidowsControl.getMinWidows());
+        Assertions.assertNotNull(level2DivWidowsControl);
+        Assertions.assertEquals(5, level2DivWidowsControl.getMinWidows());
 
         Paragraph paragraph1 = (Paragraph) level2Div.getChildren().get(0);
-        Assert.assertNotNull(paragraph1);
+        Assertions.assertNotNull(paragraph1);
         ParagraphOrphansControl paragraph1OrphansControl = paragraph1.<ParagraphOrphansControl>getProperty(Property.ORPHANS_CONTROL);
-        Assert.assertNotNull(paragraph1OrphansControl);
-        Assert.assertEquals(3, paragraph1OrphansControl.getMinOrphans());
+        Assertions.assertNotNull(paragraph1OrphansControl);
+        Assertions.assertEquals(3, paragraph1OrphansControl.getMinOrphans());
         ParagraphWidowsControl paragraph1WidowsControl = paragraph1.<ParagraphWidowsControl>getProperty(Property.WIDOWS_CONTROL);
-        Assert.assertNotNull(paragraph1WidowsControl);
-        Assert.assertEquals(5, paragraph1WidowsControl.getMinWidows());
+        Assertions.assertNotNull(paragraph1WidowsControl);
+        Assertions.assertEquals(5, paragraph1WidowsControl.getMinWidows());
 
         Paragraph paragraph2 = (Paragraph) level2Div.getChildren().get(1);
-        Assert.assertNotNull(paragraph2);
+        Assertions.assertNotNull(paragraph2);
         ParagraphOrphansControl paragraph2OrphansControl = paragraph2.<ParagraphOrphansControl>getProperty(Property.ORPHANS_CONTROL);
-        Assert.assertNotNull(paragraph2OrphansControl);
-        Assert.assertEquals(4, paragraph2OrphansControl.getMinOrphans());
+        Assertions.assertNotNull(paragraph2OrphansControl);
+        Assertions.assertEquals(4, paragraph2OrphansControl.getMinOrphans());
         ParagraphWidowsControl paragraph2WidowsControl = paragraph2.<ParagraphWidowsControl>getProperty(Property.WIDOWS_CONTROL);
-        Assert.assertNotNull(paragraph2WidowsControl);
-        Assert.assertEquals(5, paragraph2WidowsControl.getMinWidows());
+        Assertions.assertNotNull(paragraph2WidowsControl);
+        Assertions.assertEquals(5, paragraph2WidowsControl.getMinWidows());
     }
 
     @Test
@@ -240,15 +239,15 @@ public class OrphansWidowsUnitTest extends ExtendedITextTest {
         List<IElement> elements = HtmlConverter.convertToElements(new FileInputStream(sourceFolder + "orphansWidows.html"), converterProperties);
 
         Div div = (Div) elements.get(0);
-        Assert.assertNotNull(div);
+        Assertions.assertNotNull(div);
 
         Paragraph paragraph = (Paragraph) div.getChildren().get(0);
-        Assert.assertNotNull(paragraph);
+        Assertions.assertNotNull(paragraph);
 
         ParagraphWidowsControl paragraphWidowsControl = paragraph.<ParagraphWidowsControl>getProperty(Property.WIDOWS_CONTROL);
-        Assert.assertNotNull(paragraphWidowsControl);
-        Assert.assertEquals(3, paragraphWidowsControl.getMaxLinesToMove());
-        Assert.assertTrue(paragraphWidowsControl.isOverflowOnWidowsViolation());
+        Assertions.assertNotNull(paragraphWidowsControl);
+        Assertions.assertEquals(3, paragraphWidowsControl.getMaxLinesToMove());
+        Assertions.assertTrue(paragraphWidowsControl.isOverflowOnWidowsViolation());
     }
 
     private List<IElement> convertToElements(String name) throws IOException {

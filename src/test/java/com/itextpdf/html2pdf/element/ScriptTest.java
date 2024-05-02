@@ -32,19 +32,18 @@ import com.itextpdf.test.annotations.LogMessages;
 import java.io.File;
 import java.io.IOException;
 
-import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class ScriptTest extends ExtendedITextTest {
 
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/element/ScriptTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/element/ScriptTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(DESTINATION_FOLDER);
     }
@@ -55,7 +54,7 @@ public class ScriptTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "scriptTest01.html"),
                 new File(DESTINATION_FOLDER + "scriptTest01.pdf"));
 
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "scriptTest01.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "scriptTest01.pdf",
                 SOURCE_FOLDER + "cmp_scriptTest01.pdf", DESTINATION_FOLDER, "diff01_"));
     }
 
@@ -65,7 +64,7 @@ public class ScriptTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "noScriptTag.html"),
                 new File(DESTINATION_FOLDER + "noScriptTag.pdf"));
 
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "noScriptTag.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "noScriptTag.pdf",
                 SOURCE_FOLDER + "cmp_noScriptTag.pdf", DESTINATION_FOLDER, "diff01_"));
     }
 }

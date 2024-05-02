@@ -26,25 +26,20 @@ import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class PageMarginBoxIntegrationTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/media/page/PageMarginBoxIntegrationTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/media/page/PageMarginBoxIntegrationTest/";
 
-    @Rule
-    public ExpectedException junitExpectedException = ExpectedException.none();
-
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
     }
@@ -336,9 +331,9 @@ public class PageMarginBoxIntegrationTest extends ExtendedHtmlConversionITextTes
 
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT)})
-    public void tableInsideOfPageMarginNotFittingIntoDedicatedSpace() throws IOException, InterruptedException {
-        junitExpectedException.expect(NullPointerException.class);
-        convertToPdfAndCompare("tableInsideOfPageMarginNotFittingIntoDedicatedSpace", sourceFolder, destinationFolder);
+    public void tableInsideOfPageMarginNotFittingIntoDedicatedSpace() {
+        Assertions.assertThrows(NullPointerException.class, () -> convertToPdfAndCompare(
+                "tableInsideOfPageMarginNotFittingIntoDedicatedSpace", sourceFolder, destinationFolder));
     }
 
     @Test

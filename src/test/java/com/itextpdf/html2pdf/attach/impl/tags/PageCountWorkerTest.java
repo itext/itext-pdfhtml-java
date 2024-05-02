@@ -30,12 +30,11 @@ import com.itextpdf.html2pdf.css.resolve.func.counter.PageCountElementNode;
 import com.itextpdf.html2pdf.css.resolve.func.counter.PageTargetCountElementNode;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class PageCountWorkerTest extends ExtendedITextTest {
 
     @Test
@@ -43,23 +42,23 @@ public class PageCountWorkerTest extends ExtendedITextTest {
         final String target = "target";
         PageCountWorker worker = new PageCountWorker(new PageTargetCountElementNode(null, target), null);
         IPropertyContainer container = worker.getElementResult();
-        Assert.assertTrue(container instanceof PageTargetCountElement);
-        Assert.assertEquals(target, ((PageTargetCountElement) container).getTarget());
+        Assertions.assertTrue(container instanceof PageTargetCountElement);
+        Assertions.assertEquals(target, ((PageTargetCountElement) container).getTarget());
     }
 
     @Test
     public void pageCountElementNodeTest() {
         PageCountWorker worker = new PageCountWorker(new PageCountElementNode(false, null), null);
         IPropertyContainer container = worker.getElementResult();
-        Assert.assertTrue(container instanceof PageCountElement);
-        Assert.assertEquals(PageCountType.CURRENT_PAGE_NUMBER, container.<PageCountType>getProperty(Html2PdfProperty.PAGE_COUNT_TYPE));
+        Assertions.assertTrue(container instanceof PageCountElement);
+        Assertions.assertEquals(PageCountType.CURRENT_PAGE_NUMBER, container.<PageCountType>getProperty(Html2PdfProperty.PAGE_COUNT_TYPE));
     }
 
     @Test
     public void pagesCountElementNodeTest() {
         PageCountWorker worker = new PageCountWorker(new PageCountElementNode(true, null), null);
         IPropertyContainer container = worker.getElementResult();
-        Assert.assertTrue(container instanceof PageCountElement);
-        Assert.assertEquals(PageCountType.TOTAL_PAGE_COUNT, container.<PageCountType>getProperty(Html2PdfProperty.PAGE_COUNT_TYPE));
+        Assertions.assertTrue(container instanceof PageCountElement);
+        Assertions.assertEquals(PageCountType.TOTAL_PAGE_COUNT, container.<PageCountType>getProperty(Html2PdfProperty.PAGE_COUNT_TYPE));
     }
 }

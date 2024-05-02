@@ -29,13 +29,12 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class HtmlDocumentRendererTest extends ExtendedITextTest {
 
     @Test
@@ -46,14 +45,14 @@ public class HtmlDocumentRendererTest extends ExtendedITextTest {
         document.setRenderer(documentRenderer);
         pdfDocument.addNewPage();
 
-        Assert.assertEquals(1, pdfDocument.getNumberOfPages());
+        Assertions.assertEquals(1, pdfDocument.getNumberOfPages());
         // For one-page documents it does not make sense to attempt to trim last page
-        Assert.assertFalse(documentRenderer.shouldAttemptTrimLastPage());
+        Assertions.assertFalse(documentRenderer.shouldAttemptTrimLastPage());
 
         pdfDocument.addNewPage();
-        Assert.assertEquals(2, pdfDocument.getNumberOfPages());
+        Assertions.assertEquals(2, pdfDocument.getNumberOfPages());
         // If there are more than one page, we try to trim last page
-        Assert.assertTrue(documentRenderer.shouldAttemptTrimLastPage());
+        Assertions.assertTrue(documentRenderer.shouldAttemptTrimLastPage());
     }
 
     @Test
@@ -67,11 +66,11 @@ public class HtmlDocumentRendererTest extends ExtendedITextTest {
         new PdfCanvas(pdfDocument.getLastPage()).moveTo(10, 10).lineTo(20, 20).stroke();
         pdfDocument.addNewPage();
 
-        Assert.assertEquals(3, pdfDocument.getNumberOfPages());
+        Assertions.assertEquals(3, pdfDocument.getNumberOfPages());
         documentRenderer.trimLastPageIfNecessary();
-        Assert.assertEquals(2, pdfDocument.getNumberOfPages());
+        Assertions.assertEquals(2, pdfDocument.getNumberOfPages());
         documentRenderer.trimLastPageIfNecessary();
-        Assert.assertEquals(2, pdfDocument.getNumberOfPages());
+        Assertions.assertEquals(2, pdfDocument.getNumberOfPages());
     }
 
     @Test
@@ -81,7 +80,7 @@ public class HtmlDocumentRendererTest extends ExtendedITextTest {
         HtmlDocumentRenderer documentRenderer = (HtmlDocumentRenderer) document.getRenderer();
 
         HtmlDocumentRenderer nextRenderer = (HtmlDocumentRenderer) documentRenderer.getNextRenderer();
-        Assert.assertEquals(0, nextRenderer.getEstimatedNumberOfPages());
+        Assertions.assertEquals(0, nextRenderer.getEstimatedNumberOfPages());
     }
 
     @Test
@@ -91,6 +90,6 @@ public class HtmlDocumentRendererTest extends ExtendedITextTest {
         HtmlDocumentRenderer documentRenderer = (HtmlDocumentRenderer) document.getRenderer();
 
         HtmlDocumentRenderer nextRenderer = (HtmlDocumentRenderer) documentRenderer.getNextRenderer();
-        Assert.assertEquals(1, nextRenderer.getEstimatedNumberOfPages());
+        Assertions.assertEquals(1, nextRenderer.getEstimatedNumberOfPages());
     }
 }

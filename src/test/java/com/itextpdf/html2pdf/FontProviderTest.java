@@ -30,28 +30,22 @@ import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.rules.ExpectedException;
 
 // Actually the results are invalid because there is no pdfCalligraph.
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class FontProviderTest extends ExtendedITextTest {
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/FontProviderTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/FontProviderTest/";
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(DESTINATION_FOLDER);
     }
@@ -62,14 +56,14 @@ public class FontProviderTest extends ExtendedITextTest {
     })
     public void hebrewTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "hebrew.html"), new File(DESTINATION_FOLDER + "hebrew.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "hebrew.pdf", SOURCE_FOLDER + "cmp_hebrew.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "hebrew.pdf", SOURCE_FOLDER + "cmp_hebrew.pdf",
                 DESTINATION_FOLDER, "diffHebrew_"));
     }
 
     @Test
     public void devanagariTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "devanagari.html"), new File(DESTINATION_FOLDER + "devanagari.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "devanagari.pdf", SOURCE_FOLDER + "cmp_devanagari.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "devanagari.pdf", SOURCE_FOLDER + "cmp_devanagari.pdf",
                 DESTINATION_FOLDER, "diffDevanagari_"));
     }
 
@@ -77,14 +71,14 @@ public class FontProviderTest extends ExtendedITextTest {
     //For more specific tests see FontSelectorTimesFontTest in html2pdf and FontSelectorHelveticaFontTest in html2pdf-private
     public void convertStandardFonts() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "convertStandardFonts.html"), new File(DESTINATION_FOLDER + "convertStandardFonts.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "convertStandardFonts.pdf", SOURCE_FOLDER
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "convertStandardFonts.pdf", SOURCE_FOLDER
                 + "cmp_convertStandardFonts.pdf", DESTINATION_FOLDER, "difffontstand_"));
     }
 
     @Test
     public void notoSansMonoItalicTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "notoSansMonoItalic.html"), new File(DESTINATION_FOLDER + "notoSansMonoItalic.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "notoSansMonoItalic.pdf", SOURCE_FOLDER
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "notoSansMonoItalic.pdf", SOURCE_FOLDER
                 + "cmp_notoSansMonoItalic.pdf", DESTINATION_FOLDER, "diffnotoSansMonoItalic_"));
 
     }
@@ -93,7 +87,7 @@ public class FontProviderTest extends ExtendedITextTest {
     public void notoSansMonoBoldItalicTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "notoSansMonoBoldItalic.html"), new File(
                 DESTINATION_FOLDER + "notoSansMonoBoldItalic.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "notoSansMonoBoldItalic.pdf", SOURCE_FOLDER
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "notoSansMonoBoldItalic.pdf", SOURCE_FOLDER
                 + "cmp_notoSansMonoBoldItalic.pdf", DESTINATION_FOLDER, "diffnotoSansMonoBoldItalic_"));
 
     }
@@ -143,12 +137,12 @@ public class FontProviderTest extends ExtendedITextTest {
             HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "comparatorError.html"),
                     new File(DESTINATION_FOLDER + "comparatorError.pdf"), properties);
         } catch (IllegalArgumentException e) {
-            Assert.assertEquals("Comparison method violates its general contract!", e.getMessage());
+            Assertions.assertEquals("Comparison method violates its general contract!", e.getMessage());
             isExceptionThrown = true;
         }
 
         if (!isExceptionThrown) {
-            Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "comparatorError.pdf",
+            Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "comparatorError.pdf",
                     SOURCE_FOLDER + "cmp_comparatorError.pdf", DESTINATION_FOLDER));
         }
     }
@@ -162,7 +156,7 @@ public class FontProviderTest extends ExtendedITextTest {
 
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "differentFontFamilies.html"), new File(
                 DESTINATION_FOLDER + "differentFontFamilies.pdf"), properties);
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "differentFontFamilies.pdf", SOURCE_FOLDER
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "differentFontFamilies.pdf", SOURCE_FOLDER
                 + "cmp_differentFontFamilies.pdf", DESTINATION_FOLDER, "diff_"));
     }
 }

@@ -25,7 +25,7 @@ package com.itextpdf.html2pdf.css.w3c.css_color_3;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class T32OpacityOffscreenMultipleBoxes2CTest extends W3CCssTest {
     // In pdf, if several layers of the same color are drawn one atop another, then in case of transparency

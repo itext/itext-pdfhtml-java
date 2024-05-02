@@ -27,21 +27,20 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.io.IOException;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class SurrogatePairsTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/SurrogatePairsTests/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/SurrogatePairsTests/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
     }
@@ -52,7 +51,7 @@ public class SurrogatePairsTest extends ExtendedITextTest {
     public void surrogatePairFrom2Chars() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "surrogatePairFrom2Chars.html"),
                 new File(destinationFolder + "surrogatePairFrom2Chars.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "surrogatePairFrom2Chars.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "surrogatePairFrom2Chars.pdf",
                 sourceFolder + "cmp_surrogatePairFrom2Chars.pdf", destinationFolder));
     }
 
@@ -62,7 +61,7 @@ public class SurrogatePairsTest extends ExtendedITextTest {
     public void surrogatePair2Pairs() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "surrogatePair2Pairs.html"),
                 new File(destinationFolder + "surrogatePair2Pairs.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "surrogatePair2Pairs.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "surrogatePair2Pairs.pdf",
                 sourceFolder + "cmp_surrogatePair2Pairs.pdf", destinationFolder));
     }
 
@@ -72,7 +71,7 @@ public class SurrogatePairsTest extends ExtendedITextTest {
     public void surrogatePairFullCharacter() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "surrogatePairFullCharacter.html"),
                 new File(destinationFolder + "surrogatePairFullCharacter.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "surrogatePairFullCharacter.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "surrogatePairFullCharacter.pdf",
                 sourceFolder + "cmp_surrogatePairFullCharacter.pdf", destinationFolder));
     }
 
@@ -84,7 +83,7 @@ public class SurrogatePairsTest extends ExtendedITextTest {
     public void surrogatePairCombingFullSurrs() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "surrogatePairCombingFullSurrs.html"),
                 new File(destinationFolder + "surrogatePairCombingFullSurrs.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "surrogatePairCombingFullSurrs.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "surrogatePairCombingFullSurrs.pdf",
                 sourceFolder + "cmp_surrogatePairCombingFullSurrs.pdf", destinationFolder));
     }
 
@@ -96,7 +95,7 @@ public class SurrogatePairsTest extends ExtendedITextTest {
     public void surrogatePairCombingFullSurrsWithNoSurrs() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "surrogatePairCombingFullSurrsWithNoSurrs.html"),
                 new File(destinationFolder + "surrogatePairCombingFullSurrsWithNoSurrs.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "surrogatePairCombingFullSurrsWithNoSurrs.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "surrogatePairCombingFullSurrsWithNoSurrs.pdf",
                 sourceFolder + "cmp_surrogatePairCombingFullSurrsWithNoSurrs.pdf", destinationFolder));
     }
 
@@ -106,7 +105,7 @@ public class SurrogatePairsTest extends ExtendedITextTest {
     public void surrogatePairCombinationOf3TypesPairs() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "surrogatePairCombinationOf3TypesPairs.html"),
                 new File(destinationFolder + "surrogatePairCombinationOf3TypesPairs.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "surrogatePairCombinationOf3TypesPairs.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "surrogatePairCombinationOf3TypesPairs.pdf",
                 sourceFolder + "cmp_surrogatePairCombinationOf3TypesPairs.pdf", destinationFolder));
     }
 }

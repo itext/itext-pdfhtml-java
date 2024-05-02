@@ -24,9 +24,9 @@ package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
-@Ignore("DEVSIX-7556 Support multicol+float elements on basic level")
+@Disabled("DEVSIX-7556 Support multicol+float elements on basic level")
 public class SpannerInChildAfterParallelFlow003Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

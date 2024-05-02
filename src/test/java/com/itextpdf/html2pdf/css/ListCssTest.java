@@ -25,21 +25,20 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.io.IOException;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class ListCssTest extends ExtendedHtmlConversionITextTest {
     private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/ListCSSTest/";
     private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/ListCSSTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
@@ -47,7 +46,7 @@ public class ListCssTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void listCSSStartTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "orderedList.html"), new File(DESTINATION_FOLDER + "orderedList01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "orderedList01.pdf", SOURCE_FOLDER + "cmp_orderedList01.pdf", DESTINATION_FOLDER, "diff02_"));
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "orderedList01.pdf", SOURCE_FOLDER + "cmp_orderedList01.pdf", DESTINATION_FOLDER, "diff02_"));
     }
 
     @Test
@@ -78,7 +77,7 @@ public class ListCssTest extends ExtendedHtmlConversionITextTest {
     //TODO: DEVSIX-6128 NullPointerException when trying to convert html with non-existing ol type.
     @Test
     public void unsupportedType() {
-        Assert.assertThrows(NullPointerException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> convertToPdfAndCompare("unsupportedType", SOURCE_FOLDER, DESTINATION_FOLDER));
     }
 

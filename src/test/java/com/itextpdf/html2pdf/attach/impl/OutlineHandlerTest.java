@@ -38,25 +38,23 @@ import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
 import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-@Category(IntegrationTest.class)
+@org.junit.jupiter.api.Tag("IntegrationTest")
 public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
 
     private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/attach/impl/OutlineHandlerTest/";
     private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/attach/impl/OutlineHandlerTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
@@ -80,9 +78,9 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
         outlineHandler.addOutlineAndDestToDocument(new PTagWorker(elementNode, context), elementNode, context);
 
         PdfOutline pdfOutline = context.getPdfDocument().getOutlines(false).getAllChildren().get(0);
-        Assert.assertEquals("p1", pdfOutline.getTitle());
+        Assertions.assertEquals("p1", pdfOutline.getTitle());
         PdfString pdfStringDest = (PdfString) pdfOutline.getDestination().getPdfObject();
-        Assert.assertEquals("pdfHTML-iText-outline-1", pdfStringDest.toUnicodeString());
+        Assertions.assertEquals("pdfHTML-iText-outline-1", pdfStringDest.toUnicodeString());
     }
 
     @Test
@@ -92,7 +90,7 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
         OutlineHandler outlineHandler = new OutlineHandler().putAllMarksPriorityMappings(priorityMappings);
 
         outlineHandler.setDestinationNamePrefix("prefix-");
-        Assert.assertEquals("prefix-", outlineHandler.getDestinationNamePrefix());
+        Assertions.assertEquals("prefix-", outlineHandler.getDestinationNamePrefix());
 
         ProcessorContext context = new ProcessorContext(new ConverterProperties().setOutlineHandler(outlineHandler));
         context.reset(new PdfDocument(new PdfWriter(new ByteArrayOutputStream())));
@@ -107,9 +105,9 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
         outlineHandler.addOutlineAndDestToDocument(new PTagWorker(elementNode, context), elementNode, context);
 
         PdfOutline pdfOutline = context.getPdfDocument().getOutlines(false).getAllChildren().get(0);
-        Assert.assertEquals("p1", pdfOutline.getTitle());
+        Assertions.assertEquals("p1", pdfOutline.getTitle());
         PdfString pdfStringDest = (PdfString) pdfOutline.getDestination().getPdfObject();
-        Assert.assertEquals("prefix-1", pdfStringDest.toUnicodeString());
+        Assertions.assertEquals("prefix-1", pdfStringDest.toUnicodeString());
     }
 
     @Test
@@ -122,7 +120,7 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
         OutlineHandler outlineHandler = OutlineHandler.createStandardHandler();
         HtmlConverter.convertToPdf(new File(inFile), new File(outFile),
                 new ConverterProperties().setOutlineHandler(outlineHandler));
-        Assert.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER, "diff_defaultOutlineHandlerWithHTagHavingIdTest"));
+        Assertions.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER, "diff_defaultOutlineHandlerWithHTagHavingIdTest"));
     }
 
     @Test
@@ -136,7 +134,7 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
 
             HtmlConverter.convertToPdf(new File(srcHtml), new File(outPdf),
                     new ConverterProperties().setOutlineHandler(outlineHandler));
-            Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER, "diff_" + i));
+            Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER, "diff_" + i));
         }
     }
 
@@ -149,7 +147,7 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
         OutlineHandler outlineHandler = OutlineHandler.createStandardHandler();
         HtmlConverter.convertToPdf(new File(inFile), new File(outFile),
                 new ConverterProperties().setOutlineHandler(outlineHandler));
-        Assert.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER,
+        Assertions.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER,
                 "diff_capitalHeadingLevelOne"));
     }
 
@@ -165,7 +163,7 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
                 .putAllMarksPriorityMappings(priorityMappings);
         HtmlConverter.convertToPdf(new File(inFile), new File(outFile),
                 new ConverterProperties().setOutlineHandler(handler));
-        Assert.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER,
+        Assertions.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER,
                 "diff_ClassBasedOutline"));
     }
 
@@ -177,7 +175,7 @@ public class OutlineHandlerTest extends ExtendedHtmlConversionITextTest {
         OutlineHandler handler = new ChangedOutlineHandler();
         HtmlConverter.convertToPdf(new File(inFile), new File(outFile),
                 new ConverterProperties().setOutlineHandler(handler));
-        Assert.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER,
+        Assertions.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER,
                 "diff_ChangedOutlineHandler"));
     }
 

@@ -26,21 +26,20 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class CssCollapsingMarginsTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssCollapsingMarginsTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/CssCollapsingMarginsTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
     }
@@ -354,7 +353,7 @@ public class CssCollapsingMarginsTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(srcFile, destFile);
 
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(srcFile.getAbsolutePath()) + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, diff));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, diff));
     }
 
 }

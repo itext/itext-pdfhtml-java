@@ -37,15 +37,14 @@ import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.UnitTest;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class FlexApplierUtilTest extends ExtendedITextTest {
 
     private static final float EPS = 1e-6f;
@@ -58,7 +57,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
         IElement element = new Div();
         FlexApplierUtil.applyFlexItemProperties(cssProps, context, element);
         Float flexGrow = element.<Float>getProperty(Property.FLEX_GROW);
-        Assert.assertEquals(20.568f, (float) flexGrow, EPS);
+        Assertions.assertEquals(20.568f, (float) flexGrow, EPS);
     }
 
     @Test
@@ -69,7 +68,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
         IElement element = new Div();
         FlexApplierUtil.applyFlexItemProperties(cssProps, context, element);
         Float flexShrink = element.<Float>getProperty(Property.FLEX_SHRINK);
-        Assert.assertEquals(182.1932f, (float) flexShrink, EPS);
+        Assertions.assertEquals(182.1932f, (float) flexShrink, EPS);
     }
 
     @Test
@@ -79,7 +78,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
         cssProps.put(CssConstants.FLEX_BASIS, null);
         IElement element = new Div();
         FlexApplierUtil.applyFlexItemProperties(cssProps, context, element);
-        Assert.assertNull(element.<UnitValue>getProperty(Property.FLEX_BASIS));
+        Assertions.assertNull(element.<UnitValue>getProperty(Property.FLEX_BASIS));
     }
 
     @Test
@@ -89,7 +88,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
         cssProps.put(CssConstants.FLEX_BASIS, CssConstants.AUTO);
         IElement element = new Div();
         FlexApplierUtil.applyFlexItemProperties(cssProps, context, element);
-        Assert.assertNull(element.<UnitValue>getProperty(Property.FLEX_BASIS));
+        Assertions.assertNull(element.<UnitValue>getProperty(Property.FLEX_BASIS));
     }
 
     @Test
@@ -100,8 +99,8 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
         cssProps.put(CssConstants.FLEX_BASIS, CssConstants.CONTENT);
         IElement element = new Div();
         FlexApplierUtil.applyFlexItemProperties(cssProps, context, element);
-        Assert.assertFalse(element.hasProperty(Property.FLEX_BASIS));
-        Assert.assertNull(element.<UnitValue>getProperty(Property.FLEX_BASIS));
+        Assertions.assertFalse(element.hasProperty(Property.FLEX_BASIS));
+        Assertions.assertNull(element.<UnitValue>getProperty(Property.FLEX_BASIS));
     }
 
     @Test
@@ -112,9 +111,9 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
         cssProps.put(CssConstants.FONT_SIZE, "0");
         IElement element = new Div();
         FlexApplierUtil.applyFlexItemProperties(cssProps, context, element);
-        Assert.assertEquals(UnitValue.createPointValue(20.45f),
+        Assertions.assertEquals(UnitValue.createPointValue(20.45f),
                 element.<UnitValue>getProperty(Property.FLEX_BASIS));
-        Assert.assertEquals(UnitValue.createPointValue(20.45f), element.<UnitValue>getProperty(Property.FLEX_BASIS));
+        Assertions.assertEquals(UnitValue.createPointValue(20.45f), element.<UnitValue>getProperty(Property.FLEX_BASIS));
     }
 
 
@@ -150,7 +149,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
             cssProps.put(CssConstants.ALIGN_ITEMS, alignItemsStrings[i]);
             IElement element = new Div();
             FlexApplierUtil.applyFlexContainerProperties(cssProps, element);
-            Assert.assertEquals(alignItemsValues[i], (AlignmentPropertyValue) element.<AlignmentPropertyValue>getProperty(Property.ALIGN_ITEMS));
+            Assertions.assertEquals(alignItemsValues[i], (AlignmentPropertyValue) element.<AlignmentPropertyValue>getProperty(Property.ALIGN_ITEMS));
         }
     }
 
@@ -187,7 +186,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
             cssProps.put(CssConstants.JUSTIFY_CONTENT, justifyContentStrings[i]);
             IElement element = new Div();
             FlexApplierUtil.applyFlexContainerProperties(cssProps, element);
-            Assert.assertEquals(justifyContentValues[i], (JustifyContent) element.<JustifyContent>getProperty(Property.JUSTIFY_CONTENT));
+            Assertions.assertEquals(justifyContentValues[i], (JustifyContent) element.<JustifyContent>getProperty(Property.JUSTIFY_CONTENT));
         }
     }
 
@@ -208,7 +207,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
             cssProps.put(CssConstants.FLEX_WRAP, wrapStrings[i]);
             IElement element = new Div();
             FlexApplierUtil.applyFlexContainerProperties(cssProps, element);
-            Assert.assertEquals(wrapValues[i], (FlexWrapPropertyValue) element.<FlexWrapPropertyValue>getProperty(Property.FLEX_WRAP));
+            Assertions.assertEquals(wrapValues[i], (FlexWrapPropertyValue) element.<FlexWrapPropertyValue>getProperty(Property.FLEX_WRAP));
         }
     }
 
@@ -219,7 +218,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
         cssProps.put(CommonCssConstants.ALIGN_ITEMS, CssConstants.SAFE + " " + CommonCssConstants.FLEX_END);
         IElement element = new Div();
         FlexApplierUtil.applyFlexContainerProperties(cssProps, element);
-        Assert.assertEquals(AlignmentPropertyValue.STRETCH, (AlignmentPropertyValue) element.<AlignmentPropertyValue>getProperty(Property.ALIGN_ITEMS));
+        Assertions.assertEquals(AlignmentPropertyValue.STRETCH, (AlignmentPropertyValue) element.<AlignmentPropertyValue>getProperty(Property.ALIGN_ITEMS));
     }
 
     @Test
@@ -229,7 +228,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
         cssProps.put(CssConstants.JUSTIFY_CONTENT, CommonCssConstants.SPACE_BETWEEN);
         IElement element = new Div();
         FlexApplierUtil.applyFlexContainerProperties(cssProps, element);
-        Assert.assertEquals(JustifyContent.FLEX_START, (JustifyContent) element.<JustifyContent>getProperty(Property.JUSTIFY_CONTENT));
+        Assertions.assertEquals(JustifyContent.FLEX_START, (JustifyContent) element.<JustifyContent>getProperty(Property.JUSTIFY_CONTENT));
     }
 
     @Test
@@ -255,7 +254,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
         }
 
         // This test checks that there are log messages so assertions are not required
-        Assert.assertTrue(true);
+        Assertions.assertTrue(true);
     }
 
     @Test
@@ -270,7 +269,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
         FlexApplierUtil.applyFlexItemProperties(cssProps, context, element);
 
         // This test checks that there are log messages so assertions are not required
-        Assert.assertTrue(true);
+        Assertions.assertTrue(true);
     }
 
     @Test
@@ -291,7 +290,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
         }
 
         // This test checks that there are no log messages so assertions are not required
-        Assert.assertTrue(true);
+        Assertions.assertTrue(true);
     }
 
     @Test
@@ -304,6 +303,6 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
         FlexApplierUtil.applyFlexItemProperties(cssProps, context, element);
 
         // This test checks that there are no log messages so assertions are not required
-        Assert.assertTrue(true);
+        Assertions.assertTrue(true);
     }
 }

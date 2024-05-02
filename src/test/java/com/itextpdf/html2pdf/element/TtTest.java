@@ -25,21 +25,20 @@ package com.itextpdf.html2pdf.element;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.io.IOException;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class TtTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/TtTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/TtTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -47,12 +46,12 @@ public class TtTest extends ExtendedITextTest {
     @Test
     public void TtTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "TtTest01.html"), new File(destinationFolder + "TtTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "TtTest01.pdf", sourceFolder + "cmp_TtTest01.pdf", destinationFolder, "diff01_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "TtTest01.pdf", sourceFolder + "cmp_TtTest01.pdf", destinationFolder, "diff01_"));
     }
 
     @Test
     public void TtTest02() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "TtTest02.html"), new File(destinationFolder + "TtTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "TtTest02.pdf", sourceFolder + "cmp_TtTest02.pdf", destinationFolder, "diff02_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "TtTest02.pdf", sourceFolder + "cmp_TtTest02.pdf", destinationFolder, "diff02_"));
     }
 }

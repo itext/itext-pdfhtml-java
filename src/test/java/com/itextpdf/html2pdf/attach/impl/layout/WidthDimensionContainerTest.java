@@ -26,15 +26,14 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.styledxmlparser.css.CssContextNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class WidthDimensionContainerTest extends ExtendedITextTest {
 
     @Test
@@ -56,6 +55,6 @@ public class WidthDimensionContainerTest extends ExtendedITextTest {
         WidthDimensionContainer widthDimensionContainer = new WidthDimensionContainer(cssContextNode, 500,
                 paragraph.createRendererSubTree(), 0);
 
-        Assert.assertEquals(widthDimensionContainer.minContentDimension, 20, 0.0);
+        Assertions.assertEquals(widthDimensionContainer.minContentDimension, 20, 0.0);
     }
 }

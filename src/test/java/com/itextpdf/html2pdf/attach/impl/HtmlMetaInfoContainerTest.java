@@ -28,13 +28,12 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ProcessorContextCreator;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class HtmlMetaInfoContainerTest extends ExtendedITextTest {
 
     @Test
@@ -42,14 +41,14 @@ public class HtmlMetaInfoContainerTest extends ExtendedITextTest {
         TestMetaInfo metaInfo = new TestMetaInfo();
         HtmlMetaInfoContainer metaInfoContainer = new HtmlMetaInfoContainer(metaInfo);
 
-        Assert.assertSame(metaInfo, metaInfoContainer.getMetaInfo());
+        Assertions.assertSame(metaInfo, metaInfoContainer.getMetaInfo());
     }
 
     @Test
     public void getNullMetaInfoTest() {
         HtmlMetaInfoContainer metaInfoContainer = new HtmlMetaInfoContainer(null);
 
-        Assert.assertNull(metaInfoContainer.getMetaInfo());
+        Assertions.assertNull(metaInfoContainer.getMetaInfo());
     }
 
     @Test
@@ -57,10 +56,10 @@ public class HtmlMetaInfoContainerTest extends ExtendedITextTest {
         ProcessorContext processorContext = ProcessorContextCreator.createProcessorContext(new ConverterProperties());
 
         HtmlMetaInfoContainer htmlMetaInfoContainer = processorContext.getMetaInfoContainer();
-        Assert.assertNotNull(htmlMetaInfoContainer);
+        Assertions.assertNotNull(htmlMetaInfoContainer);
 
         IMetaInfo metaInfo = htmlMetaInfoContainer.getMetaInfo();
-        Assert.assertTrue(metaInfo.getClass().getName().startsWith(NamespaceConstant.PDF_HTML + "."));
+        Assertions.assertTrue(metaInfo.getClass().getName().startsWith(NamespaceConstant.PDF_HTML + "."));
     }
 
     private static class TestMetaInfo implements IMetaInfo {

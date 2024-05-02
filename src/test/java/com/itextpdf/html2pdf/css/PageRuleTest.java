@@ -55,7 +55,6 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -66,25 +65,20 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class PageRuleTest extends ExtendedITextTest {
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/PageRuleTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/PageRuleTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
-
-    @Rule
-    public ExpectedException junitExpectedException = ExpectedException.none();
 
     @Test
     public void marksCropCrossPageRuleTest() {
@@ -625,7 +619,7 @@ public class PageRuleTest extends ExtendedITextTest {
         doc.getRenderer().close();
 
         int pagesNum = doc.getPdfDocument().getNumberOfPages();
-        Assert.assertTrue(pagesNum > 1);
+        Assertions.assertTrue(pagesNum > 1);
         int k = 1;
         for (int i = pagesNum; i > 0 ; --i) {
             doc.getPdfDocument().movePage(pagesNum, k++);
@@ -687,50 +681,49 @@ public class PageRuleTest extends ExtendedITextTest {
 
     @Test
     public void wrongPageRuleCssStructureTest() {
-        junitExpectedException.expect(RuntimeException.class);
-        runTest("wrongPageRuleCssStructureTest");
+        Assertions.assertThrows(RuntimeException.class, () -> runTest("wrongPageRuleCssStructureTest"));
     }
 
     @Test
     //TODO: DEVSIX-1570, SUP-2322. Remove junitExpectedException after the fix.
     public void pageCountTestTableAlignLeft() throws IOException {
-        junitExpectedException.expect(AssertionError.class);
+        Assertions.assertThrows(AssertionError.class, () -> {
+            String expectedText = "Page 1 of 3";
+            String nameAlignLeft = "htmlWithTableAlignLeft.html";
+            String pdfOutputName = DESTINATION_FOLDER + nameAlignLeft + ".pdf";
 
-        String expectedText = "Page 1 of 3";
-        String nameAlignLeft = "htmlWithTableAlignLeft.html";
-        String pdfOutputName = DESTINATION_FOLDER + nameAlignLeft + ".pdf";
+            File pdfOutputAlignLeft = new File(pdfOutputName);
+            HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + nameAlignLeft), pdfOutputAlignLeft);
 
-        File pdfOutputAlignLeft = new File(pdfOutputName);
-        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + nameAlignLeft), pdfOutputAlignLeft);
+            PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfOutputAlignLeft));
+            String textFromPage = PdfTextExtractor.getTextFromPage(pdfDocument.getPage(1));
 
-        PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfOutputAlignLeft));
-        String textFromPage = PdfTextExtractor.getTextFromPage(pdfDocument.getPage(1));
+            // Print the output file. No comparison will be made on the following line
+            ExtendedITextTest.printOutputPdfNameAndDir(pdfOutputName);
 
-        // Print the output file. No comparison will be made on the following line
-        ExtendedITextTest.printOutputPdfNameAndDir(pdfOutputName);
-
-        Assert.assertTrue("Page doesn't contain text " + expectedText, textFromPage.contains(expectedText));
+            Assertions.assertTrue(textFromPage.contains(expectedText), "Page doesn't contain text " + expectedText);
+        });
     }
 
     @Test
     //TODO: DEVSIX-1570, SUP-2322. Remove junitExpectedException after the fix.
     public void pageCountTestTableFloatLeft() throws IOException {
-        junitExpectedException.expect(AssertionError.class);
+        Assertions.assertThrows(AssertionError.class, () -> {
+            String expectedText = "Page 3 of 3";
+            String nameFloatLeft = "htmlWithTableFloatLeft.html";
+            String pdfOutputName = DESTINATION_FOLDER + nameFloatLeft + ".pdf";
 
-        String expectedText = "Page 3 of 3";
-        String nameFloatLeft = "htmlWithTableFloatLeft.html";
-        String pdfOutputName = DESTINATION_FOLDER + nameFloatLeft + ".pdf";
+            File pdfOutputFloatLeft = new File(pdfOutputName);
+            HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + nameFloatLeft), pdfOutputFloatLeft);
 
-        File pdfOutputFloatLeft = new File(pdfOutputName);
-        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + nameFloatLeft), pdfOutputFloatLeft);
+            PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfOutputFloatLeft));
+            String textFromPage = PdfTextExtractor.getTextFromPage(pdfDocument.getPage(3));
 
-        PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfOutputFloatLeft));
-        String textFromPage = PdfTextExtractor.getTextFromPage(pdfDocument.getPage(3));
+            // Print the output file. No comparison will be made on the following line
+            ExtendedITextTest.printOutputPdfNameAndDir(pdfOutputName);
 
-        // Print the output file. No comparison will be made on the following line
-        ExtendedITextTest.printOutputPdfNameAndDir(pdfOutputName);
-        
-        Assert.assertTrue("Page doesn't contain text " + expectedText, textFromPage.contains(expectedText));
+            Assertions.assertTrue(textFromPage.contains(expectedText), "Page doesn't contain text " + expectedText);
+        });
     }
 
     private static class CustomFlushingTagWorkerFactory extends DefaultTagWorkerFactory {
@@ -802,13 +795,13 @@ public class PageRuleTest extends ExtendedITextTest {
         if (isTagged) {
             compareTool.compareTagStructures(pdfPath, cmpPdfPath);
         }
-        Assert.assertNull(compareTool.compareByContent(pdfPath, cmpPdfPath, DESTINATION_FOLDER, diffPrefix));
+        Assertions.assertNull(compareTool.compareByContent(pdfPath, cmpPdfPath, DESTINATION_FOLDER, diffPrefix));
     }
 
     private void compareResult(String name) throws InterruptedException, IOException {
         String pdfPath = DESTINATION_FOLDER + name + ".pdf";
         String cmpPdfPath = SOURCE_FOLDER + "cmp_" + name + ".pdf";
         String diffPrefix = "diff_" + name + "_";
-        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, DESTINATION_FOLDER, diffPrefix));
+        Assertions.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, DESTINATION_FOLDER, diffPrefix));
     }
 }

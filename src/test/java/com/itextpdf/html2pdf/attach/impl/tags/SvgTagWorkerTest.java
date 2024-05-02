@@ -34,13 +34,11 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.UnitTest;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-@Category(UnitTest.class)
+@org.junit.jupiter.api.Tag("UnitTest")
 public class SvgTagWorkerTest extends ExtendedITextTest {
 
     @Test
@@ -55,7 +53,7 @@ public class SvgTagWorkerTest extends ExtendedITextTest {
         ProcessorContext context = new ProcessorContext(properties);
 
         SvgTagWorker svgTagWorker = new SvgTagWorker(elementNode, context);
-        Assert.assertNull(svgTagWorker.getElementResult());
+        Assertions.assertNull(svgTagWorker.getElementResult());
     }
 
     @Test
@@ -67,7 +65,7 @@ public class SvgTagWorkerTest extends ExtendedITextTest {
         ProcessorContext context = new ProcessorContext(properties);
 
         SvgTagWorker svgTagWorker = new SvgTagWorker(null, context);
-        Assert.assertNull(svgTagWorker.getElementResult());
+        Assertions.assertNull(svgTagWorker.getElementResult());
     }
 
     @Test
@@ -79,6 +77,6 @@ public class SvgTagWorkerTest extends ExtendedITextTest {
         ConverterProperties properties = new ConverterProperties();
         ProcessorContext context = new ProcessorContext(properties);
         SvgTagWorker tagWorker = new SvgTagWorker(elementNode, context);
-        Assert.assertNull(tagWorker.getElementResult());
+        Assertions.assertNull(tagWorker.getElementResult());
     }
 }

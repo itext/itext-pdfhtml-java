@@ -34,23 +34,22 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class DisplayTest extends ExtendedHtmlConversionITextTest {
 
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/DisplayTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/DisplayTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
@@ -74,7 +73,7 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + "display_table02.pdf"));
         pdfDoc.setDefaultPageSize(new PageSize(1500, 842));
         HtmlConverter.convertToPdf(new FileInputStream(SOURCE_FOLDER + "display_table02.html"), pdfDoc);
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "display_table02.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "display_table02.pdf",
                 SOURCE_FOLDER + "cmp_display_table02.pdf",
                 DESTINATION_FOLDER, "diff20_"));
     }
@@ -348,7 +347,7 @@ public class DisplayTest extends ExtendedHtmlConversionITextTest {
 
         HtmlConverter.convertToPdf(new FileInputStream(SOURCE_FOLDER + "inlineBlockInsideTableCellTest.html"),
                 pdfDocument, props);
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "inlineBlockInsideTableCellTest.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "inlineBlockInsideTableCellTest.pdf",
                 SOURCE_FOLDER
                         + "cmp_inlineBlockInsideTableCell.pdf", DESTINATION_FOLDER,
                 "diffinlineBlockInsideTableCellTest_"));

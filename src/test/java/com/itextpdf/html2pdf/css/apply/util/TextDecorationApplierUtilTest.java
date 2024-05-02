@@ -27,17 +27,16 @@ import com.itextpdf.styledxmlparser.node.IAttributes;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class TextDecorationApplierUtilTest extends ExtendedITextTest {
 
     private static IElementNode createNewNode(IElementNode parent, String color, String line, String decorationStyle) {
@@ -62,9 +61,9 @@ public class TextDecorationApplierUtilTest extends ExtendedITextTest {
         IElementNode node = createNewNode(null, color, line, style);
         TextDecorationApplierUtil.propagateTextDecorationProperties(node);
 
-        Assert.assertEquals(color, node.getStyles().get(CssConstants.TEXT_DECORATION_COLOR));
-        Assert.assertEquals(line, node.getStyles().get(CssConstants.TEXT_DECORATION_LINE));
-        Assert.assertEquals(style, node.getStyles().get(CssConstants.TEXT_DECORATION_STYLE));
+        Assertions.assertEquals(color, node.getStyles().get(CssConstants.TEXT_DECORATION_COLOR));
+        Assertions.assertEquals(line, node.getStyles().get(CssConstants.TEXT_DECORATION_LINE));
+        Assertions.assertEquals(style, node.getStyles().get(CssConstants.TEXT_DECORATION_STYLE));
     }
 
     @Test
@@ -81,9 +80,9 @@ public class TextDecorationApplierUtilTest extends ExtendedITextTest {
         parent.addChild(child1);
         TextDecorationApplierUtil.propagateTextDecorationProperties(child1);
         Map<String, String> childStyles = child1.getStyles();
-        Assert.assertEquals(colorChild1, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
-        Assert.assertEquals(lineChild1, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
-        Assert.assertEquals(styleChild1, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
+        Assertions.assertEquals(colorChild1, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
+        Assertions.assertEquals(lineChild1, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
+        Assertions.assertEquals(styleChild1, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
 
     }
 
@@ -100,9 +99,9 @@ public class TextDecorationApplierUtilTest extends ExtendedITextTest {
         parent.addChild(child1);
         TextDecorationApplierUtil.propagateTextDecorationProperties(child1);
         Map<String, String> childStyles = child1.getStyles();
-        Assert.assertEquals(colorChild1, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
-        Assert.assertEquals(lineChild1, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
-        Assert.assertEquals(styleChild1, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
+        Assertions.assertEquals(colorChild1, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
+        Assertions.assertEquals(lineChild1, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
+        Assertions.assertEquals(styleChild1, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
     }
 
     @Test
@@ -125,9 +124,9 @@ public class TextDecorationApplierUtilTest extends ExtendedITextTest {
         String expectedLineChild = "line-under";
         String expectedStyleChild = "solid";
 
-        Assert.assertEquals(expectedColorChild, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
-        Assert.assertEquals(expectedLineChild, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
-        Assert.assertEquals(expectedStyleChild, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
+        Assertions.assertEquals(expectedColorChild, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
+        Assertions.assertEquals(expectedLineChild, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
+        Assertions.assertEquals(expectedStyleChild, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
     }
 
     @Test
@@ -148,9 +147,9 @@ public class TextDecorationApplierUtilTest extends ExtendedITextTest {
         String expectedLineChild = "line-through line-under";
         String expectedStyleChild = "solid solid";
 
-        Assert.assertEquals(expectedColorChild, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
-        Assert.assertEquals(expectedLineChild, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
-        Assert.assertEquals(expectedStyleChild, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
+        Assertions.assertEquals(expectedColorChild, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
+        Assertions.assertEquals(expectedLineChild, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
+        Assertions.assertEquals(expectedStyleChild, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
     }
 
     @Test
@@ -171,9 +170,9 @@ public class TextDecorationApplierUtilTest extends ExtendedITextTest {
         String expectedLineChild = "line-under";
         String expectedStyleChild = "solid";
 
-        Assert.assertEquals(expectedColorChild, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
-        Assert.assertEquals(expectedLineChild, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
-        Assert.assertEquals(expectedStyleChild, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
+        Assertions.assertEquals(expectedColorChild, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
+        Assertions.assertEquals(expectedLineChild, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
+        Assertions.assertEquals(expectedStyleChild, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
     }
 
     @Test
@@ -198,9 +197,9 @@ public class TextDecorationApplierUtilTest extends ExtendedITextTest {
         String expectedColorChild = "red yellow";
         String expectedLineChild = "line-through line-under";
         String expectedStyleChild = "solid solid";
-        Assert.assertEquals(expectedColorChild, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
-        Assert.assertEquals(expectedLineChild, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
-        Assert.assertEquals(expectedStyleChild, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
+        Assertions.assertEquals(expectedColorChild, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
+        Assertions.assertEquals(expectedLineChild, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
+        Assertions.assertEquals(expectedStyleChild, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
     }
 
     @Test
@@ -216,9 +215,9 @@ public class TextDecorationApplierUtilTest extends ExtendedITextTest {
         TextDecorationApplierUtil.propagateTextDecorationProperties(child1);
         Map<String, String> childStyles = child1.getStyles();
 
-        Assert.assertEquals(colorParent, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
-        Assert.assertEquals(lineParent, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
-        Assert.assertEquals(styleParent, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
+        Assertions.assertEquals(colorParent, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
+        Assertions.assertEquals(lineParent, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
+        Assertions.assertEquals(styleParent, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
     }
 
     @Test
@@ -242,9 +241,9 @@ public class TextDecorationApplierUtilTest extends ExtendedITextTest {
         String expectedColorChild = "red red yellow";
         String expectedLineChild = "line-through line-over line-under";
         String expectedStyleChild = "solid solid solid";
-        Assert.assertEquals(expectedColorChild, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
-        Assert.assertEquals(expectedLineChild, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
-        Assert.assertEquals(expectedStyleChild, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
+        Assertions.assertEquals(expectedColorChild, childStyles.get(CssConstants.TEXT_DECORATION_COLOR));
+        Assertions.assertEquals(expectedLineChild, childStyles.get(CssConstants.TEXT_DECORATION_LINE));
+        Assertions.assertEquals(expectedStyleChild, childStyles.get(CssConstants.TEXT_DECORATION_STYLE));
     }
 
     @Test
@@ -273,9 +272,9 @@ public class TextDecorationApplierUtilTest extends ExtendedITextTest {
         String expectedColorChild = "red yellow";
         String expectedLineChild = "line-through line-under";
         String expectedStyleChild = "solid solid";
-        Assert.assertEquals(expectedColorChild, child1Styles.get(CssConstants.TEXT_DECORATION_COLOR));
-        Assert.assertEquals(expectedLineChild, child1Styles.get(CssConstants.TEXT_DECORATION_LINE));
-        Assert.assertEquals(expectedStyleChild, child1Styles.get(CssConstants.TEXT_DECORATION_STYLE));
+        Assertions.assertEquals(expectedColorChild, child1Styles.get(CssConstants.TEXT_DECORATION_COLOR));
+        Assertions.assertEquals(expectedLineChild, child1Styles.get(CssConstants.TEXT_DECORATION_LINE));
+        Assertions.assertEquals(expectedStyleChild, child1Styles.get(CssConstants.TEXT_DECORATION_STYLE));
 
         TextDecorationApplierUtil.propagateTextDecorationProperties(subChild1);
 
@@ -283,9 +282,9 @@ public class TextDecorationApplierUtilTest extends ExtendedITextTest {
         String expectedColorSubChild = "red yellow pink";
         String expectedLineSubChild = "line-through line-under line-over";
         String expectedStyleSubChild = "solid solid solid";
-        Assert.assertEquals(expectedColorSubChild, child1Styles.get(CssConstants.TEXT_DECORATION_COLOR));
-        Assert.assertEquals(expectedLineSubChild, child1Styles.get(CssConstants.TEXT_DECORATION_LINE));
-        Assert.assertEquals(expectedStyleSubChild, child1Styles.get(CssConstants.TEXT_DECORATION_STYLE));
+        Assertions.assertEquals(expectedColorSubChild, child1Styles.get(CssConstants.TEXT_DECORATION_COLOR));
+        Assertions.assertEquals(expectedLineSubChild, child1Styles.get(CssConstants.TEXT_DECORATION_LINE));
+        Assertions.assertEquals(expectedStyleSubChild, child1Styles.get(CssConstants.TEXT_DECORATION_STYLE));
     }
 
     @Test
@@ -302,9 +301,9 @@ public class TextDecorationApplierUtilTest extends ExtendedITextTest {
         String expectedColorChild = "red";
         String expectedLineChild = "line-through";
         String expectedStyleChild = "solid";
-        Assert.assertEquals(expectedColorChild, child1Styles.get(CssConstants.TEXT_DECORATION_COLOR));
-        Assert.assertEquals(expectedLineChild, child1Styles.get(CssConstants.TEXT_DECORATION_LINE));
-        Assert.assertEquals(expectedStyleChild, child1Styles.get(CssConstants.TEXT_DECORATION_STYLE));
+        Assertions.assertEquals(expectedColorChild, child1Styles.get(CssConstants.TEXT_DECORATION_COLOR));
+        Assertions.assertEquals(expectedLineChild, child1Styles.get(CssConstants.TEXT_DECORATION_LINE));
+        Assertions.assertEquals(expectedStyleChild, child1Styles.get(CssConstants.TEXT_DECORATION_STYLE));
 
         final String colorSubChild1 = "pink";
         final String lineSubChild1 = "line-over";
@@ -318,9 +317,9 @@ public class TextDecorationApplierUtilTest extends ExtendedITextTest {
         String expectedColorSubChild = "red pink";
         String expectedLineSubChild = "line-through line-over";
         String expectedStyleSubChild = "solid solid";
-        Assert.assertEquals(expectedColorSubChild, child1Styles.get(CssConstants.TEXT_DECORATION_COLOR));
-        Assert.assertEquals(expectedLineSubChild, child1Styles.get(CssConstants.TEXT_DECORATION_LINE));
-        Assert.assertEquals(expectedStyleSubChild, child1Styles.get(CssConstants.TEXT_DECORATION_STYLE));
+        Assertions.assertEquals(expectedColorSubChild, child1Styles.get(CssConstants.TEXT_DECORATION_COLOR));
+        Assertions.assertEquals(expectedLineSubChild, child1Styles.get(CssConstants.TEXT_DECORATION_LINE));
+        Assertions.assertEquals(expectedStyleSubChild, child1Styles.get(CssConstants.TEXT_DECORATION_STYLE));
     }
 
 

@@ -27,26 +27,25 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class ResourceReleaseResolverTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/resolver/resource/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/resolver/resource/release/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
     }
@@ -78,11 +77,11 @@ public class ResourceReleaseResolverTest extends ExtendedITextTest {
         // The resource must be freed after the conversion
         File resourceToBeRemoved = new File(workDirSvgFile);
         resourceToBeRemoved.delete();
-        Assert.assertFalse(resourceToBeRemoved.exists());
+        Assertions.assertFalse(resourceToBeRemoved.exists());
 
         resourceToBeRemoved = new File(workDirImageFile);
         resourceToBeRemoved.delete();
-        Assert.assertFalse(resourceToBeRemoved.exists());
+        Assertions.assertFalse(resourceToBeRemoved.exists());
     }
 
     @Test
@@ -113,11 +112,11 @@ public class ResourceReleaseResolverTest extends ExtendedITextTest {
         // The resource must be freed after the conversion
         File resourceToBeRemoved = new File(workDirFontFile);
         resourceToBeRemoved.delete();
-        Assert.assertFalse(resourceToBeRemoved.exists());
+        Assertions.assertFalse(resourceToBeRemoved.exists());
     }
 
     @Test
-    @Ignore("Ignored because currently the font file is not removed and test is failed. Remove this ignore after DEVSIX-3199 is fixed")
+    @Disabled("Ignored because currently the font file is not removed and test is failed. Remove this ignore after DEVSIX-3199 is fixed")
     // TODO unignore after DEVSIX-3199 is fixed
     public void testThatAddedFontIsReleasedAfterConversion() throws IOException {
         String dirName = "AddedFontIsReleased/";
@@ -144,7 +143,7 @@ public class ResourceReleaseResolverTest extends ExtendedITextTest {
         File resourceToBeRemoved = new File(workDirFontFile);
         FileUtil.deleteFile(resourceToBeRemoved);
 
-        Assert.assertFalse(resourceToBeRemoved.exists());
+        Assertions.assertFalse(resourceToBeRemoved.exists());
     }
 
     @Test
@@ -171,6 +170,6 @@ public class ResourceReleaseResolverTest extends ExtendedITextTest {
         File resourceToBeRemoved = new File(workDirCssFile);
         FileUtil.deleteFile(resourceToBeRemoved);
 
-        Assert.assertFalse(resourceToBeRemoved.exists());
+        Assertions.assertFalse(resourceToBeRemoved.exists());
     }
 }

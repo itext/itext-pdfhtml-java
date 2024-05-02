@@ -43,22 +43,21 @@ import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class TargetCounterTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/TargetCounterTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/TargetCounterTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
     }
@@ -206,7 +205,7 @@ public class TargetCounterTest extends ExtendedHtmlConversionITextTest {
         Document document = processor.processDocument(doc, pdfDocument);
         document.close();
 
-        Assert.assertNull(new CompareTool().compareByContent(outPdfPath,
+        Assertions.assertNull(new CompareTool().compareByContent(outPdfPath,
                 sourceFolder + "cmp_" + name + ".pdf", destinationFolder));
     }
 

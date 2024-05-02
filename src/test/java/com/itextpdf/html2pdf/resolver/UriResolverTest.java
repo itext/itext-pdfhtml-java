@@ -29,23 +29,22 @@ import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class UriResolverTest extends ExtendedITextTest {
 
     private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/resolver/UriResolverTest/";
     private static final String DESTINATION_FOLDER =
             "./target/test/resources/com/itextpdf/html2pdf/resolver/UriResolverTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void before() throws IOException {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
@@ -59,6 +58,6 @@ public class UriResolverTest extends ExtendedITextTest {
 
         ConverterProperties properties = new ConverterProperties().setBaseUri(SOURCE_FOLDER);
         HtmlConverter.convertToPdf(new File(srcHtml), new File(outPdf), properties);
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER, "diff_"));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER, "diff_"));
     }
 }

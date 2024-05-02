@@ -29,22 +29,21 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class BackgroundTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/BackgroundTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/BackgroundTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -53,7 +52,7 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
     public void backgroundSizeTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "backgroundsize01.html"),
                 new File(destinationFolder + "backgroundsize01.pdf"));
-        Assert.assertNull(new CompareTool()
+        Assertions.assertNull(new CompareTool()
                 .compareByContent(destinationFolder + "backgroundsize01.pdf", sourceFolder + "cmp_backgroundsize01.pdf",
                         destinationFolder));
     }
@@ -238,7 +237,7 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
         String testName = "backgroundSvgTest";
         HtmlConverter.convertToPdf(new File(sourceFolder + testName + ".xht"),
                 new File(destinationFolder + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
                 sourceFolder + "cmp_" + testName + ".pdf", destinationFolder));
     }
 

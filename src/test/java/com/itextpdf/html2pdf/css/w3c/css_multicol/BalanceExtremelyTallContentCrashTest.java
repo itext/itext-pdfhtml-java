@@ -28,7 +28,7 @@ import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
 @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA,
         logLevel = LogLevelConstants.WARN))

@@ -49,7 +49,6 @@ import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 import com.itextpdf.test.pdfa.VeraPdfValidator;
 
 import java.io.File;
@@ -59,19 +58,19 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class InputTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/InputTest/";
     public static final String sourceFolderResources = "./src/test/resources/com/itextpdf/html2pdf/fonts/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/InputTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -114,7 +113,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outPdfPath));
         pdfDoc.setDefaultPageSize(PageSize.A8);
         HtmlConverter.convertToPdf(new FileInputStream(htmlPath), pdfDoc, new ConverterProperties().setCreateAcroForm(true));
-        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, "diff_inputTest06_"));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, "diff_inputTest06_"));
     }
 
     @Test
@@ -216,7 +215,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
         String outPdfPath = destinationFolder + "inputDisabled01AcroTest.pdf";
         String cmpPdfPath = sourceFolder + "cmp_" + "inputDisabled01AcroTest.pdf";
         HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath), new ConverterProperties().setCreateAcroForm(true));
-        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder));
     }
 
     @Test
@@ -248,7 +247,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
         }
         doc.close();
 
-        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, "diff_placeholderTest05_"));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, "diff_placeholderTest05_"));
     }
 
     @Test
@@ -358,11 +357,11 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
         }
 
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(sourceHtml) + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, destinationFolder,
+        Assertions.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, destinationFolder,
                 "diff_" + name + "_"));
 
         VeraPdfValidator veraPdfValidator = new VeraPdfValidator();
-        Assert.assertNull(veraPdfValidator.validate(destinationPdf));
+        Assertions.assertNull(veraPdfValidator.validate(destinationPdf));
 
     }
 

@@ -32,24 +32,17 @@ import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-@Category(UnitTest.class)
+@org.junit.jupiter.api.Tag("UnitTest")
 public class DefaultCssApplierFactoryTest extends ExtendedITextTest {
-
-    @Rule
-    public ExpectedException junitExpectedException = ExpectedException.none();
 
     @Test
     public void cannotGetCssApplierForCustomTagViaReflection() {
         ICssApplier cssApplier = new TestCssApplierFactory().getCssApplier(new JsoupElementNode(new Element(Tag.valueOf("custom-tag"), "")));
-        Assert.assertEquals(TestClass.class, cssApplier.getClass());
+        Assertions.assertEquals(TestClass.class, cssApplier.getClass());
     }
 }
 

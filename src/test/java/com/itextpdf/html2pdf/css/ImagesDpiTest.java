@@ -25,21 +25,20 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class ImagesDpiTest extends ExtendedITextTest {
     private static final String SRC = "./src/test/resources/com/itextpdf/html2pdf/css/ImagesDpiTest/";
     private static final String DEST = "./target/test/com/itextpdf/html2pdf/css/ImagesDpiTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(DEST);
     }
@@ -72,7 +71,7 @@ public class ImagesDpiTest extends ExtendedITextTest {
     private void runTest(String testName) throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SRC + testName + ".html"),
                 new File(DEST + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DEST + testName + ".pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DEST + testName + ".pdf",
                 SRC + "cmp_" + testName + ".pdf", DEST));
     }
 }

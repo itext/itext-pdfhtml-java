@@ -37,23 +37,22 @@ import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class FontFaceTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/FontFaceTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/FontFaceTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
     }
@@ -123,8 +122,8 @@ public class FontFaceTest extends ExtendedITextTest {
         } catch (Exception e) {
             exception = e.getMessage();
         }
-        Assert.assertEquals("Font Provider with zero fonts shall fail",
-                Html2PdfException.FONT_PROVIDER_CONTAINS_ZERO_FONTS, exception);
+        Assertions.assertEquals(Html2PdfException.FONT_PROVIDER_CONTAINS_ZERO_FONTS, exception,
+                "Font Provider with zero fonts shall fail");
     }
 
     @Test
@@ -173,7 +172,7 @@ public class FontFaceTest extends ExtendedITextTest {
             return;
         }
 
-        Assert.fail("In w3c test suite this font is labeled as invalid, "
+        Assertions.fail("In w3c test suite this font is labeled as invalid, "
                 + "so the invalid negative value is expected while creating a glyph.");
     }
 
@@ -215,7 +214,7 @@ public class FontFaceTest extends ExtendedITextTest {
             return;
         }
 
-        Assert.fail("In w3c test suite this font is labeled as invalid, "
+        Assertions.fail("In w3c test suite this font is labeled as invalid, "
                 + "so the invalid negative value is expected while creating a glyph.");
     }
 
@@ -246,7 +245,7 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1759")
+    @Disabled("DEVSIX-1759")
     public void fontFamilyTest01() throws IOException, InterruptedException {
         runTest("fontFamilyTest01");
     }
@@ -340,8 +339,8 @@ public class FontFaceTest extends ExtendedITextTest {
                 .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT))
                 .setFontProvider(fontProvider);
         HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath), converterProperties);
-        Assert.assertFalse("Temporary font was found.", converterProperties.getFontProvider().getFontSet().contains("droid serif"));
-        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
+        Assertions.assertFalse(converterProperties.getFontProvider().getFontSet().contains("droid serif"), "Temporary font was found.");
+        Assertions.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix));
     }
 
     private void runTest(String name) throws IOException, InterruptedException {

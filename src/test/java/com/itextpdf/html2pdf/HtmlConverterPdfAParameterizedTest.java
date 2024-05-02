@@ -24,44 +24,31 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
 import static com.itextpdf.html2pdf.HtmlConverterTest.compareAndCheckCompliance;
 
-@RunWith(Parameterized.class)
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class HtmlConverterPdfAParameterizedTest extends ExtendedHtmlConversionITextTest {
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/HtmlConverterPdfAParameterizedTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/HtmlConverterPdfAParameterizedTest/";
 
-    private final String htmlName;
-    private final String testName;
-
-    private final PdfAConformanceLevel conformanceLevel;
-
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(DESTINATION_FOLDER);
     }
 
-    public HtmlConverterPdfAParameterizedTest(Object htmlName, Object testName, Object conformance) {
-        this.conformanceLevel = (PdfAConformanceLevel) conformance;
-        this.htmlName = (String) htmlName;
-        this.testName = (String) testName;
-    }
 
     // TODO DEVSIX-2449 z-index is not supported (zindex.html)
-    @Parameterized.Parameters(name = "{1}")
-    public static Iterable<Object[]> rotationRelatedProperties() {
+    public static Iterable<Object[]> RotationRelatedProperties() {
         return Arrays.asList(new Object[][]{
                 {"images.html", "pdfA4BasicImageTest", PdfAConformanceLevel.PDF_A_4},
                 {"imageJpeg2000.html", "pdfA4Jpeg2000Test", PdfAConformanceLevel.PDF_A_4},
@@ -121,8 +108,9 @@ public class HtmlConverterPdfAParameterizedTest extends ExtendedHtmlConversionIT
         });
     }
 
-    @Test
-    public void convertToPdfA4Test() throws IOException, InterruptedException {
+    @ParameterizedTest(name = "{1}")
+    @MethodSource("RotationRelatedProperties")
+    public void convertToPdfA4Test(Object htmlName, Object testName, PdfAConformanceLevel conformanceLevel) throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + htmlName;
         String destinationPdf = DESTINATION_FOLDER + testName + ".pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_" + testName + ".pdf";

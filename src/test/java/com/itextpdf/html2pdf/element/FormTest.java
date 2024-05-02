@@ -40,23 +40,22 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class FormTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/FormTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/FormTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -154,7 +153,7 @@ public class FormTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1316")
+    @Disabled("DEVSIX-1316")
     public void fieldInTablePercent() throws IOException, InterruptedException {
         runTest("fieldInTablePercent");
     }
@@ -249,7 +248,7 @@ public class FormTest extends ExtendedITextTest {
 
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(html) + "\n");
 
-        Assert.assertNull(new CompareTool().compareByContent(
+        Assertions.assertNull(new CompareTool().compareByContent(
                 pdf, sourceFolder + "cmp_radioButtonWithPageCounterAtBotton.pdf", destinationFolder));
     }
 
@@ -263,7 +262,7 @@ public class FormTest extends ExtendedITextTest {
 
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(html) + "\n");
 
-        Assert.assertNull(new CompareTool().compareByContent(
+        Assertions.assertNull(new CompareTool().compareByContent(
                 pdf, sourceFolder + "cmp_radioButtonWithPageCounterOnTop.pdf", destinationFolder));
     }
 
@@ -276,7 +275,7 @@ public class FormTest extends ExtendedITextTest {
 
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(html) + "\n");
 
-        Assert.assertNull(new CompareTool().compareByContent(
+        Assertions.assertNull(new CompareTool().compareByContent(
                 pdf, sourceFolder + "cmp_radioButtonNoPageCounter.pdf", destinationFolder));
     }
 
@@ -355,10 +354,10 @@ public class FormTest extends ExtendedITextTest {
             document.close();
         }
 
-        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));
-        Assert.assertNull(new CompareTool().compareByContent(outAcroPdfPath, cmpAcroPdfPath, destinationFolder, diff));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));
+        Assertions.assertNull(new CompareTool().compareByContent(outAcroPdfPath, cmpAcroPdfPath, destinationFolder, diff));
         if (flattenPdfAcroFormFields) {
-            Assert.assertNull(
+            Assertions.assertNull(
                     new CompareTool().compareByContent(outAcroFlattenPdfPath, cmpAcroFlattenPdfPath, destinationFolder,
                             diff));
         }

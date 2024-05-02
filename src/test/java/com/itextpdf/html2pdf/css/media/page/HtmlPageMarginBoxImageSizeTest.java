@@ -25,22 +25,21 @@ package com.itextpdf.html2pdf.css.media.page;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class HtmlPageMarginBoxImageSizeTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/media/page/HtmlPageMarginBoxImageSizeTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/media/page/HtmlPageMarginBoxImageSizeTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void initDestinationFolder() {
         createOrClearDestinationFolder(destinationFolder);
     }
@@ -53,7 +52,7 @@ public class HtmlPageMarginBoxImageSizeTest extends ExtendedITextTest {
 
         HtmlConverter.convertToPdf(new File(htmlSource), new File(outPdf));
 
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff_"));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff_"));
     }
 
     @Test
@@ -64,6 +63,6 @@ public class HtmlPageMarginBoxImageSizeTest extends ExtendedITextTest {
 
         HtmlConverter.convertToPdf(new File(htmlSource), new File(outPdf));
 
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff_"));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff_"));
     }
 }

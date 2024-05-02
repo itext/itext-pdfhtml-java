@@ -30,22 +30,21 @@ import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class OverflowTest extends ExtendedHtmlConversionITextTest {
 
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/OverflowTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/OverflowTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(DESTINATION_FOLDER);
     }
@@ -155,7 +154,7 @@ public class OverflowTest extends ExtendedHtmlConversionITextTest {
         HtmlConverter.convertToPdf(new FileInputStream(SOURCE_FOLDER + testName + ".html"), pdfDocument,
                 new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(SOURCE_FOLDER + testName + ".html") + "\n");
-        Assert.assertNull(new CompareTool()
+        Assertions.assertNull(new CompareTool()
                 .compareByContent(DESTINATION_FOLDER + testName + ".pdf", SOURCE_FOLDER + "cmp_" + testName + ".pdf",
                         DESTINATION_FOLDER, "diff_" + testName));
     }

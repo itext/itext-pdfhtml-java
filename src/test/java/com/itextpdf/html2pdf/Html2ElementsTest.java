@@ -59,7 +59,6 @@ import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 import com.itextpdf.test.pdfa.VeraPdfValidator;
 
 import java.io.File;
@@ -67,18 +66,18 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class Html2ElementsTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/Html2ElementsTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/Html2ElementsTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -87,35 +86,35 @@ public class Html2ElementsTest extends ExtendedITextTest {
     public void htmlToElementsTest01() {
         String html = "<p>Hello world!</p>";
         List<IElement> lst = HtmlConverter.convertToElements(html);
-        Assert.assertTrue(lst.size() == 1);
-        Assert.assertTrue(lst.get(0) instanceof Paragraph);
+        Assertions.assertTrue(lst.size() == 1);
+        Assertions.assertTrue(lst.get(0) instanceof Paragraph);
         Paragraph p = (Paragraph) lst.get(0);
-        Assert.assertEquals("Hello world!", ((Text) p.getChildren().get(0)).getText());
-        Assert.assertEquals(12f, p.<UnitValue>getProperty(Property.FONT_SIZE).getValue(), 1e-10);
+        Assertions.assertEquals("Hello world!", ((Text) p.getChildren().get(0)).getText());
+        Assertions.assertEquals(12f, p.<UnitValue>getProperty(Property.FONT_SIZE).getValue(), 1e-10);
     }
 
     @Test
     public void htmlToElementsTest02() {
         String html = "<table style=\"font-size: 2em\"><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table>";
         List<IElement> lst = HtmlConverter.convertToElements(html);
-        Assert.assertTrue(lst.size() == 1);
-        Assert.assertTrue(lst.get(0) instanceof Table);
+        Assertions.assertTrue(lst.size() == 1);
+        Assertions.assertTrue(lst.get(0) instanceof Table);
         Table t = (Table) lst.get(0);
-        Assert.assertEquals(2, t.getNumberOfRows());
-        Assert.assertEquals("123", ((Text) (((Paragraph) t.getCell(0, 0).getChildren().get(0)).getChildren().get(0))).getText());
-        Assert.assertEquals(24f, t.<UnitValue>getProperty(Property.FONT_SIZE).getValue(), 1e-10);
+        Assertions.assertEquals(2, t.getNumberOfRows());
+        Assertions.assertEquals("123", ((Text) (((Paragraph) t.getCell(0, 0).getChildren().get(0)).getChildren().get(0))).getText());
+        Assertions.assertEquals(24f, t.<UnitValue>getProperty(Property.FONT_SIZE).getValue(), 1e-10);
     }
 
     @Test
     public void htmlToElementsTest03() {
         String html = "<p>Hello world!</p><table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table><p>Hello world!</p>";
         List<IElement> lst = HtmlConverter.convertToElements(html);
-        Assert.assertTrue(lst.size() == 3);
-        Assert.assertTrue(lst.get(0) instanceof Paragraph);
-        Assert.assertTrue(lst.get(1) instanceof Table);
-        Assert.assertTrue(lst.get(2) instanceof Paragraph);
-        Assert.assertEquals("Hello world!", ((Text) ((Paragraph) lst.get(0)).getChildren().get(0)).getText());
-        Assert.assertEquals("123", ((Text) (((Paragraph) ((Table) lst.get(1)).getCell(0, 0).getChildren().get(0)).getChildren().get(0))).getText());
+        Assertions.assertTrue(lst.size() == 3);
+        Assertions.assertTrue(lst.get(0) instanceof Paragraph);
+        Assertions.assertTrue(lst.get(1) instanceof Table);
+        Assertions.assertTrue(lst.get(2) instanceof Paragraph);
+        Assertions.assertEquals("Hello world!", ((Text) ((Paragraph) lst.get(0)).getChildren().get(0)).getText());
+        Assertions.assertEquals("123", ((Text) (((Paragraph) ((Table) lst.get(1)).getCell(0, 0).getChildren().get(0)).getChildren().get(0))).getText());
     }
 
     @Test
@@ -123,11 +122,11 @@ public class Html2ElementsTest extends ExtendedITextTest {
     public void htmlToElementsTest04() {
         String html = "<p>Hello world!<table><td>123";
         List<IElement> lst = HtmlConverter.convertToElements(html);
-        Assert.assertTrue(lst.size() == 2);
-        Assert.assertTrue(lst.get(0) instanceof Paragraph);
-        Assert.assertTrue(lst.get(1) instanceof Table);
-        Assert.assertEquals("Hello world!", ((Text) ((Paragraph) lst.get(0)).getChildren().get(0)).getText());
-        Assert.assertEquals("123", ((Text) (((Paragraph) ((Table) lst.get(1)).getCell(0, 0).getChildren().get(0)).getChildren().get(0))).getText());
+        Assertions.assertTrue(lst.size() == 2);
+        Assertions.assertTrue(lst.get(0) instanceof Paragraph);
+        Assertions.assertTrue(lst.get(1) instanceof Table);
+        Assertions.assertEquals("Hello world!", ((Text) ((Paragraph) lst.get(0)).getChildren().get(0)).getText());
+        Assertions.assertEquals("123", ((Text) (((Paragraph) ((Table) lst.get(1)).getCell(0, 0).getChildren().get(0)).getChildren().get(0))).getText());
     }
 
     @Test
@@ -135,7 +134,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
     public void htmlToElementsTest05() {
         String html = "123";
         List<IElement> lst = HtmlConverter.convertToElements(html);
-        Assert.assertTrue(lst.size() == 1);
+        Assertions.assertTrue(lst.size() == 1);
     }
 
     @Test
@@ -143,9 +142,9 @@ public class Html2ElementsTest extends ExtendedITextTest {
     public void htmlElementsTest06() {
         String html = "<html>Lorem<p>Ipsum</p>Dolor<p>Sit</p></html>";
         List<IElement> lst = HtmlConverter.convertToElements(html);
-        Assert.assertTrue(lst.size() == 4);
+        Assertions.assertTrue(lst.size() == 4);
         for (int i = 0; i < lst.size(); i++)
-            Assert.assertTrue(lst.get(i) instanceof Paragraph);
+            Assertions.assertTrue(lst.get(i) instanceof Paragraph);
     }
 
     @Test
@@ -153,9 +152,9 @@ public class Html2ElementsTest extends ExtendedITextTest {
     public void htmlElementsTest07() {
         String html = "<html>Lorem<span>Dolor</span><p>Ipsum</p><p>Sit</p></html>";
         List<IElement> lst = HtmlConverter.convertToElements(html);
-        Assert.assertTrue(lst.size() == 3);
+        Assertions.assertTrue(lst.size() == 3);
         for (int i = 0; i < lst.size(); i++)
-            Assert.assertTrue(lst.get(i) instanceof Paragraph);
+            Assertions.assertTrue(lst.get(i) instanceof Paragraph);
     }
 
     @Test
@@ -192,7 +191,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
     public void htmlObjectMalformedUrlTest() {
         String html = "<object data ='htt://as' type='image/svg+xml'></object>";
         List<IElement> lst = HtmlConverter.convertToElements(html);
-        Assert.assertTrue(lst.size() == 0);
+        Assertions.assertTrue(lst.size() == 0);
     }
 
     @Test
@@ -219,14 +218,14 @@ public class Html2ElementsTest extends ExtendedITextTest {
             } else if (elem instanceof AreaBreak) {
                 document.add((AreaBreak) elem);
             } else {
-                Assert.fail("The #convertToElements method gave element which is unsupported as root element, it's unexpected.");
+                Assertions.fail("The #convertToElements method gave element which is unsupported as root element, it's unexpected.");
             }
         }
         document.close();
 
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(src) + "\n");
 
-        Assert.assertNull(new CompareTool().compareByContent(outConvertToElements, outConvertToPdf, destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(outConvertToElements, outConvertToPdf, destinationFolder));
     }
 
     @Test
@@ -240,13 +239,13 @@ public class Html2ElementsTest extends ExtendedITextTest {
                 + "</html>";
         List<IElement> elements = HtmlConverter.convertToElements(html);
 
-        Assert.assertEquals(2, elements.size());
+        Assertions.assertEquals(2, elements.size());
         IElement anonymousParagraph = elements.get(0);
 
-        Assert.assertArrayEquals(new String[]{"monospace"}, anonymousParagraph.<String[]>getProperty(Property.FONT));
+        Assertions.assertArrayEquals(new String[]{"monospace"}, anonymousParagraph.<String[]>getProperty(Property.FONT));
 
         IElement normalParagraph = elements.get(1);
-        Assert.assertArrayEquals(new String[]{"monospace"}, normalParagraph.<String[]>getProperty(Property.FONT));
+        Assertions.assertArrayEquals(new String[]{"monospace"}, normalParagraph.<String[]>getProperty(Property.FONT));
     }
 
     @Test
@@ -255,14 +254,14 @@ public class Html2ElementsTest extends ExtendedITextTest {
                 + "<p>This text is in paragraph.</p>";
         List<IElement> elements = HtmlConverter.convertToElements(html);
 
-        Assert.assertEquals(2, elements.size());
+        Assertions.assertEquals(2, elements.size());
         IElement anonymousParagraph = elements.get(0);
 
         // TODO DEVSIX-3873 anonymous paragraph inherited styles should be applied in general way
-        Assert.assertNull(anonymousParagraph.<Leading>getProperty(Property.LEADING));
+        Assertions.assertNull(anonymousParagraph.<Leading>getProperty(Property.LEADING));
 
         IElement normalParagraph = elements.get(1);
-        Assert.assertEquals(new Leading(Leading.MULTIPLIED, 1.2f), normalParagraph.<Leading>getProperty(Property.LEADING));
+        Assertions.assertEquals(new Leading(Leading.MULTIPLIED, 1.2f), normalParagraph.<Leading>getProperty(Property.LEADING));
     }
 
     @Test
@@ -273,8 +272,8 @@ public class Html2ElementsTest extends ExtendedITextTest {
             String html = "<table><tr><td>123</td><td><456></td></tr><tr><td>789</td></tr></table><p>Hello world!</p>";
             List<IElement> elements = HtmlConverter.convertToElements(html);
 
-            Assert.assertEquals(1, handler.getEvents().size());
-            Assert.assertTrue(handler.getEvents().get(0) instanceof PdfHtmlProductEvent);
+            Assertions.assertEquals(1, handler.getEvents().size());
+            Assertions.assertTrue(handler.getEvents().get(0) instanceof PdfHtmlProductEvent);
 
             SequenceId expectedSequenceId = ((PdfHtmlProductEvent) handler.getEvents().get(0)).getSequenceId();
             int validationsCount = validateSequenceIds(expectedSequenceId, elements);
@@ -285,7 +284,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
             // Paragraph -> Text [Hello world!]          2
             //--------------------------------------------
             //                                          12
-            Assert.assertEquals(12, validationsCount);
+            Assertions.assertEquals(12, validationsCount);
         } finally {
             EventManager.getInstance().unregister(handler);
         }
@@ -307,8 +306,8 @@ public class Html2ElementsTest extends ExtendedITextTest {
         addElementsToDocument(document, iElementList);
 
         // TODO DEVSIX-5753 error should not be thrown here
-        Exception e = Assert.assertThrows(PdfException.class, () -> document.close());
-        Assert.assertEquals(KernelExceptionMessageConstant.PDF_INDIRECT_OBJECT_BELONGS_TO_OTHER_PDF_DOCUMENT, e.getMessage());
+        Exception e = Assertions.assertThrows(PdfException.class, () -> document.close());
+        Assertions.assertEquals(KernelExceptionMessageConstant.PDF_INDIRECT_OBJECT_BELONGS_TO_OTHER_PDF_DOCUMENT, e.getMessage());
     }
 
     @Test
@@ -319,13 +318,13 @@ public class Html2ElementsTest extends ExtendedITextTest {
         String cmpPdf = sourceFolder + "cmp_htmlToElementsSvg.pdf";
         String outPdf = destinationFolder + "htmlToElementsSvg.pdf";
         List<IElement> lst = HtmlConverter.convertToElements(html);
-        Assert.assertEquals(1, lst.size());
+        Assertions.assertEquals(1, lst.size());
         try (Document document = new Document(new PdfDocument(new PdfWriter(outPdf)))) {
             for (IElement element : lst) {
                 document.add((Image) element);
             }
         }
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
     }
 
     @Test
@@ -352,7 +351,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
                 document.add((IBlockElement) element);
             }
         }
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
     }
 
     @Test
@@ -368,7 +367,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
                 document.add((IBlockElement) element);
             }
         }
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
     }
 
     @Test
@@ -384,7 +383,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
                 document.add((Image) element);
             }
         }
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
     }
 
     @Test
@@ -400,7 +399,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
                 document.add((IBlockElement) element);
             }
         }
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
     }
 
 
@@ -424,8 +423,8 @@ public class Html2ElementsTest extends ExtendedITextTest {
                 document.add((IBlockElement) element);
             }
         }
-        Assert.assertNull(new VeraPdfValidator().validate(outPdf));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
+        Assertions.assertNull(new VeraPdfValidator().validate(outPdf));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder));
     }
 
 
@@ -438,7 +437,7 @@ public class Html2ElementsTest extends ExtendedITextTest {
             } else if (elem instanceof AreaBreak) {
                 document.add((AreaBreak) elem);
             } else {
-                Assert.fail(
+                Assertions.fail(
                         "The #convertToElements method gave element which is unsupported as root element, it's unexpected.");
             }
         }
@@ -447,9 +446,9 @@ public class Html2ElementsTest extends ExtendedITextTest {
     private static int validateSequenceIds(SequenceId expectedSequenceId, List<IElement> elements) {
         int validationCount = 0;
         for (IElement element : elements) {
-            Assert.assertTrue(element instanceof AbstractIdentifiableElement);
-            Assert.assertTrue(element instanceof IAbstractElement);
-            Assert.assertEquals(expectedSequenceId, SequenceIdManager.getSequenceId((AbstractIdentifiableElement) element));
+            Assertions.assertTrue(element instanceof AbstractIdentifiableElement);
+            Assertions.assertTrue(element instanceof IAbstractElement);
+            Assertions.assertEquals(expectedSequenceId, SequenceIdManager.getSequenceId((AbstractIdentifiableElement) element));
             validationCount += 1;
             validationCount += validateSequenceIds(expectedSequenceId, ((IAbstractElement) element).getChildren());
         }
