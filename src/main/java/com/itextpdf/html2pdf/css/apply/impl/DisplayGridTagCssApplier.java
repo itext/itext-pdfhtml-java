@@ -29,7 +29,6 @@ import com.itextpdf.html2pdf.css.apply.ICssApplier;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
@@ -72,6 +71,17 @@ public class DisplayGridTagCssApplier extends BlockCssApplier {
             final UnitValue autoColumnsUnit = CssDimensionParsingUtils.parseLengthValueToPt(autoColumns, emValue, remValue);
             if (autoColumnsUnit != null) {
                 container.setProperty(Property.GRID_AUTO_COLUMNS, autoColumnsUnit);
+            }
+
+            final UnitValue columnGap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_GAP),
+                    emValue, remValue);
+            if (columnGap != null) {
+                container.setProperty(Property.COLUMN_GAP, columnGap.getValue());
+            }
+            final UnitValue rowGap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.ROW_GAP),
+                    emValue, remValue);
+            if (rowGap != null) {
+                container.setProperty(Property.ROW_GAP, rowGap.getValue());
             }
         }
         MultiColumnCssApplierUtil.applyMultiCol(stylesContainer.getStyles(), context, container);

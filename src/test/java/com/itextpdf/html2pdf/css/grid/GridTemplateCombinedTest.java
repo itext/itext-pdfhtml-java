@@ -24,15 +24,14 @@ package com.itextpdf.html2pdf.css.grid;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-
-import java.io.IOException;
-
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
+
+import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Tag("IntegrationTest")
 public class GridTemplateCombinedTest extends ExtendedHtmlConversionITextTest {
@@ -52,13 +51,11 @@ public class GridTemplateCombinedTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8126
     public void templateCombinedGridColAndRowGapTest() throws IOException, InterruptedException {
         runTest("template-combined-grid-row-col-gap");
     }
 
     @Test
-    // TODO DEVSIX-8126
     public void templateCombinedGridStartEndTest() throws IOException, InterruptedException {
         runTest("template-combined-grid-start-end");
     }

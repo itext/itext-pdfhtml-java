@@ -31,6 +31,13 @@ import com.itextpdf.styledxmlparser.node.IElementNode;
  * {@link ITagWorker} implementation for elements with {@code display: grid}.
  */
 public class DisplayGridTagWorker extends DivTagWorker {
+
+    /**
+     * Creates a new {@link DisplayGridTagWorker} instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public DisplayGridTagWorker(IElementNode element, ProcessorContext context) {
         super(element, context, new GridContainer());
     }

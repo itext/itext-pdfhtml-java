@@ -27,8 +27,8 @@ import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Tag("IntegrationTest")
 public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
@@ -58,7 +58,6 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8126
     public void templateRowStartEndTest() throws IOException, InterruptedException {
         runTest("template-rows-start-end");
     }
@@ -86,7 +85,6 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8126
     public void templateRowGridGapTest() throws IOException, InterruptedException {
         runTest("template-rows-grid-gap");
     }
@@ -142,7 +140,6 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8126
     public void templateRowRowGapTest() throws IOException, InterruptedException {
         runTest("template-rows-row-gap");
     }

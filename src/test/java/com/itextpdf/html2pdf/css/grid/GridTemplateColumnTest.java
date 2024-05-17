@@ -30,8 +30,8 @@ import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Tag("IntegrationTest")
 public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
@@ -87,7 +87,6 @@ public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8126
     public void templateColumnGridGapTest() throws IOException, InterruptedException {
         runTest("template-cols-grid-gap");
     }
@@ -146,7 +145,6 @@ public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8126
     public void templateColumnColumnGapTest() throws IOException, InterruptedException {
         runTest("template-cols-column-gap");
     }

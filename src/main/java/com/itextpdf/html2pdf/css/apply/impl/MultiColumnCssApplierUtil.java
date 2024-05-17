@@ -64,6 +64,15 @@ public final class MultiColumnCssApplierUtil {
             element.setProperty(Property.COLUMN_WIDTH, width.getValue());
         }
 
+        if (!element.hasProperty(Property.COLUMN_WIDTH) && !element.hasProperty(Property.COLUMN_COUNT)) {
+            if (CommonCssConstants.AUTO.equals(cssProps.get(CssConstants.COLUMN_COUNT))
+                    || CommonCssConstants.AUTO.equals(cssProps.get(CssConstants.COLUMN_WIDTH))) {
+                element.setProperty(Property.COLUMN_COUNT, 1);
+            } else {
+                return;
+            }
+        }
+
         final UnitValue gap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_GAP),
                 emValue, remValue);
         if (gap != null) {
@@ -73,11 +82,6 @@ public final class MultiColumnCssApplierUtil {
         //Set default colum-gap to 1em
         if (!element.hasProperty(Property.COLUMN_GAP)) {
             element.setProperty(Property.COLUMN_GAP, CssDimensionParsingUtils.parseRelativeValue("1em", emValue));
-        }
-        if (!element.hasProperty(Property.COLUMN_COUNT) && !element.hasProperty(Property.COLUMN_WIDTH)
-                && (CommonCssConstants.AUTO.equals(cssProps.get(CssConstants.COLUMN_COUNT))
-                || CommonCssConstants.AUTO.equals(cssProps.get(CssConstants.COLUMN_WIDTH)))) {
-            element.setProperty(Property.COLUMN_COUNT, 1);
         }
 
         final Border borderFromCssProperties = BorderStyleApplierUtil.getCertainBorder(
