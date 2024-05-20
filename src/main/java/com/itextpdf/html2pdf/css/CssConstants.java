@@ -144,10 +144,12 @@ public class CssConstants extends CommonCssConstants {
     public static final String GRID_COLUMN_START = "grid-column-start";
     public static final String GRID_ROW_END = "grid-row-end";
     public static final String GRID_ROW_START = "grid-row-start";
+    public static final String GRID_TEMPLATE_AREAS = "grid-template-areas";
     public static final String GRID_TEMPLATE_COLUMNS = "grid-template-columns";
     public static final String GRID_TEMPLATE_ROWS = "grid-template-rows";
     public static final String GRID_AUTO_ROWS = "grid-auto-rows";
     public static final String GRID_AUTO_COLUMNS = "grid-auto-columns";
+    public static final String GRID_AREA = "grid-area";
 
     /** The Constant INLINE. */
     public static final String INLINE = "inline";

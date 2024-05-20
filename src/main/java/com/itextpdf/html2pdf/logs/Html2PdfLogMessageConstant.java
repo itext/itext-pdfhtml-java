@@ -173,6 +173,8 @@ public final class Html2PdfLogMessageConstant {
     public static final String OPTGROUP_NOT_SUPPORTED_IN_INTERACTIVE_SELECT = "Option groups are not supported in "
             + "interactive mode";
     public static final String IMMEDIATE_FLUSH_DISABLED = "Setting createAcroForm disables immediateFlush property";
+    public static final String GRID_TEMPLATE_AREAS_IS_INVALID = "grid-template-areas property is invalid. "
+            + "The result is nondeterministic";
 
     private Html2PdfLogMessageConstant() {
         //Private constructor will prevent the instantiation of this class directly

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+      .wrapper {
+        display: grid;
+        grid-template-rows: 100px 100px 100px 100px;
+      }
+
+      .box1 {
+        grid-area: 1 / auto / 3;
+      }
+
+      .wrapper {
+        border: 2px solid #f76707;
+        background-color: #fff4e6;
+      }
+
+      .wrapper > div {
+        border: 2px solid green;
+        background-color: #ffd8a8;
+        padding: 1em;
+      }
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+  <div class="box1">One</div>
+  <div class="box2">Two</div>
+  <div class="box3">Three</div>
+  <div class="box4">Four</div>
+  <div class="box5">Five</div>
+</div>
+</body>
+</html>
