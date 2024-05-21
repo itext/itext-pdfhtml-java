@@ -24,9 +24,6 @@ package com.itextpdf.html2pdf.css.grid;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.layout.logs.LayoutLogMessageConstant;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
@@ -73,7 +70,6 @@ public class GridTemplateCombinedTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     // TODO DEVSIX-8324
-    @LogMessages(messages = @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA))
     public void templateCombinedMixedTest() throws IOException, InterruptedException {
         runTest("template-combined-mixed");
     }

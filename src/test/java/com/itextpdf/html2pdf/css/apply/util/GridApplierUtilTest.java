@@ -28,8 +28,8 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.properties.GridValue;
 import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
 import com.itextpdf.styledxmlparser.node.IElementNode;
@@ -38,15 +38,13 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
-import java.util.Map;
 
 @Tag("UnitTest")
 public class GridApplierUtilTest extends ExtendedITextTest {
@@ -98,25 +96,6 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         GridApplierUtil.applyGridItemProperties(cssProps, createStylesContainer(), element);
         Integer columnStart = element.<Integer>getProperty(Property.GRID_COLUMN_START);
         Assertions.assertNull(columnStart);
-    }
-
-    @Test
-    public void applyGridContainerPropertiesTest() {
-        Map<String, String> cssProps = new LinkedHashMap<>();
-        cssProps.put(CssConstants.GRID_TEMPLATE_COLUMNS, "100px 100px");
-        cssProps.put(CssConstants.GRID_TEMPLATE_ROWS, "100pt 100pt");
-        IElement element = new Div();
-        GridApplierUtil.applyGridContainerProperties(cssProps, new ProcessorContext(new ConverterProperties()), element);
-
-        List<UnitValue> expectedResult = new ArrayList<>();
-        expectedResult.add(UnitValue.createPointValue(75));
-        expectedResult.add(UnitValue.createPointValue(75));
-        Assertions.assertEquals(expectedResult, element.<List<UnitValue>>getProperty(Property.GRID_TEMPLATE_COLUMNS));
-
-        expectedResult.clear();
-        expectedResult.add(UnitValue.createPointValue(100));
-        expectedResult.add(UnitValue.createPointValue(100));
-        Assertions.assertEquals(expectedResult, element.<List<UnitValue>>getProperty(Property.GRID_TEMPLATE_ROWS));
     }
 
     @Test
@@ -333,6 +312,47 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         Assertions.assertNull(element.<Integer>getProperty(Property.GRID_COLUMN_START));
         Assertions.assertNull(element.<Integer>getProperty(Property.GRID_ROW_END));
         Assertions.assertNull(element.<Integer>getProperty(Property.GRID_COLUMN_END));
+    }
+
+    // ------------------ Grid container tests ------------------
+    @Test
+    public void containerAutoValuesTest() {
+        Map<String, String> cssProps = new HashMap<>();
+        cssProps.put(CssConstants.GRID_AUTO_COLUMNS, "11px");
+        cssProps.put(CssConstants.GRID_AUTO_ROWS, "30%");
+        IElement element = new Div();
+        GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
+        Assertions.assertEquals(8.25, element.<GridValue>getProperty(Property.GRID_AUTO_COLUMNS).getAbsoluteValue(), 0.00001);
+        Assertions.assertNull(element.<GridValue>getProperty(Property.GRID_AUTO_ROWS));
+    }
+
+    @Test
+    public void containerTemplateValuesTest() {
+        Map<String, String> cssProps = new HashMap<>();
+        cssProps.put(CssConstants.GRID_TEMPLATE_COLUMNS, "min-content 1.5fr auto 2fr 100px 20%");
+        cssProps.put(CssConstants.GRID_TEMPLATE_ROWS, "10px 20pt 3em 5rem");
+        IElement element = new Div();
+        GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
+        List<GridValue> actualColValues = element.<List<GridValue>>getProperty(Property.GRID_TEMPLATE_COLUMNS);
+        Assertions.assertEquals(1, actualColValues.size());
+        Assertions.assertEquals(75, actualColValues.get(0).getAbsoluteValue());
+        List<GridValue> actualRowValues = element.<List<GridValue>>getProperty(Property.GRID_TEMPLATE_ROWS);
+        Assertions.assertEquals(4, actualRowValues.size());
+        Assertions.assertEquals(7.5f, actualRowValues.get(0).getAbsoluteValue());
+        Assertions.assertEquals(20, actualRowValues.get(1).getAbsoluteValue());
+        Assertions.assertEquals(0, actualRowValues.get(2).getAbsoluteValue());
+        Assertions.assertEquals(60, actualRowValues.get(3).getAbsoluteValue());
+    }
+
+    @Test
+    public void containerGapValuesTest() {
+        Map<String, String> cssProps = new HashMap<>();
+        cssProps.put(CssConstants.COLUMN_GAP, "11px");
+        cssProps.put(CssConstants.ROW_GAP, "30%");
+        IElement element = new Div();
+        GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
+        Assertions.assertEquals(8.25f, element.<Float>getProperty(Property.COLUMN_GAP));
+        Assertions.assertEquals(30, element.<Float>getProperty(Property.ROW_GAP));
     }
 
     private IElementNode createStylesContainer() {

@@ -45,7 +45,7 @@ public class DisplayGridTagCssApplier extends BlockCssApplier {
         final IPropertyContainer container = tagWorker.getElementResult();
         if (container != null) {
             Map<String, String> cssProps = stylesContainer.getStyles();
-            GridApplierUtil.applyGridContainerProperties(cssProps, context, container);
+            GridApplierUtil.applyGridContainerProperties(cssProps, container, context);
         }
     }
 }

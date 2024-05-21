@@ -26,7 +26,9 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.properties.GridValue;
 import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.SizingValue;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
@@ -68,7 +70,7 @@ public final class GridApplierUtil {
     }
 
     /**
-     * Applies grid properties to an element.
+     * Applies grid properties to a grid item.
      *
      * @param cssProps the CSS properties
      * @param stylesContainer the styles container
@@ -148,62 +150,85 @@ public final class GridApplierUtil {
     }
 
     /**
-     * Applies properties to a grid container.
+     * Applies grid properties to a grid container.
      *
      * @param cssProps the CSS properties
-     * @param context the processor context
-     * @param element the element
+     * @param container the grid container
+     * @param context the context
      */
-    public static void applyGridContainerProperties(Map<String, String> cssProps, ProcessorContext context,
-            IPropertyContainer element) {
-        final float emValue = CssDimensionParsingUtils.parseAbsoluteFontSize(cssProps.get(CommonCssConstants.FONT_SIZE));
+    public static void applyGridContainerProperties(Map<String, String> cssProps, IPropertyContainer container,
+            ProcessorContext context) {
+
+        final float emValue = CssDimensionParsingUtils.parseAbsoluteFontSize(cssProps.get(CssConstants.FONT_SIZE));
         final float remValue = context.getCssContext().getRootFontSize();
 
-        final String templateColumnsStr = cssProps.get(CssConstants.GRID_TEMPLATE_COLUMNS);
-        parseAndSetTemplate(templateColumnsStr, element, Property.GRID_TEMPLATE_COLUMNS, emValue, remValue);
+        applyTemplate(cssProps.get(CssConstants.GRID_TEMPLATE_COLUMNS), container, Property.GRID_TEMPLATE_COLUMNS,
+                emValue, remValue);
+        applyTemplate(cssProps.get(CssConstants.GRID_TEMPLATE_ROWS), container, Property.GRID_TEMPLATE_ROWS,
+                emValue, remValue);
 
-        final String templateRowsStr = cssProps.get(CssConstants.GRID_TEMPLATE_ROWS);
-        parseAndSetTemplate(templateRowsStr, element, Property.GRID_TEMPLATE_ROWS, emValue, remValue);
+        applyAuto(cssProps.get(CssConstants.GRID_AUTO_ROWS), container, Property.GRID_AUTO_ROWS, emValue, remValue);
+        applyAuto(cssProps.get(CssConstants.GRID_AUTO_COLUMNS), container, Property.GRID_AUTO_COLUMNS, emValue, remValue);
 
-        final String autoRows = cssProps.get(CssConstants.GRID_AUTO_ROWS);
-        final UnitValue autoRowsUnit = CssDimensionParsingUtils.parseLengthValueToPt(autoRows, emValue, remValue);
-        if (autoRowsUnit != null) {
-            element.setProperty(Property.GRID_AUTO_ROWS, autoRowsUnit);
-        }
-
-        final String autoColumns = cssProps.get(CssConstants.GRID_AUTO_COLUMNS);
-        final UnitValue autoColumnsUnit = CssDimensionParsingUtils.parseLengthValueToPt(autoColumns, emValue, remValue);
-        if (autoColumnsUnit != null) {
-            element.setProperty(Property.GRID_AUTO_COLUMNS, autoColumnsUnit);
-        }
-
-        final UnitValue columnGap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CommonCssConstants.COLUMN_GAP),
+        final UnitValue columnGap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_GAP),
                 emValue, remValue);
         if (columnGap != null) {
-            element.setProperty(Property.COLUMN_GAP, columnGap.getValue());
+            container.setProperty(Property.COLUMN_GAP, columnGap.getValue());
         }
-        final UnitValue rowGap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CommonCssConstants.ROW_GAP),
+        final UnitValue rowGap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.ROW_GAP),
                 emValue, remValue);
         if (rowGap != null) {
-            element.setProperty(Property.ROW_GAP, rowGap.getValue());
+            container.setProperty(Property.ROW_GAP, rowGap.getValue());
         }
     }
 
-    private static void parseAndSetTemplate(String templateStr, IPropertyContainer container, int property,
-            float emValue, float remValue) {
+    private static void applyAuto(String autoStr, IPropertyContainer container, int property, float emValue, float remValue) {
+        if (autoStr != null) {
+            GridValue value = getGridValue(autoStr, emValue, remValue);
+            // TODO DEVSIX-8324 - we support only absolute values for now
+            // If some relative values are not supported after DEVSIX-8324, add the corresponding warning message
+            if (value != null && value.isAbsoluteValue()) {
+                container.setProperty(property, value);
+            }
+        }
+    }
+
+    private static void applyTemplate(String templateStr, IPropertyContainer container, int property, float emValue, float remValue) {
         if (templateStr != null) {
             final List<String> templateStrArray = CssUtils.extractShorthandProperties(templateStr).get(0);
-            final List<UnitValue> templateResult = new ArrayList<>();
-            for (String s : templateStrArray) {
-                final UnitValue trackUnit = CssDimensionParsingUtils.parseLengthValueToPt(s, emValue, remValue);
-                if (trackUnit != null) {
-                    templateResult.add(trackUnit);
+            final List<GridValue> templateResult = new ArrayList<>();
+            for (String str : templateStrArray) {
+                GridValue value = getGridValue(str, emValue, remValue);
+                // TODO DEVSIX-8324 - we support only absolute values for now
+                // If some relative values are not supported after DEVSIX-8324, add the corresponding warning message
+                if (value != null && value.isAbsoluteValue()) {
+                    templateResult.add(value);
                 }
             }
             if (!templateResult.isEmpty()) {
                 container.setProperty(property, templateResult);
             }
         }
+    }
+
+    private static GridValue getGridValue(String str, float emValue, float remValue) {
+        final UnitValue unit = CssDimensionParsingUtils.parseLengthValueToPt(str, emValue, remValue);
+        if (unit != null) {
+            return GridValue.createUnitValue(unit);
+        } else if (CommonCssConstants.MIN_CONTENT.equals(str)) {
+            return GridValue.createSizeValue(SizingValue.createMinContentValue());
+        } else if (CommonCssConstants.MAX_CONTENT.equals(str)) {
+            return GridValue.createSizeValue(SizingValue.createMaxContentValue());
+        } else if (CommonCssConstants.AUTO.equals(str)) {
+            return GridValue.createSizeValue(SizingValue.createAutoValue());
+        }
+        final Float fr = CssDimensionParsingUtils.parseFlex(str);
+        if (fr != null) {
+            return GridValue.createFlexValue((float) fr);
+        }
+
+        // TODO DEVSIX-8324 - add a warning for the values we do not support yet
+        return null;
     }
 
     private static NamedAreas parseGridTemplateAreas(String templateAreas) {
