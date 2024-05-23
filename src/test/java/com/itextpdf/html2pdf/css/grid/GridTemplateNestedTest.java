@@ -22,10 +22,8 @@
  */
 package com.itextpdf.html2pdf.css.grid;
 
-import com.itextpdf.forms.logs.FormsLogMessageConstants;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -51,8 +49,14 @@ public class GridTemplateNestedTest extends ExtendedHtmlConversionITextTest {
 
 
     @Test
+    // TODO DEVSIX-8382 Investigate weird background height in templateNestedAreasTest
     public void templateNestedAreasTest() throws IOException, InterruptedException {
         runTest("grid-nested-areas");
+    }
+
+    @Test
+    public void templateNestedAreasWithBorderTest() throws IOException, InterruptedException {
+        runTest("grid-nested-areas-with-border");
     }
 
     @Test
@@ -101,7 +105,7 @@ public class GridTemplateNestedTest extends ExtendedHtmlConversionITextTest {
     }
 
     @LogMessages(messages = @LogMessage(
-            messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 2))
+            messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 3))
     @Test
     public void templateNestedTableNestedGridTest() throws IOException, InterruptedException {
         runTest("grid-nested-table-nested-grid");
@@ -118,7 +122,7 @@ public class GridTemplateNestedTest extends ExtendedHtmlConversionITextTest {
     }
 
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count = 5)
+            @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count = 3)
     })
     @Test
     public void templateNested3LevelsFormsTest() throws IOException, InterruptedException {

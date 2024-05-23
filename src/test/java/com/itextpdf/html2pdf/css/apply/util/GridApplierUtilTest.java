@@ -323,8 +323,8 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         cssProps.put(CssConstants.GRID_AUTO_ROWS, "30%");
         IElement element = new Div();
         GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
-        Assertions.assertEquals(8.25, element.<GridValue>getProperty(Property.GRID_AUTO_COLUMNS).getAbsoluteValue(), 0.00001);
-        Assertions.assertNull(element.<GridValue>getProperty(Property.GRID_AUTO_ROWS));
+        Assertions.assertEquals(8.25, element.<GridValue>getProperty(Property.GRID_AUTO_COLUMNS).getValue(), 0.00001);
+        Assertions.assertEquals(30, element.<GridValue>getProperty(Property.GRID_AUTO_ROWS).getValue());
     }
 
     @Test
@@ -335,14 +335,19 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         IElement element = new Div();
         GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
         List<GridValue> actualColValues = element.<List<GridValue>>getProperty(Property.GRID_TEMPLATE_COLUMNS);
-        Assertions.assertEquals(1, actualColValues.size());
-        Assertions.assertEquals(75, actualColValues.get(0).getAbsoluteValue());
+        Assertions.assertEquals(6, actualColValues.size());
+        Assertions.assertTrue(actualColValues.get(0).isMinContentValue());
+        Assertions.assertTrue(actualColValues.get(1).isFlexibleValue());
+        Assertions.assertTrue(actualColValues.get(2).isAutoValue());
+        Assertions.assertTrue(actualColValues.get(3).isFlexibleValue());
+        Assertions.assertEquals(75, actualColValues.get(4).getValue());
+        Assertions.assertEquals(20, actualColValues.get(5).getValue());
         List<GridValue> actualRowValues = element.<List<GridValue>>getProperty(Property.GRID_TEMPLATE_ROWS);
         Assertions.assertEquals(4, actualRowValues.size());
-        Assertions.assertEquals(7.5f, actualRowValues.get(0).getAbsoluteValue());
-        Assertions.assertEquals(20, actualRowValues.get(1).getAbsoluteValue());
-        Assertions.assertEquals(0, actualRowValues.get(2).getAbsoluteValue());
-        Assertions.assertEquals(60, actualRowValues.get(3).getAbsoluteValue());
+        Assertions.assertEquals(7.5f, actualRowValues.get(0).getValue());
+        Assertions.assertEquals(20, actualRowValues.get(1).getValue());
+        Assertions.assertEquals(0, actualRowValues.get(2).getValue());
+        Assertions.assertEquals(60, actualRowValues.get(3).getValue());
     }
 
     @Test

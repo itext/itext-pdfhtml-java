@@ -55,7 +55,6 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8324
     public void basicColumnFewDivsWithFrTest() throws IOException, InterruptedException {
         runTest("basicColumnFewDivsWithFrTest");
     }

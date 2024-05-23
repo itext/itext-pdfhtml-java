@@ -31,7 +31,6 @@ import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 

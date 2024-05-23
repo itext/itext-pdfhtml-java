@@ -29,7 +29,6 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.properties.GridFlow;
 import com.itextpdf.layout.properties.GridValue;
 import com.itextpdf.layout.properties.Property;
-import com.itextpdf.layout.properties.SizingValue;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
@@ -187,9 +186,7 @@ public final class GridApplierUtil {
     private static void applyAuto(String autoStr, IPropertyContainer container, int property, float emValue, float remValue) {
         if (autoStr != null) {
             GridValue value = getGridValue(autoStr, emValue, remValue);
-            // TODO DEVSIX-8324 - we support only absolute values for now
-            // If some relative values are not supported after DEVSIX-8324, add the corresponding warning message
-            if (value != null && value.isAbsoluteValue()) {
+            if (value != null) {
                 container.setProperty(property, value);
             }
         }
@@ -217,9 +214,7 @@ public final class GridApplierUtil {
             final List<GridValue> templateResult = new ArrayList<>();
             for (String str : templateStrArray) {
                 GridValue value = getGridValue(str, emValue, remValue);
-                // TODO DEVSIX-8324 - we support only absolute values for now
-                // If some relative values are not supported after DEVSIX-8324, add the corresponding warning message
-                if (value != null && value.isAbsoluteValue()) {
+                if (value != null) {
                     templateResult.add(value);
                 }
             }
@@ -232,20 +227,23 @@ public final class GridApplierUtil {
     private static GridValue getGridValue(String str, float emValue, float remValue) {
         final UnitValue unit = CssDimensionParsingUtils.parseLengthValueToPt(str, emValue, remValue);
         if (unit != null) {
-            return GridValue.createUnitValue(unit);
+            if (unit.isPointValue()) {
+                return GridValue.createPointValue(unit.getValue());
+            } else {
+                return GridValue.createPercentValue(unit.getValue());
+            }
         } else if (CommonCssConstants.MIN_CONTENT.equals(str)) {
-            return GridValue.createSizeValue(SizingValue.createMinContentValue());
+            return GridValue.createMinContentValue();
         } else if (CommonCssConstants.MAX_CONTENT.equals(str)) {
-            return GridValue.createSizeValue(SizingValue.createMaxContentValue());
+            return GridValue.createMaxContentValue();
         } else if (CommonCssConstants.AUTO.equals(str)) {
-            return GridValue.createSizeValue(SizingValue.createAutoValue());
+            return GridValue.createAutoValue();
         }
         final Float fr = CssDimensionParsingUtils.parseFlex(str);
         if (fr != null) {
             return GridValue.createFlexValue((float) fr);
         }
 
-        // TODO DEVSIX-8324 - add a warning for the values we do not support yet
         return null;
     }
 

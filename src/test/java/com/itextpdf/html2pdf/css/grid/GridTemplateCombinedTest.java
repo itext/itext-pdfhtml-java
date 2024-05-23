@@ -61,13 +61,12 @@ public class GridTemplateCombinedTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8324
+    // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat support)
     public void templateCombinedMinMaxTest() throws IOException, InterruptedException {
         runTest("template-combined-minmax");
     }
 
     @Test
-    // TODO DEVSIX-8324
     public void templateCombinedMixedTest() throws IOException, InterruptedException {
         runTest("template-combined-mixed");
     }
@@ -84,7 +83,7 @@ public class GridTemplateCombinedTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8324
+    // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat support)
     public void templateCombinedRepeatMinMaxTest() throws IOException, InterruptedException {
         runTest("template-combined-repeat-minmax");
     }

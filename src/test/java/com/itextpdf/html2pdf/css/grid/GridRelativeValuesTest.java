@@ -41,8 +41,228 @@ public class GridRelativeValuesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void allRelativeSingleValuesTest() throws IOException, InterruptedException {
-        runTest("allRelativeSingleValues");
+    public void bothAxis1Test() throws IOException, InterruptedException {
+        runTest("bothAxis1");
+    }
+
+    @Test
+    public void bothAxis2Test() throws IOException, InterruptedException {
+        runTest("bothAxis2");
+    }
+
+    @Test
+    public void bothAxis3Test() throws IOException, InterruptedException {
+        runTest("bothAxis3");
+    }
+
+    @Test
+    public void bothAxis4Test() throws IOException, InterruptedException {
+        runTest("bothAxis4");
+    }
+
+    @Test
+    public void bothAxis5Test() throws IOException, InterruptedException {
+        runTest("bothAxis5");
+    }
+
+    @Test
+    public void bothAxis6Test() throws IOException, InterruptedException {
+        runTest("bothAxis6");
+    }
+
+    @Test
+    public void bothAxis7Test() throws IOException, InterruptedException {
+        runTest("bothAxis7");
+    }
+
+    @Test
+    public void bothAxis8Test() throws IOException, InterruptedException {
+        runTest("bothAxis8");
+    }
+
+    @Test
+    public void bothAxis9Test() throws IOException, InterruptedException {
+        runTest("bothAxis9");
+    }
+
+    @Test
+    public void bothAxis10Test() throws IOException, InterruptedException {
+        runTest("bothAxis10");
+    }
+
+    @Test
+    public void bothAxis11Test() throws IOException, InterruptedException {
+        runTest("bothAxis11");
+    }
+
+    @Test
+    public void bothAxis12Test() throws IOException, InterruptedException {
+        runTest("bothAxis12");
+    }
+
+    @Test
+    public void bothAxis13Test() throws IOException, InterruptedException {
+        runTest("bothAxis13");
+    }
+
+    @Test
+    public void bothAxis14Test() throws IOException, InterruptedException {
+        runTest("bothAxis14");
+    }
+
+    @Test
+    public void bothAxis15Test() throws IOException, InterruptedException {
+        runTest("bothAxis15");
+    }
+
+    @Test
+    public void bothAxis16Test() throws IOException, InterruptedException {
+        runTest("bothAxis16");
+    }
+
+    @Test
+    public void bothAxis17Test() throws IOException, InterruptedException {
+        runTest("bothAxis17");
+    }
+
+    @Test
+    public void bothAxis18Test() throws IOException, InterruptedException {
+        runTest("bothAxis18");
+    }
+
+    @Test
+    public void bothAxis19Test() throws IOException, InterruptedException {
+        runTest("bothAxis19");
+    }
+
+    @Test
+    public void bothAxis20Test() throws IOException, InterruptedException {
+        runTest("bothAxis20");
+    }
+
+    @Test
+    public void bothAxis21Test() throws IOException, InterruptedException {
+        runTest("bothAxis21");
+    }
+
+    @Test
+    public void bothAxisOnlyFr1Test() throws IOException, InterruptedException {
+        runTest("bothAxisOnlyFr1");
+    }
+
+    @Test
+    public void bothAxisOnlyFr2Test() throws IOException, InterruptedException {
+        runTest("bothAxisOnlyFr2");
+    }
+
+    @Test
+    public void bothAxisOnlyFr3Test() throws IOException, InterruptedException {
+        runTest("bothAxisOnlyFr3");
+    }
+
+    @Test
+    public void bothAxisOnlyFr4Test() throws IOException, InterruptedException {
+        runTest("bothAxisOnlyFr4");
+    }
+
+    @Test
+    public void bothAxisOnlyFr5Test() throws IOException, InterruptedException {
+        runTest("bothAxisOnlyFr5");
+    }
+
+    @Test
+    public void bothAxisOnlyFr6Test() throws IOException, InterruptedException {
+        runTest("bothAxisOnlyFr6");
+    }
+
+    @Test
+    public void colAxis1Test() throws IOException, InterruptedException {
+        runTest("colAxis1");
+    }
+
+    @Test
+    public void colAxis2Test() throws IOException, InterruptedException {
+        runTest("colAxis2");
+    }
+
+    @Test
+    public void colAxis3Test() throws IOException, InterruptedException {
+        runTest("colAxis3");
+    }
+
+    @Test
+    public void colAxis4Test() throws IOException, InterruptedException {
+        runTest("colAxis4");
+    }
+
+    @Test
+    public void colAxis5Test() throws IOException, InterruptedException {
+        runTest("colAxis5");
+    }
+
+    @Test
+    public void colAxis6Test() throws IOException, InterruptedException {
+        runTest("colAxis6");
+    }
+
+    @Test
+    public void colAxis7Test() throws IOException, InterruptedException {
+        runTest("colAxis7");
+    }
+
+    @Test
+    public void colAxis8Test() throws IOException, InterruptedException {
+        runTest("colAxis8");
+    }
+
+    @Test
+    public void colAxis9Test() throws IOException, InterruptedException {
+        runTest("colAxis9");
+    }
+
+    @Test
+    public void colAxis10Test() throws IOException, InterruptedException {
+        runTest("colAxis10");
+    }
+
+    @Test
+    public void colAxis11Test() throws IOException, InterruptedException {
+        runTest("colAxis11");
+    }
+
+    @Test
+    public void rowAxis1Test() throws IOException, InterruptedException {
+        runTest("rowAxis1");
+    }
+
+    @Test
+    public void rowAxis2Test() throws IOException, InterruptedException {
+        runTest("rowAxis2");
+    }
+
+    @Test
+    public void rowAxis3Test() throws IOException, InterruptedException {
+        runTest("rowAxis3");
+    }
+
+    @Test
+    public void rowAxis4Test() throws IOException, InterruptedException {
+        runTest("rowAxis4");
+    }
+
+    @Test
+    public void rowAxis5Test() throws IOException, InterruptedException {
+        runTest("rowAxis5");
+    }
+
+    @Test
+    public void rowAxis6Test() throws IOException, InterruptedException {
+        runTest("rowAxis6");
+    }
+
+    @Test
+    public void rowAxis7Test() throws IOException, InterruptedException {
+        runTest("rowAxis7");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {
