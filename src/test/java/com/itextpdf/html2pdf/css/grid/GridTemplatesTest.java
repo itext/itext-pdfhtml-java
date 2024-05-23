@@ -24,6 +24,10 @@ package com.itextpdf.html2pdf.css.grid;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.layout.logs.LayoutLogMessageConstant;
+import com.itextpdf.test.LogLevelConstants;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
@@ -251,6 +255,79 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void fixedTemplatesAndCellDoesNotHaveDirectNeighborTest() throws IOException, InterruptedException {
         runTest("fixedTemplatesAndCellDoesNotHaveDirectNeighborTest");
+    }
+
+    public void gridInsideGridTest() throws IOException, InterruptedException {
+        runTest("gridInsideGridTest");
+    }
+
+    @Test
+    public void gridInsideGridOnPageBreakTest() throws IOException, InterruptedException {
+        runTest("gridInsideGridOnPageBreakTest");
+    }
+
+    @Test
+    // TODO DEVSIX-8340 - inner grid doesn't adjust its size
+    public void elementDoesntFitContentTest() throws IOException, InterruptedException {
+        runTest("elementDoesntFitContentTest");
+    }
+
+    @Test
+    public void elementDoesntFitTest() throws IOException, InterruptedException {
+        runTest("elementDoesntFitTest");
+    }
+
+    @Test
+    public void elementDoesntFitHorizontallyTest() throws IOException, InterruptedException {
+        runTest("elementDoesntFitHorizontallyTest");
+    }
+
+    @Test
+    // TODO DEVSIX-8340 - columns are not preserved
+    public void elementDoesntFitOverflowingToNextPageTest() throws IOException, InterruptedException {
+        runTest("elementDoesntFitOverflowingToNextPageTest");
+    }
+
+    @Test
+    // TODO DEVSIX-8340 - We don't try to split the cell.
+    // TODO DEVSIX-8340 - We put the original amount of rows into overflow container.
+    public void elementDoesntFitContentOverflowingToNextPageTest() throws IOException, InterruptedException {
+        runTest("elementDoesntFitContentOverflowingToNextPageTest");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, logLevel =
+                    LogLevelConstants.WARN)})
+    public void imageElementDoesntFitTest() throws IOException, InterruptedException {
+        runTest("imageElementDoesntFitTest");
+    }
+
+    @Test
+    public void manyImageElementsTest() throws IOException, InterruptedException {
+        runTest("manyImageElementsTest");
+    }
+
+    @Test
+    public void imageElementsOn2ndPageTest() throws IOException, InterruptedException {
+        runTest("imageElementsOn2ndPageTest");
+    }
+
+    @Test
+    public void gridWithBrTest() throws IOException, InterruptedException {
+        runTest("gridWithBrTest");
+    }
+
+    @Test
+    public void gridWithPageBreakTest() throws IOException, InterruptedException {
+        runTest("gridWithPageBreakTest");
+    }
+
+    // TODO DEVSIX-8340 - table size is not recalculated on the next page
+    // Same as in DEVSIX-8318
+    @Test
+    public void gridWithTableTest() throws IOException, InterruptedException {
+        runTest("gridWithTableTest");
     }
 
     @Test

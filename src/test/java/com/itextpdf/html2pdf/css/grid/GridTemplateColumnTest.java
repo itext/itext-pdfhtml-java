@@ -39,8 +39,6 @@ public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/grid/GridTemplateColumnTest/";
 
 
-    //TODO DEVSIX-3340 change cmp files when GRID LAYOUT is supported
-
     @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
@@ -113,9 +111,6 @@ public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)
-    })
     // TODO DEVSIX-8324
     public void templateColumnMultiPageTest() throws IOException, InterruptedException {
         runTest("template-cols-enormous-size");

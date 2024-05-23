@@ -24,7 +24,9 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.GridContainer;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
 /**
@@ -40,5 +42,18 @@ public class DisplayGridTagWorker extends DivTagWorker {
      */
     public DisplayGridTagWorker(IElementNode element, ProcessorContext context) {
         super(element, context, new GridContainer());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean processTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        final IPropertyContainer element = childTagWorker.getElementResult();
+        if (childTagWorker instanceof BrTagWorker) {
+            return super.processTagChild(childTagWorker, context);
+        } else {
+            return addBlockChild((IElement) element);
+        }
     }
 }
