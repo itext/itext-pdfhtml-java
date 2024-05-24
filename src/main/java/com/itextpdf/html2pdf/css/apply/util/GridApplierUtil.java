@@ -26,6 +26,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.properties.GridFlow;
 import com.itextpdf.layout.properties.GridValue;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.SizingValue;
@@ -169,6 +170,7 @@ public final class GridApplierUtil {
 
         applyAuto(cssProps.get(CssConstants.GRID_AUTO_ROWS), container, Property.GRID_AUTO_ROWS, emValue, remValue);
         applyAuto(cssProps.get(CssConstants.GRID_AUTO_COLUMNS), container, Property.GRID_AUTO_COLUMNS, emValue, remValue);
+        applyFlow(cssProps.get(CssConstants.GRID_AUTO_FLOW), container);
 
         final UnitValue columnGap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_GAP),
                 emValue, remValue);
@@ -191,6 +193,22 @@ public final class GridApplierUtil {
                 container.setProperty(property, value);
             }
         }
+    }
+
+    private static void applyFlow(String flow, IPropertyContainer container) {
+        GridFlow value = GridFlow.ROW;
+        if (flow != null) {
+            if (flow.contains(CommonCssConstants.COLUMN)) {
+                if (flow.contains(CssConstants.DENSE)) {
+                    value = GridFlow.COLUMN_DENSE;
+                } else {
+                    value = GridFlow.COLUMN;
+                }
+            } else if (flow.contains(CssConstants.DENSE)) {
+                value = GridFlow.ROW_DENSE;
+            }
+        }
+        container.setProperty(Property.GRID_FLOW, value);
     }
 
     private static void applyTemplate(String templateStr, IPropertyContainer container, int property, float emValue, float remValue) {

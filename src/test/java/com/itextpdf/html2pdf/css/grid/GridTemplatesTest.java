@@ -74,7 +74,6 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8323
     public void basicColumnStartEnd2Test() throws IOException, InterruptedException {
         runTest("basicColumnStartEnd2Test");
     }
@@ -165,7 +164,6 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
         runTest("basicColumnRowStartEnd7Test");
     }
 
-    //TODO DEVSIX-8323
     @Test
     public void basicColumnRowStartEnd8Test() throws IOException, InterruptedException {
         runTest("basicColumnRowStartEnd8Test");
@@ -228,6 +226,31 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void basicGridAfterParagraphTest() throws IOException, InterruptedException {
         runTest("basicGridAfterParagraphTest");
+    }
+
+    @Test
+    public void basicRowFlowTest() throws IOException, InterruptedException {
+        runTest("basicRowFlowTest");
+    }
+
+    @Test
+    public void basicRowDenseFlowTest() throws IOException, InterruptedException {
+        runTest("basicRowDenseFlowTest");
+    }
+
+    @Test
+    public void basicColumnFlowTest() throws IOException, InterruptedException {
+        runTest("basicColumnFlowTest");
+    }
+
+    @Test
+    public void basicColumnDenseFlowTest() throws IOException, InterruptedException {
+        runTest("basicColumnDenseFlowTest");
+    }
+
+    @Test
+    public void fixedTemplatesAndCellDoesNotHaveDirectNeighborTest() throws IOException, InterruptedException {
+        runTest("fixedTemplatesAndCellDoesNotHaveDirectNeighborTest");
     }
 
     @Test

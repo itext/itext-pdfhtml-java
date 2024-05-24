@@ -57,7 +57,6 @@ public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8323
     public void templateColumnStartEndTest() throws IOException, InterruptedException {
         runTest("template-cols-column-start-end");
     }

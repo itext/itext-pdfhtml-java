@@ -28,6 +28,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.properties.GridFlow;
 import com.itextpdf.layout.properties.GridValue;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
@@ -354,6 +355,51 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         Assertions.assertEquals(8.25f, element.<Float>getProperty(Property.COLUMN_GAP));
         Assertions.assertEquals(30, element.<Float>getProperty(Property.ROW_GAP));
     }
+
+    @Test
+    public void columnFlowTest() {
+        Map<String, String> cssProps = new HashMap<>();
+        cssProps.put(CssConstants.GRID_AUTO_FLOW, CommonCssConstants.COLUMN);
+        IElement element = new Div();
+        GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
+        Assertions.assertEquals(GridFlow.COLUMN, element.<GridFlow>getProperty(Property.GRID_FLOW));
+    }
+
+    @Test
+    public void nullFlowTest() {
+        Map<String, String> cssProps = new HashMap<>();
+        IElement element = new Div();
+        GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
+        Assertions.assertEquals(GridFlow.ROW, element.<GridFlow>getProperty(Property.GRID_FLOW));
+    }
+
+    @Test
+    public void denseFlowTest() {
+        Map<String, String> cssProps = new HashMap<>();
+        cssProps.put(CssConstants.GRID_AUTO_FLOW, CssConstants.DENSE);
+        IElement element = new Div();
+        GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
+        Assertions.assertEquals(GridFlow.ROW_DENSE, element.<GridFlow>getProperty(Property.GRID_FLOW));
+    }
+
+    @Test
+    public void columnDenseFlowTest() {
+        Map<String, String> cssProps = new HashMap<>();
+        cssProps.put(CssConstants.GRID_AUTO_FLOW, CommonCssConstants.COLUMN + " " + CssConstants.DENSE);
+        IElement element = new Div();
+        GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
+        Assertions.assertEquals(GridFlow.COLUMN_DENSE, element.<GridFlow>getProperty(Property.GRID_FLOW));
+    }
+
+    @Test
+    public void invalidFlowTest() {
+        Map<String, String> cssProps = new HashMap<>();
+        cssProps.put(CssConstants.GRID_AUTO_FLOW, "some text");
+        IElement element = new Div();
+        GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
+        Assertions.assertEquals(GridFlow.ROW, element.<GridFlow>getProperty(Property.GRID_FLOW));
+    }
+
 
     private IElementNode createStylesContainer() {
         Element element = new Element(com.itextpdf.styledxmlparser.jsoup.parser.Tag.valueOf("div"), "");

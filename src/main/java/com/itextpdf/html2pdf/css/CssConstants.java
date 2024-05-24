@@ -140,16 +140,30 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant GRID. */
     public static final String GRID = "grid";
+    /** The Constant GRID_COLUMN_END. */
     public static final String GRID_COLUMN_END = "grid-column-end";
+    /** The Constant GRID_COLUMN_START. */
     public static final String GRID_COLUMN_START = "grid-column-start";
+    /** The Constant GRID_ROW_END. */
     public static final String GRID_ROW_END = "grid-row-end";
+    /** The Constant GRID_ROW_START. */
     public static final String GRID_ROW_START = "grid-row-start";
+    /** The Constant GRID_TEMPLATE_AREAS. */
     public static final String GRID_TEMPLATE_AREAS = "grid-template-areas";
+    /** The Constant GRID_TEMPLATE_COLUMNS. */
     public static final String GRID_TEMPLATE_COLUMNS = "grid-template-columns";
+    /** The Constant GRID_TEMPLATE_ROWS. */
     public static final String GRID_TEMPLATE_ROWS = "grid-template-rows";
+    /** The Constant GRID_AUTO_ROWS. */
     public static final String GRID_AUTO_ROWS = "grid-auto-rows";
+    /** The Constant GRID_AUTO_COLUMNS. */
     public static final String GRID_AUTO_COLUMNS = "grid-auto-columns";
+    /** The Constant GRID_AUTO_FLOW. */
+    public static final String GRID_AUTO_FLOW = "grid-auto-flow";
+    /** The Constant GRID_AREA. */
     public static final String GRID_AREA = "grid-area";
+    /** The Constant DENSE. */
+    public static final String DENSE = "dense";
 
     /** The Constant INLINE. */
     public static final String INLINE = "inline";

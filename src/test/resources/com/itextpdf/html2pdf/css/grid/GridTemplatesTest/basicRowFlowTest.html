@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #grid {
+        display: grid;
+        gap: 10px;
+        grid-template-rows: 50px 50px 50px 50px;
+        grid-template-columns: 100px 100px;
+        grid-auto-flow: row; /* or 'row', 'row dense', 'column dense' */
+      }
+
+      #item1 {
+        background-color: lime;
+        grid-row-start: 3;
+      }
+
+      #item2 {
+        background-color: yellow;
+      }
+
+      #item3 {
+        background-color: blue;
+      }
+
+      #item4 {
+        grid-column-start: 2;
+        background-color: red;
+      }
+
+      #item5 {
+        background-color: aqua;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div id="grid">
+      <div id="item1">One</div>
+      <div id="item2">Two</div>
+      <div id="item3">Three</div>
+      <div id="item4">Four</div>
+      <div id="item5">Five</div>
+    </div>
+  </body>
+</html>

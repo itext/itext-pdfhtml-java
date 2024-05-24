@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>CSS Grid Layout Test: Positioned grid items</title>
+<link rel="author" title="Manuel Rego Casasnovas" href="mailto:rego@igalia.com">
+<link rel="help" href="https://drafts.csswg.org/css-grid/#abspos" title="9. Absolute Positioning">
+<link rel="match" href="positioned-grid-items-014-ref.html">
+<style>
+    #page {
+        display: grid;
+        width: 100%;
+        height: 250px;
+        grid-template-rows: 50px 100px 30px;
+        grid-template-columns: 150px 200px;
+    }
+
+    #page > header {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        background-color: #8ca0ff;
+    }
+
+    #page > nav {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 4;
+        background-color: #ffa08c;
+    }
+
+    #page > main {
+        grid-row-start: 1;
+        background-color: #ffff64;
+    }
+
+    #page > footer {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 3;
+        grid-row-end: 4;
+        background-color: #8cffa0;
+    }
+</style>
+
+<div id="page">
+    <header>Header</header>
+    <nav>Navigation</nav>
+    <main>Main area</main>
+    <footer>Footer</footer>
+</div>
