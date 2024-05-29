@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 70px 850px;
+            grid-template-rows: auto auto;
+            gap: 10px;
+            padding: 10px;
+        }
+        .grid-elem-lvl-1 {
+            background-color: #4793AF;
+            color: white;
+			padding: 15px;
+			text-align: center;
+			border-radius: 15px;
+		}
+		.lvl2-container {
+			display: grid;
+			grid-template-columns: 70px auto;
+			grid-template-rows: 400px auto;
+			gap: 10px;
+			background-color: #FFC470;
+			padding: 12px;
+			border-radius: 15px;
+			margin: 10px;
+		}
+		.grid-elem-lvl-2 {
+			background-color: #DD5746;
+			padding: 1em;
+			border-radius: 15px;
+		}
+		.lvl3-container {
+			display: grid;
+			grid-template-columns: auto auto auto;
+			grid-template-rows: 100px 100px 100px;
+			gap: 15px;
+			background-color: #8B322C;
+			padding: 15px;
+			border-radius: 15px;
+			margin: 10px;
+		}
+		.grid-elem-lvl-3 {
+			background-color: #d9a11d;
+			padding: 15px;
+			border-radius: 15px;
+		}
+		.wide {
+			grid-column: span 2;
+		}
+		.wide3 {
+			grid-column: span 3;
+		}
+		.tall {
+			grid-row: span 2;
+		}
+		.grid-elem-lvl-3.wide.tall {
+			text-align: left;
+		}
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="grid-elem-lvl-1 wide">Level 1: 1</div>
+        <div class="grid-elem-lvl-1">Level 1: 2</div>
+        <div class="grid-elem-lvl-1 tall">
+			Level 1:3
+            <div class="lvl2-container">
+                <div class="grid-elem-lvl-2">Level 2: 1</div>
+                <div class="grid-elem-lvl-2">
+					Level 2: 2
+                    <div class="lvl3-container">
+                        <div class="grid-elem-lvl-3 wide3">Level 3: 1</br>
+							<form>
+								<label for="name">First and Last name:</label><br>
+								<input type="text" id="name" name="name"><br>
+							</form>
+						</div>
+                        <div class="grid-elem-lvl-3">Level 3: 2</div>
+                        <div class="grid-elem-lvl-3 wide tall">Level 3: 3</br>
+							<p>Favorite season?</p>
+							<form>
+								<input type="radio" id="summer" name="favorite_season" value="SUMMER">
+								<label for="summer">Summer</label><br>
+								<input type="radio" id="fall" name="favorite_season" value="FALL">
+								<label for="fall">Fall</label><br>
+								<input type="radio" id="winter" name="favorite_season" value="WINTER">
+								<label for="winter">Winter</label><br>
+								<input type="radio" id="spring" name="favorite_season" value="SPRING">
+								<label for="spring">Spring</label><br>
+							</form>
+						</div>
+                        <div class="grid-elem-lvl-3">Level 3: 4</div>
+                    </div>
+                </div>
+                <div class="grid-elem-lvl-2 wide">Level 2: 3</br>
+					<form>
+						<input type="submit" value="Submit">
+					</form>
+				</div>
+            </div>
+        </div>
+        <div class="grid-elem-lvl-1">Level 1:4</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 300px 250px 200px;
+			grid-template-rows: auto auto auto;
+            gap: 14px;
+            padding: 8px;
+        }
+        .grid-elem {
+            background-color: #f4f1de;
+            padding: 20px;
+            border-radius: 0.5rem;
+        }
+		.grid-elem-div {
+			width: 460px;
+			grid-column: 2;
+		}
+		.nested-div {
+            background-color: #bd5a09;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+			width: 100%;
+			text-align: center;
+        }
+        table th, table td {
+            border: 1px solid gray;
+            padding: 10px;
+        }
+        table th {
+            background-color: #81b29a;
+            color: white;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            padding: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 4px;
+        }
+        form {
+            margin-top: 30px;
+			color: brown;
+        }
+		form>label, form>input {
+			margin: 5px;
+			margin-left: 0;
+		}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="grid-elem">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Header 1</th>
+                        <th>Header 2</th>
+                        <th>Header 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Input 1</td>
+                        <td>Input 2</td>
+                        <td>Input 3</td>
+                    </tr>
+                    <tr>
+                        <td>Input 4</td>
+                        <td>Input 5</td>
+                        <td>Input 6</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+		<div class="grid-elem">
+			<ul>
+                <ul>
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            </ul>
+        </div>
+        <div class="grid-elem">
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="grid-elem-div">
+            <div class="nested-div">
+                Nested Div Text
+            </div>
+        </div>
+    </div>
+</body>
+</html>

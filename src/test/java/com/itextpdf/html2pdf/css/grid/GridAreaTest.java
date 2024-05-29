@@ -72,6 +72,11 @@ public class GridAreaTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void templateAreasSwitchedPlacesTest() throws IOException, InterruptedException {
+        runTest("grid-area-switched-places");
+    }
+
+    @Test
     @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.GRID_TEMPLATE_AREAS_IS_INVALID))
     public void invalidTemplateAreasTest() throws IOException, InterruptedException {
         runTest("invalidTemplateAreas");

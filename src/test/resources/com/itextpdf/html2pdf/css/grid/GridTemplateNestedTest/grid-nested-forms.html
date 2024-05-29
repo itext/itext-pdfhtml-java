@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Layout with Nested Form</title>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 100px 550px;
+            grid-template-rows: 120px 90px 350px;
+            gap: 10px;
+            padding: 10px;
+        }
+        .grid-elem {
+            background-color: darkslateblue;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0.5rem;
+        }
+		input {
+			padding: 5px;
+			width: 300px;
+		}
+		textarea {
+			width: 290px;
+		}
+		label, button{
+			display: block;
+			padding: 8px;
+		}
+		button {
+			margin: auto;
+			margin-top: 15px;
+		}
+		.num1 {
+			grid-area: 1;
+			background-color: slateblue;
+		}
+		.num2 {
+			grid-area: 2/1;
+			background-color: slateblue;
+		}
+		.num3 {
+			grid-area: 3/1;
+			background-color: slateblue;
+		}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="grid-elem num1">1</div>
+        <div class="grid-elem num2">2</div>
+        <div class="grid-elem num3">3</div>
+        
+        <div class="grid-elem">
+			<label for="color">Choose a color:</label>
+			<select name="color" id="color">
+			  <option value="yellow">Yellow</option>
+			  <option value="blue">Blue</option>
+			  <option value="green">Green</option>
+			  <option value="red">Red</option>
+			</select> 
+		</div>
+        <div class="grid-elem">
+			<input type="checkbox" id="pets" name="pets" value="petowner">
+			<label for="pets"> I am a pet owner</label><br>
+		</div>
+		<div class="grid-elem">
+			<form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+				<label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+		</div>
+    </div>
+</body>
+</html>

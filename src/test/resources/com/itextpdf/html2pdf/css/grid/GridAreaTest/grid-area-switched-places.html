@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 300px 300px;
+            grid-template-rows: auto;
+            row-gap: 10px;
+            column-gap: 10px;
+            padding: 15px;
+        }
+        .grid-elem {
+			color: white;
+			font-size: 20px;
+            background-color: darkblue;
+            padding: 20px;
+            border-radius: 0.5rem;
+        }
+		.third {
+			grid-area: 1;
+			background-color: #81b29a;
+		}
+		.fourth {
+			grid-area: 3 / 2;
+			background-color: #81b29a;
+		}
+		
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="grid-elem">
+            <p>1st elem</p>
+        </div>
+		<div class="grid-elem">
+            <p>2nd elem</p>
+        </div>
+		<div class="grid-elem third">
+			<p>3rd elem</p>
+		</div>
+		<div class="grid-elem fourth">
+            <p>4th elem</p>
+        </div>
+		<div class="grid-elem">
+            <p>5th elem</p>
+        </div>
+		<div class="grid-elem">
+			<p>6th elem</p>
+		</div>
+    </div>
+</body>
+</html>

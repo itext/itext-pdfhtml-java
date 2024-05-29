@@ -331,6 +331,16 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void basicGridRemValuesTest() throws IOException, InterruptedException {
+        runTest("grid-layout-rem");
+    }
+
+    @Test
+    public void basicGridEmValuesTest() throws IOException, InterruptedException {
+        runTest("grid-layout-em");
+    }
+
+    @Test
     public void gridLayoutDisablingTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("basicColumnFewDivsTest",
                 SOURCE_FOLDER, DESTINATION_FOLDER, false,

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 230px 230px 230px;
+            grid-template-rows: auto;
+            row-gap: 20px;
+            column-gap: 20px;
+            padding: 20px;
+        }
+        .grid-elem {
+			color: white;
+            background-color: darkblue;
+            padding: 20px;
+            border-radius: 0.5rem;
+        }
+		h3 {
+			text-align: center;
+		}
+		ol, ul {
+			padding: 10px;
+			text-align: right;
+		}
+		.first {
+			text-align: left;
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="grid-elem">
+			<h3>jpg</h3>
+			<img src="test-jpg.jpg" alt="Star">
+        </div>
+		<div class="grid-elem">
+			<h3>png</h3>
+			<img src="test-png.png" alt="Pentagon">
+		</div>
+		<div class="grid-elem">
+			<h3>bmp</h3>
+			<img src="test-bmp.bmp" alt="Circle">
+        </div>
+    </div>
+</body>
+</html>

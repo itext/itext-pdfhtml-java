@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 400px 100px 400px;
+            grid-template-rows: auto;
+            gap: 50px;
+            padding: 20px;
+        }
+        .grid-elem {
+            background-color: #27d88c;
+            color: white;
+            padding: 20px;
+            border-radius: 0.5rem;
+			height: 110px;
+        }
+		.grid-elem:nth-of-type(3) {
+			height: 200px;
+		}
+		.nested-grid {
+			display: grid;
+            grid-template-columns: 50px 150px 100px;
+            grid-template-rows: auto;
+            gap: 10px;
+            background-color: #4723ba;
+            padding: 10px;
+            border-radius: 0.5rem;
+		}
+		.nested-grid-2 {
+			display: grid;
+			gap:10px;
+            grid-template-columns: 175px 175px;
+        }
+        .nested-item {
+            background-color: #2b8a98;
+            color: white;
+            padding: 10px;
+            border-radius: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="grid-elem">
+            <div class="nested-grid">
+                <div class="nested-item">1</div>
+                <div class="nested-item">2</div>
+                <div class="nested-item">3</div>
+                <div class="nested-item">4</div>
+            </div>
+        </div>
+        <div class="grid-elem">Lonely 2</div>
+        <div class="grid-elem">
+			<div class="nested-grid">
+                <div class="nested-item">1</div>
+                <div class="nested-item">2</div>
+                <div class="nested-item">3</div>
+                <div class="nested-item">4</div>
+				<div class="nested-item">5</div>
+                <div class="nested-item">6</div>
+                <div class="nested-item">7</div>
+                <div class="nested-item">8</div>
+				<div class="nested-item">9</div>
+                <div class="nested-item">10</div>
+                <div class="nested-item">11</div>
+                <div class="nested-item">12</div>
+            </div>
+		</div>
+        <div class="grid-elem">
+			<div class="nested-grid-2">
+                <div class="nested-item">1</div>
+                <div class="nested-item">2</div>
+                <div class="nested-item">3</div>
+                <div class="nested-item">4</div>
+            </div>
+		</div>
+    </div>
+</body>
+</html>
