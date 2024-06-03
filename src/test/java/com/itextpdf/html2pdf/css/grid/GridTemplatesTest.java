@@ -256,6 +256,7 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
         runTest("fixedTemplatesAndCellDoesNotHaveDirectNeighborTest");
     }
 
+    @Test
     public void gridInsideGridTest() throws IOException, InterruptedException {
         runTest("gridInsideGridTest");
     }
@@ -266,7 +267,6 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8340 - inner grid doesn't adjust its size
     public void elementDoesntFitContentTest() throws IOException, InterruptedException {
         runTest("elementDoesntFitContentTest");
     }
@@ -282,16 +282,18 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8340 - columns are not preserved
     public void elementDoesntFitOverflowingToNextPageTest() throws IOException, InterruptedException {
         runTest("elementDoesntFitOverflowingToNextPageTest");
     }
 
     @Test
-    // TODO DEVSIX-8340 - We don't try to split the cell.
-    // TODO DEVSIX-8340 - We put the original amount of rows into overflow container.
     public void elementDoesntFitContentOverflowingToNextPageTest() throws IOException, InterruptedException {
         runTest("elementDoesntFitContentOverflowingToNextPageTest");
+    }
+
+    @Test
+    public void textsWithOverflowTest() throws IOException, InterruptedException {
+        runTest("textsWithOverflowTest");
     }
 
     @Test
@@ -322,11 +324,14 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
         runTest("gridWithPageBreakTest");
     }
 
-    // TODO DEVSIX-8340 - table size is not recalculated on the next page
-    // Same as in DEVSIX-8318
     @Test
     public void gridWithTableTest() throws IOException, InterruptedException {
         runTest("gridWithTableTest");
+    }
+
+    @Test
+    public void columnFlowOnSplitTest() throws IOException, InterruptedException {
+        runTest("columnFlowOnSplitTest");
     }
 
     @Test

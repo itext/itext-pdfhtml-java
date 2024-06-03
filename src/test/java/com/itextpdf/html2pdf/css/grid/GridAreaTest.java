@@ -77,6 +77,43 @@ public class GridAreaTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-8387
+    public void differentRowSpanTest() throws IOException, InterruptedException {
+        runTest("differentRowSpanTest");
+    }
+
+    @Test
+    public void borderBoxTest() throws IOException, InterruptedException {
+        runTest("borderBoxTest");
+    }
+
+    @Test
+    public void differentRowSpanOnSplitTest() throws IOException, InterruptedException {
+        runTest("differentRowSpanOnSplitTest");
+    }
+
+    @Test
+    // TODO DEVSIX-8387
+    public void differentRowSpanOnSplitTest2() throws IOException, InterruptedException {
+        runTest("differentRowSpanOnSplitTest2");
+    }
+
+    @Test
+    public void differentRowSpanWithGaps50OnSplitTest() throws IOException, InterruptedException {
+        runTest("differentRowSpanWithGaps50OnSplitTest");
+    }
+
+    @Test
+    public void differentRowSpanWithGaps100OnSplitTest() throws IOException, InterruptedException {
+        runTest("differentRowSpanWithGaps100OnSplitTest");
+    }
+
+    @Test
+    public void splitOn2ndRowGapTest() throws IOException, InterruptedException {
+        runTest("splitOn2ndRowGapTest");
+    }
+
+    @Test
     @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.GRID_TEMPLATE_AREAS_IS_INVALID))
     public void invalidTemplateAreasTest() throws IOException, InterruptedException {
         runTest("invalidTemplateAreas");

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .wrapper {
+            display: grid;
+            grid-template-columns: 1fr 2fr 3fr;
+            grid-template-areas:
+                "elem1 elem2 elem3"
+                "elem1 elem4 elem5"
+                "elem1 elem6 elem7";
+        }
+
+        .wrapper {
+            border: 2px solid #f76707;
+            background-color: #fff4e6;
+        }
+
+        .wrapper > div {
+            border: 20px solid green;
+            box-sizing: border-box;
+            background-color: #ffd8a8;
+            padding: 1em;
+            margin: 1em;
+        }
+    </style>
+</head>
+
+<body>
+<p>Some text</p>
+<div class="wrapper">
+    <div style="grid-area: elem1">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua.</div>
+    <div style="grid-area: elem2">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+    <div style="grid-area: elem3">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+    <div style="grid-area: elem4">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+    <div style="grid-area: elem5">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+    <div style="grid-area: elem6">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+    <div style="grid-area: elem7">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+</div>
+<p>Some bottom text</p>
+</body>
+</html>

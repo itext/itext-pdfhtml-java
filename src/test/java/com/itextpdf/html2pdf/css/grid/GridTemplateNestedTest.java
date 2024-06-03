@@ -40,8 +40,6 @@ public class GridTemplateNestedTest extends ExtendedHtmlConversionITextTest {
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/grid"
             + "/GridTemplateNestedTest/";
 
-    //TODO DEVSIX-3340 change cmp files when GRID LAYOUT is supported
-
     @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
@@ -49,7 +47,6 @@ public class GridTemplateNestedTest extends ExtendedHtmlConversionITextTest {
 
 
     @Test
-    // TODO DEVSIX-8382 Investigate weird background height in templateNestedAreasTest
     public void templateNestedAreasTest() throws IOException, InterruptedException {
         runTest("grid-nested-areas");
     }
