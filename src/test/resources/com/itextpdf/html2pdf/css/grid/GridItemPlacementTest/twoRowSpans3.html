@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .wrapper {
+        display: grid;
+        grid-template-columns: 50px 50px 50px 50px 50px;
+        grid-template-rows: 30px 30px 30px;
+        gap: 5px;
+      }
+
+      .wrapper > div {
+        border: 2px solid darkblue;
+        background-color: lightblue;
+      }
+
+      .wrapper > div:nth-of-type(2) {
+        grid-row-start: span 3;
+        grid-row-end: span 2;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+      <div>Four</div>
+      <div>Five</div>
+      <div>Siz</div>
+      <div>Seven</div>
+      <div>Eight</div>
+    </div>
+  </body>
+</html>

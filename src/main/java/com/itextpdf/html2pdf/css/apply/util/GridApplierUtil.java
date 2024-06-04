@@ -41,6 +41,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,6 +52,8 @@ import org.slf4j.LoggerFactory;
 public final class GridApplierUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GridApplierUtil.class);
+
+    private static final Pattern SPAN_PLACEMENT = Pattern.compile("^span (\\d+)$");
 
     private static final Map<String, NamedAreas> namedAreasCache = new ConcurrentHashMap<>();
     private static final int NAMED_AREAS_CACHE_CAPACITY = 10;
@@ -96,54 +100,47 @@ public final class GridApplierUtil {
             namedAreas = parseGridTemplateAreas(gridTemplateAreas);
         }
 
-        for (Map.Entry<String, String> entry : cssProps.entrySet()) {
-            if (CssConstants.GRID_AREA.equals(entry.getKey())) {
-                String gridArea = entry.getValue();
-                String[] gridAreaParts = gridArea.split("/");
-                for(int i = 0; i < gridAreaParts.length; ++i) {
-                    String part = gridAreaParts[i].trim();
-                    if (CommonCssConstants.AUTO.equals(part)) {
-                        // We override already set value if any
-                        element.deleteOwnProperty(propsMap.get(i).intValue());
-                        continue;
-                    }
-                    Integer partInt = CssDimensionParsingUtils.parseInteger(part);
-                    if (partInt != null) {
-                        element.setProperty(propsMap.get(i).intValue(), partInt);
-                    } else if (namedAreas != null && i == 0) {
-                        // We are interested in the 1st element in grid area for now
-                        // so let's even break immediately
-                        namedAreas.setPlaceToElement(part, element);
-                        break;
-                    }
+        if (cssProps.get(CssConstants.GRID_AREA) != null) {
+            String gridArea = cssProps.get(CssConstants.GRID_AREA);
+            String[] gridAreaParts = gridArea.split("/");
+            for(int i = 0; i < gridAreaParts.length; ++i) {
+                String part = gridAreaParts[i].trim();
+                if (CommonCssConstants.AUTO.equals(part)) {
+                    // We override already set value if any
+                    element.deleteOwnProperty(propsMap.get(i).intValue());
+                    continue;
+                }
+                Integer partInt = CssDimensionParsingUtils.parseInteger(part);
+                if (partInt != null) {
+                    element.setProperty(propsMap.get(i).intValue(), partInt);
+                } else if (namedAreas != null && i == 0) {
+                    // We are interested in the 1st element in grid area for now
+                    // so let's even break immediately
+                    namedAreas.setPlaceToElement(part, element);
+                    break;
                 }
             }
+        }
 
-            if (CssConstants.GRID_COLUMN_START.equals(entry.getKey())) {
-                Integer columnStart = CssDimensionParsingUtils.parseInteger(entry.getValue());
-                if (columnStart != null) {
-                    element.setProperty(Property.GRID_COLUMN_START, columnStart);
-                }
-            }
-
-            if (CssConstants.GRID_COLUMN_END.equals(entry.getKey())) {
-                Integer columnStart = CssDimensionParsingUtils.parseInteger(entry.getValue());
-                if (columnStart != null) {
-                    element.setProperty(Property.GRID_COLUMN_END, columnStart);
-                }
-            }
-
-            if (CssConstants.GRID_ROW_START.equals(entry.getKey())) {
-                Integer columnStart = CssDimensionParsingUtils.parseInteger(entry.getValue());
-                if (columnStart != null) {
-                    element.setProperty(Property.GRID_ROW_START, columnStart);
-                }
-            }
-
-            if (CssConstants.GRID_ROW_END.equals(entry.getKey())) {
-                Integer columnStart = CssDimensionParsingUtils.parseInteger(entry.getValue());
-                if (columnStart != null) {
-                    element.setProperty(Property.GRID_ROW_END, columnStart);
+        applyGridItemPlacement(cssProps.get(CssConstants.GRID_COLUMN_END), element, Property.GRID_COLUMN_END, Property.GRID_COLUMN_SPAN);
+        applyGridItemPlacement(cssProps.get(CssConstants.GRID_COLUMN_START), element, Property.GRID_COLUMN_START, Property.GRID_COLUMN_SPAN);
+        applyGridItemPlacement(cssProps.get(CssConstants.GRID_ROW_END), element, Property.GRID_ROW_END, Property.GRID_ROW_SPAN);
+        applyGridItemPlacement(cssProps.get(CssConstants.GRID_ROW_START), element, Property.GRID_ROW_START, Property.GRID_ROW_SPAN);
+    }
+    
+    private static void applyGridItemPlacement(String value, IPropertyContainer element, int property, int spanProperty) {
+        if (value == null) {
+            return;
+        }
+        Integer intValue = CssDimensionParsingUtils.parseInteger(value);
+        if (intValue != null) {
+            element.setProperty(property, intValue);
+        } else {
+            Matcher matcher = SPAN_PLACEMENT.matcher(value.trim());
+            if (matcher.matches()) {
+                Integer spanValue = CssDimensionParsingUtils.parseInteger(matcher.group(1));
+                if (spanValue != null) {
+                    element.setProperty(spanProperty, spanValue);
                 }
             }
         }

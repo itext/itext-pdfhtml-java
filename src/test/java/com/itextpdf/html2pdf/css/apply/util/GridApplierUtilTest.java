@@ -144,7 +144,7 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         IElement element = new Div();
         GridApplierUtil.applyGridItemProperties(cssProps, createStylesContainer(), element);
         Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_ROW_START));
-        Assertions.assertEquals(2, element.<Integer>getProperty(Property.GRID_COLUMN_START));
+        Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_COLUMN_START));
         Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_ROW_END));
         Assertions.assertEquals(4, element.<Integer>getProperty(Property.GRID_COLUMN_END));
     }
@@ -169,7 +169,7 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         cssProps.put(CssConstants.GRID_AREA, "auto  / 2 /  3  / 4");
         IElement element = new Div();
         GridApplierUtil.applyGridItemProperties(cssProps, createStylesContainer(), element);
-        Assertions.assertNull(element.<Integer>getProperty(Property.GRID_ROW_START));
+        Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_ROW_START));
         Assertions.assertEquals(2, element.<Integer>getProperty(Property.GRID_COLUMN_START));
         Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_ROW_END));
         Assertions.assertEquals(4, element.<Integer>getProperty(Property.GRID_COLUMN_END));
@@ -233,7 +233,7 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
         Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_ROW_START));
         Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_COLUMN_START));
-        Assertions.assertEquals(4, element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_ROW_END));
         Assertions.assertEquals(2, element.<Integer>getProperty(Property.GRID_COLUMN_END));
     }
 
