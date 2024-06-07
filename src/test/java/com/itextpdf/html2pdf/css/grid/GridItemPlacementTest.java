@@ -114,7 +114,6 @@ public class GridItemPlacementTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO
     public void rowStartEnd4Test() throws IOException, InterruptedException {
         runTest("rowStartEnd4");
     }
