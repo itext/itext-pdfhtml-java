@@ -26,10 +26,22 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.properties.GridFlow;
-import com.itextpdf.layout.properties.GridValue;
+import com.itextpdf.layout.properties.grid.AutoRepeatValue;
+import com.itextpdf.layout.properties.grid.BreadthValue;
+import com.itextpdf.layout.properties.grid.FixedRepeatValue;
+import com.itextpdf.layout.properties.grid.GridFlow;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.UnitValue;
+import com.itextpdf.layout.properties.grid.AutoValue;
+import com.itextpdf.layout.properties.grid.FitContentValue;
+import com.itextpdf.layout.properties.grid.FlexValue;
+import com.itextpdf.layout.properties.grid.GridValue;
+import com.itextpdf.layout.properties.grid.MaxContentValue;
+import com.itextpdf.layout.properties.grid.MinContentValue;
+import com.itextpdf.layout.properties.grid.MinMaxValue;
+import com.itextpdf.layout.properties.grid.PercentValue;
+import com.itextpdf.layout.properties.grid.PointValue;
+import com.itextpdf.layout.properties.grid.TemplateValue;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
@@ -81,7 +93,7 @@ public final class GridApplierUtil {
      * @param element  the element
      */
     public static void applyGridItemProperties(Map<String, String> cssProps, IStylesContainer stylesContainer,
-            IPropertyContainer element) {
+                                               IPropertyContainer element) {
         if (!(stylesContainer instanceof JsoupElementNode)
                 || !(((JsoupElementNode) stylesContainer).parentNode() instanceof JsoupElementNode)) {
             return;
@@ -127,7 +139,7 @@ public final class GridApplierUtil {
         applyGridItemPlacement(cssProps.get(CssConstants.GRID_ROW_END), element, Property.GRID_ROW_END, Property.GRID_ROW_SPAN);
         applyGridItemPlacement(cssProps.get(CssConstants.GRID_ROW_START), element, Property.GRID_ROW_START, Property.GRID_ROW_SPAN);
     }
-    
+
     private static void applyGridItemPlacement(String value, IPropertyContainer element, int property, int spanProperty) {
         if (value == null) {
             return;
@@ -154,7 +166,7 @@ public final class GridApplierUtil {
      * @param context the context
      */
     public static void applyGridContainerProperties(Map<String, String> cssProps, IPropertyContainer container,
-            ProcessorContext context) {
+                                                    ProcessorContext context) {
 
         final float emValue = CssDimensionParsingUtils.parseAbsoluteFontSize(cssProps.get(CssConstants.FONT_SIZE));
         final float remValue = context.getCssContext().getRootFontSize();
@@ -182,7 +194,7 @@ public final class GridApplierUtil {
 
     private static void applyAuto(String autoStr, IPropertyContainer container, int property, float emValue, float remValue) {
         if (autoStr != null) {
-            GridValue value = getGridValue(autoStr, emValue, remValue);
+            TemplateValue value = parseTemplateValue(autoStr, emValue, remValue);
             if (value != null) {
                 container.setProperty(property, value);
             }
@@ -208,9 +220,9 @@ public final class GridApplierUtil {
     private static void applyTemplate(String templateStr, IPropertyContainer container, int property, float emValue, float remValue) {
         if (templateStr != null) {
             final List<String> templateStrArray = CssUtils.extractShorthandProperties(templateStr).get(0);
-            final List<GridValue> templateResult = new ArrayList<>();
+            final List<TemplateValue> templateResult = new ArrayList<>();
             for (String str : templateStrArray) {
-                GridValue value = getGridValue(str, emValue, remValue);
+                TemplateValue value = parseTemplateValue(str, emValue, remValue);
                 if (value != null) {
                     templateResult.add(value);
                 }
@@ -221,26 +233,101 @@ public final class GridApplierUtil {
         }
     }
 
-    private static GridValue getGridValue(String str, float emValue, float remValue) {
+    private static TemplateValue parseTemplateValue(String str, float emValue, float remValue) {
+        if (str == null) {
+            return null;
+        }
         final UnitValue unit = CssDimensionParsingUtils.parseLengthValueToPt(str, emValue, remValue);
         if (unit != null) {
             if (unit.isPointValue()) {
-                return GridValue.createPointValue(unit.getValue());
+                return new PointValue(unit.getValue());
             } else {
-                return GridValue.createPercentValue(unit.getValue());
+                return new PercentValue(unit.getValue());
             }
-        } else if (CommonCssConstants.MIN_CONTENT.equals(str)) {
-            return GridValue.createMinContentValue();
-        } else if (CommonCssConstants.MAX_CONTENT.equals(str)) {
-            return GridValue.createMaxContentValue();
-        } else if (CommonCssConstants.AUTO.equals(str)) {
-            return GridValue.createAutoValue();
+        }
+        if (CommonCssConstants.MIN_CONTENT.equals(str)) {
+            return MinContentValue.VALUE;
+        }
+        if (CommonCssConstants.MAX_CONTENT.equals(str)) {
+            return MaxContentValue.VALUE;
+        }
+        if (CommonCssConstants.AUTO.equals(str)) {
+            return AutoValue.VALUE;
         }
         final Float fr = CssDimensionParsingUtils.parseFlex(str);
         if (fr != null) {
-            return GridValue.createFlexValue((float) fr);
+            return new FlexValue((float) fr);
+        }
+        if (determineFunction(str, CommonCssConstants.FIT_CONTENT)) {
+            return parseFitContent(str, emValue, remValue);
+        }
+        if (determineFunction(str, CommonCssConstants.REPEAT)) {
+            return parseRepeat(str, emValue, remValue);
+        }
+        if (determineFunction(str, CssConstants.MINMAX)) {
+            return parseMinMax(str, emValue, remValue);
+        }
+        return null;
+    }
+
+    private static FitContentValue parseFitContent(String str, float emValue, float remValue) {
+        UnitValue length = CssDimensionParsingUtils.parseLengthValueToPt(
+                str.substring(CommonCssConstants.FIT_CONTENT.length() + 1, str.length() - 1), emValue, remValue);
+        if (length == null) {
+            return null;
+        }
+        return new FitContentValue(length);
+    }
+
+    private static boolean determineFunction(String str, String function) {
+        return str.startsWith(function)
+                && str.length() > function.length() + 2;
+    }
+
+    private static TemplateValue parseMinMax(String str, float emValue, float remValue) {
+        int parameterSeparator = str.indexOf(',');
+        if (parameterSeparator < 0) {
+            return null;
+        }
+        TemplateValue min = parseTemplateValue(str.substring(CssConstants.MINMAX.length() + 1, parameterSeparator).trim(), emValue, remValue);
+        TemplateValue max = parseTemplateValue(str.substring(parameterSeparator + 1, str.length() - 1).trim(), emValue, remValue);
+        if (!(min instanceof BreadthValue) || !(max instanceof BreadthValue)) {
+            return null;
+        }
+        return new MinMaxValue((BreadthValue)min, (BreadthValue)max);
+    }
+
+    private static TemplateValue parseRepeat(String str, float emValue, float remValue) {
+        List<GridValue> repeatList = new ArrayList<>();
+        int repeatCount = -1;
+        int repeatTypeEndIndex = str.indexOf(',');
+        if (repeatTypeEndIndex < 0) {
+            return null;
+        }
+        String repeatType = str.substring(CommonCssConstants.REPEAT.length() + 1, repeatTypeEndIndex).trim();
+        try {
+            repeatCount = Integer.parseInt(repeatType);
+        } catch (NumberFormatException ex) {
+            //do nothing
         }
 
+        List<String> repeatStr = CssUtils.extractShorthandProperties(
+                str.substring(repeatTypeEndIndex + 1, str.length() - 1)).get(0);
+        for (String strValue : repeatStr) {
+            TemplateValue value = parseTemplateValue(strValue, emValue, remValue);
+            if (value instanceof GridValue) {
+                repeatList.add((GridValue) value);
+            } else {
+                return null;
+            }
+        }
+        if (repeatCount > 0) {
+            return new FixedRepeatValue(repeatCount, repeatList);
+        } else if (CssConstants.AUTO_FILL.equals(repeatType)) {
+            return new AutoRepeatValue(false, repeatList);
+        } else if (CssConstants.AUTO_FIT.equals(repeatType)) {
+            return new AutoRepeatValue(true, repeatList);
+        }
         return null;
     }
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .wrapper {
+            display: grid;
+            grid-template-columns: 1fr 3fr fit-content(30%);
+        }
+
+        .wrapper {
+            border: 2px solid #F76707;
+            background-color: #FFF4E6;
+        }
+
+        .wrapper > div {
+            border: 2px solid green;
+            background-color: #FFD8A8;
+            padding: 1em;
+        }
+
+        .box4 {
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div>Test1</div>
+    <div>Test2</div>
+    <div>Test3 Test3 Test3 Test3 Test3 Test3 Test3 Test3</div>
+    <div class="box4">Test4Test4Test4Test4Test4 Test4 Test4 Test4 Test4 Test4 Test4 Test4</div>
+    <div>Test5</div>
+</div>
+</body>
+</html>

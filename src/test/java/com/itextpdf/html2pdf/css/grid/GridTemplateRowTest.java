@@ -66,13 +66,11 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat&fit-contnet support)
     public void templateRowFitContentTest() throws IOException, InterruptedException {
         runTest("template-rows-fit-content");
     }
 
     @Test
-    // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat&fit-contnet support)
     public void templateRowFitContentAutoTest() throws IOException, InterruptedException {
         runTest("template-rows-fit-content-auto");
     }
@@ -98,7 +96,6 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat support)
     public void templateRowMinMaxTest() throws IOException, InterruptedException {
         runTest("template-rows-minmax");
     }
@@ -125,13 +122,11 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat&fit-content support)
     public void templateRowRepeatTest() throws IOException, InterruptedException {
         runTest("template-rows-repeat");
     }
 
     @Test
-    // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat&fit-content support)
     public void templateRowRepeatMinMaxTest() throws IOException, InterruptedException {
         runTest("template-rows-repeat-minmax");
     }

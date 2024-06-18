@@ -28,9 +28,17 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
-import com.itextpdf.layout.properties.GridFlow;
-import com.itextpdf.layout.properties.GridValue;
+import com.itextpdf.layout.properties.grid.AutoRepeatValue;
+import com.itextpdf.layout.properties.grid.FitContentValue;
+import com.itextpdf.layout.properties.grid.FixedRepeatValue;
+import com.itextpdf.layout.properties.grid.GridFlow;
+import com.itextpdf.layout.properties.grid.GridValue;
 import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.grid.LengthValue;
+import com.itextpdf.layout.properties.grid.MinMaxValue;
+import com.itextpdf.layout.properties.grid.PercentValue;
+import com.itextpdf.layout.properties.grid.PointValue;
+import com.itextpdf.layout.properties.grid.TemplateValue;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
 import com.itextpdf.styledxmlparser.node.IElementNode;
@@ -323,8 +331,8 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         cssProps.put(CssConstants.GRID_AUTO_ROWS, "30%");
         IElement element = new Div();
         GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
-        Assertions.assertEquals(8.25, element.<GridValue>getProperty(Property.GRID_AUTO_COLUMNS).getValue(), 0.00001);
-        Assertions.assertEquals(30, element.<GridValue>getProperty(Property.GRID_AUTO_ROWS).getValue());
+        Assertions.assertEquals(8.25f, element.<LengthValue>getProperty(Property.GRID_AUTO_COLUMNS).getValue());
+        Assertions.assertEquals(30.0f, element.<LengthValue>getProperty(Property.GRID_AUTO_ROWS).getValue());
     }
 
     @Test
@@ -334,20 +342,51 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         cssProps.put(CssConstants.GRID_TEMPLATE_ROWS, "10px 20pt 3em 5rem");
         IElement element = new Div();
         GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
-        List<GridValue> actualColValues = element.<List<GridValue>>getProperty(Property.GRID_TEMPLATE_COLUMNS);
+        List<TemplateValue> actualColValues = element.<List<TemplateValue>>getProperty(Property.GRID_TEMPLATE_COLUMNS);
         Assertions.assertEquals(6, actualColValues.size());
-        Assertions.assertTrue(actualColValues.get(0).isMinContentValue());
-        Assertions.assertTrue(actualColValues.get(1).isFlexibleValue());
-        Assertions.assertTrue(actualColValues.get(2).isAutoValue());
-        Assertions.assertTrue(actualColValues.get(3).isFlexibleValue());
-        Assertions.assertEquals(75, actualColValues.get(4).getValue());
-        Assertions.assertEquals(20, actualColValues.get(5).getValue());
-        List<GridValue> actualRowValues = element.<List<GridValue>>getProperty(Property.GRID_TEMPLATE_ROWS);
+        Assertions.assertEquals(actualColValues.get(0).getType(), GridValue.ValueType.MIN_CONTENT);
+        Assertions.assertEquals(actualColValues.get(1).getType(), GridValue.ValueType.FLEX);
+        Assertions.assertEquals(actualColValues.get(2).getType(), GridValue.ValueType.AUTO);
+        Assertions.assertEquals(actualColValues.get(3).getType(), GridValue.ValueType.FLEX);
+        Assertions.assertEquals(75.0f, ((PointValue)actualColValues.get(4)).getValue());
+        Assertions.assertEquals(20.0f, ((PercentValue)actualColValues.get(5)).getValue());
+        List<TemplateValue> actualRowValues = element.<List<TemplateValue>>getProperty(Property.GRID_TEMPLATE_ROWS);
         Assertions.assertEquals(4, actualRowValues.size());
-        Assertions.assertEquals(7.5f, actualRowValues.get(0).getValue());
-        Assertions.assertEquals(20, actualRowValues.get(1).getValue());
-        Assertions.assertEquals(0, actualRowValues.get(2).getValue());
-        Assertions.assertEquals(60, actualRowValues.get(3).getValue());
+        Assertions.assertEquals(7.5f, ((PointValue)actualRowValues.get(0)).getValue());
+        Assertions.assertEquals(20.0f, ((PointValue)actualRowValues.get(1)).getValue());
+        Assertions.assertEquals(0.0f, ((PointValue)actualRowValues.get(2)).getValue());
+        Assertions.assertEquals(60.0f, ((PointValue)actualRowValues.get(3)).getValue());
+    }
+
+    @Test
+    public void containerComplexTemplateValuesTest() {
+        Map<String, String> cssProps = new HashMap<>();
+        cssProps.put(CssConstants.GRID_TEMPLATE_COLUMNS,
+                "minmax(min-content, 1fr) fit-content(40%) fit-content(20px) repeat(2, fit-content(200px))");
+        cssProps.put(CssConstants.GRID_TEMPLATE_ROWS, "repeat(3, 100px) repeat(auto-fit, minmax(100px, auto))");
+        IElement element = new Div();
+        GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
+
+        List<TemplateValue> actualColValues = element.<List<TemplateValue>>getProperty(Property.GRID_TEMPLATE_COLUMNS);
+        Assertions.assertEquals(4, actualColValues.size());
+
+        Assertions.assertEquals(GridValue.ValueType.MINMAX, actualColValues.get(0).getType());
+        Assertions.assertEquals(GridValue.ValueType.MIN_CONTENT, ((MinMaxValue)actualColValues.get(0)).getMin().getType());
+        Assertions.assertEquals(GridValue.ValueType.FLEX, ((MinMaxValue)actualColValues.get(0)).getMax().getType());
+        Assertions.assertEquals(GridValue.ValueType.FIT_CONTENT, actualColValues.get(1).getType());
+        Assertions.assertEquals(GridValue.ValueType.PERCENT, ((FitContentValue)actualColValues.get(1)).getLength().getType());
+        Assertions.assertEquals(GridValue.ValueType.FIT_CONTENT, actualColValues.get(2).getType());
+        Assertions.assertEquals(GridValue.ValueType.POINT, ((FitContentValue)actualColValues.get(2)).getLength().getType());
+        Assertions.assertEquals(GridValue.ValueType.FIXED_REPEAT, actualColValues.get(3).getType());
+        Assertions.assertEquals(GridValue.ValueType.FIT_CONTENT, ((FixedRepeatValue)actualColValues.get(3)).getValues().get(0).getType());
+
+        List<TemplateValue> actualRowValues = element.<List<TemplateValue>>getProperty(Property.GRID_TEMPLATE_ROWS);
+        Assertions.assertEquals(2, actualRowValues.size());
+
+        Assertions.assertEquals(GridValue.ValueType.FIXED_REPEAT, actualRowValues.get(0).getType());
+        Assertions.assertEquals(GridValue.ValueType.POINT, ((FixedRepeatValue)actualRowValues.get(0)).getValues().get(0).getType());
+        Assertions.assertEquals(GridValue.ValueType.AUTO_REPEAT, actualRowValues.get(1).getType());
+        Assertions.assertEquals(GridValue.ValueType.MINMAX, ((AutoRepeatValue)actualRowValues.get(1)).getValues().get(0).getType());
     }
 
     @Test

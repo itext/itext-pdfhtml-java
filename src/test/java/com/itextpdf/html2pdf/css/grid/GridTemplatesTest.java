@@ -24,6 +24,7 @@ package com.itextpdf.html2pdf.css.grid;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.layout.exceptions.LayoutExceptionMessageConstant;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
@@ -342,6 +343,196 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void basicGridEmValuesTest() throws IOException, InterruptedException {
         runTest("grid-layout-em");
+    }
+
+    @Test
+    public void percentageTemplateHeightTest() throws IOException, InterruptedException {
+        runTest("percentageTemplateHeightTest");
+    }
+
+    @Test
+    public void percentageTemplateHeightWithFixedHeightTest() throws IOException, InterruptedException {
+        runTest("percentageTemplateHeightWithFixedHeightTest");
+    }
+
+    //TODO DEVSIX-8387
+    @Test
+    public void percentageFitContentWithFrTest() throws IOException, InterruptedException {
+        runTest("percentageFitContentWithFrTest");
+    }
+
+    @Test
+    public void autoFillRepeatWithGapsTest() throws IOException, InterruptedException {
+        runTest("autoFillRepeatWithGapsTest");
+    }
+
+    @Test
+    public void autoFitWithSingleCellTest() throws IOException, InterruptedException {
+        runTest("autoFitWithSingleCellTest");
+    }
+
+    @Test
+    public void columnFlowAutoFillTest() throws IOException, InterruptedException {
+        runTest("columnFlowAutoFillTest");
+    }
+
+    @Test
+    public void fitContentAndFrTest() throws IOException, InterruptedException {
+        runTest("fitContentAndFrTest");
+    }
+
+    @Test
+    public void fixedFitContentTest() throws IOException, InterruptedException {
+        runTest("fixedFitContentTest");
+    }
+
+    @Test
+    public void fixedRepeatWithGapsTest() throws IOException, InterruptedException {
+        runTest("fixedRepeatWithGapsTest");
+    }
+
+    @Test
+    public void inlineAutoFillTest() throws IOException, InterruptedException {
+        runTest("inlineAutoFillTest");
+    }
+
+    @LogMessages(messages = @LogMessage(messageTemplate
+            = LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CANNOT_BE_COMBINED_WITH_INDEFINITE_SIZES))
+    @Test
+    public void invalidAutoRepeatTest() throws IOException, InterruptedException {
+        runTest("invalidAutoRepeatTest");
+    }
+
+    @Test
+    public void invalidParameterRepeatTest() throws IOException, InterruptedException {
+        runTest("invalidParameterRepeatTest");
+    }
+
+    @Test
+    public void minMaxAutoFillTest() throws IOException, InterruptedException {
+        runTest("minMaxAutoFillTest");
+    }
+
+    @Test
+    public void mixedRepeatsTest() throws IOException, InterruptedException {
+        runTest("mixedRepeatsTest");
+    }
+
+    @Test
+    public void resolvableAutoFillSimpleTest() throws IOException, InterruptedException {
+        runTest("resolvableAutoFillSimpleTest");
+    }
+
+    @Test
+    public void resolvableAutoFitWithMinMaxTest() throws IOException, InterruptedException {
+        runTest("resolvableAutoFitWithMinMaxTest");
+    }
+
+    @Test
+    public void severalValuesAutoFillTest() throws IOException, InterruptedException {
+        runTest("severalValuesAutoFillTest");
+    }
+
+    @Test
+    public void autoFitOnIntrinsicAreaTest() throws IOException, InterruptedException {
+        runTest("autoFitOnIntrinsicAreaTest");
+    }
+
+    @Test
+    public void autoFillWithDefiniteMinMaxTest() throws IOException, InterruptedException {
+        runTest("autoFillWithDefiniteMinMaxTest");
+    }
+
+    //TODO DEVSIX-8387
+    @Test
+    public void autoFillWithIndefiniteMinMaxTest() throws IOException, InterruptedException {
+        runTest("autoFillWithIndefiniteMinMaxTest");
+    }
+
+    @Test
+    public void minMaxWithIndefiniteMinTest() throws IOException, InterruptedException {
+        runTest("minMaxWithIndefiniteMinTest");
+    }
+
+    @Test
+    public void pointZeroFlexTest() throws IOException, InterruptedException {
+        runTest("pointZeroFlexTest");
+    }
+
+    //TODO DEVSIX-8418
+    @Test
+    public void autoFitOnIntrinsicAreaWithLargeBorderTest() throws IOException, InterruptedException {
+        runTest("autoFitOnIntrinsicAreaWithLargeBorderTest");
+    }
+
+    //TODO DEVSIX-8418
+    @Test
+    public void autoFitOnIntrinsicAreaWithLargeMarginPaddingTest() throws IOException, InterruptedException {
+        runTest("autoFitOnIntrinsicAreaWithLargeMarginPaddingTest");
+    }
+
+    @Test
+    public void autoRepeatOnIntrinsicAreaTest() throws IOException, InterruptedException {
+        runTest("autoRepeatOnIntrinsicAreaTest");
+    }
+
+    @LogMessages(messages = @LogMessage(messageTemplate
+            = LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CANNOT_BE_COMBINED_WITH_INDEFINITE_SIZES))
+    @Test
+    public void autoRepeatWithIntrinsicArgumentTest() throws IOException, InterruptedException {
+        runTest("autoRepeatWithIntrinsicArgumentTest");
+    }
+
+    @LogMessages(messages = @LogMessage(messageTemplate
+            = LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CAN_BE_USED_ONLY_ONCE))
+    @Test
+    public void twoAutoRepeatsTest() throws IOException, InterruptedException {
+        runTest("twoAutoRepeatsTest");
+    }
+
+    @Test
+    public void autoFillRepeatWithFlexMinMaxTest() throws IOException, InterruptedException {
+        runTest("autoFillRepeatWithFlexMinMaxTest");
+    }
+
+    //TODO: DEVSIX-8387
+    @Test
+    public void autoFitRepeatWithFlexMinMaxTest() throws IOException, InterruptedException {
+        runTest("autoFitRepeatWithFlexMinMaxTest");
+    }
+
+    @Test
+    public void repeatInsideMinMaxTest() throws IOException, InterruptedException {
+        runTest("repeatInsideMinMaxTest");
+    }
+
+    @LogMessages(messages = @LogMessage(messageTemplate
+            = LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CANNOT_BE_COMBINED_WITH_INDEFINITE_SIZES))
+    @Test
+    public void autoRepeatWithFitContentTest() throws IOException, InterruptedException {
+        runTest("autoRepeatWithFitContentTest");
+    }
+
+    @Test
+    public void fixedRepeatWithFitContentTest() throws IOException, InterruptedException {
+        runTest("fixedRepeatWithFitContentTest");
+    }
+
+    @Test
+    public void fixedRepeatWithMinMaxContentTest() throws IOException, InterruptedException {
+        runTest("fixedRepeatWithMinMaxContentTest");
+    }
+
+    @LogMessages(messages = @LogMessage(messageTemplate
+            = LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CANNOT_BE_COMBINED_WITH_INDEFINITE_SIZES))
+    @Test
+    public void autoRepeatWithLeadingMaxContentTest() throws IOException, InterruptedException {
+        runTest("autoRepeatWithLeadingMaxContentTest");
+    }
+
+    @Test
+    public void autoFitWithGapsTest() throws IOException, InterruptedException {
+        runTest("autoFitWithGapsTest");
     }
 
     @Test
