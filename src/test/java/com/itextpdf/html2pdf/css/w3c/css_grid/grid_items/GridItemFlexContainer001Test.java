@@ -27,7 +27,6 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-//TODO DEVSIX-8387: Support minmax
 @LogMessages(messages = {
         @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 4)})
 public class GridItemFlexContainer001Test extends W3CCssGridTest {

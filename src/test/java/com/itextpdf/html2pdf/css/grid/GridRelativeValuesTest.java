@@ -24,6 +24,9 @@ package com.itextpdf.html2pdf.css.grid;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.layout.exceptions.LayoutExceptionMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
@@ -264,6 +267,86 @@ public class GridRelativeValuesTest extends ExtendedHtmlConversionITextTest {
     public void rowAxis7Test() throws IOException, InterruptedException {
         runTest("rowAxis7");
     }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CANNOT_BE_COMBINED_WITH_INDEFINITE_SIZES, count = 2)
+    })
+    public void minmaxAutoRepeat1Test() throws IOException, InterruptedException {
+        runTest("minmaxAutoRepeat1");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CANNOT_BE_COMBINED_WITH_INDEFINITE_SIZES, count = 2)
+    })
+    public void minmaxAutoRepeat2Test() throws IOException, InterruptedException {
+        runTest("minmaxAutoRepeat2");
+    }
+
+    @Test
+    public void minmaxFitContent1Test() throws IOException, InterruptedException {
+        runTest("minmaxFitContent1");
+    }
+
+    @Test
+    public void minmaxFitContent2Test() throws IOException, InterruptedException {
+        runTest("minmaxFitContent2");
+    }
+
+    @Test
+    public void minmaxFitContentAutoRepeat1Test() throws IOException, InterruptedException {
+        runTest("minmaxFitContentAutoRepeat1");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CANNOT_BE_COMBINED_WITH_INDEFINITE_SIZES)
+    })
+    public void minmaxFitContentAutoRepeat2Test() throws IOException, InterruptedException {
+        runTest("minmaxFitContentAutoRepeat2");
+    }
+
+    @Test
+    public void minmaxWithBothAxisSpan1Test() throws IOException, InterruptedException {
+        runTest("minmaxWithBothAxisSpan1");
+    }
+
+    @Test
+    public void minmaxWithBothAxisSpan2Test() throws IOException, InterruptedException {
+        runTest("minmaxWithBothAxisSpan2");
+    }
+
+    @Test
+    public void minmaxWithBothAxisSpan3Test() throws IOException, InterruptedException {
+        runTest("minmaxWithBothAxisSpan3");
+    }
+
+    @Test
+    public void minmaxWithContentAndFrTest() throws IOException, InterruptedException {
+        runTest("minmaxWithContentAndFr");
+    }
+
+    @Test
+    public void minmaxWithSpan1Test() throws IOException, InterruptedException {
+        runTest("minmaxWithSpan1");
+    }
+
+    @Test
+    public void minmaxWithSpan2Test() throws IOException, InterruptedException {
+        runTest("minmaxWithSpan2");
+    }
+
+    @Test
+    public void minmaxWithSpan3Test() throws IOException, InterruptedException {
+        runTest("minmaxWithSpan3");
+    }
+
+    @Test
+    public void minmaxWithSpan4Test() throws IOException, InterruptedException {
+        runTest("minmaxWithSpan4");
+    }
+
 
     private void runTest(String testName) throws IOException, InterruptedException {
         convertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false,

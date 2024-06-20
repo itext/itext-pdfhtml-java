@@ -76,6 +76,11 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void rowFitContentPercentTest() throws IOException, InterruptedException {
+        runTest("row-fit-content-percent");
+    }
+
+    @Test
     public void templateRowFrTest() throws IOException, InterruptedException {
         runTest("template-rows-fr");
     }

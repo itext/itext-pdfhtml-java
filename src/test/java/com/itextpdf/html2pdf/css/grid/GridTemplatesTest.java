@@ -66,7 +66,6 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8330
     // TODO DEVSIX-8331
     public void basicColumnMultiPageTest() throws IOException, InterruptedException {
         runTest("basicColumnMultiPageTest");
@@ -157,7 +156,6 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
         runTest("basicColumnRowStartEnd5Test");
     }
 
-    //TODO DEVSIX-8325 null rows/cols not terminated, causes error in layout
     @Test
     public void basicColumnRowStartEnd6Test() throws IOException, InterruptedException {
         runTest("basicColumnRowStartEnd6Test");
@@ -355,7 +353,6 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
         runTest("percentageTemplateHeightWithFixedHeightTest");
     }
 
-    //TODO DEVSIX-8387
     @Test
     public void percentageFitContentWithFrTest() throws IOException, InterruptedException {
         runTest("percentageFitContentWithFrTest");
@@ -414,6 +411,16 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void minMaxAutoFillWithHeightTest() throws IOException, InterruptedException {
+        runTest("minMaxAutoFillWithHeightTest");
+    }
+
+    @Test
+    public void minMaxAutoFillWithMaxHeightTest() throws IOException, InterruptedException {
+        runTest("minMaxAutoFillWithMaxHeightTest");
+    }
+
+    @Test
     public void mixedRepeatsTest() throws IOException, InterruptedException {
         runTest("mixedRepeatsTest");
     }
@@ -443,10 +450,22 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
         runTest("autoFillWithDefiniteMinMaxTest");
     }
 
-    //TODO DEVSIX-8387
     @Test
     public void autoFillWithIndefiniteMinMaxTest() throws IOException, InterruptedException {
         runTest("autoFillWithIndefiniteMinMaxTest");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutExceptionMessageConstant.FLEXIBLE_ARENT_ALLOWED_AS_MINIMUM_IN_MINMAX)
+    })
+    public void minmaxWithMinFrTest() throws IOException, InterruptedException {
+        runTest("minmaxWithMinFrTest");
+    }
+
+    @Test
+    public void minmaxWithMaxFrTest() throws IOException, InterruptedException {
+        runTest("minmaxWithMaxFrTest");
     }
 
     @Test
@@ -457,6 +476,36 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void pointZeroFlexTest() throws IOException, InterruptedException {
         runTest("pointZeroFlexTest");
+    }
+
+    @Test
+    public void pointZeroFlexTest2() throws IOException, InterruptedException {
+        runTest("pointZeroFlexTest2");
+    }
+
+    @Test
+    public void pointZeroFlexTest3() throws IOException, InterruptedException {
+        runTest("pointZeroFlexTest3");
+    }
+
+    @Test
+    public void pointZeroFlexTest4() throws IOException, InterruptedException {
+        runTest("pointZeroFlexTest4");
+    }
+
+    @Test
+    public void pointZeroFlexTest5() throws IOException, InterruptedException {
+        runTest("pointZeroFlexTest5");
+    }
+
+    @Test
+    public void pointZeroFlexTest6() throws IOException, InterruptedException {
+        runTest("pointZeroFlexTest6");
+    }
+
+    @Test
+    public void spanOnlyFrTest() throws IOException, InterruptedException {
+        runTest("spanOnlyFrTest");
     }
 
     //TODO DEVSIX-8418
@@ -495,7 +544,6 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
         runTest("autoFillRepeatWithFlexMinMaxTest");
     }
 
-    //TODO: DEVSIX-8387
     @Test
     public void autoFitRepeatWithFlexMinMaxTest() throws IOException, InterruptedException {
         runTest("autoFitRepeatWithFlexMinMaxTest");

@@ -102,7 +102,7 @@ public class GridTemplateNestedTest extends ExtendedHtmlConversionITextTest {
     }
 
     @LogMessages(messages = @LogMessage(
-            messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 3))
+            messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 4))
     @Test
     public void templateNestedTableNestedGridTest() throws IOException, InterruptedException {
         runTest("grid-nested-table-nested-grid");
@@ -119,7 +119,7 @@ public class GridTemplateNestedTest extends ExtendedHtmlConversionITextTest {
     }
 
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count = 3)
+            @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count = 4)
     })
     @Test
     public void templateNested3LevelsFormsTest() throws IOException, InterruptedException {

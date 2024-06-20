@@ -25,7 +25,6 @@ package com.itextpdf.html2pdf.css.w3c.css_grid.grid_items;
 import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
 
 //TODO DEVSIX-8358: Support short-hands
-//TODO DEVSIX-8387: Support minmax
 public class GridItemOverflowAutoMaxHeightPercentageTest extends W3CCssGridTest {
     @Override
     protected String getHtmlFileName() {

@@ -75,7 +75,6 @@ public class GridAreaTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8387
     public void differentRowSpanTest() throws IOException, InterruptedException {
         runTest("differentRowSpanTest");
     }
@@ -91,7 +90,6 @@ public class GridAreaTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8387
     public void differentRowSpanOnSplitTest2() throws IOException, InterruptedException {
         runTest("differentRowSpanOnSplitTest2");
     }

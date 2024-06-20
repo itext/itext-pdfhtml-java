@@ -28,7 +28,7 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 5)})
+        @LogMessage(messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 9)})
 public class TableWithInfiniteMaxIntrinsicWidthTest extends W3CCssGridTest {
     @Override
     protected String getHtmlFileName() {
