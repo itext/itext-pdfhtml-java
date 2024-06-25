@@ -10,37 +10,37 @@
   width: 100%;
   height: 250px;
   grid-template-areas:
-    "head head"
-    "nav  3"
-    "nav  foot";
+    "head head head"
+    "nav  main main"
+    "nav  foot foot";
   grid-template-rows: 50px 100px 30px;
   grid-template-columns: 150px 200px;
 }
 
 #page > header {
-  grid-area: head;
+  grid-area: head-start / auto / auto / head-end;
   background-color: #8ca0ff;
 }
 
 #page > nav {
-  grid-area: nav;
+  grid-area: nav-start / auto / auto / nav-end;
   background-color: #ffa08c;
 }
 
 #page > main {
-  grid-area: 3;
+  grid-area: main-start / auto / auto / main-end;
   background-color: #ffff64;
 }
 
 #page > footer {
-  grid-area: foot;
+  grid-area: foot-start / auto / auto / foot-end;
   background-color: #8cffa0;
 }
 </style>
 
 <div id="page">
-  <header>Header</header>
-  <nav>Navigation</nav>
   <main>Main area</main>
+  <nav>Navigation</nav>
   <footer>Footer</footer>
+  <header>Header</header>
 </div>

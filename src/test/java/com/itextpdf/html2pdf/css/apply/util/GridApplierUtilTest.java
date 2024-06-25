@@ -27,6 +27,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.GridContainer;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.properties.grid.AutoRepeatValue;
 import com.itextpdf.layout.properties.grid.FitContentValue;
@@ -88,6 +89,16 @@ public class GridApplierUtilTest extends ExtendedITextTest {
     }
 
     @Test
+    public void applyRowStartSpanTest() {
+        Map<String, String> cssProps = new LinkedHashMap<>();
+        cssProps.put(CssConstants.GRID_ROW_START, "span  3");
+        IElement element = new Div();
+        GridApplierUtil.applyGridItemProperties(cssProps, createStylesContainer(), element);
+        Integer rowSpan = element.<Integer>getProperty(Property.GRID_ROW_SPAN);
+        Assertions.assertEquals(3, rowSpan);
+    }
+
+    @Test
     public void applyRowEndTest() {
         Map<String, String> cssProps = new LinkedHashMap<>();
         cssProps.put(CssConstants.GRID_ROW_END, "11");
@@ -101,8 +112,12 @@ public class GridApplierUtilTest extends ExtendedITextTest {
     public void applyInvalidColumnStartTest() {
         Map<String, String> cssProps = new LinkedHashMap<>();
         cssProps.put(CssConstants.GRID_COLUMN_START, CssConstants.AUTO);
-        IElement element = new Div();
+        Div element = new Div();
+        GridContainer grid = new GridContainer();
+        grid.add(element);
         GridApplierUtil.applyGridItemProperties(cssProps, createStylesContainer(), element);
+        GridApplierUtil.applyGridContainerProperties(new HashMap<>(), grid, new ProcessorContext(new ConverterProperties()));
+
         Integer columnStart = element.<Integer>getProperty(Property.GRID_COLUMN_START);
         Assertions.assertNull(columnStart);
     }
@@ -203,11 +218,15 @@ public class GridApplierUtilTest extends ExtendedITextTest {
     public void applyNoneGridTemplateAreasTest() {
         Map<String, String> cssProps = new LinkedHashMap<>();
         cssProps.put(CssConstants.GRID_AREA, CommonCssConstants.NONE);
-        IElement element = new Div();
+        Div element = new Div();
         IElementNode stylesContainer = createStylesContainer();
         Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
         parentStyles.put(CssConstants.GRID_TEMPLATE_AREAS, CommonCssConstants.NONE);
+        GridContainer grid = new GridContainer();
+        grid.add(element);
         GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(new HashMap<>(), grid, new ProcessorContext(new ConverterProperties()));
+
         Assertions.assertNull(element.<Integer>getProperty(Property.GRID_ROW_START));
         Assertions.assertNull(element.<Integer>getProperty(Property.GRID_COLUMN_START));
         Assertions.assertNull(element.<Integer>getProperty(Property.GRID_ROW_END));
@@ -218,11 +237,15 @@ public class GridApplierUtilTest extends ExtendedITextTest {
     public void applyGridTemplateAreas1Test() {
         Map<String, String> cssProps = new LinkedHashMap<>();
         cssProps.put(CssConstants.GRID_AREA, "somename1");
-        IElement element = new Div();
+        Div element = new Div();
         IElementNode stylesContainer = createStylesContainer();
         Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
         parentStyles.put(CssConstants.GRID_TEMPLATE_AREAS, "\"somename1 Somename1\" ' somename1     Somename1' ' somename1     Somename1'");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
         GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
         Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_ROW_START));
         Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_COLUMN_START));
         Assertions.assertEquals(4, element.<Integer>getProperty(Property.GRID_ROW_END));
@@ -234,14 +257,18 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         Map<String, String> cssProps = new LinkedHashMap<>();
         cssProps.put(CssConstants.GRID_ROW_END, "3");
         cssProps.put(CssConstants.GRID_AREA, "somename1");
-        IElement element = new Div();
+        Div element = new Div();
         IElementNode stylesContainer = createStylesContainer();
         Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
         parentStyles.put(CssConstants.GRID_TEMPLATE_AREAS, "\"somename1 Somename1\" ' somename1     Somename1' ' somename1     Somename1'");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
         GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
         Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_ROW_START));
         Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_COLUMN_START));
-        Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(4, element.<Integer>getProperty(Property.GRID_ROW_END));
         Assertions.assertEquals(2, element.<Integer>getProperty(Property.GRID_COLUMN_END));
     }
 
@@ -250,14 +277,19 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         Map<String, String> cssProps = new LinkedHashMap<>();
         cssProps.put(CssConstants.GRID_AREA, "somename1");
         cssProps.put(CssConstants.GRID_ROW_END, "3");
-        IElement element = new Div();
+        Div element = new Div();
         IElementNode stylesContainer = createStylesContainer();
         Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
         parentStyles.put(CssConstants.GRID_TEMPLATE_AREAS, "\"somename1 Somename1\" ' somename1     Somename1' ' somename1     Somename1'");
+
+        GridContainer grid = new GridContainer();
+        grid.add(element);
         GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
         Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_ROW_START));
         Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_COLUMN_START));
-        Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(4, element.<Integer>getProperty(Property.GRID_ROW_END));
         Assertions.assertEquals(2, element.<Integer>getProperty(Property.GRID_COLUMN_END));
     }
 
@@ -270,6 +302,7 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
         parentStyles.put(CssConstants.GRID_TEMPLATE_AREAS, "'a b' '1 1'");
         GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+
         Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_ROW_START));
         Assertions.assertNull(element.<Integer>getProperty(Property.GRID_COLUMN_START));
         Assertions.assertNull(element.<Integer>getProperty(Property.GRID_ROW_END));
@@ -281,11 +314,15 @@ public class GridApplierUtilTest extends ExtendedITextTest {
     public void applyInvalidGridTemplateAreas1Test() {
         Map<String, String> cssProps = new LinkedHashMap<>();
         cssProps.put(CssConstants.GRID_AREA, "b");
-        IElement element = new Div();
+        Div element = new Div();
         IElementNode stylesContainer = createStylesContainer();
         Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
         parentStyles.put(CssConstants.GRID_TEMPLATE_AREAS, "'a b' 'b a'");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
         GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
         Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_ROW_START));
         Assertions.assertEquals(2, element.<Integer>getProperty(Property.GRID_COLUMN_START));
         Assertions.assertEquals(2, element.<Integer>getProperty(Property.GRID_ROW_END));
@@ -297,11 +334,15 @@ public class GridApplierUtilTest extends ExtendedITextTest {
     public void applyInvalidGridTemplateAreas2Test() {
         Map<String, String> cssProps = new LinkedHashMap<>();
         cssProps.put(CssConstants.GRID_AREA, "a");
-        IElement element = new Div();
+        Div element = new Div();
         IElementNode stylesContainer = createStylesContainer();
         Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
         parentStyles.put(CssConstants.GRID_TEMPLATE_AREAS, "'a b a' 'a b a'");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
         GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
         Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_ROW_START));
         Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_COLUMN_START));
         Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_ROW_END));
@@ -312,11 +353,15 @@ public class GridApplierUtilTest extends ExtendedITextTest {
     public void applyGridTemplateAreasWithDotsTest() {
         Map<String, String> cssProps = new LinkedHashMap<>();
         cssProps.put(CssConstants.GRID_AREA, ".");
-        IElement element = new Div();
+        Div element = new Div();
         IElementNode stylesContainer = createStylesContainer();
         Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
         parentStyles.put(CssConstants.GRID_TEMPLATE_AREAS, "'. . a' '. . a'");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
         GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(new HashMap<>(), grid, new ProcessorContext(new ConverterProperties()));
+
         Assertions.assertNull(element.<Integer>getProperty(Property.GRID_ROW_START));
         Assertions.assertNull(element.<Integer>getProperty(Property.GRID_COLUMN_START));
         Assertions.assertNull(element.<Integer>getProperty(Property.GRID_ROW_END));
@@ -444,6 +489,305 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         Assertions.assertEquals(GridFlow.ROW, element.<GridFlow>getProperty(Property.GRID_FLOW));
     }
 
+    @Test
+    public void customIndentTest() {
+        Map<String, String> cssProps = new LinkedHashMap<>();
+        cssProps.put(CssConstants.GRID_COLUMN_START, " a ");
+        cssProps.put(CssConstants.GRID_COLUMN_END, "c");
+        cssProps.put(CssConstants.GRID_ROW_START, " a ");
+        cssProps.put(CssConstants.GRID_ROW_END, "c");
+        Div element = new Div();
+        IElementNode stylesContainer = createStylesContainer();
+        Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
+        parentStyles.put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px [ b  c  d  ] 10px [e f]");
+        parentStyles.put(CssConstants.GRID_TEMPLATE_ROWS, "[f] 10px [ e  d  c  ] 10px [b a]");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
+        GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
+        Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_ROW_START));
+        Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_COLUMN_START));
+        Assertions.assertEquals(2, element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(2, element.<Integer>getProperty(Property.GRID_COLUMN_END));
+    }
+
+    @Test
+    public void customIndentNthTest() {
+        Map<String, String> cssProps = new LinkedHashMap<>();
+        cssProps.put(CssConstants.GRID_COLUMN_START, "2 a");
+        cssProps.put(CssConstants.GRID_COLUMN_END, "3 a");
+        cssProps.put(CssConstants.GRID_ROW_START, "2 c");
+        cssProps.put(CssConstants.GRID_ROW_END, "d");
+        Div element = new Div();
+        IElementNode stylesContainer = createStylesContainer();
+        Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
+        parentStyles.put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px [b] 10px [a] 10px [a]");
+        parentStyles.put(CssConstants.GRID_TEMPLATE_ROWS, "[c] 10px [c] 10px [c]");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
+        GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
+        Assertions.assertEquals(2, element.<Integer>getProperty(Property.GRID_ROW_START));
+        Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_COLUMN_START));
+        Assertions.assertNull(element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(4, element.<Integer>getProperty(Property.GRID_COLUMN_END));
+    }
+
+    @Test
+    public void customIndentNegativeTest() {
+        Map<String, String> cssProps = new LinkedHashMap<>();
+        cssProps.put(CssConstants.GRID_COLUMN_START, "-3 a");
+        cssProps.put(CssConstants.GRID_COLUMN_END, "-1 a");
+        cssProps.put(CssConstants.GRID_ROW_START, "-3 c");
+        cssProps.put(CssConstants.GRID_ROW_END, "-1 c");
+        Div element = new Div();
+        IElementNode stylesContainer = createStylesContainer();
+        Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
+        parentStyles.put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px [b] 10px [a] 10px [a]");
+        parentStyles.put(CssConstants.GRID_TEMPLATE_ROWS, "[c] 10px [c] 10px [c]");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
+        GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
+        Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_ROW_START));
+        Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_COLUMN_START));
+        Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(4, element.<Integer>getProperty(Property.GRID_COLUMN_END));
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.ADDING_GRID_LINES_TO_THE_LEFT_OR_TOP_IS_NOT_SUPPORTED))
+    public void customIndentOutOfBoundsTest() {
+        Map<String, String> cssProps = new LinkedHashMap<>();
+        cssProps.put(CssConstants.GRID_COLUMN_START, "a");
+        cssProps.put(CssConstants.GRID_COLUMN_END, "5 a");
+        cssProps.put(CssConstants.GRID_ROW_START, "-5 c");
+        cssProps.put(CssConstants.GRID_ROW_END, "-1 c");
+        Div element = new Div();
+        IElementNode stylesContainer = createStylesContainer();
+        Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
+        parentStyles.put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px [b] 10px [a] 10px [a]");
+        parentStyles.put(CssConstants.GRID_TEMPLATE_ROWS, "[c] 10px [c] 10px [c]");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
+        GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
+        // Null for row start as we don't support negative starts
+        Assertions.assertNull(element.<Integer>getProperty(Property.GRID_ROW_START));
+        Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_COLUMN_START));
+        Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(6, element.<Integer>getProperty(Property.GRID_COLUMN_END));
+    }
+
+    @Test
+    public void customIndentOutOfBounds2Test() {
+        Map<String, String> cssProps = new LinkedHashMap<>();
+        cssProps.put(CssConstants.GRID_COLUMN_START, "a");
+        cssProps.put(CssConstants.GRID_COLUMN_END, "5 a");
+        cssProps.put(CssConstants.GRID_ROW_START, "c");
+        cssProps.put(CssConstants.GRID_ROW_END, "2 c");
+        Div element = new Div();
+        IElementNode stylesContainer = createStylesContainer();
+        Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
+        parentStyles.put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px 10px [a] 10px [b]");
+        parentStyles.put(CssConstants.GRID_TEMPLATE_ROWS, "10px 10px [c] 10px [a]");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
+        GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
+        Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_ROW_START));
+        Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_COLUMN_START));
+        Assertions.assertEquals(5, element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(7, element.<Integer>getProperty(Property.GRID_COLUMN_END));
+    }
+
+    @Test
+    public void customIndentGridAreaTest() {
+        Map<String, String> cssProps = new LinkedHashMap<>();
+        cssProps.put(CssConstants.GRID_AREA, "c / a 2 / c -2 / 5 a");
+        Div element = new Div();
+        IElementNode stylesContainer = createStylesContainer();
+        Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
+        parentStyles.put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px [b] 10px [a] 10px [a]");
+        parentStyles.put(CssConstants.GRID_TEMPLATE_ROWS, "[c] 10px [c] 10px [c]");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
+        GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
+        Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_ROW_START));
+        Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_COLUMN_START));
+        Assertions.assertEquals(2, element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(6, element.<Integer>getProperty(Property.GRID_COLUMN_END));
+    }
+
+    @Test
+    public void customIndentSpan1Test() {
+        Map<String, String> cssProps = new LinkedHashMap<>();
+        cssProps.put(CssConstants.GRID_COLUMN_START, "a");
+        cssProps.put(CssConstants.GRID_COLUMN_END, "span 2 a");
+        cssProps.put(CssConstants.GRID_ROW_START, "span c");
+        cssProps.put(CssConstants.GRID_ROW_END, "4");
+        Div element = new Div();
+        IElementNode stylesContainer = createStylesContainer();
+        Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
+        parentStyles.put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px 10px [a] 10px [b]");
+        parentStyles.put(CssConstants.GRID_TEMPLATE_ROWS, "10px 10px [c] 10px [a]");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
+        GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
+        Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_ROW_START));
+        Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_COLUMN_START));
+        Assertions.assertEquals(4, element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(5, element.<Integer>getProperty(Property.GRID_COLUMN_END));
+    }
+
+    @Test
+    public void customIndentSpan2Test() {
+        Map<String, String> cssProps = new LinkedHashMap<>();
+        cssProps.put(CssConstants.GRID_COLUMN_START, "2 a");
+        cssProps.put(CssConstants.GRID_COLUMN_END, "span 2 a");
+        cssProps.put(CssConstants.GRID_ROW_START, "span 2 c");
+        cssProps.put(CssConstants.GRID_ROW_END, "4");
+        Div element = new Div();
+        IElementNode stylesContainer = createStylesContainer();
+        Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
+        parentStyles.put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px 10px [a] 10px [b]");
+        parentStyles.put(CssConstants.GRID_TEMPLATE_ROWS, "10px 10px [c] 10px [a]");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
+        GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
+        // Null for row start as we don't support negative starts
+        Assertions.assertNull(element.<Integer>getProperty(Property.GRID_ROW_START));
+        Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_COLUMN_START));
+        Assertions.assertEquals(4, element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(6, element.<Integer>getProperty(Property.GRID_COLUMN_END));
+    }
+
+    @Test
+    public void customIndentSpan3Test() {
+        Map<String, String> cssProps = new LinkedHashMap<>();
+        cssProps.put(CssConstants.GRID_COLUMN_START, " 2  a-a");
+        cssProps.put(CssConstants.GRID_COLUMN_END, "span  2  a-a");
+        cssProps.put(CssConstants.GRID_ROW_START, "span  2  c");
+        cssProps.put(CssConstants.GRID_ROW_END, "4");
+        Div element = new Div();
+        IElementNode stylesContainer = createStylesContainer();
+        Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
+        parentStyles.put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a-a] 10px 10px [a-a] 10px [b-a]");
+        parentStyles.put(CssConstants.GRID_TEMPLATE_ROWS, "10px 10px [c] 10px [a]");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
+        GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
+        // Null for row start as we don't support negative starts
+        Assertions.assertNull(element.<Integer>getProperty(Property.GRID_ROW_START));
+        Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_COLUMN_START));
+        Assertions.assertEquals(4, element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(6, element.<Integer>getProperty(Property.GRID_COLUMN_END));
+    }
+
+    @Test
+    public void gridAreaLinenamesTest() {
+        Map<String, String> cssProps = new LinkedHashMap<>();
+        cssProps.put(CssConstants.GRID_COLUMN_START, "a-start");
+        cssProps.put(CssConstants.GRID_COLUMN_END, "span c-end 2");
+        cssProps.put(CssConstants.GRID_ROW_START, "span a-start");
+        cssProps.put(CssConstants.GRID_ROW_END, "c-end -1");
+        Div element = new Div();
+        IElementNode stylesContainer = createStylesContainer();
+        Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
+        parentStyles.put(CssConstants.GRID_TEMPLATE_AREAS, "'a a a b b c c c' 'a a a b b c c c' 'a a a b b c c c'");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
+        GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
+        // Null for row start as we don't support negative starts
+        Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_ROW_START));
+        Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_COLUMN_START));
+        Assertions.assertEquals(4, element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(10, element.<Integer>getProperty(Property.GRID_COLUMN_END));
+    }
+
+    @Test
+    public void lineNamesInRepeatTest() {
+        Map<String, String> cssProps = new LinkedHashMap<>();
+        cssProps.put(CssConstants.GRID_COLUMN_START, "4 a");
+        cssProps.put(CssConstants.GRID_COLUMN_END, "b 4");
+        cssProps.put(CssConstants.GRID_ROW_START, "span start");
+        cssProps.put(CssConstants.GRID_ROW_END, "c 2");
+        Div element = new Div();
+        IElementNode stylesContainer = createStylesContainer();
+        Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
+        parentStyles.put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] repeat(3, [a st] 10px 10px [a] 10px [b])");
+        parentStyles.put(CssConstants.GRID_TEMPLATE_ROWS, "[start] repeat(2, 10px 10px [c] 10px [a])");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
+        GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
+        Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_ROW_START));
+        Assertions.assertEquals(6, element.<Integer>getProperty(Property.GRID_COLUMN_START));
+        Assertions.assertEquals(6, element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(11, element.<Integer>getProperty(Property.GRID_COLUMN_END));
+    }
+
+    @Test
+    public void lineNamesInRepeat2Test() {
+        Map<String, String> cssProps = new LinkedHashMap<>();
+        cssProps.put(CssConstants.GRID_COLUMN_START, "3 a");
+        cssProps.put(CssConstants.GRID_COLUMN_END, "span nd 3");
+        cssProps.put(CssConstants.GRID_ROW_START, "span c");
+        cssProps.put(CssConstants.GRID_ROW_END, "a 8");
+        Div element = new Div();
+        IElementNode stylesContainer = createStylesContainer();
+        Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
+        parentStyles.put(CssConstants.GRID_TEMPLATE_COLUMNS,
+                "[a] 10px repeat( 2, 10px 10px [a] 10px [b]) repeat(3, [nd] auto)");
+        parentStyles.put(CssConstants.GRID_TEMPLATE_ROWS,
+                "[start] 10px repeat( 5, 10px 10px [c] 10px [a]) auto [a] auto [a]");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
+        GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
+        Assertions.assertEquals(16, element.<Integer>getProperty(Property.GRID_ROW_START));
+        Assertions.assertEquals(7, element.<Integer>getProperty(Property.GRID_COLUMN_START));
+        Assertions.assertEquals(20, element.<Integer>getProperty(Property.GRID_ROW_END));
+        Assertions.assertEquals(10, element.<Integer>getProperty(Property.GRID_COLUMN_END));
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.LINENAMES_ARE_NOT_SUPPORTED_WITHIN_AUTO_REPEAT, count = 2))
+    public void lineNamesInAutoRepeatTest() {
+        Map<String, String> cssProps = new LinkedHashMap<>();
+        cssProps.put(CssConstants.GRID_COLUMN_START, "a");
+        cssProps.put(CssConstants.GRID_COLUMN_END, "c");
+        Div element = new Div();
+        IElementNode stylesContainer = createStylesContainer();
+        Map<String, String> parentStyles = ((JsoupElementNode) stylesContainer.parentNode()).getStyles();
+        parentStyles.put(CssConstants.GRID_TEMPLATE_COLUMNS, "repeat(auto-fill, [a] 10%) [b] repeat(auto-fit, 1fr) [c]");
+        GridContainer grid = new GridContainer();
+        grid.add(element);
+        GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, element);
+        GridApplierUtil.applyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties()));
+
+        Assertions.assertEquals(1, element.<Integer>getProperty(Property.GRID_COLUMN_START));
+        Assertions.assertEquals(3, element.<Integer>getProperty(Property.GRID_COLUMN_END));
+    }
 
     private IElementNode createStylesContainer() {
         Element element = new Element(com.itextpdf.styledxmlparser.jsoup.parser.Tag.valueOf("div"), "");

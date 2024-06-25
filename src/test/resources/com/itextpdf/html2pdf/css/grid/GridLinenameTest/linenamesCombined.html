@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>CSS Grid Layout Test: Positioned grid items</title>
+<style>
+#page {
+  display: grid;
+  width: 100%;
+  height: 250px;
+  grid-template-rows: [header-start] 50px [header-end nav-start main-start] 100px [main-end footer-start] 30px [nav-end footer-end];
+  grid-template-columns: [header-start nav-start] 150px [nav-end main-start footer-start] 200px [main-end footer-end header-end];
+}
+
+#page > header {
+  grid-row-start: header-start;
+  grid-row-end: header-end;
+  grid-column-start: header-start;
+  grid-column-end: header-end;
+  background-color: #8ca0ff;
+}
+
+#page > nav {
+  grid-row-start: nav-start;
+  grid-row-end: nav-end;
+  grid-column-start: nav-start;
+  grid-column-end: nav-end;
+  background-color: #ffa08c;
+}
+
+#page > main {
+  grid-row-start: main-start;
+  grid-row-end: main-end;
+  grid-column-start: main-start;
+  grid-column-end: main-end;
+  background-color: #ffff64;
+}
+
+#page > footer {
+  grid-row-start: footer-start;
+  grid-row-end: footer-end;
+  grid-column-start: footer-start;
+  grid-column-end: footer-end;
+  background-color: #8cffa0;
+}
+</style>
+
+<div id="page">
+  <header>Header</header>
+  <nav>Navigation</nav>
+  <main>Main area</main>
+  <footer>Footer</footer>
+</div>

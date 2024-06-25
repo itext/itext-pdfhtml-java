@@ -25,8 +25,6 @@ package com.itextpdf.html2pdf.css.grid;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
@@ -117,6 +115,23 @@ public class GridAreaTest extends ExtendedHtmlConversionITextTest {
     @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.GRID_TEMPLATE_AREAS_IS_INVALID))
     public void invalidTemplateAreasTest() throws IOException, InterruptedException {
         runTest("invalidTemplateAreas");
+    }
+
+    @Test
+    public void templateAreasStartAutoTest() throws IOException, InterruptedException {
+        runTest("templateAreasStartAuto");
+    }
+
+    @Test
+    public void templateAreasStartTest() throws IOException, InterruptedException {
+        // Here browser result seems strange. We specified only row starts but it somehow applies to column starts also.
+        // I'd expect the same result as for templateAreasStartAutoTest
+        runTest("templateAreasStart");
+    }
+
+    @Test
+    public void templateAreasStartEndTest() throws IOException, InterruptedException {
+        runTest("templateAreasStartEnd");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {

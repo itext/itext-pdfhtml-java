@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .wrapper {
+        display: grid;
+        grid-template-columns: [c] 50px [c] 50px [c] 50px [c] 50px [c] 50px [c1];
+        grid-template-rows: [r] 30px [r] 30px [r] 30px [r];
+        gap: 5px;
+      }
+
+      .wrapper > div {
+        border: 2px solid darkblue;
+        background-color: lightblue;
+      }
+
+      .wrapper > div:nth-of-type(2) {
+        grid-area: auto / auto / auto / span 4 c;
+      }
+
+      .wrapper > div:nth-of-type(3) {
+        grid-area: span r 3;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+      <div>Four</div>
+      <div>Five</div>
+      <div>Six</div>
+      <div>Seven</div>
+      <div>Eight</div>
+      <div>Nine</div>
+    </div>
+  </body>
+</html>

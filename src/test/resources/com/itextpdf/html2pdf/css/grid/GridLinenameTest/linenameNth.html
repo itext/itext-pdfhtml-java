@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .wrapper {
+        display: grid;
+        grid-template-columns: [c] 50px [c] 50px [c] 50px [c] 50px [c] 50px [c1];
+        grid-template-rows: [r] 30px [r] 30px [r] 30px [r];
+        gap: 5px;
+      }
+
+      .wrapper > div {
+        border: 2px solid darkblue;
+        background-color: lightblue;
+      }
+
+      .wrapper > div:nth-of-type(2) {
+        grid-column-start: c -3;
+        grid-column-end: c -1;
+      }
+
+      .wrapper > div:nth-of-type(8) {
+        grid-column-start: 4 c;
+        grid-column-end: 7 c;
+      }
+
+      .wrapper > div:nth-of-type(3) {
+        grid-row-start: r;
+        grid-row-end: 4 r;
+      }
+
+      .wrapper > div:nth-of-type(4) {
+        grid-row-start: 0 r;
+        grid-row-end: 6 r;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+      <div>Four</div>
+      <div>Five</div>
+      <div>Six</div>
+      <div>Seven</div>
+      <div>Eight</div>
+    </div>
+  </body>
+</html>

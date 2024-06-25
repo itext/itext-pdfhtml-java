@@ -175,6 +175,10 @@ public final class Html2PdfLogMessageConstant {
     public static final String IMMEDIATE_FLUSH_DISABLED = "Setting createAcroForm disables immediateFlush property";
     public static final String GRID_TEMPLATE_AREAS_IS_INVALID = "grid-template-areas property is invalid. "
             + "The result is nondeterministic";
+    public static final String LINENAMES_ARE_NOT_SUPPORTED_WITHIN_AUTO_REPEAT = "Line names are not supported "
+            + "with auto-repeat as a track-size";
+    public static final String ADDING_GRID_LINES_TO_THE_LEFT_OR_TOP_IS_NOT_SUPPORTED = "Adding grid lines to the left "
+            + "or to the top is not supported";
 
     private Html2PdfLogMessageConstant() {
         //Private constructor will prevent the instantiation of this class directly
