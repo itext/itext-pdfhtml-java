@@ -151,6 +151,7 @@ public class ConverterProperties {
         this.limitOfLayouts = other.limitOfLayouts;
         this.immediateFlush = other.immediateFlush;
         this.continuousContainerEnabled = other.continuousContainerEnabled;
+        this.cssGridEnabled = other.cssGridEnabled;
     }
 
     /**
