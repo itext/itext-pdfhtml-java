@@ -30,8 +30,8 @@ import com.itextpdf.test.annotations.LogMessages;
 import org.junit.jupiter.api.Disabled;
 
 //TODO DEVSIX-2449 z-index is not supported
-//TODO DEVSIX-8419: Enable and fix after NPE has been fixed
-@Disabled("DEVSIX-8419")
+//TODO DEVSIX-8427: Fix LayoutExceptionMessageConstant.INVALID_CELL_INDEXES exception
+@Disabled("DEVSIX-8427")
 @LogMessages(messages = {
         @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 3)})
 public class GridFloat002Test extends W3CCssGridTest {

@@ -24,6 +24,7 @@ package com.itextpdf.html2pdf.css.grid;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.exceptions.LayoutExceptionMessageConstant;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.test.LogLevelConstants;
@@ -631,6 +632,13 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void maxHeightFlexRowsTest2() throws IOException, InterruptedException {
         runTest("maxHeightFlexRowsTest2");
+    }
+
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, logLevel =
+                    LogLevelConstants.WARN)})
+    public void divNestingTest() throws IOException, InterruptedException {
+        runTest("divNestingTest");
     }
 
     @Test

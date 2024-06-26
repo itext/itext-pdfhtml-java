@@ -27,10 +27,6 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-import org.junit.jupiter.api.Disabled;
-
-//TODO DEVSIX-8419: Enable and fix after NPE has been fixed
-@Disabled("DEVSIX-8419")
 @LogMessages(messages = {
         @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 4)})
 public class GridAlignContentVerticalLrTest extends W3CCssGridTest {

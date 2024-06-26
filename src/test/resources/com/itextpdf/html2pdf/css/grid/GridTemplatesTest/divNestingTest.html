@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset=utf-8>
+    <title>PDF</title>
+    <style>
+        :root {
+            --color-black: #000000;
+            --color-black-60: #00000060;
+            --color-dim-18: #00000018;
+            --color-white-87: #ffffff87;
+            --border: 1px solid var(--color-black);
+            --border-dotted: 1px dotted var(--color-black-60);
+            --table-content-area: 4px 8px;
+        }
+
+        body {
+            font-family: 'TH SarabunPSK', sans-serif;
+            font-size: 14px;
+        }
+
+        #mainContentArea {
+            display: grid;
+            grid-row-gap: 8px;
+            padding: 24px 8px;
+        }
+
+        .bindableArea {
+            display: flex;
+        }
+
+        .labelArea {
+            white-space: nowrap;
+        }
+
+        .valueArea {
+            border-bottom: var(--border-dotted);
+            flex-grow: 1;
+            padding: 0px 8px;
+            margin: 0px 0px 0px 8px;
+            max-height: 19px;
+        }
+
+        .borderContainer {
+            border: var(--border);
+            padding: var(--table-content-area);
+            margin-top: -1px;
+        }
+
+        .headerImage {
+            align-items: start;
+            text-align: left;
+        }
+
+        .contentTable {
+            background-color: var(--color-white-87);
+        }
+
+        .contentHeader {
+            text-align: center;
+            font-weight: 700;
+        }
+
+        /*  info */
+        .contentInfo {}
+
+        /* end  info */
+
+        /* customer info */
+        .contentCustomerInfo {
+            display: grid;
+            grid-template-rows: repeat(11, 1fr);
+        }
+
+        .contentCustomerInfo .customerWorkPlace.valueArea {
+            margin-left: 0;
+        }
+
+        /* end customer info */
+
+        /* buy amount */
+        .contentBuyAmount {
+            display: grid;
+            grid-template-rows: repeat(2, auto);
+        }
+
+        .contentBuyAmount .bindableArea {
+            display: grid;
+            grid-template-columns: 180px 100px 60px 100px 80px;
+        }
+
+        .contentBuyAmount .bindableArea .valueArea {
+            margin: 0;
+            text-align: end;
+        }
+
+        /* end buy amount */
+
+        /* payment */
+        .contentPaymentMethod {
+            text-align: center;
+        }
+
+        /* end payment */
+
+        /*  deposit consent*/
+        .contentDepositConsent {}
+
+        /* end  deposit consent*/
+
+        /*  deposit consent*/
+        .contentConsentTermAndCon {}
+
+        /* end  deposit consent*/
+
+        /*  deposit consent*/
+        .contentAgreement {}
+
+        /* end  deposit consent*/
+
+        /*  deposit consent*/
+        .contentTaxInfo {}
+
+        /* end deposit consent*/
+
+        /* discliamer */
+        .contentDisclaimer {
+            text-align: end;
+            font-style: italic;
+        }
+
+        /* end discliamer */
+
+        /* signature */
+        .contentSignature {
+            display: flex;
+            justify-content: end;
+            align-items: end;
+            text-align: end;
+            font-style: italic;
+        }
+
+        .contentSignature .bindableArea .valueArea {
+            width: 160px;
+        }
+
+        /*end signature*/
+
+        /* content footer */
+        .contentFooter{
+            padding: 16px 56px;
+        }
+        /* end content footer */
+    </style>
+</head>
+
+<body>
+    <div>
+        <div id="mainContentArea">
+            <div class="contentTable">  
+                <div class="contentInfo borderContainer">
+                    <div class="AccountNo">AccNo <label id="AccountNo">[@AccNo]</label>
+                    </div>
+                    <div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr);">
+                            <div class="bindableArea">
+                                <div class="labelArea">Ref No.</div>
+                                <div class="valueArea">
+                                    <label id="refNo">@RefNo</label>
+                                </div>
+                            </div>
+                            <div class="bindableArea">
+                                <div class="labelArea">Level</div>
+                                <div class="valueArea">
+                                    <label id="RiskLevel">@Level</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr);">
+                            <div class="bindableArea">
+                                <div class="labelArea">Date of Transaction</div>
+                                <div class="valueArea">
+                                    <label id="transactionDate">@TransactionDate</label>
+                                </div>
+                            </div>
+                            <div class="bindableArea">
+                                <div class="labelArea">Evaluation Score</div>
+                                <div class="valueArea">
+                                    <label id="evaluationScore">@EvaluationScore</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contentCustomerInfo borderContainer">
+                    <div class="bindableArea">
+                        <div class="labelArea">Full Name</div>
+                        <div class="valueArea">
+                            <label id="customerFullName">@CustomerFullName</label>
+                        </div>
+                    </div>
+                    <div class="bindableArea">
+                        <div class="labelArea">Address</div>
+                        <div class="valueArea">
+                            <label id="customerAddress">@CustomerAddress</label>
+                        </div>
+                    </div>
+                    <div class="bindableArea">
+                        <div class="labelArea">Mobile Phone</div>
+                        <div class="valueArea">
+                            <label id="customerMobileNo">@CustomerMobileNo</label>
+                        </div>
+                    </div>
+                    <div class="customerResidentType">Type &ensp; [x] 
+                        <label>Resident</label></div>
+                    <div class="bindableArea">
+                        <div class="labelArea">ID No.</div>
+                        <div class="valueArea">
+                            <label id="customerIDNo">@CustomerIDNo</label>
+                        </div>
+                    </div>
+                    <div class="bindableArea">
+                        <div class="labelArea">Tax ID</div>
+                        <div class="valueArea">
+                            <label id="customerTaxID">@CustomerTaxID</label>
+                        </div>
+                    </div>
+                    <div class="bindableArea">
+                        <div class="labelArea">DD/MM/YYYY</div>
+                        <div class="valueArea">
+                            <label id="customerDateOfBirth">@CustomerDateOfBirth</label>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+</body>
+</html>
