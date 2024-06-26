@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CSS grid-template shorthand test</title>
+  <style>
+    #page {
+      display: grid;
+      width: 100%;
+      height: 200px;
+      grid-template:
+    'head head' 30px
+    'nav  main' 1fr
+    'nav  foot' 30px
+    / 120px 1fr;
+    }
+
+    header {
+      background-color: lime;
+      grid-column: head;
+    }
+
+    nav {
+      background-color: lightblue;
+      grid-column: nav;
+    }
+
+    main {
+      background-color: yellow;
+      grid-column: main;
+    }
+
+    footer {
+      background-color: red;
+      grid-column: foot;
+    }
+  </style>
+</head>
+<body>
+<div id="page">
+  <header>Header</header>
+  <nav>Navigation</nav>
+  <main>Main area</main>
+  <footer>Footer</footer>
+</div>
+</body>
+</html>

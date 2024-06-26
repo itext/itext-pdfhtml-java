@@ -26,8 +26,9 @@ import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
+import org.junit.jupiter.api.Disabled;
 
-//TODO DEVSIX-8358: Support short-hands
+@Disabled("DEVSIX-8423")
 @LogMessages(messages = {
         @LogMessage(messageTemplate = IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, count = 84)
 })

@@ -27,7 +27,6 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-//TODO DEVSIX-8358: Support shorthands
 public class AbsolutePositioningGridContainerParent001Test extends W3CCssGridTest {
     @Override
     protected String getHtmlFileName() {

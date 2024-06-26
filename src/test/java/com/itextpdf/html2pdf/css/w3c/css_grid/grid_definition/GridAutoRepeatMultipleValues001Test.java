@@ -26,8 +26,6 @@ import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
 
 import org.junit.jupiter.api.Disabled;
 
-//TODO DEVSIX-8358: Support short-hands
-@Disabled("Adapt after issue is fixed.")
 public class GridAutoRepeatMultipleValues001Test extends W3CCssGridTest {
     @Override
     protected String getHtmlFileName() {

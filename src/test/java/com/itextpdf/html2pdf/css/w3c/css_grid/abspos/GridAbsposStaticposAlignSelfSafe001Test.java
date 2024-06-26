@@ -24,7 +24,6 @@ package com.itextpdf.html2pdf.css.w3c.css_grid.abspos;
 
 import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
 
-//TODO DEVSIX-8358: Support shorthands
 //TODO DEVSIX-5166 change after align-self is supported
 public class GridAbsposStaticposAlignSelfSafe001Test extends W3CCssGridTest {
     @Override

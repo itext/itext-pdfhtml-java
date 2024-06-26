@@ -24,7 +24,6 @@ package com.itextpdf.html2pdf.css.w3c.css_grid.implicit_grids;
 
 import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
 
-//TODO DEVSIX-8358: Support short-hands
 public class GridSupportGridAutoColumnsRows002Test extends W3CCssGridTest {
     @Override
     protected String getHtmlFileName() {

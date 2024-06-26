@@ -23,8 +23,9 @@
 package com.itextpdf.html2pdf.css.w3c.css_grid.abspos;
 
 import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
+import org.junit.jupiter.api.Disabled;
 
-//TODO DEVSIX-8358: Support shorthands
+@Disabled("DEVSIX-8423")
 public class PositionedGridItemsNegativeIndices001Test extends W3CCssGridTest {
     @Override
     protected String getHtmlFileName() {

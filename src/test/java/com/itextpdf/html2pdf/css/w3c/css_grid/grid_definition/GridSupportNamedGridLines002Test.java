@@ -28,9 +28,7 @@ import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-//TODO DEVSIX-8358: Support short-hands
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, count = 12),
         @LogMessage(messageTemplate = Html2PdfLogMessageConstant.LINENAMES_ARE_NOT_SUPPORTED_WITHIN_AUTO_REPEAT, count = 38)
 })
 public class GridSupportNamedGridLines002Test extends W3CCssGridTest {

@@ -584,6 +584,26 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void rowColumnShorthandSimpleTest() throws IOException, InterruptedException {
+        runTest("rowColumnShorthandSimpleTest");
+    }
+
+    @Test
+    public void gridShorthandColumnAutoFlowTest() throws IOException, InterruptedException {
+        runTest("gridShorthandColumnAutoFlowTest");
+    }
+
+    @Test
+    public void gridShorthandRowAutoFlowTest() throws IOException, InterruptedException {
+        runTest("gridShorthandRowAutoFlowTest");
+    }
+
+    @Test
+    public void shrankTemplateAfterAutoFitTest() throws IOException, InterruptedException {
+        runTest("shrankTemplateAfterAutoFitTest");
+    }
+
+    @Test
     public void gridLayoutDisablingTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("basicColumnFewDivsTest",
                 SOURCE_FOLDER, DESTINATION_FOLDER, false,

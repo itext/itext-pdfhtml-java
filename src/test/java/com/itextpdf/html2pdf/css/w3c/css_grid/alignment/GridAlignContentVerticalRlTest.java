@@ -29,7 +29,6 @@ import com.itextpdf.test.annotations.LogMessages;
 
 import org.junit.jupiter.api.Disabled;
 
-//TODO DEVSIX-8358: Support short-hands
 //TODO DEVSIX-8419: Enable and fix after NPE has been fixed
 @Disabled("DEVSIX-8419")
 @LogMessages(messages = {

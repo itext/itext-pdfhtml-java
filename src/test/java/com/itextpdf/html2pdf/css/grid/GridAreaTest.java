@@ -60,6 +60,26 @@ public class GridAreaTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void templateAreasShorthandBasicTest() throws IOException, InterruptedException {
+        runTest("templateAreasShorthandBasic");
+    }
+
+    @Test
+    public void templateAreasShorthandAdvancedTest() throws IOException, InterruptedException {
+        runTest("templateAreasShorthandAdvanced");
+    }
+
+    @Test
+    public void gridShorthandAdvancedTest() throws IOException, InterruptedException {
+        runTest("gridShorthandAdvanced");
+    }
+
+    @Test
+    public void templateShorthandWithoutLineNamesTest() throws IOException, InterruptedException {
+        runTest("templateShorthandWithoutLineNames");
+    }
+
+    @Test
     public void templateAreasInvalidNameTest() throws IOException, InterruptedException {
         runTest("templateAreasInvalidName");
     }

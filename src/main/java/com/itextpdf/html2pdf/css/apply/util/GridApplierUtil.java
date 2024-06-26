@@ -255,9 +255,9 @@ public final class GridApplierUtil {
         List<IElement> children = ((IAbstractElement) container).getChildren();
         for (IElement child : children) {
             substituteLinename(lineNumbersPerName, startProperty, child,
-                    Math.max(namedAreaLength + 1, currentLine));
+                    Math.max(namedAreaLength + 1, currentLine), "-start");
             substituteLinename(lineNumbersPerName, endProperty, child,
-                    Math.max(namedAreaLength + 1, currentLine));
+                    Math.max(namedAreaLength + 1, currentLine), "-end");
             substituteLinenameInSpan(lineNumbersPerName, startProperty, endProperty, spanProperty, child,
                     Math.max(namedAreaLength + 1, currentLine));
         }
@@ -329,7 +329,7 @@ public final class GridApplierUtil {
     }
 
     private static void substituteLinename(Map<String, List<Integer>> lineNumbersPerName, int property,
-                                           IElement child, int lastLineNumber) {
+                                           IElement child, int lastLineNumber, String alternateLineNameSuffix) {
         Object propValue = child.<Object>getProperty(property);
         if (!(propValue instanceof String)) {
             // It means it's null or we processed it earlier
@@ -340,9 +340,15 @@ public final class GridApplierUtil {
         Tuple2<Integer, String> parsedValue = parseStringValue((String) propValue);
         int idx = parsedValue.getFirst();
         String strValue = parsedValue.getSecond();
+        if (idx == 0 || strValue == null) {
+            return;
+        }
 
         List<Integer> lineNumbers = lineNumbersPerName.get(strValue);
-        if (lineNumbers == null || idx == 0 || strValue == null) {
+        if (lineNumbers == null) {
+            lineNumbers = lineNumbersPerName.get(strValue + alternateLineNameSuffix);
+        }
+        if (lineNumbers == null) {
             return;
         }
 

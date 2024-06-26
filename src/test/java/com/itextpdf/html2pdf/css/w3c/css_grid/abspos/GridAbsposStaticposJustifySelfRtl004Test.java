@@ -27,7 +27,6 @@ import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-//TODO DEVSIX-8358: Support shorthands
 //TODO DEVSIX-5163: Support more justify-content values
 @LogMessages(messages = {
         @LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, count = 13)

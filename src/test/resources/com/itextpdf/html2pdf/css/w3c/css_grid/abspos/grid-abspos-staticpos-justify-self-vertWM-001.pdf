@@ -1,19 +1,17 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 460>>stream
-xœí˜¿NÃ0Æw?…GXÿw¼"ÁŽ”G€"¡v(ï?`ÇõåâXÔLTà)'åî÷Ýço¨Ó3{œÙÃ³äRñùÀ´ã>Xð†Ï¯ìŽßÏìif/ì¼o›$„Ž67ìh³tG›`;Ú”ë² UBËBìà‚¾çÃˆ{Å	ð–+ËÏ7vXº¥+½œ„eù‰™©ÔÇXçW.ÖV
-Ò¬iëø‚JaT^g¦‚{ØpºÈ"½íÑkSÓiEDmba•(òÀ
->Óª
-tR^vqÜÐ£Œ@F Ý¸ˆì	Ä	¦œb®ÑjP .‹bIfšçHqÎopËJ5œÊ6p±":ÜÃ×¦¶ßŠX´7&WÉ^Æßcã¯RW0Þƒ+'™k4ë'0—E±$3Í“¤8«7¸e¥Ne¸ŒÀc,Dt¸‡¯Mm¿±hoL"®’½Œ“ G0#˜Ìf3‚ù`tüÖì
-Æi˜ðµÔëMÇ@¹>bIfÚ×(‚‹;PÜ²R§²\Fà1":ÜÃ×¦¶ßŠX´7&WÉ^ÆxÐ#˜Ìfóƒiè)ý›àqcZ¤Ç¤Kßßÿl@¨tï¸õ/µ"Ýä
+<</Filter/FlateDecode/Length 459>>stream
+xœí˜=nÃ0…wBc»°’¬ß5@»ðÚ(’!¹ÿPÙ²hY&mM&àÇ|zC_Øado’KÅÇ#,wÁ€Ó|üb/üuüeï#ûd—½ÌK2ëA6ÈŒ†¡A¦˜™²M¤j±`C ,Düú“#î;À®L,¯ßì8«Y5½ôÂ€2üÌ´Ïõ)Öé•u„å¢ÐŸjÚÚ>£¦0
+TZg.îaà¼ŒEzÛ£Wé´"âìÂ Âª¡È#d°øœØaV7=,×åQ÷@z =æ@lD¶â‚O1Õh5(PË¢X=ä9–8ë6¸y¥^Ž%p	±d":ÜÃWí·"æÙ“ˆ«ÆÞÆncâ¯RS0ÎÍ'™j4ë<èeQ,‹ò$Kœ6¸y¥^Ž%p	Ç˜‰èp_E´ßŠ˜goL"®{?'@ö`z0=˜L¦ó?ÁD¡l
+Æàñ5×ëMGC¾>bYôÐ×¨w(qóJ5¼Kà1Ñá¾Šh¿1ÏÞ˜D\5ö~0ÆÂÐƒéÁô`z0ÏÝà§¯	N+0Ö <ñõâVƒÔÄ¿êgo’¸M<\Ã;ÞK
 endstream
 endobj
 4 0 obj
 <</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
 endobj
 3 0 obj
-<</CreationDate(D:20240627110256+03'00')/ModDate(D:20240627110256+03'00')/Producer(iText® pdfHTML 5.0.5-SNAPSHOT \(AGPL version\) ©2000-2024 Apryse Group NV)/Title(CSS Test: Static position of abspos children in a vertical-rl grid container, with various "justify-self" values)>>
+<</CreationDate(D:20240628170529+03'00')/ModDate(D:20240628170529+03'00')/Producer(iText® pdfHTML 5.0.5-SNAPSHOT \(AGPL version\) ©2000-2024 Apryse Group NV)/Title(CSS Test: Static position of abspos children in a vertical-rl grid container, with various "justify-self" values)>>
 endobj
 1 0 obj
 <</Pages 2 0 R/Type/Catalog>>
@@ -27,15 +25,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000970 00000 n 
-0000001105 00000 n 
-0000000675 00000 n 
-0000000542 00000 n 
+0000000969 00000 n 
+0000001104 00000 n 
+0000000674 00000 n 
+0000000541 00000 n 
 0000000015 00000 n 
-0000001015 00000 n 
+0000001014 00000 n 
 trailer
-<</ID [<2505742095ee47cff27817efbdf4f04c5e0d225e043db968bf6c2541476cb6d92124c13354980770cce8b2b1f2767b5331bdc37b59cdee2f523eac24c9be6194><2505742095ee47cff27817efbdf4f04c5e0d225e043db968bf6c2541476cb6d92124c13354980770cce8b2b1f2767b5331bdc37b59cdee2f523eac24c9be6194>]/Info 3 0 R/Root 1 0 R/Size 7>>
+<</ID [<f44301e54e8899e7954069a29b6e41743ed92fb4edd8a5da01f94ebd725910f096ed790c9bb91c0ab8b713923ccd70d985528ff3f469f84bcc1511d24329fe7f><f44301e54e8899e7954069a29b6e41743ed92fb4edd8a5da01f94ebd725910f096ed790c9bb91c0ab8b713923ccd70d985528ff3f469f84bcc1511d24329fe7f>]/Info 3 0 R/Root 1 0 R/Size 7>>
 %iText-pdfHTML-5.0.5-SNAPSHOT
 startxref
-1156
+1155
 %%EOF

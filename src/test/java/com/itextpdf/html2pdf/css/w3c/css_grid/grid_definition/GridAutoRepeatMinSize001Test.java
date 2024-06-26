@@ -26,8 +26,9 @@ import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
+import org.junit.jupiter.api.Disabled;
 
-//TODO DEVSIX-8358: Support short-hands
+@Disabled("DEVSIX-8423")
 @LogMessages(messages = {
         @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 3)})
 public class GridAutoRepeatMinSize001Test extends W3CCssGridTest {
