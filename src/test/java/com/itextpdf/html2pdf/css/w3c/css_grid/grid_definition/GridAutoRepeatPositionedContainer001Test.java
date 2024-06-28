@@ -28,11 +28,9 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-8358: Support short-hands
-@LogMessages(messages = {
-        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)})
 public class GridAutoRepeatPositionedContainer001Test extends W3CCssGridTest {
     @Override
     protected String getHtmlFileName() {
-        return "grid-auto-repeat-positioned-container-001.html";
+        return "auto-repeat-pos-container-001.html";
     }
 }

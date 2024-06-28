@@ -28,11 +28,9 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-8358: Support shorthands
-@LogMessages(messages = {
-        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 4)})
 public class AbsolutePositioningGridContainerParent001Test extends W3CCssGridTest {
     @Override
     protected String getHtmlFileName() {
-        return "absolute-positioning-grid-container-parent-001.html";
+        return "abs-pos-grid-container-parent-001.html";
     }
 }

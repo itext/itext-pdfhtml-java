@@ -28,6 +28,6 @@ import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
 public class GridItemOverflowAutoMaxHeightPercentageTest extends W3CCssGridTest {
     @Override
     protected String getHtmlFileName() {
-        return "grid-item-overflow-auto-max-height-percentage.html";
+        return "overflow-auto-max-height-percentage.html";
     }
 }

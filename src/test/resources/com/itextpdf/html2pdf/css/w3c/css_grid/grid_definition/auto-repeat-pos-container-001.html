@@ -39,12 +39,3 @@
         <div class="item" style="grid-row: 5; grid-column: 1 / -1;"></div>
     </div>
 </div>
-
-<script>
-    var log = document.getElementById("log");
-
-    var grid = document.getElementById("grid");
-    var computedStyle = getComputedStyle(grid);
-
-    log.innerHTML = "grid: " + computedStyle.getPropertyValue("grid-template-rows") + " / " + computedStyle.getPropertyValue("grid-template-columns") + ";";
-</script>
