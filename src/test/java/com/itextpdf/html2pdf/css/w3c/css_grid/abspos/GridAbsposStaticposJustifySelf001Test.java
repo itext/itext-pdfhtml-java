@@ -23,14 +23,8 @@
 package com.itextpdf.html2pdf.css.w3c.css_grid.abspos;
 
 import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
-import com.itextpdf.io.logs.IoLogMessageConstant;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-5163: Support more justify-content values
-@LogMessages(messages = {
-        @LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, count = 13)
-})
 public class GridAbsposStaticposJustifySelf001Test extends W3CCssGridTest {
     @Override
     protected String getHtmlFileName() {

@@ -23,13 +23,7 @@
 package com.itextpdf.html2pdf.css.w3c.css_grid.abspos;
 
 import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
-import com.itextpdf.io.logs.IoLogMessageConstant;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
-@LogMessages(messages = {
-        @LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, count = 6)
-})
 public class DescendantStaticPosition002Test extends W3CCssGridTest {
     @Override
     protected String getHtmlFileName() {

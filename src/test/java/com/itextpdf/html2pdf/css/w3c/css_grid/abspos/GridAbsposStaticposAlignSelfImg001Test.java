@@ -29,8 +29,7 @@ import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-5166 change after align-self is supported
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, count = 26),
-        @LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, count = 13)
+        @LogMessage(messageTemplate = IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, count = 26)
 })
 public class GridAbsposStaticposAlignSelfImg001Test extends W3CCssGridTest {
     @Override

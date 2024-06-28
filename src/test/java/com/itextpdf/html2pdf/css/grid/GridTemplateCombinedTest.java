@@ -66,7 +66,6 @@ public class GridTemplateCombinedTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8418 seems margins\paddings don't take into account correctly
     public void templateCombinedMixedTest() throws IOException, InterruptedException {
         runTest("template-combined-mixed");
     }

@@ -31,8 +31,8 @@ import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Tag("IntegrationTest")
 public class ColumnWidthTest extends ExtendedHtmlConversionITextTest {
@@ -282,6 +282,31 @@ public class ColumnWidthTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void columnWidthPercentageTest() throws IOException, InterruptedException {
         runTest("columnWidthPercentageTest");
+    }
+
+    @Test
+    public void bigPaddingsTest() throws IOException, InterruptedException {
+        runTest("bigPaddingsTest");
+    }
+
+    @Test
+    public void bigBordersTest() throws IOException, InterruptedException {
+        runTest("bigBordersTest");
+    }
+
+    @Test
+    public void bigMarginsTest() throws IOException, InterruptedException {
+        runTest("bigMarginsTest");
+    }
+
+    @Test
+    public void bigMargingsPaddingsBordersTest() throws IOException, InterruptedException {
+        runTest("bigMargingsPaddingsBordersTest");
+    }
+
+    @Test
+    public void bigBordersWithoutWidtConstraintTest() throws IOException, InterruptedException {
+        runTest("bigBordersWithoutWidtConstraintTest");
     }
 
 

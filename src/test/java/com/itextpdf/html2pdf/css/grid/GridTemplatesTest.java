@@ -508,13 +508,16 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
         runTest("spanOnlyFrTest");
     }
 
-    //TODO DEVSIX-8418
     @Test
     public void autoFitOnIntrinsicAreaWithLargeBorderTest() throws IOException, InterruptedException {
         runTest("autoFitOnIntrinsicAreaWithLargeBorderTest");
     }
 
-    //TODO DEVSIX-8418
+    @Test
+    public void autoFitWithLargeBorderTest() throws IOException, InterruptedException {
+        runTest("autoFitWithLargeBorderTest");
+    }
+
     @Test
     public void autoFitOnIntrinsicAreaWithLargeMarginPaddingTest() throws IOException, InterruptedException {
         runTest("autoFitOnIntrinsicAreaWithLargeMarginPaddingTest");
@@ -601,6 +604,33 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void shrankTemplateAfterAutoFitTest() throws IOException, InterruptedException {
         runTest("shrankTemplateAfterAutoFitTest");
+    }
+
+    @Test
+    public void minHeightTest() throws IOException, InterruptedException {
+        runTest("minHeightTest");
+    }
+
+    @Test
+    public void minHeightFlexRowsTest() throws IOException, InterruptedException {
+        runTest("minHeightFlexRowsTest");
+    }
+
+    @Test
+    // TODO DEVSIX-8426 Fix working with min\max-height\width on grid container
+    public void maxHeightTest() throws IOException, InterruptedException {
+        runTest("maxHeightTest");
+    }
+
+    @Test
+    // TODO DEVSIX-8426 Fix working with min\max-height\width on grid container
+    public void maxHeightFlexRowsTest() throws IOException, InterruptedException {
+        runTest("maxHeightFlexRowsTest");
+    }
+
+    @Test
+    public void maxHeightFlexRowsTest2() throws IOException, InterruptedException {
+        runTest("maxHeightFlexRowsTest2");
     }
 
     @Test
