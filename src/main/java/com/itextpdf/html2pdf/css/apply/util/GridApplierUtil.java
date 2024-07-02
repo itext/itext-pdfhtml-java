@@ -24,21 +24,22 @@ package com.itextpdf.html2pdf.css.apply.util;
 
 import com.itextpdf.commons.datastructures.Tuple2;
 import com.itextpdf.commons.utils.MapUtil;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IAbstractElement;
-import com.itextpdf.layout.properties.grid.AutoRepeatValue;
-import com.itextpdf.layout.properties.grid.BreadthValue;
-import com.itextpdf.layout.properties.grid.FixedRepeatValue;
-import com.itextpdf.layout.properties.grid.GridFlow;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.UnitValue;
+import com.itextpdf.layout.properties.grid.AutoRepeatValue;
 import com.itextpdf.layout.properties.grid.AutoValue;
+import com.itextpdf.layout.properties.grid.BreadthValue;
 import com.itextpdf.layout.properties.grid.FitContentValue;
+import com.itextpdf.layout.properties.grid.FixedRepeatValue;
 import com.itextpdf.layout.properties.grid.FlexValue;
+import com.itextpdf.layout.properties.grid.GridFlow;
 import com.itextpdf.layout.properties.grid.GridValue;
 import com.itextpdf.layout.properties.grid.MaxContentValue;
 import com.itextpdf.layout.properties.grid.MinContentValue;
@@ -148,15 +149,16 @@ public final class GridApplierUtil {
         applyAuto(cssProps.get(CssConstants.GRID_AUTO_COLUMNS), container, Property.GRID_AUTO_COLUMNS, emValue, remValue);
         applyFlow(cssProps.get(CssConstants.GRID_AUTO_FLOW), container);
 
-        final UnitValue columnGap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.COLUMN_GAP),
-                emValue, remValue);
-        if (columnGap != null) {
-            container.setProperty(Property.COLUMN_GAP, columnGap.getValue());
-        }
-        final UnitValue rowGap = CssDimensionParsingUtils.parseLengthValueToPt(cssProps.get(CssConstants.ROW_GAP),
-                emValue, remValue);
-        if (rowGap != null) {
-            container.setProperty(Property.ROW_GAP, rowGap.getValue());
+        applyGap(container, emValue, remValue, cssProps.get(CssConstants.COLUMN_GAP), Property.COLUMN_GAP);
+        applyGap(container, emValue, remValue, cssProps.get(CssConstants.GRID_COLUMN_GAP), Property.COLUMN_GAP);
+        applyGap(container, emValue, remValue, cssProps.get(CssConstants.ROW_GAP), Property.ROW_GAP);
+        applyGap(container, emValue, remValue, cssProps.get(CssConstants.GRID_ROW_GAP), Property.ROW_GAP);
+    }
+
+    private static void applyGap(IPropertyContainer container, float emValue, float remValue, String gap, int property) {
+        final UnitValue gapValue = CssDimensionParsingUtils.parseLengthValueToPt(gap, emValue, remValue);
+        if (gapValue != null) {
+            container.setProperty(property, gapValue.getValue());
         }
     }
 
@@ -206,10 +208,15 @@ public final class GridApplierUtil {
 
     private static void applyTemplate(String templateStr, IPropertyContainer container, int property,
                                       float emValue, float remValue, NamedAreas namedAreas) {
+        if (templateStr != null && templateStr.contains(CssConstants.SUBGRID)) {
+            LOGGER.warn(Html2PdfLogMessageConstant.SUBGRID_VALUE_IS_NOT_SUPPORTED);
+        }
+
         Map<String, List<Integer>> lineNumbersPerName = new HashMap<>();
         int namedAreaLength = 0;
+        final boolean applyColumns = property == Property.GRID_TEMPLATE_COLUMNS;
         if (namedAreas != null) {
-            if (property == Property.GRID_TEMPLATE_COLUMNS) {
+            if (applyColumns) {
                 lineNumbersPerName = namedAreas.getNamedColumnNumbers();
                 namedAreaLength = namedAreas.getColumnsCount();
             } else {
@@ -233,7 +240,10 @@ public final class GridApplierUtil {
                     }
                 }
             }
-            if (!templateResult.isEmpty()) {
+            if (templateResult.isEmpty()) {
+                LOGGER.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.GRID_TEMPLATE_WAS_NOT_RECOGNISED,
+                        applyColumns ? "columns" : "rows"));
+            } else {
                 container.setProperty(property, templateResult);
             }
         }
@@ -242,7 +252,7 @@ public final class GridApplierUtil {
         int startProperty;
         int endProperty;
         int spanProperty;
-        if (property == Property.GRID_TEMPLATE_COLUMNS) {
+        if (applyColumns) {
             startProperty = Property.GRID_COLUMN_START;
             endProperty = Property.GRID_COLUMN_END;
             spanProperty = Property.GRID_COLUMN_SPAN;
@@ -424,8 +434,8 @@ public final class GridApplierUtil {
     }
 
     private static TemplateValue parseTemplateValue(String str, float emValue, float remValue,
-                                                    Map<String, List<Integer>> lineNumbersPerName,
-                                                    int currentLine) {
+            Map<String, List<Integer>> lineNumbersPerName, int currentLine) {
+
         if (str == null) {
             return null;
         }

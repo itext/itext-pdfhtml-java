@@ -177,6 +177,31 @@ public class GridGapTest extends ExtendedHtmlConversionITextTest {
         runTest("small_values_gap");
     }
 
+    @Test
+    public void differentRowsColsGapTest() throws IOException, InterruptedException {
+        runTest("different_rows_cols_gap");
+    }
+
+    @Test
+    public void gridGapTest1() throws IOException, InterruptedException {
+        runTest("gridGapTest1");
+    }
+
+    @Test
+    public void gridGapTest2() throws IOException, InterruptedException {
+        runTest("gridGapTest2");
+    }
+
+    @Test
+    public void gridColumnGapTest() throws IOException, InterruptedException {
+        runTest("gridColumnGapTest");
+    }
+
+    @Test
+    public void gridRowGapTest() throws IOException, InterruptedException {
+        runTest("gridRowGapTest");
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         convertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false,
                 new ConverterProperties().setBaseUri(SOURCE_FOLDER));

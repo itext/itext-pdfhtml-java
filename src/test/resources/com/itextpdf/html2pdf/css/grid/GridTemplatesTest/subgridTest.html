@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+    <title>Subgrid Example</title>
+    <style>
+        .parent-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 10px;
+            padding: 10px;
+            background-color: #f2f2f2;
+        }
+
+        .child-grid {
+            display: grid;
+            grid-template-rows: subgrid;
+            background-color: #d2e6f0;
+            padding: 10px;
+        }
+
+        .parent-grid > div,
+        .child-grid > div {
+            background-color: #8cb3d9;
+            padding: 20px;
+            border: 1px solid #5a8cb1;
+        }
+    </style>
+</head>
+<body>
+    <div class="parent-grid">
+        <div>Parent 1</div>
+        <div>Parent 2</div>
+        <div>Parent 3</div>
+        <div class="child-grid">
+            <div>Child 1</div>
+            <div>Child 2</div>
+            <div>Child 3</div>
+        </div>
+        <div>Parent 4</div>
+    </div>
+</body>
+</html>

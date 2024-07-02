@@ -553,6 +553,9 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
         runTest("autoFitRepeatWithFlexMinMaxTest");
     }
 
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.GRID_TEMPLATE_WAS_NOT_RECOGNISED, logLevel = LogLevelConstants.WARN)
+    })
     @Test
     public void repeatInsideMinMaxTest() throws IOException, InterruptedException {
         runTest("repeatInsideMinMaxTest");
@@ -633,13 +636,38 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     public void maxHeightFlexRowsTest2() throws IOException, InterruptedException {
         runTest("maxHeightFlexRowsTest2");
     }
-
-    @Test
+    
     @LogMessages(messages = {
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, logLevel =
                     LogLevelConstants.WARN)})
+    @Test
     public void divNestingTest() throws IOException, InterruptedException {
         runTest("divNestingTest");
+    }
+
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.SUBGRID_VALUE_IS_NOT_SUPPORTED, logLevel = LogLevelConstants.WARN),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.GRID_TEMPLATE_WAS_NOT_RECOGNISED, logLevel = LogLevelConstants.WARN)
+    })
+    @Test
+    public void subgridTest() throws IOException, InterruptedException {
+        runTest("subgridTest");
+    }
+
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.GRID_TEMPLATE_WAS_NOT_RECOGNISED, logLevel = LogLevelConstants.WARN)
+    })
+    @Test
+    public void invalidTemplateColumns() throws IOException, InterruptedException {
+        runTest("invalidTemplateColumns");
+    }
+
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.GRID_TEMPLATE_WAS_NOT_RECOGNISED, logLevel = LogLevelConstants.WARN)
+    })
+    @Test
+    public void invalidTemplateRows() throws IOException, InterruptedException {
+        runTest("invalidTemplateRows");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {

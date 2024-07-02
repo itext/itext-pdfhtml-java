@@ -29,12 +29,12 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.GridContainer;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.grid.AutoRepeatValue;
 import com.itextpdf.layout.properties.grid.FitContentValue;
 import com.itextpdf.layout.properties.grid.FixedRepeatValue;
 import com.itextpdf.layout.properties.grid.GridFlow;
 import com.itextpdf.layout.properties.grid.GridValue;
-import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.grid.LengthValue;
 import com.itextpdf.layout.properties.grid.MinMaxValue;
 import com.itextpdf.layout.properties.grid.PercentValue;
@@ -439,6 +439,17 @@ public class GridApplierUtilTest extends ExtendedITextTest {
         Map<String, String> cssProps = new HashMap<>();
         cssProps.put(CssConstants.COLUMN_GAP, "11px");
         cssProps.put(CssConstants.ROW_GAP, "30%");
+        IElement element = new Div();
+        GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
+        Assertions.assertEquals(8.25f, element.<Float>getProperty(Property.COLUMN_GAP));
+        Assertions.assertEquals(30, element.<Float>getProperty(Property.ROW_GAP));
+    }
+
+    @Test
+    public void containerGridGapValuesTest() {
+        Map<String, String> cssProps = new HashMap<>();
+        cssProps.put(CssConstants.GRID_COLUMN_GAP, "11px");
+        cssProps.put(CssConstants.GRID_ROW_GAP, "30%");
         IElement element = new Div();
         GridApplierUtil.applyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
         Assertions.assertEquals(8.25f, element.<Float>getProperty(Property.COLUMN_GAP));

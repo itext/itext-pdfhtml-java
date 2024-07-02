@@ -232,6 +232,9 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant SUB. */
     public static final String SUB = "sub";
 
+    /** The Constant SUBGRID. */
+    public static final String SUBGRID = "subgrid";
+
     /** The Constant SUPER. */
     public static final String SUPER = "super";
 
