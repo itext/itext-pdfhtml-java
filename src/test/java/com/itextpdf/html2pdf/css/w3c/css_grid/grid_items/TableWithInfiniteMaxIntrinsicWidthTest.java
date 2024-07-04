@@ -22,14 +22,14 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_grid.grid_items;
 
-import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 @LogMessages(messages = {
         @LogMessage(messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 9)})
-public class TableWithInfiniteMaxIntrinsicWidthTest extends W3CCssGridTest {
+public class TableWithInfiniteMaxIntrinsicWidthTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "table-with-infinite-max-intrinsic-width.html";

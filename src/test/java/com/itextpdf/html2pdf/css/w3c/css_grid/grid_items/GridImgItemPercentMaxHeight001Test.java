@@ -22,9 +22,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_grid.grid_items;
 
-import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-public class GridImgItemPercentMaxHeight001Test extends W3CCssGridTest {
+public class GridImgItemPercentMaxHeight001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "grid-img-item-percent-max-height-001.html";

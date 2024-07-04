@@ -22,7 +22,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_grid;
 
-public class StretchGridItemCheckboxInputTest extends W3CCssGridTest {
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
+
+public class StretchGridItemCheckboxInputTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "stretch-grid-item-checkbox-input.html";

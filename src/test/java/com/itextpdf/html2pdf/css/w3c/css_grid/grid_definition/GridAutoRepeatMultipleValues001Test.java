@@ -22,11 +22,11 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_grid.grid_definition;
 
-import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 import org.junit.jupiter.api.Disabled;
 
-public class GridAutoRepeatMultipleValues001Test extends W3CCssGridTest {
+public class GridAutoRepeatMultipleValues001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "grid-auto-repeat-multiple-values-001.html";

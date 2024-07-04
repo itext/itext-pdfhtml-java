@@ -22,7 +22,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_grid;
 
-public class StretchGridItemRadioInputTest extends W3CCssGridTest {
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
+
+public class StretchGridItemRadioInputTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "stretch-grid-item-radio-input.html";

@@ -22,7 +22,9 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_grid;
 
-public class EmptyGridWithinFlexboxTest extends W3CCssGridTest {
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
+
+public class EmptyGridWithinFlexboxTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "empty-grid-within-flexbox.html";

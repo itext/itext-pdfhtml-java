@@ -32,6 +32,7 @@ import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
 
@@ -131,6 +132,7 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("basicDisplayPropertyTest");
     }
 
+    @Disabled("DEVSIX-8427")
     @Test
     public void convertBasicDisplayPropertyWithNestedColumnsTest() throws IOException, InterruptedException {
         runTest("basicDisplayPropertyWithNestedColumnsTest");

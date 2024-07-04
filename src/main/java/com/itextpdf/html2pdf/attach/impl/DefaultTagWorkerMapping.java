@@ -205,9 +205,8 @@ class DefaultTagWorkerMapping {
                 (lhs, rhs) -> new DisplayFlexTagWorker(lhs, rhs));
         workerMapping.putMapping(TagConstants.SPAN, CssConstants.FLEX,
                 (lhs, rhs) -> new DisplayFlexTagWorker(lhs, rhs));
-        //TODO DEVSIX-8335 remove check for css grid enabled logic
         workerMapping.putMapping(TagConstants.DIV, CssConstants.GRID,
-                (lhs, rhs) -> rhs.isCssGridEnabled() ? new DisplayGridTagWorker(lhs, rhs) : new DivTagWorker(lhs, rhs));
+                (lhs, rhs) -> new DisplayGridTagWorker(lhs, rhs));
 
         // pseudo elements mapping
         String beforePseudoElemName = CssPseudoElementUtil.createPseudoElementTagName(CssConstants.BEFORE);

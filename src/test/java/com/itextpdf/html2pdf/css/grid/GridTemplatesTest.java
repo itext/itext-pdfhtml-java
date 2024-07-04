@@ -641,19 +641,9 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
         runTest("divNestingTest");
     }
 
-    @Test
-    public void gridLayoutDisablingTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("basicColumnFewDivsTest",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false,
-                new ConverterProperties().setBaseUri(SOURCE_FOLDER).setCssGridEnabled(true));
-        convertToPdfAndCompare("basicColumnFewDivsWithDisabledGridLayoutTest",
-                SOURCE_FOLDER, DESTINATION_FOLDER, false,
-                new ConverterProperties().setBaseUri(SOURCE_FOLDER));
-    }
-
     private void runTest(String testName) throws IOException, InterruptedException {
         convertToPdfAndCompare(testName,
                 SOURCE_FOLDER, DESTINATION_FOLDER, false,
-                new ConverterProperties().setBaseUri(SOURCE_FOLDER).setCssGridEnabled(true));
+                new ConverterProperties().setBaseUri(SOURCE_FOLDER));
     }
 }

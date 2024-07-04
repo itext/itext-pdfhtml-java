@@ -22,7 +22,7 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_grid.grid_definition;
 
-import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
@@ -31,7 +31,7 @@ import com.itextpdf.test.annotations.LogMessages;
 @LogMessages(messages = {
         @LogMessage(messageTemplate = Html2PdfLogMessageConstant.LINENAMES_ARE_NOT_SUPPORTED_WITHIN_AUTO_REPEAT, count = 38)
 })
-public class GridSupportNamedGridLines002Test extends W3CCssGridTest {
+public class GridSupportNamedGridLines002Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "grid-support-named-grid-lines-002.html";

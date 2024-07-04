@@ -22,11 +22,11 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_grid.abspos;
 
-import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import org.junit.jupiter.api.Disabled;
 
 @Disabled("DEVSIX-8423")
-public class PositionedGridItemsNegativeIndices001Test extends W3CCssGridTest {
+public class PositionedGridItemsNegativeIndices001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "positioned-grid-items-negative-indices-001.html";

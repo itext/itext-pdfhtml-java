@@ -22,10 +22,10 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_grid.grid_items;
 
-import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 //TODO DEVSIX-8376 Support % in grid layout?
-public class GridItemContainingBlock001Test extends W3CCssGridTest {
+public class GridItemContainingBlock001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "grid-item-containing-block-001.html";

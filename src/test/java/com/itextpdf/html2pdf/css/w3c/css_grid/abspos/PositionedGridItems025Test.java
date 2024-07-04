@@ -22,7 +22,7 @@
  */
 package com.itextpdf.html2pdf.css.w3c.css_grid.abspos;
 
-import com.itextpdf.html2pdf.css.w3c.css_grid.W3CCssGridTest;
+import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Disabled;
 @LogMessages(messages = {
         @LogMessage(messageTemplate = IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, count = 2)
 })
-public class PositionedGridItems025Test extends W3CCssGridTest {
+public class PositionedGridItems025Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
         return "positioned-grid-items-025.html";

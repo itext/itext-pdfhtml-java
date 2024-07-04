@@ -108,7 +108,7 @@ public class GridTemplateElementPropertyContainerTest extends ExtendedHtmlConver
     private void runTest(String testName) throws IOException, InterruptedException {
         convertToPdfAndCompare(testName,
                 SOURCE_FOLDER, DESTINATION_FOLDER, false,
-                new ConverterProperties().setBaseUri(SOURCE_FOLDER).setCssGridEnabled(true));
+                new ConverterProperties().setBaseUri(SOURCE_FOLDER));
     }
 
 }

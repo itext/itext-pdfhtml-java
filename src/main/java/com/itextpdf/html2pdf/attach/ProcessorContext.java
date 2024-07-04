@@ -156,12 +156,6 @@ public class ProcessorContext {
     private boolean continuousContainerEnabled;
 
     /**
-     * enables css grid processing for all elements.
-     */
-    //TODO DEVSIX-8335 remove this property
-    private boolean cssGridEnabled = false;
-
-    /**
      * Instantiates a new {@link ProcessorContext} instance.
      *
      * @param converterProperties a {@link ConverterProperties} instance
@@ -215,7 +209,6 @@ public class ProcessorContext {
         pdfAConformanceLevelFromProperties = converterProperties.getConformanceLevel();
         processingInlineSvg = false;
         continuousContainerEnabled = converterProperties.isContinuousContainerEnabled();
-        cssGridEnabled = converterProperties.isCssGridEnabled();
     }
 
     /**
@@ -523,15 +516,5 @@ public class ProcessorContext {
      */
     public boolean isContinuousContainerEnabled() {
         return continuousContainerEnabled;
-    }
-
-    /**
-     * check if css grid support is enabled.
-     *
-     * @return true if enabled, false otherwise
-     */
-    //TODO DEVSIX-8335 remove this method
-    public boolean isCssGridEnabled() {
-        return cssGridEnabled;
     }
 }
