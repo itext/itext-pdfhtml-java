@@ -32,6 +32,6 @@ import com.itextpdf.test.annotations.LogMessages;
 public class GridTracksStretchedWithDifferentFlexFactorsSumTest extends W3CCssGridTest {
     @Override
     protected String getHtmlFileName() {
-        return "grid-tracks-stretched-with-different-flex-factors-sum.html";
+        return "tracks-stretched-diff-flex-factors-sum.html";
     }
 }
