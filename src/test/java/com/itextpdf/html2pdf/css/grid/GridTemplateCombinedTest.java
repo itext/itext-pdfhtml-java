@@ -71,7 +71,6 @@ public class GridTemplateCombinedTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8331
     public void templateCombinedMultiPageTest() throws IOException, InterruptedException {
         runTest("template-combined-multipage");
     }

@@ -111,7 +111,6 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8331
     public void templateRowMultiPageTest() throws IOException, InterruptedException {
         runTest("template-rows-multipage");
     }

@@ -105,6 +105,11 @@ public class GridAreaTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void borderBoxTest2() throws IOException, InterruptedException {
+        runTest("borderBoxTest2");
+    }
+
+    @Test
     public void differentRowSpanOnSplitTest() throws IOException, InterruptedException {
         runTest("differentRowSpanOnSplitTest");
     }

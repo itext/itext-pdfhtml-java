@@ -67,7 +67,6 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8331
     public void basicColumnMultiPageTest() throws IOException, InterruptedException {
         runTest("basicColumnMultiPageTest");
     }
@@ -636,7 +635,7 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     public void maxHeightFlexRowsTest2() throws IOException, InterruptedException {
         runTest("maxHeightFlexRowsTest2");
     }
-    
+
     @LogMessages(messages = {
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, logLevel =
                     LogLevelConstants.WARN)})
@@ -668,6 +667,49 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void invalidTemplateRows() throws IOException, InterruptedException {
         runTest("invalidTemplateRows");
+    }
+
+    @Test
+    public void gridSplitPaddingMarginBorderTest() throws IOException, InterruptedException {
+        runTest("gridSplitPaddingMarginBorderTest");
+    }
+
+    @Test
+    public void gridSplitPaddingMarginBorderTest2() throws IOException, InterruptedException {
+        runTest("gridSplitPaddingMarginBorderTest2");
+    }
+
+    @Test
+    public void gridSplitPaddingMarginBorderTest3() throws IOException, InterruptedException {
+        runTest("gridSplitPaddingMarginBorderTest3");
+    }
+
+    @Test
+    public void gridSplitPaddingMarginBorderTest4() throws IOException, InterruptedException {
+        runTest("gridSplitPaddingMarginBorderTest4");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, logLevel = LogLevelConstants.WARN)
+    })
+    public void gridSplitPaddingMarginBorderTest5() throws IOException, InterruptedException {
+        runTest("gridSplitPaddingMarginBorderTest5");
+    }
+
+    @Test
+    public void gridSplitPaddingMarginBorderTest6() throws IOException, InterruptedException {
+        runTest("gridSplitPaddingMarginBorderTest6");
+    }
+
+    @Test
+    public void gridSplitPaddingMarginBorderTest7() throws IOException, InterruptedException {
+        runTest("gridSplitPaddingMarginBorderTest7");
+    }
+
+    @Test
+    public void gridSplitPaddingMarginBorderTest8() throws IOException, InterruptedException {
+        runTest("gridSplitPaddingMarginBorderTest8");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {
