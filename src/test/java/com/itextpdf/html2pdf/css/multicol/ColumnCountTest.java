@@ -132,7 +132,6 @@ public class ColumnCountTest extends ExtendedHtmlConversionITextTest {
         runTest("basicDisplayPropertyTest");
     }
 
-    @Disabled("DEVSIX-8427")
     @Test
     public void convertBasicDisplayPropertyWithNestedColumnsTest() throws IOException, InterruptedException {
         runTest("basicDisplayPropertyWithNestedColumnsTest");

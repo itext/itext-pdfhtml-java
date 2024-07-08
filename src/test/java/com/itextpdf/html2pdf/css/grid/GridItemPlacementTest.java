@@ -88,14 +88,18 @@ public class GridItemPlacementTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void fewCellsPlacement5Test() {
-        Exception e = Assertions.assertThrows(IllegalArgumentException.class, () -> runTest("fewCellsPlacement5"));
-        Assertions.assertEquals(LayoutExceptionMessageConstant.INVALID_CELL_INDEXES, e.getMessage());
+    public void fewCellsPlacement5Test() throws IOException, InterruptedException {
+        runTest("fewCellsPlacement5");
     }
 
     @Test
     public void fewCellsPlacement6Test() throws IOException, InterruptedException {
         runTest("fewCellsPlacement6");
+    }
+
+    @Test
+    public void fewCellsPlacement7Test() throws IOException, InterruptedException {
+        runTest("fewCellsPlacement7");
     }
 
     @Test

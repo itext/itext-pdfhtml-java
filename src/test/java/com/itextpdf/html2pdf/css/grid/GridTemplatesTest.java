@@ -634,6 +634,7 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
         runTest("maxHeightFlexRowsTest2");
     }
 
+    @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, logLevel =
                     LogLevelConstants.WARN)})

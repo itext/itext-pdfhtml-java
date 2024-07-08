@@ -108,7 +108,6 @@ public class ColumnWidthTest extends ExtendedHtmlConversionITextTest {
         runTest("nestedElementsTest");
     }
 
-    @Disabled("DEVSIX-8427")
     @Test
     public void convertBasicDisplayPropertyTest() throws IOException, InterruptedException {
         runTest("basicDisplayPropertyTest");
