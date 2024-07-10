@@ -153,28 +153,63 @@ public class GridItemPlacementTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void invalid1Test() throws IOException, InterruptedException {
-        runTest("invalid1");
+    public void spanToNegativeStartTest() throws IOException, InterruptedException {
+        runTest("spanToNegativeStartTest");
     }
 
     @Test
-    public void invalid2Test() throws IOException, InterruptedException {
-        runTest("invalid2");
+    public void spanToNegativeStartWithExplicitTemplatesTest() throws IOException, InterruptedException {
+        runTest("spanToNegativeStartWithExplicitTemplatesTest");
     }
 
     @Test
-    public void invalid3Test() throws IOException, InterruptedException {
-        runTest("invalid3");
+    public void spanToNegativeStartWithoutTemplatesTest() throws IOException, InterruptedException {
+        runTest("spanToNegativeStartWithoutTemplatesTest");
     }
 
     @Test
-    public void invalid4Test() throws IOException, InterruptedException {
-        runTest("invalid4");
+    public void spanToNegativeStartWithoutTemplatesTest2() throws IOException, InterruptedException {
+        runTest("spanToNegativeStartWithoutTemplatesTest2");
     }
 
     @Test
-    public void invalid5Test() throws IOException, InterruptedException {
-        runTest("invalid5");
+    public void spanToNegativeStartWithSingleTemplateTest() throws IOException, InterruptedException {
+        runTest("spanToNegativeStartWithSingleTemplateTest");
+    }
+
+    @Test
+    public void columnSpanExpandsStartToNegativeTest() throws IOException, InterruptedException {
+        runTest("columnSpanExpandsStartToNegativeTest");
+    }
+
+    @Test
+    public void negativeIndexOutOfTemplateTest() throws IOException, InterruptedException {
+        runTest("negativeIndexOutOfTemplateTest");
+    }
+
+    @Test
+    public void negativeIndexWithImplicitLinesTest() throws IOException, InterruptedException {
+        runTest("negativeIndexWithImplicitLinesTest");
+    }
+
+    @Test
+    public void negativeIndexWithoutTemplateTest() throws IOException, InterruptedException {
+        runTest("negativeIndexWithoutTemplateTest");
+    }
+
+    @Test
+    public void negativeIndexShorthandTest() throws IOException, InterruptedException {
+        runTest("negativeIndexShorthandTest");
+    }
+
+    @Test
+    public void negativeAndPositiveIndexShorthandTest() throws IOException, InterruptedException {
+        runTest("negativeAndPositiveIndexShorthandTest");
+    }
+
+    @Test
+    public void spanToNegativeIndexWithoutTemplateTest() throws IOException, InterruptedException {
+        runTest("spanToNegativeIndexWithoutTemplateTest");
     }
 
     @Test

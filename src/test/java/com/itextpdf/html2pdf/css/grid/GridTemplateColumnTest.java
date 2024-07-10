@@ -141,6 +141,11 @@ public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
         runTest("template-cols-without-other-props-2");
     }
 
+    @Test
+    public void templateColumnWithFlexAndGapsTest() throws IOException, InterruptedException {
+        runTest("template-cols-with-flex-and-gaps");
+    }
+
     private void runTest(String testName) throws IOException, InterruptedException {
         convertToPdfAndCompare(testName,
                 SOURCE_FOLDER, DESTINATION_FOLDER, false,

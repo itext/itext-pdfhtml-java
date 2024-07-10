@@ -182,12 +182,13 @@ public class DefaultCssResolver implements ICssResolver {
                             CommonCssConstants.FONT_SIZE), inheritanceRules);
 
                     // If the parent has display: flex, the flex item is blockified
-                    // no matter what display value is set for it (except 'none' value).
+                    // no matter what display value is set for it (except 'none' and 'grid' values).
                     // See CSS Flexible Box Layout Module Level 1,
                     // W3C Candidate Recommendation, 19 November 2018: 4. Flex Items.
                     final String currentElementDisplay = elementStyles.get(CssConstants.DISPLAY);
                     if (isFlexItem(entry, currentElementDisplay) &&
-                            !CommonCssConstants.NONE.equals(currentElementDisplay)) {
+                            !CommonCssConstants.NONE.equals(currentElementDisplay) &&
+                            !CommonCssConstants.GRID.equals(currentElementDisplay)) {
                         elementStyles.put(CssConstants.DISPLAY, CssConstants.BLOCK);
                     }
                 }

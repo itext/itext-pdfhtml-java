@@ -24,13 +24,9 @@ package com.itextpdf.html2pdf.css.grid;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.io.logs.IoLogMessageConstant;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -57,7 +53,6 @@ public class GridTemplateNestedTest extends ExtendedHtmlConversionITextTest {
         runTest("grid-nested-areas-with-border");
     }
 
-    @Disabled("DEVSIX-8423")
     @Test
     public void templateNestedArticlesTest() throws IOException, InterruptedException {
         runTest("grid-nested-articles");
@@ -88,7 +83,6 @@ public class GridTemplateNestedTest extends ExtendedHtmlConversionITextTest {
         runTest("grid-nested-mixed-content");
     }
 
-    @Disabled("DEVSIX-8423")
     @Test
     public void templateNestedParagraphsTest() throws IOException, InterruptedException {
         runTest("grid-nested-paragraphs");
@@ -114,28 +108,21 @@ public class GridTemplateNestedTest extends ExtendedHtmlConversionITextTest {
         runTest("grid-nested-table-with-mixed-content");
     }
 
-    @Disabled("DEVSIX-8423")
     @Test
     public void templateNested2LevelsWithAreasTest() throws IOException, InterruptedException {
         runTest("grid-nested-2-levels-areas");
     }
 
-    @Disabled("DEVSIX-8423")
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count = 4)
-    })
     @Test
     public void templateNested3LevelsFormsTest() throws IOException, InterruptedException {
         runTest("grid-nested-3-forms");
     }
 
-    @Disabled("DEVSIX-8423")
     @Test
     public void templateNested3LevelsTest() throws IOException, InterruptedException {
         runTest("grid-nested-3-levels");
     }
 
-    @Disabled("DEVSIX-8423")
     @Test
     public void templateNested3LevelsMultipleTest() throws IOException, InterruptedException {
         runTest("grid-nested-3-levels-multiple");

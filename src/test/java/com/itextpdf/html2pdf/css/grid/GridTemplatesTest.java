@@ -137,6 +137,11 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void basicColumnRowStartEnd1Test() throws IOException, InterruptedException {
+        runTest("basicColumnRowStartEnd1Test");
+    }
+
+    @Test
     public void basicColumnRowStartEnd2Test() throws IOException, InterruptedException {
         runTest("basicColumnRowStartEnd2Test");
     }
