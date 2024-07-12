@@ -26,17 +26,16 @@ import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class FontsUnicodeCoverageTest extends ExtendedITextTest {
 
     @Test
@@ -87,10 +86,10 @@ public class FontsUnicodeCoverageTest extends ExtendedITextTest {
                 3324, 3324, 2794, 2794, 2794, 2794, 2794, 2794, 2794, 2794
         );
 
-        Assert.assertEquals("The number of Unicode glyphs within shipped fonts has been changed",
-                expectedUniCharsNumber, actualUniCharsNumber);
-        Assert.assertEquals("The Unicode ranges within fonts have been changed",
-                expectedUnicodeRanges, actualUnicodeRanges);
+        Assertions.assertEquals(expectedUniCharsNumber, actualUniCharsNumber,
+                "The number of Unicode glyphs within shipped fonts has been changed");
+        Assertions.assertEquals(expectedUnicodeRanges, actualUnicodeRanges,
+                "The Unicode ranges within fonts have been changed");
     }
 
     private static List<PdfFont> readFontCollection() throws IOException {

@@ -23,7 +23,6 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -32,11 +31,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class HtmlConverterMultiThreadedTest extends ExtendedITextTest {
 
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/HtmlConverterMultiThreadedTest/";
@@ -56,7 +55,7 @@ public class HtmlConverterMultiThreadedTest extends ExtendedITextTest {
         }
 
         executorService.shutdown();
-        Assert.assertTrue(executorService.awaitTermination(2, TimeUnit.MINUTES));
+        Assertions.assertTrue(executorService.awaitTermination(2, TimeUnit.MINUTES));
     }
 
 }

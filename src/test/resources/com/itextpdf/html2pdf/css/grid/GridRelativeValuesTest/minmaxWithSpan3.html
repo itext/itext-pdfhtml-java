@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .wrapper {
+        display: grid;
+        grid-template-columns: 1fr minmax(50px, 2fr) 3fr;
+        grid-template-rows: 1fr min-content 3fr;
+      }
+	  
+	  .wrapper > div {
+      border: 2px solid blue;
+	  }
+
+    .box5 {
+        grid-column-start: 2;
+        grid-column-end: 4;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+      <div>Four</div>
+      <div class="box5">Five Five Five Five Five Five Five Five Five Five Five Five Five Five Five Five Five Five Five Five Five Five Five Five</div>
+      <div>Six</div>
+      <div>Seven</div>
+      <div>Eight</div>
+      <div>Nine</div>
+    </div>
+  </body>
+</html>

@@ -23,17 +23,16 @@
 package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.lang.reflect.Field;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import java.util.HashSet;
 import java.util.Set;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class Html2PdfPropertyTest extends ExtendedITextTest {
 
     @Test
@@ -47,7 +46,7 @@ public class Html2PdfPropertyTest extends ExtendedITextTest {
                 maxFieldValue = Math.max(maxFieldValue, value);
                 minFieldValue = Math.min(minFieldValue, value);
                 if (fieldValues.contains(value)) {
-                    Assert.fail(MessageFormatUtil.format("Multiple fields with same value: {0}", value));
+                    Assertions.fail(MessageFormatUtil.format("Multiple fields with same value: {0}", value));
                 }
                 fieldValues.add(value);
             }
@@ -55,7 +54,7 @@ public class Html2PdfPropertyTest extends ExtendedITextTest {
 
         for (int i = minFieldValue; i <= maxFieldValue; i++) {
             if (!fieldValues.contains(i)) {
-                Assert.fail(MessageFormatUtil.format("Missing value: {0}", i));
+                Assertions.fail(MessageFormatUtil.format("Missing value: {0}", i));
             }
         }
 

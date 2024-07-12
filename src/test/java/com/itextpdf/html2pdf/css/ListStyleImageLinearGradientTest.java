@@ -28,22 +28,21 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class ListStyleImageLinearGradientTest extends ExtendedITextTest {
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/ListStyleImageLinearGradientTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/ListStyleImageLinearGradientTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
@@ -92,7 +91,7 @@ public class ListStyleImageLinearGradientTest extends ExtendedITextTest {
     private void runTest(String testName) throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + testName + ".html"),
                 new File(DESTINATION_FOLDER + testName + ".pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + testName + ".pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + testName + ".pdf",
                 SOURCE_FOLDER + "cmp_" + testName + ".pdf", DESTINATION_FOLDER, "diff_" + testName));
     }
 }

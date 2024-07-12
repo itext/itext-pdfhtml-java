@@ -27,21 +27,20 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.io.IOException;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class HrTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/HrTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/HrTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -163,6 +162,6 @@ public class HrTest extends ExtendedITextTest {
         String cmpPdfPath = sourceFolder + "cmp_hrTest" + id + ".pdf";
         String diff = "diff" + id + "_";
         HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath));
-        Assert.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));
     }
 }

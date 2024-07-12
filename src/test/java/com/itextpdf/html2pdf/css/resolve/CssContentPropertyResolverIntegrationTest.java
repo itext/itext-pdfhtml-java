@@ -23,14 +23,13 @@
 package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class CssContentPropertyResolverIntegrationTest extends ExtendedHtmlConversionITextTest {
 
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css"
@@ -38,7 +37,7 @@ public class CssContentPropertyResolverIntegrationTest extends ExtendedHtmlConve
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css"
             + "/CssContentPropertyResolverIntegrationTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }

@@ -40,31 +40,26 @@ import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class TableTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/TableTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/TableTest/";
 
-    @Rule
-    public ExpectedException junitExpectedException = ExpectedException.none();
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
     }
@@ -218,7 +213,7 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1370")
+    @Disabled("DEVSIX-1370")
     public void helloTableAuto13DocumentTest() throws IOException, InterruptedException {
         runTest("hello_table_auto13");
     }
@@ -526,9 +521,9 @@ public class TableTest extends ExtendedITextTest {
 
     @Test
     // TODO DEVSIX-5036
-    public void collapsedBorderWithWrongRowspanTableTest() throws IOException, InterruptedException {
-        junitExpectedException.expect(RuntimeException.class);
-        runTest("collapsedBorderWithWrongRowspanTable", false, new PageSize(PageSize.A5).rotate());
+    public void collapsedBorderWithWrongRowspanTableTest() {
+        Assertions.assertThrows(RuntimeException.class,
+                () -> runTest("collapsedBorderWithWrongRowspanTable", false, new PageSize(PageSize.A5).rotate()));
     }
 
     @Test
@@ -572,9 +567,8 @@ public class TableTest extends ExtendedITextTest {
             document.add((IBlockElement) element);
         }
 
-        junitExpectedException.expect(PdfException.class);
-        junitExpectedException.expectMessage("Tag structure flushing failed: it might be corrupted.");
-        document.close();
+        Exception exception = Assertions.assertThrows(PdfException.class, () -> document.close());
+        Assertions.assertEquals("Tag structure flushing failed: it might be corrupted.", exception.getMessage());
     }
 
     @Test
@@ -610,8 +604,8 @@ public class TableTest extends ExtendedITextTest {
         FileInputStream source = new FileInputStream(sourceFolder + "emptyRowsConvertToElement.html");
 
         for (IElement element : HtmlConverter.convertToElements(source)) {
-            Assert.assertTrue(element instanceof Table);
-            Assert.assertEquals(4, ((Table) element).getNumberOfRows());
+            Assertions.assertTrue(element instanceof Table);
+            Assertions.assertEquals(4, ((Table) element).getNumberOfRows());
         }
     }
 
@@ -660,7 +654,7 @@ public class TableTest extends ExtendedITextTest {
         }
         HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + testName + ".html"), pdfDocument, new ConverterProperties().setBaseUri(sourceFolder));
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(sourceFolder + testName + ".html")+ "\n");
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf", sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
     }
 
     private void runConvertToElements(String testName, boolean tagged) throws IOException, InterruptedException {
@@ -678,7 +672,7 @@ public class TableTest extends ExtendedITextTest {
         }
         layoutDocument.close();
         pdfDocument.close();
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + testName + ".pdf",
                 sourceFolder + "cmp_" + testName + ".pdf", destinationFolder, "diff01_"));
 
     }

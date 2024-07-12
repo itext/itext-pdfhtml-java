@@ -34,25 +34,24 @@ import com.itextpdf.layout.properties.Property;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class OverflowWrapTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/OverflowWrapTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/OverflowWrapTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -61,7 +60,7 @@ public class OverflowWrapTest extends ExtendedITextTest {
     public void overflowWrapColoredBackgroundTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "overflowWrapColoredBackground.html"),
                 new File(destinationFolder + "overflowWrapColoredBackground.pdf"));
-        Assert.assertNull(new CompareTool()
+        Assertions.assertNull(new CompareTool()
                 .compareByContent(destinationFolder + "overflowWrapColoredBackground.pdf",
                 sourceFolder + "cmp_overflowWrapColoredBackground.pdf", destinationFolder));
     }
@@ -70,7 +69,7 @@ public class OverflowWrapTest extends ExtendedITextTest {
     public void overflowXOverflowWrapTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "overflowXOverflowWrap.html"),
                 new File(destinationFolder + "overflowXOverflowWrap.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "overflowXOverflowWrap.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "overflowXOverflowWrap.pdf",
                 sourceFolder + "cmp_overflowXOverflowWrap.pdf", destinationFolder));
     }
 
@@ -78,7 +77,7 @@ public class OverflowWrapTest extends ExtendedITextTest {
     public void whiteSpaceAndOverflowWrapTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "whiteSpaceAndOverflowWrap.html"),
                 new File(destinationFolder + "whiteSpaceAndOverflowWrap.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "whiteSpaceAndOverflowWrap.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "whiteSpaceAndOverflowWrap.pdf",
                 sourceFolder + "cmp_whiteSpaceAndOverflowWrap.pdf", destinationFolder));
     }
 
@@ -86,7 +85,7 @@ public class OverflowWrapTest extends ExtendedITextTest {
     public void whiteSpaceOnParentAndOverflowWrapOnChildTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "whiteSpaceOnParentAndOverflowWrapOnChildTest.html"),
                 new File(destinationFolder + "whiteSpaceOnParentAndOverflowWrapOnChildTest.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "whiteSpaceOnParentAndOverflowWrapOnChildTest.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "whiteSpaceOnParentAndOverflowWrapOnChildTest.pdf",
                 sourceFolder + "cmp_whiteSpaceOnParentAndOverflowWrapOnChildTest.pdf", destinationFolder));
     }
 
@@ -95,7 +94,7 @@ public class OverflowWrapTest extends ExtendedITextTest {
     public void overflowWrapAndFloatTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "overflowWrapAndFloat.html"),
                 new File(destinationFolder + "overflowWrapAndFloat.pdf"));
-        Assert.assertNull(new CompareTool()
+        Assertions.assertNull(new CompareTool()
                 .compareByContent(destinationFolder + "overflowWrapAndFloat.pdf",
                         sourceFolder + "cmp_overflowWrapAndFloat.pdf", destinationFolder));
     }
@@ -106,7 +105,7 @@ public class OverflowWrapTest extends ExtendedITextTest {
     public void overflowWrapTableScenarioTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "overflowWrapTableScenario.html"),
                 new File(destinationFolder + "overflowWrapTableScenario.pdf"));
-        Assert.assertNull(new CompareTool()
+        Assertions.assertNull(new CompareTool()
                 .compareByContent(destinationFolder + "overflowWrapTableScenario.pdf",
                         sourceFolder + "cmp_overflowWrapTableScenario.pdf", destinationFolder));
     }
@@ -115,7 +114,7 @@ public class OverflowWrapTest extends ExtendedITextTest {
     public void overflowWrapWordWrapInheritance() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "overflowWrapWordWrapInheritance.html"),
                 new File(destinationFolder + "overflowWrapWordWrapInheritance.pdf"));
-        Assert.assertNull(new CompareTool()
+        Assertions.assertNull(new CompareTool()
                 .compareByContent(destinationFolder + "overflowWrapWordWrapInheritance.pdf",
                         sourceFolder + "cmp_overflowWrapWordWrapInheritance.pdf", destinationFolder));
     }
@@ -128,12 +127,12 @@ public class OverflowWrapTest extends ExtendedITextTest {
         List<IElement> elements = convertToElements("chosenOverflowWrapValue01");
 
         Paragraph paragraph = (Paragraph) elements.get(0);
-        Assert.assertNotNull(paragraph);
+        Assertions.assertNotNull(paragraph);
 
         OverflowWrapPropertyValue overflowWrapPropertyValue = paragraph
                 .<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP);
-        Assert.assertNotNull(overflowWrapPropertyValue);
-        Assert.assertEquals(OverflowWrapPropertyValue.BREAK_WORD, overflowWrapPropertyValue);
+        Assertions.assertNotNull(overflowWrapPropertyValue);
+        Assertions.assertEquals(OverflowWrapPropertyValue.BREAK_WORD, overflowWrapPropertyValue);
     }
 
     @Test
@@ -144,12 +143,12 @@ public class OverflowWrapTest extends ExtendedITextTest {
         List<IElement> elements = convertToElements("chosenOverflowWrapValue02");
 
         Paragraph paragraph = (Paragraph) elements.get(0);
-        Assert.assertNotNull(paragraph);
+        Assertions.assertNotNull(paragraph);
 
         OverflowWrapPropertyValue overflowWrapPropertyValue = paragraph
                 .<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP);
-        Assert.assertNotNull(overflowWrapPropertyValue);
-        Assert.assertEquals(OverflowWrapPropertyValue.NORMAL, overflowWrapPropertyValue);
+        Assertions.assertNotNull(overflowWrapPropertyValue);
+        Assertions.assertEquals(OverflowWrapPropertyValue.NORMAL, overflowWrapPropertyValue);
     }
 
     @Test
@@ -157,12 +156,12 @@ public class OverflowWrapTest extends ExtendedITextTest {
         List<IElement> elements = convertToElements("chosenOverflowWrapValue03");
 
         Paragraph paragraph = (Paragraph) elements.get(0);
-        Assert.assertNotNull(paragraph);
+        Assertions.assertNotNull(paragraph);
 
         OverflowWrapPropertyValue overflowWrapPropertyValue = paragraph
                 .<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP);
-        Assert.assertNotNull(overflowWrapPropertyValue);
-        Assert.assertEquals(OverflowWrapPropertyValue.NORMAL, overflowWrapPropertyValue);
+        Assertions.assertNotNull(overflowWrapPropertyValue);
+        Assertions.assertEquals(OverflowWrapPropertyValue.NORMAL, overflowWrapPropertyValue);
     }
 
     @Test
@@ -170,18 +169,18 @@ public class OverflowWrapTest extends ExtendedITextTest {
         List<IElement> elements = convertToElements("chosenOverflowWrapValueUnset01");
 
         Paragraph paragraph = (Paragraph) elements.get(0);
-        Assert.assertEquals(OverflowWrapPropertyValue.BREAK_WORD,
+        Assertions.assertEquals(OverflowWrapPropertyValue.BREAK_WORD,
                 paragraph.<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP));
 
         Div divAndNestedParagraph = (Div) elements.get(1);
-        Assert.assertEquals(OverflowWrapPropertyValue.ANYWHERE,
+        Assertions.assertEquals(OverflowWrapPropertyValue.ANYWHERE,
                 divAndNestedParagraph.<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP));
 
         paragraph = (Paragraph) divAndNestedParagraph.getChildren().get(0);
-        Assert.assertNull(paragraph.<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP));
+        Assertions.assertNull(paragraph.<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP));
 
         // todo DEVSIX-4723 replace assertNull above with the commented lines below
-//        Assert.assertEquals(OverflowWrapPropertyValue.ANYWHERE,
+//        Assertions.assertEquals(OverflowWrapPropertyValue.ANYWHERE,
 //                paragraph.<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP));
     }
 
@@ -190,7 +189,7 @@ public class OverflowWrapTest extends ExtendedITextTest {
         List<IElement> elements = convertToElements("chosenOverflowWrapValueUnset02");
 
         Paragraph paragraph = (Paragraph) elements.get(0);
-        Assert.assertEquals(OverflowWrapPropertyValue.NORMAL,
+        Assertions.assertEquals(OverflowWrapPropertyValue.NORMAL,
                 paragraph.<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP));
     }
 
@@ -202,23 +201,23 @@ public class OverflowWrapTest extends ExtendedITextTest {
         List<IElement> elements = convertToElements("overflowWrapWordWrapInheritanceAndInvalidValues");
 
         Div div = (Div) elements.get(0);
-        Assert.assertEquals(OverflowWrapPropertyValue.ANYWHERE,
+        Assertions.assertEquals(OverflowWrapPropertyValue.ANYWHERE,
                 div.<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP));
 
         List<IElement> children = div.getChildren();
-        Assert.assertEquals(2, children.size());
+        Assertions.assertEquals(2, children.size());
 
         Paragraph firstChild = (Paragraph) children.get(0);
-        Assert.assertNull(firstChild.<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP));
+        Assertions.assertNull(firstChild.<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP));
 
         Paragraph secondChild = (Paragraph) children.get(1);
-        Assert.assertEquals(OverflowWrapPropertyValue.BREAK_WORD,
+        Assertions.assertEquals(OverflowWrapPropertyValue.BREAK_WORD,
                 secondChild.<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP));
 
         List<IElement> innerChildren = secondChild.getChildren();
-        Assert.assertEquals(2, children.size());
+        Assertions.assertEquals(2, children.size());
         Text innerChild = (Text) innerChildren.get(1);
-        Assert.assertEquals(OverflowWrapPropertyValue.BREAK_WORD,
+        Assertions.assertEquals(OverflowWrapPropertyValue.BREAK_WORD,
                 innerChild.<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP));
     }
 

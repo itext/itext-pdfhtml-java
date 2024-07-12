@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 300px 300px;
+            grid-template-rows: auto;
+            row-gap: 20px;
+            column-gap: 20px;
+            padding: 20px;
+        }
+		table {
+            border-collapse: collapse;
+            margin-top: 20px;
+			width: 100%;
+			text-align: center;
+			background-color: white;
+        }
+        table th, table td {
+            border: 1px solid gray;
+            padding: 10px;
+        }
+        table th {
+            background-color: #81b29a;
+        }
+        .grid-elem {
+            background-color: darkblue;
+            padding: 20px;
+            border-radius: 0.5rem;
+        }
+		.grid-elem > p:nth-of-type(1) {
+			color:white;
+			font-size: 50px;
+		}
+    </style>
+</head>
+<body>
+    <div class="container">
+		<div class="grid-elem"> 
+			<p>1</p>
+		</div>
+        <div class="grid-elem">
+            <table>
+                <thead>
+                    <tr>
+                        <th>H1</th>
+                        <th>H2</th>
+                        <th>H3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+							<p>Row 1 Col 1</p>
+                        </td>
+                        <td>
+							<p>Row 1 Col 2</p>
+                        </td>
+                        <td>
+							<p>Row 1 Col 3</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+							<p>Row 2 Col 1</p>
+                        </td>
+                        <td>
+							<p>Row 2 Col 2</p>
+                        </td>
+                        <td>
+							<p>Row 2 Col 3</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

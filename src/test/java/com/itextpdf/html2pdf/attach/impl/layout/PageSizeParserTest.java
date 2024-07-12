@@ -27,12 +27,11 @@ import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.UnitTest;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class PageSizeParserTest extends ExtendedITextTest {
 
     private static final double EPS = 1e-9;
@@ -74,7 +73,7 @@ public class PageSizeParserTest extends ExtendedITextTest {
     }
 
     private void assertSizesAreSame(PageSize a, PageSize b) {
-        Assert.assertEquals(a.getWidth(), b.getWidth(), EPS);
-        Assert.assertEquals(a.getHeight(), b.getHeight(), EPS);
+        Assertions.assertEquals(a.getWidth(), b.getWidth(), EPS);
+        Assertions.assertEquals(a.getHeight(), b.getHeight(), EPS);
     }
 }

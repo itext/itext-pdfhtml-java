@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .wrapper {
+            display: grid;
+            grid: auto-flow 50px / 100px 80px 160px ;
+        }
+        .box3 {
+            grid-row: 2 / 4;
+        }
+        .box6 {
+            grid-row: span 2;
+        }
+        .box7 {
+            grid-row: 2;
+        }
+        .wrapper {
+            border: 2px solid #F76707;
+            background-color: #FFF4E6;
+        }
+        .wrapper > div {
+            border: 2px solid green;
+            background-color: #FFD8A8;
+            padding: 1em;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div>One</div>
+    <div>Two</div>
+    <div class="box3">Three</div>
+    <div>Four</div>
+    <div>Five</div>
+    <div class="box6">Six</div>
+    <div class="box7">Seven</div>
+    <div>Eight</div>
+    <div>Nine</div>
+</div>
+</body>
+</html>

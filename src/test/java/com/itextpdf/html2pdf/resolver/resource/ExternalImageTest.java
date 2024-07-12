@@ -29,14 +29,13 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class ExternalImageTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/resolver/resource/ExternalImageTest/";
 
@@ -47,12 +46,12 @@ public class ExternalImageTest extends ExtendedITextTest {
         PdfXObject externalImage = resourceResolver.retrieveImage(
                 "https://raw.githubusercontent.com/itext/itext7/develop/layout/src/test/resources/com/itextpdf/layout/ImageTest/itis.jpg");
 
-        Assert.assertNotNull(externalImage);
+        Assertions.assertNotNull(externalImage);
 
         ImageData imageData = ImageDataFactory.create(sourceFolder + "itis.jpg");
         Image localImage = new Image(imageData);
 
-        Assert.assertTrue(new CompareTool().compareStreams(externalImage.getPdfObject(),
+        Assertions.assertTrue(new CompareTool().compareStreams(externalImage.getPdfObject(),
                 localImage.getXObject().getPdfObject()));
     }
 }

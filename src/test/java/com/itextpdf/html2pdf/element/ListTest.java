@@ -37,23 +37,22 @@ import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class ListTest extends ExtendedHtmlConversionITextTest {
 
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/element/ListTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/element/ListTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
@@ -203,9 +202,9 @@ public class ListTest extends ExtendedHtmlConversionITextTest {
     //TODO: update after fix of DEVSIX-2538
     public void checkOrderedListNestedLists() {
         String expectedMessage = MessageFormatUtil.format("The parameter must be a positive integer");
-        Exception exception = Assert.assertThrows(IllegalArgumentException.class,
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> convertToPdfAndCompare("checkOrderedListNestedLists", SOURCE_FOLDER, DESTINATION_FOLDER));
-        Assert.assertEquals(expectedMessage, exception.getMessage());
+        Assertions.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
@@ -238,7 +237,7 @@ public class ListTest extends ExtendedHtmlConversionITextTest {
                     .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT))
                     .setFontProvider(new DefaultFontProvider(false, true, false)));
         }
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "listToPdfa.pdf", SOURCE_FOLDER + "cmp_listToPdfa.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "listToPdfa.pdf", SOURCE_FOLDER + "cmp_listToPdfa.pdf",
                 DESTINATION_FOLDER, "diff99_"));
     }
     // Android-Conversion-Skip-Block-End

@@ -29,24 +29,23 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class HTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/HTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/HTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -55,35 +54,35 @@ public class HTest extends ExtendedITextTest {
     public void h1Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hTest01.html"), new File(destinationFolder + "hTest01.pdf"),
                 new ConverterProperties().setOutlineHandler(OutlineHandler.createStandardHandler()));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest01.pdf", sourceFolder + "cmp_hTest01.pdf", destinationFolder, "diff01_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest01.pdf", sourceFolder + "cmp_hTest01.pdf", destinationFolder, "diff01_"));
     }
 
     @Test
     public void h2Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hTest02.html"), new File(destinationFolder + "hTest02.pdf"),
                 new ConverterProperties().setOutlineHandler(OutlineHandler.createStandardHandler()));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest02.pdf", sourceFolder + "cmp_hTest02.pdf", destinationFolder, "diff02_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest02.pdf", sourceFolder + "cmp_hTest02.pdf", destinationFolder, "diff02_"));
     }
 
     @Test
     public void h3Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hTest03.html"), new File(destinationFolder + "hTest03.pdf"),
                 new ConverterProperties().setOutlineHandler(OutlineHandler.createStandardHandler()));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest03.pdf", sourceFolder + "cmp_hTest03.pdf", destinationFolder, "diff03_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest03.pdf", sourceFolder + "cmp_hTest03.pdf", destinationFolder, "diff03_"));
     }
 
     @Test
     public void h4Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hTest04.html"), new File(destinationFolder + "hTest04.pdf"),
                 new ConverterProperties().setOutlineHandler(OutlineHandler.createStandardHandler()));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest04.pdf", sourceFolder + "cmp_hTest04.pdf", destinationFolder, "diff04_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest04.pdf", sourceFolder + "cmp_hTest04.pdf", destinationFolder, "diff04_"));
     }
 
     @Test
     public void h5Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "hTest05.html"), new File(destinationFolder + "hTest05.pdf"),
                 new ConverterProperties().setOutlineHandler(OutlineHandler.createStandardHandler()));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest05.pdf", sourceFolder + "cmp_hTest05.pdf", destinationFolder, "diff05_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest05.pdf", sourceFolder + "cmp_hTest05.pdf", destinationFolder, "diff05_"));
     }
 
     @Test
@@ -91,7 +90,7 @@ public class HTest extends ExtendedITextTest {
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "hTest06.pdf"));
         pdfDocument.setTagged();
         HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "hTest06.html"), pdfDocument, new ConverterProperties());
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest06.pdf", sourceFolder + "cmp_hTest06.pdf", destinationFolder, "diff06_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "hTest06.pdf", sourceFolder + "cmp_hTest06.pdf", destinationFolder, "diff06_"));
     }
 
 }

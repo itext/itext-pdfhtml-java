@@ -25,13 +25,12 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.commons.actions.NamespaceConstant;
 import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class ConverterPropertiesTest extends ExtendedITextTest {
 
     @Test
@@ -40,7 +39,7 @@ public class ConverterPropertiesTest extends ExtendedITextTest {
 
         IMetaInfo metaInfo = properties.getEventMetaInfo();
 
-        Assert.assertTrue(metaInfo.getClass().getName().startsWith(NamespaceConstant.PDF_HTML + "."));
+        Assertions.assertTrue(metaInfo.getClass().getName().startsWith(NamespaceConstant.PDF_HTML + "."));
     }
 
     @Test
@@ -51,25 +50,25 @@ public class ConverterPropertiesTest extends ExtendedITextTest {
         properties.setEventMetaInfo(testMetaInfo);
         IMetaInfo metaInfo = properties.getEventMetaInfo();
 
-        Assert.assertSame(testMetaInfo, metaInfo);
+        Assertions.assertSame(testMetaInfo, metaInfo);
     }
 
     @Test
     public void checkDefaultsTest() {
         ConverterProperties properties = new ConverterProperties();
 
-        Assert.assertTrue(properties.isImmediateFlush());
-        Assert.assertFalse(properties.isCreateAcroForm());
-        Assert.assertEquals(10, properties.getLimitOfLayouts());
+        Assertions.assertTrue(properties.isImmediateFlush());
+        Assertions.assertFalse(properties.isCreateAcroForm());
+        Assertions.assertEquals(10, properties.getLimitOfLayouts());
 
         properties.setImmediateFlush(false);
         properties.setCreateAcroForm(true);
         properties.setLimitOfLayouts(20);
         ConverterProperties propertiesCopied = new ConverterProperties(properties);
 
-        Assert.assertFalse(propertiesCopied.isImmediateFlush());
-        Assert.assertTrue(propertiesCopied.isCreateAcroForm());
-        Assert.assertEquals(20, propertiesCopied.getLimitOfLayouts());
+        Assertions.assertFalse(propertiesCopied.isImmediateFlush());
+        Assertions.assertTrue(propertiesCopied.isCreateAcroForm());
+        Assertions.assertEquals(20, propertiesCopied.getLimitOfLayouts());
     }
 
     private static class TestMetaInfo implements IMetaInfo {

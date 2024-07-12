@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      .wrapper {
+        display: grid;
+        grid-template-columns: 75px 75px 75px;
+      }
+
+      .box1 {
+        grid-column-end: 1;
+      }
+
+      .box2 {
+        grid-column-end: 1;
+      }
+
+      .box3 {
+        height: 100px;
+        grid-row-end: 1;
+      }
+
+      .box4 {
+        grid-row-end: 1;
+      }
+
+      .box5 {
+        grid-column-start: -1;
+      }
+
+      .box6 {
+        grid-column-start: 1;
+        grid-column-end: 1;
+      }
+
+      .box7 {
+        grid-row-start: 1;
+        grid-row-end: 1;
+      }
+
+      .wrapper {
+        border: 2px solid #f76707;
+        background-color: #fff4e6;
+      }
+
+      .wrapper > div {
+        border: 2px solid green;
+        background-color: #ffd8a8;
+        padding: 1em;
+      }
+    </style>
+    <title>basic test #1</title>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="box1">One</div>
+      <div class="box2">Two</div>
+      <div class="box3">Three</div>
+      <div class="box4">Four</div>
+      <div class="box5">Five</div>
+      <div class="box6">Six</div>
+      <div class="box7">Seven</div>
+    </div>
+  </body>
+</html>

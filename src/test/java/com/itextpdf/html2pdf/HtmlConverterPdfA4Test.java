@@ -39,26 +39,25 @@ import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import static com.itextpdf.html2pdf.HtmlConverterTest.compareAndCheckCompliance;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class HtmlConverterPdfA4Test extends ExtendedITextTest {
 
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/HtmlConverterPdfA4Test/";
     public static final String RESOURCES_SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/fonts/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/HtmlConverterPdfA4Test/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(DESTINATION_FOLDER);
     }
@@ -119,11 +118,11 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
         try (FileInputStream fOutput = new FileInputStream(sourceHtml);
                 PdfWriter pdfWriter = new PdfWriter(destinationPdf);
         ) {
-            Exception e = Assert.assertThrows(PdfAConformanceException.class, () -> {
+            Exception e = Assertions.assertThrows(PdfAConformanceException.class, () -> {
                 HtmlConverter.convertToPdf(fOutput, pdfWriter, converterProperties);
             });
 
-            Assert.assertEquals(MessageFormatUtil.format(
+            Assertions.assertEquals(MessageFormatUtil.format(
                             PdfaExceptionMessageConstant.THE_FILE_HEADER_SHALL_CONTAIN_RIGHT_PDF_VERSION, "2"),
                     e.getMessage());
         }
@@ -175,11 +174,11 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
         converterProperties.setFontProvider(fontProvider);
         try (FileOutputStream fOutput = new FileOutputStream(destinationPdf)) {
 
-            Exception e = Assert.assertThrows(PdfAConformanceException.class, () -> {
+            Exception e = Assertions.assertThrows(PdfAConformanceException.class, () -> {
                 HtmlConverter.convertToPdf(html, fOutput, converterProperties);
             });
 
-            Assert.assertEquals(MessageFormatUtil.format(
+            Assertions.assertEquals(MessageFormatUtil.format(
                             PdfaExceptionMessageConstant.EMBEDDED_FONTS_SHALL_DEFINE_ALL_REFERENCED_GLYPHS),
                     e.getMessage());
         }
@@ -205,10 +204,10 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
         converterProperties.setFontProvider(fontProvider);
 
         try (FileOutputStream fOutput = new FileOutputStream(destinationPdf)) {
-            Exception e = Assert.assertThrows(PdfAConformanceException.class, () -> {
+            Exception e = Assertions.assertThrows(PdfAConformanceException.class, () -> {
                 HtmlConverter.convertToPdf(html, fOutput, converterProperties);
             });
-            Assert.assertEquals(MessageFormatUtil.format(
+            Assertions.assertEquals(MessageFormatUtil.format(
                             PdfaExceptionMessageConstant.EMBEDDED_FONTS_SHALL_DEFINE_ALL_REFERENCED_GLYPHS),
                     e.getMessage());
         }
@@ -273,10 +272,10 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
         try (FileInputStream fOutputHtml = new FileInputStream(sourceHtml);
                 FileOutputStream fOutputDest = new FileOutputStream(destinationPdf);
         ) {
-            Exception e = Assert.assertThrows(PdfAConformanceException.class, () ->
+            Exception e = Assertions.assertThrows(PdfAConformanceException.class, () ->
                     HtmlConverter.convertToPdf(fOutputHtml, fOutputDest, converterProperties));
 
-            Assert.assertEquals(MessageFormatUtil.format(
+            Assertions.assertEquals(MessageFormatUtil.format(
                             PdfaExceptionMessageConstant.DEVICEGRAY_SHALL_ONLY_BE_USED_IF_CURRENT_PDFA_OUTPUT_INTENT_OR_DEFAULTGRAY_IN_USAGE_CONTEXT),
                     e.getMessage());
         }

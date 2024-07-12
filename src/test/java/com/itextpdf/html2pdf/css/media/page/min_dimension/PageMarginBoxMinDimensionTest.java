@@ -23,21 +23,20 @@
 package com.itextpdf.html2pdf.css.media.page.min_dimension;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class PageMarginBoxMinDimensionTest extends ExtendedHtmlConversionITextTest {
 
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/media/page/min_dimension/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/media/page/min_dimension/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(destinationFolder);
     }

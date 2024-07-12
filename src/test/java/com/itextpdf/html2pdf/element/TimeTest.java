@@ -25,23 +25,22 @@ package com.itextpdf.html2pdf.element;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class TimeTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/TimeTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/TimeTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -49,6 +48,6 @@ public class TimeTest extends ExtendedITextTest {
     @Test
     public void time01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "timeTest01.html"), new File(destinationFolder + "timeTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "timeTest01.pdf", sourceFolder + "cmp_timeTest01.pdf", destinationFolder, "diff01_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "timeTest01.pdf", sourceFolder + "cmp_timeTest01.pdf", destinationFolder, "diff01_"));
     }
 }

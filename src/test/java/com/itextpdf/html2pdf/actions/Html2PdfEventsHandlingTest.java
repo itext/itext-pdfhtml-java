@@ -55,21 +55,20 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
     private static final TestConfigurationEvent CONFIGURATION_ACCESS = new TestConfigurationEvent();
     private static StoreEventsHandler handler;
@@ -77,19 +76,19 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
     private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/actions/Html2PdfEventsHandlingTest/";
     private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/actions/Html2PdfEventsHandlingTest/";
 
-    @Before
+    @BeforeEach
     public void setUpHandler() {
         handler = new StoreEventsHandler();
         EventManager.getInstance().register(handler);
     }
 
-    @After
+    @AfterEach
     public void resetHandler() {
         EventManager.getInstance().unregister(handler);
         handler = null;
     }
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
@@ -115,27 +114,27 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
         List<AbstractProductProcessITextEvent> events = CONFIGURATION_ACCESS.getPublicEvents(docSequenceId);
         // Confirmed 3 events, but only 2 events (1 core + 1 pdfHtml) will be reported because
         // ReportingHandler don't report similar events for one sequenceId
-        Assert.assertEquals(3, events.size());
+        Assertions.assertEquals(3, events.size());
 
-        Assert.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
+        Assertions.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
         ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper) events.get(0);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
-        Assert.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
+        Assertions.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
+        Assertions.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
 
-        Assert.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
+        Assertions.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
         confirmedEventWrapper = (ConfirmedEventWrapper) events.get(1);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
-        Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
+        Assertions.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
+        Assertions.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
 
-        Assert.assertTrue(events.get(2) instanceof ConfirmedEventWrapper);
+        Assertions.assertTrue(events.get(2) instanceof ConfirmedEventWrapper);
         confirmedEventWrapper = (ConfirmedEventWrapper) events.get(2);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
-        Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
+        Assertions.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
+        Assertions.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
 
         try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(new ByteArrayInputStream(baos.toByteArray())))) {
             String expectedProdLine = createExpectedProducerLine(
                     new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
-            Assert.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
+            Assertions.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
         }
     }
 
@@ -148,28 +147,28 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
             docSequenceId = pdfDocument.getDocumentIdWrapper();
             String html = "<p>Hello world first!</p><span>Some text</span><p>Some second text</p>";
             List<IElement> lstFirst = HtmlConverter.convertToElements(html);
-            Assert.assertEquals(3, lstFirst.size());
+            Assertions.assertEquals(3, lstFirst.size());
 
             addElementsToDocument(document, lstFirst);
         }
 
         List<AbstractProductProcessITextEvent> events = CONFIGURATION_ACCESS.getPublicEvents(docSequenceId);
-        Assert.assertEquals(2, events.size());
+        Assertions.assertEquals(2, events.size());
 
-        Assert.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
+        Assertions.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
         ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper) events.get(0);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
-        Assert.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
+        Assertions.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
+        Assertions.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
 
-        Assert.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
+        Assertions.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
         confirmedEventWrapper = (ConfirmedEventWrapper) events.get(1);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
-        Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
+        Assertions.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
+        Assertions.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
 
         try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(new ByteArrayInputStream(baos.toByteArray())))) {
             String expectedProdLine = createExpectedProducerLine(
                     new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
-            Assert.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
+            Assertions.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
         }
     }
 
@@ -183,22 +182,22 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
         }
 
         List<AbstractProductProcessITextEvent> events = CONFIGURATION_ACCESS.getPublicEvents(docId);
-        Assert.assertEquals(2, events.size());
+        Assertions.assertEquals(2, events.size());
 
-        Assert.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
+        Assertions.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
         ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper) events.get(0);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
-        Assert.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
+        Assertions.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
+        Assertions.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
 
-        Assert.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
+        Assertions.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
         confirmedEventWrapper = (ConfirmedEventWrapper) events.get(1);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
-        Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
+        Assertions.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
+        Assertions.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
 
         try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(DESTINATION_FOLDER + outFileName))) {
             String expectedProdLine = createExpectedProducerLine(
                     new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
-            Assert.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
+            Assertions.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
         }
     }
 
@@ -212,7 +211,7 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
 
             String html = "<p>Hello world first!</p><span>Some text</span><p>Some second text</p>";
             List<IElement> lstFirst = HtmlConverter.convertToElements(html);
-            Assert.assertEquals(3, lstFirst.size());
+            Assertions.assertEquals(3, lstFirst.size());
 
             addElementsToDocument(document, lstFirst);
         }
@@ -220,27 +219,27 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
         List<AbstractProductProcessITextEvent> events = CONFIGURATION_ACCESS.getPublicEvents(docId);
         // Confirmed 3 events, but only 2 events (1 core + 1 pdfHtml) will be reported because
         // ReportingHandler don't report similar events for one sequenceId
-        Assert.assertEquals(3, events.size());
+        Assertions.assertEquals(3, events.size());
 
-        Assert.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
+        Assertions.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
         ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper) events.get(0);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
-        Assert.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
+        Assertions.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
+        Assertions.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
 
-        Assert.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
+        Assertions.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
         confirmedEventWrapper = (ConfirmedEventWrapper) events.get(1);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
-        Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
+        Assertions.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
+        Assertions.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
 
-        Assert.assertTrue(events.get(2) instanceof ConfirmedEventWrapper);
+        Assertions.assertTrue(events.get(2) instanceof ConfirmedEventWrapper);
         confirmedEventWrapper = (ConfirmedEventWrapper) events.get(2);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
-        Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
+        Assertions.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
+        Assertions.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
 
         try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(DESTINATION_FOLDER + outFileName))) {
             String expectedProdLine = createExpectedProducerLine(
                     new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
-            Assert.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
+            Assertions.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
         }
     }
 
@@ -251,14 +250,14 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
                 new PdfWriter(DESTINATION_FOLDER + outFileName));
 
         List<ConfirmEvent> events = handler.getEvents();
-        Assert.assertEquals(1, events.size());
+        Assertions.assertEquals(1, events.size());
 
         AbstractProductProcessITextEvent event = events.get(0).getConfirmedEvent();
-        Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, event.getEventType());
+        Assertions.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, event.getEventType());
 
         try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(DESTINATION_FOLDER + outFileName))) {
             String expectedProdLine = createExpectedProducerLine(new ConfirmedEventWrapper[] {getPdfHtmlEvent()});
-            Assert.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
+            Assertions.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
         }
     }
 
@@ -270,18 +269,18 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
         }
 
         List<ConfirmEvent> events = handler.getEvents();
-        Assert.assertEquals(2, events.size());
+        Assertions.assertEquals(2, events.size());
 
         AbstractProductProcessITextEvent event = events.get(0).getConfirmedEvent();
-        Assert.assertEquals(ITextCoreProductEvent.PROCESS_PDF, event.getEventType());
+        Assertions.assertEquals(ITextCoreProductEvent.PROCESS_PDF, event.getEventType());
 
         event = events.get(1).getConfirmedEvent();
-        Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, event.getEventType());
+        Assertions.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, event.getEventType());
 
         try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(DESTINATION_FOLDER + outFileName))) {
             String expectedProdLine = createExpectedProducerLine(
                     new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
-            Assert.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
+            Assertions.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
         }
     }
 
@@ -305,22 +304,22 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
 
         List<AbstractProductProcessITextEvent> events = CONFIGURATION_ACCESS.getPublicEvents(docSequenceId);
 
-        Assert.assertEquals(2, events.size());
+        Assertions.assertEquals(2, events.size());
 
-        Assert.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
+        Assertions.assertTrue(events.get(0) instanceof ConfirmedEventWrapper);
         ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper) events.get(0);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
-        Assert.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
+        Assertions.assertTrue(confirmedEventWrapper.getEvent() instanceof ITextCoreProductEvent);
+        Assertions.assertEquals(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.getEvent().getEventType());
 
-        Assert.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
+        Assertions.assertTrue(events.get(1) instanceof ConfirmedEventWrapper);
         confirmedEventWrapper = (ConfirmedEventWrapper) events.get(1);
-        Assert.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
-        Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
+        Assertions.assertTrue(confirmedEventWrapper.getEvent() instanceof PdfHtmlProductEvent);
+        Assertions.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.getEvent().getEventType());
 
         try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(new ByteArrayInputStream(baos.toByteArray())))) {
             String expectedProdLine = createExpectedProducerLine(
                     new ConfirmedEventWrapper[] {getCoreEvent(), getPdfHtmlEvent()});
-            Assert.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
+            Assertions.assertEquals(expectedProdLine, pdfDocument.getDocumentInfo().getProducer());
         }
     }
 
@@ -372,7 +371,7 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
 
     private void validatePdfProducerLine(String filePath, String expected) throws IOException {
         try (PdfDocument pdfDocument = new PdfDocument(new PdfReader(filePath))) {
-            Assert.assertEquals(expected, pdfDocument.getDocumentInfo().getProducer());
+            Assertions.assertEquals(expected, pdfDocument.getDocumentInfo().getProducer());
         }
     }
 
@@ -408,7 +407,7 @@ public class Html2PdfEventsHandlingTest extends ExtendedITextTest {
             } else if (elem instanceof AreaBreak) {
                 document.add((AreaBreak) elem);
             } else {
-                Assert.fail(
+                Assertions.fail(
                         "The #convertToElements method gave element which is unsupported as root element, it's unexpected.");
             }
         }

@@ -24,21 +24,18 @@ package com.itextpdf.html2pdf.css.grid;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/grid/GridTemplateRowTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/grid/GridTemplateRowTest/";
 
-    //TODO DEVSIX-3340 change cmp files when GRID LAYOUT is supported
-
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
@@ -46,6 +43,11 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void templateRowAutoTest() throws IOException, InterruptedException {
         runTest("template-rows-auto");
+    }
+
+    @Test
+    public void autoRowFixedTest() throws IOException, InterruptedException {
+        runTest("auto-rows-fixed");
     }
 
     @Test
@@ -71,6 +73,11 @@ public class GridTemplateRowTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void templateRowFitContentAutoTest() throws IOException, InterruptedException {
         runTest("template-rows-fit-content-auto");
+    }
+
+    @Test
+    public void rowFitContentPercentTest() throws IOException, InterruptedException {
+        runTest("row-fit-content-percent");
     }
 
     @Test

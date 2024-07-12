@@ -32,21 +32,20 @@ import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor;
 import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class DirectionTest extends ExtendedHtmlConversionITextTest {
     private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/DirectionTest/";
     private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/DirectionTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(DESTINATION_FOLDER);
     }
@@ -57,20 +56,20 @@ public class DirectionTest extends ExtendedHtmlConversionITextTest {
                     LogLevelConstants.WARN)
     })
     public void simpleLtrDocTest() throws IOException {
-        Assert.assertTrue(getTextFromDocument(convertToHtmlDocument("SimpleLtrDoc"),
+        Assertions.assertTrue(getTextFromDocument(convertToHtmlDocument("SimpleLtrDoc"),
                 1).contains("123456789."));
     }
 
     @Test
     public void simpleLtrElementDocTest() throws IOException {
-        Assert.assertTrue(getTextFromDocument(convertToHtmlDocument("SimpleLtrElementDoc"),
+        Assertions.assertTrue(getTextFromDocument(convertToHtmlDocument("SimpleLtrElementDoc"),
                 1).contains("123456789."));
     }
 
     //TODO DEVSIX-1920: RTL ignored. Change test after fix
     @Test
     public void simpleRtlElementDocTest() throws IOException {
-        Assert.assertFalse(getTextFromDocument(convertToHtmlDocument("SimpleRtlElementDoc"),
+        Assertions.assertFalse(getTextFromDocument(convertToHtmlDocument("SimpleRtlElementDoc"),
                 1).contains(".Right to left text"));
     }
 
@@ -81,7 +80,7 @@ public class DirectionTest extends ExtendedHtmlConversionITextTest {
                     LogLevelConstants.WARN)
     })
     public void ltrInRtlDocTest() throws IOException {
-        Assert.assertFalse(getTextFromDocument(convertToHtmlDocument("LtrInRtlDoc"),
+        Assertions.assertFalse(getTextFromDocument(convertToHtmlDocument("LtrInRtlDoc"),
                 1).contains("!Right to left text"));
     }
 
@@ -92,7 +91,7 @@ public class DirectionTest extends ExtendedHtmlConversionITextTest {
                     LogLevelConstants.WARN)
     })
     public void rtlInLtrDocTest() throws IOException {
-        Assert.assertFalse(getTextFromDocument(convertToHtmlDocument("RtlInLtrDoc"),
+        Assertions.assertFalse(getTextFromDocument(convertToHtmlDocument("RtlInLtrDoc"),
                 1).contains("!Right to left text"));
     }
 

@@ -28,27 +28,23 @@ import com.itextpdf.kernel.exceptions.KernelExceptionMessageConstant;
 import com.itextpdf.kernel.exceptions.PdfException;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.xml.sax.SAXException;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class TaggedPdfFormTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/TaggedPdfFormTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/TaggedPdfFormTest/";
-    @Rule
-    public ExpectedException junitExpectedException = ExpectedException.none();
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -113,7 +109,7 @@ public class TaggedPdfFormTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-980. DefaultHtmlProcessor ERROR No worker found for tag datalist")
+    @Disabled("DEVSIX-980. DefaultHtmlProcessor ERROR No worker found for tag datalist")
     public void dataListFormTagged()
             throws IOException, InterruptedException, ParserConfigurationException, SAXException {
         convertToPdfAcroformFlattenAndCompare("dataListForm", sourceFolder, destinationFolder, true);
@@ -126,14 +122,12 @@ public class TaggedPdfFormTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-4601 exception is thrown on \"convert tagged PDF with acroform\" stage")
-    public void inputFormPrematureFlush()
-            throws IOException, InterruptedException, ParserConfigurationException, SAXException {
-        junitExpectedException.expect(PdfException.class);
-        junitExpectedException.expectMessage(
-                KernelExceptionMessageConstant.TAG_STRUCTURE_FLUSHING_FAILED_IT_MIGHT_BE_CORRUPTED);
-
-        convertToPdfAcroformFlattenAndCompare("inputFormPrematureFlush",
-                sourceFolder, destinationFolder, true);
+    @Disabled("DEVSIX-4601 exception is thrown on \"convert tagged PDF with acroform\" stage")
+    public void inputFormPrematureFlush() {
+        Exception exception = Assertions.assertThrows(PdfException.class,
+                () -> convertToPdfAcroformFlattenAndCompare("inputFormPrematureFlush",
+                        sourceFolder, destinationFolder, true));
+        Assertions.assertEquals(KernelExceptionMessageConstant.TAG_STRUCTURE_FLUSHING_FAILED_IT_MIGHT_BE_CORRUPTED,
+                exception);
     }
 }

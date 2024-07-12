@@ -28,21 +28,20 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfDocumentInfo;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class MetaTest extends ExtendedHtmlConversionITextTest {
     private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/element/MetaTest/";
     private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/element/MetaTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(DESTINATION_FOLDER);
     }
@@ -52,10 +51,10 @@ public class MetaTest extends ExtendedHtmlConversionITextTest {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "metaTest01.html"), new File(DESTINATION_FOLDER + "metaTest01.pdf"));
         PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(DESTINATION_FOLDER + "metaTest01.pdf")).getDocumentInfo();
         CompareTool compareTool = new CompareTool();
-        Assert.assertNull(compareTool.compareByContent(DESTINATION_FOLDER + "metaTest01.pdf", SOURCE_FOLDER + "cmp_metaTest01.pdf",
+        Assertions.assertNull(compareTool.compareByContent(DESTINATION_FOLDER + "metaTest01.pdf", SOURCE_FOLDER + "cmp_metaTest01.pdf",
                 DESTINATION_FOLDER, "diff01_"));
-        Assert.assertNull(compareTool.compareDocumentInfo(DESTINATION_FOLDER + "metaTest01.pdf", SOURCE_FOLDER + "cmp_metaTest01.pdf"));
-        Assert.assertEquals(pdfDocInfo.getMoreInfo("test"), "the test content");
+        Assertions.assertNull(compareTool.compareDocumentInfo(DESTINATION_FOLDER + "metaTest01.pdf", SOURCE_FOLDER + "cmp_metaTest01.pdf"));
+        Assertions.assertEquals(pdfDocInfo.getMoreInfo("test"), "the test content");
     }
 
     @Test
@@ -65,23 +64,23 @@ public class MetaTest extends ExtendedHtmlConversionITextTest {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "metaTest02.html"), new File(DESTINATION_FOLDER + "metaTest02.pdf"));
         PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(DESTINATION_FOLDER + "metaTest02.pdf")).getDocumentInfo();
         CompareTool compareTool = new CompareTool();
-        Assert.assertNull(compareTool.compareByContent(DESTINATION_FOLDER + "metaTest02.pdf", SOURCE_FOLDER + "cmp_metaTest02.pdf",
+        Assertions.assertNull(compareTool.compareByContent(DESTINATION_FOLDER + "metaTest02.pdf", SOURCE_FOLDER + "cmp_metaTest02.pdf",
                 DESTINATION_FOLDER, "diff02_"));
-        Assert.assertNull(compareTool.compareDocumentInfo(DESTINATION_FOLDER + "metaTest02.pdf", SOURCE_FOLDER + "cmp_metaTest02.pdf"));
-        Assert.assertEquals(pdfDocInfo.getAuthor(), "Bruno Lowagie");
-        Assert.assertEquals(pdfDocInfo.getKeywords(), "metadata, keywords, test");
-        Assert.assertEquals(pdfDocInfo.getSubject(), "This is the description of the page");
-        Assert.assertEquals(pdfDocInfo.getMoreInfo("generator"), "Eugenerator Onegenerator");
-        Assert.assertEquals(pdfDocInfo.getMoreInfo("subject"), "Trying to break iText and write pdf's Subject with subject instead of description name");
+        Assertions.assertNull(compareTool.compareDocumentInfo(DESTINATION_FOLDER + "metaTest02.pdf", SOURCE_FOLDER + "cmp_metaTest02.pdf"));
+        Assertions.assertEquals(pdfDocInfo.getAuthor(), "Bruno Lowagie");
+        Assertions.assertEquals(pdfDocInfo.getKeywords(), "metadata, keywords, test");
+        Assertions.assertEquals(pdfDocInfo.getSubject(), "This is the description of the page");
+        Assertions.assertEquals(pdfDocInfo.getMoreInfo("generator"), "Eugenerator Onegenerator");
+        Assertions.assertEquals(pdfDocInfo.getMoreInfo("subject"), "Trying to break iText and write pdf's Subject with subject instead of description name");
     }
 
     @Test
     public void meta03Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "metaTest03.html"), new File(DESTINATION_FOLDER + "metaTest03.pdf"));
         CompareTool compareTool = new CompareTool();
-        Assert.assertNull(compareTool.compareByContent(DESTINATION_FOLDER + "metaTest03.pdf", SOURCE_FOLDER + "cmp_metaTest03.pdf",
+        Assertions.assertNull(compareTool.compareByContent(DESTINATION_FOLDER + "metaTest03.pdf", SOURCE_FOLDER + "cmp_metaTest03.pdf",
                 DESTINATION_FOLDER, "diff03_"));
-        Assert.assertNull(compareTool.compareDocumentInfo(DESTINATION_FOLDER + "metaTest03.pdf", SOURCE_FOLDER + "cmp_metaTest03.pdf"));
+        Assertions.assertNull(compareTool.compareDocumentInfo(DESTINATION_FOLDER + "metaTest03.pdf", SOURCE_FOLDER + "cmp_metaTest03.pdf"));
     }
 
     @Test
@@ -92,7 +91,7 @@ public class MetaTest extends ExtendedHtmlConversionITextTest {
         HtmlConverter.convertToPdf(new File(srcHtml), new File(outPdf));
         PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(outPdf)).getDocumentInfo();
         CompareTool compareTool = new CompareTool();
-        Assert.assertNull(compareTool.compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER, "metaAppName_"));
-        Assert.assertEquals("iText", pdfDocInfo.getCreator());
+        Assertions.assertNull(compareTool.compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER, "metaAppName_"));
+        Assertions.assertEquals("iText", pdfDocInfo.getCreator());
     }
 }

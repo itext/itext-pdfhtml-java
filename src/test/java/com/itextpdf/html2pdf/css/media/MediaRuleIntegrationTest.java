@@ -26,14 +26,13 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class MediaRuleIntegrationTest extends ExtendedHtmlConversionITextTest {
     public static final String SOURCE_FOLDER =
             "./src/test/resources/com/itextpdf/html2pdf/css/media/MediaRuleIntegrationTest/";
@@ -41,7 +40,7 @@ public class MediaRuleIntegrationTest extends ExtendedHtmlConversionITextTest {
             "./target/test/com/itextpdf/html2pdf/css/media/MediaRuleIntegrationTest";
 
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }

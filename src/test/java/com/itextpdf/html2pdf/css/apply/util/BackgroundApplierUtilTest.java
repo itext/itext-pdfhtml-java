@@ -46,18 +46,17 @@ import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.UnitTest;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class BackgroundApplierUtilTest extends ExtendedITextTest {
     private static final double EPS = 0.000001;
 
@@ -69,11 +68,11 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
         IPropertyContainer container = new BodyHtmlStylesContainer() {
             @Override
             public void setProperty(int property, Object value) {
-                Assert.assertEquals(Property.BACKGROUND, property);
-                Assert.assertTrue(value instanceof Background);
+                Assertions.assertEquals(Property.BACKGROUND, property);
+                Assertions.assertTrue(value instanceof Background);
                 Background backgroundValue = (Background) value;
-                Assert.assertEquals(new DeviceRgb(1.0f, 0.0f, 0.0f), backgroundValue.getColor());
-                Assert.assertEquals(1.0f, backgroundValue.getOpacity(), EPS);
+                Assertions.assertEquals(new DeviceRgb(1.0f, 0.0f, 0.0f), backgroundValue.getColor());
+                Assertions.assertEquals(1.0f, backgroundValue.getOpacity(), EPS);
             }
         };
         Map<String, String> props = new HashMap<>();
@@ -91,19 +90,19 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(1, values.size());
+                Assertions.assertEquals(1, values.size());
                 for (Object value : values) {
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
                     PdfImageXObject pdfImage = image.getImage();
-                    Assert.assertNotNull(pdfImage);
+                    Assertions.assertNotNull(pdfImage);
                     PdfXObject expectedImage = innerContext.getResourceResolver().retrieveImage(
                             CssUtils.extractUrl(innerImage));
-                    Assert.assertTrue(expectedImage instanceof PdfImageXObject);
-                    Assert.assertEquals(Arrays.toString(((PdfImageXObject) expectedImage).getImageBytes()),
+                    Assertions.assertTrue(expectedImage instanceof PdfImageXObject);
+                    Assertions.assertEquals(Arrays.toString(((PdfImageXObject) expectedImage).getImageBytes()),
                             Arrays.toString(pdfImage.getImageBytes()));
                 }
             }
@@ -125,7 +124,7 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.fail();
+                Assertions.fail();
             }
         };
         Map<String, String> props = new HashMap<>();
@@ -142,15 +141,15 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(1, values.size());
+                Assertions.assertEquals(1, values.size());
                 for (Object value : values) {
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getXAxisRepeat());
-                    Assert.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getYAxisRepeat());
+                    Assertions.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getXAxisRepeat());
+                    Assertions.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getYAxisRepeat());
                 }
             }
         };
@@ -169,15 +168,15 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(1, values.size());
+                Assertions.assertEquals(1, values.size());
                 for (Object value : values) {
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(BackgroundRepeatValue.REPEAT, image.getRepeat().getXAxisRepeat());
-                    Assert.assertEquals(BackgroundRepeatValue.REPEAT, image.getRepeat().getYAxisRepeat());
+                    Assertions.assertEquals(BackgroundRepeatValue.REPEAT, image.getRepeat().getXAxisRepeat());
+                    Assertions.assertEquals(BackgroundRepeatValue.REPEAT, image.getRepeat().getYAxisRepeat());
                 }
             }
         };
@@ -198,20 +197,20 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(imagesArray.length, values.size());
+                Assertions.assertEquals(imagesArray.length, values.size());
                 for (int i = 0; i < values.size(); i++) {
                     Object value = values.get(i);
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
                     PdfImageXObject pdfImage = image.getImage();
-                    Assert.assertNotNull(pdfImage);
+                    Assertions.assertNotNull(pdfImage);
                     PdfXObject expectedImage = innerContext.getResourceResolver().retrieveImage(
                             CssUtils.extractUrl(imagesArray[i]));
-                    Assert.assertTrue(expectedImage instanceof PdfImageXObject);
-                    Assert.assertEquals(Arrays.toString(((PdfImageXObject) expectedImage).getImageBytes()),
+                    Assertions.assertTrue(expectedImage instanceof PdfImageXObject);
+                    Assertions.assertEquals(Arrays.toString(((PdfImageXObject) expectedImage).getImageBytes()),
                             Arrays.toString(pdfImage.getImageBytes()));
                 }
             }
@@ -231,16 +230,16 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(imagesArray.length, values.size());
+                Assertions.assertEquals(imagesArray.length, values.size());
                 for (int i = 0; i < values.size(); i++) {
                     Object value = values.get(i);
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getXAxisRepeat());
-                    Assert.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getYAxisRepeat());
+                    Assertions.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getXAxisRepeat());
+                    Assertions.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getYAxisRepeat());
                 }
             }
         };
@@ -260,20 +259,20 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(imagesArray.length, values.size());
+                Assertions.assertEquals(imagesArray.length, values.size());
                 for (int i = 0; i < values.size(); i++) {
                     Object value = values.get(i);
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
                     if (i == 0) {
-                        Assert.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getXAxisRepeat());
-                        Assert.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getYAxisRepeat());
+                        Assertions.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getXAxisRepeat());
+                        Assertions.assertEquals(BackgroundRepeatValue.NO_REPEAT, image.getRepeat().getYAxisRepeat());
                     } else {
-                        Assert.assertEquals(BackgroundRepeatValue.REPEAT, image.getRepeat().getXAxisRepeat());
-                        Assert.assertEquals(BackgroundRepeatValue.REPEAT, image.getRepeat().getYAxisRepeat());
+                        Assertions.assertEquals(BackgroundRepeatValue.REPEAT, image.getRepeat().getXAxisRepeat());
+                        Assertions.assertEquals(BackgroundRepeatValue.REPEAT, image.getRepeat().getYAxisRepeat());
                     }
 
                 }
@@ -295,24 +294,24 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object value) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(value instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(value instanceof List);
                 List values = (List) value;
-                Assert.assertEquals(gradientsArray.size(), values.size());
+                Assertions.assertEquals(gradientsArray.size(), values.size());
                 for (int i = 0; i < values.size(); ++i) {
-                    Assert.assertTrue(values.get(i) instanceof BackgroundImage);
+                    Assertions.assertTrue(values.get(i) instanceof BackgroundImage);
                     AbstractLinearGradientBuilder builder =
                             ((BackgroundImage) values.get(i)).getLinearGradientBuilder();
-                    Assert.assertTrue(builder instanceof StrategyBasedLinearGradientBuilder);
+                    Assertions.assertTrue(builder instanceof StrategyBasedLinearGradientBuilder);
 
                     StrategyBasedLinearGradientBuilder expectedGradientBuilder =
                             CssGradientUtil.parseCssLinearGradient(gradientsArray.get(i), fontSize, fontSize);
-                    Assert.assertNotNull(expectedGradientBuilder);
+                    Assertions.assertNotNull(expectedGradientBuilder);
                     StrategyBasedLinearGradientBuilder actualGradientBuilder =
                             (StrategyBasedLinearGradientBuilder) builder;
-                    Assert.assertEquals(expectedGradientBuilder.getSpreadMethod(),
+                    Assertions.assertEquals(expectedGradientBuilder.getSpreadMethod(),
                             actualGradientBuilder.getSpreadMethod());
-                    Assert.assertEquals(expectedGradientBuilder.getColorStops(), actualGradientBuilder.getColorStops());
+                    Assertions.assertEquals(expectedGradientBuilder.getColorStops(), actualGradientBuilder.getColorStops());
                 }
             }
         };
@@ -332,23 +331,23 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(1, values.size());
+                Assertions.assertEquals(1, values.size());
                 for (Object value : values) {
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     AbstractLinearGradientBuilder builder = ((BackgroundImage) value).getLinearGradientBuilder();
-                    Assert.assertTrue(builder instanceof StrategyBasedLinearGradientBuilder);
+                    Assertions.assertTrue(builder instanceof StrategyBasedLinearGradientBuilder);
 
                     StrategyBasedLinearGradientBuilder expectedGradientBuilder =
                             CssGradientUtil.parseCssLinearGradient(gradient, fontSize, fontSize);
-                    Assert.assertNotNull(expectedGradientBuilder);
+                    Assertions.assertNotNull(expectedGradientBuilder);
                     StrategyBasedLinearGradientBuilder actualGradientBuilder =
                             (StrategyBasedLinearGradientBuilder) builder;
-                    Assert.assertEquals(expectedGradientBuilder.getSpreadMethod(),
+                    Assertions.assertEquals(expectedGradientBuilder.getSpreadMethod(),
                             actualGradientBuilder.getSpreadMethod());
-                    Assert.assertEquals(expectedGradientBuilder.getColorStops(), actualGradientBuilder.getColorStops());
+                    Assertions.assertEquals(expectedGradientBuilder.getColorStops(), actualGradientBuilder.getColorStops());
                 }
             }
         };
@@ -366,16 +365,16 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(1, values.size());
+                Assertions.assertEquals(1, values.size());
                 for (Object value : values) {
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(BackgroundPosition.PositionX.RIGHT,
+                    Assertions.assertEquals(BackgroundPosition.PositionX.RIGHT,
                             image.getBackgroundPosition().getPositionX());
-                    Assert.assertEquals(BackgroundPosition.PositionY.CENTER,
+                    Assertions.assertEquals(BackgroundPosition.PositionY.CENTER,
                             image.getBackgroundPosition().getPositionY());
                 }
             }
@@ -396,16 +395,16 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(1, values.size());
+                Assertions.assertEquals(1, values.size());
                 for (Object value : values) {
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(BackgroundPosition.PositionX.LEFT,
+                    Assertions.assertEquals(BackgroundPosition.PositionX.LEFT,
                             image.getBackgroundPosition().getPositionX());
-                    Assert.assertEquals(BackgroundPosition.PositionY.TOP, image.getBackgroundPosition().getPositionY());
+                    Assertions.assertEquals(BackgroundPosition.PositionY.TOP, image.getBackgroundPosition().getPositionY());
                 }
             }
         };
@@ -424,16 +423,16 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(1, values.size());
+                Assertions.assertEquals(1, values.size());
                 for (Object value : values) {
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(BackgroundPosition.PositionX.LEFT,
+                    Assertions.assertEquals(BackgroundPosition.PositionX.LEFT,
                             image.getBackgroundPosition().getPositionX());
-                    Assert.assertEquals(BackgroundPosition.PositionY.TOP, image.getBackgroundPosition().getPositionY());
+                    Assertions.assertEquals(BackgroundPosition.PositionY.TOP, image.getBackgroundPosition().getPositionY());
                 }
             }
         };
@@ -454,16 +453,16 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(imagesArray.length, values.size());
+                Assertions.assertEquals(imagesArray.length, values.size());
                 BackgroundPosition position = new BackgroundPosition().setPositionX(BackgroundPosition.PositionX.LEFT)
                         .setPositionY(BackgroundPosition.PositionY.BOTTOM).setYShift(UnitValue.createPointValue(20));
                 for (Object value : values) {
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(position, image.getBackgroundPosition());
+                    Assertions.assertEquals(position, image.getBackgroundPosition());
                 }
             }
         };
@@ -484,16 +483,16 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(imagesArray.length, values.size());
+                Assertions.assertEquals(imagesArray.length, values.size());
                 BackgroundPosition position = new BackgroundPosition().setPositionX(BackgroundPosition.PositionX.RIGHT)
                         .setPositionY(BackgroundPosition.PositionY.TOP).setXShift(UnitValue.createPointValue(30));
                 for (Object value : values) {
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(position, image.getBackgroundPosition());
+                    Assertions.assertEquals(position, image.getBackgroundPosition());
                 }
             }
         };
@@ -514,16 +513,16 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(imagesArray.length, values.size());
+                Assertions.assertEquals(imagesArray.length, values.size());
                 BackgroundPosition position = new BackgroundPosition().setPositionX(BackgroundPosition.PositionX.CENTER)
                         .setPositionY(BackgroundPosition.PositionY.CENTER);
                 for (Object value : values) {
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(position, image.getBackgroundPosition());
+                    Assertions.assertEquals(position, image.getBackgroundPosition());
                 }
             }
         };
@@ -544,10 +543,10 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(imagesArray.length, values.size());
+                Assertions.assertEquals(imagesArray.length, values.size());
                 BackgroundPosition[] positions = new BackgroundPosition[] {
                         new BackgroundPosition().setPositionX(BackgroundPosition.PositionX.LEFT).setPositionY(
                                 BackgroundPosition.PositionY.CENTER),
@@ -558,9 +557,9 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                 };
                 for (int i = 0; i < values.size(); i++) {
                     Object value = values.get(i);
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(positions[i], image.getBackgroundPosition());
+                    Assertions.assertEquals(positions[i], image.getBackgroundPosition());
                 }
             }
         };
@@ -581,10 +580,10 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(imagesArray.length, values.size());
+                Assertions.assertEquals(imagesArray.length, values.size());
                 BackgroundPosition[] positions = new BackgroundPosition[] {
                         new BackgroundPosition(),
                         new BackgroundPosition().setPositionY(BackgroundPosition.PositionY.BOTTOM),
@@ -592,9 +591,9 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
                 };
                 for (int i = 0; i < values.size(); i++) {
                     Object value = values.get(i);
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(positions[i], image.getBackgroundPosition());
+                    Assertions.assertEquals(positions[i], image.getBackgroundPosition());
                 }
             }
         };
@@ -614,15 +613,15 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(1, values.size());
+                Assertions.assertEquals(1, values.size());
                 for (Object value : values) {
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(BackgroundBox.CONTENT_BOX, image.getBackgroundClip());
-                    Assert.assertEquals(BackgroundBox.PADDING_BOX, image.getBackgroundOrigin());
+                    Assertions.assertEquals(BackgroundBox.CONTENT_BOX, image.getBackgroundClip());
+                    Assertions.assertEquals(BackgroundBox.PADDING_BOX, image.getBackgroundOrigin());
                 }
             }
         };
@@ -640,10 +639,10 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND, property);
-                Assert.assertTrue(propertyValue instanceof Background);
+                Assertions.assertEquals(Property.BACKGROUND, property);
+                Assertions.assertTrue(propertyValue instanceof Background);
                 Background color = (Background) propertyValue;
-                Assert.assertEquals(BackgroundBox.CONTENT_BOX, color.getBackgroundClip());
+                Assertions.assertEquals(BackgroundBox.CONTENT_BOX, color.getBackgroundClip());
             }
         };
         Map<String, String> props = new HashMap<>();
@@ -661,16 +660,16 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
 
             @Override
             public void setProperty(int property, Object propertyValue) {
-                Assert.assertEquals(Property.BACKGROUND_IMAGE, property);
-                Assert.assertTrue(propertyValue instanceof List);
+                Assertions.assertEquals(Property.BACKGROUND_IMAGE, property);
+                Assertions.assertTrue(propertyValue instanceof List);
                 List values = (List) propertyValue;
-                Assert.assertEquals(imagesArray.length, values.size());
+                Assertions.assertEquals(imagesArray.length, values.size());
                 for (int i = 0; i < values.size(); i++) {
                     Object value = values.get(i);
-                    Assert.assertTrue(value instanceof BackgroundImage);
+                    Assertions.assertTrue(value instanceof BackgroundImage);
                     BackgroundImage image = (BackgroundImage) value;
-                    Assert.assertEquals(BackgroundBox.CONTENT_BOX, image.getBackgroundClip());
-                    Assert.assertEquals(BackgroundBox.BORDER_BOX, image.getBackgroundOrigin());
+                    Assertions.assertEquals(BackgroundBox.CONTENT_BOX, image.getBackgroundClip());
+                    Assertions.assertEquals(BackgroundBox.BORDER_BOX, image.getBackgroundOrigin());
                 }
             }
         };
@@ -695,16 +694,16 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
         BackgroundApplierUtil.applyBackground(props, context, container);
         List<BackgroundImage> backgroundImages = container.<List<BackgroundImage>>getProperty(
                 Property.BACKGROUND_IMAGE);
-        Assert.assertNotNull(backgroundImages);
-        Assert.assertEquals(2, backgroundImages.size());
+        Assertions.assertNotNull(backgroundImages);
+        Assertions.assertEquals(2, backgroundImages.size());
         BackgroundImage imageObj1 = backgroundImages.get(0);
-        Assert.assertNotNull(imageObj1);
-        Assert.assertEquals(BackgroundBox.CONTENT_BOX, imageObj1.getBackgroundClip());
-        Assert.assertEquals(BackgroundBox.BORDER_BOX, imageObj1.getBackgroundOrigin());
+        Assertions.assertNotNull(imageObj1);
+        Assertions.assertEquals(BackgroundBox.CONTENT_BOX, imageObj1.getBackgroundClip());
+        Assertions.assertEquals(BackgroundBox.BORDER_BOX, imageObj1.getBackgroundOrigin());
         BackgroundImage imageObj2 = backgroundImages.get(1);
-        Assert.assertNotNull(imageObj2);
-        Assert.assertEquals(BackgroundBox.PADDING_BOX, imageObj2.getBackgroundClip());
-        Assert.assertEquals(BackgroundBox.CONTENT_BOX, imageObj2.getBackgroundOrigin());
+        Assertions.assertNotNull(imageObj2);
+        Assertions.assertEquals(BackgroundBox.PADDING_BOX, imageObj2.getBackgroundClip());
+        Assertions.assertEquals(BackgroundBox.CONTENT_BOX, imageObj2.getBackgroundOrigin());
     }
 
     @Test
@@ -721,19 +720,19 @@ public class BackgroundApplierUtilTest extends ExtendedITextTest {
         props.put(CssConstants.BACKGROUND_ORIGIN, origins);
         BackgroundApplierUtil.applyBackground(props, context, container);
         Background background = container.<Background>getProperty(Property.BACKGROUND);
-        Assert.assertNotNull(background);
-        Assert.assertEquals(BackgroundBox.PADDING_BOX, background.getBackgroundClip());
+        Assertions.assertNotNull(background);
+        Assertions.assertEquals(BackgroundBox.PADDING_BOX, background.getBackgroundClip());
         List<BackgroundImage> backgroundImages =  container.<List<BackgroundImage>>getProperty(
                 Property.BACKGROUND_IMAGE);
-        Assert.assertNotNull(backgroundImages);
-        Assert.assertEquals(2, backgroundImages.size());
+        Assertions.assertNotNull(backgroundImages);
+        Assertions.assertEquals(2, backgroundImages.size());
         BackgroundImage imageObj1 = backgroundImages.get(0);
-        Assert.assertNotNull(imageObj1);
-        Assert.assertEquals(BackgroundBox.CONTENT_BOX, imageObj1.getBackgroundClip());
-        Assert.assertEquals(BackgroundBox.BORDER_BOX, imageObj1.getBackgroundOrigin());
+        Assertions.assertNotNull(imageObj1);
+        Assertions.assertEquals(BackgroundBox.CONTENT_BOX, imageObj1.getBackgroundClip());
+        Assertions.assertEquals(BackgroundBox.BORDER_BOX, imageObj1.getBackgroundOrigin());
         BackgroundImage imageObj2 = backgroundImages.get(1);
-        Assert.assertNotNull(imageObj2);
-        Assert.assertEquals(BackgroundBox.PADDING_BOX, imageObj2.getBackgroundClip());
-        Assert.assertEquals(BackgroundBox.CONTENT_BOX, imageObj2.getBackgroundOrigin());
+        Assertions.assertNotNull(imageObj2);
+        Assertions.assertEquals(BackgroundBox.PADDING_BOX, imageObj2.getBackgroundClip());
+        Assertions.assertEquals(BackgroundBox.CONTENT_BOX, imageObj2.getBackgroundOrigin());
     }
 }

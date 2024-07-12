@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 600px 150px;
+            grid-template-rows: auto;
+            row-gap: 20px;
+            column-gap: 20px;
+            padding: 20px;
+        }
+		table {
+            border-collapse: collapse;
+            margin-top: 20px;
+			width: 100%;
+			text-align: center;
+			background-color: white;
+        }
+        table th, table td {
+            border: 1px solid gray;
+            padding: 10px;
+        }
+        table th {
+            background-color: #81b29a;
+        }
+        .grid-elem {
+            background-color: lightskyblue;
+            padding: 20px;
+            border-radius: 0.5rem;
+        }
+		article {
+			color: gray;
+			text-align: right;
+		}
+		aside {
+			color: black;
+            padding: 5px;
+            text-align: center;
+		}
+		ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="grid-elem">
+            <table>
+                <thead>
+                    <tr>
+                        <th>H1</th>
+                        <th>H2</th>
+                        <th>H3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <ol>
+								<li>Ordered1</li>
+								<li>Ordered2</li>
+								<li>Ordered3</li>
+								<li>Ordered4</li>
+								<li>Ordered5</li>
+							</ol>
+                        </td>
+                        <td>
+							<form>
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name" required><br>
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" required><br>
+                                <button type="submit">Submit</button>
+                            </form>
+                        </td>
+                        <td>
+                            <article>
+                                <h2>Article Title</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean magna ante, viverra in auctor eget, semper ac nisl.</p>
+                            </article>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <aside>
+                                <h2>H2 title aside</h2>
+                                <p>Some text for content.</p>
+                            </aside>
+                        </td>
+                        <td>
+							<ul>
+								<li>List item</li>
+								<li>List item</li>
+								<li>List item</li>
+								<li>List item</li>
+								<li>List item</li>
+							</ul>
+                        </td>
+                        <td>
+                            <div>
+                                Text nested div
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+		<div class="grid-elem">
+		L1:2
+		</div>
+		<div class="grid-elem">
+		L1:3
+		</div>
+		<div class="grid-elem">
+		L1:4
+		</div>
+    </div>
+</body>
+</html>

@@ -27,7 +27,6 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-//TODO DEVSIX-7554 change after column-gap is supported
 //TODO DEVSIX-7616 change after row-gap is supported
 //TODO DEVSIX-5164 change after align-content: flex-start is supported
 @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 6))

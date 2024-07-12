@@ -23,11 +23,7 @@
 package com.itextpdf.html2pdf.css.w3c.css_multicol;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.io.logs.IoLogMessageConstant;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
-@LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)})
 public class AsColumnFlexItemTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

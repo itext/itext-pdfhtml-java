@@ -1,11 +1,9 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 309>>stream
-xœ’Ënƒ0E÷þŠY¦‹ºà7ÛHé¾?€ÀW0mÔ¯ïPd))¨)Hò½>>Ì…ìSòòCl -	W µ¤
-_
-²Ûg½Ë!oëáÔ<çíÐø§ôì`¼RòF.ó´4™ÒÞö>¯ ¬íõq’Ê¦¤­íÉ6¾ÿ½šAÌÂêˆS­~V§•ë/_Y(]‡›ž³.;vÙ¹‚¶?/ï}Ó¦LB“©m:­û²¼ñˆAÿ
-JFã9Fo1[Üq<fà†ò©j¬XÁÁbA9mP‰˜+i‡ÿÁ:'¡R¡±ÖKst³ÀãÊÍ81*ÚŠ£LDå§w×­8J© |3Aíýä|`¸Z3:	£JƒNd€Y9>¡@ê% ëŽÕjA¡Rˆ0x"~ö-Ÿéù7ŽÂ‡|Œó”ë\†
+<</Filter/FlateDecode/Length 302>>stream
+xœ’Qoƒ …ßù÷±{A”×&Ýûÿ€Q¬,V[Á­Ù¯ßu†d›n-&†DrÏáãp.dŸ“§g,ƒ¼&\Bš&TâOEvûÂšÊ¾OÝcÙ{È_É¦õ“rYªAÕ¬vÚ:x7®ºÕ×ÛJ.h<+u«Oºsö÷t,öÓ§©üšÎc?×h¨Í€‡ž‹¡8Å¹¾ž¶×Ïþæ&3EÕì6ßÖ|è
+/Þ9Ä ÿ	¥ l‰a5j«·’ˆòÙj²àˆ™ œCša$bI?øa™xK‰¹ˆÐ\¼X`6+<¦ÞŒÃ1¢Í8‘ ÉÇšëV©"x8ÎÔµ‚£ßPÜTÇû%Ì§X®b*Ó¿ê£Í±	È[nª¯×Ç-â¹ç¾ú|YÃ\`
 endstream
 endobj
 4 0 obj
@@ -19,11 +17,11 @@ endobj
 8 0 obj
 <</Contents 9 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 7 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
 endobj
+3 0 obj
+<</CreationDate(D:20240709175528+03'00')/ModDate(D:20240709175528+03'00')/Producer(iText® Core 8.0.5-SNAPSHOT \(AGPL version\), pdfHTML 5.0.5-SNAPSHOT \(AGPL version\) ©2000-2024 Apryse Group NV)/Title(Float Elements with Column Count)>>
+endobj
 1 0 obj
 <</Pages 2 0 R/Type/Catalog>>
-endobj
-3 0 obj
-<</CreationDate(D:20230718202010+03'00')/ModDate(D:20230718202010+03'00')/Producer(iText® Core 8.0.1-SNAPSHOT \(AGPL version\), pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(Float Elements with Column Count)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Bold/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -37,19 +35,19 @@ endobj
 xref
 0 10
 0000000000 65535 f 
-0000001013 00000 n 
-0000001490 00000 n 
-0000001058 00000 n 
-0000000391 00000 n 
+0000001259 00000 n 
+0000001483 00000 n 
+0000001006 00000 n 
+0000000384 00000 n 
 0000000015 00000 n 
-0000001311 00000 n 
-0000001400 00000 n 
-0000000880 00000 n 
-0000000533 00000 n 
+0000001304 00000 n 
+0000001393 00000 n 
+0000000873 00000 n 
+0000000526 00000 n 
 trailer
-<</ID [<f413e509f1001ddc41483925edf91aa0c1957f5917b7aac05182ac630d739e170766614819940225f95fa7118e4c0ff7d93198087cfd7ed19bf778efbcca7f38><f413e509f1001ddc41483925edf91aa0c1957f5917b7aac05182ac630d739e170766614819940225f95fa7118e4c0ff7d93198087cfd7ed19bf778efbcca7f38>]/Info 3 0 R/Root 1 0 R/Size 10>>
-%iText-Core-8.0.1-SNAPSHOT
-%iText-pdfHTML-5.0.1-SNAPSHOT
+<</ID [<7e8c33bb6823cb18e56ff3a9a55dd02b820ecf6eddbcdbb23e0b4c703dcf0fe3075f599beb6e5d33433bbab3edac8f3073e4762649817923c4bf702e3606a675><7e8c33bb6823cb18e56ff3a9a55dd02b820ecf6eddbcdbb23e0b4c703dcf0fe3075f599beb6e5d33433bbab3edac8f3073e4762649817923c4bf702e3606a675>]/Info 3 0 R/Root 1 0 R/Size 10>>
+%iText-Core-8.0.5-SNAPSHOT
+%iText-pdfHTML-5.0.5-SNAPSHOT
 startxref
-1547
+1540
 %%EOF

@@ -36,7 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 public class ExtendedFontPropertiesTest extends ExtendedITextTest {
 
@@ -74,7 +74,7 @@ public class ExtendedFontPropertiesTest extends ExtendedITextTest {
 
         // Convert to elements
         writeToDocument(doc, bytes);
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff_" + testName + "_"));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff_" + testName + "_"));
     }
 
     private void writeToDocument(Document doc, byte[] bytes) throws IOException {

@@ -27,28 +27,27 @@ import com.itextpdf.commons.actions.ProductNameConstant;
 import com.itextpdf.commons.actions.confirmations.EventConfirmationType;
 import com.itextpdf.commons.actions.sequence.SequenceId;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class PdfHtmlProductEventTest extends ExtendedITextTest {
     @Test
     public void convertElementsEventTest() {
         SequenceId sequenceId = new SequenceId();
         PdfHtmlProductEvent event = PdfHtmlProductEvent.createConvertHtmlEvent(sequenceId, new PdfHtmlTestMetaInfo("meta data"));
 
-        Assert.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, event.getEventType());
-        Assert.assertEquals(ProductNameConstant.PDF_HTML, event.getProductName());
-        Assert.assertEquals(EventConfirmationType.ON_CLOSE, event.getConfirmationType());
-        Assert.assertEquals(sequenceId, event.getSequenceId());
+        Assertions.assertEquals(PdfHtmlProductEvent.CONVERT_HTML, event.getEventType());
+        Assertions.assertEquals(ProductNameConstant.PDF_HTML, event.getProductName());
+        Assertions.assertEquals(EventConfirmationType.ON_CLOSE, event.getConfirmationType());
+        Assertions.assertEquals(sequenceId, event.getSequenceId());
 
-        Assert.assertEquals(PdfHtmlProductData.getInstance().getPublicProductName(), event.getProductData().getPublicProductName());
-        Assert.assertEquals(PdfHtmlProductData.getInstance().getProductName(), event.getProductData().getProductName());
-        Assert.assertEquals(PdfHtmlProductData.getInstance().getVersion(), event.getProductData().getVersion());
-        Assert.assertEquals(PdfHtmlProductData.getInstance().getSinceCopyrightYear(), event.getProductData().getSinceCopyrightYear());
-        Assert.assertEquals(PdfHtmlProductData.getInstance().getToCopyrightYear(), event.getProductData().getToCopyrightYear());
+        Assertions.assertEquals(PdfHtmlProductData.getInstance().getPublicProductName(), event.getProductData().getPublicProductName());
+        Assertions.assertEquals(PdfHtmlProductData.getInstance().getProductName(), event.getProductData().getProductName());
+        Assertions.assertEquals(PdfHtmlProductData.getInstance().getVersion(), event.getProductData().getVersion());
+        Assertions.assertEquals(PdfHtmlProductData.getInstance().getSinceCopyrightYear(), event.getProductData().getSinceCopyrightYear());
+        Assertions.assertEquals(PdfHtmlProductData.getInstance().getToCopyrightYear(), event.getProductData().getToCopyrightYear());
     }
 }

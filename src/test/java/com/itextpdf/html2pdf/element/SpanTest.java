@@ -28,23 +28,22 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class SpanTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/SpanTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/SpanTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -55,7 +54,7 @@ public class SpanTest extends ExtendedITextTest {
         String cmpFile = sourceFolder + MessageFormatUtil.format("cmp_spanTest{0}.pdf", testIndex);
         String diff = MessageFormatUtil.format("diff{0}_", testIndex);
         HtmlConverter.convertToPdf(new File(htmlFile), new File(pdfFile));
-        Assert.assertNull(new CompareTool().compareByContent(pdfFile, cmpFile, destinationFolder, diff));
+        Assertions.assertNull(new CompareTool().compareByContent(pdfFile, cmpFile, destinationFolder, diff));
     }
 
     private void test(String testName, boolean tagged) throws IOException, InterruptedException {
@@ -72,7 +71,7 @@ public class SpanTest extends ExtendedITextTest {
         } else {
             HtmlConverter.convertToPdf(new File(htmlFile), new File(pdfFile));
         }
-        Assert.assertNull(new CompareTool().compareByContent(pdfFile, cmpFile, destinationFolder, diff));
+        Assertions.assertNull(new CompareTool().compareByContent(pdfFile, cmpFile, destinationFolder, diff));
     }
 
     private void test(String testName) throws IOException, InterruptedException {

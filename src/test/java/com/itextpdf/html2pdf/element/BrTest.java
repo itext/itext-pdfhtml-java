@@ -32,24 +32,23 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class BrTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/BrTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/BrTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -57,22 +56,22 @@ public class BrTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void br01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "brTest01.html"), new File(destinationFolder + "brTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brTest01.pdf", sourceFolder + "cmp_brTest01.pdf", destinationFolder, "diff01_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "brTest01.pdf", sourceFolder + "cmp_brTest01.pdf", destinationFolder, "diff01_"));
     }
 
     @Test
     public void br02Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "brTest02.html"), new File(destinationFolder + "brTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brTest02.pdf", sourceFolder + "cmp_brTest02.pdf", destinationFolder, "diff02_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "brTest02.pdf", sourceFolder + "cmp_brTest02.pdf", destinationFolder, "diff02_"));
     }
 
     @Test
-    @Ignore("DEVSIX-1655")
+    @Disabled("DEVSIX-1655")
     public void br03Test() throws IOException, InterruptedException {
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + "brTest03.pdf"));
         pdfDoc.setDefaultPageSize(new PageSize(72, 72));
         HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "brTest03.html"), pdfDoc, new ConverterProperties());
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brTest03.pdf", sourceFolder + "cmp_brTest03.pdf", destinationFolder, "diff03_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "brTest03.pdf", sourceFolder + "cmp_brTest03.pdf", destinationFolder, "diff03_"));
     }
 
     @Test
@@ -82,7 +81,7 @@ public class BrTest extends ExtendedHtmlConversionITextTest {
     // TODO DEVSIX-2092
     public void brInsideDifferentTagsTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "brInsideDifferentTagsTest01.html"), new File(destinationFolder + "brInsideDifferentTagsTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "brInsideDifferentTagsTest01.pdf", sourceFolder + "cmp_brInsideDifferentTagsTest01.pdf", destinationFolder, "diff04_"));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "brInsideDifferentTagsTest01.pdf", sourceFolder + "cmp_brInsideDifferentTagsTest01.pdf", destinationFolder, "diff04_"));
     }
 
     @Test

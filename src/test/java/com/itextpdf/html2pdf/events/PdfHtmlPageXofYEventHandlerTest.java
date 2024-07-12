@@ -40,23 +40,22 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class PdfHtmlPageXofYEventHandlerTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/events/PdfHtmlPageXofYEventHandlerTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/events/PdfHtmlPageXofYEventHandlerTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -69,7 +68,7 @@ public class PdfHtmlPageXofYEventHandlerTest extends ExtendedITextTest {
         String cmp = sourceFolder + "cmp_" + filename + ".pdf";
         new PdfHtmlPageXofYEventHandlerTest().parseWithFooter(src, dest, sourceFolder);
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(src) + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(dest, cmp, destinationFolder, "diff_XofY_"));
+        Assertions.assertNull(new CompareTool().compareByContent(dest, cmp, destinationFolder, "diff_XofY_"));
 
     }
 

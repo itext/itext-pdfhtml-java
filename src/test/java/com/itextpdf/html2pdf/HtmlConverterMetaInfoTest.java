@@ -41,14 +41,13 @@ import com.itextpdf.layout.renderer.IRenderer;
 import com.itextpdf.layout.renderer.MetaInfoContainer;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
 import java.io.ByteArrayOutputStream;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class HtmlConverterMetaInfoTest extends ExtendedITextTest {
 
     @Test
@@ -74,7 +73,7 @@ public class HtmlConverterMetaInfoTest extends ExtendedITextTest {
         );
 
         document.close();
-        Assert.assertTrue(invocationAssert.isInvoked());
+        Assertions.assertTrue(invocationAssert.isInvoked());
     }
 
     private static class AssertMetaInfoTagWorkerFactory extends DefaultTagWorkerFactory {
@@ -119,7 +118,7 @@ public class HtmlConverterMetaInfoTest extends ExtendedITextTest {
 
         @Override
         public LayoutResult layout(LayoutContext layoutContext) {
-            Assert.assertNotNull(this.<MetaInfoContainer>getProperty(Property.META_INFO));
+            Assertions.assertNotNull(this.<MetaInfoContainer>getProperty(Property.META_INFO));
             invocationAssert.setInvoked(true);
             return super.layout(layoutContext);
         }

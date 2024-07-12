@@ -25,14 +25,11 @@ package com.itextpdf.html2pdf.css.w3c.css_backgrounds;
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 import java.io.IOException;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 // TODO DEVSIX-4440 html with display: none throws IndexOutOfBoundsException
 public class BackgroundColorBodyPropagation005Test extends W3CCssTest {
-    @Rule
-    public ExpectedException junitExpectedException = ExpectedException.none();
 
     @Override
     protected String getHtmlFileName() {
@@ -42,7 +39,6 @@ public class BackgroundColorBodyPropagation005Test extends W3CCssTest {
     @Test
     @Override
     public void test() throws IOException, InterruptedException {
-        junitExpectedException.expect(RuntimeException.class);
-        super.test();
+        Assertions.assertThrows(RuntimeException.class, () -> super.test());
     }
 }

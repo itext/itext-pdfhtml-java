@@ -26,22 +26,21 @@ import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
 
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class AbsolutePositionTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/AbsolutePositionTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/AbsolutePositionTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -52,7 +51,7 @@ public class AbsolutePositionTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @Ignore("DEVSIX-1616: Absolute position for elements that break across pages is not supported")
+    @Disabled("DEVSIX-1616: Absolute position for elements that break across pages is not supported")
     public void absolutePosition02Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("absolutePositionTest02", sourceFolder, destinationFolder);
     }
@@ -135,7 +134,7 @@ public class AbsolutePositionTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("absolutePositionTest17", sourceFolder, destinationFolder);
     }
 
-    @Ignore("DEVSIX-1818")
+    @Disabled("DEVSIX-1818")
     @Test
     public void absolutePositionTest18() throws IOException, InterruptedException {
         convertToPdfAndCompare("absolutePositionTest18", sourceFolder, destinationFolder);

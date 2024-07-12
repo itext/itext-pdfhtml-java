@@ -24,22 +24,19 @@ package com.itextpdf.html2pdf.css.grid;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/grid/GridTemplateColumnTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/grid/GridTemplateColumnTest/";
 
 
-    //TODO DEVSIX-3340 change cmp files when GRID LAYOUT is supported
-
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
@@ -47,6 +44,11 @@ public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void templateColumnBordersTest() throws IOException, InterruptedException {
         runTest("template-cols-borders");
+    }
+
+    @Test
+    public void autoRowFixedTest() throws IOException, InterruptedException {
+        runTest("auto-cols-fixed");
     }
 
     @Test
@@ -132,6 +134,16 @@ public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void templateColumnBasicTest() throws IOException, InterruptedException {
         runTest("template-cols-without-other-props");
+    }
+
+    @Test
+    public void templateColumnBasicTest2() throws IOException, InterruptedException {
+        runTest("template-cols-without-other-props-2");
+    }
+
+    @Test
+    public void templateColumnWithFlexAndGapsTest() throws IOException, InterruptedException {
+        runTest("template-cols-with-flex-and-gaps");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {

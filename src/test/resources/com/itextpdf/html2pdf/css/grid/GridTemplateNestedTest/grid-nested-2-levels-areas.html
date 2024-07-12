@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .container {
+            display: grid;
+			width: 100%;
+            grid-template-columns: 60px 500px;
+            grid-template-rows: auto auto;
+            gap: 10px;
+            padding: 10px;
+        }
+        .grid-elem-lvl-1 {
+            background-color: #4793AF;
+            color: white;
+			padding: 15px;
+			text-align: center;
+			border-radius: 0.5em;
+		}
+		.lvl2-container {
+			display: grid;
+			width: 90%;
+			grid-template-columns: 70px auto;
+			grid-template-rows: auto;
+			gap: 10px;
+			background-color: #FFC470;
+			padding: 12px;
+			border-radius: 0.5em;
+			margin: 10px;
+		}
+		.grid-elem-lvl-2 {
+			background-color: #DD5746;
+			padding: 1em;
+			border-radius: 0.5em;
+		}
+		.lvl3-container {
+			display: grid;
+			width: 90%;
+			grid-template-areas:
+				'head head'
+				"nav  main"
+				'foot  foot';
+			grid-template-columns: auto auto auto;
+			grid-template-rows: auto auto auto;
+			gap: 0.5em;
+			background-color: #8B322C;
+			padding: 0.5em;
+			border-radius: 0.5em;
+			margin: 10px;
+		}
+		.lvl3-container > header {
+			grid-area: head;
+			background-color: #DD5746;
+		}
+		.lvl3-container > nav {
+			grid-area: nav;
+		}
+		.lvl3-container > main {
+			grid-area: main;
+			background-color: #FFC470;
+		}
+		.lvl3-container > Footer {
+			grid-area: footer;
+			background-color: #4793AF;
+		}
+		.wide {
+			grid-column: span 2;
+		}
+		.tall {
+			grid-row: span 2;
+		}
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="grid-elem-lvl-1 wide">L1: 1</div>
+        <div class="grid-elem-lvl-1">L1: 2</div>
+        <div class="grid-elem-lvl-1 tall">
+			L1: 3
+            <div class="lvl2-container">
+                <div class="grid-elem-lvl-2">L2: 1</div>
+                <div class="grid-elem-lvl-2">
+					L2: 2
+                    <div class="lvl3-container">
+                        <header><h3>Header text</h3></header>
+						<nav>Nav</nav>
+						<main>Main content</main>
+						<footer>Footer text</footer>
+                    </div>
+                </div>
+                <div class="grid-elem-lvl-2 wide">L2: 3</div>
+            </div>
+        </div>
+        <div class="grid-elem-lvl-1">L1: 4</div>
+    </div>
+</body>
+</html>

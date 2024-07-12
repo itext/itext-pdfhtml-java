@@ -36,7 +36,6 @@ import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -46,16 +45,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class CssStylesResolvingTest extends ExtendedITextTest {
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssElementStylesResolvingTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
     }
 
@@ -311,12 +310,12 @@ public class CssStylesResolvingTest extends ExtendedITextTest {
 
         IElementNode element = findElement(document, elementPath);
         if (element == null) {
-            Assert.fail(MessageFormatUtil.format("Element at path \"{0}\" was not found.", elementPath));
+            Assertions.fail(MessageFormatUtil.format("Element at path \"{0}\" was not found.", elementPath));
         }
         Map<String, String> elementStyles = element.getStyles();
         Set<String> expectedStylesSet = new HashSet<>(Arrays.asList(expectedStyles));
         Set<String> actualStylesSet = stylesMapToHashSet(elementStyles);
-        Assert.assertTrue(getDifferencesMessage(expectedStylesSet, actualStylesSet), setsAreEqual(expectedStylesSet, actualStylesSet));
+        Assertions.assertTrue(setsAreEqual(expectedStylesSet, actualStylesSet), getDifferencesMessage(expectedStylesSet, actualStylesSet));
     }
 
     private IElementNode findElement(INode root, String ancestryPath) {

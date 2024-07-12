@@ -24,13 +24,12 @@ package com.itextpdf.html2pdf.resolver.resource;
 
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class ExternalResourcesTest extends ExtendedITextTest {
     @Test
     // Android-Conversion-Ignore-Test (TODO DEVSIX-6459 fix the SecurityException(Permission denied) from UrlUtil method)
@@ -40,6 +39,6 @@ public class ExternalResourcesTest extends ExtendedITextTest {
         byte[] exByteArray = resourceResolver.retrieveBytesFromResource(
                 "https://raw.githubusercontent.com/itext/i7j-pdfhtml/develop/src/test/resources/com/itextpdf/html2pdf/styles.css");
 
-        Assert.assertNotNull(exByteArray);
+        Assertions.assertNotNull(exByteArray);
     }
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .wrapper {
+        display: grid;
+        grid-template-columns: [a] repeat(2, 30px [b]) [c] repeat(auto-fill, [d] 20%) [e];
+        grid-template-rows: [r] repeat(2, [r] 30px [r] 30px [r] 30px [r]) [r];
+        gap: 5px;
+      }
+
+      .wrapper > div {
+        border: 2px solid darkblue;
+        background-color: lightblue;
+      }
+
+      .wrapper > div:nth-of-type(1) {
+        grid-column-start: a;
+        grid-column-end: 2 b;
+      }
+
+      .wrapper > div:nth-of-type(2) {
+        grid-column-start: c;
+        grid-column-end: 3 d;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+      <div>Four</div>
+      <div>Five</div>
+      <div>Six</div>
+      <div>Seven</div>
+      <div>Eight</div>
+    </div>
+  </body>
+</html>

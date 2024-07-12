@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 300px 300px;
+            grid-template-rows: auto;
+            row-gap: 10px;
+            column-gap: 5px;
+            padding: 15px;
+        }
+        .grid-elem {
+            background-color: darkblue;
+            padding: 20px;
+            border-radius: 0.5rem;
+        }
+		article {
+			color: white;
+			text-align: center;
+		}
+		.long-elem {
+			background-color: #3083b7;
+			grid-column: 1 / -1;
+		}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="grid-elem">
+			<article>
+                <h2>Lorem Ipsum p1</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean magna ante, viverra in auctor eget, semper ac nisl.</p>
+            </article>
+        </div>
+		<div class="grid-elem">
+			<article>
+                <h2>Lorem Ipsum p2</h2>
+                <p>Praesent ut euismod dui. Morbi vel aliquet dolor, nec vestibulum magna. Sed euismod libero at nulla pulvinar, quis blandit est cursus. Nullam gravida sit amet metus eu varius. Praesent at tortor sed lorem imperdiet cursus. Quisque aliquam pretium lacus quis tincidunt. Aliquam vel libero egestas, mollis ligula ut, sollicitudin mi.</p>
+            </article>
+        </div>
+		<div class="grid-elem long-elem">
+			<article>
+                <h2>Lorem Ipsum p3</h2>
+                <p>Suspendisse et neque id mi mattis dignissim. Vivamus laoreet est a dolor dignissim blandit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam eget tellus in enim mattis iaculis.</p>
+            </article>
+        </div>
+    </div>
+</body>
+</html>

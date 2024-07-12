@@ -46,6 +46,5 @@ public class DisplayFlexTagCssApplier extends BlockCssApplier {
             container.deleteOwnProperty(Property.OVERFLOW_X);
             container.deleteOwnProperty(Property.OVERFLOW_Y);
         }
-        MultiColumnCssApplierUtil.applyMultiCol(stylesContainer.getStyles(), context, container);
     }
 }

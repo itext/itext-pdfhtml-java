@@ -24,28 +24,27 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class InputTagWorkerTest extends ExtendedITextTest {
 
     @Test
     public void testNumberInputPreprocessing() {
-        Assert.assertEquals("", InputTagWorker.preprocessInputValue("bear", AttributeConstants.NUMBER));
-        Assert.assertEquals("4", InputTagWorker.preprocessInputValue("4", AttributeConstants.NUMBER));
-        Assert.assertEquals("04", InputTagWorker.preprocessInputValue("04", AttributeConstants.NUMBER));
-        Assert.assertEquals("", InputTagWorker.preprocessInputValue("4.", AttributeConstants.NUMBER));
-        Assert.assertEquals("", InputTagWorker.preprocessInputValue(".", AttributeConstants.NUMBER));
-        Assert.assertEquals(".9", InputTagWorker.preprocessInputValue(".9", AttributeConstants.NUMBER));
-        Assert.assertEquals("4.4", InputTagWorker.preprocessInputValue("4.4", AttributeConstants.NUMBER));
-        Assert.assertEquals("-4", InputTagWorker.preprocessInputValue("-4", AttributeConstants.NUMBER));
-        Assert.assertEquals("", InputTagWorker.preprocessInputValue("", AttributeConstants.NUMBER));
-        Assert.assertEquals("", InputTagWorker.preprocessInputValue("-", AttributeConstants.NUMBER));
-        Assert.assertEquals("-.9", InputTagWorker.preprocessInputValue("-.9", AttributeConstants.NUMBER));
-        Assert.assertEquals("", InputTagWorker.preprocessInputValue("0-.9", AttributeConstants.NUMBER));
+        Assertions.assertEquals("", InputTagWorker.preprocessInputValue("bear", AttributeConstants.NUMBER));
+        Assertions.assertEquals("4", InputTagWorker.preprocessInputValue("4", AttributeConstants.NUMBER));
+        Assertions.assertEquals("04", InputTagWorker.preprocessInputValue("04", AttributeConstants.NUMBER));
+        Assertions.assertEquals("", InputTagWorker.preprocessInputValue("4.", AttributeConstants.NUMBER));
+        Assertions.assertEquals("", InputTagWorker.preprocessInputValue(".", AttributeConstants.NUMBER));
+        Assertions.assertEquals(".9", InputTagWorker.preprocessInputValue(".9", AttributeConstants.NUMBER));
+        Assertions.assertEquals("4.4", InputTagWorker.preprocessInputValue("4.4", AttributeConstants.NUMBER));
+        Assertions.assertEquals("-4", InputTagWorker.preprocessInputValue("-4", AttributeConstants.NUMBER));
+        Assertions.assertEquals("", InputTagWorker.preprocessInputValue("", AttributeConstants.NUMBER));
+        Assertions.assertEquals("", InputTagWorker.preprocessInputValue("-", AttributeConstants.NUMBER));
+        Assertions.assertEquals("-.9", InputTagWorker.preprocessInputValue("-.9", AttributeConstants.NUMBER));
+        Assertions.assertEquals("", InputTagWorker.preprocessInputValue("0-.9", AttributeConstants.NUMBER));
     }
 }

@@ -31,14 +31,13 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Tab;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
 
     private final String capitalizeStyle = "capitalize";
@@ -55,7 +54,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("One", lineResult);
+        Assertions.assertEquals("One", lineResult);
     }
 
     @Test
@@ -67,7 +66,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("One", lineResult);
+        Assertions.assertEquals("One", lineResult);
     }
 
     @Test
@@ -81,7 +80,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("Onetwo", lineResult);
+        Assertions.assertEquals("Onetwo", lineResult);
     }
 
     @Test
@@ -94,7 +93,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("One Two", lineResult);
+        Assertions.assertEquals("One Two", lineResult);
     }
 
     @Test
@@ -106,7 +105,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("one", lineResult);
+        Assertions.assertEquals("one", lineResult);
     }
 
     @Test
@@ -120,7 +119,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("OneTwo", lineResult);
+        Assertions.assertEquals("OneTwo", lineResult);
     }
 
     @Test
@@ -134,7 +133,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("OneTwo", lineResult);
+        Assertions.assertEquals("OneTwo", lineResult);
     }
 
     @Test
@@ -148,7 +147,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("OneTwo", lineResult);
+        Assertions.assertEquals("OneTwo", lineResult);
     }
 
     @Test
@@ -160,7 +159,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("one", lineResult);
+        Assertions.assertEquals("one", lineResult);
     }
 
     @Test
@@ -174,7 +173,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("One Two", lineResult);
+        Assertions.assertEquals("One Two", lineResult);
     }
 
     @Test
@@ -187,7 +186,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("One two", lineResult);
+        Assertions.assertEquals("One two", lineResult);
     }
 
     @Test
@@ -201,7 +200,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("One two Three", lineResult);
+        Assertions.assertEquals("One two Three", lineResult);
     }
 
     @Test
@@ -214,7 +213,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("One Twothree Four", lineResult);
+        Assertions.assertEquals("One Twothree Four", lineResult);
     }
 
     @Test
@@ -227,7 +226,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("onetwo Three", lineResult);
+        Assertions.assertEquals("onetwo Three", lineResult);
     }
 
     @Test
@@ -241,7 +240,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("One Twothreefour Five", lineResult);
+        Assertions.assertEquals("One Twothreefour Five", lineResult);
     }
 
     @Test
@@ -255,7 +254,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("One twothree", lineResult);
+        Assertions.assertEquals("One twothree", lineResult);
     }
 
     @Test
@@ -268,7 +267,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("one Two", lineResult);
+        Assertions.assertEquals("one Two", lineResult);
     }
 
     @Test
@@ -284,7 +283,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertNotEquals("( One_two) ( _one_two)", lineResult);
+        Assertions.assertNotEquals("( One_two) ( _one_two)", lineResult);
     }
 
     @Test
@@ -304,7 +303,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertNotEquals("( One2two) ( One 2two) ( One-2two) ( One_2two)", lineResult);
+        Assertions.assertNotEquals("( One2two) ( One 2two) ( One-2two) ( One_2two)", lineResult);
     }
 
     @Test
@@ -318,7 +317,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertNotEquals("One:two", lineResult);
+        Assertions.assertNotEquals("One:two", lineResult);
     }
 
     @Test
@@ -335,7 +334,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("(One/Two) (One-Two) (One&Two)", lineResult);
+        Assertions.assertEquals("(One/Two) (One-Two) (One&Two)", lineResult);
     }
 
     @Test
@@ -352,7 +351,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("(One: Two) (One;Two) (One?Two)", lineResult);
+        Assertions.assertEquals("(One: Two) (One;Two) (One?Two)", lineResult);
     }
 
     @Test
@@ -366,7 +365,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertNotEquals("One@2two", lineResult);
+        Assertions.assertNotEquals("One@2two", lineResult);
     }
 
     @Test
@@ -380,7 +379,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertNotEquals("_one_@Two", lineResult);
+        Assertions.assertNotEquals("_one_@Two", lineResult);
     }
 
     @Test
@@ -394,7 +393,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertNotEquals("One'two'", lineResult);
+        Assertions.assertNotEquals("One'two'", lineResult);
     }
 
     @Test
@@ -409,7 +408,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("( 4'Two') ( One2(Two))", lineResult);
+        Assertions.assertEquals("( 4'Two') ( One2(Two))", lineResult);
     }
 
     @Test
@@ -426,7 +425,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("(!One!Two) ( One::Two) ( One:-Two)", lineResult);
+        Assertions.assertEquals("(!One!Two) ( One::Two) ( One:-Two)", lineResult);
     }
 
     @Test
@@ -441,7 +440,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("( One:'Two') ( One(Two))", lineResult);
+        Assertions.assertEquals("( One:'Two') ( One(Two))", lineResult);
     }
 
     @Test
@@ -456,7 +455,7 @@ public class WaitingInlineElementsHelperTest extends ExtendedITextTest {
         inlineHelper.flushHangingLeaves(div);
         String lineResult = getLine(div);
 
-        Assert.assertEquals("( One,Two) ( One~Two)", lineResult);
+        Assertions.assertEquals("( One,Two) ( One~Two)", lineResult);
     }
 
     private Text createText(String text, boolean capitalizeProperty) {

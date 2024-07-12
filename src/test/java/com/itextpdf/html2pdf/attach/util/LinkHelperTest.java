@@ -38,12 +38,10 @@ import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
 import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-@Category(UnitTest.class)
+@org.junit.jupiter.api.Tag("UnitTest")
 public class LinkHelperTest extends ExtendedITextTest {
 
     @Test
@@ -58,8 +56,8 @@ public class LinkHelperTest extends ExtendedITextTest {
         LinkHelper.createDestination(worker, elementNode, context);
         Object destination = worker.getElementResult().<Object>getProperty(Property.DESTINATION);
         Tuple2<String, PdfDictionary> destTuple = (Tuple2<String, PdfDictionary>)destination;
-        Assert.assertEquals("some_id", destTuple.getFirst());
-        Assert.assertEquals(new PdfString("some_id"), destTuple.getSecond().get(PdfName.D));
+        Assertions.assertEquals("some_id", destTuple.getFirst());
+        Assertions.assertEquals(new PdfString("some_id"), destTuple.getSecond().get(PdfName.D));
     }
 
     @Test
@@ -70,6 +68,6 @@ public class LinkHelperTest extends ExtendedITextTest {
         JsoupElementNode elementNode = new JsoupElementNode(new Element(Tag.valueOf("a"), "", attributes));
         ProcessorContext context = new ProcessorContext(new ConverterProperties());
         LinkHelper.createDestination(worker, elementNode, context);
-        Assert.assertEquals("some_id", worker.getElementResult().<String>getProperty(Property.ID));
+        Assertions.assertEquals("some_id", worker.getElementResult().<String>getProperty(Property.ID));
     }
 }

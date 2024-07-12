@@ -33,23 +33,22 @@ import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class FloatTest extends ExtendedITextTest {
 
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/FloatTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/FloatTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
@@ -732,7 +731,7 @@ public class FloatTest extends ExtendedITextTest {
             String outName = "responsiveIText" + (pxWidth != null ? "_" + (int)(float)pxWidth : "") + ".pdf";
             String cmpName = "cmp_" + outName;
 
-            Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + outName, SOURCE_FOLDER + cmpName,
+            Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + outName, SOURCE_FOLDER + cmpName,
                     DESTINATION_FOLDER, "diffResponsive_"));
         }
     }
@@ -749,7 +748,7 @@ public class FloatTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new FileInputStream(htmlName), doc, new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         printPathToConsole(htmlName, "html: ");
 
-        Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER));
+        Assertions.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER));
     }
 
     @Test
@@ -769,6 +768,6 @@ public class FloatTest extends ExtendedITextTest {
         String cmpFileName = SOURCE_FOLDER + "cmp_" + testName + ".pdf";
         HtmlConverter.convertToPdf(new File(htmlName), new File(outFileName));
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlName) + "\n");
-        Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER, diff));
+        Assertions.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER, diff));
     }
 }

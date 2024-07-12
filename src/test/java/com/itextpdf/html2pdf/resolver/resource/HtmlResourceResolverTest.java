@@ -49,25 +49,24 @@ import com.itextpdf.svg.renderers.impl.SvgTagSvgNodeRenderer;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 // TODO: DEVSIX-5968 Add new tests in HtmlResourceResolverTest
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class HtmlResourceResolverTest extends ExtendedITextTest {
 
     private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/resolver/resource/HtmlResourceResolverTest/";
     private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/resolver/resource/HtmlResourceResolverTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
@@ -79,7 +78,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "resourceResolverHtmlWithSvgTest01.html"),
                 new File(outPdf));
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER));
     }
 
     @Test
@@ -104,7 +103,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "resourceResolverTest07.html"), new File(outPdf));
 
-        Assert.assertNull(new CompareTool().compareByContent(
+        Assertions.assertNull(new CompareTool().compareByContent(
                 outPdf, cmpPdf, DESTINATION_FOLDER, "diff07_"));
     }
 
@@ -146,7 +145,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(
                 SOURCE_FOLDER + "#r%e%25s@o%urces/resourceResolverTest07B.html"), new File(outPdf));
 
-        Assert.assertNull(new CompareTool().compareByContent(
+        Assertions.assertNull(new CompareTool().compareByContent(
                 outPdf, cmpPdf, DESTINATION_FOLDER, "diff07B_"));
     }
 
@@ -160,7 +159,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "#r%e%25s@o%urces/resourceResolverTest07C.html"),
                 new File(outPdf), new ConverterProperties().setBaseUri(SOURCE_FOLDER + "#r%e%25s@o%urces/.."));
 
-        Assert.assertNull(new CompareTool().compareByContent(
+        Assertions.assertNull(new CompareTool().compareByContent(
                 outPdf, cmpPdf, DESTINATION_FOLDER, "diff07C_"));
     }
 
@@ -210,7 +209,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "resourceResolverCssWithSvg.html"),
                 new File(outPdf));
 
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER));
     }
 
     @Test
@@ -246,7 +245,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
         PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, document);
         PdfDictionary resources = (PdfDictionary) pdfFormXObject.getResources().getPdfObject().get(PdfName.XObject);
         PdfDictionary fm1Dict = (PdfDictionary) resources.get(new PdfName("Fm1"));
-        Assert.assertTrue(((PdfDictionary) fm1Dict.get(PdfName.Resources)).containsKey(PdfName.XObject));
+        Assertions.assertTrue(((PdfDictionary) fm1Dict.get(PdfName.Resources)).containsKey(PdfName.XObject));
     }
 
     @Test
@@ -269,7 +268,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
         PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, document);
         PdfDictionary resources = (PdfDictionary) pdfFormXObject.getResources().getPdfObject().get(PdfName.XObject);
         PdfDictionary fm1Dict = (PdfDictionary) resources.get(new PdfName("Fm1"));
-        Assert.assertTrue(((PdfDictionary) fm1Dict.get(PdfName.Resources)).containsKey(PdfName.XObject));
+        Assertions.assertTrue(((PdfDictionary) fm1Dict.get(PdfName.Resources)).containsKey(PdfName.XObject));
     }
 
     @Test
@@ -297,7 +296,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
             document.add(new SvgProcessingUtil(resourceResolver).createSvgImageFromProcessingResult(result));
         }
-        Assert.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER, "diff"));
+        Assertions.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER, "diff"));
     }
 
     @Test
@@ -511,7 +510,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
                     new ConverterProperties().setBaseUri(baseUri));
         }
 
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER));
     }
 
     private void convertHtmlFileToPdf(String htmlPath, String outPdf, String cmpPdf, ConverterProperties converterProperties)
@@ -520,6 +519,6 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
         System.out.println("html: " + UrlUtil.getNormalizedFileUriString(htmlPath) + "\n");
 
         HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdf), converterProperties);
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, DESTINATION_FOLDER));
     }
 }

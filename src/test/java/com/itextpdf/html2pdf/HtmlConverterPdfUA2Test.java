@@ -37,7 +37,6 @@ import com.itextpdf.kernel.xmp.XMPMeta;
 import com.itextpdf.kernel.xmp.XMPMetaFactory;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 import com.itextpdf.test.pdfa.VeraPdfValidator;
 
 import java.io.ByteArrayInputStream;
@@ -45,18 +44,18 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
 
     private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/HtmlConverterPdfUA2Test/";
     private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/HtmlConverterPdfUA2Test/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
@@ -156,11 +155,11 @@ public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
     private static void compareAndCheckCompliance(String destinationPdf, String cmpPdf, boolean isExpectedOk)
             throws IOException, InterruptedException {
         if (isExpectedOk) {
-            Assert.assertNull(new VeraPdfValidator().validate(destinationPdf));
+            Assertions.assertNull(new VeraPdfValidator().validate(destinationPdf));
         } else {
-            Assert.assertNotNull(new VeraPdfValidator().validate(destinationPdf));
+            Assertions.assertNotNull(new VeraPdfValidator().validate(destinationPdf));
         }
-        Assert.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER,
+        Assertions.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER,
                 "diff_simple_"));
     }
 }

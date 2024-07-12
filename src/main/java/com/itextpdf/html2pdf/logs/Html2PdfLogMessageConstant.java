@@ -173,6 +173,14 @@ public final class Html2PdfLogMessageConstant {
     public static final String OPTGROUP_NOT_SUPPORTED_IN_INTERACTIVE_SELECT = "Option groups are not supported in "
             + "interactive mode";
     public static final String IMMEDIATE_FLUSH_DISABLED = "Setting createAcroForm disables immediateFlush property";
+    public static final String GRID_TEMPLATE_AREAS_IS_INVALID = "grid-template-areas property is invalid. "
+            + "The result is nondeterministic";
+    public static final String LINENAMES_ARE_NOT_SUPPORTED_WITHIN_AUTO_REPEAT = "Line names are not supported "
+            + "with auto-repeat as a track-size";
+    public static final String ADDING_GRID_LINES_TO_THE_LEFT_OR_TOP_IS_NOT_SUPPORTED = "Adding grid lines to the left "
+            + "or to the top is not supported";
+    public static final String SUBGRID_VALUE_IS_NOT_SUPPORTED = "Subgrid value for grid-template-row\\columns isn't supported";
+    public static final String GRID_TEMPLATE_WAS_NOT_RECOGNISED = "Grid template {0} value was not recognised";
 
     private Html2PdfLogMessageConstant() {
         //Private constructor will prevent the instantiation of this class directly

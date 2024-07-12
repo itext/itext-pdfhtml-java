@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .wrapper {
+            display: grid;
+            grid-template-columns: 100px repeat(auto-fit, 200px) 100px;
+            grid-template-rows: 100px repeat(auto-fit, 200px) 100px 100px;
+        }
+
+        .wrapper {
+            border: 2px solid #F76707;
+            background-color: #FFF4E6;
+        }
+
+        .wrapper > div {
+            border: 2px solid green;
+            background-color: #FFD8A8;
+            padding: 1em;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div>One</div>
+</div>
+</body>
+</html>

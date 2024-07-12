@@ -28,19 +28,19 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class ColumnWidthTest extends ExtendedHtmlConversionITextTest {
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/multicol/ColumnWidthTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/multicol/ColumnWidthTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
@@ -283,6 +283,31 @@ public class ColumnWidthTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void columnWidthPercentageTest() throws IOException, InterruptedException {
         runTest("columnWidthPercentageTest");
+    }
+
+    @Test
+    public void bigPaddingsTest() throws IOException, InterruptedException {
+        runTest("bigPaddingsTest");
+    }
+
+    @Test
+    public void bigBordersTest() throws IOException, InterruptedException {
+        runTest("bigBordersTest");
+    }
+
+    @Test
+    public void bigMarginsTest() throws IOException, InterruptedException {
+        runTest("bigMarginsTest");
+    }
+
+    @Test
+    public void bigMargingsPaddingsBordersTest() throws IOException, InterruptedException {
+        runTest("bigMargingsPaddingsBordersTest");
+    }
+
+    @Test
+    public void bigBordersWithoutWidtConstraintTest() throws IOException, InterruptedException {
+        runTest("bigBordersWithoutWidtConstraintTest");
     }
 
 

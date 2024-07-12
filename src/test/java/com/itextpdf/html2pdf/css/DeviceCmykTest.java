@@ -30,15 +30,14 @@ import com.itextpdf.styledxmlparser.css.validate.impl.CssDefaultValidator;
 import com.itextpdf.styledxmlparser.css.validate.impl.CssDeviceCmykAwareValidator;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.IOException;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class DeviceCmykTest extends ExtendedHtmlConversionITextTest {
 
     private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css"
@@ -46,13 +45,13 @@ public class DeviceCmykTest extends ExtendedHtmlConversionITextTest {
     private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css"
             + "/DeviceCmykTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createOrClearDestinationFolder(DESTINATION_FOLDER);
         CssDeclarationValidationMaster.setValidator(new CssDeviceCmykAwareValidator());
     }
 
-    @AfterClass
+    @AfterAll
     public static void after() {
         CssDeclarationValidationMaster.setValidator(new CssDefaultValidator());
     }

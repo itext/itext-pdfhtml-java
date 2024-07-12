@@ -26,21 +26,20 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class VisibilityTest extends ExtendedHtmlConversionITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/VisibilityTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/VisibilityTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -102,7 +101,7 @@ public class VisibilityTest extends ExtendedHtmlConversionITextTest {
         ConverterProperties properties = new ConverterProperties();
         properties.setCreateAcroForm(true);
         HtmlConverter.convertToPdf(new File(htmlFile), new File(outAcroPdf), properties);
-        Assert.assertNull(new CompareTool().compareByContent(outAcroPdf, sourceFolder +
+        Assertions.assertNull(new CompareTool().compareByContent(outAcroPdf, sourceFolder +
                 "cmp_visiblePropertyInFormDropdownListTest.pdf", destinationFolder, "diff_dropdown"));
     }
 

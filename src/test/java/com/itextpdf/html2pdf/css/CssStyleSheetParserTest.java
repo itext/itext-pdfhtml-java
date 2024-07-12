@@ -27,15 +27,14 @@ import com.itextpdf.io.util.StreamUtil;
 import com.itextpdf.styledxmlparser.css.CssStyleSheet;
 import com.itextpdf.styledxmlparser.css.parse.CssStyleSheetParser;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 
-@Category(UnitTest.class)
+@Tag("UnitTest")
 public class CssStyleSheetParserTest extends ExtendedITextTest {
 
     private static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/CssStyleSheetParserTest/";
@@ -45,7 +44,7 @@ public class CssStyleSheetParserTest extends ExtendedITextTest {
     public void testDefaultCss() throws IOException {
         String cmpFile = sourceFolder + "cmp_default.css";
         CssStyleSheet styleSheet = CssStyleSheetParser.parse(ResourceUtil.getResourceStream(DEFAULT_CSS_PATH));
-        Assert.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
+        Assertions.assertEquals(getCssFileContents(cmpFile), styleSheet.toString());
     }
 
     private String getCssFileContents(String filePath) throws IOException {

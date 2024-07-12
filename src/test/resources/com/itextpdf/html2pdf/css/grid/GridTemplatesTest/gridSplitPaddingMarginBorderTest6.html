@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .wrapper {
+            display: grid;
+            grid-template-columns: 230px 230px 200px;
+            grid-template-rows: 320px 200px 200px;
+        }
+
+        .wrapper {
+            border: 10px solid #f76707;
+            background-color: #fff4e6;
+        }
+
+        .wrapper > div {
+            border: 10px solid green;
+            background-color: #ffd8a8;
+            padding: 1em;
+        }
+
+        .wrapper > div > div {
+            border: 5px solid red;
+            padding: 10px;
+            margin: 10px;
+            background-color: #ffd8a8;
+        }
+    </style>
+</head>
+
+<body>
+<p style="height: 850px">Some text</p>
+<div class="wrapper">
+    <div>Lorem ipsum dolor sit amet</div>
+    <div style="display: grid; padding: 0px; grid-template-columns: 98px 98px; grid-template-rows: 150px 150px;">
+        <div>Lorem ipsum dolor sit amet</div>
+        <div>Lorem ipsum dolor sit amet</div>
+        <div style="grid-column-start: 2">Lorem ipsum dolor sit amet</div>
+    </div>
+    <div>Lorem ipsum dolor sit amet</div>
+    <div>Lorem ipsum dolor sit amet</div>
+    <div>Lorem ipsum dolor sit amet</div>
+</div>
+</body>
+</html>

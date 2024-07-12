@@ -35,15 +35,13 @@ import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
 import com.itextpdf.styledxmlparser.jsoup.parser.Tag;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.UnitTest;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-@Category(UnitTest.class)
+@org.junit.jupiter.api.Tag("UnitTest")
 public class DisplayTableTagWorkerTest extends ExtendedITextTest {
 
     @Test
@@ -63,8 +61,8 @@ public class DisplayTableTagWorkerTest extends ExtendedITextTest {
 
         tagWorker.processEnd(node, processorContext);
         IPropertyContainer propertyContainer = tagWorker.getElementResult();
-        Assert.assertTrue(propertyContainer instanceof Table);
+        Assertions.assertTrue(propertyContainer instanceof Table);
         String lang = ((IAccessibleElement) propertyContainer).getAccessibilityProperties().getLanguage();
-        Assert.assertEquals("en", lang);
+        Assertions.assertEquals("en", lang);
     }
 }

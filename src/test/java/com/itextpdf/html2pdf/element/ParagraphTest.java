@@ -29,22 +29,21 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class ParagraphTest extends ExtendedHtmlConversionITextTest {
 
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/element/ParagraphTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/element/ParagraphTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(DESTINATION_FOLDER);
     }
@@ -53,7 +52,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     public void paragraphTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphTest01.html"),
                 new File(DESTINATION_FOLDER + "paragraphTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphTest01.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphTest01.pdf",
                 SOURCE_FOLDER + "cmp_paragraphTest01.pdf", DESTINATION_FOLDER, "diff01_"));
     }
 
@@ -61,7 +60,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     public void paragraphWithBordersTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithBordersTest01.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithBordersTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithBordersTest01.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithBordersTest01.pdf",
                 SOURCE_FOLDER + "cmp_paragraphWithBordersTest01.pdf", DESTINATION_FOLDER, "diff02_"));
     }
 
@@ -69,7 +68,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     public void paragraphWithMarginsTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithMarginsTest01.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithMarginsTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithMarginsTest01.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithMarginsTest01.pdf",
                 SOURCE_FOLDER + "cmp_paragraphWithMarginsTest01.pdf", DESTINATION_FOLDER, "diff03_"));
     }
 
@@ -77,7 +76,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     public void paragraphWithPaddingTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithPaddingTest01.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithPaddingTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithPaddingTest01.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithPaddingTest01.pdf",
                 SOURCE_FOLDER + "cmp_paragraphWithPaddingTest01.pdf", DESTINATION_FOLDER, "diff04_"));
     }
 
@@ -85,7 +84,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     public void paragraphWithFontAttributesTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithFontAttributesTest01.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithFontAttributesTest01.pdf"));
-        Assert.assertNull(
+        Assertions.assertNull(
                 new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithFontAttributesTest01.pdf",
                         SOURCE_FOLDER + "cmp_paragraphWithFontAttributesTest01.pdf", DESTINATION_FOLDER, "diff05_"));
     }
@@ -94,7 +93,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     public void paragraphWithNonBreakableSpaceTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithNonBreakableSpaceTest01.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithNonBreakableSpaceTest01.pdf"));
-        Assert.assertNull(
+        Assertions.assertNull(
                 new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithNonBreakableSpaceTest01.pdf",
                         SOURCE_FOLDER + "cmp_paragraphWithNonBreakableSpaceTest01.pdf", DESTINATION_FOLDER, "diff06_"));
     }
@@ -103,7 +102,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     public void paragraphWithNonBreakableSpaceTest02() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithNonBreakableSpaceTest02.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithNonBreakableSpaceTest02.pdf"));
-        Assert.assertNull(
+        Assertions.assertNull(
                 new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithNonBreakableSpaceTest02.pdf",
                         SOURCE_FOLDER + "cmp_paragraphWithNonBreakableSpaceTest02.pdf", DESTINATION_FOLDER, "diff07_"));
     }
@@ -112,7 +111,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     public void paragraphWithNonBreakableSpaceTest03() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithNonBreakableSpaceTest03.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithNonBreakableSpaceTest03.pdf"));
-        Assert.assertNull(
+        Assertions.assertNull(
                 new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithNonBreakableSpaceTest03.pdf",
                         SOURCE_FOLDER + "cmp_paragraphWithNonBreakableSpaceTest03.pdf", DESTINATION_FOLDER, "diff08_"));
     }
@@ -121,7 +120,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     public void paragraphInTablePercentTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphInTablePercentTest01.html"),
                 new File(DESTINATION_FOLDER + "paragraphInTablePercentTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphInTablePercentTest01.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphInTablePercentTest01.pdf",
                 SOURCE_FOLDER + "cmp_paragraphInTablePercentTest01.pdf", DESTINATION_FOLDER, "diff09_"));
     }
 
@@ -133,7 +132,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
         //TODO: update after DEVSIX-2445 fix
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithButtonInputLabelSelectTextareaTest.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithButtonInputLabelSelectTextareaTest.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(
+        Assertions.assertNull(new CompareTool().compareByContent(
                 DESTINATION_FOLDER + "paragraphWithButtonInputLabelSelectTextareaTest.pdf",
                 SOURCE_FOLDER + "cmp_paragraphWithButtonInputLabelSelectTextareaTest.pdf", DESTINATION_FOLDER,
                 "diff11_"));
@@ -146,7 +145,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
         //TODO: update after DEVSIX-2445 fix
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithBdoBrImgMapQSubSupTest.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithBdoBrImgMapQSubSupTest.pdf"));
-        Assert.assertNull(
+        Assertions.assertNull(
                 new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithBdoBrImgMapQSubSupTest.pdf",
                         SOURCE_FOLDER + "cmp_paragraphWithBdoBrImgMapQSubSupTest.pdf", DESTINATION_FOLDER, "diff12_"));
     }
@@ -158,7 +157,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
         //TODO: update after DEVSIX-2445 fix
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(
+        Assertions.assertNull(new CompareTool().compareByContent(
                 DESTINATION_FOLDER + "paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.pdf",
                 SOURCE_FOLDER + "cmp_paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.pdf", DESTINATION_FOLDER,
                 "diff13_"));
@@ -169,7 +168,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
         //TODO: update after DEVSIX-2445 fix
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithAParagraphSpanDivTest.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithAParagraphSpanDivTest.pdf"));
-        Assert.assertNull(
+        Assertions.assertNull(
                 new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithAParagraphSpanDivTest.pdf",
                         SOURCE_FOLDER + "cmp_paragraphWithAParagraphSpanDivTest.pdf", DESTINATION_FOLDER, "diff14_"));
     }
@@ -181,7 +180,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
         //TODO: update after DEVSIX-2445 fix
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithBBigISmallTtStrongTest.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithBBigISmallTtStrongTest.pdf"));
-        Assert.assertNull(
+        Assertions.assertNull(
                 new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithBBigISmallTtStrongTest.pdf",
                         SOURCE_FOLDER + "cmp_paragraphWithBBigISmallTtStrongTest.pdf", DESTINATION_FOLDER, "diff15_"));
     }
@@ -190,7 +189,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     public void paragraphWithPDisplayTableTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithPDisplayTableTest.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithPDisplayTableTest.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithPDisplayTableTest.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithPDisplayTableTest.pdf",
                 SOURCE_FOLDER + "cmp_paragraphWithPDisplayTableTest.pdf", DESTINATION_FOLDER, "diff15_"));
     }
 
@@ -198,7 +197,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     public void paragraphWithDifferentSpansTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithDifferentSpansTest.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithDifferentSpansTest.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithDifferentSpansTest.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithDifferentSpansTest.pdf",
                 SOURCE_FOLDER + "cmp_paragraphWithDifferentSpansTest.pdf", DESTINATION_FOLDER, "diff15_"));
     }
 
@@ -206,7 +205,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     public void paragraphWithDifferentBlocksAndDisplaysTest() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithDifferentBlocksAndDisplaysTest.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithDifferentBlocksAndDisplaysTest.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(
+        Assertions.assertNull(new CompareTool().compareByContent(
                 DESTINATION_FOLDER + "paragraphWithDifferentBlocksAndDisplaysTest.pdf",
                 SOURCE_FOLDER + "cmp_paragraphWithDifferentBlocksAndDisplaysTest.pdf", DESTINATION_FOLDER, "diff15_"));
     }
@@ -216,7 +215,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
         //TODO: update after DEVSIX-2619 fix
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithLabelSpanDisplayBlockTest.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithLabelSpanDisplayBlockTest.pdf"));
-        Assert.assertNull(
+        Assertions.assertNull(
                 new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithLabelSpanDisplayBlockTest.pdf",
                         SOURCE_FOLDER + "cmp_paragraphWithLabelSpanDisplayBlockTest.pdf", DESTINATION_FOLDER, "diff15_"));
     }
@@ -225,7 +224,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     public void paragraphWithImageTest01() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithImageTest01.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithImageTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithImageTest01.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithImageTest01.pdf",
                 SOURCE_FOLDER + "cmp_paragraphWithImageTest01.pdf", DESTINATION_FOLDER,
                 "diff_paragraphWithImageTest01_"));
     }
@@ -234,7 +233,7 @@ public class ParagraphTest extends ExtendedHtmlConversionITextTest {
     public void paragraphWithImageTest01RTL() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + "paragraphWithImageTest01RTL.html"),
                 new File(DESTINATION_FOLDER + "paragraphWithImageTest01RTL.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithImageTest01RTL.pdf",
+        Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "paragraphWithImageTest01RTL.pdf",
                 SOURCE_FOLDER + "cmp_paragraphWithImageTest01RTL.pdf", DESTINATION_FOLDER,
                 "diff_paragraphWithImageTest01_"));
     }

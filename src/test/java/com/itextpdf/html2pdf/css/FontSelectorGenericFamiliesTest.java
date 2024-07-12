@@ -28,23 +28,22 @@ import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.io.IOException;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 //TODO(DEVSIX-1034): serif, sans-serif font families are not supported
 //TODO(DEVSIX-1036): cursive, fantasy, system-ui font-families are not supported
 public class FontSelectorGenericFamiliesTest extends ExtendedITextTest {
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/css/FontSelectorGenericFamiliesTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/css/FontSelectorGenericFamiliesTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -65,6 +64,6 @@ public class FontSelectorGenericFamiliesTest extends ExtendedITextTest {
         String srcHtml = sourceFolder + "genericFontFamilies.html";
         ConverterProperties properties = new ConverterProperties().setFontProvider(fontProvider);
         HtmlConverter.convertToPdf(new File(srcHtml), new File(outPdf), properties);
-        Assert.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff_" + testName + "_"));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdf, cmpPdf, destinationFolder, "diff_" + testName + "_"));
     }
 }

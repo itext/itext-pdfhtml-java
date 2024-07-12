@@ -27,23 +27,22 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class TitleTest extends ExtendedITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/TitleTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/TitleTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -51,15 +50,15 @@ public class TitleTest extends ExtendedITextTest {
     @Test
     public void title01Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "titleTest01.html"), new File(destinationFolder + "titleTest01.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "titleTest01.pdf", sourceFolder + "cmp_titleTest01.pdf", destinationFolder, "diff01_"));
-        Assert.assertEquals("Best title!", new PdfDocument(new PdfReader(destinationFolder + "titleTest01.pdf")).getDocumentInfo().getTitle());
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "titleTest01.pdf", sourceFolder + "cmp_titleTest01.pdf", destinationFolder, "diff01_"));
+        Assertions.assertEquals("Best title!", new PdfDocument(new PdfReader(destinationFolder + "titleTest01.pdf")).getDocumentInfo().getTitle());
     }
 
     @Test
     public void title02Test() throws IOException, InterruptedException {
         HtmlConverter.convertToPdf(new File(sourceFolder + "titleTest02.html"), new File(destinationFolder + "titleTest02.pdf"));
-        Assert.assertNull(new CompareTool().compareByContent(destinationFolder + "titleTest02.pdf", sourceFolder + "cmp_titleTest02.pdf", destinationFolder, "diff02_"));
-        Assert.assertEquals("Best title!", new PdfDocument(new PdfReader(destinationFolder + "titleTest02.pdf")).getDocumentInfo().getTitle());
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "titleTest02.pdf", sourceFolder + "cmp_titleTest02.pdf", destinationFolder, "diff02_"));
+        Assertions.assertEquals("Best title!", new PdfDocument(new PdfReader(destinationFolder + "titleTest02.pdf")).getDocumentInfo().getTitle());
     }
 
 }

@@ -31,6 +31,12 @@ import java.util.Set;
 
 public class CssConstants extends CommonCssConstants {
 
+    /** The Constant AUTO_FIT. */
+    public static final String AUTO_FIT = "auto-fit";
+
+    /** The Constant AUTO_FILL. */
+    public static final String AUTO_FILL = "auto-fill";
+
     /** The Constant BLEED. */
     public static final String BLEED = "bleed";
 
@@ -70,6 +76,9 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant MIN_WIDTH. */
     public static final String MIN_WIDTH = "min-width";
+
+    /**  The Constant MIN_MAX. */
+    public static final String MINMAX = "minmax";
 
     /**
      * The Constant OBJECT_FIT.
@@ -138,8 +147,8 @@ public class CssConstants extends CommonCssConstants {
     /** The Constant FIRST_EXCEPT. */
     public static final String FIRST_EXCEPT = "first-except";
 
-    /** The Constant GRID. */
-    public static final String GRID = "grid";
+    /** The Constant GRID_AREA. */
+    public static final String GRID_AREA = "grid-area";
 
     /** The Constant INLINE. */
     public static final String INLINE = "inline";
@@ -222,6 +231,9 @@ public class CssConstants extends CommonCssConstants {
 
     /** The Constant SUB. */
     public static final String SUB = "sub";
+
+    /** The Constant SUBGRID. */
+    public static final String SUBGRID = "subgrid";
 
     /** The Constant SUPER. */
     public static final String SUPER = "super";

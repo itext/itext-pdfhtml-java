@@ -33,6 +33,7 @@ import com.itextpdf.html2pdf.css.apply.util.BorderStyleApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FlexApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FloatApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.FontStyleApplierUtil;
+import com.itextpdf.html2pdf.css.apply.util.GridApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.HyphenationApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.MarginApplierUtil;
 import com.itextpdf.html2pdf.css.apply.util.OpacityApplierUtil;
@@ -81,6 +82,7 @@ public class BlockCssApplier implements ICssApplier {
             OrphansWidowsApplierUtil.applyOrphansAndWidows(cssProps, container);
             VerticalAlignmentApplierUtil.applyVerticalAlignmentForBlocks(cssProps, container, isInlineItem(tagWorker));
             MultiColumnCssApplierUtil.applyMultiCol(cssProps, context, container);
+            GridApplierUtil.applyGridItemProperties(cssProps, stylesContainer, container);
             if (isFlexItem(stylesContainer)) {
                 FlexApplierUtil.applyFlexItemProperties(cssProps, context, container);
             } else {

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 450px 50px;
+            grid-template-rows: auto;
+            gap: 10px;
+            padding: 5px;
+        }
+        .grid-elem {
+            background-color: crimson;
+            color: white;
+            padding: 17px;
+            text-align: center;
+            border-radius: 0.5rem;
+        }
+        .wide {
+            grid-column: span 2;
+        }
+        .nested-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid white;
+            padding: 8px;
+        }
+        th {
+            background-color: brown;
+            color: white;
+        }
+        .nested-grid {
+            display: grid;
+            grid-template-columns: 100px 100px;
+            grid-template-rows: 60px 60px;
+            gap: 10px;
+            padding: 17px;
+        }
+        .nested-grid-elem {
+            background-color: cadetblue;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="grid-elem wide">1</div>
+        <div class="grid-elem">
+            <table class="nested-table">
+                <thead>
+                    <tr>
+                        <th>H1</th>
+                        <th>H2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="nested-grid">
+                                <div class="nested-grid-elem">1</div>
+                                <div class="nested-grid-elem">2</div>
+                                <div class="nested-grid-elem">3</div>
+                                <div class="nested-grid-elem">4</div>
+                            </div>
+                        </td>
+                        <td>R1C2</td>
+                    </tr>
+                    <tr>
+                        <td>R2C1</td>
+                        <td>R2C2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="grid-elem">3</div>
+        <div class="grid-elem">4</div>
+        <div class="grid-elem">5</div>
+    </div>
+</body>
+</html>

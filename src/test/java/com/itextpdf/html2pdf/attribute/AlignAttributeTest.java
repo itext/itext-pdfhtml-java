@@ -30,23 +30,22 @@ import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.WriterProperties;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class AlignAttributeTest extends ExtendedHtmlConversionITextTest {
 
     public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/attribute/AlignAttributeTest/";
     public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/attribute/AlignAttributeTest/";
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(destinationFolder);
     }
@@ -78,7 +77,7 @@ public class AlignAttributeTest extends ExtendedHtmlConversionITextTest {
         FileInputStream fileInputStream = new FileInputStream(htmlSource);
         HtmlConverter.convertToPdf(fileInputStream, pdfDocument, converterProperties);
 
-        Assert.assertNull(new CompareTool()
+        Assertions.assertNull(new CompareTool()
                 .compareByContent(pdfDestinationFile, cmpPdfDestinationFile, destinationFolder));
     }
 }

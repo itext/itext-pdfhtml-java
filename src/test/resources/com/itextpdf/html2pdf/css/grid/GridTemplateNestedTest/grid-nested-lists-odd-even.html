@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 180px 180px 180px;
+            grid-template-rows: auto;
+            row-gap: 20px;
+            column-gap: 20px;
+            padding: 20px;
+        }
+        .grid-elem {
+			color: white;
+            background-color: darkblue;
+            padding: 20px;
+            border-radius: 0.5rem;
+        }
+		h3 {
+			text-align: center;
+		}
+		ol, ul {
+			padding: 10px;
+			text-align: right;
+		}
+		.first {
+			text-align: left;
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+		.grid-elem:nth-of-type(even) {
+			background-color: #81b29a;
+		}
+		.grid-elem:nth-of-type(odd) {
+			border: 4px solid lightskyblue;
+		}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="grid-elem">
+			<h3>Ordered List</h3>
+			<ol class="first">
+				<li>Ordered1</li>
+				<li>Ordered2</li>
+				<li>Ordered3</li>
+				<li>Ordered4</li>
+				<li>Ordered5</li>
+			</ol>
+        </div>
+		<div class="grid-elem">
+			<h3>Unordered List</h3>
+			<ul class="first">
+				<li>Unordered1</li>
+				<li>Unordered2</li>
+				<li>Unordered3</li>
+				<li>Unordered4</li>
+				<li>Unordered5</li>
+				<li>Unordered6</li>
+				<li>Unordered7</li>
+				<li>Unordered8</li>
+			</ul>
+		</div>
+		<div class="grid-elem">
+			<h3>Ordered List</h3>
+			<ol>
+				<li>Ordered1</li>
+				<li>Ordered2</li>
+				<li>Ordered3</li>
+				<li>Ordered4</li>
+				<li>Ordered5</li>
+			</ol>
+        </div>
+		<div class="grid-elem">
+			<h3>Unordered List</h3>
+			<ul>
+				<li>Unordered1</li>
+				<li>Unordered2</li>
+				<li>Unordered3</li>
+				<li>Unordered4</li>
+				<li>Unordered5</li>
+				<li>Unordered6</li>
+				<li>Unordered7</li>
+				<li>Unordered8</li>
+			</ul>
+		</div>
+    </div>
+</body>
+</html>

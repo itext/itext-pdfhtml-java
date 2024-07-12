@@ -27,23 +27,22 @@ import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.util.List;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 /**
  * This test handles the case where a br tag causes the pdf to no longer be pdf/A compliant
  * The underlying problem turns out to be that the inserted Text IElement has no font, and uses the default (Helvetica) font.
  * The font does not get embedded, and as such, it breaks the compliancy.
  */
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class BrTagTest extends ExtendedITextTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
     }
 
@@ -59,10 +58,10 @@ public class BrTagTest extends ExtendedITextTest {
                 "</html>";
 
         List<IElement> elements = HtmlConverter.convertToElements(input);
-        Assert.assertEquals(3, elements.size());
-        Assert.assertTrue(elements.get(1) instanceof Paragraph);
-        Assert.assertEquals(1, ((Paragraph)elements.get(1)).getChildren().size());
+        Assertions.assertEquals(3, elements.size());
+        Assertions.assertTrue(elements.get(1) instanceof Paragraph);
+        Assertions.assertEquals(1, ((Paragraph)elements.get(1)).getChildren().size());
         IElement iElement = ((Paragraph) elements.get(1)).getChildren().get(0);
-        Assert.assertArrayEquals(new String[] {"freesans"}, iElement.<String[]>getProperty(Property.FONT));
+        Assertions.assertArrayEquals(new String[] {"freesans"}, iElement.<String[]>getProperty(Property.FONT));
     }
 }
