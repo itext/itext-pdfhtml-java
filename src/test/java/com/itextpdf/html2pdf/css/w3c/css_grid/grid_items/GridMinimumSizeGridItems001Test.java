@@ -28,9 +28,6 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-2449 z-index is not supported
-@LogMessages(messages = {
-        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)
-})
 public class GridMinimumSizeGridItems001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

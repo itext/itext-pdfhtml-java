@@ -141,4 +141,14 @@ public class FlexPagingTest extends ExtendedHtmlConversionITextTest {
     public void columnFlexGrowPaging2Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("column-flex-grow-paging-2", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void tableInFlexOnSplitTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("table-in-flex-on-split", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void tableInFlexColumnOnSplitTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("table-in-flex-column-on-split", sourceFolder, destinationFolder);
+    }
 }
