@@ -48,7 +48,7 @@ public class HtmlConverterPdfAParameterizedTest extends ExtendedHtmlConversionIT
 
 
     // TODO DEVSIX-2449 z-index is not supported (zindex.html)
-    public static Iterable<Object[]> RotationRelatedProperties() {
+    public static Iterable<Object[]> rotationRelatedProperties() {
         return Arrays.asList(new Object[][]{
                 {"images.html", "pdfA4BasicImageTest", PdfAConformanceLevel.PDF_A_4},
                 {"imageJpeg2000.html", "pdfA4Jpeg2000Test", PdfAConformanceLevel.PDF_A_4},
@@ -109,7 +109,7 @@ public class HtmlConverterPdfAParameterizedTest extends ExtendedHtmlConversionIT
     }
 
     @ParameterizedTest(name = "{1}")
-    @MethodSource("RotationRelatedProperties")
+    @MethodSource("rotationRelatedProperties")
     public void convertToPdfA4Test(Object htmlName, Object testName, PdfAConformanceLevel conformanceLevel) throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + htmlName;
         String destinationPdf = DESTINATION_FOLDER + testName + ".pdf";

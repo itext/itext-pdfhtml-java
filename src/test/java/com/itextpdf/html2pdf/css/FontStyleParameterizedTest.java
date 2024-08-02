@@ -46,7 +46,7 @@ public class FontStyleParameterizedTest extends ExtendedITextTest {
     }
 
 
-    public static Iterable<Object[]> RotationRelatedProperties() {
+    public static Iterable<Object[]> rotationRelatedProperties() {
         return Arrays.asList(new Object[][]{
                 {"fontWithSerifTest"},
                 {"fontWithSansSerifTest"},
@@ -57,7 +57,7 @@ public class FontStyleParameterizedTest extends ExtendedITextTest {
     }
 
     @ParameterizedTest(name = "{0}")
-    @MethodSource("RotationRelatedProperties")
+    @MethodSource("rotationRelatedProperties")
     public void convertToPdfA4Test(String htmlName) throws IOException, InterruptedException {
         String htmlPath = SOURCE_FOLDER + htmlName + ".html";
         String pdfPath = DESTINATION_FOLDER + htmlName + ".pdf";
