@@ -176,9 +176,9 @@ public class Html2ElementsTest extends ExtendedITextTest {
         String html = "<html><p>Hello world!</p><meta name=\"author\" content=\"Bruno\"><table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table><p>Hello world!</p></html>";
         ConverterProperties props = new ConverterProperties();
         OutlineHandler outlineHandler = new OutlineHandler();
-        outlineHandler.putTagPriorityMapping("h1", 1);
-        outlineHandler.putTagPriorityMapping("h3", 2);
-        outlineHandler.putTagPriorityMapping("p", 3);
+        outlineHandler.putMarkPriorityMapping("h1", 1)
+                .putMarkPriorityMapping("h3", 2)
+                .putMarkPriorityMapping("p", 3);
         props.setOutlineHandler(outlineHandler);
 
         HtmlConverter.convertToElements(html);

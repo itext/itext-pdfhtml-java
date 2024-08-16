@@ -123,6 +123,7 @@ public class OutlineHandler {
      * Creates an OutlineHandler with custom {@link IOutlineMarkExtractor}
      *
      * @param extractor the mark extractor
+     *
      * @return the outline handler
      */
     public static OutlineHandler createHandler(IOutlineMarkExtractor extractor) {
@@ -144,31 +145,20 @@ public class OutlineHandler {
      * Set mark extractor.
      *
      * @param extractor the mark extractor
+     *
      * @return the outline handler
      */
     public OutlineHandler setMarkExtractor(IOutlineMarkExtractor extractor){
         markExtractor = extractor;
         return this;
     }
-    /**
-     * Put tag into priority mapping.
-     *
-     * @param tagName  the tag name
-     * @param priority the priority
-     * @return the outline handler
-     * @deprecated use {@link #putMarkPriorityMapping(String, Integer)} instead
-     */
-    @Deprecated
-    public OutlineHandler putTagPriorityMapping(String tagName, Integer priority) {
-        putMarkPriorityMapping(tagName, priority);
-        return this;
-    }
 
     /**
      * Put mark into priority mapping.
      *
-     * @param markName  the mark name
+     * @param markName the mark name
      * @param priority the priority
+     *
      * @return the outline handler
      */
     public OutlineHandler putMarkPriorityMapping(String markName, Integer priority) {
@@ -177,22 +167,10 @@ public class OutlineHandler {
     }
 
     /**
-     * Put all tags into priority mappings.
-     *
-     * @param mappings the mappings
-     * @return the outline handler
-     * @deprecated ue {@link #putAllMarksPriorityMappings(Map)} instead
-     */
-    @Deprecated
-    public OutlineHandler putAllTagPriorityMappings(Map<String, Integer> mappings) {
-        putAllMarksPriorityMappings(mappings);
-        return this;
-    }
-
-    /**
      * Put all marks into priority mappings.
      *
      * @param mappings the mappings
+     *
      * @return the outline handler
      */
     public OutlineHandler putAllMarksPriorityMappings(Map<String, Integer> mappings) {
@@ -201,21 +179,10 @@ public class OutlineHandler {
     }
 
     /**
-     * Gets the marks from priority mapping.
-     *
-     * @param tagName the tag name
-     * @return the tag priority mapping
-     * @deprecated use {@link #getMarkPriorityMapping(String)} instead
-     */
-    @Deprecated
-    public Integer getTagPriorityMapping(String tagName) {
-        return getMarkPriorityMapping(tagName);
-    }
-
-    /**
      * Gets the mark from priority mapping.
      *
      * @param markName the mark name
+     *
      * @return the tag priority mapping
      */
     public Integer getMarkPriorityMapping(String markName) {
@@ -225,19 +192,8 @@ public class OutlineHandler {
     /**
      * Checks for tag in priority mapping.
      *
-     * @param tagName the tag name
-     * @return true, if the tag name is listed in the tag priorities mapping
-     * @deprecated use {@link #hasMarkPriorityMapping(String)} instead
-     */
-    @Deprecated
-    public boolean hasTagPriorityMapping(String tagName) {
-        return hasMarkPriorityMapping(tagName);
-    }
-
-    /**
-     * Checks for tag in priority mapping.
-     *
      * @param markName the mark name
+     *
      * @return true, if the tag name is listed in the tag priorities mapping
      */
     public boolean hasMarkPriorityMapping(String markName) {
@@ -291,6 +247,7 @@ public class OutlineHandler {
      * merging several PDF files created by html2pdf.
      *
      * @param element the element
+     *
      * @return the unique destination name
      */
     protected String generateUniqueDestinationName(IElementNode element) {
@@ -304,6 +261,7 @@ public class OutlineHandler {
      * You can override this method to set your own way to generate the outline names.
      *
      * @param element the element
+     *
      * @return the unique destination name
      */
     protected String generateOutlineName(IElementNode element) {
@@ -324,6 +282,7 @@ public class OutlineHandler {
      * @param tagWorker the tag worker
      * @param element   the element
      * @param context   the processor context
+     *
      * @return the outline handler
      */
     protected OutlineHandler addOutlineAndDestToDocument(ITagWorker tagWorker, IElementNode element,
@@ -359,6 +318,7 @@ public class OutlineHandler {
      *
      * @param tagWorker the tag worker
      * @param element   the element
+     *
      * @return the outline handler
      */
     protected OutlineHandler setDestinationToElement(ITagWorker tagWorker, IElementNode element) {
@@ -384,6 +344,7 @@ public class OutlineHandler {
      * outline names. The {@link #destCounter} map serves to achieve the uniqueness of an ID.
      *
      * @param key the key
+     *
      * @return the unique ID
      */
     private String getUniqueID(String key) {

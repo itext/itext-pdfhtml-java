@@ -118,10 +118,6 @@ public final class Html2PdfLogMessageConstant {
     /** The Constant PAGE_SIZE_VALUE_IS_INVALID. */
     public static final String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
 
-    /** The Constant PDF_DOCUMENT_NOT_PRESENT. */
-    @Deprecated
-    public static final String PDF_DOCUMENT_NOT_PRESENT = "PdfDocument is not present";
-
     /** The Constant QUOTES_PROPERTY_INVALID. */
     public static final String QUOTES_PROPERTY_INVALID =
             "Quote property \"{0}\" is invalid. It should contain even number of <string> values.";
