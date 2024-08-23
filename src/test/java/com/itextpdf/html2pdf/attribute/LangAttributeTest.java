@@ -25,6 +25,7 @@ package com.itextpdf.html2pdf.attribute;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -35,6 +36,8 @@ import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -335,6 +338,9 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.ATTEMPT_TO_CREATE_A_TAG_FOR_FINISHED_HINT, count = 1)
+    })
     public void langAttrInDivAndSpanForTagPdfTest() throws IOException, InterruptedException {
         PdfDocument doc = compareResultWithDocument("langAttrInDivAndSpanForTagPdfTest");
         Assertions.assertEquals("ru", doc.getCatalog().getLang().toUnicodeString());
