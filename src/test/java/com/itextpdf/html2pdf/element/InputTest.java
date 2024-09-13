@@ -35,7 +35,7 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.geom.PageSize;
-import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
+import com.itextpdf.kernel.pdf.PdfAConformance;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -60,8 +60,8 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Tag("IntegrationTest")
 public class InputTest extends ExtendedHtmlConversionITextTest {
@@ -349,7 +349,7 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
         String destinationPdf = destinationFolder + name + ".pdf";
 
         ConverterProperties converterProperties = new ConverterProperties();
-        converterProperties.setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4);
+        converterProperties.setPdfAConformance(PdfAConformance.PDF_A_4);
         converterProperties.setDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                 new FileInputStream(sourceFolder + "sRGB Color Space Profile.icm")));
         try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {

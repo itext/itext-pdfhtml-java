@@ -22,7 +22,7 @@
  */
 package com.itextpdf.html2pdf;
 
-import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
+import com.itextpdf.kernel.pdf.PdfAConformance;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 
 import java.io.FileInputStream;
@@ -33,7 +33,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-
 import static com.itextpdf.html2pdf.HtmlConverterTest.compareAndCheckCompliance;
 
 @Tag("IntegrationTest")
@@ -50,72 +49,72 @@ public class HtmlConverterPdfAParameterizedTest extends ExtendedHtmlConversionIT
     // TODO DEVSIX-2449 z-index is not supported (zindex.html)
     public static Iterable<Object[]> rotationRelatedProperties() {
         return Arrays.asList(new Object[][]{
-                {"images.html", "pdfA4BasicImageTest", PdfAConformanceLevel.PDF_A_4},
-                {"imageJpeg2000.html", "pdfA4Jpeg2000Test", PdfAConformanceLevel.PDF_A_4},
-                {"basicForms.html", "pdfA4FormsTest", PdfAConformanceLevel.PDF_A_4},
-                {"basicTable.html", "pdfA4TableTest", PdfAConformanceLevel.PDF_A_4},
-                {"basicOutlines.html", "pdfA4OutlinesTest", PdfAConformanceLevel.PDF_A_4},
-                {"opacity.html", "pdfA4OpacityTest", PdfAConformanceLevel.PDF_A_4},
-                {"svg.html", "pdfA4SvgTest", PdfAConformanceLevel.PDF_A_4},
-                {"float.html", "pdfA4FloatTest", PdfAConformanceLevel.PDF_A_4},
-                {"flex.html", "pdfA4FlexTest", PdfAConformanceLevel.PDF_A_4},
-                {"list.html", "pdfA4ListTest", PdfAConformanceLevel.PDF_A_4},
-                {"borderTransparency.html", "pdfA4BorderTransparencyTest", PdfAConformanceLevel.PDF_A_4},
-                {"positionAbsolute.html", "pdfA4PositionAbsoluteTest", PdfAConformanceLevel.PDF_A_4},
-                {"positionAbsoluteOpacity.html", "pdfA4PositionAbsoluteOpacityTest", PdfAConformanceLevel.PDF_A_4},
-                {"zIndex.html", "pdfA4ZIndexTest", PdfAConformanceLevel.PDF_A_4},
+                {"images.html", "pdfA4BasicImageTest", PdfAConformance.PDF_A_4},
+                {"imageJpeg2000.html", "pdfA4Jpeg2000Test", PdfAConformance.PDF_A_4},
+                {"basicForms.html", "pdfA4FormsTest", PdfAConformance.PDF_A_4},
+                {"basicTable.html", "pdfA4TableTest", PdfAConformance.PDF_A_4},
+                {"basicOutlines.html", "pdfA4OutlinesTest", PdfAConformance.PDF_A_4},
+                {"opacity.html", "pdfA4OpacityTest", PdfAConformance.PDF_A_4},
+                {"svg.html", "pdfA4SvgTest", PdfAConformance.PDF_A_4},
+                {"float.html", "pdfA4FloatTest", PdfAConformance.PDF_A_4},
+                {"flex.html", "pdfA4FlexTest", PdfAConformance.PDF_A_4},
+                {"list.html", "pdfA4ListTest", PdfAConformance.PDF_A_4},
+                {"borderTransparency.html", "pdfA4BorderTransparencyTest", PdfAConformance.PDF_A_4},
+                {"positionAbsolute.html", "pdfA4PositionAbsoluteTest", PdfAConformance.PDF_A_4},
+                {"positionAbsoluteOpacity.html", "pdfA4PositionAbsoluteOpacityTest", PdfAConformance.PDF_A_4},
+                {"zIndex.html", "pdfA4ZIndexTest", PdfAConformance.PDF_A_4},
 
-                {"images.html", "pdfA3BasicImageTest", PdfAConformanceLevel.PDF_A_3U},
-                {"imageJpeg2000.html", "pdfA3Jpeg2000Test", PdfAConformanceLevel.PDF_A_3U},
-                {"basicForms.html", "pdfA3FormsTest", PdfAConformanceLevel.PDF_A_3U},
-                {"basicTable.html", "pdfA3TableTest", PdfAConformanceLevel.PDF_A_3U},
-                {"basicOutlines.html", "pdfA3OutlinesTest", PdfAConformanceLevel.PDF_A_3U},
-                {"opacity.html", "pdfA3Opacity", PdfAConformanceLevel.PDF_A_3U},
-                {"svg.html", "pdfA3SvgTest", PdfAConformanceLevel.PDF_A_3U},
-                {"float.html", "pdfA3FloatTest", PdfAConformanceLevel.PDF_A_3U},
-                {"flex.html", "pdfA3FlexTest", PdfAConformanceLevel.PDF_A_3U},
-                {"list.html", "pdfA3ListTest", PdfAConformanceLevel.PDF_A_3U},
-                {"borderTransparency.html", "pdfA3BorderTransparencyTest", PdfAConformanceLevel.PDF_A_3U},
-                {"positionAbsolute.html", "pdfA3PositionAbsoluteTest", PdfAConformanceLevel.PDF_A_3U},
-                {"positionAbsoluteOpacity.html", "pdfA3PositionAbsoluteOpacityTest", PdfAConformanceLevel.PDF_A_3U},
-                {"zIndex.html", "pdfA3ZIndexTest", PdfAConformanceLevel.PDF_A_3U},
+                {"images.html", "pdfA3BasicImageTest", PdfAConformance.PDF_A_3U},
+                {"imageJpeg2000.html", "pdfA3Jpeg2000Test", PdfAConformance.PDF_A_3U},
+                {"basicForms.html", "pdfA3FormsTest", PdfAConformance.PDF_A_3U},
+                {"basicTable.html", "pdfA3TableTest", PdfAConformance.PDF_A_3U},
+                {"basicOutlines.html", "pdfA3OutlinesTest", PdfAConformance.PDF_A_3U},
+                {"opacity.html", "pdfA3Opacity", PdfAConformance.PDF_A_3U},
+                {"svg.html", "pdfA3SvgTest", PdfAConformance.PDF_A_3U},
+                {"float.html", "pdfA3FloatTest", PdfAConformance.PDF_A_3U},
+                {"flex.html", "pdfA3FlexTest", PdfAConformance.PDF_A_3U},
+                {"list.html", "pdfA3ListTest", PdfAConformance.PDF_A_3U},
+                {"borderTransparency.html", "pdfA3BorderTransparencyTest", PdfAConformance.PDF_A_3U},
+                {"positionAbsolute.html", "pdfA3PositionAbsoluteTest", PdfAConformance.PDF_A_3U},
+                {"positionAbsoluteOpacity.html", "pdfA3PositionAbsoluteOpacityTest", PdfAConformance.PDF_A_3U},
+                {"zIndex.html", "pdfA3ZIndexTest", PdfAConformance.PDF_A_3U},
 
-                {"images.html", "pdfA2BasicImageTest", PdfAConformanceLevel.PDF_A_2B},
-                {"imageJpeg2000.html", "pdfA2Jpeg2000Test", PdfAConformanceLevel.PDF_A_2B},
-                {"basicForms.html", "pdfA2FormsTest", PdfAConformanceLevel.PDF_A_2B},
-                {"basicTable.html", "pdfA2TableTest", PdfAConformanceLevel.PDF_A_2B},
-                {"basicOutlines.html", "pdfA2OutlinesTest", PdfAConformanceLevel.PDF_A_2B},
-                {"opacity.html", "pdfA2OpacityTest", PdfAConformanceLevel.PDF_A_2B},
-                {"svg.html", "pdfA2SvgTest", PdfAConformanceLevel.PDF_A_2B},
-                {"float.html", "pdfA2FloatTest", PdfAConformanceLevel.PDF_A_2B},
-                {"flex.html", "pdfA2FlexTest", PdfAConformanceLevel.PDF_A_2B},
-                {"list.html", "pdfA2ListTest", PdfAConformanceLevel.PDF_A_2B},
-                {"borderTransparency.html", "pdfA2BorderTransparencyTest", PdfAConformanceLevel.PDF_A_2B},
-                {"positionAbsolute.html", "pdfA2PositionAbsoluteTest", PdfAConformanceLevel.PDF_A_2B},
-                {"positionAbsoluteOpacity.html", "pdfA2PositionAbsoluteOpacityTest", PdfAConformanceLevel.PDF_A_2B},
-                {"zIndex.html", "pdfA2ZIndexTest", PdfAConformanceLevel.PDF_A_2B},
+                {"images.html", "pdfA2BasicImageTest", PdfAConformance.PDF_A_2B},
+                {"imageJpeg2000.html", "pdfA2Jpeg2000Test", PdfAConformance.PDF_A_2B},
+                {"basicForms.html", "pdfA2FormsTest", PdfAConformance.PDF_A_2B},
+                {"basicTable.html", "pdfA2TableTest", PdfAConformance.PDF_A_2B},
+                {"basicOutlines.html", "pdfA2OutlinesTest", PdfAConformance.PDF_A_2B},
+                {"opacity.html", "pdfA2OpacityTest", PdfAConformance.PDF_A_2B},
+                {"svg.html", "pdfA2SvgTest", PdfAConformance.PDF_A_2B},
+                {"float.html", "pdfA2FloatTest", PdfAConformance.PDF_A_2B},
+                {"flex.html", "pdfA2FlexTest", PdfAConformance.PDF_A_2B},
+                {"list.html", "pdfA2ListTest", PdfAConformance.PDF_A_2B},
+                {"borderTransparency.html", "pdfA2BorderTransparencyTest", PdfAConformance.PDF_A_2B},
+                {"positionAbsolute.html", "pdfA2PositionAbsoluteTest", PdfAConformance.PDF_A_2B},
+                {"positionAbsoluteOpacity.html", "pdfA2PositionAbsoluteOpacityTest", PdfAConformance.PDF_A_2B},
+                {"zIndex.html", "pdfA2ZIndexTest", PdfAConformance.PDF_A_2B},
 
-                {"imageJpeg2000.html", "pdfA1Jpeg2000Test", PdfAConformanceLevel.PDF_A_1B},
-                {"basicForms.html", "pdfA1FormsTest", PdfAConformanceLevel.PDF_A_1B},
-                {"basicTable.html", "pdfA1TableTest", PdfAConformanceLevel.PDF_A_1B},
-                {"basicOutlines.html", "pdfA1OutlinesTest", PdfAConformanceLevel.PDF_A_1B},
-                {"svg.html", "pdfA1SvgTest", PdfAConformanceLevel.PDF_A_1B},
-                {"float.html", "pdfA1FloatTest", PdfAConformanceLevel.PDF_A_1B},
-                {"flex.html", "pdfA1FlexTest", PdfAConformanceLevel.PDF_A_1B},
-                {"list.html", "pdfA1ListTest", PdfAConformanceLevel.PDF_A_1B},
-                {"positionAbsolute.html", "pdfA1PositionAbsoluteTest", PdfAConformanceLevel.PDF_A_1B},
-                {"zIndex.html", "pdfA1ZIndexTest", PdfAConformanceLevel.PDF_A_1B}
+                {"imageJpeg2000.html", "pdfA1Jpeg2000Test", PdfAConformance.PDF_A_1B},
+                {"basicForms.html", "pdfA1FormsTest", PdfAConformance.PDF_A_1B},
+                {"basicTable.html", "pdfA1TableTest", PdfAConformance.PDF_A_1B},
+                {"basicOutlines.html", "pdfA1OutlinesTest", PdfAConformance.PDF_A_1B},
+                {"svg.html", "pdfA1SvgTest", PdfAConformance.PDF_A_1B},
+                {"float.html", "pdfA1FloatTest", PdfAConformance.PDF_A_1B},
+                {"flex.html", "pdfA1FlexTest", PdfAConformance.PDF_A_1B},
+                {"list.html", "pdfA1ListTest", PdfAConformance.PDF_A_1B},
+                {"positionAbsolute.html", "pdfA1PositionAbsoluteTest", PdfAConformance.PDF_A_1B},
+                {"zIndex.html", "pdfA1ZIndexTest", PdfAConformance.PDF_A_1B}
         });
     }
 
     @ParameterizedTest(name = "{1}")
     @MethodSource("rotationRelatedProperties")
-    public void convertToPdfA4Test(Object htmlName, Object testName, PdfAConformanceLevel conformanceLevel) throws IOException, InterruptedException {
+    public void convertToPdfA4Test(Object htmlName, Object testName, PdfAConformance conformanceLevel) throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + htmlName;
         String destinationPdf = DESTINATION_FOLDER + testName + ".pdf";
         String cmpPdf = SOURCE_FOLDER + "cmp_" + testName + ".pdf";
         ConverterProperties converterProperties = new ConverterProperties().setBaseUri(SOURCE_FOLDER);
-        converterProperties.setPdfAConformanceLevel(conformanceLevel);
+        converterProperties.setPdfAConformance(conformanceLevel);
         converterProperties.setDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                 new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
         try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {

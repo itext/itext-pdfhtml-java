@@ -28,7 +28,7 @@ import com.itextpdf.html2pdf.attach.Attacher;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.kernel.pdf.DocumentProperties;
-import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
+import com.itextpdf.kernel.pdf.PdfAConformance;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfVersion;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -62,7 +62,8 @@ import java.util.List;
  */
 public class HtmlConverter {
 
-    private static final List<PdfAConformanceLevel> pdf2ConformanceLevels = new ArrayList<>(Arrays. asList(PdfAConformanceLevel.PDF_A_4, PdfAConformanceLevel.PDF_A_4E, PdfAConformanceLevel.PDF_A_4F));
+    private static final List<PdfAConformance> pdf2Conformances = new ArrayList<>(
+            Arrays.asList(PdfAConformance.PDF_A_4, PdfAConformance.PDF_A_4E, PdfAConformance.PDF_A_4F));
 
     /**
      * Instantiates a new HtmlConverter instance.
@@ -90,7 +91,7 @@ public class HtmlConverter {
      * @param converterProperties a {@link ConverterProperties} instance
      */
     public static void convertToPdf(String html, OutputStream pdfStream, ConverterProperties converterProperties) {
-        if (converterProperties != null && pdf2ConformanceLevels.contains(converterProperties.getConformanceLevel())) {
+        if (converterProperties != null && pdf2Conformances.contains(converterProperties.getPdfAConformance())) {
             convertToPdf(html, new PdfWriter(pdfStream, new WriterProperties().setPdfVersion(PdfVersion.PDF_2_0)), converterProperties);
             return;
         }
@@ -117,16 +118,16 @@ public class HtmlConverter {
      * @param converterProperties a {@link ConverterProperties} instance
      */
     public static void convertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
-        if (converterProperties == null || converterProperties.getConformanceLevel() == null) {
+        if (converterProperties == null || converterProperties.getPdfAConformance() == null) {
             convertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties()
                     .setEventCountingMetaInfo(resolveMetaInfo(converterProperties))), converterProperties);
             return;
         }
-        PdfDocument document = new PdfADocument(pdfWriter, converterProperties.getConformanceLevel(),
+        PdfDocument document = new PdfADocument(pdfWriter, converterProperties.getPdfAConformance(),
                 converterProperties.getDocumentOutputIntent(), new DocumentProperties()
                 .setEventCountingMetaInfo(resolveMetaInfo(converterProperties)));
         converterProperties = setDefaultFontProviderForPdfA(document, converterProperties);
-        if ("A".equals(converterProperties.getConformanceLevel().getConformance())) {
+        if ("A".equals(converterProperties.getPdfAConformance().getLevel())) {
             document.setTagged();
         }
         convertToPdf(html, document, converterProperties);
@@ -202,7 +203,7 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, OutputStream pdfStream, ConverterProperties converterProperties) throws IOException {
-        if (converterProperties != null && pdf2ConformanceLevels.contains(converterProperties.getConformanceLevel())) {
+        if (converterProperties != null && pdf2Conformances.contains(converterProperties.getPdfAConformance())) {
             convertToPdf(htmlStream, new PdfWriter(pdfStream, new WriterProperties().setPdfVersion(PdfVersion.PDF_2_0)), converterProperties);
             return;
         }
@@ -245,16 +246,16 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
-        if (converterProperties == null || converterProperties.getConformanceLevel() == null) {
+        if (converterProperties == null || converterProperties.getPdfAConformance() == null) {
             convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(
                     resolveMetaInfo(converterProperties))), converterProperties);
             return;
         }
-        PdfDocument document = new PdfADocument(pdfWriter, converterProperties.getConformanceLevel(),
+        PdfDocument document = new PdfADocument(pdfWriter, converterProperties.getPdfAConformance(),
                 converterProperties.getDocumentOutputIntent(), new DocumentProperties()
                 .setEventCountingMetaInfo(resolveMetaInfo(converterProperties)));
         converterProperties = setDefaultFontProviderForPdfA(document, converterProperties);
-        if ("A".equals(converterProperties.getConformanceLevel().getConformance())) {
+        if ("A".equals(converterProperties.getPdfAConformance().getLevel())) {
             document.setTagged();
         }
         convertToPdf(htmlStream, document, converterProperties);
@@ -446,7 +447,7 @@ public class HtmlConverter {
             if (properties.getFontProvider() == null) {
                 properties.setFontProvider(new DefaultFontProvider(false, true, false));
             }
-        } else if (document == null && properties != null && properties.getConformanceLevel() != null) {
+        } else if (document == null && properties != null && properties.getPdfAConformance() != null) {
             if (properties.getFontProvider() == null) {
                 properties.setFontProvider(new DefaultFontProvider(false, true, false));
             }

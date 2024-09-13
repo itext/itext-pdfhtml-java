@@ -36,8 +36,7 @@ import com.itextpdf.html2pdf.resolver.form.FormFieldNameResolver;
 import com.itextpdf.html2pdf.resolver.form.RadioCheckResolver;
 import com.itextpdf.html2pdf.resolver.resource.HtmlResourceResolver;
 import com.itextpdf.io.font.FontProgram;
-import com.itextpdf.kernel.pdf.IConformanceLevel;
-import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
+import com.itextpdf.kernel.pdf.PdfConformance;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.FontProvider;
@@ -134,9 +133,9 @@ public class ProcessorContext {
     private PdfDocument pdfDocument;
 
     /**
-     * PDF/A conformance level from {@link ConverterProperties} instance.
+     * PDF/A conformance from {@link ConverterProperties} instance.
      */
-    private final PdfAConformanceLevel pdfAConformanceLevelFromProperties;
+    private final PdfConformance pdfAConformanceFromProperties;
 
     /**
      * The Processor meta info
@@ -206,7 +205,7 @@ public class ProcessorContext {
         formFieldNameResolver = new FormFieldNameResolver();
         radioCheckResolver = new RadioCheckResolver();
         immediateFlush = converterProperties.isImmediateFlush();
-        pdfAConformanceLevelFromProperties = converterProperties.getConformanceLevel();
+        pdfAConformanceFromProperties = new PdfConformance(converterProperties.getPdfAConformance());
         processingInlineSvg = false;
         continuousContainerEnabled = converterProperties.isContinuousContainerEnabled();
     }
@@ -248,12 +247,12 @@ public class ProcessorContext {
     }
 
     /**
-     * Get the PDF document conformance level if specified.
+     * Get the PDF document conformance.
      *
-     * @return the {@link PdfAConformanceLevel} will be null if the processing result won't follow PDF/A strictness
+     * @return the {@link PdfConformance}
      */
-    public IConformanceLevel getConformanceLevel() {
-        return pdfDocument == null ? pdfAConformanceLevelFromProperties : pdfDocument.getConformanceLevel();
+    public PdfConformance getConformance() {
+        return pdfDocument == null ? pdfAConformanceFromProperties : pdfDocument.getConformance();
     }
 
     /**

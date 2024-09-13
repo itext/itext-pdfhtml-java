@@ -26,7 +26,7 @@ import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
-import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
+import com.itextpdf.kernel.pdf.PdfAConformance;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
@@ -115,9 +115,9 @@ public class ConverterProperties {
     private PdfOutputIntent outputIntent;
 
     /**
-     * Conformance level for conversion to pdf/a.
+     * Conformance for conversion to pdf/a.
      */
-    private PdfAConformanceLevel conformanceLevel;
+    private PdfAConformance aConformance;
 
     /**
      * Instantiates a new {@link ConverterProperties} instance.
@@ -429,14 +429,14 @@ public class ConverterProperties {
 
     /**
      * Sets the generation and strictness level of the PDF/A that must be followed.
-     * Required parameter, when converting to pdf/a one have to specify an explicit pdf/a conformance level.
+     * Required parameter, when converting to pdf/a one have to specify an explicit pdf/a conformance.
      *
-     * @param conformanceLevel a {@link PdfAConformanceLevel} constant
+     * @param conformance a {@link PdfAConformance} constant
      *
      * @return the {@link ConverterProperties} instance
      */
-    public ConverterProperties setPdfAConformanceLevel(PdfAConformanceLevel conformanceLevel) {
-        this.conformanceLevel = conformanceLevel;
+    public ConverterProperties setPdfAConformance(PdfAConformance conformance) {
+        this.aConformance = conformance;
         return this;
     }
 
@@ -456,10 +456,10 @@ public class ConverterProperties {
     /**
      * Gets the generation and strictness level of the PDF/A that must be followed.
      *
-     * @return pdf/a conformance level
+     * @return pdf/a conformance
      */
-    public PdfAConformanceLevel getConformanceLevel() {
-        return conformanceLevel;
+    public PdfAConformance getPdfAConformance() {
+        return aConformance;
     }
 
     /**

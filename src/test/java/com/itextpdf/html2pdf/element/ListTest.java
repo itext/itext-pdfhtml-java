@@ -28,7 +28,7 @@ import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
-import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
+import com.itextpdf.kernel.pdf.PdfAConformance;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
@@ -231,7 +231,7 @@ public class ListTest extends ExtendedHtmlConversionITextTest {
     @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, count = 32)})
     public void listToPdfaTest() throws IOException, InterruptedException {
         InputStream is = new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm");
-        PdfADocument pdfADocument = new PdfADocument(new PdfWriter(DESTINATION_FOLDER + "listToPdfa.pdf"), PdfAConformanceLevel.PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", is));
+        PdfADocument pdfADocument = new PdfADocument(new PdfWriter(DESTINATION_FOLDER + "listToPdfa.pdf"), PdfAConformance.PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", is));
         try (FileInputStream fileInputStream = new FileInputStream(SOURCE_FOLDER + "listToPdfa.html")) {
             HtmlConverter.convertToPdf(fileInputStream, pdfADocument, new ConverterProperties()
                     .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT))

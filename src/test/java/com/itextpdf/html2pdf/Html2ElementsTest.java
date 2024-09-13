@@ -35,7 +35,7 @@ import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.exceptions.KernelExceptionMessageConstant;
 import com.itextpdf.kernel.exceptions.PdfException;
-import com.itextpdf.kernel.pdf.PdfAConformanceLevel;
+import com.itextpdf.kernel.pdf.PdfAConformance;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfVersion;
@@ -68,8 +68,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Tag("IntegrationTest")
 public class Html2ElementsTest extends ExtendedITextTest {
@@ -415,10 +415,10 @@ public class Html2ElementsTest extends ExtendedITextTest {
                 new ConverterProperties()
                         .setBaseUri(sourceFolder)
                         .setCreateAcroForm(true)
-                        .setPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4));
+                        .setPdfAConformance(PdfAConformance.PDF_A_4));
         try (Document document = new Document(
                 new PdfADocument(new PdfWriter(outPdf, new WriterProperties().setPdfVersion(PdfVersion.PDF_2_0)),
-                        PdfAConformanceLevel.PDF_A_4, intent))) {
+                        PdfAConformance.PDF_A_4, intent))) {
             for (IElement element : elements) {
                 document.add((IBlockElement) element);
             }
