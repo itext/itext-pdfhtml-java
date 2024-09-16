@@ -31,7 +31,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
-import static com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION;
+import static com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION;
 
 @Tag("IntegrationTest")
 public class ColumnRuleTest extends ExtendedHtmlConversionITextTest {

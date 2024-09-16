@@ -90,7 +90,7 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
+    @LogMessages(messages = @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
     public void letterSpacingTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("letterSpacingTest01", sourceFolder, destinationFolder);
     }
@@ -102,7 +102,7 @@ public class TextPropertiesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
+    @LogMessages(messages = @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
     public void wordSpacingTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("wordSpacingTest01", sourceFolder, destinationFolder);
     }

@@ -23,7 +23,7 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import org.junit.jupiter.api.BeforeAll;
@@ -44,7 +44,7 @@ public class FloatAndAlignmentTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
     public void singleBlockSingleParagraphRight() throws IOException, InterruptedException {
         /* this test shows different combinations of float values blocks and  paragraph align RIGHT within div container
         */
@@ -53,21 +53,21 @@ public class FloatAndAlignmentTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
     public void singleBlockSingleParagraphLeft() throws IOException, InterruptedException {
         //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
         convertToPdfAndCompare("singleBlockSingleParagraphLeft",sourceFolder, destinationFolder);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
     public void singleBlockSingleParagraphJustify() throws IOException, InterruptedException {
         //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
         convertToPdfAndCompare("singleBlockSingleParagraphJustify", sourceFolder, destinationFolder);
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
     public void singleBlockSingleParagraphCenter() throws IOException, InterruptedException {
         //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
         convertToPdfAndCompare("singleBlockSingleParagraphCenter", sourceFolder, destinationFolder);

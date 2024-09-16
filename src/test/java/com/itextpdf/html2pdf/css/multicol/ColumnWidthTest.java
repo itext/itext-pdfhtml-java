@@ -24,14 +24,13 @@ package com.itextpdf.html2pdf.css.multicol;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
+import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -57,7 +56,7 @@ public class ColumnWidthTest extends ExtendedHtmlConversionITextTest {
 
     //TODO: DEVSIX-3596 add support of relative units that currently are not supported
     @LogMessages(messages =
-    @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+    @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
     @Test
     public void convertDifferentUnitsTest() throws IOException, InterruptedException {
         runTest("differentUnitsTest");
@@ -274,7 +273,7 @@ public class ColumnWidthTest extends ExtendedHtmlConversionITextTest {
 
 
     @LogMessages(messages =
-    @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 3))
+    @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 3))
     @Test
     public void invalidMulticolValuesTest() throws IOException, InterruptedException {
         runTest("invalidMulticolValuesTest");

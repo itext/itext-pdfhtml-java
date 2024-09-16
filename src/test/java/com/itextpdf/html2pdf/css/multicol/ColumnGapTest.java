@@ -24,7 +24,7 @@ package com.itextpdf.html2pdf.css.multicol;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
@@ -55,7 +55,7 @@ public class ColumnGapTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate =
-            Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+            StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
     public void convertNegativeColumnGapValueTest() throws IOException, InterruptedException {
         runTest("negativeColumnGapValueTest");
     }
@@ -75,7 +75,7 @@ public class ColumnGapTest extends ExtendedHtmlConversionITextTest {
     //TODO: DEVSIX-3596 add support of relative units that currently are not supported
     @Test
     @LogMessages(messages = @LogMessage(messageTemplate =
-            Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+            StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
     public void convertDifferentUnitsTest() throws IOException, InterruptedException {
         runTest("differentUnitsTest");
     }
