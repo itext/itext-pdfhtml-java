@@ -22,9 +22,9 @@
  */
 package com.itextpdf.html2pdf.attach.impl.layout;
 
-import com.itextpdf.kernel.events.Event;
-import com.itextpdf.kernel.events.IEventHandler;
-import com.itextpdf.kernel.events.PdfDocumentEvent;
+import com.itextpdf.kernel.pdf.event.AbstractPdfDocumentEventHandler;
+import com.itextpdf.kernel.pdf.event.AbstractPdfDocumentEvent;
+import com.itextpdf.kernel.pdf.event.PdfDocumentEvent;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
@@ -42,7 +42,7 @@ import java.util.Map;
 /**
  * This handler draws backgrounds and borders for html, body and page-annotation styles.
  */
-class HtmlBodyStylesApplierHandler implements IEventHandler {
+class HtmlBodyStylesApplierHandler extends AbstractPdfDocumentEventHandler {
 
     private final HtmlDocumentRenderer htmlDocumentRenderer;
     private final Map<Integer, PageStylesProperties> pageStylesPropertiesMap;
@@ -61,12 +61,12 @@ class HtmlBodyStylesApplierHandler implements IEventHandler {
     }
 
     @Override
-    public void handleEvent(Event event) {
+    public void onAcceptedEvent(AbstractPdfDocumentEvent event) {
         if (!(event instanceof PdfDocumentEvent)) {
             return;
         }
         PdfPage page = ((PdfDocumentEvent) event).getPage();
-        int pageNumber = ((PdfDocumentEvent) event).getDocument().getPageNumber(page);
+        int pageNumber = event.getDocument().getPageNumber(page);
         processPage(page, pageNumber);
     }
 

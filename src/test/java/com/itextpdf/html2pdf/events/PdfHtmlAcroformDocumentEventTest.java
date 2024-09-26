@@ -24,9 +24,9 @@ package com.itextpdf.html2pdf.events;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.events.Event;
-import com.itextpdf.kernel.events.IEventHandler;
-import com.itextpdf.kernel.events.PdfDocumentEvent;
+import com.itextpdf.kernel.pdf.event.AbstractPdfDocumentEventHandler;
+import com.itextpdf.kernel.pdf.event.AbstractPdfDocumentEvent;
+import com.itextpdf.kernel.pdf.event.PdfDocumentEvent;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
@@ -91,32 +91,36 @@ public class PdfHtmlAcroformDocumentEventTest extends ExtendedITextTest {
                         converterProperties);
         PdfWriter writer = new PdfWriter(pdfStream);
         PdfDocument pdfDocument = new PdfDocument(writer);
-        IEventHandler handler = new IEventHandler() {
+        AbstractPdfDocumentEventHandler handler = new AbstractPdfDocumentEventHandler() {
             @Override
-            public void handleEvent(Event event) {
+            public void onAcceptedEvent(AbstractPdfDocumentEvent event) {
+                if (!(event instanceof PdfDocumentEvent)) {
+                    return;
+                }
                 PdfDocumentEvent docEvent = (PdfDocumentEvent) event;
                 PdfPage page = docEvent.getPage();
                 PdfCanvas pdfCanvas = new PdfCanvas(page);
                 Rectangle pageSize = page.getPageSize();
-                Canvas canvas = new Canvas(pdfCanvas, pageSize);
-                Paragraph headerP = new Paragraph();
-                for (IElement elem : elements) {
-                    if (elem instanceof IBlockElement) {
-                        headerP.add((IBlockElement) elem);
-                    } else if (elem instanceof Image) {
-                        headerP.add((Image) elem);
+                try (Canvas canvas = new Canvas(pdfCanvas, pageSize)) {
+                    Paragraph headerP = new Paragraph();
+                    for (IElement elem : elements) {
+                        if (elem instanceof IBlockElement) {
+                            headerP.add((IBlockElement) elem);
+                        } else if (elem instanceof Image) {
+                            headerP.add((Image) elem);
+                        }
                     }
-                }
-                Paragraph footerP = new Paragraph();
-                for (IElement elem : footer) {
-                    if (elem instanceof IBlockElement) {
-                        footerP.add((IBlockElement) elem);
-                    } else if (elem instanceof Image) {
-                        footerP.add((Image) elem);
+                    Paragraph footerP = new Paragraph();
+                    for (IElement elem : footer) {
+                        if (elem instanceof IBlockElement) {
+                            footerP.add((IBlockElement) elem);
+                        } else if (elem instanceof Image) {
+                            footerP.add((Image) elem);
+                        }
                     }
+                    canvas.showTextAligned(headerP, pageSize.getWidth() / 2, pageSize.getTop() - 30, TextAlignment.LEFT);
+                    canvas.showTextAligned(footerP, 0, 0, TextAlignment.LEFT);
                 }
-                canvas.showTextAligned(headerP, pageSize.getWidth() / 2, pageSize.getTop() - 30, TextAlignment.LEFT);
-                canvas.showTextAligned(footerP, 0, 0, TextAlignment.LEFT);
             }
         };
 
