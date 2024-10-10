@@ -28,11 +28,8 @@ import com.itextpdf.html2pdf.attach.Attacher;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.kernel.pdf.DocumentProperties;
-import com.itextpdf.kernel.pdf.PdfAConformance;
 import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfVersion;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.WriterProperties;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.properties.Property;
@@ -48,8 +45,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -61,10 +56,6 @@ import java.util.List;
  * {@link PdfDocument} instance.
  */
 public class HtmlConverter {
-
-    private static final List<PdfAConformance> pdf2Conformances = new ArrayList<>(
-            Arrays.asList(PdfAConformance.PDF_A_4, PdfAConformance.PDF_A_4E, PdfAConformance.PDF_A_4F));
-
     /**
      * Instantiates a new HtmlConverter instance.
      */
@@ -91,10 +82,6 @@ public class HtmlConverter {
      * @param converterProperties a {@link ConverterProperties} instance
      */
     public static void convertToPdf(String html, OutputStream pdfStream, ConverterProperties converterProperties) {
-        if (converterProperties != null && pdf2Conformances.contains(converterProperties.getPdfAConformance())) {
-            convertToPdf(html, new PdfWriter(pdfStream, new WriterProperties().setPdfVersion(PdfVersion.PDF_2_0)), converterProperties);
-            return;
-        }
         convertToPdf(html, new PdfWriter(pdfStream), converterProperties);
     }
 
@@ -203,10 +190,6 @@ public class HtmlConverter {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, OutputStream pdfStream, ConverterProperties converterProperties) throws IOException {
-        if (converterProperties != null && pdf2Conformances.contains(converterProperties.getPdfAConformance())) {
-            convertToPdf(htmlStream, new PdfWriter(pdfStream, new WriterProperties().setPdfVersion(PdfVersion.PDF_2_0)), converterProperties);
-            return;
-        }
         convertToPdf(htmlStream, new PdfWriter(pdfStream), converterProperties);
     }
 

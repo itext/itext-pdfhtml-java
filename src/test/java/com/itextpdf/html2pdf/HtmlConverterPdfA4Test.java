@@ -34,6 +34,7 @@ import com.itextpdf.pdfa.PdfADocument;
 import com.itextpdf.pdfa.checker.PdfA4Checker;
 import com.itextpdf.pdfa.exceptions.PdfAConformanceException;
 import com.itextpdf.pdfa.exceptions.PdfaExceptionMessageConstant;
+import com.itextpdf.pdfa.logs.PdfALogMessageConstant;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.LogLevelConstants;
@@ -105,9 +106,13 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
     }
 
     @Test
-    public void convertToPdfA4MetaDataInvalidTest() throws IOException {
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = PdfALogMessageConstant.WRITER_PROPERTIES_PDF_VERSION_WAS_OVERRIDDEN, logLevel = LogLevelConstants.WARN)
+    })
+    public void convertToPdfA4MetaDataInvalidTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "simple.html";
         String destinationPdf = DESTINATION_FOLDER + "pdfA4InvalidMetadataTest.pdf";
+        String cmpPdf = SOURCE_FOLDER + "cmp_pdfA4InvalidMetadataTest.pdf";
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setPdfAConformance(PdfAConformance.PDF_A_4);
         converterProperties.setDocumentOutputIntent(
@@ -116,16 +121,11 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
         converterProperties.setBaseUri("no_link");
 
         try (FileInputStream fOutput = new FileInputStream(sourceHtml);
-                PdfWriter pdfWriter = new PdfWriter(destinationPdf);
+                PdfWriter pdfWriter = new PdfWriter(destinationPdf, new WriterProperties().setPdfVersion(PdfVersion.PDF_1_7));
         ) {
-            Exception e = Assertions.assertThrows(PdfAConformanceException.class, () -> {
-                HtmlConverter.convertToPdf(fOutput, pdfWriter, converterProperties);
-            });
-
-            Assertions.assertEquals(MessageFormatUtil.format(
-                            PdfaExceptionMessageConstant.THE_FILE_HEADER_SHALL_CONTAIN_RIGHT_PDF_VERSION, "2"),
-                    e.getMessage());
+            HtmlConverter.convertToPdf(fOutput, pdfWriter, converterProperties);
         }
+        compareAndCheckCompliance(destinationPdf, cmpPdf);
     }
 
     @Test
