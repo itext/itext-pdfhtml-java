@@ -24,7 +24,6 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
@@ -81,7 +80,7 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
     @Test
     // TODO DEVSIX-4426 support rotateZ() - remove log message after fixing
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)})
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)})
     public void backgroundTransformedRootTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("backgroundTransformedRoot", sourceFolder, destinationFolder);
     }
@@ -116,7 +115,7 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
+    @LogMessages(messages = @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
     public void backgroundImageAndColorsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("background_image_and_colors", sourceFolder, destinationFolder);
     }

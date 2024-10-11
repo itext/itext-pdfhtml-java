@@ -23,7 +23,7 @@
 package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
@@ -76,8 +76,8 @@ public class QuotesTest extends ExtendedHtmlConversionITextTest {
     @Test
     //attr() is not supported in quotes property in browsers
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.QUOTES_PROPERTY_INVALID),
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.QUOTES_PROPERTY_INVALID),
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
     })
     public void attrTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("attrTest", sourceFolder, destinationFolder);
@@ -85,8 +85,8 @@ public class QuotesTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.QUOTES_PROPERTY_INVALID, count = 2),
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2)
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.QUOTES_PROPERTY_INVALID, count = 2),
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2)
     })
     public void errorTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("errorTest", sourceFolder, destinationFolder);

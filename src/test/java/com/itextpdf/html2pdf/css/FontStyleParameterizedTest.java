@@ -25,35 +25,27 @@ package com.itextpdf.html2pdf.css;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.type.IntegrationTest;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
-@Category(IntegrationTest.class)
+@Tag("IntegrationTest")
 public class FontStyleParameterizedTest extends ExtendedITextTest {
     public static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/css/FontStyleParameterizedTest/";
     public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/css/FontStyleParameterizedTest/";
-    private final String htmlName;
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         createDestinationFolder(DESTINATION_FOLDER);
     }
 
-    public FontStyleParameterizedTest(String htmlName) {
-        this.htmlName = htmlName;
-    }
 
-    @Parameterized.Parameters(name = "{0}")
     public static Iterable<Object[]> rotationRelatedProperties() {
         return Arrays.asList(new Object[][]{
                 {"fontWithSerifTest"},
@@ -64,14 +56,15 @@ public class FontStyleParameterizedTest extends ExtendedITextTest {
         });
     }
 
-    @Test
-    public void convertToPdfA4Test() throws IOException, InterruptedException {
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("rotationRelatedProperties")
+    public void convertToPdfA4Test(String htmlName) throws IOException, InterruptedException {
         String htmlPath = SOURCE_FOLDER + htmlName + ".html";
         String pdfPath = DESTINATION_FOLDER + htmlName + ".pdf";
         String cmpPdfPath = SOURCE_FOLDER + "cmp_" + htmlName + ".pdf";
 
         HtmlConverter.convertToPdf(new File(htmlPath), new File(pdfPath));
-        Assert.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, DESTINATION_FOLDER, "diff_"));
+        Assertions.assertNull(new CompareTool().compareByContent(pdfPath, cmpPdfPath, DESTINATION_FOLDER, "diff_"));
 
     }
 }

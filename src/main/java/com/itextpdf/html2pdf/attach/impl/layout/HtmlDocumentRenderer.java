@@ -25,9 +25,9 @@ package com.itextpdf.html2pdf.attach.impl.layout;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlBodyStylesApplierHandler.LowestAndHighest;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlBodyStylesApplierHandler.PageStylesProperties;
-import com.itextpdf.kernel.events.Event;
-import com.itextpdf.kernel.events.IEventHandler;
-import com.itextpdf.kernel.events.PdfDocumentEvent;
+import com.itextpdf.kernel.pdf.event.AbstractPdfDocumentEventHandler;
+import com.itextpdf.kernel.pdf.event.AbstractPdfDocumentEvent;
+import com.itextpdf.kernel.pdf.event.PdfDocumentEvent;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -177,8 +177,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         processWaitingElement();
         super.close();
         trimLastPageIfNecessary();
-        document.getPdfDocument().removeEventHandler(PdfDocumentEvent.END_PAGE, marginBoxesHandler);
-        document.getPdfDocument().removeEventHandler(PdfDocumentEvent.END_PAGE, htmlBodyHandler);
+        removeEventHandlers();
         for (int i = 1; i <= document.getPdfDocument().getNumberOfPages(); ++i) {
             PdfPage page = document.getPdfDocument().getPage(i);
             if (!page.isFlushed()) {
@@ -192,9 +191,9 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
      * Removes event handlers that were added to pdf document when this {@link HtmlDocumentRenderer} was created.
      */
     void removeEventHandlers() {
-        document.getPdfDocument().removeEventHandler(PdfDocumentEvent.END_PAGE, htmlBodyHandler);
         // This handler is added in processPageRules method.
-        document.getPdfDocument().removeEventHandler(PdfDocumentEvent.END_PAGE, marginBoxesHandler);
+        document.getPdfDocument().removeEventHandler(marginBoxesHandler);
+        document.getPdfDocument().removeEventHandler(htmlBodyHandler);
     }
 
     /* (non-Javadoc)
@@ -483,7 +482,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         return !isPageLeft(pageNum);
     }
 
-    private static class PageMarginBoxesDrawingHandler implements IEventHandler {
+    private static class PageMarginBoxesDrawingHandler extends AbstractPdfDocumentEventHandler {
         private HtmlDocumentRenderer htmlDocumentRenderer;
 
         PageMarginBoxesDrawingHandler setHtmlDocumentRenderer(HtmlDocumentRenderer htmlDocumentRenderer) {
@@ -492,10 +491,10 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         }
 
         @Override
-        public void handleEvent(Event event) {
+        public void onAcceptedEvent(AbstractPdfDocumentEvent event) {
             if (event instanceof PdfDocumentEvent) {
                 PdfPage page = ((PdfDocumentEvent) event).getPage();
-                PdfDocument pdfDoc = ((PdfDocumentEvent) event).getDocument();
+                PdfDocument pdfDoc = event.getDocument();
                 int pageNumber = pdfDoc.getPageNumber(page);
                 processPage(pdfDoc, pageNumber);
             }

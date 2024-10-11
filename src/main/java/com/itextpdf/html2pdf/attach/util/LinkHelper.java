@@ -23,7 +23,6 @@
 package com.itextpdf.html2pdf.attach.util;
 
 import com.itextpdf.commons.datastructures.Tuple2;
-import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
@@ -36,7 +35,6 @@ import com.itextpdf.kernel.pdf.action.PdfAction;
 import com.itextpdf.kernel.pdf.annot.PdfAnnotation;
 import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
-import com.itextpdf.kernel.pdf.tagutils.AccessibilityProperties;
 import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.ILeafElement;
@@ -47,7 +45,6 @@ import java.util.List;
 
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
-import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,51 +65,12 @@ public class LinkHelper {
      * Applies a link annotation.
      *
      * @param container the containing object
-     * @param url       the destination
-     * @deprecated in favour of
-     * {@code applyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context)}
+     * @param url the destination
+     * @param context the processor context
+     * @param element the element node
      */
-    @Deprecated
-    public static void applyLinkAnnotation(IPropertyContainer container, String url) {
-        // Fake context here
-        applyLinkAnnotation(container, url, new ProcessorContext(new ConverterProperties()));
-    }
-
-    /**
-     * Applies a link annotation.
-     *
-     * @param container the containing object.
-     * @param url       the destination.
-     * @param context   the processor context.
-     */
-    @Deprecated
-    public static void applyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context) {
-        applyLinkAnnotation(container, url, context, "");
-    }
-
-    private static String retrieveAlternativeDescription(IElementNode element) {
-        List<INode> children = element.childNodes();
-        //if there is an img tag under the link then prefer the alt attribute as a link description
-        if (children.size() == 1
-                && children.get(0).childNodes().isEmpty()
-                && children.get(0) instanceof JsoupElementNode
-                && ((JsoupElementNode)children.get(0)).getAttribute(AttributeConstants.ALT) != null) {
-            return ((JsoupElementNode)children.get(0)).getAttribute(AttributeConstants.ALT);
-        }
-        //return title attribute value in case of regular link
-        return element.getAttribute(AttributeConstants.TITLE);
-    }
-
-    /**
-     * Applies a link annotation.
-     *
-     * @param container the containing object.
-     * @param url       the destination.
-     * @param context   the processor context.
-     * @param alternateDescription description for a link.
-     */
-    @Deprecated
-    public static void applyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context, String alternateDescription) {
+    public static void applyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context,
+                                           IElementNode element) {
         if (container != null) {
             PdfLinkAnnotation linkAnnotation;
             if (url.startsWith("#")) {
@@ -126,6 +84,7 @@ public class LinkHelper {
             } else {
                 linkAnnotation = (PdfLinkAnnotation) new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createURI(url)).setFlags(PdfAnnotation.PRINT);
             }
+            String alternateDescription = retrieveAlternativeDescription(element);
             if (container instanceof IAccessibleElement && alternateDescription != null) {
                 ((IAccessibleElement) container).getAccessibilityProperties().setAlternateDescription(alternateDescription);
             }
@@ -135,18 +94,6 @@ public class LinkHelper {
                 ((IAccessibleElement) container).getAccessibilityProperties().setRole(StandardRoles.LINK);
             }
         }
-    }
-
-    /**
-     * Applies a link annotation.
-     *
-     * @param container the containing object.
-     * @param url       the destination.
-     * @param context   the processor context.
-     * @param element the element node.
-     */
-    public static void applyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context, IElementNode element) {
-        LinkHelper.applyLinkAnnotation(container, url, context, retrieveAlternativeDescription(element));
     }
 
     /**
@@ -184,6 +131,19 @@ public class LinkHelper {
         if (propertyContainer != null) {
             propertyContainer.setProperty(Property.ID, id);
         }
+    }
+
+    private static String retrieveAlternativeDescription(IElementNode element) {
+        List<INode> children = element.childNodes();
+        // If there is an img tag under the link then prefer the alt attribute as a link description.
+        if (children.size() == 1
+                && children.get(0).childNodes().isEmpty()
+                && children.get(0) instanceof JsoupElementNode
+                && ((JsoupElementNode)children.get(0)).getAttribute(AttributeConstants.ALT) != null) {
+            return ((JsoupElementNode)children.get(0)).getAttribute(AttributeConstants.ALT);
+        }
+        // Return title attribute value in case of regular link.
+        return element.getAttribute(AttributeConstants.TITLE);
     }
 
     private static IPropertyContainer getPropertyContainer(ITagWorker tagWorker) {

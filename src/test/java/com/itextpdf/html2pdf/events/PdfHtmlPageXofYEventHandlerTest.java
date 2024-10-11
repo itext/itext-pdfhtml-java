@@ -22,12 +22,13 @@
  */
 package com.itextpdf.html2pdf.events;
 
+import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.UrlUtil;
-import com.itextpdf.kernel.events.Event;
-import com.itextpdf.kernel.events.IEventHandler;
-import com.itextpdf.kernel.events.PdfDocumentEvent;
+import com.itextpdf.kernel.pdf.event.AbstractPdfDocumentEventHandler;
+import com.itextpdf.kernel.pdf.event.AbstractPdfDocumentEvent;
+import com.itextpdf.kernel.pdf.event.PdfDocumentEvent;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
@@ -46,7 +47,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 @Tag("IntegrationTest")
@@ -77,12 +77,13 @@ public class PdfHtmlPageXofYEventHandlerTest extends ExtendedITextTest {
         PdfWriter writer = new PdfWriter(pdfDest);
         PdfDocument pdfDocument = new PdfDocument(writer);
         //Create event-handlers
-        PageXofY footerHandler = new PageXofY(pdfDocument);
+        PageXofY footerHandler = new PageXofY();
         //Assign event-handlers
         pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, footerHandler);
         //Convert
         ConverterProperties converterProperties = new ConverterProperties().setBaseUri(resoureLoc);
-        Document doc = HtmlConverter.convertToDocument(new FileInputStream(new File(htmlSource).getAbsolutePath()), pdfDocument, converterProperties);
+        Document doc = HtmlConverter.convertToDocument(FileUtil.getInputStreamForFile(new File(htmlSource)
+                .getAbsolutePath()), pdfDocument, converterProperties);
         //Write the total number of pages to the placeholder
         doc.flush();
         footerHandler.writeTotal(pdfDocument);
@@ -90,7 +91,7 @@ public class PdfHtmlPageXofYEventHandlerTest extends ExtendedITextTest {
     }
 
     //page X of Y
-    protected class PageXofY implements IEventHandler {
+    protected static class PageXofY extends AbstractPdfDocumentEventHandler {
         protected PdfFormXObject placeholder;
         protected float side = 20;
         protected float x = 300;
@@ -98,23 +99,20 @@ public class PdfHtmlPageXofYEventHandlerTest extends ExtendedITextTest {
         protected float space = 4.5f;
         protected float descent = 3;
 
-        public PageXofY(PdfDocument pdf) {
-            placeholder =
-                    new PdfFormXObject(new Rectangle(0, 0, side, side));
+        public PageXofY() {
+            placeholder = new PdfFormXObject(new Rectangle(0, 0, side, side));
         }
 
         @Override
-        public void handleEvent(Event event) {
+        public void onAcceptedEvent(AbstractPdfDocumentEvent event) {
             PdfDocumentEvent docEvent = (PdfDocumentEvent) event;
             PdfDocument pdf = docEvent.getDocument();
             PdfPage page = docEvent.getPage();
             int pageNumber = pdf.getPageNumber(page);
             Rectangle pageSize = page.getPageSize();
-            PdfCanvas pdfCanvas = new PdfCanvas(
-                    page.getLastContentStream(), page.getResources(), pdf);
+            PdfCanvas pdfCanvas = new PdfCanvas(page.getLastContentStream(), page.getResources(), pdf);
             Canvas canvas = new Canvas(pdfCanvas, pageSize);
-            Paragraph p = new Paragraph()
-                    .add("Page ").add(String.valueOf(pageNumber)).add(" of");
+            Paragraph p = new Paragraph().add("Page ").add(String.valueOf(pageNumber)).add(" of");
             canvas.showTextAligned(p, x, y, TextAlignment.RIGHT);
             pdfCanvas.addXObjectAt(placeholder, x + space, y - descent);
             canvas.close();

@@ -166,7 +166,6 @@ public class SelectTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH))
     public void selectMinMaxWidthCalculationTest01() throws IOException, InterruptedException {
         runTest("selectMinMaxWidthCalculationTest01");
     }

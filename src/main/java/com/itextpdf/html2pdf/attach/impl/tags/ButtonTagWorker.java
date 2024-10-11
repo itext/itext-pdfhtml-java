@@ -29,7 +29,7 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.kernel.pdf.IConformanceLevel;
+import com.itextpdf.kernel.pdf.PdfConformance;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
@@ -60,7 +60,7 @@ public class ButtonTagWorker extends DivTagWorker {
 
     private boolean hasChildren = false;
 
-    private IConformanceLevel pdfAConformanceLevel;
+    private final PdfConformance pdfConformance;
 
     /**
      * Creates a new {@link ButtonTagWorker} instance.
@@ -76,9 +76,7 @@ public class ButtonTagWorker extends DivTagWorker {
         }
         this.name = context.getFormFieldNameResolver().resolveFormName(name);
         flatten = !context.isCreateAcroForm();
-        if (context.getConformanceLevel() != null) {
-            pdfAConformanceLevel = context.getConformanceLevel();
-        }
+        pdfConformance = context.getConformance();
         lang = element.getAttribute(AttributeConstants.LANG);
     }
 
@@ -130,7 +128,7 @@ public class ButtonTagWorker extends DivTagWorker {
             }
         }
         formField.setProperty(FormProperty.FORM_FIELD_FLATTEN, flatten);
-        formField.setProperty(FormProperty.FORM_CONFORMANCE_LEVEL, pdfAConformanceLevel);
+        formField.setProperty(FormProperty.FORM_CONFORMANCE_LEVEL, pdfConformance);
         return formField;
     }
 }

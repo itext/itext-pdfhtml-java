@@ -38,6 +38,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.styledxmlparser.IXmlParser;
+import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
@@ -95,13 +96,13 @@ public class TargetCounterTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
+    @LogMessages(messages = @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION))
     public void pageTargetCounterTestWithLogMessageTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("pageTargetCounterTestWithLogMessage");
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
+    @LogMessages(messages = @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, count = 2))
     // There should be only one log message here, but we have two because we resolve css styles twice.
     public void nonPageTargetCounterTestWithLogMessageTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("nonPageTargetCounterTestWithLogMessage");
