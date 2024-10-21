@@ -338,9 +338,6 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.ATTEMPT_TO_CREATE_A_TAG_FOR_FINISHED_HINT, count = 1)
-    })
     public void langAttrInDivAndSpanForTagPdfTest() throws IOException, InterruptedException {
         PdfDocument doc = compareResultWithDocument("langAttrInDivAndSpanForTagPdfTest");
         Assertions.assertEquals("ru", doc.getCatalog().getLang().toUnicodeString());
