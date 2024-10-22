@@ -200,7 +200,6 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    //TODO: update after DEVSIX-2239 fix
     // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     public void resourceResolverCssWithSvg() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverCssWithSvg.pdf";

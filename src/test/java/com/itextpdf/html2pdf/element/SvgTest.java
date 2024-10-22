@@ -264,7 +264,6 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     public void externalObjectWithResourceTest() throws IOException, InterruptedException {
-        //TODO update after DEVSIX-2239
         String name = "external_object_with_resource";
         HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
         Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
@@ -275,7 +274,6 @@ public class SvgTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 66),
     })
     public void externalObjectWithGoogleCharts() throws IOException, InterruptedException {
-        //TODO update after DEVSIX-2239
         String name = "inlineSvg_googleCharts";
         HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
         Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
