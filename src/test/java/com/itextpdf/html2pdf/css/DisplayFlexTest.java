@@ -22,13 +22,15 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.forms.form.element.TextArea;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreak;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.logs.IoLogMessageConstant;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
@@ -42,11 +44,13 @@ import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+import static com.itextpdf.html2pdf.css.WordBreakTest.fontsFolder;
 
 @Tag("IntegrationTest")
 public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
@@ -575,6 +579,18 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void imageStretchColumnFlexContainerTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("imageStretchColumnFlexContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8693: Change test after fix.
+    @Test
+    public void unorderedListFlexTest() throws IOException {
+        String htmlFileName = "UnorderedListWithFlex";
+        InputStream inputStream = FileUtil.getInputStreamForFile(SOURCE_FOLDER + htmlFileName + ".html");
+        ConverterProperties converterProperties = new ConverterProperties();
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + htmlFileName + ".pdf"));
+
+        Assertions.assertThrows(NullPointerException.class,
+                () -> HtmlConverter.convertToPdf(inputStream, pdfDocument, converterProperties));
     }
 
     private static List<IElement> convertToElements(String name) throws IOException {
