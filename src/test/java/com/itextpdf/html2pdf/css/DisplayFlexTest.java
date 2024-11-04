@@ -581,16 +581,10 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("imageStretchColumnFlexContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8693: Change test after fix.
     @Test
-    public void unorderedListFlexTest() throws IOException {
-        String htmlFileName = "UnorderedListWithFlex";
-        InputStream inputStream = FileUtil.getInputStreamForFile(SOURCE_FOLDER + htmlFileName + ".html");
-        ConverterProperties converterProperties = new ConverterProperties();
-        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + htmlFileName + ".pdf"));
-
-        Assertions.assertThrows(NullPointerException.class,
-                () -> HtmlConverter.convertToPdf(inputStream, pdfDocument, converterProperties));
+    //TODO: DEVSIX-8730 bullet is not drawn
+    public void unorderedListFlexTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("UnorderedListWithFlex", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     private static List<IElement> convertToElements(String name) throws IOException {
