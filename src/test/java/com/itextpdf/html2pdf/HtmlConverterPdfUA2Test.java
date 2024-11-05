@@ -24,6 +24,7 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfDocumentInfo;
 import com.itextpdf.kernel.pdf.PdfString;
@@ -37,6 +38,8 @@ import com.itextpdf.kernel.xmp.XMPMeta;
 import com.itextpdf.kernel.xmp.XMPMetaFactory;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.pdfa.VeraPdfValidator;
 
 import java.io.ByteArrayInputStream;
@@ -139,6 +142,31 @@ public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
         HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
 
         compareAndCheckCompliance(destinationPdf, cmpPdf, true);
+    }
+
+    @Test
+    // TODO DEVSIX-8707 Handle html2pdf pdfua conversion handle missing glyphs
+    // TODO DEVSIX-8706 Incorrect tagging structure when using one span with glyph that doesn't have a mapping in the font
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.ATTEMPT_TO_CREATE_A_TAG_FOR_FINISHED_HINT)})
+    public void unsupportedGlyphTest() throws IOException, InterruptedException, XMPException {
+        String sourceHtml = SOURCE_FOLDER + "unsupportedGlyph.html";
+        String destinationPdf = DESTINATION_FOLDER + "unsupportedGlyph.pdf";
+        String cmpPdf = SOURCE_FOLDER + "cmp_unsupportedGlyph.pdf";
+
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf, new WriterProperties().setPdfVersion(
+                PdfVersion.PDF_2_0)));
+        createSimplePdfUA2Document(pdfDocument);
+
+        ConverterProperties converterProperties = new ConverterProperties();
+        FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+        converterProperties.setFontProvider(fontProvider);
+        converterProperties.setOutlineHandler(OutlineHandler.createStandardHandler());
+        HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
+
+        Assertions.assertNotNull(new VeraPdfValidator().validate(destinationPdf));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER,
+                "diff_unsupportedGlyph_"));
     }
 
     private void createSimplePdfUA2Document(PdfDocument pdfDocument) throws IOException, XMPException {

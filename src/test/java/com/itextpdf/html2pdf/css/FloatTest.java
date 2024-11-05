@@ -742,7 +742,7 @@ public class FloatTest extends ExtendedITextTest {
         String outFileName = DESTINATION_FOLDER + "splitFloatedLists.pdf";
         String cmpFileName = SOURCE_FOLDER + "cmp_splitFloatedLists.pdf";
 
-        PdfDocument doc =new PdfDocument(new PdfWriter(outFileName));
+        PdfDocument doc = new PdfDocument(new PdfWriter(outFileName));
         doc.setDefaultPageSize(PageSize.A5.rotate());
 
         HtmlConverter.convertToPdf(new FileInputStream(htmlName), doc, new ConverterProperties().setBaseUri(SOURCE_FOLDER));
@@ -760,6 +760,22 @@ public class FloatTest extends ExtendedITextTest {
     @Test
     public void floatsPositioningOutsideBfcTest() throws IOException, InterruptedException {
         runTest("floatsPositioningOutsideBfc", "diff_floatsPositioningOutsideBfc_");
+    }
+
+    @Test
+    // TODO: update cmp file after DEVSIX-8703 will be fixed
+    public void tagFloatedButtonsTest() throws IOException, InterruptedException {
+        String htmlName = SOURCE_FOLDER + "tagFloatedButtons.html";
+        String outFileName = DESTINATION_FOLDER + "tagFloatedButtons.pdf";
+        String cmpFileName = SOURCE_FOLDER + "cmp_tagFloatedButtons.pdf";
+
+        PdfDocument doc = new PdfDocument(new PdfWriter(outFileName));
+        doc.setTagged();
+
+        HtmlConverter.convertToPdf(new FileInputStream(htmlName), doc,
+                new ConverterProperties().setBaseUri(SOURCE_FOLDER).setCreateAcroForm(true));
+
+        Assertions.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER));
     }
 
     private void runTest(String testName, String diff) throws IOException, InterruptedException {

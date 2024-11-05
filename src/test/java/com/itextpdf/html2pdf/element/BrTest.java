@@ -94,4 +94,15 @@ public class BrTest extends ExtendedHtmlConversionITextTest {
     public void brClearNoneTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("brClearNone", sourceFolder, destinationFolder);
     }
+
+    @Test
+    // TODO: DEVSIX-8698 creates an empty tag for the br tag
+    public void taggedBrTest() throws IOException, InterruptedException {
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "taggedBr.pdf"));
+        pdfDocument.setTagged();
+        HtmlConverter.convertToPdf(new FileInputStream(sourceFolder + "taggedBr.html"), pdfDocument,
+                new ConverterProperties());
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "taggedBr.pdf",
+                sourceFolder + "cmp_taggedBr.pdf", destinationFolder, "diff05_"));
+    }
 }
