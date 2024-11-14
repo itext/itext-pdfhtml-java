@@ -22,7 +22,6 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
@@ -30,6 +29,7 @@ import com.itextpdf.html2pdf.css.util.CssStyleSheetAnalyzer;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.util.DecimalFormatUtil;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
@@ -47,8 +47,8 @@ import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
 import com.itextpdf.styledxmlparser.css.resolve.CssInheritance;
 import com.itextpdf.styledxmlparser.css.resolve.IStyleInheritance;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IDataNode;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
@@ -149,6 +149,15 @@ public class DefaultCssResolver implements ICssResolver {
             return resolveStyles(element, (CssContext) context);
         }
         throw new Html2PdfException("custom AbstractCssContext implementations are not supported yet");
+    }
+
+    /**
+     * Gets the CSS style sheet.
+     *
+     * @return the CSS style sheet
+     */
+    public CssStyleSheet getCssStyleSheet() {
+        return cssStyleSheet;
     }
 
     /* (non-Javadoc)

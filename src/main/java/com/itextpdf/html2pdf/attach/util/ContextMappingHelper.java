@@ -32,7 +32,8 @@ public class ContextMappingHelper {
         svgConverterProperties.setFontProvider(context.getFontProvider())
                               .setBaseUri(context.getBaseUri())
                               .setMediaDeviceDescription(context.getDeviceDescription())
-                              .setResourceRetriever(context.getResourceResolver().getRetriever());
+                              .setResourceRetriever(context.getResourceResolver().getRetriever())
+                              .setCssStyleSheet(context.getCssStyleSheet());
         return svgConverterProperties;
     }
 }

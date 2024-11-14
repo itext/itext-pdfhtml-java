@@ -32,53 +32,46 @@ import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.svg.logs.SvgLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Tag;
+
 import java.io.File;
 import java.io.IOException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Tag("IntegrationTest")
 public class SvgTest extends ExtendedITextTest {
-
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/SvgTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/SvgTest/";
+    private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/element/SvgTest/";
+    private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/element/SvgTest/";
 
     @BeforeAll
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
     public void inlineSvgTest() throws IOException, InterruptedException {
-        String name = "inline_svg";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("inline_svg");
     }
 
     @Test
     public void inlineNestedSvgTest() throws IOException, InterruptedException {
-        String name = "inline_nested_svg";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("inline_nested_svg");
     }
 
     @Test
     public void inlineSvgExternalFontRelativeTest() throws IOException, InterruptedException {
-        String name = "inline_svg_external_font_relative";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("inline_svg_external_font_relative");
     }
 
     @Test
     public void inlineSvgExternalFontUrlTest() throws IOException, InterruptedException {
         // TODO DEVSIX-2264 external font loading in SVG via @import
-        String name = "inline_svg_external_font_url";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("inline_svg_external_font_url");
     }
 
     @Test
@@ -86,9 +79,7 @@ public class SvgTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
     })
     public void convert_inline_Svg_path_in_HTML() throws IOException, InterruptedException {
-        String name = "HTML_with_inline_svg_path";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("HTML_with_inline_svg_path");
     }
 
     @Test
@@ -97,9 +88,7 @@ public class SvgTest extends ExtendedITextTest {
     })
     // TODO: Update cmp_ file when DEVSIX-2719 resolved
     public void convert_inline_Svg_polygon_in_HTML() throws IOException, InterruptedException {
-        String name = "HTML_with_inline_svg_polygon";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("HTML_with_inline_svg_polygon");
     }
 
     @Test
@@ -107,15 +96,13 @@ public class SvgTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
     })
     public void convert_namespace_Svg_in_HTML() throws IOException, InterruptedException {
-        String name = "namespace_svg";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("namespace_svg");
     }
 
     @Test
     public void convertInlineSvgCircle() throws IOException, InterruptedException {
       String html = "inline_svg_circle";
-      PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + html + ".pdf"));
+      PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + html + ".pdf"));
       pdfDoc.addNewPage();
       String string_file = "<!DOCTYPE html>\n" +
                 "<html>\n" +
@@ -129,14 +116,15 @@ public class SvgTest extends ExtendedITextTest {
 
                 "</html>";
       HtmlConverter.convertToPdf(string_file, pdfDoc, new ConverterProperties());
-      Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + html + ".pdf", sourceFolder + "cmp_" + html + ".pdf", destinationFolder));
+      Assertions.assertNull(new CompareTool().compareByContent(
+              DESTINATION_FOLDER + html + ".pdf", SOURCE_FOLDER + "cmp_" + html + ".pdf", DESTINATION_FOLDER));
     }
 
 
     @Test
     public void convertInlineSvgRectangle() throws IOException, InterruptedException {
         String html = "inline_svg_rectangle";
-        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + html + ".pdf"));
+        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + html + ".pdf"));
         pdfDoc.addNewPage();
         String string_file = "<!DOCTYPE html>\n" +
                 "<html>\n" +
@@ -152,13 +140,14 @@ public class SvgTest extends ExtendedITextTest {
                 "</html>\n";
 
         HtmlConverter.convertToPdf(string_file, pdfDoc, new ConverterProperties());
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + html + ".pdf", sourceFolder + "cmp_" + html + ".pdf", destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(
+                DESTINATION_FOLDER + html + ".pdf", SOURCE_FOLDER + "cmp_" + html + ".pdf", DESTINATION_FOLDER));
     }
 
     @Test
     public void convertInlineSvgRoundedRectangle() throws IOException, InterruptedException {
         String html = "inline_svg_rounded_rect";
-        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + html + ".pdf"));
+        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + html + ".pdf"));
         pdfDoc.addNewPage();
         String string_file = "<!DOCTYPE html>\n" +
                 "<html>\n" +
@@ -174,14 +163,15 @@ public class SvgTest extends ExtendedITextTest {
                 "</html>\n";
 
         HtmlConverter.convertToPdf(string_file, pdfDoc, new ConverterProperties());
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + html + ".pdf", sourceFolder + "cmp_" + html + ".pdf", destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(
+                DESTINATION_FOLDER + html + ".pdf", SOURCE_FOLDER + "cmp_" + html + ".pdf", DESTINATION_FOLDER));
     }
 
     @Test
     // TODO: Update cmp_ file when DEVSIX-2719 resolved
     public void convertInlineSvgStar() throws IOException, InterruptedException {
         String html = "inline_svg_star";
-        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + html + ".pdf"));
+        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + html + ".pdf"));
         pdfDoc.addNewPage();
         String string_file = "<!DOCTYPE html>\n" +
                 "<html>\n" +
@@ -197,13 +187,14 @@ public class SvgTest extends ExtendedITextTest {
                 "</html>\n";
 
         HtmlConverter.convertToPdf(string_file, pdfDoc, new ConverterProperties());
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + html + ".pdf", sourceFolder + "cmp_" + html + ".pdf", destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(
+                DESTINATION_FOLDER + html + ".pdf", SOURCE_FOLDER + "cmp_" + html + ".pdf", DESTINATION_FOLDER));
     }
 
     @Test
     public void convertInlineSvgLogo() throws IOException, InterruptedException {
         String html = "inline_svg_logo";
-        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + html + ".pdf"));
+        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + html + ".pdf"));
         pdfDoc.addNewPage();
         String string_file = "<!DOCTYPE html>\n" +
                 "  <html>\n" +
@@ -228,15 +219,13 @@ public class SvgTest extends ExtendedITextTest {
                 "  </html>\n";
 
         HtmlConverter.convertToPdf(string_file, pdfDoc, new ConverterProperties());
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + html + ".pdf", sourceFolder + "cmp_" + html + ".pdf", destinationFolder));
+        Assertions.assertNull(new CompareTool().compareByContent(
+                DESTINATION_FOLDER + html + ".pdf", SOURCE_FOLDER + "cmp_" + html + ".pdf", DESTINATION_FOLDER));
     }
 
     @Test
     public void externalImageSuccessTest() throws IOException, InterruptedException {
-        String name = "external_img";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
-
+        convertAndCompare("external_img");
     }
 
     @Test
@@ -245,10 +234,7 @@ public class SvgTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
     })
     public void externalImageNonExistentRefTest() throws IOException, InterruptedException {
-        String name = "external_img_nonExistentRef";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
-
+        convertAndCompare("external_img_nonExistentRef");
     }
 
     @Test
@@ -257,16 +243,12 @@ public class SvgTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2)
     })
     public void externalObjectSuccessTest() throws IOException, InterruptedException {
-        String name = "external_object";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("external_object");
     }
 
     @Test
     public void externalObjectWithResourceTest() throws IOException, InterruptedException {
-        String name = "external_object_with_resource";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("external_object_with_resource");
     }
 
     @Test
@@ -274,9 +256,7 @@ public class SvgTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, count = 66),
     })
     public void externalObjectWithGoogleCharts() throws IOException, InterruptedException {
-        String name = "inlineSvg_googleCharts";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("inlineSvg_googleCharts");
     }
 
     @Test
@@ -285,9 +265,7 @@ public class SvgTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
     })
     public void externalObjectNonExistentRefTest() throws IOException, InterruptedException {
-        String name = "external_objectNonExistentRef";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("external_objectNonExistentRef");
     }
 
     @Test
@@ -296,9 +274,7 @@ public class SvgTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
     })
     public void htmlWithSvgBackground() throws IOException, InterruptedException {
-        String name = "HTML_with_svg_background";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("HTML_with_svg_background");
     }
 
     @Test
@@ -307,9 +283,7 @@ public class SvgTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
     })
     public void htmlWithSvgBackgroundNoViewbox() throws IOException, InterruptedException {
-        String name = "Html_with_svg_background_no_viewbox";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("Html_with_svg_background_no_viewbox");
     }
 
     @Test
@@ -318,16 +292,12 @@ public class SvgTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_HEIGHT),
     })
     public void svgWithoutDimensionsTest() throws IOException, InterruptedException {
-        String name = "svg_without_dimensions";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("svg_without_dimensions");
     }
 
     @Test
     public void svgWithoutDimensionsWithViewboxTest() throws IOException, InterruptedException {
-        String name = "svg_without_dimensions_with_viewbox";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("svg_without_dimensions_with_viewbox");
     }
 
     @Test
@@ -336,9 +306,47 @@ public class SvgTest extends ExtendedITextTest {
             @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_HEIGHT, count = 2),
     })
     public void svgWithoutDimensionsImageAndObjectRef() throws IOException, InterruptedException {
-        String name = "svgWithoutDimensionsImageAndObjectRef";
-        HtmlConverter.convertToPdf(new File(sourceFolder + name + ".html"), new File(destinationFolder + name + ".pdf"));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + name + ".pdf", sourceFolder + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        convertAndCompare("svgWithoutDimensionsImageAndObjectRef");
     }
 
+    @Test
+    public void inlineSvgWithExternalCssTest() throws IOException, InterruptedException {
+        convertAndCompare("inlineSvgWithExternalCss");
+    }
+
+    @Test
+    public void inlineSvgStyleResolvingOrder1Test() throws IOException, InterruptedException {
+        convertAndCompare("inlineSvgStyleResolvingOrder1");
+    }
+
+    @Test
+    public void inlineSvgStyleResolvingOrder2Test() throws IOException, InterruptedException {
+        convertAndCompare("inlineSvgStyleResolvingOrder2");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = SvgLogMessageConstant.UNMAPPED_TAG, logLevel = LogLevelConstants.WARN))
+    public void inlineSvgStyleResolvingOrder3Test() throws IOException, InterruptedException {
+        convertAndCompare("inlineSvgStyleResolvingOrder3");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = SvgLogMessageConstant.UNMAPPED_TAG, logLevel = LogLevelConstants.WARN))
+    public void inlineSvgStyleResolvingOrder4Test() throws IOException, InterruptedException {
+        convertAndCompare("inlineSvgStyleResolvingOrder4");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = SvgLogMessageConstant.UNMAPPED_TAG, logLevel = LogLevelConstants.WARN))
+    public void inlineSvgStyleResolvingOrder5Test() throws IOException, InterruptedException {
+        convertAndCompare("inlineSvgStyleResolvingOrder5");
+    }
+
+    private static void convertAndCompare(String name)
+            throws IOException, InterruptedException {
+        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + name + ".html"), new File(DESTINATION_FOLDER + name + ".pdf"));
+        Assertions.assertNull(new CompareTool().compareByContent(
+                DESTINATION_FOLDER + name + ".pdf", SOURCE_FOLDER + "cmp_" + name + ".pdf",
+                DESTINATION_FOLDER, "diff_" + name + "_"));
+    }
 }

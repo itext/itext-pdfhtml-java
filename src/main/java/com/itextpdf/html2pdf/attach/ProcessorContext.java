@@ -42,6 +42,7 @@ import com.itextpdf.layout.font.FontInfo;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.font.FontSet;
 import com.itextpdf.layout.font.Range;
+import com.itextpdf.styledxmlparser.css.CssStyleSheet;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 
@@ -123,6 +124,11 @@ public class ProcessorContext {
     private CssContext cssContext;
 
     /**
+     * The CSS style sheet.
+     */
+    private CssStyleSheet cssStyleSheet;
+
+    /**
      * The link context
      */
     private LinkContext linkContext;
@@ -199,6 +205,7 @@ public class ProcessorContext {
 
         limitOfLayouts = converterProperties.getLimitOfLayouts();
         cssContext = new CssContext();
+        cssStyleSheet = null;
         linkContext = new LinkContext();
 
         createAcroForm = converterProperties.isCreateAcroForm();
@@ -426,6 +433,7 @@ public class ProcessorContext {
         this.state = new State();
         this.resourceResolver.resetCache();
         this.cssContext = new CssContext();
+        this.cssStyleSheet = null;
         this.linkContext = new LinkContext();
         this.formFieldNameResolver.reset();
         //Reset font provider. PdfFonts shall be reseted.
@@ -507,7 +515,6 @@ public class ProcessorContext {
         processingInlineSvg = false;
     }
 
-
     /**
      * check if continuous container is enabled.
      *
@@ -515,5 +522,25 @@ public class ProcessorContext {
      */
     public boolean isContinuousContainerEnabled() {
         return continuousContainerEnabled;
+    }
+
+    /**
+     * Sets the CSS style sheet.
+     * Style sheet is used to apply CSS statements to elements.
+     *
+     * @param cssStyleSheet the CSS style sheet
+     */
+    public void setCssStyleSheet(CssStyleSheet cssStyleSheet) {
+        this.cssStyleSheet = cssStyleSheet;
+    }
+
+    /**
+     * Gets the CSS style sheet.
+     * Style sheet is used to apply CSS statements to elements.
+     *
+     * @return the CSS style sheet
+     */
+    public CssStyleSheet getCssStyleSheet() {
+        return cssStyleSheet;
     }
 }

@@ -187,6 +187,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         context.reset();
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context);
+        context.setCssStyleSheet(((DefaultCssResolver) cssResolver).getCssStyleSheet());
         context.getLinkContext().scanForIds(root);
         addFontFaceFonts();
         IElementNode html = findHtmlNode(root);
@@ -230,6 +231,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context);
+        context.setCssStyleSheet(((DefaultCssResolver) cssResolver).getCssStyleSheet());
         context.getLinkContext().scanForIds(root);
         addFontFaceFonts();
         root = findHtmlNode(root);
