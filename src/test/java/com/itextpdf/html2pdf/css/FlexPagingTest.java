@@ -148,6 +148,13 @@ public class FlexPagingTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 4))
+    public void tableInFlexOnSplit2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("table-in-flex-on-split2", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void tableInFlexColumnOnSplitTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("table-in-flex-column-on-split", sourceFolder, destinationFolder);
     }
