@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf.util;
 
+import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
@@ -31,6 +32,7 @@ import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.element.SvgImage;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.renderers.ISvgNodeRenderer;
+import com.itextpdf.svg.utils.SvgCssUtils;
 import com.itextpdf.svg.xobject.SvgImageXObject;
 
 /**
@@ -57,6 +59,7 @@ public class SvgProcessingUtil {
      *
      * @return SVG image layout object
      */
+    @Deprecated
     public Image createImageFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument) {
         SvgImageXObject xObject = (SvgImageXObject) createXObjectFromProcessingResult(result, pdfDocument);
         return new SvgImage(xObject);
@@ -69,6 +72,7 @@ public class SvgProcessingUtil {
      *
      * @return SVG image layout object
      */
+    @Deprecated
     public Image createSvgImageFromProcessingResult(ISvgProcessorResult result) {
         return createImageFromProcessingResult(result, null);
     }
@@ -81,6 +85,7 @@ public class SvgProcessingUtil {
      *
      * @return {@link SvgImageXObject} instance
      */
+    @Deprecated
     public PdfFormXObject createXObjectFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument) {
         ISvgNodeRenderer topSvgRenderer = result.getRootRenderer();
         float width, height;
@@ -91,6 +96,26 @@ public class SvgProcessingUtil {
                 new SvgImageXObject(new Rectangle(0, 0, width, height), result, resourceResolver);
         if (pdfDocument != null) {
             svgImageXObject.generate(pdfDocument);
+        }
+        return svgImageXObject;
+    }
+
+
+    /**
+     * Create an {@link PdfFormXObject} tied to the passed {@link ProcessorContext} using the SVG processing result.
+     *
+     * @param result  processing result containing the SVG information
+     * @param context html2pdf processor context
+     *
+     * @return new {@link SvgImageXObject} instance
+     */
+    public SvgImageXObject createXObjectFromProcessingResult(ISvgProcessorResult result, ProcessorContext context) {
+        float rem = context.getCssContext().getRootFontSize();
+        float em = context.getCssContext().getCurrentFontSize();
+        Rectangle bbox = SvgCssUtils.extractWidthAndHeight(result.getRootRenderer(), em, rem);
+        SvgImageXObject svgImageXObject = new SvgImageXObject(bbox, result, resourceResolver);
+        if (context.getPdfDocument() != null) {
+            svgImageXObject.generate(context.getPdfDocument());
         }
         return svgImageXObject;
     }

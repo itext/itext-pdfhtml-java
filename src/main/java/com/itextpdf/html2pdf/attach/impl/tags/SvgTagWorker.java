@@ -32,6 +32,7 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
+import com.itextpdf.svg.element.SvgImage;
 import com.itextpdf.svg.exceptions.SvgProcessingException;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.processors.impl.DefaultSvgProcessor;
@@ -69,9 +70,8 @@ public class SvgTagWorker implements ITagWorker {
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         if (processingResult != null) {
-            SvgProcessingUtil util = new SvgProcessingUtil(context.getResourceResolver());
-            svgImage = util.createSvgImageFromProcessingResult(processingResult);
-
+            svgImage = new SvgImage(new SvgProcessingUtil(context.getResourceResolver())
+                    .createXObjectFromProcessingResult(processingResult, context));
             AccessiblePropHelper.trySetLangAttribute(svgImage, element);
             context.endProcessingInlineSvg();
         }
@@ -91,4 +91,5 @@ public class SvgTagWorker implements ITagWorker {
     public IPropertyContainer getElementResult() {
         return svgImage;
     }
+
 }

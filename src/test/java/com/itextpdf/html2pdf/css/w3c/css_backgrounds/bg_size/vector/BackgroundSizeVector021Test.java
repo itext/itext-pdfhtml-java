@@ -29,9 +29,6 @@ import com.itextpdf.test.annotations.LogMessages;
 
 // TODO DEVSIX-4388 percentage is not supported for rect's x, y, width and height
 // TODO DEVSIX-4625 the resolution of auto dimensions of div with background-size and svg height is not clear
-@LogMessages(messages = {
-        @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, count = 5)
-})
 public class BackgroundSizeVector021Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

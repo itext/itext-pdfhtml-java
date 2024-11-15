@@ -149,6 +149,6 @@ public class HtmlResourceResolver extends ResourceResolver {
         }
         ISvgProcessorResult res = SvgConverter.parseAndProcess(stream, svgConverterProperties);
         SvgProcessingUtil processingUtil = new SvgProcessingUtil(context.getResourceResolver());
-        return processingUtil.createXObjectFromProcessingResult(res, context.getPdfDocument());
+        return processingUtil.createXObjectFromProcessingResult(res, context);
     }
 }

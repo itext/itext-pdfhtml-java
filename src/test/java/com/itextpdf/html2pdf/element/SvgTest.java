@@ -58,6 +58,15 @@ public class SvgTest extends ExtendedITextTest {
         convertAndCompare("inline_svg");
     }
 
+    //TODO: DEVSIX-8775 support percent values for root svg
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, count = 4),
+    })
+    public void inlineSvgWithPercentSizesTest() throws IOException, InterruptedException {
+        convertAndCompare("inline_svg_percent_sizes");
+    }
+
     @Test
     public void inlineNestedSvgTest() throws IOException, InterruptedException {
         convertAndCompare("inline_nested_svg");
@@ -340,6 +349,15 @@ public class SvgTest extends ExtendedITextTest {
     @LogMessages(messages = @LogMessage(messageTemplate = SvgLogMessageConstant.UNMAPPED_TAG, logLevel = LogLevelConstants.WARN))
     public void inlineSvgStyleResolvingOrder5Test() throws IOException, InterruptedException {
         convertAndCompare("inlineSvgStyleResolvingOrder5");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, count = 2),
+    })
+    //TODO: DEVSIX-8775 resolve problem with AbstractContainerSvgNodeRenderer#calculateViewPort()
+    public void svgWithEmRemTest() throws IOException, InterruptedException {
+        convertAndCompare("svgWithEmRem");
     }
 
     private static void convertAndCompare(String name)

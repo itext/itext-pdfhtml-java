@@ -30,8 +30,7 @@ import com.itextpdf.test.annotations.LogMessages;
 
 // TODO DEVSIX-4388 percentage is not supported for rect's x, y, width and height
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, count = 2),
-        @LogMessage(messageTemplate = IoLogMessageConstant.ATTEMPT_PROCESS_NAN, count = 8)
+        @LogMessage(messageTemplate = IoLogMessageConstant.ATTEMPT_PROCESS_NAN, count = 9)
 })
 public class ZeroRatioNoDConTest extends W3CCssTest {
     @Override

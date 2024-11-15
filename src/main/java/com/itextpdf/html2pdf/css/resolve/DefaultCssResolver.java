@@ -227,6 +227,7 @@ public class DefaultCssResolver implements ICssResolver {
         if (element instanceof IElementNode && TagConstants.HTML.equals(((IElementNode) element).name())) {
             context.setRootFontSize(elementStyles.get(CssConstants.FONT_SIZE));
         }
+        context.setCurrentFontSize(CssDimensionParsingUtils.parseAbsoluteFontSize(elementStyles.get(CssConstants.FONT_SIZE)));
 
         Set<String> keys = new HashSet<>();
         for (Map.Entry<String, String> entry : elementStyles.entrySet()) {

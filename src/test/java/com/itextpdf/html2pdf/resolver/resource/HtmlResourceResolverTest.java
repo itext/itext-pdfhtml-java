@@ -241,7 +241,8 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
         SvgProcessingUtil processingUtil = new SvgProcessingUtil(resourceResolver);
         PdfDocument document = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
-        PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, document);
+        context.reset(document);
+        PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, context);
         PdfDictionary resources = (PdfDictionary) pdfFormXObject.getResources().getPdfObject().get(PdfName.XObject);
         PdfDictionary fm1Dict = (PdfDictionary) resources.get(new PdfName("Fm1"));
         Assertions.assertTrue(((PdfDictionary) fm1Dict.get(PdfName.Resources)).containsKey(PdfName.XObject));
@@ -264,7 +265,8 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
         SvgProcessingUtil processingUtil = new SvgProcessingUtil(resourceResolver);
         PdfDocument document = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
-        PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, document);
+        context.reset(document);
+        PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, context);
         PdfDictionary resources = (PdfDictionary) pdfFormXObject.getResources().getPdfObject().get(PdfName.XObject);
         PdfDictionary fm1Dict = (PdfDictionary) resources.get(new PdfName("Fm1"));
         Assertions.assertTrue(((PdfDictionary) fm1Dict.get(PdfName.Resources)).containsKey(PdfName.XObject));
@@ -293,7 +295,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
             imageRenderer.setAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/doggo.jpg");
             svgRenderer.setAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/lines.svg");
 
-            document.add(new SvgProcessingUtil(resourceResolver).createSvgImageFromProcessingResult(result));
+            document.add(new SvgImage(new SvgProcessingUtil(resourceResolver).createXObjectFromProcessingResult(result, context)));
         }
         Assertions.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER, "diff"));
     }

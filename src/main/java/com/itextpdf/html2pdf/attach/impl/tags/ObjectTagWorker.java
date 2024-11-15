@@ -36,6 +36,7 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.svg.converter.SvgConverter;
+import com.itextpdf.svg.element.SvgImage;
 import com.itextpdf.svg.exceptions.SvgProcessingException;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.processors.impl.SvgConverterProperties;
@@ -118,7 +119,7 @@ public class ObjectTagWorker implements ITagWorker {
     public void processEnd(IElementNode element, ProcessorContext context) {
         // Create Image object
         if (res != null) {
-            image = processUtil.createSvgImageFromProcessingResult(res);
+            image = new SvgImage(processUtil.createXObjectFromProcessingResult(res, context));
             AccessiblePropHelper.trySetLangAttribute(image, element);
         }
     }

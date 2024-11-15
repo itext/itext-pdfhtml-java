@@ -29,7 +29,7 @@ import com.itextpdf.test.annotations.LogMessages;
 
 // TODO DEVSIX-2654. Svg width, height values in percents aren't supported
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, count = 12),
+        @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, count = 8),
 })
 public class BackgroundIntrinsic006Test extends W3CCssTest {
     @Override
