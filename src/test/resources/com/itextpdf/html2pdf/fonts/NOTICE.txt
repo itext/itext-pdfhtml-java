@@ -12,6 +12,7 @@
  | NotoSansJP-Bold.ttf | OFL-1.1 | OFL.txt |(07.05.2024)
  | OpenSans-Regular.ttf | OFL-1.1 | OFL.txt |(07.05.2024)
  | OpenSans-Bold.ttf | OFL-1.1 | OFL.txt |(07.05.2024)
+ | Roboto-Regular.ttf | Apache-2.0 | LICENSE.txt |(17.11.2024)
 
 ------------------------------------------------------------------------------------------------------------------------
 

@@ -28,20 +28,24 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreak;
+import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.renderer.FlexContainerRenderer;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -585,6 +589,28 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     //TODO: DEVSIX-8730 bullet is not drawn
     public void unorderedListFlexTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("UnorderedListWithFlex", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    //TODO DEVSIX-6892 The List element is clipped when Display:flex and Roboto font are used
+    @LogMessages(messages = @LogMessage(messageTemplate = "Element content was clipped because some height properties are set."))
+    public void displayFlexWithRobotoFontTest() throws IOException, InterruptedException {
+        String outFile = DESTINATION_FOLDER + "displayFlexWithRobotoFont.pdf";
+        String cmpFile = SOURCE_FOLDER + "cmp_displayFlexWithRobotoFont.pdf";
+        String htmlFile = SOURCE_FOLDER + "displayFlexWithRobotoFont.html";
+        String robotoFont ="./src/test/resources/com/itextpdf/html2pdf/fonts/Roboto-Regular.ttf";
+
+        PdfWriter writer = new PdfWriter(new File(outFile));
+        PdfDocument pdfDocument = new PdfDocument(writer);
+        ConverterProperties props = new ConverterProperties();
+        FontProvider fontProvider = new DefaultFontProvider(false, false, false);
+        fontProvider.addFont(robotoFont);
+        props.setFontProvider(fontProvider);
+
+        HtmlConverter.convertToPdf(new FileInputStream(htmlFile), pdfDocument, props);
+
+        Assertions.assertNull(new CompareTool().compareByContent(outFile, cmpFile, DESTINATION_FOLDER,
+                "diff_displayFlexWithRobotoFont_"));
     }
 
     private static List<IElement> convertToElements(String name) throws IOException {
