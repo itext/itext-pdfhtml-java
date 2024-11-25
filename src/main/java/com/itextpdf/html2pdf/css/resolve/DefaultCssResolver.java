@@ -297,24 +297,23 @@ public class DefaultCssResolver implements ICssResolver {
         LinkedList<INode> q = new LinkedList<>();
         q.add(rootNode);
         while (!q.isEmpty()) {
-            INode currentNode = q.getFirst();
-            q.removeFirst();
+            INode currentNode = q.pop();
             if (currentNode instanceof IElementNode) {
-                IElementNode headChildElement = (IElementNode) currentNode;
-                if (TagConstants.STYLE.equals(headChildElement.name())) {
-                    if (currentNode.childNodes().size() > 0 && currentNode.childNodes().get(0) instanceof IDataNode) {
-                        String styleData = ((IDataNode) currentNode.childNodes().get(0)).getWholeData();
-                        CssStyleSheet styleSheet = CssStyleSheetParser.parse(styleData);
-                        styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
+                IElementNode element = (IElementNode) currentNode;
+                if (TagConstants.STYLE.equals(element.name())) {
+                    if (!element.childNodes().isEmpty() && element.childNodes().get(0) instanceof IDataNode) {
+                        String styleData = ((IDataNode) element.childNodes().get(0)).getWholeData();
+                        CssStyleSheet styleSheet  = CssStyleSheetParser.parse(styleData, resourceResolver.getBaseUri());
+                        styleSheet = wrapStyleSheetInMediaQueryIfNecessary(element, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);
                     }
-                } else if (CssUtils.isStyleSheetLink(headChildElement)) {
-                    String styleSheetUri = headChildElement.getAttribute(AttributeConstants.HREF);
+                } else if (CssUtils.isStyleSheetLink(element)) {
+                    String styleSheetUri = element.getAttribute(AttributeConstants.HREF);
                     try (InputStream stream = resourceResolver.retrieveResourceAsInputStream(styleSheetUri)) {
                         if (stream != null) {
-                            CssStyleSheet styleSheet = CssStyleSheetParser.parse(stream,
-                                    resourceResolver.resolveAgainstBaseUri(styleSheetUri).toExternalForm());
-                            styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
+                            String baseUri = resourceResolver.resolveAgainstBaseUri(styleSheetUri).toExternalForm();
+                            CssStyleSheet styleSheet = CssStyleSheetParser.parse(stream, baseUri);
+                            styleSheet = wrapStyleSheetInMediaQueryIfNecessary(element, styleSheet);
                             cssStyleSheet.appendCssStyleSheet(styleSheet);
                         }
                     } catch (Exception exc) {

@@ -79,7 +79,6 @@ public class SvgTest extends ExtendedITextTest {
 
     @Test
     public void inlineSvgExternalFontUrlTest() throws IOException, InterruptedException {
-        // TODO DEVSIX-2264 external font loading in SVG via @import
         convertAndCompare("inline_svg_external_font_url");
     }
 
