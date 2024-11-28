@@ -118,9 +118,9 @@ public class PTagWorker implements ITagWorker, IDisplayAware {
         // Child might be inline, however still have display:block; it behaves like a block,
         // however p includes it in own occupied area
         IPropertyContainer element = childTagWorker.getElementResult();
-        if (childTagWorker instanceof ImgTagWorker && CssConstants.BLOCK.equals(((ImgTagWorker) childTagWorker).getDisplay())) {
-            IPropertyContainer propertyContainer = childTagWorker.getElementResult();
-            processBlockElement((Image) propertyContainer);
+        if (childTagWorker instanceof ImgTagWorker && element instanceof Image &&
+                CssConstants.BLOCK.equals(((ImgTagWorker) childTagWorker).getDisplay())) {
+            processBlockElement((Image) element);
             return true;
         } else if (element instanceof ILeafElement) {
             inlineHelper.add((ILeafElement) element);
