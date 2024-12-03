@@ -64,11 +64,8 @@ public class SvgTest extends ExtendedITextTest {
         convertAndCompare("inline_svg");
     }
 
-    //TODO: DEVSIX-8775 support percent values for root svg
+    // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, count = 4),
-    })
     public void inlineSvgWithPercentSizesTest() throws IOException, InterruptedException {
         convertAndCompare("inline_svg_percent_sizes");
     }
@@ -334,10 +331,6 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_WIDTH),
-            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_HEIGHT),
-    })
     public void svgWithoutDimensionsTest() throws IOException, InterruptedException {
         convertAndCompare("svg_without_dimensions");
     }
@@ -348,10 +341,6 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_WIDTH, count = 2),
-            @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_HEIGHT, count = 2),
-    })
     public void svgWithoutDimensionsImageAndObjectRef() throws IOException, InterruptedException {
         convertAndCompare("svgWithoutDimensionsImageAndObjectRef");
     }
@@ -390,12 +379,38 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, count = 2),
-    })
-    //TODO: DEVSIX-8775 resolve problem with AbstractContainerSvgNodeRenderer#calculateViewPort()
     public void svgWithEmRemTest() throws IOException, InterruptedException {
         convertAndCompare("svgWithEmRem");
+    }
+
+    @Test
+    // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+    public void svgRelativeDimenstionsInInlineBlockTest() throws IOException, InterruptedException {
+        convertAndCompare("svgRelativeDimenstionsInInlineBlockTest");
+    }
+
+    @Test
+    // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+    public void svgRelativeDimenstionsInTableTest() throws IOException, InterruptedException {
+        convertAndCompare("svgRelativeDimenstionsInTableTest");
+    }
+
+    @Test
+    // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+    public void svgWidthHeightPercentUnitsTest() throws IOException, InterruptedException {
+        convertAndCompare("svgWidthHeightPercentUnitsTest");
+    }
+
+    @Test
+    // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+    public void svgSimpleWidthHeightPercentUnitsTest() throws IOException, InterruptedException {
+        convertAndCompare("svgSimpleWidthHeightPercentUnitsTest");
+    }
+
+    @Test
+    // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+    public void svgNestedWidthHeightPercentUnitsTest() throws IOException, InterruptedException {
+        convertAndCompare("svgNestedWidthHeightPercentUnitsTest");
     }
 
     private static void convertAndCompare(String name)

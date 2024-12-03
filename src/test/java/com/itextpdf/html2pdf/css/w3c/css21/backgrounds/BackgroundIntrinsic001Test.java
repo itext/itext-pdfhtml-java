@@ -23,16 +23,8 @@
 package com.itextpdf.html2pdf.css.w3c.css21.backgrounds;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.svg.logs.SvgLogMessageConstant;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
-// TODO DEVSIX-2654. Svg width, height values in percents aren't supported
-@LogMessages(messages = {
-        @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_WIDTH, count = 2),
-        @LogMessage(messageTemplate = SvgLogMessageConstant.MISSING_HEIGHT, count = 2)
-})
+// TODO DEVSIX-4625 the resolution of auto dimensions of div with background-size and svg height is not clear
 public class BackgroundIntrinsic001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

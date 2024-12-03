@@ -27,7 +27,6 @@ import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-// TODO DEVSIX-4388 percentage is not supported for rect's x, y, width and height
 // TODO DEVSIX-4625 the resolution of auto dimensions of div with background-size and svg height is not clear
 public class TA32PxOWNpHVbTest extends W3CCssTest {
     @Override

@@ -32,6 +32,7 @@ import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.element.SvgImage;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.renderers.ISvgNodeRenderer;
+import com.itextpdf.svg.renderers.SvgDrawContext;
 import com.itextpdf.svg.utils.SvgCssUtils;
 import com.itextpdf.svg.xobject.SvgImageXObject;
 
@@ -110,9 +111,10 @@ public class SvgProcessingUtil {
      * @return new {@link SvgImageXObject} instance
      */
     public SvgImageXObject createXObjectFromProcessingResult(ISvgProcessorResult result, ProcessorContext context) {
-        float rem = context.getCssContext().getRootFontSize();
         float em = context.getCssContext().getCurrentFontSize();
-        Rectangle bbox = SvgCssUtils.extractWidthAndHeight(result.getRootRenderer(), em, rem);
+        SvgDrawContext svgContext = new SvgDrawContext(null, null);
+        svgContext.getCssContext().setRootFontSize(Float.toString(context.getCssContext().getRootFontSize()));
+        Rectangle bbox = SvgCssUtils.extractWidthAndHeight(result.getRootRenderer(), em, svgContext);
         SvgImageXObject svgImageXObject = new SvgImageXObject(bbox, result, resourceResolver);
         if (context.getPdfDocument() != null) {
             svgImageXObject.generate(context.getPdfDocument());
