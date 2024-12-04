@@ -24,11 +24,11 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 
 import java.io.File;
@@ -57,14 +57,14 @@ public class FontSelectorArialFontTest extends ExtendedITextTest {
         String fileName = "testArial";
         ConverterProperties converterProperties = new ConverterProperties()
                 .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT))
-                .setFontProvider(new DefaultFontProvider());
+                .setFontProvider(new BasicFontProvider());
         runTest(fileName, converterProperties);
     }
 
     @Test
     public void testArialWithHelveticaAsAnAlias() throws IOException, InterruptedException {
         String fileName = "testArialWithHelveticaAsAnAlias";
-        FontProvider fontProvider = new DefaultFontProvider();
+        FontProvider fontProvider = new BasicFontProvider();
         fontProvider.getFontSet().addFont(sourceFolder + "FreeSans.ttf", null, "Arial");
         ConverterProperties converterProperties = new ConverterProperties()
                 .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT))

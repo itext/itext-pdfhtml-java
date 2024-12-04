@@ -22,13 +22,11 @@
  */
 package com.itextpdf.html2pdf.css;
 
-import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.forms.form.element.TextArea;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.attach.impl.layout.HtmlPageBreak;
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -42,19 +40,18 @@ import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.renderer.FlexContainerRenderer;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
-import static com.itextpdf.html2pdf.css.WordBreakTest.fontsFolder;
 
 @Tag("IntegrationTest")
 public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
@@ -603,7 +600,7 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         PdfWriter writer = new PdfWriter(new File(outFile));
         PdfDocument pdfDocument = new PdfDocument(writer);
         ConverterProperties props = new ConverterProperties();
-        FontProvider fontProvider = new DefaultFontProvider(false, false, false);
+        FontProvider fontProvider = new BasicFontProvider(false, false, false);
         fontProvider.addFont(robotoFont);
         props.setFontProvider(fontProvider);
 

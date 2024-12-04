@@ -26,16 +26,15 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.utils.CompareTool;
-import com.itextpdf.kernel.xmp.XMPException;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.font.selectorstrategy.BestMatchFontSelectorStrategy.BestMatchFontSelectorStrategyFactory;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -293,14 +292,14 @@ public class FontFaceTest extends ExtendedITextTest {
 
     @Test
     public void correctUrlWithUsedUnicodeRangeTest() throws IOException, InterruptedException {
-        FontProvider fontProvider = new DefaultFontProvider();
+        FontProvider fontProvider = new BasicFontProvider();
         fontProvider.setFontSelectorStrategyFactory(new BestMatchFontSelectorStrategyFactory());
         runTest("correctUrlWithUsedUnicodeRangeTest", fontProvider);
     }
 
     @Test
     public void correctUnicodeRangeSignificantTest() throws IOException, InterruptedException {
-        FontProvider fontProvider = new DefaultFontProvider();
+        FontProvider fontProvider = new BasicFontProvider();
         fontProvider.setFontSelectorStrategyFactory(new BestMatchFontSelectorStrategyFactory());
         runTest("correctUnicodeRangeSignificantTest", fontProvider);
     }
@@ -352,6 +351,6 @@ public class FontFaceTest extends ExtendedITextTest {
     }
 
     private void runTest(String name) throws IOException, InterruptedException {
-        runTest(name, new DefaultFontProvider());
+        runTest(name, new BasicFontProvider());
     }
 }

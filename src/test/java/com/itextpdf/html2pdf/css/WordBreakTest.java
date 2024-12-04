@@ -24,10 +24,10 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.font.FontProvider;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -53,7 +53,7 @@ public class WordBreakTest extends ExtendedITextTest {
 
     @Test
     public void wordBreakCommonScenarioTest() throws IOException, InterruptedException {
-        FontProvider fontProvider = new DefaultFontProvider();
+        FontProvider fontProvider = new BasicFontProvider();
         fontProvider.addFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
 
         ConverterProperties converterProperties = new ConverterProperties();
@@ -67,7 +67,7 @@ public class WordBreakTest extends ExtendedITextTest {
 
     @Test
     public void overflowXWordBreakTest() throws IOException, InterruptedException {
-        FontProvider fontProvider = new DefaultFontProvider();
+        FontProvider fontProvider = new BasicFontProvider();
         fontProvider.addFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
 
         ConverterProperties converterProperties = new ConverterProperties();
@@ -89,7 +89,7 @@ public class WordBreakTest extends ExtendedITextTest {
 
     @Test
     public void wordBreakMidNumbersTest() throws IOException, InterruptedException {
-        FontProvider fontProvider = new DefaultFontProvider();
+        FontProvider fontProvider = new BasicFontProvider();
         fontProvider.addFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
 
         ConverterProperties converterProperties = new ConverterProperties();

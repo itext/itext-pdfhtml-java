@@ -22,11 +22,11 @@
  */
 package com.itextpdf.html2pdf;
 
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.font.FontProvider;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -98,7 +98,7 @@ public class FontProviderTest extends ExtendedITextTest {
     public void comparatorErrorTest() throws IOException, InterruptedException {
         ConverterProperties properties = new ConverterProperties();
 
-        FontProvider pro = new DefaultFontProvider();
+        FontProvider pro = new BasicFontProvider();
         pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSansArabic-Regular.ttf"));
         pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSansArabic-Bold.ttf"));
         pro.addFont(FontProgramFactory.createFont(SOURCE_FOLDER + "NotoSansGurmukhi-Regular.ttf"));
@@ -150,7 +150,7 @@ public class FontProviderTest extends ExtendedITextTest {
     @Test
     public void differentFontFamiliesTest() throws IOException, InterruptedException {
         ConverterProperties properties = new ConverterProperties();
-        FontProvider fontProvider = new DefaultFontProvider(false, false, false);
+        FontProvider fontProvider = new BasicFontProvider(false, false, false);
         fontProvider.addDirectory(SOURCE_FOLDER + "Lato_fonts");
         properties.setFontProvider(fontProvider);
 

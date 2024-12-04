@@ -24,7 +24,6 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
@@ -35,6 +34,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.font.RangeBuilder;
 import com.itextpdf.layout.font.selectorstrategy.BestMatchFontSelectorStrategy.BestMatchFontSelectorStrategyFactory;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 
 import java.io.IOException;
@@ -62,7 +62,7 @@ public class FontRangeTest extends ExtendedITextTest {
         String font = FONTS_FOLDER + "Bokor-Regular.ttf";
         String dest = DESTINATION_FOLDER + "fontRangeTest.pdf";
 
-        FontProvider fontProvider = new DefaultFontProvider(false, false, false);
+        FontProvider fontProvider = new BasicFontProvider(false, false, false);
         FontProgram fontProgram = FontProgramFactory.createFont(font);
         fontProvider.setFontSelectorStrategyFactory(new BestMatchFontSelectorStrategyFactory());
         fontProvider.addFont(fontProgram);

@@ -28,16 +28,22 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
+import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.logs.SvgLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
@@ -229,6 +235,39 @@ public class SvgTest extends ExtendedITextTest {
         HtmlConverter.convertToPdf(string_file, pdfDoc, new ConverterProperties());
         Assertions.assertNull(new CompareTool().compareByContent(
                 DESTINATION_FOLDER + html + ".pdf", SOURCE_FOLDER + "cmp_" + html + ".pdf", DESTINATION_FOLDER));
+    }
+
+    @Test
+    public void convertInlineSvgWithCustomFont() throws IOException, InterruptedException {
+        String html = "inline_svg_custom_font";
+        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + html + ".pdf"));
+        pdfDoc.addNewPage();
+        String string_file = "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "  <body>\n" +
+                "    <svg viewBox=\"0 0 240 80\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                "      <text x=\"20\" y=\"35\" font-family=\"Noto Sans Mono\" font-size=\"1.5em\">Hello World!</text>\n" +
+                "    </svg>\n" +
+                "  </body>\n" +
+                "</html>\n";
+        HtmlConverter.convertToPdf(string_file, pdfDoc, new ConverterProperties());
+        Assertions.assertNull(new CompareTool().compareByContent(
+                DESTINATION_FOLDER + html + ".pdf", SOURCE_FOLDER + "cmp_" + html + ".pdf", DESTINATION_FOLDER));
+    }
+
+    @Test
+    public void convertSvgWithSvgConverterCustomFont() throws IOException, InterruptedException {
+        String filename = "svg_custom_font";
+        String svg = "<svg viewBox=\"0 0 240 80\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                "<text x=\"20\" y=\"35\" font-family=\"Noto Sans Mono\" font-size=\"1.5em\">Hello World!</text>\n" +
+                "</svg>\n";
+        Document document = new Document(new PdfDocument(new PdfWriter(DESTINATION_FOLDER + filename + ".pdf")));
+        Image image = SvgConverter.convertToImage(new ByteArrayInputStream(svg.getBytes(StandardCharsets.UTF_8)),
+                document.getPdfDocument());
+        document.add(image);
+        document.close();
+        Assertions.assertNull(new CompareTool().compareByContent(
+                DESTINATION_FOLDER + filename + ".pdf", SOURCE_FOLDER + "cmp_" + filename + ".pdf", DESTINATION_FOLDER));
     }
 
     @Test

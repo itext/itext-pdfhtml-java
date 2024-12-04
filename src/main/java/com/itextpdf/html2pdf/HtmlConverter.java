@@ -26,7 +26,6 @@ import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.html2pdf.attach.Attacher;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.kernel.pdf.DocumentProperties;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -38,6 +37,7 @@ import com.itextpdf.pdfa.PdfADocument;
 import com.itextpdf.styledxmlparser.IXmlParser;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -428,11 +428,11 @@ public class HtmlConverter {
                 properties = new ConverterProperties();
             }
             if (properties.getFontProvider() == null) {
-                properties.setFontProvider(new DefaultFontProvider(false, true, false));
+                properties.setFontProvider(new BasicFontProvider(false, true, false));
             }
         } else if (document == null && properties != null && properties.getPdfAConformance() != null) {
             if (properties.getFontProvider() == null) {
-                properties.setFontProvider(new DefaultFontProvider(false, true, false));
+                properties.setFontProvider(new BasicFontProvider(false, true, false));
             }
         }
         return properties;

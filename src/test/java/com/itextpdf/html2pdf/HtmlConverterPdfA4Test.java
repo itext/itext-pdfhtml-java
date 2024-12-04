@@ -23,7 +23,6 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.kernel.pdf.PdfAConformance;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfReader;
@@ -36,6 +35,7 @@ import com.itextpdf.pdfa.exceptions.PdfAConformanceException;
 import com.itextpdf.pdfa.exceptions.PdfaExceptionMessageConstant;
 import com.itextpdf.pdfa.logs.PdfALogMessageConstant;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
@@ -144,7 +144,7 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
         converterProperties.setDocumentOutputIntent(
                 new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                         new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
-        DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+        BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
         fontProvider.addFont(RESOURCES_SOURCE_FOLDER + "NotoNaskhArabic-Regular.ttf");
         converterProperties.setFontProvider(fontProvider);
         FileOutputStream fOutput = new FileOutputStream(destinationPdf);
@@ -169,7 +169,7 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
         converterProperties.setDocumentOutputIntent(
                 new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                         new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
-        DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+        BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
         fontProvider.addFont(RESOURCES_SOURCE_FOLDER + "NotoSans-Regular.ttf");
         converterProperties.setFontProvider(fontProvider);
         try (FileOutputStream fOutput = new FileOutputStream(destinationPdf)) {
@@ -199,7 +199,7 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
         converterProperties.setDocumentOutputIntent(
                 new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                         new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
-        DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+        BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
         fontProvider.addFont(RESOURCES_SOURCE_FOLDER + "NotoSans-Regular.ttf");
         converterProperties.setFontProvider(fontProvider);
 
@@ -230,7 +230,7 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
         converterProperties.setDocumentOutputIntent(
                 new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
                         new FileInputStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm")));
-        DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+        BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
         fontProvider.addFont(RESOURCES_SOURCE_FOLDER + "NotoEmoji-Regular.ttf");
         converterProperties.setFontProvider(fontProvider);
 
@@ -290,7 +290,7 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
         String destinationPdf = DESTINATION_FOLDER + "simple_doc_custom_font.pdf";
 
         ConverterProperties properties = new ConverterProperties();
-        DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+        BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
         fontProvider.addFont(RESOURCES_SOURCE_FOLDER + "NotoSans-Regular.ttf");
         properties.setFontProvider(fontProvider);
         PdfWriter writer = new PdfWriter(destinationPdf,

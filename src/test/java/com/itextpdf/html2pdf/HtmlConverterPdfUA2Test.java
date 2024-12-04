@@ -23,7 +23,6 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfDocumentInfo;
@@ -37,6 +36,7 @@ import com.itextpdf.kernel.xmp.XMPException;
 import com.itextpdf.kernel.xmp.XMPMeta;
 import com.itextpdf.kernel.xmp.XMPMetaFactory;
 import com.itextpdf.layout.font.FontProvider;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -74,7 +74,7 @@ public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
         createSimplePdfUA2Document(pdfDocument);
 
         ConverterProperties converterProperties = new ConverterProperties();
-        FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+        FontProvider fontProvider = new BasicFontProvider(false, true, false);
         converterProperties.setFontProvider(fontProvider);
         HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
 
@@ -92,7 +92,7 @@ public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
         createSimplePdfUA2Document(pdfDocument);
 
         ConverterProperties converterProperties = new ConverterProperties();
-        FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+        FontProvider fontProvider = new BasicFontProvider(false, true, false);
         converterProperties.setFontProvider(fontProvider);
         HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
 
@@ -110,7 +110,7 @@ public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
         createSimplePdfUA2Document(pdfDocument);
 
         ConverterProperties converterProperties = new ConverterProperties();
-        FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+        FontProvider fontProvider = new BasicFontProvider(false, true, false);
         converterProperties.setFontProvider(fontProvider);
         converterProperties.setBaseUri(SOURCE_FOLDER);
         HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
@@ -136,7 +136,7 @@ public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
         createSimplePdfUA2Document(pdfDocument);
 
         ConverterProperties converterProperties = new ConverterProperties();
-        FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+        FontProvider fontProvider = new BasicFontProvider(false, true, false);
         converterProperties.setFontProvider(fontProvider);
         converterProperties.setOutlineHandler(OutlineHandler.createStandardHandler());
         HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
@@ -159,7 +159,7 @@ public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
         createSimplePdfUA2Document(pdfDocument);
 
         ConverterProperties converterProperties = new ConverterProperties();
-        FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+        FontProvider fontProvider = new BasicFontProvider(false, true, false);
         converterProperties.setFontProvider(fontProvider);
         converterProperties.setOutlineHandler(OutlineHandler.createStandardHandler());
         HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);

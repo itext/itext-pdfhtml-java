@@ -25,12 +25,15 @@ package com.itextpdf.html2pdf.resolver.font;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
@@ -95,12 +98,23 @@ public class FontsUnicodeCoverageTest extends ExtendedITextTest {
     private static List<PdfFont> readFontCollection() throws IOException {
         PdfFont font;
         List<PdfFont> pdfFontList = new ArrayList<>();
+        TestDefaultFontProvider provider = new TestDefaultFontProvider();
 
-        for (String file : DefaultFontProvider.SHIPPED_FONT_NAMES) {
-            font = PdfFontFactory.createFont(DefaultFontProvider.SHIPPED_FONT_RESOURCE_PATH + file, PdfEncodings.IDENTITY_H);
+        for (String file : provider.getShippedFontNames()) {
+            font = PdfFontFactory.createFont(provider.getShippedFontResourcePath() + file, PdfEncodings.IDENTITY_H);
             pdfFontList.add(font);
         }
 
         return pdfFontList;
+    }
+
+    private static class TestDefaultFontProvider extends BasicFontProvider {
+        public Collection<String> getShippedFontNames() {
+            return shippedFontNames;
+        }
+
+        public String getShippedFontResourcePath() {
+            return shippedFontResourcePath;
+        }
     }
 }
