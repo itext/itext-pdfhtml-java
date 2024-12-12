@@ -23,8 +23,14 @@
 package com.itextpdf.html2pdf.css.w3c.css_backgrounds.bg_size.vector;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
+import com.itextpdf.svg.logs.SvgLogMessageConstant;
+import com.itextpdf.test.LogLevelConstants;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 
-// TODO DEVSIX-4625 the resolution of auto dimensions of div with background-size and svg height is not clear
+@LogMessages(messages = {
+        @LogMessage(messageTemplate = SvgLogMessageConstant.VIEWBOX_WIDTH_OR_HEIGHT_IS_ZERO, logLevel = LogLevelConstants.INFO)
+})
 public class ZeroRatioNoDConTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

@@ -22,17 +22,26 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.SolidBorder;
+import com.itextpdf.layout.element.AreaBreak;
+import com.itextpdf.layout.element.BlockElement;
+import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.svg.converter.SvgConverter;
+import com.itextpdf.svg.element.SvgImage;
 import com.itextpdf.svg.logs.SvgLogMessageConstant;
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.LogLevelConstants;
@@ -43,7 +52,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
@@ -64,10 +73,37 @@ public class SvgTest extends ExtendedITextTest {
         convertAndCompare("inline_svg");
     }
 
-    // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
     @Test
-    public void inlineSvgWithPercentSizesTest() throws IOException, InterruptedException {
-        convertAndCompare("inline_svg_percent_sizes");
+    // TODO DEVSIX-4629 pdfHTML: simulate browsers behavior for quirks and standards modes
+    public void inline_svg_percent_sizes_quirk_mode_1Test() throws IOException, InterruptedException {
+        convertAndCompare("inline_svg_percent_sizes_quirk_mode_1");
+    }
+
+    @Test
+    // TODO DEVSIX-4629 pdfHTML: simulate browsers behavior for quirks and standards modes
+    public void inline_svg_percent_sizes_quirk_mode_2Test() throws IOException, InterruptedException {
+        convertAndCompare("inline_svg_percent_sizes_quirk_mode_2");
+    }
+
+    @Test
+    // TODO DEVSIX-4629 pdfHTML: simulate browsers behavior for quirks and standards modes
+    public void inline_svg_percent_sizes_quirk_mode_3Test() throws IOException, InterruptedException {
+        convertAndCompare("inline_svg_percent_sizes_quirk_mode_3");
+    }
+
+    @Test
+    public void inline_svg_percent_sizes_standard_mode_1Test() throws IOException, InterruptedException {
+        convertAndCompare("inline_svg_percent_sizes_standard_mode_1");
+    }
+
+    @Test
+    public void inline_svg_percent_sizes_standard_mode_2Test() throws IOException, InterruptedException {
+        convertAndCompare("inline_svg_percent_sizes_standard_mode_2");
+    }
+
+    @Test
+    public void inline_svg_percent_sizes_standard_mode_3Test() throws IOException, InterruptedException {
+        convertAndCompare("inline_svg_percent_sizes_standard_mode_3");
     }
 
     @Test
@@ -86,26 +122,17 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
-    })
     public void convert_inline_Svg_path_in_HTML() throws IOException, InterruptedException {
         convertAndCompare("HTML_with_inline_svg_path");
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
-    })
-    // TODO: Update cmp_ file when DEVSIX-2719 resolved
+    // TODO: DEVSIX-2719 SVG<polygon>: tops of figures are cut
     public void convert_inline_Svg_polygon_in_HTML() throws IOException, InterruptedException {
         convertAndCompare("HTML_with_inline_svg_polygon");
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA),
-    })
     public void convert_namespace_Svg_in_HTML() throws IOException, InterruptedException {
         convertAndCompare("namespace_svg");
     }
@@ -179,7 +206,7 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO: Update cmp_ file when DEVSIX-2719 resolved
+    // TODO: DEVSIX-2719 SVG<polygon>: tops of figures are cut
     public void convertInlineSvgStar() throws IOException, InterruptedException {
         String html = "inline_svg_star";
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + html + ".pdf"));
@@ -282,7 +309,7 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    //TODO update after DEVSIX-3034
+    //TODO DEVSIX-3034 Moving the end tag of <object> causes ERROR
     @LogMessages(messages = {
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, count = 2)
     })
@@ -313,21 +340,38 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    //TODO: Update cmp_ file when DEVSIX-2731 resolved
     @LogMessages(messages = {
             @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
     })
-    public void htmlWithSvgBackground() throws IOException, InterruptedException {
+    public void htmlWithSvgBackgroundTest() throws IOException, InterruptedException {
+        // The diff with browser is expected, because we parse "width: 600;", when
+        // browsers ignore such declaration. See htmlWithSvgBackground3Test
         convertAndCompare("HTML_with_svg_background");
     }
 
     @Test
-    //TODO: Update cmp_ file when DEVSIX-2731 resolved
+    public void htmlWithSvgBackground2Test() throws IOException, InterruptedException {
+        convertAndCompare("HTML_with_svg_background_2");
+    }
+
+    @Test
+    public void htmlWithSvgBackground3Test() throws IOException, InterruptedException {
+        convertAndCompare("HTML_with_svg_background_3");
+    }
+
+    @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)
     })
     public void htmlWithSvgBackgroundNoViewbox() throws IOException, InterruptedException {
+        // The diff with browser is expected, because we parse "width: 600;", when
+        // browsers ignore such declaration. See htmlWithSvgBackgroundNoViewbox2
         convertAndCompare("Html_with_svg_background_no_viewbox");
+    }
+
+    @Test
+    public void htmlWithSvgBackgroundNoViewbox2() throws IOException, InterruptedException {
+        convertAndCompare("Html_with_svg_background_no_viewbox_2");
     }
 
     @Test
@@ -336,6 +380,9 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)
+    })
     public void svgWithoutDimensionsWithViewboxTest() throws IOException, InterruptedException {
         convertAndCompare("svg_without_dimensions_with_viewbox");
     }
@@ -384,38 +431,120 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+    // TODO DEVSIX-1316 make percent width doesn't affect elements min max width
     public void svgRelativeDimenstionsInInlineBlockTest() throws IOException, InterruptedException {
         convertAndCompare("svgRelativeDimenstionsInInlineBlockTest");
     }
 
     @Test
-    // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+    // TODO DEVSIX-1316 make percent width doesn't affect elements min max width
+    // TODO DEVSIX-7003 Problem with layouting image with relative size in the table
     public void svgRelativeDimenstionsInTableTest() throws IOException, InterruptedException {
         convertAndCompare("svgRelativeDimenstionsInTableTest");
     }
 
     @Test
-    // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
     public void svgWidthHeightPercentUnitsTest() throws IOException, InterruptedException {
         convertAndCompare("svgWidthHeightPercentUnitsTest");
     }
 
     @Test
-    // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
     public void svgSimpleWidthHeightPercentUnitsTest() throws IOException, InterruptedException {
         convertAndCompare("svgSimpleWidthHeightPercentUnitsTest");
     }
 
     @Test
-    // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+    public void svgToElementsSimpleWidthHeightPercentUnitsTest() throws IOException, InterruptedException {
+        convertToElementsAndCompare("svgSimpleWidthHeightPercentUnitsTest");
+    }
+
+    @Test
+    public void svgToLayoutWidthHeightPercentTest() throws IOException, InterruptedException {
+        String name = "svgToLayoutWidthHeightPercentTest";
+        List<IElement> elements = HtmlConverter.convertToElements(FileUtil.getInputStreamForFile(SOURCE_FOLDER + name + ".html"));
+        Document document = new Document(new PdfDocument(new PdfWriter(DESTINATION_FOLDER + name + ".pdf")));
+        SvgImage svgImage = (SvgImage) ((BlockElement<Div>) elements.get(0)).getChildren().get(0);
+
+        Div div = new Div();
+        div.setWidth(100);
+        div.setHeight(300);
+        div.setBorder(new SolidBorder(5));
+        div.add(svgImage);
+
+        document.add(div);
+        document.close();
+
+        Assertions.assertNull(new CompareTool().compareByContent(
+                DESTINATION_FOLDER + name + ".pdf", SOURCE_FOLDER + "cmp_" + name + ".pdf",
+                DESTINATION_FOLDER, "diff_" + name + "_"));
+    }
+
+    @Test
     public void svgNestedWidthHeightPercentUnitsTest() throws IOException, InterruptedException {
         convertAndCompare("svgNestedWidthHeightPercentUnitsTest");
     }
 
+    @Test
+    public void relativeSvgParentWithoutWidthAndHeightTest() throws IOException, InterruptedException {
+        convertAndCompare("relativeSvgParentWithoutWidthAndHeight");
+    }
+
+    @Test
+    public void relativeSvgParentIsBoundedTest() throws IOException, InterruptedException {
+        convertAndCompare("relativeSvgParentIsBounded");
+    }
+
+    @Test
+    public void relativeSvgParentWithWidthTest() throws IOException, InterruptedException {
+        convertAndCompare("relativeSvgParentWithWidth");
+    }
+
+    @Test
+    public void relativeSvgParentWithHeightTest() throws IOException, InterruptedException {
+        convertAndCompare("relativeSvgParentWithHeight");
+    }
+
+    @Test
+    public void relativeSvgParentWithWidthViewboxTest() throws IOException, InterruptedException {
+        convertAndCompare("relativeSvgParentWithWidthViewbox");
+    }
+
+    @Test
+    public void relativeSvgParentWithHeightViewboxTest() throws IOException, InterruptedException {
+        convertAndCompare("relativeSvgParentWithHeightViewbox");
+    }
+
+    @Test
+    public void relativeSvgDifferentGrandparentTest() throws IOException, InterruptedException {
+        convertAndCompare("relativeSvgDifferentGrandparent");
+    }
+
     private static void convertAndCompare(String name)
             throws IOException, InterruptedException {
-        HtmlConverter.convertToPdf(new File(SOURCE_FOLDER + name + ".html"), new File(DESTINATION_FOLDER + name + ".pdf"));
+        String htmlPath = SOURCE_FOLDER + name + ".html";
+        HtmlConverter.convertToPdf(new File(htmlPath), new File(DESTINATION_FOLDER + name + ".pdf"));
+        System.out.println("Input html: " + UrlUtil.getNormalizedFileUriString(htmlPath) + "\n");
+        Assertions.assertNull(new CompareTool().compareByContent(
+                DESTINATION_FOLDER + name + ".pdf", SOURCE_FOLDER + "cmp_" + name + ".pdf",
+                DESTINATION_FOLDER, "diff_" + name + "_"));
+    }
+
+    private static void convertToElementsAndCompare(String name) throws IOException, InterruptedException {
+        List<IElement> elements = HtmlConverter.convertToElements(FileUtil.getInputStreamForFile(SOURCE_FOLDER + name + ".html"));
+        Document document = new Document(new PdfDocument(new PdfWriter(DESTINATION_FOLDER + name + ".pdf")));
+        for (IElement elem : elements) {
+            if (elem instanceof IBlockElement) {
+                document.add((IBlockElement) elem);
+            } else if (elem instanceof Image) {
+                document.add((Image) elem);
+            } else if (elem instanceof AreaBreak) {
+                document.add((AreaBreak) elem);
+            } else {
+                Assertions.fail("The #convertToElements method gave element which is unsupported as root element, it's unexpected.");
+            }
+        }
+        document.close();
+
         Assertions.assertNull(new CompareTool().compareByContent(
                 DESTINATION_FOLDER + name + ".pdf", SOURCE_FOLDER + "cmp_" + name + ".pdf",
                 DESTINATION_FOLDER, "diff_" + name + "_"));

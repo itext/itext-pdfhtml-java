@@ -24,7 +24,6 @@ package com.itextpdf.html2pdf.css.w3c.css21.backgrounds;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
-// TODO DEVSIX-4625 the resolution of auto dimensions of div with background-size and svg height is not clear
 public class BackgroundIntrinsic006Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

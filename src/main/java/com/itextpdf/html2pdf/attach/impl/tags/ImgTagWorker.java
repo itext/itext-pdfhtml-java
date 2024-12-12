@@ -22,13 +22,13 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
@@ -38,6 +38,7 @@ import com.itextpdf.layout.properties.ObjectFit;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.svg.element.SvgImage;
 import com.itextpdf.svg.xobject.SvgImageXObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,7 +75,16 @@ public class ImgTagWorker implements ITagWorker {
             if (imageXObject instanceof PdfImageXObject) {
                 image = new HtmlImage((PdfImageXObject) imageXObject);
             } else if (imageXObject instanceof SvgImageXObject) {
-                image = new SvgImage((SvgImageXObject) imageXObject);
+                SvgImageXObject svgImageXObject = (SvgImageXObject) imageXObject;
+                // TODO DEVSIX-8829 remove relative sized SVG generating after adding support in object element
+                if (svgImageXObject.isRelativeSized()) {
+                    svgImageXObject.updateBBox(null, null);
+                    if (context.getPdfDocument() != null) {
+                        svgImageXObject.generate(context.getPdfDocument());
+                    }
+                    svgImageXObject.setRelativeSized(false);
+                }
+                image = new SvgImage(svgImageXObject);
             } else if (imageXObject instanceof PdfFormXObject) {
                 image = new HtmlImage((PdfFormXObject) imageXObject);
             } else {

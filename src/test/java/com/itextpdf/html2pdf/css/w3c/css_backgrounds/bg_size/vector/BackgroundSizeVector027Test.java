@@ -23,11 +23,7 @@
 package com.itextpdf.html2pdf.css.w3c.css_backgrounds.bg_size.vector;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
-// TODO DEVSIX-4625 the resolution of auto dimensions of div with background-size and svg height is not clear
 public class BackgroundSizeVector027Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

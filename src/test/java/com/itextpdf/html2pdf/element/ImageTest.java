@@ -30,8 +30,8 @@ import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Tag("IntegrationTest")
 public class ImageTest extends ExtendedHtmlConversionITextTest {
@@ -161,4 +161,121 @@ public class ImageTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("imgTag_base64svg", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    @Test
+    public void relativeSizeSvg1Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg1_2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg1_3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1_3", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg1_4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg1_5Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1_5", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg1_6Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1_6", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg2_3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2_3", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg2_4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg2_5Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2_5", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg2_6Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2_6", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg4", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg4_2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg4_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg4_4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg4_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg5_2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg5_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    // TODO DEVSIX-1316 make percent width doesn't affect elements min max width
+    public void inlineRelativeImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("inlineRelativeImage", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    // TODO DEVSIX-1316 make percent width doesn't affect elements min max width
+    // TODO DEVSIX-7003 Problem with layouting image with relative size in the table
+    public void tableRelativeImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tableRelativeImage", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeImageInRelativeContainerTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeImageInRelativeContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void backgroundImageWithSizeAndDivContent1Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageWithSizeAndDivContent1", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void backgroundImageWithSizeAndDivContent2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageWithSizeAndDivContent2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void backgroundImageWithSizeAndDivContent3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageWithSizeAndDivContent3", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void backgroundImageWithSizeAndDivContent4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageWithSizeAndDivContent4", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
 }

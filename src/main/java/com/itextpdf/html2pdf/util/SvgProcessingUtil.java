@@ -27,6 +27,9 @@ import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.properties.UnitValue;
+import com.itextpdf.styledxmlparser.css.CommonCssConstants;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.svg.converter.SvgConverter;
 import com.itextpdf.svg.element.SvgImage;
@@ -40,7 +43,7 @@ import com.itextpdf.svg.xobject.SvgImageXObject;
  * Utility class for handling operations related to SVG
  */
 public class SvgProcessingUtil {
-    private ResourceResolver resourceResolver;
+    private final ResourceResolver resourceResolver;
 
     /**
      * Creates a new {@link SvgProcessingUtil} instance based on {@link ResourceResolver}
@@ -112,13 +115,28 @@ public class SvgProcessingUtil {
      */
     public SvgImageXObject createXObjectFromProcessingResult(ISvgProcessorResult result, ProcessorContext context) {
         float em = context.getCssContext().getCurrentFontSize();
-        SvgDrawContext svgContext = new SvgDrawContext(null, null);
-        svgContext.getCssContext().setRootFontSize(Float.toString(context.getCssContext().getRootFontSize()));
-        Rectangle bbox = SvgCssUtils.extractWidthAndHeight(result.getRootRenderer(), em, svgContext);
-        SvgImageXObject svgImageXObject = new SvgImageXObject(bbox, result, resourceResolver);
-        if (context.getPdfDocument() != null) {
-            svgImageXObject.generate(context.getPdfDocument());
+        SvgDrawContext svgContext = new SvgDrawContext(resourceResolver, result.getFontProvider());
+        svgContext.getCssContext().setRootFontSize(context.getCssContext().getRootFontSize());
+
+        if (isSvgRelativeSized(result.getRootRenderer(), context)) {
+            return new SvgImageXObject(result, svgContext, em, context.getPdfDocument());
+        } else {
+            Rectangle bbox = SvgCssUtils.extractWidthAndHeight(result.getRootRenderer(), em, svgContext);
+            SvgImageXObject svgImageXObject = new SvgImageXObject(bbox, result, resourceResolver);
+            if (context.getPdfDocument() != null) {
+                svgImageXObject.generate(context.getPdfDocument());
+            }
+            return svgImageXObject;
         }
-        return svgImageXObject;
+    }
+
+    private static boolean isSvgRelativeSized(ISvgNodeRenderer rootRenderer, ProcessorContext context) {
+        float em = context.getCssContext().getCurrentFontSize();
+        float rem = context.getCssContext().getRootFontSize();
+        String widthStr = rootRenderer.getAttribute(CommonCssConstants.WIDTH);
+        UnitValue width = CssDimensionParsingUtils.parseLengthValueToPt(widthStr, em, rem);
+        String heightStr = rootRenderer.getAttribute(CommonCssConstants.HEIGHT);
+        UnitValue height = CssDimensionParsingUtils.parseLengthValueToPt(heightStr, em, rem);
+        return width == null || width.isPercentValue() || height == null || height.isPercentValue();
     }
 }

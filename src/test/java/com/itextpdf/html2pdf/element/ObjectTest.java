@@ -30,8 +30,8 @@ import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Tag("IntegrationTest")
 public class ObjectTest extends ExtendedHtmlConversionITextTest {
@@ -78,4 +78,108 @@ public class ObjectTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("objectTag_nestedTag", sourceFolder, destinationFolder);
     }
 
+    @Test
+    public void relativeSizeSvg1Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg1_3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1_3", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg1_4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1_4", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg1_5Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1_5", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg2_3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2_3", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg3_2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_2", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg4", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg4_3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg4_3", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg5_3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg5_3", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvgInlineBlock1() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInlineBlock1", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvgInlineBlock2() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInlineBlock2", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvgInlineBlock2_2() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInlineBlock2_2", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvgInlineBlock3() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInlineBlock3", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvgInlineBlock4() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInlineBlock4", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvgInlineBlock5() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInlineBlock5", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvgInTable1() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInTable1", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvgInTable2() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInTable2", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvgInTable3() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInTable3", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvgInTable3_2() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInTable3_2", sourceFolder, destinationFolder);
+    }
 }

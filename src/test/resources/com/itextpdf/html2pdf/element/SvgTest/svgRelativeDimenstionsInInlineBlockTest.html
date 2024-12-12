@@ -11,17 +11,47 @@
     }
 </style>
 <body>
-<div style="border-width: 1px; width: 600px; height: 500px;">hello world
+    hello world
     <div style="display: inline-block;">
         <svg width="50%" height="50%">
-                <circle cx="150" cy="100" r="150" fill="green" /><circle cx="450" cy="100" r="150" fill="green" />
-                <circle cx="750" cy="100" r="150" fill="green" /><circle cx="1050" cy="100" r="150" fill="green" />
-                <circle cx="150" cy="400" r="150" fill="green" /><circle cx="450" cy="400" r="150" fill="green" />
-            </svg>
+            <circle cx="150" cy="100" r="150" fill="green" /><circle cx="450" cy="100" r="150" fill="green" />
+            <circle cx="750" cy="100" r="150" fill="green" /><circle cx="1050" cy="100" r="150" fill="green" />
+            <circle cx="150" cy="400" r="150" fill="green" /><circle cx="450" cy="400" r="150" fill="green" />
+        </svg>
     </div>
     world hello
-</div>
-            
-        
+
+    <p>another example (svg height 100%)</p>
+    hello world
+    <div style="display: inline-block;">
+        <svg width="75%" height="100%">
+            <circle cx="150" cy="100" r="150" fill="green" /><circle cx="450" cy="100" r="150" fill="green" />
+            <circle cx="750" cy="100" r="150" fill="green" /><circle cx="1050" cy="100" r="150" fill="green" />
+            <circle cx="150" cy="400" r="150" fill="green" /><circle cx="450" cy="400" r="150" fill="green" />
+        </svg>
+    </div>
+    world hello
+
+    <p>another example (parent's height 100px, svg height 100%)</p>
+    hello world
+    <div style="display: inline-block;height: 100px">
+        <svg width="75%" height="100%">
+            <circle cx="150" cy="100" r="150" fill="green" /><circle cx="450" cy="100" r="150" fill="green" />
+            <circle cx="750" cy="100" r="150" fill="green" /><circle cx="1050" cy="100" r="150" fill="green" />
+            <circle cx="150" cy="400" r="150" fill="green" /><circle cx="450" cy="400" r="150" fill="green" />
+        </svg>
+    </div>
+    world hello
+    
+    <p>another example (parent's height 100px, svg height 50%)</p>
+    hello world
+    <div style="display: inline-block;height: 100px">
+        <svg width="75%" height="50%">
+            <circle cx="150" cy="100" r="150" fill="green" /><circle cx="450" cy="100" r="150" fill="green" />
+            <circle cx="750" cy="100" r="150" fill="green" /><circle cx="1050" cy="100" r="150" fill="green" />
+            <circle cx="150" cy="400" r="150" fill="green" /><circle cx="450" cy="400" r="150" fill="green" />
+        </svg>
+    </div>
+    world hello
 </body>
 </html>
