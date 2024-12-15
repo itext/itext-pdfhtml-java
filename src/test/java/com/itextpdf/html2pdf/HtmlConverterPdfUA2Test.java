@@ -115,17 +115,11 @@ public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
         converterProperties.setBaseUri(SOURCE_FOLDER);
         HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
 
-        // The VeraPDF check fails probably to its internal bug. It checks that /ActualText != null, but the
-        // pdf/ua-2 documentation states the following:
-        // 8.5.1 General
-        // Real content that does not possess the semantics of text objects and does not have an alternate
-        // textual representation shall be enclosed within Figure structure elements in accordance with
-        // ISO 32000-2:2020, 14.8.4.8.5
-        // So probably VeraPDF should've checked for /Alt instead of /ActualText
-        compareAndCheckCompliance(destinationPdf, cmpPdf, false);
+        compareAndCheckCompliance(destinationPdf, cmpPdf, true);
     }
 
     @Test
+    // TODO DEVSIX-8476 PDF 2.0 doesn't allow P tag be a child of H tag
     public void simpleOutlineTest() throws IOException, InterruptedException, XMPException {
         String sourceHtml = SOURCE_FOLDER + "simpleOutline.html";
         String destinationPdf = DESTINATION_FOLDER + "simpleOutline.pdf";
@@ -141,7 +135,7 @@ public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
         converterProperties.setOutlineHandler(OutlineHandler.createStandardHandler());
         HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
 
-        compareAndCheckCompliance(destinationPdf, cmpPdf, true);
+        compareAndCheckCompliance(destinationPdf, cmpPdf, false);
     }
 
     @Test
