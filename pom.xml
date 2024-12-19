@@ -94,6 +94,12 @@
           <include>**/*.ttf</include>
         </includes>
       </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.json</include>
+        </includes>
+      </resource>
     </resources>
     <plugins>
       <plugin>
@@ -155,6 +161,80 @@
               <testCodeFiles>
                 <file>**/src/test/java/**/*.java</file>
               </testCodeFiles>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>native</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.graalvm.nativeimage</groupId>
+          <artifactId>svm</artifactId>
+          <version>22.3.5</version>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.bouncycastle</groupId>
+          <artifactId>bcprov-jdk18on</artifactId>
+          <version>${bouncycastle.version}</version>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>3.6.0</version>
+            <executions>
+              <execution>
+                <id>add-source</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>add-source</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>${basedir}/../resources/graalvm</source>
+                  </sources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <version>${native.maven.plugin.version}</version>
+            <extensions>true</extensions>
+            <executions>
+              <execution>
+                <id>test-native</id>
+                <goals>
+                  <goal>test</goal>
+                </goals>
+                <phase>test</phase>
+              </execution>
+            </executions>
+            <configuration>
+              <buildArgs>
+                <arg>
+                  --initialize-at-build-time=org.junit.validator.PublicClassValidator
+                  --initialize-at-build-time=org.junit.platform.engine.TestTag
+
+                  --enable-url-protocols=http,https,ftp
+
+                  -H:+AddAllCharsets
+                  <!-- Graalvm requires VisualStudio 2022 on Windows but it also works with earlier versions.
+                       So this is a workaround to run tests on TC agents having earlier VS versions installed. -->
+                  -H:-CheckToolchain
+                </arg>
+              </buildArgs>
+              <skipTests>false</skipTests>
+              <metadataRepository>
+                <enabled>true</enabled>
+              </metadataRepository>
             </configuration>
           </plugin>
         </plugins>

@@ -164,9 +164,7 @@ public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
         converterProperties.setOutlineHandler(OutlineHandler.createStandardHandler());
         HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
 
-        Assertions.assertNotNull(new VeraPdfValidator().validate(destinationPdf));
-        Assertions.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER,
-                "diff_unsupportedGlyph_"));
+        compareAndCheckCompliance(destinationPdf, cmpPdf, false);
     }
 
     private void createSimplePdfUA2Document(PdfDocument pdfDocument) throws IOException, XMPException {
@@ -185,7 +183,7 @@ public class HtmlConverterPdfUA2Test extends ExtendedITextTest {
         if (isExpectedOk) {
             Assertions.assertNull(new VeraPdfValidator().validate(destinationPdf));
         } else {
-            Assertions.assertNotNull(new VeraPdfValidator().validate(destinationPdf));
+            new VeraPdfValidator().validateFailure(destinationPdf);
         }
         Assertions.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER,
                 "diff_simple_"));
