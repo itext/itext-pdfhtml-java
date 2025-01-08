@@ -589,8 +589,6 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-6892 The List element is clipped when Display:flex and Roboto font are used
-    @LogMessages(messages = @LogMessage(messageTemplate = "Element content was clipped because some height properties are set."))
     public void displayFlexWithRobotoFontTest() throws IOException, InterruptedException {
         String outFile = DESTINATION_FOLDER + "displayFlexWithRobotoFont.pdf";
         String cmpFile = SOURCE_FOLDER + "cmp_displayFlexWithRobotoFont.pdf";

@@ -15,7 +15,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20230718202844+03'00')/ModDate(D:20230718202844+03'00')/Producer(iText® pdfHTML 5.0.1-SNAPSHOT \(AGPL version\) ©2000-2023 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test a multi-column container on button works with a column-span:all child)/assert(This test checks the page is rendered correctly for a multi-column container on button with a column-span:all child.)>>
+<</CreationDate(D:20250111145432+03'00')/ModDate(D:20250111145432+03'00')/Producer(iText® pdfHTML 6.1.0-SNAPSHOT \(AGPL version\) ©2000-2025 Apryse Group NV)/Title(CSS Multi-column Layout Test: Test a multi-column container on button works with a column-span:all child)/assert(This test checks the page is rendered correctly for a multi-column container on button with a column-span:all child.)>>
 endobj
 6 0 obj
 <</BaseFont/Helvetica/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -37,8 +37,8 @@ xref
 0000001040 00000 n 
 0000001128 00000 n 
 trailer
-<</ID [<6b7d3752eba1f35cda3a499e56d12dcad550cb99f7a53f022c524bfbbdb4d96bc4c52a1c8a133b3f25f2c8193a1f306a632b542d872f960b290a04976c349e67><6b7d3752eba1f35cda3a499e56d12dcad550cb99f7a53f022c524bfbbdb4d96bc4c52a1c8a133b3f25f2c8193a1f306a632b542d872f960b290a04976c349e67>]/Info 3 0 R/Root 1 0 R/Size 8>>
-%iText-pdfHTML-5.0.1-SNAPSHOT
+<</ID [<c215a67ba7c058e5bef68b0ada4c9661f67e8227fee59e61276f7e82f31c296d8857d3c61b9d912fe17b13354509ef0ce6789d9bef6b23596217269ab9218fd4><c215a67ba7c058e5bef68b0ada4c9661f67e8227fee59e61276f7e82f31c296d8857d3c61b9d912fe17b13354509ef0ce6789d9bef6b23596217269ab9218fd4>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-pdfHTML-6.1.0-SNAPSHOT
 startxref
 1272
 %%EOF
