@@ -119,15 +119,8 @@ public class ObjectTagWorker implements ITagWorker {
     public void processEnd(IElementNode element, ProcessorContext context) {
         // Create Image object
         if (res != null) {
-            SvgImageXObject svgImageXObject = processUtil.createXObjectFromProcessingResult(res, context);
-            // TODO DEVSIX-8829 remove relative sized SVG generating after adding support in object element
-            if (svgImageXObject.isRelativeSized()) {
-                svgImageXObject.updateBBox(null, null);
-                if (context.getPdfDocument() != null) {
-                    svgImageXObject.generate(context.getPdfDocument());
-                }
-                svgImageXObject.setRelativeSized(false);
-            }
+            SvgImageXObject svgImageXObject = processUtil.createXObjectFromProcessingResult(res, context, false);
+            svgImageXObject.setIsCreatedByObject(true);
             image = new SvgImage(svgImageXObject);
             AccessiblePropHelper.trySetLangAttribute(image, element);
         }

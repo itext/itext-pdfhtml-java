@@ -119,6 +119,213 @@ public class ObjectTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void relativeSizeSvg3_2_2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_2_2", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg3_3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_3", sourceFolder, destinationFolder);
+    }
+    @Test
+    public void relativeSizeSvg3_4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_4", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg3_5Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_5", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg3_6Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_6", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg3_7Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_7", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg3_8Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_8", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg3_9Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_9", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg3_10Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_10", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg3_11Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_11", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg3_12Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_12", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg3_13Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_13", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg3_14Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_14", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvg3_15Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_15", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void fixedImgRelativeSizeSvg3_2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_2", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void fixedImgRelativeSizeSvg3_3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_3", sourceFolder, destinationFolder);
+    }
+    @Test
+    public void fixedImgRelativeSizeSvg3_4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_4", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void fixedImgRelativeSizeSvg3_5Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_5", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void fixedImgRelativeSizeSvg3_6Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_6", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void fixedImgRelativeSizeSvg3_7Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_7", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void fixedImgRelativeSizeSvg3_8Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_8", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void fixedImgRelativeSizeSvg3_9Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_9", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void fixedImgRelativeSizeSvg3_10Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_10", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void fixedImgRelativeSizeSvg3_11Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_11", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void fixedImgRelativeSizeSvg3_12Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_12", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void fixedImgRelativeSizeSvg3_13Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_13", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void fixedImgRelativeSizeSvg3_14Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_14", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void fixedImgRelativeSizeSvg3_15Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_15", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_2", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_3", sourceFolder, destinationFolder);
+    }
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_4", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_5Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_5", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_6Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_6", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_7Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_7", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_8Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_8", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_9Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_9", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_10Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_10", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_11Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_11", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_12Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_12", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_13Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_13", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_14Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_14", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_15Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_15", sourceFolder, destinationFolder);
+    }
+
+    @Test
     public void relativeSizeSvg4Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("relativeSizeSvg4", sourceFolder, destinationFolder);
     }
@@ -138,16 +345,19 @@ public class ObjectTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("relativeSizeSvgInlineBlock1", sourceFolder, destinationFolder);
     }
 
+    //TODO DEVSIX-1316 fix incorrect min max width
     @Test
     public void relativeSizeSvgInlineBlock2() throws IOException, InterruptedException {
         convertToPdfAndCompare("relativeSizeSvgInlineBlock2", sourceFolder, destinationFolder);
     }
 
+    //TODO DEVSIX-1316 fix incorrect min max width
     @Test
     public void relativeSizeSvgInlineBlock2_2() throws IOException, InterruptedException {
         convertToPdfAndCompare("relativeSizeSvgInlineBlock2_2", sourceFolder, destinationFolder);
     }
 
+    //TODO DEVSIX-1316 fix incorrect min max width
     @Test
     public void relativeSizeSvgInlineBlock3() throws IOException, InterruptedException {
         convertToPdfAndCompare("relativeSizeSvgInlineBlock3", sourceFolder, destinationFolder);
@@ -158,6 +368,7 @@ public class ObjectTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("relativeSizeSvgInlineBlock4", sourceFolder, destinationFolder);
     }
 
+    //TODO DEVSIX-1316 fix incorrect min max width
     @Test
     public void relativeSizeSvgInlineBlock5() throws IOException, InterruptedException {
         convertToPdfAndCompare("relativeSizeSvgInlineBlock5", sourceFolder, destinationFolder);
@@ -168,18 +379,58 @@ public class ObjectTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("relativeSizeSvgInTable1", sourceFolder, destinationFolder);
     }
 
+    //TODO DEVSIX-7003, DEVSIX-1316 fix image with relative size in the table
     @Test
     public void relativeSizeSvgInTable2() throws IOException, InterruptedException {
         convertToPdfAndCompare("relativeSizeSvgInTable2", sourceFolder, destinationFolder);
     }
 
+    //TODO DEVSIX-7003, DEVSIX-1316 fix image with relative size in the table
     @Test
     public void relativeSizeSvgInTable3() throws IOException, InterruptedException {
         convertToPdfAndCompare("relativeSizeSvgInTable3", sourceFolder, destinationFolder);
     }
 
+    //TODO DEVSIX-7003, DEVSIX-1316 fix image with relative size in the table
     @Test
     public void relativeSizeSvgInTable3_2() throws IOException, InterruptedException {
         convertToPdfAndCompare("relativeSizeSvgInTable3_2", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvgInFixedObject() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInFixedObject", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvgInFixedObject2() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInFixedObject2", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvgInRelativeObject() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInRelativeObject", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)})
+    public void giantSvgInRelativeObject() throws IOException, InterruptedException {
+        convertToPdfAndCompare("giantSvgInRelativeObject", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void invalidSizeSvgInRelativeObject() throws IOException, InterruptedException {
+        convertToPdfAndCompare("invalidSizeSvgInRelativeObject", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void fixedSizeSvgInRelativeObject() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedSizeSvgInRelativeObject", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void relativeSizeSvgFixedInlineBlock() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgFixedInlineBlock", sourceFolder, destinationFolder);
     }
 }

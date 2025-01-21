@@ -72,7 +72,7 @@ public class SvgTagWorker implements ITagWorker {
     public void processEnd(IElementNode element, ProcessorContext context) {
         if (processingResult != null) {
             SvgImageXObject svgImageXObject = new SvgProcessingUtil(context.getResourceResolver())
-                    .createXObjectFromProcessingResult(processingResult, context);
+                    .createXObjectFromProcessingResult(processingResult, context, true);
             svgImage = new SvgImage(svgImageXObject);
 
             AccessiblePropHelper.trySetLangAttribute(svgImage, element);

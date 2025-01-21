@@ -76,15 +76,8 @@ public class ImgTagWorker implements ITagWorker {
                 image = new HtmlImage((PdfImageXObject) imageXObject);
             } else if (imageXObject instanceof SvgImageXObject) {
                 SvgImageXObject svgImageXObject = (SvgImageXObject) imageXObject;
-                // TODO DEVSIX-8829 remove relative sized SVG generating after adding support in object element
-                if (svgImageXObject.isRelativeSized()) {
-                    svgImageXObject.updateBBox(null, null);
-                    if (context.getPdfDocument() != null) {
-                        svgImageXObject.generate(context.getPdfDocument());
-                    }
-                    svgImageXObject.setRelativeSized(false);
-                }
                 image = new SvgImage(svgImageXObject);
+                svgImageXObject.setIsCreatedByImg(true);
             } else if (imageXObject instanceof PdfFormXObject) {
                 image = new HtmlImage((PdfFormXObject) imageXObject);
             } else {

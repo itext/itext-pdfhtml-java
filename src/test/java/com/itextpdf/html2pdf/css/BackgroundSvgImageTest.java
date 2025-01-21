@@ -599,6 +599,11 @@ public class BackgroundSvgImageTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void contain_fixed_height_percent_same_svg_widthTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("contain_fixed_height_percent_width_same_svg", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
     public void contain_fixed_height_percent_width_prRatio_noneTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("contain_fixed_height_percent_width_prRatio_none", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

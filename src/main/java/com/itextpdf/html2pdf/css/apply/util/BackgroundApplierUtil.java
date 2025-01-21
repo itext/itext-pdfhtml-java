@@ -570,7 +570,7 @@ public final class BackgroundApplierUtil {
                 svgRootRenderer.setAttribute(Attributes.WIDTH, null);
                 svgRootRenderer.setAttribute(Attributes.HEIGHT, null);
             }
-            svgImageXObject.updateBBox(finalWidth, finalHeight);
+            svgImageXObject.updateBBox((float) finalWidth, (float) finalHeight);
             svgImageXObject.generate(null);
 
             return new float[] {(float) finalWidth, (float) finalHeight};

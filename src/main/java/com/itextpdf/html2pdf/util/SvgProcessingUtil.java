@@ -110,10 +110,13 @@ public class SvgProcessingUtil {
      *
      * @param result  processing result containing the SVG information
      * @param context html2pdf processor context
+     * @param generateAbsolutelySizedSvg if true and context has pdf document and svg is not relative sized, it will be immediately
+     *                 generated, otherwise no generation will be performed
      *
      * @return new {@link SvgImageXObject} instance
      */
-    public SvgImageXObject createXObjectFromProcessingResult(ISvgProcessorResult result, ProcessorContext context) {
+    public SvgImageXObject createXObjectFromProcessingResult(ISvgProcessorResult result, ProcessorContext context,
+                                                             boolean generateAbsolutelySizedSvg) {
         float em = context.getCssContext().getCurrentFontSize();
         SvgDrawContext svgContext = new SvgDrawContext(resourceResolver, result.getFontProvider());
         svgContext.getCssContext().setRootFontSize(context.getCssContext().getRootFontSize());
@@ -123,7 +126,7 @@ public class SvgProcessingUtil {
         } else {
             Rectangle bbox = SvgCssUtils.extractWidthAndHeight(result.getRootRenderer(), em, svgContext);
             SvgImageXObject svgImageXObject = new SvgImageXObject(bbox, result, resourceResolver);
-            if (context.getPdfDocument() != null) {
+            if (context.getPdfDocument() != null && generateAbsolutelySizedSvg) {
                 svgImageXObject.generate(context.getPdfDocument());
             }
             return svgImageXObject;
