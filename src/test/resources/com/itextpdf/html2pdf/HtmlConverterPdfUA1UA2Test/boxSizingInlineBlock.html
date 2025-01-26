@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.boxtest {
+			box-sizing: border-box;
+		}
+		.borders {
+			display: inline-block;
+      float: left;
+			border: 20pt solid green;
+			padding: 10pt;
+			margin: 10pt;
+		}
+	</style>
+</head>
+  <body>
+  <div style="width: 500pt; border: solid blue">
+  	hello world text
+  	<div class="borders" style="width: 100pt;">inline block without border-box floating aaa aaaa aaa</div>
+  	<div class="borders" style="width: 100pt">inline block without border-box floating aaa aaaa aaa</div>
+  </div>
+  <div style="width: 500pt; border: solid blue">
+  	hello world text
+  	<div class="boxtest borders" style="width: 100pt">inline block with border-box floating aaaaaa aaaa aaa</div>
+  	<div class="boxtest borders" style="width: 100pt">inline block with border-box floating aaaaaa aaaa aaa</div>
+  </div>
+  </body>
+</html>

@@ -58,6 +58,12 @@
       <version>${itext.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>pdfua</artifactId>
+      <version>${itext.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <repositories>
