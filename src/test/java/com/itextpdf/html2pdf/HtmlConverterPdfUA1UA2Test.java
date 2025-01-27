@@ -83,7 +83,7 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
                 PdfUAExceptionMessageConstants.ANNOTATION_OF_TYPE_0_SHOULD_HAVE_CONTENTS_OR_ALT_KEY,
                 PdfName.Link.getValue());
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
         // Expected valid UA-2 document because PDF/UA-2 does not require Contents in Link annotations
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
@@ -254,6 +254,23 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
     }
 
+    @Test
+    public void inputWithTitleTagTest() throws IOException, InterruptedException, XMPException {
+        String sourceHtml = SOURCE_FOLDER + "inputWithTitleTag.html";
+        String cmpPdfUa1 = SOURCE_FOLDER + "cmp_inputWithTitleTagUa1.pdf";
+        String cmpPdfUa2 = SOURCE_FOLDER + "cmp_inputWithTitleTagUa2.pdf";
+        String destinationPdfUa1 = DESTINATION_FOLDER + "inputWithTitleTagUa1.pdf";
+        String destinationPdfUa2 = DESTINATION_FOLDER + "inputWithTitleTagUa2.pdf";
+
+        ConverterProperties converterProperties = new ConverterProperties();
+        converterProperties.setCreateAcroForm(true);
+
+        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, converterProperties, true,
+                null);
+        // TODO DEVSIX-8868 Change this test when fixed
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, false);
+    }
+
     private void createSimplePdfUA2Document(PdfDocument pdfDocument) throws IOException, XMPException {
         byte[] bytes = Files.readAllBytes(Paths.get(SOURCE_FOLDER + "simplePdfUA2.xmp"));
         XMPMeta xmpMeta = XMPMetaFactory.parse(new ByteArrayInputStream(bytes));
@@ -278,38 +295,63 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
 
     private void convertToUa1AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf,
             boolean isExpectedOk, String expectedErrorMessage) throws IOException, InterruptedException {
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdf, cmpPdf, new ConverterProperties(), isExpectedOk,
+                expectedErrorMessage);
+    }
+
+    private void convertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf,
+            boolean isExpectedOk) throws IOException, XMPException, InterruptedException {
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdf, cmpPdf, new ConverterProperties(), isExpectedOk);
+    }
+
+    private void convertToUa1AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf,
+                                                ConverterProperties converterProperties, boolean isExpectedOk,
+                                                String expectedErrorMessage) throws IOException, InterruptedException {
         PdfDocument pdfDocument = new PdfUADocument(new PdfWriter(destinationPdf),
                 new PdfUAConfig(PdfUAConformance.PDF_UA_1, "simple doc", "eng"));
 
-        ConverterProperties converterProperties = new ConverterProperties();
+        ConverterProperties converterPropertiesCopy;
+        if (converterProperties == null) {
+            converterPropertiesCopy = new ConverterProperties();
+        } else {
+            converterPropertiesCopy = new ConverterProperties(converterProperties);
+        }
+
         FontProvider fontProvider = new BasicFontProvider(false, true, false);
-        converterProperties.setFontProvider(fontProvider);
-        converterProperties.setBaseUri(SOURCE_FOLDER);
-        converterProperties.setOutlineHandler(OutlineHandler.createStandardHandler());
+        converterPropertiesCopy.setFontProvider(fontProvider);
+        converterPropertiesCopy.setBaseUri(SOURCE_FOLDER);
+        converterPropertiesCopy.setOutlineHandler(OutlineHandler.createStandardHandler());
 
         if (expectedErrorMessage != null) {
             Exception e = Assertions.assertThrows(PdfUAConformanceException.class,
                     () -> HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument,
-                            converterProperties));
+                            converterPropertiesCopy));
             Assertions.assertEquals(expectedErrorMessage, e.getMessage());
         } else {
-            HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
+            HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterPropertiesCopy);
             compareAndCheckCompliance(destinationPdf, cmpPdf, isExpectedOk);
         }
     }
 
     private void convertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf,
-            boolean isExpectedOk) throws IOException, XMPException, InterruptedException {
+                                                ConverterProperties converterProperties, boolean isExpectedOk)
+            throws IOException, XMPException, InterruptedException {
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf, new WriterProperties().setPdfVersion(
                 PdfVersion.PDF_2_0)));
         createSimplePdfUA2Document(pdfDocument);
 
-        ConverterProperties converterProperties = new ConverterProperties();
+        ConverterProperties converterPropertiesCopy;
+        if (converterProperties == null) {
+            converterPropertiesCopy = new ConverterProperties();
+        } else {
+            converterPropertiesCopy = new ConverterProperties(converterProperties);
+        }
+
         FontProvider fontProvider = new BasicFontProvider(false, true, false);
-        converterProperties.setFontProvider(fontProvider);
-        converterProperties.setBaseUri(SOURCE_FOLDER);
-        converterProperties.setOutlineHandler(OutlineHandler.createStandardHandler());
-        HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterProperties);
+        converterPropertiesCopy.setFontProvider(fontProvider);
+        converterPropertiesCopy.setBaseUri(SOURCE_FOLDER);
+        converterPropertiesCopy.setOutlineHandler(OutlineHandler.createStandardHandler());
+        HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterPropertiesCopy);
 
         compareAndCheckCompliance(destinationPdf, cmpPdf, isExpectedOk);
     }

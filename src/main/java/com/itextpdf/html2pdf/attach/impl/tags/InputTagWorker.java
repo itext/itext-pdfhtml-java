@@ -163,6 +163,11 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
             formElement.setProperty(FormProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
             ((IAccessibleElement)formElement).getAccessibilityProperties().setLanguage(lang);
             formElement.setProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.getConformance());
+
+            String altText = element.getAttribute(AttributeConstants.TITLE);
+            if (altText != null) {
+                ((IAccessibleElement) formElement).getAccessibilityProperties().setAlternateDescription(altText);
+            }
         }
 
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
@@ -215,5 +220,4 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
         }
         return value;
     }
-
 }
