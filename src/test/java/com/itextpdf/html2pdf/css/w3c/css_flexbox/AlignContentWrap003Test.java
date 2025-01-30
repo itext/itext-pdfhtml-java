@@ -28,8 +28,8 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-5164 change after align-content is supported
+//TODO DEVSIX-8967 investigate min width with no value for align self and align items
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 34),
         @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 3)
 })
 public class AlignContentWrap003Test extends W3CCssTest {

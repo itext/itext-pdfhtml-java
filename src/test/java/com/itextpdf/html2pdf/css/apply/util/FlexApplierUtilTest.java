@@ -232,7 +232,7 @@ public class FlexApplierUtilTest extends ExtendedITextTest {
     }
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 3))
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 2))
     public void applyFlexContainerUnsupportedPropertiesUnsupportedValuesTest() {
         String[] unsupportedProperties = {
                 CssConstants.FLEX_DIRECTION,
