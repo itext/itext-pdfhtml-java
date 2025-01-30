@@ -71,25 +71,18 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8679 Apply links alternate description according to UA standard
     public void simpleLinkTest() throws IOException, InterruptedException, XMPException {
         String sourceHtml = SOURCE_FOLDER + "simpleLink.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_simpleLinkUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_simpleLinkUa2.pdf";
-        String destinationPdfUa1 = DESTINATION_FOLDER + "simpleLink.pdf";
-        String destinationPdfUa2 = DESTINATION_FOLDER + "simpleLink.pdf";
+        String destinationPdfUa1 = DESTINATION_FOLDER + "simpleLinkUa1.pdf";
+        String destinationPdfUa2 = DESTINATION_FOLDER + "simpleLinkUa2.pdf";
 
-        String expectedUa1Message = MessageFormatUtil.format(
-                PdfUAExceptionMessageConstants.ANNOTATION_OF_TYPE_0_SHOULD_HAVE_CONTENTS_OR_ALT_KEY,
-                PdfName.Link.getValue());
-
-        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
-        // Expected valid UA-2 document because PDF/UA-2 does not require Contents in Link annotations
+        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
     @Test
-    // TODO DEVSIX-8679 Apply links alternate description according to UA standard
     public void backwardLinkTest() throws IOException, InterruptedException, XMPException {
         String sourceHtml = SOURCE_FOLDER + "backwardLink.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_backwardLinkUa1.pdf";
@@ -97,17 +90,11 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         String destinationPdfUa1 = DESTINATION_FOLDER + "backwardLinkUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "backwardLinkUa2.pdf";
 
-        String expectedUa1Message = MessageFormatUtil.format(
-                PdfUAExceptionMessageConstants.ANNOTATION_OF_TYPE_0_SHOULD_HAVE_CONTENTS_OR_ALT_KEY,
-                PdfName.Link.getValue());
-
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
-        // Expected valid UA-2 document because PDF/UA-2 does not require Contents in Link annotations
+        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
     @Test
-    // TODO DEVSIX-8679 Apply links alternate description according to UA standard
     public void imageLinkTest() throws IOException, InterruptedException, XMPException {
         String sourceHtml = SOURCE_FOLDER + "imageLink.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_imageLinkUa1.pdf";
@@ -115,12 +102,19 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         String destinationPdfUa1 = DESTINATION_FOLDER + "imageLinkUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "imageLinkUa2.pdf";
 
-        String expectedUa1Message = MessageFormatUtil.format(
-                PdfUAExceptionMessageConstants.ANNOTATION_OF_TYPE_0_SHOULD_HAVE_CONTENTS_OR_ALT_KEY,
-                PdfName.Link.getValue());
+        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+    }
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
-        // Expected valid UA-2 document because PDF/UA-2 does not require Contents in Link annotations
+    @Test
+    public void externalLinkTest() throws IOException, InterruptedException, XMPException {
+        String sourceHtml = SOURCE_FOLDER + "externalLink.html";
+        String cmpPdfUa1 = SOURCE_FOLDER + "cmp_externalLinkUa1.pdf";
+        String cmpPdfUa2 = SOURCE_FOLDER + "cmp_externalLinkUa2.pdf";
+        String destinationPdfUa1 = DESTINATION_FOLDER + "externalLinkUa1.pdf";
+        String destinationPdfUa2 = DESTINATION_FOLDER + "externalLinkUa2.pdf";
+
+        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
@@ -225,7 +219,6 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
     @Test
     // TODO DEVSIX-8864 PDF 2.0: Destination in GoTo action is not a structure destination
     // TODO DEVSIX-8476 PDF 2.0 doesn't allow P tag be a child of H tag
-    // TODO DEVSIX-8679 Apply links alternate description according to UA standard
     public void linkWithPageBreakBeforeTest() throws IOException, InterruptedException, XMPException {
         String sourceHtml = SOURCE_FOLDER + "linkWithPageBreakBefore.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa1.pdf";
@@ -233,11 +226,7 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         String destinationPdfUa1 = DESTINATION_FOLDER + "linkWithPageBreakBeforeUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "linkWithPageBreakBeforeUa2.pdf";
 
-        String expectedUa1Message = MessageFormatUtil.format(
-                PdfUAExceptionMessageConstants.ANNOTATION_OF_TYPE_0_SHOULD_HAVE_CONTENTS_OR_ALT_KEY,
-                PdfName.Link.getValue());
-
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
+        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
     }
 
