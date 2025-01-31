@@ -271,6 +271,33 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, false);
     }
 
+    @Test
+    // TODO DEVSIX-8883 content is not tagged as real content or tagged as artifact after conversion
+    public void svgBase64Test() throws IOException, InterruptedException, XMPException {
+        String sourceHtml = SOURCE_FOLDER + "svgBase64.html";
+        String cmpPdfUa1 = SOURCE_FOLDER + "cmp_svgBase64Ua1.pdf";
+        String cmpPdfUa2 = SOURCE_FOLDER + "cmp_svgBase64Ua2.pdf";
+        String destinationPdfUa1 = DESTINATION_FOLDER + "svgBase64Ua1.pdf";
+        String destinationPdfUa2 = DESTINATION_FOLDER + "svgBase64Ua2.pdf";
+
+        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, false, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+    }
+
+    @Test
+    // TODO DEVSIX-8883 content is not tagged as real content or tagged as artifact after conversion
+    public void pngInDivStyleTest() throws IOException, InterruptedException, XMPException {
+        String sourceHtml = SOURCE_FOLDER + "pngInDivStyle.html";
+        String cmpPdfUa1 = SOURCE_FOLDER + "cmp_pngInDivStyleUa1.pdf";
+        String cmpPdfUa2 = SOURCE_FOLDER + "cmp_pngInDivStyleUa2.pdf";
+        String destinationPdfUa1 = DESTINATION_FOLDER + "pngInDivStyleUa1.pdf";
+        String destinationPdfUa2 = DESTINATION_FOLDER + "pngInDivStyleUa2.pdf";
+
+        // Investigate why VeraPdf doesn't complain about the missing tag.
+        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+    }
+
     private void createSimplePdfUA2Document(PdfDocument pdfDocument) throws IOException, XMPException {
         byte[] bytes = Files.readAllBytes(Paths.get(SOURCE_FOLDER + "simplePdfUA2.xmp"));
         XMPMeta xmpMeta = XMPMetaFactory.parse(new ByteArrayInputStream(bytes));
