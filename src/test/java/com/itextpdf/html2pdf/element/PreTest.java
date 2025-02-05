@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
@@ -63,4 +64,14 @@ public class PreTest extends ExtendedITextTest {
         Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "preTest03.pdf", sourceFolder + "cmp_preTest03.pdf", destinationFolder, "diff03_"));
     }
 
+    @Test
+    public void pre04Test() throws IOException, InterruptedException {
+        String html = "<html>\r\n\r\n<body>\r\n    " +
+                "<pre style=\"background-color: mistyrose\">Write your text here and convert it to PDF.\r\n    </pre>" +
+                "\r\n</body>\r\n\r\n</html>";
+
+        HtmlConverter.convertToPdf(html, FileUtil.getFileOutputStream((destinationFolder + "preTest04.pdf")));
+        Assertions.assertNull(new CompareTool().compareByContent(destinationFolder + "preTest04.pdf",
+                sourceFolder + "cmp_preTest04.pdf", destinationFolder, "diff04_"));
+    }
 }

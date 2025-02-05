@@ -1,0 +1,6 @@
+@import url("../css/wrongCss.css");
+
+div {
+    border-width: 10px;
+    opacity: 0.5;
+}

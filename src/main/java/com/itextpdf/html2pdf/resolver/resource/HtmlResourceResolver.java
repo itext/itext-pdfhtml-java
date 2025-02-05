@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -149,6 +149,6 @@ public class HtmlResourceResolver extends ResourceResolver {
         }
         ISvgProcessorResult res = SvgConverter.parseAndProcess(stream, svgConverterProperties);
         SvgProcessingUtil processingUtil = new SvgProcessingUtil(context.getResourceResolver());
-        return processingUtil.createXObjectFromProcessingResult(res, context.getPdfDocument());
+        return processingUtil.createXObjectFromProcessingResult(res, context, true);
     }
 }

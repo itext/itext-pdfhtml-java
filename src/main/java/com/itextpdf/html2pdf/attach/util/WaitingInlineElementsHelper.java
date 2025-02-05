@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -90,36 +90,7 @@ public class WaitingInlineElementsHelper {
      * @param text the text
      */
     public void add(String text) {
-        if (!keepLineBreaks && collapseSpaces) {
-            text = WhiteSpaceUtil.collapseConsecutiveSpaces(text);
-        } else if (keepLineBreaks && collapseSpaces) {
-            StringBuilder sb = new StringBuilder(text.length());
-            for (int i = 0; i < text.length(); i++) {
-                if (TrimUtil.isNonLineBreakSpace(text.charAt(i))) {
-                    if (sb.length() == 0 || sb.charAt(sb.length() - 1) != ' ') {
-                        sb.append(" ");
-                    }
-                } else {
-                    sb.append(text.charAt(i));
-                }
-            }
-            text = sb.toString();
-        } else { // false == collapseSpaces
-            // prohibit trimming first and last spaces
-            StringBuilder sb = new StringBuilder(text.length());
-            sb.append('\u200d');
-            for (int i = 0; i < text.length(); i++) {
-                sb.append(text.charAt(i));
-                if ('\n' == text.charAt(i) ||
-                        ('\r' == text.charAt(i) && i + 1 < text.length() && '\n' != text.charAt(i + 1))) {
-                    sb.append('\u200d');
-                }
-            }
-            if ('\u200d' == sb.charAt(sb.length() - 1)) {
-                sb.delete(sb.length() - 1, sb.length());
-            }
-            text = sb.toString();
-        }
+        text = WhiteSpaceUtil.processWhitespaces(text, keepLineBreaks, collapseSpaces);
 
         if (CssConstants.UPPERCASE.equals(textTransform)) {
             text = text.toUpperCase();

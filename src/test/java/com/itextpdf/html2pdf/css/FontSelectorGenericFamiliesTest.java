@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -24,9 +24,9 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.layout.font.FontProvider;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -50,12 +50,12 @@ public class FontSelectorGenericFamiliesTest extends ExtendedITextTest {
 
     @Test
     public void standardFontsTest() throws IOException, InterruptedException {
-        runTest("standardFonts", new DefaultFontProvider(true, false, false));
+        runTest("standardFonts", new BasicFontProvider(true, false, false));
     }
 
     @Test
     public void embeddedFontsTest() throws IOException, InterruptedException {
-        runTest("embeddedFonts", new DefaultFontProvider(false, true, false));
+        runTest("embeddedFonts", new BasicFontProvider(false, true, false));
     }
 
     public void runTest(String testName, FontProvider fontProvider) throws IOException, InterruptedException {

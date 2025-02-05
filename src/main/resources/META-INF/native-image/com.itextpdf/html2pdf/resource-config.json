@@ -1,0 +1,72 @@
+{
+  "resources": {
+    "includes": [
+      {
+        "condition": {
+          "typeReachable": "com.itextpdf.html2pdf.css.resolve.UserAgentCss"
+        },
+        "pattern": "\\Qcom/itextpdf/html2pdf/default.css\\E"
+      },
+      {
+        "condition": {
+          "typeReachable": "com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider"
+        },
+        "pattern": "\\Qcom/itextpdf/html2pdf/font/NotoSansMono-Regular.ttf\\E"
+      },
+      {
+        "condition": {
+          "typeReachable": "com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider"
+        },
+        "pattern": "\\Qcom/itextpdf/html2pdf/font/NotoSansMono-Bold.ttf\\E"
+      },
+      {
+        "condition": {
+          "typeReachable": "com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider"
+        },
+        "pattern": "\\Qcom/itextpdf/html2pdf/font/NotoSans-Regular.ttf\\E"
+      },
+      {
+        "condition": {
+          "typeReachable": "com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider"
+        },
+        "pattern": "\\Qcom/itextpdf/html2pdf/font/NotoSans-Bold.ttf\\E"
+      },
+      {
+        "condition": {
+          "typeReachable": "com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider"
+        },
+        "pattern": "\\Qcom/itextpdf/html2pdf/font/NotoSans-BoldItalic.ttf\\E"
+      },
+      {
+        "condition": {
+          "typeReachable": "com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider"
+        },
+        "pattern": "\\Qcom/itextpdf/html2pdf/font/NotoSans-Italic.ttf\\E"
+      },
+      {
+        "condition": {
+          "typeReachable": "com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider"
+        },
+        "pattern": "\\Qcom/itextpdf/html2pdf/font/NotoSerif-Regular.ttf\\E"
+      },
+      {
+        "condition": {
+          "typeReachable": "com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider"
+        },
+        "pattern": "\\Qcom/itextpdf/html2pdf/font/NotoSerif-Bold.ttf\\E"
+      },
+      {
+        "condition": {
+          "typeReachable": "com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider"
+        },
+        "pattern": "\\Qcom/itextpdf/html2pdf/font/NotoSerif-BoldItalic.ttf\\E"
+      },
+      {
+        "condition": {
+          "typeReachable": "com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider"
+        },
+        "pattern": "\\Qcom/itextpdf/html2pdf/font/NotoSerif-Italic.ttf\\E"
+      }
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -23,15 +23,7 @@
 package com.itextpdf.html2pdf.css.w3c.css_backgrounds.bg_size.vector;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
-// TODO DEVSIX-4388 percentage is not supported for rect's x, y, width and height
-// TODO DEVSIX-4625 the resolution of auto dimensions of div with background-size and svg height is not clear
-@LogMessages(messages = {
-        @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, count = 7)
-})
 public class TCovPWOHVbTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

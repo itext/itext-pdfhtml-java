@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -27,7 +27,6 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.kernel.pdf.PdfAConformance;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -35,6 +34,7 @@ import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.pdfa.PdfADocument; // Android-Conversion-Skip-Line (TODO DEVSIX-7372 investigate why a few tests related to PdfA in iTextCore and PdfHtml were cut)
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
@@ -235,7 +235,7 @@ public class ListTest extends ExtendedHtmlConversionITextTest {
         try (FileInputStream fileInputStream = new FileInputStream(SOURCE_FOLDER + "listToPdfa.html")) {
             HtmlConverter.convertToPdf(fileInputStream, pdfADocument, new ConverterProperties()
                     .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT))
-                    .setFontProvider(new DefaultFontProvider(false, true, false)));
+                    .setFontProvider(new BasicFontProvider(false, true, false)));
         }
         Assertions.assertNull(new CompareTool().compareByContent(DESTINATION_FOLDER + "listToPdfa.pdf", SOURCE_FOLDER + "cmp_listToPdfa.pdf",
                 DESTINATION_FOLDER, "diff99_"));

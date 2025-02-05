@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -23,8 +23,15 @@
 package com.itextpdf.html2pdf.css.resolve;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
@@ -45,5 +52,23 @@ public class HtmlStylesToCssConverterIntegrationTest extends ExtendedHtmlConvers
     @Test
     public void objectTagWidthAndHeightTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("objectTagWidthAndHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.URL_IS_NOT_CLOSED_IN_CSS_EXPRESSION),
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.URL_IS_EMPTY_IN_CSS_EXPRESSION),
+            @LogMessage(messageTemplate =
+                    StyledXmlParserLogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES)
+    })
+    @Test
+    public void notClosedUrlTest() throws IOException, InterruptedException {
+        final String cmpPdfPath = SOURCE_FOLDER + "cmp_notClosedUrl.pdf";
+        final String outPdfPath = DESTINATION_FOLDER + "notClosedUrl.pdf";
+
+        final String input = "PDF TEST<p></p><div\n"
+                + "style=\"background:url(http://google.com/\">X</div>";
+
+        HtmlConverter.convertToPdf(input, new PdfWriter(outPdfPath));
+        Assertions.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, DESTINATION_FOLDER));
     }
 }

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -634,6 +634,16 @@ public class TableTest extends ExtendedITextTest {
     @LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)})
     public void emptyRowEliminationTest2() throws IOException, InterruptedException {
         runTest("emptyRowElimination2");
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH,
+                    count = 2),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)
+    })
+    public void breakRendererTreeOnSplitupTest() throws IOException, InterruptedException {
+        runTest("breakRendererTreeOnSplitup");
     }
 
     private void runTest(String testName) throws IOException, InterruptedException {

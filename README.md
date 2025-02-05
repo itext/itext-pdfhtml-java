@@ -6,6 +6,7 @@ The **pdfHtml Community** source code is hosted on [Github][github], where you c
 
 You can also [build pdfHtml Community from source][building].
 
+Starting from version 6.1.0 **pdfHtml** supports native image compilation using GraalVM. See [building] for details.
 
 If you have an idea on how to improve **pdfHtml** and you want to submit code,
 please read our [Contribution Guidelines][contributing].

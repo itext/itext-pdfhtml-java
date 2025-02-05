@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -29,8 +29,8 @@ import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Tag("IntegrationTest")
 public class FlexIntrinsicAspectRatioTest extends ExtendedHtmlConversionITextTest {
@@ -88,7 +88,6 @@ public class FlexIntrinsicAspectRatioTest extends ExtendedHtmlConversionITextTes
     }
 
     @Test
-    // TODO DEVSIX-5265 Inline svg images don't work correctly if they are flex-items.
     public void inlineSvgImageTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("inlineSvgImage", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

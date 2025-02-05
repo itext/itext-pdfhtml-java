@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -24,8 +24,8 @@ package com.itextpdf.html2pdf.resolver.resource;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.commons.utils.FileUtil;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 
 import java.io.File;
@@ -132,7 +132,7 @@ public class ResourceReleaseResolverTest extends ExtendedITextTest {
         String workDirFontFile = workDir + fontFileName;
         Files.copy(Paths.get(sourceFontFile), Paths.get(workDirFontFile));
 
-        DefaultFontProvider fontProvider = new DefaultFontProvider(true, false, false);
+        BasicFontProvider fontProvider = new BasicFontProvider(true, false, false);
         fontProvider.addDirectory(workDir);
 
         ConverterProperties properties = new ConverterProperties()

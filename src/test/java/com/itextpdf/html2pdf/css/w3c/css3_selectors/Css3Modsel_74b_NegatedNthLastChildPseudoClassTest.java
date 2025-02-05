@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -23,9 +23,7 @@
 package com.itextpdf.html2pdf.css.w3c.css3_selectors;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled("DEVSIX-1440")
 public class Css3Modsel_74b_NegatedNthLastChildPseudoClassTest extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

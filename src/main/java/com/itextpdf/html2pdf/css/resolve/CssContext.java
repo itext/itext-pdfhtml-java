@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -37,6 +37,9 @@ public class CssContext extends AbstractCssContext {
     /** The root font size value in pt. */
     private float rootFontSize = CssDimensionParsingUtils.parseAbsoluteFontSize(CssDefaults.getDefaultValue(CssConstants.FONT_SIZE));
 
+    /** Current element font size in pt. */
+    private float currentFontSize = -1.0F;
+
     /** The counter manager. */
     private CssCounterManager counterManager = new CssCounterManager();
 
@@ -65,6 +68,24 @@ public class CssContext extends AbstractCssContext {
      */
     public void setRootFontSize(float fontSize) {
         this.rootFontSize = fontSize;
+    }
+
+    /**
+     * Gets the current element font size.
+     *
+     * @return the current element font size in pt
+     */
+    public float getCurrentFontSize() {
+        return currentFontSize;
+    }
+
+    /**
+     * Sets the current font size.
+     *
+     * @param fontSize the new current element font size
+     */
+    public void setCurrentFontSize(float fontSize) {
+        this.currentFontSize = fontSize;
     }
 
     /**

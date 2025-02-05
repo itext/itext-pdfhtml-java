@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -145,6 +145,13 @@ public class FlexPagingTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void tableInFlexOnSplitTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("table-in-flex-on-split", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, count = 4))
+    public void tableInFlexOnSplit2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("table-in-flex-on-split2", sourceFolder, destinationFolder);
     }
 
     @Test

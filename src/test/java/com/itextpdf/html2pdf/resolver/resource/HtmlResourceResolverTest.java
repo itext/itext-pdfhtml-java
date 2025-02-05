@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -200,7 +200,6 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
     }
 
     @Test
-    //TODO: update after DEVSIX-2239 fix
     // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
     public void resourceResolverCssWithSvg() throws IOException, InterruptedException {
         String outPdf = DESTINATION_FOLDER + "resourceResolverCssWithSvg.pdf";
@@ -242,7 +241,8 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
         SvgProcessingUtil processingUtil = new SvgProcessingUtil(resourceResolver);
         PdfDocument document = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
-        PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, document);
+        context.reset(document);
+        PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, context, true);
         PdfDictionary resources = (PdfDictionary) pdfFormXObject.getResources().getPdfObject().get(PdfName.XObject);
         PdfDictionary fm1Dict = (PdfDictionary) resources.get(new PdfName("Fm1"));
         Assertions.assertTrue(((PdfDictionary) fm1Dict.get(PdfName.Resources)).containsKey(PdfName.XObject));
@@ -265,7 +265,8 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
 
         SvgProcessingUtil processingUtil = new SvgProcessingUtil(resourceResolver);
         PdfDocument document = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
-        PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, document);
+        context.reset(document);
+        PdfFormXObject pdfFormXObject = processingUtil.createXObjectFromProcessingResult(res, context, true);
         PdfDictionary resources = (PdfDictionary) pdfFormXObject.getResources().getPdfObject().get(PdfName.XObject);
         PdfDictionary fm1Dict = (PdfDictionary) resources.get(new PdfName("Fm1"));
         Assertions.assertTrue(((PdfDictionary) fm1Dict.get(PdfName.Resources)).containsKey(PdfName.XObject));
@@ -294,7 +295,7 @@ public class HtmlResourceResolverTest extends ExtendedITextTest {
             imageRenderer.setAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/doggo.jpg");
             svgRenderer.setAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/lines.svg");
 
-            document.add(new SvgProcessingUtil(resourceResolver).createSvgImageFromProcessingResult(result));
+            document.add(new SvgImage(new SvgProcessingUtil(resourceResolver).createXObjectFromProcessingResult(result, context, true)));
         }
         Assertions.assertNull(new CompareTool().compareByContent(outFileName, cmpFileName, DESTINATION_FOLDER, "diff"));
     }

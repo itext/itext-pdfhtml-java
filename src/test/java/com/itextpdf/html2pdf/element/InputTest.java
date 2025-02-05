@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -36,6 +36,7 @@ import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfAConformance;
+import com.itextpdf.kernel.pdf.PdfUAConformance;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -299,6 +300,14 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void checkboxDiffWidthDisplayBlockTest() throws IOException, InterruptedException {
         runTest("checkboxDiffWidthDisplayBlock");
+    }
+
+    @Test
+    @LogMessages(ignore = true, messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_TYPE_IS_INVALID)
+    })
+    public void inputImageTest() throws IOException, InterruptedException {
+        runTest("inputImage");
     }
 
     @Test

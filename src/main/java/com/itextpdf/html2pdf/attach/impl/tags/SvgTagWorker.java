@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -22,20 +22,22 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.attach.util.ContextMappingHelper;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
+import com.itextpdf.svg.element.SvgImage;
 import com.itextpdf.svg.exceptions.SvgProcessingException;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.processors.impl.DefaultSvgProcessor;
 import com.itextpdf.svg.processors.impl.SvgConverterProperties;
+import com.itextpdf.svg.xobject.SvgImageXObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,8 +71,9 @@ public class SvgTagWorker implements ITagWorker {
     @Override
     public void processEnd(IElementNode element, ProcessorContext context) {
         if (processingResult != null) {
-            SvgProcessingUtil util = new SvgProcessingUtil(context.getResourceResolver());
-            svgImage = util.createSvgImageFromProcessingResult(processingResult);
+            SvgImageXObject svgImageXObject = new SvgProcessingUtil(context.getResourceResolver())
+                    .createXObjectFromProcessingResult(processingResult, context, true);
+            svgImage = new SvgImage(svgImageXObject);
 
             AccessiblePropHelper.trySetLangAttribute(svgImage, element);
             context.endProcessingInlineSvg();

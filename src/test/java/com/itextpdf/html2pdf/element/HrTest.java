@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -22,11 +22,11 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -36,13 +36,13 @@ import java.io.File;
 import java.io.IOException;
 
 @Tag("IntegrationTest")
-public class HrTest extends ExtendedITextTest {
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/element/HrTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/element/HrTest/";
+public class HrTest extends ExtendedHtmlConversionITextTest {
+    private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/element/HrTest/";
+    private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/element/HrTest/";
 
     @BeforeAll
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
@@ -85,6 +85,8 @@ public class HrTest extends ExtendedITextTest {
         runHrTest("07");
     }
 
+    //It is expected that in the resulting PDF and firefox the border on the right is visible,
+    //but not in Chrome. This is simply because the border in Chrome has the same color as the BG.
     @Test
     public void hrTest08() throws IOException, InterruptedException {
         runHrTest("08");
@@ -111,8 +113,8 @@ public class HrTest extends ExtendedITextTest {
     }
 
     @Test
+    //TODO DEVSIX-4384: support box-shadow
     public void hrTest13() throws IOException, InterruptedException {
-        //box-shadow property is not supported in iText
         runHrTest("13");
     }
 
@@ -122,23 +124,41 @@ public class HrTest extends ExtendedITextTest {
     }
 
     @Test
+    //TODO DEVSIX-8856: HR tag should have overflow: hidden by default
     public void hrTest15() throws IOException, InterruptedException {
         runHrTest("15");
     }
 
     @Test
+    //TODO DEVSIX-8856: HR tag should have overflow: hidden by default
+    public void hrTest15WihtOverflow() throws IOException, InterruptedException {
+        runHrTest("15WithOverflow");
+    }
+
+    @Test
+    //TODO DEVSIX-8856: HR tag should have overflow: hidden by default
     public void hrTest16() throws IOException, InterruptedException {
         runHrTest("16");
     }
 
     @Test
+    //TODO DEVSIX-8856: HR tag should have overflow: hidden by default
     public void hrTest17() throws IOException, InterruptedException {
         runHrTest("17");
     }
 
     @Test
+    //TODO DEVSIX-8856: HR tag should have overflow: hidden by default
+    //TODO DEVSIX-4400: overflow: hidden is not working with border-radius
     public void hrTest18() throws IOException, InterruptedException {
         runHrTest("18");
+    }
+
+    @Test
+    //TODO DEVSIX-8856: HR tag should have overflow: hidden by default
+    //TODO DEVSIX-4400: overflow: hidden is not working with border-radius
+    public void hrTest18WithOverflow() throws IOException, InterruptedException {
+        runHrTest("18WithOverflow");
     }
 
     @Test
@@ -157,11 +177,6 @@ public class HrTest extends ExtendedITextTest {
     }
 
     private void runHrTest(String id) throws IOException, InterruptedException {
-        String htmlPath = sourceFolder + "hrTest" + id + ".html";
-        String outPdfPath = destinationFolder + "hrTest" + id + ".pdf";
-        String cmpPdfPath = sourceFolder + "cmp_hrTest" + id + ".pdf";
-        String diff = "diff" + id + "_";
-        HtmlConverter.convertToPdf(new File(htmlPath), new File(outPdfPath));
-        Assertions.assertNull(new CompareTool().compareByContent(outPdfPath, cmpPdfPath, destinationFolder, diff));
+        convertToPdfAndCompare("hrTest" + id, SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 }

@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -80,17 +80,6 @@ public final class TrimUtil {
     }
 
     /**
-     * Checks if a character is white space value that doesn't cause a newline.
-     *
-     * @param ch the character
-     * @return true, if the character is a white space character, but no newline
-     */
-    static boolean isNonLineBreakSpace(char ch) {
-        return WhiteSpaceUtil.isNonEmSpace(ch) && ch != '\n';
-    }
-
-
-    /**
      * Trims a sub list of leaf elements.
      *
      * @param list the list of leaf elements
@@ -143,7 +132,7 @@ public final class TrimUtil {
      */
     private static int getIndexOfFirstNonSpace(Text text) {
         int pos = 0;
-        while (pos < text.getText().length() && isNonLineBreakSpace(text.getText().charAt(pos))) {
+        while (pos < text.getText().length() && WhiteSpaceUtil.isNonLineBreakSpace(text.getText().charAt(pos))) {
             pos++;
         }
         return pos;
@@ -158,7 +147,7 @@ public final class TrimUtil {
      */
     private static int getIndexAfterLastNonSpace(Text text) {
         int pos = text.getText().length();
-        while (pos > 0 && isNonLineBreakSpace(text.getText().charAt(pos - 1))) {
+        while (pos > 0 && WhiteSpaceUtil.isNonLineBreakSpace(text.getText().charAt(pos - 1))) {
             pos--;
         }
         return pos;

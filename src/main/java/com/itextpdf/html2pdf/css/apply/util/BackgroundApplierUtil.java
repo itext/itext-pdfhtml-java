@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -22,36 +22,41 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.properties.Background;
+import com.itextpdf.layout.properties.BackgroundBox;
 import com.itextpdf.layout.properties.BackgroundImage;
 import com.itextpdf.layout.properties.BackgroundPosition;
-import com.itextpdf.layout.properties.BackgroundBox;
 import com.itextpdf.layout.properties.BackgroundRepeat;
-import com.itextpdf.layout.properties.BlendMode;
 import com.itextpdf.layout.properties.BackgroundRepeat.BackgroundRepeatValue;
+import com.itextpdf.layout.properties.BlendMode;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.TransparentColor;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssBackgroundUtils;
-import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+import com.itextpdf.styledxmlparser.css.util.CssGradientUtil;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.exceptions.StyledXMLParserException;
+import com.itextpdf.svg.SvgConstants;
+import com.itextpdf.svg.SvgConstants.Attributes;
+import com.itextpdf.svg.SvgConstants.Values;
+import com.itextpdf.svg.renderers.ISvgNodeRenderer;
+import com.itextpdf.svg.utils.SvgCssUtils;
+import com.itextpdf.svg.xobject.SvgImageXObject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -293,6 +298,19 @@ public final class BackgroundApplierUtil {
             backgroundImagesList.add(new HtmlBackgroundImage((PdfImageXObject) image, repeat, position,
                     backgroundBlendMode, clip, origin));
             return true;
+        } else if (image instanceof SvgImageXObject) {
+            SvgImageXObject svgImageXObject = (SvgImageXObject) image;
+
+            UnitValue width = svgImageXObject.getElementWidth();
+            boolean isRelativeWidthSvg = width == null || width.isPercentValue();
+
+            UnitValue height = svgImageXObject.getElementHeight();
+            boolean isRelativeHeightSvg = height == null || height.isPercentValue();
+
+            backgroundImagesList.add(new HtmlBackgroundImage((PdfFormXObject) image, repeat, position,
+                    backgroundBlendMode, clip, origin, isRelativeWidthSvg || isRelativeHeightSvg));
+
+            return true;
         } else if (image instanceof PdfFormXObject) {
             backgroundImagesList.add(new HtmlBackgroundImage((PdfFormXObject) image, repeat, position,
                     backgroundBlendMode, clip, origin));
@@ -326,7 +344,11 @@ public final class BackgroundApplierUtil {
             return;
         }
         if (image.getForm() != null && (image.getImageHeight() == 0f || image.getImageWidth() == 0f)) {
-            return;
+            if (!(image.getForm() instanceof SvgImageXObject && ((SvgImageXObject) image.getForm()).isRelativeSized())) {
+                // For relative sized SVG images it is expected that getImageWidth and
+                // getImageHeight can be null, they will be resolved later on drawing
+                return;
+            }
         }
         List<String> backgroundSizeValues = backgroundProperties
                 .get(getBackgroundSidePropertyIndex(backgroundProperties.size(), imageIndex));
@@ -388,6 +410,8 @@ public final class BackgroundApplierUtil {
          */
         private double dimensionMultiplier = 1;
 
+        private boolean isRelativeSizedSvg = false;
+
         /**
          * Creates a new {@link HtmlBackgroundImage} instance.
          *
@@ -423,6 +447,133 @@ public final class BackgroundApplierUtil {
             super(new BackgroundImage.Builder().setImage(xObject).setBackgroundRepeat(repeat)
                     .setBackgroundPosition(position).setBackgroundBlendMode(blendMode).setBackgroundClip(clip)
                     .setBackgroundOrigin(origin).build());
+        }
+
+        public HtmlBackgroundImage(PdfFormXObject xObject,
+                BackgroundRepeat repeat, BackgroundPosition position, BlendMode blendMode,
+                BackgroundBox clip, BackgroundBox origin, boolean isRelativeSizedSvg) {
+            super(new BackgroundImage.Builder().setImage(xObject).setBackgroundRepeat(repeat)
+                    .setBackgroundPosition(position).setBackgroundBlendMode(blendMode).setBackgroundClip(clip)
+                    .setBackgroundOrigin(origin).build());
+            this.isRelativeSizedSvg = isRelativeSizedSvg;
+        }
+
+        @Override
+        protected float[] resolveWidthAndHeight(Float width, Float height, float areaWidth, float areaHeight) {
+            if (!isRelativeSizedSvg) {
+                return super.resolveWidthAndHeight(width, height, areaWidth, areaHeight);
+            }
+
+
+            SvgImageXObject svgImageXObject = (SvgImageXObject) image;
+            ISvgNodeRenderer svgRootRenderer = svgImageXObject.getResult().getRootRenderer();
+
+            Float aspectRatio = null;
+            boolean isAspectRatioNone = false;
+            float[] viewBoxValues = SvgCssUtils.parseViewBox(svgRootRenderer);
+            String preserveAspectRatio = svgRootRenderer.getAttribute(Attributes.PRESERVE_ASPECT_RATIO);
+            if (Values.NONE.equals(preserveAspectRatio)) {
+                isAspectRatioNone = true;
+            } else if (viewBoxValues != null && viewBoxValues.length == SvgConstants.Values.VIEWBOX_VALUES_NUMBER) {
+                // aspectRatio can also be specified by absolute height and width,
+                // but in that case SVG isn't relative and processed as usual image
+                aspectRatio = viewBoxValues[2] / viewBoxValues[3];
+            }
+
+            // The code below is based on the following algorithm (with modifications to follow real browsers behavior)
+            // https://developer.mozilla.org/en-US/docs/Web/CSS/Scaling_of_SVG_backgrounds
+
+            Float finalWidth = null;
+            Float finalHeight = null;
+
+            if (getBackgroundSize().isSpecificSize()) {
+                if (aspectRatio == null) {
+                    finalWidth = areaWidth;
+                    finalHeight = areaHeight;
+                } else {
+                    if (getBackgroundSize().isCover()) {
+                        if (aspectRatio < areaWidth / areaHeight) {
+                            finalWidth = areaWidth;
+                            finalHeight = finalWidth / aspectRatio;
+                        } else {
+                            finalHeight = areaHeight;
+                            finalWidth = finalHeight * aspectRatio;
+                        }
+                    } else {
+                        // isContain
+                        if (aspectRatio > areaWidth / areaHeight) {
+                            finalWidth = areaWidth;
+                            finalHeight = finalWidth / aspectRatio;
+                        } else {
+                            finalHeight = areaHeight;
+                            finalWidth = finalHeight * aspectRatio;
+                        }
+                    }
+                }
+            } else {
+                UnitValue svgWidthUV = svgImageXObject.getElementWidth();
+                UnitValue svgHeightUV = svgImageXObject.getElementHeight();
+
+                if (width !=null) {
+                    finalWidth = width;
+                } else if (svgWidthUV != null && svgWidthUV.isPointValue()) {
+                    finalWidth = svgWidthUV.getValue();
+                }
+                if (height != null) {
+                    finalHeight = height;
+                } else if (svgHeightUV != null && svgHeightUV.isPointValue()) {
+                    finalHeight = svgHeightUV.getValue();
+                }
+
+                if (isAspectRatioNone) {
+                    // if aspect ratio is none, then if the svg specifies the final size, ignore it and use the whole area size
+                    if (width == null && finalWidth != null) {
+                        finalWidth = areaWidth;
+                    }
+                    if (height == null && finalHeight != null) {
+                        finalHeight = areaHeight;
+                    }
+                } else if (aspectRatio != null && (width == null || height == null)) {
+                    // svg aspectRatio affects only if there is at least one background size dimension which isn't defined
+                    if (finalWidth == null && finalHeight == null) {
+                        if (aspectRatio < areaWidth / areaHeight) {
+                            finalHeight = areaHeight;
+                            finalWidth = finalHeight * aspectRatio;
+                        } else {
+                            finalWidth = areaWidth;
+                            finalHeight = finalWidth / aspectRatio;
+                        }
+                    } else if (finalWidth != null && finalHeight != null) {
+                        if (aspectRatio < finalWidth / finalHeight) {
+                            finalHeight = finalWidth / aspectRatio;
+                        } else {
+                            finalWidth = finalHeight / aspectRatio;
+                        }
+                    } else if (finalWidth == null) {
+                        finalWidth = finalHeight * aspectRatio;
+                    } else {
+                        // finalHeight == null
+                        finalHeight = finalWidth / aspectRatio;
+                    }
+                }
+
+                // if no background or svg size, no aspect ratio or ratio=none, then just get the whole available area
+                if (finalWidth == null) {
+                    finalWidth = areaWidth;
+                }
+                if (finalHeight == null) {
+                    finalHeight = areaHeight;
+                }
+            }
+
+            if (aspectRatio != null) {
+                svgRootRenderer.setAttribute(Attributes.WIDTH, null);
+                svgRootRenderer.setAttribute(Attributes.HEIGHT, null);
+            }
+            svgImageXObject.updateBBox((float) finalWidth, (float) finalHeight);
+            svgImageXObject.generate(null);
+
+            return new float[] {(float) finalWidth, (float) finalHeight};
         }
 
         @Override

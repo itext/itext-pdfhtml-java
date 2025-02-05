@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -187,6 +187,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         context.reset();
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context);
+        context.setCssStyleSheet(((DefaultCssResolver) cssResolver).getCssStyleSheet());
         context.getLinkContext().scanForIds(root);
         addFontFaceFonts();
         IElementNode html = findHtmlNode(root);
@@ -230,6 +231,7 @@ public class DefaultHtmlProcessor implements IHtmlProcessor {
         }
         roots = new ArrayList<>();
         cssResolver = new DefaultCssResolver(root, context);
+        context.setCssStyleSheet(((DefaultCssResolver) cssResolver).getCssStyleSheet());
         context.getLinkContext().scanForIds(root);
         addFontFaceFonts();
         root = findHtmlNode(root);

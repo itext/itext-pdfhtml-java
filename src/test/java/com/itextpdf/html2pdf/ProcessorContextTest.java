@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -24,7 +24,6 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.kernel.exceptions.PdfException;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -32,6 +31,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.styledxmlparser.IXmlParser;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.ExtendedITextTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -63,7 +63,7 @@ public class ProcessorContextTest extends ExtendedITextTest {
             IDocumentNode documentNode = parser.parse(fileInputStream, null);
 
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.setFontProvider(new DefaultFontProvider(false, true, false) {
+            converterProperties.setFontProvider(new BasicFontProvider(false, true, false) {
                 @Override
                 public void reset() {
                     // Do nothing here. That should result in an exception.

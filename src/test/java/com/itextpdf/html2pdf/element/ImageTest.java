@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -30,8 +30,8 @@ import com.itextpdf.test.annotations.LogMessages;
 
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Tag("IntegrationTest")
 public class ImageTest extends ExtendedHtmlConversionITextTest {
@@ -47,6 +47,12 @@ public class ImageTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void imagesInBodyTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("imagesInBody", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void relativeImageInStaticContainerTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeImageInStaticContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
@@ -161,4 +167,435 @@ public class ImageTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("imgTag_base64svg", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    @Test
+    public void relativeSizeSvg1Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg1_2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg1_3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1_3", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg1_4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg1_5Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1_5", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg1_6Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg1_6", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg2_3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2_3", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg2_4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg2_5Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2_5", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg2_6Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2_6", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg2_7Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2_7", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg2_8Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2_8", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg2_9Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg2_9", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg3_2_2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_2_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg3_3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_3", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+    @Test
+    public void relativeSizeSvg3_4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg3_5Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_5", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8870 improve support of relative sized SVG in img HTML elements
+    @Test
+    public void relativeSizeSvg3_6Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_6", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg3_7Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_7", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg3_8Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_8", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg3_9Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_9", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg3_10Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_10", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg3_11Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_11", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg3_12Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_12", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg3_13Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_13", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg3_14Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_14", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg3_15Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg3_15", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void fixedImgRelativeSizeSvg3_2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void fixedImgRelativeSizeSvg3_3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_3", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void fixedImgRelativeSizeSvg3_4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void fixedImgRelativeSizeSvg3_5Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_5", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    //TODO DEVSIX-8870 improve support of relative sized SVG in img HTML elements
+    @Test
+    public void fixedImgRelativeSizeSvg3_6Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_6", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void fixedImgRelativeSizeSvg3_7Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_7", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void fixedImgRelativeSizeSvg3_8Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_8", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void fixedImgRelativeSizeSvg3_9Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_9", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void fixedImgRelativeSizeSvg3_10Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_10", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void fixedImgRelativeSizeSvg3_11Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_11", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void fixedImgRelativeSizeSvg3_12Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_12", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void fixedImgRelativeSizeSvg3_13Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_13", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void fixedImgRelativeSizeSvg3_14Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_14", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void fixedImgRelativeSizeSvg3_15Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedImgRelativeSizeSvg3_15", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_3", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_5Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_5", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8870 improve support of relative sized SVG in img HTML elements
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_6Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_6", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_7Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_7", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_8Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_8", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_9Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_9", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_10Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_10", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_11Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_11", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_12Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_12", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_13Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_13", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_14Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_14", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeHeightImgRelativeSizeSvg3_15Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_15", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void relativeSizeSvg4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg4", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void relativeSizeSvg4_2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg4_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+    @Test
+    public void relativeSizeSvg4_4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg4_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg5_2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg5_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvg6_1Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvg6_1", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    // TODO DEVSIX-1316 make percent width doesn't affect elements min max width
+    public void inlineRelativeImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("inlineRelativeImage", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    // TODO DEVSIX-1316 make percent width doesn't affect elements min max width
+    // TODO DEVSIX-7003 Problem with layouting image with relative size in the table
+    public void tableRelativeImageTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("tableRelativeImage", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeImageInRelativeContainerTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeImageInRelativeContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void backgroundImageWithSizeAndDivContent1Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageWithSizeAndDivContent1", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void backgroundImageWithSizeAndDivContent2Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageWithSizeAndDivContent2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void backgroundImageWithSizeAndDivContent3Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageWithSizeAndDivContent3", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void backgroundImageWithSizeAndDivContent4Test() throws IOException, InterruptedException {
+        convertToPdfAndCompare("backgroundImageWithSizeAndDivContent4", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvgInFixedImg() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInFixedImg", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvgInFixedImg2() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInFixedImg2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvgInRelativeImg() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInRelativeImg", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvgInRelativeImgWithCustomViewbox2() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInRelativeImgWithCustomViewbox2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvgInRelativeImgWithCustomViewbox() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgInRelativeImgWithCustomViewbox", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)})
+    public void giantSvgInRelativeImg() throws IOException, InterruptedException {
+        convertToPdfAndCompare("giantSvgInRelativeImg", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void invalidSizeSvgInRelativeImg() throws IOException, InterruptedException {
+        convertToPdfAndCompare("invalidSizeSvgInRelativeImg", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void fixedSizeSvgInRelativeImg() throws IOException, InterruptedException {
+        convertToPdfAndCompare("fixedSizeSvgInRelativeImg", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSizeSvgFixedInlineBlock() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSizeSvgFixedInlineBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSvgInSeveralImages() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSvgInSeveralImages", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void relativeSvgInImgAndBackground() throws IOException, InterruptedException {
+        convertToPdfAndCompare("relativeSvgInImgAndBackground", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void percentHeightImgContainer() throws IOException, InterruptedException {
+        convertToPdfAndCompare("percentHeightImgContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+    @Test
+    public void percentHeightImgContainer2() throws IOException, InterruptedException {
+        convertToPdfAndCompare("percentHeightImgContainer2", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
 }

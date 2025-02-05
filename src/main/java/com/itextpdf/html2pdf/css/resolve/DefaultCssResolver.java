@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -22,7 +22,6 @@
  */
 package com.itextpdf.html2pdf.css.resolve;
 
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.apply.util.CounterProcessorUtil;
@@ -30,6 +29,7 @@ import com.itextpdf.html2pdf.css.util.CssStyleSheetAnalyzer;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.util.DecimalFormatUtil;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.CssFontFaceRule;
@@ -47,8 +47,8 @@ import com.itextpdf.styledxmlparser.css.resolve.AbstractCssContext;
 import com.itextpdf.styledxmlparser.css.resolve.CssDefaults;
 import com.itextpdf.styledxmlparser.css.resolve.CssInheritance;
 import com.itextpdf.styledxmlparser.css.resolve.IStyleInheritance;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.css.util.CssUtils;
 import com.itextpdf.styledxmlparser.node.IDataNode;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
@@ -151,6 +151,15 @@ public class DefaultCssResolver implements ICssResolver {
         throw new Html2PdfException("custom AbstractCssContext implementations are not supported yet");
     }
 
+    /**
+     * Gets the CSS style sheet.
+     *
+     * @return the CSS style sheet
+     */
+    public CssStyleSheet getCssStyleSheet() {
+        return cssStyleSheet;
+    }
+
     /* (non-Javadoc)
      * @see com.itextpdf.html2pdf.css.resolve.ICssResolver#resolveStyles(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.resolve.CssContext)
      */
@@ -218,6 +227,7 @@ public class DefaultCssResolver implements ICssResolver {
         if (element instanceof IElementNode && TagConstants.HTML.equals(((IElementNode) element).name())) {
             context.setRootFontSize(elementStyles.get(CssConstants.FONT_SIZE));
         }
+        context.setCurrentFontSize(CssDimensionParsingUtils.parseAbsoluteFontSize(elementStyles.get(CssConstants.FONT_SIZE)));
 
         Set<String> keys = new HashSet<>();
         for (Map.Entry<String, String> entry : elementStyles.entrySet()) {
@@ -287,24 +297,23 @@ public class DefaultCssResolver implements ICssResolver {
         LinkedList<INode> q = new LinkedList<>();
         q.add(rootNode);
         while (!q.isEmpty()) {
-            INode currentNode = q.getFirst();
-            q.removeFirst();
+            INode currentNode = q.pop();
             if (currentNode instanceof IElementNode) {
-                IElementNode headChildElement = (IElementNode) currentNode;
-                if (TagConstants.STYLE.equals(headChildElement.name())) {
-                    if (currentNode.childNodes().size() > 0 && currentNode.childNodes().get(0) instanceof IDataNode) {
-                        String styleData = ((IDataNode) currentNode.childNodes().get(0)).getWholeData();
-                        CssStyleSheet styleSheet = CssStyleSheetParser.parse(styleData);
-                        styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
+                IElementNode element = (IElementNode) currentNode;
+                if (TagConstants.STYLE.equals(element.name())) {
+                    if (!element.childNodes().isEmpty() && element.childNodes().get(0) instanceof IDataNode) {
+                        String styleData = ((IDataNode) element.childNodes().get(0)).getWholeData();
+                        CssStyleSheet styleSheet  = CssStyleSheetParser.parse(styleData, resourceResolver.getBaseUri());
+                        styleSheet = wrapStyleSheetInMediaQueryIfNecessary(element, styleSheet);
                         cssStyleSheet.appendCssStyleSheet(styleSheet);
                     }
-                } else if (CssUtils.isStyleSheetLink(headChildElement)) {
-                    String styleSheetUri = headChildElement.getAttribute(AttributeConstants.HREF);
+                } else if (CssUtils.isStyleSheetLink(element)) {
+                    String styleSheetUri = element.getAttribute(AttributeConstants.HREF);
                     try (InputStream stream = resourceResolver.retrieveResourceAsInputStream(styleSheetUri)) {
                         if (stream != null) {
-                            CssStyleSheet styleSheet = CssStyleSheetParser.parse(stream,
-                                    resourceResolver.resolveAgainstBaseUri(styleSheetUri).toExternalForm());
-                            styleSheet = wrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
+                            String baseUri = resourceResolver.resolveAgainstBaseUri(styleSheetUri).toExternalForm();
+                            CssStyleSheet styleSheet = CssStyleSheetParser.parse(stream, baseUri);
+                            styleSheet = wrapStyleSheetInMediaQueryIfNecessary(element, styleSheet);
                             cssStyleSheet.appendCssStyleSheet(styleSheet);
                         }
                     } catch (Exception exc) {

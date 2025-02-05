@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -85,9 +85,13 @@ public class LinkHelper {
                 linkAnnotation = (PdfLinkAnnotation) new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createURI(url)).setFlags(PdfAnnotation.PRINT);
             }
             String alternateDescription = retrieveAlternativeDescription(element);
-            if (container instanceof IAccessibleElement && alternateDescription != null) {
-                ((IAccessibleElement) container).getAccessibilityProperties().setAlternateDescription(alternateDescription);
+            if (alternateDescription != null) {
+                linkAnnotation.setContents(alternateDescription);
+                if (container instanceof IAccessibleElement) {
+                    ((IAccessibleElement) container).getAccessibilityProperties().setAlternateDescription(alternateDescription);
+                }
             }
+
             linkAnnotation.setBorder(new PdfArray(new float[]{0, 0, 0}));
             container.setProperty(Property.LINK_ANNOTATION, linkAnnotation);
             if (container instanceof ILeafElement && container instanceof IAccessibleElement) {

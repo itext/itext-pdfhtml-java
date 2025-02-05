@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2024 Apryse Group NV
+    Copyright (c) 1998-2025 Apryse Group NV
     Authors: Apryse Software.
 
     This program is offered under a commercial and under the AGPL license.
@@ -47,7 +47,12 @@ public final class Html2PdfLogMessageConstant {
     /** The Constant CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED. */
     public static final String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
 
-    /** The Constant ERROR_LOADING_FONT. */
+    /**
+     * The Constant ERROR_LOADING_FONT.
+     * Deprecated in favour of
+     * {@link com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant#ERROR_LOADING_FONT}
+     */
+    @Deprecated
     public static final String ERROR_LOADING_FONT = "Error while loading font";
 
     /** The Constant ERROR_PARSING_CSS_SELECTOR. */
