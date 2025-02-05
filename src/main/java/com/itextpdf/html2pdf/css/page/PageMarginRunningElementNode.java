@@ -31,9 +31,15 @@ import java.util.List;
  */
 public class PageMarginRunningElementNode implements INode {
 
-    private String runningElementName;
-    private String runningElementOccurrence;
+    private final String runningElementName;
+    private final String runningElementOccurrence;
 
+    /**
+     * Create new {@link PageMarginRunningElementNode} instance.
+     *
+     * @param runningElementName running element id
+     * @param runningElementOccurrence running element occurrence
+     */
     public PageMarginRunningElementNode(String runningElementName, String runningElementOccurrence) {
         this.runningElementName = runningElementName;
         this.runningElementOccurrence = runningElementOccurrence;
@@ -54,10 +60,20 @@ public class PageMarginRunningElementNode implements INode {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Get running element id (moved out of the content flow)
+     *
+     * @return running element string id value
+     */
     public String getRunningElementName() {
         return runningElementName;
     }
 
+    /**
+     * Get running element occurrence
+     *
+     * @return running element occurrence string value
+     */
     public String getRunningElementOccurrence() {
         return runningElementOccurrence;
     }

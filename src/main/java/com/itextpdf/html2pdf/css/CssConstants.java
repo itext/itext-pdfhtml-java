@@ -29,6 +29,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Class containing possible CSS property keys and values, pseudo-element keys,
+ * units of measurement, and so on, specific for html2pdf module.
+ */
 public class CssConstants extends CommonCssConstants {
 
     /** The Constant AUTO_FIT. */

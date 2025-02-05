@@ -31,6 +31,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Utility class which processes text decoration properties.
+ */
 public final class TextDecorationApplierUtil {
     private static final String IGNORED = "__ignored__";
     private static final SupportedTextDecoration[] SUPPORTED_TEXT_DECORATION_PROPERTIES =
@@ -45,6 +48,16 @@ public final class TextDecorationApplierUtil {
     private TextDecorationApplierUtil() {
     }
 
+    /**
+     * Expand text decoration properties to the element if needed.
+     * <p>
+     * E.g. the following:
+     * {@code text-decoration-line: overline underline; text-decoration-color: pink}
+     * will be translated to:
+     * {@code text-decoration-line: overline underline; text-decoration-color: pink pink}
+     *
+     * @param currentNode the element which decoration properties shall be expanded
+     */
     public static void propagateTextDecorationProperties(IElementNode currentNode) {
         expandTextDecorationProperties(currentNode);
         if (!shouldPropagateTextDecorationProperties(currentNode)) {

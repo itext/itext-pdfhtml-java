@@ -37,6 +37,9 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.Math.tan;
 
+/**
+ * Utility class to apply transform properties.
+ */
 public class TransformationApplierUtil {
 
     /**

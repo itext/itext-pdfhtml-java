@@ -299,6 +299,9 @@ public final class AttributeConstants extends CommonAttributeConstants {
                     IMAGE, MONTH, NUMBER, PASSWORD, RADIO, RANGE, RESET, SEARCH, SUBMIT, TEL, TEXT, TIME, URL, WEEK})));
 
     // iText custom attributes
+    /**
+     * Class that holds object MIME types.
+     */
     public static final class ObjectTypes{
         public static final String SVGIMAGE = "image/svg+xml";
     }

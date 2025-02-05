@@ -32,6 +32,12 @@ import com.itextpdf.styledxmlparser.node.IElementNode;
  */
 public class PlaceholderTagWorker implements ITagWorker {
 
+    /**
+     * Creates a new {@link PlaceholderTagWorker} instance.
+     *
+     * @param element the element
+     * @param context the context
+     */
     public PlaceholderTagWorker(IElementNode element, ProcessorContext context) {
         // Do nothing here
     }

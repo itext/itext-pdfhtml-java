@@ -110,6 +110,11 @@ public class WaitingInlineElementsHelper {
         waitingLeaves.add(element);
     }
 
+    /**
+     * Adds a block element to the waiting leaves.
+     *
+     * @param element the element
+     */
     public void add(IBlockElement element) {
         waitingLeaves.add(element);
     }

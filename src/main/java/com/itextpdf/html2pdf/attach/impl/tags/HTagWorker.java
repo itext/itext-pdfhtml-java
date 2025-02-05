@@ -27,6 +27,9 @@ import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
+/**
+ * TagWorker class for the {@code h} element.
+ */
 public class HTagWorker extends DivTagWorker {
 
     private String role;

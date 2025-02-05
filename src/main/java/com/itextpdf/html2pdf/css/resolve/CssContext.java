@@ -142,6 +142,11 @@ public class CssContext extends AbstractCssContext {
         return nonPagesTargetCounterPresent;
     }
 
+    /**
+     * Get running element's manager.
+     *
+     * @return {@link CssRunningManager} instance
+     */
     public CssRunningManager getRunningManager() {
         return runningManager;
     }

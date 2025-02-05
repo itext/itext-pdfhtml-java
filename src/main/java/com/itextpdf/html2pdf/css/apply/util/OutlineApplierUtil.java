@@ -50,6 +50,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
+/**
+ * Utility class to apply outline properties.
+ */
 public class OutlineApplierUtil {
 
     /**
