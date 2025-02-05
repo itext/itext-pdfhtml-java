@@ -45,6 +45,9 @@ public final class AttributeConstants extends CommonAttributeConstants {
     /** The Constant ALT. */
     public static final String ALT = "alt";
 
+    /** The Constant ARIA-LABEL. */
+    public static final String ARIA_LABEL = "aria-label";
+
     /** The Constant APPLICATION_NAME. */
     public static final String APPLICATION_NAME = "application-name";
 

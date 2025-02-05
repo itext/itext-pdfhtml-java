@@ -287,6 +287,19 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
+
+    @Test
+    public void svgAlternativeDescription() throws IOException, InterruptedException, XMPException {
+        String sourceHtml = SOURCE_FOLDER + "svgSimpleAlternateDescription.html";
+        String cmpPdfUa1 = SOURCE_FOLDER + "cmp_svgSimpleAlternateDescriptionUa1.pdf";
+        String cmpPdfUa2 = SOURCE_FOLDER + "cmp_svgSimpleAlternateDescriptionUa2.pdf";
+        String destinationPdfUa1 = DESTINATION_FOLDER + "svgSimpleAlternateDescriptionUa1.pdf";
+        String destinationPdfUa2 = DESTINATION_FOLDER + "svgSimpleAlternateDescriptionUa2.pdf";
+
+        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+    }
+
     private void createSimplePdfUA2Document(PdfDocument pdfDocument) throws IOException, XMPException {
         byte[] bytes = Files.readAllBytes(Paths.get(SOURCE_FOLDER + "simplePdfUA2.xmp"));
         XMPMeta xmpMeta = XMPMetaFactory.parse(new ByteArrayInputStream(bytes));

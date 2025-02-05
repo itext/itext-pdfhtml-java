@@ -25,6 +25,7 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
+import com.itextpdf.html2pdf.attach.util.AlternateDescriptionResolver;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.kernel.pdf.PdfAConformance;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
@@ -33,6 +34,8 @@ import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever;
 
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Properties that will be used by the {@link com.itextpdf.html2pdf.HtmlConverter}.
@@ -43,6 +46,8 @@ public class ConverterProperties {
      * Default maximum number of layouts.
      */
     private static final int DEFAULT_LIMIT_OF_LAYOUTS = 10;
+
+    private final HashMap<Class<?>, Object> dependencies = new HashMap<>();
 
     /**
      * The media device description.
@@ -123,6 +128,7 @@ public class ConverterProperties {
      * Instantiates a new {@link ConverterProperties} instance.
      */
     public ConverterProperties() {
+        this.dependencies.put(AlternateDescriptionResolver.class, new AlternateDescriptionResolver());
     }
 
     /**
@@ -145,6 +151,10 @@ public class ConverterProperties {
         this.limitOfLayouts = other.limitOfLayouts;
         this.immediateFlush = other.immediateFlush;
         this.continuousContainerEnabled = other.continuousContainerEnabled;
+
+        for (Class<?> aClass : other.dependencies.keySet()) {
+            this.dependencies.put(aClass, other.dependencies.get(aClass));
+        }
     }
 
     /**
@@ -534,5 +544,14 @@ public class ConverterProperties {
     public ConverterProperties setContinuousContainerEnabled(boolean value) {
         continuousContainerEnabled = value;
         return this;
+    }
+
+    /**
+     * Gets the dependencies.
+     *
+     * @return the dependencies
+     */
+    public Map<Class<?>, Object> getDependencies() {
+        return dependencies;
     }
 }

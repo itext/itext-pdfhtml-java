@@ -26,6 +26,7 @@ import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
+import com.itextpdf.html2pdf.attach.util.AlternateDescriptionResolver;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
@@ -94,14 +95,8 @@ public class ImgTagWorker implements ITagWorker {
         }
 
         if (image != null) {
-            String altText = element.getAttribute(AttributeConstants.ALT);
-            if (altText != null) {
-                image.getAccessibilityProperties().setAlternateDescription(altText);
-            }
             AccessiblePropHelper.trySetLangAttribute(image, element);
-        }
-
-        if (image != null) {
+            context.getDIContainer().getInstance(AlternateDescriptionResolver.class).resolve(image, element);
             String objectFitValue = element.getStyles() != null ?
                     element.getStyles().get(CssConstants.OBJECT_FIT) : null;
             image.setObjectFit(getObjectFitValue(objectFitValue));

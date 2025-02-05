@@ -30,6 +30,7 @@ import com.itextpdf.forms.form.element.InputField;
 import com.itextpdf.forms.form.element.Radio;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
+import com.itextpdf.html2pdf.attach.util.AlternateDescriptionResolver;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
@@ -163,11 +164,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
             formElement.setProperty(FormProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
             ((IAccessibleElement)formElement).getAccessibilityProperties().setLanguage(lang);
             formElement.setProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.getConformance());
-
-            String altText = element.getAttribute(AttributeConstants.TITLE);
-            if (altText != null) {
-                ((IAccessibleElement) formElement).getAccessibilityProperties().setAlternateDescription(altText);
-            }
+            context.getDIContainer().getInstance(AlternateDescriptionResolver.class).resolve((IAccessibleElement)formElement, element);
         }
 
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
