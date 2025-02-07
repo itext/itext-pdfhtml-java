@@ -49,7 +49,6 @@ public class ImageTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("imagesInBody", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void relativeImageInStaticContainerTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("relativeImageInStaticContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -312,62 +311,52 @@ public class ImageTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("relativeSizeSvg3_15", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void fixedImgRelativeSizeSvg3_2Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("fixedImgRelativeSizeSvg3_2", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void fixedImgRelativeSizeSvg3_3Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("fixedImgRelativeSizeSvg3_3", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void fixedImgRelativeSizeSvg3_4Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("fixedImgRelativeSizeSvg3_4", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void fixedImgRelativeSizeSvg3_5Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("fixedImgRelativeSizeSvg3_5", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     //TODO DEVSIX-8870 improve support of relative sized SVG in img HTML elements
     @Test
     public void fixedImgRelativeSizeSvg3_6Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("fixedImgRelativeSizeSvg3_6", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void fixedImgRelativeSizeSvg3_7Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("fixedImgRelativeSizeSvg3_7", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void fixedImgRelativeSizeSvg3_8Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("fixedImgRelativeSizeSvg3_8", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void fixedImgRelativeSizeSvg3_9Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("fixedImgRelativeSizeSvg3_9", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void fixedImgRelativeSizeSvg3_10Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("fixedImgRelativeSizeSvg3_10", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void fixedImgRelativeSizeSvg3_11Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("fixedImgRelativeSizeSvg3_11", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -378,19 +367,16 @@ public class ImageTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("fixedImgRelativeSizeSvg3_12", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void fixedImgRelativeSizeSvg3_13Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("fixedImgRelativeSizeSvg3_13", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void fixedImgRelativeSizeSvg3_14Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("fixedImgRelativeSizeSvg3_14", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void fixedImgRelativeSizeSvg3_15Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("fixedImgRelativeSizeSvg3_15", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -466,19 +452,16 @@ public class ImageTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_15", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void relativeSizeSvg4Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("relativeSizeSvg4", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void relativeSizeSvg4_2Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("relativeSizeSvg4_2", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
     @Test
     public void relativeSizeSvg4_4Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("relativeSizeSvg4_4", SOURCE_FOLDER, DESTINATION_FOLDER);

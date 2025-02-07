@@ -29,6 +29,7 @@ import com.itextpdf.html2pdf.css.apply.util.OverflowApplierUtil;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.AnonymousBox;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
@@ -134,13 +135,13 @@ public class WaitingInlineElementsHelper {
      * @param container a container element
      */
     public void flushHangingLeaves(IPropertyContainer container) {
-        Paragraph p = createLeavesContainer();
-        if (p != null) {
+        AnonymousBox ab = createLeavesContainer();
+        if (ab != null) {
             Map<String, String> map = new HashMap<>();
             map.put(CssConstants.OVERFLOW, CommonCssConstants.VISIBLE);
-            OverflowApplierUtil.applyOverflow(map, p);
+            OverflowApplierUtil.applyOverflow(map, ab);
             if (container instanceof Document) {
-                ((Document) container).add(p);
+                ((Document) container).add(ab);
             } else if (container instanceof Paragraph) {
                 for (IElement leafElement : waitingLeaves) {
                     if (leafElement instanceof ILeafElement) {
@@ -152,15 +153,15 @@ public class WaitingInlineElementsHelper {
             } else if (((IElement) container).getRenderer() instanceof FlexContainerRenderer) {
                 final Div div = new Div();
                 OverflowApplierUtil.applyOverflow(map, div);
-                div.add(p);
+                div.add(ab);
                 ((Div) container).add(div);
             } else if (container instanceof Div) {
-                ((Div) container).add(p);
+                ((Div) container).add(ab);
             } else if (container instanceof Cell) {
-                ((Cell) container).add(p);
+                ((Cell) container).add(ab);
             } else if (container instanceof com.itextpdf.layout.element.List) {
                 ListItem li = new ListItem();
-                li.add(p);
+                li.add(ab);
                 ((com.itextpdf.layout.element.List) container).add(li);
             } else {
                 throw new IllegalStateException("Unable to process hanging inline content");
@@ -172,31 +173,31 @@ public class WaitingInlineElementsHelper {
     /**
      * Creates the leaves container.
      *
-     * @return a paragraph
+     * @return an {@link AnonymousBox}
      */
-    private Paragraph createLeavesContainer() {
+    private AnonymousBox createLeavesContainer() {
         if (collapseSpaces) {
             waitingLeaves = TrimUtil.trimLeafElementsAndSanitize(waitingLeaves);
         }
         capitalize(waitingLeaves);
 
         if (waitingLeaves.size() > 0) {
-            Paragraph p = createParagraphContainer();
+            AnonymousBox ab = new AnonymousBox();
             boolean runningElementsOnly = true;
             for (IElement leaf : waitingLeaves) {
                 if (leaf instanceof ILeafElement) {
                     runningElementsOnly = false;
-                    p.add((ILeafElement) leaf);
+                    ab.add((ILeafElement) leaf);
                 } else if (leaf instanceof IBlockElement) {
                     runningElementsOnly = runningElementsOnly && leaf instanceof RunningElement;
-                    p.add((IBlockElement) leaf);
+                    ab.add((IBlockElement) leaf);
                 }
             }
             if (runningElementsOnly) {
                 // TODO DEVSIX-7008 Remove completely empty tags from logical structure of resultant PDF documents
-                p.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
+                ab.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
             }
-            return p;
+            return ab;
         } else {
             return null;
         }
@@ -235,7 +236,9 @@ public class WaitingInlineElementsHelper {
      * Creates a paragraph container.
      *
      * @return the paragraph container
+     * @deprecated to remove as it is not used anywhere anymore
      */
+    @Deprecated
     public Paragraph createParagraphContainer() {
         return new Paragraph().setMargin(0);
     }
