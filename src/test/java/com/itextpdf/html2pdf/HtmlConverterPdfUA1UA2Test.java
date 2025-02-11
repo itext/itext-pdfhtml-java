@@ -265,8 +265,11 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setCreateAcroForm(true);
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, converterProperties, true, null);
-        // TODO DEVSIX-8868 Change this test when fixed
+        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, converterProperties, true,
+                null);
+        // Now Verapdf reports '<Document> contains <Span>'
+        // The fix for '<Document> contains <Span>' will be implemented as part of
+        // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, false);
     }
 
