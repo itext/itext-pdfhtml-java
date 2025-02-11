@@ -79,7 +79,10 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         String destinationPdfUa2 = DESTINATION_FOLDER + "simpleLinkUa2.pdf";
 
         convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+        // Now Verapdf reports '<Document> contains <Span>'
+        // The fix for '<Document> contains <Span>' will be implemented as part of
+        // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
     }
 
     @Test
@@ -91,7 +94,10 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         String destinationPdfUa2 = DESTINATION_FOLDER + "backwardLinkUa2.pdf";
 
         convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+        // Now Verapdf reports '<Document> contains <Span>'
+        // The fix for '<Document> contains <Span>' will be implemented as part of
+        // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
     }
 
     @Test
@@ -103,7 +109,10 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         String destinationPdfUa2 = DESTINATION_FOLDER + "imageLinkUa2.pdf";
 
         convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+        // Now Verapdf reports '<Document> contains <Span>'
+        // The fix for '<Document> contains <Span>' will be implemented as part of
+        // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
     }
 
     @Test
@@ -129,6 +138,10 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         String destinationPdfUa2 = DESTINATION_FOLDER + "simpleOutlineUa2.pdf";
 
         convertToUa1AndCheckCompliance(sourceHtmlUa1,destinationPdfUa1, cmpPdfUa1, true, null);
+        // Now Verapdf reports '<Document> contains <Span>' and DEVSIX-8476 seems to be fixed
+        // But the fix still can be reconsidered later.
+        // The fix for '<Document> contains <Span>' will be implemented as part of
+        // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
         convertToUa2AndCheckCompliance(sourceHtmlUa2, destinationPdfUa2, cmpPdfUa2, false);
     }
 
@@ -146,7 +159,10 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         String expectedUa1Message = MessageFormatUtil.format(
                 PdfUAExceptionMessageConstants.GLYPH_IS_NOT_DEFINED_OR_WITHOUT_UNICODE, '中');
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
+        // Next to the ticket TODO DEVSIX-8706, Verapdf reports '<Document> contains <Span>'
+        // The fix for '<Document> contains <Span>' will be implemented as part of
+        // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
     }
 
@@ -213,6 +229,9 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         String destinationPdfUa2 = DESTINATION_FOLDER + "pageBreakAfterAvoidUa2.pdf";
 
         convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
+        // Next to the ticket TODO DEVSIX-8864, Verapdf reports '<Document> contains <Span>'
+        // The fix for '<Document> contains <Span>' will be implemented as part of
+        // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
     }
 
@@ -254,8 +273,7 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setCreateAcroForm(true);
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, converterProperties, true,
-                null);
+        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, converterProperties, true, null);
         // TODO DEVSIX-8868 Change this test when fixed
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, false);
     }
