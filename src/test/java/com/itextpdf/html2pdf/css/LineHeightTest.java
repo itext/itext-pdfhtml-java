@@ -22,14 +22,19 @@
  */
 package com.itextpdf.html2pdf.css;
 
+import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.util.UrlUtil;
+import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.properties.Leading;
 import com.itextpdf.layout.properties.Property;
@@ -39,8 +44,8 @@ import java.io.IOException;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Tag("IntegrationTest")
 public class LineHeightTest extends ExtendedHtmlConversionITextTest {
@@ -212,6 +217,41 @@ public class LineHeightTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void lineHeightMathJaxMathFontNormalTest() throws IOException, InterruptedException {
         testLineHeight("lineHeightMathJaxMathFontNormalTest");
+    }
+
+    @Test
+    public void leadingInConvertToElementsTest() throws IOException, InterruptedException {
+        String htmlString = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. "
+                + "Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa.</p>";
+
+        String destinationPdf = DESTINATION_FOLDER + "leadingInConvertToElementsTest.pdf";
+        String cmpPdf = SOURCE_FOLDER + "cmp_leadingInConvertToElementsTest.pdf";
+
+        PdfWriter pdfWriter = new PdfWriter(FileUtil.getFileOutputStream(destinationPdf));
+
+        PdfDocument pdfDoc = new PdfDocument(pdfWriter);
+        Document document = new Document(pdfDoc, PageSize.LETTER);
+        ConverterProperties converterProperties = new ConverterProperties();
+        List<IElement> elements = HtmlConverter.convertToElements("<p>" + htmlString + "</p>", converterProperties);
+
+        for (IElement element : elements)
+        {
+            Paragraph p = (Paragraph)element;
+            document.add(p);
+        }
+
+        for (IElement element : elements)
+        {
+            Paragraph p = (Paragraph)element;
+            p.setFixedLeading(30);
+            p.setFontSize(9);
+            p.setFontColor(ColorConstants.RED);
+            document.add(p);
+        }
+        document.close();
+
+        Assertions.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER,
+                "diff_leadingInConvertToElementsTest_"));
     }
 
     void testLineHeight(String name) throws IOException, InterruptedException {
