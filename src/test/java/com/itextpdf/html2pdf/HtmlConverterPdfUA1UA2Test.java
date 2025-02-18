@@ -24,10 +24,8 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
-import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfDocumentInfo;
-import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.kernel.pdf.PdfUAConformance;
 import com.itextpdf.kernel.pdf.PdfVersion;
@@ -45,8 +43,6 @@ import com.itextpdf.pdfua.exceptions.PdfUAConformanceException;
 import com.itextpdf.pdfua.exceptions.PdfUAExceptionMessageConstants;
 import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.ExtendedITextTest;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.pdfa.VeraPdfValidator;
 
 import java.io.ByteArrayInputStream;
@@ -146,9 +142,6 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8706 Incorrect tagging structure when using one span with glyph that doesn't have a mapping in the font
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.ATTEMPT_TO_CREATE_A_TAG_FOR_FINISHED_HINT)})
     public void unsupportedGlyphTest() throws IOException, InterruptedException, XMPException {
         String sourceHtml = SOURCE_FOLDER + "unsupportedGlyph.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_unsupportedGlyphUa1.pdf";
@@ -160,8 +153,7 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
                 PdfUAExceptionMessageConstants.GLYPH_IS_NOT_DEFINED_OR_WITHOUT_UNICODE, '中');
 
         convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
-        // Next to the ticket TODO DEVSIX-8706, Verapdf reports '<Document> contains <Span>'
-        // The fix for '<Document> contains <Span>' will be implemented as part of
+        // Verapdf reports '<Document> contains <Span>'. The fix for that will be implemented as part of
         // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
     }
