@@ -129,26 +129,26 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
                 .moveToRoot()
                 .moveToKid(1)
                 .moveToKid(0)
-                .moveToKid(StandardRoles.P);
+                .moveToKid(StandardRoles.LBL);
         Assertions.assertEquals("", tagPointer.getProperties().getLanguage());
 
         tagPointer
                 .moveToRoot()
-                .moveToKid(3)
-                .moveToKid(0)
-                .moveToKid(StandardRoles.P);
+                .moveToKid(1)
+                .moveToKid(2)
+                .moveToKid(StandardRoles.LBL);
         Assertions.assertEquals("", tagPointer.getProperties().getLanguage());
 
         tagPointer
                 .moveToRoot()
-                .moveToKid(4)
+                .moveToKid(2)
                 .moveToKid(0)
                 .moveToKid(StandardRoles.TD);
         Assertions.assertEquals("", tagPointer.getProperties().getLanguage());
 
         tagPointer
                 .moveToRoot()
-                .moveToKid(4)
+                .moveToKid(2)
                 .moveToKid(1)
                 .moveToKid(StandardRoles.TD);
         Assertions.assertEquals("", tagPointer.getProperties().getLanguage());
@@ -254,7 +254,7 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
         tagPointer
                 .moveToRoot()
-                .moveToKid(2, StandardRoles.P)
+                .moveToKid(3, StandardRoles.P)
                 .moveToKid(StandardRoles.FIGURE);
         Assertions.assertEquals("ru", tagPointer.getProperties().getLanguage());
 
@@ -324,6 +324,7 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
                 .moveToKid(0, StandardRoles.LBODY);
         Assertions.assertEquals("de", tagPointer.getProperties().getLanguage());
 
+        tagPointer.moveToKid(0, StandardRoles.P);
         List<String> kidsRoles = tagPointer.getKidsRoles();
         Assertions.assertTrue(StandardRoles.SPAN.equals(kidsRoles.get(0))
                 && StandardRoles.SPAN.equals(kidsRoles.get(1)));

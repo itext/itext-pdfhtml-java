@@ -29,7 +29,7 @@ import com.itextpdf.html2pdf.css.apply.util.OverflowApplierUtil;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
-import com.itextpdf.layout.element.AnonymousBox;
+import com.itextpdf.layout.element.AnonymousInlineBox;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
@@ -135,7 +135,7 @@ public class WaitingInlineElementsHelper {
      * @param container a container element
      */
     public void flushHangingLeaves(IPropertyContainer container) {
-        AnonymousBox ab = createLeavesContainer();
+        AnonymousInlineBox ab = createLeavesContainer();
         if (ab != null) {
             Map<String, String> map = new HashMap<>();
             map.put(CssConstants.OVERFLOW, CommonCssConstants.VISIBLE);
@@ -173,34 +173,34 @@ public class WaitingInlineElementsHelper {
     /**
      * Creates the leaves container.
      *
-     * @return an {@link AnonymousBox}
+     * @return an {@link AnonymousInlineBox}
      */
-    private AnonymousBox createLeavesContainer() {
+    private AnonymousInlineBox createLeavesContainer() {
         if (collapseSpaces) {
             waitingLeaves = TrimUtil.trimLeafElementsAndSanitize(waitingLeaves);
         }
         capitalize(waitingLeaves);
 
-        if (waitingLeaves.size() > 0) {
-            AnonymousBox ab = new AnonymousBox();
-            boolean runningElementsOnly = true;
-            for (IElement leaf : waitingLeaves) {
-                if (leaf instanceof ILeafElement) {
-                    runningElementsOnly = false;
-                    ab.add((ILeafElement) leaf);
-                } else if (leaf instanceof IBlockElement) {
-                    runningElementsOnly = runningElementsOnly && leaf instanceof RunningElement;
-                    ab.add((IBlockElement) leaf);
-                }
-            }
-            if (runningElementsOnly) {
-                // TODO DEVSIX-7008 Remove completely empty tags from logical structure of resultant PDF documents
-                ab.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
-            }
-            return ab;
-        } else {
+        if (waitingLeaves.isEmpty()) {
             return null;
         }
+        AnonymousInlineBox ab = new AnonymousInlineBox();
+        ab.getAccessibilityProperties().setRole(StandardRoles.P);
+        boolean runningElementsOnly = true;
+        for (IElement leaf : waitingLeaves) {
+            if (leaf instanceof ILeafElement) {
+                runningElementsOnly = false;
+                ab.add((ILeafElement) leaf);
+            } else if (leaf instanceof IBlockElement) {
+                runningElementsOnly = runningElementsOnly && leaf instanceof RunningElement;
+                ab.add((IBlockElement) leaf);
+            }
+        }
+        if (runningElementsOnly) {
+            // TODO DEVSIX-7008 Remove completely empty tags from logical structure of resultant PDF documents
+            ab.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
+        }
+        return ab;
     }
 
     /**

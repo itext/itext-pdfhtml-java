@@ -25,40 +25,36 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfDocumentInfo;
-import com.itextpdf.kernel.pdf.PdfString;
 import com.itextpdf.kernel.pdf.PdfUAConformance;
 import com.itextpdf.kernel.pdf.PdfVersion;
-import com.itextpdf.kernel.pdf.PdfViewerPreferences;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.WriterProperties;
 import com.itextpdf.kernel.utils.CompareTool;
 import com.itextpdf.kernel.xmp.XMPException;
-import com.itextpdf.kernel.xmp.XMPMeta;
-import com.itextpdf.kernel.xmp.XMPMetaFactory;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.pdfua.PdfUAConfig;
 import com.itextpdf.pdfua.PdfUADocument;
 import com.itextpdf.pdfua.exceptions.PdfUAConformanceException;
 import com.itextpdf.pdfua.exceptions.PdfUAExceptionMessageConstants;
+import com.itextpdf.pdfua.logs.PdfUALogMessageConstants;
 import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.ExtendedITextTest;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.pdfa.VeraPdfValidator;
-
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 
 @Tag("IntegrationTest")
 public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
 
-    private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf/HtmlConverterPdfUA1UA2Test/";
+    private static final String SOURCE_FOLDER = "./src/test/resources/com/itextpdf/html2pdf" +
+            "/HtmlConverterPdfUA1UA2Test/";
     private static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/HtmlConverterPdfUA1UA2Test/";
 
     @BeforeAll
@@ -67,65 +63,55 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
     }
 
     @Test
-    public void simpleLinkTest() throws IOException, InterruptedException, XMPException {
+    public void simpleLinkTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "simpleLink.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_simpleLinkUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_simpleLinkUa2.pdf";
         String destinationPdfUa1 = DESTINATION_FOLDER + "simpleLinkUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "simpleLinkUa2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
-        // Now Verapdf reports '<Document> contains <Span>'
-        // The fix for '<Document> contains <Span>' will be implemented as part of
-        // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
     @Test
-    public void backwardLinkTest() throws IOException, InterruptedException, XMPException {
+    public void backwardLinkTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "backwardLink.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_backwardLinkUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_backwardLinkUa2.pdf";
         String destinationPdfUa1 = DESTINATION_FOLDER + "backwardLinkUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "backwardLinkUa2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
-        // Now Verapdf reports '<Document> contains <Span>'
-        // The fix for '<Document> contains <Span>' will be implemented as part of
-        // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
     @Test
-    public void imageLinkTest() throws IOException, InterruptedException, XMPException {
+    public void imageLinkTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "imageLink.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_imageLinkUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_imageLinkUa2.pdf";
         String destinationPdfUa1 = DESTINATION_FOLDER + "imageLinkUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "imageLinkUa2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
-        // Now Verapdf reports '<Document> contains <Span>'
-        // The fix for '<Document> contains <Span>' will be implemented as part of
-        // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
     @Test
-    public void externalLinkTest() throws IOException, InterruptedException, XMPException {
+    public void externalLinkTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "externalLink.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_externalLinkUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_externalLinkUa2.pdf";
         String destinationPdfUa1 = DESTINATION_FOLDER + "externalLinkUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "externalLinkUa2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
     @Test
-    // TODO DEVSIX-8476 PDF 2.0 doesn't allow P tag be a child of H tag
-    public void simpleOutlineTest() throws IOException, InterruptedException, XMPException {
+    public void simpleOutlineTest() throws IOException, InterruptedException {
         String sourceHtmlUa1 = SOURCE_FOLDER + "simpleOutlineUa1.html";
         String sourceHtmlUa2 = SOURCE_FOLDER + "simpleOutlineUa2.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_simpleOutlineUa1.pdf";
@@ -133,16 +119,12 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         String destinationPdfUa1 = DESTINATION_FOLDER + "simpleOutlineUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "simpleOutlineUa2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtmlUa1,destinationPdfUa1, cmpPdfUa1, true, null);
-        // Now Verapdf reports '<Document> contains <Span>' and DEVSIX-8476 seems to be fixed
-        // But the fix still can be reconsidered later.
-        // The fix for '<Document> contains <Span>' will be implemented as part of
-        // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
-        convertToUa2AndCheckCompliance(sourceHtmlUa2, destinationPdfUa2, cmpPdfUa2, false);
+        convertToUa1AndCheckCompliance(sourceHtmlUa1, destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtmlUa2, destinationPdfUa2, cmpPdfUa2, true);
     }
 
     @Test
-    public void unsupportedGlyphTest() throws IOException, InterruptedException, XMPException {
+    public void unsupportedGlyphTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "unsupportedGlyph.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_unsupportedGlyphUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_unsupportedGlyphUa2.pdf";
@@ -153,109 +135,98 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
                 PdfUAExceptionMessageConstants.GLYPH_IS_NOT_DEFINED_OR_WITHOUT_UNICODE, '中');
 
         convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
-        // Verapdf reports '<Document> contains <Span>'. The fix for that will be implemented as part of
-        // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
     }
 
     @Test
-    // TODO DEVSIX-8862 PDF 2.0 does not allow DIV, P tags to be children of the P tag
-    public void emptyElementsTest() throws IOException, InterruptedException, XMPException {
+    public void emptyElementsTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "emptyElements.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_emptyElementsUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_emptyElementsUa2.pdf";
         String destinationPdfUa1 = DESTINATION_FOLDER + "emptyElementsUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "emptyElementsUa2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
     @Test
-    // TODO DEVSIX-8862 PDF 2.0 does not allow DIV, P tags to be children of the P tag
-    public void boxSizingInlineBlockTest() throws IOException, InterruptedException, XMPException {
+    public void boxSizingInlineBlockTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "boxSizingInlineBlock.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_boxSizingInlineBlockUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_boxSizingInlineBlockUa2.pdf";
         String destinationPdfUa1 = DESTINATION_FOLDER + "boxSizingInlineBlockUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "boxSizingInlineBlockUa2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
     @Test
-    // TODO DEVSIX-8863 PDF 2.0 does not allow P, Hn tags to be children of the Form tag
-    public void divInButtonTest() throws IOException, InterruptedException, XMPException {
+    public void divInButtonTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "divInButton.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_divInButtonUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_divInButtonUa2.pdf";
         String destinationPdfUa1 = DESTINATION_FOLDER + "divInButtonUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "divInButtonUa2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
     @Test
-    // TODO DEVSIX-8863 PDF 2.0 does not allow P, Hn tags to be children of the Form tag
-    // TODO DEVSIX-8476 PDF 2.0 doesn't allow P tag be a child of H tag
-    public void headingInButtonTest() throws IOException, InterruptedException, XMPException {
+    public void headingInButtonTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "headingInButton.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_headingInButtonUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_headingInButtonUa2.pdf";
         String destinationPdfUa1 = DESTINATION_FOLDER + "headingInButtonUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "headingInButtonUa2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
     @Test
     // TODO DEVSIX-8864 PDF 2.0: Destination in GoTo action is not a structure destination
-    public void pageBreakAfterAvoidTest() throws IOException, InterruptedException, XMPException {
+    public void pageBreakAfterAvoidTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "pageBreakAfterAvoid.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_pageBreakAfterAvoidUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_pageBreakAfterAvoidUa2.pdf";
         String destinationPdfUa1 = DESTINATION_FOLDER + "pageBreakAfterAvoidUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "pageBreakAfterAvoidUa2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
-        // Next to the ticket TODO DEVSIX-8864, Verapdf reports '<Document> contains <Span>'
-        // The fix for '<Document> contains <Span>' will be implemented as part of
-        // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
     }
 
     @Test
     // TODO DEVSIX-8864 PDF 2.0: Destination in GoTo action is not a structure destination
-    // TODO DEVSIX-8476 PDF 2.0 doesn't allow P tag be a child of H tag
-    public void linkWithPageBreakBeforeTest() throws IOException, InterruptedException, XMPException {
+    public void linkWithPageBreakBeforeTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "linkWithPageBreakBefore.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa2.pdf";
         String destinationPdfUa1 = DESTINATION_FOLDER + "linkWithPageBreakBeforeUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "linkWithPageBreakBeforeUa2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
     }
 
     @Test
     // TODO DEVSIX-8865 PDF document does not contain Document tag if it does not contain any content
-    public void emptyHtmlTest() throws IOException, InterruptedException, XMPException {
+    public void emptyHtmlTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "emptyHtml.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_emptyHtmlUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_emptyHtmlUa2.pdf";
         String destinationPdfUa1 = DESTINATION_FOLDER + "emptyHtmlUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "emptyHtmlUa2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
     }
 
     @Test
-    public void inputWithTitleTagTest() throws IOException, InterruptedException, XMPException {
+    public void inputWithTitleTagTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "inputWithTitleTag.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_inputWithTitleTagUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_inputWithTitleTagUa2.pdf";
@@ -265,30 +236,27 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setCreateAcroForm(true);
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, converterProperties, true,
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, converterProperties, true,
                 null);
-        // Now Verapdf reports '<Document> contains <Span>'
-        // The fix for '<Document> contains <Span>' will be implemented as part of
-        // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, false);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, true);
     }
 
     @Test
     // TODO DEVSIX-8883 content is not tagged as real content or tagged as artifact after conversion
-    public void svgBase64Test() throws IOException, InterruptedException, XMPException {
+    public void svgBase64Test() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "svgBase64.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_svgBase64Ua1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_svgBase64Ua2.pdf";
         String destinationPdfUa1 = DESTINATION_FOLDER + "svgBase64Ua1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "svgBase64Ua2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, false, null);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, null);
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
     }
 
     @Test
     // TODO DEVSIX-8883 content is not tagged as real content or tagged as artifact after conversion
-    public void pngInDivStyleTest() throws IOException, InterruptedException, XMPException {
+    public void pngInDivStyleTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "pngInDivStyle.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_pngInDivStyleUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_pngInDivStyleUa2.pdf";
@@ -296,32 +264,84 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         String destinationPdfUa2 = DESTINATION_FOLDER + "pngInDivStyleUa2.pdf";
 
         // Investigate why VeraPdf doesn't complain about the missing tag.
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
 
     @Test
-    public void svgAlternativeDescription() throws IOException, InterruptedException, XMPException {
+    public void svgAlternativeDescription() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "svgSimpleAlternateDescription.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_svgSimpleAlternateDescriptionUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_svgSimpleAlternateDescriptionUa2.pdf";
         String destinationPdfUa1 = DESTINATION_FOLDER + "svgSimpleAlternateDescriptionUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "svgSimpleAlternateDescriptionUa2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
-    private void createSimplePdfUA2Document(PdfDocument pdfDocument) throws IOException, XMPException {
-        byte[] bytes = Files.readAllBytes(Paths.get(SOURCE_FOLDER + "simplePdfUA2.xmp"));
-        XMPMeta xmpMeta = XMPMetaFactory.parse(new ByteArrayInputStream(bytes));
-        pdfDocument.setXmpMetadata(xmpMeta);
-        pdfDocument.setTagged();
-        pdfDocument.getCatalog().setViewerPreferences(new PdfViewerPreferences().setDisplayDocTitle(true));
-        pdfDocument.getCatalog().setLang(new PdfString("en-US"));
-        PdfDocumentInfo info = pdfDocument.getDocumentInfo();
-        info.setTitle("PdfUA2 Title");
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = PdfUALogMessageConstants.PAGE_FLUSHING_DISABLED, count = 2)
+    })
+    public void extensiveRepairTaggingStructRepairTest() throws IOException, InterruptedException {
+        String sourceHtml = SOURCE_FOLDER + "tagStructureFixes.html";
+        String cmpPdfUa2 = SOURCE_FOLDER + "cmp_tagStructureFixes.pdf";
+        String destinationPdfUa2 = DESTINATION_FOLDER + "tagStructureFixesUA2.pdf";
+
+        String cmpPdfUa1 = SOURCE_FOLDER + "cmp_tagStructureFixesUA1.pdf";
+        String destinationPdfUa1 = DESTINATION_FOLDER + "tagStructureFixesUA1.pdf";
+
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+    }
+
+
+    @Test
+    public void inputFieldsUA2Test() throws IOException, InterruptedException {
+        String sourceHtml = SOURCE_FOLDER + "input.html";
+        String cmpPdfUa2 = SOURCE_FOLDER + "cmp_input.pdf";
+        String destinationPdfUa2 = DESTINATION_FOLDER + "inputUA2.pdf";
+
+        String cmpPdfUa1 = SOURCE_FOLDER + "cmp_inputUA1.pdf";
+        String destinationPdfUa1 = DESTINATION_FOLDER + "inputUA1.pdf";
+
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = PdfUALogMessageConstants.PAGE_FLUSHING_DISABLED, count = 2)
+    })
+    public void tableUa2Test() throws IOException, InterruptedException {
+        String sourceHtml = SOURCE_FOLDER + "table.html";
+        String cmpPdfUa2 = SOURCE_FOLDER + "cmp_table.pdf";
+        String destinationPdfUa2 = DESTINATION_FOLDER + "tableUA2.pdf";
+
+        String cmpPdfUa1 = SOURCE_FOLDER + "cmp_tableUA1.pdf";
+        String destinationPdfUa1 = DESTINATION_FOLDER + "tableUA1.pdf";
+
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+    }
+
+    @Test
+    public void complexParagraphStructure() throws IOException, InterruptedException {
+        String sourceHtml = SOURCE_FOLDER + "complexParagraphStructure.html";
+
+        String cmpPdfUa1 = SOURCE_FOLDER + "cmp_complexParagraphStructureUA1.pdf";
+        String destinationPdfUa1 = DESTINATION_FOLDER + "complexParagraphStructureUA1.pdf";
+        String cmpPdfUa2 = SOURCE_FOLDER + "cmp_complexParagraphStructure.pdf";
+        String destinationPdfUa2 = DESTINATION_FOLDER + "complexParagraphStructure.pdf";
+
+
+
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+
     }
 
     private static void compareAndCheckCompliance(String destinationPdf, String cmpPdf, boolean isExpectedOk)
@@ -332,17 +352,19 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
             new VeraPdfValidator().validateFailure(destinationPdf);
         }
         Assertions.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER,
-                "diff_simple_"));
+                 "diff_simple_"));
     }
 
     private void convertToUa1AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf,
-            boolean isExpectedOk, String expectedErrorMessage) throws IOException, InterruptedException {
+                                                boolean isExpectedOk, String expectedErrorMessage)
+            throws IOException, InterruptedException {
         convertToUa1AndCheckCompliance(sourceHtml, destinationPdf, cmpPdf, new ConverterProperties(), isExpectedOk,
                 expectedErrorMessage);
     }
 
     private void convertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf,
-            boolean isExpectedOk) throws IOException, XMPException, InterruptedException {
+                                                boolean isExpectedOk)
+            throws IOException, InterruptedException {
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdf, cmpPdf, new ConverterProperties(), isExpectedOk);
     }
 
@@ -377,10 +399,9 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
 
     private void convertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf,
                                                 ConverterProperties converterProperties, boolean isExpectedOk)
-            throws IOException, XMPException, InterruptedException {
-        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf, new WriterProperties().setPdfVersion(
-                PdfVersion.PDF_2_0)));
-        createSimplePdfUA2Document(pdfDocument);
+            throws IOException, InterruptedException {
+        PdfDocument pdfDocument = new PdfUADocument(new PdfWriter(destinationPdf, new WriterProperties().setPdfVersion(
+                PdfVersion.PDF_2_0)), new PdfUAConfig(PdfUAConformance.PDF_UA_2, "simple doc", "en-US"));
 
         ConverterProperties converterPropertiesCopy;
         if (converterProperties == null) {
