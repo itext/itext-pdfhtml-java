@@ -213,16 +213,15 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
     }
 
     @Test
-    // TODO DEVSIX-8865 PDF document does not contain Document tag if it does not contain any content
-    public void emptyHtmlTest() throws IOException, InterruptedException {
+   public void emptyHtmlTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "emptyHtml.html";
         String cmpPdfUa1 = SOURCE_FOLDER + "cmp_emptyHtmlUa1.pdf";
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_emptyHtmlUa2.pdf";
         String destinationPdfUa1 = DESTINATION_FOLDER + "emptyHtmlUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "emptyHtmlUa2.pdf";
 
-        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+        convertToUa1AndCheckCompliance(sourceHtml,destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
     @Test
