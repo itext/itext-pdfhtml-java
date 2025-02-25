@@ -127,7 +127,6 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO: DEVSIX-2719 SVG<polygon>: tops of figures are cut
     public void convert_inline_Svg_polygon_in_HTML() throws IOException, InterruptedException {
         convertAndCompare("HTML_with_inline_svg_polygon");
     }
@@ -206,7 +205,6 @@ public class SvgTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO: DEVSIX-2719 SVG<polygon>: tops of figures are cut
     public void convertInlineSvgStar() throws IOException, InterruptedException {
         String html = "inline_svg_star";
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + html + ".pdf"));
