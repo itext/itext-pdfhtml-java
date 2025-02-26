@@ -146,4 +146,15 @@ public class VerticalAlignmentTest extends ExtendedHtmlConversionITextTest {
     public void verticalAlignOnNestedInlines02() throws IOException, InterruptedException {
         convertToPdfAndCompare("verticalAlignOnNestedInlines02", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void verticalAlignMiddleWithTtfOS2Version4() throws IOException, InterruptedException {
+        convertToPdfAndCompare("verticalAlignMiddleWithTtfOS2Version4", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    // TODO DEVSIX-8994 Improve vertical-align css property related calculations
+    public void verticalAlignMiddleWithTtfOS2Version1() throws IOException, InterruptedException {
+        convertToPdfAndCompare("verticalAlignMiddleWithTtfOS2Version1", sourceFolder, destinationFolder);
+    }
 }
