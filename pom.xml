@@ -148,11 +148,6 @@
                 <artifactId>standard-framework-mapping</artifactId>
                 <version>1.0-SNAPSHOT</version>
               </dependency>
-              <dependency>
-                <groupId>sharpen</groupId>
-                <artifactId>html2pdf-sharpen-mapping</artifactId>
-                <version>1.0-SNAPSHOT</version>
-              </dependency>
             </dependencies>
             <configuration>
               <projectName>html2pdf</projectName>
