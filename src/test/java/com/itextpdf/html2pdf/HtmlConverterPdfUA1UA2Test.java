@@ -296,7 +296,6 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
     }
 
-
     @Test
     public void inputFieldsUA2Test() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "input.html";
@@ -335,12 +334,22 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         String cmpPdfUa2 = SOURCE_FOLDER + "cmp_complexParagraphStructure.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "complexParagraphStructure.pdf";
 
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+    }
 
+    @Test
+    public void emptyTableDataCellTest() throws IOException, InterruptedException {
+        String sourceHtml = SOURCE_FOLDER + "emptyTableDataCell.html";
+
+        String cmpPdfUa1 = SOURCE_FOLDER + "cmp_emptyTableDataCellUa1.pdf";
+        String cmpPdfUa2 = SOURCE_FOLDER + "cmp_emptyTableDataCellUa2.pdf";
+
+        String destinationPdfUa1 = DESTINATION_FOLDER + "emptyTableDataCellUa1.pdf";
+        String destinationPdfUa2 = DESTINATION_FOLDER + "emptyTableDataCellUa2.pdf";
 
         convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-
         convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
-
     }
 
     private static void compareAndCheckCompliance(String destinationPdf, String cmpPdf, boolean isExpectedOk)
