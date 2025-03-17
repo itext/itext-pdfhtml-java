@@ -187,6 +187,18 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
     }
 
     @Test
+    public void paragraphsInHeadingsTest() throws IOException, InterruptedException {
+        String sourceHtml = SOURCE_FOLDER + "paragraphsInHeadings.html";
+        String cmpPdfUa1 = SOURCE_FOLDER + "cmp_paragraphsInHeadingsUa1.pdf";
+        String cmpPdfUa2 = SOURCE_FOLDER + "cmp_paragraphsInHeadingsUa2.pdf";
+        String destinationPdfUa1 = DESTINATION_FOLDER + "paragraphsInHeadingsUa1.pdf";
+        String destinationPdfUa2 = DESTINATION_FOLDER + "paragraphsInHeadingsUa2.pdf";
+
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+    }
+
+    @Test
     // TODO DEVSIX-8864 PDF 2.0: Destination in GoTo action is not a structure destination
     public void pageBreakAfterAvoidTest() throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "pageBreakAfterAvoid.html";
