@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CSS Variables - Button Variations</title>
+  <style>
+    :root {
+      --primary: #0076c6;
+      --secondary: #333333;
+      --error: #ce0606;
+      --success: #009070;
+      --white: #ffffff;
+    }
+
+    /* base style for all buttons */
+    .btn {
+      padding: 1rem 1.5rem;
+      background: transparent;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* variations */
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+      color: var(--white);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: var(--white);
+    }
+
+    .btn-error {
+      background: var(--error);
+      color: var(--white);
+    }
+
+    .btn-link {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+<section>
+  <div class="container">
+    <h1 class="title">CSS Color Variations</h1>
+    <div class="btn-group">
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-secondary">Secondary</button>
+      <button class="btn btn-link">Link</button>
+      <button class="btn btn-success">Success</button>
+      <button class="btn btn-error">Error</button>
+    </div>
+  </div>
+</section>
+</body>
+</html>

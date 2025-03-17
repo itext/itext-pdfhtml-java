@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    body {
+      --var-keep: keep-all;
+    }
+
+    .narrow {
+      padding: 10px;
+      border: 1px solid;
+      width: 500px;
+      margin: 0 auto;
+      font-size: 20px;
+      line-height: 1.5;
+      letter-spacing: 1px;
+    }
+
+    .first {
+      word-break: var(       --var-keep      );
+    }
+
+    .second {
+      word-break:  var(       --value    , var(     --var-keep )       );
+    }
+
+    .third {
+      word-break: var   (  --var-keep     );
+    }
+  </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>1. <code>word-break: normal</code></p>
+<p class="first narrow">
+  This is a long and Honorificabilitudinitatibus califragilisticexpialidocious
+  Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu
+  グレートブリテンおよび北アイルランド連合王国という言葉は本当に長い言葉
+</p>
+
+<p>2. <code>word-break: break-all</code></p>
+<p class="second narrow">
+  This is a long and Honorificabilitudinitatibus califragilisticexpialidocious
+  Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu
+  グレートブリテンおよび北アイルランド連合王国という言葉は本当に長い言葉
+</p>
+
+<p>3. <code>word-break: keep-all</code></p>
+<p class="third narrow">
+  This is a long and Honorificabilitudinitatibus califragilisticexpialidocious
+  Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu
+  グレートブリテンおよび北アイルランド連合王国という言葉は本当に長い言葉
+</p>
+</body>
+</html>
