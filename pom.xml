@@ -106,6 +106,12 @@
           <include>**/*.json</include>
         </includes>
       </resource>
+      <resource>
+        <directory>src/main/resources/com/itextpdf/html2pdf</directory>
+        <includes>
+          <include>NOTICE.txt</include>
+        </includes>
+      </resource>
     </resources>
     <plugins>
       <plugin>
