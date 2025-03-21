@@ -131,11 +131,11 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         String destinationPdfUa1 = DESTINATION_FOLDER + "unsupportedGlyphUa1.pdf";
         String destinationPdfUa2 = DESTINATION_FOLDER + "unsupportedGlyphUa2.pdf";
 
-        String expectedUa1Message = MessageFormatUtil.format(
+        String expectedUaMessage = MessageFormatUtil.format(
                 PdfUAExceptionMessageConstants.GLYPH_IS_NOT_DEFINED_OR_WITHOUT_UNICODE, '中');
 
-        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUaMessage);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false, expectedUaMessage);
     }
 
     @Test
@@ -247,9 +247,8 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setCreateAcroForm(true);
 
-        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, converterProperties, true,
-                null);
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, true);
+        convertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, converterProperties, true, null);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, true, null);
     }
 
     @Test
@@ -385,7 +384,15 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
     private void convertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf,
                                                 boolean isExpectedOk)
             throws IOException, InterruptedException {
-        convertToUa2AndCheckCompliance(sourceHtml, destinationPdf, cmpPdf, new ConverterProperties(), isExpectedOk);
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdf, cmpPdf, new ConverterProperties(), isExpectedOk,
+                null);
+    }
+
+    private void convertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf,
+                                                boolean isExpectedOk, String expectedErrorMessage)
+            throws IOException, InterruptedException {
+        convertToUa2AndCheckCompliance(sourceHtml, destinationPdf, cmpPdf, new ConverterProperties(), isExpectedOk,
+                expectedErrorMessage);
     }
 
     private void convertToUa1AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf,
@@ -418,7 +425,8 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
     }
 
     private void convertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf,
-                                                ConverterProperties converterProperties, boolean isExpectedOk)
+                                                ConverterProperties converterProperties, boolean isExpectedOk,
+                                                String expectedErrorMessage)
             throws IOException, InterruptedException {
         PdfDocument pdfDocument = new PdfUADocument(new PdfWriter(destinationPdf, new WriterProperties().setPdfVersion(
                 PdfVersion.PDF_2_0)), new PdfUAConfig(PdfUAConformance.PDF_UA_2, "simple doc", "en-US"));
@@ -434,8 +442,15 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
         converterPropertiesCopy.setFontProvider(fontProvider);
         converterPropertiesCopy.setBaseUri(SOURCE_FOLDER);
         converterPropertiesCopy.setOutlineHandler(OutlineHandler.createStandardHandler());
-        HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterPropertiesCopy);
 
-        compareAndCheckCompliance(destinationPdf, cmpPdf, isExpectedOk);
+        if (expectedErrorMessage != null) {
+            Exception e = Assertions.assertThrows(PdfUAConformanceException.class,
+                    () -> HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument,
+                            converterPropertiesCopy));
+            Assertions.assertEquals(expectedErrorMessage, e.getMessage());
+        } else {
+            HtmlConverter.convertToPdf(new FileInputStream(sourceHtml), pdfDocument, converterPropertiesCopy);
+            compareAndCheckCompliance(destinationPdf, cmpPdf, isExpectedOk);
+        }
     }
 }
