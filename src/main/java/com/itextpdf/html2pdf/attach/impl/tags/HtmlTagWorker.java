@@ -93,6 +93,10 @@ public class HtmlTagWorker implements ITagWorker {
         if (lang != null) {
             pdfDocument.getCatalog().setLang(new PdfString(lang, PdfEncodings.UNICODE_BIG));
         }
+        String title = element.getAttribute(AttributeConstants.TITLE);
+        if (title != null){
+            pdfDocument.getDocumentInfo().setTitle(title);
+        }
     }
 
     /* (non-Javadoc)
