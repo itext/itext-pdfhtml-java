@@ -28,9 +28,6 @@ import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
 
-@LogMessages(messages = {
-        @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)
-})
 // TODO DEVSIX-5269 ImageRenderer#getMinMaxWidth does not return initial image width
 public class FlexAspectRatioImgColumn007Test extends W3CCssTest {
     @Override

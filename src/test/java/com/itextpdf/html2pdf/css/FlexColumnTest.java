@@ -224,4 +224,24 @@ public class FlexColumnTest extends ExtendedHtmlConversionITextTest {
     public void ColumnJustifyContentStartMinSizeTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("FlexDirColumnJustifyContentStartMinSize", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void ColumnRelativeWidthHrChildTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("ColumnRelativeWidthHrChild", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void ColumnRelativeWidthInInlineBlockHrChildTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("ColumnRelativeWidthInInlineBlockHrChild", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void ColumnRelativeWidthDivWithContentChildTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("ColumnRelativeWidthDivWithContentChild", sourceFolder, destinationFolder);
+    }
+
+    @Test
+    public void ColumnFixedWidthDivWithContentChildTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("ColumnFixedWidthDivWithContentChild", sourceFolder, destinationFolder);
+    }
 }
