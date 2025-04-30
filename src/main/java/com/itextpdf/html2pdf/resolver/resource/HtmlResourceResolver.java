@@ -22,7 +22,7 @@
  */
 package com.itextpdf.html2pdf.resolver.resource;
 
-import com.itextpdf.commons.utils.Base64;
+import com.itextpdf.commons.utils.EncodingUtil;
 import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.ContextMappingHelper;
@@ -32,7 +32,6 @@ import com.itextpdf.kernel.pdf.xobject.PdfXObject;
 import com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 import com.itextpdf.svg.converter.SvgConverter;
-import com.itextpdf.svg.element.SvgImage;
 import com.itextpdf.svg.processors.ISvgProcessorResult;
 import com.itextpdf.svg.processors.impl.SvgConverterProperties;
 
@@ -108,7 +107,7 @@ public class HtmlResourceResolver extends ResourceResolver {
         String fixedSrc = src.replaceAll("\\s", "");
         if (fixedSrc.startsWith(SVG_PREFIX)) {
             fixedSrc = fixedSrc.substring(fixedSrc.indexOf(BASE64_IDENTIFIER) + BASE64_IDENTIFIER.length() + 1);
-            try (ByteArrayInputStream stream = new ByteArrayInputStream(Base64.decode(fixedSrc))) {
+            try (ByteArrayInputStream stream = new ByteArrayInputStream(EncodingUtil.fromBase64(fixedSrc))) {
                 PdfFormXObject xObject = HtmlResourceResolver.processAsSvg(stream, context, null);
                 if (xObject != null) {
                     return xObject;
