@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.commons.utils.StringNormalizer;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.layout.IPropertyContainer;
@@ -42,7 +43,7 @@ public class HTagWorker extends DivTagWorker {
      */
     public HTagWorker(IElementNode element, ProcessorContext context) {
         super(element, context);
-        this.role = element.name().toUpperCase();
+        this.role = StringNormalizer.toUpperCase(element.name());
     }
 
     @Override

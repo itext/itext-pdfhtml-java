@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
+import com.itextpdf.commons.utils.StringNormalizer;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.layout.IPropertyContainer;
@@ -58,7 +59,7 @@ public class TransformationApplierUtil {
     public static void applyTransformation(Map<String, String> cssProps, ProcessorContext context, IPropertyContainer element) {
         String transformationFunction;
         if (cssProps.get(CssConstants.TRANSFORM) != null)
-            transformationFunction = cssProps.get(CssConstants.TRANSFORM).toLowerCase();
+            transformationFunction = StringNormalizer.toLowerCase(cssProps.get(CssConstants.TRANSFORM));
         else
             return;
         String[] components = transformationFunction.split("\\)");

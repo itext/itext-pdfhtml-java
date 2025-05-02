@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf.html;
 
+import com.itextpdf.commons.utils.StringNormalizer;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.css.resolve.func.counter.CounterDigitsGlyphStyle;
 import com.itextpdf.kernel.numbering.ArmenianNumbering;
@@ -162,7 +163,7 @@ public final class HtmlUtils {
             case CIRCLE:
                 return CIRCLE_SYMBOL;
             case UPPER_ALPHA_AND_LATIN:
-                return LATIN_NUMERALS.toUpperCase();
+                return StringNormalizer.toUpperCase(LATIN_NUMERALS);
             case LOWER_ALPHA_AND_LATIN:
                 return LATIN_NUMERALS;
             case LOWER_GREEK:
@@ -170,7 +171,7 @@ public final class HtmlUtils {
             case LOWER_ROMAN:
                 return ROMAN_NUMERALS;
             case UPPER_ROMAN:
-                return ROMAN_NUMERALS.toUpperCase();
+                return StringNormalizer.toUpperCase(ROMAN_NUMERALS);
             case GEORGIAN:
                 return GEORGIAN_NUMERALS;
             case ARMENIAN:

@@ -93,6 +93,7 @@ public class WaitingInlineElementsHelper {
     public void add(String text) {
         text = WhiteSpaceUtil.processWhitespaces(text, keepLineBreaks, collapseSpaces);
 
+        // Here we intentionally use locale dependent toLowerCase/toUpperCase
         if (CssConstants.UPPERCASE.equals(textTransform)) {
             text = text.toUpperCase();
         } else if (CssConstants.LOWERCASE.equals(textTransform)) {

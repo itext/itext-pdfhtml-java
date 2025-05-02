@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf.element;
 
+import com.itextpdf.commons.utils.StringNormalizer;
 import com.itextpdf.forms.form.element.InputField;
 import com.itextpdf.forms.logs.FormsLogMessageConstants;
 import com.itextpdf.html2pdf.ConverterProperties;
@@ -377,9 +378,9 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
     private static class CustomTextInputTagWorkerFactory extends DefaultTagWorkerFactory {
         @Override
         public ITagWorker getCustomTagWorker(IElementNode tag, ProcessorContext context) {
-            switch (tag.name().toLowerCase()) {
+            switch (StringNormalizer.toLowerCase(tag.name())) {
                 case "input":
-                    switch (tag.getAttribute("type").toLowerCase()) {
+                    switch (StringNormalizer.toLowerCase(tag.getAttribute("type"))) {
                         case "text":
                             Map<String, String> map = new HashMap<String, String>();
                             map.put("page-break-inside", "avoid");
