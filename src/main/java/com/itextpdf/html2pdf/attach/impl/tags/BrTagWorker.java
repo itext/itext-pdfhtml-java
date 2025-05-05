@@ -26,10 +26,12 @@ import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
+import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
-import com.itextpdf.styledxmlparser.util.FontFamilySplitterUtil;
 import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.styledxmlparser.util.FontFamilySplitterUtil;
+
 import java.util.List;
 
 /**
@@ -38,7 +40,7 @@ import java.util.List;
 public class BrTagWorker implements ITagWorker {
 
     /** A new line Text element. */
-    private Text newLine = new Text("\n");
+    private final Text newLine;
 
     /**
      * Creates a new {@link BrTagWorker} instance.
@@ -47,6 +49,8 @@ public class BrTagWorker implements ITagWorker {
      * @param context the context
      */
     public BrTagWorker(IElementNode element, ProcessorContext context) {
+        newLine = new Text("\n");
+        newLine.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
         //There is no mappings for BR element in DefaultTagCssApplierMapping,
         // because only font-family should be applied to <br /> element.
         String fontFamily = element.getStyles().get(CssConstants.FONT_FAMILY);

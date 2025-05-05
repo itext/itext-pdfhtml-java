@@ -27,6 +27,7 @@ import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
+import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.styledxmlparser.jsoup.nodes.Attributes;
@@ -61,5 +62,23 @@ public class BrTagWorkerTest extends ExtendedITextTest {
         Assertions.assertTrue(propertyContainer instanceof IAccessibleElement);
         String lang = ((IAccessibleElement) propertyContainer).getAccessibilityProperties().getLanguage();
         Assertions.assertEquals("en", lang);
+    }
+
+    @Test
+    public void checkNewLineStandardRoleTest() {
+        Attributes attributes = new Attributes();
+        Element element = new Element(Tag.valueOf(TagConstants.BR), TagConstants.BR, attributes);
+        JsoupElementNode node = new JsoupElementNode(element);
+        Map<String, String> styles = new HashMap<>();
+        styles.put(CssConstants.FONT_FAMILY, "sans-serif");
+        node.setStyles(styles);
+
+        ProcessorContext processorContext = new ProcessorContext(new ConverterProperties());
+
+        BrTagWorker tagWorker = new BrTagWorker(node, processorContext);
+        IPropertyContainer propertyContainer = tagWorker.getElementResult();
+
+        Assertions.assertEquals(StandardRoles.ARTIFACT,
+                ((IAccessibleElement) propertyContainer).getAccessibilityProperties().getRole());
     }
 }
