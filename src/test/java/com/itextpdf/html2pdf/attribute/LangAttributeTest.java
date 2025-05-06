@@ -25,7 +25,6 @@ package com.itextpdf.html2pdf.attribute;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -36,8 +35,6 @@ import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -47,7 +44,6 @@ import org.junit.jupiter.api.Tag;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-
 
 @Tag("IntegrationTest")
 public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
@@ -133,14 +129,14 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
                 .moveToRoot()
                 .moveToKid(1)
                 .moveToKid(0)
-                .moveToKid(StandardRoles.P);
+                .moveToKid(StandardRoles.LBL);
         Assertions.assertEquals("", tagPointer.getProperties().getLanguage());
 
         tagPointer
                 .moveToRoot()
                 .moveToKid(1)
                 .moveToKid(2)
-                .moveToKid(StandardRoles.P);
+                .moveToKid(StandardRoles.LBL);
         Assertions.assertEquals("", tagPointer.getProperties().getLanguage());
 
         tagPointer
@@ -253,8 +249,7 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
         tagPointer
                 .moveToRoot()
-                .moveToKid(2, StandardRoles.P)
-                .moveToKid(StandardRoles.FIGURE);
+                .moveToKid(1, StandardRoles.FIGURE);
         Assertions.assertEquals("fr", tagPointer.getProperties().getLanguage());
 
         tagPointer
@@ -329,7 +324,8 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
                 .moveToKid(0, StandardRoles.LBODY);
         Assertions.assertEquals("de", tagPointer.getProperties().getLanguage());
 
-        List<String> kidsRoles = tagPointer.moveToKid(StandardRoles.P).getKidsRoles();
+        tagPointer.moveToKid(0, StandardRoles.P);
+        List<String> kidsRoles = tagPointer.getKidsRoles();
         Assertions.assertTrue(StandardRoles.SPAN.equals(kidsRoles.get(0))
                 && StandardRoles.SPAN.equals(kidsRoles.get(1)));
 

@@ -56,16 +56,19 @@ import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
+import com.itextpdf.styledxmlparser.util.CssVariableUtil;
 import com.itextpdf.styledxmlparser.util.StyleUtil;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,6 +76,13 @@ import org.slf4j.LoggerFactory;
  * Default implementation of the {@link ICssResolver} interface.
  */
 public class DefaultCssResolver implements ICssResolver {
+
+    /**
+     * Css inheritance checker
+     */
+    private static final Set<IStyleInheritance> INHERITANCE_RULES = Collections.unmodifiableSet(new HashSet<>(
+            Collections.singletonList((IStyleInheritance) new CssInheritance())));
+
 
     /**
      * The CSS style sheet.
@@ -83,11 +93,6 @@ public class DefaultCssResolver implements ICssResolver {
      * The device description.
      */
     private MediaDeviceDescription deviceDescription;
-
-    /**
-     * Css inheritance checker
-     */
-    private IStyleInheritance cssInheritance = new CssInheritance();
 
     /**
      * The list of fonts.
@@ -183,12 +188,10 @@ public class DefaultCssResolver implements ICssResolver {
             }
 
             if (parentStyles != null) {
-                Set<IStyleInheritance> inheritanceRules = new HashSet<>();
-                inheritanceRules.add(cssInheritance);
                 for (Map.Entry<String, String> entry : parentStyles.entrySet()) {
                     elementStyles = StyleUtil
                             .mergeParentStyleDeclaration(elementStyles, entry.getKey(), entry.getValue(), parentStyles.get(
-                            CommonCssConstants.FONT_SIZE), inheritanceRules);
+                            CommonCssConstants.FONT_SIZE), INHERITANCE_RULES);
 
                     // If the parent has display: flex, the flex item is blockified
                     // no matter what display value is set for it (except 'none' and 'grid' values).
@@ -204,6 +207,8 @@ public class DefaultCssResolver implements ICssResolver {
                 parentFontSizeStr = parentStyles.get(CssConstants.FONT_SIZE);
             }
         }
+
+        CssVariableUtil.resolveCssVariables(elementStyles);
 
         String elementFontSize = elementStyles.get(CssConstants.FONT_SIZE);
         if (CssTypesValidationUtils.isRelativeValue(elementFontSize) || CssConstants.LARGER.equals(elementFontSize)

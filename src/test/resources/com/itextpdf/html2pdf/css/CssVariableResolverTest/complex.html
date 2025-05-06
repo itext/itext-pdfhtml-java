@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CSS Variables - Theming</title>
+  <style>
+    :root {
+      --primary-color: #0d0b52;
+      --secondary-color: #3458b9;
+      --font-color: #424242;
+      --bg-color: #ffffff;
+      --heading-color: #292922;
+      --white-color: #ffffff;
+    }
+
+    * {
+      padding: 0;
+      border: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 14px;
+      font-family: 'Open Sans', 'Helvetica', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--font-color);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 768px;
+      margin: auto;
+      padding: 0 1rem;
+    }
+
+    .container-inner {
+      display: flex;
+      align-items: center;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--primary-color);
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+      line-height: 1.5;
+    }
+
+    header {
+      padding: 1rem 0;
+      border-bottom: 0.5px solid var(--primary-color);
+    }
+
+    .logo {
+      color: var(--font-color);
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    .toggle-button-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .toggle-button-container em {
+      margin-left: 10px;
+      font-size: 1rem;
+    }
+
+    .toggle-button-label {
+      display: inline-block;
+      height: 34px;
+      position: relative;
+      width: 60px;
+    }
+
+    .toggle-button-label .toggle-button {
+      display: none;
+    }
+
+    .toggle-rounded {
+      background-color: #ccc;
+      bottom: 0;
+      cursor: pointer;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: 0.4s;
+    }
+
+    .toggle-rounded:before {
+      background-color: #fff;
+      bottom: 4px;
+      content: '';
+      height: 26px;
+      left: 4px;
+      position: absolute;
+      transition: 0.4s;
+      width: 26px;
+    }
+
+    input.toggle-rounded {
+      background-color: #9cafeb;
+    }
+
+    input.toggle-rounded:before {
+      transform: translateX(26px);
+    }
+
+    article {
+      margin-top: 2rem;
+    }
+
+    .title {
+      font-size: 3rem;
+      color: var(--font-color);
+    }
+
+    .info {
+      display: flex;
+      align-items: center;
+      margin: 1rem 0;
+    }
+
+    .tags {
+      margin-right: 1rem;
+    }
+
+    .tags span {
+      background-color: var(--primary-color);
+      color: var(--white-color);
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.2rem;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="container-inner">
+      <a href="#" class="logo">My Blog</a>
+      <div class="toggle-button-container">
+        <label class="toggle-button-label" for="checkbox">
+          <input type="checkbox" class="toggle-button" id="checkbox" />
+          <div class="toggle-rounded"></div>
+        </label>
+      </div>
+    </div>
+  </div>
+</header>
+<article>
+  <div class="container">
+    <h1 class="title">Complex css variable test</h1>
+    <div class="info">
+      <div class="tags">
+        <span>#html</span>
+        <span>#css</span>
+        <span>#itext</span>
+      </div>
+      <span>18th March, 2025</span>
+    </div>
+    <div class="content">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        <a href="#">Link to another url</a> Eius, saepe optio! Quas
+        repellendus consequuntur fuga at. Consequatur sit deleniti, ullam
+        qui facere iure, earum corrupti vitae laboriosam iusto eius magni,
+        adipisci culpa recusandae quis tenetur accusantium eum quae harum
+        autem inventore architecto perspiciatis maiores? Culpa, officiis
+        totam! Rerum alias corporis cupiditate praesentium magni illo, optio
+        nobis fugit.
+      </p>
+      <p>
+        Eveniet veniam ipsa similique atque placeat dignissimos
+        quos reiciendis. Odit, eveniet provident fugiat voluptatibus esse
+        culpa ullam beatae hic maxime suscipit, eum reprehenderit ipsam.
+        Illo facilis doloremque ducimus reprehenderit consequuntur
+        cupiditate atque harum quaerat autem amet, et rerum sequi eum cumque
+        maiores dolores.
+      </p>
+    </div>
+  </div>
+</article>
+</body>
+</html>

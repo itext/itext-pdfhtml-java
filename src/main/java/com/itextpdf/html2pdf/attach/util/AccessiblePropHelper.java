@@ -27,12 +27,28 @@ import com.itextpdf.kernel.pdf.tagutils.AccessibilityProperties;
 import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 
+/**
+ * Utility class to set lang attribute.
+ */
 public class AccessiblePropHelper {
+
+    /**
+     * Set language attribute in elements accessibility properties if it is not set, does nothing otherwise.
+     *
+     * @param accessibleElement pdf element to set language property on
+     * @param element html element from which lang property will be extracted
+     */
     public static void trySetLangAttribute(IAccessibleElement accessibleElement, IElementNode element) {
         String lang = element.getAttribute(AttributeConstants.LANG);
         trySetLangAttribute(accessibleElement, lang);
     }
 
+    /**
+     * Set language attribute in elements accessibility properties if it is not set, does nothing otherwise.
+     *
+     * @param accessibleElement pdf element to set language property on
+     * @param lang language to set
+     */
     public static void trySetLangAttribute(IAccessibleElement accessibleElement, String lang) {
         if (lang != null) {
             AccessibilityProperties properties = accessibleElement.getAccessibilityProperties();

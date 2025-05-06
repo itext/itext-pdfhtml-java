@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    div {
+      --test-var: 30px;
+    }
+    p {
+      margin: var(--test-var, 50px);
+    }
+  </style>
+  <title>Css Variables test</title>
+</head>
+<body>
+
+<h1>This is a heading</h1>
+<p>This is a paragraph with margin = 0.</p>
+
+<div>
+  <p>test</p>
+</div>
+<p>test</p>
+
+</body>
+</html>

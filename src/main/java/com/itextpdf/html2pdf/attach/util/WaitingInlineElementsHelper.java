@@ -29,6 +29,7 @@ import com.itextpdf.html2pdf.css.apply.util.OverflowApplierUtil;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.AnonymousInlineBox;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
@@ -92,6 +93,7 @@ public class WaitingInlineElementsHelper {
     public void add(String text) {
         text = WhiteSpaceUtil.processWhitespaces(text, keepLineBreaks, collapseSpaces);
 
+        // Here we intentionally use locale dependent toLowerCase/toUpperCase
         if (CssConstants.UPPERCASE.equals(textTransform)) {
             text = text.toUpperCase();
         } else if (CssConstants.LOWERCASE.equals(textTransform)) {
@@ -110,6 +112,11 @@ public class WaitingInlineElementsHelper {
         waitingLeaves.add(element);
     }
 
+    /**
+     * Adds a block element to the waiting leaves.
+     *
+     * @param element the element
+     */
     public void add(IBlockElement element) {
         waitingLeaves.add(element);
     }
@@ -129,13 +136,13 @@ public class WaitingInlineElementsHelper {
      * @param container a container element
      */
     public void flushHangingLeaves(IPropertyContainer container) {
-        Paragraph p = createLeavesContainer();
-        if (p != null) {
+        AnonymousInlineBox ab = createLeavesContainer();
+        if (ab != null) {
             Map<String, String> map = new HashMap<>();
             map.put(CssConstants.OVERFLOW, CommonCssConstants.VISIBLE);
-            OverflowApplierUtil.applyOverflow(map, p);
+            OverflowApplierUtil.applyOverflow(map, ab);
             if (container instanceof Document) {
-                ((Document) container).add(p);
+                ((Document) container).add(ab);
             } else if (container instanceof Paragraph) {
                 for (IElement leafElement : waitingLeaves) {
                     if (leafElement instanceof ILeafElement) {
@@ -147,15 +154,15 @@ public class WaitingInlineElementsHelper {
             } else if (((IElement) container).getRenderer() instanceof FlexContainerRenderer) {
                 final Div div = new Div();
                 OverflowApplierUtil.applyOverflow(map, div);
-                div.add(p);
+                div.add(ab);
                 ((Div) container).add(div);
             } else if (container instanceof Div) {
-                ((Div) container).add(p);
+                ((Div) container).add(ab);
             } else if (container instanceof Cell) {
-                ((Cell) container).add(p);
+                ((Cell) container).add(ab);
             } else if (container instanceof com.itextpdf.layout.element.List) {
                 ListItem li = new ListItem();
-                li.add(p);
+                li.add(ab);
                 ((com.itextpdf.layout.element.List) container).add(li);
             } else {
                 throw new IllegalStateException("Unable to process hanging inline content");
@@ -167,34 +174,34 @@ public class WaitingInlineElementsHelper {
     /**
      * Creates the leaves container.
      *
-     * @return a paragraph
+     * @return an {@link AnonymousInlineBox}
      */
-    private Paragraph createLeavesContainer() {
+    private AnonymousInlineBox createLeavesContainer() {
         if (collapseSpaces) {
             waitingLeaves = TrimUtil.trimLeafElementsAndSanitize(waitingLeaves);
         }
         capitalize(waitingLeaves);
 
-        if (waitingLeaves.size() > 0) {
-            Paragraph p = createParagraphContainer();
-            boolean runningElementsOnly = true;
-            for (IElement leaf : waitingLeaves) {
-                if (leaf instanceof ILeafElement) {
-                    runningElementsOnly = false;
-                    p.add((ILeafElement) leaf);
-                } else if (leaf instanceof IBlockElement) {
-                    runningElementsOnly = runningElementsOnly && leaf instanceof RunningElement;
-                    p.add((IBlockElement) leaf);
-                }
-            }
-            if (runningElementsOnly) {
-                // TODO DEVSIX-7008 Remove completely empty tags from logical structure of resultant PDF documents
-                p.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
-            }
-            return p;
-        } else {
+        if (waitingLeaves.isEmpty()) {
             return null;
         }
+        AnonymousInlineBox ab = new AnonymousInlineBox();
+        ab.getAccessibilityProperties().setRole(StandardRoles.P);
+        boolean runningElementsOnly = true;
+        for (IElement leaf : waitingLeaves) {
+            if (leaf instanceof ILeafElement) {
+                runningElementsOnly = false;
+                ab.add((ILeafElement) leaf);
+            } else if (leaf instanceof IBlockElement) {
+                runningElementsOnly = runningElementsOnly && leaf instanceof RunningElement;
+                ab.add((IBlockElement) leaf);
+            }
+        }
+        if (runningElementsOnly) {
+            // TODO DEVSIX-7008 Remove completely empty tags from logical structure of resultant PDF documents
+            ab.getAccessibilityProperties().setRole(StandardRoles.ARTIFACT);
+        }
+        return ab;
     }
 
     /**
@@ -230,7 +237,9 @@ public class WaitingInlineElementsHelper {
      * Creates a paragraph container.
      *
      * @return the paragraph container
+     * @deprecated to remove as it is not used anywhere anymore
      */
+    @Deprecated
     public Paragraph createParagraphContainer() {
         return new Paragraph().setMargin(0);
     }

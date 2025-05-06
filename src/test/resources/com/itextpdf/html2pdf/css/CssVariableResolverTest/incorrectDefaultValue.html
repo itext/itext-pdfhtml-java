@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .c {
+            --test-var2: 50px;
+        }
+        div {
+            margin: var(--test-var, var(--test-var3));
+        }
+    </style>
+    <title>Css Variables test</title>
+</head>
+<body>
+
+<div class="c">
+    <p>test</p>
+</div>
+<p>test</p>
+
+</body>
+</html>

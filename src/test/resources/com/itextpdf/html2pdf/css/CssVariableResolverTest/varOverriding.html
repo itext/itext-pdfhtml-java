@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    div {
+      background-color: var(--box-color);
+    }
+
+    p {
+      background-color: var(--box-color);
+    }
+
+    .two {
+      --box-color: cornflowerblue;
+    }
+
+    .three {
+      --box-color: aquamarine;
+    }
+
+    .one p {
+      --box-color: yellow;
+    }
+
+    .two p {
+      --box-color: red;
+    }
+  </style>
+  <title>Css Variables test</title>
+</head>
+<body>
+<div class="one">
+  <p>One</p>
+  <div class="two">
+    <p>Two</p>
+    <div class="three" style="height: 50px"><p>Three</p></div>
+    <div class="four" style="height: 50px"><p>Four</p></div>
+  </div>
+</div>
+</body>
+</html>

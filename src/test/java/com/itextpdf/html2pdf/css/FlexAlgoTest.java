@@ -282,7 +282,6 @@ public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-5164 support align-content
     public void ltWidthGrow0Shrink1Item2MBP30JustifyContentCenterAlignItemsCenterTest01()
             throws IOException, InterruptedException {
         convertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30JustifyContentCenterAlignItemsCenterTest01", SOURCE_FOLDER,
@@ -297,7 +296,6 @@ public class FlexAlgoTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-5164 support align-content
     public void ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexStartTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexStartTest", SOURCE_FOLDER,
                 DESTINATION_FOLDER);

@@ -226,6 +226,16 @@ public class ListTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("listOver2Pages", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    @Test
+    public void listSymbolWithoutTextSplitTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("listSymbolWithoutTextSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void listWithImagesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("listWithImages", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
     // Android-Conversion-Skip-Block-Start (TODO DEVSIX-7372 investigate why a few tests related to PdfA in iTextCore and PdfHtml were cut)
     @Test
     @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, count = 32)})

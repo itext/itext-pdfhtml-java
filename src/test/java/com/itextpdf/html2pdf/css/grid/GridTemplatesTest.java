@@ -25,6 +25,7 @@ package com.itextpdf.html2pdf.css.grid;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.layout.exceptions.LayoutExceptionMessageConstant;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
@@ -643,8 +644,10 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
     }
 
     @LogMessages(messages = {
-            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, logLevel =
-                    LogLevelConstants.WARN)})
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION,
+                    logLevel = LogLevelConstants.WARN),
+            @LogMessage(messageTemplate = IoLogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB,
+                    logLevel = LogLevelConstants.ERROR, count = 11)})
     @Test
     public void divNestingTest() throws IOException, InterruptedException {
         runTest("divNestingTest");

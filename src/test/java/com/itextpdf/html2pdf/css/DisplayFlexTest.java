@@ -41,6 +41,7 @@ import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.renderer.FlexContainerRenderer;
 import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
+import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
@@ -567,16 +568,28 @@ public class DisplayFlexTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("wrappedRowRtlFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.FONT_PROPERTY_MUST_BE_PDF_FONT_OBJECT,
+                    logLevel = LogLevelConstants.ERROR, count = 3)
+    })
     @Test
     public void endlessColumnFlexContainerWithPercentFlexBasisTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("endlessColumnFlexContainerWithPercentFlexBasis", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.FONT_PROPERTY_MUST_BE_PDF_FONT_OBJECT,
+                    logLevel = LogLevelConstants.ERROR, count = 3)
+    })
     @Test
     public void definiteMainSizeColumnFlexContainerWithPercentFlexBasisTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("definiteMainSizeColumnFlexContainerWithPercentFlexBasis", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.FONT_PROPERTY_MUST_BE_PDF_FONT_OBJECT,
+                    logLevel = LogLevelConstants.ERROR, count = 3)
+    })
     @Test
     public void imageStretchColumnFlexContainerTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("imageStretchColumnFlexContainer", SOURCE_FOLDER, DESTINATION_FOLDER);

@@ -29,12 +29,12 @@ import com.itextpdf.html2pdf.attach.util.WaitingInlineElementsHelper;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.AnonymousInlineBox;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.MulticolContainer;
-import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
@@ -139,11 +139,12 @@ public class UlOlTagWorker implements ITagWorker {
      * Processes an unlabeled list item.
      */
     private void processUnlabeledListItem() {
-        Paragraph p = inlineHelper.createParagraphContainer();
-        inlineHelper.flushHangingLeaves(p);
-        if (p.getChildren().size() > 0) {
-            addUnlabeledListItem(p);
+        AnonymousInlineBox ab = new AnonymousInlineBox();
+        inlineHelper.flushHangingLeaves(ab);
+        if (ab.getChildren().isEmpty()) {
+            return;
         }
+        addUnlabeledListItem(ab);
     }
 
     /**

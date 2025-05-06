@@ -96,6 +96,23 @@ public class HtmlConverterTest extends ExtendedITextTest {
 
     }
 
+    @Test
+    public  void inputsWithTitleTagsAsAltDescTest() throws IOException, InterruptedException {
+        String sourceHtml = SOURCE_FOLDER + "inputsWithTitleTagsAsAltDesc.html";
+        String cmpPdf = SOURCE_FOLDER + "cmp_inputsWithTitleTagsAsAltDesc.pdf";
+        String destinationPdf = DESTINATION_FOLDER + "inputsWithTitleTagsAsAltDesc.pdf";
+        ConverterProperties converterProperties = new ConverterProperties();
+        converterProperties.setCreateAcroForm(true);
+        PdfDocument document = new PdfDocument(new PdfWriter(destinationPdf));
+        document.setTagged();
+        try (FileInputStream fileInputStream = new FileInputStream(sourceHtml)) {
+            HtmlConverter.convertToPdf(fileInputStream, document, converterProperties);
+        }
+
+        Assertions.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER,
+                "diff_simple_"));
+    }
+
     private static PdfDocument createTempDoc() throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outputStream));

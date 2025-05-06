@@ -47,6 +47,12 @@ public class PageCountElementNode extends JsoupElementNode implements ICustomEle
     /** Indicates if the node represents the total page count. */
     private boolean totalPageCount = false;
 
+    /**
+     * Creates a new {@link PageCountElementNode} instance.
+     *
+     * @param totalPageCount if true, total page count will present
+     * @param parent parent element of this page counter
+     */
     public PageCountElementNode(boolean totalPageCount, INode parent) {
         super(new Element(Tag.valueOf(PAGE_COUNTER_TAG), ""));
         this.totalPageCount = totalPageCount;

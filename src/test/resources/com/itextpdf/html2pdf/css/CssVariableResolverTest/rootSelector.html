@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+
+    :root {
+      --text-danger: #ff9500;
+      --light-gray: #ccc;
+    }
+
+    body {
+      --text-danger: 16px;
+      color: var(--text-danger);
+    }
+
+    p {
+      color: var(--light-grey, #f0f0f0); /* No --light-grey, so #f0f0f0 is used as a fallback value */
+    }
+    .container {
+      --padding: 1rem;
+    }
+
+    .post {
+      --padding: 1.5rem;
+    }
+
+    .post-content {
+      padding: var(--padding);
+    }
+
+    .lbl {
+      --lbl-color: #ddd;
+      background-color: var(--lbl-color);
+      padding: 6px;
+    }
+
+    .lbl-ok { --lbl-color: green }
+
+    .lbl-ok { --lbl-color: lightgreen }
+  </style>
+  <title>Css Variables test</title>
+</head>
+<body>
+<div class="container">
+  <article class="post">
+    <h1 class="post-title">Heading text</h1>
+    <p class="post-content">Paragraph text</p>
+  </article>
+</div>
+<span class="lbl lbl-ok">OK</span>
+</body>
+</html>

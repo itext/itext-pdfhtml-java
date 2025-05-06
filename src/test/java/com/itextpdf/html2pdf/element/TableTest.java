@@ -369,12 +369,12 @@ public class TableTest extends ExtendedITextTest {
     }
 
     @Test
-    // TODO this test currently does not work like in browsers. Cell heights are treated in a very special way in browsers,
+    // This test currently does not work like in browsers. Cell heights are treated in a very special way in browsers,
     // but they are considered when deciding whether to expand the table.
     // Due to the mechanism layout currently works, we do not pass heights from html to layout for cells because otherwise
-    // the content would be clipped if it does not fit, whereas the cell height should be expanted in html in this case.
+    // the content would be clipped if it does not fit, whereas the cell height should be expanded in html in this case.
     // This is the reason why we do not know on layout level if a height was set to an html cell.
-    // There is a possibility to work around this problem by extending from TableRenderer for case of thml tables.
+    // There is a possibility to work around this problem by extending from TableRenderer for case of html tables,
     // but this problem seems really not that important and a very narrow use case for now.
     // For related ticket, see DEVSIX-1072
     public void tableCellHeightsExpansionTest01() throws IOException, InterruptedException {

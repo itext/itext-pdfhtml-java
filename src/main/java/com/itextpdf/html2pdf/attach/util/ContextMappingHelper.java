@@ -25,8 +25,18 @@ package com.itextpdf.html2pdf.attach.util;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.svg.processors.impl.SvgConverterProperties;
 
+/**
+ * Utility class which helps to map {@link ProcessorContext} properties on {@link SvgConverterProperties}.
+ */
 public class ContextMappingHelper {
 
+    /**
+     * Map {@link ProcessorContext} properties to {@link SvgConverterProperties}.
+     *
+     * @param context {@link ProcessorContext} instance
+     *
+     * @return {@link SvgConverterProperties} filled with necessary data for svg convertion
+     */
     public static SvgConverterProperties mapToSvgConverterProperties(ProcessorContext context){
         SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
         svgConverterProperties.setFontProvider(context.getFontProvider())

@@ -25,14 +25,19 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
+import com.itextpdf.html2pdf.attach.util.AlternateDescriptionResolver;
 import com.itextpdf.html2pdf.css.apply.ICssApplierFactory;
 import com.itextpdf.kernel.pdf.PdfAConformance;
+import com.itextpdf.kernel.pdf.PdfConformance;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
+import com.itextpdf.kernel.pdf.PdfUAConformance;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.resolver.resource.IResourceRetriever;
 
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Properties that will be used by the {@link com.itextpdf.html2pdf.HtmlConverter}.
@@ -43,6 +48,8 @@ public class ConverterProperties {
      * Default maximum number of layouts.
      */
     private static final int DEFAULT_LIMIT_OF_LAYOUTS = 10;
+
+    private final HashMap<Class<?>, Object> dependencies = new HashMap<>();
 
     /**
      * The media device description.
@@ -117,12 +124,13 @@ public class ConverterProperties {
     /**
      * Conformance for conversion to pdf/a.
      */
-    private PdfAConformance aConformance;
+    private PdfConformance conformance = new PdfConformance();
 
     /**
      * Instantiates a new {@link ConverterProperties} instance.
      */
     public ConverterProperties() {
+        this.dependencies.put(AlternateDescriptionResolver.class, new AlternateDescriptionResolver());
     }
 
     /**
@@ -145,6 +153,11 @@ public class ConverterProperties {
         this.limitOfLayouts = other.limitOfLayouts;
         this.immediateFlush = other.immediateFlush;
         this.continuousContainerEnabled = other.continuousContainerEnabled;
+        this.conformance = other.conformance;
+        this.outputIntent = other.outputIntent;
+        for (Class<?> aClass : other.dependencies.keySet()) {
+            this.dependencies.put(aClass, other.dependencies.get(aClass));
+        }
     }
 
     /**
@@ -344,7 +357,6 @@ public class ConverterProperties {
      * When enabling this acroform creation, it will disable the immediateFlushing property.
      *
      * @param createAcroForm true if an AcroForm needs to be created
-     *
      * @return the {@link ConverterProperties} instance
      */
     public ConverterProperties setCreateAcroForm(boolean createAcroForm) {
@@ -411,36 +423,6 @@ public class ConverterProperties {
     }
 
     /**
-     * Sets pdf document output intent (final destination device) to reproduce the color in the PDF.
-     * Required parameter, when converting to pdf/a one have to specify an explicit output intent.
-     *
-     * <p>
-     * Note, output intent isn't applicable for HtmlConverter#convertToElements methods
-     * (e.g. {@link HtmlConverter#convertToElements(InputStream, ConverterProperties)})
-     *
-     * @param outputIntent a {@link PdfOutputIntent} instance
-     *
-     * @return the {@link ConverterProperties} instance
-     */
-    public ConverterProperties setDocumentOutputIntent(PdfOutputIntent outputIntent) {
-        this.outputIntent = outputIntent;
-        return this;
-    }
-
-    /**
-     * Sets the generation and strictness level of the PDF/A that must be followed.
-     * Required parameter, when converting to pdf/a one have to specify an explicit pdf/a conformance.
-     *
-     * @param conformance a {@link PdfAConformance} constant
-     *
-     * @return the {@link ConverterProperties} instance
-     */
-    public ConverterProperties setPdfAConformance(PdfAConformance conformance) {
-        this.aConformance = conformance;
-        return this;
-    }
-
-    /**
      * Gets pdf document output intent (final destination device) to reproduce the color in the PDF.
      *
      * <p>
@@ -454,12 +436,61 @@ public class ConverterProperties {
     }
 
     /**
+     * Sets pdf document output intent (final destination device) to reproduce the color in the PDF.
+     * Required parameter, when converting to pdf/a one has to specify an explicit output intent.
+     *
+     * <p>
+     * Note, output intent isn't applicable for HtmlConverter#convertToElements methods
+     * (e.g. {@link HtmlConverter#convertToElements(InputStream, ConverterProperties)})
+     *
+     * @param outputIntent a {@link PdfOutputIntent} instance
+     * @return the {@link ConverterProperties} instance
+     */
+    public ConverterProperties setDocumentOutputIntent(PdfOutputIntent outputIntent) {
+        this.outputIntent = outputIntent;
+        return this;
+    }
+
+    /**
      * Gets the generation and strictness level of the PDF/A that must be followed.
      *
      * @return pdf/a conformance
      */
     public PdfAConformance getPdfAConformance() {
-        return aConformance;
+        return conformance.getAConformance();
+    }
+
+    /**
+     * Sets the generation and strictness level of the PDF/A that must be followed.
+     * Required parameter, when converting to pdf/a one has to specify an explicit pdf/a conformance.
+     *
+     * @param aConformance a {@link PdfAConformance} constant
+     * @return the {@link ConverterProperties} instance
+     */
+    public ConverterProperties setPdfAConformance(PdfAConformance aConformance) {
+        this.conformance = new PdfConformance(aConformance, conformance.getUAConformance());
+        return this;
+    }
+
+    /**
+     * Gets the generation and strictness level of the PDF/UA that must be followed.
+     *
+     * @return The PDF/UA conformance level.
+     */
+    public PdfUAConformance getPdfUaConformance() {
+        return conformance.getUAConformance();
+    }
+
+    /**
+     * Sets the generation and strictness level of the PDF/UA that must be followed.
+     * Required parameter, when converting to PDF/UA one has to specify an explicit PDF/UA conformance.
+     *
+     * @param uaConformance a {@link PdfUAConformance} constant
+     * @return the {@link ConverterProperties} instance
+     */
+    public ConverterProperties setPdfUAConformance(PdfUAConformance uaConformance) {
+        this.conformance = new PdfConformance(conformance.getAConformance(), uaConformance);
+        return this;
     }
 
     /**
@@ -534,5 +565,14 @@ public class ConverterProperties {
     public ConverterProperties setContinuousContainerEnabled(boolean value) {
         continuousContainerEnabled = value;
         return this;
+    }
+
+    /**
+     * Gets the dependencies.
+     *
+     * @return the dependencies
+     */
+    public Map<Class<?>, Object> getDependencies() {
+        return dependencies;
     }
 }

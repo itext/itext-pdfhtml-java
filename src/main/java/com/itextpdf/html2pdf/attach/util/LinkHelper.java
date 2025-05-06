@@ -23,11 +23,12 @@
 package com.itextpdf.html2pdf.attach.util;
 
 import com.itextpdf.commons.datastructures.Tuple2;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker;
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfArray;
 import com.itextpdf.kernel.pdf.PdfDictionary;
@@ -35,18 +36,15 @@ import com.itextpdf.kernel.pdf.action.PdfAction;
 import com.itextpdf.kernel.pdf.annot.PdfAnnotation;
 import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
-import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.properties.Property;
-import com.itextpdf.html2pdf.html.AttributeConstants;
+import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.styledxmlparser.node.IElementNode;
-import java.util.List;
-
-import com.itextpdf.styledxmlparser.node.INode;
-import com.itextpdf.styledxmlparser.node.impl.jsoup.node.JsoupElementNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * Helper class for links.
@@ -65,9 +63,9 @@ public class LinkHelper {
      * Applies a link annotation.
      *
      * @param container the containing object
-     * @param url the destination
-     * @param context the processor context
-     * @param element the element node
+     * @param url       the destination
+     * @param context   the processor context
+     * @param element   the element node
      */
     public static void applyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context,
                                            IElementNode element) {
@@ -77,20 +75,31 @@ public class LinkHelper {
                 String id = url.substring(1);
                 linkAnnotation = context.getLinkContext().getLinkAnnotation(id);
                 if (linkAnnotation == null) {
-                    linkAnnotation = (PdfLinkAnnotation) new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0))
-                            .setAction(PdfAction.createGoTo(id)).setFlags(PdfAnnotation.PRINT);
+                    linkAnnotation = (PdfLinkAnnotation)
+                            new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0))
+                                    .setAction(PdfAction.createGoTo(id))
+                                    .setFlags(PdfAnnotation.PRINT);
                     context.getLinkContext().addLinkAnnotation(id, linkAnnotation);
                 }
             } else {
-                linkAnnotation = (PdfLinkAnnotation) new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createURI(url)).setFlags(PdfAnnotation.PRINT);
+                linkAnnotation = (PdfLinkAnnotation)
+                        new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0))
+                                .setAction(PdfAction.createURI(url))
+                                .setFlags(PdfAnnotation.PRINT);
             }
-            String alternateDescription = retrieveAlternativeDescription(element);
-            if (alternateDescription != null) {
-                linkAnnotation.setContents(alternateDescription);
-                if (container instanceof IAccessibleElement) {
-                    ((IAccessibleElement) container).getAccessibilityProperties().setAlternateDescription(alternateDescription);
+            if (container instanceof IAccessibleElement) {
+                context.getDIContainer()
+                        .getInstance(AlternateDescriptionResolver.class)
+                        .resolve((IAccessibleElement) container, element);
+                String altDescription = ((IAccessibleElement) container)
+                        .getAccessibilityProperties()
+                        .getAlternateDescription();
+                if (altDescription != null) {
+                    linkAnnotation.setContents(altDescription);
                 }
+
             }
+
 
             linkAnnotation.setBorder(new PdfArray(new float[]{0, 0, 0}));
             container.setProperty(Property.LINK_ANNOTATION, linkAnnotation);
@@ -117,37 +126,24 @@ public class LinkHelper {
         if (context.getLinkContext().isUsedLinkDestination(id)) {
             if (propertyContainer == null) {
                 String tagWorkerClassName = tagWorker != null ? tagWorker.getClass().getName() : "null";
-                LOGGER.warn(MessageFormatUtil.format(
-                        Html2PdfLogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.name(), id, tagWorkerClassName));
+                LOGGER.warn(MessageFormatUtil.format(Html2PdfLogMessageConstant.ANCHOR_LINK_NOT_HANDLED,
+                        element.name(), id, tagWorkerClassName));
                 return;
             }
 
             PdfLinkAnnotation linkAnnotation = context.getLinkContext().getLinkAnnotation(id);
             if (linkAnnotation == null) {
-                linkAnnotation = (PdfLinkAnnotation) new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0))
-                        .setAction(PdfAction.createGoTo(id)).setFlags(PdfAnnotation.PRINT);
+                linkAnnotation =
+                        (PdfLinkAnnotation) new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).setAction(PdfAction.createGoTo(id)).setFlags(PdfAnnotation.PRINT);
                 context.getLinkContext().addLinkAnnotation(id, linkAnnotation);
             }
 
-            propertyContainer.setProperty(Property.DESTINATION,
-                    new Tuple2<String, PdfDictionary>(id, linkAnnotation.getAction()));
+            propertyContainer.setProperty(Property.DESTINATION, new Tuple2<String, PdfDictionary>(id,
+                    linkAnnotation.getAction()));
         }
         if (propertyContainer != null) {
             propertyContainer.setProperty(Property.ID, id);
         }
-    }
-
-    private static String retrieveAlternativeDescription(IElementNode element) {
-        List<INode> children = element.childNodes();
-        // If there is an img tag under the link then prefer the alt attribute as a link description.
-        if (children.size() == 1
-                && children.get(0).childNodes().isEmpty()
-                && children.get(0) instanceof JsoupElementNode
-                && ((JsoupElementNode)children.get(0)).getAttribute(AttributeConstants.ALT) != null) {
-            return ((JsoupElementNode)children.get(0)).getAttribute(AttributeConstants.ALT);
-        }
-        // Return title attribute value in case of regular link.
-        return element.getAttribute(AttributeConstants.TITLE);
     }
 
     private static IPropertyContainer getPropertyContainer(ITagWorker tagWorker) {

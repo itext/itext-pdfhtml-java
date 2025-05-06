@@ -5,12 +5,12 @@
   <parent>
     <groupId>com.itextpdf</groupId>
     <artifactId>root</artifactId>
-    <version>9.1.0</version>
+    <version>9.2.0</version>
     <relativePath />
   </parent>
 
   <artifactId>html2pdf</artifactId>
-  <version>6.1.0</version>
+  <version>6.2.0</version>
 
   <name>pdfHTML</name>
   <description>pdfHTML is an iText add-on that lets you to parse (X)HTML snippets and the associated CSS and converts
@@ -62,7 +62,6 @@
       <groupId>com.itextpdf</groupId>
       <artifactId>pdfua</artifactId>
       <version>${itext.version}</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -106,6 +105,12 @@
           <include>**/*.json</include>
         </includes>
       </resource>
+      <resource>
+        <directory>src/main/resources/com/itextpdf/html2pdf</directory>
+        <includes>
+          <include>NOTICE.txt</include>
+        </includes>
+      </resource>
     </resources>
     <plugins>
       <plugin>
@@ -146,11 +151,6 @@
               <dependency>
                 <groupId>sharpen</groupId>
                 <artifactId>standard-framework-mapping</artifactId>
-                <version>1.0-SNAPSHOT</version>
-              </dependency>
-              <dependency>
-                <groupId>sharpen</groupId>
-                <artifactId>html2pdf-sharpen-mapping</artifactId>
                 <version>1.0-SNAPSHOT</version>
               </dependency>
             </dependencies>

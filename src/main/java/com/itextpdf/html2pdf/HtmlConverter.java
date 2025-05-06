@@ -25,7 +25,9 @@ package com.itextpdf.html2pdf;
 import com.itextpdf.commons.actions.contexts.IMetaInfo;
 import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.html2pdf.attach.Attacher;
+import com.itextpdf.html2pdf.attach.impl.OutlineHandler;
 import com.itextpdf.html2pdf.exceptions.Html2PdfException;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.pdf.DocumentProperties;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -34,6 +36,8 @@ import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.renderer.MetaInfoContainer;
 import com.itextpdf.pdfa.PdfADocument;
+import com.itextpdf.pdfua.PdfUAConfig;
+import com.itextpdf.pdfua.PdfUADocument;
 import com.itextpdf.styledxmlparser.IXmlParser;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
@@ -66,7 +70,7 @@ public class HtmlConverter {
      * Converts a {@link String} containing HTML to an {@link OutputStream}
      * containing PDF.
      *
-     * @param html the html in the form of a {@link String}
+     * @param html      the html in the form of a {@link String}
      * @param pdfStream the PDF as an {@link OutputStream}
      */
     public static void convertToPdf(String html, OutputStream pdfStream) {
@@ -77,8 +81,8 @@ public class HtmlConverter {
      * Converts a {@link String} containing HTML to an {@link OutputStream}
      * containing PDF, using specific {@link ConverterProperties}.
      *
-     * @param html the html in the form of a {@link String}
-     * @param pdfStream the PDF as an {@link OutputStream}
+     * @param html                the html in the form of a {@link String}
+     * @param pdfStream           the PDF as an {@link OutputStream}
      * @param converterProperties a {@link ConverterProperties} instance
      */
     public static void convertToPdf(String html, OutputStream pdfStream, ConverterProperties converterProperties) {
@@ -89,7 +93,7 @@ public class HtmlConverter {
      * Converts a {@link String} containing HTML to PDF by writing PDF content
      * to a {@link PdfWriter} instance.
      *
-     * @param html the html in the form of a {@link String}
+     * @param html      the html in the form of a {@link String}
      * @param pdfWriter the {@link PdfWriter} instance
      */
     public static void convertToPdf(String html, PdfWriter pdfWriter) {
@@ -100,23 +104,15 @@ public class HtmlConverter {
      * Converts a {@link String} containing HTML to PDF by writing PDF content
      * to a {@link PdfWriter} instance, using specific {@link ConverterProperties}.
      *
-     * @param html the html in the form of a {@link String}
-     * @param pdfWriter the {@link PdfWriter} instance
+     * @param html                the html in the form of a {@link String}
+     * @param pdfWriter           the {@link PdfWriter} instance
      * @param converterProperties a {@link ConverterProperties} instance
      */
     public static void convertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
-        if (converterProperties == null || converterProperties.getPdfAConformance() == null) {
-            convertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties()
-                    .setEventCountingMetaInfo(resolveMetaInfo(converterProperties))), converterProperties);
-            return;
-        }
-        PdfDocument document = new PdfADocument(pdfWriter, converterProperties.getPdfAConformance(),
-                converterProperties.getDocumentOutputIntent(), new DocumentProperties()
-                .setEventCountingMetaInfo(resolveMetaInfo(converterProperties)));
-        converterProperties = setDefaultFontProviderForPdfA(document, converterProperties);
-        if ("A".equals(converterProperties.getPdfAConformance().getLevel())) {
-            document.setTagged();
-        }
+        DocumentProperties documentProperties = new DocumentProperties()
+                .setEventCountingMetaInfo(resolveMetaInfo(converterProperties));
+        PdfDocument document = createCorrectDocument(converterProperties, documentProperties, pdfWriter);
+        converterProperties = setupCustomConversionProperties(document, converterProperties);
         convertToPdf(html, document, converterProperties);
     }
 
@@ -138,7 +134,7 @@ public class HtmlConverter {
      * Converts HTML stored in a {@link File} to a PDF {@link File}.
      *
      * @param htmlFile the {@link File} containing the source HTML
-     * @param pdfFile the {@link File} containing the resulting PDF
+     * @param pdfFile  the {@link File} containing the resulting PDF
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(File htmlFile, File pdfFile) throws IOException {
@@ -149,12 +145,13 @@ public class HtmlConverter {
      * Converts HTML stored in a {@link File} to a PDF {@link File},
      * using specific {@link ConverterProperties}.
      *
-     * @param htmlFile the {@link File} containing the source HTML
-     * @param pdfFile the {@link File} containing the resulting PDF
+     * @param htmlFile            the {@link File} containing the source HTML
+     * @param pdfFile             the {@link File} containing the resulting PDF
      * @param converterProperties a {@link ConverterProperties} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void convertToPdf(File htmlFile, File pdfFile, ConverterProperties converterProperties) throws IOException {
+    public static void convertToPdf(File htmlFile, File pdfFile, ConverterProperties converterProperties)
+            throws IOException {
         if (converterProperties == null) {
             String baseUri = FileUtil.getParentDirectoryUri(htmlFile);
             converterProperties = new ConverterProperties().setBaseUri(baseUri);
@@ -173,7 +170,7 @@ public class HtmlConverter {
      * an {@link OutputStream}.
      *
      * @param htmlStream the {@link InputStream} with the source HTML
-     * @param pdfStream the {@link OutputStream} for the resulting PDF
+     * @param pdfStream  the {@link OutputStream} for the resulting PDF
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, OutputStream pdfStream) throws IOException {
@@ -184,12 +181,13 @@ public class HtmlConverter {
      * Converts HTML obtained from an {@link InputStream} to a PDF written to
      * an {@link OutputStream}.
      *
-     * @param htmlStream the {@link InputStream} with the source HTML
-     * @param pdfStream the {@link OutputStream} for the resulting PDF
+     * @param htmlStream          the {@link InputStream} with the source HTML
+     * @param pdfStream           the {@link OutputStream} for the resulting PDF
      * @param converterProperties a {@link ConverterProperties} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void convertToPdf(InputStream htmlStream, OutputStream pdfStream, ConverterProperties converterProperties) throws IOException {
+    public static void convertToPdf(InputStream htmlStream, OutputStream pdfStream,
+                                    ConverterProperties converterProperties) throws IOException {
         convertToPdf(htmlStream, new PdfWriter(pdfStream), converterProperties);
     }
 
@@ -197,7 +195,7 @@ public class HtmlConverter {
      * Converts HTML obtained from an {@link InputStream} to objects that
      * will be added to a {@link PdfDocument}.
      *
-     * @param htmlStream the {@link InputStream} with the source HTML
+     * @param htmlStream  the {@link InputStream} with the source HTML
      * @param pdfDocument the {@link PdfDocument} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -210,7 +208,7 @@ public class HtmlConverter {
      * will be written to a {@link PdfWriter}.
      *
      * @param htmlStream the {@link InputStream} with the source HTML
-     * @param pdfWriter the {@link PdfWriter} containing the resulting PDF
+     * @param pdfWriter  the {@link PdfWriter} containing the resulting PDF
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter) throws IOException {
@@ -223,24 +221,16 @@ public class HtmlConverter {
      * will be written to a {@link PdfWriter}, using specific
      * {@link ConverterProperties}.
      *
-     * @param htmlStream the {@link InputStream} with the source HTML
-     * @param pdfWriter the {@link PdfWriter} containing the resulting PDF
+     * @param htmlStream          the {@link InputStream} with the source HTML
+     * @param pdfWriter           the {@link PdfWriter} containing the resulting PDF
      * @param converterProperties a {@link ConverterProperties} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
-        if (converterProperties == null || converterProperties.getPdfAConformance() == null) {
-            convertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().setEventCountingMetaInfo(
-                    resolveMetaInfo(converterProperties))), converterProperties);
-            return;
-        }
-        PdfDocument document = new PdfADocument(pdfWriter, converterProperties.getPdfAConformance(),
-                converterProperties.getDocumentOutputIntent(), new DocumentProperties()
-                .setEventCountingMetaInfo(resolveMetaInfo(converterProperties)));
-        converterProperties = setDefaultFontProviderForPdfA(document, converterProperties);
-        if ("A".equals(converterProperties.getPdfAConformance().getLevel())) {
-            document.setTagged();
-        }
+    public static void convertToPdf(InputStream htmlStream, PdfWriter pdfWriter,
+                                    ConverterProperties converterProperties) throws IOException {
+        DocumentProperties props = new DocumentProperties().setEventCountingMetaInfo(
+                resolveMetaInfo(converterProperties));
+        PdfDocument document = createCorrectDocument(converterProperties, props, pdfWriter);
         convertToPdf(htmlStream, document, converterProperties);
     }
 
@@ -248,13 +238,14 @@ public class HtmlConverter {
      * Converts HTML obtained from an {@link InputStream} to objects that
      * will be added to a {@link PdfDocument}, using specific {@link ConverterProperties}.
      *
-     * @param htmlStream the {@link InputStream} with the source HTML
-     * @param pdfDocument the {@link PdfDocument} instance
+     * @param htmlStream          the {@link InputStream} with the source HTML
+     * @param pdfDocument         the {@link PdfDocument} instance
      * @param converterProperties a {@link ConverterProperties} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void convertToPdf(InputStream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
-        converterProperties = setDefaultFontProviderForPdfA(pdfDocument, converterProperties);
+    public static void convertToPdf(InputStream htmlStream, PdfDocument pdfDocument,
+                                    ConverterProperties converterProperties) throws IOException {
+        converterProperties = setupCustomConversionProperties(pdfDocument, converterProperties);
         final Document document = convertToDocument(htmlStream, pdfDocument, converterProperties);
         IMetaInfo metaInfo = resolveMetaInfo(converterProperties);
         document.setProperty(Property.META_INFO, new MetaInfoContainer(metaInfo));
@@ -265,7 +256,7 @@ public class HtmlConverter {
      * Converts a {@link String} containing HTML to content that
      * will be written to a {@link PdfWriter}, returning a {@link Document} instance.
      *
-     * @param html the html in the form of a {@link String}
+     * @param html      the html in the form of a {@link String}
      * @param pdfWriter the {@link PdfWriter} containing the resulting PDF
      * @return a {@link Document} instance
      */
@@ -278,7 +269,7 @@ public class HtmlConverter {
      * will be written to a {@link PdfWriter}, returning a {@link Document} instance.
      *
      * @param htmlStream the {@link InputStream} with the source HTML
-     * @param pdfWriter the {@link PdfWriter} containing the resulting PDF
+     * @param pdfWriter  the {@link PdfWriter} containing the resulting PDF
      * @return a {@link Document} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -291,12 +282,13 @@ public class HtmlConverter {
      * will be written to a {@link PdfWriter}, using specific
      * {@link ConverterProperties}, returning a {@link Document} instance.
      *
-     * @param html the html in the form of a {@link String}
-     * @param pdfWriter the pdf writer
+     * @param html                the html in the form of a {@link String}
+     * @param pdfWriter           the pdf writer
      * @param converterProperties a {@link ConverterProperties} instance
      * @return a {@link Document} instance
      */
-    public static Document convertToDocument(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
+    public static Document convertToDocument(String html, PdfWriter pdfWriter,
+                                             ConverterProperties converterProperties) {
         return convertToDocument(html, new PdfDocument(pdfWriter), converterProperties);
     }
 
@@ -305,13 +297,14 @@ public class HtmlConverter {
      * will be written to a {@link PdfWriter}, using specific
      * {@link ConverterProperties}, returning a {@link Document} instance.
      *
-     * @param htmlStream the html stream
-     * @param pdfWriter the pdf writer
+     * @param htmlStream          the html stream
+     * @param pdfWriter           the pdf writer
      * @param converterProperties a {@link ConverterProperties} instance
      * @return a {@link Document} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static Document convertToDocument(InputStream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties) throws IOException {
+    public static Document convertToDocument(InputStream htmlStream, PdfWriter pdfWriter,
+                                             ConverterProperties converterProperties) throws IOException {
         return convertToDocument(htmlStream, new PdfDocument(pdfWriter), converterProperties);
     }
 
@@ -320,16 +313,17 @@ public class HtmlConverter {
      * will be added to a {@link PdfDocument}, using specific {@link ConverterProperties},
      * returning a {@link Document} instance.
      *
-     * @param html the html in the form of a {@link String}
-     * @param pdfDocument the {@link PdfDocument} instance
+     * @param html                the html in the form of a {@link String}
+     * @param pdfDocument         the {@link PdfDocument} instance
      * @param converterProperties a {@link ConverterProperties} instance
      * @return a {@link Document} instance
      */
-    public static Document convertToDocument(String html, PdfDocument pdfDocument, ConverterProperties converterProperties) {
+    public static Document convertToDocument(String html, PdfDocument pdfDocument,
+                                             ConverterProperties converterProperties) {
         if (pdfDocument.getReader() != null) {
             throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
         }
-        converterProperties = setDefaultFontProviderForPdfA(pdfDocument, converterProperties);
+        converterProperties = setupCustomConversionProperties(pdfDocument, converterProperties);
         IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(html);
         return Attacher.attach(doc, pdfDocument, converterProperties);
@@ -340,19 +334,20 @@ public class HtmlConverter {
      * will be added to a {@link PdfDocument}, using specific {@link ConverterProperties},
      * returning a {@link Document} instance.
      *
-     * @param htmlStream the {@link InputStream} with the source HTML
-     * @param pdfDocument the {@link PdfDocument} instance
+     * @param htmlStream          the {@link InputStream} with the source HTML
+     * @param pdfDocument         the {@link PdfDocument} instance
      * @param converterProperties a {@link ConverterProperties} instance
      * @return a {@link Document} instance
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static Document convertToDocument(InputStream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties) throws IOException {
+    public static Document convertToDocument(InputStream htmlStream, PdfDocument pdfDocument,
+                                             ConverterProperties converterProperties) throws IOException {
         if (pdfDocument.getReader() != null) {
             throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
         }
-        converterProperties = setDefaultFontProviderForPdfA(pdfDocument, converterProperties);
+        converterProperties = setupCustomConversionProperties(pdfDocument, converterProperties);
         IXmlParser parser = new JsoupHtmlParser();
-        IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
+        IDocumentNode doc = parser.parse(htmlStream, converterProperties.getCharset());
         return Attacher.attach(doc, pdfDocument, converterProperties);
     }
 
@@ -384,12 +379,12 @@ public class HtmlConverter {
      * iText objects ({@link IElement} instances), using specific
      * {@link ConverterProperties}.
      *
-     * @param html the html in the form of a {@link String}
+     * @param html                the html in the form of a {@link String}
      * @param converterProperties a {@link ConverterProperties} instance
      * @return a list of iText building blocks
      */
     public static List<IElement> convertToElements(String html, ConverterProperties converterProperties) {
-        converterProperties = setDefaultFontProviderForPdfA(null, converterProperties);
+        converterProperties = setupCustomConversionProperties(null, converterProperties);
         IXmlParser parser = new JsoupHtmlParser();
         IDocumentNode doc = parser.parse(html);
         return Attacher.attach(doc, converterProperties);
@@ -400,20 +395,43 @@ public class HtmlConverter {
      * iText objects ({@link IElement} instances), using specific
      * {@link ConverterProperties}.
      *
-     * @param htmlStream the {@link InputStream} with the source HTML
+     * @param htmlStream          the {@link InputStream} with the source HTML
      * @param converterProperties a {@link ConverterProperties} instance
      * @return a list of iText building blocks
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static List<IElement> convertToElements(InputStream htmlStream, ConverterProperties converterProperties) throws IOException {
-        converterProperties = setDefaultFontProviderForPdfA(null, converterProperties);
+    public static List<IElement> convertToElements(InputStream htmlStream, ConverterProperties converterProperties)
+            throws IOException {
+        converterProperties = setupCustomConversionProperties(null, converterProperties);
         IXmlParser parser = new JsoupHtmlParser();
-        IDocumentNode doc = parser.parse(htmlStream, converterProperties != null ? converterProperties.getCharset() : null);
+        IDocumentNode doc = parser.parse(htmlStream, converterProperties.getCharset());
         return Attacher.attach(doc, converterProperties);
     }
 
     static IMetaInfo createPdf2HtmlMetaInfo() {
         return new HtmlMetaInfo();
+    }
+
+    private static PdfDocument createCorrectDocument(ConverterProperties converterProps,
+                                                     DocumentProperties documentProps, PdfWriter pdfWriter) {
+        if (converterProps != null) {
+            if (converterProps.getPdfUaConformance() != null && converterProps.getPdfAConformance() != null) {
+                throw new Html2PdfException(
+                        Html2PdfLogMessageConstant.PDF_A_AND_PDF_UA_CONFORMANCE_CANNOT_BE_USED_TOGETHER);
+            }
+            if (converterProps.getPdfAConformance() != null) {
+                return new PdfADocument(pdfWriter, converterProps.getPdfAConformance(),
+                        converterProps.getDocumentOutputIntent(), documentProps);
+
+            }
+            if (converterProps.getPdfUaConformance() != null) {
+                return new PdfUADocument(pdfWriter, documentProps,
+                        new PdfUAConfig(converterProps.getPdfUaConformance(), "Title", "en"));
+            }
+        }
+        return new PdfDocument(pdfWriter, documentProps);
+
+
     }
 
     private static IMetaInfo resolveMetaInfo(ConverterProperties converterProperties) {
@@ -422,19 +440,30 @@ public class HtmlConverter {
                 : converterProperties.getEventMetaInfo();
     }
 
-    private static ConverterProperties setDefaultFontProviderForPdfA(PdfDocument document, ConverterProperties properties) {
-        if (document instanceof PdfADocument) {
-            if (properties == null) {
-                properties = new ConverterProperties();
-            }
-            if (properties.getFontProvider() == null) {
-                properties.setFontProvider(new BasicFontProvider(false, true, false));
-            }
-        } else if (document == null && properties != null && properties.getPdfAConformance() != null) {
-            if (properties.getFontProvider() == null) {
-                properties.setFontProvider(new BasicFontProvider(false, true, false));
-            }
+    private static ConverterProperties setupCustomConversionProperties(PdfDocument document,
+                                                                       ConverterProperties properties) {
+
+        if (properties == null) {
+            properties = new ConverterProperties();
         }
+        final boolean needsForcedEmbeddedFonts = document instanceof PdfADocument
+                || document instanceof PdfUADocument
+                || properties.getPdfUaConformance() != null
+                || properties.getPdfAConformance() != null;
+
+
+        if (needsForcedEmbeddedFonts && properties.getFontProvider() == null) {
+            final BasicFontProvider embeddedFontProvider = new BasicFontProvider(false, true, false);
+            properties.setFontProvider(embeddedFontProvider);
+        }
+        if ((document instanceof PdfUADocument || properties.getPdfUaConformance() != null)
+                && properties.getOutlineHandler() == null) {
+            properties.setOutlineHandler(OutlineHandler.createStandardHandler());
+        }
+        if (properties.getPdfAConformance() != null && "A".equals(properties.getPdfAConformance().getLevel())) {
+            document.setTagged();
+        }
+
         return properties;
     }
 

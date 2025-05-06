@@ -23,6 +23,7 @@
 package com.itextpdf.html2pdf.attach;
 
 import com.itextpdf.commons.actions.contexts.IMetaInfo;
+import com.itextpdf.commons.utils.DIContainer;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.attach.impl.DefaultTagWorkerFactory;
 import com.itextpdf.html2pdf.attach.impl.HtmlMetaInfoContainer;
@@ -46,10 +47,14 @@ import com.itextpdf.styledxmlparser.css.CssStyleSheet;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.resolver.resource.ResourceResolver;
 
+import java.util.Map;
+
 /**
  * Keeps track of the context of the processor.
  */
 public class ProcessorContext {
+
+    private final DIContainer diContainer = new DIContainer();
 
     /**
      * The font provider.
@@ -215,6 +220,9 @@ public class ProcessorContext {
         pdfAConformanceFromProperties = new PdfConformance(converterProperties.getPdfAConformance());
         processingInlineSvg = false;
         continuousContainerEnabled = converterProperties.isContinuousContainerEnabled();
+        for (Map.Entry<Class<?>, Object> entry : converterProperties.getDependencies().entrySet()) {
+            diContainer.register(entry.getKey(), entry.getValue());
+        }
     }
 
     /**
@@ -542,5 +550,14 @@ public class ProcessorContext {
      */
     public CssStyleSheet getCssStyleSheet() {
         return cssStyleSheet;
+    }
+
+    /**
+     * Gets the DIContainer.
+     *
+     * @return the DIContainer.
+     */
+    public DIContainer getDIContainer() {
+        return diContainer;
     }
 }

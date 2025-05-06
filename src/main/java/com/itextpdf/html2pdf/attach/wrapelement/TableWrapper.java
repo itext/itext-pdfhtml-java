@@ -75,9 +75,17 @@ public class TableWrapper implements IWrapElement {
     /** The header lang attribute value. */
     private String headerLang;
 
+    /**
+     * Create new {@link TableWrapper} instance.
+     */
     public TableWrapper() {
     }
 
+    /**
+     * Create new {@link TableWrapper} instance.
+     *
+     * @param isRtl table direction value, true for right to left direction, false for left to right
+     */
     public TableWrapper(boolean isRtl) {
         this.isRtl = isRtl;
     }
@@ -169,14 +177,29 @@ public class TableWrapper implements IWrapElement {
         addCellToTable(cell, rows, rowShift);
     }
 
+    /**
+     * Set language attribute of the table.
+     *
+     * @param lang language code string value (e.g en-us)
+     */
     public void setLang(String lang) {
         this.lang = lang;
     }
 
+    /**
+     * Set footer language attribute of the table.
+     *
+     * @param footerLang language code string value (e.g en-us)
+     */
     public void setFooterLang(String footerLang) {
         this.footerLang = footerLang;
     }
 
+    /**
+     * Set header language attribute of the table.
+     *
+     * @param headerLang language code string value (e.g en-us)
+     */
     public void setHeaderLang(String headerLang) {
         this.headerLang = headerLang;
     }

@@ -24,12 +24,15 @@ package com.itextpdf.html2pdf;
 
 import com.itextpdf.html2pdf.attach.IHtmlProcessor;
 import com.itextpdf.html2pdf.attach.impl.DefaultHtmlProcessor;
+import com.itextpdf.html2pdf.attach.util.AlternateDescriptionResolver;
 import com.itextpdf.kernel.exceptions.PdfException;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.tagging.IAccessibleElement;
 import com.itextpdf.styledxmlparser.IXmlParser;
 import com.itextpdf.styledxmlparser.node.IDocumentNode;
+import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.impl.jsoup.JsoupHtmlParser;
 import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import com.itextpdf.test.ExtendedITextTest;
@@ -79,5 +82,22 @@ public class ProcessorContextTest extends ExtendedITextTest {
             Assertions.assertTrue(false, "The test should have failed before that assert, since it's strictly forbidden not to reset the FontProvider instance after each html to pdf conversion.");
         });
 
+    }
+
+    @Test
+    public void overwriteDiContainerAlternateDescriptionResolve() {
+        String html = "<html><body><a href='https://itextpdf.com'  alt=\"some description\"/>Hello</a></body></html>";
+        ConverterProperties properties = new ConverterProperties();
+        final String exceptionMessage = "Test me";
+        properties.getDependencies().put(AlternateDescriptionResolver.class, new AlternateDescriptionResolver() {
+            @Override
+            protected void resolveFallback(IAccessibleElement accessibleElement, IElementNode element) {
+                throw new RuntimeException(exceptionMessage);
+            }
+        });
+        Exception e = Assertions.assertThrows((Exception.class), () -> {
+            HtmlConverter.convertToPdf(html, new PdfWriter(new ByteArrayOutputStream()), properties);
+        });
+        Assertions.assertEquals(exceptionMessage, e.getMessage());
     }
 }

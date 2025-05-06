@@ -26,7 +26,6 @@ import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
 
 //TODO DEVSIX-2449 z-index is not supported
 //TODO DEVSIX-5163 Support more complex justify-content values
-//TODO DEVSIX-5164 change after align-content is supported
 public class GridOrderPropertyAutoPlacement001Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

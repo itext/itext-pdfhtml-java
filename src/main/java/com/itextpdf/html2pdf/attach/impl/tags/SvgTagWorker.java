@@ -25,6 +25,7 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.util.AccessiblePropHelper;
+import com.itextpdf.html2pdf.attach.util.AlternateDescriptionResolver;
 import com.itextpdf.html2pdf.attach.util.ContextMappingHelper;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.html2pdf.util.SvgProcessingUtil;
@@ -76,6 +77,7 @@ public class SvgTagWorker implements ITagWorker {
             svgImage = new SvgImage(svgImageXObject);
 
             AccessiblePropHelper.trySetLangAttribute(svgImage, element);
+            context.getDIContainer().getInstance(AlternateDescriptionResolver.class).resolve(svgImage, element);
             context.endProcessingInlineSvg();
         }
     }

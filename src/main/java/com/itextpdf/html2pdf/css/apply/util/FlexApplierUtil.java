@@ -27,6 +27,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.properties.AlignContentPropertyValue;
 import com.itextpdf.layout.properties.AlignmentPropertyValue;
 import com.itextpdf.layout.properties.FlexDirectionPropertyValue;
 import com.itextpdf.layout.properties.FlexWrapPropertyValue;
@@ -105,6 +106,7 @@ final public class FlexApplierUtil {
         logWarningIfThereAreNotSupportedPropertyValues(createSupportedFlexContainerPropertiesAndValuesMap(), cssProps);
         applyAlignItems(cssProps, element);
         applyJustifyContent(cssProps, element);
+        applyAlignContent(cssProps, element);
         applyWrap(cssProps, element);
         applyDirection(cssProps, element);
     }
@@ -246,6 +248,40 @@ final public class FlexApplierUtil {
         }
     }
 
+    private static void applyAlignContent(Map<String, String> cssProps, IPropertyContainer element) {
+        final String alignContentString = cssProps.get(CommonCssConstants.ALIGN_CONTENT);
+        if (alignContentString != null) {
+            AlignContentPropertyValue alignContent;
+            switch (alignContentString) {
+                case CommonCssConstants.FLEX_START:
+                    alignContent = AlignContentPropertyValue.FLEX_START;
+                    break;
+                case CommonCssConstants.FLEX_END:
+                    alignContent = AlignContentPropertyValue.FLEX_END;
+                    break;
+                case CommonCssConstants.CENTER:
+                    alignContent = AlignContentPropertyValue.CENTER;
+                    break;
+                case CommonCssConstants.SPACE_BETWEEN:
+                    alignContent = AlignContentPropertyValue.SPACE_BETWEEN;
+                    break;
+                case CommonCssConstants.SPACE_AROUND:
+                    alignContent = AlignContentPropertyValue.SPACE_AROUND;
+                    break;
+                case CommonCssConstants.SPACE_EVENLY:
+                    alignContent = AlignContentPropertyValue.SPACE_EVENLY;
+                    break;
+                case CommonCssConstants.STRETCH:
+                    alignContent = AlignContentPropertyValue.STRETCH;
+                    break;
+                default:
+                    alignContent = AlignContentPropertyValue.NORMAL;
+                    break;
+            }
+            element.setProperty(Property.ALIGN_CONTENT, alignContent);
+        }
+    }
+
     private static void logWarningIfThereAreNotSupportedPropertyValues(Map<String, Set<String>> supportedPairs,
                                                                        Map<String, String> cssProps) {
         for (Map.Entry<String, Set<String>> entry : supportedPairs.entrySet()) {
@@ -289,6 +325,12 @@ final public class FlexApplierUtil {
         final Set<String> supportedAlignContentValues = new HashSet<>();
         supportedAlignContentValues.add(CommonCssConstants.STRETCH);
         supportedAlignContentValues.add(CommonCssConstants.NORMAL);
+        supportedAlignContentValues.add(CommonCssConstants.FLEX_START);
+        supportedAlignContentValues.add(CommonCssConstants.FLEX_END);
+        supportedAlignContentValues.add(CommonCssConstants.CENTER);
+        supportedAlignContentValues.add(CommonCssConstants.SPACE_AROUND);
+        supportedAlignContentValues.add(CommonCssConstants.SPACE_BETWEEN);
+        supportedAlignContentValues.add(CommonCssConstants.SPACE_EVENLY);
 
         supportedPairs.put(CommonCssConstants.ALIGN_CONTENT, supportedAlignContentValues);
 

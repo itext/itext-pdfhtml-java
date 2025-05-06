@@ -63,6 +63,36 @@ public class PseudoElementsTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void cssWithListOfSelectorsInPseudoClassTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("pseudoClassTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void invalidPseudoClassWithCommaSelectorTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("invalidPseudoClassWithCommaSelector", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void differentArgumentsInNotClassTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("invalidPseudoClassWithCommaSelector", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void notFirstPseudoClassTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("notFirstPseudoClassTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void addingNewContentInPseudoClassTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("addingNewContentInPseudoClassTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void complexPseudoClassTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("complexPseudoClassTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
     public void beforeAfterPseudoTest01() throws IOException, InterruptedException {
         convertToPdfAndCompare("beforeAfterPseudoTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

@@ -249,13 +249,11 @@ public class BorderTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-5524 Left border is drawn underneath, but should overlap top and bottom
     public void tableWithCellsOfDifferentBorderColorsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("tableWithCellsOfDifferentBorderColors", sourceFolder, destinationFolder);
     }
 
     @Test
-    // TODO DEVSIX-5524 Left border is drawn underneath, but should overlap top and bottom
     public void cellDifferentBorderColorsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("cellDifferentBorderColors", sourceFolder, destinationFolder);
     }
@@ -281,7 +279,7 @@ public class BorderTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-5524 Content should be placed over rather than under overlapped border
+    // TODO DEVSIX-5962 Content should be placed over rather than under overlapped border
     public void bodyCellContentOverlapsBorder2Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("bodyCellContentOverlapsBorder2", sourceFolder, destinationFolder);
     }
@@ -297,13 +295,12 @@ public class BorderTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-5524 ?
+    // TODO DEVSIX-5962 Content should be placed over rather than under overlapped border, red should overlap yellow
     public void bodyCellContentOverlapsBorderTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("bodyCellContentOverlapsBorder", sourceFolder, destinationFolder);
     }
 
     @Test
-    // TODO DEVSIX-5524 Left border is drawn underneath, but should overlap top and bottom
     public void bottomBorderCellAndTableCollapseTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("bottomBorderCellAndTableCollapse", sourceFolder, destinationFolder);
     }
@@ -314,11 +311,10 @@ public class BorderTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-5524 min-width is not respected
+    // TODO DEVSIX-5962 min-width is not respected
     public void cellBordersDifferentWidthsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("cellBordersDifferentWidths", sourceFolder, destinationFolder);
     }
-
 
     @Test
     public void cornerWidthHorizontalBorderWinsTest() throws IOException, InterruptedException {

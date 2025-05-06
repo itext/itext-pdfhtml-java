@@ -168,6 +168,9 @@ public final class Html2PdfLogMessageConstant {
             + "or to the top is not supported";
     public static final String SUBGRID_VALUE_IS_NOT_SUPPORTED = "Subgrid value for grid-template-row\\columns isn't supported";
     public static final String GRID_TEMPLATE_WAS_NOT_RECOGNISED = "Grid template {0} value was not recognised";
+    public static final String PDF_A_AND_PDF_UA_CONFORMANCE_CANNOT_BE_USED_TOGETHER =
+            "Using both PDF/A and PDF/UA conformance is currently not supported.";
+
 
     private Html2PdfLogMessageConstant() {
         //Private constructor will prevent the instantiation of this class directly

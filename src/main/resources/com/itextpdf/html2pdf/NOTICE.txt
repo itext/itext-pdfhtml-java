@@ -3,6 +3,9 @@ This software uses following fonts under the following licenses:
 | Noto Sans font      | OFL-1.1 | In development version of font based on commit 4cdde035fd5138d6653a2176ba728b5b6f8cc533 (30.10.2019) from repository: "https://github.com/googlefonts/noto-fonts"
 | Noto Serif font     | OFL-1.1 | In development version of font based on commit 4cdde035fd5138d6653a2176ba728b5b6f8cc533 (30.10.2019) from repository: "https://github.com/googlefonts/noto-fonts"
 
+This software embeds the following modified third party software under the following licenses
+| jsoup:1.14.1        | MIT     | Library code and tests are embedded under com.itextpdf.styledxmlparser.jsoup package.
+
 
 
 
@@ -106,3 +109,31 @@ DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
 
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+Dependency jsoup:1.14.1 is used under the following license agreement:
+
+The MIT License
+
+Copyright (c) 2009-2025 Jonathan Hedley <https://jsoup.org/>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

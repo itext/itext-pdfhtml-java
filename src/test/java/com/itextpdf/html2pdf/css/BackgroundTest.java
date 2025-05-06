@@ -86,8 +86,8 @@ public class BackgroundTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-4448 support will-change CSS property
     public void backgroundWillChangeRootTest() throws IOException, InterruptedException {
+        // We are not going to support will-change experimental CSS property, it's out of scope for pdfHTML.
         convertToPdfAndCompare("backgroundWillChangeRoot", sourceFolder, destinationFolder);
     }
 

@@ -23,13 +23,8 @@
 package com.itextpdf.html2pdf.css.w3c.css_flexbox;
 
 import com.itextpdf.html2pdf.css.w3c.W3CCssTest;
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.test.annotations.LogMessage;
-import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-5196 change after collapse is supported on flex items
-//TODO DEVSIX-5164 change after align-content: flex-start is supported
-@LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 7))
 public class FlexboxCollapsedItemHoriz002Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {
